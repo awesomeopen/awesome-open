@@ -1,5 +1,9 @@
 # Awesome Open [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
+- Best open alternatives to proprietary SaaS
+- Open developer tools & local workflows
+- Self-hosted AI infrastructure & automation
+
 ## Table of Contents
 
 | | | |
