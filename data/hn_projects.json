@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "projects": [
+    {
+      "name": "OpenTofu",
+      "slug": "opentofu",
+      "readme_url": "https://github.com/opentofu/opentofu",
+      "repositories": [
+        "opentofu/opentofu"
+      ],
+      "domains": [
+        "opentofu.org"
+      ],
+      "title_aliases": [
+        "OpenTofu"
+      ],
+      "queries": [
+        "OpenTofu",
+        "opentofu.org",
+        "github.com/opentofu/opentofu"
+      ],
+      "identity_sources": [
+        "https://github.com/opentofu/opentofu"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "OpenZFS",
+      "slug": "openzfs",
+      "readme_url": "https://github.com/openzfs/zfs",
+      "repositories": [
+        "openzfs/zfs"
+      ],
+      "domains": [
+        "openzfs.org",
+        "openzfs.github.io"
+      ],
+      "title_aliases": [
+        "OpenZFS"
+      ],
+      "queries": [
+        "OpenZFS",
+        "openzfs.org",
+        "openzfs.github.io",
+        "github.com/openzfs/zfs"
+      ],
+      "identity_sources": [
+        "https://github.com/openzfs/zfs"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement. Generic ZFS titles without an OpenZFS URL are excluded."
+    },
+    {
+      "name": "OpenBSD",
+      "slug": "openbsd",
+      "readme_url": "https://www.openbsd.org",
+      "repositories": [],
+      "domains": [
+        "openbsd.org"
+      ],
+      "title_aliases": [
+        "OpenBSD"
+      ],
+      "queries": [
+        "OpenBSD",
+        "openbsd.org"
+      ],
+      "identity_sources": [
+        "https://www.openbsd.org"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement. Shared OpenBSD infrastructure also hosts other projects: LibreSSL/OpenSSH/OpenSMTPD-only titles or paths are excluded unless the title explicitly mentions OpenBSD. Ordinary OpenBSD OS documentation remains included.",
+      "other_project_pattern": "(?<!\\w)(?:LibreSSL|OpenSSH|OpenSMTPD)(?!\\w)"
+    },
+    {
+      "name": "OpenWrt",
+      "slug": "openwrt",
+      "readme_url": "https://github.com/openwrt/openwrt",
+      "repositories": [
+        "openwrt/openwrt"
+      ],
+      "domains": [
+        "openwrt.org"
+      ],
+      "title_aliases": [
+        "OpenWrt"
+      ],
+      "queries": [
+        "OpenWrt",
+        "openwrt.org",
+        "github.com/openwrt/openwrt"
+      ],
+      "identity_sources": [
+        "https://github.com/openwrt/openwrt"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "OpenSSL",
+      "slug": "openssl",
+      "readme_url": "https://github.com/openssl/openssl",
+      "repositories": [
+        "openssl/openssl"
+      ],
+      "domains": [
+        "openssl.org",
+        "openssl-library.org"
+      ],
+      "title_aliases": [
+        "OpenSSL"
+      ],
+      "queries": [
+        "OpenSSL",
+        "openssl.org",
+        "github.com/openssl/openssl",
+        "openssl-library.org"
+      ],
+      "identity_sources": [
+        "https://github.com/openssl/openssl",
+        "https://www.openssl.org/",
+        "https://openssl-library.org/"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement. The OpenSSL project homepage links its library site at openssl-library.org (verified 2026-10-03)."
+    },
+    {
+      "name": "OpenSSH",
+      "slug": "openssh",
+      "readme_url": "https://github.com/openssh/openssh-portable",
+      "repositories": [
+        "openssh/openssh-portable"
+      ],
+      "domains": [
+        "openssh.com",
+        "openssh.org"
+      ],
+      "title_aliases": [
+        "OpenSSH"
+      ],
+      "queries": [
+        "OpenSSH",
+        "openssh.com",
+        "github.com/openssh/openssh-portable",
+        "openssh.org"
+      ],
+      "identity_sources": [
+        "https://github.com/openssh/openssh-portable",
+        "https://www.openssh.com/",
+        "https://www.openssh.org/"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement. The historical openssh.com homepage redirects to openssh.org (verified 2026-10-03)."
+    },
+    {
+      "name": "OpenTelemetry",
+      "slug": "opentelemetry",
+      "readme_url": "https://github.com/open-telemetry/opentelemetry-collector",
+      "repositories": [
+        "open-telemetry/opentelemetry-collector"
+      ],
+      "domains": [
+        "opentelemetry.io"
+      ],
+      "title_aliases": [
+        "OpenTelemetry"
+      ],
+      "queries": [
+        "OpenTelemetry",
+        "opentelemetry.io",
+        "github.com/open-telemetry/opentelemetry-collector"
+      ],
+      "identity_sources": [
+        "https://github.com/open-telemetry/opentelemetry-collector"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement. Covers the OpenTelemetry ecosystem, not only its collector repository."
+    },
+    {
+      "name": "OpenSCAD",
+      "slug": "openscad",
+      "readme_url": "https://github.com/openscad/openscad",
+      "repositories": [
+        "openscad/openscad"
+      ],
+      "domains": [
+        "openscad.org"
+      ],
+      "title_aliases": [
+        "OpenSCAD"
+      ],
+      "queries": [
+        "OpenSCAD",
+        "openscad.org",
+        "github.com/openscad/openscad"
+      ],
+      "identity_sources": [
+        "https://github.com/openscad/openscad"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "OpenTTD",
+      "slug": "openttd",
+      "readme_url": "https://github.com/OpenTTD/OpenTTD",
+      "repositories": [
+        "OpenTTD/OpenTTD"
+      ],
+      "domains": [
+        "openttd.org"
+      ],
+      "title_aliases": [
+        "OpenTTD"
+      ],
+      "queries": [
+        "OpenTTD",
+        "openttd.org",
+        "github.com/OpenTTD/OpenTTD"
+      ],
+      "identity_sources": [
+        "https://github.com/OpenTTD/OpenTTD"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "OpenRA",
+      "slug": "openra",
+      "readme_url": "https://github.com/OpenRA/OpenRA",
+      "repositories": [
+        "OpenRA/OpenRA"
+      ],
+      "domains": [
+        "openra.net"
+      ],
+      "title_aliases": [
+        "OpenRA"
+      ],
+      "queries": [
+        "OpenRA",
+        "openra.net",
+        "github.com/OpenRA/OpenRA"
+      ],
+      "identity_sources": [
+        "https://github.com/OpenRA/OpenRA"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "OpenMW",
+      "slug": "openmw",
+      "readme_url": "https://github.com/OpenMW/openmw",
+      "repositories": [
+        "OpenMW/openmw"
+      ],
+      "domains": [
+        "openmw.org"
+      ],
+      "title_aliases": [
+        "OpenMW"
+      ],
+      "queries": [
+        "OpenMW",
+        "openmw.org",
+        "github.com/OpenMW/openmw"
+      ],
+      "identity_sources": [
+        "https://github.com/OpenMW/openmw"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "Open WebUI",
+      "slug": "open-webui",
+      "readme_url": "https://github.com/open-webui/open-webui",
+      "repositories": [
+        "open-webui/open-webui"
+      ],
+      "domains": [
+        "openwebui.com",
+        "docs.openwebui.com"
+      ],
+      "title_aliases": [
+        "Open WebUI",
+        "OpenWebUI"
+      ],
+      "queries": [
+        "Open WebUI",
+        "OpenWebUI",
+        "openwebui.com",
+        "docs.openwebui.com",
+        "github.com/open-webui/open-webui"
+      ],
+      "identity_sources": [
+        "https://github.com/open-webui/open-webui"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "OpenHands",
+      "slug": "openhands",
+      "readme_url": "https://github.com/OpenHands/OpenHands",
+      "repositories": [
+        "OpenHands/OpenHands"
+      ],
+      "domains": [
+        "all-hands.dev",
+        "openhands.dev"
+      ],
+      "title_aliases": [
+        "OpenHands"
+      ],
+      "queries": [
+        "OpenHands",
+        "all-hands.dev",
+        "openhands.dev",
+        "github.com/OpenHands/OpenHands"
+      ],
+      "identity_sources": [
+        "https://github.com/OpenHands/OpenHands"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "OpenBao",
+      "slug": "openbao",
+      "readme_url": "https://github.com/openbao/openbao",
+      "repositories": [
+        "openbao/openbao"
+      ],
+      "domains": [
+        "openbao.org"
+      ],
+      "title_aliases": [
+        "OpenBao"
+      ],
+      "queries": [
+        "OpenBao",
+        "openbao.org",
+        "github.com/openbao/openbao"
+      ],
+      "identity_sources": [
+        "https://github.com/openbao/openbao"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "OpenObserve",
+      "slug": "openobserve",
+      "readme_url": "https://github.com/openobserve/openobserve",
+      "repositories": [
+        "openobserve/openobserve"
+      ],
+      "domains": [
+        "openobserve.ai"
+      ],
+      "title_aliases": [
+        "OpenObserve"
+      ],
+      "queries": [
+        "OpenObserve",
+        "openobserve.ai",
+        "github.com/openobserve/openobserve"
+      ],
+      "identity_sources": [
+        "https://github.com/openobserve/openobserve"
+      ],
+      "scope_note": "Counts HN story submissions explicitly naming this project or linking its official domain/repository; includes critical coverage, not sentiment or endorsement."
+    },
+    {
+      "name": "OpenCode",
+      "slug": "opencode",
+      "readme_url": "https://github.com/anomalyco/opencode",
+      "repositories": [
+        "anomalyco/opencode",
+        "sst/opencode"
+      ],
+      "domains": [
+        "opencode.ai"
+      ],
+      "title_aliases": [
+        "OpenCode"
+      ],
+      "queries": [
+        "OpenCode",
+        "opencode.ai",
+        "github.com/anomalyco/opencode",
+        "github.com/sst/opencode"
+      ],
+      "identity_sources": [
+        "https://github.com/anomalyco/opencode",
+        "https://github.com/sst/opencode",
+        "https://github.com/opencode-ai/opencode"
+      ],
+      "scope_note": "OpenCode has unrelated same-name coding agents. Accept only its official opencode.ai domain, anomalyco/opencode or historical sst/opencode repository, or a title explicitly identifying SST/Anomaly. Exclude opencode-ai/opencode (now Crush). Generic OpenCode/AI titles are deliberately omitted. Counts include critical coverage, not endorsement.",
+      "title_context_pattern": "\\b(anomalyco|sst)\\b",
+      "excluded_repositories": [
+        "opencode-ai/opencode"
+      ]
+    }
+  ]
+}

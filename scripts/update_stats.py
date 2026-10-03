@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh only marked README metadata using the GitHub repository API."""
+"""Refresh marked metadata and independent category star highlights."""
 
 import concurrent.futures
 import json
@@ -11,7 +11,10 @@ import urllib.error
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
-ROW = re.compile(r"^\| \[[^\]]+\]\(https://github\.com/([\w.-]+/[\w.-]+)/?\) \|")
+ROW = re.compile(
+    r"^\| (?:\*\*)?\[([^\]]+)\]\(https://github\.com/([\w.-]+/[\w.-]+)/?\)(?:\*\*)?"
+    r"(?= |<br>)"
+)
 STATS = re.compile(r"<!-- STATS:START -->.*?<!-- STATS:END -->")
 
 
@@ -25,13 +28,17 @@ def star_count(count):
 def metadata(data):
     license_id = (data.get("license") or {}).get("spdx_id")
     if not license_id or license_id in {"NOASSERTION", "OTHER"}:
-        license_id = "Not identified"
+        license_id = ""
     # Escape API text so it cannot introduce Markdown columns or HTML.
     license_id = re.sub(r"[^a-zA-Z0-9.+() -]", "", license_id)
     created = data["created_at"][:10]
     updated = (data.get("pushed_at") or "Unknown")[:10]
     stars = star_count(data["stargazers_count"])
-    return f"Created: {created}. Updated: {updated}. License: {license_id}. Stars: {stars}."
+    parts = [f"{created} - {updated}"]
+    if license_id:
+        parts.append(license_id)
+    parts.append(stars)
+    return "<br>" + ", ".join(parts)
 
 
 def repositories(text):
@@ -40,19 +47,49 @@ def repositories(text):
         match = ROW.match(line)
         if match:
             if len(STATS.findall(line)) != 1:
-                raise ValueError(f"Expected one STATS block for {match[1]}")
-            repos.add(match[1].lower())
+                raise ValueError(f"Expected one STATS block for {match[2]}")
+            repos.add(match[2].lower())
     return sorted(repos)
+
+
+def category_leaders(text, data):
+    """Rank unique repositories per section, breaking exact ties by repo path.
+
+    Headings, rather than table position, define category boundaries. A repo
+    cross-listed in another category is ranked independently there.
+    """
+    categories = {}
+    category = 0
+    for line in text.splitlines():
+        if line.startswith("## "):
+            category += 1
+        match = ROW.match(line)
+        if match:
+            categories.setdefault(category, set()).add(match[2].lower())
+    return {
+        category: set(sorted(repos, key=lambda repo: (-data[repo]["stargazers_count"], repo))[:3])
+        for category, repos in categories.items()
+    }
 
 
 def update_text(text, data):
     repositories(text)  # Validate all markers before changing any content.
+    leaders = category_leaders(text, data)
     lines = []
+    category = 0
     for line in text.splitlines(keepends=True):
+        if line.startswith("## "):
+            category += 1
         match = ROW.match(line)
         if match:
-            block = "<!-- STATS:START -->" + metadata(data[match[1].lower()]) + "<!-- STATS:END -->"
+            repo = match[2].lower()
+            block = "<!-- STATS:START -->" + metadata(data[repo]) + "<!-- STATS:END -->"
             line = STATS.sub(lambda _: block, line)
+            # Only the name link is bold, never the independently managed chart.
+            link = match[0][2:].removeprefix("**").removesuffix("**")
+            if repo in leaders[category]:
+                link = "**" + link + "**"
+            line = "| " + link + line[len(match[0]):]
         lines.append(line)
     return "".join(lines)
 
@@ -92,6 +129,8 @@ def main():
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         results = list(pool.map(lambda repo: fetch(repo, token), repos))
     updated = update_text(original, dict(zip(repos, results)))
+    if path.read_text(encoding="utf-8") != original:
+        raise RuntimeError("README changed during metadata collection; rerun against the latest content.")
     if updated != original:
         path.write_text(updated, encoding="utf-8")
         print(f"Updated metadata for {len(repos)} repositories.")

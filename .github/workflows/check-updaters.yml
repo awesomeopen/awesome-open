@@ -1,0 +1,21 @@
+name: Check README updaters
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run updater tests
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Verify cached chart reproduction
+        run: |
+          python3 scripts/update_hn.py --render-only
+          git diff --exit-code -- README.md assets/hn
