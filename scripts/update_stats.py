@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Refresh only marked README metadata using the GitHub repository API."""
+"""Refresh marked metadata and independent category star highlights."""
 
 import concurrent.futures
+from datetime import date, datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -11,7 +12,10 @@ import urllib.error
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
-ROW = re.compile(r"^\| \[[^\]]+\]\(https://github\.com/([\w.-]+/[\w.-]+)/?\) \|")
+ROW = re.compile(
+    r"^\| (?:\*\*)?\[([^\]]+)\]\(https://github\.com/([\w.-]+/[\w.-]+)/?\)(?:\*\*)?"
+    r"(?= |<br>)"
+)
 STATS = re.compile(r"<!-- STATS:START -->.*?<!-- STATS:END -->")
 
 
@@ -22,37 +26,124 @@ def star_count(count):
     return f"{count / divisor:.1f}".rstrip("0").rstrip(".") + suffix
 
 
-def metadata(data):
+def utc_today():
+    return datetime.now(timezone.utc).date()
+
+
+def stale_push_date(value, today):
+    """Whether a UTC last-push date has reached its 12-month anniversary.
+
+    A February 29 anniversary falls on February 28 in a non-leap year.
+    Missing or invalid dates never receive emphasis.
+    """
+    try:
+        pushed = date.fromisoformat(value[:10])
+        try:
+            anniversary = pushed.replace(year=pushed.year + 1)
+        except ValueError:
+            anniversary = pushed.replace(year=pushed.year + 1, day=28)
+        return anniversary <= today
+    except (TypeError, ValueError, OverflowError):
+        return False
+
+
+def metadata(data, today=None):
+    if today is None:
+        today = utc_today()
     license_id = (data.get("license") or {}).get("spdx_id")
     if not license_id or license_id in {"NOASSERTION", "OTHER"}:
-        license_id = "Not identified"
+        license_id = ""
     # Escape API text so it cannot introduce Markdown columns or HTML.
     license_id = re.sub(r"[^a-zA-Z0-9.+() -]", "", license_id)
     created = data["created_at"][:10]
     updated = (data.get("pushed_at") or "Unknown")[:10]
+    if stale_push_date(data.get("pushed_at"), today):
+        updated = f"<b>{updated}</b>"
     stars = star_count(data["stargazers_count"])
-    return f"Created: {created}. Updated: {updated}. License: {license_id}. Stars: {stars}."
+    parts = [f"{created} -- {updated}"]
+    if license_id:
+        parts.append(license_id)
+    parts.append(stars)
+    return "<br><sub>" + " / ".join(parts) + "</sub>"
+
+
+def alternatives(line):
+    """Parse manually reviewed links; never include them in generated metadata."""
+    label = "<br>Alternative to: "
+    if "Alternative to:" not in line:
+        return []
+    if line.count(label) != 1 or line.count("Alternative to:") != 1:
+        raise ValueError("Expected one inline alternatives line")
+    start = line.index(label)
+    stats_start = line.find("<!-- STATS:START -->")
+    if stats_start >= 0 and start >= stats_start:
+        raise ValueError("Alternatives must precede the STATS block")
+    # The first column holds the name and optional HN chart, never alternatives.
+    if start < line.index(" | "):
+        raise ValueError("Alternatives belong after the description")
+    end = stats_start if stats_start >= 0 else line.rfind(" |")
+    content = line[start + len(label):end].strip()
+    links = re.findall(r"\[([^\]\n]+)\]\((https://[^\s()<>]+)\)", content)
+    if not 1 <= len(links) <= 3 or content != ", ".join(
+        f"[{name}]({url})" for name, url in links
+    ):
+        raise ValueError("Expected one to three official evidence links")
+    return links
 
 
 def repositories(text):
     repos = set()
     for line in text.splitlines():
+        if line.startswith("| "):
+            alternatives(line)
         match = ROW.match(line)
         if match:
             if len(STATS.findall(line)) != 1:
-                raise ValueError(f"Expected one STATS block for {match[1]}")
-            repos.add(match[1].lower())
+                raise ValueError(f"Expected one STATS block for {match[2]}")
+            repos.add(match[2].lower())
     return sorted(repos)
 
 
-def update_text(text, data):
-    repositories(text)  # Validate all markers before changing any content.
-    lines = []
-    for line in text.splitlines(keepends=True):
+def category_leaders(text, data):
+    """Rank unique repositories per section, breaking exact ties by repo path.
+
+    Headings, rather than table position, define category boundaries. A repo
+    cross-listed in another category is ranked independently there.
+    """
+    categories = {}
+    category = 0
+    for line in text.splitlines():
+        if line.startswith("## "):
+            category += 1
         match = ROW.match(line)
         if match:
-            block = "<!-- STATS:START -->" + metadata(data[match[1].lower()]) + "<!-- STATS:END -->"
+            categories.setdefault(category, set()).add(match[2].lower())
+    return {
+        category: set(sorted(repos, key=lambda repo: (-data[repo]["stargazers_count"], repo))[:3])
+        for category, repos in categories.items()
+    }
+
+
+def update_text(text, data, today=None):
+    if today is None:
+        today = utc_today()
+    repositories(text)  # Validate all markers before changing any content.
+    leaders = category_leaders(text, data)
+    lines = []
+    category = 0
+    for line in text.splitlines(keepends=True):
+        if line.startswith("## "):
+            category += 1
+        match = ROW.match(line)
+        if match:
+            repo = match[2].lower()
+            block = "<!-- STATS:START -->" + metadata(data[repo], today=today) + "<!-- STATS:END -->"
             line = STATS.sub(lambda _: block, line)
+            # Only the name link is bold, never the independently managed chart.
+            link = match[0][2:].removeprefix("**").removesuffix("**")
+            if repo in leaders[category]:
+                link = "**" + link + "**"
+            line = "| " + link + line[len(match[0]):]
         lines.append(line)
     return "".join(lines)
 
@@ -92,6 +183,8 @@ def main():
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         results = list(pool.map(lambda repo: fetch(repo, token), repos))
     updated = update_text(original, dict(zip(repos, results)))
+    if path.read_text(encoding="utf-8") != original:
+        raise RuntimeError("README changed during metadata collection; rerun against the latest content.")
     if updated != original:
         path.write_text(updated, encoding="utf-8")
         print(f"Updated metadata for {len(repos)} repositories.")
