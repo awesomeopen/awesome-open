@@ -1,6 +1,6 @@
 # Awesome Open [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-**Bold names** mark the top three GitHub repositories by stars within each category; entries remain alphabetical. Small bars show monthly Hacker News story submissions mentioning the project over 24 completed months, oldest at left, on one shared scale. Click a chart to browse HN. Attention includes praise, criticism, and controversy; it is not endorsement. Charts cover a researched subset with meaningful history. [Method, coverage, and sources](CONTRIBUTING.md#hacker-news-attention-sparklines).
+**Bold names** mark the top three GitHub repositories by stars within each category; entries remain alphabetical. Small bars show monthly Hacker News story submissions mentioning the project over 24 completed months, oldest at left, on one shared square-root scale. Click a chart to browse HN. Attention includes praise, criticism, and controversy; it is not endorsement. Charts cover a researched subset with meaningful history. [Method, coverage, and sources](CONTRIBUTING.md#hacker-news-attention-sparklines).
 
 ## Table of Contents
 

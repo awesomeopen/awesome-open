@@ -89,9 +89,31 @@ class HistoryTests(unittest.TestCase):
         root = ET.fromstring(hn.svg(project, self.evidence))
         rectangles = root.findall('{http://www.w3.org/2000/svg}rect')
         self.assertEqual(len(rectangles), 24)
-        self.assertEqual(rectangles[1].attrib['height'], '10.000')
+        self.assertEqual(rectangles[1].attrib['height'], '14.142')
+        self.assertIn('Shared square-root scale: 0–6 stories/month.', hn.svg(project, self.evidence))
         self.assertNotIn('<script>', hn.svg(project, self.evidence))
         self.assertNotIn('href=', hn.svg(project, self.evidence))
+
+    def test_square_root_scale_preserves_shared_heights_and_baseline(self):
+        evidence = dict(self.evidence, shared_monthly_maximum=20)
+        counts = [0, 1, 2, 5, 10, 20] + [0] * 18
+        project = dict(self.project, monthly_counts=counts)
+        rectangles = ET.fromstring(hn.svg(project, evidence)).findall('{http://www.w3.org/2000/svg}rect')
+        heights = [float(rect.attrib['height']) for rect in rectangles]
+        self.assertEqual(heights[:6], [0, 4.472, 6.325, 10, 14.142, 20])
+        for rect in rectangles:
+            self.assertAlmostEqual(float(rect.attrib['y']) + float(rect.attrib['height']), 22)
+        # A lower-activity project keeps the same heights, not its own maximum.
+        smaller = dict(project, monthly_counts=[0, 1, 2] + [0] * 21)
+        small_rectangles = ET.fromstring(hn.svg(smaller, evidence)).findall('{http://www.w3.org/2000/svg}rect')
+        self.assertEqual([r.attrib['height'] for r in small_rectangles[:3]],
+                         [r.attrib['height'] for r in rectangles[:3]])
+
+    def test_square_root_scale_handles_all_zero_counts(self):
+        project = dict(self.project, monthly_counts=[0] * 24)
+        evidence = dict(self.evidence, shared_monthly_maximum=0)
+        rectangles = ET.fromstring(hn.svg(project, evidence)).findall('{http://www.w3.org/2000/svg}rect')
+        self.assertTrue(all(r.attrib['height'] == '0.000' and r.attrib['y'] == '22.000' for r in rectangles))
 
     def test_decorator_idempotent_duplicates_and_stale(self):
         row = '| [OpenThing](https://github.com/org/openthing) | Description. |\n'

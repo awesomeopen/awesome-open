@@ -10,6 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 import html
 import json
+import math
 from pathlib import Path
 import re
 import time
@@ -135,10 +136,10 @@ def svg(project, evidence):
         raise ValueError('Expected exactly 24 nonnegative monthly counts')
     maximum = max(1, evidence['shared_monthly_maximum'])
     title = html.escape(project['name'] + ': HN discussions / 2y')
-    desc = html.escape(f"Monthly HN story submissions, {evidence['months'][0]} through {evidence['months'][-1]}; oldest at left. Shared scale: 0–{maximum} stories/month. Counts: " + ', '.join(map(str, counts)) + '. Attention includes critical coverage; not endorsement.')
+    desc = html.escape(f"Monthly HN story submissions, {evidence['months'][0]} through {evidence['months'][-1]}; oldest at left. Shared square-root scale: 0–{maximum} stories/month. Counts: " + ', '.join(map(str, counts)) + '. Attention includes critical coverage; not endorsement.')
     bars = []
     for i, count in enumerate(counts):
-        height = count / maximum * 20
+        height = math.sqrt(count / maximum) * 20
         bars.append(f'<rect x="{i*5}" y="{22-height:.3f}" width="4" height="{height:.3f}" fill="#64748b"/>')
     return f'<svg xmlns="http://www.w3.org/2000/svg" width="120" height="24" viewBox="0 0 120 24" role="img" aria-labelledby="title desc"><title id="title">{title}</title><desc id="desc">{desc}</desc>' + ''.join(bars) + '</svg>\n'
 
