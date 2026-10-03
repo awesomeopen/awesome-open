@@ -421,7 +421,7 @@
 
 ## Entries
 
-Entry format: Open*, open*, OPEN*, spaces, hyphens etc. Open-source and proprietary software. Projects may appear in more than one category. Repository metadata is refreshed daily. Created: GH repo creation date. Updated: last push (UTC). Non-GH projects omit these statistics.
+Entry format: Open*, open*, OPEN*, spaces, hyphens etc. Open-source and proprietary software. Projects may appear in more than one category. Repository metadata is refreshed daily. Dates show GitHub repository creation followed by the last push (UTC), then a known SPDX license and star count. Non-GH projects omit these statistics.
 
 ## Contributing, license
 
