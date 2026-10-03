@@ -2,6 +2,7 @@
 """Refresh marked metadata and independent category star highlights."""
 
 import concurrent.futures
+from datetime import date, datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -25,7 +26,30 @@ def star_count(count):
     return f"{count / divisor:.1f}".rstrip("0").rstrip(".") + suffix
 
 
-def metadata(data):
+def utc_today():
+    return datetime.now(timezone.utc).date()
+
+
+def stale_push_date(value, today):
+    """Whether a UTC last-push date has reached its 12-month anniversary.
+
+    A February 29 anniversary falls on February 28 in a non-leap year.
+    Missing or invalid dates never receive emphasis.
+    """
+    try:
+        pushed = date.fromisoformat(value[:10])
+        try:
+            anniversary = pushed.replace(year=pushed.year + 1)
+        except ValueError:
+            anniversary = pushed.replace(year=pushed.year + 1, day=28)
+        return anniversary <= today
+    except (TypeError, ValueError, OverflowError):
+        return False
+
+
+def metadata(data, today=None):
+    if today is None:
+        today = utc_today()
     license_id = (data.get("license") or {}).get("spdx_id")
     if not license_id or license_id in {"NOASSERTION", "OTHER"}:
         license_id = ""
@@ -33,6 +57,8 @@ def metadata(data):
     license_id = re.sub(r"[^a-zA-Z0-9.+() -]", "", license_id)
     created = data["created_at"][:10]
     updated = (data.get("pushed_at") or "Unknown")[:10]
+    if stale_push_date(data.get("pushed_at"), today):
+        updated = f"<b>{updated}</b>"
     stars = star_count(data["stargazers_count"])
     parts = [f"{created} -- {updated}"]
     if license_id:
@@ -72,7 +98,9 @@ def category_leaders(text, data):
     }
 
 
-def update_text(text, data):
+def update_text(text, data, today=None):
+    if today is None:
+        today = utc_today()
     repositories(text)  # Validate all markers before changing any content.
     leaders = category_leaders(text, data)
     lines = []
@@ -83,7 +111,7 @@ def update_text(text, data):
         match = ROW.match(line)
         if match:
             repo = match[2].lower()
-            block = "<!-- STATS:START -->" + metadata(data[repo]) + "<!-- STATS:END -->"
+            block = "<!-- STATS:START -->" + metadata(data[repo], today=today) + "<!-- STATS:END -->"
             line = STATS.sub(lambda _: block, line)
             # Only the name link is bold, never the independently managed chart.
             link = match[0][2:].removeprefix("**").removesuffix("**")

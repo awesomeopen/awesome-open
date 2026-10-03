@@ -1,4 +1,5 @@
 import unittest
+from datetime import date
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
@@ -9,6 +10,9 @@ import update_stats as stats
 
 class UpdateStatsTests(unittest.TestCase):
     def setUp(self):
+        clock = patch.object(stats, "utc_today", return_value=date(2026, 10, 3))
+        clock.start()
+        self.addCleanup(clock.stop)
         self.record = {
             "created_at": "2022-11-11T12:00:00Z",
             "pushed_at": "2026-10-02T15:00:00Z",
@@ -49,6 +53,46 @@ class UpdateStatsTests(unittest.TestCase):
                       license={"spdx_id": "Apache-2.0"}, stargazers_count=5400)
         self.assertEqual(stats.metadata(record),
                          "<br><sub>2022-02-14 -- 2026-10-03 / Apache-2.0 / 5.4k</sub>")
+
+    def test_last_push_emphasis_at_calendar_year_boundary(self):
+        for pushed, today, bold in [
+            ("2025-10-04", date(2026, 10, 3), False),
+            ("2025-10-03", date(2026, 10, 3), True),
+            ("2024-10-03", date(2026, 10, 3), True),
+            ("2026-10-04", date(2026, 10, 3), False),
+            ("2024-02-29", date(2025, 2, 27), False),
+            ("2024-02-29", date(2025, 2, 28), True),
+            ("2023-03-01", date(2024, 2, 29), False),
+            ("2023-03-01", date(2024, 3, 1), True),
+        ]:
+            with self.subTest(pushed=pushed, today=today):
+                result = stats.metadata(dict(self.record, pushed_at=pushed + "T23:59:59Z"), today=today)
+                expected = f"<b>{pushed}</b>" if bold else pushed
+                self.assertEqual(result, f"<br><sub>2022-11-11 -- {expected} / MIT / 111k</sub>")
+
+    def test_missing_or_unknown_push_never_receives_emphasis(self):
+        for pushed in [None, "", "Unknown", "2025-02-30"]:
+            with self.subTest(pushed=pushed):
+                record = dict(self.record, pushed_at=pushed)
+                self.assertNotIn("<b>", stats.metadata(record))
+        record = dict(self.record)
+        del record["pushed_at"]
+        self.assertNotIn("<b>", stats.metadata(record))
+
+    def test_stale_emphasis_refreshes_and_regenerates_stably(self):
+        data = {"example/openexample": dict(self.record, pushed_at="2025-10-03T23:59:59Z")}
+        recent = stats.update_text(self.row, data, today=date(2026, 10, 2))
+        self.assertNotIn("<b>", recent)
+        stale = stats.update_text(recent, data, today=date(2026, 10, 3))
+        self.assertIn(" -- <b>2025-10-03</b> /", stale)
+        self.assertEqual(stats.update_text(stale, data, today=date(2026, 10, 3)), stale)
+        data["example/openexample"]["pushed_at"] = "2026-10-03T23:59:59Z"
+        self.assertNotIn("<b>", stats.update_text(stale, data, today=date(2026, 10, 3)))
+
+    def test_update_uses_one_utc_date_for_all_rows(self):
+        with patch.object(stats, "utc_today", return_value=date(2026, 10, 3)) as clock:
+            stats.update_text(self.row + self.row, self.data)
+        clock.assert_called_once_with()
 
     def test_star_formatting(self):
         for count, expected in [(0, "0"), (999, "999"), (1000, "1k"), (111111, "111.1k"),
