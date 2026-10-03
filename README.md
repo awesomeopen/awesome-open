@@ -16,6 +16,7 @@
 
 | Project | Description |
 | --- | --- |
+| [OpenAgentCore](https://github.com/MiniMax-AI/OpenAgentCore) | Self-hosted implementation of the OpenAI Agents API with multiple agent harnesses. <!-- STATS:START -->Pending refresh.<!-- STATS:END --> |
 | [OpenAssistant](https://github.com/LAION-AI/Open-Assistant) | Chat assistant that handles tasks, interacts with external systems, and retrieves information. <!-- STATS:START -->Created: 2022-12-13. Updated: 2024-08-17. License: Apache-2.0. Stars: 37.4k.<!-- STATS:END --> |
 | [Open-AutoGLM](https://github.com/zai-org/Open-AutoGLM) | AI models and framework for phone automation. <!-- STATS:START -->Created: 2025-12-08. Updated: 2026-03-06. License: Apache-2.0. Stars: 26.3k.<!-- STATS:END --> |
 | [OpenClaw](https://github.com/openclaw/openclaw) | Personal AI assistant that runs on your devices and connects to messaging apps. <!-- STATS:START -->Created: 2025-11-24. Updated: 2026-10-03. License: MIT. Stars: 391.2k.<!-- STATS:END --> |
@@ -23,11 +24,13 @@
 | [OpenCode](https://github.com/anomalyco/opencode) | AI coding agent for the terminal. <!-- STATS:START -->Created: 2025-04-30. Updated: 2026-10-03. License: MIT. Stars: 211.5k.<!-- STATS:END --> |
 | [OpenCompass](https://github.com/open-compass/opencompass) | Language-model evaluation across knowledge, reasoning, coding, and other tasks. <!-- STATS:START -->Created: 2023-06-15. Updated: 2026-09-28. License: Apache-2.0. Stars: 7.5k.<!-- STATS:END --> |
 | [OpenCV](https://github.com/opencv/opencv) | Computer vision library. <!-- STATS:START -->Created: 2012-07-19. Updated: 2026-10-02. License: Apache-2.0. Stars: 91k.<!-- STATS:END --> |
+| [OpenDots](https://github.com/CopilotKit/OpenDots) | Self-hostable template for persistent AI agents with individual computers, document workspaces, text, calls, and Slack. <!-- STATS:START -->Pending refresh.<!-- STATS:END --> |
 | [OpenFace](https://github.com/cmusatyalab/openface) | Face recognition with deep neural networks. <!-- STATS:START -->Created: 2015-09-16. Updated: 2026-09-22. License: Apache-2.0. Stars: 15.4k.<!-- STATS:END --> |
 | [OpenHands](https://github.com/OpenHands/OpenHands) | AI agents for software development. <!-- STATS:START -->Created: 2024-03-13. Updated: 2026-10-02. License: MIT. Stars: 89.8k.<!-- STATS:END --> |
 | [Open Interpreter](https://github.com/openinterpreter/openinterpreter) | Coding agent for running open language models. <!-- STATS:START -->Created: 2023-07-14. Updated: 2026-10-02. License: Apache-2.0. Stars: 68.5k.<!-- STATS:END --> |
 | [OpenLLM](https://github.com/bentoml/OpenLLM) | Serve language models through OpenAI-compatible API endpoints. <!-- STATS:START -->Created: 2023-04-19. Updated: 2026-09-28. License: Apache-2.0. Stars: 12.6k.<!-- STATS:END --> |
 | [OpenManus](https://github.com/FoundationAgents/OpenManus) | General-purpose AI agent with browser automation and tool support. <!-- STATS:START -->Created: 2025-03-06. Updated: 2026-09-30. License: MIT. Stars: 58.5k.<!-- STATS:END --> |
+| [OpenMuse](https://github.com/CopilotKit/openmuse) | Personal-agent application with a persistent browser, terminal, files, and background tasks. <!-- STATS:START -->Pending refresh.<!-- STATS:END --> |
 | [OpenNLP](https://github.com/apache/opennlp) | Java toolkit for natural language processing. <!-- STATS:START -->Created: 2011-11-09. Updated: 2026-10-02. License: Apache-2.0. Stars: 1.6k.<!-- STATS:END --> |
 | [OpenNMT](https://github.com/OpenNMT/OpenNMT-py) | Neural machine translation and language modeling in PyTorch. <!-- STATS:START -->Created: 2017-02-22. Updated: 2025-10-14. License: MIT. Stars: 7k.<!-- STATS:END --> |
 | [Open Notebook](https://github.com/lfnovo/open-notebook) | NotebookLM-style research notebook with flexible model support. <!-- STATS:START -->Created: 2024-10-21. Updated: 2026-10-03. License: MIT. Stars: 39.7k.<!-- STATS:END --> |
@@ -188,6 +191,7 @@
 | [OpenCTI](https://github.com/OpenCTI-Platform/opencti) | Cyber threat intelligence platform. <!-- STATS:START -->Created: 2018-12-17. Updated: 2026-10-03. License: Not identified. Stars: 10.1k.<!-- STATS:END --> |
 | [OpenDocMan](https://github.com/opendocman/opendocman) | Web document management system written in PHP. <!-- STATS:START -->Created: 2012-04-27. Updated: 2026-09-18. License: GPL-2.0. Stars: 283.<!-- STATS:END --> |
 | [Open edX](https://github.com/openedx/openedx-platform) | Learning management system and course authoring platform. <!-- STATS:START -->Created: 2013-05-30. Updated: 2026-10-02. License: AGPL-3.0. Stars: 8.2k.<!-- STATS:END --> |
+| [Open Glean](https://github.com/hydra-db/open-glean) | AI workspace over Hydra DB for searching memories, files, and connected apps with source citations. <!-- STATS:START -->Pending refresh.<!-- STATS:END --> |
 | [OpenKM](https://github.com/openkm/document-management-system) | Document management system for organizing business information. <!-- STATS:START -->Created: 2016-07-11. Updated: 2026-02-23. License: GPL-2.0. Stars: 849.<!-- STATS:END --> |
 | [OpenMetadata](https://github.com/open-metadata/OpenMetadata) | Data catalog and metadata platform for discovery and governance. <!-- STATS:START -->Created: 2021-08-01. Updated: 2026-10-03. License: Apache-2.0. Stars: 15.4k.<!-- STATS:END --> |
 | [Open Notebook](https://github.com/lfnovo/open-notebook) | NotebookLM-style research notebook with flexible model support. <!-- STATS:START -->Created: 2024-10-21. Updated: 2026-10-03. License: MIT. Stars: 39.7k.<!-- STATS:END --> |
@@ -256,6 +260,7 @@
 | [OpenMoHAA](https://github.com/openmoh/openmohaa) | Reimplementation of Medal of Honor: Allied Assault and its expansions. <!-- STATS:START -->Created: 2015-01-09. Updated: 2026-04-23. License: GPL-2.0. Stars: 819.<!-- STATS:END --> |
 | [openMSX](https://github.com/openMSX/openMSX) | MSX home computer emulator. <!-- STATS:START -->Created: 2015-06-17. Updated: 2026-10-02. License: Not identified. Stars: 553.<!-- STATS:END --> |
 | [OpenMW](https://github.com/OpenMW/openmw) | Role-playing game engine supporting Morrowind. <!-- STATS:START -->Created: 2009-08-23. Updated: 2026-10-02. License: GPL-3.0. Stars: 6.6k.<!-- STATS:END --> |
+| [openOMSI](https://github.com/openOMSI-Project/openOMSI) | Rust recreation of the OMSI 2 bus simulator that requires the original game's content. <!-- STATS:START -->Pending refresh.<!-- STATS:END --> |
 | [OpenRA](https://github.com/OpenRA/OpenRA) | Real-time strategy engine for classic Westwood games. <!-- STATS:START -->Created: 2010-10-04. Updated: 2026-09-30. License: GPL-3.0. Stars: 17.5k.<!-- STATS:END --> |
 | [OpenRCT2](https://github.com/OpenRCT2/OpenRCT2) | Reimplementation of RollerCoaster Tycoon 2. <!-- STATS:START -->Created: 2014-04-01. Updated: 2026-10-02. License: GPL-3.0. Stars: 16.3k.<!-- STATS:END --> |
 | [OpenSAGE](https://github.com/OpenSAGE/OpenSAGE) | Reimplementation of the SAGE real-time strategy engine. <!-- STATS:START -->Created: 2017-06-14. Updated: 2026-03-30. License: Not identified. Stars: 1.6k.<!-- STATS:END --> |
