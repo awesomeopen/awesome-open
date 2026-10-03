@@ -1,0 +1,48 @@
+# Awesome Open
+
+> Awesome Open is a curated directory of software whose names begin with “Open”, organized by what the software does. It helps readers discover projects and follow links to their official repositories or websites.
+
+The canonical repository is https://github.com/awesomeopen/awesome-open. The README is the source of truth for entries, descriptions, categories, and current metadata; this file is a navigation summary, not a separate catalog.
+
+Eligibility is based on the software's own name: capitalization, spaces, and hyphens do not change eligibility. A documented expanded name can qualify an abbreviation, such as Open Broadcaster Software (OBS). An organization's name or a description such as “open source” alone does not qualify a product.
+
+Open-source and proprietary software, paid products, hosted services, libraries, command-line tools, and archived projects are all in scope. There is no minimum star count. Inclusion is not an endorsement, a quality ranking, or a claim that a project is open source, free, actively maintained, or suitable for a particular use. Each project's official sources establish its current features, pricing, license, and maintenance status.
+
+Entries are alphabetical within functional categories and can appear in more than one category. GitHub metadata shows repository creation date, last push date (UTC), a known SPDX license, and stars. Repository dates are not original launch or release dates. Unknown licenses are omitted; non-GitHub entries omit this generated metadata. Bold names identify the three highest-starred GitHub repositories within a category, independently of chart coverage.
+
+Hacker News charts show matching story submissions over 24 completed UTC months, oldest at left, using one shared square-root scale. They measure attention, including criticism and controversy, rather than endorsement or sentiment. Coverage is a researched subset; missing charts do not mean no discussion. The contribution guide and evidence file explain matching, thresholds, limitations, and the exact reporting window. Statistics change; use the linked sources rather than treating this summary as a live snapshot.
+
+## Core sources
+
+- [Project directory](https://github.com/awesomeopen/awesome-open/blob/main/README.md): Complete categorized list, official project links, descriptions, and metric legend.
+- [Contribution guide](https://github.com/awesomeopen/awesome-open/blob/main/CONTRIBUTING.md): Inclusion rules, entry format, metadata definitions, and Hacker News methodology.
+- [License](https://github.com/awesomeopen/awesome-open/blob/main/LICENSE.md): CC0-1.0 applies to this list; listed software retains its own license.
+
+## Browse by category
+
+- [AI & Language Models](https://github.com/awesomeopen/awesome-open/blob/main/README.md#ai--language-models)
+- [Developer Tools](https://github.com/awesomeopen/awesome-open/blob/main/README.md#developer-tools)
+- [Infrastructure & DevOps](https://github.com/awesomeopen/awesome-open/blob/main/README.md#infrastructure--devops)
+- [Databases & Search](https://github.com/awesomeopen/awesome-open/blob/main/README.md#databases--search)
+- [Security & Privacy](https://github.com/awesomeopen/awesome-open/blob/main/README.md#security--privacy)
+- [Networking](https://github.com/awesomeopen/awesome-open/blob/main/README.md#networking)
+- [Productivity & Office](https://github.com/awesomeopen/awesome-open/blob/main/README.md#productivity--office)
+- [Business & Commerce](https://github.com/awesomeopen/awesome-open/blob/main/README.md#business--commerce)
+- [Knowledge Management](https://github.com/awesomeopen/awesome-open/blob/main/README.md#knowledge-management)
+- [Communication & Social](https://github.com/awesomeopen/awesome-open/blob/main/README.md#communication--social)
+- [Creative & Media](https://github.com/awesomeopen/awesome-open/blob/main/README.md#creative--media)
+- [Games & Emulation](https://github.com/awesomeopen/awesome-open/blob/main/README.md#games--emulation)
+- [Robotics & Hardware](https://github.com/awesomeopen/awesome-open/blob/main/README.md#robotics--hardware)
+- [Science & Engineering](https://github.com/awesomeopen/awesome-open/blob/main/README.md#science--engineering)
+- [Maps & Geospatial](https://github.com/awesomeopen/awesome-open/blob/main/README.md#maps--geospatial)
+- [Education & Research](https://github.com/awesomeopen/awesome-open/blob/main/README.md#education--research)
+- [Health & Medicine](https://github.com/awesomeopen/awesome-open/blob/main/README.md#health--medicine)
+- [Operating Systems & Firmware](https://github.com/awesomeopen/awesome-open/blob/main/README.md#operating-systems--firmware)
+- [Home Automation](https://github.com/awesomeopen/awesome-open/blob/main/README.md#home-automation)
+- [Finance & Trading](https://github.com/awesomeopen/awesome-open/blob/main/README.md#finance--trading)
+- [Storage & File Management](https://github.com/awesomeopen/awesome-open/blob/main/README.md#storage--file-management)
+
+## Optional
+
+- [Hacker News identity mapping](https://github.com/awesomeopen/awesome-open/blob/main/data/hn_projects.json): Researched project identities and matching rules.
+- [Hacker News evidence](https://github.com/awesomeopen/awesome-open/blob/main/data/hn_evidence.json): Reporting window, monthly counts, accepted and excluded story records, and query sources.

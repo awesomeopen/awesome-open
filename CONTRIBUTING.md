@@ -8,6 +8,10 @@ The word must belong to the software's name. An organization named OpenSomething
 
 Licensing, source availability, pricing, popularity, maturity, and maintenance status are not admission criteria. Proprietary products, hosted services, libraries, command-line tools, and archived projects are welcome on the same terms. Inclusion records a name and function; it is not an endorsement or a claim that the software is open source.
 
+## Evaluating projects for your needs
+
+If you are looking for vetted open source software or production-ready open source tools, check each project's official sources for an OSI-approved license, recent commits or releases, clear documentation, and a setup path that fits your environment. Contributions verify the project's identity and basic description; production readiness and security require a separate assessment for your use case.
+
 ## Adding or updating an entry
 
 1. Find the appropriate functional category in [README.md](README.md), or add one and update the three-column table of contents.
