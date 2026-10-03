@@ -18,7 +18,7 @@ class UpdateStatsTests(unittest.TestCase):
             "CRM tool for customer relations. <!-- STATS:START -->Pending.<!-- STATS:END --> |\n"
         )
         self.header = "<!-- STARS:START -->\nStars: 0\n<!-- STARS:END -->\n"
-        self.data = {"example/openexample": self.record, stats.LIST_REPO: self.record}
+        self.data = {"example/openexample": self.record}
 
     def test_only_marked_content_changes_and_cross_listings_match(self):
         external = "| [OpenOther](https://example.com) | Keep this description. |\n"
@@ -29,7 +29,17 @@ class UpdateStatsTests(unittest.TestCase):
         self.assertIn(external, updated)
         self.assertEqual(updated.count("CRM tool for customer relations."), 2)
         self.assertEqual(stats.update_text(updated, self.data), updated)
-        self.assertEqual(len(stats.repositories(original)), 2)
+        self.assertEqual(stats.repositories(original), ["example/openexample"])
+
+    def test_list_star_block_is_ignored_if_present(self):
+        updated = stats.update_text(self.header + self.row, self.data)
+        self.assertTrue(updated.startswith(self.header))
+
+    def test_project_metadata_updates_without_list_star_block(self):
+        updated = stats.update_text(self.row, self.data)
+        self.assertIn("Stars: 111k.", updated)
+        self.assertNotIn("<!-- STARS:", updated)
+        self.assertEqual(stats.repositories(self.row), ["example/openexample"])
 
     def test_star_formatting(self):
         for count, expected in [(0, "0"), (999, "999"), (1000, "1k"), (111111, "111.1k"),
@@ -52,14 +62,14 @@ class UpdateStatsTests(unittest.TestCase):
         self.assertNotIn("\n", result)
 
     def test_missing_or_duplicate_markers_fail(self):
-        for text in [self.row, self.header + self.row.replace("<!-- STATS:END -->", ""),
-                     self.header * 2 + self.row]:
+        for text in [self.row.replace("<!-- STATS:END -->", ""),
+                     self.row.replace("Pending.", "<!-- STATS:END --><!-- STATS:START -->")]:
             with self.assertRaises(ValueError):
                 stats.update_text(text, self.data)
 
     def test_missing_repository_does_not_return_partial_update(self):
         with self.assertRaises(KeyError):
-            stats.update_text(self.header + self.row, {stats.LIST_REPO: self.record})
+            stats.update_text(self.header + self.row, {})
 
     @patch.object(stats.time, "sleep")
     @patch.object(stats.urllib.request, "urlopen")

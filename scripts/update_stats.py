@@ -11,10 +11,8 @@ import urllib.error
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
-LIST_REPO = "awesomeopen/awesome-open"
 ROW = re.compile(r"^\| \[[^\]]+\]\(https://github\.com/([\w.-]+/[\w.-]+)/?\) \|")
 STATS = re.compile(r"<!-- STATS:START -->.*?<!-- STATS:END -->")
-STARS = re.compile(r"<!-- STARS:START -->\n.*?\n<!-- STARS:END -->", re.DOTALL)
 
 
 def star_count(count):
@@ -37,15 +35,13 @@ def metadata(data):
 
 
 def repositories(text):
-    repos = {LIST_REPO}
+    repos = set()
     for line in text.splitlines():
         match = ROW.match(line)
         if match:
             if len(STATS.findall(line)) != 1:
                 raise ValueError(f"Expected one STATS block for {match[1]}")
             repos.add(match[1].lower())
-    if len(STARS.findall(text)) != 1:
-        raise ValueError("Expected one list-level STARS block")
     return sorted(repos)
 
 
@@ -58,8 +54,7 @@ def update_text(text, data):
             block = "<!-- STATS:START -->" + metadata(data[match[1].lower()]) + "<!-- STATS:END -->"
             line = STATS.sub(lambda _: block, line)
         lines.append(line)
-    count = star_count(data[LIST_REPO]["stargazers_count"])
-    return STARS.sub(lambda _: f"<!-- STARS:START -->\nStars: {count}\n<!-- STARS:END -->", "".join(lines))
+    return "".join(lines)
 
 
 def fetch(repo, token):
