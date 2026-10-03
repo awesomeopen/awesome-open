@@ -420,7 +420,7 @@ Entry format: Open*, open*, OPEN*, spaces, hyphens etc. Open-source and propriet
 
 Found an OpenSomething? [Add it to the list](CONTRIBUTING.md). License: public domain, [CC0-1.0](LICENSE.md).
 
-### Other Awesome
+## Other Awesome
 
 - [Awesome Falsehoods](https://github.com/kdeldycke/awesome-falsehood) -- Falsehoods programmers believe, organized by topic.
 - ...
