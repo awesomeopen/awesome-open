@@ -16,13 +16,21 @@ If you are looking for vetted open source software or production-ready open sour
 
 1. Find the appropriate functional category in [README.md](README.md), or add one and update the three-column table of contents.
 2. Add the project alphabetically, using its official name and website or canonical repository. Prefer the project's own brief description; shorten marketing copy to a factual sentence describing what it does.
-3. Use the existing two-column format: **Project · Description**. For GitHub repositories, append `<!-- STATS:START --><!-- STATS:END -->` to the description, on the same line. Leave this block empty until the daily workflow fills it with compact metadata on a second line; do not add visible “Pending refresh” text. For other hosts or services, leave the description alone; do not invent GitHub statistics or infer a license.
-4. Repeat an entry in multiple categories when its functionality warrants it. Keep the name, link, and description consistent across occurrences.
+3. Use the existing two-column format: **Project · Description**. For GitHub repositories, append `<!-- STATS:START --><!-- STATS:END -->` to the description, on the same line. Leave this block empty until the daily workflow fills it with compact metadata on a separate line; do not add visible “Pending refresh” text. For other hosts or services, leave the description alone; do not invent GitHub statistics or infer a license.
+4. Repeat an entry in multiple categories when its functionality warrants it. Keep the name, link, description, and alternatives consistent across occurrences.
 5. Check the rendered table, links, spelling, and category anchors. Include the official source in your pull request so the name and description can be verified.
 
 Corrections, additional categories, and newly discovered projects are welcome. There is no minimum star count, release age, or requirement to have used a project personally. Keep descriptions concise and omit promotional claims.
 
 Contributions to this list are made under [CC0-1.0](LICENSE.md). Listed projects retain their own licenses.
+
+## Alternatives
+
+Keep the two-column table. When official evidence explicitly supports a relevant alternative, add `<br>Alternative to: [Name](official-evidence-URL), [Name](official-evidence-URL)` immediately after the existing description and **before** `<!-- STATS:START -->`. Use one to three targets; omit the entire line when none is verified. Do not place this manually maintained line inside generated STATS or HN markers, and do not rewrite the description to accommodate it. Entries without GitHub metadata may also use this format.
+
+Link each target name to the project's official comparison, alternative statement, or migration guide, rather than a generic product homepage or third-party list. Record the canonical entry URL, target name, evidence URL, checked UTC date, and brief use-case scope in [`data/alternatives.json`](data/alternatives.json). Apply the same links to every category occurrence. Evidence establishes a relevant alternative, not feature parity, production suitability, or universal drop-in compatibility; migration caveats still apply.
+
+Alternatives are curated manually. Discovery and accuracy checks remain review-only: proposed additions or corrections need review before changing the README or evidence. Neither daily updater populates alternatives. Tests validate link placement, evidence agreement, cross-category consistency, and preservation during metadata/chart regeneration.
 
 ## Automated metadata
 

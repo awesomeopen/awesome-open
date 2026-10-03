@@ -37,7 +37,7 @@
 | [OpenMuse](https://github.com/CopilotKit/openmuse) | Personal-agent application with a persistent browser, terminal, files, and background tasks. <!-- STATS:START --><br><sub>2026-09-15 -- 2026-10-02 / MIT / 3.8k</sub><!-- STATS:END --> |
 | [OpenNLP](https://github.com/apache/opennlp) | Java toolkit for natural language processing. <!-- STATS:START --><br><sub>2011-11-09 -- 2026-10-03 / Apache-2.0 / 1.6k</sub><!-- STATS:END --> |
 | [OpenNMT](https://github.com/OpenNMT/OpenNMT-py) | Neural machine translation and language modeling in PyTorch. <!-- STATS:START --><br><sub>2017-02-22 -- 2025-10-14 / MIT / 7k</sub><!-- STATS:END --> |
-| [Open Notebook](https://github.com/lfnovo/open-notebook) | NotebookLM-style research notebook with flexible model support. <!-- STATS:START --><br><sub>2024-10-21 -- 2026-10-03 / MIT / 39.8k</sub><!-- STATS:END --> |
+| [Open Notebook](https://github.com/lfnovo/open-notebook) | NotebookLM-style research notebook with flexible model support.<br>Alternative to: [NotebookLM](https://github.com/lfnovo/open-notebook#open-notebook) <!-- STATS:START --><br><sub>2024-10-21 -- 2026-10-03 / MIT / 39.8k</sub><!-- STATS:END --> |
 | [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) | Real-time detection of body, face, hand, and foot keypoints. <!-- STATS:START --><br><sub>2017-04-24 -- <b>2024-08-03</b> / 34.5k</sub><!-- STATS:END --> |
 | [OpenRLHF](https://github.com/OpenRLHF/OpenRLHF) | Scalable framework for reinforcement learning with language models. <!-- STATS:START --><br><sub>2023-07-30 -- 2026-09-17 / Apache-2.0 / 10.1k</sub><!-- STATS:END --> |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
@@ -97,7 +97,7 @@
 | [OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) | Kubernetes application platform for building and operating applications. |
 | [OpenStack](https://www.openstack.org/software) | Cloud infrastructure software for managing compute, storage, and networking. |
 | [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-collector)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/opentelemetry.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTelemetry&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Collect, process, and export telemetry data. <!-- STATS:START --><br><sub>2019-05-09 -- 2026-10-02 / Apache-2.0 / 7.6k</sub><!-- STATS:END --> |
-| **[OpenTofu](https://github.com/opentofu/opentofu)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/opentofu.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTofu&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Declarative infrastructure-as-code tooling. <!-- STATS:START --><br><sub>2023-08-16 -- 2026-10-02 / MPL-2.0 / 30.4k</sub><!-- STATS:END --> |
+| **[OpenTofu](https://github.com/opentofu/opentofu)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/opentofu.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTofu&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Declarative infrastructure-as-code tooling.<br>Alternative to: [Terraform](https://opentofu.org/docs/intro/migration/migration-guide/) <!-- STATS:START --><br><sub>2023-08-16 -- 2026-10-02 / MPL-2.0 / 30.4k</sub><!-- STATS:END --> |
 | [Open vSwitch](https://github.com/openvswitch/ovs) | Multilayer virtual network switch. <!-- STATS:START --><br><sub>2014-04-02 -- 2026-09-29 / Apache-2.0 / 4k</sub><!-- STATS:END --> |
 | [OpenYurt](https://github.com/openyurtio/openyurt) | Extend Kubernetes to edge computing environments. <!-- STATS:START --><br><sub>2020-05-21 -- 2026-09-28 / Apache-2.0 / 2k</sub><!-- STATS:END --> |
 | [OpenZFS](https://github.com/openzfs/zfs)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openzfs.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenZFS&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | ZFS filesystem and storage management for Linux and FreeBSD. <!-- STATS:START --><br><sub>2009-12-14 -- 2026-10-02 / 12.5k</sub><!-- STATS:END --> |
@@ -165,7 +165,7 @@
 | [OpenClip](https://github.com/ganeshmshetty/openclip) | Programmable text utility for macOS. <!-- STATS:START --><br><sub>2026-08-01 -- 2026-10-03 / AGPL-3.0 / 597</sub><!-- STATS:END --> |
 | [OpenFamily](https://github.com/NexaFlowFrance/OpenFamily) | Self-hosted family organizer. <!-- STATS:START --><br><sub>2025-12-28 -- 2026-09-30 / AGPL-3.0 / 181</sub><!-- STATS:END --> |
 | [OpenOffice](https://www.openoffice.org) | Office suite for documents, spreadsheets, presentations, and databases. |
-| **[OpenProject](https://github.com/opf/openproject)** | Project and portfolio management with Gantt charts, issue tracking, and agile planning. <!-- STATS:START --><br><sub>2012-11-28 -- 2026-10-03 / GPL-3.0 / 16.3k</sub><!-- STATS:END --> |
+| **[OpenProject](https://github.com/opf/openproject)** | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) <!-- STATS:START --><br><sub>2012-11-28 -- 2026-10-03 / GPL-3.0 / 16.3k</sub><!-- STATS:END --> |
 | **[OpenSign](https://github.com/OpenSignLabs/OpenSign)** | Document signing and electronic signature workflows. <!-- STATS:START --><br><sub>2023-10-02 -- 2026-08-21 / 7.1k</sub><!-- STATS:END --> |
 | [OpenSlides](https://github.com/OpenSlides/OpenSlides) | Digital assembly management for motions, elections, and agendas. <!-- STATS:START --><br><sub>2012-07-31 -- 2026-09-23 / MIT / 647</sub><!-- STATS:END --> |
 | [Open Sunsama](https://github.com/ShadowWalker2014/open-sunsama) | Daily planner with Kanban, time blocking, and focus mode. <!-- STATS:START --><br><sub>2026-01-29 -- 2026-09-30 / 75</sub><!-- STATS:END --> |
@@ -184,7 +184,7 @@
 | [OpenCRM](https://opencrm.co.uk) | Cloud customer relationship management for sales and business operations. |
 | [OpenEduCat](https://github.com/openeducat/openeducat_erp) | ERP for educational institutions. <!-- STATS:START --><br><sub>2013-05-02 -- 2026-09-30 / 884</sub><!-- STATS:END --> |
 | [OpenMage](https://github.com/OpenMage/magento-lts) | E-commerce platform continuing Magento Community Edition. <!-- STATS:START --><br><sub>2014-10-17 -- 2026-10-01 / OSL-3.0 / 932</sub><!-- STATS:END --> |
-| **[OpenProject](https://github.com/opf/openproject)** | Project and portfolio management with Gantt charts, issue tracking, and agile planning. <!-- STATS:START --><br><sub>2012-11-28 -- 2026-10-03 / GPL-3.0 / 16.3k</sub><!-- STATS:END --> |
+| **[OpenProject](https://github.com/opf/openproject)** | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) <!-- STATS:START --><br><sub>2012-11-28 -- 2026-10-03 / GPL-3.0 / 16.3k</sub><!-- STATS:END --> |
 | **[OpenSign](https://github.com/OpenSignLabs/OpenSign)** | Document signing and electronic signature workflows. <!-- STATS:START --><br><sub>2023-10-02 -- 2026-08-21 / 7.1k</sub><!-- STATS:END --> |
 
 ## Knowledge Management
@@ -198,7 +198,7 @@
 | [Open Glean](https://github.com/hydra-db/open-glean) | AI workspace over Hydra DB for searching memories, files, and connected apps with source citations. <!-- STATS:START --><br><sub>2026-09-17 -- 2026-10-02 / Apache-2.0 / 1.6k</sub><!-- STATS:END --> |
 | [OpenKM](https://github.com/openkm/document-management-system) | Document management system for organizing business information. <!-- STATS:START --><br><sub>2016-07-11 -- 2026-02-23 / GPL-2.0 / 849</sub><!-- STATS:END --> |
 | **[OpenMetadata](https://github.com/open-metadata/OpenMetadata)** | Data catalog and metadata platform for discovery and governance. <!-- STATS:START --><br><sub>2021-08-01 -- 2026-10-03 / Apache-2.0 / 15.4k</sub><!-- STATS:END --> |
-| **[Open Notebook](https://github.com/lfnovo/open-notebook)** | NotebookLM-style research notebook with flexible model support. <!-- STATS:START --><br><sub>2024-10-21 -- 2026-10-03 / MIT / 39.8k</sub><!-- STATS:END --> |
+| **[Open Notebook](https://github.com/lfnovo/open-notebook)** | NotebookLM-style research notebook with flexible model support.<br>Alternative to: [NotebookLM](https://github.com/lfnovo/open-notebook#open-notebook) <!-- STATS:START --><br><sub>2024-10-21 -- 2026-10-03 / MIT / 39.8k</sub><!-- STATS:END --> |
 | [OpenOlat](https://github.com/OpenOLAT/OpenOLAT) | Learning management system. <!-- STATS:START --><br><sub>2018-03-29 -- 2026-10-02 / 446</sub><!-- STATS:END --> |
 | [Open Semantic Search](https://github.com/opensemanticsearch/open-semantic-search) | Search, text mining, and knowledge graphs for large document collections. <!-- STATS:START --><br><sub>2016-03-30 -- <b>2025-04-19</b> / GPL-3.0 / 1.2k</sub><!-- STATS:END --> |
 | [OpenStudy](https://github.com/OpenStudy-dev/OpenStudy) | Self-hosted study dashboard with an MCP server for AI assistants. <!-- STATS:START --><br><sub>2026-04-17 -- 2026-09-25 / MIT / 75</sub><!-- STATS:END --> |
@@ -422,6 +422,8 @@
 ---
 
 ## Legend
+
+“Alternative to” links point to official comparison or migration evidence for a relevant use case, not a promise of feature parity or drop-in compatibility. Only reviewed pairings are shown; entries without a line may simply be unresearched. [Sources and contribution guidance](CONTRIBUTING.md#alternatives).
 
 Entry format: Open*, open*, OPEN*, spaces, hyphens etc. Open-source and proprietary software. Projects may appear in more than one category. Repository metadata is refreshed daily. Dates show GitHub repository creation followed by the last push (UTC), then a known SPDX license and star count. A bold last-push date is at least 12 calendar months old. Non-GH projects omit these statistics.
 

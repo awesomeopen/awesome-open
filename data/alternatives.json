@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "policy": "Manually reviewed alternatives only. Official sources establish a relevant use case, not feature parity or drop-in compatibility. Discovery and accuracy checks propose changes for review; they never populate this file or the README automatically.",
+  "projects": [
+    {
+      "readme_url": "https://github.com/opf/openproject",
+      "alternatives": [
+        {
+          "name": "Jira",
+          "source_url": "https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/",
+          "checked_utc_date": "2026-10-03",
+          "scope": "Project management and issue tracking. The official page explicitly positions OpenProject as a Jira alternative."
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/lfnovo/open-notebook",
+      "alternatives": [
+        {
+          "name": "NotebookLM",
+          "source_url": "https://github.com/lfnovo/open-notebook#open-notebook",
+          "checked_utc_date": "2026-10-03",
+          "scope": "AI-assisted research notebooks. The official README explicitly positions Open Notebook as an alternative to Google Notebook LM."
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/opentofu/opentofu",
+      "alternatives": [
+        {
+          "name": "Terraform",
+          "source_url": "https://opentofu.org/docs/intro/migration/migration-guide/",
+          "checked_utc_date": "2026-10-03",
+          "scope": "Declarative infrastructure as code. The official migration guide supports moving Terraform configurations to OpenTofu, with backups and plan verification; compatibility must be checked for the specific configuration."
+        }
+      ]
+    }
+  ]
+}

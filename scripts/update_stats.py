@@ -67,9 +67,35 @@ def metadata(data, today=None):
     return "<br><sub>" + " / ".join(parts) + "</sub>"
 
 
+def alternatives(line):
+    """Parse manually reviewed links; never include them in generated metadata."""
+    label = "<br>Alternative to: "
+    if "Alternative to:" not in line:
+        return []
+    if line.count(label) != 1 or line.count("Alternative to:") != 1:
+        raise ValueError("Expected one inline alternatives line")
+    start = line.index(label)
+    stats_start = line.find("<!-- STATS:START -->")
+    if stats_start >= 0 and start >= stats_start:
+        raise ValueError("Alternatives must precede the STATS block")
+    # The first column holds the name and optional HN chart, never alternatives.
+    if start < line.index(" | "):
+        raise ValueError("Alternatives belong after the description")
+    end = stats_start if stats_start >= 0 else line.rfind(" |")
+    content = line[start + len(label):end].strip()
+    links = re.findall(r"\[([^\]\n]+)\]\((https://[^\s()<>]+)\)", content)
+    if not 1 <= len(links) <= 3 or content != ", ".join(
+        f"[{name}]({url})" for name, url in links
+    ):
+        raise ValueError("Expected one to three official evidence links")
+    return links
+
+
 def repositories(text):
     repos = set()
     for line in text.splitlines():
+        if line.startswith("| "):
+            alternatives(line)
         match = ROW.match(line)
         if match:
             if len(STATS.findall(line)) != 1:
