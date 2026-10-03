@@ -26,7 +26,7 @@ class UpdateStatsTests(unittest.TestCase):
         external = "| [OpenOther](https://example.com) | Keep this description. |\n"
         original = self.header + self.row + external + self.row
         updated = stats.update_text(original, self.data)
-        expected = "<br>2022-11-11 - 2026-10-02, MIT, 111k"
+        expected = "<br><sub>2022-11-11 -- 2026-10-02 / MIT / 111k</sub>"
         self.assertEqual(updated.count(expected), 2)
         self.assertIn(external, updated)
         self.assertEqual(updated.count("CRM tool for customer relations."), 2)
@@ -39,9 +39,16 @@ class UpdateStatsTests(unittest.TestCase):
 
     def test_project_metadata_updates_without_list_star_block(self):
         updated = stats.update_text(self.row, self.data)
-        self.assertIn(", MIT, 111k", updated)
+        self.assertIn(" / MIT / 111k</sub>", updated)
         self.assertNotIn("<!-- STARS:", updated)
         self.assertEqual(stats.repositories(self.row), ["example/openexample"])
+
+    def test_metadata_uses_subscript_and_slash_separators(self):
+        record = dict(self.record, created_at="2022-02-14T00:00:00Z",
+                      pushed_at="2026-10-03T00:00:00Z",
+                      license={"spdx_id": "Apache-2.0"}, stargazers_count=5400)
+        self.assertEqual(stats.metadata(record),
+                         "<br><sub>2022-02-14 -- 2026-10-03 / Apache-2.0 / 5.4k</sub>")
 
     def test_star_formatting(self):
         for count, expected in [(0, "0"), (999, "999"), (1000, "1k"), (111111, "111.1k"),
@@ -55,13 +62,13 @@ class UpdateStatsTests(unittest.TestCase):
             result = stats.metadata(record)
             self.assertNotIn("Not identified", result)
             self.assertNotIn("NOASSERTION", result)
-            self.assertEqual(result, "<br>2022-11-11 - Unknown, 111k")
+            self.assertEqual(result, "<br><sub>2022-11-11 -- Unknown / 111k</sub>")
 
     def test_api_text_cannot_break_table(self):
         record = dict(self.record, license={"spdx_id": "MIT | <script>\n"})
         result = stats.metadata(record)
         self.assertNotIn("|", result)
-        self.assertNotIn("<", result.removeprefix("<br>"))
+        self.assertNotIn("<", result.removeprefix("<br><sub>").removesuffix("</sub>"))
         self.assertNotIn("\n", result)
 
     def test_missing_or_duplicate_markers_fail(self):
@@ -109,7 +116,7 @@ class UpdateStatsTests(unittest.TestCase):
     def test_unknown_license_is_omitted(self):
         for value in [None, {"spdx_id": "NOASSERTION"}, {"spdx_id": "OTHER"}, {"spdx_id": ""}]:
             self.assertEqual(stats.metadata(dict(self.record, license=value)),
-                             "<br>2022-11-11 - 2026-10-02, 111k")
+                             "<br><sub>2022-11-11 -- 2026-10-02 / 111k</sub>")
 
     def test_concurrent_readme_edit_is_not_overwritten(self):
         with tempfile.TemporaryDirectory() as directory:

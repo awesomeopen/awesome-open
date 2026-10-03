@@ -34,11 +34,11 @@ def metadata(data):
     created = data["created_at"][:10]
     updated = (data.get("pushed_at") or "Unknown")[:10]
     stars = star_count(data["stargazers_count"])
-    parts = [f"{created} - {updated}"]
+    parts = [f"{created} -- {updated}"]
     if license_id:
         parts.append(license_id)
     parts.append(stars)
-    return "<br>" + ", ".join(parts)
+    return "<br><sub>" + " / ".join(parts) + "</sub>"
 
 
 def repositories(text):
