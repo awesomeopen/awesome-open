@@ -98,6 +98,8 @@ class HistoryTests(unittest.TestCase):
         source = row + row + '| [Other](https://example.org) | Description. |\n'
         result = hn.decorate_readme(source, self.evidence)
         self.assertEqual(result.count('![HN discussions / 2y]'), 2)
+        image = f'[![HN discussions / 2y](assets/hn/{self.project["slug"]}.svg "HN discussions / 2y")]({self.project["search_url"]})'
+        self.assertEqual(result.count(image), 2)
         self.assertEqual(result.count('<br>'), 2)
         self.assertEqual(hn.decorate_readme(result, self.evidence), result)
         bold = row.replace('[OpenThing](https://github.com/org/openthing)', '**[OpenThing](https://github.com/org/openthing)**')

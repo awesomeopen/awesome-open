@@ -152,7 +152,7 @@ def decorate_readme(text, evidence=None):
         project = by_url.get(match.group(2).lower().rstrip('/'))
         if not project:
             return match.group(0)
-        image = f"[![HN discussions / 2y](assets/hn/{project['slug']}.svg)]({project['search_url']})"
+        image = f"[![HN discussions / 2y](assets/hn/{project['slug']}.svg \"HN discussions / 2y\")]({project['search_url']})"
         return match.group(0) + '<br><!-- HN:START -->' + image + '<!-- HN:END -->'
     return pattern.sub(decorate, text)
 
