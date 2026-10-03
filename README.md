@@ -8,13 +8,13 @@
 
 | | | |
 | --- | --- | --- |
-| [AI & Language Models](#ai--language-models) | [Business & Commerce](#business--commerce) | [Maps & Geospatial](#maps--geospatial) |
-| [Developer Tools](#developer-tools) | [Knowledge Management](#knowledge-management) | [Education & Research](#education--research) |
-| [Infrastructure & DevOps](#infrastructure--devops) | [Communication & Social](#communication--social) | [Health & Medicine](#health--medicine) |
-| [Databases & Search](#databases--search) | [Creative & Media](#creative--media) | [Operating Systems & Firmware](#operating-systems--firmware) |
-| [Security & Privacy](#security--privacy) | [Games & Emulation](#games--emulation) | [Home Automation](#home-automation) |
-| [Networking](#networking) | [Robotics & Hardware](#robotics--hardware) | [Finance & Trading](#finance--trading) |
-| [Productivity & Office](#productivity--office) | [Science & Engineering](#science--engineering) | [Storage & File Management](#storage--file-management) |
+| <sub><b>[AI & Language Models](#ai--language-models)</b></sub> | <sub><b>[Business & Commerce](#business--commerce)</b></sub> | <sub><b>[Maps & Geospatial](#maps--geospatial)</b></sub> |
+| <sub><b>[Developer Tools](#developer-tools)</b></sub> | <sub><b>[Knowledge Management](#knowledge-management)</b></sub> | <sub><b>[Education & Research](#education--research)</b></sub> |
+| <sub><b>[Infrastructure & DevOps](#infrastructure--devops)</b></sub> | <sub><b>[Communication & Social](#communication--social)</b></sub> | <sub><b>[Health & Medicine](#health--medicine)</b></sub> |
+| <sub><b>[Databases & Search](#databases--search)</b></sub> | <sub><b>[Creative & Media](#creative--media)</b></sub> | <sub><b>[Operating Systems & Firmware](#operating-systems--firmware)</b></sub> |
+| <sub><b>[Security & Privacy](#security--privacy)</b></sub> | <sub><b>[Games & Emulation](#games--emulation)</b></sub> | <sub><b>[Home Automation](#home-automation)</b></sub> |
+| <sub><b>[Networking](#networking)</b></sub> | <sub><b>[Robotics & Hardware](#robotics--hardware)</b></sub> | <sub><b>[Finance & Trading](#finance--trading)</b></sub> |
+| <sub><b>[Productivity & Office](#productivity--office)</b></sub> | <sub><b>[Science & Engineering](#science--engineering)</b></sub> | <sub><b>[Storage & File Management](#storage--file-management)</b></sub> |
 
 ## AI & Language Models
 
