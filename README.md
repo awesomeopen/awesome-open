@@ -1,19 +1,5 @@
 # Awesome Open [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-[License: CC0-1.0](LICENSE.md)
-
-<!-- STARS:START -->
-Stars: 0
-<!-- STARS:END -->
-
-**Software named OpenSomething, organized by what it does.**
-
-Names are the only requirement: Open, open, OPEN, spaces, and hyphens all count. Open-source and proprietary software are equally welcome. Being described as “open” does not qualify a project; its actual name must begin with Open. Documented expanded names count, too.
-
-Browse by function below. Projects can appear in more than one category. Each project links to its official site or repository; descriptions summarize those sources. GitHub entries include plain-text repository metadata, refreshed daily. Created and updated dates mean repository creation and last push (UTC). Projects hosted elsewhere omit these statistics.
-
-[Contribute a project](CONTRIBUTING.md).
-
 ## Table of Contents
 
 | | | |
@@ -424,18 +410,21 @@ Browse by function below. Projects can appear in more than one category. Each pr
 | [OpenStack Swift](https://github.com/openstack/swift) | Distributed object storage for OpenStack clouds. <!-- STATS:START -->Created: 2010-07-22. Updated: 2026-09-30. License: Apache-2.0. Stars: 2.8k.<!-- STATS:END --> |
 | [OpenZFS](https://github.com/openzfs/zfs) | ZFS filesystem and storage management for Linux and FreeBSD. <!-- STATS:START -->Created: 2009-12-14. Updated: 2026-10-02. License: Not identified. Stars: 12.5k.<!-- STATS:END --> |
 
-## Contributing
+---
 
-Found another OpenSomething? [Add it to the list](CONTRIBUTING.md).
+## Entries
 
-## License
+Entry format: Open*, open*, OPEN*, spaces, hyphens etc. Open-source and proprietary software. Projects may appear in more than one category. Repository metadata is refreshed daily. Created: GH repo creation date. Updated: last push (UTC). Non-GH projects omit these statistics.
 
-This list is dedicated to the public domain under [CC0-1.0](LICENSE.md). Each listed project retains its own license.
+## Contributing, license
 
-## Support
-
-<a href="https://buymeacoffee.com/jumpermcp.dev"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy me a coffee" width="217" height="60"></a>
+Found an OpenSomething? [Add it to the list](CONTRIBUTING.md). License: public domain, [CC0-1.0](LICENSE.md).
 
 ### Other Awesome
 
-[Awesome Falsehoods](https://github.com/kdeldycke/awesome-falsehood) — Falsehoods programmers believe, organized by topic.
+- [Awesome Falsehoods](https://github.com/kdeldycke/awesome-falsehood) -- Falsehoods programmers believe, organized by topic.
+- ...
+
+## Support this Awesome List
+
+<p align="center"><a href="https://buymeacoffee.com/jumpermcp.dev"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy me a coffee" width="217" height="60"></a></p>
