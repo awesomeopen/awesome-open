@@ -97,6 +97,7 @@
 | [OpenSearch](https://github.com/opensearch-project/OpenSearch) | Distributed search and analytics engine with a REST API. <!-- STATS:START --><br><sub>2021-01-29 -- 2026-10-04 / Apache-2.0 / 13.8k</sub><!-- STATS:END --> |
 | [OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) | Kubernetes application platform for building and operating applications. |
 | [OpenStack](https://www.openstack.org/software) | Cloud infrastructure software for managing compute, storage, and networking. |
+| [openstatus](https://github.com/openstatusHQ/openstatus) | Uptime monitoring, status pages, and incident management with infrastructure-as-code configuration. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-collector)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/opentelemetry.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTelemetry&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Collect, process, and export telemetry data. <!-- STATS:START --><br><sub>2019-05-09 -- 2026-10-02 / Apache-2.0 / 7.6k</sub><!-- STATS:END --> |
 | **[OpenTofu](https://github.com/opentofu/opentofu)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/opentofu.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTofu&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Declarative infrastructure-as-code tooling.<br>Alternative to: [Terraform](https://opentofu.org/docs/intro/migration/migration-guide/) <!-- STATS:START --><br><sub>2023-08-16 -- 2026-10-02 / MPL-2.0 / 30.4k</sub><!-- STATS:END --> |
 | [Open vSwitch](https://github.com/openvswitch/ovs) | Multilayer virtual network switch. <!-- STATS:START --><br><sub>2014-04-02 -- 2026-09-29 / Apache-2.0 / 4k</sub><!-- STATS:END --> |
@@ -151,6 +152,7 @@
 | **[OpenNHP](https://github.com/OpenNHP/opennhp)** | Cryptographic toolkit for zero-trust access to infrastructure, applications, and data. <!-- STATS:START --><br><sub>2014-08-04 -- 2026-10-04 / Apache-2.0 / 13.9k</sub><!-- STATS:END --> |
 | [OpenSIPS](https://github.com/OpenSIPS/opensips) | SIP server for voice and real-time communications. <!-- STATS:START --><br><sub>2013-05-09 -- 2026-10-02 / 1.5k</sub><!-- STATS:END --> |
 | [OpenSMTPD](https://github.com/OpenSMTPD/OpenSMTPD) | SMTP server for exchanging email. <!-- STATS:START --><br><sub>2012-06-19 -- 2026-09-14 / 586</sub><!-- STATS:END --> |
+| [OpenSpeedTest](https://github.com/openspeedtest/Speed-Test) | Browser-based network speed testing using static HTML, CSS, and JavaScript. <!-- STATS:START --><!-- STATS:END --> |
 | [Openswan](https://github.com/xelerance/Openswan) | IPsec implementation for Linux. <!-- STATS:START --><br><sub>2013-01-11 -- <b>2022-09-06</b> / 867</sub><!-- STATS:END --> |
 | **[OpenVPN](https://github.com/OpenVPN/openvpn)** | VPN daemon for encrypted network tunnels. <!-- STATS:START --><br><sub>2012-04-26 -- 2026-10-03 / 14.6k</sub><!-- STATS:END --> |
 | [OpenWISP](https://github.com/openwisp/openwisp-controller) | Network and Wi-Fi provisioning, configuration, and management. <!-- STATS:START --><br><sub>2016-12-27 -- 2026-10-03 / 778</sub><!-- STATS:END --> |
@@ -169,6 +171,7 @@
 | **[OpenProject](https://github.com/opf/openproject)** | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) <!-- STATS:START --><br><sub>2012-11-28 -- 2026-10-04 / GPL-3.0 / 16.3k</sub><!-- STATS:END --> |
 | **[OpenSign](https://github.com/OpenSignLabs/OpenSign)** | Document signing and electronic signature workflows. <!-- STATS:START --><br><sub>2023-10-02 -- 2026-08-21 / 7.1k</sub><!-- STATS:END --> |
 | [OpenSlides](https://github.com/OpenSlides/OpenSlides) | Digital assembly management for motions, elections, and agendas. <!-- STATS:START --><br><sub>2012-07-31 -- 2026-09-23 / MIT / 647</sub><!-- STATS:END --> |
+| [OpenStats](https://github.com/gentpan/OpenStats) | macOS menu-bar system monitor with fan control, keep-awake, and cleanup tools. <!-- STATS:START --><!-- STATS:END --> |
 | [Open Sunsama](https://github.com/ShadowWalker2014/open-sunsama) | Daily planner with Kanban, time blocking, and focus mode. <!-- STATS:START --><br><sub>2026-01-29 -- 2026-09-30 / 75</sub><!-- STATS:END --> |
 | [OpenTodoList](https://opentodolist.rpdev.net) | Tasks, notes, images, and recipes with local storage and optional synchronization. |
 | [OpenTypeless](https://github.com/tover0314-w/opentypeless) | AI voice typing for macOS, Windows, and Linux. <!-- STATS:START --><br><sub>2026-02-26 -- 2026-09-29 / MIT / 582</sub><!-- STATS:END --> |
@@ -184,7 +187,9 @@
 | [OpenConcerto](https://www.openconcerto.org) | Business management software for sales, purchasing, inventory, and accounting. |
 | [OpenCRM](https://opencrm.co.uk) | Cloud customer relationship management for sales and business operations. |
 | [OpenEduCat](https://github.com/openeducat/openeducat_erp) | ERP for educational institutions. <!-- STATS:START --><br><sub>2013-05-02 -- 2026-09-30 / 884</sub><!-- STATS:END --> |
+| [openheard](https://github.com/Heilonng23/openheard) | Customer feedback boards with voting, roadmaps, and changelog publishing. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenMage](https://github.com/OpenMage/magento-lts) | E-commerce platform continuing Magento Community Edition. <!-- STATS:START --><br><sub>2014-10-17 -- 2026-10-01 / OSL-3.0 / 932</sub><!-- STATS:END --> |
+| [Openpanel](https://github.com/Openpanel-dev/openpanel) | Web and product analytics with funnels, cohorts, session replay, and dashboards. <!-- STATS:START --><!-- STATS:END --> |
 | **[OpenProject](https://github.com/opf/openproject)** | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) <!-- STATS:START --><br><sub>2012-11-28 -- 2026-10-04 / GPL-3.0 / 16.3k</sub><!-- STATS:END --> |
 | **[OpenSign](https://github.com/OpenSignLabs/OpenSign)** | Document signing and electronic signature workflows. <!-- STATS:START --><br><sub>2023-10-02 -- 2026-08-21 / 7.1k</sub><!-- STATS:END --> |
 
@@ -231,11 +236,14 @@
 | [OpenCue](https://github.com/AcademySoftwareFoundation/OpenCue) | Render management for visual effects and animation productions. <!-- STATS:START --><br><sub>2018-05-16 -- 2026-09-29 / Apache-2.0 / 991</sub><!-- STATS:END --> |
 | **[OpenCut](https://github.com/OpenCut-app/OpenCut)** | Video editor for web, desktop, and mobile. <!-- STATS:START --><br><sub>2025-06-22 -- 2026-09-24 / MIT / 91.7k</sub><!-- STATS:END --> |
 | **[OpenDesign](https://github.com/nexu-io/open-design)** | Collaborative design workspace powered by coding agents. <!-- STATS:START --><br><sub>2026-04-28 -- 2026-10-04 / Apache-2.0 / 99.3k</sub><!-- STATS:END --> |
+| [OpenDLSS-NR](https://github.com/maanHimself/OpenDLSS-NR) | Vulkan and WebGPU implementations of a DLSS neural-rendering network using user-supplied weights. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenEXR](https://github.com/AcademySoftwareFoundation/openexr) | Libraries and tools for high dynamic range EXR images. <!-- STATS:START --><br><sub>2012-02-24 -- 2026-10-04 / BSD-3-Clause / 1.9k</sub><!-- STATS:END --> |
 | [OpenImageIO](https://github.com/AcademySoftwareFoundation/OpenImageIO) | Image reading, writing, and processing library for visual effects. <!-- STATS:START --><br><sub>2011-02-02 -- 2026-10-03 / Apache-2.0 / 2.4k</sub><!-- STATS:END --> |
 | [OpenLP](https://openlp.org) | Worship presentation software for lyrics, scripture, images, and video. |
 | [OpenMontage](https://github.com/calesthio/OpenMontage) | Video production pipelines and tools for AI coding assistants. <!-- STATS:START --><br><sub>2026-03-29 -- 2026-10-03 / AGPL-3.0 / 62.7k</sub><!-- STATS:END --> |
 | [OpenMPT](https://openmpt.org) | Tracker for composing and editing module music. |
+| [OpenPencil](https://github.com/open-pencil/open-pencil) | Design editor with Figma-file support, AI tools, and real-time collaboration. <!-- STATS:START --><!-- STATS:END --> |
+| [OpenPencil](https://github.com/ZSeven-W/openpencil) | Vector design tool with AI-agent control, JSON design files, and code export. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenRV](https://github.com/AcademySoftwareFoundation/OpenRV) | Media review and playback software. <!-- STATS:START --><br><sub>2022-10-31 -- 2026-10-02 / 773</sub><!-- STATS:END --> |
 | [OpenScreen](https://github.com/getopenscreen/openscreen) | Screen recording and editing for product demos and walkthroughs. <!-- STATS:START --><br><sub>2026-03-14 -- 2026-10-03 / MIT / 3.5k</sub><!-- STATS:END --> |
 | [OpenShot](https://github.com/OpenShot/openshot-qt) | Video editor with animation, compositing, and audio mixing. <!-- STATS:START --><br><sub>2015-06-01 -- 2026-10-03 / 6.6k</sub><!-- STATS:END --> |
@@ -292,6 +300,7 @@
 | [OpenRAVE](https://github.com/rdiankov/openrave) | Develop, test, and deploy robotics motion-planning algorithms. <!-- STATS:START --><br><sub>2012-09-14 -- 2026-10-02 / 820</sub><!-- STATS:END --> |
 | [Open-RMF](https://github.com/open-rmf/rmf) | Coordinate multiple robot fleets and building infrastructure. <!-- STATS:START --><br><sub>2021-02-25 -- 2026-08-25 / Apache-2.0 / 443</sub><!-- STATS:END --> |
 | [OpenVINS](https://github.com/rpng/open_vins) | Platform for visual-inertial navigation research. <!-- STATS:START --><br><sub>2019-01-17 -- 2025-11-30 / GPL-3.0 / 3.1k</sub><!-- STATS:END --> |
+| [OpenWAM](https://github.com/OpenWAM-Official/OpenWAM) | Research stack for training, deploying, and evaluating world-action models for robot control. <!-- STATS:START --><!-- STATS:END --> |
 
 ## Science & Engineering
 
@@ -309,6 +318,7 @@
 | [OpenIPSL](https://github.com/OpenIPSL/OpenIPSL) | Modelica component library for power-system dynamic analysis. <!-- STATS:START --><br><sub>2016-04-16 -- 2026-10-03 / BSD-3-Clause / 110</sub><!-- STATS:END --> |
 | [OpenMC](https://github.com/openmc-dev/openmc) | Monte Carlo particle transport simulation. <!-- STATS:START --><br><sub>2011-07-21 -- 2026-10-03 / 1.1k</sub><!-- STATS:END --> |
 | [OpenMDAO](https://github.com/OpenMDAO/OpenMDAO) | Python platform for systems analysis and multidisciplinary optimization. <!-- STATS:START --><br><sub>2016-08-25 -- 2026-10-02 / 788</sub><!-- STATS:END --> |
+| [Open-Meteo](https://github.com/open-meteo/open-meteo) | Weather API providing forecasts and historical weather data. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenMM](https://github.com/openmm/openmm) | Molecular simulation toolkit with GPU acceleration. <!-- STATS:START --><br><sub>2013-05-20 -- 2026-10-04 / 2k</sub><!-- STATS:END --> |
 | [OpenModelica](https://github.com/OpenModelica/OpenModelica) | Modelica-based modeling and simulation environment. <!-- STATS:START --><br><sub>2015-05-03 -- 2026-10-03 / 1.4k</sub><!-- STATS:END --> |
 | [OpenMolcas](https://github.com/Molcas/OpenMolcas) | Quantum chemistry software for electronic-structure calculations. <!-- STATS:START --><br><sub>2018-04-06 -- 2026-10-01 / LGPL-2.1 / 85</sub><!-- STATS:END --> |
@@ -412,6 +422,7 @@
 
 | Project | Description |
 | --- | --- |
+| [OpenCloud](https://github.com/opencloud-eu/opencloud) | File management, sharing, and collaboration platform. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenDAL](https://github.com/apache/opendal) | Data access library with a unified interface to storage services. <!-- STATS:START --><br><sub>2022-02-14 -- 2026-10-03 / Apache-2.0 / 5.4k</sub><!-- STATS:END --> |
 | **[OpenEBS](https://github.com/openebs/openebs)** | Persistent storage for stateful applications on Kubernetes. <!-- STATS:START --><br><sub>2016-08-01 -- 2026-10-04 / Apache-2.0 / 9.8k</sub><!-- STATS:END --> |
 | **[OpenList](https://github.com/OpenListTeam/OpenList)** | File browser with multiple storage backends, previews, and WebDAV access. <!-- STATS:START --><br><sub>2025-06-11 -- 2026-10-03 / AGPL-3.0 / 24.9k</sub><!-- STATS:END --> |
