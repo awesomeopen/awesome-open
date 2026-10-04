@@ -31,6 +31,7 @@
 | [OpenDots](https://github.com/CopilotKit/OpenDots) | Self-hostable template for persistent AI agents with individual computers, document workspaces, text, calls, and Slack. <!-- STATS:START --><br><sub>2026-09-29 -- 2026-10-02 / MIT / 2.6k</sub><!-- STATS:END --> |
 | [OpenFace](https://github.com/cmusatyalab/openface) | Face recognition with deep neural networks. <!-- STATS:START --><br><sub>2015-09-16 -- 2026-09-22 / Apache-2.0 / 15.4k</sub><!-- STATS:END --> |
 | [OpenHands](https://github.com/OpenHands/OpenHands)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openhands.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenHands&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | AI agents for software development. <!-- STATS:START --><br><sub>2024-03-13 -- 2026-10-03 / MIT / 89.9k</sub><!-- STATS:END --> |
+| [OpenHuman](https://github.com/tinyhumansai/openhuman) | AI agent harness with local-first memory, agent orchestration, and workflows.<br>Alternative to: [Vellum](https://www.vellum.ai/blog/best-openhuman-alternatives), [Hermes Agent](https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses), [OpenClaw](https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses) <!-- STATS:START --><!-- STATS:END --> |
 | [Open Interpreter](https://github.com/openinterpreter/openinterpreter) | Coding agent for running open language models. <!-- STATS:START --><br><sub>2023-07-14 -- 2026-10-02 / Apache-2.0 / 68.5k</sub><!-- STATS:END --> |
 | [OpenLLM](https://github.com/bentoml/OpenLLM) | Serve language models through OpenAI-compatible API endpoints. <!-- STATS:START --><br><sub>2023-04-19 -- 2026-09-28 / Apache-2.0 / 12.6k</sub><!-- STATS:END --> |
 | [OpenManus](https://github.com/FoundationAgents/OpenManus) | General-purpose AI agent with browser automation and tool support. <!-- STATS:START --><br><sub>2025-03-06 -- 2026-09-30 / MIT / 58.5k</sub><!-- STATS:END --> |
@@ -436,6 +437,7 @@ Found an OpenSomething? [Add it to the list](CONTRIBUTING.md). License: public d
 ## Other Awesome
 
 - [Awesome Falsehoods](https://github.com/kdeldycke/awesome-falsehood) -- Falsehoods programmers believe, organized by topic.
+- [Open Awesome](https://open-awesome.com/) -- Searchable hub of libraries, tools, and frameworks from GitHub Awesome Lists.
 - ...
 
 ## Support this awesome list by clicking here:
