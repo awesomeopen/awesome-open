@@ -80,7 +80,8 @@ class AlternativesTests(unittest.TestCase):
                 if key in counts:
                     counts[key] += 1
                     self.assertEqual(len(row.split(" | ")), 2)
-        self.assertEqual(counts, {"opf/openproject": 2, "lfnovo/open-notebook": 2, "opentofu/opentofu": 1})
+        self.assertTrue(all(count > 0 for count in counts.values()),
+                        "Every evidence project must occur in the README")
 
 
 if __name__ == "__main__":

@@ -34,6 +34,38 @@
           "scope": "Declarative infrastructure as code. The official migration guide supports moving Terraform configurations to OpenTofu, with backups and plan verification; compatibility must be checked for the specific configuration."
         }
       ]
+    },
+    {
+      "readme_url": "https://github.com/tinyhumansai/openhuman",
+      "alternatives": [
+        {
+          "name": "Vellum",
+          "source_url": "https://www.vellum.ai/blog/best-openhuman-alternatives",
+          "target_url": "https://www.vellum.ai/personal-ai",
+          "checked_utc_date": "2026-10-04",
+          "claimant": "Vellum",
+          "source_quote": "Vellum delivers on the same core promise",
+          "scope": "Personal AI assistants with persistent memory and task execution. User-requested mapping supported by Vellum’s official comparison, which positions Vellum as an alternative to OpenHuman; this is not an OpenHuman-authored claim or a claim of feature parity."
+        },
+        {
+          "name": "Hermes Agent",
+          "source_url": "https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses",
+          "target_url": "https://github.com/NousResearch/hermes-agent",
+          "checked_utc_date": "2026-10-04",
+          "claimant": "OpenHuman",
+          "source_quote": "OpenHuman vs Other Agent Harnesses",
+          "scope": "Personal AI agent harnesses. OpenHuman’s official README directly compares Hermes Agent, OpenClaw, and OpenHuman across memory, orchestration, workflows, and integrations. Hermes Agent is the NousResearch agent application, not a Hermes language model."
+        },
+        {
+          "name": "OpenClaw",
+          "source_url": "https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses",
+          "target_url": "https://github.com/openclaw/openclaw",
+          "checked_utc_date": "2026-10-04",
+          "claimant": "OpenHuman",
+          "source_quote": "OpenHuman vs Other Agent Harnesses",
+          "scope": "Personal AI agent harnesses. OpenHuman’s official README directly compares OpenClaw and OpenHuman across memory, orchestration, workflows, and integrations; the comparison does not establish drop-in compatibility."
+        }
+      ]
     }
   ]
 }
