@@ -247,6 +247,7 @@
 | [OpenToonz](https://github.com/opentoonz/opentoonz) | 2D animation production software. <!-- STATS:START --><br><sub>2016-03-18 -- 2026-10-03 / 7.8k</sub><!-- STATS:END --> |
 | [OpenUtau](https://github.com/openutau/OpenUtau) | Singing synthesis platform and UTAU successor. <!-- STATS:START --><br><sub>2014-11-27 -- 2026-10-04 / MIT / 4.4k</sub><!-- STATS:END --> |
 | [OpenVDB](https://github.com/AcademySoftwareFoundation/openvdb) | Sparse volume data structures and tools. <!-- STATS:START --><br><sub>2013-04-12 -- 2026-09-23 / Apache-2.0 / 3.4k</sub><!-- STATS:END --> |
+| [Open Video Editor](https://github.com/devhyper/open-video-editor) | Android video editor for trimming, scaling, rotating, and applying filters. <!-- STATS:START --><!-- STATS:END --> |
 
 ## Games & Emulation
 
