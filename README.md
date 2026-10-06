@@ -69,11 +69,13 @@
 | [OpenJDK](https://github.com/openjdk/jdk) | Java Development Kit implementation. <!-- STATS:START --><br><sub>2018-09-17 -- 2026-10-06 / GPL-2.0 / 23.4k</sub><!-- STATS:END --> |
 | [OpenLens](https://github.com/MuhammedKalkan/OpenLens) | Desktop Kubernetes IDE built from the Lens source code. <!-- STATS:START --><br><sub>2022-05-28 -- <b>2024-05-03</b> / 4.4k</sub><!-- STATS:END --> |
 | [Open Liberty](https://github.com/OpenLiberty/open-liberty) | Composable application-server runtime. <!-- STATS:START --><br><sub>2017-09-15 -- 2026-10-06 / EPL-2.0 / 1.3k</sub><!-- STATS:END --> |
+| [Open Lovable](https://github.com/firecrawl/open-lovable) | AI chat application for building and editing React apps. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenRewrite](https://github.com/openrewrite/rewrite) | Automated refactoring of source code. <!-- STATS:START --><br><sub>2020-05-12 -- 2026-10-06 / Apache-2.0 / 3.8k</sub><!-- STATS:END --> |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
 | [OpenRPC Generator](https://github.com/open-rpc/generator) | Generate components and language bindings from OpenRPC documents. <!-- STATS:START --><br><sub>2019-01-22 -- 2025-10-22 / Apache-2.0 / 98</sub><!-- STATS:END --> |
 | [OpenSaaS](https://github.com/wasp-lang/open-saas) | Full-stack SaaS starter with authentication, payments, email, and file uploads. <!-- STATS:START --><br><sub>2023-12-01 -- 2026-10-01 / MIT / 16.1k</sub><!-- STATS:END --> |
 | **[OpenSpec](https://github.com/Fission-AI/OpenSpec)** | Specification-driven development tools for AI coding assistants. <!-- STATS:START --><br><sub>2025-08-05 -- 2026-10-06 / MIT / 71.1k</sub><!-- STATS:END --> |
+| [Open Terminal](https://github.com/open-webui/open-terminal) | Self-hosted terminal and file-management API for AI agents and automation. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenTest](https://github.com/mcdcorp/opentest) | Test automation for web applications, mobile apps, and APIs. <!-- STATS:START --><br><sub>2017-12-19 -- 2026-08-05 / MIT / 501</sub><!-- STATS:END --> |
 | [OpenTUI](https://github.com/anomalyco/opentui) | Library for building terminal user interfaces. <!-- STATS:START --><br><sub>2025-07-21 -- 2026-10-05 / MIT / 13.5k</sub><!-- STATS:END --> |
 | [OpenVSCode Server](https://github.com/gitpod-io/openvscode-server) | Run VS Code remotely and access it through a web browser. <!-- STATS:START --><br><sub>2020-09-04 -- 2026-09-24 / MIT / 6.2k</sub><!-- STATS:END --> |
@@ -105,6 +107,7 @@
 | [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-collector)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/opentelemetry.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTelemetry&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Collect, process, and export telemetry data. <!-- STATS:START --><br><sub>2019-05-09 -- 2026-10-06 / Apache-2.0 / 7.6k</sub><!-- STATS:END --> |
 | **[OpenTofu](https://github.com/opentofu/opentofu)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/opentofu.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTofu&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Declarative infrastructure-as-code tooling.<br>Alternative to: [Terraform](https://opentofu.org/docs/intro/migration/migration-guide/) <!-- STATS:START --><br><sub>2023-08-16 -- 2026-10-05 / MPL-2.0 / 30.4k</sub><!-- STATS:END --> |
 | [Open vSwitch](https://github.com/openvswitch/ovs) | Multilayer virtual network switch. <!-- STATS:START --><br><sub>2014-04-02 -- 2026-09-29 / Apache-2.0 / 4k</sub><!-- STATS:END --> |
+| [OpenWorkers](https://github.com/openworkers/openworkers-runner) | Self-hosted runtime for JavaScript workers with HTTP endpoints and scheduled tasks. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenYurt](https://github.com/openyurtio/openyurt) | Extend Kubernetes to edge computing environments. <!-- STATS:START --><br><sub>2020-05-21 -- 2026-10-05 / Apache-2.0 / 2k</sub><!-- STATS:END --> |
 | [OpenZFS](https://github.com/openzfs/zfs)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openzfs.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenZFS&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | ZFS filesystem and storage management for Linux and FreeBSD. <!-- STATS:START --><br><sub>2009-12-14 -- 2026-10-05 / 12.5k</sub><!-- STATS:END --> |
 
@@ -174,7 +177,9 @@
 | [OpenFamily](https://github.com/NexaFlowFrance/OpenFamily) | Self-hosted family organizer. <!-- STATS:START --><br><sub>2025-12-28 -- 2026-10-03 / AGPL-3.0 / 181</sub><!-- STATS:END --> |
 | [OpenOffice](https://www.openoffice.org) | Office suite for documents, spreadsheets, presentations, and databases. |
 | **[OpenProject](https://github.com/opf/openproject)** | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) <!-- STATS:START --><br><sub>2012-11-28 -- 2026-10-06 / GPL-3.0 / 16.3k</sub><!-- STATS:END --> |
+| [OpenResume](https://github.com/xitanggg/open-resume) | Browser-based resume builder and PDF resume parser. <!-- STATS:START --><!-- STATS:END --> |
 | **[OpenSign](https://github.com/OpenSignLabs/OpenSign)** | Document signing and electronic signature workflows. <!-- STATS:START --><br><sub>2023-10-02 -- 2026-08-21 / 7.1k</sub><!-- STATS:END --> |
+| [open-slide](https://github.com/open-slide/open-slide) | React presentation framework for agent-authored slides with presenter mode and HTML, PDF, and PowerPoint export. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenSlides](https://github.com/OpenSlides/OpenSlides) | Digital assembly management for motions, elections, and agendas. <!-- STATS:START --><br><sub>2012-07-31 -- 2026-09-23 / MIT / 647</sub><!-- STATS:END --> |
 | [OpenStats](https://github.com/gentpan/OpenStats) | macOS menu-bar system monitor with fan control, keep-awake, and cleanup tools. <!-- STATS:START --><br><sub>2026-09-12 -- 2026-10-01 / MIT / 62</sub><!-- STATS:END --> |
 | [Open Sunsama](https://github.com/ShadowWalker2014/open-sunsama) | Daily planner with Kanban, time blocking, and focus mode. <!-- STATS:START --><br><sub>2026-01-29 -- 2026-09-30 / 77</sub><!-- STATS:END --> |
@@ -204,6 +209,7 @@
 
 | Project | Description |
 | --- | --- |
+| [openbooks](https://github.com/evan-buss/openbooks) | Web and command-line interfaces for searching and downloading ebooks over IRC. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenCms](https://github.com/alkacon/opencms-core) | Java content management system. <!-- STATS:START --><br><sub>2011-06-28 -- 2026-10-02 / LGPL-2.1 / 573</sub><!-- STATS:END --> |
 | [OpenCTI](https://github.com/OpenCTI-Platform/opencti) | Cyber threat intelligence platform. <!-- STATS:START --><br><sub>2018-12-17 -- 2026-10-06 / 10.1k</sub><!-- STATS:END --> |
 | [OpenDocMan](https://github.com/opendocman/opendocman) | Web document management system written in PHP. <!-- STATS:START --><br><sub>2012-04-27 -- 2026-09-18 / GPL-2.0 / 283</sub><!-- STATS:END --> |
@@ -231,13 +237,16 @@
 | [Open Social](https://github.com/goalgorilla/open_social) | Drupal distribution for online communities. <!-- STATS:START --><br><sub>2016-07-19 -- 2026-09-12 / GPL-2.0 / 190</sub><!-- STATS:END --> |
 | [OpenTalk](https://opentalk.eu/en) | Video conferencing platform for organizations. |
 | [OpenVK](https://github.com/OpenVK/openvk) | Social network inspired by VK. <!-- STATS:START --><br><sub>2020-06-07 -- 2026-10-05 / LGPL-2.1 / 552</sub><!-- STATS:END --> |
+| [OpenWA](https://github.com/rmyndharis/OpenWA) | Self-hosted WhatsApp API gateway with multiple sessions, webhooks, and a management dashboard. <!-- STATS:START --><!-- STATS:END --> |
 
 ## Creative & Media
 
 | Project | Description |
 | --- | --- |
+| [OpenAL Soft](https://github.com/kcat/openal-soft) | Cross-platform implementation of the OpenAL 3D audio API. <!-- STATS:START --><!-- STATS:END --> |
 | **[Open Broadcaster Software (OBS Studio)](https://github.com/obsproject/obs-studio)** | Live streaming and screen recording. <!-- STATS:START --><br><sub>2013-10-01 -- 2026-10-06 / GPL-2.0 / 77k</sub><!-- STATS:END --> |
 | [Open Brush](https://github.com/icosa-foundation/open-brush) | Virtual reality painting application descended from Tilt Brush. <!-- STATS:START --><br><sub>2021-01-26 -- 2026-10-05 / Apache-2.0 / 1.1k</sub><!-- STATS:END --> |
+| [OpenCineAgent](https://github.com/ProgramaGrueso/OpenCineAgent) | Local-model film production pipeline coordinating scripts, video generation, quality checks, audio, and editing. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenColorIO](https://github.com/AcademySoftwareFoundation/OpenColorIO) | Color management framework for visual effects and animation. <!-- STATS:START --><br><sub>2010-07-14 -- 2026-10-01 / BSD-3-Clause / 2.1k</sub><!-- STATS:END --> |
 | [OpenComic](https://github.com/ollm/OpenComic) | Comic and manga reader. <!-- STATS:START --><br><sub>2017-01-09 -- 2026-10-05 / GPL-3.0 / 2k</sub><!-- STATS:END --> |
 | [OpenCreator](https://github.com/krillinai/OpenCreator) | AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content. <!-- STATS:START --><br><sub>2024-12-17 -- 2026-10-05 / Apache-2.0 / 12.6k</sub><!-- STATS:END --> |
@@ -247,7 +256,9 @@
 | [OpenDLSS-NR](https://github.com/maanHimself/OpenDLSS-NR) | Vulkan and WebGPU implementations of a DLSS neural-rendering network using user-supplied weights. <!-- STATS:START --><br><sub>2026-09-20 -- 2026-09-21 / MIT / 820</sub><!-- STATS:END --> |
 | [OpenEXR](https://github.com/AcademySoftwareFoundation/openexr) | Libraries and tools for high dynamic range EXR images. <!-- STATS:START --><br><sub>2012-02-24 -- 2026-10-05 / BSD-3-Clause / 1.9k</sub><!-- STATS:END --> |
 | [openFrameworks](https://github.com/openframeworks/openFrameworks) | Cross-platform C++ toolkit for creative coding. <!-- STATS:START --><br><sub>2009-10-21 -- 2026-10-05 / 10.4k</sub><!-- STATS:END --> |
+| [OpenH264](https://github.com/cisco/openh264) | Codec library for H.264 video encoding and decoding. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenImageIO](https://github.com/AcademySoftwareFoundation/OpenImageIO) | Image reading, writing, and processing library for visual effects. <!-- STATS:START --><br><sub>2011-02-02 -- 2026-10-05 / Apache-2.0 / 2.4k</sub><!-- STATS:END --> |
+| [OpenJPEG](https://github.com/uclouvain/openjpeg) | JPEG 2000 image codec library and command-line tools. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenLP](https://openlp.org) | Worship presentation software for lyrics, scripture, images, and video. |
 | [OpenMontage](https://github.com/calesthio/OpenMontage) | Video production pipelines and tools for AI coding assistants. <!-- STATS:START --><br><sub>2026-03-29 -- 2026-10-03 / AGPL-3.0 / 64.2k</sub><!-- STATS:END --> |
 | [OpenMPT](https://openmpt.org) | Tracker for composing and editing module music. |
@@ -274,6 +285,7 @@
 | [OpenApoc](https://github.com/OpenApoc/OpenApoc) | Reimplementation of the X-COM: Apocalypse engine. <!-- STATS:START --><br><sub>2014-07-06 -- 2026-09-16 / GPL-3.0 / 595</sub><!-- STATS:END --> |
 | [OpenArena](https://github.com/OpenArena/engine) | Arena shooter engine based on ioquake3. <!-- STATS:START --><br><sub>2014-02-06 -- 2026-04-21 / GPL-2.0 / 253</sub><!-- STATS:END --> |
 | [OpenBOR](https://github.com/DCurrent/openbor) | Sprite-based engine for side-scrolling games. <!-- STATS:START --><br><sub>2017-04-01 -- 2026-09-28 / BSD-3-Clause / 1.3k</sub><!-- STATS:END --> |
+| [OpenBVE](https://github.com/leezer3/OpenBVE) | Train-driving simulator with 3D cabs and detailed vehicle physics. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenClonk](https://github.com/openclonk/openclonk) | Multiplayer action game featuring small, nimble humanoids. <!-- STATS:START --><br><sub>2013-06-14 -- 2026-04-28 / 402</sub><!-- STATS:END --> |
 | [OpenDUNE](https://github.com/OpenDUNE/OpenDUNE) | Reimplementation of Dune II. <!-- STATS:START --><br><sub>2012-12-03 -- 2026-09-30 / GPL-2.0 / 1.7k</sub><!-- STATS:END --> |
 | [OpenDungeons](https://github.com/OpenDungeons/OpenDungeons) | Dungeon management game inspired by Dungeon Keeper. <!-- STATS:START --><br><sub>2014-07-29 -- <b>2025-10-03</b> / 503</sub><!-- STATS:END --> |
@@ -283,12 +295,14 @@
 | [OpenMoHAA](https://github.com/openmoh/openmohaa) | Reimplementation of Medal of Honor: Allied Assault and its expansions. <!-- STATS:START --><br><sub>2015-01-09 -- 2026-04-23 / GPL-2.0 / 821</sub><!-- STATS:END --> |
 | [openMSX](https://github.com/openMSX/openMSX) | MSX home computer emulator. <!-- STATS:START --><br><sub>2015-06-17 -- 2026-10-05 / 555</sub><!-- STATS:END --> |
 | [OpenMW](https://github.com/OpenMW/openmw)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openmw.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenMW&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Role-playing game engine supporting Morrowind. <!-- STATS:START --><br><sub>2009-08-23 -- 2026-10-05 / GPL-3.0 / 6.6k</sub><!-- STATS:END --> |
+| [OpenNOW PS5](https://github.com/OpenCloudGaming/OpenNOW-PS5) | GeForce NOW streaming client for PlayStation 5 consoles that support native homebrew. <!-- STATS:START --><!-- STATS:END --> |
 | [openOMSI](https://github.com/openOMSI-Project/openOMSI) | Rust recreation of the OMSI 2 bus simulator that requires the original game's content. <!-- STATS:START --><br><sub>2026-09-27 -- 2026-10-06 / MIT / 418</sub><!-- STATS:END --> |
 | **[OpenRA](https://github.com/OpenRA/OpenRA)** | Real-time strategy engine for classic Westwood games. <!-- STATS:START --><br><sub>2010-10-04 -- 2026-10-03 / GPL-3.0 / 17.5k</sub><!-- STATS:END --> |
 | [OpenRCT2](https://github.com/OpenRCT2/OpenRCT2) | Reimplementation of RollerCoaster Tycoon 2. <!-- STATS:START --><br><sub>2014-04-01 -- 2026-10-05 / GPL-3.0 / 16.4k</sub><!-- STATS:END --> |
 | [OpenSAGE](https://github.com/OpenSAGE/OpenSAGE) | Reimplementation of the SAGE real-time strategy engine. <!-- STATS:START --><br><sub>2017-06-14 -- 2026-03-30 / 1.6k</sub><!-- STATS:END --> |
 | **[OpenSpeedy](https://github.com/game1024/OpenSpeedy)** | Game speed controller for Windows. <!-- STATS:START --><br><sub>2025-05-16 -- 2026-10-04 / GPL-3.0 / 19.1k</sub><!-- STATS:END --> |
 | [OpenTomb](https://github.com/opentomb/OpenTomb) | Engine remake for Tomb Raider I–V. <!-- STATS:START --><br><sub>2015-04-08 -- <b>2025-02-24</b> / LGPL-3.0 / 1.4k</sub><!-- STATS:END --> |
+| [OpenTricky](https://github.com/GiZcesi/OpenTricky) | Recompiled Windows port of SSX Tricky requiring the user's own Xbox game data. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenTTD](https://github.com/OpenTTD/OpenTTD)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openttd.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTTD&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Transport simulation based on Transport Tycoon Deluxe. <!-- STATS:START --><br><sub>2018-04-06 -- 2026-10-05 / 8.3k</sub><!-- STATS:END --> |
 | [OpenXcom](https://github.com/OpenXcom/OpenXcom) | Reimplementation of the original X-COM games. <!-- STATS:START --><br><sub>2011-02-06 -- 2026-09-28 / GPL-3.0 / 2.2k</sub><!-- STATS:END --> |
 | [OpenXRay](https://github.com/OpenXRay/xray-16) | Enhanced X-Ray engine for the S.T.A.L.K.E.R. games. <!-- STATS:START --><br><sub>2014-09-05 -- 2026-10-04 / 3.6k</sub><!-- STATS:END --> |
@@ -301,6 +315,7 @@
 | [OpenBionics](https://github.com/OpenBionics/Prosthetic-Hands) | Arduino control software and MATLAB kinematics for prosthetic hands. <!-- STATS:START --><br><sub>2015-03-18 -- <b>2018-02-10</b> / 189</sub><!-- STATS:END --> |
 | [OpenBot](https://github.com/ob-f/OpenBot) | Smartphone-powered robotics with person following and autonomous navigation. <!-- STATS:START --><br><sub>2020-07-31 -- 2026-10-05 / MIT / 3.5k</sub><!-- STATS:END --> |
 | **[OpenCat](https://github.com/PetoiCamp/OpenCat-Quadruped-Robot)** | Framework for building and programming quadruped robots. <!-- STATS:START --><br><sub>2021-01-03 -- 2026-09-08 / MIT / 5.4k</sub><!-- STATS:END --> |
+| [open-gps](https://github.com/open-flight/open-gps) | ESP32-S3 firmware for a handheld golf shot tracker with GPS distance measurement and shot export. <!-- STATS:START --><!-- STATS:END --> |
 | **[OpenHaystack](https://github.com/seemoo-lab/openhaystack)** | Track personal Bluetooth devices through Apple's Find My network. <!-- STATS:START --><br><sub>2021-02-22 -- 2026-08-17 / AGPL-3.0 / 13.8k</sub><!-- STATS:END --> |
 | [OpenIPC](https://github.com/OpenIPC/firmware) | Alternative firmware for IP cameras. <!-- STATS:START --><br><sub>2021-04-13 -- 2026-10-06 / MIT / 2.2k</sub><!-- STATS:END --> |
 | [OpenMV](https://github.com/openmv/openmv) | Python-programmable camera firmware with embedded machine vision. <!-- STATS:START --><br><sub>2013-11-13 -- 2026-10-05 / 2.9k</sub><!-- STATS:END --> |
@@ -335,6 +350,7 @@
 | [OpenModelica](https://github.com/OpenModelica/OpenModelica) | Modelica-based modeling and simulation environment. <!-- STATS:START --><br><sub>2015-05-03 -- 2026-10-05 / 1.4k</sub><!-- STATS:END --> |
 | [OpenMolcas](https://github.com/Molcas/OpenMolcas) | Quantum chemistry software for electronic-structure calculations. <!-- STATS:START --><br><sub>2018-04-06 -- 2026-10-04 / LGPL-2.1 / 85</sub><!-- STATS:END --> |
 | [OpenMS](https://github.com/OpenMS/OpenMS) | Mass-spectrometry data management and analysis tools. <!-- STATS:START --><br><sub>2014-01-09 -- 2026-10-06 / 624</sub><!-- STATS:END --> |
+| [OpenMVS](https://github.com/cdcseacave/openMVS) | Multi-view stereo reconstruction library for producing dense point clouds and textured 3D meshes. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenMx](https://github.com/OpenMx/OpenMx) | Structural equation modeling package for R. <!-- STATS:START --><br><sub>2012-05-21 -- 2026-07-10 / 102</sub><!-- STATS:END --> |
 | [OpenQuake Engine](https://github.com/gem/oq-engine) | Seismic hazard and risk analysis. <!-- STATS:START --><br><sub>2010-06-28 -- 2026-10-06 / AGPL-3.0 / 451</sub><!-- STATS:END --> |
 | **[OpenSCAD](https://github.com/openscad/openscad)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openscad.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenSCAD&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Script-based solid 3D CAD modeling. <!-- STATS:START --><br><sub>2010-11-03 -- 2026-10-05 / 10.4k</sub><!-- STATS:END --> |
@@ -435,6 +451,7 @@
 
 | Project | Description |
 | --- | --- |
+| [Open Archiver](https://github.com/LogicLabs-OU/OpenArchiver) | Self-hosted email archiving, indexing, and search for Gmail, Microsoft 365, IMAP, and imported mail files. <!-- STATS:START --><!-- STATS:END --> |
 | [OpenCloud](https://github.com/opencloud-eu/opencloud) | File management, sharing, and collaboration platform. <!-- STATS:START --><br><sub>2025-01-10 -- 2026-10-05 / Apache-2.0 / 6.1k</sub><!-- STATS:END --> |
 | [OpenDAL](https://github.com/apache/opendal) | Data access library with a unified interface to storage services. <!-- STATS:START --><br><sub>2022-02-14 -- 2026-10-05 / Apache-2.0 / 5.4k</sub><!-- STATS:END --> |
 | [OpenDisk](https://github.com/137137137/OpenDisk) | macOS disk-usage analyzer for finding large files and reclaiming storage space. <!-- STATS:START --><br><sub>2026-07-20 -- 2026-10-02 / MIT / 265</sub><!-- STATS:END --> |
