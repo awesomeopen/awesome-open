@@ -35,9 +35,11 @@
 | [OpenGym](https://github.com/widingmarcus-cyber/opengym) | Benchmark for evaluating AI-agent coding, memory, tool use, planning, resilience, safety, and coordination. |
 | [OpenHands](https://github.com/OpenHands/OpenHands) | AI agents for software development. |
 | [OpenHuman](https://github.com/tinyhumansai/openhuman) | AI agent harness with local-first memory, agent orchestration, and workflows.<br>Alternative to: [Vellum](https://www.vellum.ai/blog/best-openhuman-alternatives), [Hermes Agent](https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses), [OpenClaw](https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses) |
+| [Open Instinct](https://github.com/mariagorskikh/open-instinct) | Personal AI agent with its own computer, messaging integrations, and coordination with trusted contacts' agents. |
 | [Open Interpreter](https://github.com/openinterpreter/openinterpreter) | Coding agent for running open language models.<br>Alternative to: [Codex](https://www.openinterpreter.com/docs/terminal/migrate) |
 | [OpenJarvis](https://github.com/open-jarvis/OpenJarvis) | Framework for building and evaluating local-first personal AI agents. |
 | [OpenLLM](https://github.com/bentoml/OpenLLM) | Serve language models through OpenAI-compatible API endpoints. |
+| [OpenLumara](https://github.com/Rose22/openlumara) | Local-first Python AI agent framework with modular tools, memory, scheduling, and browser, terminal, and messaging interfaces. |
 | [OpenManus](https://github.com/FoundationAgents/OpenManus) | General-purpose AI agent with browser automation and tool support. |
 | [OpenMuse](https://github.com/CopilotKit/openmuse) | Personal-agent application with a persistent browser, terminal, files, and background tasks. |
 | [OpenNLP](https://github.com/apache/opennlp) | Java toolkit for natural language processing. |
@@ -71,6 +73,7 @@
 | [OpenLens](https://github.com/MuhammedKalkan/OpenLens) | Desktop Kubernetes IDE built from the Lens source code. |
 | [Open Liberty](https://github.com/OpenLiberty/open-liberty) | Composable application-server runtime. |
 | [Open Lovable](https://github.com/firecrawl/open-lovable) | AI chat application for building and editing React apps. |
+| [OpenMemory](https://github.com/mem0ai/openmemory) | CLI and terminal interface for transferring coding sessions between Claude Code, Codex, and OpenCode. |
 | [OpenRewrite](https://github.com/openrewrite/rewrite) | Automated refactoring of source code. |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
 | [OpenRPC Generator](https://github.com/open-rpc/generator) | Generate components and language bindings from OpenRPC documents. |
@@ -135,6 +138,7 @@
 | [OpenCanary](https://github.com/thinkst/opencanary) | Modular network honeypot. |
 | [OpenConnect](https://www.infradead.org/openconnect) | Multi-protocol SSL VPN client. |
 | [OpenCTI](https://github.com/OpenCTI-Platform/opencti) | Cyber threat intelligence platform. |
+| [Opengrep](https://github.com/opengrep/opengrep) | Static analysis engine for finding code patterns and security vulnerabilities. |
 | [OpenKeychain](https://github.com/open-keychain/open-keychain) | OpenPGP encryption and key management for Android. |
 | [OpenPGP.js](https://github.com/openpgpjs/openpgpjs) | OpenPGP implementation for JavaScript. |
 | [OpenSC](https://github.com/OpenSC/OpenSC) | Smart-card tools and middleware. |
@@ -178,6 +182,7 @@
 | [OpenFamily](https://github.com/NexaFlowFrance/OpenFamily) | Self-hosted family organizer. |
 | [OpenOffice](https://www.openoffice.org) | Office suite for documents, spreadsheets, presentations, and databases. |
 | [OpenProject](https://github.com/opf/openproject) | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) |
+| [Open Receipt OCR](https://github.com/iursevla/open-receipt-ocr) | Self-hosted receipt and document OCR with a web interface, job management, and local or cloud engines. |
 | [OpenSign](https://github.com/OpenSignLabs/OpenSign) | Document signing and electronic signature workflows.<br>Alternative to: [DocuSign](https://github.com/OpenSignLabs/OpenSign#readme), [PandaDoc](https://github.com/OpenSignLabs/OpenSign#readme), [SignNow](https://github.com/OpenSignLabs/OpenSign#readme) |
 | [OpenSlides](https://github.com/OpenSlides/OpenSlides) | Digital assembly management for motions, elections, and agendas. |
 | [OpenStats](https://github.com/gentpan/OpenStats) | macOS menu-bar system monitor with fan control, keep-awake, and cleanup tools. |
@@ -272,6 +277,7 @@
 | [OpenToonz](https://github.com/opentoonz/opentoonz) | 2D animation production software. |
 | [OpenUtau](https://github.com/openutau/OpenUtau) | Singing synthesis platform and UTAU successor. |
 | [OpenVDB](https://github.com/AcademySoftwareFoundation/openvdb) | Sparse volume data structures and tools. |
+| [OPEN VIDEO EDIT](https://github.com/kevinbadi/open-edits) | Python tools and Claude Code skills for editing videos with animated graphics, captions, and local rendering. |
 | [Open Video Editor](https://github.com/devhyper/open-video-editor) | Android video editor for trimming, scaling, rotating, and applying filters. |
 
 ## Games & Emulation
@@ -322,6 +328,7 @@
 | [OpenRAVE](https://github.com/rdiankov/openrave) | Develop, test, and deploy robotics motion-planning algorithms. |
 | [OpenRGB](https://openrgb.org) | Control RGB lighting across devices from different manufacturers on Windows, Linux, and macOS. |
 | [Open-RMF](https://github.com/open-rmf/rmf) | Coordinate multiple robot fleets and building infrastructure. |
+| [openTPU](https://github.com/FeSens/openTPU) | Compiler, simulator, profiler, and host software for running language models on an FPGA-based AI accelerator. |
 | [OpenVINS](https://github.com/rpng/open_vins) | Platform for visual-inertial navigation research. |
 | [Open Volar S](https://github.com/NullMagic2/Open-Volar-S) | Driver, firmware, diagnostics, and live television toolkit for the AVerTV Volar S receiver. |
 | [OpenWAM](https://github.com/OpenWAM-Official/OpenWAM) | Research stack for training, deploying, and evaluating world-action models for robot control. |
@@ -335,6 +342,7 @@
 | [Open CASCADE Technology](https://github.com/Open-Cascade-SAS/OCCT) | Libraries for 3D modeling, CAD data exchange, and visualization. |
 | [Open Chemistry](https://github.com/OpenChemistry/openchemistry) | Libraries and applications for exploring and generating chemical data. |
 | [OpenCMISS](https://github.com/OpenCMISS/cm) | Finite-element modeling environment for bioengineering. |
+| [OpenCourant](https://github.com/OpenCourant/OpenCourant) | Finite-element solver for crash, impact, and nonlinear dynamic simulation, continuing the OpenRadioss code base. |
 | [OpenDA](https://github.com/OpenDA-Association/OpenDA) | Data assimilation and calibration tools for numerical models. |
 | [OpenFAST](https://github.com/OpenFAST/openfast) | Wind turbine and wind farm simulation tools. |
 | [OpenFermion](https://github.com/quantumlib/OpenFermion) | Compile and analyze quantum algorithms for fermionic systems. |
@@ -440,6 +448,7 @@
 | --- | --- |
 | [Open Bank Project](https://github.com/OpenBankProject/OBP-API) | Banking API platform for accounts, transactions, payments, and financial data. |
 | [OpenBB](https://github.com/openbq-org/OpenBB) | Financial data platform for analysts, quants, and AI agents. |
+| [OpenChart](https://github.com/longsurf-ai/openchart) | Desktop market charting with custom indicators, alerts, and AI-agent research. |
 | [OpenGamma Platform](https://github.com/OpenGamma/OG-Platform) | Financial analytics and market-risk platform; discontinued predecessor to Strata. |
 | [Open Source Risk Engine](https://github.com/OpenSourceRisk/Engine) | Quantitative analytics and risk calculations for financial portfolios. |
 | [OpenStock](https://github.com/Open-Dev-Society/OpenStock) | Stock tracking with price alerts and company insights. |
