@@ -2,7 +2,7 @@
 
 > Awesome Open is a curated directory of software whose names begin with “Open”, organized by what the software does. It helps readers discover projects and follow links to their official repositories or websites.
 
-The canonical repository is https://github.com/awesomeopen/awesome-open. The README is the source of truth for entries, descriptions, categories, and current metadata; this file is a navigation summary, not a separate catalog.
+The canonical repository is https://github.com/awesomeopen/awesome-open. `README.source.md` is the curated source of truth for entries, descriptions, and categories; `README.md` is generated from it and cached metrics/evidence; this file is a navigation summary, not a separate catalog.
 
 Eligibility is based on the software's own name: capitalization, spaces, and hyphens do not change eligibility. A documented expanded name can qualify an abbreviation, such as Open Broadcaster Software (OBS). An organization's name or a description such as “open source” alone does not qualify a product.
 
@@ -14,6 +14,7 @@ Hacker News charts show matching story submissions over 24 completed UTC months,
 
 ## Core sources
 
+- [Curated Markdown source](https://github.com/awesomeopen/awesome-open/blob/main/README.source.md): Edit entries here; do not hand-edit generated README metadata or charts.
 - [Project directory](https://github.com/awesomeopen/awesome-open/blob/main/README.md): Complete categorized list, official project links, descriptions, and metric legend.
 - [Contribution guide](https://github.com/awesomeopen/awesome-open/blob/main/CONTRIBUTING.md): Inclusion rules, entry format, metadata definitions, and Hacker News methodology.
 - [License](https://github.com/awesomeopen/awesome-open/blob/main/LICENSE.md): CC0-1.0 applies to this list; listed software retains its own license.

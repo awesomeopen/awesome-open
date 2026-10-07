@@ -165,16 +165,46 @@ class UpdateStatsTests(unittest.TestCase):
     def test_concurrent_readme_edit_is_not_overwritten(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            path = root / "README.md"
+            path = root / "README.source.md"
             path.write_text(self.row)
             changed = self.row + "A concurrent contribution.\n"
             def fetch(repo, token):
                 path.write_text(changed)
                 return self.record
             with patch.object(stats, "ROOT", root), patch.object(stats, "fetch", side_effect=fetch), patch.dict(stats.os.environ, {"GH_TOKEN": "test"}):
-                with self.assertRaisesRegex(RuntimeError, "README changed"):
+                with self.assertRaisesRegex(RuntimeError, "README.source.md changed"):
                     stats.main()
             self.assertEqual(path.read_text(), changed)
+
+    def test_failed_collection_preserves_snapshot_and_readme(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'data').mkdir()
+            (root / 'README.source.md').write_text(self.row)
+            (root / 'README.md').write_text('Published output.\n')
+            snapshot = root / 'data/github_metrics.json'
+            snapshot.write_text('previous snapshot\n')
+            with patch.object(stats, 'ROOT', root), \
+                    patch.object(stats, 'fetch', side_effect=RuntimeError('API unavailable')), \
+                    patch.dict(stats.os.environ, {'GH_TOKEN': 'test'}):
+                with self.assertRaisesRegex(RuntimeError, 'API unavailable'):
+                    stats.main()
+            self.assertEqual(snapshot.read_text(), 'previous snapshot\n')
+            self.assertEqual((root / 'README.md').read_text(), 'Published output.\n')
+
+    def test_successful_collection_only_replaces_snapshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'data').mkdir()
+            (root / 'README.source.md').write_text(self.row)
+            (root / 'README.md').write_text('Published output.\n')
+            with patch.object(stats, 'ROOT', root), \
+                    patch.object(stats, 'fetch', return_value=self.record), \
+                    patch.dict(stats.os.environ, {'GH_TOKEN': 'test'}):
+                stats.main()
+            self.assertTrue((root / 'data/github_metrics.json').exists())
+            self.assertEqual((root / 'README.md').read_text(), 'Published output.\n')
+            self.assertEqual((root / 'README.source.md').read_text(), self.row)
 
     @patch.object(stats.time, "sleep")
     @patch.object(stats.urllib.request, "urlopen")

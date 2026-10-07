@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh marked metadata and independent category star highlights."""
+"""Collect GitHub metrics; pure formatting helpers are used by render_readme.py."""
 
 import concurrent.futures
 from datetime import date, datetime, timezone
@@ -91,14 +91,14 @@ def alternatives(line):
     return links
 
 
-def repositories(text):
+def repositories(text, require_markers=True):
     repos = set()
     for line in text.splitlines():
         if line.startswith("| "):
             alternatives(line)
         match = ROW.match(line)
         if match:
-            if len(STATS.findall(line)) != 1:
+            if require_markers and len(STATS.findall(line)) != 1:
                 raise ValueError(f"Expected one STATS block for {match[2]}")
             repos.add(match[2].lower())
     return sorted(repos)
@@ -119,12 +119,12 @@ def category_leaders(text, data):
         if match:
             categories.setdefault(category, set()).add(match[2].lower())
     return {
-        category: set(sorted(repos, key=lambda repo: (-data[repo]["stargazers_count"], repo))[:3])
+        category: set(sorted(repos & data.keys(), key=lambda repo: (-data[repo]["stargazers_count"], repo))[:3])
         for category, repos in categories.items()
     }
 
 
-def update_text(text, data, today=None):
+def update_text(text, data, today=None, allow_missing=False):
     if today is None:
         today = utc_today()
     repositories(text)  # Validate all markers before changing any content.
@@ -137,7 +137,8 @@ def update_text(text, data, today=None):
         match = ROW.match(line)
         if match:
             repo = match[2].lower()
-            block = "<!-- STATS:START -->" + metadata(data[repo], today=today) + "<!-- STATS:END -->"
+            value = "" if allow_missing and repo not in data else metadata(data[repo], today=today)
+            block = "<!-- STATS:START -->" + value + "<!-- STATS:END -->"
             line = STATS.sub(lambda _: block, line)
             # Only the name link is bold, never the independently managed chart.
             link = match[0][2:].removeprefix("**").removesuffix("**")
@@ -175,21 +176,39 @@ def main():
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
     if not token:
         raise SystemExit("Set GH_TOKEN or GITHUB_TOKEN before updating stats.")
-    path = ROOT / "README.md"
+    path = ROOT / "README.source.md"
     original = path.read_text(encoding="utf-8")
-    repos = repositories(original)
+    repos = repositories(original, require_markers=False)
     # Fetch once per repository, including projects listed in multiple categories.
     # A failed request aborts before writing, preserving the previous snapshot.
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         results = list(pool.map(lambda repo: fetch(repo, token), repos))
-    updated = update_text(original, dict(zip(repos, results)))
+    snapshot = {
+        "schema_version": 1,
+        "as_of": utc_today().isoformat(),
+        "repositories": {
+            repo: {key: result.get(key) for key in
+                   ("created_at", "pushed_at", "license", "stargazers_count")}
+            for repo, result in zip(repos, results)
+        },
+    }
+    for record in snapshot["repositories"].values():
+        if record["license"]:
+            record["license"] = {"spdx_id": record["license"].get("spdx_id")}
+    # Validate every record before replacing the previous snapshot.
+    from render_readme import validate_snapshot
+    validate_snapshot(snapshot)
     if path.read_text(encoding="utf-8") != original:
-        raise RuntimeError("README changed during metadata collection; rerun against the latest content.")
-    if updated != original:
-        path.write_text(updated, encoding="utf-8")
-        print(f"Updated metadata for {len(repos)} repositories.")
+        raise RuntimeError("README.source.md changed during metadata collection; rerun against the latest content.")
+    output = ROOT / "data/github_metrics.json"
+    updated = json.dumps(snapshot, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    if not output.exists() or output.read_text(encoding="utf-8") != updated:
+        temporary = output.with_suffix(".tmp")
+        temporary.write_text(updated, encoding="utf-8")
+        temporary.replace(output)
+        print(f"Cached metadata for {len(repos)} repositories.")
     else:
-        print("README metadata is already current.")
+        print("GitHub metrics snapshot is already current.")
 
 
 if __name__ == "__main__":
