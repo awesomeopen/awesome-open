@@ -1,0 +1,2280 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-07",
+  "repositories": {
+    "137137137/opendisk": {
+      "created_at": "2026-07-20T15:05:56Z",
+      "pushed_at": "2026-10-02T21:49:05Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 269
+    },
+    "1technophile/openmqttgateway": {
+      "created_at": "2016-09-17T15:25:25Z",
+      "pushed_at": "2026-10-03T00:50:44Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 4100
+    },
+    "4paradigm/openmldb": {
+      "created_at": "2021-03-12T07:18:31Z",
+      "pushed_at": "2026-09-11T10:28:48Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1715
+    },
+    "academysoftwarefoundation/opencolorio": {
+      "created_at": "2010-07-14T18:22:06Z",
+      "pushed_at": "2026-10-01T02:11:10Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 2129
+    },
+    "academysoftwarefoundation/opencue": {
+      "created_at": "2018-05-16T23:58:12Z",
+      "pushed_at": "2026-10-07T01:23:08Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 992
+    },
+    "academysoftwarefoundation/openexr": {
+      "created_at": "2012-02-24T06:30:00Z",
+      "pushed_at": "2026-10-07T02:55:53Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 1865
+    },
+    "academysoftwarefoundation/openimageio": {
+      "created_at": "2011-02-02T23:03:28Z",
+      "pushed_at": "2026-10-07T01:26:26Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 2378
+    },
+    "academysoftwarefoundation/openrv": {
+      "created_at": "2022-10-31T02:19:25Z",
+      "pushed_at": "2026-10-05T18:48:14Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 775
+    },
+    "academysoftwarefoundation/opentimelineio": {
+      "created_at": "2016-08-23T21:22:18Z",
+      "pushed_at": "2026-10-01T20:06:51Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 2009
+    },
+    "academysoftwarefoundation/openvdb": {
+      "created_at": "2013-04-12T18:39:57Z",
+      "pushed_at": "2026-09-23T22:05:29Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 3422
+    },
+    "acidanthera/opencorepkg": {
+      "created_at": "2019-04-03T19:14:29Z",
+      "pushed_at": "2026-09-30T13:28:13Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 15511
+    },
+    "alistert/openjazz": {
+      "created_at": "2014-07-29T22:22:06Z",
+      "pushed_at": "2026-09-01T10:44:44Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 409
+    },
+    "alkacon/opencms-core": {
+      "created_at": "2011-06-28T11:17:50Z",
+      "pushed_at": "2026-10-07T00:00:16Z",
+      "license": {
+        "spdx_id": "LGPL-2.1"
+      },
+      "stargazers_count": 573
+    },
+    "anomalyco/opencode": {
+      "created_at": "2025-04-30T20:08:00Z",
+      "pushed_at": "2026-10-07T05:40:03Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 212089
+    },
+    "anomalyco/opentui": {
+      "created_at": "2025-07-21T09:35:54Z",
+      "pushed_at": "2026-10-07T06:40:24Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 13488
+    },
+    "apache/opendal": {
+      "created_at": "2022-02-14T05:18:44Z",
+      "pushed_at": "2026-10-06T07:55:24Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 5401
+    },
+    "apache/opennlp": {
+      "created_at": "2011-11-09T08:00:09Z",
+      "pushed_at": "2026-10-06T20:10:42Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1604
+    },
+    "apache/openwhisk": {
+      "created_at": "2016-02-18T21:16:19Z",
+      "pushed_at": "2026-09-08T15:46:34Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 6802
+    },
+    "arunngun/openteleprompt": {
+      "created_at": "2026-03-13T19:43:26Z",
+      "pushed_at": "2026-04-13T06:46:09Z",
+      "license": null,
+      "stargazers_count": 75
+    },
+    "bentoml/openllm": {
+      "created_at": "2023-04-19T00:27:52Z",
+      "pushed_at": "2026-10-05T17:17:59Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 12552
+    },
+    "calesthio/openmontage": {
+      "created_at": "2026-03-29T15:23:22Z",
+      "pushed_at": "2026-10-03T16:28:55Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 64770
+    },
+    "cdcseacave/openmvs": {
+      "created_at": "2015-05-18T15:21:44Z",
+      "pushed_at": "2026-10-06T02:18:30Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 4147
+    },
+    "cmu-perceptual-computing-lab/openpose": {
+      "created_at": "2017-04-24T14:06:31Z",
+      "pushed_at": "2024-08-03T01:59:11Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 34482
+    },
+    "cmusatyalab/openface": {
+      "created_at": "2015-09-16T12:47:27Z",
+      "pushed_at": "2026-09-22T20:38:43Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 15444
+    },
+    "commaai/openpilot": {
+      "created_at": "2016-11-24T01:33:30Z",
+      "pushed_at": "2026-10-07T06:43:19Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 63837
+    },
+    "composio-community/open-dot": {
+      "created_at": "2026-09-29T16:34:16Z",
+      "pushed_at": "2026-09-30T13:08:59Z",
+      "license": null,
+      "stargazers_count": 586
+    },
+    "copilotkit/opendots": {
+      "created_at": "2026-09-29T17:13:58Z",
+      "pushed_at": "2026-10-06T22:46:41Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 3995
+    },
+    "copilotkit/openmuse": {
+      "created_at": "2026-09-15T16:05:44Z",
+      "pushed_at": "2026-10-07T05:06:27Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 4109
+    },
+    "dcurrent/openbor": {
+      "created_at": "2017-04-01T03:06:14Z",
+      "pushed_at": "2026-09-28T05:01:00Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 1268
+    },
+    "devhyper/open-video-editor": {
+      "created_at": "2023-10-21T22:40:41Z",
+      "pushed_at": "2026-08-26T22:51:27Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 731
+    },
+    "different-ai/openwork": {
+      "created_at": "2026-01-14T01:39:31Z",
+      "pushed_at": "2026-10-07T06:28:51Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 23924
+    },
+    "digi-uw/openelis-global-2": {
+      "created_at": "2019-01-15T22:29:06Z",
+      "pushed_at": "2026-10-07T06:40:09Z",
+      "license": {
+        "spdx_id": "MPL-2.0"
+      },
+      "stargazers_count": 268
+    },
+    "duartesantos8/opengym": {
+      "created_at": "2026-07-18T20:41:24Z",
+      "pushed_at": "2026-10-06T09:42:32Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 6006
+    },
+    "eclecticiq/opentaxii": {
+      "created_at": "2014-11-24T10:03:01Z",
+      "pushed_at": "2026-03-12T21:00:50Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 217
+    },
+    "evan-buss/openbooks": {
+      "created_at": "2019-05-15T16:35:43Z",
+      "pushed_at": "2025-04-24T13:32:23Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 2412
+    },
+    "evilsocket/opensnitch": {
+      "created_at": "2017-04-16T14:02:50Z",
+      "pushed_at": "2026-07-26T23:34:20Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 14129
+    },
+    "firecrawl/open-lovable": {
+      "created_at": "2025-08-08T13:04:02Z",
+      "pushed_at": "2025-11-19T15:29:48Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 28634
+    },
+    "fission-ai/openspec": {
+      "created_at": "2025-08-05T10:37:45Z",
+      "pushed_at": "2026-10-06T00:38:28Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 71193
+    },
+    "foundationagents/openmanus": {
+      "created_at": "2025-03-06T14:08:14Z",
+      "pushed_at": "2026-09-30T08:37:25Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 58506
+    },
+    "game1024/openspeedy": {
+      "created_at": "2025-05-16T16:25:43Z",
+      "pushed_at": "2026-10-04T08:34:11Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 19093
+    },
+    "ganeshmshetty/openclip": {
+      "created_at": "2026-08-01T19:44:46Z",
+      "pushed_at": "2026-10-07T05:16:10Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 617
+    },
+    "gem/oq-engine": {
+      "created_at": "2010-06-28T14:59:42Z",
+      "pushed_at": "2026-10-07T06:34:22Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 451
+    },
+    "gentpan/openstats": {
+      "created_at": "2026-09-12T21:44:17Z",
+      "pushed_at": "2026-10-01T12:35:27Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 63
+    },
+    "getopenscreen/openscreen": {
+      "created_at": "2026-03-14T10:16:22Z",
+      "pushed_at": "2026-10-06T21:11:39Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 3703
+    },
+    "giscience/openrouteservice": {
+      "created_at": "2017-09-11T15:49:01Z",
+      "pushed_at": "2026-10-07T00:26:25Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 1979
+    },
+    "gitpod-io/openvscode-server": {
+      "created_at": "2020-09-04T13:57:59Z",
+      "pushed_at": "2026-09-24T15:23:21Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 6183
+    },
+    "gizcesi/opentricky": {
+      "created_at": "2026-10-04T11:14:26Z",
+      "pushed_at": "2026-10-06T21:42:27Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 28
+    },
+    "goalgorilla/open_social": {
+      "created_at": "2016-07-19T12:56:46Z",
+      "pushed_at": "2026-09-12T04:31:59Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 190
+    },
+    "greenbone/openvas-scanner": {
+      "created_at": "2018-01-22T07:49:57Z",
+      "pushed_at": "2026-10-06T14:43:18Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 4855
+    },
+    "haswitchplate/openhasp": {
+      "created_at": "2020-01-18T20:03:44Z",
+      "pushed_at": "2026-09-27T21:40:38Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 1022
+    },
+    "heilonng23/openheard": {
+      "created_at": "2026-09-04T07:29:59Z",
+      "pushed_at": "2026-10-03T18:46:48Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 173
+    },
+    "hpcaitech/open-sora": {
+      "created_at": "2024-02-20T03:01:34Z",
+      "pushed_at": "2026-04-09T01:52:40Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 29857
+    },
+    "hydra-db/open-glean": {
+      "created_at": "2026-09-17T05:22:08Z",
+      "pushed_at": "2026-10-06T06:24:30Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1579
+    },
+    "icosa-foundation/open-brush": {
+      "created_at": "2021-01-26T17:13:58Z",
+      "pushed_at": "2026-10-06T18:59:23Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1135
+    },
+    "igniterealtime/openfire": {
+      "created_at": "2014-04-07T09:12:33Z",
+      "pushed_at": "2026-10-01T09:46:34Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 3068
+    },
+    "informatici/openhospital": {
+      "created_at": "2019-07-04T20:20:43Z",
+      "pushed_at": "2026-10-06T21:57:15Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 634
+    },
+    "jackwener/opencli": {
+      "created_at": "2026-03-14T22:10:23Z",
+      "pushed_at": "2026-09-24T18:55:16Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 29887
+    },
+    "kcat/openal-soft": {
+      "created_at": "2014-08-24T09:13:17Z",
+      "pushed_at": "2026-10-07T02:42:10Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 2757
+    },
+    "krillinai/opencreator": {
+      "created_at": "2024-12-17T01:59:22Z",
+      "pushed_at": "2026-10-05T01:38:19Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 12609
+    },
+    "laion-ai/open-assistant": {
+      "created_at": "2022-12-13T05:24:17Z",
+      "pushed_at": "2024-08-17T01:55:35Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 37384
+    },
+    "langchain-ai/openwiki": {
+      "created_at": "2026-06-22T23:48:26Z",
+      "pushed_at": "2026-10-07T05:20:08Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 16994
+    },
+    "leezer3/openbve": {
+      "created_at": "2015-10-29T01:19:57Z",
+      "pushed_at": "2026-10-06T10:26:39Z",
+      "license": null,
+      "stargazers_count": 378
+    },
+    "lfnovo/open-notebook": {
+      "created_at": "2024-10-21T17:58:46Z",
+      "pushed_at": "2026-10-05T02:29:31Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 39892
+    },
+    "litespeedtech/openlitespeed": {
+      "created_at": "2013-07-11T14:35:25Z",
+      "pushed_at": "2026-10-06T16:27:17Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 1474
+    },
+    "maanhimself/opendlss-nr": {
+      "created_at": "2026-09-20T22:35:35Z",
+      "pushed_at": "2026-09-21T16:16:55Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 828
+    },
+    "mcdcorp/opentest": {
+      "created_at": "2017-12-19T02:38:40Z",
+      "pushed_at": "2026-08-05T19:30:18Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 501
+    },
+    "minimax-ai/openagentcore": {
+      "created_at": "2026-09-21T03:18:15Z",
+      "pushed_at": "2026-10-07T06:37:48Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 196
+    },
+    "mlfoundations/open_clip": {
+      "created_at": "2021-07-28T23:24:39Z",
+      "pushed_at": "2026-09-30T15:21:57Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 14187
+    },
+    "molcas/openmolcas": {
+      "created_at": "2018-04-06T13:03:01Z",
+      "pushed_at": "2026-10-06T15:08:03Z",
+      "license": {
+        "spdx_id": "LGPL-2.1"
+      },
+      "stargazers_count": 85
+    },
+    "muhammedkalkan/openlens": {
+      "created_at": "2022-05-28T11:55:12Z",
+      "pushed_at": "2024-05-03T06:30:47Z",
+      "license": null,
+      "stargazers_count": 4444
+    },
+    "myshell-ai/openvoice": {
+      "created_at": "2023-11-29T12:17:01Z",
+      "pushed_at": "2025-04-19T16:00:00Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 37794
+    },
+    "natlabrockies/openstudio": {
+      "created_at": "2013-07-03T19:34:37Z",
+      "pushed_at": "2026-10-05T16:49:42Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 649
+    },
+    "nexaflowfrance/openfamily": {
+      "created_at": "2025-12-28T10:48:18Z",
+      "pushed_at": "2026-10-03T22:56:13Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 181
+    },
+    "nexu-io/open-design": {
+      "created_at": "2026-04-28T04:25:20Z",
+      "pushed_at": "2026-10-07T01:34:20Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 99764
+    },
+    "nullmagic2/open-volar-s": {
+      "created_at": "2026-09-15T19:49:29Z",
+      "pushed_at": "2026-10-05T20:46:08Z",
+      "license": null,
+      "stargazers_count": 1
+    },
+    "nvidia/openshell": {
+      "created_at": "2026-02-24T22:52:22Z",
+      "pushed_at": "2026-10-07T06:28:29Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 15182
+    },
+    "ob-f/openbot": {
+      "created_at": "2020-07-31T09:46:23Z",
+      "pushed_at": "2026-10-07T06:37:20Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 3520
+    },
+    "obsproject/obs-studio": {
+      "created_at": "2013-10-01T02:40:31Z",
+      "pushed_at": "2026-10-06T01:09:45Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 77068
+    },
+    "ollm/opencomic": {
+      "created_at": "2017-01-09T19:29:18Z",
+      "pushed_at": "2026-10-07T06:31:46Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 2001
+    },
+    "open-cascade-sas/occt": {
+      "created_at": "2020-03-16T15:04:06Z",
+      "pushed_at": "2026-10-06T20:25:44Z",
+      "license": {
+        "spdx_id": "LGPL-2.1"
+      },
+      "stargazers_count": 2962
+    },
+    "open-chat-labs/open-chat": {
+      "created_at": "2020-12-18T14:10:36Z",
+      "pushed_at": "2026-10-06T22:49:45Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 207
+    },
+    "open-cluster-management-io/ocm": {
+      "created_at": "2021-09-30T15:11:52Z",
+      "pushed_at": "2026-10-07T02:07:04Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1101
+    },
+    "open-compass/opencompass": {
+      "created_at": "2023-06-15T12:42:58Z",
+      "pushed_at": "2026-09-28T08:23:57Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 7494
+    },
+    "open-dev-society/openstock": {
+      "created_at": "2025-09-28T18:16:32Z",
+      "pushed_at": "2026-10-06T16:12:47Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 19800
+    },
+    "open-flight/open-gps": {
+      "created_at": "2026-10-04T15:54:27Z",
+      "pushed_at": "2026-10-04T16:18:37Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 5
+    },
+    "open-jarvis/openjarvis": {
+      "created_at": "2026-02-15T00:24:16Z",
+      "pushed_at": "2026-10-07T06:17:06Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 10692
+    },
+    "open-keychain/open-keychain": {
+      "created_at": "2012-03-09T09:10:42Z",
+      "pushed_at": "2024-05-16T07:37:24Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 2623
+    },
+    "open-mercato/open-mercato": {
+      "created_at": "2025-09-10T13:27:45Z",
+      "pushed_at": "2026-10-07T02:33:15Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 1819
+    },
+    "open-metadata/openmetadata": {
+      "created_at": "2021-08-01T21:17:17Z",
+      "pushed_at": "2026-10-07T06:42:22Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 15393
+    },
+    "open-meteo/open-meteo": {
+      "created_at": "2021-06-24T09:48:38Z",
+      "pushed_at": "2026-10-06T17:03:24Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 6298
+    },
+    "open-pencil/open-pencil": {
+      "created_at": "2026-02-27T12:48:35Z",
+      "pushed_at": "2026-10-06T15:31:14Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 8776
+    },
+    "open-policy-agent/opa": {
+      "created_at": "2015-12-28T22:08:25Z",
+      "pushed_at": "2026-10-07T03:58:05Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 12328
+    },
+    "open-rmf/rmf": {
+      "created_at": "2021-02-25T20:14:18Z",
+      "pushed_at": "2026-08-25T01:22:32Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 444
+    },
+    "open-rpc/generator": {
+      "created_at": "2019-01-22T23:20:51Z",
+      "pushed_at": "2025-10-22T05:54:14Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 98
+    },
+    "open-telemetry/opentelemetry-collector": {
+      "created_at": "2019-05-09T19:42:55Z",
+      "pushed_at": "2026-10-06T20:28:29Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 7637
+    },
+    "open-webui/open-terminal": {
+      "created_at": "2026-02-10T21:57:30Z",
+      "pushed_at": "2026-09-23T16:58:20Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 3279
+    },
+    "open-webui/open-webui": {
+      "created_at": "2023-10-06T22:08:27Z",
+      "pushed_at": "2026-10-06T21:02:35Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 154115
+    },
+    "open5gs/open5gs": {
+      "created_at": "2017-02-01T10:48:49Z",
+      "pushed_at": "2026-10-07T06:07:23Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 2751
+    },
+    "open62541/open62541": {
+      "created_at": "2013-12-20T08:45:05Z",
+      "pushed_at": "2026-10-06T16:22:49Z",
+      "license": {
+        "spdx_id": "MPL-2.0"
+      },
+      "stargazers_count": 3233
+    },
+    "openamp/open-amp": {
+      "created_at": "2014-10-10T10:03:12Z",
+      "pushed_at": "2026-09-28T08:33:45Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 918
+    },
+    "openapi-ts/openapi-typescript": {
+      "created_at": "2018-12-13T20:28:01Z",
+      "pushed_at": "2026-09-25T15:43:01Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 8394
+    },
+    "openapitools/openapi-generator": {
+      "created_at": "2018-05-12T09:57:56Z",
+      "pushed_at": "2026-10-07T06:32:12Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 26774
+    },
+    "openapoc/openapoc": {
+      "created_at": "2014-07-06T14:16:54Z",
+      "pushed_at": "2026-09-16T16:46:38Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 595
+    },
+    "openarena/engine": {
+      "created_at": "2014-02-06T00:09:04Z",
+      "pushed_at": "2026-04-21T08:46:45Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 253
+    },
+    "openbabel/openbabel": {
+      "created_at": "2008-12-26T04:52:22Z",
+      "pushed_at": "2026-09-14T13:06:15Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 1386
+    },
+    "openbankproject/obp-api": {
+      "created_at": "2012-11-20T10:45:14Z",
+      "pushed_at": "2026-10-06T07:46:23Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 1740
+    },
+    "openbao/openbao": {
+      "created_at": "2023-11-09T18:17:33Z",
+      "pushed_at": "2026-10-05T14:03:23Z",
+      "license": {
+        "spdx_id": "MPL-2.0"
+      },
+      "stargazers_count": 8332
+    },
+    "openbionics/prosthetic-hands": {
+      "created_at": "2015-03-18T12:05:30Z",
+      "pushed_at": "2018-02-10T01:31:57Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 189
+    },
+    "openbmc/openbmc": {
+      "created_at": "2015-09-15T19:51:42Z",
+      "pushed_at": "2026-10-07T06:00:04Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 2581
+    },
+    "openboard-org/openboard": {
+      "created_at": "2015-10-12T16:43:03Z",
+      "pushed_at": "2026-09-09T09:45:47Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 3065
+    },
+    "openboxes/openboxes": {
+      "created_at": "2012-09-28T19:08:51Z",
+      "pushed_at": "2026-10-06T20:57:58Z",
+      "license": {
+        "spdx_id": "EPL-1.0"
+      },
+      "stargazers_count": 910
+    },
+    "openbq-org/openbb": {
+      "created_at": "2020-12-20T10:46:38Z",
+      "pushed_at": "2026-10-02T04:55:27Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 73927
+    },
+    "opencart/opencart": {
+      "created_at": "2011-08-02T07:32:17Z",
+      "pushed_at": "2026-10-05T20:45:16Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 8212
+    },
+    "opencfp/opencfp": {
+      "created_at": "2013-05-02T18:50:26Z",
+      "pushed_at": "2026-05-20T02:58:25Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 543
+    },
+    "openchemistry/openchemistry": {
+      "created_at": "2012-04-28T18:55:30Z",
+      "pushed_at": "2026-09-26T01:45:19Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 91
+    },
+    "openchoreo/openchoreo": {
+      "created_at": "2025-02-28T14:34:35Z",
+      "pushed_at": "2026-10-06T10:51:40Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1631
+    },
+    "openclaw/openclaw": {
+      "created_at": "2025-11-24T10:16:47Z",
+      "pushed_at": "2026-10-07T06:43:04Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 391527
+    },
+    "openclinica/openclinica": {
+      "created_at": "2014-06-26T17:53:14Z",
+      "pushed_at": "2025-10-28T18:25:53Z",
+      "license": null,
+      "stargazers_count": 515
+    },
+    "openclonk/openclonk": {
+      "created_at": "2013-06-14T11:13:11Z",
+      "pushed_at": "2026-04-28T20:43:11Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 403
+    },
+    "opencloud-eu/opencloud": {
+      "created_at": "2025-01-10T12:55:41Z",
+      "pushed_at": "2026-10-07T05:59:16Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 6102
+    },
+    "opencloudgaming/opennow-ps5": {
+      "created_at": "2026-10-04T19:23:01Z",
+      "pushed_at": "2026-10-07T01:18:28Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 6
+    },
+    "opencmiss/cm": {
+      "created_at": "2011-06-22T04:47:05Z",
+      "pushed_at": "2016-08-22T05:23:14Z",
+      "license": null,
+      "stargazers_count": 61
+    },
+    "opencost/opencost": {
+      "created_at": "2019-03-27T21:49:05Z",
+      "pushed_at": "2026-10-06T23:18:08Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 6766
+    },
+    "opencover/opencover": {
+      "created_at": "2011-02-22T09:01:11Z",
+      "pushed_at": "2021-11-15T08:33:17Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 1321
+    },
+    "opencpn/opencpn": {
+      "created_at": "2010-02-02T11:55:06Z",
+      "pushed_at": "2026-10-06T20:39:23Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 1493
+    },
+    "opencti-platform/opencti": {
+      "created_at": "2018-12-17T22:57:34Z",
+      "pushed_at": "2026-10-07T06:36:50Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 10103
+    },
+    "opencut-app/opencut": {
+      "created_at": "2025-06-22T08:02:17Z",
+      "pushed_at": "2026-09-24T09:24:44Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 93028
+    },
+    "opencv/opencv": {
+      "created_at": "2012-07-19T09:40:17Z",
+      "pushed_at": "2026-10-07T05:35:31Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 91089
+    },
+    "openda-association/openda": {
+      "created_at": "2018-05-25T13:45:51Z",
+      "pushed_at": "2026-09-01T14:57:57Z",
+      "license": {
+        "spdx_id": "LGPL-3.0"
+      },
+      "stargazers_count": 104
+    },
+    "opendatacube/datacube-core": {
+      "created_at": "2015-05-13T05:58:13Z",
+      "pushed_at": "2026-10-07T00:43:11Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 588
+    },
+    "opendocman/opendocman": {
+      "created_at": "2012-04-27T16:24:56Z",
+      "pushed_at": "2026-09-18T13:23:52Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 283
+    },
+    "opendronemap/odm": {
+      "created_at": "2014-09-25T18:29:10Z",
+      "pushed_at": "2026-09-16T11:54:00Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 6506
+    },
+    "opendune/opendune": {
+      "created_at": "2012-12-03T12:38:32Z",
+      "pushed_at": "2026-09-30T23:04:55Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 1694
+    },
+    "opendungeons/opendungeons": {
+      "created_at": "2014-07-29T10:24:41Z",
+      "pushed_at": "2025-10-03T23:56:55Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 503
+    },
+    "openebs/openebs": {
+      "created_at": "2016-08-01T09:33:32Z",
+      "pushed_at": "2026-10-07T01:28:50Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 9826
+    },
+    "openeducat/openeducat_erp": {
+      "created_at": "2013-05-02T17:02:54Z",
+      "pushed_at": "2026-10-05T12:13:05Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 884
+    },
+    "openedx/openedx-platform": {
+      "created_at": "2013-05-30T20:20:38Z",
+      "pushed_at": "2026-10-06T15:11:39Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 8198
+    },
+    "openelb/openelb": {
+      "created_at": "2019-02-01T02:21:18Z",
+      "pushed_at": "2025-05-26T13:37:27Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1774
+    },
+    "openelec/openelec.tv": {
+      "created_at": "2010-11-18T22:06:47Z",
+      "pushed_at": "2017-09-02T08:46:14Z",
+      "license": null,
+      "stargazers_count": 1618
+    },
+    "openemr/openemr": {
+      "created_at": "2010-05-21T19:54:08Z",
+      "pushed_at": "2026-10-07T06:20:05Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 5500
+    },
+    "openemu/openemu": {
+      "created_at": "2010-12-20T20:13:58Z",
+      "pushed_at": "2025-10-22T21:39:10Z",
+      "license": null,
+      "stargazers_count": 17806
+    },
+    "openfaas/faas": {
+      "created_at": "2016-12-22T12:51:39Z",
+      "pushed_at": "2026-07-02T09:09:13Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 26250
+    },
+    "openfast/openfast": {
+      "created_at": "2016-08-31T20:07:10Z",
+      "pushed_at": "2026-09-26T05:53:06Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 976
+    },
+    "openfga/openfga": {
+      "created_at": "2022-06-08T18:47:15Z",
+      "pushed_at": "2026-10-07T05:48:40Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 5925
+    },
+    "openfoam/openfoam-dev": {
+      "created_at": "2014-12-10T15:47:33Z",
+      "pushed_at": "2026-10-06T17:12:08Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 2253
+    },
+    "openframeworks/openframeworks": {
+      "created_at": "2009-10-21T21:55:54Z",
+      "pushed_at": "2026-10-05T01:51:00Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 10434
+    },
+    "opengamma/og-platform": {
+      "created_at": "2010-09-23T15:47:12Z",
+      "pushed_at": "2018-05-29T12:29:44Z",
+      "license": null,
+      "stargazers_count": 234
+    },
+    "opengauss-mirror/opengauss-server": {
+      "created_at": "2020-06-30T14:08:59Z",
+      "pushed_at": "2026-09-05T22:38:25Z",
+      "license": {
+        "spdx_id": "MulanPSL-2.0"
+      },
+      "stargazers_count": 791
+    },
+    "opengemini/opengemini": {
+      "created_at": "2022-06-27T08:41:54Z",
+      "pushed_at": "2026-09-09T02:09:55Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1174
+    },
+    "openhands/openhands": {
+      "created_at": "2024-03-13T03:33:31Z",
+      "pushed_at": "2026-10-07T06:38:41Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 90137
+    },
+    "openimsdk/open-im-server": {
+      "created_at": "2021-05-26T09:26:32Z",
+      "pushed_at": "2026-09-17T10:46:56Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 16681
+    },
+    "openinterpreter/openinterpreter": {
+      "created_at": "2023-07-14T07:10:44Z",
+      "pushed_at": "2026-10-07T02:12:48Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 68520
+    },
+    "openipc/firmware": {
+      "created_at": "2021-04-13T17:10:54Z",
+      "pushed_at": "2026-10-07T05:48:35Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 2230
+    },
+    "openipsl/openipsl": {
+      "created_at": "2016-04-16T09:09:47Z",
+      "pushed_at": "2026-10-07T05:56:45Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 110
+    },
+    "openjdk/jdk": {
+      "created_at": "2018-09-17T12:29:20Z",
+      "pushed_at": "2026-10-07T06:12:38Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 23410
+    },
+    "openkm/document-management-system": {
+      "created_at": "2016-07-11T10:25:35Z",
+      "pushed_at": "2026-02-23T08:57:00Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 847
+    },
+    "openkruise/kruise": {
+      "created_at": "2019-05-30T22:23:45Z",
+      "pushed_at": "2026-09-21T10:34:17Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 5351
+    },
+    "openlayers/openlayers": {
+      "created_at": "2012-06-20T06:53:59Z",
+      "pushed_at": "2026-10-06T20:45:58Z",
+      "license": {
+        "spdx_id": "BSD-2-Clause"
+      },
+      "stargazers_count": 12607
+    },
+    "openliberty/open-liberty": {
+      "created_at": "2017-09-15T19:34:25Z",
+      "pushed_at": "2026-10-07T04:39:06Z",
+      "license": {
+        "spdx_id": "EPL-2.0"
+      },
+      "stargazers_count": 1267
+    },
+    "openlightingproject/ola": {
+      "created_at": "2013-12-16T18:06:52Z",
+      "pushed_at": "2026-09-21T17:30:47Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 760
+    },
+    "openlineage/openlineage": {
+      "created_at": "2020-10-24T21:45:05Z",
+      "pushed_at": "2026-10-06T20:42:00Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 2691
+    },
+    "openlistteam/openlist": {
+      "created_at": "2025-06-11T23:35:02Z",
+      "pushed_at": "2026-10-05T18:40:43Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 24944
+    },
+    "openlit/openlit": {
+      "created_at": "2024-01-23T17:40:59Z",
+      "pushed_at": "2026-10-05T10:33:54Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 2823
+    },
+    "openloco/openloco": {
+      "created_at": "2018-01-06T23:35:23Z",
+      "pushed_at": "2026-10-06T20:17:28Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 1929
+    },
+    "openlookeng/hetu-core": {
+      "created_at": "2020-06-30T07:14:20Z",
+      "pushed_at": "2023-10-30T15:16:13Z",
+      "license": null,
+      "stargazers_count": 571
+    },
+    "openmage/magento-lts": {
+      "created_at": "2014-10-17T14:23:00Z",
+      "pushed_at": "2026-10-06T10:51:36Z",
+      "license": {
+        "spdx_id": "OSL-3.0"
+      },
+      "stargazers_count": 932
+    },
+    "openmaptiles/openmaptiles": {
+      "created_at": "2016-10-04T18:29:52Z",
+      "pushed_at": "2026-07-29T12:19:41Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 3183
+    },
+    "openmathlib/openblas": {
+      "created_at": "2011-01-24T06:34:44Z",
+      "pushed_at": "2026-10-05T19:48:58Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 7612
+    },
+    "openmc-dev/openmc": {
+      "created_at": "2011-07-21T00:33:27Z",
+      "pushed_at": "2026-10-07T04:22:41Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 1114
+    },
+    "openmdao/openmdao": {
+      "created_at": "2016-08-25T15:53:25Z",
+      "pushed_at": "2026-10-06T13:15:34Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 794
+    },
+    "openmediavault/openmediavault": {
+      "created_at": "2016-05-03T10:35:34Z",
+      "pushed_at": "2026-10-06T17:27:19Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 6986
+    },
+    "openmm/openmm": {
+      "created_at": "2013-05-20T17:42:52Z",
+      "pushed_at": "2026-10-06T15:51:06Z",
+      "license": null,
+      "stargazers_count": 1992
+    },
+    "openmodelica/openmodelica": {
+      "created_at": "2015-05-03T16:59:29Z",
+      "pushed_at": "2026-10-07T05:55:39Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 1435
+    },
+    "openmoh/openmohaa": {
+      "created_at": "2015-01-09T18:38:46Z",
+      "pushed_at": "2026-04-23T22:07:14Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 821
+    },
+    "openmrs/openmrs-core": {
+      "created_at": "2012-07-26T04:54:29Z",
+      "pushed_at": "2026-10-06T20:21:53Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 1934
+    },
+    "openms/openms": {
+      "created_at": "2014-01-09T10:15:13Z",
+      "pushed_at": "2026-10-07T06:10:30Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 623
+    },
+    "openmsx/openmsx": {
+      "created_at": "2015-06-17T05:56:57Z",
+      "pushed_at": "2026-10-06T20:22:26Z",
+      "license": null,
+      "stargazers_count": 555
+    },
+    "openmv/openmv": {
+      "created_at": "2013-11-13T10:23:44Z",
+      "pushed_at": "2026-10-05T09:27:52Z",
+      "license": null,
+      "stargazers_count": 2873
+    },
+    "openmw/openmw": {
+      "created_at": "2009-08-23T14:46:21Z",
+      "pushed_at": "2026-10-07T01:28:31Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 6604
+    },
+    "openmx/openmx": {
+      "created_at": "2012-05-21T13:38:34Z",
+      "pushed_at": "2026-07-10T22:33:05Z",
+      "license": null,
+      "stargazers_count": 102
+    },
+    "opennebula/one": {
+      "created_at": "2011-03-10T17:53:48Z",
+      "pushed_at": "2026-10-06T15:24:06Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1750
+    },
+    "opennhp/opennhp": {
+      "created_at": "2014-08-04T14:23:37Z",
+      "pushed_at": "2026-10-05T23:12:02Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 13937
+    },
+    "opennms/opennms": {
+      "created_at": "2013-04-11T18:22:33Z",
+      "pushed_at": "2026-10-07T06:04:01Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 1174
+    },
+    "opennmt/opennmt-py": {
+      "created_at": "2017-02-22T19:01:50Z",
+      "pushed_at": "2025-10-14T17:32:07Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 7022
+    },
+    "openobserve/openobserve": {
+      "created_at": "2023-02-02T03:29:51Z",
+      "pushed_at": "2026-10-07T06:22:12Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 22284
+    },
+    "openocd-org/openocd": {
+      "created_at": "2011-07-01T14:25:51Z",
+      "pushed_at": "2026-10-04T13:59:31Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 2345
+    },
+    "openolat/openolat": {
+      "created_at": "2018-03-29T09:46:34Z",
+      "pushed_at": "2026-10-07T05:47:41Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 446
+    },
+    "openomsi-project/openomsi": {
+      "created_at": "2026-09-27T22:21:06Z",
+      "pushed_at": "2026-10-07T05:04:09Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 448
+    },
+    "openorienteering/mapper": {
+      "created_at": "2015-07-31T05:46:22Z",
+      "pushed_at": "2026-09-28T03:56:18Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 499
+    },
+    "openpanel-dev/openpanel": {
+      "created_at": "2024-02-29T07:27:49Z",
+      "pushed_at": "2026-10-06T20:50:49Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 7098
+    },
+    "openpgpjs/openpgpjs": {
+      "created_at": "2011-11-13T10:36:43Z",
+      "pushed_at": "2026-09-29T17:35:51Z",
+      "license": {
+        "spdx_id": "LGPL-3.0"
+      },
+      "stargazers_count": 5970
+    },
+    "openpnp/openpnp": {
+      "created_at": "2013-01-25T06:52:14Z",
+      "pushed_at": "2026-09-29T02:58:40Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 2244
+    },
+    "openra/openra": {
+      "created_at": "2010-10-04T07:38:05Z",
+      "pushed_at": "2026-10-03T14:50:01Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 17502
+    },
+    "openrailwaymap/openrailwaymap": {
+      "created_at": "2011-12-05T18:22:30Z",
+      "pushed_at": "2026-04-20T17:05:36Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 515
+    },
+    "openrct2/openrct2": {
+      "created_at": "2014-04-01T23:32:25Z",
+      "pushed_at": "2026-10-07T04:06:17Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 16383
+    },
+    "openrefine/openrefine": {
+      "created_at": "2012-10-15T02:22:48Z",
+      "pushed_at": "2026-10-02T18:53:23Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 12023
+    },
+    "openremote/openremote": {
+      "created_at": "2016-02-03T11:14:02Z",
+      "pushed_at": "2026-10-06T21:50:29Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 1913
+    },
+    "openresty/openresty": {
+      "created_at": "2010-01-20T03:57:59Z",
+      "pushed_at": "2026-09-21T08:37:23Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 14063
+    },
+    "openrewrite/rewrite": {
+      "created_at": "2020-05-12T20:16:14Z",
+      "pushed_at": "2026-10-07T06:33:08Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 3774
+    },
+    "openrlhf/openrlhf": {
+      "created_at": "2023-07-30T02:20:13Z",
+      "pushed_at": "2026-10-05T17:33:02Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 10070
+    },
+    "openrtx/openrtx": {
+      "created_at": "2020-03-30T13:57:42Z",
+      "pushed_at": "2026-10-03T12:53:22Z",
+      "license": null,
+      "stargazers_count": 921
+    },
+    "opensage/opensage": {
+      "created_at": "2017-06-14T09:53:41Z",
+      "pushed_at": "2026-03-30T23:01:45Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 1644
+    },
+    "opensandbox-group/opensandbox": {
+      "created_at": "2025-12-17T08:41:09Z",
+      "pushed_at": "2026-10-01T02:21:12Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 15705
+    },
+    "opensc/opensc": {
+      "created_at": "2011-07-05T09:45:08Z",
+      "pushed_at": "2026-10-07T05:29:49Z",
+      "license": {
+        "spdx_id": "LGPL-2.1"
+      },
+      "stargazers_count": 3104
+    },
+    "openscad/openscad": {
+      "created_at": "2010-11-03T20:25:33Z",
+      "pushed_at": "2026-10-05T00:33:39Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 10374
+    },
+    "openscap/openscap": {
+      "created_at": "2014-04-29T14:23:34Z",
+      "pushed_at": "2026-10-06T08:23:19Z",
+      "license": {
+        "spdx_id": "LGPL-2.1"
+      },
+      "stargazers_count": 1824
+    },
+    "opensearch-project/opensearch": {
+      "created_at": "2021-01-29T22:10:00Z",
+      "pushed_at": "2026-10-06T23:44:44Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 13815
+    },
+    "opensearch-project/opensearch-dashboards": {
+      "created_at": "2021-01-29T22:10:13Z",
+      "pushed_at": "2026-10-06T22:48:14Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 2130
+    },
+    "opensees/opensees": {
+      "created_at": "2018-09-12T00:49:34Z",
+      "pushed_at": "2026-10-06T19:10:31Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 827
+    },
+    "opensemanticsearch/open-semantic-search": {
+      "created_at": "2016-03-30T15:51:03Z",
+      "pushed_at": "2025-04-19T14:57:11Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 1220
+    },
+    "openshot/openshot-qt": {
+      "created_at": "2015-06-01T08:39:27Z",
+      "pushed_at": "2026-10-07T03:48:48Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 6601
+    },
+    "opensignlabs/opensign": {
+      "created_at": "2023-10-02T15:53:30Z",
+      "pushed_at": "2026-08-21T12:29:09Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 7063
+    },
+    "opensil/opensil": {
+      "created_at": "2023-06-11T06:54:24Z",
+      "pushed_at": "2026-09-30T16:04:41Z",
+      "license": null,
+      "stargazers_count": 589
+    },
+    "opensim-org/opensim-core": {
+      "created_at": "2014-06-12T16:57:56Z",
+      "pushed_at": "2026-10-06T21:51:59Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1123
+    },
+    "opensips/opensips": {
+      "created_at": "2013-05-09T11:16:38Z",
+      "pushed_at": "2026-10-06T15:16:53Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 1536
+    },
+    "openslides/openslides": {
+      "created_at": "2012-07-31T20:04:39Z",
+      "pushed_at": "2026-09-23T15:19:47Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 647
+    },
+    "opensmtpd/opensmtpd": {
+      "created_at": "2012-06-19T13:19:09Z",
+      "pushed_at": "2026-09-14T12:26:42Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 586
+    },
+    "opensourcerisk/engine": {
+      "created_at": "2016-10-07T09:15:00Z",
+      "pushed_at": "2026-09-15T08:30:55Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 798
+    },
+    "openspace/openspace": {
+      "created_at": "2015-07-01T15:59:54Z",
+      "pushed_at": "2026-10-06T22:01:52Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 1269
+    },
+    "openspeedtest/speed-test": {
+      "created_at": "2021-07-15T02:26:40Z",
+      "pushed_at": "2026-04-22T11:33:37Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 3803
+    },
+    "opensprinkler/opensprinkler-firmware": {
+      "created_at": "2014-09-11T22:17:22Z",
+      "pushed_at": "2026-09-29T14:11:47Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 561
+    },
+    "openssh/openssh-portable": {
+      "created_at": "2014-01-17T05:53:25Z",
+      "pushed_at": "2026-10-06T11:54:36Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 4036
+    },
+    "openssl/openssl": {
+      "created_at": "2013-01-15T22:34:48Z",
+      "pushed_at": "2026-10-06T17:33:17Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 30897
+    },
+    "openstack/cinder": {
+      "created_at": "2012-11-29T22:34:37Z",
+      "pushed_at": "2026-10-06T21:05:39Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 677
+    },
+    "openstack/swift": {
+      "created_at": "2010-07-22T01:50:07Z",
+      "pushed_at": "2026-10-06T06:14:08Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 2803
+    },
+    "openstatushq/openstatus": {
+      "created_at": "2023-06-19T15:32:41Z",
+      "pushed_at": "2026-10-07T06:16:32Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 9172
+    },
+    "openstreetmap/openstreetmap-website": {
+      "created_at": "2010-05-01T16:22:12Z",
+      "pushed_at": "2026-10-05T13:53:47Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 2838
+    },
+    "openstudy-dev/openstudy": {
+      "created_at": "2026-04-17T12:58:58Z",
+      "pushed_at": "2026-09-25T19:44:50Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 75
+    },
+    "opentofu/opentofu": {
+      "created_at": "2023-08-16T20:01:36Z",
+      "pushed_at": "2026-10-06T18:01:25Z",
+      "license": {
+        "spdx_id": "MPL-2.0"
+      },
+      "stargazers_count": 30406
+    },
+    "opentomb/opentomb": {
+      "created_at": "2015-04-08T17:49:22Z",
+      "pushed_at": "2025-02-24T22:46:16Z",
+      "license": {
+        "spdx_id": "LGPL-3.0"
+      },
+      "stargazers_count": 1445
+    },
+    "opentoonz/opentoonz": {
+      "created_at": "2016-03-18T17:55:48Z",
+      "pushed_at": "2026-10-04T19:55:38Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 7793
+    },
+    "opentripplanner/opentripplanner": {
+      "created_at": "2011-07-18T16:15:38Z",
+      "pushed_at": "2026-10-07T06:28:07Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 2751
+    },
+    "opentsdb/opentsdb": {
+      "created_at": "2010-08-27T02:05:20Z",
+      "pushed_at": "2024-12-12T20:03:34Z",
+      "license": {
+        "spdx_id": "LGPL-2.1"
+      },
+      "stargazers_count": 5064
+    },
+    "openttd/openttd": {
+      "created_at": "2018-04-06T18:06:22Z",
+      "pushed_at": "2026-10-06T17:55:09Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 8340
+    },
+    "openturns/openturns": {
+      "created_at": "2015-08-14T13:48:42Z",
+      "pushed_at": "2026-10-06T08:51:59Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 351
+    },
+    "opentx/opentx": {
+      "created_at": "2013-11-29T07:02:56Z",
+      "pushed_at": "2026-07-23T21:10:23Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 2189
+    },
+    "openutau/openutau": {
+      "created_at": "2014-11-27T06:55:34Z",
+      "pushed_at": "2026-10-07T05:09:51Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 4375
+    },
+    "openvinotoolkit/openvino": {
+      "created_at": "2018-10-15T10:54:40Z",
+      "pushed_at": "2026-10-07T05:25:10Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 10957
+    },
+    "openvk/openvk": {
+      "created_at": "2020-06-07T16:05:22Z",
+      "pushed_at": "2026-10-07T00:59:45Z",
+      "license": {
+        "spdx_id": "LGPL-2.1"
+      },
+      "stargazers_count": 552
+    },
+    "openvnmrj/openvnmrj": {
+      "created_at": "2016-01-21T17:42:10Z",
+      "pushed_at": "2026-09-27T17:30:52Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 41
+    },
+    "openvpn/openvpn": {
+      "created_at": "2012-04-26T20:42:48Z",
+      "pushed_at": "2026-10-07T05:29:07Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 14643
+    },
+    "openvsp/openvsp": {
+      "created_at": "2012-01-14T07:20:19Z",
+      "pushed_at": "2026-10-06T04:57:27Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 853
+    },
+    "openvswitch/ovs": {
+      "created_at": "2014-04-02T22:15:28Z",
+      "pushed_at": "2026-09-29T23:47:45Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 4025
+    },
+    "openwam-official/openwam": {
+      "created_at": "2026-09-06T06:21:09Z",
+      "pushed_at": "2026-10-01T14:22:25Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 959
+    },
+    "openwisp/openwisp-controller": {
+      "created_at": "2016-12-27T09:46:14Z",
+      "pushed_at": "2026-10-07T00:13:55Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 778
+    },
+    "openwisp/openwisp-network-topology": {
+      "created_at": "2017-05-30T08:25:24Z",
+      "pushed_at": "2026-10-01T02:00:37Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 261
+    },
+    "openworkers/openworkers-runner": {
+      "created_at": "2024-03-23T20:55:44Z",
+      "pushed_at": "2026-09-14T21:34:44Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 233
+    },
+    "openwrt/openwrt": {
+      "created_at": "2015-11-09T07:13:55Z",
+      "pushed_at": "2026-10-07T05:57:11Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 28660
+    },
+    "openxcom/openxcom": {
+      "created_at": "2011-02-06T17:54:56Z",
+      "pushed_at": "2026-09-28T08:29:12Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 2226
+    },
+    "openxray/xray-16": {
+      "created_at": "2014-09-05T04:28:23Z",
+      "pushed_at": "2026-10-06T22:42:38Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 3574
+    },
+    "openyurtio/openyurt": {
+      "created_at": "2020-05-21T08:54:43Z",
+      "pushed_at": "2026-10-05T07:16:50Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 2004
+    },
+    "openzeppelin/openzeppelin-contracts": {
+      "created_at": "2016-08-01T20:54:54Z",
+      "pushed_at": "2026-10-06T18:06:31Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 27267
+    },
+    "openzfs/zfs": {
+      "created_at": "2009-12-14T20:20:34Z",
+      "pushed_at": "2026-10-06T23:13:55Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 12475
+    },
+    "openziti/ziti": {
+      "created_at": "2019-11-22T15:27:24Z",
+      "pushed_at": "2026-10-06T20:50:52Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 4420
+    },
+    "openzwave/open-zwave": {
+      "created_at": "2015-03-14T08:38:14Z",
+      "pushed_at": "2024-03-26T12:23:29Z",
+      "license": {
+        "spdx_id": "LGPL-3.0"
+      },
+      "stargazers_count": 1056
+    },
+    "opf/openproject": {
+      "created_at": "2012-11-28T09:59:11Z",
+      "pushed_at": "2026-10-07T05:41:51Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 16335
+    },
+    "oracle/opengrok": {
+      "created_at": "2013-01-07T11:49:18Z",
+      "pushed_at": "2026-09-30T21:43:04Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 4970
+    },
+    "os4ed/opensis-classic": {
+      "created_at": "2018-03-28T14:46:41Z",
+      "pushed_at": "2026-10-05T15:01:51Z",
+      "license": null,
+      "stargazers_count": 345
+    },
+    "petoicamp/opencat-quadruped-robot": {
+      "created_at": "2021-01-03T15:42:00Z",
+      "pushed_at": "2026-09-08T04:50:11Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 5421
+    },
+    "pixaranimationstudios/opensubdiv": {
+      "created_at": "2012-04-24T00:12:00Z",
+      "pushed_at": "2026-10-02T20:15:57Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 3075
+    },
+    "pkp/ojs": {
+      "created_at": "2009-11-16T21:19:14Z",
+      "pushed_at": "2026-10-06T22:13:39Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 1041
+    },
+    "pkp/omp": {
+      "created_at": "2009-09-24T17:19:48Z",
+      "pushed_at": "2026-10-06T22:13:42Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 145
+    },
+    "pkp/ops": {
+      "created_at": "2020-03-24T21:50:39Z",
+      "pushed_at": "2026-10-06T22:13:45Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 54
+    },
+    "programagrueso/opencineagent": {
+      "created_at": "2026-10-04T17:33:28Z",
+      "pushed_at": "2026-10-04T20:57:00Z",
+      "license": null,
+      "stargazers_count": 7
+    },
+    "quantumlib/openfermion": {
+      "created_at": "2017-09-21T22:10:28Z",
+      "pushed_at": "2026-10-04T01:42:03Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 1743
+    },
+    "rdiankov/openrave": {
+      "created_at": "2012-09-14T05:40:51Z",
+      "pushed_at": "2026-10-07T04:28:59Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 820
+    },
+    "regnull/openbot": {
+      "created_at": "2026-09-13T21:43:17Z",
+      "pushed_at": "2026-10-07T01:38:21Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 28
+    },
+    "rmyndharis/openwa": {
+      "created_at": "2026-02-02T12:14:45Z",
+      "pushed_at": "2026-10-07T06:24:26Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 15102
+    },
+    "rpng/open_vins": {
+      "created_at": "2019-01-17T15:33:28Z",
+      "pushed_at": "2025-11-30T08:23:17Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 3127
+    },
+    "securiteru/openlaunch": {
+      "created_at": "2026-09-18T11:08:54Z",
+      "pushed_at": "2026-10-01T13:35:37Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 0
+    },
+    "seemoo-lab/openhaystack": {
+      "created_at": "2021-02-22T13:23:06Z",
+      "pushed_at": "2026-08-17T12:23:59Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 13772
+    },
+    "sfttech/openage": {
+      "created_at": "2013-11-03T22:35:23Z",
+      "pushed_at": "2026-10-03T20:19:51Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 14480
+    },
+    "shadowwalker2014/open-sunsama": {
+      "created_at": "2026-01-29T23:27:33Z",
+      "pushed_at": "2026-09-30T19:46:05Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 83
+    },
+    "syvaidya/openstego": {
+      "created_at": "2015-05-29T13:34:47Z",
+      "pushed_at": "2023-08-12T07:26:03Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 1441
+    },
+    "tbnobody/opendtu": {
+      "created_at": "2022-06-24T11:26:42Z",
+      "pushed_at": "2026-10-05T19:15:24Z",
+      "license": {
+        "spdx_id": "GPL-2.0"
+      },
+      "stargazers_count": 2191
+    },
+    "thinkst/opencanary": {
+      "created_at": "2015-08-05T14:44:09Z",
+      "pushed_at": "2026-10-05T19:30:20Z",
+      "license": {
+        "spdx_id": "BSD-3-Clause"
+      },
+      "stargazers_count": 3054
+    },
+    "thu-maic/openmaic": {
+      "created_at": "2026-03-11T10:13:16Z",
+      "pushed_at": "2026-10-07T04:03:19Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 40066
+    },
+    "tinyhumansai/openhuman": {
+      "created_at": "2026-02-18T20:01:27Z",
+      "pushed_at": "2026-10-07T06:24:01Z",
+      "license": {
+        "spdx_id": "GPL-3.0"
+      },
+      "stargazers_count": 41491
+    },
+    "tover0314-w/opentypeless": {
+      "created_at": "2026-02-26T10:49:05Z",
+      "pushed_at": "2026-09-29T06:50:43Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 589
+    },
+    "trusteddomainproject/opendkim": {
+      "created_at": "2017-09-14T06:06:43Z",
+      "pushed_at": "2026-07-23T08:09:04Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 118
+    },
+    "trusteddomainproject/opendmarc": {
+      "created_at": "2017-09-14T06:10:12Z",
+      "pushed_at": "2026-08-22T11:36:58Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 140
+    },
+    "vernesong/openclash": {
+      "created_at": "2019-05-29T15:52:27Z",
+      "pushed_at": "2026-10-06T23:47:46Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 27701
+    },
+    "volcengine/openviking": {
+      "created_at": "2026-01-05T07:11:17Z",
+      "pushed_at": "2026-10-07T06:39:37Z",
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "stargazers_count": 39331
+    },
+    "wandb/openui": {
+      "created_at": "2024-03-17T23:46:16Z",
+      "pushed_at": "2026-09-25T06:14:43Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 22568
+    },
+    "wasp-lang/open-saas": {
+      "created_at": "2023-12-01T13:54:36Z",
+      "pushed_at": "2026-10-06T14:14:02Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 16066
+    },
+    "widingmarcus-cyber/opengym": {
+      "created_at": "2026-03-01T14:52:49Z",
+      "pushed_at": "2026-03-14T16:31:20Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 1
+    },
+    "xelerance/openswan": {
+      "created_at": "2013-01-11T15:39:38Z",
+      "pushed_at": "2022-09-06T07:36:11Z",
+      "license": {
+        "spdx_id": "NOASSERTION"
+      },
+      "stargazers_count": 867
+    },
+    "zai-org/open-autoglm": {
+      "created_at": "2025-12-08T09:23:44Z",
+      "pushed_at": "2026-03-06T08:38:39Z",
+      "license": {
+        "spdx_id": "Apache-2.0"
+      },
+      "stargazers_count": 26349
+    },
+    "zseven-w/openpencil": {
+      "created_at": "2026-02-17T10:51:46Z",
+      "pushed_at": "2026-10-06T23:42:14Z",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "stargazers_count": 6089
+    }
+  }
+}

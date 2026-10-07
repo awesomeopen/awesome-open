@@ -6,6 +6,7 @@ import unittest
 
 import update_stats as stats
 import update_hn as hn
+from render_readme import ENTRY
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -72,10 +73,10 @@ class AlternativesTests(unittest.TestCase):
                 date.fromisoformat(alternative["checked_utc_date"])
                 self.assertTrue(alternative["scope"])
         counts = dict.fromkeys(expected, 0)
-        for row in (ROOT / "README.md").read_text().splitlines():
-            match = stats.ROW.match(row)
+        for row in (ROOT / "README.source.md").read_text().splitlines():
+            match = ENTRY.match(row)
             if match:
-                key = match[2].lower()
+                key = match[2].removeprefix("https://github.com/").lower()
                 self.assertEqual(stats.alternatives(row), expected.get(key, []))
                 if key in counts:
                     counts[key] += 1

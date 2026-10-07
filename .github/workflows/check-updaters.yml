@@ -1,4 +1,4 @@
-name: Check README updaters
+name: Check README source and preview
 
 on:
   pull_request:
@@ -13,9 +13,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run updater tests
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run offline tests
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
-      - name: Verify cached chart reproduction
+      - name: Render source preview from cached snapshots
         run: |
-          python3 scripts/update_hn.py --render-only
-          git diff --exit-code -- README.md assets/hn
+          python3 scripts/render_readme.py --output tmp/readme-preview/README.md
+          python3 - <<'PY'
+          from pathlib import Path
+          import difflib
+          import os
+
+          preview = Path('tmp/readme-preview')
+          before = Path('README.md').read_text(encoding='utf-8').splitlines(keepends=True)
+          after = (preview / 'README.md').read_text(encoding='utf-8').splitlines(keepends=True)
+          diff = ''.join(difflib.unified_diff(before, after, fromfile='tracked/README.md', tofile='preview/README.md'))
+          (preview / 'README.diff').write_text(diff, encoding='utf-8')
+          summary = ('## Offline README preview\n\n'
+                     'Rendered from this commit’s curated source and cached evidence. '
+                     'Metrics for new repositories are omitted until publication refreshes the snapshot. '
+                     'HN identity-map edits use prior cached evidence until the publisher refreshes it.\n\n'
+                     'Download the `readme-preview` artifact for README.md, HN chart assets, and README.diff. '
+                     'Content PRs edit README.source.md; they do not need to commit generated README changes.\n')
+          (preview / 'PREVIEW.md').write_text(summary, encoding='utf-8')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as output:
+              output.write(summary)
+          PY
+      - name: Upload README preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: readme-preview
+          path: tmp/readme-preview/
+          if-no-files-found: error

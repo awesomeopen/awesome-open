@@ -2,6 +2,7 @@ import copy
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import tempfile
 import unittest
 from unittest.mock import patch
 from urllib.parse import parse_qs, urlsplit
@@ -135,10 +136,9 @@ class HistoryTests(unittest.TestCase):
         evidence = json.loads(hn.EVIDENCE_PATH.read_text())
         self.assertEqual(len(evidence['months']), 24)
         eligible_max = 1
-        identities = {p['slug']: p for p in json.loads(hn.PROJECTS_PATH.read_text())['projects']}
         for project in evidence['projects']:
-            for key, value in identities[project['slug']].items():
-                self.assertEqual(project[key], value)
+            # Validate the identity embedded in cached evidence. A mapping-only
+            # PR takes effect after the publisher collects replacement evidence.
             stories = project['stories']
             self.assertEqual(len({s['id'] for s in stories}), len(stories))
             self.assertTrue(all(hn.identity_reason(s, project) for s in stories))
@@ -148,9 +148,43 @@ class HistoryTests(unittest.TestCase):
             self.assertEqual(project['eligible'], len(stories) >= hn.MIN_STORIES and sum(n > 0 for n in expected) >= hn.MIN_MONTHS)
             if project['eligible']:
                 eligible_max = max(eligible_max, max(expected))
-                asset = hn.ROOT / 'assets/hn' / (project['slug'] + '.svg')
-                self.assertEqual(asset.read_text(), hn.svg(project, evidence))
+                # Source/evidence-only PRs intentionally leave tracked SVGs
+                # stale. Check the rendered preview, not published artifacts.
+                rendered = ET.fromstring(hn.svg(project, evidence))
+                self.assertEqual(len(rendered.findall('{http://www.w3.org/2000/svg}rect')), 24)
         self.assertEqual(evidence['shared_monthly_maximum'], eligible_max)
+
+    def test_identity_mapping_has_complete_unique_projects(self):
+        projects = json.loads(hn.PROJECTS_PATH.read_text())['projects']
+        self.assertEqual(len({p['slug'] for p in projects}), len(projects))
+        for project in projects:
+            for key in ['name', 'slug', 'readme_url']:
+                self.assertIsInstance(project[key], str)
+                self.assertTrue(project[key])
+            for key in ['domains', 'repositories', 'title_aliases', 'queries']:
+                self.assertIsInstance(project[key], list)
+                self.assertTrue(all(isinstance(value, str) and value for value in project[key]))
+            self.assertTrue(project['queries'])
+            self.assertTrue(project['title_aliases'])
+
+    def test_collector_refreshes_removed_identity_field_without_rendering(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence_path = root / 'evidence.json'
+            identities_path = root / 'projects.json'
+            evidence = dict(self.evidence, projects=[dict(self.project, title_context_pattern='AI')])
+            identity = {key: value for key, value in self.project.items() if key not in hn.COLLECTED_KEYS}
+            evidence_path.write_text(json.dumps(evidence))
+            identities_path.write_text(json.dumps({'projects': [identity]}))
+            with patch.object(hn, 'EVIDENCE_PATH', evidence_path), \
+                    patch.object(hn, 'PROJECTS_PATH', identities_path), \
+                    patch.object(hn, 'window', return_value=(None, None, self.evidence['months'])), \
+                    patch.object(hn, 'refresh', return_value=self.evidence) as refresh, \
+                    patch.object(hn, 'render', side_effect=AssertionError('Collector must not render')), \
+                    patch('sys.argv', ['update_hn.py']):
+                hn.main()
+            refresh.assert_called_once_with()
+            self.assertEqual(json.loads(evidence_path.read_text()), self.evidence)
 
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@
 """Auditable HN submission counts; stdlib only. Cached render is network-free.
 
 Run monthly via daily CI: python3 scripts/update_hn.py. Force fresh collection
-with --refresh; reproduce checked-in SVGs/README with --render-only. Story
+with --refresh; render cached SVGs/README with render_readme.py. Story
 submission dates, NOT current points/comments, supply all historical values.
 """
 import argparse
@@ -22,6 +22,8 @@ EVIDENCE_PATH = ROOT / 'data/hn_evidence.json'
 PROJECTS_PATH = ROOT / 'data/hn_projects.json'
 API = 'https://hn.algolia.com/api/v1/search_by_date'
 MIN_STORIES, MIN_MONTHS = 6, 3
+COLLECTED_KEYS = {'monthly_counts', 'eligible', 'story_count', 'active_months',
+                  'stories', 'excluded_candidates', 'query_sources', 'search_url'}
 MARKER = re.compile(r'(?:<br\s*/?>)?<!-- HN:START -->.*?<!-- HN:END -->', re.S)
 
 
@@ -158,8 +160,8 @@ def decorate_readme(text, evidence=None):
     return pattern.sub(decorate, text)
 
 
-def render(evidence):
-    directory = ROOT / 'assets/hn'
+def render(evidence, directory=None):
+    directory = directory if directory is not None else ROOT / 'assets/hn'
     directory.mkdir(parents=True, exist_ok=True)
     keep = set()
     for project in evidence['projects']:
@@ -175,13 +177,16 @@ def render(evidence):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--refresh', action='store_true')
-    parser.add_argument('--render-only', action='store_true')
-    parser.add_argument('--no-readme', action='store_true')
     args = parser.parse_args()
-    if args.refresh and args.render_only:
-        parser.error('--refresh and --render-only are mutually exclusive')
     evidence = json.loads(EVIDENCE_PATH.read_text()) if EVIDENCE_PATH.exists() else None
-    if not args.render_only and (args.refresh or evidence is None or evidence['months'] != window()[2]):
+    identities = json.loads(PROJECTS_PATH.read_text())['projects']
+    cached_identities = [
+        {key: value for key, value in project.items() if key not in COLLECTED_KEYS}
+        for project in evidence['projects']
+    ] if evidence is not None else []
+    if (args.refresh or evidence is None or evidence['months'] != window()[2]
+            or len(identities) != len(evidence['projects'])
+            or identities != cached_identities):
         evidence = refresh()
         # Do not publish partial evidence when any network query fails.
         temporary = EVIDENCE_PATH.with_suffix('.tmp')
@@ -189,10 +194,6 @@ def main():
         temporary.replace(EVIDENCE_PATH)
     if evidence is None:
         parser.error('No cached evidence; run --refresh first')
-    render(evidence)
-    if not args.no_readme:
-        readme = ROOT / 'README.md'
-        readme.write_text(decorate_readme(readme.read_text(), evidence))
     print(f"HN history: {sum(p['eligible'] for p in evidence['projects'])}/{len(evidence['projects'])} eligible; {evidence['months'][0]}–{evidence['months'][-1]}; shared maximum {evidence['shared_monthly_maximum']}")
 
 

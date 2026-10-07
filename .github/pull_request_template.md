@@ -9,4 +9,5 @@
 - [ ] The software's name begins with Open, allowing capitalization, spaces, punctuation, or a documented expanded name.
 - [ ] The description is brief and factual, with an official project link.
 - [ ] The entry is alphabetical, and any repeated entries are consistent.
-- [ ] Tables and table-of-contents links render correctly; GitHub entries include a STATS comment block.
+- [ ] Content edits target `README.source.md` (and reviewed evidence when needed); generated README, metrics snapshots, and chart assets are not committed.
+- [ ] Tables and table-of-contents links render correctly; the offline README preview has been checked.
