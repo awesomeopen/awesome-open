@@ -66,6 +66,334 @@
           "scope": "Personal AI agent harnesses. OpenHuman’s official README directly compares OpenClaw and OpenHuman across memory, orchestration, workflows, and integrations; the comparison does not establish drop-in compatibility."
         }
       ]
+    },
+    {
+      "readme_url": "https://github.com/different-ai/openwork",
+      "alternatives": [
+        {
+          "name": "Claude Cowork",
+          "source_url": "https://github.com/different-ai/openwork#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenWork",
+          "scope": "Desktop AI agents working on local files and reusable workflows. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high",
+          "source_quote": "OpenWork is the free, open-source alternative to Claude Cowork and Codex"
+        },
+        {
+          "name": "Codex",
+          "source_url": "https://github.com/different-ai/openwork#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenWork",
+          "scope": "Desktop AI-agent work on the user's files; no claim of complete Codex product-family parity. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/getopenscreen/openscreen",
+      "alternatives": [
+        {
+          "name": "Screen Studio",
+          "source_url": "https://getopenscreen.com/alternatives/screen-studio/",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenScreen",
+          "source_quote": "OpenScreen is a free, MIT-licensed Screen Studio alternative",
+          "scope": "Screen recording and editing product demos with zooms, cursor effects, captions, and local video export. The official comparison distinguishes Screen Studio's hosted sharing and mobile-device capture; it does not establish feature parity.",
+          "confidence": "high"
+        },
+        {
+          "name": "Camtasia",
+          "source_url": "https://getopenscreen.com/alternatives/camtasia/",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenScreen",
+          "source_quote": "OpenScreen is a free Camtasia alternative",
+          "scope": "Screen recording and timeline editing for demos and walkthroughs. The official comparison excludes Camtasia's quiz/SCORM, caption-file delivery, and direct publishing workflows; native Camtasia project compatibility is not claimed.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/open-pencil/open-pencil",
+      "alternatives": [
+        {
+          "name": "Figma",
+          "source_url": "https://github.com/open-pencil/open-pencil#why",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenPencil (open-pencil)",
+          "source_quote": "OpenPencil is the alternative",
+          "scope": "Visual interface design and editing. The official README's Why section explicitly names Figma before positioning OpenPencil as the alternative and links to current compatibility gaps. This applies only to open-pencil/open-pencil, not the unrelated ZSeven-W project with the same name.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/openbao/openbao",
+      "alternatives": [
+        {
+          "name": "HashiCorp Vault Community Edition",
+          "source_url": "https://openbao.org/docs/guides/migration/",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenBao",
+          "scope": "Secrets, certificates, and key management; replacing a Vault CE server cluster with OpenBao. Guide tested against Vault CE 1.14.1 with Raft storage and Shamir unseal, using OpenBao 2.2.0. Does not establish Vault Enterprise replacement or universal newer-version compatibility.",
+          "confidence": "high",
+          "source_quote": "migrate a HashiCorp Vault Community Edition cluster to OpenBao."
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/opencloud-eu/opencloud",
+      "alternatives": [
+        {
+          "name": "Microsoft SharePoint",
+          "source_url": "https://opencloud.eu/en/press/opencloud-now-available-new-open-source-alternative-microsoft-sharepoint",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenCloud",
+          "scope": "File management, file sharing, and content collaboration; not all SharePoint intranet/application capabilities. The official statement was published on 2025-02-25 and rechecked on the date recorded here; this is not a new announcement or a whole-suite replacement claim.",
+          "confidence": "high",
+          "source_quote": "alternative to proprietary solutions such as Microsoft SharePoint, Google Drive or Dropbox."
+        },
+        {
+          "name": "Google Drive",
+          "source_url": "https://opencloud.eu/en/press/opencloud-now-available-new-open-source-alternative-microsoft-sharepoint",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenCloud",
+          "scope": "File management, file sharing, and content collaboration; not all Google Workspace. The official statement was published on 2025-02-25 and rechecked on the date recorded here; this is not a new announcement or a whole-suite replacement claim.",
+          "confidence": "high"
+        },
+        {
+          "name": "Dropbox",
+          "source_url": "https://opencloud.eu/en/press/opencloud-now-available-new-open-source-alternative-microsoft-sharepoint",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenCloud",
+          "scope": "File management, file sharing, and content collaboration. The official statement was published on 2025-02-25 and rechecked on the date recorded here; this is not a new announcement or a whole-suite replacement claim.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/OpenCut-app/OpenCut",
+      "alternatives": [
+        {
+          "name": "CapCut",
+          "source_url": "https://github.com/OpenCut-app/OpenCut",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenCut",
+          "source_quote": "The open-source CapCut alternative",
+          "scope": "Video editing. The official repository's About statement explicitly positions OpenCut as a CapCut alternative. Its current README says a rewrite is underway and directs users to the classic version; this does not establish current feature parity or readiness of the rewrite.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/openinterpreter/openinterpreter",
+      "alternatives": [
+        {
+          "name": "Codex",
+          "source_url": "https://www.openinterpreter.com/docs/terminal/migrate",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "Open Interpreter",
+          "source_quote": "If you previously used Codex, inspect both homes during migration:",
+          "scope": "Terminal coding-agent workflows. The official guide describes moving Codex setup into Open Interpreter and reviewing configuration, hooks, permissions, and sessions. This concerns the current Rust CLI, not the legacy Python Code Interpreter project, and does not promise all configuration or session compatibility.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/OpenNebula/one",
+      "alternatives": [
+        {
+          "name": "VMware",
+          "source_url": "https://opennebula.io/open-alternative-to-vmware/",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenNebula",
+          "scope": "Enterprise virtualization and private-cloud VM workloads. Use VMware as the first-party label; do not infer replacement of every VMware product.",
+          "confidence": "high",
+          "source_quote": "Ready to replace VMware with OpenNebula?"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/openobserve/openobserve",
+      "alternatives": [
+        {
+          "name": "Datadog",
+          "source_url": "https://github.com/openobserve/openobserve#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenObserve",
+          "scope": "Observability for logs, metrics, traces, and frontend monitoring. Alternative claim, not an assertion of complete Datadog feature parity.",
+          "confidence": "high",
+          "source_quote": "alternative to Datadog, Splunk, and Elasticsearch"
+        },
+        {
+          "name": "Splunk",
+          "source_url": "https://github.com/openobserve/openobserve#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenObserve",
+          "scope": "Observability and log analytics. Do not extend this to every Splunk security or enterprise workflow.",
+          "confidence": "high"
+        },
+        {
+          "name": "Elasticsearch",
+          "source_url": "https://github.com/openobserve/openobserve#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenObserve",
+          "scope": "Observability/log analytics workloads, rather than every Elasticsearch search use case. README frames the claim around observability.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/Openpanel-dev/openpanel",
+      "alternatives": [
+        {
+          "name": "Mixpanel",
+          "source_url": "https://github.com/Openpanel-dev/openpanel#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "Openpanel",
+          "scope": "Web and product analytics. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high",
+          "source_quote": "An open-source alternative to Mixpanel"
+        },
+        {
+          "name": "Google Analytics",
+          "source_url": "https://github.com/Openpanel-dev/openpanel#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "Openpanel",
+          "scope": "Website analytics; README comparison table specifically labels GA4. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high",
+          "source_quote": "one of the best Google Analytics replacements."
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/opensearch-project/OpenSearch",
+      "alternatives": [
+        {
+          "name": "Elasticsearch",
+          "source_url": "https://docs.opensearch.org/latest/migration-assistant/",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenSearch",
+          "scope": "Search and analytics engine workloads migrated to OpenSearch. Source-version and feature limitations apply; do not present as universal drop-in compatibility.",
+          "confidence": "high",
+          "source_quote": "moving data, metadata, and live traffic from Elasticsearch"
+        },
+        {
+          "name": "Apache Solr",
+          "source_url": "https://docs.opensearch.org/latest/migration-assistant/solr-migration/",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenSearch",
+          "scope": "Search engine workloads; documents/schema migration followed by application cutover to OpenSearch. Backfill only; no live-traffic Capture and Replay. Applications must change their query layer. Solr plugins require replacement/reimplementation. Official overview and detailed page disagree on target OpenSearch version coverage, so no target-version guarantee is made.",
+          "confidence": "high",
+          "source_quote": "Once confident, point your application directly at OpenSearch."
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/OpenSignLabs/OpenSign",
+      "alternatives": [
+        {
+          "name": "DocuSign",
+          "source_url": "https://github.com/OpenSignLabs/OpenSign#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenSign",
+          "scope": "Document e-signing. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high",
+          "source_quote": "alternative to commercial esign platforms like DocuSign, PandaDoc, SignNow"
+        },
+        {
+          "name": "PandaDoc",
+          "source_url": "https://github.com/OpenSignLabs/OpenSign#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenSign",
+          "scope": "Document e-signing only, not the entire document automation suite. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high"
+        },
+        {
+          "name": "SignNow",
+          "source_url": "https://github.com/OpenSignLabs/OpenSign#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenSign",
+          "scope": "Document e-signing. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/openstatusHQ/openstatus",
+      "alternatives": [
+        {
+          "name": "UptimeRobot",
+          "source_url": "https://www.openstatus.dev/compare/uptime-robot",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "openstatus",
+          "scope": "Uptime monitoring and associated status pages. Do not copy unverified comparative pricing or region-count marketing into the alternatives entry.",
+          "confidence": "high",
+          "source_quote": "openstatus is the UptimeRobot alternative worth considering."
+        },
+        {
+          "name": "Better Stack",
+          "source_url": "https://www.openstatus.dev/compare/betterstack",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "openstatus",
+          "scope": "Uptime monitoring and status pages. Not a replacement claim for Better Stack's log management or full incident-escalation product suite.",
+          "confidence": "high",
+          "source_quote": "openstatus is the BetterStack alternative to consider."
+        },
+        {
+          "name": "Status.io",
+          "source_url": "https://www.openstatus.dev/compare/statusio",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "openstatus",
+          "scope": "Hosted status pages and incident communication. Openstatus adds monitoring, but shared replacement scope is status pages.",
+          "confidence": "high",
+          "source_quote": "Looking for a Status.io alternative with built-in monitoring?"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/ShadowWalker2014/open-sunsama",
+      "alternatives": [
+        {
+          "name": "Sunsama",
+          "source_url": "https://github.com/ShadowWalker2014/open-sunsama#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "Open Sunsama",
+          "scope": "Daily planning with task organization, time blocking, and focus workflows. The official README explicitly answers that it is a Sunsama alternative. This mapping does not adopt its licensing marketing or establish feature parity.",
+          "confidence": "high",
+          "source_quote": "It covers Sunsama's daily-planning loop"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/tover0314-w/opentypeless",
+      "alternatives": [
+        {
+          "name": "Wispr Flow",
+          "source_url": "https://github.com/tover0314-w/opentypeless#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenTypeless",
+          "scope": "Desktop AI voice input and rewriting. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high",
+          "source_quote": "Open-source alternative to Wispr Flow and Superwhisper"
+        },
+        {
+          "name": "Superwhisper",
+          "source_url": "https://github.com/tover0314-w/opentypeless#readme",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenTypeless",
+          "scope": "Desktop AI voice input and rewriting. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high"
+        },
+        {
+          "name": "Typeless",
+          "source_url": "https://www.opentypeless.com/en/typeless-alternative",
+          "checked_utc_date": "2026-10-05",
+          "claimant": "OpenTypeless",
+          "scope": "Desktop voice typing only; not a replacement for Typeless mobile keyboard. The official project source explicitly supports this alternative; feature parity and universal compatibility are not claimed.",
+          "confidence": "high",
+          "source_quote": "A Practical Typeless Alternative: OpenTypeless"
+        }
+      ]
     }
   ]
 }
