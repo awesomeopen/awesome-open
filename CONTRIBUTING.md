@@ -51,6 +51,29 @@ The publisher performs its own verification before committing; it does not depen
 
 Content-only contributions must never commit generated README updates. Renderer/schema migrations may establish or update generated output together with their implementation, as this initial migration does. External curation jobs must switch to the source only after this migration is merged: daily discovery reads/deduplicates and edits `README.source.md`; alternatives discovery and accuracy review edit the source plus `data/alternatives.json` in their reviewed draft PRs. All three use the offline preview above and leave generated paths to the publisher.
 
+## Filterable website preview
+
+The website is an additional generated view of the same curated source, not a second catalog to edit. `scripts/build_catalog.py` reads the source using the README renderer’s entry validation and alternatives parser. It combines reviewed alternatives and cached GitHub/HN evidence into stable URL-based project identities and category memberships. `scripts/build_site.py` generates complete HTML, `catalog.json`, local CSS/JavaScript, HN SVGs, and downloadable evidence. Both commands are offline and use only Python’s standard library.
+
+```sh
+python3 -m unittest discover -s scripts -p 'test_*.py'
+python3 scripts/render_readme.py --output tmp/readme-preview/README.md
+python3 scripts/build_site.py --output tmp/site
+python3 -m http.server 8000 --directory tmp/site
+```
+
+Open `http://localhost:8000` in your browser. You can also open `tmp/site/index.html` directly; search and filters use embedded data and do not fetch JSON. Keep generated files under the ignored `tmp/` directory; do not commit site output. To generate only the data, run `python3 scripts/build_catalog.py --output tmp/site/catalog.json`.
+
+The initial page contains every distinct project, sorted by name, even with JavaScript disabled. Category links open the source sections without JavaScript. With JavaScript they filter the directory in place. Search covers names, descriptions, and reviewed alternative names. Category, detected SPDX license (including known/unknown), minimum stars, and an inclusive last-push UTC date can be combined. Results sort by name, raw star count, or last push; unknown numeric/date values sort last and do not satisfy a numeric/date threshold. Filter changes are encoded in URL query parameters and restore with Back/Forward. A project’s `#project-…` permalink is based on its canonical URL, so a name change does not change its anchor.
+
+Missing metadata and `NOASSERTION`/`OTHER` licenses remain unknown. Detected licenses are not independent legal review. Last-push dates are not “active” or “abandoned” labels, and stars are not quality rankings. No trending or lifecycle claims are inferred. Alternative evidence and HN chart semantics are unchanged from the README. Cross-listed projects retain every category; different projects sharing a name stay separate.
+
+Python tests include a complete offline site build, preservation/count checks, safe escaping, asset/evidence links, and deterministic output. When Node is installed, they also run `node --test site/test_catalog.js` for browser-independent filter and URL-state logic. Browser checks should additionally cover combined filters, empty results, repeated clear, pending search followed by Back/Forward, keyboard navigation, narrow mobile layout, and the no-JavaScript fallback. No workflow or deployment settings are changed by this preview implementation. An optional reusable browser smoke test is included at `scripts/check_site_browser.cjs`; with Playwright and Chromium installed, serve the site and run `SITE_URL=http://127.0.0.1:8000 node scripts/check_site_browser.cjs`. `CHROMIUM_PATH` can select an installed browser. It saves desktop/mobile screenshots under `tmp/site-qa/`. Browser QA is a separate check from the offline unit suite.
+
+### Future publication boundary
+
+Publishing the website and enabling GitHub Pages are separate, approval-gated work. There is no site deployment workflow in this change. The current README publisher creates its generated commit in a detached worktree; a later website publisher must receive that explicitly returned published commit SHA, check out that exact SHA in a fresh/detached worktree, and build there. It must never build from the workflow’s earlier, potentially stale checkout or merely relabel old files with a new SHA. Pass `--source-sha "$PUBLISHED_SHA"` to the site builder only after verifying the build inputs are from that revision. `--source-sha` records caller-supplied provenance; it does not checkout or verify Git history itself. Without the argument the footer honestly says “Local preview (revision not supplied)”.
+
 ## Automated metadata
 
 Metadata is rendered as `<br><sub>creation-date -- last-push-date / SPDX-license / stars</sub>`. The first date is the GitHub repository creation date, and the second is its last push date, both in UTC. The last push date is wrapped in `<b>` once its 12-calendar-month anniversary is reached (inclusive, based on today in UTC; February 29 anniversaries use February 28 in non-leap years). Missing or unknown dates are not emphasized. The daily refresh reevaluates this threshold. These are repository dates, not original project launch dates or release dates. The license is the SPDX identifier detected by GitHub; unknown licenses (including `NOASSERTION` and `OTHER`) are omitted. Star counts use compact `k` and `m` notation. Projects hosted elsewhere have no generated metadata.
