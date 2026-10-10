@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-10-10",
+  "font_family": "Outfit",
+  "css_family": "Outfit",
+  "font_style": "normal",
+  "weight_range": [
+    100,
+    900
+  ],
+  "package": "@fontsource-variable/outfit",
+  "package_version": "5.3.0",
+  "registry": "https://registry.npmjs.org",
+  "tarball_url": "https://registry.npmjs.org/@fontsource-variable/outfit/-/outfit-5.3.0.tgz",
+  "tarball_integrity_sha512": "sha512-fPb5XnYK0k7SbR++HEmm4+ZqDszmLKQ+sPRUr8oQ/KNC0vy6r6hazJFe8iYozv4cqlHbvJ/JECkJWrfDodUMVQ==",
+  "tarball_sha1": "1106061dd413b77faf72a8acfb635b01fc33d362",
+  "tarball_sha256": "06ab798b993eda0cfe3c8adf31030be5da4ccaaca3e226d93ab291c4a96e5957",
+  "source_project": "https://github.com/Outfitio/Outfit-Fonts",
+  "source_license_reference": "https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/OFL.txt",
+  "license": "SIL Open Font License 1.1",
+  "original_license_sha256": "0e5fcef5d93bfcae273c11c00f0bb453d3b5491860e1ac8b658767b7577c938f",
+  "assets": [
+    {
+      "package_path": "files/outfit-latin-ext-wght-normal.woff2",
+      "bytes": 14808,
+      "sha256": "0f53d1c03b3918d744a843b5039001ee31695ca1e255e3914188df81beb461e9",
+      "embedded_unchanged": true
+    },
+    {
+      "package_path": "files/outfit-latin-wght-normal.woff2",
+      "bytes": 32292,
+      "sha256": "6c18d579fd87c3776be068b762cbc83fde3acb543d49eabd3ade842eb987e887",
+      "embedded_unchanged": true
+    }
+  ],
+  "output_css": "fonts.css",
+  "output_css_sha256": "c2b7b1074050faf72a98eae916acc80794d5f6609b37700241cbbc2a73299747",
+  "transformation": "The package CSS family alias is Outfit; WOFF2 bytes and Unicode ranges are unchanged. WOFF2 files are losslessly base64-encoded inside CSS data URLs. The full package license is included in the CSS header."
+}

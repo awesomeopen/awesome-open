@@ -3,6 +3,7 @@
 import contextlib
 import io
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -21,6 +22,27 @@ root = Path(__file__).resolve().parents[1]
 HN_SCRIPT = '''from pathlib import Path
 root = Path(__file__).resolve().parents[1]
 (root / 'data/hn_evidence.json').write_text('{"cached": true}\\n')
+'''
+SIGNALS_SCRIPT = '''import argparse
+import json
+import os
+from pathlib import Path
+import subprocess
+root = Path(__file__).resolve().parents[1]
+parser = argparse.ArgumentParser()
+parser.add_argument('--source-sha', required=True)
+args = parser.parse_args()
+assert args.source_sha == subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
+assert subprocess.run(['git', 'symbolic-ref', '-q', 'HEAD'], cwd=root, capture_output=True).returncode == 1
+source = (root / 'README.source.md').read_text()
+assert json.loads((root / 'data/github_metrics.json').read_text())['source'] == source
+assert json.loads((root / 'data/hn_evidence.json').read_text())['cached']
+output = root / 'data/project_signals.json'
+previous = json.loads(output.read_text()) if output.exists() else {}
+if os.environ.get('FIXTURE_SIGNALS_UPSTREAM_ERROR'):
+    print('Optional upstream unavailable; retaining last-good signals.')
+elif previous.get('source') != source:
+    output.write_text(json.dumps({'source': source, 'source_sha': args.source_sha}) + '\\n')
 '''
 RENDER_SCRIPT = '''import argparse
 from pathlib import Path
@@ -70,6 +92,7 @@ class PublisherGitTests(unittest.TestCase):
             'assets/hn/fixture.svg': '<svg>old</svg>\n',
             'scripts/update_stats.py': STATS_SCRIPT,
             'scripts/update_hn.py': HN_SCRIPT,
+            'scripts/update_signals.py': SIGNALS_SCRIPT,
             'scripts/render_readme.py': RENDER_SCRIPT,
             'scripts/test_fixture.py': CHECK_SCRIPT,
         }
@@ -126,7 +149,9 @@ class PublisherGitTests(unittest.TestCase):
         self.assertIn('Initial curated row.', self.remote_file('README.md'))
         changed = self.git(self.origin, 'diff-tree', '--no-commit-id', '--name-only', '-r', commit).splitlines()
         self.assertTrue(changed)
+        self.assertIn('data/project_signals.json', changed)
         self.assertTrue(all(publisher.allowed_path(name) for name in changed))
+        self.assertEqual(json.loads(self.remote_file('data/project_signals.json'))['source_sha'], self.initial)
         self.assert_worktree_removed()
 
     def test_regenerates_when_main_advances_during_collection(self):
@@ -146,6 +171,44 @@ class PublisherGitTests(unittest.TestCase):
         self.assertEqual(self.git(self.origin, 'rev-parse', commit + '^'), latest_contributor[0])
         self.assertIn('Added a new upstream repository.', self.remote_file('README.md'))
         self.assertEqual(json.loads(self.remote_file('data/github_metrics.json'))['source'], sources[-1])
+        signals = json.loads(self.remote_file('data/project_signals.json'))
+        self.assertEqual(signals['source'], sources[-1])
+        self.assertEqual(signals['source_sha'], latest_contributor[0])
+        self.assert_worktree_removed()
+
+    def test_optional_upstream_error_preserves_last_good_while_core_publishes(self):
+        publisher.publish(self.checkout)
+        previous_signals = self.remote_file('data/project_signals.json')
+        source = 'Core catalog changed during an optional upstream outage.\n'
+        self.advance_source(source)
+        with patch.dict(os.environ, {'FIXTURE_SIGNALS_UPSTREAM_ERROR': '1'}):
+            commit = publisher.publish(self.checkout)
+        self.assertEqual(self.remote_head(), commit)
+        self.assertEqual(self.remote_file('data/project_signals.json'), previous_signals)
+        self.assertEqual(json.loads(self.remote_file('data/github_metrics.json'))['source'], source)
+        self.assertIn(source.strip(), self.remote_file('README.md'))
+        self.assertIn('retaining last-good signals', self.output.getvalue())
+        self.assert_worktree_removed()
+
+    def test_initial_optional_outage_does_not_require_a_snapshot(self):
+        with patch.dict(os.environ, {'FIXTURE_SIGNALS_UPSTREAM_ERROR': '1'}):
+            commit = publisher.publish(self.checkout)
+        self.assertEqual(self.remote_head(), commit)
+        self.assertNotIn('data/project_signals.json', self.git(self.origin, 'ls-tree', '-r', '--name-only', 'main'))
+        self.assertIn('Initial curated row.', self.remote_file('README.md'))
+        self.assert_worktree_removed()
+
+    def test_corrupt_optional_snapshot_fails_without_publishing(self):
+        (self.actor / 'data/project_signals.json').write_text('{invalid JSON\n')
+        self.git(self.actor, 'add', 'data/project_signals.json')
+        self.git(self.actor, 'commit', '-m', 'Corrupt optional snapshot fixture')
+        self.git(self.actor, 'push', 'origin', 'main')
+        expected = self.remote_head()
+        with self.assertRaisesRegex(RuntimeError, 'Command failed .*update_signals.py'):
+            publisher.publish(self.checkout)
+        self.assertEqual(self.remote_head(), expected)
+        self.assertEqual(self.remote_file('README.md'), 'Old generated output.')
+        self.assertEqual(self.remote_file('data/github_metrics.json'), '{}')
         self.assert_worktree_removed()
 
     def test_failed_stale_collection_retries_new_main(self):
@@ -189,15 +252,18 @@ class PublisherGitTests(unittest.TestCase):
     def test_refuses_unexpected_generated_changes(self):
         original = publisher.collect_and_render
 
-        def collect(root):
-            original(root)
-            (root / 'unexpected.txt').write_text('This must never be committed.\n')
+        for unexpected in ['unexpected.txt', 'data/project_signals.json.tmp']:
+            with self.subTest(path=unexpected):
+                def collect(root):
+                    original(root)
+                    (root / unexpected).write_text('This must never be committed.\n')
 
-        with patch.object(publisher, 'collect_and_render', side_effect=collect):
-            with self.assertRaisesRegex(RuntimeError, 'outside generated paths: unexpected.txt'):
-                publisher.publish(self.checkout)
-        self.assertEqual(self.remote_head(), self.initial)
-        self.assert_worktree_removed()
+                with patch.object(publisher, 'collect_and_render', side_effect=collect):
+                    with self.assertRaisesRegex(RuntimeError, 'outside generated paths') as error:
+                        publisher.publish(self.checkout)
+                self.assertIn(unexpected, str(error.exception))
+                self.assertEqual(self.remote_head(), self.initial)
+                self.assert_worktree_removed()
 
     def test_validation_failure_never_pushes(self):
         (self.actor / 'scripts/test_fixture.py').write_text(CHECK_SCRIPT + '\n    def test_failure(self):\n        self.fail("invalid collected state")\n')
@@ -248,10 +314,12 @@ class PublisherGitTests(unittest.TestCase):
 
 class PublisherScopeTests(unittest.TestCase):
     def test_generated_scope_is_explicit(self):
-        for name in ['README.md', 'data/github_metrics.json', 'data/hn_evidence.json', 'assets/hn/project.svg']:
+        for name in ['README.md', 'data/github_metrics.json', 'data/hn_evidence.json',
+                     'data/project_signals.json', 'assets/hn/project.svg']:
             with self.subTest(name=name):
                 self.assertTrue(publisher.allowed_path(name))
         for name in ['README.source.md', 'CONTRIBUTING.md', 'data/hn_projects.json', 'data/alternatives.json',
+                     'data/project_signals.json.tmp', 'data/other_signals.json', 'data/nested/project_signals.json',
                      '.github/workflows/update-stats.yml', 'assets/hn/../../secret.svg', 'assets/hn/script.py']:
             with self.subTest(name=name):
                 self.assertFalse(publisher.allowed_path(name))
@@ -271,6 +339,7 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertNotIn('git diff --exit-code', text)
         self.assertNotIn('scripts/update_stats.py', text)
         self.assertNotIn('scripts/update_hn.py', text)
+        self.assertNotIn('scripts/update_signals.py', text)
         self.assertNotIn('pull_request_target', text)
         self.assertIn('contents: read', text)
 
