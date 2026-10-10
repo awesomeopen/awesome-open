@@ -45,9 +45,9 @@ python3 scripts/render_readme.py --output tmp/readme-preview/README.md
 
 Open the generated Markdown with a Markdown viewer; the adjacent `assets/hn` directory keeps chart links intact. Pull requests run the same tests and upload a downloadable README preview artifact with its assets and a diff against the checked-in README. The checked-in README is expected to lag while a source-only PR is reviewed; checks validate the preview instead of requiring a clean README diff. New entries can be reviewed without network access or credentials. A missing metrics record omits statistics and ranking for that entry until collection succeeds. HN identity-map-only edits use the previous cached evidence in an offline preview; their new matching rules take effect when the publisher refreshes evidence after merge. The snapshot's `as_of` UTC date controls stale-date emphasis, so a preview is reproducible on any day.
 
-[Publish generated README](.github/workflows/update-stats.yml) is the single publisher. It runs after relevant source/evidence/code merges or direct main commits, daily at 00:00 UTC, and on manual dispatch. Within one serialized job it fetches fresh `main`, collects metrics and (when needed) HN evidence, renders, runs all tests and an offline reproduction check, then commits generated paths only. If main advances, it regenerates from the newest source before retrying an ordinary fast-forward push. It never force-pushes or writes curated source. A contributor's source commit is live only after this publisher succeeds.
+[Publish generated README](.github/workflows/update-stats.yml) is the single publisher. It runs after relevant source/evidence/code merges or direct main commits, daily at 00:00 UTC, and on manual dispatch. Within one serialized job it fetches fresh `main`, collects metrics and (when needed) HN evidence, refreshes due optional website signals, renders, runs all tests and an offline reproduction check, then commits generated paths only. If main advances, it regenerates from the newest source before retrying an ordinary fast-forward push. It never force-pushes or writes curated source. A contributor's source commit is live only after this publisher succeeds.
 
-The publisher performs its own verification before committing; it does not depend on a `GITHUB_TOKEN` push triggering another workflow. The built-in `GITHUB_TOKEN` needs only the existing repository-content write permission; no personal token or new secret is required. Review any repository branch rules separately if they prevent bot pushes. Failed collection leaves previously published content intact and fails visibly rather than publishing partial metrics.
+The publisher performs its own verification before committing; it does not depend on a `GITHUB_TOKEN` push triggering another workflow. The built-in `GITHUB_TOKEN` needs only the existing repository-content write permission; no personal token or new secret is required. Review any repository branch rules separately if they prevent bot pushes. Failed core collection leaves previously published content intact and fails visibly rather than publishing partial metrics. Ordinary upstream failures for optional website signals preserve their last-good evidence and do not prevent core README publication; corrupt local snapshots, invalid schemas, and identity mismatches still fail visibly.
 
 Content-only contributions must never commit generated README updates. Renderer/schema migrations may establish or update generated output together with their implementation, as this initial migration does. External curation jobs must switch to the source only after this migration is merged: daily discovery reads/deduplicates and edits `README.source.md`; alternatives discovery and accuracy review edit the source plus `data/alternatives.json` in their reviewed draft PRs. All three use the offline preview above and leave generated paths to the publisher.
 
@@ -111,6 +111,76 @@ Metadata is rendered as `<br><sub>creation-date -- last-push-date / SPDX-license
 Only the three highest-starred GitHub repository name links within each category are bold. Categories with fewer than three eligible repositories highlight all of them; exact star-count ties use the lowercase canonical repository path alphabetically. Cross-listed projects are ranked separately in each category. Ranking uses the unrounded API count and never reorders entries. This highlighting is independent of HN chart coverage.
 
 Edit descriptions only in `README.source.md`. To collect a new metrics snapshot, set `GH_TOKEN` and run `python3 scripts/update_stats.py`; this collector does not write README. Then run `python3 scripts/render_readme.py` to render it. The snapshot retains raw integer star counts, creation/last-push timestamps, and the API license identifier. Collection validates every record and replaces the snapshot atomically only after all requests succeed.
+
+## Optional website evidence
+
+`data/project_signals.json` holds optional GitHub release and OpenSSF Scorecard
+evidence for the website. It is separate from core GitHub metrics and HN
+evidence, and does not change README metadata, rankings, or admission rules.
+Missing, unavailable, inconclusive, and stale results remain explicit; none
+means that a project passed a check. Contributor concentration and packaging
+signals are outside this implementation.
+
+The release collector checks GitHub's designated latest published full release
+using `GET /repos/{owner}/{repo}/releases/latest`. This excludes drafts and
+prereleases and follows GitHub's selection semantics; it does not discover every
+release channel, tag, or release hosted elsewhere. The displayed release date
+comes from `published_at`, not `created_at` (which can describe the release
+commit's date). The tag, official release link, and publication timestamp are
+evidence to inspect, not a project-health score. An old release can be appropriate
+for stable software, and an unavailable result does not establish abandonment.
+See the [GitHub Releases REST API](https://docs.github.com/en/rest/releases/releases).
+
+Scorecard evidence comes from the public precomputed
+[OpenSSF Scorecard REST API](https://github.com/ossf/scorecard#scorecard-rest-api),
+not a locally executed security audit. Keep the upstream scan date and version,
+repository identity, source link, and available check results with the evidence.
+A check score of `-1` is inconclusive and must not be displayed as zero or a
+pass. Checks omitted by the API are not passed checks. In particular, the public
+weekly scan may omit `CI-Tests`, `Contributors`, and `Dependency-Update-Tool`.
+These automated heuristics do not establish that software is secure or suitable
+for a particular use. Report the evidence and its limits rather than infer a
+maintenance or security verdict.
+
+`scripts/update_signals.py` checks due releases daily and successful Scorecard
+evidence weekly. A missing Scorecard result is rechecked after 14 days; errors
+are eligible again the next day, subject to provider backoff. Scorecard work is
+staggered oldest-first, with at most 50 requests per
+daily run; the 343-repository baseline can therefore be covered over seven daily
+runs when requests succeed. Collection is serial, with a 300-second scheduling
+budget (no new request starts after the deadline; socket timeouts are at most
+10 seconds, so a slowly streamed in-flight response can overrun that budget) and a ceiling of 350 additional GitHub release requests per run. At that
+baseline, the normal full daily GitHub budget is 343 core repository requests
+plus 343 release requests, or 686 total, before retries or another publisher
+attempt. Scorecard requests go to its separate public API. Budget exhaustion and
+ordinary upstream failures defer optional work while retaining last-good data.
+The existing `GH_TOKEN` is sent only to the official GitHub API; Scorecard needs
+no new credential. No workflow, permissions, repository settings, or security
+settings need to change.
+
+The publisher runs the optional collector after core collection and before
+rendering in its existing fresh-main detached worktree. It supplies
+`--source-sha` from that worktree's `git rev-parse HEAD` on every attempt, so a
+retry after a concurrent main update records the new source revision. This SHA
+identifies the collection attempt, not a fresh observation of every cached
+value. Retained last-good evidence keeps its successful fetch timestamp and
+upstream identity; a failed refresh does not make old data fresh. Read the last
+successful fetch time and upstream release/scan date separately from the most
+recent attempt. A failed refresh makes retained evidence stale; otherwise,
+release evidence becomes stale after three days without successful validation,
+and Scorecard evidence becomes stale when its upstream scan is over 30 days
+old. An old release publication date alone does not mark its cache stale. Only
+the exact `data/project_signals.json` path joins the generated-file publication allowlist.
+The collector handles ordinary upstream outages itself; other nonzero exits
+are not swallowed by the publisher. Offline tests and website builds read the
+snapshot without making API requests.
+
+The initial snapshot is a three-repository checked sample: three release
+results, two Scorecard results, and one missing Scorecard result. The remaining
+340 GitHub repositories are explicitly not checked; this is not a catalogue-wide
+coverage estimate. The retained Scorecard sample preserves its retrieval date
+with `day` precision rather than inventing exact fetch seconds. New collector
+requests record second-precision attempt and fetch timestamps.
 
 
 ## Hacker News attention sparklines

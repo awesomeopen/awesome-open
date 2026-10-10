@@ -11,6 +11,7 @@ import shutil
 from build_catalog import build_catalog
 import update_hn as hn
 import update_stats as stats
+import signals
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
@@ -58,6 +59,57 @@ def specimen_art():
     return '<svg class="prefix-flora" viewBox="0 0 400 400" aria-hidden="true" fill="none" stroke="currentColor" stroke-width=".85">'+''.join(paths)+'<circle cx="200" cy="200" r="9"/><circle cx="200" cy="200" r="181" stroke-dasharray="1 8"/></svg>'
 
 
+def signal_time(value, precision='second'):
+    return value[:10] + ' UTC (date only)' if precision == 'day' else value
+
+
+def optional_signal_html(project):
+    """Evidence stays in native drawers; unknown values never become zeroes."""
+    records = project.get('signals')
+    if not records:
+        return ''
+    pieces = []
+    for provider, title in (('release', 'Latest GitHub release'), ('scorecard', 'OpenSSF Scorecard')):
+        record = records[provider]
+        good = record['last_good']
+        state = record['status'].capitalize()
+        if good is None:
+            label = {'not_checked': 'Not checked', 'not_found': 'No result returned',
+                     'pending': 'Provider pending', 'error': 'Unavailable', 'deferred': 'Check deferred'}.get(record['fetch_status'], 'Unavailable')
+            content = f'<p>{escape(label)}</p>'
+        elif provider == 'release':
+            value = good['value']
+            content = (f'<p><a href="{escape(value["html_url"])}">{escape(value["tag_name"])}</a>'
+                       f' · Published {escape(value["published_at"][:10])} UTC</p>')
+        else:
+            value = good['value']
+            scored = sum(check['score'] is not None for check in value['checks'])
+            total = len(value['checks'])
+            aggregate = f'{value["score"]:g}/10' if value['score'] is not None else 'Aggregate inconclusive'
+            checks = ''.join(f'<li><strong>{escape(c["name"])}</strong> · '
+                             + (f'{c["score"]:g}/10' if c['score'] is not None else 'Inconclusive')
+                             + f'<p>{escape(c["reason"])}</p></li>' for c in value['checks'])
+            commit = good['source_commit']
+            repo = value['repository'].removeprefix('github.com/')
+            content = (f'<p>{aggregate} · Scanned {escape(good["observed_at"][:10])} · '
+                       f'{scored} scored / {total} returned checks</p>'
+                       f'<details class="signal-checks"><summary>Check results and scan provenance</summary><ul>{checks}</ul>'
+                       f'<p class="fine-print">Repository commit <a href="https://github.com/{escape(repo)}/commit/{commit}">{commit[:12]}</a>'
+                       f' · Scorecard {escape(good["tool_version"])}</p></details>')
+        provenance = []
+        if record['checked_at']:
+            provenance.append('Checked ' + signal_time(record['checked_at'], record.get('check_time_precision', 'second')))
+        if record['last_success_at']:
+            provenance.append('Last successful fetch ' + signal_time(record['last_success_at'], record.get('success_time_precision', record.get('check_time_precision', 'second'))))
+        if good:
+            provenance.append('Value fetched ' + signal_time(good['fetched_at'], good.get('fetch_time_precision', 'second')))
+        if record['fetch_status'] not in {'ok', 'not_modified', 'not_checked'}:
+            provenance.append('Latest attempt: ' + record['fetch_status'].replace('_', ' '))
+        provenance.append(f'<a href="{escape(record["source_url"])}">Provider source</a>')
+        pieces.append(f'<section class="optional-signal" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}<p class="fine-print">' + ' · '.join(provenance) + '</p></section>')
+    return '<div class="optional-signals">' + ''.join(pieces) + '</div>'
+
+
 def project_html(project, categories, catalog, number=0):
     pid = escape(project['id'])
     name = escape(project['name'])
@@ -68,17 +120,17 @@ def project_html(project, categories, catalog, number=0):
     stars = f'{github["stars"]:,}' if github else 'Unknown'
     tags = ' / '.join(f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>' for cid in project['categories'])
     evidence = ''.join(f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">Checked {escape(a["checked_utc_date"])}</span><p>{escape(a["scope"])}</p></li>' for a in project['alternatives'])
-    alternatives = f'<div class="comparison"><h4>Reviewed alternatives</h4><ul>{evidence}</ul><p class="fine-print">Source-backed use cases. A comparison does not establish ancestry or feature parity.</p></div>' if evidence else ''
+    alternatives = f'<div class="comparison"><h4>Reviewed alternatives</h4><ul>{evidence}</ul><p class="fine-print">Source-backed use cases; feature parity is not established.</p></div>' if evidence else ''
     chart = ''
     if project['hn']:
         attention = project['hn']
-        chart = f'<div class="signal"><h4>HN seismograph</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="Browse HN discussions; attention is not endorsement"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} matched story submissions / 24 completed months</span></a><p class="fine-print">Shared square-root scale. Volume, not sentiment. <a href="data/hn_evidence.json">View evidence</a></p></div>'
+        chart = f'<div class="signal"><h4>HN seismograph</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} matched story submissions / 24 completed months</span></a><p class="fine-print">Shared square-root scale. <a href="data/hn_evidence.json">View evidence</a></p></div>'
     return f'''<article class="project-card" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
   <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="specimen-name">{split_name(project['name'])}</span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true">+</span></summary>
   <div class="specimen-interior">
    <div class="specimen-caption"><span class="registry">OP-{pid[:8].upper()}</span><h3>{name}</h3><p>{tags}</p><a class="source-link" href="{escape(project['url'])}">Official source <span aria-hidden="true">↗</span></a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></div>
-   <div class="diagnostics"><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push · UTC</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created · UTC</dt><dd>{escape(created)}</dd></div></dl><p class="fine-print">{'Cached GitHub metrics' if github else 'No cached GitHub metrics'} · Snapshot {escape(catalog['metrics_as_of'])}. Unknown is a data gap, not a verdict. Repository dates do not establish project age or maintenance health.</p>{alternatives}{chart}</div>
+   <div class="diagnostics"><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push · UTC</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created · UTC</dt><dd>{escape(created)}</dd></div></dl><p class="fine-print">{'Cached GitHub metrics' if github else 'No cached GitHub metrics'} · Snapshot {escape(catalog['metrics_as_of'])}. Unknown values indicate missing cached data.</p>{optional_signal_html(project)}{alternatives}{chart}</div>
   </div>
  </details>
 </article>'''
@@ -97,6 +149,15 @@ def render_html(catalog):
     known_licenses = sum(bool(p['github'] and p['github']['license']) for p in catalog['projects'])
     comparisons = sum(bool(p['alternatives']) for p in catalog['projects'])
     charts = sum(bool(p['hn']) for p in catalog['projects'])
+    signal_projects = [p for p in catalog['projects'] if p.get('signals')]
+    signal_coverage = []
+    for provider, label in (('release', 'Release'), ('scorecard', 'Scorecard')):
+        checked = sum(bool(p['signals'][provider]['checked_at']) for p in signal_projects)
+        values = sum(bool(p['signals'][provider]['last_good']) for p in signal_projects)
+        signal_coverage.append(f'{label}: {values} cached results / {checked} checked')
+    optional_notes = ('<p>' + ' · '.join(signal_coverage) + f" · {len(signal_projects)} mapped GitHub repositories. Optional collection snapshot {escape(catalog.get('signals_collected_at'))}.</p>"
+                      '<p>Latest GitHub release follows the publisher’s latest designation; its date is publication time. Scorecard reports automated security-practice checks. Its aggregate, scored/returned coverage, scan date and check reasons belong together. Inconclusive and omitted checks remain unknown. These observations do not establish security, compliance, or production suitability. Stale marks an old scan/cache or a retained result after an unsuccessful check.</p>'
+                      '<p><a href="data/project_signals.json">Release and Scorecard evidence</a></p>') if signal_projects else ''
     sha = catalog.get('source_sha')
     revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else 'Local preview (revision not supplied)'
     sample = next((p for p in catalog['projects'] if p['name'] == 'OpenBao'), catalog['projects'][0])
@@ -104,7 +165,7 @@ def render_html(catalog):
 <html lang="en">
 <head>
  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
- <meta name="description" content="A natural-history field guide to software named Open. Inspect the prefix. Follow the evidence. Search the complete specimen ledger.">
+ <meta name="description" content="A natural-history field guide to software named Open, with searchable project records, repository data, and reviewed comparisons.">
  <meta name="color-scheme" content="light"><title>Genus Open* — The Awesome Open field guide</title>
  <link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="styles.css">
  <script src="catalog.js" defer></script><script src="vendor/gsap.min.js" defer></script><script src="vendor/ScrollTrigger.min.js" defer></script><script src="motion.js" defer></script>
@@ -116,28 +177,28 @@ def render_html(catalog):
 <section class="hero" aria-labelledby="page-title">
  <div class="cover-line"><span>A field guide to the genus</span><span>THE NAME IS THE CRITERION.</span></div>
  <h1 id="page-title" aria-label="Genus Open star">Open<span class="wildcard" aria-hidden="true">*</span></h1>
- <div class="hero-baseline"><p class="hero-copy">Software with a common prefix.<br>Not necessarily a common nature.</p><p class="dictionary"><span>Open-</span> <i>prefix</i><br>A source model. A fresh start.<br>Sometimes, just a name.</p><a class="enter-ledger" href="#catalog">Inspect the specimens <span aria-hidden="true">↘</span></a></div>
- <div class="botanical-plate">{specimen_art()}<span class="plate-note">Fig. O*<br>Prefix study<br><span>Schematic, not genealogy</span></span><span class="plate-crosshair" aria-hidden="true">+</span></div>
- <div class="cover-bottom"><span>cat /dev/software | grep '^Open'</span><span>Observe closely. Assume little.</span></div>
+ <div class="hero-baseline"><div class="hero-copy" aria-hidden="true"></div><p class="dictionary"><span>Open-</span> <i>prefix</i><br>A source model. A fresh start.<br>A name.</p><a class="enter-ledger" href="#catalog">Inspect the specimens <span aria-hidden="true">↘</span></a></div>
+ <div class="botanical-plate">{specimen_art()}<span class="plate-note">Fig. O*<br>Prefix study<br><span>Schematic</span></span><span class="plate-crosshair" aria-hidden="true">+</span></div>
+ <div class="cover-bottom"><span>cat /dev/software | grep '^Open'</span><span>Names, functions, sources.</span></div>
 </section>
 <section class="reading-room" id="method" aria-labelledby="method-title">
- <div class="reading-intro"><span class="mono-label">Notes from the collection</span><h2 id="method-title">Same prefix.<br><em>Different species.</em></h2><p>The naming criterion is deliberately narrow. The software underneath is anything but.</p><p>Inspect the label, the repository, and the source behind each comparison. The register keeps the evidence close.</p><a class="text-link" href="#catalog">Go straight to the ledger <span aria-hidden="true">↘</span></a></div>
+ <div class="reading-intro"><span class="mono-label">Notes from the collection</span><h2 id="method-title">Same prefix.<br><em>Different species.</em></h2><p>Opening a specimen brings its source links and available evidence into view.</p><a class="text-link" href="#catalog">Go straight to the ledger <span aria-hidden="true">↘</span></a></div>
  <div class="observation-sheets">
   <article class="observation-sheet"><div class="sheet-heading"><span class="mono-label">A name under glass</span><span class="sheet-sign" aria-hidden="true">⌕</span></div><h3>{split_name(sample['name'])}</h3><p>{escape(sample['description'])}</p><div class="sheet-bottom"><span>OP-{sample['id'][:8].upper()} / URL-derived registry ID</span><a href="#project-{sample['id']}">Inspect specimen ↗</a></div></article>
-  <article class="observation-sheet"><div class="sheet-heading"><span class="mono-label">The label &amp; the substance</span><span class="sheet-sign" aria-hidden="true">≠</span></div><h3>Open ≠<br>one license.</h3><p><strong>{known_licenses} of {count}</strong> records have a detected license in this snapshot. The rest need inspection. Missing data is not evidence of a proprietary license.</p><div class="sheet-bottom"><span>Detection is a starting point.</span><a href="#catalog">Read the actual terms ↘</a></div></article>
-  <article class="observation-sheet"><div class="sheet-heading"><span class="mono-label">Keep the signal in context</span><span class="sheet-sign" aria-hidden="true">∿</span></div><h3>A trace.<br>Not a verdict.</h3><p>Push dates measure repository pushes. HN charts count matched story submissions. Neither establishes health, quality, or sentiment.</p><div class="sheet-bottom"><span>{charts} HN records / {comparisons} reviewed comparisons</span><a href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Methods &amp; sources ↗</a></div></article>
+  <article class="observation-sheet"><div class="sheet-heading"><span class="mono-label">The label &amp; the substance</span><span class="sheet-sign" aria-hidden="true">≠</span></div><h3>Open ≠<br>one license.</h3><p><strong>{known_licenses} of {count}</strong> records have a detected license in this snapshot. Selecting a license narrows the ledger to matching records.</p><div class="sheet-bottom"><span>Licenses recorded by GitHub.</span><a href="#catalog">Read the actual terms ↘</a></div></article>
+  <article class="observation-sheet"><div class="sheet-heading"><span class="mono-label">Repository &amp; HN records</span><span class="sheet-sign" aria-hidden="true">∿</span></div><h3>Activity<br>&amp; attention.</h3><p>Push dates measure repository pushes. HN charts count matched story submissions across 24 completed months.</p><div class="sheet-bottom"><span>{charts} HN records / {comparisons} reviewed comparisons</span><a href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Methods &amp; sources ↗</a></div></article>
  </div>
 </section>
 <div class="collection-band"><span>THE SPECIMEN LEDGER</span><span>{count} distinct projects</span><span>{catalog['category_memberships']} category memberships</span><span>{len(categories)} functional categories</span></div>
 <div class="layout">
- <aside class="sidebar" aria-label="Catalog categories"><details class="category-panel" open><summary>Index by function <span aria-hidden="true">+</span></summary><nav class="category-nav" aria-label="Categories"><a data-category="" href="#catalog" aria-current="true"><span>All specimens</span><span class="category-count">{count}</span></a>{nav}</nav></details><p class="sidebar-note">Grouped by what the software does.<br>Lineage and motives are not inferred.</p></aside>
+ <aside class="sidebar" aria-label="Catalog categories"><details class="category-panel" open><summary>Index by function <span aria-hidden="true">+</span></summary><nav class="category-nav" aria-label="Categories"><a data-category="" href="#catalog" aria-current="true"><span>All specimens</span><span class="category-count">{count}</span></a>{nav}</nav></details><p class="sidebar-note">Grouped by what the software does.</p></aside>
  <main id="catalog" class="catalog-main" tabindex="-1">
-  <div class="ledger-heading"><div><span class="mono-label">Open the drawers. Examine the evidence.</span><h2>The register<span aria-hidden="true">.</span></h2></div><span class="snapshot-label">Snapshot<br>{escape(catalog['metrics_as_of'])} UTC</span></div>
+  <div class="ledger-heading"><div><span class="mono-label">Project records &amp; source evidence.</span><h2>The register<span aria-hidden="true">.</span></h2></div><span class="snapshot-label">Snapshot<br>{escape(catalog['metrics_as_of'])} UTC</span></div>
   <form id="filters" class="catalog-toolbar" hidden aria-label="Filter projects">
    <div class="search-field"><label for="search">Find a specimen</label><div class="search-input"><span aria-hidden="true">⌕</span><input id="search" name="q" type="search" placeholder="A name, a function, an alternative…" autocomplete="off" aria-describedby="search-help"></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div>
    <div class="diagnostic-filters"><div class="filter-field"><label for="push-window">Repository push window</label><select id="push-window" name="window"><option value="all">Any observed date</option><option value="recent">Within 90 days of snapshot</option><option value="older">More than 2 years before snapshot</option><option value="unknown">Push date unknown</option></select></div><div class="filter-field"><label for="alternative-filter">Reviewed alternative to</label><select id="alternative-filter" name="alternative"><option value="">Any / not recorded</option>{alternative_options}</select></div><div class="filter-field"><label for="license-filter">Detected license</label><select id="license-filter" name="license"><option value="all">Any / unknown</option><option value="known">Detected license available</option><option value="unknown">License unknown</option>{license_options}</select></div></div>
    <details class="more-filters"><summary>More diagnostic filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after · UTC</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
-   <div class="toolbar-bottom"><p class="filter-note">Dates are relative to this snapshot, not a maintenance diagnosis.</p><button id="clear-filters" type="button">Reset the lens <span aria-hidden="true">↺</span></button></div><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
+   <div class="toolbar-bottom"><p class="filter-note">Date filters use the snapshot shown above.</p><button id="clear-filters" type="button">Reset the lens <span aria-hidden="true">↺</span></button></div><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
   </form>
   <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
   <div class="results-heading"><h3 id="result-count" role="status" aria-live="polite" aria-atomic="true">{count} projects</h3><div class="sort-field"><label for="sort-order">Order</label><select id="sort-order" name="sort" disabled><option value="name">Name A–Z</option><option value="stars">Most stars</option><option value="pushed">Latest push</option></select></div></div>
@@ -145,7 +206,7 @@ def render_html(catalog):
   <div class="ledger-columns" aria-hidden="true"><span>Folio</span><span>Specimen</span><span>Observed function</span><span>License</span><span>View</span></div><div id="project-list" class="project-list">{projects}</div>
  </main>
 </div>
-<footer class="site-footer" id="about"><span class="mono-label">The collection is never finished.</span><h2>Another Open<br><em>in the wild?</em></h2><a class="contribute-link" href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Bring it to the collection <span aria-hidden="true">↗</span></a><div class="colophon"><div><h3>A field guide, with limits.</h3><p>Awesome Open includes open-source and proprietary software, services, libraries, and archived projects. The prefix is the criterion, not an endorsement or a promise of production readiness.</p><p>Registry IDs derive from canonical URLs. Folio numbers show this edition’s alphabetical position, not collection order. The botanical illustration is a typographic study, not a genealogy.</p></div><div><h3>Sources, not certainty.</h3><p>GitHub metadata is cached. Repository creation is not project birth; last push is not maintenance status. Review each project’s current official sources.</p><p>HN charts use 24 completed months and a shared square-root scale. Coverage is a researched subset. Missing charts do not mean no discussion.</p><p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p></div></div><div class="footer-baseline"><span>Awesome Open / Genus Open*</span><span>Source revision: {revision}</span><span>List: <a href="{escape(source_url(catalog, 'LICENSE.md'))}">CC0-1.0</a> / Projects retain their licenses</span><a href="#page-title">Back to the cover ↑</a></div></footer>
+<footer class="site-footer" id="about"><span class="mono-label">The collection is never finished.</span><h2>Another Open<br><em>in the wild?</em></h2><a class="contribute-link" href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Bring it to the collection <span aria-hidden="true">↗</span></a><div class="colophon"><div><h3>Collection notes.</h3><p>Awesome Open includes open-source and proprietary software, services, libraries, and archived projects. The prefix is the inclusion criterion.</p><p>Registry IDs derive from canonical URLs. Folio numbers show this edition’s alphabetical position. The botanical illustration is a typographic study.</p></div><div><h3>Evidence methods.</h3><p>GitHub metadata is cached. Detected licenses require verification against current official terms; missing license data remains unknown. Repository dates describe GitHub activity, not project age or maintenance health.</p><p>HN charts count matched stories over 24 completed months on a shared square-root scale. Stars and HN counts measure attention, not quality or sentiment. Coverage is a researched subset; missing charts do not establish an absence of discussion.</p>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p></div></div><div class="footer-baseline"><span>Awesome Open / Genus Open*</span><span>Source revision: {revision}</span><span>List: <a href="{escape(source_url(catalog, 'LICENSE.md'))}">CC0-1.0</a> / Projects retain their licenses</span><a href="#page-title">Back to the cover ↑</a></div></footer>
 </div><script id="catalog-data" type="application/json">{json_for_html(catalog)}</script>
 </body></html>
 '''
@@ -162,7 +223,8 @@ def build(output, source_sha=None, root=ROOT):
     snapshot = json.loads((root / 'data/github_metrics.json').read_text(encoding='utf-8'))
     alternatives = json.loads((root / 'data/alternatives.json').read_text(encoding='utf-8'))
     evidence = json.loads((root / 'data/hn_evidence.json').read_text(encoding='utf-8'))
-    catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha)
+    optional = signals.load_optional(root / 'data/project_signals.json')
+    catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha, optional_signals=optional)
     page = render_html(catalog)
     # Validate charts before touching generated files. The renderer is shared with README.
     charts = {p['slug']: hn.svg(p, evidence) for p in evidence['projects'] if p['eligible']}
@@ -176,7 +238,12 @@ def build(output, source_sha=None, root=ROOT):
     for slug, chart in charts.items():
         (output / 'assets/hn' / (slug + '.svg')).write_text(chart, encoding='utf-8')
     (output / 'data').mkdir(exist_ok=True)
-    for name in ('alternatives.json', 'hn_evidence.json'):
+    evidence_files = ['alternatives.json', 'hn_evidence.json']
+    if optional is not None:
+        evidence_files.append('project_signals.json')
+    else:
+        (output / 'data/project_signals.json').unlink(missing_ok=True)
+    for name in evidence_files:
         shutil.copyfile(root / 'data' / name, output / 'data' / name)
     shutil.copytree(root / 'site/vendor', output / 'vendor', dirs_exist_ok=True)
     (output / '.nojekyll').write_text('', encoding='utf-8')
@@ -194,7 +261,7 @@ def build(output, source_sha=None, root=ROOT):
     for slug, chart in charts.items():
         encoded = base64.b64encode(chart.encode('utf-8')).decode('ascii')
         standalone = standalone.replace(f'src="assets/hn/{slug}.svg"', f'src="data:image/svg+xml;base64,{encoded}"')
-    for name in ('catalog.json', 'data/hn_evidence.json', 'data/alternatives.json'):
+    for name in ['catalog.json', *('data/' + item for item in evidence_files)]:
         encoded = base64.b64encode((output / name).read_bytes()).decode('ascii')
         standalone = standalone.replace(f'href="{name}"',
                                         f'download="{Path(name).name}" href="data:application/json;base64,{encoded}"')

@@ -13,6 +13,7 @@ from urllib.parse import unquote, urlsplit, urlunsplit
 
 import render_readme as readme
 import update_stats as stats
+import signals
 
 ROOT = Path(__file__).resolve().parents[1]
 ALTERNATIVES_LABEL = "<br>Alternative to: "
@@ -166,7 +167,7 @@ def _github_metadata(url, snapshot):
     }
 
 
-def build_catalog(source, snapshot, alternatives, evidence, source_sha=None):
+def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, optional_signals=None):
     """Return a fresh JSON-compatible catalog; never fetch data or read a clock.
 
     Category order follows the source, projects sort by name and canonical URL,
@@ -176,6 +177,8 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None):
     if source_sha is not None and (not isinstance(source_sha, str)
             or re.fullmatch(r"[0-9a-fA-F]{40}", source_sha) is None):
         raise ValueError("source_sha must be a full 40-character Git commit SHA")
+    if optional_signals is not None:
+        signals.validate_snapshot(optional_signals)
     readme.validate_source(source)
     metrics_as_of = readme.validate_snapshot(snapshot).isoformat()
     by_alternative = _alternative_evidence(alternatives)
@@ -245,6 +248,7 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None):
                 "description": description,
                 "categories": [],
                 "github": _github_metadata(url, snapshot),
+                "signals": signals.for_repository(optional_signals, url.removeprefix("https://github.com/").removeprefix("http://github.com/")),
                 "alternatives": deepcopy(reviewed),
                 "hn": deepcopy(by_hn.get(url)),
             }
@@ -257,6 +261,8 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None):
     return {
         "schema_version": 1,
         "metrics_as_of": metrics_as_of,
+        "signals_collected_at": optional_signals["collected_at"] if optional_signals else None,
+        "signals_source_sha": optional_signals["source_sha"] if optional_signals else None,
         "source_sha": source_sha.lower() if source_sha is not None else None,
         "category_memberships": sum(item["count"] for item in categories.values()),
         "categories": list(categories.values()),
@@ -274,7 +280,8 @@ def main():
         json.loads((ROOT / "data" / filename).read_text(encoding="utf-8"))
         for filename in ("github_metrics.json", "alternatives.json", "hn_evidence.json")
     )
-    catalog = build_catalog(source, snapshot, alternatives, evidence, args.source_sha)
+    catalog = build_catalog(source, snapshot, alternatives, evidence, args.source_sha,
+                            signals.load_optional(ROOT / "data/project_signals.json"))
     output = json.dumps(catalog, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(output, encoding="utf-8")

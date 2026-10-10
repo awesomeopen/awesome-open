@@ -129,7 +129,7 @@ class SiteTests(unittest.TestCase):
                     self.assertIn(alternative['scope'], card.text)
                     self.assertIn(alternative['checked_utc_date'], card.text)
 
-    def test_memberships_navigation_and_evidence_limits_are_explicit(self):
+    def test_memberships_navigation_and_evidence_methods_are_explicit(self):
         self.assertEqual(self.catalog['category_memberships'], sum(len(p['categories']) for p in self.catalog['projects']))
         self.assertEqual(self.catalog['category_memberships'], sum(c['count'] for c in self.catalog['categories']))
         bands = [node for node in self.page.elements if node.has_class('collection-band')]
@@ -144,11 +144,46 @@ class SiteTests(unittest.TestCase):
             self.assertEqual(link.attrs['data-category'], category['id'])
             self.assertIn(category['name'], link.text)
             self.assertTrue(link.attrs['href'].endswith('/README.source.md#' + category['id']))
-        for qualification in ('Missing data is not evidence of a proprietary license.',
-                              'Lineage and motives are not inferred.',
-                              'Repository creation is not project birth; last push is not maintenance status.',
-                              'Missing charts do not mean no discussion.'):
-            self.assertIn(qualification, self.html)
+        methods = [node for node in self.page.elements if node.has_class('colophon')][0]
+        for qualification in ('Detected licenses require verification against current official terms; missing license data remains unknown.',
+                              'Repository dates describe GitHub activity, not project age or maintenance health.',
+                              'Stars and HN counts measure attention, not quality or sentiment.',
+                              'Coverage is a researched subset; missing charts do not establish an absence of discussion.'):
+            self.assertIn(qualification, methods.text)
+
+    def test_editorial_copy_uses_outcomes_and_omits_defensive_framing(self):
+        removed = ('Software with a common prefix.',
+                   'Not necessarily a common nature.',
+                   'Schematic, not genealogy',
+                   'The naming criterion is deliberately narrow.',
+                   'The software underneath is anything but.',
+                   'Inspect the label, the repository, and the source behind each comparison.',
+                   'Observe closely. Assume little.',
+                   'Open the drawers. Examine the evidence.',
+                   'Not a verdict.',
+                   'A field guide, with limits.',
+                   'Sources, not certainty.',
+                   'Lineage and motives are not inferred.')
+        for name in ('index.html', 'standalone.html'):
+            with self.subTest(output=name):
+                document = (self.output / name).read_text()
+                page = Page(document)
+                for phrase in removed:
+                    self.assertNotIn(phrase, document)
+                intro = [node for node in page.elements if node.has_class('reading-intro')][0]
+                self.assertEqual([node.text for node in intro.descendants('p')], [
+                    'Opening a specimen brings its source links and available evidence into view.'
+                ])
+                self.assertIn('Selecting a license narrows the ledger to matching records.', page.by_id['method'].text)
+                plate = [node for node in page.elements if node.has_class('plate-note')][0]
+                self.assertEqual(plate.descendants('span')[0].text, 'Schematic')
+                # Preserve the hero grid slot without retaining omitted prose or
+                # introducing an empty paragraph into the accessibility tree.
+                hero_slot = [node for node in page.elements if node.has_class('hero-copy')][0]
+                self.assertEqual(hero_slot.text, '')
+                self.assertEqual(hero_slot.attrs.get('aria-hidden'), 'true')
+                self.assertEqual(page.by_id['clear-filters'].text.strip(), 'Reset the lens ↺')
+                self.assertEqual(page.by_id['sort-order'].attrs['name'], 'sort')
 
     def test_form_labels_status_and_native_disclosures_are_accessible(self):
         self.assertEqual(len(self.page.nodes('h1')), 1)
@@ -245,6 +280,8 @@ class SiteTests(unittest.TestCase):
         expected_downloads = {'catalog.json': self.catalog,
                               'hn_evidence.json': json.loads((ROOT / 'data/hn_evidence.json').read_text()),
                               'alternatives.json': json.loads((ROOT / 'data/alternatives.json').read_text())}
+        if (ROOT / 'data/project_signals.json').exists():
+            expected_downloads['project_signals.json'] = json.loads((ROOT / 'data/project_signals.json').read_text())
         actual_downloads = {}
         for link in page.nodes('a'):
             href = link.attrs['href']

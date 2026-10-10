@@ -1437,3 +1437,13 @@ summary::marker {
     background:none
   }
 }
+
+/* Optional technical evidence stays inside the specimen drawer. */
+.optional-signals { margin-top: 1.4rem; border-top: 1px solid var(--rule); }
+.optional-signal { padding-block: 1rem; border-bottom: 1px solid var(--rule); }
+.optional-signal p { overflow-wrap: anywhere; }
+.signal-status { font-size: .68rem; font-weight: 400; letter-spacing: .04em; margin-left: .5rem; }
+.signal-checks > summary { font-size: .82rem; text-decoration: underline; text-underline-offset: .2em; }
+.signal-checks > ul { padding-left: 1.2rem; font-size: .82rem; }
+.signal-checks li { margin-block: .6rem; }
+.signal-checks li p { margin-top: .2rem; }
