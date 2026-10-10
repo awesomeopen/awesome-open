@@ -70,6 +70,36 @@ Missing metadata and `NOASSERTION`/`OTHER` licenses remain unknown. Detected lic
 
 Python tests include a complete offline site build, preservation/count checks, safe escaping, asset/evidence links, and deterministic output. When Node is installed, they also run `node --test site/test_catalog.js` for browser-independent filter and URL-state logic. Browser checks should additionally cover combined filters, empty results, repeated clear, pending search followed by Back/Forward, keyboard navigation, narrow mobile layout, and the no-JavaScript fallback. No workflow or deployment settings are changed by this preview implementation. An optional reusable browser smoke test is included at `scripts/check_site_browser.cjs`; with Playwright and Chromium installed, serve the site and run `SITE_URL=http://127.0.0.1:8000 node scripts/check_site_browser.cjs`. `CHROMIUM_PATH` can select an installed browser. It saves desktop/mobile screenshots under `tmp/site-qa/`. Browser QA is a separate check from the offline unit suite.
 
+### Genus Open field-guide edition
+
+The website’s visual layer is a specimen ledger: split-prefix typography, native
+`details` diagnostic drawers, URL-derived registry labels, and an original SVG
+prefix study. Folio numbers are alphabetical positions within the generated
+edition; they are not accession dates. Function categories are unchanged. No
+lineage, motive, maintenance verdict, or license-sincerity classification is
+inferred from the existing data.
+
+Additional filters include exact reviewed-alternative names, presence of cached
+GitHub metrics, and snapshot-relative repository-push windows. “Within 90 days”
+is inclusive from snapshot minus 90 UTC days through the snapshot day. “More
+than 2 years” means strictly before the two-calendar-year anniversary, with
+February 29 clamped to February 28. These controls may be combined with the
+existing inclusive date threshold. Unknown dates do not match either window.
+
+Every build also emits `tmp/site/standalone.html`. It embeds CSS, the full
+catalog, scripts, licensed Outfit fonts, HN charts, and downloadable evidence.
+Open that single file in a browser for an offline preview without extracting
+adjacent assets. External project and source links naturally require a network.
+Some messaging-app attachment viewers disable JavaScript; download the file and
+open it in a browser when that happens.
+
+Outfit is included under SIL OFL 1.1. GSAP core and ScrollTrigger 3.15.0 retain
+their Standard No-Charge license notices; see `site/vendor/` for exact provenance.
+No runtime CDN or font requests are needed. Optional desktop scroll pinning and
+specimen-sheet stacking are disabled for narrow screens and reduced-motion
+preferences; native scrolling, all records, links, and filters work without
+GSAP. `site/DESIGN.md` records the one-shot design intent and evidence boundaries.
+
 ### Future publication boundary
 
 Publishing the website and enabling GitHub Pages are separate, approval-gated work. There is no site deployment workflow in this change. The current README publisher creates its generated commit in a detached worktree; a later website publisher must receive that explicitly returned published commit SHA, check out that exact SHA in a fresh/detached worktree, and build there. It must never build from the workflow’s earlier, potentially stale checkout or merely relabel old files with a new SHA. Pass `--source-sha "$PUBLISHED_SHA"` to the site builder only after verifying the build inputs are from that revision. `--source-sha` records caller-supplied provenance; it does not checkout or verify Git history itself. Without the argument the footer honestly says “Local preview (revision not supplied)”.
