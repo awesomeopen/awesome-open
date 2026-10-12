@@ -1,0 +1,75 @@
+/* Preview 01: an exhibition of real catalog records, above their full ledger. */
+.exhibition-page { --ex-rule:#b8c5ce; }
+.ex-header { background:var(--rs-blueprint);color:white;display:flex;align-items:center;gap:40px;padding:14px 40px; }
+.ex-header nav { display:flex;align-items:center;gap:24px;margin-left:auto;font:13px var(--mono); }
+.ex-header :focus-visible { outline-color:var(--rs-amber); }
+.ex-search { flex:1;max-width:380px; }
+.ex-search label { display:block;font:12px var(--mono);color:var(--rs-trace); }
+.ex-search input { width:100%;border:0;border-bottom:1px solid #7392aa;background:transparent;color:white;min-height:36px;padding:4px 0;font-size:16px; }
+.ex-search input::placeholder { color:var(--rs-trace); }
+.preview-stamp { border:1px solid #7392aa;padding:8px;white-space:nowrap; }
+.ex-main { max-width:1520px;margin:auto;padding:0 40px 64px; }
+.ex-entrance { display:grid;grid-template-columns:110px 1fr 240px;gap:32px;align-items:end;padding:32px 0 24px; }
+.entrance-index { align-self:stretch;border-right:1px solid var(--ex-rule); }
+.entrance-index > span { font:70px/.9 var(--mono);letter-spacing:-.1em;color:var(--rs-blueprint); }
+.entrance-index p { font:11px/1.5 var(--mono);max-width:12ch;margin-top:14px; }
+.eyebrow { font:11px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--rs-muted); }
+.entrance-title h1 { font-size:clamp(38px,4.4vw,66px);line-height:1.02;letter-spacing:-.045em;font-weight:500;margin-top:8px; }
+.entrance-title h1 span { color:var(--rs-blueprint); }
+.entrance-note > p { font-size:19px;line-height:1.4;margin-bottom:16px; }
+.entrance-note > span { font:12px var(--mono);color:var(--rs-muted); }
+.ex-control-strip { display:flex;gap:24px;align-items:center;border-top:2px solid var(--rs-blueprint);border-bottom:1px solid var(--ex-rule);padding:8px 0;font:12px var(--mono); }
+.ex-control-strip > a { margin-left:auto; }
+.red-mark { color:var(--rs-scarlet);margin-right:8px; }
+.view-switch { display:flex;gap:0; }
+.view-switch button { padding:10px 14px;min-height:44px;background:white;border:1px solid var(--ex-rule);font:12px var(--mono); }
+.view-switch button[aria-pressed=true] { background:var(--rs-blueprint);border-color:var(--rs-blueprint);color:white; }
+.ex-hall { display:grid;grid-template-columns:1.05fr 1fr;grid-template-rows:1fr 1fr;column-gap:40px; }
+.exhibit { position:relative;min-width:0;padding:20px 0 16px; }
+.exhibit-01 { grid-row:1 / 3;border-right:1px solid var(--ex-rule);padding-right:40px; }
+.exhibit-02 { border-bottom:1px solid var(--ex-rule); }
+.plate-head { display:flex;justify-content:space-between;gap:12px;font:11px var(--mono);color:var(--rs-muted); }
+.plate-image { display:block;position:relative;text-decoration:none; }
+.plate-image img { display:block;width:100%;height:230px;object-fit:contain; }
+.exhibit-01 .plate-image img { height:520px; }
+.plate-cross { position:absolute;bottom:12px;left:0;font:20px var(--mono);color:var(--rs-scarlet); }
+.plate-label { display:flex;align-items:end;justify-content:space-between;gap:16px; }
+.plate-function { font:12px var(--mono);color:var(--rs-muted);margin-bottom:4px; }
+.plate-label h2 { font-size:30px;line-height:1.1;font-weight:550;letter-spacing:-.025em; }
+.exhibit-01 .plate-label h2 { font-size:42px; }
+.inspect-link { font:13px var(--mono);padding:12px 0;white-space:nowrap; }
+.inspect-link span { color:var(--rs-scarlet); }
+.art-note { margin-top:12px;font:12px/1.5 var(--mono);color:var(--rs-muted); }
+.art-note > span { color:var(--rs-scarlet);font-size:18px; }
+.hall-caption { border-top:1px solid var(--ex-rule);padding:12px 0;font:11px/1.5 var(--mono);color:var(--rs-muted); }
+.ex-ledger { scroll-margin-top:16px;margin-top:32px; }
+.ex-ledger-heading { display:flex;justify-content:space-between;align-items:end;gap:24px;padding:20px 24px;background:var(--rs-blueprint);color:white; }
+.ex-ledger-heading .eyebrow { color:var(--rs-trace); }
+.ex-ledger-heading h2 { font-size:36px;font-weight:500;letter-spacing:-.03em; }
+.ex-ledger-heading h2 span { color:white; }
+#ex-count { font:13px var(--mono); }
+.ex-filter-form { display:flex;flex-wrap:wrap;align-items:end;gap:20px;padding:16px 0; }
+.ex-filter-form label { font:12px var(--mono); }
+.ex-filter-form select { display:block;margin-top:6px;min-height:44px;border:1px solid var(--ex-rule);padding:8px;background:white;max-width:220px; }
+.ex-filter-form button { background:white;border:0;text-decoration:underline;min-height:44px;font:12px var(--mono); }
+.ex-filter-form p { margin-left:auto;font:12px var(--mono);align-self:center;color:var(--rs-muted); }
+.ex-ledger .leader-label { display:none; }
+.ex-ledger .project-card { scroll-margin-top:12px; }
+.ex-ledger .specimen-drawer[open] { border-bottom:2px solid var(--rs-blueprint); }
+.ex-ledger .specimen-interior { grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;padding:32px 24px; }
+.ex-ledger .specimen-caption { padding-right:24px;border-right:1px solid var(--ex-rule); }
+.ex-ledger .specimen-art { max-width:none; }
+.ex-ledger .specimen-art img { max-height:480px;width:100%;object-fit:contain; }
+.ex-ledger .specimen-art figcaption { font:11px var(--mono); }
+.ex-ledger .diagnostics { padding-top:12px; }
+.ex-ledger .vitals { border-top:2px solid var(--rs-blueprint);padding-top:20px; }
+.ex-ledger .vitals dd { font-size:22px; }
+.ex-ledger .registry { margin-top:24px; }
+.ex-footer { background:var(--rs-blueprint);color:white;padding:32px 40px;display:grid;grid-template-columns:1fr 1fr;gap:24px; }
+.ex-footer p { font:12px/1.8 var(--mono);color:var(--rs-trace);margin-top:12px; }
+.ex-footer > div:nth-child(2) { display:flex;flex-wrap:wrap;align-items:start;justify-content:end;gap:24px;font:13px var(--mono); }
+.ex-footer > p { grid-column:1 / -1;border-top:1px solid #7392aa;padding-top:16px; }
+@media(min-width:901px) { .exhibit-02,.exhibit-03 { display:grid;grid-template-columns:1.2fr 1fr;column-gap:20px;align-items:center; } .exhibit-02 .plate-head,.exhibit-03 .plate-head { grid-column:1/-1; } .exhibit-02 .plate-label,.exhibit-03 .plate-label { display:block; } .exhibit-02 .inspect-link,.exhibit-03 .inspect-link { display:inline-block;margin-top:12px; } .exhibit-02 .art-note,.exhibit-03 .art-note { grid-column:1/-1; } }
+@media(max-width:1100px) { .ex-header { gap:20px; }.ex-header nav { gap:12px; }.ex-entrance { grid-template-columns:80px 1fr 190px;gap:24px; }.entrance-index>span { font-size:54px; }.ex-hall { column-gap:24px; }.exhibit-01 { padding-right:24px; }.plate-label h2 { font-size:26px; } }
+@media(max-width:900px) { .ex-header { flex-wrap:wrap;padding:12px 24px; }.ex-search { order:3;flex-basis:100%;max-width:none; }.ex-main { padding:0 24px 40px; }.ex-entrance { grid-template-columns:60px 1fr;gap:20px; }.entrance-note { grid-column:2; }.entrance-note>p { display:none; }.ex-control-strip { flex-wrap:wrap;gap:8px 16px; }.ex-control-strip>p { width:100%; }.exhibit-01 .plate-image img { height:580px; }.ex-hall { column-gap:24px; }.ex-ledger .specimen-interior { gap:24px;padding:24px 8px; }.ex-footer { padding:24px; } }
+@media(max-width:600px) { .ex-header { padding:12px 20px;gap:10px; }.ex-header .brand { font-size:20px; }.ex-header nav { font-size:11px;gap:10px; }.preview-stamp { padding:5px; }.ex-header nav>a { display:none; }.ex-main { padding-inline:20px; }.ex-entrance { padding-top:24px;grid-template-columns:44px minmax(0,1fr);gap:16px; }.entrance-index>span { font-size:38px; }.entrance-index p { font-size:10px; }.entrance-title h1 { font-size:clamp(28px,8.8vw,38px); }.eyebrow { font-size:10px; }.entrance-note>span { font-size:11px; }.ex-control-strip>a { font-size:11px; }.view-switch button { padding-inline:10px;font-size:11px; }.ex-hall { display:block; }.exhibit-01 { border-right:0;padding-right:0; }.exhibit { border-bottom:1px solid var(--ex-rule);padding:20px 0; }.exhibit-01 .plate-image img { height:360px; }.plate-image img { height:240px; }.exhibit-01 .plate-label h2 { font-size:34px; }.plate-label h2 { font-size:30px; }.ex-ledger-heading { padding:16px;align-items:center; }.ex-ledger-heading h2 { font-size:28px; }#ex-count { font-size:11px; }.ex-filter-form { gap:12px; }.ex-filter-form select { max-width:160px; }.ex-filter-form p { width:100%;margin:0; }.ex-ledger .specimen-interior { grid-template-columns:1fr; }.ex-ledger .specimen-caption { padding:0;border:0; }.ex-ledger .specimen-art img { max-height:340px; }.ex-footer { grid-template-columns:1fr; }.ex-footer>div:nth-child(2) { justify-content:start; }.ex-footer>p { grid-column:auto; } }

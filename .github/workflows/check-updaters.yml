@@ -56,7 +56,9 @@ jobs:
           path: tmp/readme-preview/
           if-no-files-found: error
       - name: Build offline field-guide preview
-        run: python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA"
+        run: |
+          python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA"
+          python3 scripts/build_exhibition_preview.py --output tmp/site
       - name: Upload field-guide preview
         uses: actions/upload-artifact@v4
         with:
@@ -97,6 +99,7 @@ jobs:
               raise SystemExit('The local field-guide preview did not become ready')
           PY
           timeout 180s node scripts/check_site_browser.cjs 2>&1 | tee tmp/site-qa/browser.log
+          timeout 90s node scripts/check_exhibition_browser.cjs 2>&1 | tee tmp/site-qa/exhibition.log
       - name: Upload desktop and mobile browser screenshots
         if: ${{ always() }}
         uses: actions/upload-artifact@v4

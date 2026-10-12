@@ -28,6 +28,8 @@ def main():
         parser.error('Commit or set aside source changes first; the preview must match its Git SHA.')
     sha = git('rev-parse', 'HEAD')
     subprocess.run(['python3', str(ROOT / 'scripts/build_site.py'), '--output', str(output), '--source-sha', sha], cwd=ROOT, check=True)
+    from build_exhibition_preview import build as build_exhibition
+    build_exhibition(output)
     design = output / 'design'
     shutil.copytree(ROOT / 'site/design', design, dirs_exist_ok=True)
     guide = (ROOT / 'site/RETRO-SCRAPERISM.md').read_text()

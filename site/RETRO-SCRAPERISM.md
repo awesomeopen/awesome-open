@@ -152,7 +152,7 @@ For this project, explicit user decisions and this system override generic skill
 
 ## 9. Extension and review
 
-The active design branch is `design/compact-ledger`, owned by Codex for the compact controls follow-up. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
+The active design branch is `design/exhibition-preview-1`, owned by Codex for the exhibition prototype. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
 
 For each extension, add the rule, token/component example, reason, accessibility implications and a decision-log entry in the same PR. Distinguish a proposal from an approved direction. Update the portable skill's reference snapshot when an approved system change should apply outside this repo. Do not let independent snapshots silently override the project guide.
 
@@ -178,3 +178,17 @@ For each extension, add the rule, token/component example, reason, accessibility
 | 2026-10-12 | User direction | Neutral professional voice, answer first, no mindset interpretation or closing taglines |
 
 | 2026-10-12 | User direction | Compact header search; adjacent closed category/filter disclosures; white attached brand asterisk; category-only leader subtitles. Native controls retain keyboard access and expand in document flow. |
+
+
+### Exhibition components — preview 01 proposal
+
+- **Instrument:** compact shared search, category index number, predictable specimen labels, native evidence drawers and complete category ledger. Exhibition and ledger controls change density while retaining filters.
+- **Specimen:** three category leaders on white fields, with a large upright subject and two smaller horizontal subjects. Artwork sizes follow silhouettes; names and inspect actions stay in consistent positions. Projects without art retain their full evidence records without placeholders.
+- **Editorial hand:** one scarlet registration cross and a short illustration note per subject. Notes explain the visual analogy and make no additional software claims.
+- Search or license filtering hides the exhibition and reveals matching ledger records. Clearing filters restores the selected view. Each illustrated label opens the corresponding source-backed record; shared URLs preserve filters and record anchors.
+- On small screens, exhibits stack in reading order. Images use contain sizing; no cropped anatomy, horizontal carousel, scroll pinning or hover-only information. Keyboard focus and reduced-motion behavior remain native.
+- Reuse existing white, Prussian, scarlet, Outfit and monospace tokens. No additional palette or font family. The implemented component example is `/exhibition.html` in the private preview.
+
+| Date | Status | Decision |
+| --- | --- | --- |
+| 2026-10-12 | Preview proposal | Infrastructure & DevOps exhibition: OpenObserve, OpenResty and OpenTofu above the complete category ledger. Review before production adoption. |
