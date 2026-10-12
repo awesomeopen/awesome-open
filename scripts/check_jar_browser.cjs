@@ -24,7 +24,16 @@ const assert=require('node:assert/strict');
  await page.mouse.move(1400,950);await page.locator('.jar-central .jar-select').focus();
  await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-central').style.getPropertyValue('--tilt-x'))>11.9);
  await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+ assert.ok(await page.locator('.jar-central .jar-uplight').evaluate(n=>Number(getComputedStyle(n).opacity)>.95));
+ assert.notEqual(await page.locator('.jar-central .jar-lid').evaluate(n=>getComputedStyle(n).transform),'none');
+ assert.equal(await page.locator('.jar-central .jar-steam i').first().evaluate(n=>getComputedStyle(n).animationName),'steam-release');
  await page.screenshot({path:'tmp/site-qa/jars-tilt.png'});
+ assert.equal(await page.locator('.specimen-idle').first().evaluate(n=>getComputedStyle(n).animationName),'specimen-stir');
+ await page.locator('.jar-motion-toggle').click();
+ assert.equal(await page.locator('.specimen-idle').first().evaluate(n=>getComputedStyle(n).animationName),'none');
+ assert.equal(await page.locator('.jar-motion-toggle').getAttribute('aria-pressed'),'true');
+ await page.locator('.jar-motion-toggle').click();
+
  await first.hover({position:{x:45,y:55}});
 
  const link=page.locator('.jar-annotation:visible a');assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopStyle),'dashed');await link.hover();assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopStyle),'solid');const id=await link.getAttribute('data-jar-inspect');await link.click();
@@ -32,6 +41,7 @@ const assert=require('node:assert/strict');
  await page.goto(url);await ready();await page.locator('#search').fill('OpenTofu');await page.waitForFunction(()=>document.querySelectorAll('.project-card:not([hidden])').length===1);
  await page.locator('.jar-low-lid .jar-select').focus();await page.locator('.jar-low-lid .jar-annotation a').click();assert.ok(await page.locator('.project-card:visible > details').evaluate(n=>n.open));
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(url);await ready();await first.focus();assert.equal(await first.getAttribute('aria-expanded'),'true');
+ assert.equal(await page.locator('.specimen-idle').first().evaluate(n=>getComputedStyle(n).animationName),'none');assert.equal(await page.locator('.jar-steam').first().isVisible(),false);
  await page.keyboard.press('Escape');assert.equal(await first.getAttribute('aria-expanded'),'false');
  await first.hover({position:{x:45,y:55}});assert.equal(await page.locator('.jar-exhibit').first().evaluate(n=>parseFloat(n.style.getPropertyValue('--mx'))||0),0);assert.equal(await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform.startsWith('matrix3d')),false);
  for(const width of [320,390,680,768,1024]){await page.setViewportSize({width,height:900});await page.goto(url);await ready();await fits(width);if(width===768)assert.equal(await page.locator('.jar-exhibit:visible').count(),5);}
@@ -41,6 +51,6 @@ const assert=require('node:assert/strict');
  await touch.locator('.jar-scroll').evaluate(n=>n.scrollLeft=n.scrollWidth);await touch.locator('.jar-select').last().tap();assert.equal(await touch.locator('.jar-select').last().getAttribute('aria-expanded'),'true');
  await touch.locator('.jar-annotation:visible a').tap();assert.match(new URL(touch.url()).hash,/^#project-/);await touch.close();
  const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});await fallback.goto(url);assert.equal(await fallback.locator('[data-jar-inspect]').count(),7);await fallback.locator('.project-card summary').first().click();assert.ok(await fallback.locator('.project-card details').first().evaluate(n=>n.open));await fallback.close();
- assert.deepEqual(errors,[]);console.log('Seven jars: assets, hover overlap, foreground zoom, vertical tilt, outlined inspect action, record links, search, keyboard/Escape, reduced motion, responsive density, touch selection/scroll and no-JS pass.');
+ assert.deepEqual(errors,[]);console.log('Seven jars: assets, hover overlap, foreground zoom, vertical tilt, underlight, lid lift, vapor, idle movement/pause, outlined inspect action, record links, search, keyboard/Escape, reduced motion, responsive density, touch selection/scroll and no-JS pass.');
  }catch(e){await page.screenshot({path:'tmp/site-qa/jars-failure.png'});throw e;}finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

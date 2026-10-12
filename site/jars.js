@@ -4,7 +4,10 @@
  const hall=document.querySelector('.jar-hall');if(!hall)return;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover: hover) and (pointer: fine)');
  const exhibits=[...hall.querySelectorAll('.jar-exhibit')],stage=hall.querySelector('.jar-stage');
- let pinned=null,active=null,closeTimer=0,frame=0,lastTime=0,inView=true;
+ let pinned=null,active=null,closeTimer=0,frame=0,lastTime=0,inView=true,motionPaused=false;
+ const toggle=hall.querySelector('.jar-motion-toggle');
+ const staticMotion=()=>reduced.matches||motionPaused;
+ function syncAmbient(){hall.classList.toggle('ambient-paused',staticMotion()||document.hidden||!inView);}
  const pointer={inside:false,x:0,y:0};
  const keys=['scale','x','y','rx','ry','ix','iy','light'];
  const resting={scale:.82,x:0,y:0,rx:0,ry:0,ix:0,iy:0,light:.14};
@@ -19,7 +22,7 @@
    style.setProperty('--glass-light',v.light.toFixed(3));
  }
  function targets(item,index,scene){
-   if(reduced.matches)return {...resting,scale:1};
+   if(staticMotion())return {...resting,scale:1};
    const box=item.node.getBoundingClientRect(),center=box.left+box.width/2;
    const cameraX=pointer.inside?clamp((pointer.x-scene.left)/scene.width*2-1,-1,1):0;
    const cameraY=pointer.inside?clamp((pointer.y-scene.top)/scene.height*2-1,-1,1):0;
@@ -39,7 +42,7 @@
    motion.forEach((item,i)=>{
      keys.forEach(key=>{
        const goal=goals[i][key];
-       if(reduced.matches){item.value[key]=goal;item.velocity[key]=0;return;}
+       if(staticMotion()){item.value[key]=goal;item.velocity[key]=0;return;}
        const delta=goal-item.value[key];
        item.velocity[key]+=(190*delta-25*item.velocity[key])*dt;
        item.value[key]+=item.velocity[key]*dt;
@@ -78,7 +81,7 @@
    });wake();if(active)requestAnimationFrame(()=>drawLeaders(active));
  }
  hall.addEventListener('pointermove',event=>{
-   if(!fine.matches||reduced.matches)return;
+   if(!fine.matches||staticMotion())return;
    pointer.inside=true;pointer.x=event.clientX;pointer.y=event.clientY;wake();
  });
  hall.addEventListener('pointerleave',()=>{pointer.inside=false;wake();});
@@ -103,16 +106,18 @@
    card.querySelector('details').open=true;
    requestAnimationFrame(()=>{if(!card.hidden)card.querySelector('summary').focus({preventScroll:true});});
  }));
- reduced.addEventListener('change',()=>{pointer.inside=false;wake();});
+ reduced.addEventListener('change',()=>{pointer.inside=false;syncAmbient();wake();});
  fine.addEventListener('change',()=>{pointer.inside=false;wake();});
  window.addEventListener('resize',wake);
  document.addEventListener('visibilitychange',()=>{
+   syncAmbient();
    if(document.hidden){cancelAnimationFrame(frame);frame=0;lastTime=0;}else wake();
  });
  if('IntersectionObserver' in window)new IntersectionObserver(entries=>{
-   inView=entries[0].isIntersecting;
+   inView=entries[0].isIntersecting;syncAmbient();
    if(!inView){cancelAnimationFrame(frame);frame=0;lastTime=0;pointer.inside=false;}else wake();
  },{rootMargin:'40px'}).observe(hall);
  document.fonts.ready.then(()=>drawLeaders(active));
- motion.forEach(paint);select(null);document.body.classList.add('photo-ready');document.body.dataset.jarsReady='true';
+ toggle.hidden=false;toggle.addEventListener('click',()=>{motionPaused=!motionPaused;pointer.inside=false;toggle.setAttribute('aria-pressed',String(motionPaused));toggle.textContent=motionPaused?'Resume motion':'Pause motion';hall.classList.toggle('motion-paused',motionPaused);syncAmbient();wake();});
+ syncAmbient();motion.forEach(paint);select(null);document.body.classList.add('photo-ready');document.body.dataset.jarsReady='true';
 })();

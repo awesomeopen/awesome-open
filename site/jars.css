@@ -73,3 +73,34 @@
 @media (prefers-reduced-motion:reduce) {.jar-leaders path{animation:none;}}
 
 @media (prefers-reduced-motion:reduce) {.photo-ready .jar-shadow{transform:none;}.jar-reflection{opacity:.18;}}
+
+/* Preview 05: a cool underlight, removable closures and intermittent life. */
+.jar-hall {position:relative;}
+.jar-motion-toggle {position:absolute;right:0;top:0;z-index:8;border:0;background:white;color:var(--rs-muted);font:12px var(--mono);padding:8px;text-decoration:underline;text-underline-offset:3px;}
+.jar-motion-toggle[hidden] {display:none;}
+.jar-uplight,.jar-led,.jar-steam,.jar-lid {position:absolute;pointer-events:none;}
+.jar-uplight {inset:0;z-index:3;background:linear-gradient(to top,rgba(230,249,255,.88),rgba(217,238,248,.28) 34%,transparent 65%);mask-image:var(--glass-mask);mask-size:100% 100%;mask-repeat:no-repeat;mix-blend-mode:screen;opacity:0;transition:opacity .6s ease;}
+.jar-led {z-index:4;left:var(--sx);width:var(--sw);height:8px;bottom:calc(var(--foot) + 1px);border-radius:50%;background:radial-gradient(ellipse,#fff 5%,#e7f6fc 35%,transparent 72%);filter:blur(1px);opacity:0;transition:opacity .6s ease;}
+.is-active .jar-uplight,.is-active .jar-led {opacity:1;}
+.specimen-idle {position:absolute;inset:0;filter:brightness(1) contrast(1);transition:filter .6s ease;}
+.is-active .specimen-idle {filter:brightness(1.12) contrast(1.06);}
+.photo-ready .specimen-idle {animation:specimen-stir var(--idle-period) ease-in-out var(--idle-delay) infinite;transform-origin:50% 70%;}
+@keyframes specimen-stir {0%,24%,100%{transform:translate(0,0) rotate(0)}8%{transform:translate(1px,-2px) rotate(-.8deg)}16%{transform:translate(-1px,-1px) rotate(.5deg)}}
+.has-lid .jar-photo,.has-lid .jar-reflection {clip-path:inset(var(--lid-cut) 0 0);}
+.jar-lid {inset:0;width:100%;height:100%;max-width:none;z-index:5;clip-path:inset(0 0 calc(100% - var(--lid-cut)));transform-origin:65% var(--lid-cut);transition:transform .8s cubic-bezier(.22,.7,.2,1);}
+.photo-ready .is-active .jar-lid {transform:translateY(-4px) rotate(-6deg);}
+.jar-steam {z-index:4;left:42%;top:var(--mouth);width:20%;height:0;}
+.jar-steam i {position:absolute;bottom:0;left:15%;width:13px;height:34px;border-radius:45%;background:radial-gradient(ellipse,rgba(145,169,184,.65),rgba(217,238,248,.25) 45%,transparent 72%);filter:blur(2px);opacity:0;transform-origin:50% 100%;}
+.photo-ready .is-active .jar-steam i {animation:steam-release 2.8s ease-out .25s both;}
+.photo-ready .is-active .jar-steam i:nth-child(2) {left:48%;animation-delay:.65s;}
+.photo-ready .is-active .jar-steam i:nth-child(3) {left:30%;animation-delay:1.1s;}
+@keyframes steam-release {0%{opacity:0;transform:translate(0,0) scale(.55)}22%{opacity:.65}60%{opacity:.35}100%{opacity:0;transform:translate(12px,-52px) scale(1.6)}}
+.ambient-paused .specimen-idle,.ambient-paused .jar-steam i {animation-play-state:paused!important;}
+.motion-paused .vessel {transform:translateX(-50%)!important;}
+.motion-paused .specimen-depth,.motion-paused .specimen-idle,.motion-paused .jar-lid {transform:none!important;animation:none!important;transition:none;}
+.motion-paused .jar-steam {display:none;}
+@media(prefers-reduced-motion:reduce){
+ .jar-lid,.jar-uplight,.jar-led,.specimen-idle{transition:none!important;}
+ .photo-ready .specimen-idle,.photo-ready .jar-steam i{animation:none!important;}
+ .photo-ready .is-active .jar-lid{transform:none;}.jar-steam{display:none;}
+}

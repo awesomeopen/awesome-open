@@ -215,3 +215,16 @@ Preview 03 refinement: omit the preview captions beneath the display. Replace th
 The photographic parade starts at 82% scale. A nearby pointer creates a shallow approach wave; the selected vessel advances to 110%, with its contents enlarging as part of the same object. A shared virtual camera adds differential translation and perspective tilt (12° forward pitch on selection, pointer-adjusted up to 22° vertically and 8° horizontally), while internal contents and reflection strength respond independently. This is limited-angle 2.5D using photographs, not a rotatable 3D model. Labels remain in the reading plane; their leaders follow the specimen.
 
 Use a damped spring and stable hit regions. Keyboard focus and touch selection also advance the selected jar. Stop rendering once settled or offscreen; suspend in background tabs. Reduced motion keeps vessels at static full size and removes tilt/depth movement. Never intercept scroll or request device-orientation access. “Inspect record” has a dashed border, solid on hover or keyboard focus, with no layout shift.
+
+
+### Preview 05: underlight and occasional movement (proposal)
+
+Selection adds a cool-white base light inside the vessel footprint, an alpha-masked upward wash on the glass and a small brightness/contrast increase on the specimen. Contact shadows remain. No visible lamp, neon halo or new palette.
+
+The two glass stoppers and screw cap are isolated with CSS clipping and lift 4px while tipping 6°. The wire clamp and cork stay closed; already-open jars need no moving lid. A short, translucent grey-blue vapor release accompanies opening/selection and fades out. This is a limited photographic-layer illusion, not a physically modeled hinge or fluid simulation.
+
+Specimens stir by 1–2px and less than 1° in short staggered intervals, with long still periods. Pause motion stops the decorative motion. Reduced motion leaves only immediate static illumination; offscreen/background scenes pause animation. Labels, hit targets and evidence remain fixed.
+
+| Date | Status | Decision |
+| --- | --- | --- |
+| 2026-10-12 | User direction / preview proposal | LED-like underlight on selection, slight lid opening with vapor, intermittent specimen movement. Implemented with existing photos and CSS layers. |
