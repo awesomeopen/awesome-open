@@ -1,3 +1,9 @@
+# Design documentation
+
+The active design-system proposal is [Retro-Scraperism](RETRO-SCRAPERISM.md). Its [visual reference](design/index.html) and [preview workflow](PREVIEW.md) guide gradual redesign. The production implementation below predates that proposal and is retained as historical rationale.
+
+---
+
 # Genus Open*: one-shot design
 
 ## Design plan
