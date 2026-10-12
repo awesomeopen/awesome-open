@@ -242,6 +242,17 @@
     if (cards.size !== data.projects.length || new Set(data.projects.map(function (p) { return p && p.id; })).size !== data.projects.length ||
         data.projects.some(function (project) { return !project || !cards.has(project.id); })) return false;
 
+    // Chromium can defer lazy images in details after filtering moves their nodes.
+    // Opening the drawer explicitly activates its art; unopened records stay lazy.
+    Array.from(list.querySelectorAll('details.specimen-drawer')).forEach(function (drawer) {
+      drawer.addEventListener('toggle', function () {
+        if (!drawer.open) return;
+        Array.from(drawer.querySelectorAll('.specimen-art img')).forEach(function (image) {
+          image.loading = 'eager';
+        });
+      });
+    });
+
     var existingLicenses = new Set(Array.from(controls.license.options).map(function (option) { return option.value; }));
     Array.from(new Set(data.projects.map(licenseOf).filter(Boolean))).sort(compareText).forEach(function (license) {
       if (!existingLicenses.has(license)) {
@@ -438,7 +449,8 @@
     var categoryPanel = document.querySelector(".category-panel");
     if (categoryPanel && typeof window.matchMedia === "function") {
       var mobile = window.matchMedia("(max-width: 900px)");
-      var setPanel = function () { categoryPanel.open = !mobile.matches; };
+      var filterOptions = document.querySelector('.filter-options');
+      var setPanel = function () { categoryPanel.open = !mobile.matches; if (filterOptions) filterOptions.open = !mobile.matches; };
       setPanel();
       if (typeof mobile.addEventListener === "function") mobile.addEventListener("change", setPanel);
       else if (typeof mobile.addListener === "function") mobile.addListener(setPanel);

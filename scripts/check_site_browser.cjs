@@ -34,6 +34,7 @@ const path = require('node:path');
   };
   const visible = () => page.locator('.project-card:not([hidden])').count();
   const change = async (id, value) => {
+    if (id !== 'search' && !await page.locator('.filter-options').evaluate(node => node.open)) await page.locator('.filter-options > summary').click();
     if (['category-filter', 'metrics-filter', 'min-stars', 'pushed-since'].includes(id)) {
       if (!await page.locator('.more-filters').evaluate(node => node.open)) {
         await page.locator('.more-filters > summary').click();
@@ -43,6 +44,7 @@ const path = require('node:path');
     await page.locator('#' + id).dispatchEvent('change');
   };
   const select = async (id, value) => {
+    if (id !== 'search' && !await page.locator('.filter-options').evaluate(node => node.open)) await page.locator('.filter-options > summary').click();
     if (['category-filter', 'metrics-filter'].includes(id) &&
         !await page.locator('.more-filters').evaluate(node => node.open)) {
       await page.locator('.more-filters > summary').click();
@@ -230,7 +232,7 @@ const path = require('node:path');
       await card.locator('summary').first().click();
       const image = card.locator('.specimen-art img');
       await image.scrollIntoViewIfNeeded();
-      await image.evaluate(img => img.decode());
+      await page.waitForFunction(id => { const img = document.querySelector('#project-' + id + ' .specimen-art img'); return img && img.complete && img.naturalWidth > 0; }, project.id, { timeout: 10000 });
       assert.equal(await image.evaluate(img => img.naturalWidth > 0), true);
       await capture('specimen-' + project.name.toLowerCase() + '.png');
     }

@@ -152,7 +152,7 @@ class SiteTests(unittest.TestCase):
             page = Page(document)
             self.assertFalse(any(node.has_class(c) for node in page.elements for c in ('hero', 'reading-room', 'collection-band')))
             self.assertEqual(page.by_id['page-title'].tag, 'h1')
-            self.assertIn('Explore the projects', page.by_id['page-title'].text)
+            self.assertIn('Projects', page.by_id['page-title'].text)
             self.assertEqual(page.by_id['method'].tag, 'details')
             self.assertEqual(page.by_id['clear-filters'].text.strip(), 'Reset filters ↺')
 

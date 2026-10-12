@@ -794,3 +794,21 @@ h1>span {
     transition:none!important;
   }
 }
+
+.filter-options > summary {
+  display: flex;
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 12px 0;
+  border-top: 1px solid var(--rule);
+  font: 13px/1.5 var(--mono);
+}
+.filter-options[open] > summary > span {
+  transform: rotate(45deg);
+}
+.filter-options[open] .diagnostic-filters {
+  padding-top: 12px;
+}
+@media(min-width:901px) {
+  .filter-options > summary { display: none; }
+}
