@@ -242,17 +242,6 @@
     if (cards.size !== data.projects.length || new Set(data.projects.map(function (p) { return p && p.id; })).size !== data.projects.length ||
         data.projects.some(function (project) { return !project || !cards.has(project.id); })) return false;
 
-    // Chromium can defer lazy images in details after filtering moves their nodes.
-    // Opening the drawer explicitly activates its art; unopened records stay lazy.
-    Array.from(list.querySelectorAll('details.specimen-drawer')).forEach(function (drawer) {
-      drawer.addEventListener('toggle', function () {
-        if (!drawer.open) return;
-        Array.from(drawer.querySelectorAll('.specimen-art img')).forEach(function (image) {
-          image.loading = 'eager';
-        });
-      });
-    });
-
     var existingLicenses = new Set(Array.from(controls.license.options).map(function (option) { return option.value; }));
     Array.from(new Set(data.projects.map(licenseOf).filter(Boolean))).sort(compareText).forEach(function (license) {
       if (!existingLicenses.has(license)) {
@@ -285,6 +274,7 @@
     var navLinks = Array.from(document.querySelectorAll(".category-nav a[data-category]"));
     var timer = null;
     var currentState = DEFAULTS;
+    var renderedSort = null;
     var linkNotice = document.getElementById("project-link-notice");
     var lastLinkedCard = null;
     var linkedWasHidden = false;
@@ -346,7 +336,10 @@
     function render(state) {
       currentState = state;
       var total = 0;
-      var fragment = document.createDocumentFragment();
+      // Keep rows attached on filter-only changes. Reparenting a summary during
+      // input blur can cancel the native disclosure click that follows.
+      var reorder = renderedSort !== state.sort;
+      var fragment = reorder ? document.createDocumentFragment() : null;
       data.projects.slice().sort(comparator(state.sort)).forEach(function (project) {
         var card = cards.get(project.id);
         var visible = matchesProject(project, state, data);
@@ -362,9 +355,10 @@
           }).join(' / ')) : '';
         }
         if (visible) total += 1;
-        fragment.appendChild(card);
+        if (reorder) fragment.appendChild(card);
       });
-      list.appendChild(fragment);
+      if (reorder) list.appendChild(fragment);
+      renderedSort = state.sort;
       count.textContent = total === data.projects.length
         ? total.toLocaleString("en-US") + " projects"
         : total.toLocaleString("en-US") + " of " + data.projects.length.toLocaleString("en-US") + " projects";

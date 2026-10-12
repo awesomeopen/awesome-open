@@ -230,6 +230,7 @@ const path = require('node:path');
       await change('search', project.name);
       const card = page.locator('#project-' + project.id);
       await card.locator('summary').first().click();
+      assert.equal(await card.locator('details.specimen-drawer').evaluate(node => node.open), true, 'Click after search must open ' + project.name);
       const image = card.locator('.specimen-art img');
       await image.scrollIntoViewIfNeeded();
       await page.waitForFunction(id => { const img = document.querySelector('#project-' + id + ' .specimen-art img'); return img && img.complete && img.naturalWidth > 0; }, project.id, { timeout: 10000 });
