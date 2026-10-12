@@ -122,6 +122,6 @@
    if(!inView){cancelAnimationFrame(frame);frame=0;lastTime=0;pointer.inside=false;}else wake();
  },{rootMargin:'40px'}).observe(hall);
  document.fonts.ready.then(()=>drawLeaders(active));
- toggle.hidden=false;toggle.addEventListener('click',()=>{motionPaused=!motionPaused;pointer.inside=false;toggle.setAttribute('aria-pressed',String(motionPaused));toggle.textContent=motionPaused?'Resume motion':'Pause motion';hall.classList.toggle('motion-paused',motionPaused);syncAmbient();wake();});
+ toggle.hidden=false;toggle.addEventListener('click',()=>{motionPaused=!motionPaused;pointer.inside=false;toggle.setAttribute('aria-pressed',String(motionPaused));toggle.textContent=motionPaused?'[>]':'[II]';toggle.setAttribute('aria-label',motionPaused?'Play motion':'Pause motion');toggle.title=motionPaused?'Play motion':'Pause motion';hall.classList.toggle('motion-paused',motionPaused);syncAmbient();wake();});
  syncAmbient();motion.forEach(paint);select(null);document.body.classList.add('photo-ready');document.body.dataset.jarsReady='true';
 })();

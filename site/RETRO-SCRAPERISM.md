@@ -221,9 +221,9 @@ Use a damped spring and stable hit regions. Keyboard focus and touch selection a
 
 Selection adds a cool cyan-blue base light inside the vessel footprint, an alpha-masked upward wash on the glass and a small brightness/contrast increase on the specimen. Contact shadows remain. No visible lamp; illumination stays inside the glass footprint. Cyan is an artwork-lighting accent.
 
-The two glass stoppers and screw cap are isolated with CSS clipping and lift 4px while tipping 12°. The wire clamp and cork stay closed; already-open jars need no moving lid. A short neon-colored vapor release accompanies opening/selection and fades out. Each jar receives a distinct random neon hue on page load, retained across selections; colors shuffle on reload. This is a limited photographic-layer illusion, not a physically modeled hinge or fluid simulation.
+The two glass stoppers and screw cap are isolated with CSS clipping and lift 4px while tipping 12°. The wire clamp and cork stay closed; already-open jars need no moving lid. Neon smoke uses two drawn poses, each containing two crisp curved strokes. The poses alternate in discrete steps inside one fade-in/fade-out envelope; no blurred cloud or particles. Each jar receives a distinct random neon hue on page load, retained across selections; colors shuffle on reload. This is a limited photographic-layer illusion, not a physically modeled hinge or fluid simulation.
 
-Specimens stir by 1–2px and less than 1° in short staggered intervals, with long still periods. Pause motion stops the decorative motion. Reduced motion leaves only immediate static illumination; offscreen/background scenes pause animation. Labels, hit targets and evidence remain fixed.
+Specimens stir by 1–2px and less than 1° in short staggered intervals, with long still periods. A lower-right `[II]` button pauses decorative motion and switches to `[>]` to resume; accessible labels name each action. Reduced motion leaves only immediate static illumination; offscreen/background scenes pause animation. Labels, hit targets and evidence remain fixed.
 
 | Date | Status | Decision |
 | --- | --- | --- |

@@ -36,7 +36,7 @@ def build(output):
         if cut:
             styles+=f';--lid-cut:{cut}%'
             lid=f'<img class="jar-lid" src="{asset["path"]}" alt="" width="{asset["width"]}" height="{asset["height"]}">'
-        steam='<span class="jar-steam"><i></i><i></i><i></i></span>' if cut or kind in ('low-open','low-lid') else ''
+        steam='<svg class="jar-steam" viewBox="0 0 48 64" aria-hidden="true"><g class="steam-frame frame-a"><path d="M14 58 C3 47 25 43 14 31 C7 23 11 16 16 11"/><path d="M31 48 C43 39 24 31 34 21 C40 15 36 9 32 5"/></g><g class="steam-frame frame-b"><path d="M14 58 C26 48 4 40 16 29 C23 21 17 15 13 10"/><path d="M31 48 C20 39 42 30 31 20 C25 13 32 8 35 4"/></g></svg>' if cut or kind in ('low-open','low-lid') else ''
         exhibits.append(f'''<article class="jar-exhibit jar-{kind}{" has-lid" if cut else ""}" style="{styles}" data-project="{pid}">
           <button class="jar-select" type="button" aria-expanded="false" aria-controls="jar-info-{pid}" aria-label="Show {name} details" hidden></button>
           <div class="jar-shadow" aria-hidden="true"></div><div class="vessel" aria-hidden="true">
@@ -54,7 +54,7 @@ def build(output):
           </div>
         </article>''')
     hero=f'''<section class="jar-hall" aria-label="Seven illustrated software specimens">
-      <button class="jar-motion-toggle" type="button" aria-pressed="false" hidden>Pause motion</button>
+      <button class="jar-motion-toggle" type="button" aria-pressed="false" aria-label="Pause motion" title="Pause motion" hidden>[II]</button>
       <svg width="0" height="0" class="jar-filter-defs" aria-hidden="true"><defs><filter id="glass-displacement"><feTurbulence type="fractalNoise" baseFrequency=".017 .08" numOctaves="1" seed="6" result="glass"/><feDisplacementMap in="SourceGraphic" in2="glass" scale="1.3" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
       <div class="jar-scroll" role="region" aria-label="Specimen display; scroll horizontally on smaller screens" tabindex="0"><div class="jar-stage">{''.join(exhibits)}</div></div>
     </section>'''
