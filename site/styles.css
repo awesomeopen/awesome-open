@@ -1415,7 +1415,8 @@ summary::marker {
 }
 @media(prefers-reduced-motion:reduce) {
   html {
-    scroll-behavior:auto
+    /* ScrollTrigger can restore an inline smooth value during media changes. */
+    scroll-behavior:auto!important
   }
   *,*::before,*::after {
     animation:none!important;

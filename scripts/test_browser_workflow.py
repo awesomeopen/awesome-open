@@ -57,6 +57,12 @@ class BrowserWorkflowTests(unittest.TestCase):
         self.assertIn('npx --no-install playwright install --with-deps chromium', self.workflow)
         self.assertIn('cache-dependency-path: package-lock.json', self.workflow)
 
+    def test_reduced_motion_overrides_scrolltrigger_inline_scroll_behavior(self):
+        css = (ROOT / 'site/styles.css').read_text()
+        reduced_motion = css.split('@media(prefers-reduced-motion:reduce)', 1)[1]
+        html_rule = reduced_motion.split('html {', 1)[1].split('}', 1)[0]
+        self.assertIn('scroll-behavior:auto!important', html_rule)
+
 
 if __name__ == '__main__':
     unittest.main()
