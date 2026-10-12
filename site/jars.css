@@ -94,9 +94,10 @@
 .jar-steam path {fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
 .steam-frame {opacity:0;}
 .photo-ready .is-active .jar-steam {animation:steam-envelope 3.2s ease-in-out .2s both;}
-.photo-ready .is-active .steam-frame {animation:steam-pose .32s steps(1,end) .2s 10 alternate both;}
-.photo-ready .is-active .frame-b {animation-direction:alternate-reverse;}
-@keyframes steam-pose {from{opacity:1}to{opacity:0}}
+.photo-ready .is-active .steam-frame {animation:steam-pose-a .64s steps(1,end) .2s 5 both;}
+.photo-ready .is-active .frame-b {animation-name:steam-pose-b;}
+@keyframes steam-pose-a {0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes steam-pose-b {0%,49%{opacity:0}50%,100%{opacity:1}}
 @keyframes steam-envelope {0%,100%{opacity:0}15%,75%{opacity:.9}}
 .ambient-paused .specimen-idle,.ambient-paused .jar-steam,.ambient-paused .steam-frame {animation-play-state:paused!important;}
 .motion-paused .vessel {transform:translateX(-50%)!important;}
