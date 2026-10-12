@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build preview #3 from the complete ledger; production layout stays unchanged."""
+"""Build preview #4 from the complete ledger; production layout stays unchanged."""
 import argparse
 import json
 import shutil
@@ -49,7 +49,7 @@ def build(output):
       <div class="jar-scroll" role="region" aria-label="Specimen display; scroll horizontally on smaller screens" tabindex="0"><div class="jar-stage">{''.join(exhibits)}</div></div>
     </section>'''
     page=(output/'index.html').read_text().replace('<body>','<body class="jar-page">').replace('</head>','<meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="jars.css"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
-    page=page.replace('<title>','<title>Preview 03 / ',1)
+    page=page.replace('<title>','<title>Preview 04 / ',1)
     (output/'jars.html').write_text(page)
     for filename in ('jars.css','jars.js'): shutil.copyfile(ROOT/'site'/filename,output/filename)
     shutil.copytree(ROOT/'site/jars',output/'jars',dirs_exist_ok=True)

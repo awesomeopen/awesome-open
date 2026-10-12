@@ -40,3 +40,7 @@ Active branch: `design/jar-preview-2`. Review `/jars/jars.html` on the private h
 ## Photographic jar study / preview 03
 
 Active branch: `design/photographic-jars`. Review `/jars-03/jars.html` on the private host. Seven independent photographic glass assets surround replaceable original specimens, tallest centered, shadow-only ground. Hover/focus annotations overlap neighbors; tapping selects before navigation. The previous three-jar study remains at `/jars/jars.html`. Verify `preview.json` for the GitHub SHA.
+
+## Depth motion / preview 04
+
+Active branch: `design/jar-depth-motion`. Review `/jars-04/jars.html`. Pointer proximity and selection bring photographic jars forward from 82% to 110% scale, with shared scene movement, vertical tilt and specimen/reflection depth. Preview 03 remains at `/jars-03/jars.html` for comparison. Native record links, touch/keyboard controls and reduced-motion fallback remain available.
