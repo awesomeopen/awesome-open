@@ -1,9 +1,57 @@
-/* Local pointer motion; tap selects, the separate record link navigates. */
+/* Shared scene camera and spring depth. The source artwork remains photographic planes. */
 (()=>{
  'use strict';
  const hall=document.querySelector('.jar-hall');if(!hall)return;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover: hover) and (pointer: fine)');
- const exhibits=[...hall.querySelectorAll('.jar-exhibit')];let pinned=null,closeTimer=0;
+ const exhibits=[...hall.querySelectorAll('.jar-exhibit')],stage=hall.querySelector('.jar-stage');
+ let pinned=null,active=null,closeTimer=0,frame=0,lastTime=0,inView=true;
+ const pointer={inside:false,x:0,y:0};
+ const keys=['scale','x','y','rx','ry','ix','iy','light'];
+ const resting={scale:.82,x:0,y:0,rx:0,ry:0,ix:0,iy:0,light:.14};
+ const motion=exhibits.map(node=>({node,value:{...resting},velocity:Object.fromEntries(keys.map(k=>[k,0]))}));
+ const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
+ function paint(item){
+   const v=item.value,style=item.node.style;
+   style.setProperty('--scene-scale',v.scale.toFixed(4));
+   style.setProperty('--mx',v.x.toFixed(3)+'px');style.setProperty('--my',v.y.toFixed(3)+'px');
+   style.setProperty('--tilt-x',v.rx.toFixed(3)+'deg');style.setProperty('--tilt-y',v.ry.toFixed(3)+'deg');
+   style.setProperty('--inner-x',v.ix.toFixed(3)+'px');style.setProperty('--inner-y',v.iy.toFixed(3)+'px');
+   style.setProperty('--glass-light',v.light.toFixed(3));
+ }
+ function targets(item,index,scene){
+   if(reduced.matches)return {...resting,scale:1};
+   const box=item.node.getBoundingClientRect(),center=box.left+box.width/2;
+   const cameraX=pointer.inside?clamp((pointer.x-scene.left)/scene.width*2-1,-1,1):0;
+   const cameraY=pointer.inside?clamp((pointer.y-scene.top)/scene.height*2-1,-1,1):0;
+   const near=pointer.inside?Math.exp(-Math.pow((center-pointer.x)/220,2)):0;
+   const selected=active===item.node,depth=1-Math.abs(index-3)/5;
+   const forward=selected?1:near*.42;
+   return {scale:.82+.28*forward,x:-cameraX*(10+depth*8),y:-forward*6-cameraY*3,
+     rx:-cameraY*(3+forward*4),ry:cameraX*(2+forward*2),
+     ix:-cameraX*(2+forward*3),iy:cameraY*(1+forward*2),light:.14+forward*.11+Math.abs(cameraX)*.04};
+ }
+ function tick(time){
+   frame=0;if(document.hidden||!inView)return;
+   const dt=Math.min((time-(lastTime||time-16.67))/1000,1/30);lastTime=time;
+   const scene=stage.getBoundingClientRect();let moving=false;
+   // Read scene geometry before writing transforms. Hit regions stay fixed.
+   const goals=motion.map((item,i)=>targets(item,i,scene));
+   motion.forEach((item,i)=>{
+     keys.forEach(key=>{
+       const goal=goals[i][key];
+       if(reduced.matches){item.value[key]=goal;item.velocity[key]=0;return;}
+       const delta=goal-item.value[key];
+       item.velocity[key]+=(190*delta-25*item.velocity[key])*dt;
+       item.value[key]+=item.velocity[key]*dt;
+       if(Math.abs(delta)>.0008||Math.abs(item.velocity[key])>.003)moving=true;
+       else{item.value[key]=goal;item.velocity[key]=0;}
+     });paint(item);
+   });
+   drawLeaders(active);
+   document.body.dataset.jarMotion=moving?'moving':'settled';
+   if(moving)frame=requestAnimationFrame(tick);else lastTime=0;
+ }
+ function wake(){if(!frame&&!document.hidden&&inView){lastTime=0;frame=requestAnimationFrame(tick);}}
  function drawLeaders(exhibit){
    if(!exhibit||exhibit.querySelector('.jar-annotation').hidden)return;
    const box=exhibit.getBoundingClientRect(),specimen=exhibit.querySelector('.specimen-window').getBoundingClientRect();
@@ -20,36 +68,51 @@
      const dot=group.querySelector('circle');dot.setAttribute('cx',x);dot.setAttribute('cy',y);
    });
  }
- function select(active){clearTimeout(closeTimer);exhibits.forEach(exhibit=>{
-   const selected=exhibit===active;
-   exhibit.classList.toggle('is-active',selected);
-   exhibit.querySelector('.jar-select').setAttribute('aria-expanded',String(selected));
-   exhibit.querySelector('.jar-annotation').hidden=!selected;
- });if(active)requestAnimationFrame(()=>drawLeaders(active));}
+ function select(next){
+   clearTimeout(closeTimer);active=next;
+   exhibits.forEach(exhibit=>{
+     const selected=exhibit===active;
+     exhibit.classList.toggle('is-active',selected);
+     exhibit.querySelector('.jar-select').setAttribute('aria-expanded',String(selected));
+     exhibit.querySelector('.jar-annotation').hidden=!selected;
+   });wake();if(active)requestAnimationFrame(()=>drawLeaders(active));
+ }
+ hall.addEventListener('pointermove',event=>{
+   if(!fine.matches||reduced.matches)return;
+   pointer.inside=true;pointer.x=event.clientX;pointer.y=event.clientY;wake();
+ });
+ hall.addEventListener('pointerleave',()=>{pointer.inside=false;wake();});
  exhibits.forEach(exhibit=>{
-   const button=exhibit.querySelector('.jar-select');button.hidden=false;let frame=0;
-   const reset=()=>{cancelAnimationFrame(frame);exhibit.style.setProperty('--mx','0px');exhibit.style.setProperty('--my','0px');};
+   const button=exhibit.querySelector('.jar-select');button.hidden=false;
    exhibit.addEventListener('pointerenter',()=>{if(fine.matches)select(exhibit);});
-   exhibit.addEventListener('pointermove',e=>{
-     if(reduced.matches||!fine.matches)return;
-     const box=exhibit.getBoundingClientRect();const x=(e.clientX-box.left)/box.width-.5,y=(e.clientY-box.top)/box.height-.5;
-     cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{exhibit.style.setProperty('--mx',`${Math.max(-4,Math.min(4,x*8))}px`);exhibit.style.setProperty('--my',`${Math.max(-2,Math.min(2,y*4))}px`);drawLeaders(exhibit);});
-   });
-   exhibit.addEventListener('pointerleave',()=>{reset();closeTimer=setTimeout(()=>{if(!exhibit.contains(document.activeElement))select(document.activeElement.closest('.jar-exhibit')||pinned);},220);});
+   exhibit.addEventListener('pointerleave',()=>{closeTimer=setTimeout(()=>{if(!exhibit.contains(document.activeElement))select(document.activeElement.closest('.jar-exhibit')||pinned);},220);});
    exhibit.addEventListener('focusin',()=>select(exhibit));
    exhibit.addEventListener('focusout',()=>requestAnimationFrame(()=>{if(!exhibit.contains(document.activeElement))select(document.activeElement.closest('.jar-exhibit')||pinned);}));
    button.addEventListener('click',()=>{pinned=pinned===exhibit?null:exhibit;select(pinned);});
-   reduced.addEventListener('change',reset);
  });
- hall.addEventListener('keydown',e=>{if(e.key==='Escape'){const active=hall.querySelector('.is-active');if(active)active.querySelector('.jar-select').focus({preventScroll:true});pinned=null;select(null);}});
- document.addEventListener('pointerdown',e=>{if(!hall.contains(e.target)){pinned=null;select(null);}});
+ hall.addEventListener('keydown',event=>{
+   if(event.key==='Escape'){
+     if(active)active.querySelector('.jar-select').focus({preventScroll:true});
+     pinned=null;pointer.inside=false;select(null);
+   }
+ });
+ document.addEventListener('pointerdown',event=>{if(!hall.contains(event.target)){pinned=null;pointer.inside=false;select(null);}});
  hall.querySelectorAll('[data-jar-inspect]').forEach(link=>link.addEventListener('click',event=>{
    if(event.button||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
    const card=document.getElementById('project-'+link.dataset.jarInspect);if(!card)return;
    card.querySelector('details').open=true;
    requestAnimationFrame(()=>{if(!card.hidden)card.querySelector('summary').focus({preventScroll:true});});
  }));
- window.addEventListener('resize',()=>drawLeaders(hall.querySelector('.is-active')));
- document.fonts.ready.then(()=>drawLeaders(hall.querySelector('.is-active')));
- select(null);document.body.classList.add('photo-ready');document.body.dataset.jarsReady='true';
+ reduced.addEventListener('change',()=>{pointer.inside=false;wake();});
+ fine.addEventListener('change',()=>{pointer.inside=false;wake();});
+ window.addEventListener('resize',wake);
+ document.addEventListener('visibilitychange',()=>{
+   if(document.hidden){cancelAnimationFrame(frame);frame=0;lastTime=0;}else wake();
+ });
+ if('IntersectionObserver' in window)new IntersectionObserver(entries=>{
+   inView=entries[0].isIntersecting;
+   if(!inView){cancelAnimationFrame(frame);frame=0;lastTime=0;pointer.inside=false;}else wake();
+ },{rootMargin:'40px'}).observe(hall);
+ document.fonts.ready.then(()=>drawLeaders(active));
+ motion.forEach(paint);select(null);document.body.classList.add('photo-ready');document.body.dataset.jarsReady='true';
 })();

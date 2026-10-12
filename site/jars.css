@@ -8,17 +8,18 @@
 .jar-hall {margin:0 32px;color:var(--rs-blueprint);}
 .jar-filter-defs {position:absolute;pointer-events:none;}
 .jar-scroll {overflow:visible;}
-.jar-stage {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));height:360px;max-width:1200px;margin:auto;position:relative;}
-.jar-exhibit {position:relative;min-width:0;--mx:0px;--my:0px;}
+.jar-stage {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));height:380px;max-width:1200px;margin:auto;position:relative;}
+.jar-exhibit {position:relative;min-width:0;--mx:0px;--my:0px;--scene-scale:1;--tilt-x:0deg;--tilt-y:0deg;--inner-x:0px;--inner-y:0px;--glass-light:.18;}
 .jar-exhibit:is(.is-active,:focus-within) {z-index:5;}
-.vessel {position:absolute;height:var(--height);aspect-ratio:var(--ratio);bottom:calc(44px - var(--foot));left:50%;transform:translate(calc(-50% + var(--mx)),var(--my));transition:transform .16s ease-out;pointer-events:none;isolation:isolate;}
+.vessel {position:absolute;height:var(--height);aspect-ratio:var(--ratio);bottom:calc(44px - var(--foot));left:50%;transform:translateX(-50%) perspective(900px) translate3d(var(--mx),var(--my),0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--scene-scale));transform-origin:50% calc(100% - var(--foot));pointer-events:none;isolation:isolate;}
 .jar-photo,.jar-reflection {position:absolute;width:100%;height:100%;inset:0;max-width:none;}
 .jar-photo {z-index:0;}
-.jar-reflection {z-index:2;opacity:.18;mix-blend-mode:screen;mask-image:linear-gradient(90deg,#000,transparent 39%,transparent 59%,#000);}
+.jar-reflection {z-index:2;opacity:var(--glass-light);mix-blend-mode:screen;mask-image:linear-gradient(90deg,#000,transparent 39%,transparent 59%,#000);}
 .specimen-window {position:absolute;left:var(--sx);top:var(--sy);width:var(--sw);height:var(--sh);z-index:1;overflow:hidden;mix-blend-mode:multiply;filter:url(#glass-displacement) saturate(.85);}
-.specimen-depth {position:absolute;inset:0;transform:translate(calc(var(--mx)*.3),calc(var(--my)*.3));}
+.specimen-depth {position:absolute;inset:0;transform:translate(var(--inner-x),var(--inner-y));}
 .specimen-print {position:absolute;width:var(--zoom);height:auto;max-width:none;left:50%;top:50%;transform:translate(-50%,-50%);}
 .jar-shadow {position:absolute;bottom:38px;height:12px;width:84%;left:8%;background:radial-gradient(ellipse,#0b25462b,transparent 70%);pointer-events:none;}
+.photo-ready .jar-shadow {transform:translateX(calc(var(--mx)*.6)) scaleX(var(--scene-scale));}
 .jar-central .jar-shadow {width:48%;left:26%;}
 .jar-select {position:absolute;inset:10px 0 8px;width:100%;border:0;background:transparent;z-index:3;border-radius:0;}
 .jar-select:hover {background:transparent;}
@@ -39,7 +40,8 @@
 .label-ink {background:rgb(255 255 255 / .95);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:2px 4px;}
 .jar-metrics {font:13px/1.7 var(--mono);color:var(--rs-blueprint);}
 .jar-metrics span {display:table;background:rgb(255 255 255 / .95);padding:0 4px;}
-.jar-callout a {display:inline-flex;align-items:center;min-height:44px;padding:0 5px;color:var(--rs-scarlet);font-size:15px;background:rgb(255 255 255 / .93);}
+.jar-callout a {display:inline-flex;align-items:center;min-height:44px;padding:0 9px;border:1px dashed currentColor;text-decoration:none;color:var(--rs-scarlet);font-size:15px;background:rgb(255 255 255 / .93);}
+.jar-callout a:is(:hover,:focus-visible) {border-style:solid;}
 .jar-leaders {position:absolute;overflow:visible;pointer-events:none;}
 .jar-leaders path {fill:none;stroke:var(--rs-scarlet);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0;animation:draw-leader .36s ease-out both;}
 .jar-leaders circle {fill:white;stroke:var(--rs-scarlet);stroke-width:1;}
@@ -51,12 +53,13 @@
 .jar-page:not(.photo-ready) .jar-caption,.jar-page:not(.photo-ready) .jar-shadow {display:none;}
 .jar-page:not(.photo-ready) .jar-annotation {position:static;width:auto;pointer-events:auto;}
 .jar-page:not(.photo-ready) .jar-callout {position:static;width:auto;margin:12px 0;}
-.jar-page:not(.photo-ready) .jar-leaders {display:none;}
+.jar-page:not(.photo-ready) .jar-callout a:is(:hover,:focus-visible) {border-style:solid;}
+.jar-leaders {display:none;}
 
 @media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(5,minmax(0,1fr));}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:14px;}.callout-function{width:190px;}}
 @media (max-width:680px) {
  .jar-hall{margin:0 16px;}.jar-scroll{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:thin;}
- .jar-stage{width:1120px;max-width:none;height:360px;grid-template-columns:repeat(7,160px);padding-top:4px;}.jar-exhibit{scroll-snap-align:start;}
+ .jar-stage{width:1120px;max-width:none;height:380px;grid-template-columns:repeat(7,160px);padding-top:4px;}.jar-exhibit{scroll-snap-align:start;}
  .jar-exhibit .callout-function{left:24px;right:auto;top:4px;width:220px;}
  .jar-exhibit .callout-metrics{left:155px;right:auto;top:140px;min-width:135px;}
  .jar-exhibit .callout-inspect{left:150px;right:auto;top:263px;}
@@ -68,3 +71,5 @@
 @media (prefers-reduced-motion:reduce) {.vessel{transform:translateX(-50%)!important;transition:none;}.specimen-depth{transform:none;}.specimen-window{filter:saturate(.85);}.jar-scroll{scroll-behavior:auto;}}
 
 @media (prefers-reduced-motion:reduce) {.jar-leaders path{animation:none;}}
+
+@media (prefers-reduced-motion:reduce) {.photo-ready .jar-shadow{transform:none;}.jar-reflection{opacity:.18;}}
