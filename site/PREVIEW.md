@@ -32,3 +32,7 @@ The current branch migrates the working catalog. Review `/` for the ledger, `/de
 ## Exhibition preview 01
 
 Open `/exhibition.html` for Infrastructure & DevOps: three illustrated category leaders, the complete category ledger, and expandable evidence records. `/` remains the complete directory for comparison. Only the preview builder and PR checks include this route; the production publisher does not. The proposed design is not approved for production.
+
+## Jar study / preview 02
+
+Active branch: `design/jar-preview-2`. Review `/jars/jars.html` on the private host. The bundle's `preview.json` identifies the exact source SHA. `jars.html` adds the three-vessel hero above the full current ledger; `index.html` remains the production-shaped control. Use Shadows/Baseline to compare ground treatments. Preview #1 and the ledger review remain at their previous URLs. The jar builder is called only by design-preview builds and PR CI.

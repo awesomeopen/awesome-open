@@ -195,3 +195,9 @@ For each extension, add the rule, token/component example, reason, accessibility
 ### Compact ledger copy — 2026-10-12
 
 User direction: blank header search with a dashed underline; retain accessible labels without visible text. Remove the visible page heading, snapshot heading and column header band. Names set compact row height; desktop descriptions use one-line ellipsis and mobile descriptions move into the open record. Complete descriptions and evidence remain available in drawers. Unknown license fields remain blank. Revision, total project count and snapshot coverage are generated in the footer, never hard-coded. Footer explanations use short lists. License wording remains a verification instruction because the pipeline detects licenses and does not independently verify terms.
+
+### Preview 02: layered jar study (proposal)
+
+Instrument: the complete ledger and live HTML labels. Specimen: existing original function-derived artwork inside three SVG vessels. Editorial hand: anchored scarlet leaders on hover/focus. This bounded motion study is built only for design previews at `jars.html`; it does not alter the production page.
+
+The header is unboxed on white. Glass front/back move as one vessel, with restrained additional specimen depth; pointer motion is local and reduced motion is static. The open jar's specimen rests rather than floats. Shadows and an optional fine baseline can be compared without a table. Names remain visible; touch layouts show metrics without hover. Links open ledger records. No new typeface, aged paper, scroll pinning, or fabricated weekly curation is introduced.
