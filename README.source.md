@@ -110,7 +110,7 @@
 | [Open Lovable](https://github.com/firecrawl/open-lovable) | AI chat application for building and editing React apps. |
 | [OpenMemory](https://github.com/mem0ai/openmemory) | CLI and terminal interface for transferring coding sessions between Claude Code, Codex, and OpenCode. |
 | [OpenNavo](https://github.com/opennavo/OpenNavo) | Web catalog and macOS application for discovering, installing, updating, and removing Homebrew Cask applications. |
-| [OpenReplay](https://github.com/openreplay/openreplay) | Self-hostable session replay, product analytics, and live co-browsing for debugging applications and understanding user behavior. |
+| [OpenReplay](https://github.com/openreplay/openreplay) | Self-hostable session replay, product analytics, and live co-browsing for debugging applications and understanding user behavior.<br>Alternative to: [FullStory](https://openreplay.com/compare/openreplay-vs-fullstory/), [LogRocket](https://openreplay.com/compare/openreplay-vs-logrocket/) |
 | [OpenRewrite](https://github.com/openrewrite/rewrite) | Automated refactoring of source code. |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
 | [OpenRPC Generator](https://github.com/open-rpc/generator) | Generate components and language bindings from OpenRPC documents. |
@@ -262,11 +262,11 @@
 | [OpenCart](https://github.com/opencart/opencart) | PHP shopping cart and online store platform. |
 | [OpenCFP](https://github.com/opencfp/opencfp) | Conference talk submission system. |
 | [OpenConcerto](https://www.openconcerto.org) | Business management software for sales, purchasing, inventory, and accounting. |
-| [OpenCRM](https://opencrm.co.uk) | Cloud customer relationship management for sales and business operations. |
+| [OpenCRM](https://opencrm.co.uk) | Cloud customer relationship management for sales and business operations.<br>Alternative to: [Salesforce](https://opencrm.co.uk/comparison-with-competitors/), [HubSpot](https://opencrm.co.uk/crm-comparisons/best-hubspot-uk-alternative/) |
 | [Open Desk](https://github.com/theopen-institute/opendesk) | Frappe add-on for customizing navigation rails, app and module grouping, desktop icons, and user menus. |
 | [OpenEduCat](https://github.com/openeducat/openeducat_erp) | ERP for educational institutions. |
 | [OpenEvents](https://github.com/clawnify/OpenEvents) | Event-networking app template for agent-assisted attendee research, approved outreach, reply tracking, and meeting records. |
-| [openheard](https://github.com/Heilonng23/openheard) | Customer feedback boards with voting, roadmaps, and changelog publishing. |
+| [openheard](https://github.com/Heilonng23/openheard) | Customer feedback boards with voting, roadmaps, and changelog publishing.<br>Alternative to: [Canny](https://github.com/Heilonng23/openheard), [Featurebase](https://github.com/Heilonng23/openheard) |
 | [OpenLaunch](https://github.com/Securiteru/openlaunch) | Agent-driven product-launch toolkit with submission playbooks and a local progress tracker. |
 | [OpenLoc](https://openloc.com/) | Enterprise translation management software with configurable AI workflows, integrations, dashboards, and MCP access. |
 | [OpenMage](https://github.com/OpenMage/magento-lts) | E-commerce platform continuing Magento Community Edition. |
@@ -276,7 +276,7 @@
 | [OpenPOS](https://github.com/hefttech/OpenPOS) | Demo point-of-sale desktop app with product lookup, checkout, receipts, and stock management. |
 | [OpenProject](https://github.com/opf/openproject) | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) |
 | [OpenReception](https://github.com/RossEcho/OpenReception) | Self-hosted WhatsApp receptionist with multilingual conversations, appointment scheduling, customer campaigns, and an admin dashboard. |
-| [OpenSEO](https://github.com/every-app/open-seo) | SEO platform for keyword research, rank tracking, competitor analysis, backlinks, site audits, and AI-agent integrations. |
+| [OpenSEO](https://github.com/every-app/open-seo) | SEO platform for keyword research, rank tracking, competitor analysis, backlinks, site audits, and AI-agent integrations.<br>Alternative to: [Semrush](https://github.com/every-app/open-seo/blob/main/README.md), [Ahrefs](https://github.com/every-app/open-seo/blob/main/README.md) |
 | [OpenSign](https://github.com/OpenSignLabs/OpenSign) | Document signing and electronic signature workflows.<br>Alternative to: [DocuSign](https://github.com/OpenSignLabs/OpenSign#readme), [PandaDoc](https://github.com/OpenSignLabs/OpenSign#readme), [SignNow](https://github.com/OpenSignLabs/OpenSign#readme) |
 
 ## Knowledge Management
@@ -311,10 +311,10 @@
 | [Open Grind](https://git.opengrind.org/open-grind/open-grind) | Cross-platform unofficial client for Grindr. |
 | [OpenIM](https://github.com/openimsdk/open-im-server) | Instant messaging server and infrastructure for chat applications. |
 | [OpenMeetings](https://openmeetings.apache.org) | Video conferencing, instant messaging, shared whiteboards, and document collaboration. |
-| [Opensend](https://github.com/PanaraStudios/opensend.cc) | Self-hosted email application with Amazon SES setup, domain management, and team authentication. |
+| [Opensend](https://github.com/PanaraStudios/opensend.cc) | Self-hosted email application with Amazon SES setup, domain management, and team authentication.<br>Alternative to: [Resend](https://opensend.cc/) |
 | [OpenSIPS](https://github.com/OpenSIPS/opensips) | SIP server for voice and real-time communications. |
 | [Open Social](https://github.com/goalgorilla/open_social) | Drupal distribution for online communities. |
-| [OpenTalk](https://opentalk.eu/en) | Video conferencing platform for organizations. |
+| [OpenTalk](https://opentalk.eu/en) | Video conferencing platform for organizations.<br>Alternative to: [Zoom](https://opentalk.eu/en/news/opentalk-now-available-cloud-service), [Microsoft Teams](https://opentalk.eu/en/news/opentalk-now-available-cloud-service), [Cisco Webex](https://opentalk.eu/en/news/opentalk-now-available-cloud-service) |
 | [Open Trashmail](https://github.com/HaschekSolutions/opentrashmail) | Self-hosted disposable-email server with a web interface, JSON API, RSS feeds, and webhooks. |
 | [OpenVK](https://github.com/OpenVK/openvk) | Social network inspired by VK. |
 | [OpenWA](https://github.com/rmyndharis/OpenWA) | Self-hosted WhatsApp API gateway with multiple sessions, webhooks, and a management dashboard. |
@@ -347,7 +347,7 @@
 | [OpenMPT](https://openmpt.org) | Tracker for composing and editing module music. |
 | [OpenPencil](https://github.com/open-pencil/open-pencil) | Design editor with Figma-file support, AI tools, and real-time collaboration.<br>Alternative to: [Figma](https://github.com/open-pencil/open-pencil#why) |
 | [OpenPencil](https://github.com/ZSeven-W/openpencil) | Vector design tool with AI-agent control, JSON design files, and code export. |
-| [OpenPhoto](https://github.com/yuanzhixiang/openphoto) | macOS image editor with layered PSD support, selection tools, retouching, and filters. |
+| [OpenPhoto](https://github.com/yuanzhixiang/openphoto) | macOS image editor with layered PSD support, selection tools, retouching, and filters.<br>Alternative to: [Photoshop](https://github.com/yuanzhixiang/openphoto/blob/main/README.md) |
 | [OpenReel Video](https://github.com/Augani/openreel-video) | Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects. |
 | [OpenRV](https://github.com/AcademySoftwareFoundation/OpenRV) | Media review and playback software. |
 | [OpenScreen](https://github.com/getopenscreen/openscreen) | Screen recording and editing for product demos and walkthroughs.<br>Alternative to: [Screen Studio](https://getopenscreen.com/alternatives/screen-studio/), [Camtasia](https://getopenscreen.com/alternatives/camtasia/) |
@@ -578,7 +578,7 @@
 | [OpenCleaner](https://github.com/Haguilar91/OpenCleaner) | Disk-usage scanning and cleanup applications for Linux, macOS, Windows, and Android. |
 | [OpenCloud](https://github.com/opencloud-eu/opencloud) | File management, sharing, and collaboration platform.<br>Alternative to: [Microsoft SharePoint](https://opencloud.eu/en/press/opencloud-now-available-new-open-source-alternative-microsoft-sharepoint), [Google Drive](https://opencloud.eu/en/press/opencloud-now-available-new-open-source-alternative-microsoft-sharepoint), [Dropbox](https://opencloud.eu/en/press/opencloud-now-available-new-open-source-alternative-microsoft-sharepoint) |
 | [OpenDAL](https://github.com/apache/opendal) | Data access library with a unified interface to storage services. |
-| [OpenDisk](https://github.com/137137137/OpenDisk) | macOS disk-usage analyzer for finding large files and reclaiming storage space. |
+| [OpenDisk](https://github.com/137137137/OpenDisk) | macOS disk-usage analyzer for finding large files and reclaiming storage space.<br>Alternative to: [DaisyDisk](https://github.com/137137137/OpenDisk/blob/main/README.md) |
 | [OpenEBS](https://github.com/openebs/openebs) | Persistent storage for stateful applications on Kubernetes. |
 | [OpenList](https://github.com/OpenListTeam/OpenList) | File browser with multiple storage backends, previews, and WebDAV access. |
 | [openmediavault](https://github.com/openmediavault/openmediavault) | Debian-based network-attached storage with a web administration interface. |

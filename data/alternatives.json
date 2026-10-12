@@ -394,6 +394,172 @@
           "source_quote": "A Practical Typeless Alternative: OpenTypeless"
         }
       ]
+    },
+    {
+      "readme_url": "https://github.com/137137137/OpenDisk",
+      "alternatives": [
+        {
+          "name": "DaisyDisk",
+          "source_url": "https://github.com/137137137/OpenDisk/blob/main/README.md",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenDisk",
+          "source_quote": "It's a free alternative to DaisyDisk",
+          "scope": "macOS disk-usage analysis and cleanup. The current README explicitly positions OpenDisk as a DaisyDisk alternative. Its macOS version and distribution-specific scan restrictions still apply; no speed advantage or feature parity is claimed.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/every-app/open-seo",
+      "alternatives": [
+        {
+          "name": "Semrush",
+          "source_url": "https://github.com/every-app/open-seo/blob/main/README.md",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenSEO",
+          "source_quote": "Open source alternative to Semrush and Ahrefs",
+          "scope": "Core SEO research, rank tracking, site audits, backlinks, and competitor research. The current README explicitly names both alternatives. Not the entire marketing suites; the underlying DataForSEO provider remains a dependency, including when self-hosted.",
+          "confidence": "high"
+        },
+        {
+          "name": "Ahrefs",
+          "source_url": "https://github.com/every-app/open-seo/blob/main/README.md",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenSEO",
+          "source_quote": "Open source alternative to Semrush and Ahrefs",
+          "scope": "Core SEO research, rank tracking, site audits, backlinks, and competitor research. The current README explicitly names both alternatives. Not the entire marketing suites; the underlying DataForSEO provider remains a dependency, including when self-hosted.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/Heilonng23/openheard",
+      "alternatives": [
+        {
+          "name": "Canny",
+          "source_url": "https://github.com/Heilonng23/openheard",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "openheard",
+          "source_quote": "open source canny / featurebase alternative",
+          "scope": "Customer feedback boards, roadmaps, and changelogs. The maintainer-controlled repository About description explicitly names both targets. This does not establish feature parity or replacement of every support capability in either broader platform.",
+          "confidence": "high"
+        },
+        {
+          "name": "Featurebase",
+          "source_url": "https://github.com/Heilonng23/openheard",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "openheard",
+          "source_quote": "open source canny / featurebase alternative",
+          "scope": "Customer feedback boards, roadmaps, and changelogs. The maintainer-controlled repository About description explicitly names both targets. This does not establish feature parity or replacement of every support capability in either broader platform.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/openreplay/openreplay",
+      "alternatives": [
+        {
+          "name": "FullStory",
+          "source_url": "https://openreplay.com/compare/openreplay-vs-fullstory/",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenReplay",
+          "source_quote": "Self-Hosted Session Replay: The Open Source FullStory Alternative",
+          "scope": "Session replay and product-usage analytics. The official comparison page title explicitly positions OpenReplay as a FullStory alternative; no feature parity, comparative security, compliance, pricing, or complete enterprise-workflow equivalence is claimed.",
+          "confidence": "high"
+        },
+        {
+          "name": "LogRocket",
+          "source_url": "https://openreplay.com/compare/openreplay-vs-logrocket/",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenReplay",
+          "source_quote": "The Open Source Alternative to LogRocket",
+          "scope": "Session replay, application debugging, and associated product analytics. The official comparison page title explicitly positions OpenReplay as a LogRocket alternative; no feature parity, comparative security, pricing, or universal migration compatibility is claimed.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/PanaraStudios/opensend.cc",
+      "alternatives": [
+        {
+          "name": "Resend",
+          "source_url": "https://opensend.cc/",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "Opensend",
+          "source_quote": "The self-hosted Resend alternative.",
+          "scope": "Self-hosted email API and related dashboard workflows, using AWS SES as delivery infrastructure. Official homepage explicitly names Resend, independently of API compatibility. Current README says some dashboard features still use a demo store while backend milestones are implemented; this is positioning, not a readiness or full-parity assessment.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/yuanzhixiang/openphoto",
+      "alternatives": [
+        {
+          "name": "Photoshop",
+          "source_url": "https://github.com/yuanzhixiang/openphoto/blob/main/README.md",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenPhoto",
+          "source_quote": "A free, open-source Photoshop alternative for Mac",
+          "scope": "macOS image editing and layered PSD workflows. The current README explicitly positions OpenPhoto as a Photoshop alternative and labels the project early development. Current product documentation lists unsupported capabilities, including editable type and smart objects; no complete Photoshop compatibility, algorithm equivalence, or feature parity is claimed.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://opencrm.co.uk",
+      "alternatives": [
+        {
+          "name": "Salesforce",
+          "source_url": "https://opencrm.co.uk/comparison-with-competitors/",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenCRM",
+          "source_quote": "A real alternative to Salesforce",
+          "scope": "Customer relationship management and sales workflows. The official comparison is specifically against Salesforce Sales Cloud, not every Salesforce product. This applies to the commercial UK service at opencrm.co.uk; no pricing, data-protection, security, or feature-superiority claims are adopted.",
+          "confidence": "high"
+        },
+        {
+          "name": "HubSpot",
+          "source_url": "https://opencrm.co.uk/crm-comparisons/best-hubspot-uk-alternative/",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenCRM",
+          "source_quote": "A HubSpot UK alternative like OpenCRM",
+          "scope": "Customer relationship management for UK businesses, including contact records and sales workflows. The official page explicitly positions OpenCRM as a HubSpot alternative. This does not establish replacement of every HubSpot hub, pricing equivalence, legal compliance, or feature parity.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://opentalk.eu/en",
+      "alternatives": [
+        {
+          "name": "Zoom",
+          "source_url": "https://opentalk.eu/en/news/opentalk-now-available-cloud-service",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenTalk",
+          "source_quote": "alternative to Zoom, Teams and Webex",
+          "scope": "Video conferencing and meetings. The official 2023-06-28 announcement explicitly positions the hosted OpenTalk service as an alternative. Rechecked on the recorded date; not a new announcement, a comparison of all deployment editions, or a claim of compliance, security superiority, or complete collaboration-suite parity.",
+          "confidence": "high"
+        },
+        {
+          "name": "Microsoft Teams",
+          "source_url": "https://opentalk.eu/en/news/opentalk-now-available-cloud-service",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenTalk",
+          "source_quote": "alternative to Zoom, Teams and Webex",
+          "scope": "Video conferencing and meetings. The official 2023-06-28 announcement explicitly positions the hosted OpenTalk service as an alternative. Rechecked on the recorded date; not a new announcement, a comparison of all deployment editions, or a claim of compliance, security superiority, or complete collaboration-suite parity.",
+          "confidence": "high"
+        },
+        {
+          "name": "Cisco Webex",
+          "source_url": "https://opentalk.eu/en/news/opentalk-now-available-cloud-service",
+          "checked_utc_date": "2026-10-12",
+          "claimant": "OpenTalk",
+          "source_quote": "alternative to Zoom, Teams and Webex",
+          "scope": "Video conferencing and meetings. The official 2023-06-28 announcement explicitly positions the hosted OpenTalk service as an alternative. Rechecked on the recorded date; not a new announcement, a comparison of all deployment editions, or a claim of compliance, security superiority, or complete collaboration-suite parity.",
+          "confidence": "high"
+        }
+      ]
     }
   ]
 }
