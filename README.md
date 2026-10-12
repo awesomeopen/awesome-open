@@ -22,7 +22,7 @@
 
 | Project | Description |
 | --- | --- |
-| [OpenAgentCore](https://github.com/MiniMax-AI/OpenAgentCore) | Self-hosted implementation of the OpenAI Agents API with multiple agent harnesses. <!-- STATS:START --><br><sub>2026-09-21 -- 2026-10-11 / MIT / 209</sub><!-- STATS:END --> |
+| [OpenAgentCore](https://github.com/MiniMax-AI/OpenAgentCore) | Self-hosted implementation of the OpenAI Agents API with multiple agent harnesses. <!-- STATS:START --><br><sub>2026-09-21 -- 2026-10-12 / MIT / 209</sub><!-- STATS:END --> |
 | [OpenArchEvo](https://github.com/Optima-CityU/OpenArchEvo) | Neural architecture search framework that combines LLM-written model programs with population-based evolution. <!-- STATS:START --><br><sub>2026-10-10 -- 2026-10-10 / Apache-2.0 / 9</sub><!-- STATS:END --> |
 | [OpenAssistant](https://github.com/LAION-AI/Open-Assistant) | Chat assistant that handles tasks, interacts with external systems, and retrieves information. <!-- STATS:START --><br><sub>2022-12-13 -- <b>2024-08-17</b> / Apache-2.0 / 37.4k</sub><!-- STATS:END --> |
 | [Open-AutoGLM](https://github.com/zai-org/Open-AutoGLM) | AI models and framework for phone automation. <!-- STATS:START --><br><sub>2025-12-08 -- 2026-03-06 / Apache-2.0 / 26.4k</sub><!-- STATS:END --> |
@@ -50,8 +50,8 @@
 | [OpenGym](https://github.com/widingmarcus-cyber/opengym) | Benchmark for evaluating AI-agent coding, memory, tool use, planning, resilience, safety, and coordination. <!-- STATS:START --><br><sub>2026-03-01 -- 2026-03-14 / MIT / 1</sub><!-- STATS:END --> |
 | [OpenHands](https://github.com/OpenHands/OpenHands)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openhands.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenHands&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | AI agents for software development. <!-- STATS:START --><br><sub>2024-03-13 -- 2026-10-12 / MIT / 90.6k</sub><!-- STATS:END --> |
 | [OpenHuman](https://github.com/tinyhumansai/openhuman) | AI agent harness with local-first memory, agent orchestration, and workflows.<br>Alternative to: [Vellum](https://www.vellum.ai/blog/best-openhuman-alternatives), [Hermes Agent](https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses), [OpenClaw](https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses) <!-- STATS:START --><br><sub>2026-02-18 -- 2026-10-12 / GPL-3.0 / 41.8k</sub><!-- STATS:END --> |
-| [Open Instinct](https://github.com/mariagorskikh/open-instinct) | Personal AI agent with its own computer, messaging integrations, and coordination with trusted contacts' agents. <!-- STATS:START --><br><sub>2026-10-03 -- 2026-10-12 / MIT / 300</sub><!-- STATS:END --> |
-| [Open Intelligent UI](https://github.com/thesysdev/open-intelligent-ui) | Demo application that turns AI chat requests into interactive maps, photos, and editable travel itineraries. <!-- STATS:START --><br><sub>2026-10-08 -- 2026-10-11 / 318</sub><!-- STATS:END --> |
+| [Open Instinct](https://github.com/mariagorskikh/open-instinct) | Personal AI agent with its own computer, messaging integrations, and coordination with trusted contacts' agents. <!-- STATS:START --><br><sub>2026-10-03 -- 2026-10-12 / MIT / 301</sub><!-- STATS:END --> |
+| [Open Intelligent UI](https://github.com/thesysdev/open-intelligent-ui) | Demo application that turns AI chat requests into interactive maps, photos, and editable travel itineraries. <!-- STATS:START --><br><sub>2026-10-08 -- 2026-10-11 / 319</sub><!-- STATS:END --> |
 | [Open Interpreter](https://github.com/openinterpreter/openinterpreter) | Coding agent for running open language models.<br>Alternative to: [Codex](https://www.openinterpreter.com/docs/terminal/migrate) <!-- STATS:START --><br><sub>2023-07-14 -- 2026-10-11 / Apache-2.0 / 68.6k</sub><!-- STATS:END --> |
 | [OpenJarvis](https://github.com/open-jarvis/OpenJarvis) | Framework for building and evaluating local-first personal AI agents. <!-- STATS:START --><br><sub>2026-02-15 -- 2026-10-11 / Apache-2.0 / 11k</sub><!-- STATS:END --> |
 | [OpenLLM](https://github.com/bentoml/OpenLLM) | Serve language models through OpenAI-compatible API endpoints. <!-- STATS:START --><br><sub>2023-04-19 -- 2026-10-05 / Apache-2.0 / 12.6k</sub><!-- STATS:END --> |
@@ -108,7 +108,7 @@
 | [Open Inspector](https://github.com/patlf/open-inspector) | Browser extension for inspecting page styles, layout, typography, assets, and design tokens. <!-- STATS:START --><br><sub>2026-08-26 -- 2026-10-02 / MIT / 22</sub><!-- STATS:END --> |
 | [OpenJDK](https://github.com/openjdk/jdk) | Java Development Kit implementation. <!-- STATS:START --><br><sub>2018-09-17 -- 2026-10-12 / GPL-2.0 / 23.4k</sub><!-- STATS:END --> |
 | [OpenLens](https://github.com/MuhammedKalkan/OpenLens) | Desktop Kubernetes IDE built from the Lens source code. <!-- STATS:START --><br><sub>2022-05-28 -- <b>2024-05-03</b> / 4.4k</sub><!-- STATS:END --> |
-| [Open Liberty](https://github.com/OpenLiberty/open-liberty) | Composable application-server runtime. <!-- STATS:START --><br><sub>2017-09-15 -- 2026-10-11 / EPL-2.0 / 1.3k</sub><!-- STATS:END --> |
+| [Open Liberty](https://github.com/OpenLiberty/open-liberty) | Composable application-server runtime. <!-- STATS:START --><br><sub>2017-09-15 -- 2026-10-12 / EPL-2.0 / 1.3k</sub><!-- STATS:END --> |
 | [Open Lovable](https://github.com/firecrawl/open-lovable) | AI chat application for building and editing React apps. <!-- STATS:START --><br><sub>2025-08-08 -- 2026-10-09 / MIT / 28.7k</sub><!-- STATS:END --> |
 | [OpenMemory](https://github.com/mem0ai/openmemory) | CLI and terminal interface for transferring coding sessions between Claude Code, Codex, and OpenCode. <!-- STATS:START --><br><sub>2026-07-06 -- 2026-07-29 / MIT / 97</sub><!-- STATS:END --> |
 | [OpenNavo](https://github.com/opennavo/OpenNavo) | Web catalog and macOS application for discovering, installing, updating, and removing Homebrew Cask applications. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-11 / Apache-2.0 / 0</sub><!-- STATS:END --> |
@@ -121,7 +121,7 @@
 | **[OpenSpec](https://github.com/Fission-AI/OpenSpec)** | Specification-driven development tools for AI coding assistants. <!-- STATS:START --><br><sub>2025-08-05 -- 2026-10-09 / MIT / 71.7k</sub><!-- STATS:END --> |
 | [Open Terminal](https://github.com/open-webui/open-terminal) | Self-hosted terminal and file-management API for AI agents and automation. <!-- STATS:START --><br><sub>2026-02-10 -- 2026-10-10 / MIT / 3.3k</sub><!-- STATS:END --> |
 | [OpenTest](https://github.com/mcdcorp/opentest) | Test automation for web applications, mobile apps, and APIs. <!-- STATS:START --><br><sub>2017-12-19 -- 2026-08-05 / MIT / 501</sub><!-- STATS:END --> |
-| [OpenTUI](https://github.com/anomalyco/opentui) | Library for building terminal user interfaces. <!-- STATS:START --><br><sub>2025-07-21 -- 2026-10-11 / MIT / 13.5k</sub><!-- STATS:END --> |
+| [OpenTUI](https://github.com/anomalyco/opentui) | Library for building terminal user interfaces. <!-- STATS:START --><br><sub>2025-07-21 -- 2026-10-12 / MIT / 13.5k</sub><!-- STATS:END --> |
 | [OpenUI](https://github.com/thesysdev/openui) | Framework for streaming model-generated interfaces using component libraries and runtimes for React, Vue, Svelte, and Angular. <!-- STATS:START --><br><sub>2024-12-02 -- 2026-10-12 / MIT / 10.7k</sub><!-- STATS:END --> |
 | [OpenUI5](https://github.com/UI5/openui5) | JavaScript UI framework for responsive web applications with reusable controls and JSON, XML, and OData data binding. <!-- STATS:START --><br><sub>2013-12-10 -- 2026-10-11 / Apache-2.0 / 3.3k</sub><!-- STATS:END --> |
 | [OpenVSCode Server](https://github.com/gitpod-io/openvscode-server) | Run VS Code remotely and access it through a web browser. <!-- STATS:START --><br><sub>2020-09-04 -- 2026-09-24 / MIT / 6.2k</sub><!-- STATS:END --> |
@@ -184,7 +184,7 @@
 | [OpenBox](https://www.openbox.ai/) | Runtime governance platform for monitoring AI-agent actions and enforcing identity, authorization, and policy checks. |
 | [OpenCanary](https://github.com/thinkst/opencanary) | Modular network honeypot. <!-- STATS:START --><br><sub>2015-08-05 -- 2026-10-05 / BSD-3-Clause / 3.1k</sub><!-- STATS:END --> |
 | [OpenConnect](https://www.infradead.org/openconnect) | Multi-protocol SSL VPN client. |
-| [OpenCTI](https://github.com/OpenCTI-Platform/opencti) | Cyber threat intelligence platform. <!-- STATS:START --><br><sub>2018-12-17 -- 2026-10-11 / 10.1k</sub><!-- STATS:END --> |
+| [OpenCTI](https://github.com/OpenCTI-Platform/opencti) | Cyber threat intelligence platform. <!-- STATS:START --><br><sub>2018-12-17 -- 2026-10-12 / 10.1k</sub><!-- STATS:END --> |
 | [OpenFHE](https://github.com/openfheorg/openfhe-development) | C++ library for computing on encrypted data with fully homomorphic encryption and multiparty extensions. <!-- STATS:START --><br><sub>2022-03-04 -- 2026-10-11 / BSD-2-Clause / 1.2k</sub><!-- STATS:END --> |
 | [Opengrep](https://github.com/opengrep/opengrep) | Static analysis engine for finding code patterns and security vulnerabilities. <!-- STATS:START --><br><sub>2024-12-14 -- 2026-10-10 / LGPL-2.1 / 3.2k</sub><!-- STATS:END --> |
 | [OpenKeychain](https://github.com/open-keychain/open-keychain) | OpenPGP encryption and key management for Android. <!-- STATS:START --><br><sub>2012-03-09 -- <b>2024-05-16</b> / GPL-3.0 / 2.6k</sub><!-- STATS:END --> |
@@ -206,7 +206,7 @@
 | Project | Description |
 | --- | --- |
 | [Open5GS](https://github.com/open5gs/open5gs) | Implementation of 5G Core and LTE evolved packet core networks. <!-- STATS:START --><br><sub>2017-02-01 -- 2026-10-09 / AGPL-3.0 / 2.8k</sub><!-- STATS:END --> |
-| **[OpenClash](https://github.com/vernesong/OpenClash)** | Mihomo (Clash) client for rule-based proxy routing on OpenWrt. <!-- STATS:START --><br><sub>2019-05-29 -- 2026-10-11 / MIT / 27.7k</sub><!-- STATS:END --> |
+| **[OpenClash](https://github.com/vernesong/OpenClash)** | Mihomo (Clash) client for rule-based proxy routing on OpenWrt. <!-- STATS:START --><br><sub>2019-05-29 -- 2026-10-12 / MIT / 27.8k</sub><!-- STATS:END --> |
 | [OpenDKIM](https://github.com/trusteddomainproject/OpenDKIM) | DKIM library and mail filter for signing and verifying email. <!-- STATS:START --><br><sub>2017-09-14 -- 2026-07-23 / 118</sub><!-- STATS:END --> |
 | [OpenDMARC](https://github.com/trusteddomainproject/OpenDMARC) | DMARC library and mail filter for email authentication. <!-- STATS:START --><br><sub>2017-09-14 -- 2026-08-22 / 140</sub><!-- STATS:END --> |
 | [Openfire](https://github.com/igniterealtime/Openfire) | XMPP server for real-time messaging. <!-- STATS:START --><br><sub>2014-04-07 -- 2026-10-01 / Apache-2.0 / 3.1k</sub><!-- STATS:END --> |
@@ -271,7 +271,7 @@
 | [openheard](https://github.com/Heilonng23/openheard) | Customer feedback boards with voting, roadmaps, and changelog publishing. <!-- STATS:START --><br><sub>2026-09-04 -- 2026-10-03 / AGPL-3.0 / 178</sub><!-- STATS:END --> |
 | [OpenLaunch](https://github.com/Securiteru/openlaunch) | Agent-driven product-launch toolkit with submission playbooks and a local progress tracker. <!-- STATS:START --><br><sub>2026-09-18 -- 2026-10-01 / MIT / 1</sub><!-- STATS:END --> |
 | [OpenLoc](https://openloc.com/) | Enterprise translation management software with configurable AI workflows, integrations, dashboards, and MCP access. |
-| [OpenMage](https://github.com/OpenMage/magento-lts) | E-commerce platform continuing Magento Community Edition. <!-- STATS:START --><br><sub>2014-10-17 -- 2026-10-06 / OSL-3.0 / 932</sub><!-- STATS:END --> |
+| [OpenMage](https://github.com/OpenMage/magento-lts) | E-commerce platform continuing Magento Community Edition. <!-- STATS:START --><br><sub>2014-10-17 -- 2026-10-12 / OSL-3.0 / 932</sub><!-- STATS:END --> |
 | [OpenMarket](https://m11.ai/openmarket) | Multi-agent shopping service in which seller agents compare products and a referee agent checks their claims. |
 | [Open Mercato](https://github.com/open-mercato/open-mercato) | TypeScript framework for building CRM, ERP, and commerce applications with modular business features. <!-- STATS:START --><br><sub>2025-09-10 -- 2026-10-11 / MIT / 1.8k</sub><!-- STATS:END --> |
 | [Openpanel](https://github.com/Openpanel-dev/openpanel) | Web and product analytics with funnels, cohorts, session replay, and dashboards.<br>Alternative to: [Mixpanel](https://github.com/Openpanel-dev/openpanel#readme), [Google Analytics](https://github.com/Openpanel-dev/openpanel#readme) <!-- STATS:START --><br><sub>2024-02-29 -- 2026-10-11 / AGPL-3.0 / 7.1k</sub><!-- STATS:END --> |
@@ -288,7 +288,7 @@
 | [OpenBlog](https://github.com/techjiang/OpenBlog) | PHP blogging system with article, category, tag, comment, media, and site administration. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-10 / MIT / 0</sub><!-- STATS:END --> |
 | [openbooks](https://github.com/evan-buss/openbooks) | Web and command-line interfaces for searching and downloading ebooks over IRC. <!-- STATS:START --><br><sub>2019-05-15 -- <b>2025-04-24</b> / MIT / 2.4k</sub><!-- STATS:END --> |
 | [OpenCms](https://github.com/alkacon/opencms-core) | Java content management system. <!-- STATS:START --><br><sub>2011-06-28 -- 2026-10-07 / LGPL-2.1 / 573</sub><!-- STATS:END --> |
-| [OpenCTI](https://github.com/OpenCTI-Platform/opencti) | Cyber threat intelligence platform. <!-- STATS:START --><br><sub>2018-12-17 -- 2026-10-11 / 10.1k</sub><!-- STATS:END --> |
+| [OpenCTI](https://github.com/OpenCTI-Platform/opencti) | Cyber threat intelligence platform. <!-- STATS:START --><br><sub>2018-12-17 -- 2026-10-12 / 10.1k</sub><!-- STATS:END --> |
 | [OpenDocMan](https://github.com/opendocman/opendocman) | Web document management system written in PHP. <!-- STATS:START --><br><sub>2012-04-27 -- 2026-09-18 / GPL-2.0 / 283</sub><!-- STATS:END --> |
 | [Open edX](https://github.com/openedx/openedx-platform) | Learning management system and course authoring platform. <!-- STATS:START --><br><sub>2013-05-30 -- 2026-10-10 / AGPL-3.0 / 8.2k</sub><!-- STATS:END --> |
 | [Open Glean](https://github.com/hydra-db/open-glean) | AI workspace over Hydra DB for searching memories, files, and connected apps with source citations. <!-- STATS:START --><br><sub>2026-09-17 -- 2026-10-06 / Apache-2.0 / 1.6k</sub><!-- STATS:END --> |
@@ -332,9 +332,9 @@
 | [OpenCineAgent](https://github.com/ProgramaGrueso/OpenCineAgent) | Local-model film production pipeline coordinating scripts, video generation, quality checks, audio, and editing. <!-- STATS:START --><br><sub>2026-10-04 -- 2026-10-04 / 8</sub><!-- STATS:END --> |
 | [OpenColorIO](https://github.com/AcademySoftwareFoundation/OpenColorIO) | Color management framework for visual effects and animation. <!-- STATS:START --><br><sub>2010-07-14 -- 2026-10-01 / BSD-3-Clause / 2.1k</sub><!-- STATS:END --> |
 | [OpenComic](https://github.com/ollm/OpenComic) | Comic and manga reader. <!-- STATS:START --><br><sub>2017-01-09 -- 2026-10-11 / GPL-3.0 / 2k</sub><!-- STATS:END --> |
-| [OpenCreator](https://github.com/krillinai/OpenCreator) | AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content. <!-- STATS:START --><br><sub>2024-12-17 -- 2026-10-11 / Apache-2.0 / 12.7k</sub><!-- STATS:END --> |
+| [OpenCreator](https://github.com/krillinai/OpenCreator) | AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content. <!-- STATS:START --><br><sub>2024-12-17 -- 2026-10-12 / Apache-2.0 / 12.7k</sub><!-- STATS:END --> |
 | [OpenCue](https://github.com/AcademySoftwareFoundation/OpenCue) | Render management for visual effects and animation productions. <!-- STATS:START --><br><sub>2018-05-16 -- 2026-10-09 / Apache-2.0 / 995</sub><!-- STATS:END --> |
-| [OpenCull](https://github.com/NatePhotos/OpenCull) | Desktop photo-culling application with RAW previews, ratings and labels, face analysis, and burst comparisons. <!-- STATS:START --><br><sub>2026-10-10 -- 2026-10-11 / GPL-3.0 / 1</sub><!-- STATS:END --> |
+| [OpenCull](https://github.com/NatePhotos/OpenCull) | Desktop photo-culling application with RAW previews, ratings and labels, face analysis, and burst comparisons. <!-- STATS:START --><br><sub>2026-10-10 -- 2026-10-12 / GPL-3.0 / 1</sub><!-- STATS:END --> |
 | **[OpenCut](https://github.com/OpenCut-app/OpenCut)** | Video editor for web, desktop, and mobile.<br>Alternative to: [CapCut](https://github.com/OpenCut-app/OpenCut) <!-- STATS:START --><br><sub>2025-06-22 -- 2026-09-24 / MIT / 93.7k</sub><!-- STATS:END --> |
 | [OpenDAM](https://github.com/LawLaw09/OpenDAM) | Local-first digital asset manager for organizing and previewing 3D, CAD, and design files. <!-- STATS:START --><br><sub>2026-10-07 -- 2026-10-07 / MIT / 5</sub><!-- STATS:END --> |
 | **[OpenDesign](https://github.com/nexu-io/open-design)** | Collaborative design workspace powered by coding agents. <!-- STATS:START --><br><sub>2026-04-28 -- 2026-10-12 / Apache-2.0 / 100.6k</sub><!-- STATS:END --> |
@@ -366,7 +366,7 @@
 | [OpenVDB](https://github.com/AcademySoftwareFoundation/openvdb) | Sparse volume data structures and tools. <!-- STATS:START --><br><sub>2013-04-12 -- 2026-10-08 / Apache-2.0 / 3.4k</sub><!-- STATS:END --> |
 | [OpenVid](https://github.com/CristianOlivera1/openvid) | Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects. <!-- STATS:START --><br><sub>2026-02-10 -- 2026-10-11 / 2.7k</sub><!-- STATS:END --> |
 | [Open Video Craft](https://github.com/Reubencfernandes/Open-Video-Craft) | Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export. <!-- STATS:START --><br><sub>2026-07-01 -- 2026-09-25 / ISC / 14</sub><!-- STATS:END --> |
-| [OPEN VIDEO EDIT](https://github.com/kevinbadi/open-edits) | Python tools and Claude Code skills for editing videos with animated graphics, captions, and local rendering. <!-- STATS:START --><br><sub>2026-10-02 -- 2026-10-02 / MIT / 39</sub><!-- STATS:END --> |
+| [OPEN VIDEO EDIT](https://github.com/kevinbadi/open-edits) | Python tools and Claude Code skills for editing videos with animated graphics, captions, and local rendering. <!-- STATS:START --><br><sub>2026-10-02 -- 2026-10-02 / MIT / 38</sub><!-- STATS:END --> |
 | [Open Video Editor](https://github.com/devhyper/open-video-editor) | Android video editor for trimming, scaling, rotating, and applying filters. <!-- STATS:START --><br><sub>2023-10-21 -- 2026-08-26 / GPL-3.0 / 735</sub><!-- STATS:END --> |
 | [OpenVids](https://github.com/bazodev/open-vids) | Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks. <!-- STATS:START --><br><sub>2026-09-28 -- 2026-10-09 / Apache-2.0 / 32</sub><!-- STATS:END --> |
 | [OpenZine](https://github.com/JosssphZhou/openzine) | Agent skill and command-line tool for converting PDFs or page images into interactive 3D HTML booklets. <!-- STATS:START --><br><sub>2026-10-08 -- 2026-10-10 / 26</sub><!-- STATS:END --> |
@@ -376,7 +376,7 @@
 | Project | Description |
 | --- | --- |
 | [openage](https://github.com/SFTtech/openage) | Reimplementation of the Genie engine used by Age of Empires games. <!-- STATS:START --><br><sub>2013-11-03 -- 2026-10-03 / 14.5k</sub><!-- STATS:END --> |
-| [OpenApoc](https://github.com/OpenApoc/OpenApoc) | Reimplementation of the X-COM: Apocalypse engine. <!-- STATS:START --><br><sub>2014-07-06 -- 2026-09-16 / GPL-3.0 / 596</sub><!-- STATS:END --> |
+| [OpenApoc](https://github.com/OpenApoc/OpenApoc) | Reimplementation of the X-COM: Apocalypse engine. <!-- STATS:START --><br><sub>2014-07-06 -- 2026-09-16 / GPL-3.0 / 597</sub><!-- STATS:END --> |
 | [OpenArena](https://github.com/OpenArena/engine) | Arena shooter engine based on ioquake3. <!-- STATS:START --><br><sub>2014-02-06 -- 2026-04-21 / GPL-2.0 / 253</sub><!-- STATS:END --> |
 | [OpenBOR](https://github.com/DCurrent/openbor) | Sprite-based engine for side-scrolling games. <!-- STATS:START --><br><sub>2017-04-01 -- 2026-09-28 / BSD-3-Clause / 1.3k</sub><!-- STATS:END --> |
 | [OpenBVE](https://github.com/leezer3/OpenBVE) | Train-driving simulator with 3D cabs and detailed vehicle physics. <!-- STATS:START --><br><sub>2015-10-29 -- 2026-10-11 / 379</sub><!-- STATS:END --> |
@@ -385,11 +385,11 @@
 | [Open Codenames](https://github.com/attilatorda/open-codenames) | Picture-based Codenames game for Windows and browsers with language-model teammates and opponents. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-09 / MIT / 1</sub><!-- STATS:END --> |
 | [OpenController](https://github.com/Brunovncs/OpenController) | Game-controller mapping with virtual Xbox controllers, button remapping, macros, and profiles. <!-- STATS:START --><br><sub>2026-10-06 -- 2026-10-08 / MIT / 20</sub><!-- STATS:END --> |
 | [OpenDUNE](https://github.com/OpenDUNE/OpenDUNE) | Reimplementation of Dune II. <!-- STATS:START --><br><sub>2012-12-03 -- 2026-09-30 / GPL-2.0 / 1.7k</sub><!-- STATS:END --> |
-| [OpenDungeons](https://github.com/OpenDungeons/OpenDungeons) | Dungeon management game inspired by Dungeon Keeper. <!-- STATS:START --><br><sub>2014-07-29 -- <b>2025-10-03</b> / 503</sub><!-- STATS:END --> |
+| [OpenDungeons](https://github.com/OpenDungeons/OpenDungeons) | Dungeon management game inspired by Dungeon Keeper. <!-- STATS:START --><br><sub>2014-07-29 -- <b>2025-10-03</b> / 502</sub><!-- STATS:END --> |
 | **[OpenEmu](https://github.com/OpenEmu/OpenEmu)** | Retro game emulation for macOS. <!-- STATS:START --><br><sub>2010-12-20 -- 2025-10-22 / 17.8k</sub><!-- STATS:END --> |
 | [OpenFront.io](https://github.com/openfrontio/OpenFrontIO) | Browser-based real-time strategy game with territorial control, structures, and alliances. <!-- STATS:START --><br><sub>2024-12-12 -- 2026-10-11 / AGPL-3.0 / 2.8k</sub><!-- STATS:END --> |
 | [OpenHuey](https://github.com/ArnautDaniel/OpenHuey) | In-progress Haunting Ground decompilation, PC port, and actor-based rewrite requiring the original game data. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-09 / GPL-3.0 / 3</sub><!-- STATS:END --> |
-| [OpenJazz](https://github.com/AlisterT/openjazz) | Engine for the original Jazz Jackrabbit games. <!-- STATS:START --><br><sub>2014-07-29 -- 2026-09-01 / GPL-2.0 / 410</sub><!-- STATS:END --> |
+| [OpenJazz](https://github.com/AlisterT/openjazz) | Engine for the original Jazz Jackrabbit games. <!-- STATS:START --><br><sub>2014-07-29 -- 2026-09-01 / GPL-2.0 / 409</sub><!-- STATS:END --> |
 | [OpenLoco](https://github.com/OpenLoco/OpenLoco) | Reimplementation of Chris Sawyer's Locomotion. <!-- STATS:START --><br><sub>2018-01-06 -- 2026-10-06 / MIT / 1.9k</sub><!-- STATS:END --> |
 | [OpenMoHAA](https://github.com/openmoh/openmohaa) | Reimplementation of Medal of Honor: Allied Assault and its expansions. <!-- STATS:START --><br><sub>2015-01-09 -- 2026-04-23 / GPL-2.0 / 826</sub><!-- STATS:END --> |
 | [openMSX](https://github.com/openMSX/openMSX) | MSX home computer emulator. <!-- STATS:START --><br><sub>2015-06-17 -- 2026-10-11 / 555</sub><!-- STATS:END --> |
@@ -397,14 +397,14 @@
 | [OpenNOW PS5](https://github.com/OpenCloudGaming/OpenNOW-PS5) | GeForce NOW streaming client for PlayStation 5 consoles that support native homebrew. <!-- STATS:START --><br><sub>2026-10-04 -- 2026-10-11 / GPL-3.0 / 7</sub><!-- STATS:END --> |
 | [openOMSI](https://github.com/openOMSI-Project/openOMSI) | Rust recreation of the OMSI 2 bus simulator that requires the original game's content. <!-- STATS:START --><br><sub>2026-09-27 -- 2026-10-12 / MIT / 564</sub><!-- STATS:END --> |
 | **[OpenRA](https://github.com/OpenRA/OpenRA)** | Real-time strategy engine for classic Westwood games. <!-- STATS:START --><br><sub>2010-10-04 -- 2026-10-11 / GPL-3.0 / 17.5k</sub><!-- STATS:END --> |
-| [OpenRCT2](https://github.com/OpenRCT2/OpenRCT2) | Reimplementation of RollerCoaster Tycoon 2. <!-- STATS:START --><br><sub>2014-04-01 -- 2026-10-11 / GPL-3.0 / 16.4k</sub><!-- STATS:END --> |
+| [OpenRCT2](https://github.com/OpenRCT2/OpenRCT2) | Reimplementation of RollerCoaster Tycoon 2. <!-- STATS:START --><br><sub>2014-04-01 -- 2026-10-12 / GPL-3.0 / 16.4k</sub><!-- STATS:END --> |
 | [OpenSAGE](https://github.com/OpenSAGE/OpenSAGE) | Reimplementation of the SAGE real-time strategy engine. <!-- STATS:START --><br><sub>2017-06-14 -- 2026-03-30 / 1.6k</sub><!-- STATS:END --> |
 | **[OpenSpeedy](https://github.com/game1024/OpenSpeedy)** | Game speed controller for Windows. <!-- STATS:START --><br><sub>2025-05-16 -- 2026-10-04 / GPL-3.0 / 19.3k</sub><!-- STATS:END --> |
 | [OpenTomb](https://github.com/opentomb/OpenTomb) | Engine remake for Tomb Raider I–V. <!-- STATS:START --><br><sub>2015-04-08 -- <b>2025-02-24</b> / LGPL-3.0 / 1.4k</sub><!-- STATS:END --> |
 | [OpenTricky](https://github.com/GiZcesi/OpenTricky) | Recompiled Windows port of SSX Tricky requiring the user's own Xbox game data. <!-- STATS:START --><br><sub>2026-10-04 -- 2026-10-11 / GPL-3.0 / 37</sub><!-- STATS:END --> |
 | [OpenTTD](https://github.com/OpenTTD/OpenTTD)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openttd.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTTD&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Transport simulation based on Transport Tycoon Deluxe. <!-- STATS:START --><br><sub>2018-04-06 -- 2026-10-11 / 8.4k</sub><!-- STATS:END --> |
 | [OpenXcom](https://github.com/OpenXcom/OpenXcom) | Reimplementation of the original X-COM games. <!-- STATS:START --><br><sub>2011-02-06 -- 2026-09-28 / GPL-3.0 / 2.2k</sub><!-- STATS:END --> |
-| [OpenXRay](https://github.com/OpenXRay/xray-16) | Enhanced X-Ray engine for the S.T.A.L.K.E.R. games. <!-- STATS:START --><br><sub>2014-09-05 -- 2026-10-11 / 3.6k</sub><!-- STATS:END --> |
+| [OpenXRay](https://github.com/OpenXRay/xray-16) | Enhanced X-Ray engine for the S.T.A.L.K.E.R. games. <!-- STATS:START --><br><sub>2014-09-05 -- 2026-10-12 / 3.6k</sub><!-- STATS:END --> |
 | [OpenXW](https://github.com/elyosh/OpenXW) | Reimplementation of Star Wars: X-Wing for Windows, macOS, and Linux using original game data. <!-- STATS:START --><br><sub>2026-09-28 -- 2026-10-06 / 108</sub><!-- STATS:END --> |
 
 ## Robotics & Hardware
@@ -412,7 +412,7 @@
 | Project | Description |
 | --- | --- |
 | [open62541](https://github.com/open62541/open62541) | C implementation of OPC UA for industrial clients and servers. <!-- STATS:START --><br><sub>2013-12-20 -- 2026-10-11 / MPL-2.0 / 3.2k</sub><!-- STATS:END --> |
-| [open-appleremote](https://github.com/a-funk/open-appleremote) | Python tools for decoding first-generation Apple Siri Remote touch, button, and gesture input on Linux. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-11 / MIT / 217</sub><!-- STATS:END --> |
+| [open-appleremote](https://github.com/a-funk/open-appleremote) | Python tools for decoding first-generation Apple Siri Remote touch, button, and gesture input on Linux. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-12 / MIT / 218</sub><!-- STATS:END --> |
 | [OpenASIP](https://github.com/cpc/openasip) | Toolset for designing and programming customized instruction-set processors and generating processor RTL. <!-- STATS:START --><br><sub>2015-10-22 -- 2026-10-08 / 197</sub><!-- STATS:END --> |
 | [OpenBionics](https://github.com/OpenBionics/Prosthetic-Hands) | Arduino control software and MATLAB kinematics for prosthetic hands. <!-- STATS:START --><br><sub>2015-03-18 -- <b>2018-02-10</b> / 190</sub><!-- STATS:END --> |
 | [OpenBot](https://github.com/ob-f/OpenBot) | Smartphone-powered robotics with person following and autonomous navigation. <!-- STATS:START --><br><sub>2020-07-31 -- 2026-10-11 / MIT / 3.5k</sub><!-- STATS:END --> |
@@ -432,7 +432,7 @@
 | [OpenRAVE](https://github.com/rdiankov/openrave) | Develop, test, and deploy robotics motion-planning algorithms. <!-- STATS:START --><br><sub>2012-09-14 -- 2026-10-08 / 821</sub><!-- STATS:END --> |
 | [OpenRGB](https://openrgb.org) | Control RGB lighting across devices from different manufacturers on Windows, Linux, and macOS. |
 | [Open-RMF](https://github.com/open-rmf/rmf) | Coordinate multiple robot fleets and building infrastructure. <!-- STATS:START --><br><sub>2021-02-25 -- 2026-08-25 / Apache-2.0 / 447</sub><!-- STATS:END --> |
-| [openTPU](https://github.com/FeSens/openTPU) | Compiler, simulator, profiler, and host software for running language models on an FPGA-based AI accelerator. <!-- STATS:START --><br><sub>2026-09-24 -- 2026-10-11 / Apache-2.0 / 628</sub><!-- STATS:END --> |
+| [openTPU](https://github.com/FeSens/openTPU) | Compiler, simulator, profiler, and host software for running language models on an FPGA-based AI accelerator. <!-- STATS:START --><br><sub>2026-09-24 -- 2026-10-11 / Apache-2.0 / 632</sub><!-- STATS:END --> |
 | [OpenVINS](https://github.com/rpng/open_vins) | Platform for visual-inertial navigation research. <!-- STATS:START --><br><sub>2019-01-17 -- 2025-11-30 / GPL-3.0 / 3.1k</sub><!-- STATS:END --> |
 | [Open Volar S](https://github.com/NullMagic2/Open-Volar-S) | Driver, firmware, diagnostics, and live television toolkit for the AVerTV Volar S receiver. <!-- STATS:START --><br><sub>2026-09-15 -- 2026-10-05 / 2</sub><!-- STATS:END --> |
 | [OpenWAM](https://github.com/OpenWAM-Official/OpenWAM) | Research stack for training, deploying, and evaluating world-action models for robot control. <!-- STATS:START --><br><sub>2026-09-06 -- 2026-10-09 / Apache-2.0 / 1k</sub><!-- STATS:END --> |
@@ -463,7 +463,7 @@
 | [OpenMS](https://github.com/OpenMS/OpenMS) | Mass-spectrometry data management and analysis tools. <!-- STATS:START --><br><sub>2014-01-09 -- 2026-10-12 / 624</sub><!-- STATS:END --> |
 | [OpenMVS](https://github.com/cdcseacave/openMVS) | Multi-view stereo reconstruction library for producing dense point clouds and textured 3D meshes. <!-- STATS:START --><br><sub>2015-05-18 -- 2026-10-12 / AGPL-3.0 / 4.1k</sub><!-- STATS:END --> |
 | [OpenMx](https://github.com/OpenMx/OpenMx) | Structural equation modeling package for R. <!-- STATS:START --><br><sub>2012-05-21 -- 2026-07-10 / 102</sub><!-- STATS:END --> |
-| [OpenQuake Engine](https://github.com/gem/oq-engine) | Seismic hazard and risk analysis. <!-- STATS:START --><br><sub>2010-06-28 -- 2026-10-11 / AGPL-3.0 / 451</sub><!-- STATS:END --> |
+| [OpenQuake Engine](https://github.com/gem/oq-engine) | Seismic hazard and risk analysis. <!-- STATS:START --><br><sub>2010-06-28 -- 2026-10-12 / AGPL-3.0 / 451</sub><!-- STATS:END --> |
 | [OpenRadioss](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/4816906) | Finite-element solver for nonlinear dynamic, crash, and impact simulation. |
 | **[OpenSCAD](https://github.com/openscad/openscad)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openscad.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenSCAD&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Script-based solid 3D CAD modeling. <!-- STATS:START --><br><sub>2010-11-03 -- 2026-10-11 / 10.4k</sub><!-- STATS:END --> |
 | [OpenSees](https://github.com/OpenSees/OpenSees) | Simulate structural and geotechnical systems subjected to earthquakes. <!-- STATS:START --><br><sub>2018-09-12 -- 2026-10-11 / 831</sub><!-- STATS:END --> |
@@ -513,7 +513,7 @@
 | [OpenBoxes](https://github.com/openboxes/openboxes) | Warehouse inventory and stock movement management for healthcare facilities. <!-- STATS:START --><br><sub>2012-09-28 -- 2026-10-09 / EPL-1.0 / 913</sub><!-- STATS:END --> |
 | [OpenClinica](https://github.com/OpenClinica/OpenClinica) | Electronic data capture and clinical trial data management. <!-- STATS:START --><br><sub>2014-06-26 -- 2025-10-28 / 516</sub><!-- STATS:END --> |
 | [Open Dental](https://www.opendental.com) | Dental practice management software. |
-| [OpenELIS Global](https://github.com/DIGI-UW/OpenELIS-Global-2) | Laboratory information system for clinical and public-health labs. <!-- STATS:START --><br><sub>2019-01-15 -- 2026-10-12 / MPL-2.0 / 271</sub><!-- STATS:END --> |
+| [OpenELIS Global](https://github.com/DIGI-UW/OpenELIS-Global-2) | Laboratory information system for clinical and public-health labs. <!-- STATS:START --><br><sub>2019-01-15 -- 2026-10-12 / MPL-2.0 / 272</sub><!-- STATS:END --> |
 | **[OpenEMR](https://github.com/openemr/openemr)** | Electronic health records and medical practice management. <!-- STATS:START --><br><sub>2010-05-21 -- 2026-10-12 / GPL-3.0 / 5.5k</sub><!-- STATS:END --> |
 | **[openGym](https://github.com/DuarteSantos8/openGym)** | Self-hosted workout and body-weight tracker with routine planning, guided workouts, and progress charts. <!-- STATS:START --><br><sub>2026-07-18 -- 2026-10-11 / AGPL-3.0 / 9.9k</sub><!-- STATS:END --> |
 | [Open Hospital](https://github.com/informatici/openhospital) | Hospital health information management system. <!-- STATS:START --><br><sub>2019-07-04 -- 2026-10-07 / GPL-3.0 / 634</sub><!-- STATS:END --> |
@@ -550,7 +550,7 @@
 | **[OpenDTU](https://github.com/tbnobody/OpenDTU)** | ESP32 software for monitoring solar microinverters. <!-- STATS:START --><br><sub>2022-06-24 -- 2026-10-05 / GPL-2.0 / 2.2k</sub><!-- STATS:END --> |
 | [openHAB](https://www.openhab.org) | Vendor-neutral home automation platform. |
 | [openHASP](https://github.com/HASwitchPlate/openHASP) | Customizable touchscreen controls for home automation over MQTT. <!-- STATS:START --><br><sub>2020-01-18 -- 2026-10-10 / MIT / 1k</sub><!-- STATS:END --> |
-| [Open Lighting Architecture](https://github.com/OpenLightingProject/ola) | Framework for controlling entertainment lighting equipment. <!-- STATS:START --><br><sub>2013-12-16 -- 2026-10-11 / 760</sub><!-- STATS:END --> |
+| [Open Lighting Architecture](https://github.com/OpenLightingProject/ola) | Framework for controlling entertainment lighting equipment. <!-- STATS:START --><br><sub>2013-12-16 -- 2026-10-11 / 759</sub><!-- STATS:END --> |
 | **[OpenMQTTGateway](https://github.com/1technophile/OpenMQTTGateway)** | Bridge wireless devices and sensors to MQTT. <!-- STATS:START --><br><sub>2016-09-17 -- 2026-10-03 / GPL-3.0 / 4.1k</sub><!-- STATS:END --> |
 | **[OpenRemote](https://github.com/openremote/openremote)** | IoT platform for device management, automation, and analytics. <!-- STATS:START --><br><sub>2016-02-03 -- 2026-10-12 / 1.9k</sub><!-- STATS:END --> |
 | [OpenSprinkler](https://github.com/OpenSprinkler/OpenSprinkler-Firmware) | Irrigation-controller firmware for OpenSprinkler devices. <!-- STATS:START --><br><sub>2014-09-11 -- 2026-09-29 / GPL-3.0 / 562</sub><!-- STATS:END --> |
@@ -564,7 +564,7 @@
 | **[OpenBB](https://github.com/openbq-org/OpenBB)** | Financial data platform for analysts, quants, and AI agents. <!-- STATS:START --><br><sub>2020-12-20 -- 2026-10-11 / 74.1k</sub><!-- STATS:END --> |
 | [Openbell](https://github.com/pearshm2/OpenBell) | Web application for searching stocks, viewing prices and charts, and saving a personal stock dashboard. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-09 / 0</sub><!-- STATS:END --> |
 | [OpenBudgeteer](https://github.com/TheAxelander/OpenBudgeteer) | Personal budgeting application that allocates income and tracks spending using the bucket budgeting method. <!-- STATS:START --><br><sub>2021-11-05 -- 2026-01-10 / AGPL-3.0 / 973</sub><!-- STATS:END --> |
-| [OpenChart](https://github.com/longsurf-ai/openchart) | Desktop market charting with custom indicators, alerts, and AI-agent research. <!-- STATS:START --><br><sub>2026-10-05 -- 2026-10-12 / 163</sub><!-- STATS:END --> |
+| [OpenChart](https://github.com/longsurf-ai/openchart) | Desktop market charting with custom indicators, alerts, and AI-agent research. <!-- STATS:START --><br><sub>2026-10-05 -- 2026-10-12 / 164</sub><!-- STATS:END --> |
 | [OpenGamma Platform](https://github.com/OpenGamma/OG-Platform) | Financial analytics and market-risk platform; discontinued predecessor to Strata. <!-- STATS:START --><br><sub>2010-09-23 -- <b>2018-05-29</b> / 234</sub><!-- STATS:END --> |
 | [OpenLedger](https://github.com/CodexEmmzy/OpenLedger) | Early-stage double-entry ledger with PostgreSQL-backed accounts, transfer APIs, and deposit-webhook processing. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-09 / 0</sub><!-- STATS:END --> |
 | [OpenOil](https://github.com/brandononchain/OpenOil) | Research platform for analyzing crude-oil market data, news, and trading signals with multiple AI agents. <!-- STATS:START --><br><sub>2026-10-10 -- 2026-10-12 / 0</sub><!-- STATS:END --> |
