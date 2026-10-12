@@ -34,6 +34,7 @@ const path = require('node:path');
   };
   const visible = () => page.locator('.project-card:not([hidden])').count();
   const change = async (id, value) => {
+    if (id !== 'search' && !await page.locator('.filter-options').evaluate(node => node.open)) await page.locator('.filter-options > summary').click();
     if (['category-filter', 'metrics-filter', 'min-stars', 'pushed-since'].includes(id)) {
       if (!await page.locator('.more-filters').evaluate(node => node.open)) {
         await page.locator('.more-filters > summary').click();
@@ -43,6 +44,7 @@ const path = require('node:path');
     await page.locator('#' + id).dispatchEvent('change');
   };
   const select = async (id, value) => {
+    if (id !== 'search' && !await page.locator('.filter-options').evaluate(node => node.open)) await page.locator('.filter-options > summary').click();
     if (['category-filter', 'metrics-filter'].includes(id) &&
         !await page.locator('.more-filters').evaluate(node => node.open)) {
       await page.locator('.more-filters > summary').click();
@@ -215,30 +217,36 @@ const path = require('node:path');
     await page.evaluate(() => document.documentElement.style.fontSize = '200%');
     await assertLedgerFits(page, '200% root text size');
 
-    // Optional GSAP behavior must revert pins when reduced motion is requested.
+    // Ledger-first layout and optional art work without animation dependencies.
     await page.setViewportSize({ width: 1440, height: 1000 });
-    await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.goto(url);
     await waitForState();
-    await page.waitForFunction(() => window.ScrollTrigger && ScrollTrigger.getAll().length > 0);
+    assert.equal(await page.locator('.hero, .reading-room, .collection-band').count(), 0);
+    assert.equal(await page.locator('.specimen-caption h3').count(), 0);
+    assert.equal(await page.locator('script[src*="gsap"], script[src*="ScrollTrigger"]').count(), 0);
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.waitForFunction(() => ScrollTrigger.getAll().length === 0);
-    assert.equal(await page.locator('.pin-spacer').count(), 0);
     assert.equal(await page.locator('html').evaluate(node => getComputedStyle(node).scrollBehavior), 'auto');
-    assert.equal(await page.locator('.observation-sheet').count(), 3);
-    assert.equal(await visible(), data.projects.length);
-
-    // A missing animation dependency cannot disable the catalog enhancement.
-    const blockedMotion = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
-    const plain = await blockedMotion.newPage();
-    await plain.route('**/vendor/{gsap.min.js,ScrollTrigger.min.js}', route => route.abort());
-    await plain.goto(url);
-    await plain.waitForFunction(() => document.querySelector('#filters').dataset.enhanced === 'true');
-    assert.equal(await plain.locator('.project-card:not([hidden])').count(), data.projects.length);
-    await plain.locator('#search').fill('OpenTofu');
-    await plain.locator('#search').dispatchEvent('change');
-    assert.ok(await plain.locator('.project-card:not([hidden])').count() > 0);
-    await blockedMotion.close();
+    for (const project of data.projects.filter(p => p.artwork)) {
+      await change('search', project.name);
+      const card = page.locator('#project-' + project.id);
+      await card.locator('summary').first().click();
+      assert.equal(await card.locator('details.specimen-drawer').evaluate(node => node.open), true, 'Click after search must open ' + project.name);
+      const image = card.locator('.specimen-art img');
+      await image.scrollIntoViewIfNeeded();
+      await page.waitForFunction(id => { const img = document.querySelector('#project-' + id + ' .specimen-art img'); return img && img.complete && img.naturalWidth > 0; }, project.id, { timeout: 10000 });
+      assert.equal(await image.evaluate(img => img.naturalWidth > 0), true);
+      await capture('specimen-' + project.name.toLowerCase() + '.png');
+    }
+    await page.locator('#clear-filters').click();
+    const crossListed = data.projects.find(p => p.leader_categories.length && p.categories.some(c => !p.leader_categories.includes(c)));
+    assert.ok(crossListed, 'Fixture needs a project leading only some of its categories');
+    await select('category-filter', crossListed.leader_categories[0]);
+    assert.equal(await page.locator('#project-' + crossListed.id).getAttribute('data-leader'), 'true');
+    await select('category-filter', crossListed.categories.find(c => !crossListed.leader_categories.includes(c)));
+    assert.equal(await page.locator('#project-' + crossListed.id).getAttribute('data-leader'), 'false');
+    await page.locator('#clear-filters').click();
+    const noArt = data.projects.find(p => !p.artwork);
+    assert.equal(await page.locator('#project-' + noArt.id + ' .specimen-art').count(), 0);
 
     const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     const fallback = await noJS.newPage();
@@ -257,7 +265,7 @@ const path = require('node:path');
     await page.goto(standaloneURL.href);
     await waitForState();
     assert.equal(await visible(), data.projects.length);
-    assert.equal(await page.locator('script[src^="data:text/javascript;base64,"]').count(), 4);
+    assert.equal(await page.locator('script[src^="data:text/javascript;base64,"]').count(), 1);
     const expectedDownloads = ['catalog.json', 'hn_evidence.json', 'alternatives.json'];
     if (fs.existsSync(path.resolve(__dirname, '../data/project_signals.json'))) expectedDownloads.push('project_signals.json');
     const downloads = await page.locator('a[download]').evaluateAll(nodes => nodes.map(node => ({
@@ -279,7 +287,7 @@ const path = require('node:path');
         'screenshots.json, and browser/server logs.\n');
     }
     console.log(JSON.stringify({ status: 'passed', projects: data.projects.length, screenshots: output,
-      checks: ['search', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'missing GSAP', 'no-JS drawers', 'standalone', 'no page errors'] }, null, 2));
+      checks: ['search', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'no-JS drawers', 'standalone', 'no page errors'] }, null, 2));
   } catch (error) {
     report.status = 'failed';
     report.error = error.message;

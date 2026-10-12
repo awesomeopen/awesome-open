@@ -15,7 +15,7 @@ import unittest
 from build_site import BRAND_ASSETS, ROOT, build, json_for_html, render_html
 
 
-RUNTIME_SCRIPTS = ('catalog.js', 'vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'motion.js')
+RUNTIME_SCRIPTS = ('catalog.js',)
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 
 
@@ -117,7 +117,7 @@ class SiteTests(unittest.TestCase):
                 name = [node for node in summary.descendants() if node.has_class('specimen-name')]
                 self.assertEqual([node.text for node in name], [project['name']])
                 self.assertIn(project['description'], summary.text)
-                self.assertEqual(len(card.descendants('h3')), 1)
+                self.assertEqual(len(card.descendants('h3')), 0)
                 links = card.descendants('a')
                 self.assertEqual([node.attrs['href'] for node in links if node.has_class('source-link')], [project['url']])
                 self.assertEqual([node.attrs['href'] for node in links if node.has_class('permalink')], ['#project-' + project['id']])
@@ -133,12 +133,7 @@ class SiteTests(unittest.TestCase):
     def test_memberships_navigation_and_evidence_methods_are_explicit(self):
         self.assertEqual(self.catalog['category_memberships'], sum(len(p['categories']) for p in self.catalog['projects']))
         self.assertEqual(self.catalog['category_memberships'], sum(c['count'] for c in self.catalog['categories']))
-        bands = [node for node in self.page.elements if node.has_class('collection-band')]
-        self.assertEqual(len(bands), 1)
-        for label in (f"{len(self.catalog['projects'])} distinct projects",
-                      f"{self.catalog['category_memberships']} category memberships",
-                      f"{len(self.catalog['categories'])} functional categories"):
-            self.assertIn(label, bands[0].text)
+        self.assertFalse(any(node.has_class('collection-band') for node in self.page.elements))
         nav = [node for node in self.page.nodes('nav') if node.has_class('category-nav')][0]
         self.assertEqual(len(nav.descendants('a')), len(self.catalog['categories']) + 1)
         for category, link in zip(self.catalog['categories'], nav.descendants('a')[1:]):
@@ -152,41 +147,14 @@ class SiteTests(unittest.TestCase):
                               'Coverage is a researched subset; missing charts do not establish an absence of discussion.'):
             self.assertIn(qualification, methods.text)
 
-    def test_editorial_copy_uses_outcomes_and_omits_defensive_framing(self):
-        removed = ('Software with a common prefix.',
-                   'Not necessarily a common nature.',
-                   'Schematic, not genealogy',
-                   'The naming criterion is deliberately narrow.',
-                   'The software underneath is anything but.',
-                   'Inspect the label, the repository, and the source behind each comparison.',
-                   'Observe closely. Assume little.',
-                   'Open the drawers. Examine the evidence.',
-                   'Not a verdict.',
-                   'A field guide, with limits.',
-                   'Sources, not certainty.',
-                   'Lineage and motives are not inferred.')
-        for name in ('index.html', 'standalone.html'):
-            with self.subTest(output=name):
-                document = (self.output / name).read_text()
-                page = Page(document)
-                for phrase in removed:
-                    self.assertNotIn(phrase, document)
-                intro = [node for node in page.elements if node.has_class('reading-intro')][0]
-                self.assertEqual([node.text for node in intro.descendants('p')], [
-                    'Opening a specimen brings its source links and available evidence into view.'
-                ])
-                self.assertIn('Selecting a license narrows the ledger to matching records.', page.by_id['method'].text)
-                plate = [node for node in page.elements if node.has_class('plate-note')][0]
-                self.assertEqual(plate.descendants('span')[0].text, 'Schematic')
-                # The supplied botanical logo uses the former empty grid slot;
-                # the removed editorial prose stays absent.
-                hero_slot = [node for node in page.elements if node.has_class('hero-copy')][0]
-                self.assertEqual(hero_slot.text, '')
-                self.assertNotIn('aria-hidden', hero_slot.attrs)
-                self.assertEqual(len(hero_slot.descendants('img')), 1)
-                self.assertEqual(hero_slot.descendants('img')[0].attrs['alt'], 'Awesome Open botanical fruit logo')
-                self.assertEqual(page.by_id['clear-filters'].text.strip(), 'Reset the lens ↺')
-                self.assertEqual(page.by_id['sort-order'].attrs['name'], 'sort')
+    def test_ledger_starts_without_cover_and_retains_plain_controls(self):
+        for document in (self.html, (self.output / 'standalone.html').read_text()):
+            page = Page(document)
+            self.assertFalse(any(node.has_class(c) for node in page.elements for c in ('hero', 'reading-room', 'collection-band')))
+            self.assertEqual(page.by_id['page-title'].tag, 'h1')
+            self.assertIn('Projects', page.by_id['page-title'].text)
+            self.assertEqual(page.by_id['method'].tag, 'details')
+            self.assertEqual(page.by_id['clear-filters'].text.strip(), 'Reset filters ↺')
 
     def test_form_labels_status_and_native_disclosures_are_accessible(self):
         self.assertEqual(len(self.page.nodes('h1')), 1)
@@ -222,7 +190,7 @@ class SiteTests(unittest.TestCase):
 
     def assert_safe_script_allowlist(self, page):
         scripts = page.nodes('script')
-        self.assertEqual(len(scripts), 5)
+        self.assertEqual(len(scripts), 2)
         self.assertEqual([node.attrs.get('src') for node in scripts[:-1]], list(RUNTIME_SCRIPTS))
         for node in scripts[:-1]:
             self.assertIn('defer', node.attrs)
@@ -247,7 +215,7 @@ class SiteTests(unittest.TestCase):
         for name in ('hn_evidence.json', 'alternatives.json'):
             self.assertEqual((self.output / 'data' / name).read_bytes(), (ROOT / 'data' / name).read_bytes())
         for image in self.page.images:
-            self.assertIn(image['alt'], ('HN discussions / 2y', '', 'Awesome Open botanical fruit logo'))
+            self.assertIsInstance(image['alt'], str)
             self.assertFalse(image['src'].startswith('/'))
             self.assertTrue((self.output / image['src']).is_file())
         for href in self.page.links:
@@ -266,7 +234,7 @@ class SiteTests(unittest.TestCase):
         page = Page((self.output / 'standalone.html').read_text())
         self.assertEqual(page.cards, self.page.cards)
         self.assertEqual(json.loads(page.by_id['catalog-data'].text), self.catalog)
-        self.assertEqual(len(page.nodes('script')), 5)
+        self.assertEqual(len(page.nodes('script')), 2)
         self.assertEqual(len(page.nodes('link')), 3)
         for link, name in zip(page.nodes('link'), ('favicon.ico', 'fruit-16.png', 'fruit-32.png')):
             self.assertEqual(link.attrs['rel'], 'icon')
@@ -285,6 +253,9 @@ class SiteTests(unittest.TestCase):
             if image['alt'] == 'HN discussions / 2y':
                 self.assertEqual(prefix, 'data:image/svg+xml;base64')
                 self.assertIn(b'<svg', decoded)
+            elif prefix == 'data:image/webp;base64':
+                self.assertEqual(decoded[:4], b'RIFF')
+                self.assertEqual(decoded[8:12], b'WEBP')
             else:
                 self.assertEqual(prefix, 'data:image/png;base64')
                 name = 'fruit-96.png' if image['alt'] == '' else 'awesome-open-logo.png'
@@ -330,8 +301,6 @@ class SiteTests(unittest.TestCase):
         brand = [node for node in self.page.nodes('a') if node.has_class('brand')][0]
         self.assertEqual(brand.attrs['aria-label'], 'Awesome Open home')
         self.assertEqual(brand.descendants('img')[0].attrs['alt'], '')
-        logo = [image for image in self.page.images if image.get('class') == 'cover-logo'][0]
-        self.assertEqual((logo['width'], logo['height']), ('190', '190'))
 
     def test_stylesheet_revision_prevents_stale_branding_on_return_visits(self):
         self.assertIn('href="styles.css?v=' + 'a' * 40 + '"', self.html)
@@ -340,15 +309,26 @@ class SiteTests(unittest.TestCase):
         self.assertIn('href="styles.css?v=preview"', render_html(local))
         self.assertNotIn('href="styles.css', (self.output / 'standalone.html').read_text())
 
-    def test_optional_motion_has_reduced_motion_and_missing_dependency_guards(self):
-        motion = (self.output / 'motion.js').read_text()
+    def test_animation_dependencies_removed_and_reduced_motion_supported(self):
+        self.assertNotIn('gsap', self.html)
+        self.assertFalse((self.output / 'motion.js').exists())
+        self.assertFalse((self.output / 'vendor/gsap.min.js').exists())
         css = (self.output / 'styles.css').read_text()
-        self.assertRegex(motion, r'if\s*\([^)]*!window\.gsap[^)]*!window\.ScrollTrigger[^)]*\)\s*return')
-        self.assertIn('gsap.matchMedia()', motion)
-        self.assertIn('(prefers-reduced-motion: no-preference)', motion)
-        self.assertRegex(css, r'@media\s*\(prefers-reduced-motion:\s*reduce\)')
-        self.assertRegex(css, r'scroll-behavior:\s*auto')
-        self.assertRegex(css, r'transition:\s*none\s*!important')
+        self.assertIn('(prefers-reduced-motion:reduce)', css)
+        self.assertIn('scroll-behavior:auto', css)
+        self.assertIn('transition:none!important', css)
+
+    def test_specimen_art_is_optional_and_portable(self):
+        illustrated = [p for p in self.catalog['projects'] if p.get('artwork')]
+        self.assertEqual({p['name'] for p in illustrated}, {'OpenTofu', 'OpenRefine', 'OpenSCAD'})
+        for project in self.catalog['projects']:
+            card = self.page.by_id['project-' + project['id']]
+            figures = [n for n in card.descendants('figure') if n.has_class('specimen-art')]
+            self.assertEqual(len(figures), 1 if project.get('artwork') else 0)
+            if figures:
+                image = figures[0].descendants('img')[0]
+                self.assertEqual(image.attrs['src'], project['artwork']['path'])
+                self.assertEqual(image.attrs['alt'], project['artwork']['alt'])
 
     def test_output_deterministic_and_revision_explicit(self):
         before = {str(p.relative_to(self.output)): p.read_bytes() for p in self.output.rglob('*') if p.is_file()}

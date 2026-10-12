@@ -124,17 +124,35 @@ Preserve the site's existing evidence boundaries:
 
 Metaphor lives in headings and illustration. Searchable labels, evidence units and destinations remain literal. A scarlet mark can identify an editorial question; it cannot silently convert absence of evidence into alarm.
 
+### Writing style and voice
+
+Apply these rules to all writing: interface copy, headings, annotations, documentation, reports, PR descriptions, and assistant responses.
+
+- **Voice and tone:** Be neutral, terse, and matter-of-fact. Speak like a pragmatic senior colleague. Use the professional register of a staff engineer or technical editor: an unadorned report style. Avoid unsolicited empathy, pastoral warmth, inspirational framing, therapy speak, pseudo-profound framing, and rhetorical elevation.
+- **Zero interpretation:** Do not analyze, reflect on, or comment on the user's mindset, emotions, motives, or underlying journey. Answer only the explicit operational premise. State relevant facts, actions, constraints, and uncertainties.
+- **Answer first:** Put the concrete answer, result, or required action in sentence one. Never begin with a rhetorical wind-up or warm-up phrase such as “It makes sense that…”, “At its core…”, or “This speaks to a larger truth…”.
+- **No editorial taglines:** Omit closing encouragement, philosophical takeaways, life advice, closing remarks, and unsolicited summaries. Stop when the requested information is complete.
+- **Direct structure:** Omit filler transitions. Use precise verbs and literal headings. Include explanation only when it supports the requested operational answer; do not turn a technical observation into a broader life lesson.
+
+The specimen concept governs visual organization and artwork; it does not authorize elevated prose or commentary about the reader.
+
+| Avoid | Use |
+| --- | --- |
+| “It makes sense that you want clarity here.” | “The license is unknown.” |
+| “At its core, this is a journey toward transparency.” | “Each record links to its sources.” |
+| “You're building something meaningful. Keep going.” | Omit the closing remark. |
+
 ## 8. Implementation and skill precedence
 
 Ship fonts and artwork as repository assets with relative paths that work under `/awesome-open/` as well as at a preview root. Preserve font licenses and asset provenance. Do not depend on chat attachment URLs, temporary generated-image URLs or a developer's local filesystem. Test the built deployment and standalone export separately; an offline document needs embedded or packaged dependencies, not just a working hosted page.
 
-Use `design/tokens.css` as the versioned reference. It is deliberately not imported into the current production CSS until a component migration is reviewed. Do not change all production variables as an incidental docs update.
+Use `design/tokens.css` as the versioned reference. The ledger-first build loads these tokens before its component CSS. Update the shared tokens and reference together.
 
 For this project, explicit user decisions and this system override generic skill defaults: specimen is fixed, no theme lottery; Outfit is retained, no random font swap; evidence-first layout, not forced marketing AIDA or bento; useful motion, not mandatory GSAP effects; cold white, not warm naturalist paper. GPT Taste contributes hierarchy, composition and refinement. The frontend-image skill contributes coherent section direction. FOSSoligy contributes original drawing logic. None makes the current interface inaccessible or changes the task's scope.
 
 ## 9. Extension and review
 
-The active design branch is `design/retro-scraperism-system`, owned by Codex for this proposal. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
+The active design branch is `design/ledger-first`, owned by Codex for the ledger migration. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
 
 For each extension, add the rule, token/component example, reason, accessibility implications and a decision-log entry in the same PR. Distinguish a proposal from an approved direction. Update the portable skill's reference snapshot when an approved system change should apply outside this repo. Do not let independent snapshots silently override the project guide.
 
@@ -156,3 +174,5 @@ For each extension, add the rule, token/component example, reason, accessibility
 | 2026-10-12 | User workflow approval | Codex owns active design branch; disposable clickable preview before merge |
 | 2026-10-12 | Proposed implementation | White/Prussian/ink base; sparse scarlet; two functional type voices; restrained material cues |
 | 2026-10-12 | Proposed implementation | Keep existing Outfit and branding; migrate components gradually after guide review |
+| 2026-10-12 | User direction | Ledger-first layout; remove cover/reading-room/band; optional specimen artwork; shared README top-three ranking |
+| 2026-10-12 | User direction | Neutral professional voice, answer first, no mindset interpretation or closing taglines |

@@ -274,6 +274,7 @@
     var navLinks = Array.from(document.querySelectorAll(".category-nav a[data-category]"));
     var timer = null;
     var currentState = DEFAULTS;
+    var renderedSort = null;
     var linkNotice = document.getElementById("project-link-notice");
     var lastLinkedCard = null;
     var linkedWasHidden = false;
@@ -335,15 +336,29 @@
     function render(state) {
       currentState = state;
       var total = 0;
-      var fragment = document.createDocumentFragment();
+      // Keep rows attached on filter-only changes. Reparenting a summary during
+      // input blur can cancel the native disclosure click that follows.
+      var reorder = renderedSort !== state.sort;
+      var fragment = reorder ? document.createDocumentFragment() : null;
       data.projects.slice().sort(comparator(state.sort)).forEach(function (project) {
         var card = cards.get(project.id);
         var visible = matchesProject(project, state, data);
         card.hidden = !visible;
+        var leaders = project.leader_categories || [];
+        var selectedLeaders = state.category ? leaders.filter(function (id) { return id === state.category; }) : leaders;
+        card.dataset.leader = selectedLeaders.length ? 'true' : 'false';
+        var label = typeof card.querySelector === 'function' ? card.querySelector('.leader-label') : null;
+        if (label) {
+          label.hidden = !selectedLeaders.length;
+          label.textContent = selectedLeaders.length ? 'Top 3 by stars' + (state.category ? '' : ' · ' + selectedLeaders.map(function (id) {
+            return data.categories.find(function (category) { return category.id === id; }).name;
+          }).join(' / ')) : '';
+        }
         if (visible) total += 1;
-        fragment.appendChild(card);
+        if (reorder) fragment.appendChild(card);
       });
-      list.appendChild(fragment);
+      if (reorder) list.appendChild(fragment);
+      renderedSort = state.sort;
       count.textContent = total === data.projects.length
         ? total.toLocaleString("en-US") + " projects"
         : total.toLocaleString("en-US") + " of " + data.projects.length.toLocaleString("en-US") + " projects";
@@ -428,7 +443,8 @@
     var categoryPanel = document.querySelector(".category-panel");
     if (categoryPanel && typeof window.matchMedia === "function") {
       var mobile = window.matchMedia("(max-width: 900px)");
-      var setPanel = function () { categoryPanel.open = !mobile.matches; };
+      var filterOptions = document.querySelector('.filter-options');
+      var setPanel = function () { categoryPanel.open = !mobile.matches; if (filterOptions) filterOptions.open = !mobile.matches; };
       setPanel();
       if (typeof mobile.addEventListener === "function") mobile.addEventListener("change", setPanel);
       else if (typeof mobile.addListener === "function") mobile.addListener(setPanel);

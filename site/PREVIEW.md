@@ -1,6 +1,6 @@
 # Disposable design previews
 
-Codex owns the active design branch `design/retro-scraperism-system`; dot remains repository administrator and merge coordinator. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
+Codex owns the active design branch `design/ledger-first`; dot remains repository administrator and merge coordinator. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
 
 ## Build a reviewable revision
 
@@ -25,6 +25,6 @@ The command requires a clean tracked working tree and no untracked source files.
 
 This is an operator-driven publishing workflow, not an automatic GitHub-to-Sites integration. Existing CI still uploads its offline `field-guide-preview` artifact. No Sites credentials belong in this public repository or its artifacts. A preview host may be reused, so check its displayed SHA before approving a PR. Do not publish the private preview to GitHub Pages or change its sharing to make review easier.
 
-## Scope of this first proposal
+## Ledger-first review
 
-`site/RETRO-SCRAPERISM.md`, reference tokens, and the visual reference establish the system. The production CSS, catalog behavior, branding, datasets and publishing workflows are not migrated in this PR. Subsequent PRs should take one coherent unit at a time: typography/colors, cover, specimen records, search/details, then artwork and optional motion.
+The current branch migrates the working catalog. Review `/` for the ledger, `/design/` for the system reference, and the three illustrated records (OpenTofu, OpenRefine, OpenSCAD). Missing artwork must leave no placeholder. Check category changes against the top-three labels. Production remains the main-only publisher after PR approval. See `SPECIMEN-ART.md` for Junge's asset handoff.
