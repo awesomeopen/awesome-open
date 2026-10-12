@@ -411,6 +411,7 @@
     });
     filters.addEventListener("submit", function (event) {
       event.preventDefault();
+      cancelPending();
       apply();
     });
     clear.addEventListener("click", function (event) {

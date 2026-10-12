@@ -90,10 +90,11 @@
 .jar-lid {inset:0;width:100%;height:100%;max-width:none;z-index:5;clip-path:inset(0 0 calc(100% - var(--lid-cut)));transform-origin:65% var(--lid-cut);transition:transform .8s cubic-bezier(.22,.7,.2,1);}
 .photo-ready .is-active .jar-lid {transform:translateY(-4px) rotate(-12deg);}
 /* Each fixed strand fades once, in close succession. */
-.jar-steam {z-index:4;left:calc(50% - 24px);top:calc(var(--mouth) - 60px);width:48px;height:60px;overflow:visible;color:rgb(var(--smoke-rgb, 255 0 180));}
-.jar-steam path {fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;opacity:0;}
+.jar-steam {z-index:4;left:calc(50% - 28px);top:calc(var(--mouth) - 60px);width:56px;height:60px;overflow:visible;color:rgb(var(--smoke-rgb, 255 0 180));}
+.jar-steam text {fill:currentColor;stroke:none;font:20px "DejaVu Sans","Segoe UI Symbol","Apple Symbols",sans-serif;opacity:0;}
 .photo-ready .is-active .steam-strand {animation:steam-fade 1.6s ease-in-out .2s 1 both;}
 .photo-ready .is-active .steam-strand:nth-child(2) {animation-delay:.5s;}
+.photo-ready .is-active .steam-strand:nth-child(3) {animation-delay:.8s;}
 @keyframes steam-fade {0%,100%{opacity:0}30%,55%{opacity:.9}}
 .ambient-paused .specimen-idle,.ambient-paused .steam-strand {animation-play-state:paused!important;}
 .motion-paused .vessel {transform:translateX(-50%)!important;}

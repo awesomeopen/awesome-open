@@ -869,3 +869,8 @@ h1 { font-size:28px; margin:0; }
   .specimen-drawer > summary { grid-template-columns:28px minmax(0,1fr) 24px; padding:8px; }
   .specimen-drawer > summary > .description, .specimen-drawer > summary > .license-readout { display:none; }
 }
+
+/* Supplied loupe: 32px image, 44px keyboard/touch target. */
+.header-search .search-submit {flex:0 0 44px;width:44px;height:44px;min-height:44px;display:grid;place-items:center;padding:6px;border:0;background:transparent;cursor:pointer;}
+.header-search .search-submit img {display:block;width:32px;height:32px;object-fit:contain;}
+.header-search .search-submit:hover {background:var(--rs-mist);}

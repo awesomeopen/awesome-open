@@ -17,6 +17,7 @@ import signals
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
 BRAND_ASSETS = {
+    "search-loupe.png": "image/png",
     'favicon.ico': 'image/x-icon',
     'fruit-16.png': 'image/png',
     'fruit-32.png': 'image/png',
@@ -200,7 +201,7 @@ def render_html(catalog):
 <body>
 <a class="skip-link" href="#catalog">Skip to specimen ledger</a>
 <div class="page-shell">
-<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/fruit-96.png" alt="" width="40" height="40"> <span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><span aria-hidden="true">⌕</span><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="{REPOSITORY}">GitHub</a></nav></header>
+<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/fruit-96.png" alt="" width="40" height="40"> <span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="{REPOSITORY}">GitHub</a></nav></header>
 <div class="layout">
 
  <main id="catalog" class="catalog-main" tabindex="-1">
