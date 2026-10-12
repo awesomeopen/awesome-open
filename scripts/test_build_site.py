@@ -7,11 +7,12 @@ import json
 from pathlib import Path
 import re
 import shutil
+import struct
 import subprocess
 import tempfile
 import unittest
 
-from build_site import ROOT, build, json_for_html, render_html
+from build_site import BRAND_ASSETS, ROOT, build, json_for_html, render_html
 
 
 RUNTIME_SCRIPTS = ('catalog.js', 'vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'motion.js')
@@ -177,11 +178,13 @@ class SiteTests(unittest.TestCase):
                 self.assertIn('Selecting a license narrows the ledger to matching records.', page.by_id['method'].text)
                 plate = [node for node in page.elements if node.has_class('plate-note')][0]
                 self.assertEqual(plate.descendants('span')[0].text, 'Schematic')
-                # Preserve the hero grid slot without retaining omitted prose or
-                # introducing an empty paragraph into the accessibility tree.
+                # The supplied botanical logo uses the former empty grid slot;
+                # the removed editorial prose stays absent.
                 hero_slot = [node for node in page.elements if node.has_class('hero-copy')][0]
                 self.assertEqual(hero_slot.text, '')
-                self.assertEqual(hero_slot.attrs.get('aria-hidden'), 'true')
+                self.assertNotIn('aria-hidden', hero_slot.attrs)
+                self.assertEqual(len(hero_slot.descendants('img')), 1)
+                self.assertEqual(hero_slot.descendants('img')[0].attrs['alt'], 'Awesome Open botanical fruit logo')
                 self.assertEqual(page.by_id['clear-filters'].text.strip(), 'Reset the lens ↺')
                 self.assertEqual(page.by_id['sort-order'].attrs['name'], 'sort')
 
@@ -244,7 +247,7 @@ class SiteTests(unittest.TestCase):
         for name in ('hn_evidence.json', 'alternatives.json'):
             self.assertEqual((self.output / 'data' / name).read_bytes(), (ROOT / 'data' / name).read_bytes())
         for image in self.page.images:
-            self.assertEqual(image['alt'], 'HN discussions / 2y')
+            self.assertIn(image['alt'], ('HN discussions / 2y', '', 'Awesome Open botanical fruit logo'))
             self.assertFalse(image['src'].startswith('/'))
             self.assertTrue((self.output / image['src']).is_file())
         for href in self.page.links:
@@ -252,11 +255,10 @@ class SiteTests(unittest.TestCase):
                 self.assertIn(href[1:], self.page.ids)
             elif not href.startswith(('https://', 'http://')) and href != './':
                 self.assertTrue((self.output / href).is_file(), href)
-        for stylesheet in self.page.nodes('link'):
-            if stylesheet.attrs.get('rel') == 'stylesheet':
-                href = stylesheet.attrs['href']
-                self.assertFalse(href.startswith(('/', 'http:', 'https:')))
-                self.assertTrue((self.output / href).is_file(), href)
+        for resource in self.page.nodes('link'):
+            href = resource.attrs['href']
+            self.assertFalse(href.startswith(('/', 'http:', 'https:')))
+            self.assertTrue((self.output / href).is_file(), href)
         self.assertTrue((self.output / 'vendor/FONT-LICENSE.txt').is_file())
         self.assertTrue((self.output / 'vendor/FONT-PROVENANCE.json').is_file())
 
@@ -265,7 +267,12 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(page.cards, self.page.cards)
         self.assertEqual(json.loads(page.by_id['catalog-data'].text), self.catalog)
         self.assertEqual(len(page.nodes('script')), 5)
-        self.assertEqual(len(page.nodes('link')), 0)
+        self.assertEqual(len(page.nodes('link')), 3)
+        for link, name in zip(page.nodes('link'), ('favicon.ico', 'fruit-16.png', 'fruit-32.png')):
+            self.assertEqual(link.attrs['rel'], 'icon')
+            prefix, encoded = link.attrs['href'].split(',', 1)
+            self.assertEqual(prefix, f'data:{BRAND_ASSETS[name]};base64')
+            self.assertEqual(base64.b64decode(encoded, validate=True), (self.output / 'brand' / name).read_bytes())
         for name, script in zip(RUNTIME_SCRIPTS, page.nodes('script')[:-1]):
             self.assertIn('defer', script.attrs)
             self.assertEqual(script.text, '')
@@ -274,9 +281,15 @@ class SiteTests(unittest.TestCase):
             self.assertEqual(base64.b64decode(encoded, validate=True), (self.output / name).read_bytes())
         for image in page.images:
             prefix, encoded = image['src'].split(',', 1)
-            self.assertEqual(prefix, 'data:image/svg+xml;base64')
-            self.assertIn(b'<svg', base64.b64decode(encoded, validate=True))
-            self.assertEqual(image['alt'], 'HN discussions / 2y')
+            decoded = base64.b64decode(encoded, validate=True)
+            if image['alt'] == 'HN discussions / 2y':
+                self.assertEqual(prefix, 'data:image/svg+xml;base64')
+                self.assertIn(b'<svg', decoded)
+            else:
+                self.assertEqual(prefix, 'data:image/png;base64')
+                name = 'fruit-96.png' if image['alt'] == '' else 'awesome-open-logo.png'
+                self.assertEqual(decoded, (self.output / 'brand' / name).read_bytes())
+
         expected_downloads = {'catalog.json': self.catalog,
                               'hn_evidence.json': json.loads((ROOT / 'data/hn_evidence.json').read_text()),
                               'alternatives.json': json.loads((ROOT / 'data/alternatives.json').read_text())}
@@ -302,6 +315,23 @@ class SiteTests(unittest.TestCase):
             for token in tokens:
                 resource = next(value for value in token if value)
                 self.assertTrue(resource.startswith('data:'), resource[:100])
+
+    def test_supplied_brand_assets_are_sized_transparent_and_copied_unchanged(self):
+        for name in BRAND_ASSETS:
+            self.assertEqual((self.output / 'brand' / name).read_bytes(), (ROOT / 'site/brand' / name).read_bytes())
+        for name, size in (('fruit-16.png', 16), ('fruit-32.png', 32), ('fruit-96.png', 96), ('awesome-open-logo.png', 512)):
+            data = (self.output / 'brand' / name).read_bytes()
+            self.assertEqual(data[:8], b'\x89PNG\r\n\x1a\n')
+            width, height, depth, color = struct.unpack('>IIBB', data[16:26])
+            self.assertEqual((width, height, depth, color), (size, size, 8, 6))
+        icon = (self.output / 'brand/favicon.ico').read_bytes()
+        self.assertEqual(struct.unpack('<HHH', icon[:6]), (0, 1, 3))
+        self.assertEqual([(icon[6 + 16*i], icon[7 + 16*i]) for i in range(3)], [(16, 16), (32, 32), (48, 48)])
+        brand = [node for node in self.page.nodes('a') if node.has_class('brand')][0]
+        self.assertEqual(brand.attrs['aria-label'], 'Awesome Open home')
+        self.assertEqual(brand.descendants('img')[0].attrs['alt'], '')
+        logo = [image for image in self.page.images if image.get('class') == 'cover-logo'][0]
+        self.assertEqual((logo['width'], logo['height']), ('512', '512'))
 
     def test_optional_motion_has_reduced_motion_and_missing_dependency_guards(self):
         motion = (self.output / 'motion.js').read_text()
