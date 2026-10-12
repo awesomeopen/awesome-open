@@ -79,8 +79,8 @@
 .jar-motion-toggle {position:absolute;right:0;bottom:0;z-index:8;border:0;background:white;color:var(--rs-muted);font:14px var(--mono);width:44px;height:40px;padding:0;text-decoration:none;}
 .jar-motion-toggle[hidden] {display:none;}
 .jar-uplight,.jar-led,.jar-steam,.jar-lid {position:absolute;pointer-events:none;}
-.jar-uplight {inset:0;z-index:3;background:linear-gradient(to top,rgba(0,205,255,.8),rgba(0,180,255,.28) 34%,transparent 65%);mask-image:var(--glass-mask);mask-size:100% 100%;mask-repeat:no-repeat;mix-blend-mode:normal;opacity:0;transition:opacity .6s ease;}
-.jar-led {z-index:4;left:var(--sx);width:var(--sw);height:8px;bottom:calc(var(--foot) + 1px);border-radius:50%;background:radial-gradient(ellipse,#b8faff 5%,#00d9ff 35%,transparent 72%);filter:blur(1px);opacity:0;transition:opacity .6s ease;}
+.jar-uplight {inset:0;z-index:3;background:linear-gradient(to top,rgba(57,255,20,.8),rgba(30,235,40,.28) 34%,transparent 65%);mask-image:var(--glass-mask);mask-size:100% 100%;mask-repeat:no-repeat;mix-blend-mode:normal;opacity:0;transition:opacity .6s ease;}
+.jar-led {z-index:4;left:var(--sx);width:var(--sw);height:8px;bottom:calc(var(--foot) + 1px);border-radius:50%;background:radial-gradient(ellipse,#dbffd0 5%,#39ff14 35%,transparent 72%);filter:blur(1px);opacity:0;transition:opacity .6s ease;}
 .is-active .jar-uplight,.is-active .jar-led {opacity:1;}
 .specimen-idle {position:absolute;inset:0;filter:brightness(1) contrast(1);transition:filter .6s ease;}
 .is-active .specimen-idle {filter:brightness(1.12) contrast(1.06);}
@@ -90,7 +90,7 @@
 .jar-lid {inset:0;width:100%;height:100%;max-width:none;z-index:5;clip-path:inset(0 0 calc(100% - var(--lid-cut)));transform-origin:65% var(--lid-cut);transition:transform .8s cubic-bezier(.22,.7,.2,1);}
 .photo-ready .is-active .jar-lid {transform:translateY(-4px) rotate(-12deg);}
 /* Each fixed strand fades once, in close succession. */
-.jar-steam {z-index:4;left:calc(50% - 28px);top:calc(var(--mouth) - 60px);width:56px;height:60px;overflow:visible;color:rgb(var(--smoke-rgb, 255 0 180));}
+.jar-steam {z-index:4;left:calc(50% - 28px);top:calc(var(--mouth) - 78px);width:56px;height:60px;overflow:visible;color:rgb(var(--smoke-rgb, 255 0 180));}
 .jar-steam text {fill:currentColor;stroke:none;font:20px "DejaVu Sans","Segoe UI Symbol","Apple Symbols",sans-serif;opacity:0;}
 .photo-ready .is-active .steam-strand {animation:steam-fade 1.6s ease-in-out .2s 1 both;}
 .photo-ready .is-active .steam-strand:nth-child(2) {animation-delay:.5s;}
@@ -107,7 +107,7 @@
 }
 
 /* Grounded LED source and colored spill: move with the contact shadow, not the tilted glass. */
-.jar-shadow::after {content:"";position:absolute;inset:-2px 0;background:radial-gradient(ellipse,rgb(0 194 255 / .5),rgb(0 194 255 / .15) 38%,transparent 70%);opacity:0;transition:opacity .6s ease;}
-.jar-light-source {position:absolute;z-index:2;left:calc(50% - 2px);bottom:42px;width:4px;height:3px;border-radius:50%;background:#b8faff;box-shadow:0 0 3px 1px #00d9ff;opacity:0;pointer-events:none;transform:translateX(calc(var(--mx)*.6));transition:opacity .6s ease;}
+.jar-shadow::after {content:"";position:absolute;inset:-2px 0;background:radial-gradient(ellipse,rgb(57 255 20 / .5),rgb(57 255 20 / .15) 38%,transparent 70%);opacity:0;transition:opacity .6s ease;}
+.jar-light-source {position:absolute;z-index:2;left:calc(50% - 2px);bottom:42px;width:4px;height:3px;border-radius:50%;background:#dbffd0;box-shadow:0 0 3px 1px #39ff14;opacity:0;pointer-events:none;transform:translateX(calc(var(--mx)*.6));transition:opacity .6s ease;}
 .photo-ready .is-active .jar-shadow::after,.photo-ready .is-active .jar-light-source {opacity:1;}
 @media(prefers-reduced-motion:reduce){.jar-light-source{transform:none;transition:none;}.jar-shadow::after{transition:none;}}

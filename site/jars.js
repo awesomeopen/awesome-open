@@ -8,6 +8,14 @@
  const smokeColors=['255 0 180','125 45 255','0 215 255','0 235 125','200 255 0','255 90 0','255 35 90'];
  for(let i=smokeColors.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[smokeColors[i],smokeColors[j]]=[smokeColors[j],smokeColors[i]];}
  exhibits.forEach((node,i)=>node.style.setProperty('--smoke-rgb',smokeColors[i%smokeColors.length]));
+ // Three distinct characters per jar, fixed until the page reloads.
+ const vaporPool=[...'∰⋈⌘∑∂∇∞⊕⋇AXRkx0279'];
+ exhibits.forEach(node=>{
+   const available=[...vaporPool];
+   node.querySelectorAll('.steam-strand').forEach(glyph=>{
+     glyph.textContent=available.splice(Math.floor(Math.random()*available.length),1)[0];
+   });
+ });
  let pinned=null,active=null,closeTimer=0,frame=0,lastTime=0,inView=true,motionPaused=false;
  const toggle=hall.querySelector('.jar-motion-toggle');
  const staticMotion=()=>reduced.matches||motionPaused;
@@ -15,7 +23,8 @@
  const pointer={inside:false,x:0,y:0};
  const keys=['scale','x','y','rx','ry','ix','iy','light'];
  const resting={scale:.82,x:0,y:0,rx:0,ry:0,ix:0,iy:0,light:.14};
- const motion=exhibits.map(node=>({node,value:{...resting},velocity:Object.fromEntries(keys.map(k=>[k,0]))}));
+ const restScale=node=>node.classList.contains('jar-central')?.94:.82;
+ const motion=exhibits.map(node=>({node,value:{...resting,scale:restScale(node)},velocity:Object.fromEntries(keys.map(k=>[k,0]))}));
  const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
  function paint(item){
    const v=item.value,style=item.node.style;
@@ -33,7 +42,8 @@
    const near=pointer.inside?Math.exp(-Math.pow((center-pointer.x)/220,2)):0;
    const selected=active===item.node,depth=1-Math.abs(index-3)/5;
    const forward=selected?1:near*.42;
-   return {scale:.82+.28*forward,x:-cameraX*(10+depth*8),y:-forward*6-cameraY*3,
+   const baseScale=restScale(item.node);
+   return {scale:baseScale+(1.1-baseScale)*forward,x:-cameraX*(10+depth*8),y:-forward*6-cameraY*3,
      rx:clamp(forward*12-cameraY*(4+forward*8),-22,22),ry:cameraX*(3+forward*5),
      ix:-cameraX*(2+forward*3),iy:cameraY*(1+forward*2),light:.14+forward*.11+Math.abs(cameraX)*.04};
  }
