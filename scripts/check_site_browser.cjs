@@ -258,7 +258,13 @@ const path = require('node:path');
     await waitForState();
     assert.equal(await visible(), data.projects.length);
     assert.equal(await page.locator('script[src^="data:text/javascript;base64,"]').count(), 4);
-    assert.equal(await page.locator('a[download]').count(), 3);
+    const expectedDownloads = ['catalog.json', 'hn_evidence.json', 'alternatives.json'];
+    if (fs.existsSync(path.resolve(__dirname, '../data/project_signals.json'))) expectedDownloads.push('project_signals.json');
+    const downloads = await page.locator('a[download]').evaluateAll(nodes => nodes.map(node => ({
+      name: node.getAttribute('download'), href: node.getAttribute('href'),
+    })));
+    assert.deepEqual(downloads.map(item => item.name).sort(), expectedDownloads.sort());
+    assert.ok(downloads.every(item => item.href.startsWith('data:application/json;base64,')));
     await change('search', 'OpenTofu');
     assert.ok(await visible() > 0);
     assert.deepEqual(errors, []);
