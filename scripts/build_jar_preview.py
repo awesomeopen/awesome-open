@@ -1,46 +1,58 @@
 #!/usr/bin/env python3
-"""Build preview #2 from the complete ledger; production stays unchanged."""
+"""Build preview #3 from the complete ledger; production layout stays unchanged."""
 import argparse
 import json
 import shutil
 from pathlib import Path
 from html import escape
 ROOT = Path(__file__).resolve().parents[1]
-
-# Native SVG glass: front and back share a rigid vessel coordinate system.
-SHAPES = {
- 'stoppered': ('M91 53 L91 76 Q64 84 64 110 L64 248 Q65 264 120 265 Q175 264 176 248 L176 110 Q176 84 149 76 L149 53 Z', '<path d="M92 51 L89 30 Q120 23 151 30 L148 51Z"/><ellipse cx="120" cy="30" rx="31" ry="6"/><ellipse cx="120" cy="55" rx="30" ry="7"/>'),
- 'kitchen': ('M56 125 Q48 133 48 151 L48 245 Q48 264 120 265 Q192 264 192 245 L192 151 Q192 133 184 125 L184 104 L56 104 Z', '<path d="M54 108 L52 94 Q120 80 188 94 L186 108Z"/><ellipse cx="120" cy="95" rx="68" ry="10"/><path d="M62 98v9m10-10v9m10-9v9m10-9v9m10-8v8m10-8v8m10-8v8m10-8v8m10-9v9m10-9v9m10-10v9m10-10v9"/>'),
- 'open': ('M73 86 L73 111 Q59 127 59 145 L59 247 Q59 264 120 265 Q181 264 181 247 L181 145 Q181 127 167 111 L167 86 Z', '<ellipse cx="120" cy="87" rx="47" ry="9"/><ellipse cx="120" cy="88" rx="42" ry="6"/><g transform="translate(174 252) rotate(-24)"><ellipse rx="35" ry="10"/><path d="M-35 0v7 Q0 23 35 7V0"/></g>')
-}
-
-def glass(kind,front):
-    body,cap=SHAPES[kind]
-    if not front:
-        return f'<svg class="jar-glass jar-back" viewBox="0 0 240 290" aria-hidden="true"><defs><linearGradient id="wash-{kind}"><stop stop-color="#83acb8" stop-opacity=".22"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#d9eef8" stop-opacity=".1"/><stop offset="1" stop-color="#6696a0" stop-opacity=".2"/></linearGradient></defs><path d="{body}" fill="url(#wash-{kind})" stroke="#0b2546" stroke-opacity=".35"/></svg>'
-    fluid='' if kind=='open' else f'<path d="M{65 if kind=="stoppered" else 49} 177 Q120 186 {175 if kind=="stoppered" else 191} 177" stroke="#4a7c72" opacity=".4"/><ellipse cx="120" cy="178" rx="{55 if kind=="stoppered" else 71}" ry="6" fill="#4a7c72" opacity=".06"/>'
-    return f'<svg class="jar-glass jar-front" viewBox="0 0 240 290" aria-hidden="true"><g fill="none" stroke="#0b2546" stroke-width="1.1" stroke-linecap="round"><path d="{body}"/>{cap}{fluid}<path d="M{72 if kind=="stoppered" else 65} 148v84" stroke="white" stroke-width="5" opacity=".85"/><path d="M{79 if kind=="stoppered" else 71} 144v77" opacity=".2"/><path d="M{168 if kind=="stoppered" else 173} 160v67" stroke="white" stroke-width="3"/><path d="M80 252 Q120 264 161 252" opacity=".35"/></g></svg>'
+# Ordered by vessel height, not by project rank. Calibrated to the source photographs.
+DISPLAY = [
+ ('OpenSCAD','low-open','Model',225,32,24,38,53,43,125),
+ ('OpenSSL','square-cork','Encrypt',242,15,23,39,54,44,110),
+ ('OpenRefine','shouldered','Refine',283,15,30,45,40,39,150),
+ ('OpenObserve','central','Observe',330,17,37,29,26,55,300),
+ ('OpenSearch','bail','Search',286,18,29,39,42,44,120),
+ ('OpenResty','ribbed','Serve',254,24,24,46,52,36,140),
+ ('OpenTofu','low-lid','Provision',215,23,20,40,49,39,130),
+]
 
 def build(output):
     output=Path(output)
     catalog=json.loads((output/'catalog.json').read_text())
+    assets={a['id']:a for a in json.loads((ROOT/'site/jars/provenance.json').read_text())}
     exhibits=[]
-    for number,(name,kind,verb) in enumerate([('OpenObserve','stoppered','Observe'),('OpenResty','kitchen','Serve'),('OpenTofu','open','Provision')],1):
+    for number,(name,kind,verb,height,foot,x,y,w,h,zoom) in enumerate(DISPLAY,1):
         p=next(p for p in catalog['projects'] if p['name']==name)
         if not p.get('artwork'): continue
-        art=p['artwork']; github=p.get('github') or {}; pid=p['id']
+        art=p['artwork']; github=p.get('github') or {}; pid=p['id'];asset=assets[kind]
         stars=github.get('stars'); stars=f'{stars:,} stars' if isinstance(stars,int) else 'Stars unavailable'
-        exhibits.append(f'''<article class="jar-exhibit jar-{kind}">
-          <a class="jar-link" href="#project-{pid}" data-jar-inspect="{pid}" aria-label="Inspect {name}">
-           <span class="jar-shadow" aria-hidden="true"></span><span class="vessel">{glass(kind,False)}<span class="jar-specimen"><img src="{escape(art['path'])}" alt="{escape(art['alt'])}" width="{art['width']}" height="{art['height']}"></span>{glass(kind,True)}</span>
-           <svg class="jar-leader" viewBox="0 0 360 300" aria-hidden="true"><path d="M185 184h30l22-22h96"/><circle cx="185" cy="184" r="2"/></svg>
-           <span class="jar-label"><span class="jar-number">0{number} / {verb}</span><strong>{name}</strong><span class="jar-metrics">{stars}<br>{escape(github.get('license') or 'License unrecorded')}<br><span class="jar-inspect">Inspect record</span></span></span>
-          </a></article>''')
-    hero=f'''<section class="jar-hall" aria-label="Three illustrated software specimens"><div class="jar-stage">{''.join(exhibits)}</div><div class="jar-review"><span>Preview 02 · specimen study</span><div role="group" aria-label="Ground treatment"><button type="button" data-ground="shadows" aria-pressed="true">Shadows</button><button type="button" data-ground="baseline" aria-pressed="false">Baseline</button></div></div></section>'''
+        license=github.get('license'); license_line=f'<span>{escape(license)}</span>' if license else ''
+        styles=f'--height:{height}px;--foot:{foot}px;--ratio:{asset["width"]}/{asset["height"]};--sx:{x}%;--sy:{y}%;--sw:{w}%;--sh:{h}%;--zoom:{zoom}%'
+        exhibits.append(f'''<article class="jar-exhibit jar-{kind}" style="{styles}" data-project="{pid}">
+          <button class="jar-select" type="button" aria-expanded="false" aria-controls="jar-info-{pid}" aria-label="Show {name} details" hidden></button>
+          <div class="jar-shadow" aria-hidden="true"></div><div class="vessel" aria-hidden="true">
+           <img class="jar-photo" src="{asset['path']}" alt="" width="{asset['width']}" height="{asset['height']}" fetchpriority="high">
+           <div class="specimen-window"><div class="specimen-depth"><img class="specimen-print" src="{escape(art['path'])}" alt="" width="{art['width']}" height="{art['height']}"></div></div>
+           <img class="jar-reflection" src="{asset['path']}" alt="" width="{asset['width']}" height="{asset['height']}">
+          </div>
+          <span class="jar-caption"><span>0{number}</span> {name}</span>
+          <div class="jar-annotation" id="jar-info-{pid}">
+           <svg class="jar-leaders" aria-hidden="true"><g><path pathLength="1"/><circle r="3"/></g><g><path pathLength="1"/><circle r="3"/></g><g><path pathLength="1"/><circle r="3"/></g></svg>
+           <div class="jar-callout callout-function"><span class="callout-kicker">{verb}</span><p><span class="label-ink">{escape(p['description'])}</span></p></div>
+           <div class="jar-callout callout-metrics"><div class="jar-metrics"><span>{stars}</span>{license_line}</div></div>
+           <div class="jar-callout callout-inspect"><a href="#project-{pid}" data-jar-inspect="{pid}">Inspect record</a></div>
+          </div>
+        </article>''')
+    hero=f'''<section class="jar-hall" aria-label="Seven illustrated software specimens">
+      <svg width="0" height="0" class="jar-filter-defs" aria-hidden="true"><defs><filter id="glass-displacement"><feTurbulence type="fractalNoise" baseFrequency=".017 .08" numOctaves="1" seed="6" result="glass"/><feDisplacementMap in="SourceGraphic" in2="glass" scale="1.3" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
+      <div class="jar-scroll" role="region" aria-label="Specimen display; scroll horizontally on smaller screens" tabindex="0"><div class="jar-stage">{''.join(exhibits)}</div></div>
+    </section>'''
     page=(output/'index.html').read_text().replace('<body>','<body class="jar-page">').replace('</head>','<meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="jars.css"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
-    page=page.replace('<title>','<title>Preview 02 / ',1)
+    page=page.replace('<title>','<title>Preview 03 / ',1)
     (output/'jars.html').write_text(page)
     for filename in ('jars.css','jars.js'): shutil.copyfile(ROOT/'site'/filename,output/filename)
+    shutil.copytree(ROOT/'site/jars',output/'jars',dirs_exist_ok=True)
     return {'exhibits':len(exhibits)}
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True)
