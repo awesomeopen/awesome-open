@@ -17,7 +17,7 @@ const assert=require('node:assert/strict');
  await page.screenshot({path:'tmp/site-qa/jars-baseline.png'});
  const id=await first.getAttribute('data-jar-inspect');await first.click();
  assert.ok(await page.locator('#project-'+id+' > details').evaluate(n=>n.open));
- await page.goto(url);await page.locator('#search').fill('OpenTofu');assert.equal(await page.locator('.project-card:visible').count(),1);
+ await page.goto(url);await page.locator('#search').fill('OpenTofu');await page.waitForFunction(()=>document.querySelectorAll('.project-card:not([hidden])').length===1);assert.equal(await page.locator('.project-card:visible').count(),1);
  await page.locator('.jar-open .jar-link').click();assert.ok(await page.locator('.project-card:visible > details').evaluate(n=>n.open));
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(url);
  assert.equal(await page.locator('.jar-specimen img').first().evaluate(n=>getComputedStyle(n).animationName),'none');
