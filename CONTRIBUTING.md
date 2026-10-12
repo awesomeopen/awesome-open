@@ -204,6 +204,11 @@ release evidence becomes stale after three days without successful validation,
 and Scorecard evidence becomes stale when its upstream scan is over 30 days
 old. An old release publication date alone does not mark its cache stale. Only
 the exact `data/project_signals.json` path joins the generated-file publication allowlist.
+The collector refuses redirects without following them, forwarding credentials,
+or remapping repository identities. A refused redirect marks that optional
+observation unavailable (or retained evidence stale), logs the original project
+for review, and does not block unrelated publication. Invalid 200-response
+payload identities and schemas still fail before any snapshot is written.
 The collector handles ordinary upstream outages itself; other nonzero exits
 are not swallowed by the publisher. Offline tests and website builds read the
 snapshot without making API requests.

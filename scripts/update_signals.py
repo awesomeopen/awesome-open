@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Collect optional website release/Scorecard evidence without candidate execution.
 
-Only upstream availability failures are fail-soft. Invalid local snapshots,
-provider schema and repository identity are fatal before the atomic write.
+Upstream availability failures and refused redirects are fail-soft. Invalid
+local snapshots, provider payload schema and identity remain fatal.
 """
 
 import argparse
@@ -14,6 +14,7 @@ import json
 import http.client
 import os
 from pathlib import Path
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -182,7 +183,10 @@ def collect(repositories, previous=None, *, now=None, source_sha=None, token=Non
             response_headers = {key.lower(): value for key, value in response_headers.items()}
             record.update(checked_at=at, check_time_precision='second', http_status=code, error=None, retry_after=None)
             if code == 200:
-                record['last_good'] = (normalize_release if provider == 'release' else normalize_scorecard)(payload, repo, at)
+                try:
+                    record['last_good'] = (normalize_release if provider == 'release' else normalize_scorecard)(payload, repo, at)
+                except ValueError as error:
+                    raise ValueError(f'{provider} evidence for {repo}: {error}') from error
                 record.update(fetch_status='ok', last_success_at=at, success_time_precision='second', etag=response_headers.get('etag'))
             elif code == 304:
                 if not record['last_good'] or not headers.get('If-None-Match'):
@@ -200,7 +204,12 @@ def collect(repositories, previous=None, *, now=None, source_sha=None, token=Non
                     record['retry_after'] = retry_time(response_headers, now)
                     result['provider_retry_after'][provider] = record['retry_after']
                 elif code in {301, 302, 303, 307, 308}:
-                    raise ValueError('Optional provider redirected repository identity; review source mapping')
+                    # Refusing a redirect is an unavailable observation, not
+                    # permission to follow it or remap the curated identity.
+                    # Keep last-good evidence stale; other projects can publish.
+                    record.update(error='redirect_requires_review', etag=None)
+                    print(f'Optional {provider} evidence for {repo}: refused HTTP {code} redirect; '
+                          'review repository identity before remapping.', file=sys.stderr)
             summary[provider + ':' + record['fetch_status']] += 1
             # Also stop when a successful response uses the reserved quota.
             try:

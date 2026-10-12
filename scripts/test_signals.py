@@ -592,9 +592,37 @@ class CollectionTests(OfflineCase):
 
     def test_redirects_require_review_instead_of_remapping_identity(self):
         for code in (301, 302, 303, 307, 308):
-            with self.subTest(code=code), self.assertRaisesRegex(ValueError, 'identity'):
-                self.collect(providers=('release',), fetch=Mock(return_value=(code, {'Location': 'https://example.com'}, None)))
+            for provider in signals.PROVIDERS:
+                for cached in (False, True):
+                    with self.subTest(code=code, provider=provider, cached=cached):
+                        previous = self.snapshot(now=NOW - timedelta(days=15)) if cached else None
+                        original = deepcopy(previous)
+                        fetch = Mock(return_value=(code, {'Location': 'https://example.com/other/repo'}, None))
+                        document, summary = self.collect(previous=previous, providers=(provider,), fetch=fetch)
+                        record = document['repositories'][REPO][provider]
+                        self.assertEqual(fetch.call_count, 1)
+                        self.assertEqual(fetch.call_args.args[0], signals.source_url(REPO, provider))
+                        self.assertEqual(record['source_url'], signals.source_url(REPO, provider))
+                        self.assertEqual(record['http_status'], code)
+                        self.assertEqual(record['fetch_status'], 'error')
+                        self.assertEqual(record['error'], 'redirect_requires_review')
+                        self.assertIsNone(record['etag'])
+                        self.assertEqual(record['status'], 'stale' if cached else 'unavailable')
+                        self.assertEqual(record['last_good'], previous['repositories'][REPO][provider]['last_good'] if cached else None)
+                        self.assertEqual(record['last_success_at'], previous['repositories'][REPO][provider]['last_success_at'] if cached else None)
+                        self.assertEqual(summary[provider + ':error'], 1)
+                        self.assertEqual(previous, original)
         self.assertIsNone(updater.NoRedirect().redirect_request(None, None, 302, '', {}, 'https://example.com'))
+
+    def test_refused_redirect_does_not_block_other_optional_records(self):
+        other = 'zzz/open-other'
+        fetch = Mock(side_effect=[(301, {'Location': 'https://example.com/other'}, None),
+                                 (200, {}, release(other))])
+        document, summary = self.collect((REPO, other), providers=('release',), fetch=fetch)
+        self.assertEqual(document['repositories'][REPO]['release']['error'], 'redirect_requires_review')
+        self.assertEqual(document['repositories'][other]['release']['fetch_status'], 'ok')
+        self.assertEqual(summary['release:requests'], 2)
+        self.assertEqual(document['provider_retry_after']['release'], None)
 
     def test_source_pruning_deduplicates_current_repositories_without_mutating_input(self):
         previous = self.snapshot(repos=(REPO, 'old/removed'))
