@@ -11,14 +11,19 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
       - name: Run offline tests
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Render source preview from cached snapshots
@@ -58,3 +63,45 @@ jobs:
           name: field-guide-preview
           path: tmp/site/
           if-no-files-found: error
+      - name: Install browser-check dependencies
+        run: npm ci --ignore-scripts
+      - name: Install Playwright Chromium and system dependencies
+        run: npx --no-install playwright install --with-deps chromium
+      - name: Check the generated field guide in Chromium
+        timeout-minutes: 5
+        env:
+          SITE_URL: http://127.0.0.1:8000
+          SITE_SOURCE_SHA: ${{ github.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p tmp/site-qa
+          python3 -u -m http.server 8000 --bind 127.0.0.1 --directory tmp/site > tmp/site-qa/server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true; wait "$server_pid" 2>/dev/null || true' EXIT
+          python3 - <<'PY'
+          import os
+          import time
+          import urllib.error
+          import urllib.request
+
+          for attempt in range(40):
+              try:
+                  with urllib.request.urlopen(os.environ['SITE_URL'], timeout=1) as response:
+                      if response.status == 200:
+                          break
+              except (urllib.error.URLError, TimeoutError):
+                  pass
+              time.sleep(0.25)
+          else:
+              raise SystemExit('The local field-guide preview did not become ready')
+          PY
+          timeout 180s node scripts/check_site_browser.cjs 2>&1 | tee tmp/site-qa/browser.log
+      - name: Upload desktop and mobile browser screenshots
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: field-guide-browser-screenshots
+          path: tmp/site-qa/
+          if-no-files-found: warn
+          retention-days: 14
