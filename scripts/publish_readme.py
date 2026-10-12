@@ -9,6 +9,7 @@ The invoking checkout (including any local curated edits) is never reset.
 """
 
 import argparse
+import os
 from pathlib import Path, PurePosixPath
 import subprocess
 import sys
@@ -18,6 +19,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 GENERATED_FILES = frozenset({
     "README.md", "data/github_metrics.json", "data/hn_evidence.json",
+    "data/project_signals.json",
 })
 
 
@@ -66,6 +68,12 @@ def collect_and_render(root):
     # Collectors own only their snapshots. The offline renderer owns all output.
     run(root, sys.executable, "scripts/update_stats.py")
     run(root, sys.executable, "scripts/update_hn.py")
+    # Optional upstream outages are handled by the collector, preserving its
+    # last-good records. Local corruption and invalid identities still fail.
+    # Resolve provenance here, in each fresh detached attempt, never from the
+    # invoking checkout or a previous attempt's collected snapshot.
+    source_sha = git(root, "rev-parse", "HEAD").stdout.strip()
+    run(root, sys.executable, "scripts/update_signals.py", "--source-sha", source_sha)
     run(root, sys.executable, "scripts/render_readme.py", "--strict-metrics")
 
 
@@ -112,7 +120,7 @@ def publish(root=ROOT, max_attempts=5):
                     continue
                 if not changed:
                     print("README and snapshots are already current.", flush=True)
-                    return None
+                    return base
                 git(worktree, "--literal-pathspecs", "add", "--all", "--", *sorted(changed))
                 # Set identity only for this commit, without changing the user's
                 # repository or global Git configuration.
@@ -148,7 +156,12 @@ def main():
     if args.max_attempts < 1:
         parser.error("--max-attempts must be positive")
     try:
-        publish(max_attempts=args.max_attempts)
+        published_sha = publish(max_attempts=args.max_attempts)
+        # Expose only the accepted revision, including an already-current main.
+        # Deployment must check out this revision, not the invoking checkout.
+        if output := os.environ.get("GITHUB_OUTPUT"):
+            with open(output, "a", encoding="utf-8") as stream:
+                stream.write(f"published_sha={published_sha}\n")
     except (RuntimeError, OSError) as error:
         raise SystemExit(str(error)) from error
 

@@ -1,4 +1,4 @@
-name: Publish generated README
+name: Publish README and field guide
 
 on:
   push:
@@ -7,6 +7,8 @@ on:
       - 'README.source.md'
       - 'data/**'
       - 'scripts/**'
+      - 'site/**'
+      - 'assets/hn/**'
       - '.github/workflows/update-stats.yml'
       - '.github/workflows/check-updaters.yml'
   schedule:
@@ -14,7 +16,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 # All event types share one writer. Runs always fetch current main rather than
 # publishing from their triggering SHA, including a replaced pending run.
@@ -24,8 +26,14 @@ concurrency:
 
 jobs:
   publish-readme:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: write
+    outputs:
+      published_sha: ${{ steps.publish.outputs.published_sha }}
+      build_attempt: ${{ steps.publish.outputs.build_attempt }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,7 +42,51 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Collect, validate, render and publish current main
-        run: python3 scripts/publish_readme.py
+        id: publish
+        run: |
+          python3 scripts/publish_readme.py
+          echo "build_attempt=$GITHUB_RUN_ATTEMPT" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build field guide from the accepted published revision
+        run: python3 scripts/build_published_site.py --source-sha "$PUBLISHED_SHA" --output tmp/site
+        env:
+          PUBLISHED_SHA: ${{ steps.publish.outputs.published_sha }}
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages-${{ github.run_attempt }}
+          path: tmp/site
+
+  deploy-pages:
+    if: github.ref == 'refs/heads/main'
+    needs: publish-readme
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # No checkout or repository-content write access in the deployment job.
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Require an artifact built in this run attempt
+        env:
+          BUILD_ATTEMPT: ${{ needs.publish-readme.outputs.build_attempt }}
+          PUBLISHED_SHA: ${{ needs.publish-readme.outputs.published_sha }}
+        run: |
+          if [ "$BUILD_ATTEMPT" != "$GITHUB_RUN_ATTEMPT" ]; then
+            echo "::error::Re-run all jobs to rebuild current main; a deployment-only retry could publish an older artifact."
+            exit 1
+          fi
+          printf 'Published catalog revision: [%s](https://github.com/%s/commit/%s)\n' "$PUBLISHED_SHA" "$GITHUB_REPOSITORY" "$PUBLISHED_SHA" >> "$GITHUB_STEP_SUMMARY"
+      - name: Deploy field guide to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
