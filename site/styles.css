@@ -127,11 +127,28 @@ summary::marker {
   border-bottom:1px solid var(--ink)
 }
 .brand {
+  display:inline-flex;
+  align-items:center;
+  flex-shrink:0;
   font-size:23px;
   font-weight:600;
   letter-spacing:-.045em;
   text-decoration:none;
   white-space:nowrap
+}
+.brand-mark {
+  display:block;
+  flex-shrink:0;
+  width:40px;
+  height:40px;
+  margin-right:9px;
+  object-fit:contain
+}
+.cover-logo {
+  display:block;
+  width:190px;
+  height:auto;
+  object-fit:contain
 }
 .brand-asterisk {
   color:var(--accent);
@@ -1060,18 +1077,27 @@ summary::marker {
 }
 @media(max-width:720px) {
   .site-header {
+    flex-wrap:wrap;
     padding:19px 5%;
     gap:15px
   }
   .brand {
-    font-size:20px
+    font-size:18px
+  }
+  .brand-mark {
+    width:30px;
+    height:30px;
+    margin-right:6px
+  }
+  .cover-logo {
+    width:140px
   }
   .brand-asterisk {
     font-size:25px
   }
   .header-links {
     font-size:10px;
-    gap:17px
+    gap:12px
   }
   .header-links a:nth-child(2) {
     display:none

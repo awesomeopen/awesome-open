@@ -15,6 +15,13 @@ import signals
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
+BRAND_ASSETS = {
+    'favicon.ico': 'image/x-icon',
+    'fruit-16.png': 'image/png',
+    'fruit-32.png': 'image/png',
+    'fruit-96.png': 'image/png',
+    'awesome-open-logo.png': 'image/png',
+}
 
 
 def escape(value):
@@ -167,17 +174,20 @@ def render_html(catalog):
  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
  <meta name="description" content="A natural-history field guide to software named Open, with searchable project records, repository data, and reviewed comparisons.">
  <meta name="color-scheme" content="light"><title>Genus Open* — The Awesome Open field guide</title>
+ <link rel="icon" href="brand/favicon.ico" sizes="16x16 32x32 48x48">
+ <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
+ <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
  <link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="styles.css">
  <script src="catalog.js" defer></script><script src="vendor/gsap.min.js" defer></script><script src="vendor/ScrollTrigger.min.js" defer></script><script src="motion.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#catalog">Skip to specimen ledger</a>
 <div class="page-shell">
-<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></a><span class="header-caption">A lexicographical collection<br>Software / Natural history</span><nav class="header-links" aria-label="Field guide"><a href="#catalog">The ledger <span aria-hidden="true">↓</span></a><a href="#method">Reading the evidence</a><a href="{REPOSITORY}">GitHub <span aria-hidden="true">↗</span></a></nav></header>
+<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/fruit-96.png" alt="" width="40" height="40">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></a><span class="header-caption">A lexicographical collection<br>Software / Natural history</span><nav class="header-links" aria-label="Field guide"><a href="#catalog">The ledger <span aria-hidden="true">↓</span></a><a href="#method">Reading the evidence</a><a href="{REPOSITORY}">GitHub <span aria-hidden="true">↗</span></a></nav></header>
 <section class="hero" aria-labelledby="page-title">
  <div class="cover-line"><span>A field guide to the genus</span><span>THE NAME IS THE CRITERION.</span></div>
  <h1 id="page-title" aria-label="Genus Open star">Open<span class="wildcard" aria-hidden="true">*</span></h1>
- <div class="hero-baseline"><div class="hero-copy" aria-hidden="true"></div><p class="dictionary"><span>Open-</span> <i>prefix</i><br>A source model. A fresh start.<br>A name.</p><a class="enter-ledger" href="#catalog">Inspect the specimens <span aria-hidden="true">↘</span></a></div>
+ <div class="hero-baseline"><div class="hero-copy"><img class="cover-logo" src="brand/awesome-open-logo.png" alt="Awesome Open botanical fruit logo" width="512" height="512" decoding="async"></div><p class="dictionary"><span>Open-</span> <i>prefix</i><br>A source model. A fresh start.<br>A name.</p><a class="enter-ledger" href="#catalog">Inspect the specimens <span aria-hidden="true">↘</span></a></div>
  <div class="botanical-plate">{specimen_art()}<span class="plate-note">Fig. O*<br>Prefix study<br><span>Schematic</span></span><span class="plate-crosshair" aria-hidden="true">+</span></div>
  <div class="cover-bottom"><span>cat /dev/software | grep '^Open'</span><span>Names, functions, sources.</span></div>
 </section>
@@ -246,10 +256,18 @@ def build(output, source_sha=None, root=ROOT):
     for name in evidence_files:
         shutil.copyfile(root / 'data' / name, output / 'data' / name)
     shutil.copytree(root / 'site/vendor', output / 'vendor', dirs_exist_ok=True)
+    (output / 'brand').mkdir(exist_ok=True)
+    for name in BRAND_ASSETS:
+        shutil.copyfile(root / 'site/brand' / name, output / 'brand' / name)
     (output / '.nojekyll').write_text('', encoding='utf-8')
     # A phone/download-friendly edition: every runtime asset and evidence download
     # is embedded, so opening one HTML file never depends on adjacent files.
     standalone = page.replace('href="data/hn_evidence.json">View evidence', 'href="#hn-evidence">View evidence')
+    for name, mime_type in BRAND_ASSETS.items():
+        encoded = base64.b64encode((output / 'brand' / name).read_bytes()).decode('ascii')
+        for attribute in ('src', 'href'):
+            standalone = standalone.replace(f'{attribute}="brand/{name}"',
+                                            f'{attribute}="data:{mime_type};base64,{encoded}"')
     for name in ('vendor/fonts.css', 'styles.css'):
         standalone = standalone.replace(f'<link rel="stylesheet" href="{name}">',
                                         '<style>' + (output / name).read_text(encoding='utf-8') + '</style>')
