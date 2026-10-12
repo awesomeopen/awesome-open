@@ -36,3 +36,7 @@ Open `/exhibition.html` for Infrastructure & DevOps: three illustrated category 
 ## Jar study / preview 02
 
 Active branch: `design/jar-preview-2`. Review `/jars/jars.html` on the private host. The bundle's `preview.json` identifies the exact source SHA. `jars.html` adds the three-vessel hero above the full current ledger; `index.html` remains the production-shaped control. Use Shadows/Baseline to compare ground treatments. Preview #1 and the ledger review remain at their previous URLs. The jar builder is called only by design-preview builds and PR CI.
+
+## Photographic jar study / preview 03
+
+Active branch: `design/photographic-jars`. Review `/jars-03/jars.html` on the private host. Seven independent photographic glass assets surround replaceable original specimens, tallest centered, shadow-only ground. Hover/focus annotations overlap neighbors; tapping selects before navigation. The previous three-jar study remains at `/jars/jars.html`. Verify `preview.json` for the GitHub SHA.

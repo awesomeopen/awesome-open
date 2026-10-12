@@ -201,3 +201,9 @@ User direction: blank header search with a dashed underline; retain accessible l
 Instrument: the complete ledger and live HTML labels. Specimen: existing original function-derived artwork inside three SVG vessels. Editorial hand: anchored scarlet leaders on hover/focus. This bounded motion study is built only for design previews at `jars.html`; it does not alter the production page.
 
 The header is unboxed on white. Glass front/back move as one vessel, with restrained additional specimen depth; pointer motion is local and reduced motion is static. The open jar's specimen rests rather than floats. Shadows and an optional fine baseline can be compared without a table. Names remain visible; touch layouts show metrics without hover. Links open ledger records. No new typeface, aged paper, scroll pinning, or fabricated weekly curation is introduced.
+
+### Preview 03: photographic vessel density (proposal)
+
+Seven vessels form a shallow arch: tallest in the middle, heights falling toward both sides. Position encodes physical height only. Use contact shadows; remove the baseline comparison. Photograph-like glass surrounds original drawn specimens, with independently replaceable assets, restrained displacement and front reflection. Glass texture can be imperfect; the page stays white.
+
+Desktop hover or keyboard focus raises one annotation over adjacent vessels on a small white backing. Touch first selects, then the separate Inspect record link navigates. Escape dismisses. Medium screens show the central five; narrow screens keep all seven in a horizontal display. Reduced motion removes depth movement. No 3D runtime is required. Vessel prompts and dimensions live in `site/jars/provenance.json`; two new function-derived specimens (OpenSSL and OpenSearch) follow the existing artwork manifest contract.

@@ -81,6 +81,38 @@
       "reviewed_by": "Codex",
       "review_note": "Reviewed for function-based analogy, distinct silhouette, white ground, no lettering. Proposed artwork for preview #1; not user-approved for production.",
       "revision_prompt": "Preserve instrument and drawing; zoom out to show both complete strip ends and full base on white. No new components or text."
+    },
+    "0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9": {
+      "project_url": "https://github.com/openssl/openssl",
+      "path": "specimens/0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9.webp",
+      "alt": "An interlocking blue shell folds a scarlet ribbon into its protected interior.",
+      "width": 1254,
+      "height": 1254,
+      "source_document": "https://github.com/openssl/openssl/blob/master/README.md",
+      "source_blob_sha": "7047f8f8fbd409bd7ec1f0e073f6180734f0b1ed",
+      "created_at": "2026-10-12",
+      "generator": "OpenAI built-in image generation",
+      "style": "Speculative FOSSoligy / Retro-Scraperism",
+      "prompt": "Original Speculative FOSSoligy specimen illustration. One compact dark blue bivalve shell, slightly open, with finely interlocking asymmetric tooth-like ridges on its two matching edges. A single thin scarlet ribbon enters the gap and becomes an intricate folded strip protected inside the shell. Governing impossibility: the matching shell edges fold a passing message into a protected pattern. Analogy for OpenSSL cryptographic and TLS toolkit, not an official logo or security guarantee. Oblique view, entire silhouette with generous white margin. Fine variable ink and graphite contours, selective crosshatching, pale cyan nacre, deep Prussian shell, tiny scarlet focus. Observed construction, connected anatomy, strange and lucid, no face, no eye, no literal padlock, no gears, no letters or text, no jar, no aged paper, no photorealism. Pure white square ground.",
+      "review_status": "approved",
+      "reviewed_by": "Codex",
+      "review_note": "Function checked against repository README. Original specimen; user design acceptance remains in PR review."
+    },
+    "e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b": {
+      "project_url": "https://github.com/opensearch-project/opensearch",
+      "path": "specimens/e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b.webp",
+      "alt": "A mineral-leaved seed head reveals one scarlet seed connected to its indexed layers.",
+      "width": 1254,
+      "height": 1254,
+      "source_document": "https://github.com/opensearch-project/OpenSearch/blob/main/README.md",
+      "source_blob_sha": "13ac5f45bffc462aecc7ebe09218724e5794bd03",
+      "created_at": "2026-10-12",
+      "generator": "OpenAI built-in image generation",
+      "style": "Speculative FOSSoligy / Retro-Scraperism",
+      "prompt": "Original Speculative FOSSoligy specimen illustration. One compact oval seed head with dozens of slender upright translucent mineral leaves, arranged in searchable layers like a closed folio. A small scarlet seed has been pulled forward from the densely layered center, while its matching narrow red vein can be traced back through the leaves. Governing impossibility: a plant indexes and retrieves its own seeds through layered mineral pages. Analogy for OpenSearch search and observability suite bringing order to unstructured data, not an official logo. Broad oval silhouette, three-quarter view, no arms, no branches out the right side. Fine variable ink and graphite contours, selective crosshatching and colored pencil, pale grey-green pages, deep Prussian stems, one scarlet retrieved seed. Entire single object with generous white margin, calm observational drawing, no text, no labels, no jar, no gears, no face, no antique paper, no CGI. Pure white square ground.",
+      "review_status": "approved",
+      "reviewed_by": "Codex",
+      "review_note": "Function checked against repository README. Original specimen; user design acceptance remains in PR review."
     }
   }
 }
