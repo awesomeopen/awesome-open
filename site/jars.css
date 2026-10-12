@@ -11,7 +11,7 @@
 .jar-stage {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));height:380px;max-width:1200px;margin:auto;position:relative;}
 .jar-exhibit {position:relative;min-width:0;--mx:0px;--my:0px;--scene-scale:1;--tilt-x:0deg;--tilt-y:0deg;--inner-x:0px;--inner-y:0px;--glass-light:.18;}
 .jar-exhibit:is(.is-active,:focus-within) {z-index:5;}
-.vessel {position:absolute;height:var(--height);aspect-ratio:var(--ratio);bottom:calc(44px - var(--foot));left:50%;transform:translateX(-50%) perspective(900px) translate3d(var(--mx),var(--my),0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--scene-scale));transform-origin:50% calc(100% - var(--foot));pointer-events:none;isolation:isolate;}
+.vessel {position:absolute;height:var(--height);aspect-ratio:var(--ratio);bottom:calc(44px - var(--foot));left:50%;transform:translateX(-50%) perspective(550px) translate3d(var(--mx),var(--my),0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--scene-scale));transform-origin:50% calc(100% - var(--foot));pointer-events:none;isolation:isolate;}
 .jar-photo,.jar-reflection {position:absolute;width:100%;height:100%;inset:0;max-width:none;}
 .jar-photo {z-index:0;}
 .jar-reflection {z-index:2;opacity:var(--glass-light);mix-blend-mode:screen;mask-image:linear-gradient(90deg,#000,transparent 39%,transparent 59%,#000);}
@@ -43,8 +43,8 @@
 .jar-callout a {display:inline-flex;align-items:center;min-height:44px;padding:0 9px;border:1px dashed currentColor;text-decoration:none;color:var(--rs-scarlet);font-size:15px;background:rgb(255 255 255 / .93);}
 .jar-callout a:is(:hover,:focus-visible) {border-style:solid;}
 .jar-leaders {position:absolute;overflow:visible;pointer-events:none;}
-.jar-leaders path {fill:none;stroke:var(--rs-scarlet);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0;animation:draw-leader .36s ease-out both;}
-.jar-leaders circle {fill:white;stroke:var(--rs-scarlet);stroke-width:1;}
+.jar-leaders path {fill:none;stroke:var(--rs-scarlet);stroke-width:1.25;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0;animation:draw-leader .36s ease-out both;}
+.jar-leaders circle {fill:white;stroke:var(--rs-scarlet);stroke-width:1.25;}
 @keyframes draw-leader {from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 /* Without JS, names and record links remain ordinary visible content. */
 .jar-page:not(.photo-ready) .jar-stage {height:auto;align-items:end;gap:12px;}
@@ -54,7 +54,7 @@
 .jar-page:not(.photo-ready) .jar-annotation {position:static;width:auto;pointer-events:auto;}
 .jar-page:not(.photo-ready) .jar-callout {position:static;width:auto;margin:12px 0;}
 .jar-page:not(.photo-ready) .jar-callout a:is(:hover,:focus-visible) {border-style:solid;}
-.jar-leaders {display:none;}
+.jar-page:not(.photo-ready) .jar-leaders {display:none;}
 
 @media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(5,minmax(0,1fr));}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:14px;}.callout-function{width:190px;}}
 @media (max-width:680px) {

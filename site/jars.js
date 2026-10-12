@@ -27,7 +27,7 @@
    const selected=active===item.node,depth=1-Math.abs(index-3)/5;
    const forward=selected?1:near*.42;
    return {scale:.82+.28*forward,x:-cameraX*(10+depth*8),y:-forward*6-cameraY*3,
-     rx:-cameraY*(3+forward*4),ry:cameraX*(2+forward*2),
+     rx:clamp(forward*12-cameraY*(4+forward*8),-22,22),ry:cameraX*(3+forward*5),
      ix:-cameraX*(2+forward*3),iy:cameraY*(1+forward*2),light:.14+forward*.11+Math.abs(cameraX)*.04};
  }
  function tick(time){

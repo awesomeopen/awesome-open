@@ -12,10 +12,21 @@ const assert=require('node:assert/strict');
  assert.equal(await page.locator('.jar-exhibit').count(),7);assert.equal(await page.locator('[data-ground]').count(),0);assert.equal(await page.locator('.jar-review').count(),0);assert.equal(await page.locator('.jar-photo[src*=labelled]').count(),2);
  await page.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
  await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:'tmp/site-qa/jars-desktop.png'});
- const first=page.locator('.jar-select').first();const restingWidth=await page.locator('.vessel').first().evaluate(n=>n.getBoundingClientRect().width);await first.hover({position:{x:45,y:55}});await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+ const first=page.locator('.jar-select').first();const restingWidth=await page.locator('.vessel').first().evaluate(n=>n.getBoundingClientRect().width);await first.hover({position:{x:45,y:55}});await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-exhibit').style.getPropertyValue('--scene-scale'))>1.08);await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
  assert.equal(await first.getAttribute('aria-expanded'),'true');assert.equal(await page.locator('.jar-annotation:visible').count(),1);assert.equal(await page.locator('.jar-annotation:visible .jar-leaders path[d]').count(),3);assert.equal(await page.locator('.jar-annotation:visible').evaluate(n=>getComputedStyle(n).backgroundColor),'rgba(0, 0, 0, 0)');
  assert.ok(await page.locator('.jar-exhibit').first().evaluate(n=>Math.abs(parseFloat(n.style.getPropertyValue('--mx')))>1));assert.ok(await page.locator('.vessel').first().evaluate((n,w)=>n.getBoundingClientRect().width>w*1.2,restingWidth));assert.ok(await page.locator('.jar-exhibit').first().evaluate(n=>Math.abs(parseFloat(n.style.getPropertyValue('--tilt-x')))>1));
+ // Presence of SVG paths alone does not prove that Chrome paints them.
+ const leaders=page.locator('.jar-annotation:visible .jar-leaders');assert.ok(await leaders.isVisible());
+ assert.ok(await leaders.locator('path').first().evaluate(n=>getComputedStyle(n).stroke!=='none'&&n.getTotalLength()>20));
+ assert.ok(await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform.startsWith('matrix3d')));
  await page.screenshot({path:'tmp/site-qa/jars-hover.png'});
+ // Selection must visibly pitch even with no pointer movement (keyboard/touch).
+ await page.mouse.move(1400,950);await page.locator('.jar-central .jar-select').focus();
+ await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-central').style.getPropertyValue('--tilt-x'))>11.9);
+ await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+ await page.screenshot({path:'tmp/site-qa/jars-tilt.png'});
+ await first.hover({position:{x:45,y:55}});
+
  const link=page.locator('.jar-annotation:visible a');assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopStyle),'dashed');await link.hover();assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopStyle),'solid');const id=await link.getAttribute('data-jar-inspect');await link.click();
  assert.ok(await page.locator('#project-'+id+' > details').evaluate(n=>n.open));
  await page.goto(url);await ready();await page.locator('#search').fill('OpenTofu');await page.waitForFunction(()=>document.querySelectorAll('.project-card:not([hidden])').length===1);
