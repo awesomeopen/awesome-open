@@ -185,6 +185,8 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, opt
     by_hn = _hn_evidence(evidence)
     categories, projects = {}, {}
     heading_ids = set()
+    leaders = stats.category_leaders(source, snapshot["repositories"])
+    section_number = 0
     current = None
     in_project_table = False
 
@@ -197,6 +199,7 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, opt
 
     for line_number, line in enumerate(source.splitlines(), 1):
         if line.startswith("## "):
+            section_number += 1
             name = _nonempty_text(line[3:].strip(), "category heading")
             base = category_id(name)
             if not base:
@@ -247,11 +250,15 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, opt
                 "url": url,
                 "description": description,
                 "categories": [],
+                "leader_categories": [],
                 "github": _github_metadata(url, snapshot),
                 "signals": signals.for_repository(optional_signals, url.removeprefix("https://github.com/").removeprefix("http://github.com/")),
                 "alternatives": deepcopy(reviewed),
                 "hn": deepcopy(by_hn.get(url)),
             }
+        repo_match = stats.ROW.match(line)
+        if repo_match and repo_match[2].lower() in leaders.get(section_number, set()) and category not in project["leader_categories"]:
+            project["leader_categories"].append(category)
         if category not in project["categories"]:
             project["categories"].append(category)
             categories[category]["count"] += 1

@@ -340,6 +340,16 @@
         var card = cards.get(project.id);
         var visible = matchesProject(project, state, data);
         card.hidden = !visible;
+        var leaders = project.leader_categories || [];
+        var selectedLeaders = state.category ? leaders.filter(function (id) { return id === state.category; }) : leaders;
+        card.dataset.leader = selectedLeaders.length ? 'true' : 'false';
+        var label = typeof card.querySelector === 'function' ? card.querySelector('.leader-label') : null;
+        if (label) {
+          label.hidden = !selectedLeaders.length;
+          label.textContent = selectedLeaders.length ? 'Top 3 by stars' + (state.category ? '' : ' · ' + selectedLeaders.map(function (id) {
+            return data.categories.find(function (category) { return category.id === id; }).name;
+          }).join(' / ')) : '';
+        }
         if (visible) total += 1;
         fragment.appendChild(card);
       });
