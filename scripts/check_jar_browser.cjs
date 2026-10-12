@@ -9,7 +9,7 @@ const assert=require('node:assert/strict');
  await page.goto(url);await page.waitForSelector('body[data-jars-ready=true]');
  assert.equal(await page.locator('.jar-exhibit').count(),3);
  await page.locator('.jar-specimen img').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
- const first=page.locator('.jar-link').first();await first.hover();await page.waitForTimeout(350);
+ const first=page.locator('.jar-link').first();await first.hover({position:{x:40,y:40}});await page.waitForTimeout(350);
  assert.equal(await first.locator('.jar-metrics').evaluate(n=>getComputedStyle(n).opacity),'1');
  assert.notEqual(await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform),'matrix(1, 0, 0, 1, 0, 0)');
  await page.screenshot({path:'tmp/site-qa/jars-desktop.png'});
