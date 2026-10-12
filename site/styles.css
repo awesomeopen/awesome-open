@@ -370,8 +370,8 @@ h1>span {
   border-left:3px solid var(--accent);
 }
 .specimen-drawer>summary {
-  padding:20px 8px;
-  min-height:88px;
+  padding:8px;
+  min-height:44px;
 }
 .specimen-drawer>summary:hover {
   background:var(--rs-mist);
@@ -818,7 +818,7 @@ h1>span {
 .header-search > label { margin:0; color:var(--rs-trace); font-size:12px; }
 .header-search .search-input { gap:0; }
 .header-search .search-input > span { display:none; }
-.header-search input { min-height:36px; padding:4px 0; font-size:16px; color:white; background:transparent; border:0; border-bottom:1px solid var(--rs-trace); }
+.header-search input { min-height:36px; padding:4px 0; font-size:16px; color:white; background:transparent; border:0; border-bottom:1px dashed var(--rs-trace); }
 .header-search input::placeholder { color:var(--rs-trace); }
 .ledger-heading { align-items:center; margin-bottom:12px; }
 .ledger-heading .mono-label { display:none; }
@@ -852,4 +852,20 @@ h1 { font-size:28px; margin:0; }
   .results-heading { flex-wrap:wrap; }
   .result-actions { gap:8px; margin-left:auto; }
   .leader-key { line-height:1.4; }
+}
+
+/* Compact production ledger: names set row height; complete prose stays in drawers. */
+.results-heading { justify-content:flex-end; }
+.header-links a:first-child { display:inline; }
+.leader-label { display:none; }
+.description { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.license-readout { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.license-readout:empty { visibility:hidden; }
+.record-description { font-size:17px;line-height:1.5;margin-bottom:24px; }
+.colophon ul { color:var(--rs-trace);font-size:15px;line-height:1.6;padding-left:20px;margin-bottom:20px; }
+.colophon li { margin:4px 0; }
+.colophon .coverage-notes { margin-top:24px; }
+@media(max-width:720px) {
+  .specimen-drawer > summary { grid-template-columns:28px minmax(0,1fr) 24px; padding:8px; }
+  .specimen-drawer > summary > .description, .specimen-drawer > summary > .license-readout { display:none; }
 }
