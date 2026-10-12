@@ -85,6 +85,15 @@ const path = require('node:path');
     assert.equal(await page.locator('#sort-order').isEnabled(), true);
     assert.equal(await page.locator('.specimen-drawer').count(), data.projects.length);
     await assertLedgerFits(page, 'desktop');
+    assert.equal(await page.locator('#search').getAttribute('placeholder'), null);
+    assert.equal(await page.locator('#search').evaluate(n => getComputedStyle(n).borderBottomStyle), 'dashed');
+    assert.equal(await page.locator('.ledger-columns, .ledger-heading').count(), 0);
+    assert.deepEqual(await page.locator('.header-links a').allTextContents(), ['Ledger', 'About', 'GitHub']);
+    assert.deepEqual(await page.locator('.footer-actions a').allTextContents(), ['Submit a project', 'Download', 'Top']);
+    assert.ok(await page.locator('.footer-baseline').textContent().then(t => t.includes(data.projects.length + ' Projects')));
+    const absentLicense = data.projects.find(p => !p.github || !p.github.license);
+    if (absentLicense) assert.equal(await page.locator('#project-' + absentLicense.id + ' .license-readout').textContent(), '');
+    assert.ok(await page.locator('.specimen-drawer > summary').first().evaluate(n => n.getBoundingClientRect().height <= 50), 'Compact one-line row');
 
     // Exact reviewed alternative search, combined metadata filters, empty/reset.
     await change('search', 'NotebookLM');

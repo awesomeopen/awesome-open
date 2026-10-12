@@ -178,3 +178,8 @@ For each extension, add the rule, token/component example, reason, accessibility
 | 2026-10-12 | User direction | Neutral professional voice, answer first, no mindset interpretation or closing taglines |
 
 | 2026-10-12 | User direction | Compact header search; adjacent closed category/filter disclosures; white attached brand asterisk; category-only leader subtitles. Native controls retain keyboard access and expand in document flow. |
+
+
+### Compact ledger copy — 2026-10-12
+
+User direction: blank header search with a dashed underline; retain accessible labels without visible text. Remove the visible page heading, snapshot heading and column header band. Names set compact row height; desktop descriptions use one-line ellipsis and mobile descriptions move into the open record. Complete descriptions and evidence remain available in drawers. Unknown license fields remain blank. Revision, total project count and snapshot coverage are generated in the footer, never hard-coded. Footer explanations use short lists. License wording remains a verification instruction because the pipeline detects licenses and does not independently verify terms.
