@@ -110,13 +110,27 @@ class SignalSiteTests(unittest.TestCase):
             with self.subTest(suffix=suffix), self.assertRaises(ValueError):
                 self.catalog(document)
 
-    def test_signal_changes_cannot_change_readme_bytes(self):
+    def assert_signal_changes_leave_readme_unchanged(self):
+        published=(self.root/'README.md').read_bytes()
         expected=render_readme.render_text(self.source,self.metrics,self.hn)
         self.catalog(self.optional)
         self.optional['repositories']={}
         self.catalog(self.optional)
         self.assertEqual(expected,render_readme.render_text(self.source,self.metrics,self.hn))
-        self.assertEqual(expected,(self.root/'README.md').read_text())
+        self.assertEqual(published,(self.root/'README.md').read_bytes())
+
+    def test_signal_changes_cannot_change_readme_bytes(self):
+        self.assert_signal_changes_leave_readme_unchanged()
+
+    def test_signal_changes_leave_stale_published_readme_untouched(self):
+        with tempfile.TemporaryDirectory() as directory:
+            self.root=Path(directory)
+            published=render_readme.render_text(self.source,self.metrics,self.hn).encode('utf-8')
+            (self.root/'README.md').write_bytes(published)
+            # Source-only PRs deliberately leave the published README behind.
+            self.source+='\n<!-- Unpublished curated-source change. -->\n'
+            self.assertNotEqual(published,render_readme.render_text(self.source,self.metrics,self.hn).encode('utf-8'))
+            self.assert_signal_changes_leave_readme_unchanged()
 
     def test_optional_file_is_embedded_and_absent_file_removes_old_output(self):
         with tempfile.TemporaryDirectory() as directory:

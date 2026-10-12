@@ -49,21 +49,23 @@
         },
         {
           "name": "Hermes Agent",
-          "source_url": "https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses",
+          "source_url": "https://github.com/tinyhumansai/openhuman#how-it-compares",
           "target_url": "https://github.com/NousResearch/hermes-agent",
-          "checked_utc_date": "2026-10-04",
+          "checked_utc_date": "2026-10-12",
           "claimant": "OpenHuman",
-          "source_quote": "OpenHuman vs Other Agent Harnesses",
-          "scope": "Personal AI agent harnesses. OpenHuman’s official README directly compares Hermes Agent, OpenClaw, and OpenHuman across memory, orchestration, workflows, and integrations. Hermes Agent is the NousResearch agent application, not a Hermes language model."
+          "source_quote": "OpenHuman does that too",
+          "scope": "Personal AI agent harnesses. In its How it compares section, OpenHuman positions itself for the same single-user agent work as Hermes Agent and directly compares their core capabilities. Hermes Agent is the NousResearch agent application, not a Hermes language model. OpenHuman is early beta; no feature parity, benchmark advantage, or drop-in compatibility is established.",
+          "confidence": "high"
         },
         {
           "name": "OpenClaw",
-          "source_url": "https://github.com/tinyhumansai/openhuman#openhuman-vs-other-agent-harnesses",
+          "source_url": "https://github.com/tinyhumansai/openhuman#how-it-compares",
           "target_url": "https://github.com/openclaw/openclaw",
-          "checked_utc_date": "2026-10-04",
+          "checked_utc_date": "2026-10-12",
           "claimant": "OpenHuman",
-          "source_quote": "OpenHuman vs Other Agent Harnesses",
-          "scope": "Personal AI agent harnesses. OpenHuman’s official README directly compares OpenClaw and OpenHuman across memory, orchestration, workflows, and integrations; the comparison does not establish drop-in compatibility."
+          "source_quote": "OpenHuman does that too",
+          "scope": "Personal AI agent harnesses. In its How it compares section, OpenHuman positions itself for the same single-user agent work as OpenClaw and directly compares their core capabilities. OpenHuman is early beta; no feature parity, benchmark advantage, or drop-in compatibility is established.",
+          "confidence": "high"
         }
       ]
     },
