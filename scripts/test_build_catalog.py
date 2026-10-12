@@ -282,13 +282,27 @@ class CatalogTests(unittest.TestCase):
         snapshot, alternatives, evidence = [json.loads((root / "data" / name).read_text(encoding="utf-8"))
                                             for name in ("github_metrics.json", "alternatives.json", "hn_evidence.json")]
         result = catalog.build_catalog(source, snapshot, alternatives, evidence)
-        self.assertEqual(len(result["projects"]), 370)
-        self.assertEqual(len(result["categories"]), 21)
-        self.assertEqual(result["category_memberships"], 392)
-        self.assertEqual(sum(len(item["categories"]) for item in result["projects"]), 392)
-        self.assertEqual(sum(item["count"] for item in result["categories"]), 392)
-        self.assertEqual(sum(bool(item["alternatives"]) for item in result["projects"]), 19)
-        self.assertEqual(sum(item["hn"] is not None for item in result["projects"]), 15)
+        # Follow the curated source as discovery adds projects; frozen preview
+        # counts would break every future content-only publication.
+        memberships = set()
+        category = None
+        for row in source.splitlines():
+            if row.startswith('## '):
+                category = catalog.category_id(row[3:])
+            match = catalog.readme.ENTRY.fullmatch(row)
+            if match:
+                memberships.add((catalog.canonical_url(match[2]), category))
+        urls = {url for url, _ in memberships}
+        self.assertEqual(len(result["projects"]), len(urls))
+        self.assertEqual(len(result["categories"]), len({category for _, category in memberships}))
+        self.assertEqual(result["category_memberships"], len(memberships))
+        self.assertEqual({(p['url'], category) for p in result['projects'] for category in p['categories']}, memberships)
+        self.assertEqual(sum(len(item["categories"]) for item in result["projects"]), len(memberships))
+        self.assertEqual(sum(item["count"] for item in result["categories"]), len(memberships))
+        self.assertEqual({p['url'] for p in result['projects'] if p['alternatives']},
+                         {catalog.canonical_url(p['readme_url']) for p in alternatives['projects']} & urls)
+        self.assertEqual({p['url'] for p in result['projects'] if p['hn']},
+                         {catalog.canonical_url(p['readme_url']) for p in evidence['projects'] if p['eligible']} & urls)
         by_url = {item["url"]: item for item in result["projects"]}
         for row in source.splitlines():
             match = catalog.readme.ENTRY.fullmatch(row)

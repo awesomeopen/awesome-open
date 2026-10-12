@@ -45,9 +45,9 @@ python3 scripts/render_readme.py --output tmp/readme-preview/README.md
 
 Open the generated Markdown with a Markdown viewer; the adjacent `assets/hn` directory keeps chart links intact. Pull requests run the same tests and upload a downloadable README preview artifact with its assets and a diff against the checked-in README. The checked-in README is expected to lag while a source-only PR is reviewed; checks validate the preview instead of requiring a clean README diff. New entries can be reviewed without network access or credentials. A missing metrics record omits statistics and ranking for that entry until collection succeeds. HN identity-map-only edits use the previous cached evidence in an offline preview; their new matching rules take effect when the publisher refreshes evidence after merge. The snapshot's `as_of` UTC date controls stale-date emphasis, so a preview is reproducible on any day.
 
-[Publish generated README](.github/workflows/update-stats.yml) is the single publisher. It runs after relevant source/evidence/code merges or direct main commits, daily at 00:00 UTC, and on manual dispatch. Within one serialized job it fetches fresh `main`, collects metrics and (when needed) HN evidence, refreshes due optional website signals, renders, runs all tests and an offline reproduction check, then commits generated paths only. If main advances, it regenerates from the newest source before retrying an ordinary fast-forward push. It never force-pushes or writes curated source. A contributor's source commit is live only after this publisher succeeds.
+[Publish README and field guide](.github/workflows/update-stats.yml) is the single serialized publisher. It runs after relevant source/evidence/code merges or direct main commits, daily at 00:00 UTC, and on manual dispatch. Within one serialized job it fetches fresh `main`, collects metrics and (when needed) HN evidence, refreshes due optional website signals, renders, runs all tests and an offline reproduction check, then commits generated paths only. If main advances, it regenerates from the newest source before retrying an ordinary fast-forward push. It never force-pushes or writes curated source. A contributor's source commit reaches the generated README after publication succeeds, and the public website after its dependent Pages deployment succeeds.
 
-The publisher performs its own verification before committing; it does not depend on a `GITHUB_TOKEN` push triggering another workflow. The built-in `GITHUB_TOKEN` needs only the existing repository-content write permission; no personal token or new secret is required. Review any repository branch rules separately if they prevent bot pushes. Failed core collection leaves previously published content intact and fails visibly rather than publishing partial metrics. Ordinary upstream failures for optional website signals preserve their last-good evidence and do not prevent core README publication; corrupt local snapshots, invalid schemas, and identity mismatches still fail visibly.
+The publisher performs its own verification before committing; it does not depend on a `GITHUB_TOKEN` push triggering another workflow. The collection/build job uses the existing `GITHUB_TOKEN` repository-content write permission. Only the separate `github-pages` deployment job has `pages: write` and `id-token: write`; it has no checkout or content-write permission. No personal token or new secret is required. Review any repository branch rules separately if they prevent bot pushes. Failed core collection leaves previously published content intact and fails visibly rather than publishing partial metrics. Ordinary upstream failures for optional website signals preserve their last-good evidence and do not prevent core README publication; corrupt local snapshots, invalid schemas, and identity mismatches still fail visibly.
 
 Content-only contributions must never commit generated README updates. Renderer/schema migrations may establish or update generated output together with their implementation, as this initial migration does. External curation jobs must switch to the source only after this migration is merged: daily discovery reads/deduplicates and edits `README.source.md`; alternatives discovery and accuracy review edit the source plus `data/alternatives.json` in their reviewed draft PRs. All three use the offline preview above and leave generated paths to the publisher.
 
@@ -68,7 +68,7 @@ The initial page contains every distinct project, sorted by name, even with Java
 
 Missing metadata and `NOASSERTION`/`OTHER` licenses remain unknown. Detected licenses are not independent legal review. Last-push dates are not “active” or “abandoned” labels, and stars are not quality rankings. No trending or lifecycle claims are inferred. Alternative evidence and HN chart semantics are unchanged from the README. Cross-listed projects retain every category; different projects sharing a name stay separate.
 
-Python tests include a complete offline site build, preservation/count checks, safe escaping, asset/evidence links, and deterministic output. When Node is installed, they also run `node --test site/test_catalog.js` for browser-independent filter and URL-state logic. Browser checks should additionally cover combined filters, empty results, repeated clear, pending search followed by Back/Forward, keyboard navigation, narrow mobile layout, and the no-JavaScript fallback. No workflow or deployment settings are changed by this preview implementation. An optional reusable browser smoke test is included at `scripts/check_site_browser.cjs`; with Playwright and Chromium installed, serve the site and run `SITE_URL=http://127.0.0.1:8000 node scripts/check_site_browser.cjs`. `CHROMIUM_PATH` can select an installed browser. It saves desktop/mobile screenshots under `tmp/site-qa/`. Browser QA is a separate check from the offline unit suite.
+Python tests include a complete offline site build, preservation/count checks, safe escaping, asset/evidence links, and deterministic output. When Node is installed, they also run `node --test site/test_catalog.js` for browser-independent filter and URL-state logic. Browser checks should additionally cover combined filters, empty results, repeated clear, pending search followed by Back/Forward, keyboard navigation, narrow mobile layout, and the no-JavaScript fallback. Pull requests upload a `field-guide-preview` artifact as well as the README preview. They do not deploy; publication runs only from `main`. An optional reusable browser smoke test is included at `scripts/check_site_browser.cjs`; with Playwright and Chromium installed, serve the site and run `SITE_URL=http://127.0.0.1:8000 node scripts/check_site_browser.cjs`. `CHROMIUM_PATH` can select an installed browser. It saves desktop/mobile screenshots under `tmp/site-qa/`. Browser QA is a separate check from the offline unit suite.
 
 ### Genus Open field-guide edition
 
@@ -100,9 +100,42 @@ specimen-sheet stacking are disabled for narrow screens and reduced-motion
 preferences; native scrolling, all records, links, and filters work without
 GSAP. `site/DESIGN.md` records the one-shot design intent and evidence boundaries.
 
-### Future publication boundary
+### GitHub Pages publication
 
-Publishing the website and enabling GitHub Pages are separate, approval-gated work. There is no site deployment workflow in this change. The current README publisher creates its generated commit in a detached worktree; a later website publisher must receive that explicitly returned published commit SHA, check out that exact SHA in a fresh/detached worktree, and build there. It must never build from the workflow’s earlier, potentially stale checkout or merely relabel old files with a new SHA. Pass `--source-sha "$PUBLISHED_SHA"` to the site builder only after verifying the build inputs are from that revision. `--source-sha` records caller-supplied provenance; it does not checkout or verify Git history itself. Without the argument the footer honestly says “Local preview (revision not supplied)”.
+The public field guide is published at
+[awesomeopen.github.io/awesome-open](https://awesomeopen.github.io/awesome-open/).
+Repository Settings → Pages → Build and deployment must use **GitHub Actions**.
+The workflow uses the `github-pages` environment and respects its existing
+protection rules; it does not change repository settings or create credentials.
+
+The existing publisher returns the exact accepted commit SHA, including when
+README and snapshots are already current, and exports it as `published_sha`.
+`scripts/build_published_site.py` fetches main, verifies that revision is on
+main, creates a fresh detached worktree of that exact revision, and runs the
+offline site builder there. It refuses a nonempty output directory to prevent
+stale files entering the artifact. The site's revision records its actual build
+inputs, never the workflow's older invoking checkout.
+
+After collection, validation and a successful build, the same workflow uploads
+`tmp/site` with `actions/upload-pages-artifact`. Its dependent Pages job deploys
+that artifact, using only `pages: write` and `id-token: write`. The workflow's
+existing concurrency lock spans publication, build, upload and deployment, so
+another run cannot overtake it. Site and HN asset edits trigger this publisher
+alongside source, evidence and code changes; daily and manual runs use the same
+path. No second publisher or `GITHUB_TOKEN`-push-triggered workflow is needed.
+A failure stops downstream deployment and leaves the previously deployed site
+in place. If README publication succeeded but a later build/deployment failed,
+README may be newer than the site; **re-run all jobs** after fixing the failure.
+Deployment-only retries are rejected by a recorded run-attempt check, preventing
+an old failed deployment from rolling back a newer published site. The deployment
+artifact name includes the run attempt, so a full rerun cannot select or collide
+with an earlier attempt's artifact. The deployment
+summary links the accepted catalog revision; GitHub's deployment event may label
+the earlier workflow-triggering revision instead.
+
+Local previews can still omit `--source-sha`, which honestly labels the footer
+“Local preview (revision not supplied)”. That flag alone records caller-supplied
+provenance; only the publication helper verifies and checks out the revision.
 
 ## Automated metadata
 

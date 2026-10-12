@@ -7,11 +7,13 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
 
 import publish_readme as publisher
+import build_published_site as site_publisher
 
 
 STATS_SCRIPT = '''from pathlib import Path
@@ -69,6 +71,22 @@ class Checks(unittest.TestCase):
         self.assertTrue((root / 'README.md').read_text().startswith((root / 'README.source.md').read_text()))
 '''
 
+SITE_SCRIPT = '''import argparse
+import json
+from pathlib import Path
+import subprocess
+root = Path(__file__).resolve().parents[1]
+parser = argparse.ArgumentParser()
+parser.add_argument('--source-sha', required=True)
+parser.add_argument('--output', required=True, type=Path)
+args = parser.parse_args()
+assert subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip() == args.source_sha
+assert subprocess.run(['git', 'symbolic-ref', '-q', 'HEAD'], cwd=root, capture_output=True).returncode == 1
+args.output.mkdir(parents=True, exist_ok=True)
+(args.output / 'index.html').write_text((root / 'README.source.md').read_text())
+(args.output / 'catalog.json').write_text(json.dumps({'source_sha': args.source_sha}))
+'''
+
 
 @unittest.skipUnless(shutil.which('git'), 'Git is required for publisher integration tests')
 class PublisherGitTests(unittest.TestCase):
@@ -95,6 +113,7 @@ class PublisherGitTests(unittest.TestCase):
             'scripts/update_signals.py': SIGNALS_SCRIPT,
             'scripts/render_readme.py': RENDER_SCRIPT,
             'scripts/test_fixture.py': CHECK_SCRIPT,
+            'scripts/build_site.py': SITE_SCRIPT,
         }
         for name, text in files.items():
             target = self.actor / name
@@ -290,8 +309,59 @@ class PublisherGitTests(unittest.TestCase):
 
     def test_repeated_run_with_unchanged_output_is_noop(self):
         first = publisher.publish(self.checkout)
-        self.assertIsNone(publisher.publish(self.checkout))
+        self.assertEqual(publisher.publish(self.checkout), first)
         self.assertEqual(self.remote_head(), first)
+        self.assert_worktree_removed()
+
+    def test_site_build_uses_accepted_revision_not_dirty_or_newer_checkout(self):
+        accepted = publisher.publish(self.checkout)
+        self.advance_source('A newer source after accepted publication.\n')
+        (self.checkout / 'README.source.md').write_text('Unpublished local work.\n')
+        self.git(self.checkout, 'add', 'README.source.md')
+        before = self.git(self.checkout, 'status', '--porcelain')
+        output = self.root / 'site'
+        site_publisher.build_published_site(accepted, output, root=self.checkout)
+        self.assertEqual((output / 'index.html').read_text(), 'Initial curated row.\n')
+        self.assertEqual(json.loads((output / 'catalog.json').read_text())['source_sha'], accepted)
+        self.assertEqual(self.git(self.checkout, 'rev-parse', 'HEAD'), self.initial)
+        self.assertEqual(self.git(self.checkout, 'status', '--porcelain'), before)
+        self.assert_worktree_removed()
+
+    def test_site_build_works_after_noop_publication(self):
+        publisher.publish(self.checkout)
+        accepted = publisher.publish(self.checkout)
+        output = self.root / 'site'
+        site_publisher.build_published_site(accepted, output, root=self.checkout)
+        self.assertEqual(json.loads((output / 'catalog.json').read_text())['source_sha'], accepted)
+        self.assert_worktree_removed()
+
+    def test_site_build_rejects_unpublished_revision(self):
+        (self.checkout / 'README.source.md').write_text('Not yet published.\n')
+        self.git(self.checkout, 'add', 'README.source.md')
+        self.git(self.checkout, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid',
+                 'commit', '-m', 'Unpublished fixture')
+        sha = self.git(self.checkout, 'rev-parse', 'HEAD')
+        with self.assertRaisesRegex(RuntimeError, 'not on main'):
+            site_publisher.build_published_site(sha, self.root / 'site', root=self.checkout)
+        self.assertFalse((self.root / 'site').exists())
+        self.assert_worktree_removed()
+
+    def test_site_build_refuses_stale_output_directory(self):
+        output = self.root / 'site'
+        output.mkdir()
+        (output / 'stale.html').write_text('Old artifact')
+        with self.assertRaisesRegex(ValueError, 'must be empty'):
+            site_publisher.build_published_site(self.initial, output, root=self.checkout)
+        self.assertEqual((output / 'stale.html').read_text(), 'Old artifact')
+        self.assert_worktree_removed()
+
+    def test_site_build_failure_removes_worktree_and_propagates(self):
+        (self.actor / 'scripts/build_site.py').write_text('raise RuntimeError("broken build")\n')
+        self.git(self.actor, 'add', 'scripts/build_site.py')
+        self.git(self.actor, 'commit', '-m', 'Broken build fixture')
+        self.git(self.actor, 'push', 'origin', 'main')
+        with self.assertRaisesRegex(RuntimeError, 'Command failed'):
+            site_publisher.build_published_site(self.remote_head(), self.root / 'site', root=self.checkout)
         self.assert_worktree_removed()
 
     def test_continuously_advancing_main_fails_without_stale_push(self):
@@ -313,6 +383,25 @@ class PublisherGitTests(unittest.TestCase):
 
 
 class PublisherScopeTests(unittest.TestCase):
+    def test_cli_exports_only_successfully_published_sha(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'github-output'
+            with patch.dict(os.environ, {'GITHUB_OUTPUT': str(output)}), patch.object(sys, 'argv', ['publisher']):
+                with patch.object(publisher, 'publish', return_value='a' * 40):
+                    publisher.main()
+                self.assertEqual(output.read_text(), 'published_sha=' + 'a' * 40 + '\n')
+                with patch.object(publisher, 'publish', side_effect=RuntimeError('failed')):
+                    with self.assertRaises(SystemExit):
+                        publisher.main()
+                self.assertEqual(output.read_text(), 'published_sha=' + 'a' * 40 + '\n')
+
+    def test_site_rejects_non_sha_input_before_fetch(self):
+        for sha in ['main', '', 'a' * 39, 'A' * 40, '--help']:
+            with self.subTest(sha=sha), patch.object(site_publisher, 'latest_main') as fetch:
+                with self.assertRaisesRegex(ValueError, 'full lowercase'):
+                    site_publisher.build_published_site(sha, '/tmp/not-used')
+                fetch.assert_not_called()
+
     def test_generated_scope_is_explicit(self):
         for name in ['README.md', 'data/github_metrics.json', 'data/hn_evidence.json',
                      'data/project_signals.json', 'assets/hn/project.svg']:
@@ -353,6 +442,31 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertNotIn('git push', text)
         self.assertNotIn('--force', text)
         self.assertNotIn('scripts/update_stats.py', text)
+
+    def test_pages_build_and_deployment_stay_in_same_serialized_workflow(self):
+        text = (publisher.ROOT / '.github/workflows/update-stats.yml').read_text()
+        for snippet in ["'site/**'", "'assets/hn/**'", 'id: publish',
+                        'steps.publish.outputs.published_sha', 'scripts/build_published_site.py',
+                        'actions/upload-pages-artifact@v3', 'path: tmp/site',
+                        'name: github-pages-${{ github.run_attempt }}',
+                        'artifact_name: github-pages-${{ github.run_attempt }}',
+                        'needs: publish-readme', 'actions/deploy-pages@v4',
+                        'build_attempt: ${{ steps.publish.outputs.build_attempt }}',
+                        'echo "build_attempt=$GITHUB_RUN_ATTEMPT" >> "$GITHUB_OUTPUT"',
+                        'BUILD_ATTEMPT: ${{ needs.publish-readme.outputs.build_attempt }}',
+                        'if [ "$BUILD_ATTEMPT" != "$GITHUB_RUN_ATTEMPT" ]; then',
+                        'Re-run all jobs', 'GITHUB_STEP_SUMMARY',
+                        'name: github-pages', "if: github.ref == 'refs/heads/main'"]:
+            self.assertIn(snippet, text)
+        build, deploy = text.split('  deploy-pages:')
+        self.assertNotIn('pages: write', build)
+        self.assertNotIn('id-token: write', build)
+        self.assertIn('contents: write', build)
+        self.assertIn('pages: write', deploy)
+        self.assertIn('id-token: write', deploy)
+        self.assertNotIn('contents: write', deploy)
+        self.assertNotIn('actions/checkout', deploy)
+        self.assertNotIn('workflow_run:', text)
 
 
 if __name__ == '__main__':

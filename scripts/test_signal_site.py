@@ -52,7 +52,8 @@ class SignalSiteTests(unittest.TestCase):
         with patch('urllib.request.urlopen',side_effect=AssertionError('No network')):
             catalog=self.catalog(self.optional)
         self.assertEqual(self.optional,before)
-        self.assertEqual((len(catalog['projects']),catalog['category_memberships']),(370,392))
+        self.assertEqual((len(catalog['projects']),catalog['category_memberships']),
+                         (len(baseline['projects']),baseline['category_memberships']))
         self.assertEqual([(p['id'],p['categories'],p['github']) for p in baseline['projects']],
                          [(p['id'],p['categories'],p['github']) for p in catalog['projects']])
         found=[p for p in catalog['projects'] if p['signals']]

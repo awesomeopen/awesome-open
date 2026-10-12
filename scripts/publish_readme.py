@@ -9,6 +9,7 @@ The invoking checkout (including any local curated edits) is never reset.
 """
 
 import argparse
+import os
 from pathlib import Path, PurePosixPath
 import subprocess
 import sys
@@ -119,7 +120,7 @@ def publish(root=ROOT, max_attempts=5):
                     continue
                 if not changed:
                     print("README and snapshots are already current.", flush=True)
-                    return None
+                    return base
                 git(worktree, "--literal-pathspecs", "add", "--all", "--", *sorted(changed))
                 # Set identity only for this commit, without changing the user's
                 # repository or global Git configuration.
@@ -155,7 +156,12 @@ def main():
     if args.max_attempts < 1:
         parser.error("--max-attempts must be positive")
     try:
-        publish(max_attempts=args.max_attempts)
+        published_sha = publish(max_attempts=args.max_attempts)
+        # Expose only the accepted revision, including an already-current main.
+        # Deployment must check out this revision, not the invoking checkout.
+        if output := os.environ.get("GITHUB_OUTPUT"):
+            with open(output, "a", encoding="utf-8") as stream:
+                stream.write(f"published_sha={published_sha}\n")
     except (RuntimeError, OSError) as error:
         raise SystemExit(str(error)) from error
 
