@@ -22,6 +22,7 @@
 .jar-central .jar-shadow {width:48%;left:26%;}
 .jar-select {position:absolute;inset:10px 0 8px;width:100%;border:0;background:transparent;z-index:3;border-radius:0;}
 .jar-select:hover {background:transparent;}
+.jar-select {-webkit-tap-highlight-color:transparent;}
 .jar-caption {position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:15px;white-space:nowrap;pointer-events:none;}
 .jar-caption>span {font:12px var(--mono);color:var(--muted);margin-right:5px;}
 .jar-annotation {position:absolute;z-index:6;left:68%;top:32%;width:250px;padding:14px 16px;background:rgb(255 255 255 / .96);border-left:1px solid var(--rs-scarlet);box-shadow:8px 8px 24px #0b25460a;}
