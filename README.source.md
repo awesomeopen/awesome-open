@@ -23,11 +23,13 @@
 | [OpenAgentCore](https://github.com/MiniMax-AI/OpenAgentCore) | Self-hosted implementation of the OpenAI Agents API with multiple agent harnesses. |
 | [OpenArchEvo](https://github.com/Optima-CityU/OpenArchEvo) | Neural architecture search framework that combines LLM-written model programs with population-based evolution. |
 | [OpenAssistant](https://github.com/LAION-AI/Open-Assistant) | Chat assistant that handles tasks, interacts with external systems, and retrieves information. |
+| [OpenAttention](https://github.com/hyunwoo137/OpenAttention) | Sparse-attention implementation that combines selected key-value tokens with cluster proxies during language-model inference. |
 | [Open-AutoGLM](https://github.com/zai-org/Open-AutoGLM) | AI models and framework for phone automation. |
 | [OpenBot](https://github.com/regnull/openbot) | Self-hosted platform for persistent AI bots with shared conversations, tools, memory, and workflows. |
 | [Open Canvas](https://github.com/langchain-ai/open-canvas) | Web application for writing documents and editing code collaboratively with AI agents. |
 | [OpenCharm](https://github.com/opencharm-labs/opencharm) | macOS desktop companion for AI agents with animated status faces, push-to-talk input, and spoken replies. |
 | [OpenChat](https://github.com/imoneoi/openchat) | Language-model library with fine-tuning and serving tools for models trained on mixed-quality data. |
+| [OpenClaude Desktop](https://github.com/oleyyu/OpenClaudeDesktop) | macOS coding-assistant application with configurable model providers, project sessions, file editing, terminal access, and change previews. |
 | [OpenClaw](https://github.com/openclaw/openclaw) | Personal AI assistant that runs on your devices and connects to messaging apps. |
 | [OpenCLIP](https://github.com/mlfoundations/open_clip) | Implementation of CLIP for learning image and text representations. |
 | [OpenCode](https://github.com/anomalyco/opencode) | AI coding agent for the terminal. |
@@ -42,6 +44,7 @@
 | [OpenDots](https://github.com/CopilotKit/OpenDots) | Self-hostable template for persistent AI agents with individual computers, document workspaces, text, calls, and Slack. |
 | [OpenFace](https://github.com/cmusatyalab/openface) | Face recognition with deep neural networks. |
 | [OpenFang](https://github.com/RightNow-AI/openfang) | Rust runtime for autonomous AI agents with scheduled tasks, persistent memory, messaging integrations, and a web dashboard. |
+| [OpenFeed](https://github.com/noemauser/OpenFeed) | Python library and command-line tools for exchanging searchable knowledge packs and messages among AI agents. |
 | [OpenFoundry](https://github.com/bsamud/openfoundry-agentic-framework) | AI-agent orchestration framework with DAG workflows, model routing, guardrails, and observability. |
 | [OpenFox](https://github.com/co-l/openfox) | Coding assistant for local language models with planning, implementation, and verification workflows. |
 | [Opengeni](https://github.com/Cloudgeni-ai/opengeni) | Service for running AI agents with durable sessions, replayable histories, human approvals, and managed execution environments. |
@@ -53,8 +56,10 @@
 | [Open Interpreter](https://github.com/openinterpreter/openinterpreter) | Coding agent for running open language models.<br>Alternative to: [Codex](https://www.openinterpreter.com/docs/terminal/migrate) |
 | [OpenJarvis](https://github.com/open-jarvis/OpenJarvis) | Framework for building and evaluating local-first personal AI agents. |
 | [OpenLLM](https://github.com/bentoml/OpenLLM) | Serve language models through OpenAI-compatible API endpoints. |
+| [Open-LLM-VTuber](https://github.com/Open-LLM-VTuber/Open-LLM-VTuber) | AI companion with voice conversations, visual input, and Live2D avatars, supporting local and hosted language and speech models. |
 | [OpenLumara](https://github.com/Rose22/openlumara) | Local-first Python AI agent framework with modular tools, memory, scheduling, and browser, terminal, and messaging interfaces. |
 | [OpenManus](https://github.com/FoundationAgents/OpenManus) | General-purpose AI agent with browser automation and tool support. |
+| [openmoss-ggml](https://github.com/pwilkin/openmoss) | C++ and GGML runtime for MOSS speech and sound-effect models, with command-line synthesis, an HTTP server, and a web interface. |
 | [OpenMuse](https://github.com/CopilotKit/openmuse) | Personal-agent application with a persistent browser, terminal, files, and background tasks. |
 | [OpenMyMemo](https://github.com/MyMemoAI/openmymemo) | Local Markdown memory store shared by AI apps through MCP, with a review panel, change history, and undo. |
 | [OpenNLP](https://github.com/apache/opennlp) | Java toolkit for natural language processing. |
@@ -89,10 +94,12 @@
 | [OpenAPI TypeScript](https://github.com/openapi-ts/openapi-typescript) | Generate TypeScript types from OpenAPI 3 specifications. |
 | [OpenBarcode](https://github.com/InPoint-Cloud/OpenBarcode) | .NET library and command-line tool for reading barcodes from images and PDFs using managed code. |
 | [open-bridge](https://github.com/bks-lab/open-bridge) | Git-backed workspace of context, tasks, and skills used by coding-agent command-line tools. |
+| [OpenChamber](https://github.com/openchamber/openchamber) | Desktop, web, mobile, and VS Code workspace for running and reviewing AI coding sessions powered by OpenCode. |
 | [OpenCLI](https://github.com/jackwener/OpenCLI) | Turn websites into command-line tools using an authenticated browser. |
 | [OpenCode](https://github.com/anomalyco/opencode) | AI coding agent for the terminal. |
 | [Open Codex](https://github.com/codingmoh/open-codex) | Terminal AI assistant that generates shell commands from natural-language requests using local models and Ollama. |
 | [Open Components](https://github.com/uxfront-com/open-components) | MCP server and reference implementations for building and reviewing UI components against documented rules and contracts. |
+| [OpenContextEngine](https://github.com/AnnaSuSu/OpenContextEngine) | Self-hostable code-search engine that supplies AI agents with source snippets through MCP using semantic, keyword, and code-relationship search. |
 | [OpenCover](https://github.com/OpenCover/opencover) | Code coverage tool for .NET on Windows. |
 | [Open Design Agent Kit](https://github.com/feimacode/open-design-agent-kit) | Extensions and MCP tools that add UI design workflows, templates, and design systems to coding agents. |
 | [OpenDex](https://github.com/dogmastr/OpenDex) | Roblox explorer and script-analysis suite with Luau navigation, flowcharts, and runtime inspection. |
@@ -110,6 +117,8 @@
 | [Open Lovable](https://github.com/firecrawl/open-lovable) | AI chat application for building and editing React apps. |
 | [OpenMemory](https://github.com/mem0ai/openmemory) | CLI and terminal interface for transferring coding sessions between Claude Code, Codex, and OpenCode. |
 | [OpenNavo](https://github.com/opennavo/OpenNavo) | Web catalog and macOS application for discovering, installing, updating, and removing Homebrew Cask applications. |
+| [OpenQodex](https://github.com/openqodex/openqodex) | Local code-review tool combining static scanners with an independent Claude Code or Codex reviewer and optional pre-push checks. |
+| [OpenRAR](https://github.com/Scoheart/OpenRAR) | macOS workflow recorder that turns demonstrated actions into reusable skills for Pi and Qoder. |
 | [OpenReplay](https://github.com/openreplay/openreplay) | Self-hostable session replay, product analytics, and live co-browsing for debugging applications and understanding user behavior. |
 | [OpenRewrite](https://github.com/openrewrite/rewrite) | Automated refactoring of source code. |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
@@ -153,6 +162,7 @@
 | [openstatus](https://github.com/openstatusHQ/openstatus) | Uptime monitoring, status pages, and incident management with infrastructure-as-code configuration.<br>Alternative to: [UptimeRobot](https://www.openstatus.dev/compare/uptime-robot), [Better Stack](https://www.openstatus.dev/compare/betterstack), [Status.io](https://www.openstatus.dev/compare/statusio) |
 | [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-collector) | Collect, process, and export telemetry data. |
 | [OpenTofu](https://github.com/opentofu/opentofu) | Declarative infrastructure-as-code tooling.<br>Alternative to: [Terraform](https://opentofu.org/docs/intro/migration/migration-guide/) |
+| [OpenUptime](https://github.com/becoolme/openuptime) | Uptime monitoring, incident alerts, and public status pages for self-hosted or managed deployments. |
 | [Open vSwitch](https://github.com/openvswitch/ovs) | Multilayer virtual network switch. |
 | [OpenWorkers](https://github.com/openworkers/openworkers-runner) | Self-hosted runtime for JavaScript workers with HTTP endpoints and scheduled tasks. |
 | [OpenYurt](https://github.com/openyurtio/openyurt) | Extend Kubernetes to edge computing environments. |
@@ -195,6 +205,7 @@
 | [OpenSSL](https://github.com/openssl/openssl) | General-purpose TLS and cryptography library. |
 | [OpenStego](https://github.com/syvaidya/openstego) | Hide data inside images and create invisible image watermarks. |
 | [OpenTAXII](https://github.com/eclecticiq/OpenTAXII) | Python server implementation of TAXII for exchanging threat intelligence. |
+| [OpenTimestamps Client](https://github.com/opentimestamps/opentimestamps-client) | Command-line tool for creating and verifying Bitcoin-backed timestamp proofs for files and signed Git commits. |
 | [OpenVAS Scanner](https://github.com/greenbone/openvas-scanner) | Vulnerability scanning engine for Greenbone. |
 | [OpenVPN](https://github.com/OpenVPN/openvpn) | VPN daemon for encrypted network tunnels. |
 | [OpenWAAP](https://github.com/cveburak/OpenWAAP) | Self-hosted web application firewall with bot management, API request validation, rate limiting, and an admin console. |
@@ -236,8 +247,11 @@
 | [OpenDictate](https://github.com/hkumarsaikia/OpenDictate) | Linux voice dictation with local Whisper transcription and cloud AI providers. |
 | [OpenFamily](https://github.com/NexaFlowFrance/OpenFamily) | Self-hosted family organizer. |
 | [OpenHabitTracker](https://github.com/Jinjinov/OpenHabitTracker) | Cross-platform Markdown notes, task planning, and habit tracking with optional self-hosted synchronization. |
+| [OpenMD](https://github.com/MuLiuSaMa/OpenMD) | Desktop Markdown reader and editor with tabbed documents, rendered and source views, outline navigation, and visual editing. |
+| [OpenNotchi](https://github.com/nannndev/OpenNotchi) | macOS notch panel for media controls, clipboard history, file sharing, calendar events, and timers. |
 | [OpenOffice](https://www.openoffice.org) | Office suite for documents, spreadsheets, presentations, and databases. |
 | [openOfficetab](https://github.com/xlennart/openOfficetab) | Windows Office add-in that provides document tabs and window management for Word, Excel, and PowerPoint. |
+| [OpenPaste](https://github.com/SwallOwDili/OpenPaste) | macOS clipboard manager with searchable history, favorites, paste queues, image-text extraction, and optional translation. |
 | [openPDF](https://github.com/ej3mpl0/openPDF) | Native Linux PDF application and command-line tools for viewing, organizing, converting, and signing documents. |
 | [OpenProject](https://github.com/opf/openproject) | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) |
 | [Open Receipt OCR](https://github.com/iursevla/open-receipt-ocr) | Self-hosted receipt and document OCR with a web interface, job management, and local or cloud engines. |
@@ -267,6 +281,7 @@
 | [OpenEduCat](https://github.com/openeducat/openeducat_erp) | ERP for educational institutions. |
 | [OpenEvents](https://github.com/clawnify/OpenEvents) | Event-networking app template for agent-assisted attendee research, approved outreach, reply tracking, and meeting records. |
 | [openheard](https://github.com/Heilonng23/openheard) | Customer feedback boards with voting, roadmaps, and changelog publishing. |
+| [OpenKuasa OS](https://github.com/OpenKuasa/OpenKuasaOS) | Early-stage business-application prototype with CRM, HR, recruiting, advertising, and accounting interfaces running on sample data. |
 | [OpenLaunch](https://github.com/Securiteru/openlaunch) | Agent-driven product-launch toolkit with submission playbooks and a local progress tracker. |
 | [OpenLoc](https://openloc.com/) | Enterprise translation management software with configurable AI workflows, integrations, dashboards, and MCP access. |
 | [OpenMage](https://github.com/OpenMage/magento-lts) | E-commerce platform continuing Magento Community Edition. |
@@ -315,6 +330,7 @@
 | [OpenSIPS](https://github.com/OpenSIPS/opensips) | SIP server for voice and real-time communications. |
 | [Open Social](https://github.com/goalgorilla/open_social) | Drupal distribution for online communities. |
 | [OpenTalk](https://opentalk.eu/en) | Video conferencing platform for organizations. |
+| [OpenTogetherTube](https://github.com/dyc3/opentogethertube) | Shared video-watching application with synchronized playback, text chat, voting, and configurable room permissions. |
 | [Open Trashmail](https://github.com/HaschekSolutions/opentrashmail) | Self-hosted disposable-email server with a web interface, JSON API, RSS feeds, and webhooks. |
 | [OpenVK](https://github.com/OpenVK/openvk) | Social network inspired by VK. |
 | [OpenWA](https://github.com/rmyndharis/OpenWA) | Self-hosted WhatsApp API gateway with multiple sessions, webhooks, and a management dashboard. |
@@ -325,8 +341,10 @@
 | --- | --- |
 | [OpenAL Soft](https://github.com/kcat/openal-soft) | Cross-platform implementation of the OpenAL 3D audio API. |
 | [OpenAudible](https://openaudible.org) | Desktop audiobook manager for downloading, organizing, playing, and converting Audible libraries. |
+| [OpenBRender](https://github.com/GPTchatly/OpenBRender) | Browser-based scientific figure editor with vector artwork, editable charts, statistical comparisons, portable projects, and image and PDF export. |
 | [Open Broadcaster Software (OBS Studio)](https://github.com/obsproject/obs-studio) | Live streaming and screen recording. |
 | [Open Brush](https://github.com/icosa-foundation/open-brush) | Virtual reality painting application descended from Tilt Brush. |
+| [Open Camera](https://opencamera.org.uk/) | Android camera application with manual controls, RAW capture, HDR, panoramas, and video recording. |
 | [OpenCineAgent](https://github.com/ProgramaGrueso/OpenCineAgent) | Local-model film production pipeline coordinating scripts, video generation, quality checks, audio, and editing. |
 | [OpenColorIO](https://github.com/AcademySoftwareFoundation/OpenColorIO) | Color management framework for visual effects and animation. |
 | [OpenComic](https://github.com/ollm/OpenComic) | Comic and manga reader. |
@@ -335,10 +353,12 @@
 | [OpenCull](https://github.com/NatePhotos/OpenCull) | Desktop photo-culling application with RAW previews, ratings and labels, face analysis, and burst comparisons. |
 | [OpenCut](https://github.com/OpenCut-app/OpenCut) | Video editor for web, desktop, and mobile.<br>Alternative to: [CapCut](https://github.com/OpenCut-app/OpenCut) |
 | [OpenDAM](https://github.com/LawLaw09/OpenDAM) | Local-first digital asset manager for organizing and previewing 3D, CAD, and design files. |
+| [openDAW](https://github.com/andremichelle/openDAW) | Browser-based digital audio workstation for recording, arranging, and producing music. |
 | [OpenDesign](https://github.com/nexu-io/open-design) | Collaborative design workspace powered by coding agents. |
 | [OpenDLSS-NR](https://github.com/maanHimself/OpenDLSS-NR) | Vulkan and WebGPU implementations of a DLSS neural-rendering network using user-supplied weights. |
 | [OpenDVR](https://github.com/McGeaverBeaver/OpenDVR) | Self-hosted live-TV and DVR server for HDHomeRun tuners, with shared streams, pause and rewind, and scheduled recordings. |
 | [OpenEXR](https://github.com/AcademySoftwareFoundation/openexr) | Libraries and tools for high dynamic range EXR images. |
+| [OpenFilm](https://github.com/openfilm/openfilm) | Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration. |
 | [openFrameworks](https://github.com/openframeworks/openFrameworks) | Cross-platform C++ toolkit for creative coding. |
 | [OpenImageIO](https://github.com/AcademySoftwareFoundation/OpenImageIO) | Image reading, writing, and processing library for visual effects. |
 | [OpenLP](https://openlp.org) | Worship presentation software for lyrics, scripture, images, and video. |
@@ -350,12 +370,14 @@
 | [OpenPhoto](https://github.com/yuanzhixiang/openphoto) | macOS image editor with layered PSD support, selection tools, retouching, and filters. |
 | [OpenReel Video](https://github.com/Augani/openreel-video) | Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects. |
 | [OpenRV](https://github.com/AcademySoftwareFoundation/OpenRV) | Media review and playback software. |
+| [OpenScissors](https://github.com/L-at-nnes/OpenScissors) | Desktop photo background remover with AI cut-outs, brush corrections, compositing, and batch export. |
 | [OpenScreen](https://github.com/getopenscreen/openscreen) | Screen recording and editing for product demos and walkthroughs.<br>Alternative to: [Screen Studio](https://getopenscreen.com/alternatives/screen-studio/), [Camtasia](https://getopenscreen.com/alternatives/camtasia/) |
 | [OpenShot](https://github.com/OpenShot/openshot-qt) | Video editor with animation, compositing, and audio mixing. |
 | [OpenSkitch](https://github.com/shoemoney/OpenSkitch) | Native macOS screenshot and image-annotation application reconstructing Skitch 1.0.12. |
 | [OpenSong](https://opensong.org) | Song management and presentation software for chords and lyrics. |
 | [Open Stage Control](https://openstagecontrol.ammd.net) | Modular OSC and MIDI controller. |
 | [OpenSubdiv](https://github.com/PixarAnimationStudios/OpenSubdiv) | Subdivision surface library. |
+| [OpenSV](https://github.com/MetaMikuAI/OpenSV) | Command-line tools and a local interface for training singing-voice models and rendering songs. |
 | [OpenTeleprompt](https://github.com/ArunNGun/openTeleprompt) | Voice-activated teleprompter for macOS. |
 | [OpenTimelineIO](https://github.com/AcademySoftwareFoundation/OpenTimelineIO) | API and interchange tools for editorial timelines. |
 | [OpenToonz](https://github.com/opentoonz/opentoonz) | 2D animation production software. |
@@ -388,13 +410,16 @@
 | [OpenFront.io](https://github.com/openfrontio/OpenFrontIO) | Browser-based real-time strategy game with territorial control, structures, and alliances. |
 | [OpenHuey](https://github.com/ArnautDaniel/OpenHuey) | In-progress Haunting Ground decompilation, PC port, and actor-based rewrite requiring the original game data. |
 | [OpenJazz](https://github.com/AlisterT/openjazz) | Engine for the original Jazz Jackrabbit games. |
+| [OpenLara](https://github.com/XProger/OpenLara) | Classic Tomb Raider engine reimplementation with browser and standalone builds. |
 | [OpenLoco](https://github.com/OpenLoco/OpenLoco) | Reimplementation of Chris Sawyer's Locomotion. |
 | [OpenMoHAA](https://github.com/openmoh/openmohaa) | Reimplementation of Medal of Honor: Allied Assault and its expansions. |
 | [openMSX](https://github.com/openMSX/openMSX) | MSX home computer emulator. |
 | [OpenMW](https://github.com/OpenMW/openmw) | Role-playing game engine supporting Morrowind. |
 | [OpenNOW PS5](https://github.com/OpenCloudGaming/OpenNOW-PS5) | GeForce NOW streaming client for PlayStation 5 consoles that support native homebrew. |
 | [openOMSI](https://github.com/openOMSI-Project/openOMSI) | Rust recreation of the OMSI 2 bus simulator that requires the original game's content. |
+| [Open Poseidon Engine](https://github.com/koosoli/OpenPoseidon) | Community continuation of the Operation Flashpoint and Arma: Cold War Assault engine with modern rendering, physics, and terrain editing, requiring original game data. |
 | [OpenRA](https://github.com/OpenRA/OpenRA) | Real-time strategy engine for classic Westwood games. |
+| [OpenRAC](https://github.com/OpenRAC/OpenRAC) | In-progress Ratchet & Clank decompilation and native-PC-port project with a launcher and level editor, requiring original game discs. |
 | [OpenRCT2](https://github.com/OpenRCT2/OpenRCT2) | Reimplementation of RollerCoaster Tycoon 2. |
 | [OpenSAGE](https://github.com/OpenSAGE/OpenSAGE) | Reimplementation of the SAGE real-time strategy engine. |
 | [OpenSpeedy](https://github.com/game1024/OpenSpeedy) | Game speed controller for Windows. |
@@ -452,6 +477,7 @@
 | [OpenFermion](https://github.com/quantumlib/OpenFermion) | Compile and analyze quantum algorithms for fermionic systems. |
 | [OpenFOAM](https://github.com/OpenFOAM/OpenFOAM-dev) | Computational fluid dynamics software. |
 | [OpenIPSL](https://github.com/OpenIPSL/OpenIPSL) | Modelica component library for power-system dynamic analysis. |
+| [OpenLayout](https://github.com/vhdani04/OpenLayout) | Custom-IC design environment combining schematic capture, circuit simulation, layout, design-rule checks, and parasitic extraction for ASAP7. |
 | [OpenMC](https://github.com/openmc-dev/openmc) | Monte Carlo particle transport simulation. |
 | [OpenMDAO](https://github.com/OpenMDAO/OpenMDAO) | Python platform for systems analysis and multidisciplinary optimization. |
 | [Open-Meteo](https://github.com/open-meteo/open-meteo) | Weather API providing forecasts and historical weather data. |
@@ -549,6 +575,7 @@
 | [openHAB](https://www.openhab.org) | Vendor-neutral home automation platform. |
 | [openHASP](https://github.com/HASwitchPlate/openHASP) | Customizable touchscreen controls for home automation over MQTT. |
 | [Open Lighting Architecture](https://github.com/OpenLightingProject/ola) | Framework for controlling entertainment lighting equipment. |
+| [OpenMijia](https://github.com/HZDavy/OpenMijia) | Unofficial Windows client for monitoring and controlling Xiaomi Mijia smart-home devices. |
 | [OpenMQTTGateway](https://github.com/1technophile/OpenMQTTGateway) | Bridge wireless devices and sensors to MQTT. |
 | [OpenRemote](https://github.com/openremote/openremote) | IoT platform for device management, automation, and analytics. |
 | [OpenSprinkler](https://github.com/OpenSprinkler/OpenSprinkler-Firmware) | Irrigation-controller firmware for OpenSprinkler devices. |
