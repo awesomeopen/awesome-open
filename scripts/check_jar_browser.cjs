@@ -26,7 +26,7 @@ const assert=require('node:assert/strict');
  await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
  assert.ok(await page.locator('.jar-central .jar-uplight').evaluate(n=>Number(getComputedStyle(n).opacity)>.95));
  assert.notEqual(await page.locator('.jar-central .jar-lid').evaluate(n=>getComputedStyle(n).transform),'none');
- assert.equal(await page.locator('.jar-central .jar-steam').evaluate(n=>getComputedStyle(n).animationName),'steam-envelope');
+ assert.equal(await page.locator('.jar-central .steam-strand').first().evaluate(n=>getComputedStyle(n).animationName),'steam-fade');
  await page.screenshot({path:'tmp/site-qa/jars-tilt.png'});
  assert.equal(await page.locator('.specimen-idle').first().evaluate(n=>getComputedStyle(n).animationName),'specimen-stir');
  await page.locator('.jar-motion-toggle').click();

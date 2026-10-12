@@ -36,7 +36,7 @@ def build(output):
         if cut:
             styles+=f';--lid-cut:{cut}%'
             lid=f'<img class="jar-lid" src="{asset["path"]}" alt="" width="{asset["width"]}" height="{asset["height"]}">'
-        steam='<svg class="jar-steam" viewBox="0 0 48 64" aria-hidden="true"><g class="steam-frame frame-a"><path d="M14 58 C3 47 25 43 14 31 C7 23 11 16 16 11"/><path d="M31 48 C43 39 24 31 34 21 C40 15 36 9 32 5"/></g><g class="steam-frame frame-b"><path d="M14 58 C26 48 4 40 16 29 C23 21 17 15 13 10"/><path d="M31 48 C20 39 42 30 31 20 C25 13 32 8 35 4"/></g></svg>' if cut or kind in ('low-open','low-lid') else ''
+        steam='<svg class="jar-steam" viewBox="0 0 48 64" aria-hidden="true"><path class="steam-strand" d="M14 58 C3 47 25 43 14 31 C7 23 11 16 16 11"/><path class="steam-strand" d="M31 48 C43 39 24 31 34 21 C40 15 36 9 32 5"/></svg>' if cut or kind in ('low-open','low-lid') else ''
         exhibits.append(f'''<article class="jar-exhibit jar-{kind}{" has-lid" if cut else ""}" style="{styles}" data-project="{pid}">
           <button class="jar-select" type="button" aria-expanded="false" aria-controls="jar-info-{pid}" aria-label="Show {name} details" hidden></button>
           <div class="jar-shadow" aria-hidden="true"></div><span class="jar-light-source" aria-hidden="true"></span><div class="vessel" aria-hidden="true">
