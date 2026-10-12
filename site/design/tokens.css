@@ -1,0 +1,29 @@
+/* Retro-Scraperism v0.1 reference tokens; not yet imported by production. */
+:root {
+  --rs-paper: #FFFFFF;
+  --rs-mist: #F0F5F8;
+  --rs-ink: #111820;
+  --rs-blueprint: #0B2546;
+  --rs-trace: #D9EEF8;
+  --rs-muted: #465665;
+  --rs-scarlet: #B62420;
+  --rs-scarlet-art: #D9251D;
+  --rs-amber: #FFC800;
+  --rs-emerald: #006B4F;
+  --rs-emerald-art: #00A86B;
+  --rs-verdigris-art: #4A7C72;
+  --rs-font: 'Outfit', system-ui, sans-serif;
+  --rs-mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  --rs-space-1: 4px;
+  --rs-space-2: 8px;
+  --rs-space-3: 12px;
+  --rs-space-4: 16px;
+  --rs-space-6: 24px;
+  --rs-space-8: 32px;
+  --rs-space-12: 48px;
+  --rs-space-16: 64px;
+  --rs-space-24: 96px;
+  --rs-radius: 2px;
+  --rs-shadow: 4px 4px 0 var(--rs-ink);
+  --rs-duration: 160ms;
+}
