@@ -177,7 +177,7 @@ def render_html(catalog):
  <link rel="icon" href="brand/favicon.ico" sizes="16x16 32x32 48x48">
  <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
- <link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="styles.css">
+ <link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="styles.css?v={escape(sha or 'preview')}">
  <script src="catalog.js" defer></script><script src="vendor/gsap.min.js" defer></script><script src="vendor/ScrollTrigger.min.js" defer></script><script src="motion.js" defer></script>
 </head>
 <body>
@@ -187,7 +187,7 @@ def render_html(catalog):
 <section class="hero" aria-labelledby="page-title">
  <div class="cover-line"><span>A field guide to the genus</span><span>THE NAME IS THE CRITERION.</span></div>
  <h1 id="page-title" aria-label="Genus Open star">Open<span class="wildcard" aria-hidden="true">*</span></h1>
- <div class="hero-baseline"><div class="hero-copy"><img class="cover-logo" src="brand/awesome-open-logo.png" alt="Awesome Open botanical fruit logo" width="512" height="512" decoding="async"></div><p class="dictionary"><span>Open-</span> <i>prefix</i><br>A source model. A fresh start.<br>A name.</p><a class="enter-ledger" href="#catalog">Inspect the specimens <span aria-hidden="true">↘</span></a></div>
+ <div class="hero-baseline"><div class="hero-copy"><img class="cover-logo" src="brand/awesome-open-logo.png" alt="Awesome Open botanical fruit logo" width="190" height="190" decoding="async"></div><p class="dictionary"><span>Open-</span> <i>prefix</i><br>A source model. A fresh start.<br>A name.</p><a class="enter-ledger" href="#catalog">Inspect the specimens <span aria-hidden="true">↘</span></a></div>
  <div class="botanical-plate">{specimen_art()}<span class="plate-note">Fig. O*<br>Prefix study<br><span>Schematic</span></span><span class="plate-crosshair" aria-hidden="true">+</span></div>
  <div class="cover-bottom"><span>cat /dev/software | grep '^Open'</span><span>Names, functions, sources.</span></div>
 </section>
@@ -269,7 +269,8 @@ def build(output, source_sha=None, root=ROOT):
             standalone = standalone.replace(f'{attribute}="brand/{name}"',
                                             f'{attribute}="data:{mime_type};base64,{encoded}"')
     for name in ('vendor/fonts.css', 'styles.css'):
-        standalone = standalone.replace(f'<link rel="stylesheet" href="{name}">',
+        href = f'{name}?v={source_sha or "preview"}' if name == 'styles.css' else name
+        standalone = standalone.replace(f'<link rel="stylesheet" href="{href}">',
                                         '<style>' + (output / name).read_text(encoding='utf-8') + '</style>')
     for name in ('catalog.js', 'vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'motion.js'):
         # Keep parser ordering identical to deferred scripts: initialize after DOM.

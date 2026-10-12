@@ -258,7 +258,7 @@ class SiteTests(unittest.TestCase):
         for resource in self.page.nodes('link'):
             href = resource.attrs['href']
             self.assertFalse(href.startswith(('/', 'http:', 'https:')))
-            self.assertTrue((self.output / href).is_file(), href)
+            self.assertTrue((self.output / href.split('?', 1)[0]).is_file(), href)
         self.assertTrue((self.output / 'vendor/FONT-LICENSE.txt').is_file())
         self.assertTrue((self.output / 'vendor/FONT-PROVENANCE.json').is_file())
 
@@ -331,7 +331,14 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(brand.attrs['aria-label'], 'Awesome Open home')
         self.assertEqual(brand.descendants('img')[0].attrs['alt'], '')
         logo = [image for image in self.page.images if image.get('class') == 'cover-logo'][0]
-        self.assertEqual((logo['width'], logo['height']), ('512', '512'))
+        self.assertEqual((logo['width'], logo['height']), ('190', '190'))
+
+    def test_stylesheet_revision_prevents_stale_branding_on_return_visits(self):
+        self.assertIn('href="styles.css?v=' + 'a' * 40 + '"', self.html)
+        local = copy.deepcopy(self.catalog)
+        local['source_sha'] = None
+        self.assertIn('href="styles.css?v=preview"', render_html(local))
+        self.assertNotIn('href="styles.css', (self.output / 'standalone.html').read_text())
 
     def test_optional_motion_has_reduced_motion_and_missing_dependency_guards(self):
         motion = (self.output / 'motion.js').read_text()
