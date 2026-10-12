@@ -141,10 +141,10 @@ class SiteTests(unittest.TestCase):
             self.assertIn(category['name'], link.text)
             self.assertTrue(link.attrs['href'].endswith('/README.source.md#' + category['id']))
         methods = [node for node in self.page.elements if node.has_class('colophon')][0]
-        for qualification in ('Detected licenses require verification against current official terms; missing license data remains unknown.',
-                              'Repository dates describe GitHub activity, not project age or maintenance health.',
-                              'Stars and HN counts measure attention, not quality or sentiment.',
-                              'Coverage is a researched subset; missing charts do not establish an absence of discussion.'):
+        for qualification in ('Detected licenses: verify against current official terms',
+                              'Repository dates refer to GitHub activity',
+                              'HN charts: matched stories / 2 years, shared square-root scale',
+                              'Specimen illustrations are original artwork, not official logos'):
             self.assertIn(qualification, methods.text)
 
     def test_ledger_starts_without_cover_and_retains_plain_controls(self):

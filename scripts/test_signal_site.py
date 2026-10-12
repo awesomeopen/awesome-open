@@ -79,7 +79,7 @@ class SignalSiteTests(unittest.TestCase):
         self.assertIn('https://github.com/openemr/openemr/commit/'+'c'*40,page.links)
         self.assertIn('Release: 1 cached results / 1 checked',html)
         self.assertIn('Scorecard: 1 cached results / 1 checked',html)
-        self.assertIn('Inconclusive and omitted checks remain unknown.',html)
+        self.assertIn('Scorecard: reports automated security-practice checks',html)
 
     def test_unavailable_pending_and_stale_preserve_distinct_labels(self):
         records=self.optional['repositories'][self.repo]
