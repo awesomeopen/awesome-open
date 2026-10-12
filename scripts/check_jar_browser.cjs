@@ -22,7 +22,7 @@ const assert=require('node:assert/strict');
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(url);
  assert.equal(await page.locator('.jar-specimen img').first().evaluate(n=>getComputedStyle(n).animationName),'none');
  await page.locator('.jar-link').first().focus();assert.equal(await page.locator('.jar-metrics').first().evaluate(n=>getComputedStyle(n).opacity),'1');
- for(const width of [320,390,680,768,1024]){await page.setViewportSize({width,height:900});await page.goto(url);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));if(width===390)await page.screenshot({path:'tmp/site-qa/jars-mobile.png'});}
+ for(const width of [320,390,680,768,1024]){await page.setViewportSize({width,height:900});await page.goto(url);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No overflow at '+width);if(width===390)await page.screenshot({path:'tmp/site-qa/jars-mobile.png'});}
  const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});await fallback.goto(url);assert.equal(await fallback.locator('.jar-link').count(),3);await fallback.locator('.project-card summary').first().click();assert.ok(await fallback.locator('.project-card details').first().evaluate(n=>n.open));await fallback.close();
  assert.deepEqual(errors,[]);console.log('Jar preview: artwork, parallax, inspect, search, treatments, keyboard, reduced motion, narrow layouts and no-JS pass.');
  }catch(e){await page.screenshot({path:'tmp/site-qa/jars-failure.png'});throw e;}finally{await browser.close();}
