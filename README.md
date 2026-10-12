@@ -80,7 +80,7 @@
 | [OpenVoice](https://github.com/myshell-ai/OpenVoice) | Instant voice cloning and audio foundation model. <!-- STATS:START --><br><sub>2023-11-29 -- <b>2025-04-19</b> / MIT / 37.8k</sub><!-- STATS:END --> |
 | [openWakeWord](https://github.com/dscripka/openWakeWord) | Wake-word detection library with pretrained models for voice-enabled applications. <!-- STATS:START --><br><sub>2022-05-28 -- 2025-12-30 / Apache-2.0 / 2.8k</sub><!-- STATS:END --> |
 | [OpenWants](https://openwants.com/) | Shared directory and messaging service where AI agents post needs and offers, find matches, and contact one another. |
-| **[Open WebUI](https://github.com/open-webui/open-webui)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/open-webui.svg "HN discussions / 2y")](https://hn.algolia.com/?q=Open+WebUI&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Web interface for AI models, including Ollama and OpenAI-compatible APIs. <!-- STATS:START --><br><sub>2023-10-06 -- 2026-10-11 / 154.3k</sub><!-- STATS:END --> |
+| **[Open WebUI](https://github.com/open-webui/open-webui)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/open-webui.svg "HN discussions / 2y")](https://hn.algolia.com/?q=Open+WebUI&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Web interface for AI models, including Ollama and OpenAI-compatible APIs. <!-- STATS:START --><br><sub>2023-10-06 -- 2026-10-11 / 154.4k</sub><!-- STATS:END --> |
 
 ## Developer Tools
 
@@ -123,7 +123,7 @@
 | [OpenTest](https://github.com/mcdcorp/opentest) | Test automation for web applications, mobile apps, and APIs. <!-- STATS:START --><br><sub>2017-12-19 -- 2026-08-05 / MIT / 501</sub><!-- STATS:END --> |
 | [OpenTUI](https://github.com/anomalyco/opentui) | Library for building terminal user interfaces. <!-- STATS:START --><br><sub>2025-07-21 -- 2026-10-12 / MIT / 13.5k</sub><!-- STATS:END --> |
 | [OpenUI](https://github.com/thesysdev/openui) | Framework for streaming model-generated interfaces using component libraries and runtimes for React, Vue, Svelte, and Angular. <!-- STATS:START --><br><sub>2024-12-02 -- 2026-10-12 / MIT / 10.7k</sub><!-- STATS:END --> |
-| [OpenUI5](https://github.com/UI5/openui5) | JavaScript UI framework for responsive web applications with reusable controls and JSON, XML, and OData data binding. <!-- STATS:START --><br><sub>2013-12-10 -- 2026-10-11 / Apache-2.0 / 3.3k</sub><!-- STATS:END --> |
+| [OpenUI5](https://github.com/UI5/openui5) | JavaScript UI framework for responsive web applications with reusable controls and JSON, XML, and OData data binding. <!-- STATS:START --><br><sub>2013-12-10 -- 2026-10-12 / Apache-2.0 / 3.3k</sub><!-- STATS:END --> |
 | [OpenVSCode Server](https://github.com/gitpod-io/openvscode-server) | Run VS Code remotely and access it through a web browser. <!-- STATS:START --><br><sub>2020-09-04 -- 2026-09-24 / MIT / 6.2k</sub><!-- STATS:END --> |
 | [OpenWhisk](https://github.com/apache/openwhisk) | Serverless cloud platform for event-driven functions. <!-- STATS:START --><br><sub>2016-02-18 -- 2026-09-08 / Apache-2.0 / 6.8k</sub><!-- STATS:END --> |
 
@@ -132,7 +132,7 @@
 | Project | Description |
 | --- | --- |
 | [OpenBao](https://github.com/openbao/openbao)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openbao.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenBao&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Manage, store, and distribute secrets, certificates, and encryption keys.<br>Alternative to: [HashiCorp Vault Community Edition](https://openbao.org/docs/guides/migration/) <!-- STATS:START --><br><sub>2023-11-09 -- 2026-10-10 / MPL-2.0 / 8.4k</sub><!-- STATS:END --> |
-| [OpenChoreo](https://github.com/openchoreo/openchoreo) | Internal developer platform for Kubernetes. <!-- STATS:START --><br><sub>2025-02-28 -- 2026-10-09 / Apache-2.0 / 1.6k</sub><!-- STATS:END --> |
+| [OpenChoreo](https://github.com/openchoreo/openchoreo) | Internal developer platform for Kubernetes. <!-- STATS:START --><br><sub>2025-02-28 -- 2026-10-12 / Apache-2.0 / 1.6k</sub><!-- STATS:END --> |
 | [Open Cluster Management](https://github.com/open-cluster-management-io/ocm) | Manage applications and workloads across Kubernetes clusters. <!-- STATS:START --><br><sub>2021-09-30 -- 2026-10-12 / Apache-2.0 / 1.1k</sub><!-- STATS:END --> |
 | [open-compute](https://github.com/elliothux/open-compute) | Self-hosted platform for Cloudflare Workers-compatible applications with storage, queues, workflows, and scheduled tasks. <!-- STATS:START --><br><sub>2026-08-23 -- 2026-10-10 / Apache-2.0 / 1.7k</sub><!-- STATS:END --> |
 | [OpenCost](https://github.com/opencost/opencost) | Monitor Kubernetes workload and cloud costs. <!-- STATS:START --><br><sub>2019-03-27 -- 2026-10-07 / Apache-2.0 / 6.8k</sub><!-- STATS:END --> |
@@ -432,7 +432,7 @@
 | [OpenRAVE](https://github.com/rdiankov/openrave) | Develop, test, and deploy robotics motion-planning algorithms. <!-- STATS:START --><br><sub>2012-09-14 -- 2026-10-08 / 821</sub><!-- STATS:END --> |
 | [OpenRGB](https://openrgb.org) | Control RGB lighting across devices from different manufacturers on Windows, Linux, and macOS. |
 | [Open-RMF](https://github.com/open-rmf/rmf) | Coordinate multiple robot fleets and building infrastructure. <!-- STATS:START --><br><sub>2021-02-25 -- 2026-08-25 / Apache-2.0 / 447</sub><!-- STATS:END --> |
-| [openTPU](https://github.com/FeSens/openTPU) | Compiler, simulator, profiler, and host software for running language models on an FPGA-based AI accelerator. <!-- STATS:START --><br><sub>2026-09-24 -- 2026-10-12 / Apache-2.0 / 634</sub><!-- STATS:END --> |
+| [openTPU](https://github.com/FeSens/openTPU) | Compiler, simulator, profiler, and host software for running language models on an FPGA-based AI accelerator. <!-- STATS:START --><br><sub>2026-09-24 -- 2026-10-12 / Apache-2.0 / 635</sub><!-- STATS:END --> |
 | [OpenVINS](https://github.com/rpng/open_vins) | Platform for visual-inertial navigation research. <!-- STATS:START --><br><sub>2019-01-17 -- 2025-11-30 / GPL-3.0 / 3.1k</sub><!-- STATS:END --> |
 | [Open Volar S](https://github.com/NullMagic2/Open-Volar-S) | Driver, firmware, diagnostics, and live television toolkit for the AVerTV Volar S receiver. <!-- STATS:START --><br><sub>2026-09-15 -- 2026-10-05 / 2</sub><!-- STATS:END --> |
 | [OpenWAM](https://github.com/OpenWAM-Official/OpenWAM) | Research stack for training, deploying, and evaluating world-action models for robot control. <!-- STATS:START --><br><sub>2026-09-06 -- 2026-10-09 / Apache-2.0 / 1k</sub><!-- STATS:END --> |
@@ -444,7 +444,7 @@
 | --- | --- |
 | [Open Babel](https://github.com/openbabel/openbabel) | Convert, search, and analyze chemical data. <!-- STATS:START --><br><sub>2008-12-26 -- 2026-09-14 / GPL-2.0 / 1.4k</sub><!-- STATS:END --> |
 | **[OpenBLAS](https://github.com/OpenMathLib/OpenBLAS)** | Optimized Basic Linear Algebra Subprograms library. <!-- STATS:START --><br><sub>2011-01-24 -- 2026-10-10 / BSD-3-Clause / 7.6k</sub><!-- STATS:END --> |
-| [OpenCalque](https://github.com/laurent512/opencalque) | Desktop and web editor for 2D architectural floor plans, with a command-line interface and JSON documents. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-11 / MIT / 18</sub><!-- STATS:END --> |
+| [OpenCalque](https://github.com/laurent512/opencalque) | Desktop and web editor for 2D architectural floor plans, with a command-line interface and JSON documents. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-12 / MIT / 18</sub><!-- STATS:END --> |
 | [Open CASCADE Technology](https://github.com/Open-Cascade-SAS/OCCT) | Libraries for 3D modeling, CAD data exchange, and visualization. <!-- STATS:START --><br><sub>2020-03-16 -- 2026-10-10 / LGPL-2.1 / 3k</sub><!-- STATS:END --> |
 | [Open Chemistry](https://github.com/OpenChemistry/openchemistry) | Libraries and applications for exploring and generating chemical data. <!-- STATS:START --><br><sub>2012-04-28 -- 2026-10-10 / BSD-3-Clause / 91</sub><!-- STATS:END --> |
 | [OpenCMISS](https://github.com/OpenCMISS/cm) | Finite-element modeling environment for bioengineering. <!-- STATS:START --><br><sub>2011-06-22 -- <b>2016-08-22</b> / 61</sub><!-- STATS:END --> |
@@ -453,7 +453,7 @@
 | [OpenFAST](https://github.com/OpenFAST/openfast) | Wind turbine and wind farm simulation tools. <!-- STATS:START --><br><sub>2016-08-31 -- 2026-10-09 / Apache-2.0 / 981</sub><!-- STATS:END --> |
 | [OpenFermion](https://github.com/quantumlib/OpenFermion) | Compile and analyze quantum algorithms for fermionic systems. <!-- STATS:START --><br><sub>2017-09-21 -- 2026-10-09 / Apache-2.0 / 1.7k</sub><!-- STATS:END --> |
 | [OpenFOAM](https://github.com/OpenFOAM/OpenFOAM-dev) | Computational fluid dynamics software. <!-- STATS:START --><br><sub>2014-12-10 -- 2026-10-09 / 2.3k</sub><!-- STATS:END --> |
-| [OpenIPSL](https://github.com/OpenIPSL/OpenIPSL) | Modelica component library for power-system dynamic analysis. <!-- STATS:START --><br><sub>2016-04-16 -- 2026-10-11 / BSD-3-Clause / 110</sub><!-- STATS:END --> |
+| [OpenIPSL](https://github.com/OpenIPSL/OpenIPSL) | Modelica component library for power-system dynamic analysis. <!-- STATS:START --><br><sub>2016-04-16 -- 2026-10-12 / BSD-3-Clause / 110</sub><!-- STATS:END --> |
 | [OpenMC](https://github.com/openmc-dev/openmc) | Monte Carlo particle transport simulation. <!-- STATS:START --><br><sub>2011-07-21 -- 2026-10-10 / 1.1k</sub><!-- STATS:END --> |
 | [OpenMDAO](https://github.com/OpenMDAO/OpenMDAO) | Python platform for systems analysis and multidisciplinary optimization. <!-- STATS:START --><br><sub>2016-08-25 -- 2026-10-06 / 796</sub><!-- STATS:END --> |
 | **[Open-Meteo](https://github.com/open-meteo/open-meteo)** | Weather API providing forecasts and historical weather data. <!-- STATS:START --><br><sub>2021-06-24 -- 2026-10-10 / AGPL-3.0 / 6.3k</sub><!-- STATS:END --> |
