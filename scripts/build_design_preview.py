@@ -30,6 +30,8 @@ def main():
     subprocess.run(['python3', str(ROOT / 'scripts/build_site.py'), '--output', str(output), '--source-sha', sha], cwd=ROOT, check=True)
     from build_exhibition_preview import build as build_exhibition
     build_exhibition(output)
+    from build_jar_preview import build as build_jars
+    build_jars(output)
     design = output / 'design'
     shutil.copytree(ROOT / 'site/design', design, dirs_exist_ok=True)
     guide = (ROOT / 'site/RETRO-SCRAPERISM.md').read_text()
