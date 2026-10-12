@@ -37,12 +37,16 @@ def build(output):
            <img class="jar-reflection" src="{asset['path']}" alt="" width="{asset['width']}" height="{asset['height']}">
           </div>
           <span class="jar-caption"><span>0{number}</span> {name}</span>
-          <div class="jar-annotation" id="jar-info-{pid}"><span class="jar-number">0{number} / {verb}</span><h2>{name}</h2><p>{escape(p['description'])}</p><div class="jar-metrics"><span>{stars}</span>{license_line}</div><a href="#project-{pid}" data-jar-inspect="{pid}">Inspect record</a></div>
+          <div class="jar-annotation" id="jar-info-{pid}">
+           <svg class="jar-leaders" aria-hidden="true"><g><path pathLength="1"/><circle r="3"/></g><g><path pathLength="1"/><circle r="3"/></g><g><path pathLength="1"/><circle r="3"/></g></svg>
+           <div class="jar-callout callout-function"><span class="callout-kicker">{verb}</span><p><span class="label-ink">{escape(p['description'])}</span></p></div>
+           <div class="jar-callout callout-metrics"><div class="jar-metrics"><span>{stars}</span>{license_line}</div></div>
+           <div class="jar-callout callout-inspect"><a href="#project-{pid}" data-jar-inspect="{pid}">Inspect record</a></div>
+          </div>
         </article>''')
     hero=f'''<section class="jar-hall" aria-label="Seven illustrated software specimens">
       <svg width="0" height="0" class="jar-filter-defs" aria-hidden="true"><defs><filter id="glass-displacement"><feTurbulence type="fractalNoise" baseFrequency=".017 .08" numOctaves="1" seed="6" result="glass"/><feDisplacementMap in="SourceGraphic" in2="glass" scale="1.3" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
       <div class="jar-scroll" role="region" aria-label="Specimen display; scroll horizontally on smaller screens" tabindex="0"><div class="jar-stage">{''.join(exhibits)}</div></div>
-      <div class="jar-review"><span>Preview 03 · seven specimens</span><span class="jar-hint">Select a jar to inspect</span></div>
     </section>'''
     page=(output/'index.html').read_text().replace('<body>','<body class="jar-page">').replace('</head>','<meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="jars.css"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
     page=page.replace('<title>','<title>Preview 03 / ',1)

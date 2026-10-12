@@ -11,11 +11,13 @@
   {
     "id": "square-cork",
     "prompt": "Use case: product-mockup. Asset: ONE isolated photographic glass jar for a white museum website, front-facing view with only a little of the mouth visible. A medium squat square nineteenth-century apothecary bottle with rounded corners, a short neck and worn dark cork. A little clear faint grey-green liquid. Real antique object photographed with a long lens, NOT a drawing, NOT vector art. Thick refractive glass rims, slight natural waviness, minute bubbles trapped in glass, restrained fine scratches, dark edge reflections and broad soft white reflections from studio windows. Cool neutral palette. Interior is completely EMPTY: no animal, plant, specimen, label, text, emblem or paper. Clear central viewing window for separately composited specimen art. Transparent alpha background, no backdrop, no table, no floor, no cast shadow; retain glass edge reflections with semitransparent clear central glass. Entire vessel including closure/base/lid within the frame. Portrait composition, vessel centered, maximum height within 85% of canvas, leave 7% safe margin all sides. High-end documentary object photograph, tangible irregular material, not glossy plastic or mathematically perfect CGI.",
-    "path": "jars/square-cork.webp",
+    "path": "jars/square-cork-labelled.webp",
     "width": 1024,
     "height": 1536,
     "generator": "OpenAI built-in image generation",
-    "created_at": "2026-10-12"
+    "created_at": "2026-10-12",
+    "original_path": "jars/square-cork.webp",
+    "edit_prompt": "Edit this exact photographic jar asset. Preserve the entire jar, framing, proportions, camera angle, cork, glass texture, light, empty interior, and transparent background. Change ONLY by adding one small visibly adhered matte white paper sticker near the lower-left front of the jar body, centered at approximately 29% of the full image width and 83% of image height. Sticker spans only 22% of image width and 8% of image height; slightly skewed 4 degrees, conforms gently to the glass surface, subtle wrinkled edge and contact shadow. Cool white, not beige or yellow. A few faded dark-blue pen scribbles and tiny irregular grey marks, entirely illegible, absolutely no readable words, digits, logos or symbols. Keep the rest of the vessel clean. Do not resize or recrop the vessel. Keep original transparency."
   },
   {
     "id": "shouldered",
@@ -47,11 +49,13 @@
   {
     "id": "ribbed",
     "prompt": "Use case: product-mockup. Asset: ONE isolated photographic glass jar for a white museum website, front-facing view with only a little of the mouth visible. A medium cylindrical kitchen preserving jar with a dark oxidized metal screw cap, subtle vertical glass ribs near base. Half filled with nearly clear grey-green liquid. Real antique object photographed with a long lens, NOT a drawing, NOT vector art. Thick refractive glass rims, slight natural waviness, minute bubbles trapped in glass, restrained fine scratches, dark edge reflections and broad soft white reflections from studio windows. Cool neutral palette. Interior is completely EMPTY: no animal, plant, specimen, label, text, emblem or paper. Clear central viewing window for separately composited specimen art. Transparent alpha background, no backdrop, no table, no floor, no cast shadow; retain glass edge reflections with semitransparent clear central glass. Entire vessel including closure/base/lid within the frame. Portrait composition, vessel centered, maximum height within 85% of canvas, leave 7% safe margin all sides. High-end documentary object photograph, tangible irregular material, not glossy plastic or mathematically perfect CGI.",
-    "path": "jars/ribbed.webp",
+    "path": "jars/ribbed-labelled.webp",
     "width": 1024,
     "height": 1536,
     "generator": "OpenAI built-in image generation",
-    "created_at": "2026-10-12"
+    "created_at": "2026-10-12",
+    "original_path": "jars/ribbed.webp",
+    "edit_prompt": "Edit this exact photographic jar asset. Preserve the entire jar, framing, proportions, camera angle, metal screw lid, glass ribs, liquid level, texture, light, empty interior and transparent background. Change ONLY by adding one small visibly adhered matte white paper sticker on the upper-right front shoulder just below the shoulder curve, centered at approximately 64% of full image width and 37% of image height. Sticker spans only 25% of image width and 7% of image height; skewed slightly -5 degrees, gently curved to match the glass, faint edge wear and contact shadow. Cool white not beige. Three short faint charcoal handwritten scribbles, entirely illegible, absolutely no readable words, digits or logos. Do not change anything else, do not resize or recrop the vessel. Keep original transparency."
   },
   {
     "id": "low-lid",

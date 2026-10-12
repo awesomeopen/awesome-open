@@ -9,11 +9,11 @@ const assert=require('node:assert/strict');
  const fits=async width=>assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No overflow at '+width);
  try{
  await page.goto(url);await ready();
- assert.equal(await page.locator('.jar-exhibit').count(),7);assert.equal(await page.locator('[data-ground]').count(),0);
+ assert.equal(await page.locator('.jar-exhibit').count(),7);assert.equal(await page.locator('[data-ground]').count(),0);assert.equal(await page.locator('.jar-review').count(),0);assert.equal(await page.locator('.jar-photo[src*=labelled]').count(),2);
  await page.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
  await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:'tmp/site-qa/jars-desktop.png'});
  const first=page.locator('.jar-select').first();await first.hover({position:{x:45,y:55}});await page.waitForTimeout(250);
- assert.equal(await first.getAttribute('aria-expanded'),'true');assert.equal(await page.locator('.jar-annotation:visible').count(),1);
+ assert.equal(await first.getAttribute('aria-expanded'),'true');assert.equal(await page.locator('.jar-annotation:visible').count(),1);assert.equal(await page.locator('.jar-annotation:visible .jar-leaders path[d]').count(),3);assert.equal(await page.locator('.jar-annotation:visible').evaluate(n=>getComputedStyle(n).backgroundColor),'rgba(0, 0, 0, 0)');
  assert.notEqual(await page.locator('.jar-exhibit').first().evaluate(n=>n.style.getPropertyValue('--mx')),'0px');
  await page.screenshot({path:'tmp/site-qa/jars-hover.png'});
  const link=page.locator('.jar-annotation:visible a');const id=await link.getAttribute('data-jar-inspect');await link.click();
