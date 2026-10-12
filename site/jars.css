@@ -107,3 +107,9 @@
  .photo-ready .specimen-idle,.photo-ready .jar-steam,.photo-ready .steam-frame{animation:none!important;}
  .photo-ready .is-active .jar-lid{transform:none;}.jar-steam{display:none;}
 }
+
+/* Grounded LED source and colored spill: move with the contact shadow, not the tilted glass. */
+.jar-shadow::after {content:"";position:absolute;inset:-2px 0;background:radial-gradient(ellipse,rgb(0 194 255 / .5),rgb(0 194 255 / .15) 38%,transparent 70%);opacity:0;transition:opacity .6s ease;}
+.jar-light-source {position:absolute;z-index:2;left:calc(50% - 2px);bottom:42px;width:4px;height:3px;border-radius:50%;background:#b8faff;box-shadow:0 0 3px 1px #00d9ff;opacity:0;pointer-events:none;transform:translateX(calc(var(--mx)*.6));transition:opacity .6s ease;}
+.photo-ready .is-active .jar-shadow::after,.photo-ready .is-active .jar-light-source {opacity:1;}
+@media(prefers-reduced-motion:reduce){.jar-light-source{transform:none;transition:none;}.jar-shadow::after{transition:none;}}
