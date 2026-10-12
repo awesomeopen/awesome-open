@@ -284,7 +284,7 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
   };
 }
 
-test("progressive enhancement reveals controls, enables sorting and sizes category panel", () => {
+test("progressive enhancement reveals controls, enables sorting and leaves category disclosure closed", () => {
   const ui = fixture();
   assert.equal(catalog.init(ui.document, ui.window), true);
   assert.equal(ui.ids.filters.hidden, false);
@@ -293,7 +293,7 @@ test("progressive enhancement reveals controls, enables sorting and sizes catego
   assert.equal(ui.panel.open, false);
   ui.mobile.matches = false;
   ui.mobile.fire("change");
-  assert.equal(ui.panel.open, true);
+  assert.equal(ui.panel.open, false);
   assert.equal(catalog.init(ui.document, ui.window), true);
   assert.equal(ui.ids.search.listeners.input.length, 1);
 });

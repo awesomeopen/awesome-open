@@ -124,7 +124,7 @@ summary::marker {
   object-fit:contain;
 }
 .brand-asterisk {
-  color:var(--rs-amber);
+  color:var(--rs-paper);
 }
 .header-caption {
   font:13px var(--mono);
@@ -142,9 +142,9 @@ summary::marker {
 }
 .layout {
   display:grid;
-  grid-template-columns:220px minmax(0,1fr);
+  grid-template-columns:minmax(0,1fr);
   gap:40px;
-  padding:32px 32px 64px;
+  padding:16px 32px 64px;
   align-items:start;
 }
 .sidebar {
@@ -809,6 +809,47 @@ h1>span {
 .filter-options[open] .diagnostic-filters {
   padding-top: 12px;
 }
-@media(min-width:901px) {
-  .filter-options > summary { display: none; }
+
+
+/* Compact ledger controls: native, exclusive disclosures above the records. */
+.site-header { gap:24px; padding-block:10px; }
+.brand-name { display:inline; }
+.header-search { padding:0; flex:1; max-width:400px; min-width:160px; }
+.header-search > label { margin:0; color:var(--rs-trace); font-size:12px; }
+.header-search .search-input { gap:0; }
+.header-search .search-input > span { display:none; }
+.header-search input { min-height:36px; padding:4px 0; font-size:16px; color:white; background:transparent; border:0; border-bottom:1px solid var(--rs-trace); }
+.header-search input::placeholder { color:var(--rs-trace); }
+.ledger-heading { align-items:center; margin-bottom:12px; }
+.ledger-heading .mono-label { display:none; }
+h1 { font-size:28px; margin:0; }
+.snapshot-label br { display:none; }
+.snapshot-label { font-size:12px; }
+.control-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; }
+.sidebar { position:static; min-width:0; }
+.catalog-toolbar { border:0; min-width:0; }
+.category-panel > summary, .filter-options > summary { display:flex; justify-content:space-between; min-height:44px; padding:12px; border:1px solid var(--rule); background:var(--rs-mist); font:13px/1.5 var(--mono); text-transform:none; }
+.category-nav, .filter-body { width:calc(200% + 12px); padding:12px 0; }
+.category-nav { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 20px; max-height:50vh; }
+.filter-body { margin-left:calc(-100% - 12px); }
+.toolbar-bottom { padding:8px 0 0; }
+.results-heading { margin:8px 0; }
+.result-actions { display:flex; align-items:center; gap:16px; }
+#clear-filters { font-size:12px; padding:4px 8px; }
+.leader-key { margin-bottom:12px; }
+@media(max-width:900px) {
+  .layout { padding-top:12px; }
+  .header-links { gap:16px; }
+}
+@media(max-width:720px) {
+  .site-header { gap:8px 16px; }
+  .brand { font-size:22px; }
+  .header-search { order:3; max-width:none; flex-basis:100%; }
+  .header-links { width:auto; margin-left:auto; font-size:12px; gap:12px; }
+  .header-links a:first-child { display:none; }
+  .ledger-heading { margin-bottom:12px; align-items:center; }
+  .category-nav { grid-template-columns:1fr; }
+  .results-heading { flex-wrap:wrap; }
+  .result-actions { gap:8px; margin-left:auto; }
+  .leader-key { line-height:1.4; }
 }

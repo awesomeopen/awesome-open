@@ -1,6 +1,6 @@
 # Disposable design previews
 
-Codex owns the active design branch `design/ledger-first`; dot remains repository administrator and merge coordinator. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
+Codex owns the active design branch `design/compact-ledger`; dot remains repository administrator and merge coordinator. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
 
 ## Build a reviewable revision
 
