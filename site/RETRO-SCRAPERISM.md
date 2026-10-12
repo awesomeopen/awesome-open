@@ -152,7 +152,7 @@ For this project, explicit user decisions and this system override generic skill
 
 ## 9. Extension and review
 
-The active design branch is `design/ledger-first`, owned by Codex for the ledger migration. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
+The active design branch is `design/compact-ledger`, owned by Codex for the compact controls follow-up. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
 
 For each extension, add the rule, token/component example, reason, accessibility implications and a decision-log entry in the same PR. Distinguish a proposal from an approved direction. Update the portable skill's reference snapshot when an approved system change should apply outside this repo. Do not let independent snapshots silently override the project guide.
 
@@ -176,3 +176,5 @@ For each extension, add the rule, token/component example, reason, accessibility
 | 2026-10-12 | Proposed implementation | Keep existing Outfit and branding; migrate components gradually after guide review |
 | 2026-10-12 | User direction | Ledger-first layout; remove cover/reading-room/band; optional specimen artwork; shared README top-three ranking |
 | 2026-10-12 | User direction | Neutral professional voice, answer first, no mindset interpretation or closing taglines |
+
+| 2026-10-12 | User direction | Compact header search; adjacent closed category/filter disclosures; white attached brand asterisk; category-only leader subtitles. Native controls retain keyboard access and expand in document flow. |

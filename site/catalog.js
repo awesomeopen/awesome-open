@@ -350,9 +350,9 @@
         var label = typeof card.querySelector === 'function' ? card.querySelector('.leader-label') : null;
         if (label) {
           label.hidden = !selectedLeaders.length;
-          label.textContent = selectedLeaders.length ? 'Top 3 by stars' + (state.category ? '' : ' · ' + selectedLeaders.map(function (id) {
+          label.textContent = selectedLeaders.length ? selectedLeaders.map(function (id) {
             return data.categories.find(function (category) { return category.id === id; }).name;
-          }).join(' / ')) : '';
+          }).join(' / ') : '';
         }
         if (visible) total += 1;
         if (reorder) fragment.appendChild(card);
@@ -439,16 +439,10 @@
 
     restore();
     controls.sort.disabled = false;
+    clear.disabled = false;
     controls.q.maxLength = 500;
-    var categoryPanel = document.querySelector(".category-panel");
-    if (categoryPanel && typeof window.matchMedia === "function") {
-      var mobile = window.matchMedia("(max-width: 900px)");
-      var filterOptions = document.querySelector('.filter-options');
-      var setPanel = function () { categoryPanel.open = !mobile.matches; if (filterOptions) filterOptions.open = !mobile.matches; };
-      setPanel();
-      if (typeof mobile.addEventListener === "function") mobile.addEventListener("change", setPanel);
-      else if (typeof mobile.addListener === "function") mobile.addListener(setPanel);
-    }
+    var headerSearch = document.getElementById('header-search');
+    if (headerSearch) headerSearch.hidden = false;
     filters.dataset.enhanced = "true";
     filters.hidden = false;
     document.documentElement.classList.add("catalog-enhanced");
