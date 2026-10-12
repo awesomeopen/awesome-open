@@ -1,6 +1,6 @@
 # Disposable design previews
 
-Codex owns the active design branch `design/compact-ledger`; dot remains repository administrator and merge coordinator. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
+Codex owns the active design branch `design/exhibition-preview-1`; dot remains repository administrator and merge coordinator. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
 
 ## Build a reviewable revision
 
@@ -28,3 +28,7 @@ This is an operator-driven publishing workflow, not an automatic GitHub-to-Sites
 ## Ledger-first review
 
 The current branch migrates the working catalog. Review `/` for the ledger, `/design/` for the system reference, and the three illustrated records (OpenTofu, OpenRefine, OpenSCAD). Missing artwork must leave no placeholder. Check category changes against the top-three labels. Production remains the main-only publisher after PR approval. See `SPECIMEN-ART.md` for Junge's asset handoff.
+
+## Exhibition preview 01
+
+Open `/exhibition.html` for Infrastructure & DevOps: three illustrated category leaders, the complete category ledger, and expandable evidence records. `/` remains the complete directory for comparison. Only the preview builder and PR checks include this route; the production publisher does not. The proposed design is not approved for production.

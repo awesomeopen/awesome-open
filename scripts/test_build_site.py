@@ -320,7 +320,7 @@ class SiteTests(unittest.TestCase):
 
     def test_specimen_art_is_optional_and_portable(self):
         illustrated = [p for p in self.catalog['projects'] if p.get('artwork')]
-        self.assertEqual({p['name'] for p in illustrated}, {'OpenTofu', 'OpenRefine', 'OpenSCAD'})
+        self.assertEqual({p['name'] for p in illustrated}, {'OpenTofu', 'OpenRefine', 'OpenSCAD', 'OpenObserve', 'OpenResty'})
         for project in self.catalog['projects']:
             card = self.page.by_id['project-' + project['id']]
             figures = [n for n in card.descendants('figure') if n.has_class('specimen-art')]
