@@ -1,4 +1,4 @@
-/* Optional browser smoke test. Requires Playwright and its Chromium browser.
+/* Browser smoke test, run by the PR preview workflow. Requires Playwright and Chromium.
  * Usage: SITE_URL=http://127.0.0.1:8000 node scripts/check_site_browser.cjs
  * CHROMIUM_PATH can point to an installed Chromium; screenshots go to tmp/site-qa.
  */
@@ -14,11 +14,24 @@ const path = require('node:path');
   if (process.env.CHROMIUM_NO_SANDBOX === '1') options.args = ['--no-sandbox'];
   if (process.env.CHROMIUM_PATH) options.executablePath = process.env.CHROMIUM_PATH;
   const browser = await chromium.launch(options);
-  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 },
+    deviceScaleFactor: 1, colorScheme: 'light', reducedMotion: 'reduce', locale: 'en-US', timezoneId: 'UTC' });
+  context.setDefaultTimeout(15000);
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   const url = process.env.SITE_URL || 'http://127.0.0.1:8000';
+  const report = { status: 'running', url, sourceSha: null,
+    prHeadSha: process.env.PR_HEAD_SHA || null, screenshots: [] };
+  const writeReport = () => fs.writeFileSync(path.join(output, 'screenshots.json'), JSON.stringify(report, null, 2) + '\n');
+  const capture = async name => {
+    await page.evaluate(() => document.fonts.ready);
+    const png = await page.screenshot({ path: path.join(output, name), animations: 'disabled', caret: 'hide', scale: 'css' });
+    const dimensions = { width: png.readUInt32BE(16), height: png.readUInt32BE(20) };
+    assert.deepEqual(dimensions, page.viewportSize(), `Screenshot dimensions: ${name}`);
+    report.screenshots.push({ file: name, ...dimensions, bytes: png.length });
+    writeReport();
+  };
   const visible = () => page.locator('.project-card:not([hidden])').count();
   const change = async (id, value) => {
     if (['category-filter', 'metrics-filter', 'min-stars', 'pushed-since'].includes(id)) {
@@ -48,14 +61,28 @@ const path = require('node:path');
     assert.deepEqual(clipped, [], `Clipped ledger cells: ${label}`);
   };
   try {
+    // Capture both viewports before assertions so a later failure retains useful
+    // review artifacts. Fixed motion, fonts, pixel scale, locale and theme avoid
+    // screenshots depending on a runner's preferences or an animation frame.
+    for (const [name, viewport] of [
+      ['desktop.png', { width: 1440, height: 1000 }],
+      ['mobile.png', { width: 390, height: 844 }],
+    ]) {
+      await page.setViewportSize(viewport);
+      await page.goto(url);
+      await capture(name);
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(url);
     await waitForState();
     const data = await page.locator('#catalog-data').textContent().then(JSON.parse);
+    report.sourceSha = data.source_sha;
+    writeReport();
+    if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Browser must test the generated checkout');
     assert.equal(await visible(), data.projects.length);
     assert.equal(await page.locator('#sort-order').isEnabled(), true);
     assert.equal(await page.locator('.specimen-drawer').count(), data.projects.length);
     await assertLedgerFits(page, 'desktop');
-    await page.screenshot({ path: path.join(output, 'desktop.png') });
 
     // Exact reviewed alternative search, combined metadata filters, empty/reset.
     await change('search', 'NotebookLM');
@@ -183,7 +210,6 @@ const path = require('node:path');
         await page.locator('.category-panel summary').click();
         assert.equal(await page.locator('.category-panel').evaluate(node => node.open), true);
         await page.locator('.category-panel summary').click();
-        await page.screenshot({ path: path.join(output, 'mobile.png') });
       }
     }
     await page.evaluate(() => document.documentElement.style.fontSize = '200%');
@@ -236,8 +262,25 @@ const path = require('node:path');
     await change('search', 'OpenTofu');
     assert.ok(await visible() > 0);
     assert.deepEqual(errors, []);
+    report.status = 'passed';
+    writeReport();
+    console.log(JSON.stringify(report, null, 2));
+    if (process.env.GITHUB_STEP_SUMMARY) {
+      fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+        '## Field-guide browser check\n\nPassed against generated revision `' + report.sourceSha + '`' +
+        ' (PR head `' + report.prHeadSha + '`).\n\n' +
+        'Download `field-guide-browser-screenshots` for desktop.png (1440 × 1000), mobile.png (390 × 844), ' +
+        'screenshots.json, and browser/server logs.\n');
+    }
     console.log(JSON.stringify({ status: 'passed', projects: data.projects.length, screenshots: output,
       checks: ['search', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'missing GSAP', 'no-JS drawers', 'standalone', 'no page errors'] }, null, 2));
+  } catch (error) {
+    report.status = 'failed';
+    report.error = error.message;
+    await capture('failure.png').catch(() => {});
+    writeReport();
+    console.error(JSON.stringify(report, null, 2));
+    throw error;
   } finally {
     await browser.close();
   }
