@@ -1,5 +1,9 @@
 # Contributing
 
+## Reviewed deployment and installation
+
+The website's eight-project setup pilot uses optional, source-reviewed `data/deployment_evidence.json`. Follow [the deployment evidence contract](site/DEPLOYMENT-EVIDENCE.md) for canonical identities, multi-valued run/install facts, qualified platforms/services/packages/requirements, provenance and review status. Missing facts remain unknown. This is distinct from Function summaries and does not change short descriptions or README output. Contributions stay review-only and must pass offline and browser checks; no new collection schedule or package execution is introduced.
+
 ## Scope
 
 Awesome Open catalogs software projects whose names begin with **Open**. This naming convention is the sole defining criterion for inclusion. Capitalization, spacing, and punctuation do not alter eligibility: `OpenSomething`, `Open Something`, `openSomething`, and `Open-Something` are equivalent forms. Use the project's own spelling, and link to an official source that establishes its name and purpose.

@@ -74,6 +74,22 @@ class StarSiteTests(unittest.TestCase):
         self.good['monthly_counts'] = collector.monthly_counts(self.good['weeks'], self.good['months'])
         star_history.attach(projects,self.snapshot,self.hn)
         self.assertNotIn('star_history',projects['x'])
+    def test_deployment_and_star_pilots_coexist_after_main_integration(self):
+        deployment = json.loads((self.root/'data/deployment_evidence.json').read_text())
+        star_cache = star_history.load_optional(self.root/'data/star_history.json')
+        catalog = build_catalog.build_catalog(self.source,self.metrics,self.alternatives,self.hn,
+            function_summaries=build_catalog.load_function_summaries(self.root/'data/function_summaries.json'),
+            deployment_evidence=deployment,star_evidence=star_cache)
+        combined = [p for p in catalog['projects'] if p.get('star_history')]
+        self.assertEqual(len(combined),3)
+        for project in combined:
+            self.assertTrue(project.get('deployment'))
+            card = build_site.project_html(project,{c['id']:c['name'] for c in catalog['categories']},catalog)
+            self.assertIn('class="deployment-evidence"',card)
+            self.assertIn('class="signal evidence-note star-history"',card)
+            self.assertLess(card.index('class="signal evidence-note star-history"'),card.index('class="deployment-evidence"'))
+            self.assertIn('Function',card)
+
     def test_assets_evidence_standalone_and_removal(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)/'root'; output=Path(directory)/'preview';root.mkdir()

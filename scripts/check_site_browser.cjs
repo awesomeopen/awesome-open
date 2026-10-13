@@ -355,6 +355,7 @@ const path = require('node:path');
     assert.ok(downloads.every(item => item.href.startsWith('data:application/json;base64,')));
     await change('search', 'OpenTofu');
     assert.ok(await visible() > 0);
+    await require('./check_deployment_browser.cjs')({ page, browser, url, data, capture });
     assert.deepEqual(errors, []);
     await require('./check_star_history_browser.cjs')({ page, url, data, capture });
     report.status = 'passed';
