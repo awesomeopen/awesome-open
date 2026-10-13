@@ -60,9 +60,12 @@ def build(output, production=False):
       <svg width="0" height="0" class="jar-filter-defs" aria-hidden="true"><defs><filter id="glass-displacement"><feTurbulence type="fractalNoise" baseFrequency=".017 .08" numOctaves="1" seed="6" result="glass"/><feDisplacementMap in="SourceGraphic" in2="glass" scale="1.3" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
       <div class="jar-scroll" role="region" aria-label="Specimen display; scroll horizontally on smaller screens" tabindex="0"><div class="jar-stage">{''.join(exhibits)}</div></div>
     </section>'''
+    # Mark JS startup before the first body paint. Deferred scripts settle before
+    # DOMContentLoaded, which restores the readable fallback if jars.js fails.
+    startup = '<script>document.documentElement.classList.add("jars-pending");document.addEventListener("DOMContentLoaded",()=>document.documentElement.classList.remove("jars-pending"),{once:true});</script>'
     page=(output/'index.html').read_text()
     if 'class="jar-page"' not in page:
-        page=page.replace('<body>','<body class="jar-page">').replace('</head>','<link rel="stylesheet" href="jars.css"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
+        page=page.replace('<body>','<body class="jar-page">').replace('</head>',startup+'<link rel="stylesheet" href="jars.css"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
     if not production:
         page=page.replace('</head>','<meta name="robots" content="noindex,nofollow"></head>').replace('<title>','<title>Preview / ',1)
     (output/('index.html' if production else 'jars.html')).write_text(page)

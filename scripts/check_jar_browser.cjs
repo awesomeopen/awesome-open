@@ -8,6 +8,25 @@ const assert=require('node:assert/strict');
  const ready=()=>page.waitForSelector('body[data-jars-ready=true]');
  const fits=async width=>assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No overflow at '+width);
  try{
+ // Hold the deferred jar script to inspect the actual pre-initialization paint,
+ // on both navigation and reload. Release it only after checking visibility.
+ let releaseStartup;
+ await page.route('**/jars.js', async route=>{await new Promise(resolve=>{releaseStartup=resolve;});await route.continue();});
+ for(const reload of [false,true]){
+   if(reload)await page.reload({waitUntil:'commit'});else await page.goto(url,{waitUntil:'commit'});
+   await page.waitForSelector('.jar-annotation',{state:'attached'});
+   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.jar-stage')).display==='grid');
+   assert.equal(await page.locator('.jar-annotation:visible').count(),0,'No startup description flash');
+   assert.equal(await page.locator('.jar-stage').evaluate(n=>getComputedStyle(n).height),'380px');
+   while(!releaseStartup)await new Promise(resolve=>setTimeout(resolve,10));
+   releaseStartup();releaseStartup=null;await ready();await page.waitForLoadState('domcontentloaded');
+ }
+ await page.unroute('**/jars.js');
+ // A failed enhancement still exposes ordinary descriptions and record links.
+ await page.route('**/jars.js',route=>route.abort());
+ await page.reload({waitUntil:'domcontentloaded'});
+ assert.equal(await page.locator('.jar-annotation:visible').count(),7);
+ await page.unroute('**/jars.js');
  await page.goto(url);await ready();
  assert.equal(await page.locator('.jar-exhibit').count(),7);assert.equal(await page.locator('[data-ground]').count(),0);assert.equal(await page.locator('.jar-review').count(),0);assert.equal(await page.locator('.jar-photo[src*=labelled]').count(),2);
  await page.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
@@ -69,7 +88,7 @@ const assert=require('node:assert/strict');
  await touch.screenshot({path:'tmp/site-qa/jars-mobile.png'});
  await touch.locator('.jar-scroll').evaluate(n=>n.scrollLeft=n.scrollWidth);await touch.locator('.jar-select').last().tap();assert.equal(await touch.locator('.jar-select').last().getAttribute('aria-expanded'),'true');
  await touch.locator('.jar-select').last().tap();assert.equal(await touch.locator('.jar-exhibit').last().getAttribute('data-cracks'),'2');await touch.locator('.jar-select').last().tap();assert.match(new URL(touch.url()).hash,/^#project-/);await touch.close();
- const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});await fallback.goto(url);assert.equal(await fallback.locator('[data-jar-inspect]').count(),7);await fallback.locator('.project-card summary').first().click();assert.ok(await fallback.locator('.project-card details').first().evaluate(n=>n.open));await fallback.close();
+ const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});await fallback.goto(url);assert.equal(await fallback.locator('.jar-annotation:visible').count(),7);assert.equal(await fallback.locator('[data-jar-inspect]').count(),7);await fallback.locator('.project-card summary').first().click();assert.ok(await fallback.locator('.project-card details').first().evaluate(n=>n.open));await fallback.close();
  assert.deepEqual(errors,[]);console.log('Seven jars: assets, hover overlap, foreground zoom, vertical stability, underlight, lid lift, vapor, idle movement/pause, outlined inspect action, record links, search, keyboard/Escape, reduced motion, responsive density, touch selection/scroll and no-JS pass.');
  }catch(e){await page.screenshot({path:'tmp/site-qa/jars-failure.png'});throw e;}finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
