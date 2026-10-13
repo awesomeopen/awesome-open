@@ -1150,3 +1150,56 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 @media(prefers-reduced-motion:reduce) {
  .specimen-drawer[open] .plate-art,.plate-leader path {animation:none;}
 }
+
+/* Two authored studies: the specimen extends across the plate's ruled geometry. */
+.plate-broad .plate-art-stage,.plate-upright .plate-art-stage {position:relative;isolation:isolate;}
+.plate-broad .plate-art-stage {aspect-ratio:1.16;border-bottom:1px solid var(--rs-blueprint);}
+.plate-broad .plate-art-stage::after {content:'';position:absolute;right:0;bottom:-4px;height:8px;border-right:1px solid var(--rs-blueprint);}
+.specimen-plate.plate-broad .plate-art {width:calc(100% + 64px);margin:0;position:absolute;left:-40px;top:-36px;}
+.specimen-plate.plate-broad .plate-art img {max-height:none;}
+.plate-broad .plate-leader {height:72px;margin-top:64px;}
+.plate-broad .plate-detail {grid-template-columns:minmax(140px,.9fr) minmax(0,1fr);gap:24px;}
+.plate-broad .plate-detail-crop {height:auto;aspect-ratio:1.7;}
+.plate-broad .plate-detail-crop img {width:380%;left:-207%;top:-340%;}
+.plate-broad .plate-detail strong {font-size:26px;}
+.plate-upright .plate-art-stage {aspect-ratio:1.08;}
+.specimen-plate.plate-upright .plate-art {width:calc(100% + 16px);margin:0;position:absolute;left:-8px;top:-76px;}
+.specimen-plate.plate-upright .plate-art img {max-height:none;}
+.plate-upright .plate-leader {height:32px;margin:8px 0 16px;}
+.plate-upright .plate-detail {grid-template-columns:132px minmax(0,1fr);gap:28px;}
+.plate-upright .plate-detail-crop {height:248px;}
+.plate-upright .plate-detail-crop img {width:440%;left:-188%;top:-80%;}
+.plate-upright .plate-detail figcaption {padding-top:28px;max-width:30ch;}
+.plate-upright .plate-detail strong {font-size:26px;}
+.specimen-drawer[open] .plate-broad .plate-art {animation:plate-pod-settle .32s ease-out both;}
+.specimen-drawer[open] .plate-upright .plate-art {animation:plate-calyx-settle .36s ease-out both;}
+@keyframes plate-pod-settle {from {transform:translate(-4px,6px)} to {transform:translate(0,0)}}
+@keyframes plate-calyx-settle {from {transform:translateY(10px)} to {transform:translateY(0)}}
+@media(min-width:721px) and (max-width:1100px) {
+ .specimen-plate.plate-broad .plate-art {width:calc(100% + 32px);left:-24px;top:-24px;}
+ .plate-broad .plate-leader {margin-top:32px;height:56px;}
+ .plate-broad .plate-detail {grid-template-columns:1fr;gap:16px;}
+ .plate-broad .plate-detail-crop {width:100%;max-width:240px;}
+ .plate-upright .plate-detail {grid-template-columns:88px minmax(0,1fr);gap:16px;}
+ .plate-upright .plate-detail-crop {height:184px;}
+ .plate-upright .plate-detail figcaption {padding-top:8px;}
+ .plate-upright .plate-detail strong {font-size:22px;}
+}
+@media(max-width:720px) {
+ .plate-broad .plate-art-stage {aspect-ratio:1.1;}
+ .plate-upright .plate-art-stage {aspect-ratio:1.02;border-top:1px solid var(--rule);margin-top:28px;}
+ .specimen-plate.plate-broad .plate-art,.specimen-plate.plate-upright .plate-art {width:100%;max-width:none;left:0;top:0;margin:0;}
+ .specimen-plate.plate-upright .plate-art {top:-28px;}
+ .plate-broad .plate-leader {margin-top:20px;height:40px;}
+ .plate-broad .plate-detail {grid-template-columns:1fr;gap:16px;}
+ .plate-broad .plate-detail-crop {width:100%;max-width:320px;aspect-ratio:2;}
+ .plate-broad .plate-detail-crop img {top:-420%;}
+ .plate-upright .plate-leader {margin-top:0;height:32px;}
+ .plate-upright .plate-detail {grid-template-columns:100px minmax(0,1fr);gap:20px;}
+ .plate-upright .plate-detail-crop {height:196px;}
+ .plate-upright .plate-detail figcaption {padding-top:12px;}
+ .plate-upright .plate-detail strong {font-size:22px;}
+}
+@media(prefers-reduced-motion:reduce) {
+ .specimen-drawer[open] .plate-broad .plate-art,.specimen-drawer[open] .plate-upright .plate-art {animation:none;}
+}

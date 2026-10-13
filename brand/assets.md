@@ -49,3 +49,8 @@ at their existing paths. Each full illustration is accompanied by a CSS-cropped
 detail beside a separately sourced software feature note (B14 supersedes the
 drawing-analogy captions). No artwork bytes or upstream provenance change; the
 software claims come from reviewed Function sources, not from these crops.
+
+B15 varies the two existing images' display scale, gutter intrusion and CSS
+close-up windows. No new derivative image, redraw or raster edit is made. Full
+silhouettes are retained; only inset windows crop. The adjacent capability note
+is source-backed software copy and needs no visual separation from the inset.
