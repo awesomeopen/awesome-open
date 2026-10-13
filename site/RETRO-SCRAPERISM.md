@@ -348,3 +348,19 @@ collection, with soft transitions into the white foreground and surrounding page
 
 The square bottle also restores its natural brown cork through a clipped opaque
 layer, independent of glass desaturation and lightening.
+
+### Shallow footprint arc — replaces the broad room gradient
+
+Place the seven jar bases on a shallow arc: outside to center setbacks of
+0, 7, 11 and 12px, mirrored on the right. Shift each vessel, contact shadow and
+light source together. Keep labels on their shared reading baseline. The center
+stands slightly farther back; do not change the approved jar sizes or glass.
+
+Replace the broad rear gradient with one faint blurred curved shadow trail along
+the footprints, and short individual shadows directed behind each base. There is
+no drawn arrow, shelf edge, horizon or shaded wall. Hide the shared trail in the
+no-JavaScript stacked fallback. Preserve the paper stickers and natural cork.
+
+Jar captions use the single literal space between number and name; the number
+span adds no extra margin. Rear shadows stay close to the bases, never a rising
+cloud between the jars.
