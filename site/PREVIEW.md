@@ -1,6 +1,6 @@
 # Disposable design previews
 
-Codex owns the active design branch `design/exhibition-preview-1`; dot remains repository administrator and merge coordinator. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
+Use a focused branch from current main for each design change; dot remains repository administrator and merge coordinator. Read [the brand reference](../brand/README.md) and [maintenance procedure](../brand/maintenance.md). The named preview branches below are historical checkpoints, not current branch assignments. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
 
 ## Build a reviewable revision
 
@@ -25,28 +25,32 @@ The command requires a clean tracked working tree and no untracked source files.
 
 This is an operator-driven publishing workflow, not an automatic GitHub-to-Sites integration. Existing CI still uploads its offline `field-guide-preview` artifact. No Sites credentials belong in this public repository or its artifacts. A preview host may be reused, so check its displayed SHA before approving a PR. Do not publish the private preview to GitHub Pages or change its sharing to make review easier.
 
-## Ledger-first review
+## Historical studies
+
+The following sections preserve review instructions from earlier revisions. Production promotion at the end describes the current composition.
+
+### Ledger-first review
 
 The current branch migrates the working catalog. Review `/` for the ledger, `/design/` for the system reference, and the three illustrated records (OpenTofu, OpenRefine, OpenSCAD). Missing artwork must leave no placeholder. Check category changes against the top-three labels. Production remains the main-only publisher after PR approval. See `SPECIMEN-ART.md` for Junge's asset handoff.
 
-## Exhibition preview 01
+### Exhibition preview 01
 
 Open `/exhibition.html` for Infrastructure & DevOps: three illustrated category leaders, the complete category ledger, and expandable evidence records. `/` remains the complete directory for comparison. Only the preview builder and PR checks include this route; the production publisher does not. The proposed design is not approved for production.
 
-## Jar study / preview 02
+### Jar study / preview 02
 
 Active branch: `design/jar-preview-2`. Review `/jars/jars.html` on the private host. The bundle's `preview.json` identifies the exact source SHA. `jars.html` adds the three-vessel hero above the full current ledger; `index.html` remains the production-shaped control. Use Shadows/Baseline to compare ground treatments. Preview #1 and the ledger review remain at their previous URLs. The jar builder is called only by design-preview builds and PR CI.
 
-## Photographic jar study / preview 03
+### Photographic jar study / preview 03
 
 Active branch: `design/photographic-jars`. Review `/jars-03/jars.html` on the private host. Seven independent photographic glass assets surround replaceable original specimens, tallest centered, shadow-only ground. Hover/focus annotations overlap neighbors; tapping selects before navigation. The previous three-jar study remains at `/jars/jars.html`. Verify `preview.json` for the GitHub SHA.
 
-## Depth motion / preview 04
+### Depth motion / preview 04
 
 Active branch: `design/jar-depth-motion`. Review `/jars-04/jars.html`. Pointer proximity and selection bring photographic jars forward from 82% to 110% scale, with shared scene movement, vertical tilt and specimen/reflection depth. Preview 03 remains at `/jars-03/jars.html` for comparison. Native record links, touch/keyboard controls and reduced-motion fallback remain available.
 
 
-## Underlight and life / preview 05
+### Underlight and life / preview 05
 
 Active branch: `design/jar-depth-motion`. Review `/jars-05/jars.html`. Hover/focus/tap adds underlighting, limited opening of removable lids and a brief vapor release. Contents make small staggered movements while idle. Pause motion and reduced-motion settings stop decorative animation. Preview 04 remains available for comparison.
 

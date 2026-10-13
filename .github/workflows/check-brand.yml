@@ -1,0 +1,29 @@
+name: Brand reference integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  brand:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check brand assets, skill pins and reference files
+        run: python3 scripts/check_brand.py
+      - name: Flag undocumented design changes for review
+        if: github.event_name == 'pull_request'
+        env:
+          BRAND_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: python3 scripts/check_brand.py --base "$BRAND_BASE_SHA"

@@ -91,7 +91,7 @@ def render(project):
         months = good['months']
         maximum = max(1, *good['monthly_counts'])
         body = (f'<div class="hn-chart star-chart"><img src="{esc(record["chart_url"])}" width="120" height="24" alt="Monthly stars retained at fetch / 2y" loading="lazy">'
-                f'<span>{sum(good["monthly_counts"]):,} stars retained at fetch / past 24 months</span></div>'
+                f'<span>{sum(good["monthly_counts"]):,} stars retained at fetch / past 2y</span></div>'
                 f'<p class="fine-print star-window">{esc(months[0])}–{esc(months[-1])} · oldest at left<br>Independent square-root scale: 0–{maximum:,} stars/month</p>')
     elif good:
         body = '<p>Cached history uses a different month window; chart withheld until aligned.</p>'

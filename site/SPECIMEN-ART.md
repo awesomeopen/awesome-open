@@ -1,6 +1,6 @@
 # Specimen illustration handoff
 
-Add this instruction to Junge's discovery workflow after a project is accepted:
+Read [the current brand reference](../brand/README.md) and use the pinned skills under `.agents/skills/`. Add this instruction to Junge's discovery workflow after a project is accepted:
 
 > Use **@Speculative FOSSoligy** and **@Retro-Scraperism** to generate one original specimen illustration from the project's repository and documentation. Read the repository first. Derive one coherent visual analogy from the tool's actual function. Use hand-drawn ink/pencil, a distinct silhouette, selective color, a square white background and no lettering. This is Awesome Open artwork, not the project's official logo. Avoid repeated anatomy and obligatory gears. Do not regenerate an existing accepted illustration unless asked.
 >

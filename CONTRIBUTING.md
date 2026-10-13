@@ -1,5 +1,9 @@
 # Contributing
 
+## Brand and design changes
+
+Start with [the brand reference](brand/README.md), [agent instructions](AGENTS.md), and [maintenance procedure](brand/maintenance.md). Update affected rules, decisions and asset/skill provenance in the same PR; explain when a fix has no brand impact. Run `python3 scripts/check_brand.py` alongside the checks relevant to the change. Routine catalog/evidence refreshes keep their existing workflow.
+
 ## Reviewed deployment and installation
 
 The website's eight-project setup pilot uses optional, source-reviewed `data/deployment_evidence.json`. Follow [the deployment evidence contract](site/DEPLOYMENT-EVIDENCE.md) for canonical identities, multi-valued run/install facts, qualified platforms/services/packages/requirements, provenance and review status. Missing facts remain unknown. This is distinct from Function summaries and does not change short descriptions or README output. Contributions stay review-only and must pass offline and browser checks; no new collection schedule or package execution is introduced.
@@ -99,12 +103,12 @@ adjacent assets. External project and source links naturally require a network.
 Some messaging-app attachment viewers disable JavaScript; download the file and
 open it in a browser when that happens.
 
-Outfit is included under SIL OFL 1.1. GSAP core and ScrollTrigger 3.15.0 retain
-their Standard No-Charge license notices; see `site/vendor/` for exact provenance.
-No runtime CDN or font requests are needed. Optional desktop scroll pinning and
-specimen-sheet stacking are disabled for narrow screens and reduced-motion
-preferences; native scrolling, all records, links, and filters work without
-GSAP. `site/DESIGN.md` records the one-shot design intent and evidence boundaries.
+Outfit is included under SIL OFL 1.1; see `site/vendor/` for exact provenance.
+The current ledger no longer ships GSAP or ScrollTrigger. The photographic hero
+uses bounded local motion with pause and reduced-motion support; the standalone
+export is a motion-free ledger. No runtime CDN or font requests are needed.
+See [the brand reference](brand/README.md) for current design decisions;
+`site/DESIGN.md` retains historical one-shot rationale.
 
 ### GitHub Pages publication
 

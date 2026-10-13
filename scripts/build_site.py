@@ -7,6 +7,7 @@ import html
 import json
 import warnings
 from pathlib import Path
+from urllib.parse import urlsplit
 import shutil
 
 from build_catalog import build_catalog, load_function_summaries
@@ -153,7 +154,7 @@ def project_html(project, categories, catalog, number=0):
     if project['hn']:
         attention = project['hn']
         inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
-        chart = f'<div class="signal evidence-note"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 24 months</span></a></div>'
+        chart = f'<div class="signal evidence-note"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 2y</span></a></div>'
     if chart and project.get('star_history'):
         paired = project['star_history']
         if paired.get('chart_url'):
@@ -172,8 +173,8 @@ def project_html(project, categories, catalog, number=0):
  <details class="specimen-drawer">
   <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span>{inline_chart}<span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
   <div class="specimen-interior{"" if art else " without-art"}" aria-labelledby="name-{pid}">
-   <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry">OP-{pid[:8].upper()}</span><span class="sheet-folio">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
-   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{alternatives}{chart}{star_history.render(project)}</div>{deployment.render(project)}</div>
+   <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span><span class="sheet-folio" title="Folio number">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source{' (GitHub)' if urlsplit(project['url']).hostname in ('github.com', 'www.github.com') else ''}</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
+   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{chart}{star_history.render(project)}{alternatives}</div>{deployment.render(project)}</div>
   </div>
  </details>
 </article>'''

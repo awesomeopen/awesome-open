@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-10-13",
+  "skills": [
+    {
+      "name": "retro-scraperism",
+      "path": ".agents/skills/retro-scraperism",
+      "authority": "Owner-maintained reusable Skills workspace",
+      "source_skill": "skill-6acc649e05dc81919a4c43dc45e7b024",
+      "source_revision": "9c374bd3f08fa886e801fdc973114ff43f7e033b",
+      "files": {
+        ".agents/skills/retro-scraperism/SKILL.md": {
+          "bytes": 8367,
+          "sha256": "3dd39461f78be7013ffd8ac1e261a6a7177432d8889456d59a542e9e1cab9119"
+        },
+        ".agents/skills/retro-scraperism/agents/openai.yaml": {
+          "bytes": 369,
+          "sha256": "7daf9a87e8e313b568c098b0be51cf01eac2ffd23fbd8952550f848726d0af4a"
+        },
+        ".agents/skills/retro-scraperism/assets/icon.svg": {
+          "bytes": 1210,
+          "sha256": "49315dda7125ec5fc77ef5f2b96126d8b2121c6e72944b4702972e90f321d3ee"
+        },
+        ".agents/skills/retro-scraperism/references/style-guide.md": {
+          "bytes": 18130,
+          "sha256": "644150a6e86175f65b669e2575357067ef87a3713e286e43e0f88453d8a631bf"
+        },
+        ".agents/skills/retro-scraperism/references/tokens.css": {
+          "bytes": 784,
+          "sha256": "4f7d1d643e0436b56e5a3c156f473741c1ceb09f235b818188a83ff6526c0ccd"
+        }
+      }
+    },
+    {
+      "name": "speculative-fossoligy",
+      "path": ".agents/skills/speculative-fossoligy",
+      "authority": "Owner-maintained reusable Skills workspace",
+      "source_skill": "skill-6acc4ea417f88191bcc5098472640507",
+      "source_revision": "9c374bd3f08fa886e801fdc973114ff43f7e033b",
+      "files": {
+        ".agents/skills/speculative-fossoligy/SKILL.md": {
+          "bytes": 14517,
+          "sha256": "2ef3d00c3b6141e5665287e14d0627a7d182670f4bece73e7a19e75d424fd630"
+        },
+        ".agents/skills/speculative-fossoligy/agents/openai.yaml": {
+          "bytes": 377,
+          "sha256": "3b075f69385bdf368e103b6adce099106f74f06cf3ae7b5385691205a3eeda3f"
+        },
+        ".agents/skills/speculative-fossoligy/assets/icon.svg": {
+          "bytes": 1210,
+          "sha256": "49315dda7125ec5fc77ef5f2b96126d8b2121c6e72944b4702972e90f321d3ee"
+        },
+        ".agents/skills/speculative-fossoligy/references/style-atlas.md": {
+          "bytes": 9206,
+          "sha256": "3c0eb9bad7e67517f678da8ec2f9f0d8add14415cfdce94cf294ac11ec4ebbf0"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+interface:
+  display_name: Speculative FOSSoligy
+  short_description: Draw unfamiliar life and objects with observed logic
+  default_prompt: Use $speculative-fossoligy to redraw this image or illustrate my
+    description.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
