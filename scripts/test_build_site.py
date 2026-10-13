@@ -343,7 +343,13 @@ class SiteTests(unittest.TestCase):
 
     def test_specimen_art_is_optional_and_portable(self):
         illustrated = [p for p in self.catalog['projects'] if p.get('artwork')]
-        self.assertEqual({p['name'] for p in illustrated}, {'OpenTofu', 'OpenRefine', 'OpenSCAD', 'OpenObserve', 'OpenResty', 'OpenSSL', 'OpenSearch'})
+        manifest = json.loads((ROOT / 'data/specimen_art.json').read_text())
+        catalog_ids = {p['id'] for p in self.catalog['projects']}
+        approved_ids = {project_id for project_id, artwork in manifest['artworks'].items()
+                        if artwork.get('review_status') == 'approved' and project_id in catalog_ids}
+        self.assertEqual({p['id'] for p in illustrated}, approved_ids)
+        self.assertTrue({'OpenTofu', 'OpenRefine', 'OpenSCAD', 'OpenObserve', 'OpenResty', 'OpenSSL', 'OpenSearch'}
+                        <= {p['name'] for p in illustrated})
         for project in self.catalog['projects']:
             card = self.page.by_id['project-' + project['id']]
             figures = [n for n in card.descendants('figure') if n.has_class('specimen-art')]
