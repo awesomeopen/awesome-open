@@ -123,7 +123,11 @@ const path=require('node:path');
      assert.ok(image.sizes>=image.cssWidth,'No-JS sizes covers rendered width at '+dpr+'x');
      assert.ok(selected.width>=Math.min(image.cssWidth*dpr,manifest.sources[source].width),'No-JS selected candidate covers device pixels at '+dpr+'x');
    }
-   assert.ok([...requested].every(resource=>byVariant[heroPath(resource)]),'No original hero downloads without JavaScript at '+dpr+'x');
+   // Native lazy loading is disabled with JS off: the full-size specimen
+   // images in evidence drawers may load too. Hero currentSrc was checked
+   // above; original glass has no separate detail use and must not download.
+   const duplicateGlass=[...requested].filter(resource=>{const relative=heroPath(resource);return !byVariant[relative]&&relative.startsWith('jars/');});
+   assert.deepEqual(duplicateGlass,[],'No original glass downloads without JavaScript at '+dpr+'x');
    noJavaScript.push({deviceScaleFactor:dpr,vesselHeights:heights,images,requestedHeroURLs:[...requested]});
    await context.close();
  }
@@ -154,7 +158,7 @@ const path=require('node:path');
        const selected=new Set(images.map(i=>i.currentSrc));
        assert.ok(heroResources.every(r=>selected.has(r.path)),'Masks reuse selected image candidates, no original/extra hero download at '+label);
        const requestedHeroURLs=[...requested];
-       assert.ok(requestedHeroURLs.every(resource=>selected.has(new URL(resource).pathname)),
+       assert.deepEqual(requestedHeroURLs.filter(resource=>!selected.has(new URL(resource).pathname)),[],
          'All requested masks reuse selected candidates, including unfinished downloads at '+label);
        const selectedResourceBytes=requestedHeroURLs.reduce((sum,resource)=>
          sum+fs.statSync(path.join(__dirname,'../site',heroPath(resource))).size,0);
