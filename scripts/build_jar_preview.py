@@ -38,12 +38,15 @@ def build(output):
             lid=f'<img class="jar-lid" src="{asset["path"]}" alt="" width="{asset["width"]}" height="{asset["height"]}">'
         steam='<svg class="jar-steam" viewBox="0 0 60 64" aria-hidden="true"><text class="steam-strand" x="4" y="54">∰</text><text class="steam-strand" x="23" y="34">⋈</text><text class="steam-strand" x="40" y="17">⌘</text></svg>' if cut or kind in ('low-open','low-lid') else ''
         exhibits.append(f'''<article class="jar-exhibit jar-{kind}{" has-lid" if cut else ""}" style="{styles}" data-project="{pid}">
-          <button class="jar-select" type="button" aria-expanded="false" aria-controls="jar-info-{pid}" aria-label="Show {name} details" hidden></button>
+          <button class="jar-select" type="button" aria-expanded="false" aria-controls="jar-info-{pid}" aria-label="Crack glass — {name}" hidden></button>
           <div class="jar-shadow" aria-hidden="true"></div><span class="jar-light-source" aria-hidden="true"></span><div class="vessel" aria-hidden="true">
            <img class="jar-photo" src="{asset['path']}" alt="" width="{asset['width']}" height="{asset['height']}" fetchpriority="high">
            <div class="specimen-window"><div class="specimen-depth"><div class="specimen-idle"><img class="specimen-print" src="{escape(art['path'])}" alt="" width="{art['width']}" height="{art['height']}"></div></div></div>
            <img class="jar-reflection" src="{asset['path']}" alt="" width="{asset['width']}" height="{asset['height']}">
-           <span class="jar-uplight"></span><span class="jar-led"></span>{lid}{steam}
+           <svg class="jar-cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <g class="crack-first"><path pathLength="1" d="M48 49 39 38 42 27 31 14 M39 38 24 36 16 27 M48 49 63 44 70 31 79 25 M48 49 44 63 53 75 48 91 M44 63 30 70"/></g>
+            <g class="crack-second"><path pathLength="1" d="M48 49 57 59 73 65 81 79 94 85 M57 59 59 78 69 95 M48 49 31 53 18 66 6 68 M31 53 18 45 4 47 M63 44 80 48 95 38 M70 31 65 17 72 3 M42 27 53 15 51 3 M53 75 36 85 27 98 M24 36 11 14 M73 65 87 59 98 64"/></g>
+           </svg><span class="jar-uplight"></span><span class="jar-led"></span>{lid}{steam}
           </div>
           <span class="jar-caption"><span>0{number}</span> {name}</span>
           <div class="jar-annotation" id="jar-info-{pid}">

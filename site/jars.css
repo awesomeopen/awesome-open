@@ -116,3 +116,12 @@
 @media(prefers-reduced-motion:reduce){.jar-light-source{transform:none;transition:none;}.jar-shadow::after{transition:none;}}
 
 .jar-page .header-search input {border-bottom:1px dashed var(--rs-blueprint);}
+
+/* Glass fractures stay on the vessel plane and retain their state until reload. */
+.jar-cracks {position:absolute;left:var(--sx);top:var(--sy);width:var(--sw);height:var(--sh);z-index:4;overflow:hidden;pointer-events:none;filter:drop-shadow(1px 0 0 rgb(255 255 255 / .95));}
+.jar-cracks g {display:none;}
+.jar-cracks path {fill:none;stroke:#244052;stroke-width:1.05;stroke-linecap:round;stroke-linejoin:bevel;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0;}
+.jar-exhibit[data-cracks="1"] .crack-first,.jar-exhibit[data-cracks="2"] .crack-first,.jar-exhibit[data-cracks="2"] .crack-second {display:block;}
+.jar-exhibit[data-cracks="1"] .crack-first path,.jar-exhibit[data-cracks="2"] .crack-second path {animation:draw-leader .28s ease-out both;}
+.motion-paused .jar-cracks path {animation:none!important;}
+@media(prefers-reduced-motion:reduce){.jar-cracks path{animation:none!important;}}
