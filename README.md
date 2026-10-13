@@ -247,7 +247,7 @@
 | [OpenBoard](https://github.com/OpenBoard-org/OpenBoard) | Interactive whiteboard for classrooms. <!-- STATS:START --><br><sub>2015-10-12 -- 2026-09-09 / GPL-3.0 / 3.1k</sub><!-- STATS:END --> |
 | [OpenCal](https://opencal.link/) | Scheduling service that combines calendar availability into a shareable link for arranging meetings. |
 | [OpenClicky](https://github.com/prasanthsasikumar/openclicky) | macOS dictation and voice companion with screen-aware answers and task handoff to a Codex agent. <!-- STATS:START --><br><sub>2026-09-03 -- 2026-10-13 / 8</sub><!-- STATS:END --> |
-| [OpenClip](https://github.com/ganeshmshetty/openclip) | Programmable text utility for macOS. <!-- STATS:START --><br><sub>2026-08-01 -- 2026-10-13 / AGPL-3.0 / 674</sub><!-- STATS:END --> |
+| [OpenClip](https://github.com/ganeshmshetty/openclip) | Programmable text utility for macOS. <!-- STATS:START --><br><sub>2026-08-01 -- 2026-10-13 / AGPL-3.0 / 675</sub><!-- STATS:END --> |
 | [OpenDeck](https://github.com/chrisglaske/opendeck) | Browser-based presentation editor with local storage, slide templates, and standalone HTML export. <!-- STATS:START --><br><sub>2026-03-02 -- 2026-04-01 / AGPL-3.0 / 11</sub><!-- STATS:END --> |
 | [OpenDictate](https://github.com/hkumarsaikia/OpenDictate) | Linux voice dictation with local Whisper transcription and cloud AI providers. <!-- STATS:START --><br><sub>2026-10-07 -- 2026-10-13 / MIT / 5</sub><!-- STATS:END --> |
 | [open-doc](https://github.com/simonliu-ai-product/open-doc) | React-based document framework with paginated layouts, outlines, tables of contents, and PDF export. <!-- STATS:START --><br><sub>2026-08-17 -- 2026-10-07 / MIT / 108</sub><!-- STATS:END --> |
