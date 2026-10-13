@@ -150,6 +150,6 @@ def render(project):
     return ('<section class="deployment-evidence" aria-labelledby="deployment-' + esc(project['id']) + '">'
             '<h4 id="deployment-' + esc(project['id']) + '">Deployment and installation</h4>'
             '<p class="fine-print">Reviewed ' + esc(record['checked_at']) + ' · ' + esc(record['reviewed_by']) + ' · Approved evidence record</p>'
-            ''.join(overview) + '<details><summary>Reviewed setup facts and sources</summary>' + ''.join(sections) +
+            + ''.join(overview) + '<details><summary>Reviewed setup facts and sources</summary>' + ''.join(sections) +
             '<p class="fine-print">' + esc(record['review_note']) + '</p>'
             '<p class="fine-print">Only documented paths are listed. Omitted facts are unknown. Package records are source observations, not live availability checks. Requirements apply only to their stated scope.</p></details></section>')

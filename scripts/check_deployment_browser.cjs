@@ -8,6 +8,7 @@ module.exports = async function ({ page, browser, url, data, capture }) {
     if (!await page.locator('.filter-options').evaluate(n => n.open)) await page.locator('.filter-options > summary').click();
     if (!await page.locator('.more-filters').evaluate(n => n.open)) await page.locator('.more-filters > summary').click();
   };
+  await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(url);
   await openFilters();
   assert.equal(await page.getByLabel('Reviewed run mode', { exact: true }).count(), 1);
@@ -22,6 +23,13 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   const both = cli.filter(p => p.deployment.install_methods?.some(f => f.value === 'binary'));
   assert.equal(await visible(), both.length);
   assert.ok(both.length > 0);
+  await page.locator('.more-filters').scrollIntoViewIfNeeded();
+  await capture('deployment-filters-desktop.png');
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'Setup filters fit mobile');
+  await page.locator('.more-filters').scrollIntoViewIfNeeded();
+  await capture('deployment-filters-mobile.png');
+  await page.setViewportSize({ width: 1440, height: 1000 });
   assert.equal(new URL(page.url()).searchParams.get('install_method'), 'binary');
   await page.reload();
   assert.equal(await visible(), both.length);

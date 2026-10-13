@@ -86,6 +86,8 @@ class DeploymentTests(unittest.TestCase):
     def test_plain_text_escaping(self):
         doc = fixture(); doc['projects'][PID]['run_modes'][0]['scope'] = '<script>alert("x")</script>'
         rendered = deployment.render(self.attach(doc))
+        self.assertIn('Test reviewer · Approved evidence record</p><p><strong>Run:</strong>', rendered)
+        self.assertEqual(rendered.count('Approved evidence record'), 1)
         self.assertNotIn('<script>', rendered)
         self.assertIn('&lt;script&gt;', rendered)
         self.assertEqual(deployment.render({'id': PID}), '')
