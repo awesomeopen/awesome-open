@@ -1152,7 +1152,8 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 }
 
 /* Two authored studies: the specimen extends across the plate's ruled geometry. */
-.plate-broad .plate-art-stage,.plate-upright .plate-art-stage {position:relative;isolation:isolate;}
+.plate-broad .plate-art-stage,.plate-upright .plate-art-stage {position:relative;}
+.plate-broad .plate-art,.plate-upright .plate-art {mix-blend-mode:multiply;}
 .plate-broad .plate-art-stage {aspect-ratio:1.16;border-bottom:1px solid var(--rs-blueprint);}
 .plate-broad .plate-art-stage::after {content:'';position:absolute;right:0;bottom:-4px;height:8px;border-right:1px solid var(--rs-blueprint);}
 .specimen-plate.plate-broad .plate-art {width:calc(100% + 64px);margin:0;position:absolute;left:-40px;top:-36px;}
