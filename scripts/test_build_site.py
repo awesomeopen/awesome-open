@@ -325,7 +325,8 @@ for (const input of inputs) {
             if href.startswith('#'):
                 self.assertIn(href[1:], self.page.ids)
             elif not href.startswith(('https://', 'http://')) and href != './':
-                self.assertTrue((self.output / href).is_file(), href)
+                target = self.output / href
+                self.assertTrue((target / 'index.html').is_file() if href.endswith('/') else target.is_file(), href)
         for resource in self.page.nodes('link'):
             href = resource.attrs['href']
             self.assertFalse(href.startswith(('/', 'http:', 'https:')))

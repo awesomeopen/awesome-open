@@ -256,3 +256,12 @@ The 24 completed calendar-month positions reuse the HN window. GitHub supplies d
 Collection is rotating and bounded to 16 requests per UTC day in the published cache, up to four repositories per run, refreshing after 14 days or a month-window change. Approximately four pages cover two years. This pilot adds at most 16 requests to roughly 471 ordinary metadata requests and the existing 350-request release ceiling; Scorecard uses a separate provider. This is a healthy-run budget, not a guarantee against other jobs or upstream limits. A shared, checkpointed invocation budget survives publisher worktree retries; an entirely failed job cannot persist its daily state to main, so this is not a cross-job global rate-limit ledger. The collector also respects rate-limit exhaustion; no credential or workflow permission changes are needed. Expanding to all repositories requires reviewing the rotation/refresh budget rather than running every full history daily.
 
 Only complete, validated history becomes a last-good result. Missing pages, contradictory totals, HTTP failures, rate limits, or unavailable data retain prior evidence and expose status and retrieval time. A last-good chart may remain visibly stale when its month window still matches HN; mismatched windows are withheld rather than silently overlaid. SVGs are generated in preview/Pages output, not tracked. Test fixtures are synthetic and isolated from production cache.
+
+## Observatory snapshot
+
+The site build also creates `/observatory/` from the same validated catalog and
+source revision. See [the observatory contract](site/OBSERVATORY.md) for counting,
+coverage, date boundaries and export semantics. Do not add collectors, inferred
+quality scores or history by changing this presentation layer. The route's compact
+runtime index deliberately excludes full prose, artwork payloads and raw provider
+checks. Its standalone report and CSV are generated artifacts, not authored files.
