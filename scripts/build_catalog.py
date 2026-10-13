@@ -14,6 +14,7 @@ from urllib.parse import unquote, urlsplit, urlunsplit
 import render_readme as readme
 import update_stats as stats
 import signals
+import deployment
 
 ROOT = Path(__file__).resolve().parents[1]
 ALTERNATIVES_LABEL = "<br>Alternative to: "
@@ -215,7 +216,7 @@ def attach_function_summaries(projects, document):
         project["function_summary"] = {"text": text, "sources": deepcopy(sources), "checked_at": checked}
 
 
-def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, optional_signals=None, function_summaries=None):
+def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, optional_signals=None, function_summaries=None, *, deployment_evidence=None):
     """Return a fresh JSON-compatible catalog; never fetch data or read a clock.
 
     Category order follows the source, projects sort by name and canonical URL,
@@ -311,6 +312,7 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, opt
             project["categories"].append(category)
             categories[category]["count"] += 1
     attach_function_summaries(projects, function_summaries)
+    deployment.attach(projects, deployment_evidence, canonical_url)
     unused = sorted(by_alternative.keys() - projects.keys())
     if unused:
         raise ValueError("Reviewed alternatives refer to unlisted projects: " + ", ".join(unused))
@@ -338,7 +340,8 @@ def main():
     )
     catalog = build_catalog(source, snapshot, alternatives, evidence, args.source_sha,
                             signals.load_optional(ROOT / "data/project_signals.json"),
-                            load_function_summaries(ROOT / "data/function_summaries.json"))
+                            load_function_summaries(ROOT / "data/function_summaries.json"),
+                            deployment_evidence=deployment.load_optional(ROOT / "data/deployment_evidence.json"))
     output = json.dumps(catalog, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(output, encoding="utf-8")
