@@ -20,7 +20,7 @@
  const toggle=hall.querySelector('.jar-motion-toggle');
  const staticMotion=()=>reduced.matches||motionPaused;
  function syncAmbient(){hall.classList.toggle('ambient-paused',staticMotion()||document.hidden||!inView);}
- const pointer={inside:false,x:0,y:0};
+ const pointer={inside:false,x:0};
  const keys=['scale','x','y','rx','ry','ix','iy','light'];
  const resting={scale:.82,x:0,y:0,rx:0,ry:0,ix:0,iy:0,light:.14};
  const restScale=node=>node.classList.contains('jar-central')?.94:.82;
@@ -38,14 +38,13 @@
    if(staticMotion())return {...resting,scale:1};
    const box=item.node.getBoundingClientRect(),center=box.left+box.width/2;
    const cameraX=pointer.inside?clamp((pointer.x-scene.left)/scene.width*2-1,-1,1):0;
-   const cameraY=pointer.inside?clamp((pointer.y-scene.top)/scene.height*2-1,-1,1):0;
    const near=pointer.inside?Math.exp(-Math.pow((center-pointer.x)/220,2)):0;
    const selected=active===item.node,depth=1-Math.abs(index-3)/5;
    const forward=selected?1:near*.42;
    const baseScale=restScale(item.node);
-   return {scale:baseScale+(1.1-baseScale)*forward,x:-cameraX*(10+depth*8),y:-forward*6-cameraY*3,
-     rx:clamp(forward*12-cameraY*(4+forward*8),-22,22),ry:cameraX*(3+forward*5),
-     ix:-cameraX*(2+forward*3),iy:cameraY*(1+forward*2),light:.14+forward*.11+Math.abs(cameraX)*.04};
+   return {scale:baseScale+(1.1-baseScale)*forward,x:-cameraX*(10+depth*8),y:-forward*6,
+     rx:0,ry:cameraX*(3+forward*5),
+     ix:-cameraX*(2+forward*3),iy:0,light:.14+forward*.11+Math.abs(cameraX)*.04};
  }
  function tick(time){
    frame=0;if(document.hidden||!inView)return;
@@ -96,7 +95,7 @@
  }
  hall.addEventListener('pointermove',event=>{
    if(!fine.matches||staticMotion())return;
-   pointer.inside=true;pointer.x=event.clientX;pointer.y=event.clientY;wake();
+   pointer.inside=true;pointer.x=event.clientX;wake();
  });
  hall.addEventListener('pointerleave',()=>{pointer.inside=false;wake();});
  exhibits.forEach(exhibit=>{
