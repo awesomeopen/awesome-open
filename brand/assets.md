@@ -49,3 +49,9 @@ at their existing paths. Each full illustration is accompanied by a CSS-cropped
 detail beside a separately sourced software feature note (B14 supersedes the
 drawing-analogy captions). No artwork bytes or upstream provenance change; the
 software claims come from reviewed Function sources, not from these crops.
+
+The square-cork and ribbed jar photographs also supply clipped paper-label overlays
+in the hero. These restore their original worn stickers above the glass treatment;
+no source image bytes or provenance changed (B18).
+
+The square bottle also reuses its original brown cork as a clipped overlay.

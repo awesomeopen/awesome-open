@@ -338,3 +338,13 @@ side walls, reduce center density further and soften the darkest glass reflectio
 Lift glass midtones without applying that correction to specimen art. Rims and
 bases remain defined but no longer read as heavy metallic outlines. Reduce contact
 shadow density; retain the faint rear room shading and existing foot illumination.
+
+Restore the two existing photographic paper stickers as clipped, opaque overlay
+layers on the square cork and ribbed jars. Their worn texture and ink can remain
+old-fashioned; the page and glass stay cool white. Labels bypass glass lightening
+and transparency. Use the original jar assets, without inventing readable labels.
+Strengthen and broaden the static rear gradient to suggest room depth behind the
+collection, with soft transitions into the white foreground and surrounding page.
+
+The square bottle also restores its natural brown cork through a clipped opaque
+layer, independent of glass desaturation and lightening.

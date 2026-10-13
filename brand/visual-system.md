@@ -87,3 +87,9 @@ See B16 and the detailed guide. Source photographs are unchanged.
 The second glass pass extends the clear area through shoulders and side walls,
 softens dark reflections and reduces contact-shadow density. Specimen color and
 room shading remain independent.
+
+The two worn paper stickers remain opaque as independent photographic overlays.
+The rear room gradient is broader and stronger; it does not tint the glass layer
+or the page globally.
+
+Natural brown cork likewise bypasses the neutral glass correction.

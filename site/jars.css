@@ -10,7 +10,7 @@
 .jar-scroll {overflow:visible;}
 .jar-stage {display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.6fr) repeat(3,minmax(0,1fr));height:380px;max-width:980px;margin:auto;position:relative;}
 /* Static rear shading stays behind the collection and fades before the captions. */
-.jar-stage::before {content:"";position:absolute;inset:0 0 20px;pointer-events:none;background:radial-gradient(ellipse 56% 29% at 50% 81%,rgb(11 37 70 / .065),rgb(11 37 70 / .025) 48%,transparent 76%);}
+.jar-stage::before {content:"";position:absolute;inset:0 0 20px;pointer-events:none;background:radial-gradient(ellipse 65% 42% at 50% 73%,rgb(11 37 70 / .12),rgb(11 37 70 / .045) 48%,transparent 78%);}
 .jar-exhibit {position:relative;min-width:0;--mx:0px;--my:0px;--scene-scale:1;--tilt-x:0deg;--tilt-y:0deg;--inner-x:0px;--inner-y:0px;--glass-light:.18;}
 .jar-exhibit:is(.is-active,:focus-within) {z-index:5;}
 .vessel {position:absolute;height:var(--height);aspect-ratio:var(--ratio);bottom:calc(44px - var(--foot));left:50%;transform:translateX(-50%) perspective(550px) translate3d(var(--mx),var(--my),0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--scene-scale));transform-origin:50% calc(100% - var(--foot));pointer-events:none;isolation:isolate;}
@@ -141,3 +141,11 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 .jar-caption>span {font-size:11px;margin-right:4px;}
 .jar-callout p {font:400 14px/1.55 var(--mono);letter-spacing:-.02em;}
 .callout-kicker,.jar-metrics {font-size:12px;}
+
+/* Original worn paper labels stay opaque independently of the glass. */
+.jar-sticker {position:absolute;inset:0;width:100%;height:100%;max-width:none;z-index:3;pointer-events:none;filter:contrast(1.15) brightness(.98) sepia(.12);}
+.jar-square-cork .jar-sticker {clip-path:polygon(19% 74%,44.6% 76.6%,45.6% 84.8%,42% 85%,19.8% 82%,18.8% 80.5%);}
+.jar-ribbed .jar-sticker {clip-path:polygon(54.7% 33.4%,77.5% 30.8%,79.4% 38.6%,78.3% 39%,57% 41.3%,56% 40.4%);}
+
+/* Natural cork is an opaque material, not part of the neutral glass filter. */
+.jar-cork {position:absolute;inset:0;width:100%;height:100%;max-width:none;z-index:3;pointer-events:none;filter:brightness(1.15) saturate(1.1);clip-path:polygon(30% 8%,38% 7.5%,65% 7.4%,70.5% 8.2%,70% 16.7%,66% 17.4%,32% 17.2%,29.8% 16%,29.6% 9%);}
