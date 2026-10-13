@@ -180,6 +180,8 @@ def render_html(catalog):
     license_options = ''.join(f'<option value="{escape(v)}">{escape(v)}</option>' for v in licenses)
     alternative_names = sorted({a['name'] for p in catalog['projects'] for a in p['alternatives']})
     alternative_options = ''.join(f'<option value="{escape(v)}">{escape(v)}</option>' for v in alternative_names)
+    footer_backgrounds = catalog.get('footer_backgrounds', [])
+    footer_art = (f'<img class="footer-art" data-footer-background data-backgrounds="{escape(json.dumps(footer_backgrounds))}" src="{escape(footer_backgrounds[0])}" width="2048" height="682" alt="" loading="lazy" decoding="async">' if footer_backgrounds else '')
     projects = '\n'.join(project_html(p, categories, catalog, i+1) for i, p in enumerate(catalog['projects']))
     signal_projects = [p for p in catalog['projects'] if p.get('signals')]
     signal_coverage = []
@@ -227,7 +229,7 @@ def render_html(catalog):
   <div id="project-list" class="project-list">{projects}</div>
  </main>
 </div>
-<footer class="site-footer" id="about"><div class="footer-actions"><a href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="#catalog">Top</a></div><details class="data-notes" id="method"><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>Latest GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, 'LICENSE.md'))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{' has-art' if footer_backgrounds else ''}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="#catalog">Top</a></div><details class="data-notes" id="method"><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>Latest GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, 'LICENSE.md'))}">CC0-1.0</a></span></div></footer>
 </div><script id="catalog-data" type="application/json">{json_for_html(catalog)}</script>
 </body></html>
 '''
@@ -247,6 +249,7 @@ def build(output, source_sha=None, root=ROOT):
     optional = signals.load_optional(root / 'data/project_signals.json')
     catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha, optional_signals=optional,
                             function_summaries=load_function_summaries(root / "data/function_summaries.json"))
+    catalog['footer_backgrounds'] = ['footer-backgrounds/' + p.name for p in sorted((root / 'site/footer-backgrounds').glob('*')) if p.is_file() and p.suffix.lower() in {'.webp', '.png'} and not p.is_symlink()]
     attach_specimen_art(catalog, root)
     page = render_html(catalog)
     # Validate charts before touching generated files. The renderer is shared with README.
@@ -280,6 +283,10 @@ def build(output, source_sha=None, root=ROOT):
             asset = project['artwork']['path']
             (output / asset).parent.mkdir(exist_ok=True)
             shutil.copyfile(root / 'site' / asset, output / asset)
+    shutil.rmtree(output / 'footer-backgrounds', ignore_errors=True)
+    for asset in catalog['footer_backgrounds']:
+        (output / asset).parent.mkdir(exist_ok=True)
+        shutil.copyfile(root / 'site' / asset, output / asset)
     (output / 'brand').mkdir(exist_ok=True)
     for name in BRAND_ASSETS:
         shutil.copyfile(root / 'site/brand' / name, output / 'brand' / name)
@@ -287,6 +294,11 @@ def build(output, source_sha=None, root=ROOT):
     # A phone/download-friendly edition: every runtime asset and evidence download
     # is embedded, so opening one HTML file never depends on adjacent files.
     standalone = page.replace('href="data/hn_evidence.json">View evidence', 'href="#hn-evidence">View evidence')
+    for asset in catalog['footer_backgrounds']:
+        mime_type = 'image/png' if asset.lower().endswith('.png') else 'image/webp'
+        encoded = base64.b64encode((output / asset).read_bytes()).decode('ascii')
+        standalone = standalone.replace(f'src="{asset}"', f'src="data:{mime_type};base64,{encoded}"')
+        standalone = standalone.replace(f'&quot;{asset}&quot;', f'&quot;data:{mime_type};base64,{encoded}&quot;')
     for name, mime_type in BRAND_ASSETS.items():
         encoded = base64.b64encode((output / 'brand' / name).read_bytes()).decode('ascii')
         for attribute in ('src', 'href'):

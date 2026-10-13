@@ -81,6 +81,27 @@ const path = require('node:path');
     report.sourceSha = data.source_sha;
     writeReport();
     if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Browser must test the generated checkout');
+    // Deterministically exercise the first and last entries of the random background pool.
+    const backgrounds = data.footer_backgrounds || [];
+    if (backgrounds.length) {
+      await page.addInitScript(() => { Math.random = () => Number(sessionStorage.getItem('footer-test-random') || 0); });
+      for (const [random, index] of [[0, 0], [.999999, backgrounds.length - 1]]) {
+        await page.evaluate(value => sessionStorage.setItem('footer-test-random', String(value)), random);
+        await page.goto(url);
+        const art = page.locator('[data-footer-background]');
+        await art.scrollIntoViewIfNeeded();
+        await art.evaluate(image => image.decode());
+        assert.ok((await art.getAttribute('src')).endsWith(backgrounds[index]));
+        await capture('footer-background-' + index + '.png');
+      }
+      await page.setViewportSize({width:390,height:1000});
+      await page.locator('#about').scrollIntoViewIfNeeded();
+      await assertLedgerFits(page, 'footer artwork mobile');
+      await capture('footer-mobile.png');
+      await page.setViewportSize({width:1440,height:1000});
+      await page.goto(url);
+      await waitForState();
+    }
     assert.equal(await visible(), data.projects.length);
     assert.equal(await page.locator('#sort-order').isEnabled(), true);
     assert.equal(await page.locator('.specimen-drawer').count(), data.projects.length);

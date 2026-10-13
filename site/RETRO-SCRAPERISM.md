@@ -251,3 +251,10 @@ Proposed next data extension: keep the existing short description for folded row
 ### Reviewed Function summaries — implemented proposal
 
 The concise description remains the large Function headline and folded-row description. Approved 40–80-word prose appears underneath at reading size, followed by literal source links and the review date. This keeps longer documentation readable without making a paragraph-sized headline. Missing summaries add no placeholder or repeated text. The curated contract and Junge handoff are in [FUNCTION-SUMMARIES.md](FUNCTION-SUMMARIES.md); publication does not fetch or invent prose.
+
+
+### Footer backgrounds
+
+Owner-supplied transparent valley and abyssal artwork occupy the footer floor over Prussian blue. Text and controls stay above the artwork on solid blue. Fade the upper edge with a CSS mask; do not animate the background. Select one image uniformly per page load using the number of available images. Keep the first sorted image as a no-JavaScript fallback.
+
+Add a PNG or WebP to `site/footer-backgrounds/` and rebuild to extend the pool; do not edit probabilities or JavaScript. Keep artwork provenance beside the assets. The standalone download embeds the complete pool and uses the same selection logic. On narrow screens crop the decorative panorama centrally while preserving legible footer text.
