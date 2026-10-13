@@ -1,0 +1,26 @@
+# Project ideas and decisions
+
+Format: `YYMMDD - Idea - Status - Explanation / Problem`.
+Dates are the dates recorded here, not necessarily when an idea was first proposed.
+This is a manually maintained, non-exhaustive log; acceptance of an idea does not
+by itself authorize implementation, a new schedule, or publication. Update statuses
+when decisions or implementation change. Detailed design rules remain in the
+[brand decision register](brand/decisions.md); evidence requirements remain in the
+linked contracts.
+
+- 261013 - Bus Factor / contributor concentration - REJECTED - Too interpretative for this catalog's factual signals; contributor concentration must not become a project-health or continuity verdict. Rejected as a product idea, not because the raw data is impossible to collect.
+- 261013 - Downstream package counts - ACCEPTED IDEA - Worthwhile as an optional, qualified adoption signal and a smaller first step than a dependency filter. Separate dependent packages from upstream dependencies; record package, ecosystem, version, coverage and last-checked date, with unavailable counts Unknown rather than zero. Counts are not users or quality. Implementation remains to be designed.
+- 261013 - Include / avoid dependency filter - UNDER ASSESSMENT - A separate direction for finding projects by upstream packages. Requires versioned source evidence, direct/transitive scope, last-checked dates and explicit Unknown for incomplete coverage; track releases, commits and lockfile changes rather than announcements. No implementation or new collection schedule is approved.
+- 261013 - Package download counts - EXPLORATORY - Downloads can include CI, mirrors and repeat installations; they are not unique users. Define ecosystem-specific coverage and caveats before adopting a metric.
+- 261013 - Stack Overflow mentions, response times and PR acceptance - DEFERRED - Identity matching, time windows and denominator definitions need work. These must not become a composite quality or health score.
+- 261013 - License, CLA and foundation facts - UNDER CONSIDERATION - Prefer literal, source-backed facts; license detection is not legal review, and affiliation or CLA presence does not establish automatic risk or trustworthiness.
+- 261013 - Responsive hero images and compact catalog index - IN PROGRESS - Reduce image and initial catalog payloads while preserving the existing visual design, accessibility, search/filter behavior and evidence semantics. A separate implementation is being prepared for review.
+- 261013 - HTMX, Alpine or fetch-based foldouts - UNDER CONSIDERATION - Explore loading expanded detail only when needed, with no-JavaScript behavior, permalinks and interaction reliability accounted for. No framework or loading strategy has been selected.
+- 261013 - Broad automated discovery - IMPLEMENTED / ONGOING - Continue broad Open-named software discovery without popularity or maturity thresholds, followed by evidence review and deduplication. Inclusion rules are in [CONTRIBUTING.md](CONTRIBUTING.md#scope); this log creates no new schedule.
+- 261013 - Curated source separated from generated output - IMPLEMENTED - Edit README.source.md and reviewed evidence; the existing publisher owns generated README and website output. See [source and publication](CONTRIBUTING.md#source-previews-and-publication).
+- 261013 - Independent stars and Hacker News signals - IMPLEMENTED - Keep GitHub popularity and HN activity separate, with their own provenance and time windows. Neither stars nor mentions establish quality, sentiment or production suitability. See [CONTRIBUTING.md](CONTRIBUTING.md).
+- 261013 - Reviewed Function summaries - IMPLEMENTED / BACKFILL ONGOING - Source-backed expanded summaries complement the unchanged short catalog descriptions. The pipeline and reviewed batches exist; catalog-wide coverage is not complete. See [the summary contract](site/FUNCTION-SUMMARIES.md).
+- 261013 - Reviewed specimen artwork - IMPLEMENTED / COVERAGE ONGOING - Original, function-led illustrations use varied silhouettes and anatomy without fixed reference anchors or repetitive machinery. Review each asset, preserve approved work and omit missing artwork rather than adding placeholders. See [the artwork contract](site/SPECIMEN-ART.md).
+- 261013 - Deployment and installation evidence - PILOT IMPLEMENTED / EXPANSION PLANNED - The eight-project pilot records qualified setup facts and provenance. Further coverage needs source review; the pilot is not an exhaustive inventory or an authorization for a new automated collector. See [the deployment contract](site/DEPLOYMENT-EVIDENCE.md).
+- 261013 - Marketing outreach, digest and social posting - PAUSED - Prioritize catalog quality and the product experience before resuming promotion. Revisit the scope and recipients before sending anything.
+- 261013 - Harvesting commit email addresses for outreach - REJECTED - Do not collect commit-author email addresses as a marketing contact list.
