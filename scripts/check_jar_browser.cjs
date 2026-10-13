@@ -25,7 +25,7 @@ const assert=require('node:assert/strict');
  await page.mouse.move(1400,950);await page.locator('.jar-central .jar-select').focus();
  await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-central').style.getPropertyValue('--tilt-x'))>11.9);
  await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
- assert.ok(await page.locator('.jar-central .jar-uplight').evaluate(n=>Number(getComputedStyle(n).opacity)>.95));
+ assert.ok(await page.locator('.jar-central .jar-uplight').evaluate(n=>Math.abs(Number(getComputedStyle(n).opacity)-.75)<.02));
  assert.notEqual(await page.locator('.jar-central .jar-lid').evaluate(n=>getComputedStyle(n).transform),'none');
  assert.equal(await page.locator('.jar-central .steam-strand').first().evaluate(n=>getComputedStyle(n).animationName),'steam-fade');
  await page.screenshot({path:'tmp/site-qa/jars-tilt.png'});
