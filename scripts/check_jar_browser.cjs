@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
  const browser=await chromium.launch({headless:true});
  const page=await browser.newPage({viewport:{width:1440,height:1000}});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
- const url=new URL('jars.html',process.env.SITE_URL||'http://127.0.0.1:8000/').href;
+ const url=new URL(process.env.JAR_PAGE||'jars.html',process.env.SITE_URL||'http://127.0.0.1:8000/').href;
  const ready=()=>page.waitForSelector('body[data-jars-ready=true]');
  const fits=async width=>assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No overflow at '+width);
  try{

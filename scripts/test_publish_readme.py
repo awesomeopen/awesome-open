@@ -79,7 +79,9 @@ root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--source-sha', required=True)
 parser.add_argument('--output', required=True, type=Path)
+parser.add_argument('--production', action='store_true')
 args = parser.parse_args()
+assert args.production
 assert subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip() == args.source_sha
 assert subprocess.run(['git', 'symbolic-ref', '-q', 'HEAD'], cwd=root, capture_output=True).returncode == 1
 args.output.mkdir(parents=True, exist_ok=True)

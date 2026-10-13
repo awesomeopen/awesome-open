@@ -57,7 +57,7 @@ jobs:
           if-no-files-found: error
       - name: Build offline field-guide preview
         run: |
-          python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA"
+          python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA" --production
           python3 scripts/build_exhibition_preview.py --output tmp/site
           python3 scripts/build_jar_preview.py --output tmp/site
       - name: Upload field-guide preview
@@ -101,7 +101,7 @@ jobs:
           PY
           timeout 180s node scripts/check_site_browser.cjs 2>&1 | tee tmp/site-qa/browser.log
           timeout 90s node scripts/check_exhibition_browser.cjs 2>&1 | tee tmp/site-qa/exhibition.log
-          timeout 90s node scripts/check_jar_browser.cjs 2>&1 | tee tmp/site-qa/jars.log
+          JAR_PAGE=index.html timeout 90s node scripts/check_jar_browser.cjs 2>&1 | tee tmp/site-qa/jars.log
       - name: Upload desktop and mobile browser screenshots
         if: ${{ always() }}
         uses: actions/upload-artifact@v4

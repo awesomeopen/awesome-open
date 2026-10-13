@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build preview #5 from the complete ledger; production layout stays unchanged."""
+"""Compose the specimen hero for the production guide or an isolated preview."""
 import argparse
 import json
 import shutil
@@ -17,7 +17,7 @@ DISPLAY = [
  ('OpenTofu','low-lid','Provision',215,23,20,40,49,39,130),
 ]
 
-def build(output):
+def build(output, production=False):
     output=Path(output)
     catalog=json.loads((output/'catalog.json').read_text())
     assets={a['id']:a for a in json.loads((ROOT/'site/jars/provenance.json').read_text())}
@@ -60,9 +60,12 @@ def build(output):
       <svg width="0" height="0" class="jar-filter-defs" aria-hidden="true"><defs><filter id="glass-displacement"><feTurbulence type="fractalNoise" baseFrequency=".017 .08" numOctaves="1" seed="6" result="glass"/><feDisplacementMap in="SourceGraphic" in2="glass" scale="1.3" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
       <div class="jar-scroll" role="region" aria-label="Specimen display; scroll horizontally on smaller screens" tabindex="0"><div class="jar-stage">{''.join(exhibits)}</div></div>
     </section>'''
-    page=(output/'index.html').read_text().replace('<body>','<body class="jar-page">').replace('</head>','<meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="jars.css"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
-    page=page.replace('<title>','<title>Preview 05 / ',1)
-    (output/'jars.html').write_text(page)
+    page=(output/'index.html').read_text()
+    if 'class="jar-page"' not in page:
+        page=page.replace('<body>','<body class="jar-page">').replace('</head>','<link rel="stylesheet" href="jars.css"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
+    if not production:
+        page=page.replace('</head>','<meta name="robots" content="noindex,nofollow"></head>').replace('<title>','<title>Preview / ',1)
+    (output/('index.html' if production else 'jars.html')).write_text(page)
     for filename in ('jars.css','jars.js'): shutil.copyfile(ROOT/'site'/filename,output/filename)
     shutil.copytree(ROOT/'site/jars',output/'jars',dirs_exist_ok=True)
     return {'exhibits':len(exhibits)}

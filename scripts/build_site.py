@@ -366,8 +366,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT / 'tmp/site')
     parser.add_argument('--source-sha', help='Explicit full source commit SHA, supplied by the caller; never inferred')
+    parser.add_argument('--production', action='store_true', help='Use the reviewed specimen hero on the main entry point')
     args = parser.parse_args()
     catalog = build(args.output, args.source_sha)
+    if args.production:
+        from build_jar_preview import build as build_hero
+        build_hero(args.output, production=True)
     print(f"Built {len(catalog['projects'])} projects / {catalog['category_memberships']} category memberships in {args.output}")
     print(f"Cached GitHub metrics as of {catalog['metrics_as_of']}; no data fetched or deployed.")
 

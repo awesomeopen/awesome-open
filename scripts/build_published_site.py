@@ -28,7 +28,7 @@ def build_published_site(source_sha, output, root=ROOT):
             if git(worktree, "rev-parse", "HEAD").stdout.strip() != source_sha:
                 raise RuntimeError("Site checkout does not match the published revision")
             run(worktree, sys.executable, "scripts/build_site.py", "--output", str(output),
-                "--source-sha", source_sha)
+                "--source-sha", source_sha, "--production")
             if not (output / "index.html").is_file() or not (output / "catalog.json").is_file():
                 raise RuntimeError("Published site build did not produce the required files")
         finally:
