@@ -1,0 +1,14 @@
+interface:
+  display_name: Retro-Scraperism
+  short_description: High-contrast specimen design with editorial ink
+  default_prompt: Use $retro-scraperism to apply the specimen-led design system to
+    this project.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

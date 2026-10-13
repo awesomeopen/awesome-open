@@ -1,10 +1,10 @@
 # Retro-Scraperism — Awesome Open design system
 
-Version 0.1 · proposed foundation · 2026-10-12
+Version 0.1 · established project guide · consolidated 2026-10-13
 
 **Specimen is the chosen concept spine.** It is a deliberate fit for inspecting software and its evidence, not the result of a random theme selection. Retro-Scraperism is a precise, high-contrast field of technical information interrupted by curious hand-drawn life and visible editorial attention. Think a working sketchbook meeting a drafting instrument: lucid, slightly strange, and useful.
 
-This is the canonical project guide. [The visual reference](design/index.html) and [CSS tokens](design/tokens.css) make it concrete. The portable `retro-scraperism` skill carries these principles elsewhere; for Awesome Open, this document wins over its bundled snapshot. This proposal does not restyle the production site by itself.
+This is the detailed canonical project guide. Start at [the brand reference](../brand/README.md) for current status, assets, skills and maintenance. Later component sections retain their original proposal wording as implementation history; see [the decision register](../brand/decisions.md) for current status. [The visual reference](design/index.html) and [CSS tokens](design/tokens.css) make it concrete. The portable `retro-scraperism` skill carries these principles elsewhere; for Awesome Open, this document wins over its bundled snapshot. The current production composition is recorded in [the visual-system index](../brand/visual-system.md).
 
 ## 1. Direction and boundaries
 
@@ -152,7 +152,7 @@ For this project, explicit user decisions and this system override generic skill
 
 ## 9. Extension and review
 
-The active design branch is `design/exhibition-preview-1`, owned by Codex for the exhibition prototype. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
+Use a focused design branch from current main. `design/exhibition-preview-1` was the initial prototype branch; it is not a permanent active branch. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
 
 For each extension, add the rule, token/component example, reason, accessibility implications and a decision-log entry in the same PR. Distinguish a proposal from an approved direction. Update the portable skill's reference snapshot when an approved system change should apply outside this repo. Do not let independent snapshots silently override the project guide.
 

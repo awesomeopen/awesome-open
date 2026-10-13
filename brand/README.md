@@ -1,0 +1,47 @@
+# Awesome Open* brand reference
+
+Version 0.1 · consolidated 2026-10-13 · review baseline
+
+This is the entry point for brand work in this repository. It joins existing
+rules, implementation and provenance; it does not restart the identity or make
+every historical proposal binding. The new organization and maintenance process
+are proposed by this PR. Existing merged behavior is identified separately.
+
+## Read by task
+
+| Need | Authoritative reference |
+| --- | --- |
+| Purpose, naming, voice and evidence limits | [Foundation](foundation.md), [contribution policy](../CONTRIBUTING.md) |
+| Palette, type, UI, motion | [Visual system](visual-system.md), detailed [Retro-Scraperism guide](../site/RETRO-SCRAPERISM.md), [tokens](../site/design/tokens.css) |
+| Illustration and brand assets | [Illustration](illustration.md), [asset index](assets.md), existing per-family provenance |
+| Decisions and unresolved questions | [Decision register](decisions.md) |
+| Skills and editing authority | [Skill policy](skills.md), [pinned files](skills.lock.json) |
+| Updating this reference | [Maintenance](maintenance.md), root [agent instructions](../AGENTS.md) |
+| Source history and scope of this audit | [Sources](sources.md), [historical documents](archive/README.md) |
+| Build, preview and release | [Preview workflow](../site/PREVIEW.md), [contribution/build instructions](../CONTRIBUTING.md) |
+
+Keep detailed implementation rules in their existing guide and tokens; do not
+copy their full contents into another editable document. Brand documents link to
+those sources and record their role, status and exceptions.
+
+## Authority and status
+
+An explicit current user decision governs the requested change. For established
+brand work use the project reference over generic skills or old briefs. Tokens
+and source code establish what is implemented, not whether every implementation
+detail was explicitly approved. If code and documented intent disagree, record
+the discrepancy and fix it through review rather than quietly choosing a winner.
+
+Status vocabulary:
+
+- **User-directed:** explicit decision captured in the project record.
+- **Implemented:** present in the audited merged source; not a claim of separate
+  sign-off for every line.
+- **Proposed:** awaits review, including new editorial or workflow policy.
+- **Historical / superseded:** retained to explain evolution; not instructions.
+- **Unresolved:** missing evidence, conflicting sources or a pending decision.
+
+Source baseline: main commit `0be9592`. Production promotion is recorded in PR
+[#26](https://github.com/awesomeopen/awesome-open/pull/26); medium-width corrections
+in PR [#27](https://github.com/awesomeopen/awesome-open/pull/27). The private Sites
+wrapper is a review output, not the canonical GitHub source.

@@ -1,3 +1,5 @@
+> Historical ledger migration plan. For current composition and instructions, read [the brand reference](../brand/README.md).
+
 # Ledger-first implementation plan
 
 The ledger is the primary task. Use the fixed specimen spine and shared Retro-Scraperism tokens. Instrument: searchable ruled records and literal metadata. Specimen: optional function-derived artwork in expanded records. Editorial hand: upright asterisk for expanded records and category-leader labels.
