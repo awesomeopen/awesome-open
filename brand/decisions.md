@@ -61,3 +61,5 @@ approved merely because it appears in this file.
 | B17 | 2026-10-13 | User-directed; implemented for visual review | Follow-up airiness pass after B16: wider and clearer glass windows, softer rim/shoulder reflections and lighter contact shadows. Keep specimen saturation and subtle room depth. |
 
 | B18 | 2026-10-13 | User-approved glass direction; label/depth follow-up for review | Retain B17 airiness. Restore two existing worn paper stickers and natural brown cork independently of glass filtering; strengthen broad rear room shading. |
+
+| B19 | 2026-10-13 | User-directed; implemented for review | Replace broad room shading with shallow arched jar placement (center 12px back), a matching faint footprint trail and short rear shadows. Preserve approved glass, labels and cork. Supersedes B18's stronger room gradient. Captions use one literal space without added number margin. |

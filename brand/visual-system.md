@@ -102,3 +102,7 @@ The rear room gradient is broader and stronger; it does not tint the glass layer
 or the page globally.
 
 Natural brown cork likewise bypasses the neutral glass correction.
+
+The latest depth direction (B19) supersedes the broad rear gradient: a shallow arc
+in actual jar placement, matched footprint shading and short rear shadows. White
+space remains clear around the collection. Labels retain their common baseline.
