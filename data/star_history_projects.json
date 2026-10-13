@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "scope_note": "Small HN-matched GitHub pilot. Only explicitly listed repositories are collected; expand this reviewed list to grow the budgeted rotation.",
+  "projects": [
+    {
+      "name": "OpenTofu",
+      "repo": "opentofu/opentofu",
+      "readme_url": "https://github.com/opentofu/opentofu"
+    },
+    {
+      "name": "Open WebUI",
+      "repo": "open-webui/open-webui",
+      "readme_url": "https://github.com/open-webui/open-webui"
+    },
+    {
+      "name": "OpenWrt",
+      "repo": "openwrt/openwrt",
+      "readme_url": "https://github.com/openwrt/openwrt"
+    }
+  ]
+}
