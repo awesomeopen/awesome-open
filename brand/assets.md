@@ -43,3 +43,8 @@ CC0 notice does not prove rights in third-party references or grant trademark
 clearance. Preserve separately licensed font notices. No independent rights audit
 of historical logo/owner-supplied art is claimed. Add missing provenance when it
 can be established; do not invent a generator, rights holder or license.
+
+The specimen-plate study reuses the approved OpenTofu and OpenRefine WebP files
+at their existing paths. Each full illustration is accompanied by a CSS-cropped
+detail and an explicitly labeled drawing analogy. No artwork bytes or upstream
+provenance change; no new scientific/software claims arise from these crops.

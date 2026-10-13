@@ -49,3 +49,5 @@ summarizes decisions without publishing private conversation transcripts.
 For later decisions add an ID, date, status, concise rule and evidence link. Change
 status only with actual review evidence. Never retroactively label a proposal
 approved merely because it appears in this file.
+
+| B13 | 2026-10-13 | User-authorized prototype; awaiting visual review | Three expanded specimen plates: larger art, labeled illustration close-ups, stronger function typography, differentiated evidence and final GitHub departure. Folded ledger unchanged; test broad/upright/no-art records before wider promotion. |

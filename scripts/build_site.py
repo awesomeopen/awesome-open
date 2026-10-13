@@ -138,6 +138,36 @@ def attach_specimen_art(catalog, root):
         projects[pid]['artwork'] = {k: entry[k] for k in ('path', 'alt', 'width', 'height')}
 
 
+# Bounded three-record study; promote only after review of illustrated and text-only plates.
+PLATE_STUDIES = {
+    'https://github.com/opentofu/opentofu': ('broad', '01', 'Seeds become joints.',
+        'The pod’s ribs form a scaffold around its seeds: an illustration analogy for planned infrastructure and resource dependencies.'),
+    'https://github.com/openrefine/openrefine': ('upright', '02', 'Mixed grains, ordered strands.',
+        'The calyx gathers unlike grains into matching strands: an illustration analogy for cleaning and reconciling data.'),
+    'https://github.com/open-webui/open-webui': ('text', '03', '', ''),
+}
+
+
+def specimen_plate(project, number, tags, artwork, function_detail, vitals, chart, alternatives):
+    kind, detail_number, detail_title, analogy = PLATE_STUDIES[project['url']]
+    pid, name, url = escape(project['id']), escape(project['name']), escape(project['url'])
+    art = project.get('artwork')
+    detail = ''
+    if art:
+        artwork = artwork.replace('class="specimen-art"', 'class="specimen-art plate-art"')
+        detail = f'''<figure class="plate-detail"><div class="plate-detail-crop" aria-hidden="true"><img src="{escape(art['path'])}" alt="" width="{art['width']}" height="{art['height']}" loading="lazy"></div><figcaption><span class="plate-index">{detail_number} / DRAWING DETAIL</span><strong>{escape(detail_title)}</strong><p>{escape(analogy)}</p></figcaption></figure>'''
+    identity = f'''<div class="specimen-identity"><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span><span class="sheet-folio" title="Folio number">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{url}">Official source (GitHub)</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div>'''
+    marker = f'''<svg class="plate-leader" viewBox="0 0 400 60" aria-hidden="true"><path pathLength="1" d="M280 2 L280 24 Q280 35 267 35 L22 35 L22 58"/><circle cx="280" cy="2" r="2"/></svg>''' if art else ''
+    return f'''<div class="specimen-interior specimen-plate plate-{kind}" aria-labelledby="name-{pid}">
+      <div class="plate-heading"><span class="plate-index">FIELD NOTES / {number:03d}</span><span class="plate-index">{escape(project['name'])}</span></div>
+      <div class="specimen-caption plate-specimen">{artwork}{marker}{detail}{identity}</div>
+      <div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description">{escape(project['description'])}</p>{function_detail}</div>
+      <section class="plate-register" aria-label="Repository facts"><span class="sheet-label">II / Repository record</span>{vitals}</section>
+      <div class="diagnostics plate-evidence"><span class="sheet-label">III / Observations &amp; evidence</span><div class="evidence-notes">{chart}{star_history.render(project)}{optional_signal_html(project)}{alternatives}</div>{deployment.render(project)}</div>
+      <nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">Continue at the source</span><a href="{url}"><span>Explore {name} on GitHub</span><span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{escape(project['url'].removeprefix('https://'))}</span></nav>
+    </div>'''
+
+
 def project_html(project, categories, catalog, number=0):
     pid = escape(project['id'])
     name = escape(project['name'])
@@ -169,13 +199,17 @@ def project_html(project, categories, catalog, number=0):
     artwork = (f'<figure class="specimen-art"><img src="{escape(art["path"])}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure>' if art else '')
     leader_categories = project.get('leader_categories', [])
     leader_label = ' / '.join(categories[c] for c in leader_categories) if leader_categories else ''
+    interior = f'''  <div class="specimen-interior{"" if art else " without-art"}" aria-labelledby="name-{pid}">
+   <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span><span class="sheet-folio" title="Folio number">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source{' (GitHub)' if urlsplit(project['url']).hostname in ('github.com', 'www.github.com') else ''}</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
+   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{chart}{star_history.render(project)}{alternatives}</div>{deployment.render(project)}</div>
+  </div>'''
+    if project['url'] in PLATE_STUDIES:
+        vitals = f'''<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl>'''
+        interior = specimen_plate(project, number, tags, artwork, function_detail, vitals, chart, alternatives)
     return f'''<article class="project-card" data-leader="{'true' if leader_categories else 'false'}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
   <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span>{inline_chart}<span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
-  <div class="specimen-interior{"" if art else " without-art"}" aria-labelledby="name-{pid}">
-   <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span><span class="sheet-folio" title="Folio number">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source{' (GitHub)' if urlsplit(project['url']).hostname in ('github.com', 'www.github.com') else ''}</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
-   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{chart}{star_history.render(project)}{alternatives}</div>{deployment.render(project)}</div>
-  </div>
+{interior}
  </details>
 </article>'''
 

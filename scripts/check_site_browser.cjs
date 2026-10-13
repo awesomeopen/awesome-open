@@ -409,6 +409,7 @@ const path = require('node:path');
     await require('./check_deployment_browser.cjs')({ page, browser, url, data, capture });
     assert.deepEqual(errors, []);
     await require('./check_star_history_browser.cjs')({ page, url, data, capture });
+    await require('./check_plate_browser.cjs')({ page, url, data, capture });
     report.status = 'passed';
     writeReport();
     console.log(JSON.stringify(report, null, 2));
