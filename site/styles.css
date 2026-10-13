@@ -119,8 +119,8 @@ summary::marker {
   white-space:nowrap;
 }
 .brand-mark {
-  width:40px;
-  height:40px;
+  width:64px;
+  height:64px;
   object-fit:contain;
 }
 .brand-asterisk {
@@ -811,7 +811,7 @@ h1>span {
 /* Compact ledger controls: native, exclusive disclosures above the records. */
 .site-header { gap:24px; padding-block:10px; }
 .brand-name { display:inline; }
-.header-search { padding:0; flex:1; max-width:400px; min-width:160px; }
+.header-search { padding:0; flex:1; max-width:320px; min-width:160px; }
 .header-search > label { margin:0; color:var(--rs-trace); font-size:12px; }
 .header-search .search-input { gap:0; }
 .header-search .search-input > span { display:none; }
@@ -956,3 +956,6 @@ h1 { font-size:28px; margin:0; }
 .site-footer.has-art .footer-baseline {margin-top:clamp(180px,34vw,640px);}
 .footer-baseline {border-top:0;padding-top:0;align-items:flex-start;}
 .footer-baseline>span {background:#051529;padding:4px 8px;}
+
+.page-end {display:flex;justify-content:center;padding:72px 24px;}
+.page-end img {display:block;width:96px;height:96px;}
