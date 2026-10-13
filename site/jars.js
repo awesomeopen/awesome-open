@@ -16,7 +16,7 @@
      glyph.textContent=available.splice(Math.floor(Math.random()*available.length),1)[0];
    });
  });
- let pinned=null,active=null,closeTimer=0,frame=0,lastTime=0,inView=true,motionPaused=false;
+ let active=null,closeTimer=0,frame=0,lastTime=0,inView=true,motionPaused=false;
  const toggle=hall.querySelector('.jar-motion-toggle');
  const staticMotion=()=>reduced.matches||motionPaused;
  function syncAmbient(){hall.classList.toggle('ambient-paused',staticMotion()||document.hidden||!inView);}
@@ -101,18 +101,30 @@
  exhibits.forEach(exhibit=>{
    const button=exhibit.querySelector('.jar-select');button.hidden=false;
    exhibit.addEventListener('pointerenter',()=>{if(fine.matches)select(exhibit);});
-   exhibit.addEventListener('pointerleave',()=>{closeTimer=setTimeout(()=>{if(!exhibit.contains(document.activeElement))select(document.activeElement.closest('.jar-exhibit')||pinned);},220);});
+   exhibit.addEventListener('pointerleave',()=>{closeTimer=setTimeout(()=>{if(!exhibit.contains(document.activeElement))select(document.activeElement.closest('.jar-exhibit')||null);},220);});
    exhibit.addEventListener('focusin',()=>select(exhibit));
-   exhibit.addEventListener('focusout',()=>requestAnimationFrame(()=>{if(!exhibit.contains(document.activeElement))select(document.activeElement.closest('.jar-exhibit')||pinned);}));
-   button.addEventListener('click',()=>{pinned=pinned===exhibit?null:exhibit;select(pinned);});
+   exhibit.addEventListener('focusout',()=>requestAnimationFrame(()=>{if(!exhibit.contains(document.activeElement))select(document.activeElement.closest('.jar-exhibit')||null);}));
+   let cracks=0;
+   const name=button.getAttribute('aria-label').replace('Crack glass — ','');
+   exhibit.dataset.cracks='0';
+   button.addEventListener('click',()=>{
+     if(cracks<2){
+       cracks++;exhibit.dataset.cracks=String(cracks);select(exhibit);
+       button.setAttribute('aria-label',(cracks===1?'Crack further — ':'Inspect record — ')+name);
+     }else{
+       cracks=0;exhibit.dataset.cracks='0';
+       button.setAttribute('aria-label','Crack glass — '+name);
+       exhibit.querySelector('[data-jar-inspect]').click();
+     }
+   });
  });
  hall.addEventListener('keydown',event=>{
    if(event.key==='Escape'){
      if(active)active.querySelector('.jar-select').focus({preventScroll:true});
-     pinned=null;pointer.inside=false;select(null);
+     pointer.inside=false;select(null);
    }
  });
- document.addEventListener('pointerdown',event=>{if(!hall.contains(event.target)){pinned=null;pointer.inside=false;select(null);}});
+ document.addEventListener('pointerdown',event=>{if(!hall.contains(event.target)){pointer.inside=false;select(null);}});
  hall.querySelectorAll('[data-jar-inspect]').forEach(link=>link.addEventListener('click',event=>{
    if(event.button||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
    const card=document.getElementById('project-'+link.dataset.jarInspect);if(!card)return;

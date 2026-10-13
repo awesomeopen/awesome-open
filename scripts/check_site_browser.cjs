@@ -240,7 +240,7 @@ const path = require('node:path');
       const controls = await page.locator('.category-panel > summary, .filter-options > summary').evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().top));
       assert.ok(Math.abs(controls[0] - controls[1]) < 2, 'Category and filter buttons share a row');
       assert.ok(await page.locator('.project-card').first().evaluate(node => node.getBoundingClientRect().top < 500), 'First record begins within 500px');
-      assert.equal(await page.locator('.brand-asterisk').evaluate(node => getComputedStyle(node).color), 'rgb(255, 255, 255)');
+      assert.equal(await page.locator('.brand-mark').evaluate(node => node.getBoundingClientRect().width), 64);
       assert.equal(await page.locator('.leader-label').allTextContents().then(labels => labels.some(text => text.includes('Top 3 by stars'))), false);
       await page.locator('.filter-options > summary').click();
       assert.equal(await page.locator('#push-window').isVisible(), true);

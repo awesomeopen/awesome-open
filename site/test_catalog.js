@@ -383,6 +383,7 @@ test("submit cancels debounce, applies current controls, prevents navigation and
   assert.equal(ui.timers.size, 0);
   assert.equal(ui.ids["empty-state"].hidden, false);
   assert.equal(ui.ids["result-count"].textContent, "0 of 5 projects");
+  assert.equal(ui.ids["empty-state"].scrolled, 1);
   ui.ids["clear-filters"].fire("click");
   assert.equal(ui.ids["empty-state"].hidden, true);
 });
@@ -657,4 +658,16 @@ test("setup unknown filters are field-specific for sparse approved records", () 
   assert.deepEqual(select({ run_mode: 'unknown' }), ['open-beta']);
   assert.deepEqual(select({ install_method: 'unknown' }), ['open-alpha']);
   assert.deepEqual(select({ run_mode: 'cli', install_method: 'unknown' }), ['open-alpha']);
+});
+
+test("typing stays in place; submit jumps to the first rendered match", () => {
+  const ui = fixture();
+  catalog.init(ui.document, ui.window);
+  ui.ids.search.value = "alpha";
+  ui.ids.search.fire("input");
+  assert.equal(ui.ids["project-list"].children.reduce((n,c)=>n+c.scrolled,0), 0);
+  ui.ids.filters.fire("submit");
+  const first = ui.ids["project-list"].children.find(c=>!c.hidden);
+  assert.equal(first.scrolled, 1);
+  assert.equal(ui.document.activeElement, first.querySelector("summary"));
 });

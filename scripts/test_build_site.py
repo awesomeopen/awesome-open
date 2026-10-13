@@ -259,6 +259,7 @@ class SiteTests(unittest.TestCase):
             else:
                 self.assertEqual(prefix, 'data:image/png;base64')
                 name = ('search-loupe.png' if image.get('class') == 'search-icon' else
+                        'botanical-128.png' if image.get('class') == 'brand-mark' else
                         'fruit-96.png' if image['alt'] == '' else 'awesome-open-logo.png')
                 self.assertEqual(decoded, (self.output / 'brand' / name).read_bytes())
 

@@ -432,6 +432,11 @@
       event.preventDefault();
       cancelPending();
       apply();
+      var result = Array.from(list.children).find(function (card) { return !card.hidden; });
+      var target = result || empty;
+      var summary = result && result.querySelector("summary");
+      if (summary) summary.focus({ preventScroll: true });
+      target.scrollIntoView({ block: "start", behavior: "instant" });
     });
     clear.addEventListener("click", function (event) {
       event.preventDefault();

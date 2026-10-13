@@ -3,12 +3,12 @@
 .jar-page .brand-asterisk {color:var(--rs-blueprint);}
 .jar-page .site-header a:hover {color:var(--rs-scarlet);}
 .jar-page .site-header :focus-visible {outline-color:var(--rs-scarlet);}
-.jar-page .header-search .search-input {border-bottom:1px dashed var(--rs-blueprint);background:transparent;}
+.jar-page .header-search .search-input {border-bottom:0;background:transparent;}
 .jar-page .header-search input,.jar-page .header-search .search-input>span {color:var(--rs-blueprint);}
 .jar-hall {margin:0 32px;color:var(--rs-blueprint);}
 .jar-filter-defs {position:absolute;pointer-events:none;}
 .jar-scroll {overflow:visible;}
-.jar-stage {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));height:380px;max-width:1200px;margin:auto;position:relative;}
+.jar-stage {display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.6fr) repeat(3,minmax(0,1fr));height:380px;max-width:980px;margin:auto;position:relative;}
 .jar-exhibit {position:relative;min-width:0;--mx:0px;--my:0px;--scene-scale:1;--tilt-x:0deg;--tilt-y:0deg;--inner-x:0px;--inner-y:0px;--glass-light:.18;}
 .jar-exhibit:is(.is-active,:focus-within) {z-index:5;}
 .vessel {position:absolute;height:var(--height);aspect-ratio:var(--ratio);bottom:calc(44px - var(--foot));left:50%;transform:translateX(-50%) perspective(550px) translate3d(var(--mx),var(--my),0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--scene-scale));transform-origin:50% calc(100% - var(--foot));pointer-events:none;isolation:isolate;}
@@ -25,7 +25,7 @@
 .jar-select {position:absolute;inset:10px 0 8px;width:100%;border:0;background:transparent;z-index:3;border-radius:0;}
 .jar-select:hover {background:transparent;}
 .jar-select {-webkit-tap-highlight-color:transparent;}
-.jar-caption {position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:15px;white-space:nowrap;pointer-events:none;}
+.jar-caption {position:absolute;left:50%;right:auto;width:max-content;transform:translateX(-50%);bottom:6px;text-align:center;font-size:13px;white-space:nowrap;pointer-events:none;}
 .jar-caption>span {font:12px var(--mono);color:var(--muted);margin-right:5px;}
 /* Annotations are separate text labels, never an enclosing card. */
 .jar-annotation {position:absolute;z-index:6;inset:0;pointer-events:none;}
@@ -59,10 +59,10 @@
 .jar-page:not(.photo-ready) .jar-callout a:is(:hover,:focus-visible) {border-style:solid;}
 .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 
-@media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(5,minmax(0,1fr));}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:14px;}.callout-function{width:190px;}}
+@media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(2,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:13px;}.callout-function{width:190px;}}
 @media (max-width:680px) {
  .jar-hall{margin:0 16px;}.jar-scroll{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:thin;}
- .jar-stage{width:1120px;max-width:none;height:380px;grid-template-columns:repeat(7,160px);padding-top:4px;}.jar-exhibit{scroll-snap-align:start;}
+ .jar-stage{width:1010px;max-width:none;height:380px;grid-template-columns:repeat(3,150px) 110px repeat(3,150px);padding-top:4px;}.jar-exhibit{scroll-snap-align:start;}
  .jar-exhibit .callout-function{left:24px;right:auto;top:4px;width:220px;}
  .jar-exhibit .callout-metrics{left:155px;right:auto;top:140px;min-width:135px;}
  .jar-exhibit .callout-inspect{left:150px;right:auto;top:263px;}
@@ -114,3 +114,16 @@
 .jar-light-source {position:absolute;z-index:2;left:calc(50% - 2px);bottom:42px;width:4px;height:3px;border-radius:50%;background:color-mix(in srgb,rgb(var(--smoke-rgb)),white 65%);box-shadow:0 0 3px 1px rgb(var(--smoke-rgb));opacity:0;pointer-events:none;transform:translateX(calc(var(--mx)*.6));transition:opacity .6s ease;}
 .photo-ready .is-active .jar-shadow::after,.photo-ready .is-active .jar-light-source {opacity:.75;}
 @media(prefers-reduced-motion:reduce){.jar-light-source{transform:none;transition:none;}.jar-shadow::after{transition:none;}}
+
+.jar-page .header-search input {border-bottom:1px dashed var(--rs-blueprint);}
+
+/* Glass fractures stay on the vessel plane and retain their state until reload. */
+.jar-cracks {position:absolute;left:var(--sx);top:var(--sy);width:var(--sw);height:var(--sh);z-index:4;overflow:hidden;pointer-events:none;filter:drop-shadow(1px 0 0 rgb(255 255 255 / .95));}
+.jar-cracks g {display:none;}
+.jar-cracks path {fill:none;stroke:#244052;stroke-width:1.05;stroke-linecap:round;stroke-linejoin:bevel;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0;}
+.jar-exhibit[data-cracks="1"] .crack-first,.jar-exhibit[data-cracks="2"] .crack-first {display:block;}
+.jar-exhibit[data-cracks="1"] .crack-first {opacity:.38;}
+.jar-exhibit[data-cracks="1"] .crack-first path {stroke-width:.65;}
+.jar-exhibit[data-cracks="1"] .crack-first path {animation:draw-leader .28s ease-out both;}
+.motion-paused .jar-cracks path {animation:none!important;}
+@media(prefers-reduced-motion:reduce){.jar-cracks path{animation:none!important;}}

@@ -44,6 +44,19 @@ const assert=require('node:assert/strict');
 
  const link=page.locator('.jar-annotation:visible a');assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopStyle),'dashed');await link.hover();assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopStyle),'solid');const id=await link.getAttribute('data-jar-inspect');await link.click();
  assert.ok(await page.locator('#project-'+id+' > details').evaluate(n=>n.open));
+ // Three activations reveal two fractures, then open the record; progress survives hover changes.
+ await page.goto(url);await ready();
+ const jar=page.locator('.jar-exhibit').first(),target=await jar.getAttribute('data-project');
+ await first.click();assert.equal(await jar.getAttribute('data-cracks'),'1');assert.equal(new URL(page.url()).hash,'');
+ assert.equal(await jar.locator('.crack-first').evaluate(n=>getComputedStyle(n).opacity),'0.38');
+ await page.screenshot({path:'tmp/site-qa/jars-crack-first.png'});
+ await page.mouse.move(1400,950);await first.focus();await page.keyboard.press('Enter');
+ assert.equal(await jar.getAttribute('data-cracks'),'2');assert.equal(await jar.locator('.crack-first').evaluate(n=>getComputedStyle(n).opacity),'1');assert.match(await first.getAttribute('aria-label'),/^Inspect record/);
+ await page.screenshot({path:'tmp/site-qa/jars-crack-second.png'});
+ await page.keyboard.press('Space');
+ await page.waitForFunction(id=>document.querySelector('#project-'+id+' > details').open,target);
+ assert.equal(new URL(page.url()).hash,'#project-'+target);
+ assert.equal(await jar.getAttribute('data-cracks'),'0');assert.match(await first.getAttribute('aria-label'),/^Crack glass/);
  await page.goto(url);await ready();await page.locator('#search').fill('OpenTofu');await page.locator('.search-submit').click();await page.waitForFunction(()=>document.querySelectorAll('.project-card:not([hidden])').length===1);
  await page.locator('.jar-low-lid .jar-select').focus();await page.locator('.jar-low-lid .jar-annotation a').click();assert.ok(await page.locator('.project-card:visible > details').evaluate(n=>n.open));
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(url);await ready();await first.focus();assert.equal(await first.getAttribute('aria-expanded'),'true');
@@ -52,10 +65,10 @@ const assert=require('node:assert/strict');
  await first.hover({position:{x:45,y:55}});assert.equal(await page.locator('.jar-exhibit').first().evaluate(n=>parseFloat(n.style.getPropertyValue('--mx'))||0),0);assert.equal(await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform.startsWith('matrix3d')),false);
  for(const width of [320,390,680,768,1024]){await page.setViewportSize({width,height:900});await page.goto(url);await ready();await fits(width);if(width===768)assert.equal(await page.locator('.jar-exhibit:visible').count(),5);}
  const touch=await browser.newPage({viewport:{width:390,height:900},isMobile:true,hasTouch:true,reducedMotion:'reduce'});await touch.goto(url);await touch.waitForSelector('body[data-jars-ready=true]');
- await touch.locator('.jar-select').first().tap();assert.equal(await touch.locator('.jar-annotation:visible').count(),1);assert.equal(new URL(touch.url()).hash,'');
+ await touch.locator('.jar-select').first().tap();assert.equal(await touch.locator('.jar-annotation:visible').count(),1);assert.equal(new URL(touch.url()).hash,'');assert.equal(await touch.locator('.jar-exhibit').first().getAttribute('data-cracks'),'1');
  await touch.screenshot({path:'tmp/site-qa/jars-mobile.png'});
  await touch.locator('.jar-scroll').evaluate(n=>n.scrollLeft=n.scrollWidth);await touch.locator('.jar-select').last().tap();assert.equal(await touch.locator('.jar-select').last().getAttribute('aria-expanded'),'true');
- await touch.locator('.jar-annotation:visible a').tap();assert.match(new URL(touch.url()).hash,/^#project-/);await touch.close();
+ await touch.locator('.jar-select').last().tap();assert.equal(await touch.locator('.jar-exhibit').last().getAttribute('data-cracks'),'2');await touch.locator('.jar-select').last().tap();assert.match(new URL(touch.url()).hash,/^#project-/);await touch.close();
  const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});await fallback.goto(url);assert.equal(await fallback.locator('[data-jar-inspect]').count(),7);await fallback.locator('.project-card summary').first().click();assert.ok(await fallback.locator('.project-card details').first().evaluate(n=>n.open));await fallback.close();
  assert.deepEqual(errors,[]);console.log('Seven jars: assets, hover overlap, foreground zoom, vertical stability, underlight, lid lift, vapor, idle movement/pause, outlined inspect action, record links, search, keyboard/Escape, reduced motion, responsive density, touch selection/scroll and no-JS pass.');
  }catch(e){await page.screenshot({path:'tmp/site-qa/jars-failure.png'});throw e;}finally{await browser.close();}
