@@ -49,3 +49,8 @@ Active branch: `design/jar-depth-motion`. Review `/jars-04/jars.html`. Pointer p
 ## Underlight and life / preview 05
 
 Active branch: `design/jar-depth-motion`. Review `/jars-05/jars.html`. Hover/focus/tap adds underlighting, limited opening of removable lids and a brief vapor release. Contents make small staggered movements while idle. Pause motion and reduced-motion settings stop decorative animation. Preview 04 remains available for comparison.
+
+
+## Production promotion
+The production publisher runs build_site.py --production, composing the reviewed seven-jar hero into index.html with the current catalog and all evidence cards. Production has no preview title or noindex directive. PR Chromium checks exercise index.html, including jar interactions. The private Site root mirrors this build for review; historical preview subdirectories remain available.
+The self-contained download remains a motion-free ledger with embedded artwork, fonts and evidence.

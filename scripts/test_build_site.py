@@ -91,6 +91,23 @@ class SiteTests(unittest.TestCase):
     def tearDownClass(cls):
         cls.temporary.cleanup()
 
+    def test_production_entry_contains_hero_without_preview_metadata(self):
+        from build_jar_preview import build as build_hero
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp)
+            build(output, 'a' * 40)
+            build_hero(output, production=True)
+            page = (output / 'index.html').read_text()
+            self.assertEqual(page.count('class="jar-hall"'), 1)
+            self.assertIn('class="jar-page"', page)
+            self.assertNotIn('noindex', page)
+            self.assertNotIn('<title>Preview', page)
+            for asset in ('jars.css', 'jars.js', 'jars/provenance.json'):
+                self.assertTrue((output / asset).is_file())
+            build_hero(output)
+            self.assertEqual((output / 'jars.html').read_text().count('class="jar-hall"'), 1)
+            self.assertIn('noindex', (output / 'jars.html').read_text())
+
     def test_all_projects_are_rendered_without_javascript(self):
         self.assertEqual(len(self.page.cards), len(self.catalog['projects']))
         self.assertEqual(set(self.page.cards), {p['id'] for p in self.catalog['projects']})

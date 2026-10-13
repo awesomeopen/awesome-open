@@ -27,7 +27,7 @@ def main():
     if git('status', '--porcelain', '--untracked-files=normal'):
         parser.error('Commit or set aside source changes first; the preview must match its Git SHA.')
     sha = git('rev-parse', 'HEAD')
-    subprocess.run(['python3', str(ROOT / 'scripts/build_site.py'), '--output', str(output), '--source-sha', sha], cwd=ROOT, check=True)
+    subprocess.run(['python3', str(ROOT / 'scripts/build_site.py'), '--output', str(output), '--source-sha', sha, '--production'], cwd=ROOT, check=True)
     from build_exhibition_preview import build as build_exhibition
     build_exhibition(output)
     from build_jar_preview import build as build_jars

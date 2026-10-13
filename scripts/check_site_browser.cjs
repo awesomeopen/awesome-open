@@ -239,7 +239,7 @@ const path = require('node:path');
       await assertLedgerFits(page, `${width}px`);
       const controls = await page.locator('.category-panel > summary, .filter-options > summary').evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().top));
       assert.ok(Math.abs(controls[0] - controls[1]) < 2, 'Category and filter buttons share a row');
-      assert.ok(await page.locator('.project-card').first().evaluate(node => node.getBoundingClientRect().top < 500), 'First record begins within 500px');
+      assert.ok(await page.locator('.project-card').first().evaluate(node => { const hero=document.querySelector('.jar-hall'); return node.getBoundingClientRect().top-(hero?hero.getBoundingClientRect().bottom:0)<500; }), 'Ledger starts promptly after the hero');
       assert.equal(await page.locator('.brand-mark').evaluate(node => node.getBoundingClientRect().width), 64);
       assert.equal(await page.locator('.leader-label').allTextContents().then(labels => labels.some(text => text.includes('Top 3 by stars'))), false);
       await page.locator('.filter-options > summary').click();
