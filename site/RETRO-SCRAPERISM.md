@@ -332,3 +332,9 @@ base. Foreground, captions and surrounding reading surface stay white; no hard
 horizon, shelf, enclosure or new motion. Preserve all selection, crack, pause,
 keyboard and reduced-motion behavior. Reference: owner-supplied nineteenth-century
 specimen photograph, used for lighting direction only, not copied as a site asset.
+
+Second airy-glass pass: extend the transparency feather through the shoulders and
+side walls, reduce center density further and soften the darkest glass reflections.
+Lift glass midtones without applying that correction to specimen art. Rims and
+bases remain defined but no longer read as heavy metallic outlines. Reduce contact
+shadow density; retain the faint rear room shading and existing foot illumination.

@@ -83,3 +83,7 @@ Glass uses feathered transparent centers, neutral lifted midtones and retained
 rim/base detail. Specimen color is independent. Selected light stays near the foot;
 a faint shared rear gradient and short base shadows give the white scene depth.
 See B16 and the detailed guide. Source photographs are unchanged.
+
+The second glass pass extends the clear area through shoulders and side walls,
+softens dark reflections and reduces contact-shadow density. Specimen color and
+room shading remain independent.

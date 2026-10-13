@@ -15,15 +15,16 @@
 .jar-exhibit:is(.is-active,:focus-within) {z-index:5;}
 .vessel {position:absolute;height:var(--height);aspect-ratio:var(--ratio);bottom:calc(44px - var(--foot));left:50%;transform:translateX(-50%) perspective(550px) translate3d(var(--mx),var(--my),0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--scene-scale));transform-origin:50% calc(100% - var(--foot));pointer-events:none;isolation:isolate;}
 .jar-photo,.jar-reflection {position:absolute;width:100%;height:100%;inset:0;max-width:none;}
-.jar-photo {z-index:0;mask-image:radial-gradient(ellipse calc(var(--sw)*.58) calc(var(--sh)*.62) at calc(var(--sx) + var(--sw)*.5) calc(var(--sy) + var(--sh)*.5),rgb(0 0 0 / .18) 0%,rgb(0 0 0 / .30) 55%,#000 100%);}
+.jar-photo {z-index:0;mask-image:radial-gradient(ellipse calc(var(--sw)*.70) calc(var(--sh)*.85) at calc(var(--sx) + var(--sw)*.5) calc(var(--sy) + var(--sh)*.5),rgb(0 0 0 / .06) 0%,rgb(0 0 0 / .14) 55%,rgb(0 0 0 / .82) 100%);}
 /* Lift neutral glass only. The feathered window transmits the room while
-   retaining full-opacity rims, shoulders, closures and base reflections. */
-.jar-photo,.jar-lid {filter:contrast(1.08) brightness(1.18) saturate(.55);}
+   retaining defined rims, closures and base reflections. The wider window
+   also releases the grey shoulders; softened dark reflections avoid metallic edges. */
+.jar-photo,.jar-lid {filter:contrast(.85) brightness(1.35) saturate(.30);}
 .jar-reflection {z-index:2;opacity:var(--glass-light);mix-blend-mode:screen;mask-image:linear-gradient(90deg,#000,transparent 39%,transparent 59%,#000);}
 .specimen-window {position:absolute;left:var(--sx);top:var(--sy);width:var(--sw);height:var(--sh);z-index:1;overflow:hidden;mix-blend-mode:multiply;filter:url(#glass-displacement) saturate(1.4) contrast(1.08);}
 .specimen-depth {position:absolute;inset:0;transform:translate(var(--inner-x),var(--inner-y));}
 .specimen-print {position:absolute;width:var(--zoom);height:auto;max-width:none;left:50%;top:50%;transform:translate(-50%,-50%);}
-.jar-shadow {position:absolute;bottom:38px;height:12px;width:84%;left:8%;background:radial-gradient(ellipse,rgb(11 37 70 / .19),rgb(11 37 70 / .055) 35%,transparent 70%);pointer-events:none;}
+.jar-shadow {position:absolute;bottom:38px;height:12px;width:84%;left:8%;background:radial-gradient(ellipse,rgb(11 37 70 / .14),rgb(11 37 70 / .04) 35%,transparent 70%);pointer-events:none;}
 .jar-shadow::before {content:"";position:absolute;left:12%;right:-5%;bottom:5px;height:19px;background:radial-gradient(ellipse,rgb(11 37 70 / .065),transparent 70%);pointer-events:none;}
 .photo-ready .jar-shadow {transform:translateX(calc(var(--mx)*.6)) scaleX(var(--scene-scale));}
 .jar-central .jar-shadow {width:48%;left:26%;}
