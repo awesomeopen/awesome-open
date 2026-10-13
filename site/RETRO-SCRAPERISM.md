@@ -288,8 +288,8 @@ leader connects the specimen study to its note; a bracket groups reviewed prose.
 No tape, cardboard, fake stamps, new fonts, or invented evidence are added.
 
 Records without artwork use an identity rail and larger function typography,
-never an empty image space. Mobile reading starts with function, then specimen
-and identity, repository facts, evidence, and departure. The DOM retains a logical
+never an empty image space. Mobile reading starts with function and source identity, then the specimen,
+repository facts, evidence, and departure. The DOM retains a logical
 identity/function/evidence sequence. Opening settles the art by 6px and draws its
 leader once; reduced motion is static, and content is never hidden for animation.
 This is a bounded prototype, not a catalog-wide promotion.

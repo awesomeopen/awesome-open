@@ -160,8 +160,8 @@ def specimen_plate(project, number, tags, artwork, function_detail, vitals, char
     marker = f'''<svg class="plate-leader" viewBox="0 0 400 60" aria-hidden="true"><path pathLength="1" d="M280 2 L280 24 Q280 35 267 35 L22 35 L22 58"/><circle cx="280" cy="2" r="2"/></svg>''' if art else ''
     return f'''<div class="specimen-interior specimen-plate plate-{kind}" aria-labelledby="name-{pid}">
       <div class="plate-heading"><span class="plate-index">FIELD NOTES / {number:03d}</span><span class="plate-index">{escape(project['name'])}</span></div>
-      <div class="specimen-caption plate-specimen">{artwork}{marker}{detail}{identity}</div>
-      <div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description">{escape(project['description'])}</p>{function_detail}</div>
+      <div class="specimen-caption plate-specimen">{artwork}{marker}{detail}{identity if not art else ""}</div>
+      <div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description">{escape(project['description'])}</p>{function_detail}{identity if art else ""}</div>
       <section class="plate-register" aria-label="Repository facts"><span class="sheet-label">II / Repository record</span>{vitals}</section>
       <div class="diagnostics plate-evidence"><span class="sheet-label">III / Observations &amp; evidence</span><div class="evidence-notes">{chart}{star_history.render(project)}{optional_signal_html(project)}{alternatives}</div>{deployment.render(project)}</div>
       <nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">Continue at the source</span><a href="{url}"><span>Explore {name} on GitHub</span><span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{escape(project['url'].removeprefix('https://'))}</span></nav>
