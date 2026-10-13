@@ -272,3 +272,24 @@ The concise description remains the large Function headline and folded-row descr
 Owner-supplied transparent valley and abyssal artwork occupy the footer floor over Prussian blue. Text and controls stay above the artwork on solid blue. Fade the upper edge with a CSS mask; do not animate the background. Select one image uniformly per page load using the number of available images. Keep the first sorted image as a no-JavaScript fallback.
 
 Add a PNG or WebP to `site/footer-backgrounds/` and rebuild to extend the pool; do not edit probabilities or JavaScript. Keep artwork provenance beside the assets. The standalone download embeds the complete pool and uses the same selection logic. On narrow screens crop the decorative panorama centrally while preserving legible footer text.
+
+### Specimen plates — three-record study, 2026-10-13
+
+Proposed on OpenTofu (broad), OpenRefine (upright), and Open WebUI (without art).
+Folded summaries remain unchanged. An open plate pairs a larger complete specimen
+with a Fraunces function statement, then spans the sheet with a compact repository
+register, paired observation plots, ruled evidence notes, reviewed alternatives,
+and a prominent literal GitHub departure link. Early source navigation remains.
+
+Existing artwork supplies a rectangular detail enlargement. The annotation is
+explicitly about the drawing's analogy, not a new software claim. Source artwork
+is not modified; the full silhouette remains above the cropped detail. A scarlet
+leader connects the specimen study to its note; a bracket groups reviewed prose.
+No tape, cardboard, fake stamps, new fonts, or invented evidence are added.
+
+Records without artwork use an identity rail and larger function typography,
+never an empty image space. Mobile reading starts with function and source identity, then the specimen,
+repository facts, evidence, and departure. The DOM retains a logical
+identity/function/evidence sequence. Opening settles the art by 6px and draws its
+leader once; reduced motion is static, and content is never hidden for animation.
+This is a bounded prototype, not a catalog-wide promotion.

@@ -57,3 +57,10 @@ Check the affected component, not an invented whole-site redesign. For visible
 changes check the relevant desktop/narrow states, keyboard/focus, reduced motion,
 real asset paths and output modes. Record unavailable browser checks explicitly.
 Do not mark a reference “approved” merely because a build succeeds.
+
+## Proposed specimen-plate study
+
+Three records test a stronger unfolded composition: OpenTofu, OpenRefine and
+Open WebUI. See the specimen-plate section of the detailed guide for the bounded
+layout, artwork-detail, evidence and departure treatments. Folded rows and all
+other records retain the established layout pending review.
