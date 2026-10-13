@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict');
 module.exports=async({page,url,data,capture})=>{
  const names=['OpenTofu','OpenRefine','Open WebUI'];
- for(const width of [1440,768,390]){
+ for(const width of [1600,1440,768,390,320]){
   await page.setViewportSize({width,height:1000});
   for(const name of names){
    const p=data.projects.find(p=>p.name===name);assert.ok(p,name);
@@ -22,16 +22,52 @@ module.exports=async({page,url,data,capture})=>{
     assert.equal(await plate.locator('.function-detail mark').innerText(),name);
     assert.equal(await plate.locator('.plate-detail .feature-source').count(),1);
     assert.equal(await plate.locator('[data-signal=release] .deployment-evidence').count(),1);
+    const geometry=await plate.evaluate(n=>{
+     const art=n.querySelector('.plate-art img').getBoundingClientRect();
+     const stage=n.querySelector('.plate-art-stage').getBoundingClientRect();
+     const prose=n.querySelector('.plate-function').getBoundingClientRect();
+     const heading=n.querySelector('.plate-heading').getBoundingClientRect();
+     const detail=n.querySelector('.plate-detail').getBoundingClientRect();
+     const crop=n.querySelector('.plate-detail-crop').getBoundingClientRect();
+     return {art:{left:art.left,right:art.right,top:art.top,bottom:art.bottom},
+      stage:{top:stage.top,bottom:stage.bottom},proseLeft:prose.left,headingBottom:heading.bottom,
+      detailTop:detail.top,cropRatio:crop.width/crop.height,
+      animation:getComputedStyle(n.querySelector('.plate-art')).animationName};
+    });
+    assert.ok(geometry.art.left>=0&&geometry.art.right<=width,'Complete artwork fits viewport');
+    if(width>720)assert.ok(geometry.art.right<geometry.proseLeft,'Artwork leaves prose clear');
+    assert.ok(geometry.detailTop>=geometry.art.bottom-1,'Feature note leaves full silhouette clear');
+    assert.equal(geometry.animation,'none','Reduced motion leaves the final composition');
+    if(name==='OpenTofu'){
+     assert.ok(geometry.art.bottom>geometry.stage.bottom+10,'Pod extends below study rule');
+     assert.ok(geometry.cropRatio>1.5,'Broad pod close-up');
+    }else{
+     assert.ok(geometry.art.top< (width>720?geometry.headingBottom:geometry.stage.top),'Calyx rises through rule');
+     assert.ok(geometry.cropRatio<.65,'Tall strand close-up');
+    }
    }
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
    const clipped=await plate.locator('.plate-function,.plate-register,.evidence-note,.plate-departure').evaluateAll(ns=>ns.filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.right>innerWidth+1}).map(n=>n.className));
    assert.deepEqual(clipped,[],name+' at '+width);
    await plate.evaluate(n=>n.scrollIntoView({block:'start'}));
    await capture('plate-'+name.toLowerCase().replaceAll(' ','-')+'-'+width+'.png');
+   if(name!=='Open WebUI'){
+    await plate.locator('.plate-detail').scrollIntoViewIfNeeded();
+    await capture('plate-detail-'+name.toLowerCase().replaceAll(' ','-')+'-'+width+'.png');
+   }
    await plate.locator('.plate-departure>a').focus();
    assert.equal(await plate.locator('.plate-departure>a').evaluate(n=>n===document.activeElement),true);
   }
  }
+ // Opening settles the artwork once; it never gates text or repeats indefinitely.
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ const animated=data.projects.find(p=>p.name==='OpenTofu');
+ await page.goto(new URL('#project-'+animated.id,url).href);
+ const study=page.locator('#project-'+animated.id);
+ await study.locator('> details').evaluate(n=>n.open=true);
+ assert.equal(await study.locator('.function-detail').isVisible(),true);
+ assert.equal(await study.locator('.plate-art').evaluate(n=>getComputedStyle(n).animationIterationCount),'1');
+ await page.emulateMedia({reducedMotion:'reduce'});
  await page.goto(new URL('standalone.html',url).href);
  const p=data.projects.find(p=>p.name==='OpenTofu');
  const row=page.locator('#project-'+p.id);await row.locator('> details').evaluate(n=>n.open=true);

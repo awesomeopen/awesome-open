@@ -54,4 +54,6 @@ approved merely because it appears in this file.
 
 | B14 | 2026-10-13 | User-directed; implemented for review | Tight category labels; first-name highlighting; centered “In the wild” capstones without duplicate links; even plate identity spacing; setup inside release cards; concise linked star counts with method in About. Replace drawing analogies with optional source-backed feature notes selected reproducibly from reviewed summaries. Three-plate scope preserved. |
 
+| B15 | 2026-10-13 | User-authorized prototype; implemented for visual review | Two staging passes on OpenTofu/OpenRefine: enlarged silhouettes cross internal rules, distinct wide/tall close-ups, brief one-time settling with reduced-motion fallback. Feature notes may attach directly to crops; they state sourced capabilities without claiming the drawing proves performance. Folded ledger, evidence, type and Open WebUI control remain stable. |
+
 | B16 | 2026-10-13 | User-directed; implemented for visual review | Airier glass: lift neutral glass midtones and feather the interior alpha independently of colorful specimens; keep rim/base contrast. Tighten underlight/spill, add faint cool room depth behind the group and short rear shadows. Preserve interactions and original assets. |

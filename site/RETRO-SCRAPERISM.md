@@ -314,6 +314,28 @@ sources” and “View source & retrieval history”. Stars link their plot and
 plot treatment. Keep cache status and observation date; place the counting
 method in About. No historical-total or adoption claim is implied.
 
+### Two specimen staging passes — 2026-10-13, user-authorized prototype
+
+OpenTofu's broad pod is enlarged past the left artwork gutter and the ruled
+boundary separating its main study from the close-up. Reserve the space below
+that rule so the full silhouette remains visible and the note stays readable.
+Its enlargement is a horizontal view into the seed chambers. OpenRefine's
+upright calyx rises through the heading rule on desktop; its close-up is a tall
+strip of the central strands. On mobile, the calyx crosses its own upper study
+rule after the Function/identity block. All full images use contain sizing;
+only the deliberately enlarged detail windows crop the source drawing.
+
+Feature notes may be directly attached to drawing enlargements. Independence
+is semantic: factual capability copy cites official sources and never argues
+that a drawn shape demonstrates software performance or superiority. No visual
+separator, disclaimer or analogy explanation is required. Preserve the current
+reviewed capability copy and source links during these composition passes.
+
+Each main drawing settles once in 320–360ms; the scarlet leader draws once.
+Content is immediately available. Reduced motion shows the finished composition.
+Keep the folded ledger, type, evidence and centered departure stable. Open WebUI
+remains the text-only control. Source image bytes and provenance are unchanged.
+
 
 ### Clear glass and shallow room — 2026-10-13
 
