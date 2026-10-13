@@ -1,0 +1,708 @@
+{
+  "schema_version": 1,
+  "projects": {
+    "a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d": {
+      "project_url": "https://github.com/opentofu/opentofu",
+      "review_status": "approved",
+      "checked_at": "2026-10-13",
+      "reviewed_by": "AI evidence review",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. The detailed container instructions qualify the broader overview: direct-use official images are no longer supported starting with OpenTofu 1.10. No universal memory requirement was established.",
+      "sources": {
+        "install": {
+          "url": "https://opentofu.org/docs/intro/install/",
+          "title": "OpenTofu installation options",
+          "kind": "upstream_docs"
+        },
+        "container": {
+          "url": "https://opentofu.org/docs/intro/install/docker/",
+          "title": "Building a Docker image with OpenTofu",
+          "kind": "upstream_docs"
+        },
+        "brew": {
+          "url": "https://formulae.brew.sh/formula/opentofu",
+          "title": "Homebrew opentofu formula",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "cli",
+          "scope": "Standalone tofu executable; also usable inside a custom container.",
+          "source_ids": [
+            "container"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "Standalone downloads for the documented operating systems.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "Upstream documents Homebrew and several OS package routes.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "Build your own image; the minimal upstream image supplies the tofu binary for a multi-stage build.",
+          "source_ids": [
+            "container"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux / macOS / Windows / FreeBSD",
+          "scope": "Standalone installation paths; this does not assert every architecture.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Homebrew formula",
+          "coordinate": "opentofu",
+          "channel": "stable",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "Upstream documents Homebrew installation. The core formula is listed; upstream ownership of the formula was not established.",
+          "source_ids": [
+            "install",
+            "brew"
+          ]
+        },
+        {
+          "ecosystem": "OCI / GitHub Container Registry",
+          "coordinate": "ghcr.io/opentofu/opentofu:minimal",
+          "channel": "rolling minimal",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Binary-only build-stage input for a custom image, not a documented ready-to-run container.",
+          "source_ids": [
+            "container"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Build a custom container image for current container usage.",
+          "scope": "OpenTofu 1.10 and later: direct usage of the former official images is unsupported.",
+          "source_ids": [
+            "container"
+          ]
+        }
+      ]
+    },
+    "88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906": {
+      "project_url": "https://github.com/openrefine/openrefine",
+      "review_status": "approved",
+      "checked_at": "2026-10-13",
+      "reviewed_by": "AI evidence review",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. Basic functions can run offline. Java requirements vary by OpenRefine version and distribution; the source contains version-specific guidance, so no universal Java version is asserted.",
+      "sources": {
+        "install": {
+          "url": "https://openrefine.org/docs/manual/installing",
+          "title": "Installing OpenRefine",
+          "kind": "upstream_docs"
+        },
+        "brew": {
+          "url": "https://formulae.brew.sh/cask/openrefine",
+          "title": "Homebrew openrefine cask",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "local_web",
+          "scope": "A local web server on the user's computer, accessed through a browser.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "Windows ZIP and Linux archive distributions.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "installer",
+          "scope": "macOS disk-image application distribution.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "macOS Homebrew cask documented by upstream.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Windows / macOS / Linux",
+          "scope": "Upstream distributes packages for these operating systems.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Homebrew cask",
+          "coordinate": "openrefine",
+          "channel": "stable",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "macOS cask documented by upstream; the registry currently notes Intel build and Rosetta 2 on Apple Silicon. Maintainer affiliation was not established.",
+          "source_ids": [
+            "install",
+            "brew"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Online import, reconciliation and export services",
+          "requirement": "optional",
+          "scope": "Basic local operations work without internet; selected web operations require it.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "default",
+          "note": "The documented default Java heap allocation is 1 GB (1024 MB).",
+          "scope": "An application memory setting, not minimum total machine RAM; larger datasets may need a larger allocation.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Java and a compatible browser are required; some distributions bundle Java.",
+          "scope": "Runtime prerequisites depend on the chosen OpenRefine version and download.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
+    },
+    "13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc": {
+      "project_url": "https://github.com/openscad/openscad",
+      "review_status": "approved",
+      "checked_at": "2026-10-13",
+      "reviewed_by": "AI evidence review",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. Stable and snapshot channels are separate. Registry presence does not imply installability: the stable Homebrew cask is disabled. Platform requirements below are channel-specific, and no universal RAM minimum is asserted.",
+      "sources": {
+        "downloads": {
+          "url": "https://openscad.org/downloads.html",
+          "title": "OpenSCAD downloads and installation methods",
+          "kind": "upstream_docs"
+        },
+        "stable_cask": {
+          "url": "https://formulae.brew.sh/cask/openscad",
+          "title": "Homebrew openscad stable cask",
+          "kind": "registry"
+        },
+        "snapshot_cask": {
+          "url": "https://formulae.brew.sh/cask/openscad@snapshot",
+          "title": "Homebrew openscad snapshot cask",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "Native application downloads; other deployment methods also exist.",
+          "source_ids": [
+            "downloads"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "Native ZIP, AppImage and disk-image downloads vary by platform and channel.",
+          "source_ids": [
+            "downloads"
+          ]
+        },
+        {
+          "value": "installer",
+          "scope": "Windows installer downloads.",
+          "source_ids": [
+            "downloads"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "Upstream documents Homebrew, distribution packages and other package routes.",
+          "source_ids": [
+            "downloads"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "Upstream links Docker Hub images for releases and development snapshots.",
+          "source_ids": [
+            "downloads"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "Source archive and repository are linked.",
+          "source_ids": [
+            "downloads"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Windows / macOS / Linux",
+          "scope": "Native download families; exact versions and architectures differ by channel.",
+          "source_ids": [
+            "downloads"
+          ]
+        },
+        {
+          "value": "linux/amd64 / linux/arm64",
+          "scope": "Platforms documented specifically for upstream Docker images.",
+          "source_ids": [
+            "downloads"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Homebrew cask",
+          "coordinate": "openscad",
+          "channel": "stable",
+          "status": "disabled",
+          "upstream_relationship": "unknown",
+          "scope": "Stable cask remains listed but disabled; do not interpret as an available stable installation path.",
+          "source_ids": [
+            "stable_cask"
+          ]
+        },
+        {
+          "ecosystem": "Homebrew cask",
+          "coordinate": "openscad@snapshot",
+          "channel": "development snapshot",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "Upstream directs Homebrew users to this snapshot cask; registry observed version 2026.10.11. Maintainer affiliation was not established.",
+          "source_ids": [
+            "downloads",
+            "snapshot_cask"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "The snapshot Homebrew cask requires macOS 12 or newer.",
+          "scope": "Registry requirement for openscad@snapshot observed at version 2026.10.11; do not generalize to direct upstream downloads.",
+          "source_ids": [
+            "snapshot_cask"
+          ]
+        }
+      ]
+    },
+    "7c94eb734f17ebfcce7230067c672f89ec9b7d5fca87ca8e4c3a39dc6012b1dd": {
+      "project_url": "https://github.com/open-webui/open-webui",
+      "review_status": "approved",
+      "checked_at": "2026-10-13",
+      "reviewed_by": "AI evidence review",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. Only a small subset of documented deployment paths is captured. Model-serving requirements are separate from this application. No universal RAM, disk or GPU minimum is asserted.",
+      "sources": {
+        "quickstart": {
+          "url": "https://docs.openwebui.com/getting-started/quick-start/",
+          "title": "Open WebUI quick start",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "Self-hosted application served through a web interface.",
+          "source_ids": [
+            "quickstart"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "Docker and container-orchestrated setup paths are documented, including Kubernetes.",
+          "source_ids": [
+            "quickstart"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "Python package installation is documented alongside container deployment.",
+          "source_ids": [
+            "quickstart"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "macOS / Windows / Linux",
+          "scope": "Quick-start platform list; Linux explicitly includes x86_64 and ARM64.",
+          "source_ids": [
+            "quickstart"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "OCI / GitHub Container Registry",
+          "coordinate": "ghcr.io/open-webui/open-webui:main",
+          "channel": "rolling main",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Quick-start rolling image built from the main branch, distinct from a pinned stable release; the source explicitly describes these tag semantics.",
+          "source_ids": [
+            "quickstart"
+          ]
+        },
+        {
+          "ecosystem": "PyPI",
+          "coordinate": "open-webui",
+          "channel": "Python package",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "Package installation is documented by upstream; package ownership was not independently verified.",
+          "source_ids": [
+            "quickstart"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Model provider / Ollama",
+          "requirement": "configuration-dependent",
+          "scope": "Model inference may use a hosted API, separate local service or a bundled Ollama image.",
+          "source_ids": [
+            "quickstart"
+          ]
+        }
+      ]
+    },
+    "e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b": {
+      "project_url": "https://github.com/opensearch-project/opensearch",
+      "review_status": "approved",
+      "checked_at": "2026-10-13",
+      "reviewed_by": "AI evidence review",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. The resource note is scoped to Docker Desktop. It is not a production sizing estimate or a minimum for every OpenSearch deployment.",
+      "sources": {
+        "install": {
+          "url": "https://docs.opensearch.org/latest/install-and-configure/install-opensearch/index/",
+          "title": "Installing OpenSearch",
+          "kind": "upstream_docs"
+        },
+        "docker": {
+          "url": "https://docs.opensearch.org/latest/install-and-configure/install-opensearch/docker/",
+          "title": "Installing OpenSearch using Docker",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "Search service; documentation includes single-container and clustered configurations.",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "Tarball and Windows installation paths are documented.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "Debian and RPM package installation paths are documented.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "Docker, Helm and Kubernetes Operator paths are documented; Kubernetes is optional.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "OCI / Docker Hub",
+          "coordinate": "opensearchproject/opensearch:3",
+          "channel": "3.x image tag",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Official image namespace and tag used in the installation documentation; this observation is not a live pull test.",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "Allocate at least 4 GB to Docker Desktop.",
+          "scope": "Docker Desktop host-memory allocation in the container installation guide; not a universal per-node minimum.",
+          "source_ids": [
+            "docker"
+          ]
+        },
+        {
+          "kind": "default",
+          "note": "Default JVM heap settings use -Xms1g and -Xmx1g.",
+          "scope": "Application heap defaults documented by the installation overview; not total system RAM.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
+    },
+    "e390eb08d6cbc3fdb42e665d32bff22f4a619bba354ac990eadfce5d23287485": {
+      "project_url": "https://github.com/opencv/opencv",
+      "review_status": "approved",
+      "checked_at": "2026-10-13",
+      "reviewed_by": "AI evidence review",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. This record describes library installation. Language bindings and source-build choices have different dependencies; no standalone service or universal resource requirement is implied.",
+      "sources": {
+        "started": {
+          "url": "https://opencv.org/get-started/",
+          "title": "Getting started with OpenCV",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "Library with language-specific installation and example programs.",
+          "source_ids": [
+            "started"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The Python quick start installs opencv-python through pip.",
+          "source_ids": [
+            "started"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The installation selector includes a build-from-source choice.",
+          "source_ids": [
+            "started"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux / macOS / Windows",
+          "scope": "Operating-system choices in the upstream installation selector.",
+          "source_ids": [
+            "started"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "PyPI",
+          "coordinate": "opencv-python",
+          "channel": "Python package",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "Exact Python package name recommended by upstream; maintainer affiliation was not independently established.",
+          "source_ids": [
+            "started"
+          ]
+        }
+      ]
+    },
+    "617fe5fb70db9959b7c17e6d5fdede0cfe34a87319830199334b1dcaddb23cd5": {
+      "project_url": "https://www.openhab.org",
+      "review_status": "approved",
+      "checked_at": "2026-10-13",
+      "reviewed_by": "AI evidence review",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. The Java requirement is for the current reviewed installation documentation. Recommended appliance hardware is not a universal minimum. The apt route uses an upstream repository, not proof of inclusion in Debian's official archive.",
+      "sources": {
+        "install": {
+          "url": "https://www.openhab.org/docs/installation/",
+          "title": "openHAB installation overview",
+          "kind": "upstream_docs"
+        },
+        "linux": {
+          "url": "https://www.openhab.org/docs/installation/linux",
+          "title": "openHAB on Linux",
+          "kind": "upstream_docs"
+        },
+        "intro": {
+          "url": "https://www.openhab.org/docs/",
+          "title": "Introduction to openHAB",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "Java-based home-automation service, including continuously running home installations.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "Platform-independent archive installation.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "Upstream documents apt/deb and RPM package repositories; openHABian offers an additional setup route.",
+          "source_ids": [
+            "install",
+            "linux"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux / macOS / Windows",
+          "scope": "Requires an up-to-date 64-bit operating system and the documented Java runtime.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "apt / upstream repository",
+          "coordinate": "openhab",
+          "channel": "stable main",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Package openhab from the upstream apt repository https://openhab.jfrog.io/artifactory/openhab-linuxpkg, suite stable, component main; not a claim of inclusion in the Debian archive.",
+          "source_ids": [
+            "linux"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "A 64-bit OS and Java 21 JVM are required.",
+          "scope": "Current reviewed installation overview; check documentation for a different openHAB release.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "recommended",
+          "note": "A Raspberry Pi 4 with 2 GB RAM and a 16 GB SD card is suggested when no platform preference exists.",
+          "scope": "Introductory openHABian hardware recommendation; not minimum resource consumption.",
+          "source_ids": [
+            "intro"
+          ]
+        }
+      ]
+    },
+    "518382fd43e354ec84ae2de886feb18c62c9ba31932d935318624d7a1b424334": {
+      "project_url": "https://github.com/openwrt/openwrt",
+      "review_status": "approved",
+      "checked_at": "2026-10-13",
+      "reviewed_by": "AI evidence review",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. Device and firmware-version compatibility are essential. No generic package-manager coordinate or numeric RAM minimum is asserted. The supported-devices page was reviewed through indexed upstream content; its direct recheck presented a bot-check page.",
+      "sources": {
+        "devices": {
+          "url": "https://openwrt.org/supported_devices",
+          "title": "OpenWrt supported devices",
+          "kind": "upstream_docs"
+        },
+        "images": {
+          "url": "https://openwrt.org/faq/what_is_the_difference_between_the_different_image_formats",
+          "title": "OpenWrt image formats",
+          "kind": "upstream_docs"
+        },
+        "upgrade": {
+          "url": "https://openwrt.org/docs/guide-quick-start/sysupgrade.luci",
+          "title": "Upgrading OpenWrt firmware using LuCI",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "firmware",
+          "scope": "Device operating-system/firmware images, selected for the exact hardware.",
+          "source_ids": [
+            "devices",
+            "images"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "firmware_image",
+          "scope": "Factory and sysupgrade images serve different installation states; some devices need a special procedure.",
+          "source_ids": [
+            "images",
+            "upgrade"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Device-specific supported hardware",
+          "scope": "Use the hardware table and exact device page; architecture alone does not establish compatibility.",
+          "source_ids": [
+            "devices",
+            "upgrade"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Select firmware and installation instructions for the exact supported device.",
+          "scope": "Initial installation differs from upgrading an existing OpenWrt system; some devices lack a generic sysupgrade image.",
+          "source_ids": [
+            "images",
+            "upgrade"
+          ]
+        }
+      ]
+    }
+  }
+}

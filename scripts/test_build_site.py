@@ -250,7 +250,7 @@ class SiteTests(unittest.TestCase):
         for image in page.images:
             prefix, encoded = image['src'].split(',', 1)
             decoded = base64.b64decode(encoded, validate=True)
-            if image['alt'] == 'HN discussions / 2y':
+            if image['alt'] in {'HN discussions / 2y', 'Monthly stars retained at fetch / 2y'}:
                 self.assertEqual(prefix, 'data:image/svg+xml;base64')
                 self.assertIn(b'<svg', decoded)
             elif prefix == 'data:image/webp;base64':
@@ -268,6 +268,8 @@ class SiteTests(unittest.TestCase):
                               'alternatives.json': json.loads((ROOT / 'data/alternatives.json').read_text())}
         if (ROOT / 'data/project_signals.json').exists():
             expected_downloads['project_signals.json'] = json.loads((ROOT / 'data/project_signals.json').read_text())
+        if (ROOT / 'data/star_history.json').exists():
+            expected_downloads['star_history.json'] = json.loads((ROOT / 'data/star_history.json').read_text())
         actual_downloads = {}
         for link in page.nodes('a'):
             href = link.attrs['href']

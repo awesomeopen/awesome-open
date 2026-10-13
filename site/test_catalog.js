@@ -625,3 +625,36 @@ test("changing filters preserves a manually closed linked drawer and does not st
   assert.equal(ui.document.activeElement, ui.ids.search);
   assert.equal(alpha.scrolled, 1);
 });
+
+test("reviewed setup filters are multivalued, combinable, unknown-safe and URL-restorable", () => {
+  const sample = { categories: [], projects: [
+    { ...projects[0], deployment: { run_modes: [{ value: 'desktop' }, { value: 'cli' }], install_methods: [{ value: 'binary' }] } },
+    { ...projects[1], deployment: { run_modes: [{ value: 'server' }], install_methods: [{ value: 'container' }] } },
+    projects[2]
+  ] };
+  const select = input => catalog.selectProjects(sample.projects, catalog.normalizeState(input, sample)).map(p => p.id);
+  assert.deepEqual(select({ run_mode: 'cli', install_method: 'binary' }), ['open-alpha']);
+  assert.deepEqual(select({ run_mode: 'desktop', install_method: 'container' }), []);
+  assert.deepEqual(select({ run_mode: 'unknown' }), ['open-empty']);
+  assert.deepEqual(select({ install_method: 'unknown' }), ['open-empty']);
+  assert.equal(catalog.normalizeState({ run_mode: 'invented', install_method: 'invented' }, sample).run_mode, '');
+  const wanted = catalog.normalizeState({ run_mode: 'server', install_method: 'container' }, sample);
+  const url = catalog.stateToURL('https://example.org/?other=keep#anchor', wanted);
+  assert.deepEqual(catalog.normalizeState(url.searchParams, sample), wanted);
+  const reset = catalog.stateToURL(url, catalog.DEFAULTS);
+  assert.equal(reset.searchParams.has('run_mode'), false);
+  assert.equal(reset.searchParams.get('other'), 'keep');
+  assert.equal(reset.hash, '#anchor');
+});
+
+
+test("setup unknown filters are field-specific for sparse approved records", () => {
+  const sample = { categories: [], projects: [
+    { ...projects[0], deployment: { run_modes: [{ value: 'cli' }] } },
+    { ...projects[1], deployment: { install_methods: [{ value: 'binary' }] } }
+  ] };
+  const select = input => catalog.selectProjects(sample.projects, catalog.normalizeState(input, sample)).map(p => p.id);
+  assert.deepEqual(select({ run_mode: 'unknown' }), ['open-beta']);
+  assert.deepEqual(select({ install_method: 'unknown' }), ['open-alpha']);
+  assert.deepEqual(select({ run_mode: 'cli', install_method: 'unknown' }), ['open-alpha']);
+});

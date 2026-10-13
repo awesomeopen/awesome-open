@@ -111,6 +111,7 @@ class PublisherGitTests(unittest.TestCase):
             'scripts/update_stats.py': STATS_SCRIPT,
             'scripts/update_hn.py': HN_SCRIPT,
             'scripts/update_signals.py': SIGNALS_SCRIPT,
+            'scripts/update_star_history.py': 'import sys\n',
             'scripts/render_readme.py': RENDER_SCRIPT,
             'scripts/test_fixture.py': CHECK_SCRIPT,
             'scripts/build_site.py': SITE_SCRIPT,
@@ -178,9 +179,9 @@ class PublisherGitTests(unittest.TestCase):
         sources = []
         latest_contributor = []
 
-        def collect(root):
+        def collect(root, star_budget_file=None):
             sources.append((root / 'README.source.md').read_text())
-            original(root)
+            original(root, star_budget_file)
             if len(sources) == 1:
                 latest_contributor.append(self.advance_source('Added a new upstream repository.\n'))
 
@@ -234,12 +235,12 @@ class PublisherGitTests(unittest.TestCase):
         original = publisher.collect_and_render
         calls = []
 
-        def collect(root):
+        def collect(root, star_budget_file=None):
             calls.append((root / 'README.source.md').read_text())
             if len(calls) == 1:
                 self.advance_source('Removed an unavailable repository.\n')
                 raise RuntimeError('The stale source still includes an unavailable repository')
-            original(root)
+            original(root, star_budget_file)
 
         with patch.object(publisher, 'collect_and_render', side_effect=collect):
             commit = publisher.publish(self.checkout)
@@ -273,8 +274,8 @@ class PublisherGitTests(unittest.TestCase):
 
         for unexpected in ['unexpected.txt', 'data/project_signals.json.tmp']:
             with self.subTest(path=unexpected):
-                def collect(root):
-                    original(root)
+                def collect(root, star_budget_file=None):
+                    original(root, star_budget_file)
                     (root / unexpected).write_text('This must never be committed.\n')
 
                 with patch.object(publisher, 'collect_and_render', side_effect=collect):
@@ -368,8 +369,8 @@ class PublisherGitTests(unittest.TestCase):
         original = publisher.collect_and_render
         sources = []
 
-        def collect(root):
-            original(root)
+        def collect(root, star_budget_file=None):
+            original(root, star_budget_file)
             sources.append(str(len(sources)))
             self.advance_source('Upstream source iteration ' + sources[-1] + '\n')
 
