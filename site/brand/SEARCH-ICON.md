@@ -1,0 +1,1 @@
+Search icon supplied by the project owner on 2026-10-12: Ivory-handled turquoise magnifying glass icon(1).png. Transparent bounds trimmed and downsampled to 96px for display at 32 CSS pixels. Original illustration unchanged.
