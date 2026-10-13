@@ -109,12 +109,12 @@ const path=require('node:path');
    const probe=await context.newPage(),requested=new Set();
    probe.on('request',request=>{if(heroPath(request.url()))requested.add(request.url());});
    await probe.goto(url);
-   await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+   await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.jar-sticker,.jar-cork,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
    assert.equal(await probe.locator('.jar-annotation:visible').count(),7,'No-JS annotations at '+dpr+'x');
    assert.equal(await probe.locator('[data-jar-inspect]').count(),7,'No-JS record links at '+dpr+'x');
    const heights=await probe.locator('.vessel').evaluateAll(nodes=>nodes.map(n=>parseFloat(getComputedStyle(n).height)));
    assert.ok(heights.every(height=>height===300),'No-JS vessels remain 300 CSS pixels at '+dpr+'x');
-   const images=await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.specimen-print').evaluateAll(nodes=>nodes.map(n=>({
+   const images=await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.jar-sticker,.jar-cork,.specimen-print').evaluateAll(nodes=>nodes.map(n=>({
      currentSrc:n.currentSrc,cssWidth:n.getBoundingClientRect().width,sizes:parseFloat(n.sizes),complete:n.complete})));
    for(const image of images){
      const relative=heroPath(image.currentSrc),source=byVariant[relative];
@@ -152,7 +152,7 @@ const path=require('node:path');
      await probe.waitForTimeout(700); // Include the now-visible underlight mask.
      await probe.screenshot({path:`tmp/site-qa/hero-${label}-${control?'original':'responsive'}.png`});
      if(!control){
-       const images=await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.specimen-print').evaluateAll(nodes=>nodes.map(n=>({
+       const images=await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.jar-sticker,.jar-cork,.specimen-print').evaluateAll(nodes=>nodes.map(n=>({
          class:n.className,currentSrc:new URL(n.currentSrc).pathname,cssWidth:n.getBoundingClientRect().width,
          sizes:n.sizes,naturalWidth:n.naturalWidth,complete:n.complete})));
        assert.ok(images.every(i=>i.complete&&i.currentSrc.includes('/jars/responsive/')),'Screen uses responsive images at '+label);
@@ -169,9 +169,9 @@ const path=require('node:path');
          selectedResourceBytes,byteMeaning:'On-disk bytes of unique requested hero URLs; not measured network transfer bytes'});
        // Print must switch all hero layers back to original, unmodified artwork.
        await probe.emulateMedia({media:'print'});
-       await probe.waitForFunction(()=>[...document.querySelectorAll('.jar-photo,.jar-reflection,.jar-lid,.specimen-print')].every(n=>n.currentSrc&&!n.currentSrc.includes('/responsive/')));
+       await probe.waitForFunction(()=>[...document.querySelectorAll('.jar-photo,.jar-reflection,.jar-lid,.jar-sticker,.jar-cork,.specimen-print')].every(n=>n.currentSrc&&!n.currentSrc.includes('/responsive/')));
        await probe.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
-       assert.ok(await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.specimen-print').evaluateAll(nodes=>nodes.every(n=>!n.currentSrc.includes('/responsive/'))));
+       assert.ok(await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.jar-sticker,.jar-cork,.specimen-print').evaluateAll(nodes=>nodes.every(n=>!n.currentSrc.includes('/responsive/'))));
      }
      await context.close();
    }

@@ -197,6 +197,7 @@ def specimen_plate(project, number, tags, artwork, function_detail, vitals, char
     detail = ''
     if art:
         artwork = artwork.replace('class="specimen-art"', 'class="specimen-art plate-art"')
+        artwork = '<div class="plate-art-stage">' + artwork + '</div>'
         features = project.get('function_summary', {}).get('features', [])
         if features:
             feature = features[int(project['id'][:8], 16) % len(features)]

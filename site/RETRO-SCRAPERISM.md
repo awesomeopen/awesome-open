@@ -313,3 +313,76 @@ sources” and “View source & retrieval history”. Stars link their plot and
 “count stars / past 2y” summary to the aggregate provider, matching HN's linked
 plot treatment. Keep cache status and observation date; place the counting
 method in About. No historical-total or adoption claim is implied.
+
+### Two specimen staging passes — 2026-10-13, user-authorized prototype
+
+OpenTofu's broad pod is enlarged past the left artwork gutter and the ruled
+boundary separating its main study from the close-up. Reserve the space below
+that rule so the full silhouette remains visible and the note stays readable.
+Its enlargement is a horizontal view into the seed chambers. OpenRefine's
+upright calyx rises through the heading rule on desktop; its close-up is a tall
+strip of the central strands. On mobile, the calyx crosses its own upper study
+rule after the Function/identity block. All full images use contain sizing;
+only the deliberately enlarged detail windows crop the source drawing.
+
+Feature notes may be directly attached to drawing enlargements. Independence
+is semantic: factual capability copy cites official sources and never argues
+that a drawn shape demonstrates software performance or superiority. No visual
+separator, disclaimer or analogy explanation is required. Preserve the current
+reviewed capability copy and source links during these composition passes.
+
+Each main drawing settles once in 320–360ms; the scarlet leader draws once.
+Content is immediately available. Reduced motion shows the finished composition.
+Keep the folded ledger, type, evidence and centered departure stable. Open WebUI
+remains the text-only control. Source image bytes and provenance are unchanged.
+
+
+### Clear glass and shallow room — 2026-10-13
+
+User-directed refinement: broad jar interiors approach the surrounding white;
+material contrast stays at rims, shoulders, closures and bases. Apply a feathered
+transparency window to the photographic glass layer using each vessel's existing
+content bounds. Lighten and neutralize glass independently of the drawn specimens;
+preserve specimen saturation, dark ink and the existing reflection layer. Do not
+reduce opacity on the whole vessel or its contents. Original asset bytes remain
+unchanged.
+
+Selected underlight remains colorful at the foot, fading within the lower third
+of the vessel. Keep the small LED and tighten its surface spill. Add a static,
+faint cool rear gradient behind the group and short rear/contact shadows at each
+base. Foreground, captions and surrounding reading surface stay white; no hard
+horizon, shelf, enclosure or new motion. Preserve all selection, crack, pause,
+keyboard and reduced-motion behavior. Reference: owner-supplied nineteenth-century
+specimen photograph, used for lighting direction only, not copied as a site asset.
+
+Second airy-glass pass: extend the transparency feather through the shoulders and
+side walls, reduce center density further and soften the darkest glass reflections.
+Lift glass midtones without applying that correction to specimen art. Rims and
+bases remain defined but no longer read as heavy metallic outlines. Reduce contact
+shadow density; retain the faint rear room shading and existing foot illumination.
+
+Restore the two existing photographic paper stickers as clipped, opaque overlay
+layers on the square cork and ribbed jars. Their worn texture and ink can remain
+old-fashioned; the page and glass stay cool white. Labels bypass glass lightening
+and transparency. Use the original jar assets, without inventing readable labels.
+Strengthen and broaden the static rear gradient to suggest room depth behind the
+collection, with soft transitions into the white foreground and surrounding page.
+
+The square bottle also restores its natural brown cork through a clipped opaque
+layer, independent of glass desaturation and lightening.
+
+### Shallow footprint arc — replaces the broad room gradient
+
+Place the seven jar bases on a shallow arc: outside to center setbacks of
+0, 7, 11 and 12px, mirrored on the right. Shift each vessel, contact shadow and
+light source together. Keep labels on their shared reading baseline. The center
+stands slightly farther back; do not change the approved jar sizes or glass.
+
+Replace the broad rear gradient with one faint blurred curved shadow trail along
+the footprints, and short individual shadows directed behind each base. There is
+no drawn arrow, shelf edge, horizon or shaded wall. Hide the shared trail in the
+no-JavaScript stacked fallback. Preserve the paper stickers and natural cork.
+
+Jar captions use the single literal space between number and name; the number
+span adds no extra margin. Rear shadows stay close to the bases, never a rising
+cloud between the jars.

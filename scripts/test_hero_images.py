@@ -55,8 +55,8 @@ class HeroImageTests(unittest.TestCase):
             html = (output / 'index.html').read_text()
             tags = Tags(html).tags
             hero = [attrs for tag, attrs in tags if tag == 'img' and attrs.get('class') in
-                    ('jar-photo', 'jar-reflection', 'jar-lid', 'specimen-print')]
-            self.assertEqual(len(hero), 24)
+                    ('jar-photo', 'jar-reflection', 'jar-lid', 'jar-sticker', 'jar-cork', 'specimen-print')]
+            self.assertEqual(len(hero), 27)
             prints = [attrs for tag, attrs in tags if tag == 'source' and attrs.get('media') == 'print']
             self.assertEqual(len(prints), len(hero))
             for img in hero:
@@ -65,6 +65,11 @@ class HeroImageTests(unittest.TestCase):
                 self.assertIn('sizes', img)
                 self.assertNotEqual(img.get('loading'), 'lazy')
                 self.assertTrue((output / img['src']).exists())
+            glass = {img['src']: img for img in hero if img['class'] == 'jar-photo'}
+            for img in hero:
+                if img['class'] in ('jar-sticker', 'jar-cork'):
+                    for attr in ('srcset', 'sizes', 'width', 'height'):
+                        self.assertEqual(img[attr], glass[img['src']][attr])
             for source in prints:
                 self.assertNotIn('responsive/', source['srcset'])
                 self.assertEqual((output / source['srcset']).read_bytes(), (ROOT / 'site' / source['srcset']).read_bytes())

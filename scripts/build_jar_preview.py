@@ -56,6 +56,11 @@ def build(output, production=False):
         cut={'central':12.5,'shouldered':15.5,'ribbed':17.5}.get(kind)
         mouth={'low-open':25,'low-lid':26,'square-cork':26,'bail':17}.get(kind,cut or 20)
         styles+=f";--glass-mask:{mask};--mouth:{mouth}%;--idle-delay:{number*1.7}s;--idle-period:{18+number*1.3}s"
+        cork = (f'<picture><source media="print" srcset="{asset["path"]}"><img class="jar-cork" {glass_attrs} alt="" width="{asset["width"]}" height="{asset["height"]}"></picture>'
+                if kind == 'square-cork' else '')
+        # Recover the original paper labels above the clear-glass treatment.
+        sticker = (f'<picture><source media="print" srcset="{asset["path"]}"><img class="jar-sticker" {glass_attrs} alt="" width="{asset["width"]}" height="{asset["height"]}"></picture>'
+                   if kind in ('square-cork', 'ribbed') else '')
         lid=''
         if cut:
             styles+=f';--lid-cut:{cut}%'
@@ -67,7 +72,7 @@ def build(output, production=False):
            <picture><source media="print" srcset="{asset['path']}"><img class="jar-photo" {glass_attrs} alt="" width="{asset['width']}" height="{asset['height']}" fetchpriority="high"></picture>
            <div class="specimen-window"><div class="specimen-depth"><div class="specimen-idle"><picture><source media="print" srcset="{art['path']}"><img class="specimen-print" {art_attrs} alt="" width="{art['width']}" height="{art['height']}"></picture></div></div></div>
            <picture><source media="print" srcset="{asset['path']}"><img class="jar-reflection" {glass_attrs} alt="" width="{asset['width']}" height="{asset['height']}"></picture>
-           <svg class="jar-cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+           {sticker}{cork}<svg class="jar-cracks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <g class="crack-first"><path pathLength="1" d="M48 49 39 38 42 27 31 14 M39 38 24 36 16 27 M48 49 63 44 70 31 79 25 M48 49 44 63 53 75 48 91 M44 63 30 70"/></g>
            </svg><span class="jar-uplight"></span><span class="jar-led"></span>{lid}{steam}
           </div>

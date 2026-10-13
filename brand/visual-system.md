@@ -75,3 +75,34 @@ they were checked against that release. Feature captions are reviewed software
 facts with their own sources; artwork crops remain decorative. Star plots and
 concise counts link to the aggregate source; About retains the counting method.
 See B14 and the detailed guide.
+
+## Two specimen staging passes
+
+OpenTofu crosses the main-study lower rule; OpenRefine rises through a heading
+rule (its own study rule on mobile). Wider versus taller detail windows follow
+the two drawings' anatomy. Preserve complete main silhouettes and keep overlap
+inside whitespace, clear of prose and links. Capability notes can sit directly
+beside enlarged drawing details: sourcing governs their claims; visual
+separation is not required. See B15 and the detailed guide.
+
+
+## Clearer jar glass
+
+Glass uses feathered transparent centers, neutral lifted midtones and retained
+rim/base detail. Specimen color is independent. Selected light stays near the foot;
+a faint shared rear gradient and short base shadows give the white scene depth.
+See B16 and the detailed guide. Source photographs are unchanged.
+
+The second glass pass extends the clear area through shoulders and side walls,
+softens dark reflections and reduces contact-shadow density. Specimen color and
+room shading remain independent.
+
+The two worn paper stickers remain opaque as independent photographic overlays.
+The rear room gradient is broader and stronger; it does not tint the glass layer
+or the page globally.
+
+Natural brown cork likewise bypasses the neutral glass correction.
+
+The latest depth direction (B19) supersedes the broad rear gradient: a shallow arc
+in actual jar placement, matched footprint shading and short rear shadows. White
+space remains clear around the collection. Labels retain their common baseline.

@@ -62,8 +62,19 @@ Regenerate deliberately with `python3 scripts/build_hero_images.py` using Pillow
 12.3.0 and libwebp 1.6.0, then inspect glass/ink at 1×/2×/3× and hover size before
 refreshing the checksum inventory. Normal builds copy the committed derivatives
 and need no new Python dependency. The hero's responsive sizes cover its fixed CSS
-heights, 110% hover scale and 300px no-JavaScript fallback. Glass/reflection/lid and
+heights, 110% hover scale and 300px no-JavaScript fallback. Glass/reflection/lid/sticker/cork and
 CSS underlight use matching candidate resolutions to reuse the same download.
 Print selects original sources; expanded art and the offline edition still use
 original specimen bytes. This is a delivery optimization, not new artwork or a
 change to the accepted visual system.
+
+B15 varies the two existing images' display scale, gutter intrusion and CSS
+close-up windows. No new derivative image, redraw or raster edit is made. Full
+silhouettes are retained; only inset windows crop. The adjacent capability note
+is source-backed software copy and needs no visual separation from the inset.
+
+The square-cork and ribbed jar photographs also supply clipped paper-label overlays
+in the hero. These restore their original worn stickers above the glass treatment;
+no source image bytes or provenance changed (B18).
+
+The square bottle also reuses its original brown cork as a clipped overlay.
