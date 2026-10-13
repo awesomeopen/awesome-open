@@ -271,7 +271,7 @@ const path = require('node:path');
     await tracedCard.locator('.name-sparkline').evaluate(image => image.decode());
     await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = true; });
     assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
-    assert.ok(await tracedCard.locator('.signal.evidence-note').isVisible());
+    assert.ok(await tracedCard.locator('.signal.evidence-note:not(.star-history)').isVisible());
     await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
 
     assert.equal(await page.locator('script[src*="gsap"], script[src*="ScrollTrigger"]').count(), 0);

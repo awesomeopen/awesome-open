@@ -12,6 +12,7 @@ module.exports = async ({ page, url, data, capture }) => {
     const chart = card.locator('.star-chart img');
     await chart.scrollIntoViewIfNeeded();
     assert.equal(await chart.isVisible(),true);
+    await chart.evaluate(img => img.decode());
     assert.equal(await chart.evaluate(img=>img.complete && img.naturalWidth===120),true);
     assert.equal(await card.locator('summary .star-chart').count(),0);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
