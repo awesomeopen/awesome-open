@@ -106,3 +106,13 @@ Natural brown cork likewise bypasses the neutral glass correction.
 The latest depth direction (B19) supersedes the broad rear gradient: a shallow arc
 in actual jar placement, matched footprint shading and short rear shadows. White
 space remains clear around the collection. Labels retain their common baseline.
+
+## Observatory snapshot
+
+The user-directed `/observatory/` extension uses the current typography and
+white/Prussian instrument language for literal snapshot distributions, native SVG
+and accessible underlying tables. A single compact approved Open Doc specimen
+interrupts the opening; artwork never encodes a value or modifies chart geometry.
+Filters update distributions and records together. Whole-collection findings and
+coverage retain explicit scope. See [observatory contract](../site/OBSERVATORY.md)
+and B20; the initial implementation awaits visual review.

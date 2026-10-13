@@ -63,3 +63,5 @@ approved merely because it appears in this file.
 | B18 | 2026-10-13 | User-approved glass direction; label/depth follow-up for review | Retain B17 airiness. Restore two existing worn paper stickers and natural brown cork independently of glass filtering; strengthen broad rear room shading. |
 
 | B19 | 2026-10-13 | User-directed; implemented for review | Replace broad room shading with shallow arched jar placement (center 12px back), a matching faint footprint trail and short rear shadows. Preserve approved glass, labels and cork. Supersedes B18's stronger room gradient. Captions use one literal space without added number margin. |
+
+| B20 | 2026-10-13 | User-directed route and visual skills; implementation proposed for review | Add a focused `/observatory/` snapshot alongside the ledger. Reuse existing approved specimen art with the current Retro-Scraperism typography/palette. Native linear SVG charts, literal labels, accessible tables and exports preserve evidence meaning. No new collector, forecast model, visualization dependency or skill-pin change. See [observatory contract](../site/OBSERVATORY.md). |
