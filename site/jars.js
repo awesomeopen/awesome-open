@@ -112,6 +112,8 @@
        cracks++;exhibit.dataset.cracks=String(cracks);select(exhibit);
        button.setAttribute('aria-label',(cracks===1?'Crack further — ':'Inspect record — ')+name);
      }else{
+       cracks=0;exhibit.dataset.cracks='0';
+       button.setAttribute('aria-label','Crack glass — '+name);
        exhibit.querySelector('[data-jar-inspect]').click();
      }
    });
