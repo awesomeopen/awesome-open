@@ -25,7 +25,7 @@
 .jar-select {position:absolute;inset:10px 0 8px;width:100%;border:0;background:transparent;z-index:3;border-radius:0;}
 .jar-select:hover {background:transparent;}
 .jar-select {-webkit-tap-highlight-color:transparent;}
-.jar-caption {position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:15px;white-space:nowrap;pointer-events:none;}
+.jar-caption {position:absolute;left:50%;right:auto;width:max-content;transform:translateX(-50%);bottom:6px;text-align:center;font-size:13px;white-space:nowrap;pointer-events:none;}
 .jar-caption>span {font:12px var(--mono);color:var(--muted);margin-right:5px;}
 /* Annotations are separate text labels, never an enclosing card. */
 .jar-annotation {position:absolute;z-index:6;inset:0;pointer-events:none;}
@@ -59,7 +59,7 @@
 .jar-page:not(.photo-ready) .jar-callout a:is(:hover,:focus-visible) {border-style:solid;}
 .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 
-@media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(2,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:14px;}.callout-function{width:190px;}}
+@media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(2,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:13px;}.callout-function{width:190px;}}
 @media (max-width:680px) {
  .jar-hall{margin:0 16px;}.jar-scroll{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:thin;}
  .jar-stage{width:1010px;max-width:none;height:380px;grid-template-columns:repeat(3,150px) 110px repeat(3,150px);padding-top:4px;}.jar-exhibit{scroll-snap-align:start;}
