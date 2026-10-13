@@ -8,7 +8,7 @@
 .jar-hall {margin:0 32px;color:var(--rs-blueprint);}
 .jar-filter-defs {position:absolute;pointer-events:none;}
 .jar-scroll {overflow:visible;}
-.jar-stage {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));height:380px;max-width:1200px;margin:auto;position:relative;}
+.jar-stage {display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.6fr) repeat(3,minmax(0,1fr));height:380px;max-width:980px;margin:auto;position:relative;}
 .jar-exhibit {position:relative;min-width:0;--mx:0px;--my:0px;--scene-scale:1;--tilt-x:0deg;--tilt-y:0deg;--inner-x:0px;--inner-y:0px;--glass-light:.18;}
 .jar-exhibit:is(.is-active,:focus-within) {z-index:5;}
 .vessel {position:absolute;height:var(--height);aspect-ratio:var(--ratio);bottom:calc(44px - var(--foot));left:50%;transform:translateX(-50%) perspective(550px) translate3d(var(--mx),var(--my),0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--scene-scale));transform-origin:50% calc(100% - var(--foot));pointer-events:none;isolation:isolate;}
@@ -59,10 +59,10 @@
 .jar-page:not(.photo-ready) .jar-callout a:is(:hover,:focus-visible) {border-style:solid;}
 .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 
-@media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(5,minmax(0,1fr));}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:14px;}.callout-function{width:190px;}}
+@media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(2,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:14px;}.callout-function{width:190px;}}
 @media (max-width:680px) {
  .jar-hall{margin:0 16px;}.jar-scroll{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:thin;}
- .jar-stage{width:1120px;max-width:none;height:380px;grid-template-columns:repeat(7,160px);padding-top:4px;}.jar-exhibit{scroll-snap-align:start;}
+ .jar-stage{width:1010px;max-width:none;height:380px;grid-template-columns:repeat(3,150px) 110px repeat(3,150px);padding-top:4px;}.jar-exhibit{scroll-snap-align:start;}
  .jar-exhibit .callout-function{left:24px;right:auto;top:4px;width:220px;}
  .jar-exhibit .callout-metrics{left:155px;right:auto;top:140px;min-width:135px;}
  .jar-exhibit .callout-inspect{left:150px;right:auto;top:263px;}
