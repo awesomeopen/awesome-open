@@ -42,6 +42,399 @@
       "review_status": "approved",
       "reviewed_by": "Codex (AI)",
       "review_note": "Checked against the linked official source; paraphrased for the specimen sheet. Proposed for inclusion in this PR."
+    },
+    "0855586218f0afd50d40c4539b143d71a24ffd7f85d1baa33c1dbbc531ccd09e": {
+      "project_url": "https://github.com/openda-association/openda",
+      "text": "Connect numerical models to data-assimilation and parameter-calibration methods through a shared interface. OpenDA provides ensemble Kalman filters, a particle filter, 3DVar and optimization methods including Simplex, Powell and conjugate gradient. Researchers can compare compatible methods with their models and expose new methods through the same interface, with language interfaces for Java, C/C++ and Fortran.",
+      "sources": [
+        {
+          "url": "https://github.com/openda-association/openda/blob/79d2ba26881d5ff96eceba3551a94d2d636821bd/README.md",
+          "title": "OpenDA official README",
+          "revision": "79d2ba26881d5ff96eceba3551a94d2d636821bd"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "08a8cb2d81e67d5842182f7182754765a7b93f7958e961e72299a1ba5ae22f31": {
+      "project_url": "https://github.com/openstatushq/openstatus",
+      "text": "Monitor websites, APIs and servers, publish status pages and coordinate incidents from a dashboard or Slack. Teams can declare monitors, status pages and notification channels in YAML or Terraform, then apply them through the command line or CI. The platform offers managed and self-hosted deployment, plus an API and MCP tools for operating these resources.",
+      "sources": [
+        {
+          "url": "https://github.com/openstatushq/openstatus/blob/32527be753c192206efed04729dc2d7accb515de/README.md",
+          "title": "openstatus official README",
+          "revision": "32527be753c192206efed04729dc2d7accb515de"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "08ea82433025b65a15f5ad520e2383a375efa680b276fc65992d207070ce12e3": {
+      "project_url": "https://github.com/opensage/opensage",
+      "text": "Explore a reimplementation of the SAGE real-time strategy engine focused on Command & Conquer: Generals and Zero Hour. OpenSAGE parses game data formats and renders animated 3D models from W3D files. The documented roadmap leaves gameplay systems unfinished; original game assets are not included, and the project uses data from an existing game installation.",
+      "sources": [
+        {
+          "url": "https://github.com/opensage/opensage/blob/588ac477367a0022adf29f20a084e8873014e6ce/README.md",
+          "title": "OpenSAGE official README",
+          "revision": "588ac477367a0022adf29f20a084e8873014e6ce"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "09716987532046aef8869b7e10b2b7253ac42f4c02a450fb0029a1cf56f2df2b": {
+      "project_url": "https://github.com/programagrueso/opencineagent",
+      "text": "Turn a premise or supplied script into a planned sequence of shots, generated clips and an assembled video with subtitles. OpenCineAgent coordinates character portraits, keyframes, video generation, dialogue checks, retries, audio mixing and editing through a local Python pipeline. It uses ComfyUI models on an NVIDIA GPU, with human portrait approval and optional Ollama-assisted scriptwriting.",
+      "sources": [
+        {
+          "url": "https://github.com/programagrueso/opencineagent/blob/5d7514e4059d1f6fdb2a437b98720f4d4ea3a604/README.md",
+          "title": "OpenCineAgent official README",
+          "revision": "5d7514e4059d1f6fdb2a437b98720f4d4ea3a604"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "097bec88e11b8196dae0f714b5bcb12ba8d8b540443a45ce4d2e9e3b6207a0a8": {
+      "project_url": "https://github.com/open-chat-labs/open-chat",
+      "text": "Use a chat application hosted on the Internet Computer, with direct messages, groups and community channels. OpenChat supports bots that participate in conversations and moderation through its bot platform. Developers can run a local instance using DFX canisters and the web frontend, with repository scripts for deploying and upgrading the local canisters.",
+      "sources": [
+        {
+          "url": "https://github.com/open-chat-labs/open-chat/blob/c210a743f5c79ae27c1a602e7841cbdf33f0b0a8/README.md",
+          "title": "OpenChat official README",
+          "revision": "c210a743f5c79ae27c1a602e7841cbdf33f0b0a8"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "0092b9bbc696273433ce71d5772f97bd63b6f23e515bb1269ee5bb18af8b5528": {
+      "project_url": "https://github.com/dev-krish-xyz/openstore",
+      "text": "Browse a curated software directory by category, platform, self-hosting support and other filters, or search for an application and the tools it replaces. OpenStore includes community project submissions, votes and requests for alternatives alongside editor-managed listings. It runs as a Next.js application; account features use GitHub OAuth and a persistent SQLite database.",
+      "sources": [
+        {
+          "url": "https://github.com/dev-krish-xyz/OpenStore/blob/8df46180e401d81899ba021a0c1d2257c2a492f9/README.md",
+          "title": "OpenStore official README",
+          "revision": "8df46180e401d81899ba021a0c1d2257c2a492f9"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "c02bf0d1fea4bf7fda6b7c35472c333590aff2bcd0182ccec706217771ccdfe7": {
+      "project_url": "https://github.com/simonliu-ai-product/open-dashboard",
+      "text": "Build dashboards from named SQL queries and React panel definitions stored as ordinary files. open-dashboard renders charts against configured databases, keeps filters in shareable URLs and reloads the viewer when files change. Its local development server, command-line checks and optional MCP server support an authoring workflow in which a coding agent writes and validates dashboard definitions.",
+      "sources": [
+        {
+          "url": "https://github.com/simonliu-ai-product/open-dashboard/blob/a24304e358938b3272cdd940a2748184b78d6a75/README.md",
+          "title": "open-dashboard official README",
+          "revision": "a24304e358938b3272cdd940a2748184b78d6a75"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "1f47a63aaef059c34f053c73f066bce5f50dbad3080c4841c65b8ff4295cde82": {
+      "project_url": "https://github.com/rehan-remade/open-annie",
+      "text": "Talk with an animated 3D character in a browser, with speech delivered over WebRTC and a separate model selecting expressions and gestures from the conversation transcript. open-annie derives mouth animation from audio and also includes scripted preview and recorded replay modes. Live conversations use a Python broker, run locally or on fal, plus external model-service credentials.",
+      "sources": [
+        {
+          "url": "https://github.com/rehan-remade/open-annie/blob/1a3aebfe32343b119263c8b7eba3b7cb1d4e4507/README.md",
+          "title": "open-annie official README",
+          "revision": "1a3aebfe32343b119263c8b7eba3b7cb1d4e4507"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "10d69f0daa625d430823f0f96fe4a54501756699271de233b676a41c1fdc2576": {
+      "project_url": "https://github.com/simonliu-ai-product/open-doc",
+      "text": "Author paginated documents as React components, with generated outlines, contents lists, page numbers, footnotes and cross-references. open-doc provides a browser viewer, source-backed text editing, Markdown import and command-line layout checks. A local development server can expose MCP tools for authoring and review, while the export workflow produces PDF, HTML, DOCX or page images.",
+      "sources": [
+        {
+          "url": "https://github.com/simonliu-ai-product/open-doc/blob/af6095d15c4011a95d56f0a327f428dfd70c80dd/README.md",
+          "title": "open-doc official README",
+          "revision": "af6095d15c4011a95d56f0a327f428dfd70c80dd"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "b44206282c760da32059c6a76cee1d8f36ed59013550205c1741546ec9d11f39": {
+      "project_url": "https://github.com/bpinheiroms/open-apuracao-brazil",
+      "text": "Explore a simulated Brazilian election count through interactive state, municipality and electoral-zone maps, a scoreboard and a time slider. open-apuracao-brazil generates deterministic mock results in the browser and can export map images or share views through URLs. It builds as a static website; its results are fictional and do not come from an election-results service.",
+      "sources": [
+        {
+          "url": "https://github.com/bpinheiroms/open-apuracao-brazil/blob/48ee9c275ae201c4074b4cd43e3275574173d687/README.md",
+          "title": "open-apuracao-brazil official README",
+          "revision": "48ee9c275ae201c4074b4cd43e3275574173d687"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "f952835452592537ac04c71a848c03e1758cd346fb54bde42eaba38aefbed9ab": {
+      "project_url": "https://github.com/cisco/openh264",
+      "text": "OpenH264 is a video codec library for encoding and decoding H.264 streams, including use in real-time communication applications such as WebRTC. Its encoder supports rate control, temporal scalability, multiple output resolutions, and dynamic changes to bitrate, frame rate, and resolution. The repository also provides command-line encoding and decoding programs.",
+      "sources": [
+        {
+          "url": "https://github.com/cisco/openh264/blob/1bca62311e447fd9c39fc93de2c4b96cd5ce971c/README.md",
+          "title": "OpenH264 official README",
+          "revision": "1bca62311e447fd9c39fc93de2c4b96cd5ce971c"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "1cf5521e4f3d971b3cea3d28248f7a30e637e466873a9987de1fb9a0b27b9270": {
+      "project_url": "https://github.com/openlm-research/open_llama",
+      "text": "OpenLLaMA provides pretrained language models that reproduce the LLaMA architecture using different training datasets. The project distributes 3B, 7B, and 13B parameter model families with weights for PyTorch through Hugging Face Transformers and for JAX through EasyLM. Its documentation includes loading examples, training-data details, and evaluation comparisons for the released models.",
+      "sources": [
+        {
+          "url": "https://github.com/openlm-research/open_llama/blob/6e7f73eab7e799e2464f38ed977e537bae02873e/README.md",
+          "title": "OpenLLaMA official README",
+          "revision": "6e7f73eab7e799e2464f38ed977e537bae02873e"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "3e6ed417a41919a48f262b9481f0b9196c860281a9d26fd6a241ca8287acc0fb": {
+      "project_url": "https://github.com/openrecall/openrecall",
+      "text": "OpenRecall records a searchable history of desktop activity by taking screenshots at intervals and processing their contents locally. Users can search captured information or scroll through earlier snapshots to revisit what was on screen. The application supports Windows, macOS, and Linux, with controls for storage location and whether to capture only the primary monitor.",
+      "sources": [
+        {
+          "url": "https://github.com/openrecall/openrecall/blob/62303e09bfd2491907e788ac5cbbdc21e73bd323/README.md",
+          "title": "OpenRecall official README",
+          "revision": "62303e09bfd2491907e788ac5cbbdc21e73bd323"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "c413b557fa79ae25b81f3f438f61e47362e8a0063fac838f842afa257242439f": {
+      "project_url": "https://gitlab.com/osp-group/flask-nginx-rtmp-manager",
+      "text": "Open Streaming Platform provides a self-hosted service for broadcasting RTMP video through Nginx-RTMP. Users can run multiple channels, record live streams, upload videos, and offer on-demand playback or shorter clips. Channel chat, moderation controls, restricted audiences, adaptive streaming, embeds, and webhooks support operating a small video-streaming community or service.",
+      "sources": [
+        {
+          "url": "https://github.com/Open-Streaming-Platform/open-streaming-platform/blob/c80df071906c50224e4579625d93438450841d39/README.md",
+          "title": "Open Streaming Platform official README",
+          "revision": "c80df071906c50224e4579625d93438450841d39"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "484814187d43f2b6a32f0bebfda32af1c3fcb1fd891d919e76af56334e1d0bec": {
+      "project_url": "https://github.com/facebook/openzl",
+      "text": "Create specialized compressors from descriptions of structured data formats. OpenZL supplies a core library and tools that generate compressors compatible with a single universal decompressor. Developers can integrate these components into processing pipelines for specialized datasets, using the documented C and C++ build workflow and accompanying compression tools.",
+      "sources": [
+        {
+          "url": "https://github.com/facebook/openzl/blob/e2c7925c146c51c2258f14515227a4c6349ab5a6/README.md",
+          "title": "OpenZL official README",
+          "revision": "e2c7925c146c51c2258f14515227a4c6349ab5a6"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+    },
+    "5302907b521d495fcd4df1b42cbe473d37d7a22cabc7279fb77f4c7e600e183f": {
+      "project_url": "https://opendss.epri.com",
+      "text": "OpenDSS models electric utility distribution systems for planning and analysis, including distributed generation interconnections and time-varying loads. Its solution modes cover snapshot, daily and yearly power flow, harmonics, dynamics and fault studies. Users can operate a standalone executable through text scripts or drive the simulation engine from other applications through Windows COM and shared-library interfaces.",
+      "sources": [
+        {
+          "url": "https://opendss.epri.com/opendss_documentation.html",
+          "title": "Introduction to OpenDSS"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Official EPRI introduction establishes intended studies, solution modes, standalone scripting, Windows COM and shared-library interfaces. No correctness or operational-safety claims."
+    },
+    "24af095b5c53b4af51066f8a783a935e876f69311ed47b81d39fa17ef9736d96": {
+      "project_url": "https://github.com/vittorioromeo/ssvopenhexagon",
+      "text": "Open Hexagon is an arcade survival game controlled by clockwise or counterclockwise rotation, a 180-degree position swap and a focus action that slows movement. Levels can introduce curving or accelerating walls and other scripted mechanics. Players can create custom levels with Lua, while online leaderboards provide a way to compare survival results.",
+      "sources": [
+        {
+          "url": "https://vittorioromeo.com/openhexagon.html",
+          "title": "Open Hexagon"
+        },
+        {
+          "url": "https://github.com/vittorioromeo/SSVOpenHexagon/blob/1e2cba71242ab149d548abdb54d3bceb92c33922/README.md",
+          "title": "Open Hexagon README",
+          "revision": "1e2cba71242ab149d548abdb54d3bceb92c33922"
+        },
+        {
+          "url": "https://store.steampowered.com/app/1358090/Open_Hexagon/",
+          "title": "Open Hexagon on Steam"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Creator page establishes controls, survival mechanics and Lua customization; pinned README and developer-published Steam page establish leaderboards, with Steam specifying focus behavior. No free-to-play or performance claim."
+    },
+    "1e59457b7413d807112e3f60186dcbea5427521288abc92abc37ff9cac7f089b": {
+      "project_url": "https://openjump.org",
+      "text": "OpenJUMP is a Java geographic information system for viewing and editing map geometry and associated attributes. It reads and writes shapefiles and simple GML, accesses spatial databases, and supports imagery and WFS/WMS services. Users can run topology and overlay analyses, transform coordinate reference systems, style map layers and export a map view as SVG.",
+      "sources": [
+        {
+          "url": "https://openjump.org/",
+          "title": "OpenJUMP GIS"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Official capability section supports vector formats, spatial databases, images/services, geometry and attribute editing, analysis, coordinate transforms, styling and SVG export."
+    },
+    "9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660": {
+      "project_url": "https://github.com/internetarchive/openlibrary",
+      "text": "Open Library is a web application for maintaining an editable book catalog, with book and author discovery and reader-curated lists. Developers can query catalog data through public APIs or obtain monthly data dumps for bulk use. The Python application also has a documented Docker-based local development setup for contributors working on catalog features and integrations.",
+      "sources": [
+        {
+          "url": "https://github.com/internetarchive/openlibrary/blob/510e39f1d3d39bb5ab2191e6e5678bc7aeba5922/Readme.md",
+          "title": "Open Library README",
+          "revision": "510e39f1d3d39bb5ab2191e6e5678bc7aeba5922"
+        },
+        {
+          "url": "https://openlibrary.org/developers",
+          "title": "Developer Center | Open Library"
+        },
+        {
+          "url": "https://docs.openlibrary.org/developers/quick-start.html",
+          "title": "Quick Start | Open Library Docs"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Pinned README confirms editable catalog. Developer Center confirms discovery, lists, Python, APIs and monthly dumps. Quick Start confirms local Docker development, not a hosted-service deployment guarantee."
+    },
+    "c3cdcfdd208b07c7bb4c5b1d7f3c1e931d7979c657c5261cc479bebb35d7eee2": {
+      "project_url": "https://github.com/opennumismat/open-numismat",
+      "text": "OpenNumismat is a desktop application for recording coin collections with descriptions and photographs, alongside wish lists, selling lists and collection statistics. Its collection records can include acquisition details, condition, storage location and other catalog fields. The application stores collection data in SQLite and provides builds for Windows, Linux and macOS; its scope also includes other collectibles.",
+      "sources": [
+        {
+          "url": "https://opennumismat.github.io/",
+          "title": "OpenNumismat - free coin collecting software"
+        },
+        {
+          "url": "https://opennumismat.github.io/open-numismat/manual.html",
+          "title": "OpenNumismat user manual"
+        },
+        {
+          "url": "https://github.com/OpenNumismat/open-numismat/blob/3778d298e8d25213d0844e06f8f3253793412661/README.md",
+          "title": "OpenNumismat README",
+          "revision": "3778d298e8d25213d0844e06f8f3253793412661"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Desktop-only scope: homepage establishes lists/statistics; manual establishes photos, field types and SQLite; pinned README establishes builds and other collectibles. No Web-edition behavior included."
+    },
+    "940b9064d9702a4687a341521a07789d1c7f8d7ca078deb739313338e8194841": {
+      "project_url": "https://www.bentley.com/products/openroads-designer/",
+      "text": "OpenRoads Designer is roadway design software for producing terrain models, road geometry, corridors and construction documentation. It combines survey-data workflows with drainage and utility modeling, cross sections and earthwork calculations. Designers can generate plans, profiles and cross-section sheets from a design model while keeping the 2D documentation and 3D geometry synchronized.",
+      "sources": [
+        {
+          "url": "https://www.bentley.com/products/openroads-designer/",
+          "title": "OpenRoads Designer | Roadway Design Software | Bentley Systems"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Bentley product and technical-capabilities sections establish terrain, geometry, survey, drainage/utilities, corridors, earthworks and synchronized deliverables. No accuracy, scale, price or licensing interpretation added."
+    },
+    "91874098c295acfc1b15893d4fb08408cc17d91203282c7580ecad07b86aec27": {
+      "project_url": "https://github.com/openrocket/openrocket",
+      "text": "OpenRocket lets model-rocket builders assemble designs from components, inspect them in 3D and simulate flight before construction. It supports staged rockets and motor clusters, six-degree-of-freedom simulation, design optimization and plots of flight results. This Java-based application can export designs to RockSim or RASAero II and component geometry to OBJ or SVG for fabrication workflows.",
+      "sources": [
+        {
+          "url": "https://github.com/openrocket/openrocket/blob/591c5e5f7b7377e48f2bd5e501cef25cdfbd61d8/README.md",
+          "title": "OpenRocket README",
+          "revision": "591c5e5f7b7377e48f2bd5e501cef25cdfbd61d8"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Pinned README establishes component design, 3D visualization, simulation/plots, staging/clustering, six degrees of freedom, optimization, Java and named exports. No launch-safety or regulatory claims."
+    },
+    "072cc86568781283ab19d9c7593fd1702471534610ee159ec25b6bbddcea4212": {
+      "project_url": "https://osdoc.cogsci.nl",
+      "text": "OpenSesame is an experiment builder for psychology, neuroscience and experimental economics. Researchers can assemble experiments in a graphical interface and extend them with Python or JavaScript, including browser-based experiments through OSWeb. The desktop program runs on Windows, macOS and Linux and supports connections to research equipment such as eye trackers, button boxes and EEG devices.",
+      "sources": [
+        {
+          "url": "https://osdoc.cogsci.nl/",
+          "title": "OpenSesame documentation"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Official documentation identifies the research tool and establishes GUI, languages, OSWeb, supported desktop platforms and equipment integration. Disambiguated from the workforce-learning company."
+    },
+    "ebbe2c1eade172814c32d478695b70656f27f0527b19e79247c6aad09e84a490": {
+      "project_url": "https://openspades.yvt.jp",
+      "text": "OpenSpades is an online voxel first-person shooter based on Ace of Spades 0.75. Players take part in matches on destructible terrain using community-created game modes, including Capture the Flag. It runs as a desktop game on Windows, macOS and Linux, with a network connection, keyboard and pointing device listed among its requirements.",
+      "sources": [
+        {
+          "url": "https://openspades.yvt.jp/",
+          "title": "Play OpenSpades, the open-source voxel first-person shooter"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Creator homepage establishes clone identity, online shooter gameplay, destructible terrain, community modes and desktop requirements. No protocol-compatibility guarantee or tested hardware claim."
+    },
+    "0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6": {
+      "project_url": "https://opentaxsolver.sourceforge.net",
+      "text": "OpenTaxSolver calculates entries for U.S. federal and supported state personal-income-tax forms and fills printable PDF returns for mailing. Users can enter figures through a graphical interface or prepare text input files for command-line processing, then inspect intermediate and final calculations. It is intended for people preparing their own taxes with the relevant government instruction booklets.",
+      "sources": [
+        {
+          "url": "https://opentaxsolver.sourceforge.net/",
+          "title": "Open Tax Solver"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Official overview establishes federal/state calculation, PDF auto-fill and mailing, GUI/text workflows, intermediate results and self-preparation with government booklets. No e-filing, all-state coverage, correctness or tax-advice claims."
     }
   }
 }
