@@ -969,7 +969,7 @@ h1 { font-size:28px; margin:0; }
 .data-notes[open]>summary>span::after {content:"*";font-size:18px;}
 .site-footer.has-art .footer-baseline {margin-top:clamp(180px,34vw,640px);}
 .footer-baseline {border-top:0;padding-top:0;align-items:flex-start;}
-.footer-baseline>span {background:#051529;padding:4px 8px;}
+.footer-baseline>span {background:black;padding:4px 8px;}
 
 .page-end {display:flex;justify-content:center;padding:72px 24px 120px;}
 .page-end img {display:block;width:96px;height:96px;}
