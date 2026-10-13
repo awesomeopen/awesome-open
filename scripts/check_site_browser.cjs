@@ -280,7 +280,7 @@ const path = require('node:path');
       assert.ok(await diagnostics.evaluate(node => node.getBoundingClientRect().width) >= 200,
         `Readable diagnostics at ${width}px`);
       assert.equal(await card.locator('.function-detail > p').first().textContent(), tofu.function_summary.text);
-      for (const selector of ['.hn-chart img', '.star-chart img']) {
+      for (const selector of ['.signal:not(.star-history) .hn-chart img', '.star-chart img']) {
         const chart = card.locator(selector);
         await chart.scrollIntoViewIfNeeded();
         await chart.evaluate(image => image.decode());
