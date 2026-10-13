@@ -347,6 +347,7 @@ const path = require('node:path');
     assert.equal(await page.locator('script[src^="data:text/javascript;base64,"]').count(), 1);
     const expectedDownloads = ['catalog.json', 'hn_evidence.json', 'alternatives.json'];
     if (fs.existsSync(path.resolve(__dirname, '../data/project_signals.json'))) expectedDownloads.push('project_signals.json');
+    if (data.projects.some(p => p.star_history)) expectedDownloads.push('star_history.json');
     const downloads = await page.locator('a[download]').evaluateAll(nodes => nodes.map(node => ({
       name: node.getAttribute('download'), href: node.getAttribute('href'),
     })));
@@ -355,6 +356,7 @@ const path = require('node:path');
     await change('search', 'OpenTofu');
     assert.ok(await visible() > 0);
     assert.deepEqual(errors, []);
+    await require('./check_star_history_browser.cjs')({ page, url, data, capture });
     report.status = 'passed';
     writeReport();
     console.log(JSON.stringify(report, null, 2));

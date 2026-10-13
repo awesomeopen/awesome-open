@@ -13,6 +13,7 @@ from build_catalog import build_catalog, load_function_summaries
 import update_hn as hn
 import update_stats as stats
 import signals
+import star_history
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
@@ -151,6 +152,11 @@ def project_html(project, categories, catalog, number=0):
         attention = project['hn']
         inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
         chart = f'<div class="signal evidence-note"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 24 months</span></a></div>'
+    if chart and project.get('star_history'):
+        paired = project['star_history']
+        if paired.get('chart_url'):
+            good = paired['last_good']
+            chart = chart.replace('</a></div>', '</a><p class="fine-print star-window">' + escape(good['months'][0]) + '–' + escape(good['months'][-1]) + ' · oldest at left<br>Square-root scale: 0–' + escape(paired['hn_monthly_maximum']) + ' stories/month (shared across HN charts)</p></div>')
     summary = project.get('function_summary')
     function_detail = ''
     if summary:
@@ -165,7 +171,7 @@ def project_html(project, categories, catalog, number=0):
   <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span>{inline_chart}<span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
   <div class="specimen-interior{"" if art else " without-art"}" aria-labelledby="name-{pid}">
    <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry">OP-{pid[:8].upper()}</span><span class="sheet-folio">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
-   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{alternatives}{chart}</div></div>
+   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{alternatives}{chart}{star_history.render(project)}</div></div>
   </div>
  </details>
 </article>'''
@@ -193,6 +199,8 @@ def render_html(catalog):
                       + f'<li>{len(signal_projects)} mapped GitHub repositories.</li>'
                       + f'<li>Collection snapshot {escape(catalog.get("signals_collected_at"))}.</li></ul>'
                       + '<p><a href="data/project_signals.json">Release and Scorecard evidence</a></p>') if signal_projects else ''
+    if any(p.get('star_history') for p in catalog['projects']):
+        optional_notes += '<p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
     sha = catalog.get('source_sha')
     revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else 'Local preview (revision not supplied)'
     return f'''<!doctype html>
@@ -249,12 +257,15 @@ def build(output, source_sha=None, root=ROOT):
     evidence = json.loads((root / 'data/hn_evidence.json').read_text(encoding='utf-8'))
     optional = signals.load_optional(root / 'data/project_signals.json')
     catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha, optional_signals=optional,
-                            function_summaries=load_function_summaries(root / "data/function_summaries.json"))
+                            function_summaries=load_function_summaries(root / "data/function_summaries.json"),
+                            star_evidence=star_history.load_optional(root / "data/star_history.json"))
     catalog['footer_backgrounds'] = ['footer-backgrounds/' + p.name for p in sorted((root / 'site/footer-backgrounds').glob('*')) if p.is_file() and p.suffix.lower() in {'.webp', '.png'} and not p.is_symlink()]
     attach_specimen_art(catalog, root)
     page = render_html(catalog)
     # Validate charts before touching generated files. The renderer is shared with README.
     charts = {p['slug']: hn.svg(p, evidence) for p in evidence['projects'] if p['eligible']}
+    star_charts = {p['star_history']['chart_url']: star_history.svg(p) for p in catalog['projects']
+                   if p.get('star_history', {}).get('chart_url')}
     assets = {name: (root / 'site' / name).read_text(encoding='utf-8') for name in ('styles.css', 'catalog.js')}
     assets['tokens.css'] = (root / 'site/design/tokens.css').read_text(encoding='utf-8')
     output.mkdir(parents=True, exist_ok=True)
@@ -265,8 +276,16 @@ def build(output, source_sha=None, root=ROOT):
     (output / 'assets/hn').mkdir(parents=True, exist_ok=True)
     for slug, chart in charts.items():
         (output / 'assets/hn' / (slug + '.svg')).write_text(chart, encoding='utf-8')
+    shutil.rmtree(output / 'assets/stars', ignore_errors=True)
+    (output / 'assets/stars').mkdir(parents=True, exist_ok=True)
+    for path, chart in star_charts.items():
+        (output / path).write_text(chart, encoding='utf-8')
     (output / 'data').mkdir(exist_ok=True)
     evidence_files = ['alternatives.json', 'hn_evidence.json']
+    if (root / 'data/star_history.json').exists():
+        evidence_files.append('star_history.json')
+    else:
+        (output / 'data/star_history.json').unlink(missing_ok=True)
     if optional is not None:
         evidence_files.append('project_signals.json')
     else:
@@ -323,6 +342,9 @@ def build(output, source_sha=None, root=ROOT):
     for slug, chart in charts.items():
         encoded = base64.b64encode(chart.encode('utf-8')).decode('ascii')
         standalone = standalone.replace(f'src="assets/hn/{slug}.svg"', f'src="data:image/svg+xml;base64,{encoded}"')
+    for path, chart in star_charts.items():
+        encoded = base64.b64encode(chart.encode('utf-8')).decode('ascii')
+        standalone = standalone.replace(f'src="{path}"', f'src="data:image/svg+xml;base64,{encoded}"')
     for name in ['catalog.json', *('data/' + item for item in evidence_files)]:
         encoded = base64.b64encode((output / name).read_bytes()).decode('ascii')
         standalone = standalone.replace(f'href="{name}"',

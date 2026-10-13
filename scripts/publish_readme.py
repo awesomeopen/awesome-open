@@ -19,7 +19,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 GENERATED_FILES = frozenset({
     "README.md", "data/github_metrics.json", "data/hn_evidence.json",
-    "data/project_signals.json",
+    "data/project_signals.json", "data/star_history.json",
 })
 
 
@@ -64,7 +64,7 @@ def assert_generated_only(root):
     return changed
 
 
-def collect_and_render(root):
+def collect_and_render(root, star_budget_file=None):
     # Collectors own only their snapshots. The offline renderer owns all output.
     run(root, sys.executable, "scripts/update_stats.py")
     run(root, sys.executable, "scripts/update_hn.py")
@@ -74,6 +74,8 @@ def collect_and_render(root):
     # invoking checkout or a previous attempt's collected snapshot.
     source_sha = git(root, "rev-parse", "HEAD").stdout.strip()
     run(root, sys.executable, "scripts/update_signals.py", "--source-sha", source_sha)
+    star_arguments = ["--invocation-budget-file", str(star_budget_file)] if star_budget_file else []
+    run(root, sys.executable, "scripts/update_star_history.py", "--source-sha", source_sha, *star_arguments)
     run(root, sys.executable, "scripts/render_readme.py", "--strict-metrics")
 
 
@@ -94,6 +96,12 @@ def validate(root):
 
 
 def publish(root=ROOT, max_attempts=5):
+    # A retry uses another worktree, but shares the optional star-request budget.
+    with tempfile.TemporaryDirectory(prefix="star-request-budget-") as directory:
+        return publish_attempts(root, max_attempts, Path(directory) / "budget.json")
+
+
+def publish_attempts(root, max_attempts, star_budget_file):
     root = Path(root).resolve()
     if max_attempts < 1:
         raise ValueError("max_attempts must be positive")
@@ -105,7 +113,7 @@ def publish(root=ROOT, max_attempts=5):
             git(root, "worktree", "add", "--detach", str(worktree), base)
             try:
                 try:
-                    collect_and_render(worktree)
+                    collect_and_render(worktree, star_budget_file)
                     changed = validate(worktree)
                 except (RuntimeError, OSError):
                     # A stale input may itself cause collection to fail (for
