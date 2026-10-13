@@ -134,6 +134,9 @@ const path=require('node:path');
  for(const [label,width,dpr] of [['desktop-1x',1440,1],['desktop-1.5x',1440,1.5],['desktop-2x',1440,2],['mobile-3x',390,3]]){
    for(const control of [false,true]){
      const context=await browser.newContext({viewport:{width,height:900},deviceScaleFactor:dpr,reducedMotion:'reduce'});
+     // Jar lighting and steam glyphs are shuffled on startup. Pin only this
+     // visual-comparison context so original/variant captures are comparable.
+     await context.addInitScript(()=>{Math.random=()=>0.5;});
      if(control)await context.route('**/jars/responsive/*.webp',route=>{
        const relative=new URL(route.request().url()).pathname.split('/jars/')[1];
        const source=byVariant['jars/'+relative];
