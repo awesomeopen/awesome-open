@@ -87,7 +87,8 @@ class StarSiteTests(unittest.TestCase):
             card = build_site.project_html(project,{c['id']:c['name'] for c in catalog['categories']},catalog)
             self.assertIn('class="deployment-evidence"',card)
             self.assertIn('class="signal evidence-note star-history"',card)
-            self.assertLess(card.index('class="signal evidence-note star-history"'),card.index('class="deployment-evidence"'))
+            self.assertIn('<div class="deployment-evidence">',card)
+            self.assertNotIn('Deployment and installation',card)
             self.assertIn('Function',card)
 
     def test_assets_evidence_standalone_and_removal(self):

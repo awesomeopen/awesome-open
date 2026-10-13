@@ -132,7 +132,7 @@ class DeploymentTests(unittest.TestCase):
             self.assertEqual(page.count('class="deployment-evidence"'), 8)
             self.assertIn('id="run-mode-filter"', page)
             self.assertIn('id="install-method-filter"', standalone)
-            self.assertIn('Reviewed setup facts and sources', standalone)
+            self.assertIn('View setup facts &amp; sources', standalone)
 
 
 if __name__ == '__main__': unittest.main()

@@ -48,7 +48,7 @@ def build(output):
     <header class="ex-header"><a class="brand" href="index.html"><img class="brand-mark" src="brand/fruit-96.png" alt="" width="40" height="40"><span>Awesome Open<span class="brand-asterisk">*</span></span></a>
     <form class="ex-search" id="ex-search-form" hidden><label for="ex-search">Search this category</label><input id="ex-search" type="search" placeholder="Name, function, alternative…" autocomplete="off"></form>
     <nav aria-label="Guide"><a href="index.html">All projects ↗</a><span class="preview-stamp">Preview 01</span></nav></header>
-    <main class="ex-main"><section class="ex-entrance" aria-labelledby="page-title"><div class="entrance-index"><span>03</span><p>Index by function</p></div>
+    <main class="ex-main"><section class="ex-entrance" aria-labelledby="page-title"><div class="entrance-index"><span>03</span><p>Table of contents</p></div>
     <div class="entrance-title"><p class="eyebrow">Awesome Open / Specimen exhibition</p><h1 id="page-title">Infrastructure<br><span>& DevOps</span></h1></div>
     <div class="entrance-note"><p>Observe systems.<br>Serve requests.<br>Provision infrastructure.</p><span>{len(projects):02d} projects · 03 on display</span></div></section>
     <div class="ex-control-strip"><p><span class="red-mark" aria-hidden="true">●</span> Infrastructure & DevOps</p><div class="view-switch" role="group" aria-label="Browse view" hidden><button data-view="exhibition" aria-pressed="true">Exhibition</button><button data-view="ledger" aria-pressed="false">Ledger</button></div><a href="#ex-ledger">Category ledger ↓</a></div>

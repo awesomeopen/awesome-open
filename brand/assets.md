@@ -46,5 +46,6 @@ can be established; do not invent a generator, rights holder or license.
 
 The specimen-plate study reuses the approved OpenTofu and OpenRefine WebP files
 at their existing paths. Each full illustration is accompanied by a CSS-cropped
-detail and an explicitly labeled drawing analogy. No artwork bytes or upstream
-provenance change; no new scientific/software claims arise from these crops.
+detail beside a separately sourced software feature note (B14 supersedes the
+drawing-analogy captions). No artwork bytes or upstream provenance change; the
+software claims come from reviewed Function sources, not from these crops.

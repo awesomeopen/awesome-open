@@ -76,5 +76,17 @@ class FunctionSummaryTests(unittest.TestCase):
         self.assertNotIn('<script>alert(1)</script>', rendered)
         self.assertIn('&lt;script&gt;alert(1)&lt;/script&gt;', rendered)
 
+    def test_feature_requires_reviewed_source_and_safe_plain_text(self):
+        self.entry['features'] = [{'title': 'A capability', 'text': '<detail>',
+                                  'source_url': self.entry['sources'][0]['url']}]
+        result = self.build(self.document)
+        self.assertEqual(result['projects'][0]['function_summary']['features'], self.entry['features'])
+        self.entry['features'][0]['source_url'] = 'https://unreviewed.example'
+        with self.assertRaises(ValueError): self.build(self.document)
+
+    def test_first_complete_name_highlight_preserves_escaping(self):
+        rendered = build_site.highlight_name('Opening <text> Open & Open.', 'Open')
+        self.assertEqual(rendered, 'Opening &lt;text&gt; <mark class="tool-name">Open</mark> &amp; Open.')
+
 if __name__ == '__main__':
     unittest.main()

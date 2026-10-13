@@ -214,7 +214,21 @@ def attach_function_summaries(projects, document):
             revision = source.get("revision")
             if revision is not None and (not isinstance(revision, str) or not re.fullmatch(r"[0-9a-f]{40}", revision)):
                 raise ValueError("Source revision must be a full Git commit SHA")
-        project["function_summary"] = {"text": text, "sources": deepcopy(sources), "checked_at": checked}
+        features = entry.get('features', [])
+        if not isinstance(features, list) or len(features) > 5:
+            raise ValueError('Function summary features must be a list of up to five items')
+        source_urls = {canonical_url(s['url']) for s in sources}
+        for feature in features:
+            if not isinstance(feature, dict) or set(feature) != {'title', 'text', 'source_url'}:
+                raise ValueError('Invalid function feature fields')
+            for key, limit in (('title', 80), ('text', 400)):
+                value = _nonempty_text(feature.get(key), 'feature ' + key)
+                if len(value) > limit or any(unicodedata.category(c) == 'Cc' for c in value):
+                    raise ValueError('Invalid function feature ' + key)
+            if canonical_url(feature['source_url']) not in source_urls:
+                raise ValueError('Function feature must cite a reviewed summary source')
+        project["function_summary"] = {"text": text, "sources": deepcopy(sources), "checked_at": checked,
+                                       "features": deepcopy(features)}
 
 
 def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, optional_signals=None, function_summaries=None, *, deployment_evidence=None, star_evidence=None):

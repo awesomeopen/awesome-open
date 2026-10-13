@@ -64,3 +64,14 @@ Three records test a stronger unfolded composition: OpenTofu, OpenRefine and
 Open WebUI. See the specimen-plate section of the detailed guide for the bounded
 layout, artwork-detail, evidence and departure treatments. Folded rows and all
 other records retain the established layout pending review.
+
+## User-directed plate refinement
+
+The three prototypes omit early official-source links in favor of a centered
+“In the wild” departure. Identity lines use consistent spacing and literal
+Domain/Specimen labels. First tool-name mentions in long prose receive a
+Prussian/white highlight. Setup facts sit in the release card without implying
+they were checked against that release. Feature captions are reviewed software
+facts with their own sources; artwork crops remain decorative. Star plots and
+concise counts link to the aggregate source; About retains the counting method.
+See B14 and the detailed guide.
