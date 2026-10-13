@@ -49,3 +49,21 @@ at their existing paths. Each full illustration is accompanied by a CSS-cropped
 detail beside a separately sourced software feature note (B14 supersedes the
 drawing-analogy captions). No artwork bytes or upstream provenance change; the
 software claims come from reviewed Function sources, not from these crops.
+
+## Hero display derivatives
+
+The seven hero jars and seven composited specimens have display-only 256/512/768px
+wide WebP derivatives under `site/jars/responsive/`. Their original files, prompts,
+review status and use in expanded artwork, the standalone download and print stay
+unchanged. `site/jars/responsive.json` records original hashes, derivative hashes,
+dimensions and the encoding recipe; `brand/assets.lock.json` inventories the bytes.
+
+Regenerate deliberately with `python3 scripts/build_hero_images.py` using Pillow
+12.3.0 and libwebp 1.6.0, then inspect glass/ink at 1×/2×/3× and hover size before
+refreshing the checksum inventory. Normal builds copy the committed derivatives
+and need no new Python dependency. The hero's responsive sizes cover its fixed CSS
+heights, 110% hover scale and 300px no-JavaScript fallback. Glass/reflection/lid and
+CSS underlight use matching candidate resolutions to reuse the same download.
+Print selects original sources; expanded art and the offline edition still use
+original specimen bytes. This is a delivery optimization, not new artwork or a
+change to the accepted visual system.

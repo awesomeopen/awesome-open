@@ -55,6 +55,36 @@ def json_for_html(value):
             .replace("\u2028", "\\u2028").replace("\u2029", "\\u2029"))
 
 
+def search_index(catalog):
+    """Project only the fields consumed by catalog.js; keep evidence in HTML/downloads.
+
+    Retain the runtime's existing shape and raw values so search folding, unknown
+    metrics, date thresholds, setup filters and category leaders stay unchanged.
+    In particular, a present GitHub record with no measurements is not missing.
+    """
+    projects = []
+    for project in catalog['projects']:
+        github = project.get('github')
+        item = {key: project[key] for key in ('id', 'name', 'description', 'categories')}
+        item['leader_categories'] = project.get('leader_categories', [])
+        item['github'] = ({key: github.get(key) for key in ('license', 'stars', 'pushed_at')}
+                          if github is not None else None)
+        item['alternatives'] = [{'name': alternative['name']}
+                                for alternative in project.get('alternatives', [])]
+        setup = project.get('deployment', {})
+        item['deployment'] = {
+            field: [{'value': fact['value']} for fact in setup.get(field, [])]
+            for field in ('run_modes', 'install_methods')
+        }
+        projects.append(item)
+    return {
+        'metrics_as_of': catalog['metrics_as_of'],
+        'categories': [{key: category[key] for key in ('id', 'name')}
+                       for category in catalog['categories']],
+        'projects': projects,
+    }
+
+
 def split_name(name):
     """The prefix treatment never changes the canonical name or identity."""
     if name[:4].lower() == 'open':
@@ -296,7 +326,7 @@ def render_html(catalog):
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
 <footer class="site-footer{' has-art' if footer_backgrounds else ''}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>Latest GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, 'LICENSE.md'))}">CC0-1.0</a></span></div></footer>
-<script id="catalog-data" type="application/json">{json_for_html(catalog)}</script>
+<script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
 

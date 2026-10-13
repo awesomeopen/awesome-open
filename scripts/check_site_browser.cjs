@@ -77,7 +77,15 @@ const path = require('node:path');
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(url);
     await waitForState();
-    const data = await page.locator('#catalog-data').textContent().then(JSON.parse);
+    const index = await page.locator('#catalog-data').textContent().then(JSON.parse);
+    // The runtime embeds only its filter fields. Inspect the complete downloadable
+    // catalog separately so artwork/evidence checks cannot silently lose coverage.
+    const catalogResponse = await context.request.get(new URL('catalog.json', page.url()).href);
+    assert.ok(catalogResponse.ok(), 'Full catalog download is available');
+    const data = await catalogResponse.json();
+    assert.deepEqual(index.projects.map(project => project.id), data.projects.map(project => project.id));
+    assert.equal(index.metrics_as_of, data.metrics_as_of);
+    assert.ok(JSON.stringify(index).length < JSON.stringify(data).length / 2, 'Compact runtime index');
     report.sourceSha = data.source_sha;
     writeReport();
     if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Browser must test the generated checkout');

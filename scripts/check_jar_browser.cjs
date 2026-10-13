@@ -1,7 +1,9 @@
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
 (async()=>{
- const browser=await chromium.launch({headless:true});
+ const browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{})});
  const page=await browser.newPage({viewport:{width:1440,height:1000}});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const url=new URL(process.env.JAR_PAGE||'jars.html',process.env.SITE_URL||'http://127.0.0.1:8000/').href;
@@ -89,6 +91,85 @@ const assert=require('node:assert/strict');
  await touch.locator('.jar-scroll').evaluate(n=>n.scrollLeft=n.scrollWidth);await touch.locator('.jar-select').last().tap();assert.equal(await touch.locator('.jar-select').last().getAttribute('aria-expanded'),'true');
  await touch.locator('.jar-select').last().tap();assert.equal(await touch.locator('.jar-exhibit').last().getAttribute('data-cracks'),'2');await touch.locator('.jar-select').last().tap();assert.match(new URL(touch.url()).hash,/^#project-/);await touch.close();
  const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});await fallback.goto(url);assert.equal(await fallback.locator('.jar-annotation:visible').count(),7);assert.equal(await fallback.locator('[data-jar-inspect]').count(),7);await fallback.locator('.project-card summary').first().click();assert.ok(await fallback.locator('.project-card details').first().evaluate(n=>n.open));await fallback.close();
+ // Resource/visual evidence at real device densities. New contexts avoid cached
+ // larger candidates influencing selection at a lower DPR. The control serves
+ // original bytes for each derivative URL, keeping markup/layout identical.
+ const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'../site/jars/responsive.json')));
+ const sources=Object.keys(manifest.sources);
+ const byVariant=Object.fromEntries(sources.flatMap(source=>manifest.sources[source].variants.map(v=>[v.path,source])));
+ const heroPaths=[...sources,...Object.keys(byVariant)];
+ const heroPath=resourceURL=>{
+   const pathname=new URL(resourceURL).pathname;
+   return heroPaths.find(relative=>pathname.endsWith('/'+relative));
+ };
+ const payload=[];
+ const noJavaScript=[];
+ for(const dpr of [1,2,3]){
+   const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:900},deviceScaleFactor:dpr});
+   const probe=await context.newPage(),requested=new Set();
+   probe.on('request',request=>{if(heroPath(request.url()))requested.add(request.url());});
+   await probe.goto(url);
+   await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+   assert.equal(await probe.locator('.jar-annotation:visible').count(),7,'No-JS annotations at '+dpr+'x');
+   assert.equal(await probe.locator('[data-jar-inspect]').count(),7,'No-JS record links at '+dpr+'x');
+   const heights=await probe.locator('.vessel').evaluateAll(nodes=>nodes.map(n=>parseFloat(getComputedStyle(n).height)));
+   assert.ok(heights.every(height=>height===300),'No-JS vessels remain 300 CSS pixels at '+dpr+'x');
+   const images=await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.specimen-print').evaluateAll(nodes=>nodes.map(n=>({
+     currentSrc:n.currentSrc,cssWidth:n.getBoundingClientRect().width,sizes:parseFloat(n.sizes),complete:n.complete})));
+   for(const image of images){
+     const relative=heroPath(image.currentSrc),source=byVariant[relative];
+     assert.ok(source&&image.complete,'No-JS screen uses complete responsive images at '+dpr+'x');
+     const selected=manifest.sources[source].variants.find(variant=>variant.path===relative);
+     assert.ok(image.sizes>=image.cssWidth,'No-JS sizes covers rendered width at '+dpr+'x');
+     assert.ok(selected.width>=Math.min(image.cssWidth*dpr,manifest.sources[source].width),'No-JS selected candidate covers device pixels at '+dpr+'x');
+   }
+   assert.ok([...requested].every(resource=>byVariant[heroPath(resource)]),'No original hero downloads without JavaScript at '+dpr+'x');
+   noJavaScript.push({deviceScaleFactor:dpr,vesselHeights:heights,images,requestedHeroURLs:[...requested]});
+   await context.close();
+ }
+ for(const [label,width,dpr] of [['desktop-1x',1440,1],['desktop-1.5x',1440,1.5],['desktop-2x',1440,2],['mobile-3x',390,3]]){
+   for(const control of [false,true]){
+     const context=await browser.newContext({viewport:{width,height:900},deviceScaleFactor:dpr,reducedMotion:'reduce'});
+     if(control)await context.route('**/jars/responsive/*.webp',route=>{
+       const relative=new URL(route.request().url()).pathname.split('/jars/')[1];
+       const source=byVariant['jars/'+relative];
+       assert.ok(source,'Every control route resolves to an original');
+       return route.fulfill({contentType:'image/webp',body:fs.readFileSync(path.join(__dirname,'../site',source))});
+     });
+     const probe=await context.newPage(),requested=new Set();
+     probe.on('request',request=>{if(heroPath(request.url()))requested.add(request.url());});
+     await probe.goto(url);await probe.waitForSelector('body[data-jars-ready=true]');
+     await probe.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+     await probe.evaluate(()=>document.fonts.ready);
+     await probe.locator('.jar-select').first().focus();
+     await probe.waitForTimeout(700); // Include the now-visible underlight mask.
+     await probe.screenshot({path:`tmp/site-qa/hero-${label}-${control?'original':'responsive'}.png`});
+     if(!control){
+       const images=await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.specimen-print').evaluateAll(nodes=>nodes.map(n=>({
+         class:n.className,currentSrc:new URL(n.currentSrc).pathname,cssWidth:n.getBoundingClientRect().width,
+         sizes:n.sizes,naturalWidth:n.naturalWidth,complete:n.complete})));
+       assert.ok(images.every(i=>i.complete&&i.currentSrc.includes('/jars/responsive/')),'Screen uses responsive images at '+label);
+       const resources=await probe.evaluate(()=>performance.getEntriesByType('resource').map(r=>({path:new URL(r.name).pathname,bytes:r.decodedBodySize})));
+       const heroResources=resources.filter(r=>r.path.includes('/jars/responsive/')||sources.some(s=>r.path.endsWith('/'+s)));
+       const selected=new Set(images.map(i=>i.currentSrc));
+       assert.ok(heroResources.every(r=>selected.has(r.path)),'Masks reuse selected image candidates, no original/extra hero download at '+label);
+       const requestedHeroURLs=[...requested];
+       assert.ok(requestedHeroURLs.every(resource=>selected.has(new URL(resource).pathname)),
+         'All requested masks reuse selected candidates, including unfinished downloads at '+label);
+       const selectedResourceBytes=requestedHeroURLs.reduce((sum,resource)=>
+         sum+fs.statSync(path.join(__dirname,'../site',heroPath(resource))).size,0);
+       payload.push({label,deviceScaleFactor:dpr,images,resources:heroResources,requestedHeroURLs,
+         selectedResourceBytes,byteMeaning:'On-disk bytes of unique requested hero URLs; not measured network transfer bytes'});
+       // Print must switch all hero layers back to original, unmodified artwork.
+       await probe.emulateMedia({media:'print'});
+       await probe.waitForFunction(()=>[...document.querySelectorAll('.jar-photo,.jar-reflection,.jar-lid,.specimen-print')].every(n=>n.currentSrc&&!n.currentSrc.includes('/responsive/')));
+       await probe.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+       assert.ok(await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.specimen-print').evaluateAll(nodes=>nodes.every(n=>!n.currentSrc.includes('/responsive/'))));
+     }
+     await context.close();
+   }
+ }
+ fs.writeFileSync('tmp/site-qa/hero-payload.json',JSON.stringify({prHeadSha:process.env.PR_HEAD_SHA||null,sourceSha:process.env.SITE_SOURCE_SHA||null,originalHeroBytes:sources.reduce((sum,s)=>sum+fs.statSync(path.join(__dirname,'../site',s)).size,0),cases:payload,noJavaScript},null,2)+'\n');
  assert.deepEqual(errors,[]);console.log('Seven jars: assets, hover overlap, foreground zoom, vertical stability, underlight, lid lift, vapor, idle movement/pause, outlined inspect action, record links, search, keyboard/Escape, reduced motion, responsive density, touch selection/scroll and no-JS pass.');
  }catch(e){await page.screenshot({path:'tmp/site-qa/jars-failure.png'});throw e;}finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

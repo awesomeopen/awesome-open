@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "purpose": "Hero display derivatives only; originals retained for full artwork, expanded records and offline/print use.",
+  "recipe": {
+    "pillow": "12.3.0",
+    "libwebp": "1.6.0",
+    "widths": [
+      256,
+      512,
+      768
+    ],
+    "resample": "LANCZOS",
+    "quality": 85,
+    "method": 4
+  },
+  "sources": {
+    "jars/bail.webp": {
+      "sha256": "3aa3b72582fdb773303455f0c5a105dbabc127dc9515b7be4e034602dbe1f1f6",
+      "width": 1024,
+      "height": 1536,
+      "variants": [
+        {
+          "path": "jars/responsive/bail-256.webp",
+          "width": 256,
+          "height": 384,
+          "bytes": 21962,
+          "sha256": "38707b28d2287b9732f98556bbd0dac6c2e95c31fac40a12c83f211f4dd40eba"
+        },
+        {
+          "path": "jars/responsive/bail-512.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 70162,
+          "sha256": "236ed3dca2603aa6a6b7c70f0b564d5f6a0c14ae9afbd5d4e84dd37707c732e5"
+        },
+        {
+          "path": "jars/responsive/bail-768.webp",
+          "width": 768,
+          "height": 1152,
+          "bytes": 152454,
+          "sha256": "b6c9c7e2a4bfab1ea1bac930bc08f9ad8e760f188f2676a22fd1cde6cd1b5e31"
+        }
+      ]
+    },
+    "jars/central.webp": {
+      "sha256": "6efc5c14808392434dc99ffc182829aea5a906a61e066a80d1f4383fc5dfe705",
+      "width": 1024,
+      "height": 1536,
+      "variants": [
+        {
+          "path": "jars/responsive/central-256.webp",
+          "width": 256,
+          "height": 384,
+          "bytes": 10596,
+          "sha256": "aa10f485b75fb77ba195bfdb4258a1dbfa4b1b335d7f585de5dd64ab87da50fb"
+        },
+        {
+          "path": "jars/responsive/central-512.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 30330,
+          "sha256": "161b05822031bf5f56e8c08ee5815869550cf1bb9a0561e1a99ed62da0448a47"
+        },
+        {
+          "path": "jars/responsive/central-768.webp",
+          "width": 768,
+          "height": 1152,
+          "bytes": 63412,
+          "sha256": "8124ad462568cfbcacc1d91a15c4bc137e6d2a0cb1d0ad155238dbc46308bffa"
+        }
+      ]
+    },
+    "jars/low-lid.webp": {
+      "sha256": "dbca5a86ca55626aa9ca489a30d7f881d9ee79b12973944e3f509c1c04e3f38a",
+      "width": 1145,
+      "height": 1374,
+      "variants": [
+        {
+          "path": "jars/responsive/low-lid-256.webp",
+          "width": 256,
+          "height": 307,
+          "bytes": 21802,
+          "sha256": "07920139b0752f4804ae68e7e44eb8571bc2225502003d5860af4374e73ce26b"
+        },
+        {
+          "path": "jars/responsive/low-lid-512.webp",
+          "width": 512,
+          "height": 614,
+          "bytes": 71620,
+          "sha256": "b42fff91ac5fe5211bcc497fc4bbff805de39d244018e15822d3706dcc9aaa24"
+        },
+        {
+          "path": "jars/responsive/low-lid-768.webp",
+          "width": 768,
+          "height": 922,
+          "bytes": 159492,
+          "sha256": "e9984b37629e8a4d237bc9d443d3ace2fe2a6ddad78608e3ecb73be9a2e35f95"
+        }
+      ]
+    },
+    "jars/low-open.webp": {
+      "sha256": "f39c58f9116b35f470ed9615be27b59f1ab2f2b5cdb638b34cfac3e6dd0413a3",
+      "width": 1024,
+      "height": 1536,
+      "variants": [
+        {
+          "path": "jars/responsive/low-open-256.webp",
+          "width": 256,
+          "height": 384,
+          "bytes": 28098,
+          "sha256": "ccb16593d36dd95049e37db70cac3b8b0b8a6e6d16dd699825d35ae3842ff5fd"
+        },
+        {
+          "path": "jars/responsive/low-open-512.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 96246,
+          "sha256": "b2cc2943f5871d25d10042bc088260447f7c41380d6043bdfc4b69475ea95156"
+        },
+        {
+          "path": "jars/responsive/low-open-768.webp",
+          "width": 768,
+          "height": 1152,
+          "bytes": 214824,
+          "sha256": "f68868938d515b1fea05f5a884feda71c8d19f8595576331e09e579282119f80"
+        }
+      ]
+    },
+    "jars/ribbed-labelled.webp": {
+      "sha256": "9c3a5e2cd3d726d0bfaf545c0dab2a319fbae36fde1c2826e38021855f1eaf49",
+      "width": 1024,
+      "height": 1536,
+      "variants": [
+        {
+          "path": "jars/responsive/ribbed-labelled-256.webp",
+          "width": 256,
+          "height": 384,
+          "bytes": 17454,
+          "sha256": "b39fb9a191a830ec80283f20dca1ddbd268e76ee7047f257601f3892934ab945"
+        },
+        {
+          "path": "jars/responsive/ribbed-labelled-512.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 55346,
+          "sha256": "d0c0235954fcda822c4d89f99ccce42491c88293807bb8422b0f817fa0ab5517"
+        },
+        {
+          "path": "jars/responsive/ribbed-labelled-768.webp",
+          "width": 768,
+          "height": 1152,
+          "bytes": 109700,
+          "sha256": "872e86a232bcde334772e27625e984ef8c04272652970cdc5bbe981e7c3c09e8"
+        }
+      ]
+    },
+    "jars/shouldered.webp": {
+      "sha256": "d64fbcb2d643c62be14bf4edd48d16d2c4510a99908386be8574d495f3456317",
+      "width": 1024,
+      "height": 1536,
+      "variants": [
+        {
+          "path": "jars/responsive/shouldered-256.webp",
+          "width": 256,
+          "height": 384,
+          "bytes": 17462,
+          "sha256": "56581a67134e3b84efccc56e10c53427ab2b23816ea7d70f7c0123b64f3cf5f9"
+        },
+        {
+          "path": "jars/responsive/shouldered-512.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 55604,
+          "sha256": "05c70c0db173678dff870ed1b90cf4a1e99282c54290055764875201de315be6"
+        },
+        {
+          "path": "jars/responsive/shouldered-768.webp",
+          "width": 768,
+          "height": 1152,
+          "bytes": 121650,
+          "sha256": "9d39e772b308fbc1bf0763bbdf2989bf3c886da98415687fde87a2ca97a7d3dc"
+        }
+      ]
+    },
+    "jars/square-cork-labelled.webp": {
+      "sha256": "cbc02a95b256a6690be69480ec3caae11c815b4930b8f1300db3177466ba654f",
+      "width": 1024,
+      "height": 1536,
+      "variants": [
+        {
+          "path": "jars/responsive/square-cork-labelled-256.webp",
+          "width": 256,
+          "height": 384,
+          "bytes": 27152,
+          "sha256": "a047b749626e9c9ac29de598b6170216da2334d730f73ce84704af3b923f0947"
+        },
+        {
+          "path": "jars/responsive/square-cork-labelled-512.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 85158,
+          "sha256": "0fbaf237145f46fcba26a31877950ff9d9b1b7f9f415d63c662e9ef2bc1f1934"
+        },
+        {
+          "path": "jars/responsive/square-cork-labelled-768.webp",
+          "width": 768,
+          "height": 1152,
+          "bytes": 178070,
+          "sha256": "00ec7fa40f668db6d292999fd8146faccebefb994b6ad9b9324d4dbd824051f5"
+        }
+      ]
+    },
+    "specimens/0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9.webp": {
+      "sha256": "5bd400fa5af4cbbf636384983e9c9f115d84c8beca685d0663070873994dd76e",
+      "width": 1254,
+      "height": 1254,
+      "variants": [
+        {
+          "path": "jars/responsive/0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9-256.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 13002,
+          "sha256": "40a9d3fc355a182c07bf24d1af62c7f2196d144c319a464d5b8f84700b445a32"
+        },
+        {
+          "path": "jars/responsive/0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9-512.webp",
+          "width": 512,
+          "height": 512,
+          "bytes": 46608,
+          "sha256": "0c65253530ef500f7abede4029c6faa07fb6e16a19f8975025021d82aa93676a"
+        },
+        {
+          "path": "jars/responsive/0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9-768.webp",
+          "width": 768,
+          "height": 768,
+          "bytes": 101242,
+          "sha256": "7fa169da522a16ec4a566f47256d7f380b87266bb0ccad4b68cbb717c46e3e3b"
+        }
+      ]
+    },
+    "specimens/13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc.webp": {
+      "sha256": "d7f5f4c151f52dfdaaab5930bfc6591381f8b5c38f1aa317bd74e8aead554487",
+      "width": 1254,
+      "height": 1254,
+      "variants": [
+        {
+          "path": "jars/responsive/13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc-256.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 13470,
+          "sha256": "4efacd4b7a1fe64817117ee926eae6313fa227a44c98cb4a129049e776764eb1"
+        },
+        {
+          "path": "jars/responsive/13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc-512.webp",
+          "width": 512,
+          "height": 512,
+          "bytes": 47646,
+          "sha256": "408b2f48c0577823a9381ef1d1ab2df9e6786decbfbfce134c6ad88e7801eed1"
+        },
+        {
+          "path": "jars/responsive/13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc-768.webp",
+          "width": 768,
+          "height": 768,
+          "bytes": 103390,
+          "sha256": "40fde05828a3d32236da937e8a1454106b718837462551a078e1471ea7470a85"
+        }
+      ]
+    },
+    "specimens/88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906.webp": {
+      "sha256": "1f43b1f0f55747dca8b9c3aad92cf1ae96ecc8f8db0083bc762b1da92a78c9b8",
+      "width": 1254,
+      "height": 1254,
+      "variants": [
+        {
+          "path": "jars/responsive/88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906-256.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 12608,
+          "sha256": "1ae93eb0569be75d0cf1cd78a71bd52d50960e1f82ae034aa0b68f3926703945"
+        },
+        {
+          "path": "jars/responsive/88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906-512.webp",
+          "width": 512,
+          "height": 512,
+          "bytes": 43570,
+          "sha256": "721dc13f68c600566ab544d98aff985f364ae7e16d12a02baadbf2d3e580b130"
+        },
+        {
+          "path": "jars/responsive/88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906-768.webp",
+          "width": 768,
+          "height": 768,
+          "bytes": 91352,
+          "sha256": "5fe8780fea6ec42653743248f79d82576d855c0a080a04edca20c5c77f272592"
+        }
+      ]
+    },
+    "specimens/8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20.webp": {
+      "sha256": "e4e24a73382c5e8da45cea057877c1557795a8282774c76244af12868dc88199",
+      "width": 1254,
+      "height": 1254,
+      "variants": [
+        {
+          "path": "jars/responsive/8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20-256.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 6968,
+          "sha256": "d74dc8a0ca39ca73fec9b18a6c18feb0e279899f7f17cf787dc18d079b0c6dbb"
+        },
+        {
+          "path": "jars/responsive/8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20-512.webp",
+          "width": 512,
+          "height": 512,
+          "bytes": 23388,
+          "sha256": "64bbaadd677cc4bbba569a3af0e8e16209f8e2e08613314fae3d06ea8dd29edd"
+        },
+        {
+          "path": "jars/responsive/8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20-768.webp",
+          "width": 768,
+          "height": 768,
+          "bytes": 49060,
+          "sha256": "b8a2aaf5471928db1f92d372c225ee5c005af9014269e4eb4b067b78bcb8538c"
+        }
+      ]
+    },
+    "specimens/a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d.webp": {
+      "sha256": "3442b006008209c0c5d86812ef577e0ad020b19364c83365c2e5650741d42ebd",
+      "width": 1254,
+      "height": 1254,
+      "variants": [
+        {
+          "path": "jars/responsive/a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d-256.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 17170,
+          "sha256": "6106355f6fbe7a8f194f91464cf7a1a33eb288c23e0d27e538cc343286e7e953"
+        },
+        {
+          "path": "jars/responsive/a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d-512.webp",
+          "width": 512,
+          "height": 512,
+          "bytes": 60642,
+          "sha256": "8d3aaf84e2cba913607adf561266e7ba50017271082aa1f662414f225b9379c3"
+        },
+        {
+          "path": "jars/responsive/a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d-768.webp",
+          "width": 768,
+          "height": 768,
+          "bytes": 133910,
+          "sha256": "b14fd6ee8132553aea6bdaa80a3bc7103d4d7348fbb5128d8904281a1ef2121c"
+        }
+      ]
+    },
+    "specimens/d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54.webp": {
+      "sha256": "fc10f59ef910c8bd6dc9ff410638d4e74a9a17e15f9c7da2245ffbb1a7710e97",
+      "width": 1254,
+      "height": 1254,
+      "variants": [
+        {
+          "path": "jars/responsive/d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54-256.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 7434,
+          "sha256": "99a8ebcf4b35aef90dc4f02bddfe9c840b3d2659339f4c6c8a225dfba3f4ed5f"
+        },
+        {
+          "path": "jars/responsive/d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54-512.webp",
+          "width": 512,
+          "height": 512,
+          "bytes": 24796,
+          "sha256": "a90d13a32e3618235e0894de3844f39212d3dbd28416bfb5fbd8957ecb2a53a2"
+        },
+        {
+          "path": "jars/responsive/d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54-768.webp",
+          "width": 768,
+          "height": 768,
+          "bytes": 49672,
+          "sha256": "f5dc2f8dc438df1ec1322c57fecd9b69ec22605304d0b6a255760070995e2ecd"
+        }
+      ]
+    },
+    "specimens/e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b.webp": {
+      "sha256": "790c4bd6d2db1409bba267d7a58b753702b9c8168386261fc39a46135217afa2",
+      "width": 1254,
+      "height": 1254,
+      "variants": [
+        {
+          "path": "jars/responsive/e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b-256.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 15106,
+          "sha256": "926608efbca8ac4a6ce74792fb732115ddf1c8a10c64ffae5b767eae2b539db1"
+        },
+        {
+          "path": "jars/responsive/e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b-512.webp",
+          "width": 512,
+          "height": 512,
+          "bytes": 57476,
+          "sha256": "b61e2408e23353ecdb5c92ad7d0077ab77c16df60154bac24b55a2a75dbddae5"
+        },
+        {
+          "path": "jars/responsive/e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b-768.webp",
+          "width": 768,
+          "height": 768,
+          "bytes": 125668,
+          "sha256": "e6480673b19b3d3556efd3c03cbd37823b8d9c6c8f5a274c3361d626c0daaca8"
+        }
+      ]
+    }
+  }
+}
