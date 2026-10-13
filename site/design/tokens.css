@@ -12,8 +12,9 @@
   --rs-emerald: #006B4F;
   --rs-emerald-art: #00A86B;
   --rs-verdigris-art: #4A7C72;
-  --rs-font: 'Outfit', system-ui, sans-serif;
-  --rs-mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  --rs-display: 'Fraunces', Georgia, serif;
+  --rs-font: 'Commit Mono', ui-monospace, monospace;
+  --rs-mono: 'Commit Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
   --rs-space-1: 4px;
   --rs-space-2: 8px;
   --rs-space-3: 12px;

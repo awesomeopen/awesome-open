@@ -60,14 +60,28 @@ Color alone never communicates selection, errors or maintenance state. Use a lab
 
 ## 3. Typography
 
-Keep the existing locally bundled, OFL-licensed **Outfit** for headings and reading text in this first iteration. Pair it with a system monospace stack for compact metadata, source identifiers and tabular values. A future font change is a separate reviewed decision with repository redistribution rights, license files, local assets and an offline check. Do not bundle Cabinet Grotesk merely because another skill selects it.
+Use locally bundled **Fraunces** for editorial headings and **Commit Mono** for the
+ledger, evidence, controls and reading text. This is the user's typography direction
+of 2026-10-13, replacing the earlier Outfit/system-monospace baseline.
 
-- Body: 17–18px, line-height 1.5–1.6; about 60–72 characters per line.
-- Small metadata: at least 13px, line-height 1.4–1.5; never shrink evidence to fit.
-- Headings: fluid, strong, usually 2–4 words per line; allow natural wrapping on mobile. Do not impose a six-line slogan or crop meaningful text for drama.
-- Mono: short labels and numeric evidence, with tabular numerals. Avoid paragraphs of uppercase mono.
-- Optional third voice: an editorial serif for a substantial essay or cover, introduced through a future PR. Do not add one solely for period flavor.
-- Handwriting is a drawing or a short supplemental note, not a body font, warning label, button label or source citation. Repeat meaningful written content as accessible text.
+- Headlines and the large Function description: Fraunces **300**, `SOFT 100`,
+  `WONK 1`, automatic optical sizing. Use 28–42px and line-height 1.15–1.22.
+- Header wordmark: Fraunces **600**, `SOFT 100`, `WONK 1`, 26–30px.
+- Ledger names: Commit Mono **450**, 16px/1.5; category leaders **650**.
+- Ledger descriptions: Commit Mono 14px/1.6. Expanded prose: 15px/1.7 (14px on narrow screens).
+- Metadata: 12–13px with 1.5–1.65 line-height. Keep numbers tabular and labels literal.
+- Evidence headings: Fraunces 300 at 21px/1.25; factual values stay Commit Mono.
+- Preserve monospaced character advances; do not enable programming-symbol
+  substitutions in evidence labels or source URLs. Do not synthesize missing weights.
+- Keep 48px minimum row targets, measured column gaps and consistent 16/24/32px
+  detail spacing. Reduce arbitrary gaps, not legibility. Keep narrow details stacked.
+- Both families use SIL OFL 1.1. Complete font data and notices are embedded in
+  `site/vendor/fonts.css`, including the standalone edition. Exact source revisions,
+  axes and hashes live in `FONT-PROVENANCE.json`. No live Google Fonts dependency.
+
+The portable skill snapshot still describes the older font choice; its instruction
+to read this project guide takes precedence. Do not change the reusable style for
+other projects just to make its snapshot match this project-specific decision.
 
 ## 4. Layout, scale and texture
 
@@ -148,7 +162,7 @@ Ship fonts and artwork as repository assets with relative paths that work under 
 
 Use `design/tokens.css` as the versioned reference. The ledger-first build loads these tokens before its component CSS. Update the shared tokens and reference together.
 
-For this project, explicit user decisions and this system override generic skill defaults: specimen is fixed, no theme lottery; Outfit is retained, no random font swap; evidence-first layout, not forced marketing AIDA or bento; useful motion, not mandatory GSAP effects; cold white, not warm naturalist paper. GPT Taste contributes hierarchy, composition and refinement. The frontend-image skill contributes coherent section direction. FOSSoligy contributes original drawing logic. None makes the current interface inaccessible or changes the task's scope.
+For this project, explicit user decisions and this system override generic skill defaults: specimen is fixed, no theme lottery; Fraunces/Commit Mono are deliberate choices, no random font swap; evidence-first layout, not forced marketing AIDA or bento; useful motion, not mandatory GSAP effects; cold white, not warm naturalist paper. GPT Taste contributes hierarchy, composition and refinement. The frontend-image skill contributes coherent section direction. FOSSoligy contributes original drawing logic. None makes the current interface inaccessible or changes the task's scope.
 
 ## 9. Extension and review
 

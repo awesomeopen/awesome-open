@@ -10,7 +10,7 @@ the full application. Historical demo routes do not establish current behavior.
 
 - High-contrast white/cool mist, Prussian blue and dark ink. Restrained scarlet
   directs attention. Saturated color may belong to specimens and jar lighting.
-- Outfit plus system monospace. Keep bundled font provenance and SIL OFL notice.
+- Fraunces Light 300 / SuperSoft 100 headings and Semibold 600 wordmark; Commit Mono ledger, prose and metadata. Automatic optical sizing, restrained tracking, consistent 16/24/32px spacing. Keep bundled provenance and both SIL OFL notices.
 - Ruled, searchable records and expandable evidence. Dense comparable information
   stays close; do not replace the ledger with generic cards or forced AIDA.
 - Plain labeled controls, visible focus, native disclosures, touch/keyboard

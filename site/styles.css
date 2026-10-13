@@ -976,3 +976,82 @@ h1 { font-size:28px; margin:0; }
 .star-history .star-chart img {width:120px;height:24px;}
 .star-history .fine-print,.signal .star-window {font-size:12px;line-height:1.6;}
 .star-history .note-provenance {margin-top:14px;}
+
+
+/* Typography revision: soft editorial headings, precise ledger text. */
+body {font-size:15px;line-height:1.6;font-weight:400;font-variant-numeric:tabular-nums;font-synthesis:none;}
+h1,h2,h3,.record-description,.data-notes>summary,.diagnostics .evidence-note h4 {
+  font-family:var(--rs-display);font-weight:300;font-optical-sizing:auto;
+  font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.025em;text-wrap:pretty;
+}
+.brand {font-family:var(--rs-display);font-weight:600;font-size:30px;line-height:1.1;letter-spacing:-.035em;font-optical-sizing:auto;font-variation-settings:"SOFT" 100,"WONK" 1;gap:10px;}
+.site-header {gap:clamp(16px,2vw,32px);padding-block:12px;}
+.header-links {font:13px/1.5 var(--mono);gap:20px;}
+.header-search {max-width:300px;}
+.header-search input {font:15px/1.5 var(--mono);}
+.ledger-heading {gap:16px;margin-bottom:16px;}
+h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
+.snapshot-label {font-size:12px;line-height:1.6;}
+.control-row {gap:12px;}
+.category-panel>summary,.filter-options>summary {padding:10px 12px;}
+.results-heading {margin:12px 0;}
+.ledger-columns,.specimen-drawer>summary {column-gap:20px;grid-template-columns:36px minmax(180px,1.05fr) minmax(180px,1.45fr) 120px 24px;}
+.ledger-columns {font-size:12px;line-height:1.5;padding:10px 12px;letter-spacing:.015em;}
+.specimen-drawer>summary {padding:11px 12px;min-height:48px;}
+.specimen-name {font:450 16px/1.5 var(--mono);letter-spacing:-.025em;}
+.project-card[data-leader="true"] .specimen-name {font-weight:650;}
+.description {font-size:14px;line-height:1.6;letter-spacing:-.02em;}
+.folio,.license-readout {font-size:12px;line-height:1.6;}
+.name-sparkline {margin-left:10px;vertical-align:middle;}
+.specimen-interior {padding:32px clamp(16px,2.5vw,36px) 40px;gap:clamp(28px,3.5vw,52px);}
+.registry {font-size:13px;letter-spacing:0;}
+.sheet-folio {font-size:12px;}
+.specimen-links {margin-top:12px;}
+.specimen-links a {font-size:13px;line-height:1.6;padding:8px 0;}
+.sheet-label {font-size:12px;letter-spacing:.05em;margin-bottom:8px;}
+.record-description {font-size:clamp(28px,2.7vw,38px);line-height:1.2;max-width:38ch;margin-bottom:24px;}
+.function-detail {margin:-4px 0 24px;max-width:66ch;}
+.function-detail>p {font:400 15px/1.7 var(--mono);letter-spacing:-.015em;}
+.function-detail .function-provenance {font-size:12px;line-height:1.65;margin-top:12px;}
+.vitals {gap:16px 24px;padding:16px 0;margin-bottom:24px;}
+.vitals dt {font-size:12px;line-height:1.5;}
+.vitals dd {font-size:15px;line-height:1.6;margin-top:4px;}
+.evidence-notes {gap:16px;}
+.evidence-note,.signal.evidence-note {padding:18px;}
+.diagnostics .evidence-note h4 {font-size:21px;line-height:1.25;margin-bottom:14px;gap:8px;}
+.evidence-note .signal-status {font:11px/1.5 var(--mono);letter-spacing:0;padding:2px 5px;}
+.evidence-note>p,.evidence-note li,.deployment-group p {font-size:14px;line-height:1.65;}
+.note-value {font:500 22px/1.35 var(--mono);letter-spacing:-.035em;margin-bottom:8px;}
+.note-provenance {margin-top:16px;padding-top:4px;}
+.note-provenance>summary,.evidence-note .signal-checks>summary {font-size:12px;line-height:1.6;}
+.comparison.evidence-note ul {gap:16px 24px;}
+.comparison.evidence-note li>a {font:500 15px/1.5 var(--mono);letter-spacing:-.02em;}
+.comparison.evidence-note li p {margin-top:8px;}
+.data-notes>summary {font-size:28px;line-height:1.25;}
+.colophon h2 {font-size:26px;line-height:1.2;margin-bottom:16px;}
+.colophon ul {font-size:14px;line-height:1.7;}
+.footer-actions {font-size:14px;gap:24px;}
+.footer-baseline {font-size:12px;line-height:1.6;gap:12px;}
+@media(max-width:1200px) {
+  .ledger-columns,.specimen-drawer>summary {grid-template-columns:32px minmax(150px,1.1fr) minmax(140px,1.3fr) 100px 20px;column-gap:14px;}
+}
+@media(max-width:900px) {
+  .brand {font-size:27px;}
+  .header-links {gap:14px;}
+}
+@media(max-width:720px) {
+  .brand {font-size:26px;}
+  .site-header {gap:8px 16px;}
+  .header-search {max-width:none;}
+  .header-search input {font-size:16px;}
+  .header-links {font-size:12px;}
+  .ledger-heading {align-items:flex-start;flex-wrap:wrap;gap:8px;}
+  .specimen-drawer>summary {grid-template-columns:28px minmax(0,1fr) 24px;gap:8px 12px;padding:12px 8px;}
+  .specimen-name {font-size:16px;line-height:1.45;}
+  .specimen-interior,.specimen-interior.without-art {padding:24px 12px 32px;gap:24px;}
+  .record-description {font-size:28px;line-height:1.22;margin-bottom:20px;}
+  .function-detail>p {font-size:14px;line-height:1.7;}
+  .evidence-note,.signal.evidence-note {padding:16px;}
+  .diagnostics .evidence-note h4 {font-size:21px;}
+  .comparison.evidence-note ul {gap:20px;}
+}

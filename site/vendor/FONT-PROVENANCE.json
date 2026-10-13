@@ -1,38 +1,65 @@
 {
-  "checked_at": "2026-10-10",
-  "font_family": "Outfit",
-  "css_family": "Outfit",
-  "font_style": "normal",
-  "weight_range": [
-    100,
-    900
-  ],
-  "package": "@fontsource-variable/outfit",
-  "package_version": "5.3.0",
-  "registry": "https://registry.npmjs.org",
-  "tarball_url": "https://registry.npmjs.org/@fontsource-variable/outfit/-/outfit-5.3.0.tgz",
-  "tarball_integrity_sha512": "sha512-fPb5XnYK0k7SbR++HEmm4+ZqDszmLKQ+sPRUr8oQ/KNC0vy6r6hazJFe8iYozv4cqlHbvJ/JECkJWrfDodUMVQ==",
-  "tarball_sha1": "1106061dd413b77faf72a8acfb635b01fc33d362",
-  "tarball_sha256": "06ab798b993eda0cfe3c8adf31030be5da4ccaaca3e226d93ab291c4a96e5957",
-  "source_project": "https://github.com/Outfitio/Outfit-Fonts",
-  "source_license_reference": "https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/OFL.txt",
-  "license": "SIL Open Font License 1.1",
-  "original_license_sha256": "0e5fcef5d93bfcae273c11c00f0bb453d3b5491860e1ac8b658767b7577c938f",
-  "assets": [
+  "checked_at": "2026-10-13",
+  "fonts": [
     {
-      "package_path": "files/outfit-latin-ext-wght-normal.woff2",
-      "bytes": 14808,
-      "sha256": "0f53d1c03b3918d744a843b5039001ee31695ca1e255e3914188df81beb461e9",
-      "embedded_unchanged": true
+      "family": "Fraunces",
+      "source_repository": "https://github.com/google/fonts",
+      "source_revision": "66928797f271fed5ee428544e7229685e2d90127",
+      "source_path": "ofl/fraunces/Fraunces[SOFT,WONK,opsz,wght].ttf",
+      "source_sha256": "177ff6c0f14e5550a3c624247cd1189611d4eb65d000b14944c63d967958abbb",
+      "embedded_woff2_sha256": "32e765ffbc98eabc567716404fca430f2999035cf5f122ca5b80eeba264ca193",
+      "embedded_bytes": 194976,
+      "license": "SIL Open Font License 1.1",
+      "license_sha256": "bdf4c22802eaf804f998195871c6b8938aac2ac14b2d78a8bd66a6f1eced833b",
+      "axes": {
+        "opsz": [
+          9.0,
+          9.0,
+          144.0
+        ],
+        "wght": [
+          100.0,
+          900.0,
+          900.0
+        ],
+        "SOFT": [
+          0.0,
+          0.0,
+          100.0
+        ],
+        "WONK": [
+          0.0,
+          1.0,
+          1.0
+        ]
+      },
+      "transformation": "Complete font retained, lossless WOFF2 compression; no glyph or outline changes. Base64 embedded in fonts.css."
     },
     {
-      "package_path": "files/outfit-latin-wght-normal.woff2",
-      "bytes": 32292,
-      "sha256": "6c18d579fd87c3776be068b762cbc83fde3acb543d49eabd3ade842eb987e887",
-      "embedded_unchanged": true
+      "family": "Commit Mono",
+      "source_repository": "https://github.com/eigilnikolajsen/commit-mono",
+      "source_revision": "d407cd2bf8e01ca1db70544052fbbb9606406c3b",
+      "source_path": "src/fonts/fontlab/CommitMonoV143-VF.woff2",
+      "source_sha256": "f342ca6c3f2597e6c0fcd84b3f3ed64d3ce5bdb6d0af19d190d645a558b1cf29",
+      "embedded_woff2_sha256": "47803059b751e2fc2659e1391271811de7ad0ba0d518e9cfa34913354d601e24",
+      "embedded_bytes": 86748,
+      "license": "SIL Open Font License 1.1",
+      "license_sha256": "005e08f22d472be5139dcaf876dbed7ce8f17a501cd180c3259ad2aaf27237fe",
+      "axes": {
+        "wght": [
+          200.0,
+          200.0,
+          700.0
+        ],
+        "ital": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "transformation": "Complete font retained, lossless WOFF2 compression; no glyph or outline changes. Base64 embedded in fonts.css."
     }
   ],
   "output_css": "fonts.css",
-  "output_css_sha256": "c2b7b1074050faf72a98eae916acc80794d5f6609b37700241cbbc2a73299747",
-  "transformation": "The package CSS family alias is Outfit; WOFF2 bytes and Unicode ranges are unchanged. WOFF2 files are losslessly base64-encoded inside CSS data URLs. The full package license is included in the CSS header."
+  "output_css_sha256": "ba7790be9b0fd0c335919fd48ebb83bb50982b112b27bfdea67a63eca89835c3"
 }

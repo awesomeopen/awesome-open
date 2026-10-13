@@ -97,13 +97,13 @@ February 29 clamped to February 28. These controls may be combined with the
 existing inclusive date threshold. Unknown dates do not match either window.
 
 Every build also emits `tmp/site/standalone.html`. It embeds CSS, the full
-catalog, scripts, licensed Outfit fonts, HN charts, and downloadable evidence.
+catalog, scripts, licensed Fraunces and Commit Mono fonts, HN charts, and downloadable evidence.
 Open that single file in a browser for an offline preview without extracting
 adjacent assets. External project and source links naturally require a network.
 Some messaging-app attachment viewers disable JavaScript; download the file and
 open it in a browser when that happens.
 
-Outfit is included under SIL OFL 1.1; see `site/vendor/` for exact provenance.
+Fraunces and Commit Mono are included under SIL OFL 1.1; see `site/vendor/` for exact provenance.
 The current ledger no longer ships GSAP or ScrollTrigger. The photographic hero
 uses bounded local motion with pause and reduced-motion support; the standalone
 export is a motion-free ledger. No runtime CDN or font requests are needed.
