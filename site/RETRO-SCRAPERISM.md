@@ -313,3 +313,22 @@ sources” and “View source & retrieval history”. Stars link their plot and
 “count stars / past 2y” summary to the aggregate provider, matching HN's linked
 plot treatment. Keep cache status and observation date; place the counting
 method in About. No historical-total or adoption claim is implied.
+
+
+### Clear glass and shallow room — 2026-10-13
+
+User-directed refinement: broad jar interiors approach the surrounding white;
+material contrast stays at rims, shoulders, closures and bases. Apply a feathered
+transparency window to the photographic glass layer using each vessel's existing
+content bounds. Lighten and neutralize glass independently of the drawn specimens;
+preserve specimen saturation, dark ink and the existing reflection layer. Do not
+reduce opacity on the whole vessel or its contents. Original asset bytes remain
+unchanged.
+
+Selected underlight remains colorful at the foot, fading within the lower third
+of the vessel. Keep the small LED and tighten its surface spill. Add a static,
+faint cool rear gradient behind the group and short rear/contact shadows at each
+base. Foreground, captions and surrounding reading surface stay white; no hard
+horizon, shelf, enclosure or new motion. Preserve all selection, crack, pause,
+keyboard and reduced-motion behavior. Reference: owner-supplied nineteenth-century
+specimen photograph, used for lighting direction only, not copied as a site asset.

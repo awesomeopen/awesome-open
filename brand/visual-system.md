@@ -75,3 +75,11 @@ they were checked against that release. Feature captions are reviewed software
 facts with their own sources; artwork crops remain decorative. Star plots and
 concise counts link to the aggregate source; About retains the counting method.
 See B14 and the detailed guide.
+
+
+## Clearer jar glass
+
+Glass uses feathered transparent centers, neutral lifted midtones and retained
+rim/base detail. Specimen color is independent. Selected light stays near the foot;
+a faint shared rear gradient and short base shadows give the white scene depth.
+See B16 and the detailed guide. Source photographs are unchanged.
