@@ -13,6 +13,7 @@ from build_catalog import build_catalog
 import update_hn as hn
 import update_stats as stats
 import signals
+import deployment
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
@@ -157,7 +158,7 @@ def project_html(project, categories, catalog, number=0):
   <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span><span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true">+</span></summary>
   <div class="specimen-interior" aria-labelledby="name-{pid}">
    <div class="specimen-caption">{artwork}<span class="registry">OP-{pid[:8].upper()}</span><p>{tags}</p><a class="source-link" href="{escape(project['url'])}">Official source <span aria-hidden="true">↗</span></a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></div>
-   <div class="diagnostics"><p class="record-description">{escape(project["description"])}</p><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push · UTC</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created · UTC</dt><dd>{escape(created)}</dd></div></dl><p class="fine-print">{'Cached GitHub metrics' if github else 'No cached GitHub metrics'} · Snapshot {escape(catalog['metrics_as_of'])}. Unknown values indicate missing cached data.</p>{optional_signal_html(project)}{alternatives}{chart}</div>
+   <div class="diagnostics"><p class="record-description">{escape(project["description"])}</p><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push · UTC</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created · UTC</dt><dd>{escape(created)}</dd></div></dl><p class="fine-print">{'Cached GitHub metrics' if github else 'No cached GitHub metrics'} · Snapshot {escape(catalog['metrics_as_of'])}. Unknown values indicate missing cached data.</p>{optional_signal_html(project)}{alternatives}{chart}{deployment.render(project)}</div>
   </div>
  </details>
 </article>'''
@@ -172,6 +173,10 @@ def render_html(catalog):
     license_options = ''.join(f'<option value="{escape(v)}">{escape(v)}</option>' for v in licenses)
     alternative_names = sorted({a['name'] for p in catalog['projects'] for a in p['alternatives']})
     alternative_options = ''.join(f'<option value="{escape(v)}">{escape(v)}</option>' for v in alternative_names)
+    deployment_options = {}
+    for field, labels in (("run_modes", deployment.RUN_MODES), ("install_methods", deployment.INSTALL_METHODS)):
+        observed = {f["value"] for p in catalog["projects"] for f in p.get("deployment", {}).get(field, [])}
+        deployment_options[field] = "".join(f'<option value="{escape(v)}">{escape(labels[v])}</option>' for v in sorted(observed))
     projects = '\n'.join(project_html(p, categories, catalog, i+1) for i, p in enumerate(catalog['projects']))
     signal_projects = [p for p in catalog['projects'] if p.get('signals')]
     signal_coverage = []
@@ -210,8 +215,8 @@ def render_html(catalog):
   <form id="filters" class="catalog-toolbar" hidden aria-label="Filter projects">
 
    <details class="filter-options" name="catalog-controls"><summary>Filters <span aria-hidden="true">+</span></summary><div class="filter-body"><div class="diagnostic-filters"><div class="filter-field"><label for="push-window">Repository push window</label><select id="push-window" name="window"><option value="all">Any observed date</option><option value="recent">Within 90 days of snapshot</option><option value="older">More than 2 years before snapshot</option><option value="unknown">Push date unknown</option></select></div><div class="filter-field"><label for="alternative-filter">Reviewed alternative to</label><select id="alternative-filter" name="alternative"><option value="">Any / not recorded</option>{alternative_options}</select></div><div class="filter-field"><label for="license-filter">Detected license</label><select id="license-filter" name="license"><option value="all">Any / unknown</option><option value="known">Detected license available</option><option value="unknown">License unknown</option>{license_options}</select></div></div>
-   <details class="more-filters"><summary>More filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after · UTC</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
-   <div class="toolbar-bottom"><p class="filter-note">Date filters use the {escape(catalog["metrics_as_of"])} UTC snapshot.</p></div></div></details><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
+   <details class="more-filters"><summary>More filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="run-mode-filter">Reviewed run mode</label><select id="run-mode-filter" name="run_mode"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["run_modes"]}</select></div><div class="filter-field"><label for="install-method-filter">Reviewed install method</label><select id="install-method-filter" name="install_method"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["install_methods"]}</select></div><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after · UTC</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
+   <div class="toolbar-bottom"><p class="filter-note">Date filters use the {escape(catalog["metrics_as_of"])} UTC snapshot. Setup filters cover reviewed evidence only; unrecorded paths remain unknown.</p></div></div></details><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
   </form></div>
   <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
   <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="name">Name A–Z</option><option value="stars">Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
@@ -237,7 +242,8 @@ def build(output, source_sha=None, root=ROOT):
     alternatives = json.loads((root / 'data/alternatives.json').read_text(encoding='utf-8'))
     evidence = json.loads((root / 'data/hn_evidence.json').read_text(encoding='utf-8'))
     optional = signals.load_optional(root / 'data/project_signals.json')
-    catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha, optional_signals=optional)
+    catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha, optional_signals=optional,
+                            deployment_evidence=deployment.load_optional(root / "data/deployment_evidence.json"))
     attach_specimen_art(catalog, root)
     page = render_html(catalog)
     # Validate charts before touching generated files. The renderer is shared with README.

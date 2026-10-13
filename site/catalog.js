@@ -19,9 +19,9 @@
 
   var DEFAULTS = Object.freeze({
     q: "", category: "", license: "all", stars: null, pushed: "", sort: "name",
-    window: "all", alternative: "", metrics: "all"
+    window: "all", alternative: "", metrics: "all", run_mode: "", install_method: ""
   });
-  var PARAMS = ["q", "category", "license", "stars", "pushed", "sort", "window", "alternative", "metrics"];
+  var PARAMS = ["q", "category", "license", "stars", "pushed", "sort", "window", "alternative", "metrics", "run_mode", "install_method"];
   var DAY = 24 * 60 * 60 * 1000;
 
   function fold(value) {
@@ -103,6 +103,14 @@
     return counts;
   }
 
+  function setupValues(project, field) {
+    return ((project.deployment || {})[field] || []).map(function (fact) { return fact.value; });
+  }
+
+  function setupFilter(value, projects, field) {
+    return value === "unknown" || projects.some(function (p) { return setupValues(p, field).includes(value); }) ? value : "";
+  }
+
   function normalizeState(input, data) {
     input = input || {};
     data = data || { categories: [], projects: [] };
@@ -130,6 +138,8 @@
       sort: ["name", "stars", "pushed"].indexOf(get("sort")) !== -1 ? get("sort") : "name",
       window: ["all", "recent", "older", "unknown"].indexOf(get("window")) !== -1 ? get("window") : "all",
       alternative: alternativeNames(data.projects || []).indexOf(alternative) !== -1 ? alternative : "",
+      run_mode: setupFilter(String(get("run_mode") || ""), data.projects || [], "run_modes"),
+      install_method: setupFilter(String(get("install_method") || ""), data.projects || [], "install_methods"),
       metrics: ["all", "present", "missing"].indexOf(get("metrics")) !== -1 ? get("metrics") : "all"
     };
   }
@@ -152,6 +162,10 @@
     if (state.metrics === "missing" && metricsPresent(project)) return false;
     if (state.alternative && !(project.alternatives || []).some(function (item) {
       return item.name === state.alternative;
+    })) return false;
+    if (![["run_mode", "run_modes"], ["install_method", "install_methods"]].every(function (pair) {
+      var selected = state[pair[0]], values = setupValues(project, pair[1]);
+      return !selected || (selected === "unknown" ? values.length === 0 : values.includes(selected));
     })) return false;
     var license = licenseOf(project);
     if (state.license === "known" && !license) return false;
@@ -225,7 +239,7 @@
         Object.keys(controls).some(function (key) { return !controls[key]; })) return false;
     if (filters.dataset.enhanced === "true") return true;
     // These controls are additive, so older static pages can still be enhanced.
-    [["window", "push-window"], ["alternative", "alternative-filter"], ["metrics", "metrics-filter"]]
+    [["window", "push-window"], ["alternative", "alternative-filter"], ["metrics", "metrics-filter"], ["run_mode", "run-mode-filter"], ["install_method", "install-method-filter"]]
       .forEach(function (entry) {
         var control = document.getElementById(entry[1]);
         if (control) controls[entry[0]] = control;
