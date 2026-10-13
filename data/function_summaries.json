@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "summaries": {
+    "a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d": {
+      "project_url": "https://github.com/opentofu/opentofu",
+      "text": "Infrastructure teams describe cloud and on-premises resources in reusable configuration files. OpenTofu uses provider APIs to manage components such as servers, networks, storage and DNS. Its workflow separates writing configuration, reviewing a plan and applying the approved changes. State records track managed resources, while modules package configurations for reuse.",
+      "sources": [
+        {
+          "url": "https://opentofu.org/docs/intro/",
+          "title": "OpenTofu: Getting started"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Codex (AI)",
+      "review_note": "Checked against the linked official source; paraphrased for the specimen sheet. Proposed for inclusion in this PR."
+    },
+    "88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906": {
+      "project_url": "https://github.com/openrefine/openrefine",
+      "text": "Work on messy datasets locally, using facets to isolate records and clustering to consolidate inconsistent values. Reconciliation services connect records to external databases, and transformations can change formats or enrich data from web services. The operation history supports undo, redo and replay on another version of a dataset.",
+      "sources": [
+        {
+          "url": "https://openrefine.org/",
+          "title": "OpenRefine: Features"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Codex (AI)",
+      "review_note": "Checked against the linked official source; paraphrased for the specimen sheet. Proposed for inclusion in this PR."
+    },
+    "13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc": {
+      "project_url": "https://github.com/openscad/openscad",
+      "text": "Create solid models by writing scripts that describe geometry and configurable parameters. OpenSCAD renders those definitions into models using constructive solid geometry and extrusion of two-dimensional outlines. It suits repeatable CAD work such as machine parts and parameterized designs, and runs on Linux, Windows and macOS. Supported exchange formats include STL, OFF and DXF.",
+      "sources": [
+        {
+          "url": "https://openscad.org/about.html",
+          "title": "About OpenSCAD"
+        }
+      ],
+      "checked_at": "2026-10-13",
+      "review_status": "approved",
+      "reviewed_by": "Codex (AI)",
+      "review_note": "Checked against the linked official source; paraphrased for the specimen sheet. Proposed for inclusion in this PR."
+    }
+  }
+}

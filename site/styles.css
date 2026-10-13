@@ -936,3 +936,9 @@ h1 { font-size:28px; margin:0; }
 @media(max-width:720px) {
   .name-sparkline {width:56px;height:14px;margin-left:8px;}
 }
+
+/* Reviewed Function prose supplements the concise ledger headline. */
+.function-detail {margin:-12px 0 28px;max-width:68ch;}
+.function-detail>p {font:18px/1.6 var(--sans);overflow-wrap:anywhere;}
+.function-detail .function-provenance {font:12px/1.6 var(--mono);color:var(--muted);margin-top:12px;}
+@media(max-width:720px){.function-detail>p {font-size:17px;}.function-detail .function-provenance{font-size:12px;}}

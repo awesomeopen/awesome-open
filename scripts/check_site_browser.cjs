@@ -261,6 +261,13 @@ const path = require('node:path');
       const card = page.locator('#project-' + project.id);
       await card.locator('summary').first().click();
       assert.equal(await card.locator('details.specimen-drawer').evaluate(node => node.open), true, 'Click after search must open ' + project.name);
+      if (project.function_summary) {
+        assert.equal(await card.locator('.function-detail > p').first().textContent(), project.function_summary.text);
+        assert.ok(await card.locator('.function-provenance a').count() > 0);
+        assert.ok((await card.locator('.description').textContent()).includes(project.description));
+      } else {
+        assert.equal(await card.locator('.function-detail').count(), 0);
+      }
       const image = card.locator('.specimen-art img');
       await image.scrollIntoViewIfNeeded();
       await page.waitForFunction(id => { const img = document.querySelector('#project-' + id + ' .specimen-art img'); return img && img.complete && img.naturalWidth > 0; }, project.id, { timeout: 10000 });

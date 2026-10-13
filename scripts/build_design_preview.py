@@ -34,6 +34,7 @@ def main():
     build_jars(output)
     design = output / 'design'
     shutil.copytree(ROOT / 'site/design', design, dirs_exist_ok=True)
+    shutil.copyfile(ROOT / 'site/FUNCTION-SUMMARIES.md', design / 'FUNCTION-SUMMARIES.md')
     guide = (ROOT / 'site/RETRO-SCRAPERISM.md').read_text()
     guide = guide.replace('(design/index.html)', '(index.html)').replace('(design/tokens.css)', '(tokens.css)')
     guide = guide.replace('(PREVIEW.md)', f'(https://github.com/awesomeopen/awesome-open/blob/{sha}/site/PREVIEW.md)')

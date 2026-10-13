@@ -9,7 +9,7 @@ import warnings
 from pathlib import Path
 import shutil
 
-from build_catalog import build_catalog
+from build_catalog import build_catalog, load_function_summaries
 import update_hn as hn
 import update_stats as stats
 import signals
@@ -151,6 +151,11 @@ def project_html(project, categories, catalog, number=0):
         attention = project['hn']
         inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
         chart = f'<div class="signal evidence-note"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} matched story submissions / 24 completed months</span></a><p class="fine-print">Shared square-root scale. <a href="data/hn_evidence.json">View evidence</a></p></div>'
+    summary = project.get('function_summary')
+    function_detail = ''
+    if summary:
+        sources = ' / '.join(f'<a href="{escape(item["url"])}">{escape(item["title"])}</a>' for item in summary['sources'])
+        function_detail = f'<div class="function-detail"><p>{escape(summary["text"])}</p><p class="function-provenance">{sources} · Reviewed <span class="metric-value">{escape(summary["checked_at"])}</span></p></div>'
     art = project.get('artwork')
     artwork = (f'<figure class="specimen-art"><img src="{escape(art["path"])}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure>' if art else '')
     leader_categories = project.get('leader_categories', [])
@@ -160,7 +165,7 @@ def project_html(project, categories, catalog, number=0):
   <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span>{inline_chart}<span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
   <div class="specimen-interior{"" if art else " without-art"}" aria-labelledby="name-{pid}">
    <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry">OP-{pid[:8].upper()}</span><span class="sheet-folio">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
-   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{alternatives}{chart}</div></div>
+   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{alternatives}{chart}</div></div>
   </div>
  </details>
 </article>'''
@@ -240,7 +245,8 @@ def build(output, source_sha=None, root=ROOT):
     alternatives = json.loads((root / 'data/alternatives.json').read_text(encoding='utf-8'))
     evidence = json.loads((root / 'data/hn_evidence.json').read_text(encoding='utf-8'))
     optional = signals.load_optional(root / 'data/project_signals.json')
-    catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha, optional_signals=optional)
+    catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha, optional_signals=optional,
+                            function_summaries=load_function_summaries(root / "data/function_summaries.json"))
     attach_specimen_art(catalog, root)
     page = render_html(catalog)
     # Validate charts before touching generated files. The renderer is shared with README.
