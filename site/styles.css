@@ -649,7 +649,6 @@ h1>span {
 }
 @media(max-width:1200px) {
   .layout {
-    grid-template-columns:190px minmax(0,1fr);
     gap:24px;
     padding-inline:24px;
   }
