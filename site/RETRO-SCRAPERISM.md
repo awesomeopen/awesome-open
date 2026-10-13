@@ -279,17 +279,37 @@ Proposed on OpenTofu (broad), OpenRefine (upright), and Open WebUI (without art)
 Folded summaries remain unchanged. An open plate pairs a larger complete specimen
 with a Fraunces function statement, then spans the sheet with a compact repository
 register, paired observation plots, ruled evidence notes, reviewed alternatives,
-and a prominent literal GitHub departure link. Early source navigation remains.
+and a prominent literal GitHub departure link. The source link lives in the centered final “In the wild” capstone; omit the duplicate identity link in these prototypes.
 
-Existing artwork supplies a rectangular detail enlargement. The annotation is
-explicitly about the drawing's analogy, not a new software claim. Source artwork
+Existing artwork supplies a rectangular detail enlargement. The caption is a source-backed software feature, independent of the drawing's meaning. Select from optional reviewed features attached to Function summaries, using a stable per-project choice; omit it when no reviewed feature is available. Source artwork
 is not modified; the full silhouette remains above the cropped detail. A scarlet
 leader connects the specimen study to its note; a bracket groups reviewed prose.
 No tape, cardboard, fake stamps, new fonts, or invented evidence are added.
 
 Records without artwork use an identity rail and larger function typography,
-never an empty image space. Mobile reading starts with function and source identity, then the specimen,
+never an empty image space. Mobile reading starts with function and record identity, then the specimen,
 repository facts, evidence, and departure. The DOM retains a logical
 identity/function/evidence sequence. Opening settles the art by 6px and draws its
 leader once; reduced motion is static, and content is never hidden for animation.
 This is a bounded prototype, not a catalog-wide promotion.
+
+
+### Record refinements — 2026-10-13, user direction
+
+Use “Table of contents” and “All” in category navigation. Highlight the first
+complete tool-name mention in the long Function prose with a Prussian backing
+and white type; do not alter folded summaries or invent a missing name.
+
+The three plate identities show Registry ID, Folio number, “Domain: …” and
+“Specimen: Name (permalink)” with consistent 12px gaps and line heights. Keep
+identifier titles. The final “In the wild” source capstone centers its heading,
+link and repository address. The artwork crops remain decorative; feature notes
+make literal software claims with a separate feature-source link.
+
+Embed reviewed setup evidence in Latest GitHub release, retaining independently
+reviewed setup dates and fact sources. A missing release stays “not checked”; it
+does not hide reviewed setup facts. Disclosure labels are “View setup facts &
+sources” and “View source & retrieval history”. Stars link their plot and
+“count stars / past 2y” summary to the aggregate provider, matching HN's linked
+plot treatment. Keep cache status and observation date; place the counting
+method in About. No historical-total or adoption claim is implied.

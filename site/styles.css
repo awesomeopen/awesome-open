@@ -1079,7 +1079,12 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-detail strong {display:block;font:300 22px/1.2 var(--rs-display);font-variation-settings:'SOFT' 100,'WONK' 1;margin-top:8px;}
 .specimen-plate .plate-detail p {font:12px/1.65 var(--mono);margin-top:10px;color:var(--muted);}
 .specimen-plate .specimen-identity {padding:16px 0 0;border-top:1px solid var(--rule);}
-.specimen-plate .specimen-links {flex-direction:row;flex-wrap:wrap;gap:0 20px;}
+.specimen-plate .specimen-identity {display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
+.specimen-plate .specimen-identity :is(.registry,.sheet-folio,p,.specimen-links) {margin:0;font:12px/1.6 var(--mono);}
+.specimen-plate .specimen-links {flex-direction:column;gap:12px;}
+.specimen-plate .specimen-links a {font:12px/1.6 var(--mono);padding:0;}
+.tool-name {background:var(--rs-blueprint);color:white;padding:0 .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+.feature-source {font:11px/1.6 var(--mono);}
 .plate-function {min-width:0;padding-top:24px;}
 .plate-function .specimen-identity {margin-top:36px;}
 .specimen-plate .sheet-label {font:11px/1.5 var(--mono);letter-spacing:.06em;margin-bottom:20px;}
@@ -1103,9 +1108,9 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-evidence .comparison ul {gap:24px 40px;}
 .plate-evidence .comparison li>a {font:300 26px/1.2 var(--rs-display);font-variation-settings:'SOFT' 100,'WONK' 1;}
 .plate-evidence .note-provenance {margin-top:16px;}
-.plate-departure {grid-column:1/-1;border-top:4px solid var(--rs-blueprint);padding-top:24px;}
+.plate-departure {grid-column:1/-1;border-top:4px solid var(--rs-blueprint);padding-top:24px;text-align:center;}
 .plate-departure .sheet-label {margin-bottom:12px;}
-.plate-departure>a {display:flex;justify-content:space-between;align-items:center;gap:24px;padding:8px 0 16px;text-decoration:none;font:300 clamp(28px,3vw,40px)/1.15 var(--rs-display);font-variation-settings:'SOFT' 100,'WONK' 1;color:var(--rs-blueprint);}
+.plate-departure>a {display:flex;justify-content:center;align-items:center;gap:24px;padding:8px 0 16px;text-decoration:none;font:300 clamp(28px,3vw,40px)/1.15 var(--rs-display);font-variation-settings:'SOFT' 100,'WONK' 1;color:var(--rs-blueprint);}
 .plate-departure>a:is(:hover,:focus-visible) {color:var(--rs-scarlet);text-decoration:underline;text-underline-offset:6px;}
 .departure-arrow {font:300 52px/1 var(--mono);color:var(--rs-scarlet);}
 .departure-address {display:block;font:12px/1.6 var(--mono);overflow-wrap:anywhere;color:var(--muted);}

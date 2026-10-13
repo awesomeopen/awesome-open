@@ -47,3 +47,18 @@ python3 scripts/build_site.py --output tmp/summary-site
 ```
 
 Inspect the expanded record and the unchanged folded description. Sources and review date must appear beneath the longer prose. Search remains based on names, short descriptions and reviewed alternatives; this extension does not change ranking or filters. The downloadable standalone HTML includes the summary and source links through the same renderer.
+
+## Optional feature notes
+
+While reviewing the official page for the long summary, capture one to five
+concrete capabilities as an optional `features` list. Each item has `title`
+(up to 80 characters), `text` (up to 400 characters of original plain prose),
+and `source_url` matching one of the entry's reviewed `sources`. Review those
+claims with the summary before marking the parent approved. No HTML, invented
+capabilities, or descriptions of the specimen illustration.
+
+The illustrated plate prototypes choose one feature using the canonical ID
+modulo the number of features. This gives varied notes and reproducible offline
+builds without an additional collector or page-load randomness. Missing features
+omit the note; nothing is inferred from artwork. Junge's existing handoff needs
+to include this step; this file does not modify an external automation prompt.

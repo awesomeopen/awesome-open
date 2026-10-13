@@ -5,6 +5,7 @@ import argparse
 import base64
 import html
 import json
+import re
 import warnings
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -34,6 +35,14 @@ def escape(value):
     return html.escape(str(value), quote=True)
 
 
+def highlight_name(text, name):
+    """Highlight the first complete name in plain prose, escaping every fragment."""
+    match = re.search(r'(?<!\w)' + re.escape(name) + r'(?!\w)', text, re.IGNORECASE)
+    if not match:
+        return escape(text)
+    return escape(text[:match.start()]) + '<mark class="tool-name">' + escape(match.group()) + '</mark>' + escape(text[match.end():])
+
+
 def source_url(catalog, path, anchor=""):
     ref = catalog.get("source_sha") or "main"
     return f"{REPOSITORY}/blob/{ref}/{path}{anchor}"
@@ -60,10 +69,14 @@ def signal_time(value, precision='second'):
 def optional_signal_html(project):
     """Evidence stays in native drawers; unknown values never become zeroes."""
     records = project.get('signals')
-    if not records:
+    if not records and not project.get('deployment'):
         return ''
     pieces = []
     for provider, title in (('release', 'Latest GitHub release'), ('scorecard', 'OpenSSF Scorecard')):
+        if not records or provider not in records:
+            if provider == 'release' and project.get('deployment'):
+                pieces.append('<section class="optional-signal evidence-note" data-signal="release"><h4>Latest GitHub release</h4><p>Release not checked.</p>' + deployment.render(project, embedded=True) + '</section>')
+            continue
         record = records[provider]
         good = record['last_good']
         state = record['status'].capitalize()
@@ -100,7 +113,8 @@ def optional_signal_html(project):
         if record['fetch_status'] not in {'ok', 'not_modified', 'not_checked'}:
             provenance.append('Latest attempt: ' + record['fetch_status'].replace('_', ' '))
         provenance.append(f'<a href="{escape(record["source_url"])}">Provider source</a>')
-        pieces.append(f'<section class="optional-signal evidence-note" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}<details class="note-provenance"><summary>Source &amp; retrieval history</summary><p class="fine-print">' + ' · '.join(provenance) + '</p></details></section>')
+        setup = deployment.render(project, embedded=True) if provider == 'release' else ''
+        pieces.append(f'<section class="optional-signal evidence-note" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}{setup}<details class="note-provenance"><summary>View source &amp; retrieval history</summary><p class="fine-print">' + ' · '.join(provenance) + '</p></details></section>')
     return '<div class="optional-signals">' + ''.join(pieces) + '</div>'
 
 
@@ -140,31 +154,32 @@ def attach_specimen_art(catalog, root):
 
 # Bounded three-record study; promote only after review of illustrated and text-only plates.
 PLATE_STUDIES = {
-    'https://github.com/opentofu/opentofu': ('broad', '01', 'Seeds become joints.',
-        'The pod’s ribs form a scaffold around its seeds: an illustration analogy for planned infrastructure and resource dependencies.'),
-    'https://github.com/openrefine/openrefine': ('upright', '02', 'Mixed grains, ordered strands.',
-        'The calyx gathers unlike grains into matching strands: an illustration analogy for cleaning and reconciling data.'),
-    'https://github.com/open-webui/open-webui': ('text', '03', '', ''),
+    'https://github.com/opentofu/opentofu': ('broad', '01'),
+    'https://github.com/openrefine/openrefine': ('upright', '02'),
+    'https://github.com/open-webui/open-webui': ('text', '03'),
 }
 
 
 def specimen_plate(project, number, tags, artwork, function_detail, vitals, chart, alternatives):
-    kind, detail_number, detail_title, analogy = PLATE_STUDIES[project['url']]
+    kind, detail_number = PLATE_STUDIES[project['url']]
     pid, name, url = escape(project['id']), escape(project['name']), escape(project['url'])
     art = project.get('artwork')
     detail = ''
     if art:
         artwork = artwork.replace('class="specimen-art"', 'class="specimen-art plate-art"')
-        detail = f'''<figure class="plate-detail"><div class="plate-detail-crop" aria-hidden="true"><img src="{escape(art['path'])}" alt="" width="{art['width']}" height="{art['height']}" loading="lazy"></div><figcaption><span class="plate-index">{detail_number} / DRAWING DETAIL</span><strong>{escape(detail_title)}</strong><p>{escape(analogy)}</p></figcaption></figure>'''
-    identity = f'''<div class="specimen-identity"><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span><span class="sheet-folio" title="Folio number">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{url}">Official source (GitHub)</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div>'''
+        features = project.get('function_summary', {}).get('features', [])
+        if features:
+            feature = features[int(project['id'][:8], 16) % len(features)]
+            detail = f'''<figure class="plate-detail"><div class="plate-detail-crop" aria-hidden="true"><img src="{escape(art['path'])}" alt="" width="{art['width']}" height="{art['height']}" loading="lazy"></div><figcaption><span class="plate-index">{detail_number} / FEATURE NOTE</span><strong>{escape(feature['title'])}</strong><p>{escape(feature['text'])}</p><a class="feature-source" href="{escape(feature['source_url'])}">Feature source ↗</a></figcaption></figure>'''
+    identity = f'''<div class="specimen-identity"><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span><span class="sheet-folio" title="Folio number">Folio {number:03d}</span><p>Domain: {tags}</p><nav class="specimen-links" aria-label="Record for {name}"><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen: {name} (permalink)</a></nav></div>'''
     marker = f'''<svg class="plate-leader" viewBox="0 0 400 60" aria-hidden="true"><path pathLength="1" d="M280 2 L280 24 Q280 35 267 35 L22 35 L22 58"/><circle cx="280" cy="2" r="2"/></svg>''' if art else ''
     return f'''<div class="specimen-interior specimen-plate plate-{kind}" aria-labelledby="name-{pid}">
       <div class="plate-heading"><span class="plate-index">FIELD NOTES / {number:03d}</span><span class="plate-index">{escape(project['name'])}</span></div>
       <div class="specimen-caption plate-specimen">{artwork}{marker}{detail}{identity if not art else ""}</div>
       <div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description">{escape(project['description'])}</p>{function_detail}{identity if art else ""}</div>
       <section class="plate-register" aria-label="Repository facts"><span class="sheet-label">II / Repository record</span>{vitals}</section>
-      <div class="diagnostics plate-evidence"><span class="sheet-label">III / Observations &amp; evidence</span><div class="evidence-notes">{chart}{star_history.render(project)}{optional_signal_html(project)}{alternatives}</div>{deployment.render(project)}</div>
-      <nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">Continue at the source</span><a href="{url}"><span>Explore {name} on GitHub</span><span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{escape(project['url'].removeprefix('https://'))}</span></nav>
+      <div class="diagnostics plate-evidence"><span class="sheet-label">III / Observations &amp; evidence</span><div class="evidence-notes">{chart}{star_history.render(project)}{optional_signal_html(project)}{alternatives}</div></div>
+      <nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">In the wild</span><a href="{url}"><span>Explore {name} on GitHub</span><span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{escape(project['url'].removeprefix('https://'))}</span></nav>
     </div>'''
 
 
@@ -194,14 +209,14 @@ def project_html(project, categories, catalog, number=0):
     function_detail = ''
     if summary:
         sources = ' / '.join(f'<a href="{escape(item["url"])}">{escape(item["title"])}</a>' for item in summary['sources'])
-        function_detail = f'<div class="function-detail"><p>{escape(summary["text"])}</p><p class="function-provenance">{sources} · Reviewed <span class="metric-value">{escape(summary["checked_at"])}</span></p></div>'
+        function_detail = f'<div class="function-detail"><p>{highlight_name(summary["text"], project["name"])}</p><p class="function-provenance">{sources} · Reviewed <span class="metric-value">{escape(summary["checked_at"])}</span></p></div>'
     art = project.get('artwork')
     artwork = (f'<figure class="specimen-art"><img src="{escape(art["path"])}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure>' if art else '')
     leader_categories = project.get('leader_categories', [])
     leader_label = ' / '.join(categories[c] for c in leader_categories) if leader_categories else ''
     interior = f'''  <div class="specimen-interior{"" if art else " without-art"}" aria-labelledby="name-{pid}">
    <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span><span class="sheet-folio" title="Folio number">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source{' (GitHub)' if urlsplit(project['url']).hostname in ('github.com', 'www.github.com') else ''}</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
-   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{chart}{star_history.render(project)}{alternatives}</div>{deployment.render(project)}</div>
+   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{chart}{star_history.render(project)}{alternatives}</div></div>
   </div>'''
     if project['url'] in PLATE_STUDIES:
         vitals = f'''<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl>'''
@@ -241,7 +256,7 @@ def render_html(catalog):
                       + f'<li>Collection snapshot {escape(catalog.get("signals_collected_at"))}.</li></ul>'
                       + '<p><a href="data/project_signals.json">Release and Scorecard evidence</a></p>') if signal_projects else ''
     if any(p.get('star_history') for p in catalog['projects']):
-        optional_notes += '<p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
+        optional_notes += '<p>GitHub stars / past 2y: ' + escape(star_history.MEANING) + '</p><p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
     sha = catalog.get('source_sha')
     revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else 'Local preview (revision not supplied)'
     return f'''<!doctype html>
@@ -265,7 +280,7 @@ def render_html(catalog):
  <main id="catalog" class="catalog-main" tabindex="-1">
   <h1 id="page-title" class="visually-hidden">Projects</h1>
   <div class="control-row">
- <aside class="sidebar" aria-label="Catalog categories"><details class="category-panel" name="catalog-controls"><summary>Index by function <span aria-hidden="true">+</span></summary><nav class="category-nav" aria-label="Categories"><a data-category="" href="#catalog" aria-current="true"><span>All specimens</span><span class="category-count">{count}</span></a>{nav}</nav></details></aside>
+ <aside class="sidebar" aria-label="Catalog categories"><details class="category-panel" name="catalog-controls"><summary>Table of contents <span aria-hidden="true">+</span></summary><nav class="category-nav" aria-label="Categories"><a data-category="" href="#catalog" aria-current="true"><span>All</span><span class="category-count">{count}</span></a>{nav}</nav></details></aside>
   <form id="filters" class="catalog-toolbar" hidden aria-label="Filter projects">
 
    <details class="filter-options" name="catalog-controls"><summary>Filters <span aria-hidden="true">+</span></summary><div class="filter-body"><div class="diagnostic-filters"><div class="filter-field"><label for="push-window">Repository push window</label><select id="push-window" name="window"><option value="all">Any observed date</option><option value="recent">Within 90 days of snapshot</option><option value="older">More than 2 years before snapshot</option><option value="unknown">Push date unknown</option></select></div><div class="filter-field"><label for="alternative-filter">Reviewed alternative to</label><select id="alternative-filter" name="alternative"><option value="">Any / not recorded</option>{alternative_options}</select></div><div class="filter-field"><label for="license-filter">Detected license</label><select id="license-filter" name="license"><option value="all">Any / unknown</option><option value="known">Detected license available</option><option value="unknown">License unknown</option>{license_options}</select></div></div>

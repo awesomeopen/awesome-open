@@ -13,11 +13,23 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Codex (AI)",
-      "review_note": "Checked against the linked official source; paraphrased for the specimen sheet. Proposed for inclusion in this PR."
+      "review_note": "Checked against the linked official source; paraphrased for the specimen sheet. Proposed for inclusion in this PR.",
+      "features": [
+        {
+          "title": "Preview the changes",
+          "text": "Review an execution plan before applying resource changes. OpenTofu orders approved operations around their dependencies.",
+          "source_url": "https://opentofu.org/docs/intro/"
+        },
+        {
+          "title": "Reusable infrastructure",
+          "text": "Modules package configurable infrastructure so teams can reuse configurations across projects.",
+          "source_url": "https://opentofu.org/docs/intro/"
+        }
+      ]
     },
     "88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906": {
       "project_url": "https://github.com/openrefine/openrefine",
-      "text": "Work on messy datasets locally, using facets to isolate records and clustering to consolidate inconsistent values. Reconciliation services connect records to external databases, and transformations can change formats or enrich data from web services. The operation history supports undo, redo and replay on another version of a dataset.",
+      "text": "OpenRefine works on messy datasets locally, using facets to isolate records and clustering to consolidate inconsistent values. Reconciliation services connect records to external databases, and transformations can change formats or enrich data from web services. The operation history supports undo, redo and replay on another version of a dataset.",
       "sources": [
         {
           "url": "https://openrefine.org/",
@@ -27,7 +39,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Codex (AI)",
-      "review_note": "Checked against the linked official source; paraphrased for the specimen sheet. Proposed for inclusion in this PR."
+      "review_note": "Checked against the linked official source; paraphrased for the specimen sheet. Proposed for inclusion in this PR.",
+      "features": [
+        {
+          "title": "Replay a cleanup",
+          "text": "Undo or redo changes, then replay the operation history on another version of the dataset.",
+          "source_url": "https://openrefine.org/"
+        },
+        {
+          "title": "Find inconsistent values",
+          "text": "Clustering groups similar values so spelling and formatting inconsistencies can be consolidated.",
+          "source_url": "https://openrefine.org/"
+        }
+      ]
     },
     "13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc": {
       "project_url": "https://github.com/openscad/openscad",

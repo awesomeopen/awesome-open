@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 import unittest
 
-from build_site import BRAND_ASSETS, ROOT, build, json_for_html, render_html
+from build_site import BRAND_ASSETS, ROOT, PLATE_STUDIES, build, json_for_html, render_html
 
 
 RUNTIME_SCRIPTS = ('catalog.js',)
@@ -136,7 +136,9 @@ class SiteTests(unittest.TestCase):
                 self.assertIn(project['description'], summary.text)
                 self.assertEqual(len(card.descendants('h3')), 0)
                 links = card.descendants('a')
-                self.assertEqual([node.attrs['href'] for node in links if node.has_class('source-link')], [project['url']])
+                source_class = 'plate-departure' if project['url'] in PLATE_STUDIES else 'source-link'
+                source_links = [n for n in card.descendants() if n.has_class(source_class)]
+                self.assertEqual([n.children[1].attrs['href'] if source_class == 'plate-departure' else n.attrs['href'] for n in source_links], [project['url']])
                 self.assertEqual([node.attrs['href'] for node in links if node.has_class('permalink')], ['#project-' + project['id']])
                 tags = [node for node in links if node.has_class('tag')]
                 self.assertEqual([node.attrs['data-category'] for node in tags], project['categories'])

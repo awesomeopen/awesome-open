@@ -14,6 +14,15 @@ module.exports=async({page,url,data,capture})=>{
    assert.equal(await plate.count(),1);
    assert.equal(await plate.locator('.plate-departure>a').getAttribute('href'),p.url);
    assert.equal(await plate.locator('.plate-art').count(),name==='Open WebUI'?0:1);
+   assert.equal(await plate.locator('.source-link').count(),0);
+   assert.equal(await plate.locator('.plate-departure .sheet-label').innerText(),'In the wild');
+   assert.equal(await plate.locator('.plate-departure').evaluate(n=>getComputedStyle(n).textAlign),'center');
+   assert.equal(await plate.locator('.permalink').innerText(),'Specimen: '+name+' (permalink)');
+   if(name!=='Open WebUI'){
+    assert.equal(await plate.locator('.function-detail mark').innerText(),name);
+    assert.equal(await plate.locator('.plate-detail .feature-source').count(),1);
+    assert.equal(await plate.locator('[data-signal=release] .deployment-evidence').count(),1);
+   }
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
    const clipped=await plate.locator('.plate-function,.plate-register,.evidence-note,.plate-departure').evaluateAll(ns=>ns.filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.right>innerWidth+1}).map(n=>n.className));
    assert.deepEqual(clipped,[],name+' at '+width);

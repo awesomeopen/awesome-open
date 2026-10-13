@@ -51,3 +51,5 @@ status only with actual review evidence. Never retroactively label a proposal
 approved merely because it appears in this file.
 
 | B13 | 2026-10-13 | User-authorized prototype; awaiting visual review | Three expanded specimen plates: larger art, labeled illustration close-ups, stronger function typography, differentiated evidence and final GitHub departure. Folded ledger unchanged; test broad/upright/no-art records before wider promotion. |
+
+| B14 | 2026-10-13 | User-directed; implemented for review | Tight category labels; first-name highlighting; centered “In the wild” capstones without duplicate links; even plate identity spacing; setup inside release cards; concise linked star counts with method in About. Replace drawing analogies with optional source-backed feature notes selected reproducibly from reviewed summaries. Three-plate scope preserved. |
