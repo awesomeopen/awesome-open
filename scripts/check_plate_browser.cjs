@@ -15,7 +15,7 @@ module.exports=async({page,url,data,capture})=>{
    assert.equal(await plate.locator('.plate-departure>a').getAttribute('href'),p.url);
    assert.equal(await plate.locator('.plate-art').count(),name==='Open WebUI'?0:1);
    assert.equal(await plate.locator('.source-link').count(),0);
-   assert.equal(await plate.locator('.plate-departure .sheet-label').innerText(),'In the wild');
+   assert.equal(await plate.locator('.plate-departure .sheet-label').textContent(),'In the wild');
    assert.equal(await plate.locator('.plate-departure').evaluate(n=>getComputedStyle(n).textAlign),'center');
    assert.equal(await plate.locator('.permalink').innerText(),'Specimen: '+name+' (permalink)');
    if(name!=='Open WebUI'){
