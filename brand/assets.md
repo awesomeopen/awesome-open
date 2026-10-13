@@ -54,3 +54,9 @@ B15 varies the two existing images' display scale, gutter intrusion and CSS
 close-up windows. No new derivative image, redraw or raster edit is made. Full
 silhouettes are retained; only inset windows crop. The adjacent capability note
 is source-backed software copy and needs no visual separation from the inset.
+
+The square-cork and ribbed jar photographs also supply clipped paper-label overlays
+in the hero. These restore their original worn stickers above the glass treatment;
+no source image bytes or provenance changed (B18).
+
+The square bottle also reuses its original brown cork as a clipped overlay.
