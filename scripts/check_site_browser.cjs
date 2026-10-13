@@ -259,6 +259,57 @@ const path = require('node:path');
     await page.evaluate(() => document.documentElement.style.fontSize = '200%');
     await assertLedgerFits(page, '200% root text size');
 
+    // Expanded content must remain usable across the former two-column breakpoint.
+    // Checking only page overflow misses zero-width diagnostics hidden by clipping.
+    const tofu = data.projects.find(project => project.url === 'https://github.com/opentofu/opentofu');
+    assert.ok(tofu?.hn && tofu.star_history?.chart_url && tofu.deployment && tofu.function_summary,
+      'OpenTofu covers Function, both cached charts, and reviewed setup');
+    for (const width of [320, 390, 900, 901, 1024, 1180, 1200, 1201, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      const expandedURL = new URL(url);
+      expandedURL.searchParams.set('q', tofu.name);
+      expandedURL.hash = '#project-' + tofu.id;
+      await page.goto(expandedURL.href);
+      await waitForState();
+      const card = page.locator('#project-' + tofu.id);
+      const drawer = card.locator('.specimen-drawer');
+      assert.equal(await drawer.evaluate(node => node.open), true);
+      const catalogWidth = await page.locator('#catalog').evaluate(node => node.getBoundingClientRect().width);
+      assert.ok(catalogWidth >= width - 100, `Catalog uses available width at ${width}px`);
+      const diagnostics = card.locator('.diagnostics');
+      assert.ok(await diagnostics.evaluate(node => node.getBoundingClientRect().width) >= 200,
+        `Readable diagnostics at ${width}px`);
+      assert.equal(await card.locator('.function-detail > p').first().textContent(), tofu.function_summary.text);
+      for (const selector of ['.signal:not(.star-history) .hn-chart img', '.star-chart img']) {
+        const chart = card.locator(selector);
+        await chart.scrollIntoViewIfNeeded();
+        await chart.evaluate(image => image.decode());
+        assert.equal(await chart.isVisible(), true, `Visible ${selector} at ${width}px`);
+        assert.ok(await chart.evaluate(image => image.complete && image.naturalWidth === 120 &&
+          image.getBoundingClientRect().width >= 120 && image.getBoundingClientRect().height >= 24),
+          `Loaded, non-collapsed ${selector} at ${width}px`);
+      }
+      const setup = card.locator('.deployment-evidence details');
+      await setup.locator(':scope > summary').click();
+      assert.equal(await setup.evaluate(node => node.open), true);
+      assert.equal(await setup.locator('.deployment-group').first().isVisible(), true);
+      await assertLedgerFits(page, `expanded OpenTofu at ${width}px`);
+      const clipped = await card.locator('.specimen-interior, .diagnostics, .function-detail, .evidence-note, .deployment-evidence, .deployment-group')
+        .evaluateAll(nodes => nodes.filter(node => {
+          const rect = node.getBoundingClientRect();
+          return rect.width <= 0 || rect.left < -1 || rect.right > innerWidth + 1 || node.scrollWidth > node.clientWidth + 1;
+        }).map(node => node.className));
+      assert.deepEqual(clipped, [], `Expanded sections fit at ${width}px`);
+      await diagnostics.scrollIntoViewIfNeeded();
+      await capture(`expanded-opentofu-${width}.png`);
+      await setup.locator(':scope > summary').click();
+      assert.equal(await setup.evaluate(node => node.open), false);
+      await drawer.locator(':scope > summary').click();
+      assert.equal(await diagnostics.isVisible(), false);
+      await drawer.locator(':scope > summary').click();
+      assert.equal(await diagnostics.isVisible(), true);
+    }
+
     // Ledger-first layout and optional art work without animation dependencies.
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(url);
