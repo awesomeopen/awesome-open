@@ -234,3 +234,9 @@ Search uses the owner-supplied turquoise loupe at 32px inside a 44px submit butt
 ### Hero release candidate and ledger refinement — 2026-10-12
 
 The user considers the photographic hero a release candidate. Preserve its approved interaction and appearance during the next ledger pass. Expanded and linked ledger rows have no scarlet left rule. Their disclosure indicator changes from a plus to an upright asterisk; native details retain the accessible expanded state.
+
+### Specimen sheets — preview proposal
+
+Instrument: a two-column open record, with a prominent literal function description at upper right, followed by ruled repository facts. Specimen: the original illustration at left, with registry ID, alphabetical folio, category links and source/permalink beneath. No repeated title, illustration caption, empty artwork placeholder, UTC suffix on date labels, or repeated cache/snapshot paragraph.
+
+Editorial hand: release, Scorecard and reviewed alternatives read as separate accumulating evidence notes. Use square ruled edges, Prussian headings, a restrained cool backing and a small hard offset shadow. No parchment, tilted text, invented annotations or decorative stamps. Keep status visible; put full retrieval history in native disclosures. Unknown and retained results keep their existing factual labels. Cards do not imply endorsement or feature parity. On narrow screens the image/identity precedes function and single-column notes. Missing artwork produces a narrower identity column, not a blank exhibition plinth.

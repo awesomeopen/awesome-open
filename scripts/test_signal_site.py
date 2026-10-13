@@ -69,8 +69,8 @@ class SignalSiteTests(unittest.TestCase):
         project=next(p for p in catalog['projects'] if p['signals'])
         card=page.by_id['project-'+project['id']]
         for text in ('Latest GitHub release','OpenSSF Scorecard','4.2/10','1 scored / 2 returned checks',
-                     'Inconclusive','Published 2020-01-01 UTC','Scanned 2026-10-05',
-                     '2026-10-10 UTC (date only)','Check results and scan provenance'):
+                     'Inconclusive','Published 2020-01-01','Scanned 2026-10-05',
+                     '2026-10-10 (date only)','Check results and scan provenance'):
             self.assertIn(text,card.text)
         self.assertNotIn('<tag>',html)
         self.assertNotIn('<script>not executed</script>',html)
@@ -87,7 +87,7 @@ class SignalSiteTests(unittest.TestCase):
         records['scorecard']=signals.empty_signal(self.repo,'scorecard')
         html=build_site.render_html(self.catalog(self.optional))
         self.assertIn('Stale',html)
-        self.assertIn('Published 2020-01-01 UTC',html)
+        self.assertIn('Published 2020-01-01',html)
         self.assertIn('Not checked',html)
         self.assertIn('Latest attempt: not found',html)
         records['scorecard'].update(fetch_status='not_found',status='unavailable',http_status=404,checked_at=self.at,error='not_found')

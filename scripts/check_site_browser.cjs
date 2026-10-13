@@ -269,6 +269,27 @@ const path = require('node:path');
     const noArt = data.projects.find(p => !p.artwork);
     assert.equal(await page.locator('#project-' + noArt.id + ' .specimen-art').count(), 0);
 
+    // Open sheets must retain their hierarchy and fit at narrow widths.
+    const sheetCases = [
+      ['full', data.projects.find(p => p.artwork && p.signals?.scorecard?.last_good)],
+      ['sparse', data.projects.find(p => !p.github)],
+      ['no-art', noArt],
+    ].filter(([, project]) => project);
+    for (const [kind, project] of sheetCases) {
+      await change('search', project.name);
+      const card = page.locator('#project-' + project.id);
+      await card.locator('details.specimen-drawer').evaluate(node => { node.open = true; });
+      for (const width of [1440, 390, 320]) {
+        await page.setViewportSize({width, height:1000});
+        await card.scrollIntoViewIfNeeded();
+        await assertLedgerFits(page, 'open specimen ' + kind + ' at ' + width);
+        assert.equal(await card.locator('.specimen-art figcaption').count(), 0);
+        assert.ok(!await card.textContent().then(text => text.includes('Unknown values indicate missing cached data.')));
+        if (width !== 320) await capture('sheet-' + kind + '-' + width + '.png');
+      }
+    }
+    await page.setViewportSize({width:1440, height:1000});
+
     const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     const fallback = await noJS.newPage();
     await fallback.goto(url);

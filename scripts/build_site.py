@@ -50,7 +50,7 @@ def split_name(name):
 
 
 def signal_time(value, precision='second'):
-    return value[:10] + ' UTC (date only)' if precision == 'day' else value
+    return value[:10] + ' (date only)' if precision == 'day' else value
 
 
 def optional_signal_html(project):
@@ -69,8 +69,8 @@ def optional_signal_html(project):
             content = f'<p>{escape(label)}</p>'
         elif provider == 'release':
             value = good['value']
-            content = (f'<p><a href="{escape(value["html_url"])}">{escape(value["tag_name"])}</a>'
-                       f' · Published {escape(value["published_at"][:10])} UTC</p>')
+            content = (f'<p><a class="note-value" href="{escape(value["html_url"])}">{escape(value["tag_name"])}</a>'
+                       f'Published {escape(value["published_at"][:10])}</p>')
         else:
             value = good['value']
             scored = sum(check['score'] is not None for check in value['checks'])
@@ -81,7 +81,7 @@ def optional_signal_html(project):
                              + f'<p>{escape(c["reason"])}</p></li>' for c in value['checks'])
             commit = good['source_commit']
             repo = value['repository'].removeprefix('github.com/')
-            content = (f'<p>{aggregate} · Scanned {escape(good["observed_at"][:10])} · '
+            content = (f'<p><span class="note-value">{aggregate}</span>Scanned {escape(good["observed_at"][:10])} · '
                        f'{scored} scored / {total} returned checks</p>'
                        f'<details class="signal-checks"><summary>Check results and scan provenance</summary><ul>{checks}</ul>'
                        f'<p class="fine-print">Repository commit <a href="https://github.com/{escape(repo)}/commit/{commit}">{commit[:12]}</a>'
@@ -96,7 +96,7 @@ def optional_signal_html(project):
         if record['fetch_status'] not in {'ok', 'not_modified', 'not_checked'}:
             provenance.append('Latest attempt: ' + record['fetch_status'].replace('_', ' '))
         provenance.append(f'<a href="{escape(record["source_url"])}">Provider source</a>')
-        pieces.append(f'<section class="optional-signal" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}<p class="fine-print">' + ' · '.join(provenance) + '</p></section>')
+        pieces.append(f'<section class="optional-signal evidence-note" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}<details class="note-provenance"><summary>Source &amp; retrieval history</summary><p class="fine-print">' + ' · '.join(provenance) + '</p></details></section>')
     return '<div class="optional-signals">' + ''.join(pieces) + '</div>'
 
 
@@ -144,21 +144,21 @@ def project_html(project, categories, catalog, number=0):
     stars = f'{github["stars"]:,}' if github else 'Unknown'
     tags = ' / '.join(f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>' for cid in project['categories'])
     evidence = ''.join(f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">Checked {escape(a["checked_utc_date"])}</span><p>{escape(a["scope"])}</p></li>' for a in project['alternatives'])
-    alternatives = f'<div class="comparison"><h4>Reviewed alternatives</h4><ul>{evidence}</ul><p class="fine-print">Source-backed use cases; feature parity is not established.</p></div>' if evidence else ''
+    alternatives = f'<div class="comparison evidence-note"><h4>Reviewed alternatives</h4><ul>{evidence}</ul><p class="fine-print">Source-backed use cases; feature parity is not established.</p></div>' if evidence else ''
     chart = ''
     if project['hn']:
         attention = project['hn']
         chart = f'<div class="signal"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} matched story submissions / 24 completed months</span></a><p class="fine-print">Shared square-root scale. <a href="data/hn_evidence.json">View evidence</a></p></div>'
     art = project.get('artwork')
-    artwork = (f'<figure class="specimen-art"><img src="{escape(art["path"])}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"><figcaption>Awesome Open illustration</figcaption></figure>' if art else '')
+    artwork = (f'<figure class="specimen-art"><img src="{escape(art["path"])}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure>' if art else '')
     leader_categories = project.get('leader_categories', [])
     leader_label = ' / '.join(categories[c] for c in leader_categories) if leader_categories else ''
     return f'''<article class="project-card" data-leader="{'true' if leader_categories else 'false'}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
   <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span><span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
-  <div class="specimen-interior" aria-labelledby="name-{pid}">
-   <div class="specimen-caption">{artwork}<span class="registry">OP-{pid[:8].upper()}</span><p>{tags}</p><a class="source-link" href="{escape(project['url'])}">Official source <span aria-hidden="true">↗</span></a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></div>
-   <div class="diagnostics"><p class="record-description">{escape(project["description"])}</p><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push · UTC</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created · UTC</dt><dd>{escape(created)}</dd></div></dl><p class="fine-print">{'Cached GitHub metrics' if github else 'No cached GitHub metrics'} · Snapshot {escape(catalog['metrics_as_of'])}. Unknown values indicate missing cached data.</p>{optional_signal_html(project)}{alternatives}{chart}</div>
+  <div class="specimen-interior{"" if art else " without-art"}" aria-labelledby="name-{pid}">
+   <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry">OP-{pid[:8].upper()}</span><span class="sheet-folio">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
+   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{alternatives}</div>{chart}</div>
   </div>
  </details>
 </article>'''
@@ -211,7 +211,7 @@ def render_html(catalog):
   <form id="filters" class="catalog-toolbar" hidden aria-label="Filter projects">
 
    <details class="filter-options" name="catalog-controls"><summary>Filters <span aria-hidden="true">+</span></summary><div class="filter-body"><div class="diagnostic-filters"><div class="filter-field"><label for="push-window">Repository push window</label><select id="push-window" name="window"><option value="all">Any observed date</option><option value="recent">Within 90 days of snapshot</option><option value="older">More than 2 years before snapshot</option><option value="unknown">Push date unknown</option></select></div><div class="filter-field"><label for="alternative-filter">Reviewed alternative to</label><select id="alternative-filter" name="alternative"><option value="">Any / not recorded</option>{alternative_options}</select></div><div class="filter-field"><label for="license-filter">Detected license</label><select id="license-filter" name="license"><option value="all">Any / unknown</option><option value="known">Detected license available</option><option value="unknown">License unknown</option>{license_options}</select></div></div>
-   <details class="more-filters"><summary>More filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after · UTC</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
+   <details class="more-filters"><summary>More filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
    <div class="toolbar-bottom"><p class="filter-note">Date filters use the {escape(catalog["metrics_as_of"])} UTC snapshot.</p></div></div></details><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
   </form></div>
   <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
