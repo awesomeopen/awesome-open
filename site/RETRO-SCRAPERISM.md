@@ -240,3 +240,10 @@ The user considers the photographic hero a release candidate. Preserve its appro
 Instrument: a two-column open record, with a prominent literal function description at upper right, followed by ruled repository facts. Specimen: the original illustration at left, with registry ID, alphabetical folio, category links and source/permalink beneath. No repeated title, illustration caption, empty artwork placeholder, UTC suffix on date labels, or repeated cache/snapshot paragraph.
 
 Editorial hand: release, Scorecard and reviewed alternatives read as separate accumulating evidence notes. Use square ruled edges, Prussian headings, a restrained cool backing and a small hard offset shadow. No parchment, tilted text, invented annotations or decorative stamps. Keep status visible; put full retrieval history in native disclosures. Unknown and retained results keep their existing factual labels. Cards do not imply endorsement or feature parity. On narrow screens the image/identity precedes function and single-column notes. Missing artwork produces a narrower identity column, not a blank exhibition plinth.
+
+
+### Sheet refinement — HN and metadata
+
+Folded names include a small HN discussion trace where evidence exists; hide that duplicate trace while the record is open. The full HN evidence is a ruled note with a smaller linked chart. Counts describe matched stories, not adoption, quality or sentiment. License, star count and date values use the accessible scarlet token. Omit the rule beneath artwork and the generic feature-parity caveat beneath alternatives; retain each reviewed scope and its source.
+
+Proposed next data extension: keep the existing short description for folded rows and add an independently reviewed function summary from the official README or documentation. Record its source URL, checked date and source revision when available. Do not expand sparse prose with random claims or infer capabilities from popularity/activity metrics. Missing summaries fall back to the existing description. This is a proposal, not an enabled automation.

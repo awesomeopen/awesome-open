@@ -70,7 +70,7 @@ def optional_signal_html(project):
         elif provider == 'release':
             value = good['value']
             content = (f'<p><a class="note-value" href="{escape(value["html_url"])}">{escape(value["tag_name"])}</a>'
-                       f'Published {escape(value["published_at"][:10])}</p>')
+                       f'Published <span class="metric-value">{escape(value["published_at"][:10])}</span></p>')
         else:
             value = good['value']
             scored = sum(check['score'] is not None for check in value['checks'])
@@ -81,7 +81,7 @@ def optional_signal_html(project):
                              + f'<p>{escape(c["reason"])}</p></li>' for c in value['checks'])
             commit = good['source_commit']
             repo = value['repository'].removeprefix('github.com/')
-            content = (f'<p><span class="note-value">{aggregate}</span>Scanned {escape(good["observed_at"][:10])} · '
+            content = (f'<p><span class="note-value">{aggregate}</span>Scanned <span class="metric-value">{escape(good["observed_at"][:10])}</span> · '
                        f'{scored} scored / {total} returned checks</p>'
                        f'<details class="signal-checks"><summary>Check results and scan provenance</summary><ul>{checks}</ul>'
                        f'<p class="fine-print">Repository commit <a href="https://github.com/{escape(repo)}/commit/{commit}">{commit[:12]}</a>'
@@ -144,21 +144,23 @@ def project_html(project, categories, catalog, number=0):
     stars = f'{github["stars"]:,}' if github else 'Unknown'
     tags = ' / '.join(f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>' for cid in project['categories'])
     evidence = ''.join(f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">Checked {escape(a["checked_utc_date"])}</span><p>{escape(a["scope"])}</p></li>' for a in project['alternatives'])
-    alternatives = f'<div class="comparison evidence-note"><h4>Reviewed alternatives</h4><ul>{evidence}</ul><p class="fine-print">Source-backed use cases; feature parity is not established.</p></div>' if evidence else ''
+    alternatives = f'<div class="comparison evidence-note"><h4>Reviewed alternatives</h4><ul>{evidence}</ul></div>' if evidence else ''
     chart = ''
+    inline_chart = ''
     if project['hn']:
         attention = project['hn']
-        chart = f'<div class="signal"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} matched story submissions / 24 completed months</span></a><p class="fine-print">Shared square-root scale. <a href="data/hn_evidence.json">View evidence</a></p></div>'
+        inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
+        chart = f'<div class="signal evidence-note"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} matched story submissions / 24 completed months</span></a><p class="fine-print">Shared square-root scale. <a href="data/hn_evidence.json">View evidence</a></p></div>'
     art = project.get('artwork')
     artwork = (f'<figure class="specimen-art"><img src="{escape(art["path"])}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure>' if art else '')
     leader_categories = project.get('leader_categories', [])
     leader_label = ' / '.join(categories[c] for c in leader_categories) if leader_categories else ''
     return f'''<article class="project-card" data-leader="{'true' if leader_categories else 'false'}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
-  <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span><span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
+  <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span>{inline_chart}<span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
   <div class="specimen-interior{"" if art else " without-art"}" aria-labelledby="name-{pid}">
    <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry">OP-{pid[:8].upper()}</span><span class="sheet-folio">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
-   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{alternatives}</div>{chart}</div>
+   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{alternatives}{chart}</div></div>
   </div>
  </details>
 </article>'''

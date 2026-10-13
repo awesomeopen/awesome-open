@@ -244,6 +244,15 @@ const path = require('node:path');
     await waitForState();
     assert.equal(await page.locator('.hero, .reading-room, .collection-band').count(), 0);
     assert.equal(await page.locator('.specimen-caption h3').count(), 0);
+    const traced = data.projects.find(p => p.hn);
+    const tracedCard = page.locator('#project-' + traced.id);
+    assert.ok(await tracedCard.locator('.name-sparkline').isVisible());
+    await tracedCard.locator('.name-sparkline').evaluate(image => image.decode());
+    await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = true; });
+    assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
+    assert.ok(await tracedCard.locator('.signal.evidence-note').isVisible());
+    await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
+
     assert.equal(await page.locator('script[src*="gsap"], script[src*="ScrollTrigger"]').count(), 0);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     assert.equal(await page.locator('html').evaluate(node => getComputedStyle(node).scrollBehavior), 'auto');
