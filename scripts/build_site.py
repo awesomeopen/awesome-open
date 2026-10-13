@@ -150,7 +150,7 @@ def project_html(project, categories, catalog, number=0):
     if project['hn']:
         attention = project['hn']
         inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
-        chart = f'<div class="signal evidence-note"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} matched story submissions / 24 completed months</span></a><p class="fine-print">Shared square-root scale. <a href="data/hn_evidence.json">View evidence</a></p></div>'
+        chart = f'<div class="signal evidence-note"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 24 months</span></a></div>'
     summary = project.get('function_summary')
     function_detail = ''
     if summary:
@@ -229,8 +229,9 @@ def render_html(catalog):
   <div id="project-list" class="project-list">{projects}</div>
  </main>
 </div>
+</div>
 <footer class="site-footer{' has-art' if footer_backgrounds else ''}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="#catalog">Top</a></div><details class="data-notes" id="method"><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>Latest GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, 'LICENSE.md'))}">CC0-1.0</a></span></div></footer>
-</div><script id="catalog-data" type="application/json">{json_for_html(catalog)}</script>
+<script id="catalog-data" type="application/json">{json_for_html(catalog)}</script>
 </body></html>
 '''
 
