@@ -87,7 +87,7 @@ class SignalSiteTests(unittest.TestCase):
         records['scorecard']=signals.empty_signal(self.repo,'scorecard')
         html=build_site.render_html(self.catalog(self.optional))
         self.assertIn('Stale',html)
-        self.assertTrue(any('Published 2020-01-01' in card.text for card in Page(html).cards))
+        self.assertTrue(any('Published 2020-01-01' in card.text for card in Page(html).elements if card.has_class('project-card')))
         self.assertIn('Not checked',html)
         self.assertIn('Latest attempt: not found',html)
         records['scorecard'].update(fetch_status='not_found',status='unavailable',http_status=404,checked_at=self.at,error='not_found')
