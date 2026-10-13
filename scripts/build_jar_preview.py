@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build preview #4 from the complete ledger; production layout stays unchanged."""
+"""Build preview #5 from the complete ledger; production layout stays unchanged."""
 import argparse
 import json
 import shutil
@@ -29,12 +29,21 @@ def build(output):
         stars=github.get('stars'); stars=f'{stars:,} stars' if isinstance(stars,int) else 'Stars unavailable'
         license=github.get('license'); license_line=f'<span>{escape(license)}</span>' if license else ''
         styles=f'--height:{height}px;--foot:{foot}px;--ratio:{asset["width"]}/{asset["height"]};--sx:{x}%;--sy:{y}%;--sw:{w}%;--sh:{h}%;--zoom:{zoom}%'
-        exhibits.append(f'''<article class="jar-exhibit jar-{kind}" style="{styles}" data-project="{pid}">
+        cut={'central':12.5,'shouldered':15.5,'ribbed':17.5}.get(kind)
+        mouth={'low-open':25,'low-lid':26,'square-cork':26,'bail':17}.get(kind,cut or 20)
+        styles+=f";--glass-mask:url('{asset['path']}');--mouth:{mouth}%;--idle-delay:{number*1.7}s;--idle-period:{18+number*1.3}s"
+        lid=''
+        if cut:
+            styles+=f';--lid-cut:{cut}%'
+            lid=f'<img class="jar-lid" src="{asset["path"]}" alt="" width="{asset["width"]}" height="{asset["height"]}">'
+        steam='<svg class="jar-steam" viewBox="0 0 60 64" aria-hidden="true"><text class="steam-strand" x="4" y="54">∰</text><text class="steam-strand" x="23" y="34">⋈</text><text class="steam-strand" x="40" y="17">⌘</text></svg>' if cut or kind in ('low-open','low-lid') else ''
+        exhibits.append(f'''<article class="jar-exhibit jar-{kind}{" has-lid" if cut else ""}" style="{styles}" data-project="{pid}">
           <button class="jar-select" type="button" aria-expanded="false" aria-controls="jar-info-{pid}" aria-label="Show {name} details" hidden></button>
-          <div class="jar-shadow" aria-hidden="true"></div><div class="vessel" aria-hidden="true">
+          <div class="jar-shadow" aria-hidden="true"></div><span class="jar-light-source" aria-hidden="true"></span><div class="vessel" aria-hidden="true">
            <img class="jar-photo" src="{asset['path']}" alt="" width="{asset['width']}" height="{asset['height']}" fetchpriority="high">
-           <div class="specimen-window"><div class="specimen-depth"><img class="specimen-print" src="{escape(art['path'])}" alt="" width="{art['width']}" height="{art['height']}"></div></div>
+           <div class="specimen-window"><div class="specimen-depth"><div class="specimen-idle"><img class="specimen-print" src="{escape(art['path'])}" alt="" width="{art['width']}" height="{art['height']}"></div></div></div>
            <img class="jar-reflection" src="{asset['path']}" alt="" width="{asset['width']}" height="{asset['height']}">
+           <span class="jar-uplight"></span><span class="jar-led"></span>{lid}{steam}
           </div>
           <span class="jar-caption"><span>0{number}</span> {name}</span>
           <div class="jar-annotation" id="jar-info-{pid}">
@@ -45,11 +54,12 @@ def build(output):
           </div>
         </article>''')
     hero=f'''<section class="jar-hall" aria-label="Seven illustrated software specimens">
+      <button class="jar-motion-toggle" type="button" aria-pressed="false" aria-label="Pause motion" title="Pause motion" hidden>[II]</button>
       <svg width="0" height="0" class="jar-filter-defs" aria-hidden="true"><defs><filter id="glass-displacement"><feTurbulence type="fractalNoise" baseFrequency=".017 .08" numOctaves="1" seed="6" result="glass"/><feDisplacementMap in="SourceGraphic" in2="glass" scale="1.3" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
       <div class="jar-scroll" role="region" aria-label="Specimen display; scroll horizontally on smaller screens" tabindex="0"><div class="jar-stage">{''.join(exhibits)}</div></div>
     </section>'''
     page=(output/'index.html').read_text().replace('<body>','<body class="jar-page">').replace('</head>','<meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="jars.css"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
-    page=page.replace('<title>','<title>Preview 04 / ',1)
+    page=page.replace('<title>','<title>Preview 05 / ',1)
     (output/'jars.html').write_text(page)
     for filename in ('jars.css','jars.js'): shutil.copyfile(ROOT/'site'/filename,output/filename)
     shutil.copytree(ROOT/'site/jars',output/'jars',dirs_exist_ok=True)

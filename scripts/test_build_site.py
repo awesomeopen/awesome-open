@@ -258,7 +258,8 @@ class SiteTests(unittest.TestCase):
                 self.assertEqual(decoded[8:12], b'WEBP')
             else:
                 self.assertEqual(prefix, 'data:image/png;base64')
-                name = 'fruit-96.png' if image['alt'] == '' else 'awesome-open-logo.png'
+                name = ('search-loupe.png' if image.get('class') == 'search-icon' else
+                        'fruit-96.png' if image['alt'] == '' else 'awesome-open-logo.png')
                 self.assertEqual(decoded, (self.output / 'brand' / name).read_bytes())
 
         expected_downloads = {'catalog.json': self.catalog,

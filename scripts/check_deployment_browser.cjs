@@ -3,6 +3,8 @@ const assert = require('node:assert/strict');
 module.exports = async function ({ page, browser, url, data, capture }) {
   const reviewed = data.projects.filter(p => p.deployment);
   assert.equal(reviewed.length, 8, 'Eight reviewed setup records');
+  const functionPilots = ['https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad'];
+  assert.ok(functionPilots.every(url => reviewed.some(p => p.url === url && p.function_summary)), 'Existing Function prose coexists with setup facts');
   const visible = () => page.locator('.project-card:not([hidden])').count();
   const openFilters = async () => {
     if (!await page.locator('.filter-options').evaluate(n => n.open)) await page.locator('.filter-options > summary').click();
@@ -51,6 +53,7 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   await page.goto(url + '#project-' + sample.id);
   const card = page.locator('#project-' + sample.id);
   const evidence = card.locator('.deployment-evidence');
+  assert.equal(await card.locator('.function-detail').isVisible(), true, 'Function section remains visible');
   await evidence.locator('details > summary').focus();
   await page.keyboard.press('Enter');
   assert.equal(await evidence.locator('details').evaluate(n => n.open), true);

@@ -20,7 +20,7 @@ const fs=require('node:fs');
  await capture('exhibition-desktop.png');
  await page.locator('.exhibit-01 .inspect-link').click();
  const target=await page.locator('.exhibit-01 .inspect-link').getAttribute('data-inspect');
- assert.ok(await page.locator('#project-'+target+' details').evaluate(n=>n.open));
+ assert.ok(await page.locator('#project-'+target+' > .specimen-drawer').evaluate(n=>n.open));
  await capture('exhibition-record.png');
  await page.goto(url);await ready();await page.locator('#ex-search').fill('OpenTofu');
  assert.equal(await page.locator('#ex-hall').isVisible(),false);

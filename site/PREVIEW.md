@@ -44,3 +44,8 @@ Active branch: `design/photographic-jars`. Review `/jars-03/jars.html` on the pr
 ## Depth motion / preview 04
 
 Active branch: `design/jar-depth-motion`. Review `/jars-04/jars.html`. Pointer proximity and selection bring photographic jars forward from 82% to 110% scale, with shared scene movement, vertical tilt and specimen/reflection depth. Preview 03 remains at `/jars-03/jars.html` for comparison. Native record links, touch/keyboard controls and reduced-motion fallback remain available.
+
+
+## Underlight and life / preview 05
+
+Active branch: `design/jar-depth-motion`. Review `/jars-05/jars.html`. Hover/focus/tap adds underlighting, limited opening of removable lids and a brief vapor release. Contents make small staggered movements while idle. Pause motion and reduced-motion settings stop decorative animation. Preview 04 remains available for comparison.

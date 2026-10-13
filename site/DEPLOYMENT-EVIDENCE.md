@@ -37,6 +37,6 @@ The initial eight records are a coverage pilot, not exhaustive package or platfo
 
 No new collectors, services, credentials, external cron, workflow permissions or security settings are introduced. Updating stale evidence is a separate reviewed change. Missing input files continue to build successfully and add no deployment facts.
 
-## Independent integration with PR #21
+## Function summary integration
 
-This pilot is based on main and does not import the pending design/Function branch. Both changes touch the catalog signature and expanded-record rendering. If that PR lands first, preserve its `function_summaries` argument and attachment, and add the keyword-only `deployment_evidence` input beside it. Render `deployment.render(project)` in the expanded record without modifying the hero, folded row, short description, Function section, or existing evidence cards. Keep both input loaders in CLI/site builds. Rerun the full suite and inspect both designs after resolving conflicts; the original branch's green CI alone does not validate a combined result.
+The catalog accepts Function summaries and keyword-only `deployment_evidence` as separate optional inputs. Both loaders run in CLI/site builds. Source-reviewed prose remains in the Function section; structured setup facts render after the existing evidence cards within the same expanded record. The jar hero, folded row, short description, Function content and existing evidence-card layout remain unchanged. Regression coverage checks the three overlapping Function/setup pilot records, along with the five setup-only records. No Function source text or review dates are rewritten by this feature.

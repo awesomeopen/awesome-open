@@ -115,6 +115,8 @@ class DeploymentTests(unittest.TestCase):
             if catalog is None: catalog = json.loads((Path(folder) / 'site/catalog.json').read_text())
             reviewed = [p for p in catalog['projects'] if p.get('deployment')]
             self.assertEqual(len(reviewed), 8)
+            expected_function_urls = {'https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad'}
+            self.assertTrue(expected_function_urls <= {p['url'] for p in reviewed if p.get('function_summary')})
             self.assertTrue(all(p['deployment']['review_status'] == 'approved' for p in reviewed))
             from build_catalog import build_catalog
             base = build_catalog((ROOT / 'README.source.md').read_text(),

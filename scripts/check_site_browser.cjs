@@ -81,6 +81,27 @@ const path = require('node:path');
     report.sourceSha = data.source_sha;
     writeReport();
     if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Browser must test the generated checkout');
+    // Deterministically exercise the first and last entries of the random background pool.
+    const backgrounds = data.footer_backgrounds || [];
+    if (backgrounds.length) {
+      await page.addInitScript(() => { Math.random = () => Number(sessionStorage.getItem('footer-test-random') || 0); });
+      for (const [random, index] of [[0, 0], [.999999, backgrounds.length - 1]]) {
+        await page.evaluate(value => sessionStorage.setItem('footer-test-random', String(value)), random);
+        await page.goto(url);
+        const art = page.locator('[data-footer-background]');
+        await art.scrollIntoViewIfNeeded();
+        await art.evaluate(image => image.decode());
+        assert.ok((await art.getAttribute('src')).endsWith(backgrounds[index]));
+        await capture('footer-background-' + index + '.png');
+      }
+      await page.setViewportSize({width:390,height:1000});
+      await page.locator('#about').scrollIntoViewIfNeeded();
+      await assertLedgerFits(page, 'footer artwork mobile');
+      await capture('footer-mobile.png');
+      await page.setViewportSize({width:1440,height:1000});
+      await page.goto(url);
+      await waitForState();
+    }
     assert.equal(await visible(), data.projects.length);
     assert.equal(await page.locator('#sort-order').isEnabled(), true);
     assert.equal(await page.locator('.specimen-drawer').count(), data.projects.length);
@@ -244,6 +265,15 @@ const path = require('node:path');
     await waitForState();
     assert.equal(await page.locator('.hero, .reading-room, .collection-band').count(), 0);
     assert.equal(await page.locator('.specimen-caption h3').count(), 0);
+    const traced = data.projects.find(p => p.hn);
+    const tracedCard = page.locator('#project-' + traced.id);
+    assert.ok(await tracedCard.locator('.name-sparkline').isVisible());
+    await tracedCard.locator('.name-sparkline').evaluate(image => image.decode());
+    await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = true; });
+    assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
+    assert.ok(await tracedCard.locator('.signal.evidence-note').isVisible());
+    await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
+
     assert.equal(await page.locator('script[src*="gsap"], script[src*="ScrollTrigger"]').count(), 0);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     assert.equal(await page.locator('html').evaluate(node => getComputedStyle(node).scrollBehavior), 'auto');
@@ -252,6 +282,13 @@ const path = require('node:path');
       const card = page.locator('#project-' + project.id);
       await card.locator('summary').first().click();
       assert.equal(await card.locator('details.specimen-drawer').evaluate(node => node.open), true, 'Click after search must open ' + project.name);
+      if (project.function_summary) {
+        assert.equal(await card.locator('.function-detail > p').first().textContent(), project.function_summary.text);
+        assert.ok(await card.locator('.function-provenance a').count() > 0);
+        assert.ok((await card.locator('.description').textContent()).includes(project.description));
+      } else {
+        assert.equal(await card.locator('.function-detail').count(), 0);
+      }
       const image = card.locator('.specimen-art img');
       await image.scrollIntoViewIfNeeded();
       await page.waitForFunction(id => { const img = document.querySelector('#project-' + id + ' .specimen-art img'); return img && img.complete && img.naturalWidth > 0; }, project.id, { timeout: 10000 });
@@ -268,6 +305,27 @@ const path = require('node:path');
     await page.locator('#clear-filters').click();
     const noArt = data.projects.find(p => !p.artwork);
     assert.equal(await page.locator('#project-' + noArt.id + ' .specimen-art').count(), 0);
+
+    // Open sheets must retain their hierarchy and fit at narrow widths.
+    const sheetCases = [
+      ['full', data.projects.find(p => p.artwork && p.signals?.scorecard?.last_good)],
+      ['sparse', data.projects.find(p => !p.github)],
+      ['no-art', noArt],
+    ].filter(([, project]) => project);
+    for (const [kind, project] of sheetCases) {
+      await change('search', project.name);
+      const card = page.locator('#project-' + project.id);
+      await card.locator('details.specimen-drawer').evaluate(node => { node.open = true; });
+      for (const width of [1440, 390, 320]) {
+        await page.setViewportSize({width, height:1000});
+        await card.scrollIntoViewIfNeeded();
+        await assertLedgerFits(page, 'open specimen ' + kind + ' at ' + width);
+        assert.equal(await card.locator('.specimen-art figcaption').count(), 0);
+        assert.ok(!await card.textContent().then(text => text.includes('Unknown values indicate missing cached data.')));
+        if (width !== 320) await capture('sheet-' + kind + '-' + width + '.png');
+      }
+    }
+    await page.setViewportSize({width:1440, height:1000});
 
     const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     const fallback = await noJS.newPage();

@@ -168,7 +168,55 @@ def _github_metadata(url, snapshot):
     }
 
 
-def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, optional_signals=None, *, deployment_evidence=None):
+
+def load_function_summaries(path):
+    """Optional curated evidence; no network or clock dependency."""
+    path = Path(path)
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+
+
+def attach_function_summaries(projects, document):
+    """Validate identity/provenance and expose only reviewed plain-text summaries."""
+    if document is None:
+        return
+    if not isinstance(document, dict) or document.get("schema_version") != 1 or not isinstance(document.get("summaries"), dict):
+        raise ValueError("Invalid function summaries schema")
+    by_id = {p["id"]: p for p in projects.values()}
+    for pid, entry in document["summaries"].items():
+        if not isinstance(entry, dict) or entry.get("review_status") not in {"pending", "approved", "rejected"}:
+            raise ValueError("Invalid function summary review status")
+        if entry["review_status"] != "approved":
+            continue
+        project = by_id.get(pid)
+        if project is None or canonical_url(entry.get("project_url")) != project["url"]:
+            raise ValueError("Function summary identity mismatch: " + pid)
+        text = _nonempty_text(entry.get("text"), "function summary")
+        if not 40 <= len(text.split()) <= 80 or len(text) > 2000:
+            raise ValueError("Function summary must contain 40–80 words")
+        if any(unicodedata.category(c) == "Cc" for c in text):
+            raise ValueError("Control character in function summary")
+        checked = entry.get("checked_at")
+        if not isinstance(checked, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", checked):
+            raise ValueError("Function summary needs an ISO review date")
+        date.fromisoformat(checked)
+        _nonempty_text(entry.get("reviewed_by"), "function summary reviewer")
+        sources = entry.get("sources")
+        if not isinstance(sources, list) or not 1 <= len(sources) <= 3:
+            raise ValueError("Function summary needs one to three official sources")
+        for source in sources:
+            if not isinstance(source, dict):
+                raise ValueError("Invalid function summary source")
+            url = canonical_url(source.get("url"))
+            if not url.startswith("https://"):
+                raise ValueError("Function summary sources must use HTTPS")
+            _nonempty_text(source.get("title"), "source title")
+            revision = source.get("revision")
+            if revision is not None and (not isinstance(revision, str) or not re.fullmatch(r"[0-9a-f]{40}", revision)):
+                raise ValueError("Source revision must be a full Git commit SHA")
+        project["function_summary"] = {"text": text, "sources": deepcopy(sources), "checked_at": checked}
+
+
+def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, optional_signals=None, function_summaries=None, *, deployment_evidence=None):
     """Return a fresh JSON-compatible catalog; never fetch data or read a clock.
 
     Category order follows the source, projects sort by name and canonical URL,
@@ -263,6 +311,7 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, opt
         if category not in project["categories"]:
             project["categories"].append(category)
             categories[category]["count"] += 1
+    attach_function_summaries(projects, function_summaries)
     deployment.attach(projects, deployment_evidence, canonical_url)
     unused = sorted(by_alternative.keys() - projects.keys())
     if unused:
@@ -291,6 +340,7 @@ def main():
     )
     catalog = build_catalog(source, snapshot, alternatives, evidence, args.source_sha,
                             signals.load_optional(ROOT / "data/project_signals.json"),
+                            load_function_summaries(ROOT / "data/function_summaries.json"),
                             deployment_evidence=deployment.load_optional(ROOT / "data/deployment_evidence.json"))
     output = json.dumps(catalog, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
     args.output.parent.mkdir(parents=True, exist_ok=True)

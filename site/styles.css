@@ -380,9 +380,6 @@ h1>span {
   scroll-margin-top:24px;
   border-bottom:1px solid var(--rule);
 }
-.project-card:target {
-  border-left:3px solid var(--accent);
-}
 .specimen-drawer>summary {
   padding:8px;
   min-height:44px;
@@ -436,11 +433,12 @@ h1>span {
 }
 .specimen-drawer[open]>summary {
   background:var(--rs-mist);
-  border-left:3px solid var(--accent);
-  padding-left:5px;
 }
-.specimen-drawer[open]>summary>.drawer-sign {
-  transform:rotate(45deg);
+.drawer-sign::before {
+  content:"+";
+}
+.specimen-drawer[open]>summary>.drawer-sign::before {
+  content:"*";
 }
 .specimen-interior {
   display:grid;
@@ -883,3 +881,86 @@ h1 { font-size:28px; margin:0; }
   .specimen-drawer > summary { grid-template-columns:28px minmax(0,1fr) 24px; padding:8px; }
   .specimen-drawer > summary > .description, .specimen-drawer > summary > .license-readout { display:none; }
 }
+
+/* Supplied loupe: 32px image, 44px keyboard/touch target. */
+.header-search .search-submit {flex:0 0 44px;width:44px;height:44px;min-height:44px;display:grid;place-items:center;padding:6px;border:0;background:transparent;cursor:pointer;}
+.header-search .search-submit img {display:block;width:32px;height:32px;object-fit:contain;}
+.header-search .search-submit:hover {background:var(--rs-mist);}
+
+/* Specimen sheets: image and identity at left, function and accrued evidence at right. */
+.specimen-interior {
+  grid-template-columns:minmax(220px,.85fr) minmax(0,1.65fr);
+  gap:clamp(28px,4vw,64px);
+  padding:40px clamp(16px,3vw,44px) 48px;
+  align-items:start;
+}
+.specimen-art {max-width:400px;margin:0 auto 24px;}
+.specimen-art img {aspect-ratio:auto;max-height:390px;object-fit:contain;}
+.specimen-identity {padding-top:0;}
+.registry {color:var(--rs-blueprint);letter-spacing:.04em;}
+.sheet-folio {display:block;font:12px/1.5 var(--mono);color:var(--muted);margin-top:4px;}
+.specimen-links {display:flex;flex-direction:column;align-items:flex-start;margin-top:16px;}
+.specimen-links a {font:14px/1.5 var(--mono);padding:8px 0;margin:0;}
+.sheet-label {display:block;font:12px/1.5 var(--mono);color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.record-description {font:500 clamp(25px,2.5vw,36px)/1.16 var(--sans);letter-spacing:-.025em;color:var(--rs-blueprint);max-width:34ch;margin-bottom:32px;overflow-wrap:anywhere;}
+.vitals {gap:16px 28px;padding:20px 0;border-block:1px solid var(--rule);margin-bottom:28px;}
+.vitals dd {font-size:16px;margin-top:4px;}
+.evidence-notes {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start;}
+.optional-signals {display:contents;}
+.evidence-note {position:relative;min-width:0;margin:0;padding:20px;border:1px solid var(--rule);border-top:2px solid var(--rs-blueprint);background:var(--paper);box-shadow:3px 3px 0 var(--rs-mist);overflow-wrap:anywhere;}
+.evidence-note[data-signal="scorecard"] {background:#f7fafc;}
+.diagnostics .evidence-note h4 {font:13px/1.5 var(--mono);display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:18px;color:var(--rs-blueprint);}
+.evidence-note .signal-status {font-size:11px;padding:1px 5px;margin:0;border-style:dashed;color:var(--muted);}
+.evidence-note>p {font-size:15px;line-height:1.55;}
+.note-value {display:block;font:500 27px/1.2 var(--sans);color:var(--rs-blueprint);margin-bottom:8px;overflow-wrap:anywhere;}
+.note-provenance {border-top:1px dashed var(--rule);margin-top:18px;padding-top:4px;}
+.note-provenance>summary {font:12px/1.5 var(--mono);padding:10px 0;text-decoration:underline;text-underline-offset:3px;}
+.note-provenance .fine-print {font-size:12px;padding-bottom:8px;}
+.evidence-note .signal-checks>summary {font:12px/1.5 var(--mono);}
+.evidence-note .signal-checks ul {font-size:14px;}
+.comparison.evidence-note {grid-column:1/-1;}
+.comparison.evidence-note ul {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 28px;}
+.comparison.evidence-note li {margin:0;}
+.comparison.evidence-note li>a {font-size:20px;font-weight:500;}
+.comparison.evidence-note>.fine-print {margin-top:20px;font-size:12px;}
+.signal {padding-top:16px;border-top-style:dashed;}
+.without-art {grid-template-columns:minmax(180px,.5fr) minmax(0,2fr);}
+@media(max-width:1100px) {
+  .evidence-notes {grid-template-columns:1fr;}
+  .comparison.evidence-note ul {grid-template-columns:1fr;}
+}
+@media(max-width:720px) {
+  .specimen-interior,.specimen-interior.without-art {grid-template-columns:1fr;padding:24px 12px 32px;gap:28px;}
+  .specimen-art {max-width:300px;margin-bottom:20px;}
+  .specimen-art img {max-height:300px;}
+  .specimen-links {flex-direction:row;flex-wrap:wrap;gap:0 20px;margin-top:8px;}
+  .record-description {font-size:28px;max-width:none;margin-bottom:24px;}
+  .evidence-note {padding:18px;}
+}
+
+
+/* Folded discussion traces and scarlet factual values. */
+.name-cell .specimen-name {display:inline;}
+.name-sparkline {display:inline-block;width:80px;height:16px;object-fit:contain;vertical-align:baseline;margin-left:12px;}
+.specimen-drawer[open] .name-sparkline {display:none;}
+.vitals dd,.license-readout,.metric-value,.evidence-date {color:var(--accent);}
+.signal.evidence-note {grid-column:auto;margin:0;padding:20px;border-top:2px solid var(--rs-blueprint);}
+.signal.evidence-note .hn-chart img {width:120px;height:24px;}
+.signal.evidence-note .hn-chart {margin-bottom:12px;}
+@media(max-width:720px) {
+  .name-sparkline {width:56px;height:14px;margin-left:8px;}
+}
+
+/* Reviewed Function prose supplements the concise ledger headline. */
+.function-detail {margin:-12px 0 28px;max-width:68ch;}
+.function-detail>p {font:18px/1.6 var(--sans);overflow-wrap:anywhere;}
+.function-detail .function-provenance {font:12px/1.6 var(--mono);color:var(--muted);margin-top:12px;}
+@media(max-width:720px){.function-detail>p {font-size:17px;}.function-detail .function-provenance{font-size:12px;}}
+
+
+/* The text stays on solid blue; transparent creatures occupy the footer floor. */
+.site-footer.has-art {position:relative;isolation:isolate;overflow:hidden;padding-bottom:clamp(180px,34vw,640px);}
+.footer-art {position:absolute;z-index:-1;inset:auto 0 0;width:100%;height:auto;max-width:none;pointer-events:none;mask-image:linear-gradient(to bottom,transparent,#000 22%);}
+@media(max-width:720px){.footer-art{width:auto;min-width:100%;height:180px;max-width:none;left:50%;transform:translateX(-50%);}}
+
+.filter-field>label {color:var(--rs-scarlet);}

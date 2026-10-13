@@ -212,6 +212,49 @@ Preview 03 refinement: omit the preview captions beneath the display. Replace th
 
 ### Preview 04: approach and inspect (proposal)
 
-The photographic parade starts at 82% scale. A nearby pointer creates a shallow approach wave; the selected vessel advances to 110%, with its contents enlarging as part of the same object. A shared virtual camera adds differential translation and perspective tilt (at most 7° vertically, 4° horizontally), while internal contents and reflection strength respond independently. This is limited-angle 2.5D using photographs, not a rotatable 3D model. Labels remain in the reading plane; their leaders follow the specimen.
+The photographic parade starts at 82% scale, with the middle vessel at 94% for a stronger central silhouette. A nearby pointer creates a shallow approach wave; the selected vessel advances to 110% (the middle vessel therefore grows less), with its contents enlarging as part of the same object. A shared virtual camera adds differential translation and perspective tilt (12° forward pitch on selection, pointer-adjusted up to 22° vertically and 8° horizontally), while internal contents and reflection strength respond independently. This is limited-angle 2.5D using photographs, not a rotatable 3D model. Labels remain in the reading plane; their leaders follow the specimen.
 
 Use a damped spring and stable hit regions. Keyboard focus and touch selection also advance the selected jar. Stop rendering once settled or offscreen; suspend in background tabs. Reduced motion keeps vessels at static full size and removes tilt/depth movement. Never intercept scroll or request device-orientation access. “Inspect record” has a dashed border, solid on hover or keyboard focus, with no layout shift.
+
+
+### Preview 05: underlight and occasional movement (proposal)
+
+Selection adds a base light matching the jar’s assigned smoke hue at 75% intensity inside the vessel footprint, an alpha-masked upward wash on the glass and a small brightness/contrast increase on the specimen. Contact shadows remain. A tiny matching LED point sits directly beneath the jar; matching colored spill tints the retained contact shadow. The upward wash stays inside the glass footprint. The light and smoke share one per-jar neon hue; this is an artwork-lighting accent.
+
+The two glass stoppers and screw cap are isolated with CSS clipping and lift 4px while tipping 12°. The wire clamp and cork stay closed; already-open jars need no moving lid. Neon smoke uses three decorative characters drawn without replacement per jar from the fixed pool `∰⋈⌘∑∂∇∞⊕⋇AXRkx0279`, hidden from assistive technology. Characters stay fixed until reload. Their starting position is raised 18px above the earlier mouth-aligned placement so they clear the lid. Each fades in and out once over 1.6 seconds, with starts 300ms apart. No pose alternation, loop, blurred cloud or particles. Each jar receives a distinct random neon hue on page load, retained across selections; colors shuffle on reload. This is a limited photographic-layer illusion, not a physically modeled hinge or fluid simulation.
+
+Specimens stir by 1–2px and less than 1° in short staggered intervals, with long still periods. A lower-right `[II]` button pauses decorative motion and switches to `[>]` to resume; accessible labels name each action. Reduced motion leaves only immediate static illumination; offscreen/background scenes pause animation. Labels, hit targets and evidence remain fixed.
+
+| Date | Status | Decision |
+| --- | --- | --- |
+| 2026-10-12 | User direction / preview proposal | LED-like underlight on selection, slight lid opening with vapor, intermittent specimen movement. Implemented with existing photos and CSS layers. |
+
+Search uses the owner-supplied turquoise loupe at 32px inside a 44px submit button to the right of the input. Clicking or pressing Enter applies the current query immediately; live filtering remains available.
+
+### Hero release candidate and ledger refinement — 2026-10-12
+
+The user considers the photographic hero a release candidate. Preserve its approved interaction and appearance during the next ledger pass. Expanded and linked ledger rows have no scarlet left rule. Their disclosure indicator changes from a plus to an upright asterisk; native details retain the accessible expanded state.
+
+### Specimen sheets — preview proposal
+
+Instrument: a two-column open record, with a prominent literal function description at upper right, followed by ruled repository facts. Specimen: the original illustration at left, with registry ID, alphabetical folio, category links and source/permalink beneath. No repeated title, illustration caption, empty artwork placeholder, UTC suffix on date labels, or repeated cache/snapshot paragraph.
+
+Editorial hand: release, Scorecard and reviewed alternatives read as separate accumulating evidence notes. Use square ruled edges, Prussian headings, a restrained cool backing and a small hard offset shadow. No parchment, tilted text, invented annotations or decorative stamps. Keep status visible; put full retrieval history in native disclosures. Unknown and retained results keep their existing factual labels. Cards do not imply endorsement or feature parity. On narrow screens the image/identity precedes function and single-column notes. Missing artwork produces a narrower identity column, not a blank exhibition plinth.
+
+
+### Sheet refinement — HN and metadata
+
+Folded names include a small HN discussion trace where evidence exists; hide that duplicate trace while the record is open. The full HN evidence is a ruled note with a smaller linked chart. Counts describe matched stories, not adoption, quality or sentiment. License, star count and date values use the accessible scarlet token. Omit the rule beneath artwork and the generic feature-parity caveat beneath alternatives; retain each reviewed scope and its source.
+
+Proposed next data extension: keep the existing short description for folded rows and add an independently reviewed function summary from the official README or documentation. Record its source URL, checked date and source revision when available. Do not expand sparse prose with random claims or infer capabilities from popularity/activity metrics. Missing summaries fall back to the existing description. This is a proposal, not an enabled automation.
+
+### Reviewed Function summaries — implemented proposal
+
+The concise description remains the large Function headline and folded-row description. Approved 40–80-word prose appears underneath at reading size, followed by literal source links and the review date. This keeps longer documentation readable without making a paragraph-sized headline. Missing summaries add no placeholder or repeated text. The curated contract and Junge handoff are in [FUNCTION-SUMMARIES.md](FUNCTION-SUMMARIES.md); publication does not fetch or invent prose.
+
+
+### Footer backgrounds
+
+Owner-supplied transparent valley and abyssal artwork occupy the footer floor over Prussian blue. Text and controls stay above the artwork on solid blue. Fade the upper edge with a CSS mask; do not animate the background. Select one image uniformly per page load using the number of available images. Keep the first sorted image as a no-JavaScript fallback.
+
+Add a PNG or WebP to `site/footer-backgrounds/` and rebuild to extend the pool; do not edit probabilities or JavaScript. Keep artwork provenance beside the assets. The standalone download embeds the complete pool and uses the same selection logic. On narrow screens crop the decorative panorama centrally while preserving legible footer text.

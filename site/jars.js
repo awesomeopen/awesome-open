@@ -4,11 +4,27 @@
  const hall=document.querySelector('.jar-hall');if(!hall)return;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover: hover) and (pointer: fine)');
  const exhibits=[...hall.querySelectorAll('.jar-exhibit')],stage=hall.querySelector('.jar-stage');
- let pinned=null,active=null,closeTimer=0,frame=0,lastTime=0,inView=true;
- const pointer={inside:false,x:0,y:0};
+ // Shuffle once per page: each vessel keeps its own neon hue through repeated hovers.
+ const smokeColors=['255 0 180','125 45 255','0 215 255','0 235 125','200 255 0','255 90 0','255 35 90'];
+ for(let i=smokeColors.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[smokeColors[i],smokeColors[j]]=[smokeColors[j],smokeColors[i]];}
+ exhibits.forEach((node,i)=>node.style.setProperty('--smoke-rgb',smokeColors[i%smokeColors.length]));
+ // Three distinct characters per jar, fixed until the page reloads.
+ const vaporPool=[...'∰⋈⌘∑∂∇∞⊕⋇AXRkx0279'];
+ exhibits.forEach(node=>{
+   const available=[...vaporPool];
+   node.querySelectorAll('.steam-strand').forEach(glyph=>{
+     glyph.textContent=available.splice(Math.floor(Math.random()*available.length),1)[0];
+   });
+ });
+ let pinned=null,active=null,closeTimer=0,frame=0,lastTime=0,inView=true,motionPaused=false;
+ const toggle=hall.querySelector('.jar-motion-toggle');
+ const staticMotion=()=>reduced.matches||motionPaused;
+ function syncAmbient(){hall.classList.toggle('ambient-paused',staticMotion()||document.hidden||!inView);}
+ const pointer={inside:false,x:0};
  const keys=['scale','x','y','rx','ry','ix','iy','light'];
  const resting={scale:.82,x:0,y:0,rx:0,ry:0,ix:0,iy:0,light:.14};
- const motion=exhibits.map(node=>({node,value:{...resting},velocity:Object.fromEntries(keys.map(k=>[k,0]))}));
+ const restScale=node=>node.classList.contains('jar-central')?.94:.82;
+ const motion=exhibits.map(node=>({node,value:{...resting,scale:restScale(node)},velocity:Object.fromEntries(keys.map(k=>[k,0]))}));
  const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
  function paint(item){
    const v=item.value,style=item.node.style;
@@ -19,16 +35,16 @@
    style.setProperty('--glass-light',v.light.toFixed(3));
  }
  function targets(item,index,scene){
-   if(reduced.matches)return {...resting,scale:1};
+   if(staticMotion())return {...resting,scale:1};
    const box=item.node.getBoundingClientRect(),center=box.left+box.width/2;
    const cameraX=pointer.inside?clamp((pointer.x-scene.left)/scene.width*2-1,-1,1):0;
-   const cameraY=pointer.inside?clamp((pointer.y-scene.top)/scene.height*2-1,-1,1):0;
    const near=pointer.inside?Math.exp(-Math.pow((center-pointer.x)/220,2)):0;
    const selected=active===item.node,depth=1-Math.abs(index-3)/5;
    const forward=selected?1:near*.42;
-   return {scale:.82+.28*forward,x:-cameraX*(10+depth*8),y:-forward*6-cameraY*3,
-     rx:-cameraY*(3+forward*4),ry:cameraX*(2+forward*2),
-     ix:-cameraX*(2+forward*3),iy:cameraY*(1+forward*2),light:.14+forward*.11+Math.abs(cameraX)*.04};
+   const baseScale=restScale(item.node);
+   return {scale:baseScale+(1.1-baseScale)*forward,x:-cameraX*(10+depth*8),y:-forward*6,
+     rx:0,ry:cameraX*(3+forward*5),
+     ix:-cameraX*(2+forward*3),iy:0,light:.14+forward*.11+Math.abs(cameraX)*.04};
  }
  function tick(time){
    frame=0;if(document.hidden||!inView)return;
@@ -39,7 +55,7 @@
    motion.forEach((item,i)=>{
      keys.forEach(key=>{
        const goal=goals[i][key];
-       if(reduced.matches){item.value[key]=goal;item.velocity[key]=0;return;}
+       if(staticMotion()){item.value[key]=goal;item.velocity[key]=0;return;}
        const delta=goal-item.value[key];
        item.velocity[key]+=(190*delta-25*item.velocity[key])*dt;
        item.value[key]+=item.velocity[key]*dt;
@@ -78,8 +94,8 @@
    });wake();if(active)requestAnimationFrame(()=>drawLeaders(active));
  }
  hall.addEventListener('pointermove',event=>{
-   if(!fine.matches||reduced.matches)return;
-   pointer.inside=true;pointer.x=event.clientX;pointer.y=event.clientY;wake();
+   if(!fine.matches||staticMotion())return;
+   pointer.inside=true;pointer.x=event.clientX;wake();
  });
  hall.addEventListener('pointerleave',()=>{pointer.inside=false;wake();});
  exhibits.forEach(exhibit=>{
@@ -103,16 +119,18 @@
    card.querySelector('details').open=true;
    requestAnimationFrame(()=>{if(!card.hidden)card.querySelector('summary').focus({preventScroll:true});});
  }));
- reduced.addEventListener('change',()=>{pointer.inside=false;wake();});
+ reduced.addEventListener('change',()=>{pointer.inside=false;syncAmbient();wake();});
  fine.addEventListener('change',()=>{pointer.inside=false;wake();});
  window.addEventListener('resize',wake);
  document.addEventListener('visibilitychange',()=>{
+   syncAmbient();
    if(document.hidden){cancelAnimationFrame(frame);frame=0;lastTime=0;}else wake();
  });
  if('IntersectionObserver' in window)new IntersectionObserver(entries=>{
-   inView=entries[0].isIntersecting;
+   inView=entries[0].isIntersecting;syncAmbient();
    if(!inView){cancelAnimationFrame(frame);frame=0;lastTime=0;pointer.inside=false;}else wake();
  },{rootMargin:'40px'}).observe(hall);
  document.fonts.ready.then(()=>drawLeaders(active));
- motion.forEach(paint);select(null);document.body.classList.add('photo-ready');document.body.dataset.jarsReady='true';
+ toggle.hidden=false;toggle.addEventListener('click',()=>{motionPaused=!motionPaused;pointer.inside=false;toggle.setAttribute('aria-pressed',String(motionPaused));toggle.textContent=motionPaused?'[>]':'[II]';toggle.setAttribute('aria-label',motionPaused?'Play motion':'Pause motion');toggle.title=motionPaused?'Play motion':'Pause motion';hall.classList.toggle('motion-paused',motionPaused);syncAmbient();wake();});
+ syncAmbient();motion.forEach(paint);select(null);document.body.classList.add('photo-ready');document.body.dataset.jarsReady='true';
 })();

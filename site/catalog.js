@@ -221,6 +221,11 @@
   }
 
   function init(document, window) {
+    var footerArt = document.querySelector('[data-footer-background]');
+    if (footerArt) {
+      var backgrounds = JSON.parse(footerArt.dataset.backgrounds);
+      if (backgrounds.length) footerArt.src = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+    }
     var embedded = document.getElementById("catalog-data");
     var list = document.getElementById("project-list");
     var filters = document.getElementById("filters");
@@ -425,6 +430,7 @@
     });
     filters.addEventListener("submit", function (event) {
       event.preventDefault();
+      cancelPending();
       apply();
     });
     clear.addEventListener("click", function (event) {

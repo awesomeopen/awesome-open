@@ -9,7 +9,7 @@ import warnings
 from pathlib import Path
 import shutil
 
-from build_catalog import build_catalog
+from build_catalog import build_catalog, load_function_summaries
 import update_hn as hn
 import update_stats as stats
 import signals
@@ -18,6 +18,7 @@ import deployment
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
 BRAND_ASSETS = {
+    "search-loupe.png": "image/png",
     'favicon.ico': 'image/x-icon',
     'fruit-16.png': 'image/png',
     'fruit-32.png': 'image/png',
@@ -50,7 +51,7 @@ def split_name(name):
 
 
 def signal_time(value, precision='second'):
-    return value[:10] + ' UTC (date only)' if precision == 'day' else value
+    return value[:10] + ' (date only)' if precision == 'day' else value
 
 
 def optional_signal_html(project):
@@ -69,8 +70,8 @@ def optional_signal_html(project):
             content = f'<p>{escape(label)}</p>'
         elif provider == 'release':
             value = good['value']
-            content = (f'<p><a href="{escape(value["html_url"])}">{escape(value["tag_name"])}</a>'
-                       f' · Published {escape(value["published_at"][:10])} UTC</p>')
+            content = (f'<p><a class="note-value" href="{escape(value["html_url"])}">{escape(value["tag_name"])}</a>'
+                       f'Published <span class="metric-value">{escape(value["published_at"][:10])}</span></p>')
         else:
             value = good['value']
             scored = sum(check['score'] is not None for check in value['checks'])
@@ -81,7 +82,7 @@ def optional_signal_html(project):
                              + f'<p>{escape(c["reason"])}</p></li>' for c in value['checks'])
             commit = good['source_commit']
             repo = value['repository'].removeprefix('github.com/')
-            content = (f'<p>{aggregate} · Scanned {escape(good["observed_at"][:10])} · '
+            content = (f'<p><span class="note-value">{aggregate}</span>Scanned <span class="metric-value">{escape(good["observed_at"][:10])}</span> · '
                        f'{scored} scored / {total} returned checks</p>'
                        f'<details class="signal-checks"><summary>Check results and scan provenance</summary><ul>{checks}</ul>'
                        f'<p class="fine-print">Repository commit <a href="https://github.com/{escape(repo)}/commit/{commit}">{commit[:12]}</a>'
@@ -96,7 +97,7 @@ def optional_signal_html(project):
         if record['fetch_status'] not in {'ok', 'not_modified', 'not_checked'}:
             provenance.append('Latest attempt: ' + record['fetch_status'].replace('_', ' '))
         provenance.append(f'<a href="{escape(record["source_url"])}">Provider source</a>')
-        pieces.append(f'<section class="optional-signal" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}<p class="fine-print">' + ' · '.join(provenance) + '</p></section>')
+        pieces.append(f'<section class="optional-signal evidence-note" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}<details class="note-provenance"><summary>Source &amp; retrieval history</summary><p class="fine-print">' + ' · '.join(provenance) + '</p></details></section>')
     return '<div class="optional-signals">' + ''.join(pieces) + '</div>'
 
 
@@ -144,21 +145,28 @@ def project_html(project, categories, catalog, number=0):
     stars = f'{github["stars"]:,}' if github else 'Unknown'
     tags = ' / '.join(f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>' for cid in project['categories'])
     evidence = ''.join(f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">Checked {escape(a["checked_utc_date"])}</span><p>{escape(a["scope"])}</p></li>' for a in project['alternatives'])
-    alternatives = f'<div class="comparison"><h4>Reviewed alternatives</h4><ul>{evidence}</ul><p class="fine-print">Source-backed use cases; feature parity is not established.</p></div>' if evidence else ''
+    alternatives = f'<div class="comparison evidence-note"><h4>Reviewed alternatives</h4><ul>{evidence}</ul></div>' if evidence else ''
     chart = ''
+    inline_chart = ''
     if project['hn']:
         attention = project['hn']
-        chart = f'<div class="signal"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} matched story submissions / 24 completed months</span></a><p class="fine-print">Shared square-root scale. <a href="data/hn_evidence.json">View evidence</a></p></div>'
+        inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
+        chart = f'<div class="signal evidence-note"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 24 months</span></a></div>'
+    summary = project.get('function_summary')
+    function_detail = ''
+    if summary:
+        sources = ' / '.join(f'<a href="{escape(item["url"])}">{escape(item["title"])}</a>' for item in summary['sources'])
+        function_detail = f'<div class="function-detail"><p>{escape(summary["text"])}</p><p class="function-provenance">{sources} · Reviewed <span class="metric-value">{escape(summary["checked_at"])}</span></p></div>'
     art = project.get('artwork')
-    artwork = (f'<figure class="specimen-art"><img src="{escape(art["path"])}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"><figcaption>Awesome Open illustration</figcaption></figure>' if art else '')
+    artwork = (f'<figure class="specimen-art"><img src="{escape(art["path"])}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure>' if art else '')
     leader_categories = project.get('leader_categories', [])
     leader_label = ' / '.join(categories[c] for c in leader_categories) if leader_categories else ''
     return f'''<article class="project-card" data-leader="{'true' if leader_categories else 'false'}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
-  <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span><span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true">+</span></summary>
-  <div class="specimen-interior" aria-labelledby="name-{pid}">
-   <div class="specimen-caption">{artwork}<span class="registry">OP-{pid[:8].upper()}</span><p>{tags}</p><a class="source-link" href="{escape(project['url'])}">Official source <span aria-hidden="true">↗</span></a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></div>
-   <div class="diagnostics"><p class="record-description">{escape(project["description"])}</p><dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push · UTC</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created · UTC</dt><dd>{escape(created)}</dd></div></dl><p class="fine-print">{'Cached GitHub metrics' if github else 'No cached GitHub metrics'} · Snapshot {escape(catalog['metrics_as_of'])}. Unknown values indicate missing cached data.</p>{optional_signal_html(project)}{alternatives}{chart}{deployment.render(project)}</div>
+  <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span>{inline_chart}<span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
+  <div class="specimen-interior{"" if art else " without-art"}" aria-labelledby="name-{pid}">
+   <div class="specimen-caption">{artwork}<div class="specimen-identity"><span class="registry">OP-{pid[:8].upper()}</span><span class="sheet-folio">Folio {number:03d}</span><p>{tags}</p><nav class="specimen-links" aria-label="Sources for {name}"><a class="source-link" href="{escape(project['url'])}">Official source</a><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen permalink</a></nav></div></div>
+   <div class="diagnostics"><span class="sheet-label">Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text)}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl><div class="evidence-notes">{optional_signal_html(project)}{alternatives}{chart}</div>{deployment.render(project)}</div>
   </div>
  </details>
 </article>'''
@@ -177,6 +185,8 @@ def render_html(catalog):
     for field, labels in (("run_modes", deployment.RUN_MODES), ("install_methods", deployment.INSTALL_METHODS)):
         observed = {f["value"] for p in catalog["projects"] for f in p.get("deployment", {}).get(field, [])}
         deployment_options[field] = "".join(f'<option value="{escape(v)}">{escape(labels[v])}</option>' for v in sorted(observed))
+    footer_backgrounds = catalog.get('footer_backgrounds', [])
+    footer_art = (f'<img class="footer-art" data-footer-background data-backgrounds="{escape(json.dumps(footer_backgrounds))}" src="{escape(footer_backgrounds[0])}" width="2048" height="682" alt="" loading="lazy" decoding="async">' if footer_backgrounds else '')
     projects = '\n'.join(project_html(p, categories, catalog, i+1) for i, p in enumerate(catalog['projects']))
     signal_projects = [p for p in catalog['projects'] if p.get('signals')]
     signal_coverage = []
@@ -205,7 +215,7 @@ def render_html(catalog):
 <body>
 <a class="skip-link" href="#catalog">Skip to specimen ledger</a>
 <div class="page-shell">
-<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/fruit-96.png" alt="" width="40" height="40"> <span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><span aria-hidden="true">⌕</span><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="{REPOSITORY}">GitHub</a></nav></header>
+<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/fruit-96.png" alt="" width="40" height="40"> <span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img class="search-icon" src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="{REPOSITORY}">GitHub</a></nav></header>
 <div class="layout">
 
  <main id="catalog" class="catalog-main" tabindex="-1">
@@ -215,7 +225,7 @@ def render_html(catalog):
   <form id="filters" class="catalog-toolbar" hidden aria-label="Filter projects">
 
    <details class="filter-options" name="catalog-controls"><summary>Filters <span aria-hidden="true">+</span></summary><div class="filter-body"><div class="diagnostic-filters"><div class="filter-field"><label for="push-window">Repository push window</label><select id="push-window" name="window"><option value="all">Any observed date</option><option value="recent">Within 90 days of snapshot</option><option value="older">More than 2 years before snapshot</option><option value="unknown">Push date unknown</option></select></div><div class="filter-field"><label for="alternative-filter">Reviewed alternative to</label><select id="alternative-filter" name="alternative"><option value="">Any / not recorded</option>{alternative_options}</select></div><div class="filter-field"><label for="license-filter">Detected license</label><select id="license-filter" name="license"><option value="all">Any / unknown</option><option value="known">Detected license available</option><option value="unknown">License unknown</option>{license_options}</select></div></div>
-   <details class="more-filters"><summary>More filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="run-mode-filter">Reviewed run mode</label><select id="run-mode-filter" name="run_mode"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["run_modes"]}</select></div><div class="filter-field"><label for="install-method-filter">Reviewed install method</label><select id="install-method-filter" name="install_method"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["install_methods"]}</select></div><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after · UTC</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
+   <details class="more-filters"><summary>More filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="run-mode-filter">Reviewed run mode</label><select id="run-mode-filter" name="run_mode"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["run_modes"]}</select></div><div class="filter-field"><label for="install-method-filter">Reviewed install method</label><select id="install-method-filter" name="install_method"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["install_methods"]}</select></div><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
    <div class="toolbar-bottom"><p class="filter-note">Date filters use the {escape(catalog["metrics_as_of"])} UTC snapshot. Setup filters cover reviewed evidence only; unrecorded paths remain unknown.</p></div></div></details><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
   </form></div>
   <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
@@ -224,8 +234,9 @@ def render_html(catalog):
   <div id="project-list" class="project-list">{projects}</div>
  </main>
 </div>
-<footer class="site-footer" id="about"><div class="footer-actions"><a href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="#catalog">Top</a></div><details class="data-notes" id="method"><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>Latest GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, 'LICENSE.md'))}">CC0-1.0</a></span></div></footer>
-</div><script id="catalog-data" type="application/json">{json_for_html(catalog)}</script>
+</div>
+<footer class="site-footer{' has-art' if footer_backgrounds else ''}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="#catalog">Top</a></div><details class="data-notes" id="method"><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>Latest GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, 'LICENSE.md'))}">CC0-1.0</a></span></div></footer>
+<script id="catalog-data" type="application/json">{json_for_html(catalog)}</script>
 </body></html>
 '''
 
@@ -243,7 +254,9 @@ def build(output, source_sha=None, root=ROOT):
     evidence = json.loads((root / 'data/hn_evidence.json').read_text(encoding='utf-8'))
     optional = signals.load_optional(root / 'data/project_signals.json')
     catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha, optional_signals=optional,
+                            function_summaries=load_function_summaries(root / "data/function_summaries.json"),
                             deployment_evidence=deployment.load_optional(root / "data/deployment_evidence.json"))
+    catalog['footer_backgrounds'] = ['footer-backgrounds/' + p.name for p in sorted((root / 'site/footer-backgrounds').glob('*')) if p.is_file() and p.suffix.lower() in {'.webp', '.png'} and not p.is_symlink()]
     attach_specimen_art(catalog, root)
     page = render_html(catalog)
     # Validate charts before touching generated files. The renderer is shared with README.
@@ -277,6 +290,10 @@ def build(output, source_sha=None, root=ROOT):
             asset = project['artwork']['path']
             (output / asset).parent.mkdir(exist_ok=True)
             shutil.copyfile(root / 'site' / asset, output / asset)
+    shutil.rmtree(output / 'footer-backgrounds', ignore_errors=True)
+    for asset in catalog['footer_backgrounds']:
+        (output / asset).parent.mkdir(exist_ok=True)
+        shutil.copyfile(root / 'site' / asset, output / asset)
     (output / 'brand').mkdir(exist_ok=True)
     for name in BRAND_ASSETS:
         shutil.copyfile(root / 'site/brand' / name, output / 'brand' / name)
@@ -284,6 +301,11 @@ def build(output, source_sha=None, root=ROOT):
     # A phone/download-friendly edition: every runtime asset and evidence download
     # is embedded, so opening one HTML file never depends on adjacent files.
     standalone = page.replace('href="data/hn_evidence.json">View evidence', 'href="#hn-evidence">View evidence')
+    for asset in catalog['footer_backgrounds']:
+        mime_type = 'image/png' if asset.lower().endswith('.png') else 'image/webp'
+        encoded = base64.b64encode((output / asset).read_bytes()).decode('ascii')
+        standalone = standalone.replace(f'src="{asset}"', f'src="data:{mime_type};base64,{encoded}"')
+        standalone = standalone.replace(f'&quot;{asset}&quot;', f'&quot;data:{mime_type};base64,{encoded}&quot;')
     for name, mime_type in BRAND_ASSETS.items():
         encoded = base64.b64encode((output / 'brand' / name).read_bytes()).decode('ascii')
         for attribute in ('src', 'href'):
