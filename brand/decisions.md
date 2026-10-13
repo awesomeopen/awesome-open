@@ -7,7 +7,7 @@ summarizes decisions without publishing private conversation transcripts.
 | ID | Date | Status | Decision / evidence |
 | --- | --- | --- | --- |
 | B01 | 2026-10-12 | User-directed; implemented | Fixed specimen concept; white/Prussian contrast; reject sandy/yellow page styling. [Guide](../site/RETRO-SCRAPERISM.md), [PR #11](https://github.com/awesomeopen/awesome-open/pull/11). |
-| B02 | 2026-10-12 | Implemented | Retain Outfit + monospace and font license; two functional voices. Guide and font provenance. |
+| B02 | 2026-10-12 | Superseded by B12 | Initial Outfit + system-monospace baseline; preserved as history. |
 | B03 | 2026-10-12 | User-directed; implemented | Ledger-first, optional artwork, no empty artwork placeholders; preserve source-backed evidence and top-three category ranking. Guide and specimen manifest. |
 | B04 | 2026-10-12 | User-directed | Neutral professional voice; answer first; no personal interpretation or editorial closing slogans. Guide writing contract. |
 | B05 | 2026-10-12 | User-directed; implemented | Photographic jars, bounded depth, light/vapor and pause/reduced-motion behavior. [PR #24](https://github.com/awesomeopen/awesome-open/pull/24); production promotion [PR #26](https://github.com/awesomeopen/awesome-open/pull/26). |
@@ -17,6 +17,8 @@ summarizes decisions without publishing private conversation transcripts.
 | B09 | 2026-10-12 | User-directed; implemented | Coffee link in its own paragraph after Catalog JSON; black footer metadata backings. [PR #25](https://github.com/awesomeopen/awesome-open/pull/25). |
 | B10 | 2026-10-13 | User-directed; source reconciliation in this PR | Comparison card last; “past 2y”; GitHub source suffix; identifier title attributes. Previously implemented only in private Sites output; now ported to source generator. |
 | B11 | 2026-10-13 | User-directed organization; proposed implementation | Consolidate brand docs/skills with code and maintain in the same PR. This reference, AGENTS, skill, checklist and integrity check implement that request. |
+
+| B12 | 2026-10-13 | User-directed fonts; proposed typography/spacing implementation | Fraunces Light 300 with SOFT 100 for headlines, Semibold 600 for header wordmark; Commit Mono for most ledger text. Locally bundled variable fonts, optical sizing, restrained tracking, aligned rows and consistent detail spacing. Source licenses, axes and hashes in font provenance. |
 
 ## Superseded or bounded proposals
 

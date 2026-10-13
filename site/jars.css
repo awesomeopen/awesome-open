@@ -127,3 +127,9 @@
 .jar-exhibit[data-cracks="1"] .crack-first path {animation:draw-leader .28s ease-out both;}
 .motion-paused .jar-cracks path {animation:none!important;}
 @media(prefers-reduced-motion:reduce){.jar-cracks path{animation:none!important;}}
+
+/* Keep narrow jar labels distinct from the editorial page headings. */
+.jar-caption {font:450 12px/1.4 var(--mono);letter-spacing:-.045em;}
+.jar-caption>span {font-size:11px;margin-right:4px;}
+.jar-callout p {font:400 14px/1.55 var(--mono);letter-spacing:-.02em;}
+.callout-kicker,.jar-metrics {font-size:12px;}
