@@ -230,3 +230,7 @@ Specimens stir by 1–2px and less than 1° in short staggered intervals, with l
 | 2026-10-12 | User direction / preview proposal | LED-like underlight on selection, slight lid opening with vapor, intermittent specimen movement. Implemented with existing photos and CSS layers. |
 
 Search uses the owner-supplied turquoise loupe at 32px inside a 44px submit button to the right of the input. Clicking or pressing Enter applies the current query immediately; live filtering remains available.
+
+### Hero release candidate and ledger refinement — 2026-10-12
+
+The user considers the photographic hero a release candidate. Preserve its approved interaction and appearance during the next ledger pass. Expanded and linked ledger rows have no scarlet left rule. Their disclosure indicator changes from a plus to an upright asterisk; native details retain the accessible expanded state.
