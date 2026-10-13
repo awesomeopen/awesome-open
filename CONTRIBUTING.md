@@ -70,7 +70,7 @@ python3 scripts/build_site.py --output tmp/site
 python3 -m http.server 8000 --directory tmp/site
 ```
 
-Open `http://localhost:8000` in your browser. You can also open `tmp/site/index.html` directly; search and filters use embedded data and do not fetch JSON. Keep generated files under the ignored `tmp/` directory; do not commit site output. To generate only the data, run `python3 scripts/build_catalog.py --output tmp/site/catalog.json`.
+Open `http://localhost:8000` in your browser. You can also open `tmp/site/index.html` directly; search and filters use a compact embedded index and do not fetch JSON. Full project records and evidence remain in the rendered drawers and downloadable `catalog.json` (also embedded as a download in the standalone page). Keep generated files under the ignored `tmp/` directory; do not commit site output. To generate only the data, run `python3 scripts/build_catalog.py --output tmp/site/catalog.json`.
 
 The initial page contains every distinct project, sorted by name, even with JavaScript disabled. Category links open the source sections without JavaScript. With JavaScript they filter the directory in place. Search covers names, descriptions, and reviewed alternative names. Category, detected SPDX license (including known/unknown), minimum stars, and an inclusive last-push UTC date can be combined. Results sort by name, raw star count, or last push; unknown numeric/date values sort last and do not satisfy a numeric/date threshold. Filter changes are encoded in URL query parameters and restore with Back/Forward. A project’s `#project-…` permalink is based on its canonical URL, so a name change does not change its anchor.
 

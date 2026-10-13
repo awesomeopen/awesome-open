@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 import unittest
 
-from build_site import BRAND_ASSETS, ROOT, PLATE_STUDIES, build, json_for_html, render_html
+from build_site import BRAND_ASSETS, ROOT, PLATE_STUDIES, build, json_for_html, render_html, search_index
 
 
 RUNTIME_SCRIPTS = ('catalog.js',)
@@ -222,9 +222,93 @@ class SiteTests(unittest.TestCase):
 
     def test_only_allowlisted_local_scripts_execute_and_embedded_data_is_exact(self):
         self.assert_safe_script_allowlist(self.page)
-        self.assertEqual(json.loads(self.page.by_id['catalog-data'].text), self.catalog)
+        self.assertEqual(json.loads(self.page.by_id['catalog-data'].text), search_index(self.catalog))
         for name in RUNTIME_SCRIPTS:
             self.assertEqual((self.output / name).read_bytes(), (ROOT / 'site' / name).read_bytes())
+
+    def test_search_index_contains_only_runtime_fields_without_mutating_catalog(self):
+        original = copy.deepcopy(self.catalog)
+        index = search_index(self.catalog)
+        self.assertEqual(self.catalog, original)
+        self.assertEqual(set(index), {'metrics_as_of', 'categories', 'projects'})
+        self.assertEqual(index['metrics_as_of'], self.catalog['metrics_as_of'])
+        for category, full in zip(index['categories'], self.catalog['categories']):
+            self.assertEqual(category, {key: full[key] for key in ('id', 'name')})
+        self.assertEqual(len(index['projects']), len(self.catalog['projects']))
+        for item, full in zip(index['projects'], self.catalog['projects']):
+            self.assertEqual(set(item), {'id', 'name', 'description', 'categories',
+                                        'leader_categories', 'github', 'alternatives', 'deployment'})
+            for key in ('id', 'name', 'description', 'categories', 'leader_categories'):
+                self.assertEqual(item[key], full[key])
+            if full['github'] is None:
+                self.assertIsNone(item['github'])
+            else:
+                self.assertEqual(item['github'], {key: full['github'].get(key)
+                                                  for key in ('license', 'stars', 'pushed_at')})
+            self.assertEqual(item['alternatives'], [{'name': a['name']} for a in full['alternatives']])
+            self.assertEqual(item['deployment'], {
+                field: [{'value': fact['value']} for fact in full.get('deployment', {}).get(field, [])]
+                for field in ('run_modes', 'install_methods')})
+        # Guard against accidentally embedding evidence payloads again. This is
+        # a ratio rather than a fragile byte count tied to today's catalog.
+        self.assertLess(len(json_for_html(index)), len(json_for_html(self.catalog)) * 0.5)
+
+    @unittest.skipUnless(shutil.which('node'), 'Node is optional for JS helper tests')
+    def test_compact_index_preserves_runtime_filter_and_sort_results(self):
+        catalog = copy.deepcopy(self.catalog)
+        # Include edge cases even if the current evidence snapshot lacks them.
+        for github in (None, {}, {'license': 'UNKNOWN', 'stars': None, 'pushed_at': None},
+                       {'license': 'NOASSERTION', 'stars': 0, 'pushed_at': '2024-02-29T00:00:00Z'},
+                       {'license': 'OTHER', 'stars': -1, 'pushed_at': 'invalid'}):
+            project = copy.deepcopy(catalog['projects'][0])
+            project.update(id='edge-' + str(len(catalog['projects'])), github=github,
+                           name='Opén </script> \u2028', description='Mixed CASE & punctuation',
+                           alternatives=[{'name': 'Café & tools'}])
+            catalog['projects'].append(project)
+        result = subprocess.run(['node', '-e', r"""
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const api = require('./site/catalog.js');
+const [full, compact] = JSON.parse(fs.readFileSync(0, 'utf8'));
+const inputs = [{}, {q: 'OPEN'}, {q: 'cafe tools'}, {q: '</script>'},
+  {q: 'no such project'}, {category: 'invalid'}, {license: 'invalid'},
+  {run_mode: 'invalid'}, {install_method: 'invalid'}, {stars: 'invalid'},
+  {pushed: '2024-02-30'}];
+for (const key of ['license', 'window', 'metrics', 'run_mode', 'install_method']) {
+  const values = key === 'license' ? ['all', 'known', 'unknown']
+    : key === 'window' ? ['all', 'recent', 'older', 'unknown']
+    : key === 'metrics' ? ['all', 'present', 'missing'] : ['', 'unknown'];
+  for (const value of values) inputs.push({[key]: value});
+}
+for (const stars of [0, 1, 100, 10000, Number.MAX_SAFE_INTEGER]) inputs.push({stars});
+for (const pushed of ['1900-01-01', '2024-02-29', full.metrics_as_of, '2099-01-01']) inputs.push({pushed});
+for (const category of full.categories) inputs.push({category: category.id});
+for (const alternative of api.alternativeNames(full.projects)) inputs.push({alternative});
+for (const project of full.projects) {
+  inputs.push({q: project.name}, {q: project.description});
+  if (project.github) inputs.push({license: project.github.license});
+  for (const [key, field] of [['run_mode', 'run_modes'], ['install_method', 'install_methods']]) {
+    for (const fact of (project.deployment || {})[field] || []) inputs.push({[key]: fact.value});
+  }
+  inputs.push({q: project.name, category: project.categories[0], license: api.licenseOf(project) || 'unknown',
+    stars: api.starsOf(project), metrics: api.metricsPresent(project) ? 'present' : 'missing',
+    window: api.pushWindowOf(project, full) || 'all',
+    alternative: (project.alternatives[0] || {}).name || ''});
+}
+assert.deepEqual(api.diagnosticCounts(compact.projects, compact), api.diagnosticCounts(full.projects, full));
+assert.deepEqual(api.alternativeNames(compact.projects), api.alternativeNames(full.projects));
+for (const input of inputs) {
+  const expected = api.normalizeState(input, full);
+  assert.deepEqual(api.normalizeState(input, compact), expected);
+  for (const sort of ['name', 'stars', 'pushed']) {
+    const state = {...expected, sort};
+    const ids = data => api.selectProjects(data.projects, state, data).map(project => project.id);
+    assert.deepEqual(ids(compact), ids(full), JSON.stringify(state));
+  }
+}
+"""], cwd=ROOT, input=json.dumps([catalog, search_index(catalog)]), text=True,
+                                capture_output=True, timeout=60)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_local_assets_evidence_and_portable_paths(self):
         self.assertTrue((self.output / 'styles.css').is_file())
@@ -252,7 +336,7 @@ class SiteTests(unittest.TestCase):
     def test_standalone_preserves_every_record_and_embeds_all_runtime_resources(self):
         page = Page((self.output / 'standalone.html').read_text())
         self.assertEqual(page.cards, self.page.cards)
-        self.assertEqual(json.loads(page.by_id['catalog-data'].text), self.catalog)
+        self.assertEqual(json.loads(page.by_id['catalog-data'].text), search_index(self.catalog))
         self.assertEqual(len(page.nodes('script')), 2)
         self.assertEqual(len(page.nodes('link')), 3)
         for link, name in zip(page.nodes('link'), ('favicon.ico', 'fruit-16.png', 'fruit-32.png')):
@@ -382,7 +466,7 @@ class SiteTests(unittest.TestCase):
         self.assertIn('&lt;/script&gt;', document)
         self.assertEqual(json.loads(json_for_html({'text': evil + '\u2028\u2029&'})), {'text': evil + '\u2028\u2029&'})
         self.assert_safe_script_allowlist(Page(document))
-        self.assertEqual(json.loads(Page(document).by_id['catalog-data'].text), catalog)
+        self.assertEqual(json.loads(Page(document).by_id['catalog-data'].text), search_index(catalog))
 
     def test_prefix_suffix_and_comparison_text_cannot_inject_attributes_or_scripts(self):
         catalog = copy.deepcopy(self.catalog)
@@ -397,7 +481,7 @@ class SiteTests(unittest.TestCase):
         document = render_html(catalog)
         page = Page(document)
         self.assert_safe_script_allowlist(page)
-        self.assertEqual(json.loads(page.by_id['catalog-data'].text), catalog)
+        self.assertEqual(json.loads(page.by_id['catalog-data'].text), search_index(catalog))
         card = page.by_id['project-' + project['id']]
         names = [node.text for node in card.descendants() if node.has_class('specimen-name')]
         self.assertEqual(names, [project['name']])
