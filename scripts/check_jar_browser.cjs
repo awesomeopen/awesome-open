@@ -78,8 +78,22 @@ const path=require('node:path');
  await page.waitForFunction(id=>document.querySelector('#project-'+id+' > details').open,target);
  assert.equal(new URL(page.url()).hash,'#project-'+target);
  assert.equal(await jar.getAttribute('data-cracks'),'0');assert.match(await first.getAttribute('aria-label'),/^Crack glass/);
- await page.goto(url);await ready();await page.locator('#search').fill('OpenTofu');await page.locator('.search-submit').click();await page.waitForFunction(()=>document.querySelectorAll('.project-card:not([hidden])').length===1);
- await page.locator('.jar-low-lid .jar-select').focus();await page.locator('.jar-low-lid .jar-annotation a').click();assert.ok(await page.locator('.project-card:visible > details').evaluate(n=>n.open));
+ await page.goto(url);await ready();
+ // Match the searchable content contract independently of the UI filter.
+ const searchData=await page.locator('#catalog-data').evaluate(n=>JSON.parse(n.textContent));
+ const expectedSearchIds=searchData.projects.filter(project=>[
+   project.name,project.description,...(project.alternatives||[]).map(item=>item.name)
+ ].join(' ').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes('opentofu'))
+   .map(project=>project.id).sort();
+ const openTofu=searchData.projects.find(project=>project.name==='OpenTofu');
+ assert.ok(openTofu,'The search fixture includes OpenTofu');
+ assert.ok(expectedSearchIds.includes(openTofu.id),'OpenTofu must match its own name');
+ await page.locator('#search').fill('OpenTofu');await page.locator('.search-submit').click();
+ await page.waitForFunction(expected=>JSON.stringify(Array.from(document.querySelectorAll('.project-card:not([hidden])'),card=>card.dataset.projectId).sort())===JSON.stringify(expected),expectedSearchIds);
+ assert.deepEqual(await page.locator('.project-card:visible').evaluateAll(cards=>cards.map(card=>card.dataset.projectId).sort()),expectedSearchIds);
+ const openTofuJar=page.locator('.jar-exhibit[data-project="'+openTofu.id+'"]');
+ await openTofuJar.locator('.jar-select').focus();await openTofuJar.locator('.jar-annotation a').click();
+ assert.ok(await page.locator('#project-'+openTofu.id+' > details').evaluate(n=>n.open));
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(url);await ready();await first.focus();assert.equal(await first.getAttribute('aria-expanded'),'true');
  assert.equal(await page.locator('.specimen-idle').first().evaluate(n=>getComputedStyle(n).animationName),'none');assert.equal(await page.locator('.jar-steam').first().isVisible(),false);
  await page.keyboard.press('Escape');assert.equal(await first.getAttribute('aria-expanded'),'false');
