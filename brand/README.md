@@ -13,6 +13,7 @@ are proposed by this PR. Existing merged behavior is identified separately.
 | --- | --- |
 | Purpose, naming, voice and evidence limits | [Foundation](foundation.md), [contribution policy](../CONTRIBUTING.md) |
 | Palette, type, UI, motion | [Visual system](visual-system.md), detailed [Retro-Scraperism guide](../site/RETRO-SCRAPERISM.md), [tokens](../site/design/tokens.css) |
+| Design a new page or route | In order: [visual system](visual-system.md), [Retro-Scraperism guide](../site/RETRO-SCRAPERISM.md), [tokens](../site/design/tokens.css), [visual reference](../site/design/index.html); check [decisions](decisions.md) before changing a rule. Feature contracts such as [Observatory](../site/OBSERVATORY.md) apply only when the page uses that feature. [Archive](archive/README.md), [design plan](../site/design_plan.md) and the historical part of [DESIGN.md](../site/DESIGN.md) are background, not instructions |
 | Illustration and brand assets | [Illustration](illustration.md), [asset index](assets.md), existing per-family provenance |
 | Decisions and unresolved questions | [Decision register](decisions.md) |
 | Skills and editing authority | [Skill policy](skills.md), [pinned files](skills.lock.json) |
