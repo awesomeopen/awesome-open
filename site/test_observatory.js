@@ -128,12 +128,15 @@ function sharedSummary(result) {
   return {
     exact: result.exact.map(group => ({ name: group.name, ids: group.projects.map(item => item.id) })),
     capitalization: result.capitalization.map(group => ({ name: group.name, ids: group.projects.map(item => item.id) })),
+    whitespace: result.whitespace.map(group => ({ name: group.name, ids: group.projects.map(item => item.id) })),
+    exact_tool_count: result.exact_tool_count,
+    whitespace_tool_count: result.whitespace_tool_count,
     tool_count: result.tool_count,
     capitalization_tool_count: result.capitalization_tool_count
   };
 }
 
-const EMPTY_SHARED = { exact: [], capitalization: [], tool_count: 0, capitalization_tool_count: 0 };
+const EMPTY_SHARED = { exact: [], capitalization: [], whitespace: [], tool_count: 0, exact_tool_count: 0, capitalization_tool_count: 0, whitespace_tool_count: 0 };
 
 test('shared names include exact pairs and three-way groups sorted by name and canonical ID', () => {
   const projects = [
@@ -145,7 +148,7 @@ test('shared names include exact pairs and three-way groups sorted by name and c
   const result = observatory.sharedNames(projects);
   assert.deepEqual(sharedSummary(result), {
     exact: [{ name: 'Alpha', ids: ['a1', 'a2', 'a3'] }, { name: 'Zebra', ids: ['z1', 'z2'] }],
-    capitalization: [], tool_count: 5, capitalization_tool_count: 0
+    capitalization: [], whitespace: [], tool_count: 5, exact_tool_count: 5, capitalization_tool_count: 0, whitespace_tool_count: 0
   });
   assert.deepEqual(result.exact[0].projects[0], projects[3]);
   assert.equal(JSON.stringify(projects), before);
@@ -158,7 +161,7 @@ test('shared names deduplicate canonical IDs across category occurrences', () =>
   assert.deepEqual(sharedSummary(observatory.sharedNames([first, repeated])), EMPTY_SHARED);
   const result = observatory.sharedNames([first, repeated, project({ id: 'b', name: 'Shared' })]);
   assert.deepEqual(sharedSummary(result), {
-    exact: [{ name: 'Shared', ids: ['a', 'b'] }], capitalization: [], tool_count: 2, capitalization_tool_count: 0
+    exact: [{ name: 'Shared', ids: ['a', 'b'] }], capitalization: [], whitespace: [], tool_count: 2, exact_tool_count: 2, capitalization_tool_count: 0, whitespace_tool_count: 0
   });
 });
 
@@ -167,7 +170,7 @@ test('case-only shared names stay separate from exact groups and use determinist
     project({ id: 'd', name: 'zebra' }), project({ id: 'c', name: 'ZEBRA' })];
   assert.deepEqual(sharedSummary(observatory.sharedNames(projects)), {
     exact: [], capitalization: [{ name: 'Alpha / alpha', ids: ['a', 'b'] }, { name: 'ZEBRA / zebra', ids: ['c', 'd'] }],
-    tool_count: 0, capitalization_tool_count: 4
+    whitespace: [], tool_count: 4, exact_tool_count: 0, capitalization_tool_count: 4, whitespace_tool_count: 0
   });
 });
 
@@ -177,15 +180,15 @@ test('mixed exact and capitalization groups never count an exact project twice',
   const result = observatory.sharedNames(projects);
   assert.deepEqual(sharedSummary(result), {
     exact: [{ name: 'Echo', ids: ['a', 'b'] }], capitalization: [{ name: 'ECHO / echo', ids: ['c', 'd'] }],
-    tool_count: 2, capitalization_tool_count: 2
+    whitespace: [], tool_count: 4, exact_tool_count: 2, capitalization_tool_count: 2, whitespace_tool_count: 0
   });
   const ids = [...result.exact, ...result.capitalization].flatMap(group => group.projects.map(item => item.id));
   assert.equal(ids.length, new Set(ids).size);
 });
 
-test('shared names do not infer aliases or trim names and handle empty or singleton selections', () => {
+test('shared names do not infer aliases or combine case and whitespace normalization and handle empty or singleton selections', () => {
   for (const projects of [[], [project()], [project({ id: 'a', name: 'Tool' }),
-    project({ id: 'b', name: ' Tool' }), project({ id: 'c', name: 'Tool ' }),
+    project({ id: 'b', name: 'tool ' }), project({ id: 'c', name: 'Tool-' }),
     project({ id: 'd', name: 'Tool OSS' })]]) {
     assert.deepEqual(sharedSummary(observatory.sharedNames(projects)), EMPTY_SHARED);
   }
@@ -199,15 +202,15 @@ test('shared-name aggregate follows the category and license intersection', () =
     project({ id: 'd', name: 'shared', categories: ['two'], license: null })
   ]);
   assert.deepEqual(sharedSummary(observatory.aggregate(data).sharedNames), {
-    exact: [{ name: 'Shared', ids: ['a', 'b', 'c'] }], capitalization: [], tool_count: 3, capitalization_tool_count: 0
+    exact: [{ name: 'Shared', ids: ['a', 'b', 'c'] }], capitalization: [], whitespace: [], tool_count: 3, exact_tool_count: 3, capitalization_tool_count: 0, whitespace_tool_count: 0
   });
   const known = observatory.aggregate(data, { category: 'one', license: 'known' });
   assert.deepEqual(sharedSummary(known.sharedNames), {
-    exact: [{ name: 'Shared', ids: ['a', 'b'] }], capitalization: [], tool_count: 2, capitalization_tool_count: 0
+    exact: [{ name: 'Shared', ids: ['a', 'b'] }], capitalization: [], whitespace: [], tool_count: 2, exact_tool_count: 2, capitalization_tool_count: 0, whitespace_tool_count: 0
   });
   const unknown = observatory.aggregate(data, { category: 'two', license: 'unknown' });
   assert.deepEqual(sharedSummary(unknown.sharedNames), {
-    exact: [], capitalization: [{ name: 'Shared / shared', ids: ['c', 'd'] }], tool_count: 0, capitalization_tool_count: 2
+    exact: [], capitalization: [{ name: 'Shared / shared', ids: ['c', 'd'] }], whitespace: [], tool_count: 2, exact_tool_count: 0, capitalization_tool_count: 2, whitespace_tool_count: 0
   });
   assert.deepEqual(sharedSummary(observatory.aggregate(data, { category: 'one', license: 'unknown' }).sharedNames), EMPTY_SHARED);
   assert.deepEqual(sharedSummary(observatory.aggregate(data, { category: 'two', license: 'known' }).sharedNames), EMPTY_SHARED);
@@ -229,6 +232,63 @@ test('shared names sort Unicode code points consistently with the static rendere
       { name: bmp + 'A / ' + bmp + 'a', ids: ['case-b1', 'case-b2'] },
       { name: supplementary + 'A / ' + supplementary + 'a', ids: ['case-a1', 'case-a2'] }
     ],
-    tool_count: 6, capitalization_tool_count: 4
+    whitespace: [], tool_count: 10, exact_tool_count: 6, capitalization_tool_count: 4, whitespace_tool_count: 0
   });
+});
+
+
+test('whitespace-only groups retain original names, deterministic order and three-way membership', () => {
+  const projects = [['c', 'Open Tool '], ['a', ' OpenTool'], ['b', 'Open Tool']].map(([id, name]) => project({ id, name }));
+  const before = JSON.stringify(projects);
+  const result = observatory.sharedNames(projects);
+  assert.deepEqual(sharedSummary(result), {
+    exact: [], capitalization: [], whitespace: [{ name: ' OpenTool / Open Tool / Open Tool ', ids: ['a', 'b', 'c'] }],
+    tool_count: 3, exact_tool_count: 0, capitalization_tool_count: 0, whitespace_tool_count: 3
+  });
+  assert.equal(JSON.stringify(projects), before);
+  assert.deepEqual(observatory.sharedNames(projects.slice().reverse()), result);
+});
+
+test('whitespace-only names remove exactly Unicode White_Space across Python and JavaScript', () => {
+  const whitespace = [9, 10, 11, 12, 13, 32, 0x85, 0xa0, 0x1680,
+    ...Array.from({ length: 11 }, (_, i) => 0x2000 + i), 0x2028, 0x2029, 0x202f, 0x205f, 0x3000];
+  for (const codepoint of whitespace) {
+    const result = observatory.sharedNames([project({ id: 'a', name: 'OpenTool' }),
+      project({ id: 'b', name: 'Open' + String.fromCodePoint(codepoint) + 'Tool' })]);
+    assert.equal(result.whitespace_tool_count, 2, codepoint.toString(16));
+    assert.equal(result.tool_count, 2);
+    assert.equal(result.whitespace.length, 1);
+  }
+  for (const codepoint of [0x1c, 0x1d, 0x1e, 0x1f, 0x180e, 0x200b, 0xfeff]) {
+    const result = observatory.sharedNames([project({ id: 'a', name: 'OpenTool' }),
+      project({ id: 'b', name: 'Open' + String.fromCodePoint(codepoint) + 'Tool' })]);
+    assert.deepEqual(sharedSummary(result), EMPTY_SHARED, codepoint.toString(16));
+  }
+});
+
+test('exact, capitalization and whitespace priority partitions identities without mixed normalization', () => {
+  const pairs = [['a', 'OpenTool'], ['b', 'OpenTool'], ['c', 'Open Tool'], ['d', 'OPEN TOOL'],
+    ['e', 'Open  Tool'], ['f', 'Open\tTool'], ['g', 'openTool '], ['h', 'Open-Tool']];
+  const projects = pairs.map(([id, name]) => project({ id, name }));
+  const result = observatory.sharedNames(projects);
+  assert.deepEqual(result.exact[0].projects.map(p => p.id), ['a', 'b']);
+  assert.deepEqual(result.capitalization[0].projects.map(p => p.id), ['d', 'c']);
+  assert.deepEqual(result.whitespace[0].projects.map(p => p.id), ['f', 'e']);
+  assert.deepEqual([result.tool_count, result.exact_tool_count, result.capitalization_tool_count, result.whitespace_tool_count], [6, 2, 2, 2]);
+  const ids = [...result.exact, ...result.capitalization, ...result.whitespace].flatMap(group => group.projects.map(p => p.id));
+  assert.equal(ids.length, new Set(ids).size);
+  assert.deepEqual(observatory.sharedNames(projects.slice().reverse()), result);
+  for (const names of [['OpenTool', 'OpenTool', 'Open Tool'], ['OpenTool', 'opentool', 'Open Tool']]) {
+    assert.deepEqual(observatory.sharedNames(names.map((name, i) => project({ id: String(i), name }))).whitespace, []);
+  }
+});
+
+test('whitespace groups use the current category and license intersection and deduplicate IDs', () => {
+  const data = index([project({ id: 'a', name: 'OpenTool', categories: ['one', 'two'], license: 'MIT' }),
+    project({ id: 'b', name: 'Open Tool', categories: ['one'], license: 'MIT' }),
+    project({ id: 'c', name: 'Open  Tool', categories: ['two'], license: null })]);
+  assert.equal(observatory.aggregate(data).sharedNames.whitespace_tool_count, 3);
+  assert.equal(observatory.aggregate(data, { category: 'one', license: 'known' }).sharedNames.whitespace_tool_count, 2);
+  assert.deepEqual(sharedSummary(observatory.aggregate(data, { category: 'two', license: 'unknown' }).sharedNames), EMPTY_SHARED);
+  assert.equal(observatory.sharedNames([...data.projects, { ...data.projects[0], categories: ['two'] }]).whitespace_tool_count, 3);
 });

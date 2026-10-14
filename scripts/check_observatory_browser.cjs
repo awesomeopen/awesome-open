@@ -107,12 +107,20 @@ function sharedGroups(projects) {
   };
   const exact = group(unique, project => project.name);
   const exactIDs = new Set(exact.flat().map(project => project.id));
-  return { exact, capitalization: group(unique.filter(project => !exactIDs.has(project.id)), project => project.name.toLowerCase()) };
+  const capitalization = group(unique.filter(project => !exactIDs.has(project.id)), project => project.name.toLowerCase());
+  const usedIDs = new Set([...exact.flat(), ...capitalization.flat()].map(project => project.id));
+  const whitespace = group(unique.filter(project => !usedIDs.has(project.id)),
+    project => project.name.replace(/[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/g, ''))
+    .filter(rows => new Set(rows.map(project => project.name)).size > 1);
+  return { exact, capitalization, whitespace };
 }
 
 async function assertSharedNames(page, projects, label) {
   const expected = sharedGroups(projects);
-  for (const [kind, countID] of [['exact', 'shared-name-count'], ['capitalization', 'capitalization-name-count']]) {
+  const countedIDs = Object.values(expected).flat(2).map(project => project.id);
+  assert.equal(countedIDs.length, new Set(countedIDs).size, label + ': disjoint name groups');
+  assert.equal(number(await page.locator('#shared-name-count').textContent()), countedIDs.length, label + ': headline includes every match kind');
+  for (const [kind, countID] of [['exact', 'exact-name-count'], ['capitalization', 'capitalization-name-count'], ['whitespace', 'whitespace-name-count']]) {
     const groups = expected[kind];
     assert.equal(number(await page.locator('#' + countID).textContent()), groups.flat().length, label + ': ' + kind + ' tool count');
     const actual = await page.locator('#' + kind + '-name-groups .shared-name-group').evaluateAll(details => details.map(detail => [...detail.querySelectorAll('li')].map(item => ({ id: item.dataset.projectId, name: item.querySelector('a').textContent, url: item.querySelector('a').getAttribute('href'), source: item.querySelector('.shared-name-source').textContent }))));
@@ -167,6 +175,42 @@ async function checkObservatory({ browser, url }) {
     assert.deepEqual(dimensions, current.viewportSize(), 'Screenshot dimensions: ' + filename);
     report.screenshots.push({ file: filename, ...dimensions, bytes: png.length, sha256: sha256(png), sourceSha: report.sourceSha });
     writeReport();
+  };
+  const checkClosingMark = async (current, label) => {
+    assert.equal(await current.locator('img').count(), 1, label + ': one image');
+    assert.equal(await current.locator('.obs-closing-mark').count(), 1, label + ': one closing mark');
+    assert.equal(await current.locator('.obs-hero img, .obs-closing-mark figcaption').count(), 0, label + ': no opening image or caption');
+    const mark = current.locator('.obs-closing-mark');
+    const logo = mark.locator(':scope > .obs-logo');
+    assert.equal(await logo.count(), 1, label + ': logo belongs to closing mark');
+    assert.equal(await logo.getAttribute('alt'), 'Awesome Open* botanical logo');
+    await logo.evaluate(image => image.decode());
+    const layout = await mark.evaluate(node => {
+      const image = node.querySelector('img'), hero = document.querySelector('.obs-hero');
+      const rect = node.getBoundingClientRect(), art = image.getBoundingClientRect();
+      const opening = hero.getBoundingClientRect(), copy = hero.querySelector('.obs-hero-copy').getBoundingClientRect();
+      return { last: node.parentElement.id === 'observatory-main' && node.parentElement.lastElementChild === node,
+        prefooter: node.parentElement.nextElementSibling?.classList.contains('obs-footer'),
+        text: node.textContent.trim(), children: node.children.length,
+        naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight,
+        width: art.width, height: art.height, centerOffset: art.x + art.width / 2 - rect.x - rect.width / 2,
+        above: art.top - rect.top, below: rect.bottom - art.bottom,
+        heroDisplay: getComputedStyle(hero).display, heroGap: opening.width - copy.width };
+    });
+    assert.equal(layout.last, true, label + ': last child of main');
+    assert.equal(layout.prefooter, true, label + ': immediately before footer');
+    assert.equal(layout.text, '', label + ': no visible caption');
+    assert.equal(layout.children, 1, label + ': only the existing image');
+    assert.deepEqual([layout.naturalWidth, layout.naturalHeight], [128, 128], label + ': original intrinsic dimensions');
+    assert.ok(layout.width > 0 && layout.width <= 128 && layout.height > 0 && layout.height <= 128, label + ': no upscaling');
+    assert.ok(Math.abs(layout.centerOffset) < 1, label + ': horizontally centered');
+    const whitespace = current.viewportSize().width <= 760 ? 96 : 128;
+    assert.ok(layout.above >= whitespace && layout.below >= whitespace, label + ': generous whitespace above and below');
+    assert.equal(layout.heroDisplay, 'block', label + ': opening uses full-width block');
+    assert.ok(Math.abs(layout.heroGap) < 1, label + ': no empty opening column');
+    await mark.scrollIntoViewIfNeeded();
+    await fits(current, label + ' closing mark');
+    await capture(label + '-closing-mark', current);
   };
   const checkProjectDisclosure = async (current, label) => {
     const details = current.locator('#project-data');
@@ -324,7 +368,6 @@ async function checkObservatory({ browser, url }) {
     const logo = page.locator('.obs-logo');
     assert.equal(await logo.getAttribute('src'), '../brand/botanical-128.png');
     assert.equal(await logo.getAttribute('alt'), 'Awesome Open* botanical logo');
-    assert.equal(await page.locator('.obs-hero figcaption').count(), 0, 'No logo subtitle');
     await logo.evaluate(image => image.decode());
     assert.equal(await logo.evaluate(image => image.naturalWidth), 128);
     writeReport();
@@ -338,8 +381,8 @@ async function checkObservatory({ browser, url }) {
       await page.setViewportSize(viewport);
       await page.evaluate(() => scrollTo(0, 0));
       await fits(page, name);
-      assert.ok((await logo.boundingBox()).width <= 128, 'Logo stays within source resolution');
       await capture(name);
+      await checkClosingMark(page, name);
       await page.locator('#shared-names').scrollIntoViewIfNeeded();
       await capture(name + '-shared-names');
       const firstNameGroup = page.locator('#exact-name-groups details').first();
@@ -358,6 +401,14 @@ async function checkObservatory({ browser, url }) {
       await page.locator('#capitalization-name-groups details').first().locator('summary').click();
       await capture(name + '-capitalization-open');
       await page.locator('#capitalization-names > summary').click();
+      await page.locator('#whitespace-names > summary').focus();
+      for (const key of ['Enter', 'Space']) {
+        const wasOpen = await page.locator('#whitespace-names').evaluate(node => node.open);
+        await page.keyboard.press(key);
+        assert.equal(await page.locator('#whitespace-names').evaluate(node => node.open), !wasOpen, 'Whitespace section keyboard disclosure');
+        await fits(page, name + ' whitespace disclosure');
+        if (!wasOpen) await capture(name + '-whitespace-open');
+      }
       await page.locator('#category-chart').scrollIntoViewIfNeeded();
       await capture(name + '-charts');
       await checkProjectDisclosure(page, name);
@@ -539,10 +590,16 @@ async function checkObservatory({ browser, url }) {
     await checkProjectDisclosure(fallback, 'no JavaScript');
     await fallback.locator('#exact-name-groups details > summary').first().click();
     assert.equal(await fallback.locator('#exact-name-groups details').first().evaluate(node => node.open), true, 'Shared names expand without JavaScript');
+    await fallback.locator('#whitespace-names > summary').click();
+    assert.equal(await fallback.locator('#whitespace-names').evaluate(node => node.open), true, 'Whitespace section expands without JavaScript');
     await fallback.locator('#category-chart details > summary').click();
     assert.equal(await fallback.locator('#category-chart table').isVisible(), true, 'Native data disclosure without JavaScript');
     await fits(fallback, 'no JavaScript');
     await capture('no-js', fallback);
+    await checkClosingMark(fallback, 'no-js-mobile');
+    await fallback.setViewportSize({ width: 1440, height: 1000 });
+    await checkClosingMark(fallback, 'no-js-desktop');
+    await fallback.setViewportSize({ width: 390, height: 844 });
     await downloadCSV(fallback, data, data.projects, 'no-JavaScript static export');
     for (const href of await fallback.locator('#coverage a[href]').evaluateAll(nodes => nodes.map(node => node.href))) {
       if (new URL(href).origin !== target.origin) continue;
@@ -551,6 +608,39 @@ async function checkObservatory({ browser, url }) {
     await fallbackContext.close();
     fallbackContext = null;
     report.checks.push('complete server-rendered charts/tables, native disclosures, local evidence and CSV without JavaScript');
+
+    // Production data can have no whitespace groups. Exercise real DOM rendering
+    // with synthetic names while retaining canonical project IDs and URLs.
+    const synthetic = await context.newPage();
+    track(synthetic);
+    const syntheticNames = ['OpenTool', 'OpenTool', 'Open Tool', 'OPEN TOOL',
+      'Open  Tool', 'Open\tTool', 'Open\u0085Tool', 'openTool ', 'Open-Tool', 'Open\u200bTool'];
+    const syntheticProjects = data.projects.slice(0, syntheticNames.length)
+      .map((project, i) => ({ ...project, name: syntheticNames[i] }));
+    await synthetic.route(target.href, async route => {
+      const response = await route.fetch();
+      const body = (await response.text()).replace(/(<script[^>]+id="observatory-data"[^>]*>)[\s\S]*?(<\/script>)/,
+        (_, opening, closing) => opening + JSON.stringify({ ...data, projects: syntheticProjects }) + closing);
+      await route.fulfill({ response, body });
+    });
+    await synthetic.goto(target.href);
+    await synthetic.waitForFunction(() => document.querySelector('#observatory-filters').dataset.enhanced === 'true');
+    await assertSharedNames(synthetic, syntheticProjects, 'synthetic overlap and Unicode whitespace');
+    assert.equal(number(await synthetic.locator('#shared-name-count').textContent()), 7, 'Synthetic union count');
+    await synthetic.setViewportSize({ width: 390, height: 844 });
+    await synthetic.locator('#whitespace-names > summary').click();
+    const whitespaceGroup = synthetic.locator('#whitespace-name-groups details').first();
+    await whitespaceGroup.locator('summary').focus();
+    for (const key of ['Enter', 'Space']) {
+      const wasOpen = await whitespaceGroup.evaluate(node => node.open);
+      await synthetic.keyboard.press(key);
+      assert.equal(await whitespaceGroup.evaluate(node => node.open), !wasOpen, 'Whitespace group keyboard toggle');
+      assert.equal(await whitespaceGroup.locator('summary').evaluate(node => node === document.activeElement), true, 'Whitespace group retains focus');
+      await fits(synthetic, 'synthetic whitespace mobile');
+      if (!wasOpen) await capture('synthetic-whitespace-open', synthetic);
+    }
+    await synthetic.close();
+    report.checks.push('whitespace keyboard disclosure, Unicode matching and exact/capitalization/whitespace priority with synthetic names');
 
     // Block every neighboring runtime file. A standalone report must render and
     // filter from embedded assets even when none of its sibling files exist.
@@ -568,7 +658,10 @@ async function checkObservatory({ browser, url }) {
     assert.ok(await page.locator('img').evaluateAll(nodes => nodes.every(image => image.src.startsWith('data:') && image.complete && image.naturalWidth > 0)), 'Embedded standalone artwork');
     assert.deepEqual(offlineRequests, [], 'Standalone fetches no neighboring assets');
     assert.ok((await page.locator('.obs-logo').getAttribute('src')).startsWith('data:image/png;base64,'));
-    assert.equal(await page.locator('.obs-hero figcaption').count(), 0);
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await checkClosingMark(page, 'standalone-desktop');
+    await page.setViewportSize({ width: 390, height: 844 });
+    await checkClosingMark(page, 'standalone-mobile');
     await assertSelection(page, data, data.projects, 'standalone initial');
     await checkProjectDisclosure(page, 'standalone');
     await select('category-filter', first.id);
@@ -579,6 +672,7 @@ async function checkObservatory({ browser, url }) {
     await page.evaluate(() => scrollTo(0, 0));
     await capture('standalone-mobile');
     assert.deepEqual(failures, [], 'No JavaScript, console, network or HTTP errors');
+    report.checks.push('centered prefooter logo at intrinsic size, full-width opening, generous whitespace and closing-mark screenshots across desktop/mobile/no-JavaScript/standalone');
     report.checks.push('standalone embedded assets, filters and CSV; no page/console/network errors');
     report.status = 'passed';
     writeReport();

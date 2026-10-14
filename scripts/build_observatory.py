@@ -66,6 +66,10 @@ def project_index(catalog):
                 categories=[dict(id=c['id'], name=c['name']) for c in catalog['categories']], projects=rows)
 
 
+# Unicode White_Space, shared with observatory.js (not Python/JS-specific \s).
+NAME_WHITESPACE = re.compile(r'[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]')
+
+
 def shared_names(projects):
     """Compare displayed names after canonical-ID deduplication, without aliases."""
     unique = {p['id']: p for p in projects}
@@ -82,8 +86,21 @@ def shared_names(projects):
     capitalization = [dict(name=' / '.join(sorted({p['name'] for p in rows})), projects=rows)
                       for rows in folded.values() if len(rows) > 1]
     capitalization.sort(key=lambda group: group['name'])
-    return dict(exact=groups, capitalization=capitalization, tool_count=len(exact_ids),
-                capitalization_tool_count=sum(len(group['projects']) for group in capitalization))
+    counted_ids = exact_ids | {p['id'] for group in capitalization for p in group['projects']}
+    compacted = {}
+    for project in ordered:
+        if project['id'] not in counted_ids:
+            key = NAME_WHITESPACE.sub('', project['name'])
+            if key:
+                compacted.setdefault(key, []).append(project)
+    whitespace = [dict(name=' / '.join(sorted({p['name'] for p in rows})), projects=rows)
+                  for rows in compacted.values() if len({p['name'] for p in rows}) > 1]
+    whitespace.sort(key=lambda group: group['name'])
+    counted_ids.update(p['id'] for group in whitespace for p in group['projects'])
+    return dict(exact=groups, capitalization=capitalization, whitespace=whitespace,
+                tool_count=len(counted_ids), exact_tool_count=len(exact_ids),
+                capitalization_tool_count=sum(len(group['projects']) for group in capitalization),
+                whitespace_tool_count=sum(len(group['projects']) for group in whitespace))
 
 
 def name_groups_html(groups):
@@ -97,7 +114,7 @@ def name_groups_html(groups):
 
 
 def shared_names_html(names):
-    return f'''<section id="shared-names" class="obs-shared-names" aria-labelledby="shared-names-heading"><p class="obs-kicker">Selected projects</p><h2 id="shared-names-heading"><span id="shared-name-count">{names['tool_count']}</span> tools share a name</h2><p>Exact displayed names, including capitalization. Each project counts once.</p><div id="exact-name-groups">{name_groups_html(names['exact'])}</div><details id="capitalization-names"><summary>Capitalization-only matches · <span id="capitalization-name-count">{names['capitalization_tool_count']}</span> tools</summary><p>Excludes tools counted in exact-name groups.</p><div id="capitalization-name-groups">{name_groups_html(names['capitalization'])}</div></details></section>'''
+    return f'''<section id="shared-names" class="obs-shared-names" aria-labelledby="shared-names-heading"><p class="obs-kicker">Selected projects</p><h2 id="shared-names-heading"><span id="shared-name-count">{names['tool_count']}</span> tools share a name</h2><p>Each project counts once across these groups.</p><h3>Exact-name matches · <span id="exact-name-count">{names['exact_tool_count']}</span> tools</h3><div id="exact-name-groups">{name_groups_html(names['exact'])}</div><details id="capitalization-names"><summary>Capitalization-only matches · <span id="capitalization-name-count">{names['capitalization_tool_count']}</span> tools</summary><p>Excludes tools counted in exact-name groups.</p><div id="capitalization-name-groups">{name_groups_html(names['capitalization'])}</div></details><details id="whitespace-names"><summary>Whitespace-only matches · <span id="whitespace-name-count">{names['whitespace_tool_count']}</span> tools</summary><p>Ignores whitespace, preserves capitalization. Excludes tools counted above.</p><div id="whitespace-name-groups">{name_groups_html(names['whitespace'])}</div></details></section>'''
 
 
 def aggregate(index, projects=None):
@@ -234,13 +251,13 @@ def render(index, counts, covered):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Observatory · Awesome Open*</title><meta name="description" content="A snapshot of the Awesome Open collection: categories, detected licenses, repository dates, stars and evidence coverage."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../vendor/fonts.css"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="observatory.css"><script src="observatory.js" defer></script></head>
 <body class="observatory"><a class="skip-link" href="#observatory-main">Skip to observatory</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Observatory"><a href="../">Project ledger</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a></nav></header>
-<main id="observatory-main" tabindex="-1"><section class="obs-hero"><div class="obs-hero-copy"><p class="obs-kicker">Awesome Open* / snapshot</p><h1>Collection<br>observatory</h1><p class="obs-provenance">Metrics snapshot: <time>{index['metrics_as_of']}</time> UTC<br>Source revision: {stamp}</p></div>{art}</section>
+<main id="observatory-main" tabindex="-1"><section class="obs-hero"><div class="obs-hero-copy"><p class="obs-kicker">Awesome Open* / snapshot</p><h1>Collection<br>observatory</h1><p class="obs-provenance">Metrics snapshot: <time>{index['metrics_as_of']}</time> UTC<br>Source revision: {stamp}</p></div></section>
 <aside class="obs-finding"><p class="obs-kicker">Whole collection</p><p>{concentration}</p></aside>
 <form id="observatory-filters" class="obs-filters" hidden aria-label="Filter observatory"><label for="category-filter">Category<select id="category-filter" name="category"><option value="">All categories</option>{options}</select></label><label for="license-filter">Detected license<select id="license-filter" name="license"><option value="all">Any / unknown</option><option value="known">Detected license available</option><option value="unknown">License unknown</option></select></label><button id="reset-filters" type="button">Reset filters</button></form>
 <noscript><p>Filters and filtered CSV export require JavaScript.</p></noscript><p id="selection-summary" role="status" aria-live="polite" aria-atomic="true">{counts['total']} projects selected.</p><dl id="metrics" class="obs-metrics">{metrics}</dl>{shared_names_html(counts["shared_names"])}<div class="obs-charts">{charts}</div>
 <section id="coverage" class="obs-notes"><p class="obs-kicker">07 / projects</p><h2>Evidence coverage</h2><p>Whole collection; unaffected by filters. Counts are out of {covered['total']} unique projects.</p><div class="obs-table-scroll" tabindex="0" role="region" aria-label="Evidence coverage table"><table><caption>Evidence coverage</caption><thead><tr><th scope="col">Evidence</th><th scope="col">Projects</th><th scope="col">Scope</th></tr></thead><tbody>{coverage_rows}</tbody></table></div><p>Evidence collection: {esc(covered['signals_collected_at'] or 'Not available')}. HN checked: {esc(covered['hn_checked'] or 'Not available')}; window {esc(covered['hn_window_start'])} to {esc(covered['hn_window_end_exclusive'])} (end exclusive). Provider checks can be older than the build.</p><p>{evidence_links}</p></section>
 <section id="project-records" class="obs-ledger"><p class="obs-kicker">08 / downloads</p><h2>Project data</h2><p>Dates are UTC.</p><p class="obs-downloads"><a id="export-csv" href="projects.csv" download="awesome-open-observatory.csv">Download selection CSV</a> · <a href="snapshot.json" download>Download complete snapshot JSON</a> · <a href="report.html" download>Download standalone report</a></p><details id="project-data"><summary>Data table</summary><div class="obs-table-scroll" tabindex="0" role="region" aria-label="Project data table"><table id="project-table"><caption>Project records</caption><thead><tr><th scope="col">Project</th><th scope="col">Detected license</th><th scope="col">GitHub stars</th><th scope="col">Repository created</th><th scope="col">Last push</th><th scope="col">Latest full release</th><th scope="col">Release cache / checked UTC</th><th scope="col">Source</th></tr></thead><tbody>{''.join(project_rows)}</tbody></table></div></details></section>
-</main><footer class="obs-footer"><p>Awesome Open* / Observatory</p><p><a href="../">Return to project ledger</a> · <a href="{REPOSITORY}">GitHub</a><br>Source revision: {stamp}</p></footer></div><script id="observatory-data" type="application/json">{json_html(index)}</script></body></html>'''
+<div class="obs-closing-mark">{art}</div></main><footer class="obs-footer"><p>Awesome Open* / Observatory</p><p><a href="../">Return to project ledger</a> · <a href="{REPOSITORY}">GitHub</a><br>Source revision: {stamp}</p></footer></div><script id="observatory-data" type="application/json">{json_html(index)}</script></body></html>'''
 
 
 def build(catalog, hn, output, root):
