@@ -78,6 +78,7 @@
 | [OpenSandbox](https://github.com/opensandbox-group/OpenSandbox) | Sandbox runtime for AI agents. |
 | [OpenSLA](https://github.com/yang-ai-lab/OpenSLA) | Sensor-language-action models that predict structured actions and describe sensor states from signals and text. |
 | [Open-Sora](https://github.com/hpcaitech/Open-Sora) | Models and tooling for video generation. |
+| [OpenSpiel](https://github.com/google-deepmind/open_spiel) | Game environments and algorithms for reinforcement-learning, search, and multi-agent research. |
 | [OpenSwarm](https://github.com/openswarm-ai/openswarm) | Desktop workspace for coordinating multiple AI agents with their own browsers, apps, and tools on a shared canvas. |
 | [OpenUI](https://github.com/wandb/openui) | Generate and preview user interfaces from natural-language descriptions. |
 | [OpenViking](https://github.com/volcengine/OpenViking) | Context database for agent memory, knowledge, and skills. |
@@ -126,6 +127,7 @@
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
 | [OpenRPC Generator](https://github.com/open-rpc/generator) | Generate components and language bindings from OpenRPC documents. |
 | [OpenSaaS](https://github.com/wasp-lang/open-saas) | Full-stack SaaS starter with authentication, payments, email, and file uploads. |
+| [OpenScion](https://github.com/tinyhumansai/openscion) | Server-centric source control for large monorepos, with API-based history, diffs, commits, and sparse checkouts. |
 | [OpenSilver](https://github.com/OpenSilver/OpenSilver) | Framework for cross-platform applications using C#, VB.NET, or F# with XAML and WebAssembly or native .NET. |
 | [OpenSpec](https://github.com/Fission-AI/OpenSpec) | Specification-driven development tools for AI coding assistants. |
 | [OpenStore](https://github.com/dev-krish-xyz/OpenStore) | Searchable software directory with curated project listings, comparison filters, and community submissions. |
@@ -163,6 +165,7 @@
 | [OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) | Kubernetes application platform for building and operating applications. |
 | [OpenStack](https://www.openstack.org/software) | Cloud infrastructure software for managing compute, storage, and networking. |
 | [openstatus](https://github.com/openstatusHQ/openstatus) | Uptime monitoring, status pages, and incident management with infrastructure-as-code configuration.<br>Alternative to: [UptimeRobot](https://www.openstatus.dev/compare/uptime-robot), [Better Stack](https://www.openstatus.dev/compare/betterstack), [Status.io](https://www.openstatus.dev/compare/statusio) |
+| [OpenTaco](https://github.com/diggerhq/digger) | Terraform and OpenTofu orchestration with pull-request automation, CI integration, locking, and drift detection. |
 | [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-collector) | Collect, process, and export telemetry data. |
 | [OpenTofu](https://github.com/opentofu/opentofu) | Declarative infrastructure-as-code tooling.<br>Alternative to: [Terraform](https://opentofu.org/docs/intro/migration/migration-guide/) |
 | [OpenUptime](https://github.com/becoolme/openuptime) | Uptime monitoring, incident alerts, and public status pages for self-hosted or managed deployments. |
@@ -259,6 +262,7 @@
 | [OpenPaste](https://github.com/SwallOwDili/OpenPaste) | macOS clipboard manager with searchable history, favorites, paste queues, image-text extraction, and optional translation. |
 | [openPDF](https://github.com/ej3mpl0/openPDF) | Native Linux PDF application and command-line tools for viewing, organizing, converting, and signing documents. |
 | [OpenProject](https://github.com/opf/openproject) | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) |
+| [OpenReader](https://github.com/richardr1126/openreader) | Read-along document reader with text-to-speech, synchronized highlighting, and audiobook export. |
 | [OpenRecall](https://github.com/openrecall/openrecall) | Captures periodic desktop screenshots and makes activity history searchable with local OCR and semantic search. |
 | [Open Receipt OCR](https://github.com/iursevla/open-receipt-ocr) | Self-hosted receipt and document OCR with a web interface, job management, and local or cloud engines. |
 | [OpenResume](https://github.com/xitanggg/open-resume) | Browser-based resume builder and parser that creates PDFs and checks resume readability for applicant tracking systems. |
@@ -271,6 +275,7 @@
 | [OpenTodoList](https://opentodolist.rpdev.net) | Tasks, notes, images, and recipes with local storage and optional synchronization. |
 | [OpenTypeless](https://github.com/tover0314-w/opentypeless) | AI voice typing for macOS, Windows, and Linux.<br>Alternative to: [Wispr Flow](https://github.com/tover0314-w/opentypeless#readme), [Superwhisper](https://github.com/tover0314-w/opentypeless#readme), [Typeless](https://www.opentypeless.com/en/typeless-alternative) |
 | [Open Whisper](https://github.com/TwilightDuck/OpenWhisper) | Mac dictation application with local speech recognition, personal vocabulary corrections, transcript history, and usage statistics. |
+| [OpenWhispr](https://github.com/OpenWhispr/openwhispr) | Voice dictation application with local and hosted speech models, meeting transcription, and notes. |
 | [OpenWork](https://github.com/different-ai/openwork) | Desktop workspace where AI agents work on local files.<br>Alternative to: [Claude Cowork](https://github.com/different-ai/openwork#readme), [Codex](https://github.com/different-ai/openwork#readme) |
 
 ## Business & Commerce
@@ -299,6 +304,7 @@
 | [OpenProject](https://github.com/opf/openproject) | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) |
 | [OpenReception](https://github.com/RossEcho/OpenReception) | Self-hosted WhatsApp receptionist with multilingual conversations, appointment scheduling, customer campaigns, and an admin dashboard. |
 | [OpenSEO](https://github.com/every-app/open-seo) | SEO platform for keyword research, rank tracking, competitor analysis, backlinks, site audits, and AI-agent integrations.<br>Alternative to: [Semrush](https://github.com/every-app/open-seo/blob/main/README.md), [Ahrefs](https://github.com/every-app/open-seo/blob/main/README.md) |
+| [OpenSequence](https://github.com/lguerberg/open-sequence) | Self-hosted engine for scheduling sales outreach sequences, tracking replies, and connecting CRM workflows through APIs and webhooks. |
 | [OpenSign](https://github.com/OpenSignLabs/OpenSign) | Document signing and electronic signature workflows.<br>Alternative to: [DocuSign](https://github.com/OpenSignLabs/OpenSign#readme), [PandaDoc](https://github.com/OpenSignLabs/OpenSign#readme), [SignNow](https://github.com/OpenSignLabs/OpenSign#readme) |
 
 ## Knowledge Management
@@ -334,6 +340,7 @@
 | [Open Grind](https://git.opengrind.org/open-grind/open-grind) | Cross-platform unofficial client for Grindr. |
 | [OpenIM](https://github.com/openimsdk/open-im-server) | Instant messaging server and infrastructure for chat applications. |
 | [OpenMeetings](https://openmeetings.apache.org) | Video conferencing, instant messaging, shared whiteboards, and document collaboration. |
+| [Open Moderator](https://developers.reddit.com/apps/open-moderator) | Reddit moderation application with removal explanations, consistency alerts, comment monitoring, and rule-improvement suggestions. |
 | [Opensend](https://github.com/PanaraStudios/opensend.cc) | Self-hosted email application with Amazon SES setup, domain management, and team authentication.<br>Alternative to: [Resend](https://opensend.cc/) |
 | [OpenSIPS](https://github.com/OpenSIPS/opensips) | SIP server for voice and real-time communications. |
 | [Open Social](https://github.com/goalgorilla/open_social) | Drupal distribution for online communities. |
@@ -392,6 +399,7 @@
 | [OpenTimelineIO](https://github.com/AcademySoftwareFoundation/OpenTimelineIO) | API and interchange tools for editorial timelines. |
 | [OpenToonz](https://github.com/opentoonz/opentoonz) | 2D animation production software. |
 | [OpenTunes](https://github.com/Multi-Applications/OpenTunes) | Web radio player with station search, country and genre filters, favorites, and custom stations. |
+| [OpenUSD](https://github.com/PixarAnimationStudios/OpenUSD) | Libraries and tools for composing, exchanging, and rendering complex 3D scene descriptions. |
 | [OpenUtau](https://github.com/openutau/OpenUtau) | Singing synthesis platform and UTAU successor. |
 | [OpenVDB](https://github.com/AcademySoftwareFoundation/openvdb) | Sparse volume data structures and tools. |
 | [OpenVid](https://github.com/CristianOlivera1/openvid) | Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects. |
@@ -477,6 +485,7 @@
 
 | Project | Description |
 | --- | --- |
+| [Open3D](https://github.com/isl-org/Open3D) | C++ and Python library for processing, reconstructing, and visualizing 3D data. |
 | [Open Babel](https://github.com/openbabel/openbabel) | Convert, search, and analyze chemical data. |
 | [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS) | Optimized Basic Linear Algebra Subprograms library. |
 | [OpenCalque](https://github.com/laurent512/opencalque) | Desktop and web editor for 2D architectural floor plans, with a command-line interface and JSON documents. |
@@ -570,6 +579,7 @@
 
 | Project | Description |
 | --- | --- |
+| [OpenABL](https://github.com/OpenHandheldCollective/OpenABL) | Graphical boot menu and Linux boot support built into Qualcomm's Android bootloader for handheld devices. |
 | [OpenAMP](https://github.com/OpenAMP/open-amp) | Framework for asymmetric multiprocessing and interprocessor communication. |
 | [OpenBMC](https://github.com/openbmc/openbmc) | Linux distribution for hardware management controllers. |
 | [OpenBSD](https://www.openbsd.org) | Unix-like operating system emphasizing portability, correctness, and security. |
