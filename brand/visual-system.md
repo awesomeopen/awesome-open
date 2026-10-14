@@ -76,15 +76,13 @@ facts with their own sources; artwork crops remain decorative. Star plots and
 concise counts link to the aggregate source; About retains the counting method.
 See B14 and the detailed guide.
 
-## Two specimen staging passes
+## Restored specimen plate
 
-OpenTofu crosses the main-study lower rule; OpenRefine rises through a heading
-rule (its own study rule on mobile). Wider versus taller detail windows follow
-the two drawings' anatomy. Preserve complete main silhouettes and keep overlap
-inside whitespace, clear of prose and links. Capability notes can sit directly
-beside enlarged drawing details: sourcing governs their claims; visual
-separation is not required. See B15 and the detailed guide.
-
+The geometry trials are withdrawn. Main drawings stay within their study area
+on white, with compact detail crops and the red image-to-feature connector.
+Feature notes remain literal sourced software facts. Shading/contact shadows
+across illustrated records are a possible third direction, deferred for a future
+review; no new shading is applied in this restoration. See B24.
 
 ## Clearer jar glass
 
@@ -111,8 +109,19 @@ space remains clear around the collection. Labels retain their common baseline.
 
 The user-directed `/observatory/` extension uses the current typography and
 white/Prussian instrument language for literal snapshot distributions, native SVG
-and accessible underlying tables. A single compact approved Open Doc specimen
-interrupts the opening; artwork never encodes a value or modifies chart geometry.
+and accessible underlying tables. The existing 128px botanical logo appears
+in the opening without a visible caption; artwork never modifies chart geometry.
 Filters update distributions and records together. Whole-collection findings and
 coverage retain explicit scope. See [observatory contract](../site/OBSERVATORY.md)
 and B20; the initial implementation awaits visual review.
+
+## Category illustrations
+
+The Table of contents pairs each category name with its existing transparent
+illustration at 48 CSS px. Keep the entire silhouette, a fixed image box and
+readable wrapping labels/counts inside the existing native disclosure. The
+adjacent text names the link; the image has empty alternative text. Preserve
+keyboard selection, current-category marking, narrow layouts and text-only
+fallbacks when a category has no artwork. The All link has no artwork placeholder.
+Use local responsive derivatives and lazy loading; embed the small source in the
+standalone edition. Existing hero, ledger and filter behavior remain unchanged.

@@ -1,13 +1,10 @@
-set -e
-src=tmp/awesome-open-cat-logos; out=site/domains
-for f in $src/*.png; do
-  n=$(basename "$f" .png)
-  w=$(magick identify -format %w "$f")
-  L=$(( (w*33+50)/100 )); M=$(( (L+1)/2 )); S=$(( (M+1)/2 ))
-  for pair in "l:$L" "m:$M" "s:$S"; do
-    magick "$f" -filter Lanczos -distort Resize "${pair#*:}" \
-      -channel RGB -unsharp 0x0.7+0.7+0.015 +channel \
-      -define webp:method=6 -define webp:alpha-quality=100 -quality 88 \
-      "$out/$n-${pair%%:*}.webp"
-  done
-done
+#!/usr/bin/env bash
+# See scripts/RESIZE-CATEGORY-IMAGES.md. Normal site builds never run this tool.
+set -euo pipefail
+
+script_dir="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+if ! command -v python3 >/dev/null 2>&1; then
+  printf '%s\n' 'resize.sh: Python 3 is required; no dependencies were installed.' >&2
+  exit 1
+fi
+exec python3 "$script_dir/resize_category_images.py" "$@"
