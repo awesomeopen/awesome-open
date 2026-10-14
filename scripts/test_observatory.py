@@ -393,7 +393,7 @@ class ObservatoryBuildTests(unittest.TestCase):
             self.assertEqual(row['categories'], '; '.join(project['categories']))
             self.assertEqual(row['source_sha'], self.snapshot['source_sha'])
 
-    def test_requested_logo_and_standalone_embedding(self):
+    def test_prefooter_logo_and_standalone_embedding(self):
         import base64
         logo=build_site.ROOT/'site/brand/botanical-128.png'
         for name in ['index.html', 'report.html']:
@@ -407,6 +407,18 @@ class ObservatoryBuildTests(unittest.TestCase):
             expected=('../brand/botanical-128.png' if name == 'index.html' else
                       'data:image/png;base64,'+base64.b64encode(logo.read_bytes()).decode('ascii'))
             self.assertEqual(image['src'], expected)
+            main=page.by_id['observatory-main']
+            closing=[node for node in page.elements if node.has_class('obs-closing-mark')]
+            self.assertEqual(len(closing), 1)
+            self.assertIs(main.children[-1], closing[0])
+            self.assertEqual(closing[0].tag, 'div')
+            self.assertEqual([node.tag for node in closing[0].children], ['img'])
+            self.assertEqual(closing[0].text.strip(), '')
+            self.assertEqual(closing[0].children[0].attrs, image)
+            hero=next(node for node in page.elements if node.has_class('obs-hero'))
+            self.assertEqual(hero.descendants('img'), [])
+            parent=next(node for node in page.elements if main in node.children)
+            self.assertTrue(parent.children[parent.children.index(main)+1].has_class('obs-footer'))
         self.assertEqual((self.output/'brand/botanical-128.png').read_bytes(), logo.read_bytes())
 
     def test_thin_index_and_no_runtime_remote_dependencies(self):

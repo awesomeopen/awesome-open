@@ -176,6 +176,42 @@ async function checkObservatory({ browser, url }) {
     report.screenshots.push({ file: filename, ...dimensions, bytes: png.length, sha256: sha256(png), sourceSha: report.sourceSha });
     writeReport();
   };
+  const checkClosingMark = async (current, label) => {
+    assert.equal(await current.locator('img').count(), 1, label + ': one image');
+    assert.equal(await current.locator('.obs-closing-mark').count(), 1, label + ': one closing mark');
+    assert.equal(await current.locator('.obs-hero img, .obs-closing-mark figcaption').count(), 0, label + ': no opening image or caption');
+    const mark = current.locator('.obs-closing-mark');
+    const logo = mark.locator(':scope > .obs-logo');
+    assert.equal(await logo.count(), 1, label + ': logo belongs to closing mark');
+    assert.equal(await logo.getAttribute('alt'), 'Awesome Open* botanical logo');
+    await logo.evaluate(image => image.decode());
+    const layout = await mark.evaluate(node => {
+      const image = node.querySelector('img'), hero = document.querySelector('.obs-hero');
+      const rect = node.getBoundingClientRect(), art = image.getBoundingClientRect();
+      const opening = hero.getBoundingClientRect(), copy = hero.querySelector('.obs-hero-copy').getBoundingClientRect();
+      return { last: node.parentElement.id === 'observatory-main' && node.parentElement.lastElementChild === node,
+        prefooter: node.parentElement.nextElementSibling?.classList.contains('obs-footer'),
+        text: node.textContent.trim(), children: node.children.length,
+        naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight,
+        width: art.width, height: art.height, centerOffset: art.x + art.width / 2 - rect.x - rect.width / 2,
+        above: art.top - rect.top, below: rect.bottom - art.bottom,
+        heroDisplay: getComputedStyle(hero).display, heroGap: opening.width - copy.width };
+    });
+    assert.equal(layout.last, true, label + ': last child of main');
+    assert.equal(layout.prefooter, true, label + ': immediately before footer');
+    assert.equal(layout.text, '', label + ': no visible caption');
+    assert.equal(layout.children, 1, label + ': only the existing image');
+    assert.deepEqual([layout.naturalWidth, layout.naturalHeight], [128, 128], label + ': original intrinsic dimensions');
+    assert.ok(layout.width > 0 && layout.width <= 128 && layout.height > 0 && layout.height <= 128, label + ': no upscaling');
+    assert.ok(Math.abs(layout.centerOffset) < 1, label + ': horizontally centered');
+    const whitespace = current.viewportSize().width <= 760 ? 96 : 128;
+    assert.ok(layout.above >= whitespace && layout.below >= whitespace, label + ': generous whitespace above and below');
+    assert.equal(layout.heroDisplay, 'block', label + ': opening uses full-width block');
+    assert.ok(Math.abs(layout.heroGap) < 1, label + ': no empty opening column');
+    await mark.scrollIntoViewIfNeeded();
+    await fits(current, label + ' closing mark');
+    await capture(label + '-closing-mark', current);
+  };
   const checkProjectDisclosure = async (current, label) => {
     const details = current.locator('#project-data');
     const summary = details.locator(':scope > summary');
@@ -332,7 +368,6 @@ async function checkObservatory({ browser, url }) {
     const logo = page.locator('.obs-logo');
     assert.equal(await logo.getAttribute('src'), '../brand/botanical-128.png');
     assert.equal(await logo.getAttribute('alt'), 'Awesome Open* botanical logo');
-    assert.equal(await page.locator('.obs-hero figcaption').count(), 0, 'No logo subtitle');
     await logo.evaluate(image => image.decode());
     assert.equal(await logo.evaluate(image => image.naturalWidth), 128);
     writeReport();
@@ -346,8 +381,8 @@ async function checkObservatory({ browser, url }) {
       await page.setViewportSize(viewport);
       await page.evaluate(() => scrollTo(0, 0));
       await fits(page, name);
-      assert.ok((await logo.boundingBox()).width <= 128, 'Logo stays within source resolution');
       await capture(name);
+      await checkClosingMark(page, name);
       await page.locator('#shared-names').scrollIntoViewIfNeeded();
       await capture(name + '-shared-names');
       const firstNameGroup = page.locator('#exact-name-groups details').first();
@@ -561,6 +596,10 @@ async function checkObservatory({ browser, url }) {
     assert.equal(await fallback.locator('#category-chart table').isVisible(), true, 'Native data disclosure without JavaScript');
     await fits(fallback, 'no JavaScript');
     await capture('no-js', fallback);
+    await checkClosingMark(fallback, 'no-js-mobile');
+    await fallback.setViewportSize({ width: 1440, height: 1000 });
+    await checkClosingMark(fallback, 'no-js-desktop');
+    await fallback.setViewportSize({ width: 390, height: 844 });
     await downloadCSV(fallback, data, data.projects, 'no-JavaScript static export');
     for (const href of await fallback.locator('#coverage a[href]').evaluateAll(nodes => nodes.map(node => node.href))) {
       if (new URL(href).origin !== target.origin) continue;
@@ -619,7 +658,10 @@ async function checkObservatory({ browser, url }) {
     assert.ok(await page.locator('img').evaluateAll(nodes => nodes.every(image => image.src.startsWith('data:') && image.complete && image.naturalWidth > 0)), 'Embedded standalone artwork');
     assert.deepEqual(offlineRequests, [], 'Standalone fetches no neighboring assets');
     assert.ok((await page.locator('.obs-logo').getAttribute('src')).startsWith('data:image/png;base64,'));
-    assert.equal(await page.locator('.obs-hero figcaption').count(), 0);
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await checkClosingMark(page, 'standalone-desktop');
+    await page.setViewportSize({ width: 390, height: 844 });
+    await checkClosingMark(page, 'standalone-mobile');
     await assertSelection(page, data, data.projects, 'standalone initial');
     await checkProjectDisclosure(page, 'standalone');
     await select('category-filter', first.id);
@@ -630,6 +672,7 @@ async function checkObservatory({ browser, url }) {
     await page.evaluate(() => scrollTo(0, 0));
     await capture('standalone-mobile');
     assert.deepEqual(failures, [], 'No JavaScript, console, network or HTTP errors');
+    report.checks.push('centered prefooter logo at intrinsic size, full-width opening, generous whitespace and closing-mark screenshots across desktop/mobile/no-JavaScript/standalone');
     report.checks.push('standalone embedded assets, filters and CSV; no page/console/network errors');
     report.status = 'passed';
     writeReport();

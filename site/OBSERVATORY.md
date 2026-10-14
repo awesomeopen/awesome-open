@@ -75,8 +75,10 @@ manufacture percentages, missing values or a zero-star observation.
 
 - Instrument: white/cool-mist reading ground, Prussian rules, the existing Fraunces
   and Commit Mono pair, linear charts and explicit evidence labels.
-- Opening mark: the existing 128px botanical logo, without a visible caption.
-  Its size stays within the source resolution; the standalone report embeds it.
+- Closing mark: the existing 128px botanical logo is centered before the footer,
+  with 128px of vertical space above and below (96px on narrow screens) and no
+  visible caption. Its size stays within the source resolution; the standalone
+  report embeds it. The opening is text-only and uses its full available width.
   Chart geometry and project specimen artwork remain unchanged.
 - Editorial hand: numbered observations and a bounded whole-collection finding.
   No invented danger seals, risk colors or forecast language.
