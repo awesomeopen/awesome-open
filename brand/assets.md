@@ -106,3 +106,10 @@ encoding versions, generation tool and prompts remain unknown. The recorded
 validation environment describes synthetic tests, not the original encoder.
 See [regeneration instructions](../scripts/RESIZE-CATEGORY-IMAGES.md). Do not claim a
 byte-identical rebuild until the archived originals and toolchain are verified.
+
+The B16 comparison reuses the unchanged OpenTofu WebP. Its preview-only inline
+SVG clipping contour (`site/design/specimen-contour.svg`) is a vector silhouette
+traced from that asset at 320px analysis resolution, using a 220 minimum-channel
+threshold, one binary closing pass, and small-component cleanup. It exposes the
+backdrop through the scaffold openings and occludes the rule at the contour;
+it does not redraw the specimen or imply software functionality.

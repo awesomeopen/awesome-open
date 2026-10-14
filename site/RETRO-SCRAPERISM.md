@@ -394,3 +394,11 @@ no-JavaScript stacked fallback. Preserve the paper stickers and natural cork.
 Jar captions use the single literal space between number and name; the number
 span adds no extra margin. Rear shadows stay close to the bases, never a rising
 cloud between the jars.
+
+### Controlled plate comparison — 2026-10-14
+
+A separate preview route compares a bounded cool-blue background with one
+horizontal rule occluded by the OpenTofu silhouette. Both share the same artwork,
+scale, text and small detail. The native radio group has keyboard operation and
+visible focus; neither treatment animates. Main artwork stays inside its reserved
+study area. The production plate remains the control until visual review. B16.

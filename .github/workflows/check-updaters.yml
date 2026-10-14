@@ -60,6 +60,7 @@ jobs:
           python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA" --production
           python3 scripts/build_exhibition_preview.py --output tmp/site
           python3 scripts/build_jar_preview.py --output tmp/site
+          python3 scripts/build_specimen_comparison.py --output tmp/site
       - name: Upload field-guide preview
         uses: actions/upload-artifact@v4
         with:
@@ -100,6 +101,7 @@ jobs:
               raise SystemExit('The local field-guide preview did not become ready')
           PY
           timeout 180s node scripts/check_site_browser.cjs 2>&1 | tee tmp/site-qa/browser.log
+          timeout 90s node scripts/check_specimen_comparison.cjs
           timeout 90s node scripts/check_exhibition_browser.cjs 2>&1 | tee tmp/site-qa/exhibition.log
           JAR_PAGE=index.html timeout 90s node scripts/check_jar_browser.cjs 2>&1 | tee tmp/site-qa/jars.log
       - name: Upload desktop and mobile browser screenshots

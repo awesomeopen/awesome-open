@@ -32,6 +32,8 @@ def main():
     build_exhibition(output)
     from build_jar_preview import build as build_jars
     build_jars(output)
+    from build_specimen_comparison import build as build_comparison
+    build_comparison(output)
     design = output / 'design'
     shutil.copytree(ROOT / 'site/design', design, dirs_exist_ok=True)
     shutil.copyfile(ROOT / 'site/FUNCTION-SUMMARIES.md', design / 'FUNCTION-SUMMARIES.md')

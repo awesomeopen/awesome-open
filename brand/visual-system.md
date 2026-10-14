@@ -127,3 +127,11 @@ keyboard selection, current-category marking, narrow layouts and text-only
 fallbacks when a category has no artwork. The All link has no artwork placeholder.
 Use local responsive derivatives and lazy loading; embed the small source in the
 standalone edition. Existing hero, ledger and filter behavior remain unchanged.
+
+## Background versus interrupted rule comparison
+
+The preview-only `/specimen-comparison.html` compares the same OpenTofu plate at
+identical scale and position. A flat cool-blue field sits behind the specimen in
+A; a single horizontal rule passes behind its silhouette in B. A native radio
+group switches treatments without motion or layout movement. Detail crops return
+to 104px, or 88px on narrow screens. This study awaits visual selection (B16).
