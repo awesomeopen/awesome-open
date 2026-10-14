@@ -4,7 +4,7 @@ Read [the current brand reference](../brand/README.md) and use the pinned skills
 
 > Use **@Speculative FOSSoligy** and **@Retro-Scraperism** to generate one original specimen illustration from the project's repository and documentation. Read the repository first. Derive one coherent visual analogy from the tool's actual function. Use hand-drawn ink/pencil, a distinct silhouette, selective color, a square white background and no lettering. This is Awesome Open artwork, not the project's official logo. Avoid repeated anatomy and obligatory gears. Do not regenerate an existing accepted illustration unless asked.
 >
-> Save an optimized WebP as `site/specimens/<project-id>.webp`. Add its record to `data/specimen_art.json`. Submit both in the same PR. Review the image before marking it `approved`; leave unreviewed work `pending`. If image generation is unavailable or fails, continue discovery without an illustration. No placeholder is needed.
+> Save an optimized WebP as `site/specimens/<project-id>.webp`. Add its record to `data/specimen_art.json`. Regenerate the display cut-outs with `python3 scripts/build_specimen_cutouts.py` (needs Pillow, NumPy and SciPy) and refresh checksums with `python3 scripts/check_brand.py --refresh`. Submit all of it in the same PR. Review the image before marking it `approved`; leave unreviewed work `pending`. If image generation is unavailable or fails, continue discovery without an illustration. No placeholder is needed.
 
 Skills are instructions, not APIs or image-generation services. Junge must have access to the two skills and an image-generation tool. Where skill mentions are unavailable, provide the skill files in its environment and instruct it to read them. Do not claim to invoke a skill by running an invented command.
 
@@ -52,3 +52,11 @@ Review checks: function-based analogy; coherent structure; distinct silhouette w
 Only approved records with existing files render. Missing files warn and are omitted; pending/rejected records are omitted. Missing entries leave no image or empty image box. An invalid approved identity, path, alt text or image format fails the build rather than publishing a mismatched asset. The builder copies active assets into `specimens/` and embeds them in `standalone.html`. Builds never call image generation or fetch remote artwork.
 
 Pilot artwork covers OpenTofu, OpenRefine and OpenSCAD. The remaining top-three repositories can be processed in reviewed batches after this treatment is accepted.
+
+## Display cut-out
+
+The expanded record shows `site/specimens/cutouts/<project-id>.webp`, a transparent derivative
+with only the border-connected white ground removed, so the decorative contour floor passes
+behind the drawing. `site/specimens/cutouts.json` records the source and derivative hashes and
+the subject's bounding box (used to place the feature-note crops). A missing or stale cut-out
+never blocks a build: the original is shown without the floor and the build warns.

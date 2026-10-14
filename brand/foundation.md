@@ -48,6 +48,8 @@ Examples: “Detected license”, “Last repository push”, “Reviewed altern
 | Alternatives | Reviewed use-case comparison; not descent or feature parity |
 | Registry ID | Stable canonical-URL identity; not display position |
 | Folio number | Alphabetical position in the generated edition; not identity |
+| Archived on GitHub | The owner's GitHub archive flag; not a quality, safety or abandonment verdict |
+| Detected license “Unknown” | No SPDX license detected (including NOASSERTION/OTHER); not “no license” |
 
 Release, Scorecard, function-summary and deployment evidence retain their own
 source and review contracts. A design change must not erase uncertainty or

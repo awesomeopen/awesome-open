@@ -1,0 +1,389 @@
+{
+  "schema_version": 1,
+  "recipe": "Border-connected ground: luminance > 0.90, connected to an image edge. Edge band: ground dilated 2px, alpha = clip((0.985 - L) / 0.085), Gaussian sigma 0.6, colour un-premultiplied from white. WebP q88, method 6.",
+  "tools": {
+    "pillow": "12.3.0",
+    "numpy": "2.5.2",
+    "webp": "1.6.0"
+  },
+  "cutouts": {
+    "0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6": {
+      "source": "specimens/0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6.webp",
+      "source_sha256": "698c080a88fdc5ec6607874c2883f2b2421542a1937bfb7f6357df526042e3cc",
+      "path": "specimens/cutouts/0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6.webp",
+      "sha256": "1ff270b1125e308f099bf0d3c03f8d130be3592cdd13631ff1713afe5983e6fa",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.082,
+        0.0107,
+        0.9805,
+        0.9775
+      ]
+    },
+    "0092b9bbc696273433ce71d5772f97bd63b6f23e515bb1269ee5bb18af8b5528": {
+      "source": "specimens/0092b9bbc696273433ce71d5772f97bd63b6f23e515bb1269ee5bb18af8b5528.webp",
+      "source_sha256": "5516c63886c3b68b20ef6634fe7fdbee91cf185b1b1b4c13a62afc7c8bb64dc5",
+      "path": "specimens/cutouts/0092b9bbc696273433ce71d5772f97bd63b6f23e515bb1269ee5bb18af8b5528.webp",
+      "sha256": "bf2dfc868cb25cfc5def4f6154ebc26b7f0622e054aef39ee012dbecbaa1e07e",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.2227,
+        0.0098,
+        0.7715,
+        0.9775
+      ]
+    },
+    "0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9": {
+      "source": "specimens/0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9.webp",
+      "source_sha256": "5bd400fa5af4cbbf636384983e9c9f115d84c8beca685d0663070873994dd76e",
+      "path": "specimens/cutouts/0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9.webp",
+      "sha256": "52e0185fec44c87f94b367412810e05e1ea79467d49a61c9814dc6fadb714af6",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0,
+        0.1507,
+        0.9482,
+        0.8365
+      ]
+    },
+    "072cc86568781283ab19d9c7593fd1702471534610ee159ec25b6bbddcea4212": {
+      "source": "specimens/072cc86568781283ab19d9c7593fd1702471534610ee159ec25b6bbddcea4212.webp",
+      "source_sha256": "d693ade149696109832f5e42ed64aacf407f89dd101af1a2907c5d1bdb84c947",
+      "path": "specimens/cutouts/072cc86568781283ab19d9c7593fd1702471534610ee159ec25b6bbddcea4212.webp",
+      "sha256": "b4616ad99c0f937a632e0e91112783f19788d61d5c4fbb74692fd16c04530598",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.2422,
+        0.0166,
+        0.7402,
+        0.9727
+      ]
+    },
+    "10d69f0daa625d430823f0f96fe4a54501756699271de233b676a41c1fdc2576": {
+      "source": "specimens/10d69f0daa625d430823f0f96fe4a54501756699271de233b676a41c1fdc2576.webp",
+      "source_sha256": "b31135942bb01637e29cf81b23937ef5502f7efd024be4a2b7a9b6489f12d542",
+      "path": "specimens/cutouts/10d69f0daa625d430823f0f96fe4a54501756699271de233b676a41c1fdc2576.webp",
+      "sha256": "abf9f69032be43b4ea8f89a63ffdef18dd03a3f9864b26f8273bb4e199392d66",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.374,
+        0.0098,
+        0.6777,
+        0.9697
+      ]
+    },
+    "13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc": {
+      "source": "specimens/13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc.webp",
+      "source_sha256": "d7f5f4c151f52dfdaaab5930bfc6591381f8b5c38f1aa317bd74e8aead554487",
+      "path": "specimens/cutouts/13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc.webp",
+      "sha256": "572da8813c3f6cabc4314fba264340c6dbbbbbb8e159e1d72d52af79c82a5b82",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0478,
+        0.0351,
+        0.9506,
+        0.953
+      ]
+    },
+    "1cf5521e4f3d971b3cea3d28248f7a30e637e466873a9987de1fb9a0b27b9270": {
+      "source": "specimens/1cf5521e4f3d971b3cea3d28248f7a30e637e466873a9987de1fb9a0b27b9270.webp",
+      "source_sha256": "1d5b522743e75ee889296afa8acdde530e2b42fa7a845718d3bfe0ee68f6a710",
+      "path": "specimens/cutouts/1cf5521e4f3d971b3cea3d28248f7a30e637e466873a9987de1fb9a0b27b9270.webp",
+      "sha256": "45a70e04ada4ba90cc396778abc09879adb12f2eaa4df0154a583cd6e02c5697",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.1006,
+        0.0107,
+        0.9395,
+        0.9619
+      ]
+    },
+    "1e59457b7413d807112e3f60186dcbea5427521288abc92abc37ff9cac7f089b": {
+      "source": "specimens/1e59457b7413d807112e3f60186dcbea5427521288abc92abc37ff9cac7f089b.webp",
+      "source_sha256": "124d3965d20ce544eae36ec3366234f691abe5355ac7137064815595fc137142",
+      "path": "specimens/cutouts/1e59457b7413d807112e3f60186dcbea5427521288abc92abc37ff9cac7f089b.webp",
+      "sha256": "ee92b056eed4303fb516e205a735a52608ae7c40012bf01c18aac1d9d1a911a9",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0254,
+        0.041,
+        0.9746,
+        0.9521
+      ]
+    },
+    "1f47a63aaef059c34f053c73f066bce5f50dbad3080c4841c65b8ff4295cde82": {
+      "source": "specimens/1f47a63aaef059c34f053c73f066bce5f50dbad3080c4841c65b8ff4295cde82.webp",
+      "source_sha256": "a9a0f86a6b4c905b04fc8f710d02b1a3e775f4b89e765ec73b3ee48ae9b9b421",
+      "path": "specimens/cutouts/1f47a63aaef059c34f053c73f066bce5f50dbad3080c4841c65b8ff4295cde82.webp",
+      "sha256": "202058207fe8bc96bea44dc0fdd89dad027452a0dec1e3a61717e5033729f6ac",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0264,
+        0.0938,
+        0.9834,
+        0.8809
+      ]
+    },
+    "24af095b5c53b4af51066f8a783a935e876f69311ed47b81d39fa17ef9736d96": {
+      "source": "specimens/24af095b5c53b4af51066f8a783a935e876f69311ed47b81d39fa17ef9736d96.webp",
+      "source_sha256": "353f464d6b9c35b2d3d8b2d2cb15619205fa43d8933a11791d43490a8dfdc809",
+      "path": "specimens/cutouts/24af095b5c53b4af51066f8a783a935e876f69311ed47b81d39fa17ef9736d96.webp",
+      "sha256": "9b791fc7be5d896e12f3090124f43f38e281a708068077c7e235ceabc6c5a576",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0693,
+        0.0986,
+        0.9482,
+        0.8164
+      ]
+    },
+    "3e6ed417a41919a48f262b9481f0b9196c860281a9d26fd6a241ca8287acc0fb": {
+      "source": "specimens/3e6ed417a41919a48f262b9481f0b9196c860281a9d26fd6a241ca8287acc0fb.webp",
+      "source_sha256": "90a48106055b6960eb77535fa0a9ffc89cd710c03ee021fe5bd8a8d61a5edba5",
+      "path": "specimens/cutouts/3e6ed417a41919a48f262b9481f0b9196c860281a9d26fd6a241ca8287acc0fb.webp",
+      "sha256": "f354a09bc70d3e8d9d524ffd3527be42b86d0c26c320574d28510509ca9aeb75",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0029,
+        0.1846,
+        0.9805,
+        0.8242
+      ]
+    },
+    "484814187d43f2b6a32f0bebfda32af1c3fcb1fd891d919e76af56334e1d0bec": {
+      "source": "specimens/484814187d43f2b6a32f0bebfda32af1c3fcb1fd891d919e76af56334e1d0bec.webp",
+      "source_sha256": "181d1e88c7c99e16b89aa8ad6fe756245916b1d228a403e62bcaa8366c4c19d5",
+      "path": "specimens/cutouts/484814187d43f2b6a32f0bebfda32af1c3fcb1fd891d919e76af56334e1d0bec.webp",
+      "sha256": "69c166f04443c6377ecdf2a3ccbdb256d7d328d84317dd0aed8aae486093b678",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0273,
+        0.0391,
+        0.9609,
+        0.9541
+      ]
+    },
+    "5302907b521d495fcd4df1b42cbe473d37d7a22cabc7279fb77f4c7e600e183f": {
+      "source": "specimens/5302907b521d495fcd4df1b42cbe473d37d7a22cabc7279fb77f4c7e600e183f.webp",
+      "source_sha256": "3bc526dad2264d0e312b67ab2102137c5bf245720b456fb0238fcd72b7608290",
+      "path": "specimens/cutouts/5302907b521d495fcd4df1b42cbe473d37d7a22cabc7279fb77f4c7e600e183f.webp",
+      "sha256": "3af1412ea5e045a83a86c49934441d6248da9ae64e3f22f1a459a0031ae99603",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.1436,
+        0.0137,
+        0.8682,
+        0.9854
+      ]
+    },
+    "88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906": {
+      "source": "specimens/88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906.webp",
+      "source_sha256": "1f43b1f0f55747dca8b9c3aad92cf1ae96ecc8f8db0083bc762b1da92a78c9b8",
+      "path": "specimens/cutouts/88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906.webp",
+      "sha256": "c1b9be2a8442665dd941f107a2a42ce697b255871563339e6f4476c3f0e5a35d",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0686,
+        0.0104,
+        0.9187,
+        0.9761
+      ]
+    },
+    "8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20": {
+      "source": "specimens/8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20.webp",
+      "source_sha256": "e4e24a73382c5e8da45cea057877c1557795a8282774c76244af12868dc88199",
+      "path": "specimens/cutouts/8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20.webp",
+      "sha256": "be4eba12beb5db0ea259759c37c9c5206de61fc5323b8fe1c2b2696d103a6ae3",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.2057,
+        0.0183,
+        0.7289,
+        0.9745
+      ]
+    },
+    "91874098c295acfc1b15893d4fb08408cc17d91203282c7580ecad07b86aec27": {
+      "source": "specimens/91874098c295acfc1b15893d4fb08408cc17d91203282c7580ecad07b86aec27.webp",
+      "source_sha256": "d6909f46c297afbd3ed3e7b77f51b2a621d626326e332c087778daea119f8869",
+      "path": "specimens/cutouts/91874098c295acfc1b15893d4fb08408cc17d91203282c7580ecad07b86aec27.webp",
+      "sha256": "1e1a66f25c16d6e2858bb8ccf5cec5489ad827ecbbe4b1a36e326055122af0f1",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.3672,
+        0.0166,
+        0.623,
+        0.9307
+      ]
+    },
+    "940b9064d9702a4687a341521a07789d1c7f8d7ca078deb739313338e8194841": {
+      "source": "specimens/940b9064d9702a4687a341521a07789d1c7f8d7ca078deb739313338e8194841.webp",
+      "source_sha256": "2dfc4626c021051c279be4b16d0140bee9742861c47c851e4368eab1305c33b7",
+      "path": "specimens/cutouts/940b9064d9702a4687a341521a07789d1c7f8d7ca078deb739313338e8194841.webp",
+      "sha256": "b83b94487500ea0657972af212e05350835be531b7807a66a31df4af78d381e1",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0078,
+        0.2041,
+        0.9912,
+        0.7695
+      ]
+    },
+    "9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660": {
+      "source": "specimens/9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660.webp",
+      "source_sha256": "638a77c101b4d6f454d7fb5b09b6536a4ba692910bc3bfbdd2e98edc45bb3fe2",
+      "path": "specimens/cutouts/9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660.webp",
+      "sha256": "b6ef3705d44a8ba56f00aae507db32fc5377aff20231d6646e66c3c16ba87539",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0215,
+        0.1699,
+        0.9814,
+        0.7695
+      ]
+    },
+    "a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d": {
+      "source": "specimens/a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d.webp",
+      "source_sha256": "3442b006008209c0c5d86812ef577e0ad020b19364c83365c2e5650741d42ebd",
+      "path": "specimens/cutouts/a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d.webp",
+      "sha256": "72b96ac8a92b99b3571dee912be4acd952beedf031eef939e6d68357cd17fb56",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0303,
+        0.0335,
+        0.9745,
+        0.9394
+      ]
+    },
+    "b44206282c760da32059c6a76cee1d8f36ed59013550205c1741546ec9d11f39": {
+      "source": "specimens/b44206282c760da32059c6a76cee1d8f36ed59013550205c1741546ec9d11f39.webp",
+      "source_sha256": "f695ced90a6a7370ad8649a215272c7978e60ce856f679c17190e19e42cacb84",
+      "path": "specimens/cutouts/b44206282c760da32059c6a76cee1d8f36ed59013550205c1741546ec9d11f39.webp",
+      "sha256": "bce0b3fec451fb690e98b35f4c07f4813b0fba8784c0eb714d639f9e2fb847ee",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0215,
+        0.041,
+        0.9805,
+        0.9102
+      ]
+    },
+    "c02bf0d1fea4bf7fda6b7c35472c333590aff2bcd0182ccec706217771ccdfe7": {
+      "source": "specimens/c02bf0d1fea4bf7fda6b7c35472c333590aff2bcd0182ccec706217771ccdfe7.webp",
+      "source_sha256": "5e94aee5281f77500c4c829b4ab1d3b5d96a510dd70f1da9d197bd16e62e6df9",
+      "path": "specimens/cutouts/c02bf0d1fea4bf7fda6b7c35472c333590aff2bcd0182ccec706217771ccdfe7.webp",
+      "sha256": "83046d645a5351e451cd49662d1cd7924075c43749d4caabf81aa0851cde79f5",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0283,
+        0.1348,
+        0.9717,
+        0.8506
+      ]
+    },
+    "c3cdcfdd208b07c7bb4c5b1d7f3c1e931d7979c657c5261cc479bebb35d7eee2": {
+      "source": "specimens/c3cdcfdd208b07c7bb4c5b1d7f3c1e931d7979c657c5261cc479bebb35d7eee2.webp",
+      "source_sha256": "1675ffc4a3cdde03eb7888f90c1c225ebf394ae0d43fad2ddb2e1d9b1cc1aed4",
+      "path": "specimens/cutouts/c3cdcfdd208b07c7bb4c5b1d7f3c1e931d7979c657c5261cc479bebb35d7eee2.webp",
+      "sha256": "5906276d1490634e877678ca13386fa9b134298cc1927b4e29bbcacd2f5a5cd6",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0439,
+        0.0498,
+        0.9668,
+        0.9473
+      ]
+    },
+    "c413b557fa79ae25b81f3f438f61e47362e8a0063fac838f842afa257242439f": {
+      "source": "specimens/c413b557fa79ae25b81f3f438f61e47362e8a0063fac838f842afa257242439f.webp",
+      "source_sha256": "dbaffef79e4e955e6b2af1a63a507fb9896f64d0296c4e5c630b99cbc5bd1c4f",
+      "path": "specimens/cutouts/c413b557fa79ae25b81f3f438f61e47362e8a0063fac838f842afa257242439f.webp",
+      "sha256": "6f37c90d1d7fafdb3710abf4f686e3d8513056641f18db7c4ef70f6531ede4e5",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.2646,
+        0.0449,
+        0.7236,
+        0.9463
+      ]
+    },
+    "d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54": {
+      "source": "specimens/d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54.webp",
+      "source_sha256": "fc10f59ef910c8bd6dc9ff410638d4e74a9a17e15f9c7da2245ffbb1a7710e97",
+      "path": "specimens/cutouts/d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54.webp",
+      "sha256": "b1123fffdb5badb4569a1b46804536fc1571d00542dcb943115073724454d816",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0167,
+        0.2671,
+        0.9841,
+        0.7432
+      ]
+    },
+    "e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b": {
+      "source": "specimens/e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b.webp",
+      "source_sha256": "790c4bd6d2db1409bba267d7a58b753702b9c8168386261fc39a46135217afa2",
+      "path": "specimens/cutouts/e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b.webp",
+      "sha256": "2d6a41fe59ec9d01a0e80bce26a1d6fc3addad624a952b5a0763fcca23a06b64",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.1188,
+        0.0167,
+        0.882,
+        0.9825
+      ]
+    },
+    "ebbe2c1eade172814c32d478695b70656f27f0527b19e79247c6aad09e84a490": {
+      "source": "specimens/ebbe2c1eade172814c32d478695b70656f27f0527b19e79247c6aad09e84a490.webp",
+      "source_sha256": "e7fb4fb15a040bf7b115436526a7ffa40f6bd27cad79f012fa4d6a96d243d619",
+      "path": "specimens/cutouts/ebbe2c1eade172814c32d478695b70656f27f0527b19e79247c6aad09e84a490.webp",
+      "sha256": "48a28ee55eb13f7eb3834c95085f5e983972c763f278e86506b3fb9259a8a01e",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0205,
+        0.1738,
+        0.9834,
+        0.7861
+      ]
+    },
+    "f952835452592537ac04c71a848c03e1758cd346fb54bde42eaba38aefbed9ab": {
+      "source": "specimens/f952835452592537ac04c71a848c03e1758cd346fb54bde42eaba38aefbed9ab.webp",
+      "source_sha256": "6eaeb6dcc2cdc574b60b27ce77a75d9eab8c60dad60dfc3c41da2e785a594d3d",
+      "path": "specimens/cutouts/f952835452592537ac04c71a848c03e1758cd346fb54bde42eaba38aefbed9ab.webp",
+      "sha256": "70a23dbb5b74d167759620007ccd70e826cc700dc4fe3407fc5c11435f1e49fa",
+      "width": 1024,
+      "height": 1024,
+      "subject_bbox": [
+        0.0225,
+        0.2158,
+        0.9697,
+        0.7705
+      ]
+    }
+  }
+}

@@ -17,6 +17,8 @@ byte sizes and SHA-256 hashes; it is an integrity inventory, not approval metada
 | Footer floor images | `site/footer-backgrounds/valley.webp`, `abyssal.webp` | Implemented; original filenames, original hashes and processing in [footer provenance](../site/footer-backgrounds/provenance.json) |
 | Fraunces + Commit Mono | `site/vendor/fonts.css` | Embedded complete variable WOFF2; [pinned source provenance](../site/vendor/FONT-PROVENANCE.json) and [SIL OFL notice](../site/vendor/FONT-LICENSE.txt) |
 | Tokens | `site/design/tokens.css` | Exact color/type/spacing values; editable implementation source, not raster artwork |
+| Specimen display cut-outs | `site/specimens/cutouts/*.webp` | Transparent derivatives of approved specimens (border-connected white ground removed); source/derivative hashes, subject box and recipe in [cut-out manifest](../site/specimens/cutouts.json); regenerate with `scripts/build_specimen_cutouts.py` |
+| Label paper studies | `brand/studies/label-papers/*.webp` | Rejected study, not deployed; generator, prompts, seeds, source hashes and keying recipe in [study provenance](studies/label-papers/provenance.json) |
 
 ## Originals outside the repository
 
@@ -109,3 +111,14 @@ byte-identical rebuild until the archived originals and toolchain are verified.
 
 The geometry trials are withdrawn by B24. Original illustration bytes remain
 unchanged; no comparison clipping contour or new shadows are deployed.
+
+## Specimen plate derivatives
+
+The plate shows a transparent cut-out of each approved specimen so the decorative
+contour floor can pass behind it. `scripts/build_specimen_cutouts.py` (Pillow 12.3.0,
+NumPy, SciPy, libwebp 1.6.0) removes only white ground connected to the image border;
+pale areas inside a drawing stay opaque. The manifest records each source hash, so a
+changed original silently falls back to itself (with a build warning) until the cut-out
+is regenerated. Normal builds copy the committed bytes and need no new dependency.
+Originals, alt text and approval status are unchanged. Permalink QR codes are generated
+during the build (`scripts/qr.py`) and are not committed assets.

@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "family": "Specimen label paper studies",
+  "status": "Rejected study (user decision 2026-10-14). Retained for reference; not deployed and not referenced by the site.",
+  "created": "2026-10-14",
+  "generator": {
+    "app": "ComfyUI 0.38.0 (local)",
+    "model": "flux-2-klein-9b-fp8.safetensors",
+    "text_encoder": "qwen_3_8b_fp8mixed.safetensors (flux2)",
+    "vae": "flux2-vae.safetensors",
+    "sampler": "euler, 4 steps, cfg 1.0, Flux2Scheduler",
+    "size": "1536x640",
+    "mode": "text-to-image"
+  },
+  "processing": "Chroma-key of the flat green backdrop to alpha, green despill, crop with 6px pad, resize to 1200px wide, WebP q86 (key.py; Pillow 12.3.0, NumPy 2.5.2).",
+  "rights": "Generated at the project owner's request on the owner's local ComfyUI with the listed model; no reference images were used. Model licence terms were not audited here.",
+  "items": [
+    {
+      "file": "thermal-a.webp",
+      "kind": "thermal",
+      "seed": 9500,
+      "prompt": "A single strip of thermal printer receipt paper, both short ends gently curling upward, serrated torn edge on the right end, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. The paper is a light warm-grey off-white like a real store receipt, clearly darker than pure white, with fine fibre texture and a faint sheen.",
+      "source_png": {
+        "comfyui_output": "awesome-open/thermal-a_00001_.png",
+        "sha256": "32181e2c3f68498647e7463aebeb950d2793cfb66ab2707bc743fec8b4d8333a",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": {
+        "sha256": "93055775e244bdf3e63aa8a1ff23e208ff6e8b6f5a50e985b338791d8cde4a30",
+        "bytes": 47290,
+        "width": 1200,
+        "height": 654
+      }
+    },
+    {
+      "file": "thermal-b.webp",
+      "kind": "thermal",
+      "seed": 9501,
+      "prompt": "A single strip of thermal printer receipt paper, left end slightly curled, a faint diagonal crease across the middle, clean cut edges, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. The paper is a light warm-grey off-white like a real store receipt, clearly darker than pure white, with fine fibre texture and a faint sheen.",
+      "source_png": {
+        "comfyui_output": "awesome-open/thermal-b_00001_.png",
+        "sha256": "8bf5f7ddecee38c8c2e6ac2075772e15f1d00d3b6df04cc0ced5dff1b605cfb4",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": {
+        "sha256": "a1315630947e8c9b1b027dddd802059a83094bf9d87e4afb2a11c71840bc3ec6",
+        "bytes": 25952,
+        "width": 1200,
+        "height": 445
+      }
+    },
+    {
+      "file": "thermal-c.webp",
+      "kind": "thermal",
+      "seed": 9502,
+      "prompt": "A single strip of thermal printer receipt paper, right end curling up, slight wave along the long edge, serrated tear on the left, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. The paper is a light warm-grey off-white like a real store receipt, clearly darker than pure white, with fine fibre texture and a faint sheen.",
+      "source_png": {
+        "comfyui_output": "awesome-open/thermal-c_00001_.png",
+        "sha256": "c29aedea515beb1d19372f1148ac955f05c2dff45bc34ca052a7981459f263d9",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": {
+        "sha256": "29e060ea10c40d39de7050d136b22ed3fae3b87a8885814908ce96b5ab04ce43",
+        "bytes": 56558,
+        "width": 1200,
+        "height": 566
+      }
+    },
+    {
+      "file": "thermal-d.webp",
+      "kind": "thermal",
+      "seed": 9503,
+      "prompt": "A single strip of thermal printer receipt paper, almost flat with one soft fold line near the left third, both ends serrated, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. The paper is a light warm-grey off-white like a real store receipt, clearly darker than pure white, with fine fibre texture and a faint sheen.",
+      "source_png": {
+        "comfyui_output": "awesome-open/thermal-d_00001_.png",
+        "sha256": "d5e387bb3f5885bfc9fbca6dee4511759187cb91828f6ee8929074918650c72c",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": {
+        "sha256": "3e1696e77b2c212c0b302102fe8c997ac9472360af8816dd4372ac78f65bd86a",
+        "bytes": 65856,
+        "width": 1200,
+        "height": 522
+      }
+    },
+    {
+      "file": "thermal-e.webp",
+      "kind": "thermal",
+      "seed": 9504,
+      "prompt": "A single strip of thermal printer receipt paper, gently bowed along its length, clean cut ends, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. The paper is a light warm-grey off-white like a real store receipt, clearly darker than pure white, with fine fibre texture and a faint sheen.",
+      "source_png": {
+        "comfyui_output": "awesome-open/thermal-e_00001_.png",
+        "sha256": "364d9bf1e3926177765353109ac89414c30b4d6322e9f9a62cd275e7e714c13c",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": null,
+      "note": "Generated but not kept: strip too narrow for label text."
+    },
+    {
+      "file": "thermal-f.webp",
+      "kind": "thermal",
+      "seed": 9505,
+      "prompt": "A single strip of thermal printer receipt paper, flat with a small dog-ear on the top right corner and a serrated tear on the left end, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. The paper is a light warm-grey off-white like a real store receipt, clearly darker than pure white, with fine fibre texture and a faint sheen.",
+      "source_png": {
+        "comfyui_output": "awesome-open/thermal-f_00001_.png",
+        "sha256": "f6f77a6315bd189fa74b3995d769be3b1d6f4fce049a309100d6cc4d4d6bc05e",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": {
+        "sha256": "bce4669cece09277cb3618c61a611e09533e4bc262dfb9785b2612515b6f10fd",
+        "bytes": 55932,
+        "width": 1200,
+        "height": 610
+      }
+    },
+    {
+      "file": "manila-a.webp",
+      "kind": "manila",
+      "seed": 9600,
+      "prompt": "A single blank manila shipping tag, horizontal, the reinforced round eyelet on the left end with a short loop of red cotton string, slightly bent card, string loop hanging loose, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. Buff manila card with visible fibres, honest everyday object, not antique, no stains.",
+      "source_png": {
+        "comfyui_output": "awesome-open/manila-a_00001_.png",
+        "sha256": "c48fa20d076a3859f70a144e13639b214c6aec81375c5ee3fb3c703c621cb5ff",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": {
+        "sha256": "48f296ebde9dcf13c8c5a9a53399622c4dd350be04e14b28aa9eb548f874acd8",
+        "bytes": 78846,
+        "width": 1200,
+        "height": 389
+      }
+    },
+    {
+      "file": "manila-b.webp",
+      "kind": "manila",
+      "seed": 9601,
+      "prompt": "A single blank manila shipping tag, horizontal, the reinforced round eyelet on the left end with a short loop of red cotton string, one softened corner, string tied in a small knot, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. Buff manila card with visible fibres, honest everyday object, not antique, no stains.",
+      "source_png": {
+        "comfyui_output": "awesome-open/manila-b_00001_.png",
+        "sha256": "d01f3c4e8fb69311d970362c4cee583a84cf973e9423454ade3e0ce58160a17f",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": {
+        "sha256": "0440a1cfcfba8c82afaf1c8c150df1302e2621ff130110dece22648ddb4c03b0",
+        "bytes": 77128,
+        "width": 1200,
+        "height": 442
+      }
+    },
+    {
+      "file": "manila-c.webp",
+      "kind": "manila",
+      "seed": 9602,
+      "prompt": "A single blank manila shipping tag, horizontal, the reinforced round eyelet on the left end with a short loop of red cotton string, a faint horizontal fold mark, string trailing to the left, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. Buff manila card with visible fibres, honest everyday object, not antique, no stains.",
+      "source_png": {
+        "comfyui_output": "awesome-open/manila-c_00001_.png",
+        "sha256": "04a7be1ba33a02dda5fa808234932fbc23b4fa391d8f7bc50c4b9d64ef9c1795",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": {
+        "sha256": "515a3370745f17d4f1ed5933d15f2939b37b0e17bbe976874edfb25634772d9f",
+        "bytes": 73198,
+        "width": 1200,
+        "height": 405
+      }
+    },
+    {
+      "file": "manila-d.webp",
+      "kind": "manila",
+      "seed": 9603,
+      "prompt": "A single blank manila shipping tag, horizontal, the reinforced round eyelet on the left end with a short loop of red cotton string, flat and crisp, string looped twice through the eyelet, lying flat on a perfectly uniform, flat, saturated chroma-key green (#00B140) background, evenly lit, no shadow on the background, no vignette, no gradient. Top-down product photo, sharp edges, wide margin of green around the object. The paper is completely blank: no text, no numbers, no barcode, no QR code, no logo. Buff manila card with visible fibres, honest everyday object, not antique, no stains.",
+      "source_png": {
+        "comfyui_output": "awesome-open/manila-d_00001_.png",
+        "sha256": "82dc7cecc8737f2c853cd03bb2e19aca43bffb98d8d1e4b34cd9ce53d07715f0",
+        "width": 1536,
+        "height": 640
+      },
+      "derivative": {
+        "sha256": "e5d776ab85a8d25c2193c757a91fb5563d2777477c793f293b24f9ad7ca985d8",
+        "bytes": 85574,
+        "width": 1200,
+        "height": 451
+      }
+    }
+  ]
+}

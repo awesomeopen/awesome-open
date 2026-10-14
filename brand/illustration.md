@@ -27,6 +27,8 @@ Save optimized specimen bytes under `site/specimens/` and an entry in
 `data/specimen_art.json`, keyed by full canonical catalog ID. Retain actual
 dimensions, concise alt text, source-document provenance, prompt and review status.
 Only approved existing assets render. Pending or missing art leaves no placeholder.
+After adding or changing art, regenerate the transparent display cut-out with
+`scripts/build_specimen_cutouts.py`; the original remains the reviewed source.
 “Approved” in the manifest means reviewed for inclusion, not a production merge.
 
 Review silhouette, anatomy, functional analogy, palette, background, legibility

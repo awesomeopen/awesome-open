@@ -35,9 +35,9 @@ Typing filters; search submit jumps to the first result. Two crack stages lead t
 inspection on the third click, which restores the glass. Preserve the calmer first
 crack stage. Native navigation remains available.
 
-Expanded records place artwork/identity left and function/evidence right. Missing
-artwork leaves no placeholder. The comparison note spans the grid and follows all
-half-width evidence cards. HN and stars summaries use “past 2y”. GitHub official
+Expanded records use the specimen plate below. Missing
+artwork leaves no placeholder. Reviewed alternatives follow the evidence as their
+own band. HN and stars summaries use “past 2y”. GitHub official
 source links name GitHub. ID tooltips name the identifier type: “Registry ID” and
 “Folio number”. These four refinements were initially present only in the private
 Sites output; this PR restores them to the generator.
@@ -58,31 +58,30 @@ changes check the relevant desktop/narrow states, keyboard/focus, reduced motion
 real asset paths and output modes. Record unavailable browser checks explicitly.
 Do not mark a reference “approved” merely because a build succeeds.
 
-## Proposed specimen-plate study
+## Specimen plate for every record (B29)
 
-Three records test a stronger unfolded composition: OpenTofu, OpenRefine and
-Open WebUI. See the specimen-plate section of the detailed guide for the bounded
-layout, artwork-detail, evidence and departure treatments. Folded rows and all
-other records retain the established layout pending review.
+The expanded record is one plate for all projects; the bounded three-record study
+(B13–B15) and its plain restoration (B24) are superseded. Order: Function statement and reviewed prose, the specimen,
+feature notes, the specimen label, then II / Repository record, III / Where it runs,
+Observations & evidence and Reviewed alternatives (numbered by presence), and the
+centered “In the wild” departure on a Prussian band.
 
-## User-directed plate refinement
-
-The three prototypes omit early official-source links in favor of a centered
-“In the wild” departure. Identity lines use consistent spacing and literal
-Domain/Specimen labels. First tool-name mentions in long prose receive a
-Prussian/white highlight. Setup facts sit in the release card without implying
-they were checked against that release. Feature captions are reviewed software
-facts with their own sources; artwork crops remain decorative. Star plots and
-concise counts link to the aggregate source; About retains the counting method.
-See B14 and the detailed guide.
-
-## Restored specimen plate
-
-The geometry trials are withdrawn. Main drawings stay within their study area
-on white, with compact detail crops and the red image-to-feature connector.
-Feature notes remain literal sourced software facts. Shading/contact shadows
-across illustrated records are a possible third direction, deferred for a future
-review; no new shading is applied in this restoration. See B24.
+- The illustration stands on a decorative contour “floor”, seeded by Registry ID and
+  confined to the lower half. Contours encode no data. The floor is drawn only behind a
+  transparent cut-out derivative so it never crosses the drawing.
+- Artwork shows at exactly half its 1254px source (627px) for a crisp 2:1 downscale; a
+  frameless loupe magnifies the source 2× under the pointer or a tap. No sway: rotating a
+  raster blurs it. Opening draws the floor and settles the art once; reduced motion is static.
+- Up to two feature notes carry small/tiny enlarged windows of the drawing joined by
+  scarlet leader lines from the ground, echoing the jar captions. Notes are sourced
+  software facts; no anchors are placed on the drawing.
+- The label under the illustration: a QR code of the permalink, “Awesome Open* · Field
+  record” (or “Archived on GitHub” when GitHub reports it), name, Registry ID · Folio,
+  “Domain:” with every domain, and the permalink. No paper or object treatment (B28).
+- Section labels are scarlet blocks with mist type (5.86:1). No horizontal rules inside the
+  plate; spacing and labels carry the hierarchy. Chart axes remain.
+- Repository record: large values plus a literal timeline of creation, latest release and
+  last push. Where it runs: reviewed run/install/platform chips with the setup disclosure.
 
 ## Clearer jar glass
 

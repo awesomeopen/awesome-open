@@ -188,7 +188,7 @@ def main():
         "as_of": utc_today().isoformat(),
         "repositories": {
             repo: {key: result.get(key) for key in
-                   ("created_at", "pushed_at", "license", "stargazers_count")}
+                   ("archived", "created_at", "pushed_at", "license", "stargazers_count")}
             for repo, result in zip(repos, results)
         },
     }

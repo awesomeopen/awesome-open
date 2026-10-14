@@ -220,7 +220,162 @@
     return url;
   }
 
+  /* Specimen plates: decorative enhancement only. Content and links render without JavaScript. */
+  var SVG_NS = "http://www.w3.org/2000/svg";
+
+  function seededRandom(hex) {
+    var a = parseInt(String(hex).slice(0, 8), 16) >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // Concentric contour rings; deterministic per Registry ID and encoding no data.
+  function plateRings(seed, cx, cy, count, step, sx, sy) {
+    var random = seededRandom(seed);
+    var phase = [random() * 6.28, random() * 6.28, random() * 6.28];
+    var amp = [0.07 + random() * 0.05, 0.04 + random() * 0.03, 0.02 + random() * 0.015];
+    var rings = [];
+    for (var k = 1; k <= count; k++) {
+      var radius = k * step, d = "";
+      for (var j = 0; j <= 72; j++) {
+        var th = j / 72 * Math.PI * 2;
+        var f = 1 + amp[0] * Math.sin(2 * th + phase[0] + k * 0.11) + amp[1] * Math.sin(5 * th + phase[1] - k * 0.07) +
+          amp[2] * Math.sin(9 * th + phase[2] + k * 0.05);
+        d += (j ? "L" : "M") + (cx + Math.cos(th) * radius * f * sx).toFixed(1) + " " + (cy + Math.sin(th) * radius * f * sy).toFixed(1);
+      }
+      rings.push({ d: d + "Z", index: k % 5 === 0 });
+    }
+    return rings;
+  }
+
+  function terrain(document, className, seed, box, rings, preserve) {
+    var svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("class", className);
+    svg.setAttribute("viewBox", box);
+    svg.setAttribute("preserveAspectRatio", preserve);
+    svg.setAttribute("aria-hidden", "true");
+    rings.forEach(function (ring, i) {
+      var path = document.createElementNS(SVG_NS, "path");
+      path.setAttribute("d", ring.d);
+      path.setAttribute("pathLength", "1");
+      if (ring.index) path.setAttribute("class", "is-index");
+      path.style.setProperty("--i", i);
+      svg.appendChild(path);
+    });
+    return svg;
+  }
+
+  function enhancePlate(plate, document, window) {
+    if (plate.dataset.enhanced === "true") return;
+    plate.dataset.enhanced = "true";
+    var field = plate.querySelector(".plate-field");
+    var departure = plate.querySelector(".plate-departure");
+    if (departure) {
+      var seed = (field && field.dataset.seed) || (plate.getAttribute("aria-labelledby") || "").replace("name-", "").slice(0, 16) || "0";
+      departure.insertBefore(terrain(document, "plate-wild-terrain", seed, "0 0 1000 400",
+        plateRings(seed, 500, 1150, 30, 42, 1.9, 0.55), "xMidYMid slice"), departure.firstChild);
+    }
+    if (!field) return;
+    var image = field.querySelector("img");
+    if (field.dataset.cutout === "true") {
+      field.insertBefore(terrain(document, "plate-terrain", field.dataset.seed, "0 0 1000 1000",
+        plateRings(field.dataset.seed, 500, 860, 22, 34, 1.55, 0.5), "none"), field.firstChild);
+    }
+    var lens = document.createElement("div");
+    lens.className = "plate-lens";
+    lens.setAttribute("aria-hidden", "true");
+    field.appendChild(lens);
+    function place(fx, fy) {
+      var outer = field.getBoundingClientRect(), art = image.getBoundingClientRect(), size = lens.offsetWidth;
+      var src = image.currentSrc || image.src, scale = art.width * 2;
+      lens.style.left = (art.left - outer.left + fx * art.width) + "px";
+      lens.style.top = (art.top - outer.top + fy * art.height) + "px";
+      lens.style.backgroundImage = 'url("' + src + '")';
+      lens.style.backgroundSize = scale + "px " + scale + "px";
+      lens.style.backgroundPosition = (size / 2 - fx * scale) + "px " + (size / 2 - fy * scale) + "px";
+      lens.classList.add("is-on");
+    }
+    function fraction(event) {
+      var art = image.getBoundingClientRect();
+      return [Math.min(1, Math.max(0, (event.clientX - art.left) / art.width)), Math.min(1, Math.max(0, (event.clientY - art.top) / art.height))];
+    }
+    field.addEventListener("pointermove", function (event) { if (event.pointerType === "mouse") place.apply(null, fraction(event)); });
+    field.addEventListener("pointerleave", function (event) { if (event.pointerType === "mouse") lens.classList.remove("is-on"); });
+    field.addEventListener("click", function (event) {
+      if (event.pointerType === "mouse") return;
+      if (lens.classList.contains("is-on")) lens.classList.remove("is-on"); else place.apply(null, fraction(event));
+    });
+    plate.plateLayout = function () { layoutPlate(plate, field, image, window); };
+    if (image.complete) plate.plateLayout(); else image.addEventListener("load", plate.plateLayout, { once: true });
+  }
+
+  function layoutPlate(plate, field, image, window) {
+    var box = (field.dataset.bbox || "0 0 1 1").split(" ").map(Number);
+    var src = image.currentSrc || image.src;
+    // Detail crops: enlarged windows of the same drawing, placed inside the subject's bounding box.
+    var centres = [[box[0] + (box[2] - box[0]) * 0.5, box[1] + (box[3] - box[1]) * 0.3],
+                   [box[0] + (box[2] - box[0]) * 0.62, box[1] + (box[3] - box[1]) * 0.66]];
+    Array.prototype.forEach.call(plate.querySelectorAll(".plate-crop"), function (crop, i) {
+      var width = crop.clientWidth, zoom = i ? 4.2 : 3, size = width * zoom, c = centres[i] || centres[0];
+      crop.style.backgroundImage = 'url("' + src + '")';
+      crop.style.backgroundSize = size + "px " + size + "px";
+      crop.style.backgroundPosition = (width / 2 - c[0] * size) + "px " + (width / 2 - c[1] * size) + "px";
+      crop.classList.add("is-ready");
+    });
+    var svg = plate.querySelector(".plate-leaders"), study = plate.querySelector(".plate-study");
+    var crops = plate.querySelectorAll(".plate-crop");
+    if (!svg || !study || !crops.length) return;
+    var S = study.getBoundingClientRect(), A = image.getBoundingClientRect();
+    if (!A.width) return;
+    var stacked = window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
+    var d = "", dots = "";
+    Array.prototype.forEach.call(crops, function (crop, i) {
+      var C = crop.getBoundingClientRect();
+      var sx = A.left - S.left + A.width * (box[0] + (box[2] - box[0]) * (0.62 + i * 0.12));
+      var sy = A.top - S.top + A.height * Math.min(0.98, box[3] + 0.02 + i * 0.025);
+      var cy = C.top - S.top + C.height / 2;
+      if (!stacked) {
+        var ex = C.left - S.left, mx = ex - 30 + i * 12;
+        d += "M" + sx + " " + sy + "H" + mx + "V" + cy + "H" + ex;
+      } else {
+        var gx = C.left - S.left - 6 - i * 5;
+        d += "M" + sx + " " + sy + "H" + gx + "V" + cy + "H" + (C.left - S.left);
+      }
+      dots += '<circle cx="' + sx + '" cy="' + sy + '" r="2.5"/>';
+    });
+    svg.innerHTML = '<path d="' + d + '"/>' + dots;
+  }
+
+  function enhancePlates(document, window) {
+    var drawers = document.querySelectorAll ? document.querySelectorAll("details.specimen-drawer") : [];
+    Array.prototype.forEach.call(drawers, function (drawer) {
+      var plate = drawer.querySelector(".specimen-plate");
+      if (!plate) return;
+      function open() {
+        enhancePlate(plate, document, window);
+        plate.classList.remove("is-opening");
+        void plate.offsetWidth;
+        plate.classList.add("is-opening");
+        if (plate.plateLayout) plate.plateLayout();
+      }
+      drawer.addEventListener("toggle", function () { if (drawer.open) open(); });
+      if (drawer.open) open();
+    });
+    if (window.addEventListener) {
+      window.addEventListener("resize", function () {
+        Array.prototype.forEach.call(document.querySelectorAll(".specimen-drawer[open] .specimen-plate"), function (plate) {
+          if (plate.plateLayout) plate.plateLayout();
+        });
+      });
+    }
+  }
+
   function init(document, window) {
+    enhancePlates(document, window);
     var footerArt = document.querySelector('[data-footer-background]');
     if (footerArt) {
       var backgrounds = JSON.parse(footerArt.dataset.backgrounds);
@@ -491,6 +646,7 @@
     comparator: comparator,
     selectProjects: selectProjects,
     stateToURL: stateToURL,
+    plateRings: plateRings,
     init: init
   };
 });
