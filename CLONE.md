@@ -168,10 +168,12 @@ match official names containing Anything, including joined words and case/spacin
 variants, while preserving each project's own spelling.
 
 Official examples checked 2026-10-14:
-[AnythingLLM](https://github.com/Mintplex-Labs/anything-llm) and
-[REA — Reverse Engineer Anything](https://github.com/morluto/rea).
-The leads “LLManything” and “SRI Anything” still need exact official identities;
-do not silently equate them with verified projects or count them separately.
+[AnythingLLM](https://github.com/Mintplex-Labs/anything-llm),
+[REA — Reverse Engineer Anything](https://github.com/morluto/rea), and
+[RSI-Anything](https://github.com/Gen-Verse/RSI-Anything), a framework for recursive
+self-improvement using world-model predictions and interaction feedback.
+The lead “LLManything” still needs an exact official identity; do not silently
+equate it with AnythingLLM or count it as a separate project.
 Research the emerging naming-trend idea before making claims about its growth.
 This is a list proposal, with no catalog entries or implementation added here.
 
