@@ -84,6 +84,47 @@ also considered: GitHub marks it archived on 2026-07-01, and its documented scop
 is Markdown/contribution scaffolding. The five ranked repositories showed no
 archive banner when checked; that does not establish maintenance cadence.
 
+### Optional convention checks: awesome-lint
+
+[awesome-lint](https://github.com/sindresorhus/awesome-lint) belongs alongside
+these systems as an optional Markdown/Awesome-convention linter. It does not
+provide catalog discovery, evidence enrichment or site generation, so it does
+not replace a system in the ranking. Checked upstream `4f870ab`, 2026-10-14;
+source review only, not an installation or compatibility test.
+
+Its [default configuration](https://github.com/sindresorhus/awesome-lint/blob/4f870abda373cfa18c67822c39ee29c451ae8a70/config.js)
+enables GFM tables and checks table formatting. Our two-column catalog is not
+inherently unsupported, but the
+[`awesome-list-item` rule](https://github.com/sindresorhus/awesome-lint/blob/4f870abda373cfa18c67822c39ee29c451ae8a70/rules/list-item.js)
+checks list nodes, not table rows: it would not validate our entry-description
+conventions. Keep the existing parser and evidence tests.
+
+There is no blanket HTML or image ban in that configuration. The
+[`awesome-no-ci-badge` rule](https://github.com/sindresorhus/awesome-lint/blob/4f870abda373cfa18c67822c39ee29c451ae8a70/rules/no-ci-badge.js)
+targets image titles containing `build status`, `travis` or `circleci`, and image
+URLs containing Travis/CircleCI; it does not prohibit our HN images merely
+because they are images. This does not establish that the whole generated
+README passes. HTML metrics and HN counts still need our renderer/evidence
+checks, which a convention linter cannot replace.
+
+For a future trial, target `README.source.md` explicitly; a default invocation
+finds the README, which here is generated. The
+[documented API](https://github.com/sindresorhus/awesome-lint/blob/4f870abda373cfa18c67822c39ee29c451ae8a70/readme.md#api)
+accepts `filename` and a custom remark-plugin `config`. Prefer a reviewed
+configuration for intentional catalog differences. Upstream also documents
+HTML-comment `lint disable`, `lint enable` and next-node `lint ignore`
+directives; these are non-rendered comments, not visible catalog prose. Do not
+hand-edit generated output to suppress warnings. The default
+[Contents rule](https://github.com/sindresorhus/awesome-lint/blob/4f870abda373cfa18c67822c39ee29c451ae8a70/rules/toc.js)
+only activates for `## Contents` and expects a list there; our three-column
+`## Table of Contents` falls outside that check. Keep our own anchor checks
+rather than assuming the linter validates this navigation.
+
+Start with a pinned-version, advisory-only trial after reviewing its selected
+rules and results on the source and a disposable rendered preview. Keep
+repository-specific validation authoritative. No package, lint configuration,
+workflow or required status check is added by this proposal.
+
 ### A Closed\* trial catalog
 
 Use software whose own name begins with **Closed**, ignoring case, spaces and
