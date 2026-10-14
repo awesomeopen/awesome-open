@@ -143,11 +143,83 @@
     return { rows: rows, total: total, topTotal: topTotal, topCount: top.length, share: total ? topTotal / total : null };
   }
 
+  // Match Python's Unicode code-point ordering, including supplementary letters.
+  function compareName(a, b) {
+    var left = Array.from(a), right = Array.from(b);
+    for (var i = 0; i < Math.min(left.length, right.length); i += 1) {
+      var difference = left[i].codePointAt(0) - right[i].codePointAt(0);
+      if (difference) return difference;
+    }
+    return left.length - right.length;
+  }
+
+  function sharedNames(projects) {
+    var unique = new Map(projects.map(function (project) { return [project.id, project]; }));
+    var ordered = Array.from(unique.values()).sort(function (a, b) { return compareName(a.name, b.name) || compareName(a.id, b.id); });
+    var exact = new Map();
+    ordered.forEach(function (project) {
+      if (!exact.has(project.name)) exact.set(project.name, []);
+      exact.get(project.name).push(project);
+    });
+    var groups = Array.from(exact, function (entry) { return { name: entry[0], projects: entry[1] }; }).filter(function (group) { return group.projects.length > 1; });
+    var exactIDs = new Set(groups.flatMap(function (group) { return group.projects.map(function (project) { return project.id; }); }));
+    var folded = new Map();
+    ordered.forEach(function (project) {
+      if (exactIDs.has(project.id)) return;
+      var key = project.name.toLowerCase();
+      if (!folded.has(key)) folded.set(key, []);
+      folded.get(key).push(project);
+    });
+    var capitalization = Array.from(folded.values()).filter(function (rows) { return rows.length > 1; }).map(function (rows) {
+      return { name: Array.from(new Set(rows.map(function (project) { return project.name; }))).sort(compareName).join(' / '), projects: rows };
+    }).sort(function (a, b) { return compareName(a.name, b.name); });
+    return { exact: groups, capitalization: capitalization, tool_count: exactIDs.size,
+      capitalization_tool_count: capitalization.reduce(function (sum, group) { return sum + group.projects.length; }, 0) };
+  }
+
+  function renderNameGroups(doc, container, groups) {
+    if (!container) return;
+    var openNames = new Set(Array.from(container.querySelectorAll('details[open]')).map(function (detail) { return detail.dataset.name; }));
+    var fragment = doc.createDocumentFragment();
+    groups.forEach(function (group) {
+      var detail = doc.createElement('details');
+      detail.className = 'shared-name-group';
+      detail.dataset.name = group.name;
+      detail.open = openNames.has(group.name);
+      var summary = doc.createElement('summary');
+      summary.textContent = group.name + ' · ' + group.projects.length + ' tools';
+      detail.appendChild(summary);
+      var list = doc.createElement('ul');
+      group.projects.forEach(function (project) {
+        var item = doc.createElement('li');
+        item.dataset.projectId = project.id;
+        var link = doc.createElement('a');
+        link.href = project.url;
+        link.textContent = project.name;
+        var source = doc.createElement('span');
+        source.className = 'shared-name-source';
+        source.textContent = project.url;
+        item.appendChild(link);
+        item.appendChild(source);
+        list.appendChild(item);
+      });
+      detail.appendChild(list);
+      fragment.appendChild(detail);
+    });
+    if (!groups.length) {
+      var empty = doc.createElement('p');
+      empty.textContent = 'No shared names in this selection.';
+      fragment.appendChild(empty);
+    }
+    container.replaceChildren(fragment);
+  }
+
   function aggregate(data, filters) {
     filters = normalizeFilters(filters, data.categories);
     var projects = filterProjects(data.projects, filters);
     var stars = starConcentration(projects);
     return {
+      sharedNames: sharedNames(projects),
       filters: filters,
       projects: projects,
       metrics: {
@@ -308,6 +380,10 @@
         summary.textContent = formatNumber(result.metrics.total) + ' of ' + formatNumber(data.projects.length) + ' projects · ' + selection + ' · ' + licenseSelection + '.';
       }
       if (reset) reset.disabled = result.filters.category === 'all' && result.filters.license === 'all';
+      doc.getElementById('shared-name-count').textContent = formatNumber(result.sharedNames.tool_count);
+      doc.getElementById('capitalization-name-count').textContent = formatNumber(result.sharedNames.capitalization_tool_count);
+      renderNameGroups(doc, doc.getElementById('exact-name-groups'), result.sharedNames.exact);
+      renderNameGroups(doc, doc.getElementById('capitalization-name-groups'), result.sharedNames.capitalization);
       renderChart(doc, doc.getElementById('category-chart'), result.categories);
       renderChart(doc, doc.getElementById('license-chart'), result.licenses);
       renderChart(doc, doc.getElementById('age-chart'), result.age);
@@ -353,6 +429,6 @@
     normalizeFilters: normalizeFilters, readFilters: readFilters, filterSearch: filterSearch,
     filterProjects: filterProjects, isoDay: isoDay, dateHistogram: dateHistogram,
     categoryCounts: categoryCounts, licenseCounts: licenseCounts, starConcentration: starConcentration,
-    aggregate: aggregate, csvCell: csvCell, exportCSV: exportCSV, renderChart: renderChart, init: init
+    sharedNames: sharedNames, aggregate: aggregate, csvCell: csvCell, exportCSV: exportCSV, renderChart: renderChart, init: init
   };
 }));

@@ -192,3 +192,14 @@ noscript p { margin-block: 24px; font-size: 12px; color: var(--rs-muted, #465665
   .obs-footer { background: #fff; color: #111820; border-top: 1px solid #111820; }
   .obs-footer a { color: #111820; }
 }
+
+/* Shared displayed names use native disclosures in every output mode. */
+.obs-shared-names { margin-block: -16px 64px; padding-top: 24px; border-top: 2px solid var(--rs-blueprint, #0b2546); }
+.obs-shared-names h2 { margin-block: 16px; }
+.obs-shared-names p { font-size: 12px; color: var(--rs-muted, #465665); }
+.obs-shared-names details { border-top: 1px solid #acb6c0; margin-top: 16px; }
+.obs-shared-names summary { padding-block: 12px; min-height: 48px; cursor: pointer; font-size: 12px; overflow-wrap: anywhere; }
+.obs-shared-names ul { margin: 0 0 24px; padding-left: 24px; }
+.obs-shared-names li { margin-block: 16px; font-size: 12px; overflow-wrap: anywhere; }
+.shared-name-source { display: block; color: var(--rs-muted, #465665); font-size: 11px; }
+#capitalization-names > div { padding-left: 24px; }

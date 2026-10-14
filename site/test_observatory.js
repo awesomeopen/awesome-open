@@ -123,3 +123,112 @@ test('CSV selection retains schema, release cache state and provenance', () => {
   assert.ok(csv.includes('"stale","2026-10-12T12:00:00Z","2026-10-13","123456789abcdef"'));
   assert.equal(observatory.exportCSV(data, []).split('\r\n').length, 2);
 });
+
+function sharedSummary(result) {
+  return {
+    exact: result.exact.map(group => ({ name: group.name, ids: group.projects.map(item => item.id) })),
+    capitalization: result.capitalization.map(group => ({ name: group.name, ids: group.projects.map(item => item.id) })),
+    tool_count: result.tool_count,
+    capitalization_tool_count: result.capitalization_tool_count
+  };
+}
+
+const EMPTY_SHARED = { exact: [], capitalization: [], tool_count: 0, capitalization_tool_count: 0 };
+
+test('shared names include exact pairs and three-way groups sorted by name and canonical ID', () => {
+  const projects = [
+    project({ id: 'z2', name: 'Zebra' }), project({ id: 'a3', name: 'Alpha' }),
+    project({ id: 'z1', name: 'Zebra' }), project({ id: 'a1', name: 'Alpha' }),
+    project({ id: 'a2', name: 'Alpha' }), project({ id: 'solo', name: 'Unique' })
+  ];
+  const before = JSON.stringify(projects);
+  const result = observatory.sharedNames(projects);
+  assert.deepEqual(sharedSummary(result), {
+    exact: [{ name: 'Alpha', ids: ['a1', 'a2', 'a3'] }, { name: 'Zebra', ids: ['z1', 'z2'] }],
+    capitalization: [], tool_count: 5, capitalization_tool_count: 0
+  });
+  assert.deepEqual(result.exact[0].projects[0], projects[3]);
+  assert.equal(JSON.stringify(projects), before);
+  assert.deepEqual(observatory.sharedNames(projects.slice().reverse()), result);
+});
+
+test('shared names deduplicate canonical IDs across category occurrences', () => {
+  const first = project({ id: 'a', name: 'Shared', categories: ['one', 'two'] });
+  const repeated = project({ id: 'a', name: 'Shared', categories: ['two'] });
+  assert.deepEqual(sharedSummary(observatory.sharedNames([first, repeated])), EMPTY_SHARED);
+  const result = observatory.sharedNames([first, repeated, project({ id: 'b', name: 'Shared' })]);
+  assert.deepEqual(sharedSummary(result), {
+    exact: [{ name: 'Shared', ids: ['a', 'b'] }], capitalization: [], tool_count: 2, capitalization_tool_count: 0
+  });
+});
+
+test('case-only shared names stay separate from exact groups and use deterministic ordering', () => {
+  const projects = [project({ id: 'b', name: 'alpha' }), project({ id: 'a', name: 'Alpha' }),
+    project({ id: 'd', name: 'zebra' }), project({ id: 'c', name: 'ZEBRA' })];
+  assert.deepEqual(sharedSummary(observatory.sharedNames(projects)), {
+    exact: [], capitalization: [{ name: 'Alpha / alpha', ids: ['a', 'b'] }, { name: 'ZEBRA / zebra', ids: ['c', 'd'] }],
+    tool_count: 0, capitalization_tool_count: 4
+  });
+});
+
+test('mixed exact and capitalization groups never count an exact project twice', () => {
+  const projects = [project({ id: 'b', name: 'Echo' }), project({ id: 'd', name: 'echo' }),
+    project({ id: 'a', name: 'Echo' }), project({ id: 'c', name: 'ECHO' })];
+  const result = observatory.sharedNames(projects);
+  assert.deepEqual(sharedSummary(result), {
+    exact: [{ name: 'Echo', ids: ['a', 'b'] }], capitalization: [{ name: 'ECHO / echo', ids: ['c', 'd'] }],
+    tool_count: 2, capitalization_tool_count: 2
+  });
+  const ids = [...result.exact, ...result.capitalization].flatMap(group => group.projects.map(item => item.id));
+  assert.equal(ids.length, new Set(ids).size);
+});
+
+test('shared names do not infer aliases or trim names and handle empty or singleton selections', () => {
+  for (const projects of [[], [project()], [project({ id: 'a', name: 'Tool' }),
+    project({ id: 'b', name: ' Tool' }), project({ id: 'c', name: 'Tool ' }),
+    project({ id: 'd', name: 'Tool OSS' })]]) {
+    assert.deepEqual(sharedSummary(observatory.sharedNames(projects)), EMPTY_SHARED);
+  }
+});
+
+test('shared-name aggregate follows the category and license intersection', () => {
+  const data = index([
+    project({ id: 'a', name: 'Shared', categories: ['one', 'two'], license: 'MIT' }),
+    project({ id: 'b', name: 'Shared', categories: ['one'], license: 'MIT' }),
+    project({ id: 'c', name: 'Shared', categories: ['two'], license: null }),
+    project({ id: 'd', name: 'shared', categories: ['two'], license: null })
+  ]);
+  assert.deepEqual(sharedSummary(observatory.aggregate(data).sharedNames), {
+    exact: [{ name: 'Shared', ids: ['a', 'b', 'c'] }], capitalization: [], tool_count: 3, capitalization_tool_count: 0
+  });
+  const known = observatory.aggregate(data, { category: 'one', license: 'known' });
+  assert.deepEqual(sharedSummary(known.sharedNames), {
+    exact: [{ name: 'Shared', ids: ['a', 'b'] }], capitalization: [], tool_count: 2, capitalization_tool_count: 0
+  });
+  const unknown = observatory.aggregate(data, { category: 'two', license: 'unknown' });
+  assert.deepEqual(sharedSummary(unknown.sharedNames), {
+    exact: [], capitalization: [{ name: 'Shared / shared', ids: ['c', 'd'] }], tool_count: 0, capitalization_tool_count: 2
+  });
+  assert.deepEqual(sharedSummary(observatory.aggregate(data, { category: 'one', license: 'unknown' }).sharedNames), EMPTY_SHARED);
+  assert.deepEqual(sharedSummary(observatory.aggregate(data, { category: 'two', license: 'known' }).sharedNames), EMPTY_SHARED);
+});
+
+test('shared names sort Unicode code points consistently with the static renderer', () => {
+  const bmp = '\uE000';
+  const supplementary = '\u{10000}';
+  const projects = [
+    project({ id: 'a2', name: supplementary }), project({ id: 'b2', name: bmp }),
+    project({ id: 'a1', name: supplementary }), project({ id: 'b1', name: bmp }),
+    project({ id: supplementary, name: 'Tie' }), project({ id: bmp, name: 'Tie' }),
+    project({ id: 'case-a2', name: supplementary + 'a' }), project({ id: 'case-b2', name: bmp + 'a' }),
+    project({ id: 'case-a1', name: supplementary + 'A' }), project({ id: 'case-b1', name: bmp + 'A' })
+  ];
+  assert.deepEqual(sharedSummary(observatory.sharedNames(projects)), {
+    exact: [{ name: 'Tie', ids: [bmp, supplementary] }, { name: bmp, ids: ['b1', 'b2'] }, { name: supplementary, ids: ['a1', 'a2'] }],
+    capitalization: [
+      { name: bmp + 'A / ' + bmp + 'a', ids: ['case-b1', 'case-b2'] },
+      { name: supplementary + 'A / ' + supplementary + 'a', ids: ['case-a1', 'case-a2'] }
+    ],
+    tool_count: 6, capitalization_tool_count: 4
+  });
+});
