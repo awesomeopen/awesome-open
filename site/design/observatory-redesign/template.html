@@ -1,0 +1,738 @@
+<title>Collection Observatory Redesign</title>
+<style>
+/*FONTS*/
+
+/* Layout: one 1200px instrument column. Text-only opening, sticky selection bar,
+   ruled metric row, then bar-list charts in paired columns; whole-collection blocks
+   sit on mist; the 501-row listing stays folded. */
+:root {
+  --rs-paper: #FFFFFF;
+  --rs-mist: #F0F5F8;
+  --rs-ink: #111820;
+  --rs-blueprint: #0B2546;
+  --rs-trace: #D9EEF8;
+  --rs-muted: #465665;
+  --rs-scarlet: #B62420;
+  --rs-amber: #FFC800;
+  --rs-rule: #ACB6C0;
+  --rs-display: 'Fraunces', Georgia, serif;
+  --rs-mono: 'Commit Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 96px; }
+body { margin: 0; background: var(--rs-paper); color: var(--rs-ink); font: 14px/1.65 var(--rs-mono); font-variant-ligatures: none; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, p, figure, dl, dd, ol, ul { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+a:hover { color: var(--rs-scarlet); }
+:focus-visible { outline: 3px solid var(--rs-scarlet); outline-offset: 3px; }
+select, button { font: inherit; color: var(--rs-ink); min-height: 44px; border: 1px solid var(--rs-blueprint); border-radius: 0; background: var(--rs-paper); padding: 8px 12px; cursor: pointer; max-width: 100%; }
+select:hover, button:hover { background: var(--rs-mist); }
+button:disabled { color: var(--rs-muted); border-color: var(--rs-rule); background: var(--rs-paper); cursor: default; }
+summary { cursor: pointer; }
+
+.shell { width: min(1200px, 100%); margin-inline: auto; padding-inline: 48px; }
+.display { font-family: var(--rs-display); font-weight: 300; font-variation-settings: 'SOFT' 100, 'WONK' 1; font-optical-sizing: auto; text-wrap: balance; }
+.kicker { color: var(--rs-muted); font-size: 11px; line-height: 1.5; letter-spacing: .08em; text-transform: uppercase; }
+.num { font-variant-numeric: tabular-nums; }
+.muted { color: var(--rs-muted); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Proposal strip and header */
+.proposal { background: var(--rs-mist); font-size: 12px; color: var(--rs-muted); }
+.proposal .shell { padding-block: 8px; }
+.site-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 32px; padding-block: 20px; }
+.brand { font-family: var(--rs-display); font-weight: 600; font-variation-settings: 'SOFT' 100, 'WONK' 1; font-size: 28px; line-height: 1.1; text-decoration: none; }
+.brand span { color: var(--rs-scarlet); }
+.site-nav { display: flex; flex-wrap: wrap; gap: 4px 24px; font-size: 13px; }
+.site-nav a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Opening: text only, full width */
+.opening { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); gap: 32px 64px; align-items: end; padding-block: 48px 40px; border-top: 2px solid var(--rs-blueprint); }
+.opening h1 { font-size: clamp(48px, 8vw, 104px); line-height: .98; letter-spacing: -.035em; margin-top: 20px; }
+.prov { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; font-size: 12px; padding-top: 16px; border-top: 1px solid var(--rs-ink); }
+.prov dt { color: var(--rs-muted); }
+.prov dd { overflow-wrap: anywhere; }
+
+/* Selection bar */
+.selbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--rs-paper); border-block: 1px solid var(--rs-ink); }
+.selbar .shell { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding-block: 10px; }
+.selbar select { width: 16rem; }
+.selbar .jump { margin-left: auto; display: flex; flex-wrap: wrap; gap: 0 20px; font-size: 12px; }
+.selbar .jump a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Headline metrics */
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 40px; }
+.metric { padding: 16px 24px 20px 0; display: grid; gap: 8px; align-content: start; }
+.metric + .metric { padding-left: 24px; border-left: 1px solid var(--rs-rule); }
+.metric dt { font-size: 12px; color: var(--rs-muted); }
+.metric dd { font-size: clamp(26px, 3vw, 34px); line-height: 1.15; font-weight: 400; font-variant-numeric: tabular-nums; }
+.metric .of { font-size: 13px; color: var(--rs-muted); }
+.ratio { height: 4px; background: var(--rs-mist); }
+.ratio i { display: block; height: 100%; background: var(--rs-blueprint); }
+
+/* Whole-collection finding */
+.finding { margin-top: 40px; padding: 28px 32px 32px; background: var(--rs-mist); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px 48px; align-items: center; }
+.finding p.display { font-size: clamp(22px, 2.6vw, 30px); line-height: 1.22; margin-top: 12px; }
+.strip { display: flex; height: 28px; background: var(--rs-paper); box-shadow: inset 0 0 0 1px var(--rs-rule); }
+.strip i { display: block; height: 100%; background: var(--rs-blueprint); box-shadow: inset -1px 0 0 var(--rs-paper); }
+.strip-key { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; margin-top: 8px; font-size: 12px; }
+
+/* Section heads */
+.sec { margin-top: 96px; }
+.sec-head { display: grid; gap: 12px; margin-bottom: 24px; max-width: 72ch; }
+.sec-head h2 { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.16; letter-spacing: -.02em; }
+.sec-head p:not(.kicker) { color: var(--rs-muted); font-size: 13px; }
+.block-label { display: inline-block; background: var(--rs-scarlet); color: var(--rs-mist); font: 500 12px/1.5 var(--rs-mono); letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; }
+
+/* Charts: bar lists drawn from zero on one linear scale per chart (or shared pair). */
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
+.chart { min-width: 0; padding-top: 20px; border-top: 2px solid var(--rs-blueprint); }
+.chart h3 { font-size: 25px; line-height: 1.2; margin-top: 12px; }
+.chart .note { font-size: 12px; color: var(--rs-muted); margin-top: 8px; max-width: 60ch; }
+.bars { margin-top: 20px; display: grid; gap: 2px; }
+.scale, .bar { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) 7ch; gap: 12px; align-items: center; }
+.scale { font-size: 11px; color: var(--rs-muted); padding-bottom: 4px; }
+.scale .ends { display: flex; justify-content: space-between; }
+.bar { min-height: 28px; font-size: 13px; }
+.bar .lab { overflow-wrap: anywhere; line-height: 1.35; }
+.track { height: 14px; background: linear-gradient(90deg, var(--rs-rule) 1px, transparent 1px) 0 0 / 25% 100%, linear-gradient(90deg, transparent calc(100% - 1px), var(--rs-rule) 0); }
+.fill { display: block; height: 100%; background: var(--rs-blueprint); }
+.bar.unknown .lab { color: var(--rs-muted); }
+.bar.unknown .fill { background: repeating-linear-gradient(45deg, var(--rs-blueprint) 0 2px, var(--rs-paper) 2px 6px); box-shadow: inset 0 0 0 1px var(--rs-blueprint); }
+.bar .cnt { text-align: right; font-variant-numeric: tabular-nums; }
+.wide .scale, .wide .bar { grid-template-columns: minmax(0, 20rem) minmax(0, 1fr) 9ch; }
+.empty { padding: 16px 0; border-top: 1px solid var(--rs-rule); color: var(--rs-muted); font-size: 13px; }
+.chart-data { margin-top: 16px; border-top: 1px solid var(--rs-mist); }
+.chart-data summary { min-height: 44px; display: flex; align-items: center; font-size: 12px; color: var(--rs-muted); }
+.chart-data table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 16px; }
+.chart-data th, .chart-data td { text-align: left; padding: 6px 12px 6px 0; border-top: 1px solid var(--rs-mist); font-weight: 400; }
+.chart-data td { text-align: right; font-variant-numeric: tabular-nums; }
+.chart-data caption { text-align: left; font-size: 12px; color: var(--rs-muted); padding-bottom: 4px; }
+
+/* Shared names */
+.unit-tally { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 48px; align-items: center; padding: 24px; background: var(--rs-mist); }
+.cells { display: flex; flex-wrap: wrap; gap: 12px; min-width: 0; }
+.cells .break { flex-basis: 100%; height: 0; }
+.cluster { display: inline-flex; gap: 4px; padding: 4px; text-decoration: none; }
+.cluster:hover .cell { transform: translateY(-2px); }
+.cell { width: 20px; height: 20px; display: block; transition: transform 160ms; }
+.cell[class*="k-"] { background: var(--rs-blueprint); }
+.k-identical { clip-path: inset(2px); }
+.k-variants { clip-path: circle(46%); }
+.legend .tags-line { grid-template-columns: 20px minmax(0, 1fr); color: var(--rs-muted); }
+.tag { display: inline-block; border: 1px solid var(--rs-blueprint); color: var(--rs-ink); font-size: 11px; line-height: 1.4; padding: 0 6px; }
+.diff.gap { text-decoration-skip-ink: none; white-space: pre; }
+.diff.nogap { display: inline-block; width: 2px; height: .9em; margin-inline: 1px; background: var(--rs-scarlet); vertical-align: -.08em; }
+.legend { display: grid; gap: 8px; font-size: 12px; }
+.legend li { display: grid; grid-template-columns: 20px minmax(0, 1fr) 3ch; gap: 12px; align-items: center; }
+.legend .cell { width: 14px; height: 14px; justify-self: center; }
+.legend b { font-weight: 500; text-align: right; }
+.legend .zero { color: var(--rs-muted); }
+.groups { margin-top: 24px; border-block: 1px solid var(--rs-ink); }
+.groups > summary { min-height: 56px; display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; font-size: 14px; }
+.groups > summary .muted { font-size: 12px; }
+.groups > div { padding-bottom: 32px; }
+.groups .method { margin: 0 0 24px; }
+.band { margin-top: 32px; }
+.group { margin-top: 24px; border-top: 1px solid var(--rs-ink); }
+.group-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; padding-block: 20px 16px; }
+.group-head h4 { font-size: clamp(26px, 3.2vw, 36px); line-height: 1.15; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.group-head h4 .sep { color: var(--rs-muted); padding-inline: .3em; }
+.group-meta { font-size: 12px; color: var(--rs-muted); }
+.group-meta strong { color: var(--rs-ink); font-weight: 500; }
+.diff { text-decoration: underline 2px var(--rs-scarlet); text-underline-offset: .18em; }
+.projects { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); grid-template-rows: repeat(5, auto); }
+.proj { grid-row: span 5; display: grid; grid-template-rows: subgrid; row-gap: 12px; padding: 16px 32px 24px 0; min-width: 0; }
+.proj + .proj { padding-left: 32px; border-left: 1px solid var(--rs-rule); }
+.proj-name { font-size: 16px; font-weight: 450; }
+.repo { font-size: 13px; overflow-wrap: anywhere; align-self: start; }
+.repo .host, .repo .path { color: var(--rs-muted); }
+.repo .owner { font-weight: 650; }
+.desc { font-size: 14px; line-height: 1.6; max-width: 52ch; }
+.facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 16px; font-size: 13px; align-content: start; padding-top: 12px; border-top: 1px solid var(--rs-mist); }
+.facts dt { color: var(--rs-muted); font-size: 12px; line-height: 1.75; }
+.facts dd { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.facts .unknown { color: var(--rs-muted); }
+.record { font-size: 12px; align-self: end; justify-self: start; display: inline-flex; align-items: center; min-height: 44px; }
+.method { margin-top: 48px; border-block: 1px solid var(--rs-rule); }
+.method summary { min-height: 48px; display: flex; align-items: center; font-size: 13px; }
+.method ol { list-style: decimal; padding: 0 0 20px 24px; display: grid; gap: 8px; font-size: 13px; max-width: 76ch; }
+.method p { padding-bottom: 20px; font-size: 12px; color: var(--rs-muted); max-width: 76ch; }
+
+/* Whole-collection coverage */
+.whole { margin-top: 96px; background: var(--rs-mist); padding-block: 64px; }
+.whole .sec-head { margin-bottom: 32px; max-width: none; }
+.cov { display: grid; }
+.cov-row { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 14rem) 10ch minmax(0, 1fr); gap: 8px 24px; align-items: start; padding-block: 14px; border-top: 1px solid var(--rs-rule); font-size: 13px; }
+.cov-row .track { margin-top: 5px; background-color: var(--rs-paper); }
+.cov-row .cnt { font-variant-numeric: tabular-nums; text-align: right; }
+.cov-row .scope { color: var(--rs-muted); font-size: 12px; }
+.cov-foot { margin-top: 24px; font-size: 12px; color: var(--rs-muted); display: grid; gap: 8px; }
+
+/* Project data */
+.downloads { display: flex; flex-wrap: wrap; gap: 12px; }
+.downloads a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: 1px solid var(--rs-blueprint); text-decoration: none; font-size: 13px; }
+.downloads a:hover { background: var(--rs-mist); color: var(--rs-ink); }
+.downloads .muted { flex-basis: 100%; font-size: 12px; }
+.listing { margin-top: 24px; border-block: 1px solid var(--rs-ink); }
+.listing > summary { min-height: 56px; display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; font-size: 14px; }
+.listing > summary .muted { font-size: 12px; }
+.table-scroll { overflow-x: auto; margin-bottom: 24px; }
+.data { width: 100%; min-width: 980px; border-collapse: collapse; font-size: 12px; }
+.data caption { text-align: left; color: var(--rs-muted); padding-bottom: 8px; }
+.data th, .data td { text-align: left; vertical-align: top; padding: 8px 16px 8px 0; border-top: 1px solid var(--rs-mist); font-weight: 400; }
+.data thead th { position: sticky; top: 0; background: var(--rs-paper); color: var(--rs-muted); border-top: 0; border-bottom: 1px solid var(--rs-ink); }
+.data td.n { text-align: right; font-variant-numeric: tabular-nums; }
+.data .unknown { color: var(--rs-muted); }
+
+/* Closing mark and footer */
+.closing { display: flex; justify-content: center; padding-block: 128px; }
+.closing img { width: 128px; height: 128px; }
+.foot { background: var(--rs-blueprint); color: var(--rs-trace); font-size: 12px; }
+.foot .shell { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; padding-block: 32px; }
+.foot a { color: var(--rs-paper); }
+.foot :focus-visible { outline-color: var(--rs-amber); }
+
+@media (max-width: 960px) {
+  .shell { padding-inline: 24px; }
+  .opening, .finding, .unit-tally { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric:nth-child(3) { padding-left: 0; border-left: 0; }
+  .metric:nth-child(n+3) { border-top: 1px solid var(--rs-rule); }
+  .pair { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+  .cov-row { grid-template-columns: minmax(0, 1fr) 10ch; }
+  .cov-row .track { grid-column: 1 / -1; grid-row: 2; margin-top: 0; }
+  .cov-row .scope { grid-column: 1 / -1; }
+  .selbar .jump { margin-left: 0; }
+}
+@media (max-width: 640px) {
+  .shell { padding-inline: 16px; }
+  .opening { padding-block: 32px; }
+  .selbar select { width: calc(50% - 6px); }
+  .selbar button { flex: 1 1 100%; }
+  .selbar .jump { display: none; }
+  .metric, .metric + .metric { padding: 14px 12px 16px 0; }
+  .metric:nth-child(even) { padding-left: 12px; }
+  .finding { padding: 20px; }
+  .sec, .whole { margin-top: 64px; }
+  .whole { padding-block: 40px; }
+  .scale, .bar, .wide .scale, .wide .bar { grid-template-columns: minmax(0, 1fr) 8ch; gap: 4px 12px; }
+  .bar .lab { grid-column: 1 / -1; }
+  .scale > span:first-child { display: none; }
+  .bar { padding-block: 4px; }
+  .projects { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .proj { grid-row: auto; grid-template-rows: none; padding: 16px 0 24px; }
+  .proj + .proj { padding-left: 0; border-left: 0; border-top: 1px solid var(--rs-rule); }
+  .closing { padding-block: 96px; }
+}
+@media (prefers-reduced-motion: reduce) { .cell { transition: none; } .cluster:hover .cell { transform: none; } }
+</style>
+
+<div class="proposal"><div class="shell">Redesign proposal, not implemented · snapshot {{ASOF}} · source {{SHA}} · <a href="{{NOTES}}">Design notes</a></div></div>
+
+<header class="shell site-head">
+  <a class="brand" href="https://awesomeopen.github.io/awesome-open/">Awesome Open<span aria-hidden="true">*</span></a>
+  <nav class="site-nav" aria-label="Observatory">
+    <a href="https://awesomeopen.github.io/awesome-open/">Project ledger</a>
+    <a href="#coverage">Coverage</a>
+    <a href="#project-records">Data</a>
+  </nav>
+</header>
+
+<main id="observatory-main">
+  <section class="shell">
+    <div class="opening">
+      <div>
+        <p class="kicker">Awesome Open* / snapshot</p>
+        <h1 class="display">Collection observatory</h1>
+      </div>
+      <dl class="prov">
+        <dt>Metrics snapshot</dt><dd><time>{{ASOF}}</time> UTC</dd>
+        <dt>Source revision</dt><dd><a href="https://github.com/awesomeopen/awesome-open/commit/{{FULLSHA}}">{{SHA12}}</a></dd>
+      </dl>
+    </div>
+  </section>
+
+  <form class="selbar" id="filters" aria-label="Filter observatory">
+    <div class="shell">
+      <select id="category-filter" aria-label="Category"><option value="">All categories</option></select>
+      <select id="license-filter" aria-label="Detected license">
+        <option value="all">Any license</option>
+        <option value="known">Detected license available</option>
+        <option value="unknown">License unknown</option>
+      </select>
+      <button id="reset-filters" type="button" disabled>Reset filters</button>
+      <nav class="jump" aria-label="Sections">
+        <a href="#shared-names">Names</a><a href="#category-chart">Charts</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a>
+      </nav>
+    </div>
+  </form>
+
+  <section class="shell" aria-label="Selection overview">
+    <dl class="metrics" id="metrics"></dl>
+    <aside class="finding" aria-labelledby="finding-text">
+      <div>
+        <p class="kicker">Whole collection</p>
+        <p class="display" id="finding-text"></p>
+      </div>
+      <figure>
+        <div class="strip" id="strip" aria-hidden="true"></div>
+        <figcaption class="strip-key" id="strip-key"></figcaption>
+      </figure>
+    </aside>
+  </section>
+
+  <section id="shared-names" class="shell sec" aria-labelledby="shared-names-heading">
+    <div class="sec-head">
+      <p class="kicker">Selected projects</p>
+      <h2 id="shared-names-heading" class="display"><span id="sn-total" class="num">0</span> tools share a name</h2>
+      <p>Each project counts once across these groups. A shared name does not mean the projects are related. <span id="sn-selected" class="num" role="status" aria-live="polite" aria-atomic="true"></span></p>
+    </div>
+    <figure class="unit-tally" aria-label="One mark per tool that shares a name">
+      <div class="cells" id="tally"></div>
+      <figcaption><ul class="legend" id="legend"></ul></figcaption>
+    </figure>
+    <details class="groups" id="name-groups">
+      <summary><span>Show name groups</span><span class="muted" id="groups-count"></span></summary>
+      <div id="bands"></div>
+      <details class="method">
+        <summary>How groups are formed</summary>
+        <ol>
+          <li>Projects are deduplicated by canonical project ID. Cross-listed projects count once.</li>
+          <li>Each displayed name gets one matching key: lowercased, with whitespace, hyphens and underscores removed.</li>
+          <li>Projects with the same key form one group. Each project belongs to at most one group, and a group needs at least two distinct projects.</li>
+          <li>Identical name: every project in the group displays the same name. Spelling variants: the displayed names differ.</li>
+        </ol>
+        <p>Tags name what differs in a variant group: Case, Spacing (whitespace, hyphen or underscore) and Exact duplicates. A group can carry several tags, so tag counts do not add up. Other punctuation, spelling and sound-alike names are not matched. A shared key does not mean the projects are related.</p>
+      </details>
+    </details>
+  </section>
+
+  <div class="shell">
+    <div class="sec pair">
+      <section class="chart" id="category-chart" aria-labelledby="h-cat"></section>
+      <section class="chart" id="license-chart" aria-labelledby="h-lic"></section>
+    </div>
+    <div class="sec">
+      <section class="chart wide" id="star-chart" aria-labelledby="h-star"></section>
+    </div>
+    <div class="sec">
+      <section class="chart wide" id="age-chart" aria-labelledby="h-age"></section>
+    </div>
+    <div class="sec pair">
+      <section class="chart" id="push-chart" aria-labelledby="h-push"></section>
+      <section class="chart" id="release-chart" aria-labelledby="h-rel"></section>
+    </div>
+  </div>
+
+  <section id="coverage" class="whole" aria-labelledby="coverage-heading">
+    <div class="shell">
+      <div class="sec-head">
+        <p class="kicker">07 / projects</p>
+        <h2 id="coverage-heading" class="display">Evidence coverage</h2>
+        <p><span class="block-label">Whole collection</span></p>
+      </div>
+      <div class="cov" id="cov"></div>
+      <div class="cov-foot" id="cov-foot"></div>
+    </div>
+  </section>
+
+  <section id="project-records" class="shell sec" aria-labelledby="data-heading">
+    <div class="sec-head">
+      <p class="kicker">08 / downloads</p>
+      <h2 id="data-heading" class="display">Project data</h2>
+      <p>Dates are UTC.</p>
+    </div>
+    <p class="downloads">
+      <a href="https://awesomeopen.github.io/awesome-open/observatory/projects.csv">Complete CSV</a>
+      <a href="https://awesomeopen.github.io/awesome-open/observatory/snapshot.json">Complete snapshot JSON</a>
+      <a href="https://awesomeopen.github.io/awesome-open/observatory/report.html">Standalone report</a>
+      <span class="muted">The live page also exports the current selection as CSV.</span>
+    </p>
+    <details class="listing" id="project-data">
+      <summary><span>Data table</span><span class="muted"><span id="listing-count" class="num"></span> projects in this selection</span></summary>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Project data table">
+        <table class="data">
+          <caption>Project records</caption>
+          <thead><tr><th scope="col">Project</th><th scope="col">Detected license</th><th scope="col">GitHub stars</th><th scope="col">Repository created</th><th scope="col">Last push</th><th scope="col">Latest full release</th><th scope="col">Release cache / checked UTC</th><th scope="col">Source</th></tr></thead>
+          <tbody id="project-rows"></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <div class="closing"><img src="{{LOGO}}" width="128" height="128" alt="Awesome Open* botanical logo"></div>
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <p>Awesome Open* / Observatory</p>
+    <p><a href="https://awesomeopen.github.io/awesome-open/">Return to project ledger</a> · <a href="https://github.com/awesomeopen/awesome-open">GitHub</a><br>Source revision: <a href="https://github.com/awesomeopen/awesome-open/commit/{{FULLSHA}}">{{SHA12}}</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var DATA = /*DATA*/;
+  var WS = /*WS*/;
+  var LEDGER = 'https://awesomeopen.github.io/awesome-open/';
+  var fmt = new Intl.NumberFormat('en-US');
+  var catNames = new Map(DATA.categories.map(function (c) { return [c.id, c.name]; }));
+  var RECENCY = [['0–30 days', 30], ['31–90 days', 90], ['91–365 days', 365], ['366–730 days', 730], ['Over 730 days', null]];
+  var AGES = [['0–365 days', 365], ['366–1,826 days', 1826], ['1,827–3,653 days', 3653], ['Over 3,653 days', null]];
+  var asOf = Date.parse(DATA.asOf + 'T00:00:00Z');
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function cmp(a, b) {
+    var l = Array.from(a), r = Array.from(b);
+    for (var i = 0; i < Math.min(l.length, r.length); i++) {
+      var d = l[i].codePointAt(0) - r[i].codePointAt(0);
+      if (d) return d;
+    }
+    return l.length - r.length;
+  }
+
+  // UTC calendar-date difference against metrics_as_of; future or invalid is Unknown.
+  function daysBefore(v) {
+    if (!v || !/^\d{4}-\d{2}-\d{2}/.test(v)) return null;
+    var t = Date.parse(v);
+    if (isNaN(t)) return null;
+    var d = new Date(t);
+    var diff = Math.round((asOf - Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())) / 864e5);
+    return diff >= 0 ? diff : null;
+  }
+  function histogram(rows, key, buckets) {
+    var counts = buckets.map(function () { return 0; }).concat([0]);
+    rows.forEach(function (p) {
+      var days = daysBefore(p[key]);
+      var i = buckets.length;
+      if (days != null) i = buckets.findIndex(function (b) { return b[1] == null || days <= b[1]; });
+      counts[i]++;
+    });
+    return buckets.map(function (b, i) { return [b[0], counts[i]]; }).concat([['Unknown', counts[buckets.length]]]);
+  }
+
+  function aggregate(rows) {
+    var lic = new Map();
+    rows.forEach(function (p) { if (p.l) lic.set(p.l, (lic.get(p.l) || 0) + 1); });
+    var licenses = Array.from(lic).sort(function (a, b) { return b[1] - a[1] || cmp(a[0], b[0]); });
+    licenses.push(['Unknown', rows.filter(function (p) { return !p.l; }).length]);
+    var cats = DATA.categories.map(function (c) { return [c.name, rows.filter(function (p) { return p.c.indexOf(c.id) >= 0; }).length]; })
+      .sort(function (a, b) { return b[1] - a[1]; });
+    var unmapped = rows.filter(function (p) { return !p.c.some(function (id) { return catNames.has(id); }); }).length;
+    if (unmapped) cats.push(['Unknown', unmapped]);
+    var ranked = rows.filter(function (p) { return p.g && p.s != null; })
+      .sort(function (a, b) { return b.s - a.s || cmp(a.n, b.n) || cmp(a.id, b.id); });
+    var stars = ranked.reduce(function (n, p) { return n + p.s; }, 0);
+    var leaders = ranked.slice(0, 10);
+    var starRows = leaders.map(function (p) { return [p.n, p.s]; });
+    if (ranked.length > 10) starRows.push(['Other mapped projects', stars - leaders.reduce(function (n, p) { return n + p.s; }, 0)]);
+    return {
+      total: rows.length, mapped: rows.filter(function (p) { return p.g; }).length, stars: stars,
+      known: rows.filter(function (p) { return p.l; }).length,
+      categories: cats, licenses: licenses, starRows: starRows,
+      ages: histogram(rows, 'cr', AGES), pushes: histogram(rows, 'p', RECENCY), releases: histogram(rows, 'r', RECENCY)
+    };
+  }
+
+  /* ---------- Charts ---------- */
+  function chart(id, spec) {
+    var root = document.getElementById(id);
+    root.replaceChildren();
+    var hid = root.getAttribute('aria-labelledby');
+    var h = el('h3', 'display', spec.title); h.id = hid;
+    root.append(el('p', 'kicker', spec.number + ' / ' + spec.unit.toLowerCase()), h, el('p', 'note', spec.note));
+    var max = spec.max != null ? spec.max : Math.max.apply(null, spec.rows.map(function (r) { return r[1]; }).concat([0]));
+    if (!spec.rows.length || !spec.rows.some(function (r) { return r[1] > 0; })) {
+      root.append(el('p', 'empty', 'No observed values in this selection.'));
+    }
+    var list = el('div', 'bars');
+    var scale = el('div', 'scale');
+    scale.setAttribute('aria-hidden', 'true');
+    var ends = el('span', 'ends');
+    ends.append(el('span', null, '0'), el('span', null, fmt.format(max) + ' ' + spec.unit.toLowerCase() + (spec.shared ? ' · shared scale' : '')));
+    scale.append(el('span'), ends, el('span'));
+    list.append(scale);
+    var ol = el('ol', 'bars');
+    spec.rows.forEach(function (r) {
+      var li = el('li', 'bar' + (r[0] === 'Unknown' ? ' unknown' : ''));
+      var track = el('span', 'track'); track.setAttribute('aria-hidden', 'true');
+      var fill = el('span', 'fill'); fill.style.width = (max ? 100 * r[1] / max : 0) + '%';
+      track.append(fill);
+      li.append(el('span', 'lab', r[0]), track, el('span', 'cnt', fmt.format(r[1])));
+      ol.append(li);
+    });
+    list.append(ol);
+    root.append(list);
+    var det = el('details', 'chart-data');
+    det.append(el('summary', null, 'Chart data'));
+    var t = el('table'); t.append(el('caption', null, spec.title));
+    var thead = el('thead'), tr = el('tr');
+    var th1 = el('th', null, 'Label'), th2 = el('th', null, spec.unit); th1.scope = th2.scope = 'col';
+    tr.append(th1, th2); thead.append(tr); t.append(thead);
+    var tb = el('tbody');
+    spec.rows.forEach(function (r) { var row = el('tr'); var th = el('th', null, r[0]); th.scope = 'row'; row.append(th, el('td', null, fmt.format(r[1]))); tb.append(row); });
+    t.append(tb); det.append(t); root.append(det);
+  }
+
+  /* ---------- Shared names: one matching key per name, then describe differences ---------- */
+  var SEP = /*SEP*/;
+  var KINDS = [
+    { key: 'identical', label: 'Identical names', legend: 'Identical name' },
+    { key: 'variants', label: 'Spelling variants', legend: 'Spelling variants' }
+  ];
+  function variants(rows) { return Array.from(new Set(rows.map(function (p) { return p.n; }))).sort(cmp); }
+  function matchKey(name) { return name.toLowerCase().replace(SEP, ''); }
+  // Split a displayed name into key characters and the separator run before each one.
+  function anatomy(name) {
+    var chars = [], gaps = [''];
+    Array.from(name).forEach(function (c) {
+      if (SEP.test(c)) { SEP.lastIndex = 0; gaps[chars.length] += c; return; }
+      SEP.lastIndex = 0;
+      chars.push(c); gaps.push('');
+    });
+    return { chars: chars, gaps: gaps };
+  }
+  function differences(names) {
+    var parts = names.map(anatomy), ref = parts[0], diff = { chars: [], gaps: [] };
+    ref.gaps.forEach(function (_, i) { diff.gaps[i] = parts.some(function (q) { return q.gaps[i] !== ref.gaps[i]; }); });
+    ref.chars.forEach(function (_, i) { diff.chars[i] = parts.some(function (q) { return q.chars[i] !== ref.chars[i]; }); });
+    return diff;
+  }
+  function sharedNames(projects) {
+    var unique = Array.from(new Map(projects.map(function (p) { return [p.id, p]; })).values())
+      .sort(function (a, b) { return cmp(a.n, b.n) || cmp(a.id, b.id); });
+    var buckets = new Map();
+    unique.forEach(function (p) {
+      var k = matchKey(p.n);
+      if (!k) return;
+      if (!buckets.has(k)) buckets.set(k, []);
+      buckets.get(k).push(p);
+    });
+    var out = { identical: [], variants: [], total: 0, tags: { Case: 0, Spacing: 0, 'Exact duplicates': 0 } };
+    Array.from(buckets.values()).filter(function (g) { return g.length > 1; }).forEach(function (g) {
+      var names = variants(g);
+      var group = { projects: g, names: names, tags: [] };
+      if (names.length > 1) {
+        var d = differences(names);
+        if (d.chars.some(Boolean)) group.tags.push('Case');
+        if (d.gaps.some(Boolean)) group.tags.push('Spacing');
+        if (names.some(function (n) { return g.filter(function (p) { return p.n === n; }).length > 1; })) group.tags.push('Exact duplicates');
+        group.tags.forEach(function (t) { out.tags[t]++; });
+        out.variants.push(group);
+      } else out.identical.push(group);
+      out.total += g.length;
+    });
+    out.variants.sort(function (a, b) { return cmp(a.names.join(' / '), b.names.join(' / ')); });
+    return out;
+  }
+  // Mark key characters whose case differs and separator runs that differ across the group.
+  function markedName(name, names) {
+    var frag = document.createDocumentFragment();
+    if (names.length < 2) { frag.appendChild(document.createTextNode(name)); return frag; }
+    var d = differences(names), a = anatomy(name);
+    a.gaps.forEach(function (gap, i) {
+      if (gap) frag.appendChild(d.gaps[i] ? el('span', 'diff gap', gap) : document.createTextNode(gap));
+      else if (d.gaps[i]) frag.appendChild(el('span', 'diff nogap'));
+      if (i < a.chars.length) frag.appendChild(d.chars[i] ? el('span', 'diff', a.chars[i]) : document.createTextNode(a.chars[i]));
+    });
+    return frag;
+  }
+  function slug(s) { return 'g-' + matchKey(s).replace(/[^a-z0-9]+/g, '-'); }
+  function categoryText(p) { return p.c.map(function (id) { return catNames.get(id) || 'Unknown'; }).join(', ') || 'Unknown'; }
+  function repoLink(p) {
+    var a = el('a', 'repo'); a.href = p.u;
+    var parts = p.u.replace(/^https:\/\/github\.com\//, '').split('/');
+    a.append(el('span', 'host', 'github.com/'), el('span', 'owner', parts[0]), el('span', 'path', '/' + parts.slice(1).join('/')));
+    return a;
+  }
+  function fact(dl, label, value, unknown) { dl.append(el('dt', null, label), el('dd', unknown ? 'unknown' : null, value)); }
+  function plate(group) {
+    var names = group.names, g = group.projects;
+    var art = el('article', 'group'); art.id = slug(names[0]);
+    art.setAttribute('aria-labelledby', art.id + '-h');
+    var head = el('header', 'group-head');
+    var h = el('h4', 'display'); h.id = art.id + '-h';
+    names.forEach(function (n, i) {
+      if (i) h.append(el('span', 'sep', '/'));
+      h.append(markedName(n, names));
+    });
+    var common = [];
+    var cat = categoryText(g[0]);
+    if (g.every(function (p) { return categoryText(p) === cat; })) common.push(cat);
+    var lic = g[0].l || 'Unknown';
+    if (g.every(function (p) { return (p.l || 'Unknown') === lic; })) common.push(lic);
+    var meta = el('p', 'group-meta');
+    meta.append(el('strong', 'num', g.length + ' tools'));
+    group.tags.forEach(function (t) { meta.append(document.createTextNode(' '), el('span', 'tag', t)); });
+    meta.append(document.createTextNode(common.length ? ' · In common: ' + common.join(' · ') : ''));
+    head.append(h, meta);
+    var grid = el('div', 'projects'); grid.style.setProperty('--n', g.length);
+    g.forEach(function (p) {
+      var col = el('div', 'proj');
+      var name = el('p', 'proj-name');
+      name.append(markedName(p.n, names));
+      var dl = el('dl', 'facts');
+      fact(dl, 'Category', categoryText(p));
+      fact(dl, 'License', p.l || 'Unknown', !p.l);
+      fact(dl, 'GitHub stars', p.s == null ? 'Unknown' : fmt.format(p.s), p.s == null);
+      fact(dl, 'Created', p.cr ? p.cr.slice(0, 10) : 'Unknown', !p.cr);
+      fact(dl, 'Last push', p.p ? p.p.slice(0, 10) : 'Unknown', !p.p);
+      var rec = el('a', 'record', 'Ledger record');
+      rec.href = LEDGER + '#project-' + p.id;
+      rec.setAttribute('aria-label', 'Ledger record for ' + p.n + ' (' + p.u.replace('https://github.com/', '') + ')');
+      col.append(name, repoLink(p), el('p', 'desc', p.d || 'No short description in the catalog.'), dl, rec);
+      grid.append(col);
+    });
+    art.append(head, grid);
+    return art;
+  }
+  function renderNames(rows) {
+    var r = sharedNames(rows);
+    document.getElementById('sn-total').textContent = fmt.format(r.total);
+    document.getElementById('sn-selected').textContent = fmt.format(rows.length) + '/' + fmt.format(DATA.projects.length) + ' selected.';
+    var tally = document.getElementById('tally'), legend = document.getElementById('legend'), bands = document.getElementById('bands');
+    tally.replaceChildren(); legend.replaceChildren(); bands.replaceChildren();
+    if (!r.total) tally.append(el('p', 'muted', 'No shared names in this selection.'));
+    var groupCount = r.identical.length + r.variants.length;
+    document.getElementById('groups-count').textContent = groupCount + (groupCount === 1 ? ' group · ' : ' groups · ') + fmt.format(r.total) + ' tools';
+    KINDS.forEach(function (k) {
+      var groups = r[k.key];
+      var count = groups.reduce(function (n, g) { return n + g.projects.length; }, 0);
+      if (groups.length && tally.children.length) tally.append(el('span', 'break'));
+      groups.forEach(function (g) {
+        var a = el('a', 'cluster'); a.href = '#' + slug(g.names[0]);
+        a.addEventListener('click', function () { document.getElementById('name-groups').open = true; });
+        a.setAttribute('aria-label', g.names.join(' / ') + ', ' + g.projects.length + ' tools, ' + k.legend.toLowerCase());
+        g.projects.forEach(function () { a.append(el('span', 'cell k-' + k.key)); });
+        tally.append(a);
+      });
+      var li = el('li', count ? null : 'zero');
+      var sw = el('span', 'cell k-' + k.key); sw.setAttribute('aria-hidden', 'true');
+      li.append(sw, el('span', null, k.legend), el('b', 'num', String(count)));
+      legend.append(li);
+      var band = el('section', 'band'); band.setAttribute('aria-labelledby', 'band-' + k.key);
+      var h3 = el('h3', 'block-label', k.label + ' · ' + count + ' tools'); h3.id = 'band-' + k.key;
+      band.append(h3);
+      if (groups.length) groups.forEach(function (g) { band.append(plate(g)); });
+      else band.append(el('p', 'empty', 'No ' + k.legend.toLowerCase() + ' in this selection.'));
+      bands.append(band);
+    });
+    var tags = el('li', 'tags-line');
+    tags.append(el('span'), el('span', null, 'Variant groups with: Case ' + r.tags.Case + ' · Spacing ' + r.tags.Spacing + ' · Exact duplicates ' + r.tags['Exact duplicates']));
+    legend.append(tags);
+  }
+
+  /* ---------- Metrics, finding, coverage, listing ---------- */
+  function renderMetrics(a) {
+    var dl = document.getElementById('metrics'); dl.replaceChildren();
+    [['Unique projects', a.total], ['Cached GitHub metrics', a.mapped, a.total], ['Observed GitHub stars', a.stars], ['Detected license available', a.known, a.total]].forEach(function (m) {
+      var box = el('div', 'metric');
+      var dd = el('dd', null, fmt.format(m[1]));
+      if (m[2] != null) dd.append(el('span', 'of', ' / ' + fmt.format(m[2])));
+      box.append(el('dt', null, m[0]), dd);
+      if (m[2] != null) {
+        var bar = el('div', 'ratio'); bar.setAttribute('aria-hidden', 'true');
+        var i = el('i'); i.style.width = (m[2] ? 100 * m[1] / m[2] : 0) + '%';
+        bar.append(i); box.append(bar);
+      }
+      dl.append(box);
+    });
+  }
+  function renderFinding() {
+    var whole = aggregate(DATA.projects);
+    var top = whole.starRows.slice(0, 10);
+    var topSum = top.reduce(function (n, r) { return n + r[1]; }, 0);
+    var share = whole.stars ? Math.round(1000 * topSum / whole.stars) / 10 : null;
+    document.getElementById('finding-text').textContent = top.length === 10 && share != null
+      ? 'The 10 most-starred projects hold ' + share.toFixed(1) + '% of observed stars.'
+      : top.length + ' projects have an observed star count.';
+    var strip = document.getElementById('strip'), key = document.getElementById('strip-key');
+    top.forEach(function (r) { var i = el('i'); i.style.width = (100 * r[1] / whole.stars) + '%'; i.title = r[0] + ': ' + fmt.format(r[1]); strip.append(i); });
+    key.append(el('span', null, 'Top 10 · ' + fmt.format(topSum) + ' stars'), el('span', 'muted', 'Other mapped projects · ' + fmt.format(whole.stars - topSum)));
+  }
+  function renderCoverage() {
+    var c = DATA.coverage, total = c.total;
+    function states(name) { return Object.keys(c[name].states).map(function (k) { return fmt.format(c[name].states[k]) + ' ' + k; }).join('; '); }
+    var rows = [
+      ['Cached GitHub metrics', c.github, 'Projects with cached GitHub metrics.'],
+      ['Latest GitHub release', c.release.cached, c.release.checked + ' checked. ' + states('release') + '. Latest full release selected by GitHub.'],
+      ['OpenSSF Scorecard', c.scorecard.cached, c.scorecard.checked + ' checked. ' + states('scorecard') + '. Cached automated repository checks.'],
+      ['Reviewed alternatives', c.alternatives, 'Reviewed use-case comparisons.'],
+      ['Reviewed function summaries', c.summaries, 'Source-reviewed function descriptions.'],
+      ['Reviewed setup evidence', c.deployment, 'Limited set of source-reviewed setup instructions.'],
+      ['Approved specimen artwork', c.artwork, 'Original specimen illustrations.'],
+      ['HN identity tracking', c.hn_tracked, c.hn_eligible + ' chart-eligible projects; ' + c.hn_unique_stories + ' globally distinct story IDs and ' + c.hn_project_matches + ' project–story matches in the tracked subset. Stories can match several projects.'],
+      ['Cached star history', c.star_history, c.star_charts + ' aligned charts. Monthly stars retained at fetch. Month boundaries may be approximate.']
+    ];
+    var box = document.getElementById('cov');
+    rows.forEach(function (r) {
+      var row = el('div', 'cov-row');
+      var track = el('span', 'track'); track.setAttribute('aria-hidden', 'true');
+      var fill = el('span', 'fill'); fill.style.width = (100 * r[1] / total) + '%'; track.append(fill);
+      row.append(el('span', null, r[0]), track, el('span', 'cnt', fmt.format(r[1]) + ' / ' + fmt.format(total)), el('span', 'scope', r[2]));
+      box.append(row);
+    });
+    var foot = document.getElementById('cov-foot');
+    foot.append(el('p', null, 'Evidence collection: ' + (c.signals_collected_at || 'Not available') + '. HN checked: ' + (c.hn_checked || 'Not available') + '; window ' + c.hn_window_start + ' to ' + c.hn_window_end_exclusive + ' (end exclusive). Provider checks can be older than the build.'));
+    var links = el('p');
+    [['GitHub metric snapshot', 'https://github.com/awesomeopen/awesome-open/blob/' + DATA.sha + '/data/github_metrics.json'], ['HN evidence', LEDGER + 'data/hn_evidence.json'], ['Release and Scorecard evidence', LEDGER + 'data/project_signals.json'], ['Star-history evidence', LEDGER + 'data/star_history.json']].forEach(function (l, i) {
+      if (i) links.append(document.createTextNode(' · '));
+      var a = el('a', null, l[0]); a.href = l[1]; links.append(a);
+    });
+    foot.append(links);
+  }
+  function cell(tr, value, cls) { var td = el('td', cls, value); tr.append(td); return td; }
+  function renderListing(rows) {
+    document.getElementById('listing-count').textContent = fmt.format(rows.length);
+    var tb = document.getElementById('project-rows'); tb.replaceChildren();
+    rows.forEach(function (p) {
+      var tr = el('tr');
+      var th = el('th'); th.scope = 'row';
+      var a = el('a', null, p.n); a.href = LEDGER + '#project-' + p.id; th.append(a); tr.append(th);
+      cell(tr, p.l || 'Unknown', p.l ? null : 'unknown');
+      cell(tr, p.s == null ? 'Unknown' : fmt.format(p.s), p.s == null ? 'n unknown' : 'n');
+      [p.cr, p.p, p.r].forEach(function (v) { cell(tr, v ? v.slice(0, 10) : 'Unknown', v ? null : 'unknown'); });
+      var st = cell(tr, p.rs); st.append(el('br'), document.createTextNode(p.rc || 'Not checked'));
+      var src = el('td'); var s = el('a', null, 'Official source'); s.href = p.u; src.append(s); tr.append(src);
+      tb.append(tr);
+    });
+  }
+
+  /* ---------- Selection ---------- */
+  var catSel = document.getElementById('category-filter'), licSel = document.getElementById('license-filter'), reset = document.getElementById('reset-filters');
+  DATA.categories.forEach(function (c) { catSel.append(new Option(c.name, c.id)); });
+  function render() {
+    var c = catSel.value, l = licSel.value;
+    var rows = DATA.projects.filter(function (p) {
+      return (!c || p.c.indexOf(c) >= 0) && (l === 'all' || (l === 'known') === Boolean(p.l));
+    });
+    reset.disabled = !c && l === 'all';
+    var a = aggregate(rows);
+    renderMetrics(a);
+    renderNames(rows);
+    chart('category-chart', { number: '01', unit: 'Projects', title: 'Projects by category', note: 'Projects can belong to several categories.', rows: a.categories });
+    chart('license-chart', { number: '02', unit: 'Projects', title: 'Detected licenses', note: 'Cached GitHub license identifiers.', rows: a.licenses });
+    chart('star-chart', { number: '03', unit: 'Stars', title: 'GitHub stars', note: 'Top 10 specimen by GitHub stars.', rows: a.starRows });
+    chart('age-chart', { number: '04', unit: 'Projects', title: 'Repository age', note: 'Days since GitHub repository creation.', rows: a.ages });
+    var shared = Math.max.apply(null, a.pushes.concat(a.releases).map(function (r) { return r[1]; }).concat([0]));
+    chart('push-chart', { number: '05', unit: 'Projects', title: 'Last repository push', note: 'Days since last repository push.', rows: a.pushes, max: shared, shared: true });
+    chart('release-chart', { number: '06', unit: 'Projects', title: 'Latest GitHub release', note: 'Days since last GitHub release (cached, excludes prereleases).', rows: a.releases, max: shared, shared: true });
+    renderListing(rows);
+  }
+  catSel.addEventListener('change', render);
+  licSel.addEventListener('change', render);
+  reset.addEventListener('click', function () { catSel.value = ''; licSel.value = 'all'; render(); catSel.focus(); });
+  document.getElementById('filters').addEventListener('submit', function (e) { e.preventDefault(); });
+  renderFinding();
+  renderCoverage();
+  render();
+})();
+</script>

@@ -49,6 +49,10 @@ forecast model. The main-only publisher includes the route automatically.
 
 ## Presentation and data
 
+A proposed redesign of this route, with a reusable method for similar passes, is
+recorded in [OBSERVATORY-REDESIGN.md](OBSERVATORY-REDESIGN.md) (B30, not
+implemented). The rules below remain current until it is accepted.
+
 Native SVG and standard-library Python do the chart work. Route-only JavaScript
 progressively filters a thin embedded projection, with category/license URL state
 and Back/Forward support. Native HTML tables, exact values, source revision,
