@@ -113,9 +113,19 @@ const path = require('node:path');
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.locator('.category-panel > summary').focus();
     await page.keyboard.press('Enter');
+    const categoryLink = page.locator('.category-nav a[data-category="developer-tools"]');
+    assert.equal(await page.locator('.category-nav').evaluate(node => getComputedStyle(node).gridTemplateColumns.split(' ').length), 4);
+    const rowBefore = await categoryLink.boundingBox();
+    await categoryLink.hover();
+    assert.equal(Math.round((await categoryLink.locator('img').boundingBox()).width), 104);
+    assert.equal((await categoryLink.boundingBox()).height, rowBefore.height);
+    assert.equal(await categoryLink.evaluate(node => getComputedStyle(node).overflow), 'hidden');
     await page.locator('.category-nav a[data-category="developer-tools"] img').click();
+    assert.ok((await page.locator('.page-end img').getAttribute('src')).endsWith('developer-tools-m.webp'));
+    assert.equal(await page.locator('.page-end img').getAttribute('width'), '207');
     assert.equal(await visible(), data.projects.filter(project => project.categories.includes('developer-tools')).length);
     await page.locator('#clear-filters').click();
+    assert.equal(await page.locator('.page-end img').getAttribute('src'), 'brand/fruit-96.png');
     if (await page.locator('.category-panel').evaluate(node => node.open)) await page.locator('.category-panel > summary').click();
     for (const [density, suffix] of [[2, 's'], [3, 'm']]) {
       const denseContext = await browser.newContext({ viewport: { width: 1440, height: 1000 },

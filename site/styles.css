@@ -856,7 +856,7 @@ h1 { font-size:28px; margin:0; }
 .catalog-toolbar { border:0; min-width:0; }
 .category-panel > summary, .filter-options > summary { display:flex; justify-content:space-between; min-height:44px; padding:12px; border:1px solid var(--rule); background:var(--rs-mist); font:13px/1.5 var(--mono); text-transform:none; }
 .category-nav, .filter-body { width:calc(200% + 12px); padding:12px 0; }
-.category-nav { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 20px; max-height:50vh; }
+.category-nav { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0 20px; max-height:50vh; }
 .filter-body { margin-left:calc(-100% - 12px); }
 .toolbar-bottom { padding:8px 0 0; }
 .results-heading { margin:8px 0; }
@@ -864,6 +864,7 @@ h1 { font-size:28px; margin:0; }
 #clear-filters { font-size:12px; padding:4px 8px; }
 .leader-key { margin-bottom:12px; }
 @media(max-width:900px) {
+  .category-nav { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .layout { padding-top:12px; }
   .header-links { gap:16px; }
 }
@@ -987,7 +988,7 @@ h1 { font-size:28px; margin:0; }
 .footer-baseline>span {background:black;padding:4px 8px;}
 
 .page-end {display:flex;justify-content:center;padding:72px 24px 120px;}
-.page-end img {display:block;width:96px;height:96px;}
+.page-end img {display:block;max-width:100%;height:auto;}
 /* Paired attention charts keep identical geometry, independent count scales. */
 .star-history .star-chart img {width:120px;height:24px;}
 .star-history .fine-print,.signal .star-window {font-size:12px;line-height:1.6;}
@@ -1011,7 +1012,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .control-row {gap:12px;}
 .category-panel>summary,.filter-options>summary {padding:10px 12px;}
 .results-heading {margin:12px 0;}
-.ledger-columns,.specimen-drawer>summary {column-gap:20px;grid-template-columns:36px minmax(180px,1.05fr) minmax(180px,1.45fr) 120px 24px;}
+.ledger-columns,.specimen-drawer>summary {column-gap:20px;grid-template-columns:36px minmax(180px,240px) minmax(180px,1fr) 120px 24px;}
 .ledger-columns {font-size:12px;line-height:1.5;padding:10px 12px;letter-spacing:.015em;}
 .specimen-drawer>summary {padding:11px 12px;min-height:48px;}
 .specimen-name {font:450 16px/1.5 var(--mono);letter-spacing:-.025em;}
@@ -1049,7 +1050,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .footer-actions {font-size:14px;gap:24px;}
 .footer-baseline {font-size:12px;line-height:1.6;gap:12px;}
 @media(max-width:1200px) {
-  .ledger-columns,.specimen-drawer>summary {grid-template-columns:32px minmax(150px,1.1fr) minmax(140px,1.3fr) 100px 20px;column-gap:14px;}
+  .ledger-columns,.specimen-drawer>summary {grid-template-columns:32px minmax(150px,200px) minmax(140px,1fr) 100px 20px;column-gap:14px;}
 }
 @media(max-width:900px) {
   .brand {font-size:27px;}
@@ -1216,3 +1217,9 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
  .is-opening .plate-terrain path,.is-opening .plate-art,.is-opening .plate-leaders {animation:none;stroke-dashoffset:0;}
  .plate-lens {transition:none;}
 }
+
+/* Enlarge the native 104px icon within its fixed navigation row. */
+.category-nav a {overflow:hidden;}
+.category-nav a:hover .category-art,
+.category-nav a:focus-visible .category-art {transform:scale(var(--category-scale,1));}
+.category-label,.category-count {position:relative;}

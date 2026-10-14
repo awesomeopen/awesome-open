@@ -78,10 +78,13 @@ def category_image(category, offline=False, root=None):
         return ''
     small = artwork['variants']['s']
     source = small['path']
+    medium = artwork['variants']['m']
+    end_source = medium['path']
     responsive = ''
     if offline:
         encoded = base64.b64encode((Path(root) / 'site' / source).read_bytes()).decode('ascii')
         source = 'data:image/webp;base64,' + encoded
+        end_source = 'data:image/webp;base64,' + base64.b64encode((Path(root) / 'site' / end_source).read_bytes()).decode('ascii')
     else:
         candidates = ', '.join(f'{artwork["variants"][size]["path"]} {artwork["variants"][size]["width"]}w'
                                for size in VARIANTS)
@@ -89,6 +92,8 @@ def category_image(category, offline=False, root=None):
     # The adjacent category name supplies the link's accessible name. The image
     # is decorative here; its standalone description remains in provenance.
     return (f'<img class="category-art" src="{escape(source, quote=True)}"{responsive}'
+            f' data-end-src="{escape(end_source, quote=True)}" data-end-width="{medium["width"]}" data-end-height="{medium["height"]}"'
+            f' style="--category-scale:{small["width"] / DISPLAY_SIZE}"'
             f' width="{small["width"]}" height="{small["height"]}" alt="" aria-hidden="true"'
             ' loading="lazy" decoding="async" fetchpriority="low">')
 
@@ -106,8 +111,8 @@ def copy_category_art(catalog, root, output):
 
 
 def embed_category_art(page, catalog, root):
-    # Embed one 104px source per 48 CSS px icon, rather than all responsive
-    # candidates. The small set adds about 200 KB of base64 to the offline file.
+    # Embed the small navigation icon and medium closing mark, not every
+    # responsive candidate. Category selection must also work offline.
     for category in catalog['categories']:
         if category.get('artwork'):
             page = page.replace(category_image(category), category_image(category, offline=True, root=root))

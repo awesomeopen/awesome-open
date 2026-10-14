@@ -445,6 +445,8 @@
     });
 
     var categoryLinks = Array.from(document.querySelectorAll("a[data-category]"));
+    var endMark = document.querySelector(".page-end img");
+    var defaultEndSrc = endMark && endMark.getAttribute("src");
     var navLinks = Array.from(document.querySelectorAll(".category-nav a[data-category]"));
     var timer = null;
     var currentState = DEFAULTS;
@@ -538,6 +540,14 @@
         : total.toLocaleString("en-US") + " of " + data.projects.length.toLocaleString("en-US") + " projects";
       empty.hidden = total !== 0;
       linkedProject(false);
+      if (endMark) {
+        var selectedLink = navLinks.find(function (link) { return link.dataset.category === state.category; });
+        var art = selectedLink && selectedLink.querySelector(".category-art");
+        var endSrc = art ? art.dataset.endSrc : defaultEndSrc;
+        if (endMark.getAttribute("src") !== endSrc) endMark.setAttribute("src", endSrc);
+        endMark.width = art ? Number(art.dataset.endWidth) : 96;
+        endMark.height = art ? Number(art.dataset.endHeight) : 96;
+      }
       navLinks.forEach(function (link) {
         if (link.dataset.category === state.category) link.setAttribute("aria-current", "true");
         else link.removeAttribute("aria-current");
