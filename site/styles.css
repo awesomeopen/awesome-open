@@ -211,6 +211,9 @@ summary::marker {
 }
 .category-label { min-width:0; overflow-wrap:anywhere; }
 .category-nav a:not(.has-category-art) .category-label { grid-column:1 / 3; }
+/* The menu spans both control columns. Keep its links above the adjacent
+   stretched, transparent Filters form so the right-hand items remain clickable. */
+.category-panel[open] .category-nav { position:relative; z-index:1; }
 .category-count {
   font:13px var(--mono);
   color:var(--muted);
