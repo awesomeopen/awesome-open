@@ -296,6 +296,12 @@ async function checkObservatory({ browser, url }) {
       assert.equal(project.release_at, release.last_good?.value?.published_at ?? null, 'Release uses its cached publication date');
       assert.equal(project.release_checked_at, release.checked_at ?? null, 'Release checked time remains distinct');
     }
+    const logo = page.locator('.obs-logo');
+    assert.equal(await logo.getAttribute('src'), '../brand/botanical-128.png');
+    assert.equal(await logo.getAttribute('alt'), 'Awesome Open* botanical logo');
+    assert.equal(await page.locator('.obs-hero figcaption').count(), 0, 'No logo subtitle');
+    await logo.evaluate(image => image.decode());
+    assert.equal(await logo.evaluate(image => image.naturalWidth), 128);
     writeReport();
 
     // Save review artifacts before behavioral checks, so failures retain the page.
@@ -307,6 +313,7 @@ async function checkObservatory({ browser, url }) {
       await page.setViewportSize(viewport);
       await page.evaluate(() => scrollTo(0, 0));
       await fits(page, name);
+      assert.ok((await logo.boundingBox()).width <= 128, 'Logo stays within source resolution');
       await capture(name);
       await page.locator('#category-chart').scrollIntoViewIfNeeded();
       await capture(name + '-charts');
@@ -515,6 +522,8 @@ async function checkObservatory({ browser, url }) {
     assert.equal(await page.locator('link[rel="stylesheet"], script[src]:not([src^="data:"])').count(), 0, 'Embedded standalone styles and runtime');
     assert.ok(await page.locator('img').evaluateAll(nodes => nodes.every(image => image.src.startsWith('data:') && image.complete && image.naturalWidth > 0)), 'Embedded standalone artwork');
     assert.deepEqual(offlineRequests, [], 'Standalone fetches no neighboring assets');
+    assert.ok((await page.locator('.obs-logo').getAttribute('src')).startsWith('data:image/png;base64,'));
+    assert.equal(await page.locator('.obs-hero figcaption').count(), 0);
     await assertSelection(page, data, data.projects, 'standalone initial');
     await checkProjectDisclosure(page, 'standalone');
     await select('category-filter', first.id);

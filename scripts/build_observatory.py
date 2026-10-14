@@ -161,14 +161,12 @@ def chart(identifier, number, title, note, rows, unit='Projects'):
     return f'<section class="obs-chart" id="{identifier}"><div class="obs-chart-head"><p class="obs-kicker">{number} / {unit.lower()}</p><h2>{title}</h2><p>{note}</p><p class="chart-scale">Linear scale from zero.</p></div>{visual}<details><summary>Chart data</summary>{table}</details></section>'
 
 
-def render(index, counts, covered, artwork=None):
+def render(index, counts, covered):
     esc = lambda v: escape(str(v), quote=True)
     revision = index['source_sha']
     source = f'{REPOSITORY}/blob/{revision or "main"}'
     stamp = f'<a href="{REPOSITORY}/commit/{revision}">{revision[:12]}</a>' if revision else 'Local preview; source revision not supplied'
-    art = ''
-    if artwork:
-        art = f'<figure class="obs-specimen"><img src="../{esc(artwork["path"])}" width="{artwork["width"]}" height="{artwork["height"]}" alt="{esc(artwork["alt"])}"><figcaption>Specimen illustration · {esc(artwork["name"])}</figcaption></figure>'
+    art = '<img class="obs-logo" src="../brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo">'
     options = ''.join(f'<option value="{esc(c["id"])}">{esc(c["name"])}</option>' for c in index['categories'])
     metrics = ''.join(f'<div class="obs-metric"><dt>{label}</dt><dd data-metric="{key}">{value:,}</dd></div>' for key, label, value in [('total','Unique projects',counts['total']),('mapped','Cached GitHub metrics',counts['mapped']),('stars','Observed GitHub stars',counts['stars']),('known-license','Detected license available',counts['known_license'])])
     concentration = (f'The 10 most-starred projects hold {counts["concentration"]:.1f}% of observed stars.' if counts['leader_count'] == 10 and counts['concentration'] is not None else f'{counts["leader_count"]} projects have an observed star count.')
@@ -217,11 +215,7 @@ def build(catalog, hn, output, root):
     target.mkdir(parents=True, exist_ok=True)
     index = project_index(catalog)
     counts, covered = aggregate(index), coverage(catalog, hn)
-    # Reuse one approved, compact existing illustration. No new raster bytes or
-    # full artwork collection are loaded by the observatory.
-    art = next(({**p['artwork'], 'name': p['name']} for p in catalog['projects']
-                if p['url'] == 'https://github.com/simonliu-ai-product/open-doc' and p.get('artwork')), None)
-    page = render(index, counts, covered, art)
+    page = render(index, counts, covered)
     for name in ['observatory.css','observatory.js']:
         shutil.copyfile(root / 'site' / name, target / name)
     snapshot = {**index, 'aggregate': counts, 'coverage': covered}
@@ -236,9 +230,8 @@ def build(catalog, hn, output, root):
     for name,mime in [('snapshot.json','application/json'),('projects.csv','text/csv')]:
         encoded = base64.b64encode((target/name).read_bytes()).decode('ascii')
         report = report.replace(f'href="{name}"',f'href="data:{mime};base64,{encoded}"')
-    if art:
-        encoded = base64.b64encode((root/'site'/art['path']).read_bytes()).decode('ascii')
-        report = report.replace(f'src="../{art["path"]}"',f'src="data:image/webp;base64,{encoded}"')
+    encoded = base64.b64encode((root/'site/brand/botanical-128.png').read_bytes()).decode('ascii')
+    report = report.replace('src="../brand/botanical-128.png"', f'src="data:image/png;base64,{encoded}"')
     icon = base64.b64encode((root/'site/brand/favicon.ico').read_bytes()).decode('ascii')
     report = report.replace('href="../brand/favicon.ico"',f'href="data:image/x-icon;base64,{icon}"')
     report = report.replace(' · <a href="report.html" download>Download standalone report</a>','')
