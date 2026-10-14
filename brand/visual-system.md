@@ -111,8 +111,8 @@ space remains clear around the collection. Labels retain their common baseline.
 
 The user-directed `/observatory/` extension uses the current typography and
 white/Prussian instrument language for literal snapshot distributions, native SVG
-and accessible underlying tables. A single compact approved Open Doc specimen
-interrupts the opening; artwork never encodes a value or modifies chart geometry.
+and accessible underlying tables. The existing 128px botanical logo appears
+in the opening without a visible caption; artwork never modifies chart geometry.
 Filters update distributions and records together. Whole-collection findings and
 coverage retain explicit scope. See [observatory contract](../site/OBSERVATORY.md)
 and B20; the initial implementation awaits visual review.

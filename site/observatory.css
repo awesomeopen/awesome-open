@@ -30,9 +30,7 @@ h3 { font-size: 25px; line-height: 1.2; }
 .obs-hero .obs-kicker, .obs-hero .obs-eyebrow { margin-bottom: 24px; }
 .obs-hero h1 { max-width: 900px; color: var(--rs-blueprint, #0b2546); }
 .obs-hero-copy > p:not(.obs-kicker):not(.obs-eyebrow) { max-width: 70ch; margin-top: 24px; }
-.obs-specimen { justify-self: end; width: min(100%, 320px); margin: 0; }
-.obs-specimen img { width: 100%; height: auto; max-height: 310px; object-fit: contain; }
-.obs-specimen figcaption { margin-top: 16px; font-size: 10px; color: var(--rs-muted, #465665); }
+.obs-logo { justify-self: end; width: min(100%, 128px); height: auto; }
 .obs-provenance { display: flex; flex-wrap: wrap; gap: 12px 32px; padding-block: 16px; border-top: 1px solid #acb6c0; border-bottom: 1px solid #acb6c0; font-size: 11px; color: var(--rs-muted, #465665); overflow-wrap: anywhere; }
 .obs-provenance p { margin: 0; }
 .obs-provenance a { color: var(--rs-blueprint, #0b2546); }
@@ -137,7 +135,6 @@ noscript p { margin-block: 24px; font-size: 12px; color: var(--rs-muted, #465665
   .obs-hero { grid-template-columns: minmax(0, 1fr) 140px; gap: 24px; padding-block: 40px 32px; }
   .obs-hero h1 { font-size: clamp(42px, 8.5vw, 64px); }
   .obs-hero-copy > p:not(.obs-kicker):not(.obs-eyebrow) { font-size: 12px; }
-  .obs-specimen figcaption { display: none; }
   #metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 48px; }
   #metrics > :nth-child(2) { border-right: 0; }
   #metrics > :nth-child(-n+2) { border-bottom: 1px solid #486078; }
@@ -166,8 +163,7 @@ noscript p { margin-block: 24px; font-size: 12px; color: var(--rs-muted, #465665
   .obs-hero { grid-template-columns: minmax(0, 1fr); position: relative; padding-top: 32px; }
   .obs-hero .obs-kicker, .obs-hero .obs-eyebrow { padding-right: 72px; margin-bottom: 20px; }
   .obs-hero h1 { max-width: 100%; font-size: 56px; }
-  .obs-specimen { position: absolute; width: 60px; height: 66px; right: 0; top: 17px; pointer-events: none; }
-  .obs-specimen img { max-height: 66px; }
+  .obs-logo { position: absolute; width: 60px; right: 0; top: 17px; }
   .obs-provenance { gap: 8px; font-size: 10px; }
   #observatory-filters { gap: 12px; }
   #observatory-filters label, .obs-filter { flex-basis: 100%; }

@@ -59,9 +59,9 @@ manufacture percentages, missing values or a zero-star observation.
 
 - Instrument: white/cool-mist reading ground, Prussian rules, the existing Fraunces
   and Commit Mono pair, linear charts and explicit evidence labels.
-- Specimen: reuse the approved Open Doc folded-paper organism as one compact,
-  original interpretation beside the opening. It is not an official logo or an
-  encoding of project counts. No new art bytes, giant montage or raster edits.
+- Opening mark: the existing 128px botanical logo, without a visible caption.
+  Its size stays within the source resolution; the standalone report embeds it.
+  Chart geometry and project specimen artwork remain unchanged.
 - Editorial hand: numbered observations and a bounded whole-collection finding.
   No invented danger seals, risk colors or forecast language.
 

@@ -82,12 +82,12 @@ The square bottle also reuses its original brown cork as a clipped overlay.
 
 ## Observatory use
 
-The snapshot observatory reuses the approved Open Doc drawing at
-`site/specimens/10d69f0daa625d430823f0f96fe4a54501756699271de233b676a41c1fdc2576.webp`
-as a single compact editorial specimen. It is labeled an original interpretation,
-not a software logo or numerical encoding. Existing bytes, full silhouette,
-manifest provenance and checksum remain unchanged. The offline report embeds
-that same file; no artwork collection is downloaded by the new route.
+The Observatory opening uses `site/brand/botanical-128.png`, the existing 128 × 128
+botanical logo, without a visible caption. Display it at no more than its intrinsic
+width; retain descriptive alt text. The standalone report embeds the same PNG.
+The previous Open Doc specimen remains unchanged in the catalog; its Observatory
+placement is superseded by the user-directed logo replacement (B23). No asset
+bytes or source provenance changed.
 
 ## Category navigation
 
