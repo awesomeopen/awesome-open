@@ -46,7 +46,12 @@ const fs=require('node:fs');
  const ordered=await page.evaluate(()=>{const d=JSON.parse(document.getElementById('exhibition-data').textContent);return OpenCatalog.selectProjects(d.projects,{...OpenCatalog.DEFAULTS,sort:'stars'},d).map(p=>p.id);});
  assert.deepEqual(await page.locator('#ex-list>.project-card').evaluateAll(ns=>ns.map(n=>n.dataset.projectId)),ordered);
  const noArt=data.projects.find(p=>!p.artwork);assert.ok(noArt);assert.equal(await page.locator('#project-'+noArt.id+' .specimen-art').count(),0);
- await page.locator('#project-'+noArt.id+' > .specimen-drawer > summary').click();assert.equal(await page.locator('#project-'+noArt.id+' .source-link').isVisible(),true);
+ const noArtDrawer=page.locator('#project-'+noArt.id+' > .specimen-drawer');
+ await noArtDrawer.locator(':scope > summary').click();
+ assert.ok(await noArtDrawer.evaluate(n=>n.open),'The no-artwork project drawer is open');
+ const noArtSource=noArtDrawer.locator('.plate-departure > a');
+ assert.equal(await noArtSource.isVisible(),true,'The no-artwork project outbound link is visible');
+ assert.equal(await noArtSource.getAttribute('href'),noArt.url,'The outbound link matches the project URL');
  for(const width of [320,390,600,768,900,1024]) {await page.setViewportSize({width,height:900});await page.goto(url);await ready();await fits();if(width===390)await capture('exhibition-mobile.png');}
  await page.keyboard.press('Tab');assert.equal(await page.locator(':focus').getAttribute('class'),'skip-link');
  await page.keyboard.press('Enter');assert.equal(new URL(page.url()).hash,'#ex-ledger');
