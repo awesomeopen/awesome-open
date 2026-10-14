@@ -163,6 +163,22 @@ class ObservatoryBuildTests(unittest.TestCase):
             self.assertEqual(row['categories'], '; '.join(project['categories']))
             self.assertEqual(row['source_sha'], self.snapshot['source_sha'])
 
+    def test_requested_logo_and_standalone_embedding(self):
+        import base64
+        logo=build_site.ROOT/'site/brand/botanical-128.png'
+        for name in ['index.html', 'report.html']:
+            page=Page((self.output/'observatory'/name).read_text())
+            self.assertEqual(len(page.images), 1)
+            image=page.images[0]
+            self.assertEqual(image['class'], 'obs-logo')
+            self.assertEqual((image['width'], image['height']), ('128', '128'))
+            self.assertEqual(image['alt'], 'Awesome Open* botanical logo')
+            self.assertEqual(page.nodes('figcaption'), [])
+            expected=('../brand/botanical-128.png' if name == 'index.html' else
+                      'data:image/png;base64,'+base64.b64encode(logo.read_bytes()).decode('ascii'))
+            self.assertEqual(image['src'], expected)
+        self.assertEqual((self.output/'brand/botanical-128.png').read_bytes(), logo.read_bytes())
+
     def test_thin_index_and_no_runtime_remote_dependencies(self):
         node=self.page.by_id['observatory-data'];data=json.loads(node.text)
         self.assertLess(len(node.text.encode()),len(json.dumps(self.catalog).encode())/3)
