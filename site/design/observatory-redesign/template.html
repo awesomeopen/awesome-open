@@ -49,18 +49,15 @@ summary { cursor: pointer; }
 .site-nav a { display: inline-flex; align-items: center; min-height: 44px; }
 
 /* Opening: text only, full width */
-.opening { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); gap: 32px 64px; align-items: end; padding-block: 48px 40px; border-top: 2px solid var(--rs-blueprint); }
-.opening h1 { font-size: clamp(48px, 8vw, 104px); line-height: .98; letter-spacing: -.035em; margin-top: 20px; }
-.prov { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; font-size: 12px; padding-top: 16px; border-top: 1px solid var(--rs-ink); }
-.prov dt { color: var(--rs-muted); }
-.prov dd { overflow-wrap: anywhere; }
+.opening { padding-block: 48px 40px; }
+.opening h1 { font-size: clamp(48px, 8vw, 104px); line-height: .98; letter-spacing: -.035em; }
 
 /* Selection bar */
 .selbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--rs-paper); border-block: 1px solid var(--rs-ink); }
 .selbar .shell { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding-block: 10px; }
 .selbar select { width: 16rem; }
 .selbar .jump { margin-left: auto; display: flex; flex-wrap: wrap; gap: 0 20px; font-size: 12px; }
-.selbar .jump a { display: inline-flex; align-items: center; min-height: 44px; }
+.selbar .jump a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 650; }
 
 /* Headline metrics */
 .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 40px; }
@@ -74,7 +71,7 @@ summary { cursor: pointer; }
 
 /* Whole-collection finding */
 .finding { margin-top: 40px; padding: 28px 32px 32px; background: var(--rs-mist); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px 48px; align-items: center; }
-.finding p.display { font-size: clamp(22px, 2.6vw, 30px); line-height: 1.22; margin-top: 12px; }
+.finding p.display { font-size: clamp(22px, 2.6vw, 30px); line-height: 1.22; }
 .strip { display: flex; height: 28px; background: var(--rs-paper); box-shadow: inset 0 0 0 1px var(--rs-rule); }
 .strip i { display: block; height: 100%; background: var(--rs-blueprint); box-shadow: inset -1px 0 0 var(--rs-paper); }
 .strip-key { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; margin-top: 8px; font-size: 12px; }
@@ -89,7 +86,7 @@ summary { cursor: pointer; }
 /* Charts: bar lists drawn from zero on one linear scale per chart (or shared pair). */
 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
 .chart { min-width: 0; padding-top: 20px; border-top: 2px solid var(--rs-blueprint); }
-.chart h3 { font-size: 25px; line-height: 1.2; margin-top: 12px; }
+.chart h3 { font-size: 25px; line-height: 1.2; }
 .chart .note { font-size: 12px; color: var(--rs-muted); margin-top: 8px; max-width: 60ch; }
 .bars { margin-top: 20px; display: grid; gap: 2px; }
 .scale, .bar { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) 7ch; gap: 12px; align-items: center; }
@@ -121,7 +118,6 @@ summary { cursor: pointer; }
 .cell[class*="k-"] { background: var(--rs-blueprint); }
 .k-identical { clip-path: inset(2px); }
 .k-variants { clip-path: circle(46%); }
-.legend .tags-line { grid-template-columns: 20px minmax(0, 1fr); color: var(--rs-muted); }
 .tag { display: inline-block; border: 1px solid var(--rs-blueprint); color: var(--rs-ink); font-size: 11px; line-height: 1.4; padding: 0 6px; }
 .diff.gap { text-decoration-skip-ink: none; white-space: pre; }
 .diff.nogap { display: inline-block; width: 2px; height: .9em; margin-inline: 1px; background: var(--rs-scarlet); vertical-align: -.08em; }
@@ -130,11 +126,15 @@ summary { cursor: pointer; }
 .legend .cell { width: 14px; height: 14px; justify-self: center; }
 .legend b { font-weight: 500; text-align: right; }
 .legend .zero { color: var(--rs-muted); }
-.groups { margin-top: 24px; border-block: 1px solid var(--rs-ink); }
+.groups { margin-top: 24px; }
 .groups > summary { min-height: 56px; display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; font-size: 14px; }
+.arrow > summary { list-style: none; }
+.arrow > summary::-webkit-details-marker { display: none; }
+.arrow > summary::before { content: '→'; content: '→' / ''; display: inline-block; width: 1.2em; transition: transform 160ms; }
+.arrow[open] > summary::before { transform: rotate(90deg); }
 .groups > summary .muted { font-size: 12px; }
 .groups > div { padding-bottom: 32px; }
-.groups .method { margin: 0 0 24px; }
+.groups .method { margin: 16px 0 0; }
 .band { margin-top: 32px; }
 .group { margin-top: 24px; border-top: 1px solid var(--rs-ink); }
 .group-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; padding-block: 20px 16px; }
@@ -156,7 +156,7 @@ summary { cursor: pointer; }
 .facts dd { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .facts .unknown { color: var(--rs-muted); }
 .record { font-size: 12px; align-self: end; justify-self: start; display: inline-flex; align-items: center; min-height: 44px; }
-.method { margin-top: 48px; border-block: 1px solid var(--rs-rule); }
+.method { margin-top: 48px; }
 .method summary { min-height: 48px; display: flex; align-items: center; font-size: 13px; }
 .method ol { list-style: decimal; padding: 0 0 20px 24px; display: grid; gap: 8px; font-size: 13px; max-width: 76ch; }
 .method p { padding-bottom: 20px; font-size: 12px; color: var(--rs-muted); max-width: 76ch; }
@@ -191,13 +191,15 @@ summary { cursor: pointer; }
 .closing { display: flex; justify-content: center; padding-block: 128px; }
 .closing img { width: 128px; height: 128px; }
 .foot { background: var(--rs-blueprint); color: var(--rs-trace); font-size: 12px; }
-.foot .shell { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; padding-block: 32px; }
+.foot .shell { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 32px; padding-block: 32px; }
+.foot-links { display: grid; gap: 4px; text-align: right; }
+@media (max-width: 640px) { .foot-links { text-align: left; } }
 .foot a { color: var(--rs-paper); }
 .foot :focus-visible { outline-color: var(--rs-amber); }
 
 @media (max-width: 960px) {
   .shell { padding-inline: 24px; }
-  .opening, .finding, .unit-tally { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .finding, .unit-tally { grid-template-columns: minmax(0, 1fr); align-items: start; }
   .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .metric:nth-child(3) { padding-left: 0; border-left: 0; }
   .metric:nth-child(n+3) { border-top: 1px solid var(--rs-rule); }
@@ -245,13 +247,8 @@ summary { cursor: pointer; }
   <section class="shell">
     <div class="opening">
       <div>
-        <p class="kicker">Awesome Open* / snapshot</p>
         <h1 class="display">Collection observatory</h1>
       </div>
-      <dl class="prov">
-        <dt>Metrics snapshot</dt><dd><time>{{ASOF}}</time> UTC</dd>
-        <dt>Source revision</dt><dd><a href="https://github.com/awesomeopen/awesome-open/commit/{{FULLSHA}}">{{SHA12}}</a></dd>
-      </dl>
     </div>
   </section>
 
@@ -260,12 +257,12 @@ summary { cursor: pointer; }
       <select id="category-filter" aria-label="Category"><option value="">All categories</option></select>
       <select id="license-filter" aria-label="Detected license">
         <option value="all">Any license</option>
-        <option value="known">Detected license available</option>
+        <option value="known">License detected</option>
         <option value="unknown">License unknown</option>
       </select>
       <button id="reset-filters" type="button" disabled>Reset filters</button>
       <nav class="jump" aria-label="Sections">
-        <a href="#shared-names">Names</a><a href="#category-chart">Charts</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a>
+        <a href="#shared-names">Names</a><a href="#charts">Charts</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a>
       </nav>
     </div>
   </form>
@@ -274,7 +271,6 @@ summary { cursor: pointer; }
     <dl class="metrics" id="metrics"></dl>
     <aside class="finding" aria-labelledby="finding-text">
       <div>
-        <p class="kicker">Whole collection</p>
         <p class="display" id="finding-text"></p>
       </div>
       <figure>
@@ -286,7 +282,6 @@ summary { cursor: pointer; }
 
   <section id="shared-names" class="shell sec" aria-labelledby="shared-names-heading">
     <div class="sec-head">
-      <p class="kicker">Selected projects</p>
       <h2 id="shared-names-heading" class="display"><span id="sn-total" class="num">0</span> tools share a name</h2>
       <p>Each project counts once across these groups. A shared name does not mean the projects are related. <span id="sn-selected" class="num" role="status" aria-live="polite" aria-atomic="true"></span></p>
     </div>
@@ -294,10 +289,10 @@ summary { cursor: pointer; }
       <div class="cells" id="tally"></div>
       <figcaption><ul class="legend" id="legend"></ul></figcaption>
     </figure>
-    <details class="groups" id="name-groups">
+    <details class="groups arrow" id="name-groups">
       <summary><span>Show name groups</span><span class="muted" id="groups-count"></span></summary>
       <div id="bands"></div>
-      <details class="method">
+      <details class="method arrow">
         <summary>How groups are formed</summary>
         <ol>
           <li>Projects are deduplicated by canonical project ID. Cross-listed projects count once.</li>
@@ -310,8 +305,9 @@ summary { cursor: pointer; }
     </details>
   </section>
 
-  <div class="shell">
-    <div class="sec pair">
+  <section class="shell sec" id="charts" aria-labelledby="charts-heading">
+    <div class="sec-head"><h2 id="charts-heading" class="display">Charts</h2></div>
+    <div class="pair">
       <section class="chart" id="category-chart" aria-labelledby="h-cat"></section>
       <section class="chart" id="license-chart" aria-labelledby="h-lic"></section>
     </div>
@@ -325,12 +321,11 @@ summary { cursor: pointer; }
       <section class="chart" id="push-chart" aria-labelledby="h-push"></section>
       <section class="chart" id="release-chart" aria-labelledby="h-rel"></section>
     </div>
-  </div>
+  </section>
 
   <section id="coverage" class="whole" aria-labelledby="coverage-heading">
     <div class="shell">
       <div class="sec-head">
-        <p class="kicker">07 / projects</p>
         <h2 id="coverage-heading" class="display">Evidence coverage</h2>
         <p><span class="block-label">Whole collection</span></p>
       </div>
@@ -341,7 +336,6 @@ summary { cursor: pointer; }
 
   <section id="project-records" class="shell sec" aria-labelledby="data-heading">
     <div class="sec-head">
-      <p class="kicker">08 / downloads</p>
       <h2 id="data-heading" class="display">Project data</h2>
       <p>Dates are UTC.</p>
     </div>
@@ -369,7 +363,12 @@ summary { cursor: pointer; }
 <footer class="foot">
   <div class="shell">
     <p>Awesome Open* / Observatory</p>
-    <p><a href="https://awesomeopen.github.io/awesome-open/">Return to project ledger</a> · <a href="https://github.com/awesomeopen/awesome-open">GitHub</a><br>Source revision: <a href="https://github.com/awesomeopen/awesome-open/commit/{{FULLSHA}}">{{SHA12}}</a></p>
+    <ul class="foot-links">
+      <li><a href="https://awesomeopen.github.io/awesome-open/">Return to project ledger</a></li>
+      <li><a href="https://github.com/awesomeopen/awesome-open">GitHub</a></li>
+      <li>Source revision: <a href="https://github.com/awesomeopen/awesome-open/commit/{{FULLSHA}}">{{SHA12}}</a></li>
+      <li>Metrics snapshot: <time>{{ASOF}}</time> UTC</li>
+    </ul>
   </div>
 </footer>
 
@@ -448,7 +447,7 @@ summary { cursor: pointer; }
     root.replaceChildren();
     var hid = root.getAttribute('aria-labelledby');
     var h = el('h3', 'display', spec.title); h.id = hid;
-    root.append(el('p', 'kicker', spec.number + ' / ' + spec.unit.toLowerCase()), h, el('p', 'note', spec.note));
+    root.append(h, el('p', 'note', spec.note));
     var max = spec.max != null ? spec.max : Math.max.apply(null, spec.rows.map(function (r) { return r[1]; }).concat([0]));
     if (!spec.rows.length || !spec.rows.some(function (r) { return r[1] > 0; })) {
       root.append(el('p', 'empty', 'No observed values in this selection.'));
@@ -625,15 +624,12 @@ summary { cursor: pointer; }
       else band.append(el('p', 'empty', 'No ' + k.legend.toLowerCase() + ' in this selection.'));
       bands.append(band);
     });
-    var tags = el('li', 'tags-line');
-    tags.append(el('span'), el('span', null, 'Variant groups with: Case ' + r.tags.Case + ' · Spacing ' + r.tags.Spacing + ' · Exact duplicates ' + r.tags['Exact duplicates']));
-    legend.append(tags);
   }
 
   /* ---------- Metrics, finding, coverage, listing ---------- */
   function renderMetrics(a) {
     var dl = document.getElementById('metrics'); dl.replaceChildren();
-    [['Unique projects', a.total], ['Cached GitHub metrics', a.mapped, a.total], ['Observed GitHub stars', a.stars], ['Detected license available', a.known, a.total]].forEach(function (m) {
+    [['Unique projects', a.total], ['Cached GitHub metrics', a.mapped, a.total], ['Observed GitHub stars', a.stars], ['License detected', a.known, a.total]].forEach(function (m) {
       var box = el('div', 'metric');
       var dd = el('dd', null, fmt.format(m[1]));
       if (m[2] != null) dd.append(el('span', 'of', ' / ' + fmt.format(m[2])));
@@ -652,7 +648,7 @@ summary { cursor: pointer; }
     var topSum = top.reduce(function (n, r) { return n + r[1]; }, 0);
     var share = whole.stars ? Math.round(1000 * topSum / whole.stars) / 10 : null;
     document.getElementById('finding-text').textContent = top.length === 10 && share != null
-      ? 'The 10 most-starred projects hold ' + share.toFixed(1) + '% of observed stars.'
+      ? 'Across the whole collection, the 10 most-starred projects hold ' + share.toFixed(1) + '% of observed stars.'
       : top.length + ' projects have an observed star count.';
     var strip = document.getElementById('strip'), key = document.getElementById('strip-key');
     top.forEach(function (r) { var i = el('i'); i.style.width = (100 * r[1] / whole.stars) + '%'; i.title = r[0] + ': ' + fmt.format(r[1]); strip.append(i); });
