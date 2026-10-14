@@ -73,3 +73,5 @@ approved merely because it appears in this file.
 | B23 | 2026-10-14 | User-directed; implemented for review | Replace the Observatory opening’s Open Doc illustration with existing `brand/botanical-128.png`, without a visible caption. Keep descriptive alt text, display at no more than 128px and embed the same PNG in the standalone report. No asset byte changes; catalog specimens remain unchanged. |
 
 | B24 | 2026-10-14 | User-directed restoration | Withdraw B15 geometry staging and PR #44 A/B comparison. Restore plain white studies, compact detail and red image-to-feature connector. Revisit geometry later; shading/contact shadows across all illustrated records are a deferred third option. |
+
+| B25 | 2026-10-14 | User-directed; implemented for review | Add a filter-aware Observatory shared-name count with expandable exact-name groups and separate capitalization-only groups. Deduplicate canonical project IDs and link each distinct source. Derive counts from the existing catalog without collection or alias claims. See [accounting contract](../site/OBSERVATORY.md#accounting). |

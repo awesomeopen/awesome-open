@@ -97,6 +97,30 @@ function chartRows(data, projects) {
     age: histogram('created_at', AGES), push: histogram('pushed_at', RECENCY), release: histogram('release_at', RECENCY) };
 }
 
+// Independent accounting oracle; runtime and server rendering must agree.
+function sharedGroups(projects) {
+  const unique = [...new Map(projects.map(project => [project.id, project])).values()];
+  const group = (rows, key) => {
+    const map = new Map();
+    rows.forEach(project => map.set(key(project), [...(map.get(key(project)) || []), project]));
+    return [...map.values()].filter(rows => rows.length > 1);
+  };
+  const exact = group(unique, project => project.name);
+  const exactIDs = new Set(exact.flat().map(project => project.id));
+  return { exact, capitalization: group(unique.filter(project => !exactIDs.has(project.id)), project => project.name.toLowerCase()) };
+}
+
+async function assertSharedNames(page, projects, label) {
+  const expected = sharedGroups(projects);
+  for (const [kind, countID] of [['exact', 'shared-name-count'], ['capitalization', 'capitalization-name-count']]) {
+    const groups = expected[kind];
+    assert.equal(number(await page.locator('#' + countID).textContent()), groups.flat().length, label + ': ' + kind + ' tool count');
+    const actual = await page.locator('#' + kind + '-name-groups .shared-name-group').evaluateAll(details => details.map(detail => [...detail.querySelectorAll('li')].map(item => ({ id: item.dataset.projectId, name: item.querySelector('a').textContent, url: item.querySelector('a').getAttribute('href'), source: item.querySelector('.shared-name-source').textContent }))));
+    const normalize = values => values.map(rows => rows.map(row => JSON.stringify(row)).sort().join('|')).sort();
+    assert.deepEqual(normalize(actual), normalize(groups.map(rows => rows.map(project => ({ id: project.id, name: project.name, url: project.url, source: project.url })))), label + ': ' + kind + ' linked identities');
+  }
+}
+
 async function checkObservatory({ browser, url }) {
   const target = localURL(url);
   fs.mkdirSync(OUTPUT, { recursive: true });
@@ -225,6 +249,7 @@ async function checkObservatory({ browser, url }) {
     }
   };
   const assertSelection = async (current, data, selected, label) => {
+    await assertSharedNames(current, selected, label);
     assert.deepEqual(await visibleIDs(current), selected.map(project => project.id), 'Underlying project selection: ' + label);
     const expected = { total: selected.length, mapped: selected.filter(project => project.github).length,
       stars: selected.filter(project => project.github && Number.isFinite(project.stars)).reduce((sum, project) => sum + project.stars, 0),
@@ -315,6 +340,24 @@ async function checkObservatory({ browser, url }) {
       await fits(page, name);
       assert.ok((await logo.boundingBox()).width <= 128, 'Logo stays within source resolution');
       await capture(name);
+      await page.locator('#shared-names').scrollIntoViewIfNeeded();
+      await capture(name + '-shared-names');
+      const firstNameGroup = page.locator('#exact-name-groups details').first();
+      if (await firstNameGroup.count()) {
+        await firstNameGroup.locator('summary').focus();
+        for (const key of ['Enter', 'Space']) {
+          const previous = await firstNameGroup.evaluate(node => node.open);
+          await page.keyboard.press(key);
+          assert.equal(await firstNameGroup.evaluate(node => node.open), !previous, 'Shared-name keyboard disclosure');
+          assert.equal(await firstNameGroup.locator('summary').evaluate(node => node === document.activeElement), true, 'Shared-name disclosure keeps focus');
+          await fits(page, name + ' shared names');
+          if (!previous) await capture(name + '-shared-names-open');
+        }
+      }
+      await page.locator('#capitalization-names > summary').click();
+      await page.locator('#capitalization-name-groups details').first().locator('summary').click();
+      await capture(name + '-capitalization-open');
+      await page.locator('#capitalization-names > summary').click();
       await page.locator('#category-chart').scrollIntoViewIfNeeded();
       await capture(name + '-charts');
       await checkProjectDisclosure(page, name);
@@ -494,6 +537,8 @@ async function checkObservatory({ browser, url }) {
     assert.equal(await fallback.locator('noscript').isVisible(), true, 'No-JavaScript explanation');
     await assertSelection(fallback, data, data.projects, 'no JavaScript');
     await checkProjectDisclosure(fallback, 'no JavaScript');
+    await fallback.locator('#exact-name-groups details > summary').first().click();
+    assert.equal(await fallback.locator('#exact-name-groups details').first().evaluate(node => node.open), true, 'Shared names expand without JavaScript');
     await fallback.locator('#category-chart details > summary').click();
     assert.equal(await fallback.locator('#category-chart table').isVisible(), true, 'Native data disclosure without JavaScript');
     await fits(fallback, 'no JavaScript');

@@ -10,6 +10,13 @@ forecast model. The main-only publisher includes the route automatically.
 
 - Totals count canonical project IDs once. Cross-listed category memberships may
   overlap, so their sum is not a unique-project count and they are not a pie.
+- Shared names compare the catalog’s displayed names exactly, including case,
+  after canonical project-ID deduplication. Cross-category listings count once.
+  Capitalization-only groups compare lowercase names among remaining projects,
+  excluding every project already counted in an exact-name group. Both sections
+  follow the selected category/license filters. Native disclosures show each
+  project’s own source URL; these are name matches, not verified aliases. No
+  whitespace, punctuation or spelling normalization is applied.
 - Stars sum observed cached GitHub counts, including actual zeroes; missing
   metrics remain null. The top-ten concentration denominator is that same sum.
   Neither stars nor a push timestamp is a quality, usage or maintenance verdict.
@@ -50,7 +57,7 @@ are escaped. `observatory/report.html` embeds runtime dependencies and downloads
 for offline use. Optional external source links still need a network. The report
 is generated from the same revision and is not a separately refreshed publication.
 
-The chart/table selection and four headline metrics change together. The top
+The chart/table selection, shared-name groups and four headline metrics change together. The top
 collection finding and coverage explicitly retain whole-collection scope.
 Unknown remains a category even when its count is zero. Empty selections do not
 manufacture percentages, missing values or a zero-star observation.
