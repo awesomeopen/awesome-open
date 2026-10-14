@@ -80,7 +80,9 @@ class ObservatoryAccountingTests(unittest.TestCase):
     def shared_summary(result):
         return dict(exact=[dict(name=g['name'],ids=[p['id'] for p in g['projects']]) for g in result['exact']],
                     capitalization=[dict(name=g['name'],ids=[p['id'] for p in g['projects']]) for g in result['capitalization']],
-                    tool_count=result['tool_count'], capitalization_tool_count=result['capitalization_tool_count'])
+                    whitespace=[dict(name=g['name'],ids=[p['id'] for p in g['projects']]) for g in result['whitespace']],
+                    tool_count=result['tool_count'], exact_tool_count=result['exact_tool_count'],
+                    capitalization_tool_count=result['capitalization_tool_count'], whitespace_tool_count=result['whitespace_tool_count'])
 
     @staticmethod
     def named_projects(pairs):
@@ -93,7 +95,7 @@ class ObservatoryAccountingTests(unittest.TestCase):
         before=deepcopy(projects);result=obs.shared_names(projects)
         self.assertEqual(self.shared_summary(result),dict(
             exact=[dict(name='Alpha',ids=['a1','a2','a3']),dict(name='Zebra',ids=['z1','z2'])],
-            capitalization=[],tool_count=5,capitalization_tool_count=0))
+            capitalization=[],whitespace=[],tool_count=5,exact_tool_count=5,capitalization_tool_count=0,whitespace_tool_count=0))
         self.assertEqual(result['exact'][0]['projects'][0],projects[3])
         self.assertEqual(projects,before)
         self.assertEqual(obs.shared_names(list(reversed(projects))),result)
@@ -108,36 +110,92 @@ class ObservatoryAccountingTests(unittest.TestCase):
                    dict(name=supplementary,ids=['a1','a2'])],
             capitalization=[dict(name=bmp+'A / '+bmp+'a',ids=['case-b1','case-b2']),
                             dict(name=supplementary+'A / '+supplementary+'a',ids=['case-a1','case-a2'])],
-            tool_count=6,capitalization_tool_count=4))
+            whitespace=[],tool_count=10,exact_tool_count=6,capitalization_tool_count=4,whitespace_tool_count=0))
 
     def test_shared_names_deduplicate_identity_across_categories(self):
         first,other=self.named_projects([('a','Shared'),('b','Shared')])
         repeated=dict(first,categories=['two'])
         self.assertEqual(self.shared_summary(obs.shared_names([first,repeated])),dict(
-            exact=[],capitalization=[],tool_count=0,capitalization_tool_count=0))
+            exact=[],capitalization=[],whitespace=[],tool_count=0,exact_tool_count=0,capitalization_tool_count=0,whitespace_tool_count=0))
         self.assertEqual(self.shared_summary(obs.shared_names([first,repeated,other])),dict(
-            exact=[dict(name='Shared',ids=['a','b'])],capitalization=[],tool_count=2,capitalization_tool_count=0))
+            exact=[dict(name='Shared',ids=['a','b'])],capitalization=[],whitespace=[],tool_count=2,exact_tool_count=2,capitalization_tool_count=0,whitespace_tool_count=0))
 
     def test_shared_names_case_only_group_order(self):
         projects=self.named_projects([('b','alpha'),('a','Alpha'),('d','zebra'),('c','ZEBRA')])
         self.assertEqual(self.shared_summary(obs.shared_names(projects)),dict(exact=[],capitalization=[
             dict(name='Alpha / alpha',ids=['a','b']),dict(name='ZEBRA / zebra',ids=['c','d'])],
-            tool_count=0,capitalization_tool_count=4))
+            whitespace=[],tool_count=4,exact_tool_count=0,capitalization_tool_count=4,whitespace_tool_count=0))
 
     def test_shared_names_mixed_groups_never_recount_exact_projects(self):
         projects=self.named_projects([('b','Echo'),('d','echo'),('a','Echo'),('c','ECHO')])
         result=obs.shared_names(projects)
         self.assertEqual(self.shared_summary(result),dict(
             exact=[dict(name='Echo',ids=['a','b'])],capitalization=[dict(name='ECHO / echo',ids=['c','d'])],
-            tool_count=2,capitalization_tool_count=2))
+            whitespace=[],tool_count=4,exact_tool_count=2,capitalization_tool_count=2,whitespace_tool_count=0))
         ids=[p['id'] for group in result['exact']+result['capitalization'] for p in group['projects']]
         self.assertEqual(len(ids),len(set(ids)))
 
-    def test_shared_names_no_alias_inference_or_trimming_and_empty_singleton(self):
-        for pairs in [[],[('a','Tool')],[('a','Tool'),('b',' Tool'),('c','Tool '),('d','Tool OSS')]]:
+    def test_shared_names_no_alias_inference_and_empty_singleton(self):
+        for pairs in [[],[('a','Tool')],[('a','Tool'),('b','tool '),('c','Tool-'),('d','Tool OSS')]]:
             with self.subTest(pairs=pairs):
                 self.assertEqual(self.shared_summary(obs.shared_names(self.named_projects(pairs))),dict(
-                    exact=[],capitalization=[],tool_count=0,capitalization_tool_count=0))
+                    exact=[],capitalization=[],whitespace=[],tool_count=0,exact_tool_count=0,capitalization_tool_count=0,whitespace_tool_count=0))
+
+    def test_shared_names_whitespace_three_way_preserves_names_and_order(self):
+        projects=self.named_projects([('c','Open Tool '),('a',' OpenTool'),('b','Open Tool')])
+        before=deepcopy(projects);result=obs.shared_names(projects)
+        self.assertEqual(self.shared_summary(result),dict(exact=[],capitalization=[],
+            whitespace=[dict(name=' OpenTool / Open Tool / Open Tool ',ids=['a','b','c'])],
+            tool_count=3,exact_tool_count=0,capitalization_tool_count=0,whitespace_tool_count=3))
+        self.assertEqual(projects,before)
+        self.assertEqual(obs.shared_names(list(reversed(projects))),result)
+
+    def test_shared_names_unicode_white_space_exact_set(self):
+        whitespace=[*range(0x09,0x0e),0x20,0x85,0xa0,0x1680,*range(0x2000,0x200b),
+                    0x2028,0x2029,0x202f,0x205f,0x3000]
+        for codepoint in whitespace:
+            with self.subTest(codepoint=hex(codepoint)):
+                projects=self.named_projects([('a','OpenTool'),('b','Open'+chr(codepoint)+'Tool')])
+                result=obs.shared_names(projects)
+                self.assertEqual(result['whitespace_tool_count'],2)
+                self.assertEqual(result['tool_count'],2)
+                self.assertEqual(len(result['whitespace']),1)
+        # Python str.isspace and JavaScript \s differ from Unicode White_Space.
+        for codepoint in [0x1c,0x1d,0x1e,0x1f,0x180e,0x200b,0xfeff]:
+            with self.subTest(excluded=hex(codepoint)):
+                result=obs.shared_names(self.named_projects([('a','OpenTool'),('b','Open'+chr(codepoint)+'Tool')]))
+                self.assertEqual(result['tool_count'],0)
+                self.assertEqual(result['whitespace'],[])
+
+    def test_shared_names_exact_then_capitalization_then_whitespace_partition(self):
+        projects=self.named_projects([('a','OpenTool'),('b','OpenTool'),
+            ('c','Open Tool'),('d','OPEN TOOL'),('e','Open  Tool'),('f','Open\tTool'),
+            ('g','openTool '),('h','Open-Tool')])
+        result=obs.shared_names(projects)
+        self.assertEqual([p['id'] for p in result['exact'][0]['projects']],['a','b'])
+        self.assertEqual([p['id'] for p in result['capitalization'][0]['projects']],['d','c'])
+        self.assertEqual([p['id'] for p in result['whitespace'][0]['projects']],['f','e'])
+        self.assertEqual([result[key] for key in ['tool_count','exact_tool_count',
+            'capitalization_tool_count','whitespace_tool_count']],[6,2,2,2])
+        ids=[p['id'] for kind in ['exact','capitalization','whitespace'] for group in result[kind] for p in group['projects']]
+        self.assertEqual(len(ids),len(set(ids)))
+        self.assertEqual(obs.shared_names(list(reversed(projects))),result)
+        # A single unclaimed spelling cannot borrow a member from a prior section.
+        for pairs in [[('a','OpenTool'),('b','OpenTool'),('c','Open Tool')],
+                      [('a','OpenTool'),('b','opentool'),('c','Open Tool')]]:
+            self.assertEqual(obs.shared_names(self.named_projects(pairs))['whitespace'],[])
+
+    def test_shared_names_whitespace_filtering_and_repeated_id(self):
+        index=obs.project_index(fixture())
+        index['projects']=self.named_projects([('a','OpenTool'),('b','Open Tool'),('c','Open  Tool')])
+        for project,categories,license in zip(index['projects'],[['one','two'],['one'],['two']],['MIT','MIT',None]):
+            project.update(categories=categories,license=license)
+        result=obs.aggregate(index)['shared_names']
+        self.assertEqual((result['tool_count'],result['whitespace_tool_count']),(3,3))
+        known=[p for p in index['projects'] if 'one' in p['categories'] and p['license']]
+        self.assertEqual(obs.aggregate(index,known)['shared_names']['whitespace_tool_count'],2)
+        self.assertEqual(obs.aggregate(index,[index['projects'][2]])['shared_names']['tool_count'],0)
+        self.assertEqual(obs.shared_names(known+[dict(known[0],categories=['two'])])['whitespace_tool_count'],2)
 
     def test_shared_names_aggregate_uses_only_selected_category_and_license(self):
         index=obs.project_index(fixture())
@@ -146,16 +204,16 @@ class ObservatoryAccountingTests(unittest.TestCase):
                 [['one','two'],['one'],['two'],['two']],['MIT','MIT',None,None]):
             project.update(categories=categories,license=license)
         self.assertEqual(self.shared_summary(obs.aggregate(index)['shared_names']),dict(
-            exact=[dict(name='Shared',ids=['a','b','c'])],capitalization=[],tool_count=3,capitalization_tool_count=0))
+            exact=[dict(name='Shared',ids=['a','b','c'])],capitalization=[],whitespace=[],tool_count=3,exact_tool_count=3,capitalization_tool_count=0,whitespace_tool_count=0))
         def selected(category,known):
             return [p for p in index['projects'] if category in p['categories'] and bool(p['license'])==known]
         self.assertEqual(self.shared_summary(obs.aggregate(index,selected('one',True))['shared_names']),dict(
-            exact=[dict(name='Shared',ids=['a','b'])],capitalization=[],tool_count=2,capitalization_tool_count=0))
+            exact=[dict(name='Shared',ids=['a','b'])],capitalization=[],whitespace=[],tool_count=2,exact_tool_count=2,capitalization_tool_count=0,whitespace_tool_count=0))
         self.assertEqual(self.shared_summary(obs.aggregate(index,selected('two',False))['shared_names']),dict(
-            exact=[],capitalization=[dict(name='Shared / shared',ids=['c','d'])],tool_count=0,capitalization_tool_count=2))
+            exact=[],capitalization=[dict(name='Shared / shared',ids=['c','d'])],whitespace=[],tool_count=2,exact_tool_count=0,capitalization_tool_count=2,whitespace_tool_count=0))
         for category,known in [('one',False),('two',True)]:
             self.assertEqual(self.shared_summary(obs.aggregate(index,selected(category,known))['shared_names']),dict(
-                exact=[],capitalization=[],tool_count=0,capitalization_tool_count=0))
+                exact=[],capitalization=[],whitespace=[],tool_count=0,exact_tool_count=0,capitalization_tool_count=0,whitespace_tool_count=0))
 
     def test_shared_names_render_escaped_links_and_empty_selection(self):
         catalog=fixture();index=obs.project_index(catalog)
@@ -163,7 +221,8 @@ class ObservatoryAccountingTests(unittest.TestCase):
         index['projects']=self.named_projects([('b',dangerous),('a',dangerous),('d','CASE'),('c','case')])
         index['projects'][0]['url']='https://example.com/b?x=1&y="quoted"'
         html=obs.render(index,obs.aggregate(index),obs.coverage(catalog,{}));page=Page(html)
-        self.assertEqual(page.by_id['shared-name-count'].text,'2')
+        self.assertEqual(page.by_id['shared-name-count'].text,'4')
+        self.assertEqual(page.by_id['exact-name-count'].text,'2')
         self.assertEqual(page.by_id['capitalization-name-count'].text,'2')
         self.assertNotIn(dangerous,html)
         exact=page.by_id['exact-name-groups'].descendants('details')
@@ -179,8 +238,37 @@ class ObservatoryAccountingTests(unittest.TestCase):
         page=Page(obs.render(index,obs.aggregate(index),obs.coverage(catalog,{})))
         self.assertEqual(page.by_id['shared-name-count'].text,'0')
         self.assertEqual(page.by_id['capitalization-name-count'].text,'0')
+        self.assertEqual(page.by_id['exact-name-count'].text,'0')
+        self.assertEqual(page.by_id['whitespace-name-count'].text,'0')
+        self.assertEqual(page.by_id['whitespace-name-groups'].descendants('li'),[])
         self.assertEqual(page.by_id['exact-name-groups'].descendants('li'),[])
         self.assertIn('No shared names in this selection.',page.by_id['exact-name-groups'].text)
+
+    def test_whitespace_groups_render_escaped_native_disclosures_and_links(self):
+        catalog=fixture();index=obs.project_index(catalog)
+        index['projects']=self.named_projects([('a','<Open Tool>'),('b','<OpenTool>'),('c','<Open  Tool>')])
+        index['projects'][1]['url']='https://example.com/b?x=1&y="quoted"'
+        html=obs.render(index,obs.aggregate(index),obs.coverage(catalog,{}));page=Page(html)
+        self.assertEqual(page.by_id['shared-name-count'].text,'3')
+        self.assertEqual(page.by_id['whitespace-name-count'].text,'3')
+        self.assertEqual(page.by_id['exact-name-count'].text,'0')
+        self.assertEqual(page.by_id['capitalization-name-count'].text,'0')
+        outer=page.by_id['whitespace-names']
+        self.assertEqual(outer.tag,'details')
+        self.assertNotIn('open',outer.attrs)
+        self.assertEqual(outer.children[0].tag,'summary')
+        groups=page.by_id['whitespace-name-groups'].descendants('details')
+        self.assertEqual(len(groups),1)
+        self.assertNotIn('open',groups[0].attrs)
+        self.assertEqual(groups[0].children[0].tag,'summary')
+        rows=groups[0].descendants('li')
+        self.assertEqual([r.attrs['data-project-id'] for r in rows],['c','a','b'])
+        for row,project in zip(rows,[index['projects'][i] for i in [2,0,1]]):
+            self.assertEqual(row.descendants('a')[0].text,project['name'])
+            self.assertEqual(row.descendants('a')[0].attrs['href'],project['url'])
+            self.assertEqual(row.descendants('span')[0].text,project['url'])
+        self.assertNotIn('<Open Tool>',html)
+        self.assertIn('&lt;Open Tool&gt;',html)
 
     def test_hn_global_dedup_and_partial_scorecard_remain_explicit(self):
         catalog=fixture()
@@ -266,12 +354,18 @@ class ObservatoryBuildTests(unittest.TestCase):
                 page=Page((self.output/'observatory'/name).read_text())
                 self.assertEqual(page.by_id['shared-name-count'].text,str(expected['tool_count']))
                 self.assertEqual(page.by_id['capitalization-name-count'].text,str(expected['capitalization_tool_count']))
+                self.assertEqual(page.by_id['exact-name-count'].text,str(expected['exact_tool_count']))
+                self.assertEqual(page.by_id['whitespace-name-count'].text,str(expected['whitespace_tool_count']))
+                whitespace=page.by_id['whitespace-names']
+                self.assertEqual(whitespace.tag,'details')
+                self.assertNotIn('open',whitespace.attrs)
+                self.assertEqual(whitespace.children[0].tag,'summary')
                 disclosure=page.by_id['capitalization-names']
                 self.assertEqual(disclosure.tag,'details')
                 self.assertNotIn('open',disclosure.attrs)
                 self.assertEqual(disclosure.children[0].tag,'summary')
                 self.assertEqual(len(page.ids),len(set(page.ids)))
-                for container,key in [('exact-name-groups','exact'),('capitalization-name-groups','capitalization')]:
+                for container,key in [('exact-name-groups','exact'),('capitalization-name-groups','capitalization'),('whitespace-name-groups','whitespace')]:
                     groups=page.by_id[container].descendants('details')
                     self.assertEqual(len(groups),len(expected[key]))
                     for group,wanted in zip(groups,expected[key]):

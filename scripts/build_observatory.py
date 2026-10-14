@@ -66,6 +66,10 @@ def project_index(catalog):
                 categories=[dict(id=c['id'], name=c['name']) for c in catalog['categories']], projects=rows)
 
 
+# Unicode White_Space, shared with observatory.js (not Python/JS-specific \s).
+NAME_WHITESPACE = re.compile(r'[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]')
+
+
 def shared_names(projects):
     """Compare displayed names after canonical-ID deduplication, without aliases."""
     unique = {p['id']: p for p in projects}
@@ -82,8 +86,21 @@ def shared_names(projects):
     capitalization = [dict(name=' / '.join(sorted({p['name'] for p in rows})), projects=rows)
                       for rows in folded.values() if len(rows) > 1]
     capitalization.sort(key=lambda group: group['name'])
-    return dict(exact=groups, capitalization=capitalization, tool_count=len(exact_ids),
-                capitalization_tool_count=sum(len(group['projects']) for group in capitalization))
+    counted_ids = exact_ids | {p['id'] for group in capitalization for p in group['projects']}
+    compacted = {}
+    for project in ordered:
+        if project['id'] not in counted_ids:
+            key = NAME_WHITESPACE.sub('', project['name'])
+            if key:
+                compacted.setdefault(key, []).append(project)
+    whitespace = [dict(name=' / '.join(sorted({p['name'] for p in rows})), projects=rows)
+                  for rows in compacted.values() if len({p['name'] for p in rows}) > 1]
+    whitespace.sort(key=lambda group: group['name'])
+    counted_ids.update(p['id'] for group in whitespace for p in group['projects'])
+    return dict(exact=groups, capitalization=capitalization, whitespace=whitespace,
+                tool_count=len(counted_ids), exact_tool_count=len(exact_ids),
+                capitalization_tool_count=sum(len(group['projects']) for group in capitalization),
+                whitespace_tool_count=sum(len(group['projects']) for group in whitespace))
 
 
 def name_groups_html(groups):
@@ -97,7 +114,7 @@ def name_groups_html(groups):
 
 
 def shared_names_html(names):
-    return f'''<section id="shared-names" class="obs-shared-names" aria-labelledby="shared-names-heading"><p class="obs-kicker">Selected projects</p><h2 id="shared-names-heading"><span id="shared-name-count">{names['tool_count']}</span> tools share a name</h2><p>Exact displayed names, including capitalization. Each project counts once.</p><div id="exact-name-groups">{name_groups_html(names['exact'])}</div><details id="capitalization-names"><summary>Capitalization-only matches · <span id="capitalization-name-count">{names['capitalization_tool_count']}</span> tools</summary><p>Excludes tools counted in exact-name groups.</p><div id="capitalization-name-groups">{name_groups_html(names['capitalization'])}</div></details></section>'''
+    return f'''<section id="shared-names" class="obs-shared-names" aria-labelledby="shared-names-heading"><p class="obs-kicker">Selected projects</p><h2 id="shared-names-heading"><span id="shared-name-count">{names['tool_count']}</span> tools share a name</h2><p>Each project counts once across these groups.</p><h3>Exact-name matches · <span id="exact-name-count">{names['exact_tool_count']}</span> tools</h3><div id="exact-name-groups">{name_groups_html(names['exact'])}</div><details id="capitalization-names"><summary>Capitalization-only matches · <span id="capitalization-name-count">{names['capitalization_tool_count']}</span> tools</summary><p>Excludes tools counted in exact-name groups.</p><div id="capitalization-name-groups">{name_groups_html(names['capitalization'])}</div></details><details id="whitespace-names"><summary>Whitespace-only matches · <span id="whitespace-name-count">{names['whitespace_tool_count']}</span> tools</summary><p>Ignores whitespace, preserves capitalization. Excludes tools counted above.</p><div id="whitespace-name-groups">{name_groups_html(names['whitespace'])}</div></details></section>'''
 
 
 def aggregate(index, projects=None):

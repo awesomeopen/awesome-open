@@ -173,8 +173,26 @@
     var capitalization = Array.from(folded.values()).filter(function (rows) { return rows.length > 1; }).map(function (rows) {
       return { name: Array.from(new Set(rows.map(function (project) { return project.name; }))).sort(compareName).join(' / '), projects: rows };
     }).sort(function (a, b) { return compareName(a.name, b.name); });
-    return { exact: groups, capitalization: capitalization, tool_count: exactIDs.size,
-      capitalization_tool_count: capitalization.reduce(function (sum, group) { return sum + group.projects.length; }, 0) };
+    var countedIDs = new Set([...exactIDs, ...capitalization.flatMap(function (group) { return group.projects.map(function (project) { return project.id; }); })]);
+    var compacted = new Map();
+    ordered.forEach(function (project) {
+      if (countedIDs.has(project.id)) return;
+      // Unicode White_Space, shared with build_observatory.py; preserve case.
+      var key = project.name.replace(/[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/g, '');
+      if (!key) return;
+      if (!compacted.has(key)) compacted.set(key, []);
+      compacted.get(key).push(project);
+    });
+    var whitespace = Array.from(compacted.values()).filter(function (rows) {
+      return new Set(rows.map(function (project) { return project.name; })).size > 1;
+    }).map(function (rows) {
+      return { name: Array.from(new Set(rows.map(function (project) { return project.name; }))).sort(compareName).join(' / '), projects: rows };
+    }).sort(function (a, b) { return compareName(a.name, b.name); });
+    whitespace.forEach(function (group) { group.projects.forEach(function (project) { countedIDs.add(project.id); }); });
+    return { exact: groups, capitalization: capitalization, whitespace: whitespace, tool_count: countedIDs.size,
+      exact_tool_count: exactIDs.size,
+      capitalization_tool_count: capitalization.reduce(function (sum, group) { return sum + group.projects.length; }, 0),
+      whitespace_tool_count: whitespace.reduce(function (sum, group) { return sum + group.projects.length; }, 0) };
   }
 
   function renderNameGroups(doc, container, groups) {
@@ -381,9 +399,12 @@
       }
       if (reset) reset.disabled = result.filters.category === 'all' && result.filters.license === 'all';
       doc.getElementById('shared-name-count').textContent = formatNumber(result.sharedNames.tool_count);
+      doc.getElementById('exact-name-count').textContent = formatNumber(result.sharedNames.exact_tool_count);
+      doc.getElementById('whitespace-name-count').textContent = formatNumber(result.sharedNames.whitespace_tool_count);
       doc.getElementById('capitalization-name-count').textContent = formatNumber(result.sharedNames.capitalization_tool_count);
       renderNameGroups(doc, doc.getElementById('exact-name-groups'), result.sharedNames.exact);
       renderNameGroups(doc, doc.getElementById('capitalization-name-groups'), result.sharedNames.capitalization);
+      renderNameGroups(doc, doc.getElementById('whitespace-name-groups'), result.sharedNames.whitespace);
       renderChart(doc, doc.getElementById('category-chart'), result.categories);
       renderChart(doc, doc.getElementById('license-chart'), result.licenses);
       renderChart(doc, doc.getElementById('age-chart'), result.age);

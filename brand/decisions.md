@@ -75,3 +75,5 @@ approved merely because it appears in this file.
 | B24 | 2026-10-14 | User-directed restoration | Withdraw B15 geometry staging and PR #44 A/B comparison. Restore plain white studies, compact detail and red image-to-feature connector. Revisit geometry later; shading/contact shadows across all illustrated records are a deferred third option. |
 
 | B25 | 2026-10-14 | User-directed; implemented for review | Add a filter-aware Observatory shared-name count with expandable exact-name groups and separate capitalization-only groups. Deduplicate canonical project IDs and link each distinct source. Derive counts from the existing catalog without collection or alias claims. See [accounting contract](../site/OBSERVATORY.md#accounting). |
+
+| B26 | 2026-10-14 | User-directed; implemented for review | Shared-name headline counts unique tools across exact, capitalization-only and new whitespace-only groups. Preserve displayed names and URLs; classify each project once in that order, using case-preserving Unicode whitespace removal for the final section. Same behavior in filtered, no-JavaScript and standalone views. See [accounting](../site/OBSERVATORY.md#accounting). |

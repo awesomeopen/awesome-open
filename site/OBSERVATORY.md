@@ -10,13 +10,22 @@ forecast model. The main-only publisher includes the route automatically.
 
 - Totals count canonical project IDs once. Cross-listed category memberships may
   overlap, so their sum is not a unique-project count and they are not a pie.
-- Shared names compare the catalog’s displayed names exactly, including case,
-  after canonical project-ID deduplication. Cross-category listings count once.
-  Capitalization-only groups compare lowercase names among remaining projects,
-  excluding every project already counted in an exact-name group. Both sections
-  follow the selected category/license filters. Native disclosures show each
-  project’s own source URL; these are name matches, not verified aliases. No
-  whitespace, punctuation or spelling normalization is applied.
+- Shared-name headline counts the union of canonical project IDs in the three
+  displayed groups. Cross-category listings and overlapping matches count once.
+  Group assignment is ordered: exact displayed names first, then lowercase-name
+  matches among remaining projects, then whitespace-only matches among those
+  still unassigned. Each displayed group needs at least two distinct project IDs;
+  whitespace groups also need different displayed names and a nonempty key.
+  Whitespace comparison removes Unicode `White_Space` characters and preserves
+  case. Python and JavaScript use the same explicit set: U+0009–000D, U+0020,
+  U+0085, U+00A0, U+1680, U+2000–200A, U+2028–2029, U+202F, U+205F and U+3000.
+  Zero-width space and BOM are retained. Combined case-and-whitespace changes,
+  punctuation and spelling are not normalized. Exact/capitalization priority can
+  leave a singleton unlisted in a later group; these sections classify disjoint
+  groups rather than enumerate every possible matching pair.
+  All sections follow selected category/license filters. Native disclosures show
+  unchanged displayed names and source URLs; name matches do not establish aliases.
+  Grouping uses the existing snapshot with no additional collection or dependency.
 - Stars sum observed cached GitHub counts, including actual zeroes; missing
   metrics remain null. The top-ten concentration denominator is that same sum.
   Neither stars nor a push timestamp is a quality, usage or maintenance verdict.

@@ -107,12 +107,20 @@ function sharedGroups(projects) {
   };
   const exact = group(unique, project => project.name);
   const exactIDs = new Set(exact.flat().map(project => project.id));
-  return { exact, capitalization: group(unique.filter(project => !exactIDs.has(project.id)), project => project.name.toLowerCase()) };
+  const capitalization = group(unique.filter(project => !exactIDs.has(project.id)), project => project.name.toLowerCase());
+  const usedIDs = new Set([...exact.flat(), ...capitalization.flat()].map(project => project.id));
+  const whitespace = group(unique.filter(project => !usedIDs.has(project.id)),
+    project => project.name.replace(/[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/g, ''))
+    .filter(rows => new Set(rows.map(project => project.name)).size > 1);
+  return { exact, capitalization, whitespace };
 }
 
 async function assertSharedNames(page, projects, label) {
   const expected = sharedGroups(projects);
-  for (const [kind, countID] of [['exact', 'shared-name-count'], ['capitalization', 'capitalization-name-count']]) {
+  const countedIDs = Object.values(expected).flat(2).map(project => project.id);
+  assert.equal(countedIDs.length, new Set(countedIDs).size, label + ': disjoint name groups');
+  assert.equal(number(await page.locator('#shared-name-count').textContent()), countedIDs.length, label + ': headline includes every match kind');
+  for (const [kind, countID] of [['exact', 'exact-name-count'], ['capitalization', 'capitalization-name-count'], ['whitespace', 'whitespace-name-count']]) {
     const groups = expected[kind];
     assert.equal(number(await page.locator('#' + countID).textContent()), groups.flat().length, label + ': ' + kind + ' tool count');
     const actual = await page.locator('#' + kind + '-name-groups .shared-name-group').evaluateAll(details => details.map(detail => [...detail.querySelectorAll('li')].map(item => ({ id: item.dataset.projectId, name: item.querySelector('a').textContent, url: item.querySelector('a').getAttribute('href'), source: item.querySelector('.shared-name-source').textContent }))));
@@ -358,6 +366,14 @@ async function checkObservatory({ browser, url }) {
       await page.locator('#capitalization-name-groups details').first().locator('summary').click();
       await capture(name + '-capitalization-open');
       await page.locator('#capitalization-names > summary').click();
+      await page.locator('#whitespace-names > summary').focus();
+      for (const key of ['Enter', 'Space']) {
+        const wasOpen = await page.locator('#whitespace-names').evaluate(node => node.open);
+        await page.keyboard.press(key);
+        assert.equal(await page.locator('#whitespace-names').evaluate(node => node.open), !wasOpen, 'Whitespace section keyboard disclosure');
+        await fits(page, name + ' whitespace disclosure');
+        if (!wasOpen) await capture(name + '-whitespace-open');
+      }
       await page.locator('#category-chart').scrollIntoViewIfNeeded();
       await capture(name + '-charts');
       await checkProjectDisclosure(page, name);
@@ -539,6 +555,8 @@ async function checkObservatory({ browser, url }) {
     await checkProjectDisclosure(fallback, 'no JavaScript');
     await fallback.locator('#exact-name-groups details > summary').first().click();
     assert.equal(await fallback.locator('#exact-name-groups details').first().evaluate(node => node.open), true, 'Shared names expand without JavaScript');
+    await fallback.locator('#whitespace-names > summary').click();
+    assert.equal(await fallback.locator('#whitespace-names').evaluate(node => node.open), true, 'Whitespace section expands without JavaScript');
     await fallback.locator('#category-chart details > summary').click();
     assert.equal(await fallback.locator('#category-chart table').isVisible(), true, 'Native data disclosure without JavaScript');
     await fits(fallback, 'no JavaScript');
@@ -551,6 +569,39 @@ async function checkObservatory({ browser, url }) {
     await fallbackContext.close();
     fallbackContext = null;
     report.checks.push('complete server-rendered charts/tables, native disclosures, local evidence and CSV without JavaScript');
+
+    // Production data can have no whitespace groups. Exercise real DOM rendering
+    // with synthetic names while retaining canonical project IDs and URLs.
+    const synthetic = await context.newPage();
+    track(synthetic);
+    const syntheticNames = ['OpenTool', 'OpenTool', 'Open Tool', 'OPEN TOOL',
+      'Open  Tool', 'Open\tTool', 'Open\u0085Tool', 'openTool ', 'Open-Tool', 'Open\u200bTool'];
+    const syntheticProjects = data.projects.slice(0, syntheticNames.length)
+      .map((project, i) => ({ ...project, name: syntheticNames[i] }));
+    await synthetic.route(target.href, async route => {
+      const response = await route.fetch();
+      const body = (await response.text()).replace(/(<script[^>]+id="observatory-data"[^>]*>)[\s\S]*?(<\/script>)/,
+        (_, opening, closing) => opening + JSON.stringify({ ...data, projects: syntheticProjects }) + closing);
+      await route.fulfill({ response, body });
+    });
+    await synthetic.goto(target.href);
+    await synthetic.waitForFunction(() => document.querySelector('#observatory-filters').dataset.enhanced === 'true');
+    await assertSharedNames(synthetic, syntheticProjects, 'synthetic overlap and Unicode whitespace');
+    assert.equal(number(await synthetic.locator('#shared-name-count').textContent()), 7, 'Synthetic union count');
+    await synthetic.setViewportSize({ width: 390, height: 844 });
+    await synthetic.locator('#whitespace-names > summary').click();
+    const whitespaceGroup = synthetic.locator('#whitespace-name-groups details').first();
+    await whitespaceGroup.locator('summary').focus();
+    for (const key of ['Enter', 'Space']) {
+      const wasOpen = await whitespaceGroup.evaluate(node => node.open);
+      await synthetic.keyboard.press(key);
+      assert.equal(await whitespaceGroup.evaluate(node => node.open), !wasOpen, 'Whitespace group keyboard toggle');
+      assert.equal(await whitespaceGroup.locator('summary').evaluate(node => node === document.activeElement), true, 'Whitespace group retains focus');
+      await fits(synthetic, 'synthetic whitespace mobile');
+      if (!wasOpen) await capture('synthetic-whitespace-open', synthetic);
+    }
+    await synthetic.close();
+    report.checks.push('whitespace keyboard disclosure, Unicode matching and exact/capitalization/whitespace priority with synthetic names');
 
     // Block every neighboring runtime file. A standalone report must render and
     // filter from embedded assets even when none of its sibling files exist.
