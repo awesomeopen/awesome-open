@@ -20,6 +20,7 @@ import signals
 import star_history
 import deployment
 import qr
+from category_art import attach_category_art, category_image, copy_category_art, embed_category_art
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
@@ -362,7 +363,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None):
 def render_html(catalog, cutouts=None):
     categories = {c['id']: c['name'] for c in catalog['categories']}
     count = len(catalog['projects'])
-    nav = ''.join(f'<a data-category="{escape(c["id"])}" href="{escape(source_url(catalog, "README.source.md", "#" + c["id"]))}"><span>{escape(c["name"])}</span><span class="category-count">{c["count"]:02d}</span></a>' for c in catalog['categories'])
+    nav = ''.join(f'<a class="{"has-category-art" if c.get("artwork") else ""}" data-category="{escape(c["id"])}" href="{escape(source_url(catalog, "README.source.md", "#" + c["id"]))}">{category_image(c)}<span class="category-label">{escape(c["name"])}</span><span class="category-count">{c["count"]:02d}</span></a>' for c in catalog['categories'])
     category_options = ''.join(f'<option value="{escape(c["id"])}">{escape(c["name"])}</option>' for c in catalog['categories'])
     licenses = sorted({p['github']['license'] for p in catalog['projects'] if p['github'] and p['github']['license']})
     license_options = ''.join(f'<option value="{escape(v)}">{escape(v)}</option>' for v in licenses)
@@ -410,7 +411,7 @@ def render_html(catalog, cutouts=None):
  <main id="catalog" class="catalog-main" tabindex="-1">
   <h1 id="page-title" class="visually-hidden">Projects</h1>
   <div class="control-row">
- <aside class="sidebar" aria-label="Catalog categories"><details class="category-panel" name="catalog-controls"><summary>Table of contents <span aria-hidden="true">+</span></summary><nav class="category-nav" aria-label="Categories"><a data-category="" href="#catalog" aria-current="true"><span>All</span><span class="category-count">{count}</span></a>{nav}</nav></details></aside>
+ <aside class="sidebar" aria-label="Catalog categories"><details class="category-panel" name="catalog-controls"><summary>Table of contents <span aria-hidden="true">+</span></summary><nav class="category-nav" aria-label="Categories"><a data-category="" href="#catalog" aria-current="true"><span class="category-label">All</span><span class="category-count">{count}</span></a>{nav}</nav></details></aside>
   <form id="filters" class="catalog-toolbar" hidden aria-label="Filter projects">
 
    <details class="filter-options" name="catalog-controls"><summary>Filters <span aria-hidden="true">+</span></summary><div class="filter-body"><div class="diagnostic-filters"><div class="filter-field"><label for="push-window">Repository push window</label><select id="push-window" name="window"><option value="all">Any observed date</option><option value="recent">Within 90 days of snapshot</option><option value="older">More than 2 years before snapshot</option><option value="unknown">Push date unknown</option></select></div><div class="filter-field"><label for="alternative-filter">Reviewed alternative to</label><select id="alternative-filter" name="alternative"><option value="">Any / not recorded</option>{alternative_options}</select></div><div class="filter-field"><label for="license-filter">Detected license</label><select id="license-filter" name="license"><option value="all">Any / unknown</option><option value="known">Detected license available</option><option value="unknown">License unknown</option>{license_options}</select></div></div>
@@ -449,6 +450,7 @@ def build(output, source_sha=None, root=ROOT):
                             star_evidence=star_history.load_optional(root / "data/star_history.json"))
     catalog['footer_backgrounds'] = ['footer-backgrounds/' + p.name for p in sorted((root / 'site/footer-backgrounds').glob('*')) if p.is_file() and p.suffix.lower() in {'.webp', '.png'} and not p.is_symlink()]
     attach_specimen_art(catalog, root)
+    attach_category_art(catalog, root)
     cutouts = attach_specimen_cutouts(catalog, root)
     page = render_html(catalog, cutouts)
     # Validate charts before touching generated files. The renderer is shared with README.
@@ -507,10 +509,12 @@ def build(output, source_sha=None, root=ROOT):
     (output / 'brand').mkdir(exist_ok=True)
     for name in BRAND_ASSETS:
         shutil.copyfile(root / 'site/brand' / name, output / 'brand' / name)
+    copy_category_art(catalog, root, output)
     (output / '.nojekyll').write_text('', encoding='utf-8')
     # A phone/download-friendly edition: every runtime asset and evidence download
     # is embedded, so opening one HTML file never depends on adjacent files.
     standalone = page.replace('href="data/hn_evidence.json">View evidence', 'href="#hn-evidence">View evidence')
+    standalone = embed_category_art(standalone, catalog, root)
     for asset in catalog['footer_backgrounds']:
         mime_type = 'image/png' if asset.lower().endswith('.png') else 'image/webp'
         encoded = base64.b64encode((output / asset).read_bytes()).decode('ascii')

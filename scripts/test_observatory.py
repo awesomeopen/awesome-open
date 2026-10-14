@@ -76,6 +76,200 @@ class ObservatoryAccountingTests(unittest.TestCase):
         self.assertEqual(counts['star_rows'][-1],['Other mapped projects',20])
         self.assertEqual(sum(n for _,n in counts['star_rows']),120)
 
+    @staticmethod
+    def shared_summary(result):
+        return dict(exact=[dict(name=g['name'],ids=[p['id'] for p in g['projects']]) for g in result['exact']],
+                    capitalization=[dict(name=g['name'],ids=[p['id'] for p in g['projects']]) for g in result['capitalization']],
+                    whitespace=[dict(name=g['name'],ids=[p['id'] for p in g['projects']]) for g in result['whitespace']],
+                    tool_count=result['tool_count'], exact_tool_count=result['exact_tool_count'],
+                    capitalization_tool_count=result['capitalization_tool_count'], whitespace_tool_count=result['whitespace_tool_count'])
+
+    @staticmethod
+    def named_projects(pairs):
+        base=obs.project_index(fixture())['projects'][0]
+        return [dict(base,id=identifier,name=name,url='https://example.com/'+identifier) for identifier,name in pairs]
+
+    def test_shared_names_exact_pairs_three_way_and_deterministic_order(self):
+        projects=self.named_projects([('z2','Zebra'),('a3','Alpha'),('z1','Zebra'),
+                                      ('a1','Alpha'),('a2','Alpha'),('solo','Unique')])
+        before=deepcopy(projects);result=obs.shared_names(projects)
+        self.assertEqual(self.shared_summary(result),dict(
+            exact=[dict(name='Alpha',ids=['a1','a2','a3']),dict(name='Zebra',ids=['z1','z2'])],
+            capitalization=[],whitespace=[],tool_count=5,exact_tool_count=5,capitalization_tool_count=0,whitespace_tool_count=0))
+        self.assertEqual(result['exact'][0]['projects'][0],projects[3])
+        self.assertEqual(projects,before)
+        self.assertEqual(obs.shared_names(list(reversed(projects))),result)
+
+    def test_shared_names_sort_unicode_codepoints_including_supplementary_planes(self):
+        bmp='\uE000';supplementary='\U00010000'
+        projects=self.named_projects([('a2',supplementary),('b2',bmp),('a1',supplementary),('b1',bmp),
+            (supplementary,'Tie'),(bmp,'Tie'),('case-a2',supplementary+'a'),('case-b2',bmp+'a'),
+            ('case-a1',supplementary+'A'),('case-b1',bmp+'A')])
+        self.assertEqual(self.shared_summary(obs.shared_names(projects)),dict(
+            exact=[dict(name='Tie',ids=[bmp,supplementary]),dict(name=bmp,ids=['b1','b2']),
+                   dict(name=supplementary,ids=['a1','a2'])],
+            capitalization=[dict(name=bmp+'A / '+bmp+'a',ids=['case-b1','case-b2']),
+                            dict(name=supplementary+'A / '+supplementary+'a',ids=['case-a1','case-a2'])],
+            whitespace=[],tool_count=10,exact_tool_count=6,capitalization_tool_count=4,whitespace_tool_count=0))
+
+    def test_shared_names_deduplicate_identity_across_categories(self):
+        first,other=self.named_projects([('a','Shared'),('b','Shared')])
+        repeated=dict(first,categories=['two'])
+        self.assertEqual(self.shared_summary(obs.shared_names([first,repeated])),dict(
+            exact=[],capitalization=[],whitespace=[],tool_count=0,exact_tool_count=0,capitalization_tool_count=0,whitespace_tool_count=0))
+        self.assertEqual(self.shared_summary(obs.shared_names([first,repeated,other])),dict(
+            exact=[dict(name='Shared',ids=['a','b'])],capitalization=[],whitespace=[],tool_count=2,exact_tool_count=2,capitalization_tool_count=0,whitespace_tool_count=0))
+
+    def test_shared_names_case_only_group_order(self):
+        projects=self.named_projects([('b','alpha'),('a','Alpha'),('d','zebra'),('c','ZEBRA')])
+        self.assertEqual(self.shared_summary(obs.shared_names(projects)),dict(exact=[],capitalization=[
+            dict(name='Alpha / alpha',ids=['a','b']),dict(name='ZEBRA / zebra',ids=['c','d'])],
+            whitespace=[],tool_count=4,exact_tool_count=0,capitalization_tool_count=4,whitespace_tool_count=0))
+
+    def test_shared_names_mixed_groups_never_recount_exact_projects(self):
+        projects=self.named_projects([('b','Echo'),('d','echo'),('a','Echo'),('c','ECHO')])
+        result=obs.shared_names(projects)
+        self.assertEqual(self.shared_summary(result),dict(
+            exact=[dict(name='Echo',ids=['a','b'])],capitalization=[dict(name='ECHO / echo',ids=['c','d'])],
+            whitespace=[],tool_count=4,exact_tool_count=2,capitalization_tool_count=2,whitespace_tool_count=0))
+        ids=[p['id'] for group in result['exact']+result['capitalization'] for p in group['projects']]
+        self.assertEqual(len(ids),len(set(ids)))
+
+    def test_shared_names_no_alias_inference_and_empty_singleton(self):
+        for pairs in [[],[('a','Tool')],[('a','Tool'),('b','tool '),('c','Tool-'),('d','Tool OSS')]]:
+            with self.subTest(pairs=pairs):
+                self.assertEqual(self.shared_summary(obs.shared_names(self.named_projects(pairs))),dict(
+                    exact=[],capitalization=[],whitespace=[],tool_count=0,exact_tool_count=0,capitalization_tool_count=0,whitespace_tool_count=0))
+
+    def test_shared_names_whitespace_three_way_preserves_names_and_order(self):
+        projects=self.named_projects([('c','Open Tool '),('a',' OpenTool'),('b','Open Tool')])
+        before=deepcopy(projects);result=obs.shared_names(projects)
+        self.assertEqual(self.shared_summary(result),dict(exact=[],capitalization=[],
+            whitespace=[dict(name=' OpenTool / Open Tool / Open Tool ',ids=['a','b','c'])],
+            tool_count=3,exact_tool_count=0,capitalization_tool_count=0,whitespace_tool_count=3))
+        self.assertEqual(projects,before)
+        self.assertEqual(obs.shared_names(list(reversed(projects))),result)
+
+    def test_shared_names_unicode_white_space_exact_set(self):
+        whitespace=[*range(0x09,0x0e),0x20,0x85,0xa0,0x1680,*range(0x2000,0x200b),
+                    0x2028,0x2029,0x202f,0x205f,0x3000]
+        for codepoint in whitespace:
+            with self.subTest(codepoint=hex(codepoint)):
+                projects=self.named_projects([('a','OpenTool'),('b','Open'+chr(codepoint)+'Tool')])
+                result=obs.shared_names(projects)
+                self.assertEqual(result['whitespace_tool_count'],2)
+                self.assertEqual(result['tool_count'],2)
+                self.assertEqual(len(result['whitespace']),1)
+        # Python str.isspace and JavaScript \s differ from Unicode White_Space.
+        for codepoint in [0x1c,0x1d,0x1e,0x1f,0x180e,0x200b,0xfeff]:
+            with self.subTest(excluded=hex(codepoint)):
+                result=obs.shared_names(self.named_projects([('a','OpenTool'),('b','Open'+chr(codepoint)+'Tool')]))
+                self.assertEqual(result['tool_count'],0)
+                self.assertEqual(result['whitespace'],[])
+
+    def test_shared_names_exact_then_capitalization_then_whitespace_partition(self):
+        projects=self.named_projects([('a','OpenTool'),('b','OpenTool'),
+            ('c','Open Tool'),('d','OPEN TOOL'),('e','Open  Tool'),('f','Open\tTool'),
+            ('g','openTool '),('h','Open-Tool')])
+        result=obs.shared_names(projects)
+        self.assertEqual([p['id'] for p in result['exact'][0]['projects']],['a','b'])
+        self.assertEqual([p['id'] for p in result['capitalization'][0]['projects']],['d','c'])
+        self.assertEqual([p['id'] for p in result['whitespace'][0]['projects']],['f','e'])
+        self.assertEqual([result[key] for key in ['tool_count','exact_tool_count',
+            'capitalization_tool_count','whitespace_tool_count']],[6,2,2,2])
+        ids=[p['id'] for kind in ['exact','capitalization','whitespace'] for group in result[kind] for p in group['projects']]
+        self.assertEqual(len(ids),len(set(ids)))
+        self.assertEqual(obs.shared_names(list(reversed(projects))),result)
+        # A single unclaimed spelling cannot borrow a member from a prior section.
+        for pairs in [[('a','OpenTool'),('b','OpenTool'),('c','Open Tool')],
+                      [('a','OpenTool'),('b','opentool'),('c','Open Tool')]]:
+            self.assertEqual(obs.shared_names(self.named_projects(pairs))['whitespace'],[])
+
+    def test_shared_names_whitespace_filtering_and_repeated_id(self):
+        index=obs.project_index(fixture())
+        index['projects']=self.named_projects([('a','OpenTool'),('b','Open Tool'),('c','Open  Tool')])
+        for project,categories,license in zip(index['projects'],[['one','two'],['one'],['two']],['MIT','MIT',None]):
+            project.update(categories=categories,license=license)
+        result=obs.aggregate(index)['shared_names']
+        self.assertEqual((result['tool_count'],result['whitespace_tool_count']),(3,3))
+        known=[p for p in index['projects'] if 'one' in p['categories'] and p['license']]
+        self.assertEqual(obs.aggregate(index,known)['shared_names']['whitespace_tool_count'],2)
+        self.assertEqual(obs.aggregate(index,[index['projects'][2]])['shared_names']['tool_count'],0)
+        self.assertEqual(obs.shared_names(known+[dict(known[0],categories=['two'])])['whitespace_tool_count'],2)
+
+    def test_shared_names_aggregate_uses_only_selected_category_and_license(self):
+        index=obs.project_index(fixture())
+        index['projects']=self.named_projects([('a','Shared'),('b','Shared'),('c','Shared'),('d','shared')])
+        for project,categories,license in zip(index['projects'],
+                [['one','two'],['one'],['two'],['two']],['MIT','MIT',None,None]):
+            project.update(categories=categories,license=license)
+        self.assertEqual(self.shared_summary(obs.aggregate(index)['shared_names']),dict(
+            exact=[dict(name='Shared',ids=['a','b','c'])],capitalization=[],whitespace=[],tool_count=3,exact_tool_count=3,capitalization_tool_count=0,whitespace_tool_count=0))
+        def selected(category,known):
+            return [p for p in index['projects'] if category in p['categories'] and bool(p['license'])==known]
+        self.assertEqual(self.shared_summary(obs.aggregate(index,selected('one',True))['shared_names']),dict(
+            exact=[dict(name='Shared',ids=['a','b'])],capitalization=[],whitespace=[],tool_count=2,exact_tool_count=2,capitalization_tool_count=0,whitespace_tool_count=0))
+        self.assertEqual(self.shared_summary(obs.aggregate(index,selected('two',False))['shared_names']),dict(
+            exact=[],capitalization=[dict(name='Shared / shared',ids=['c','d'])],whitespace=[],tool_count=2,exact_tool_count=0,capitalization_tool_count=2,whitespace_tool_count=0))
+        for category,known in [('one',False),('two',True)]:
+            self.assertEqual(self.shared_summary(obs.aggregate(index,selected(category,known))['shared_names']),dict(
+                exact=[],capitalization=[],whitespace=[],tool_count=0,exact_tool_count=0,capitalization_tool_count=0,whitespace_tool_count=0))
+
+    def test_shared_names_render_escaped_links_and_empty_selection(self):
+        catalog=fixture();index=obs.project_index(catalog)
+        dangerous='</summary><img src=x onerror=alert(1)>'
+        index['projects']=self.named_projects([('b',dangerous),('a',dangerous),('d','CASE'),('c','case')])
+        index['projects'][0]['url']='https://example.com/b?x=1&y="quoted"'
+        html=obs.render(index,obs.aggregate(index),obs.coverage(catalog,{}));page=Page(html)
+        self.assertEqual(page.by_id['shared-name-count'].text,'4')
+        self.assertEqual(page.by_id['exact-name-count'].text,'2')
+        self.assertEqual(page.by_id['capitalization-name-count'].text,'2')
+        self.assertNotIn(dangerous,html)
+        exact=page.by_id['exact-name-groups'].descendants('details')
+        self.assertEqual(len(exact),1)
+        self.assertNotIn('open',exact[0].attrs)
+        self.assertEqual(exact[0].descendants('summary')[0].text,dangerous+' · 2 tools')
+        rows=exact[0].descendants('li')
+        self.assertEqual([r.attrs['data-project-id'] for r in rows],['a','b'])
+        self.assertEqual(rows[1].descendants('a')[0].attrs['href'],index['projects'][0]['url'])
+        self.assertEqual(rows[1].descendants('span')[0].text,index['projects'][0]['url'])
+        self.assertEqual(len(page.images),1)
+        index['projects']=[]
+        page=Page(obs.render(index,obs.aggregate(index),obs.coverage(catalog,{})))
+        self.assertEqual(page.by_id['shared-name-count'].text,'0')
+        self.assertEqual(page.by_id['capitalization-name-count'].text,'0')
+        self.assertEqual(page.by_id['exact-name-count'].text,'0')
+        self.assertEqual(page.by_id['whitespace-name-count'].text,'0')
+        self.assertEqual(page.by_id['whitespace-name-groups'].descendants('li'),[])
+        self.assertEqual(page.by_id['exact-name-groups'].descendants('li'),[])
+        self.assertIn('No shared names in this selection.',page.by_id['exact-name-groups'].text)
+
+    def test_whitespace_groups_render_escaped_native_disclosures_and_links(self):
+        catalog=fixture();index=obs.project_index(catalog)
+        index['projects']=self.named_projects([('a','<Open Tool>'),('b','<OpenTool>'),('c','<Open  Tool>')])
+        index['projects'][1]['url']='https://example.com/b?x=1&y="quoted"'
+        html=obs.render(index,obs.aggregate(index),obs.coverage(catalog,{}));page=Page(html)
+        self.assertEqual(page.by_id['shared-name-count'].text,'3')
+        self.assertEqual(page.by_id['whitespace-name-count'].text,'3')
+        self.assertEqual(page.by_id['exact-name-count'].text,'0')
+        self.assertEqual(page.by_id['capitalization-name-count'].text,'0')
+        outer=page.by_id['whitespace-names']
+        self.assertEqual(outer.tag,'details')
+        self.assertNotIn('open',outer.attrs)
+        self.assertEqual(outer.children[0].tag,'summary')
+        groups=page.by_id['whitespace-name-groups'].descendants('details')
+        self.assertEqual(len(groups),1)
+        self.assertNotIn('open',groups[0].attrs)
+        self.assertEqual(groups[0].children[0].tag,'summary')
+        rows=groups[0].descendants('li')
+        self.assertEqual([r.attrs['data-project-id'] for r in rows],['c','a','b'])
+        for row,project in zip(rows,[index['projects'][i] for i in [2,0,1]]):
+            self.assertEqual(row.descendants('a')[0].text,project['name'])
+            self.assertEqual(row.descendants('a')[0].attrs['href'],project['url'])
+            self.assertEqual(row.descendants('span')[0].text,project['url'])
+        self.assertNotIn('<Open Tool>',html)
+        self.assertIn('&lt;Open Tool&gt;',html)
+
     def test_hn_global_dedup_and_partial_scorecard_remain_explicit(self):
         catalog=fixture()
         hn=dict(projects=[dict(readme_url='https://github.com/Example/Alpha/',eligible=True,stories=[{'id':'1'},{'id':'1'},{'id':'2'}]),dict(readme_url='https://example.com/beta',eligible=False,stories=[{'id':'2'}])])
@@ -134,6 +328,98 @@ class ObservatoryBuildTests(unittest.TestCase):
             self.assertEqual(node.descendants('svg')[0].attrs['aria-hidden'],'true')
         self.assertIn('href="observatory/"',(self.output/'index.html').read_text())
         self.assertNotIn('observatory.js',(self.output/'index.html').read_text())
+
+    def test_project_data_disclosure_and_copy_in_both_outputs(self):
+        for name in ['index.html', 'report.html']:
+            text=(self.output/'observatory'/name).read_text(); page=Page(text)
+            disclosure=page.by_id['project-data']
+            self.assertEqual(disclosure.tag, 'details')
+            self.assertNotIn('open', disclosure.attrs)
+            self.assertEqual(disclosure.children[0].tag, 'summary')
+            self.assertEqual(disclosure.children[0].text, 'Data table')
+            self.assertIn(page.by_id['project-table'], disclosure.descendants('table'))
+            self.assertNotIn(page.by_id['export-csv'], disclosure.descendants('a'))
+            for copy in ['Projects by category', 'Top 10 (by GitHub stars).',
+                         'Days since GitHub repository creation.', 'Dates are UTC.']:
+                self.assertIn(copy, text)
+            for removed in ['Where the collection gathers', 'Attention is uneven',
+                            'Read the distribution', 'Inspect or take the data',
+                            'What is actually covered?', 'not the project founding date']:
+                self.assertNotIn(removed, text)
+
+    def test_shared_names_static_and_standalone_match_snapshot(self):
+        expected=obs.shared_names(self.snapshot['projects'])
+        for name in ['index.html','report.html']:
+            with self.subTest(name=name):
+                page=Page((self.output/'observatory'/name).read_text())
+                self.assertEqual(page.by_id['shared-name-count'].text,str(expected['tool_count']))
+                self.assertEqual(page.by_id['capitalization-name-count'].text,str(expected['capitalization_tool_count']))
+                self.assertEqual(page.by_id['exact-name-count'].text,str(expected['exact_tool_count']))
+                self.assertEqual(page.by_id['whitespace-name-count'].text,str(expected['whitespace_tool_count']))
+                whitespace=page.by_id['whitespace-names']
+                self.assertEqual(whitespace.tag,'details')
+                self.assertNotIn('open',whitespace.attrs)
+                self.assertEqual(whitespace.children[0].tag,'summary')
+                disclosure=page.by_id['capitalization-names']
+                self.assertEqual(disclosure.tag,'details')
+                self.assertNotIn('open',disclosure.attrs)
+                self.assertEqual(disclosure.children[0].tag,'summary')
+                self.assertEqual(len(page.ids),len(set(page.ids)))
+                for container,key in [('exact-name-groups','exact'),('capitalization-name-groups','capitalization'),('whitespace-name-groups','whitespace')]:
+                    groups=page.by_id[container].descendants('details')
+                    self.assertEqual(len(groups),len(expected[key]))
+                    for group,wanted in zip(groups,expected[key]):
+                        self.assertTrue(group.has_class('shared-name-group'))
+                        self.assertNotIn('open',group.attrs)
+                        self.assertEqual(group.descendants('summary')[0].text,
+                                         wanted['name']+' · '+str(len(wanted['projects']))+' tools')
+                        rows=group.descendants('li')
+                        self.assertEqual([r.attrs['data-project-id'] for r in rows],
+                                         [p['id'] for p in wanted['projects']])
+                        for row,project in zip(rows,wanted['projects']):
+                            self.assertEqual(row.descendants('a')[0].attrs['href'],project['url'])
+                            self.assertEqual(row.descendants('a')[0].text,project['name'])
+                            source=row.descendants('span')[0]
+                            self.assertTrue(source.has_class('shared-name-source'))
+                            self.assertEqual(source.text,project['url'])
+
+    def test_csv_covers_displayed_project_fields(self):
+        rows=list(csv.DictReader(io.StringIO((self.output/'observatory/projects.csv').read_text())))
+        self.assertEqual(len(rows), len(self.snapshot['projects']))
+        for row, project in zip(rows, self.snapshot['projects']):
+            for key in ['id', 'name', 'url', 'license', 'stars', 'created_at',
+                        'pushed_at', 'release_at', 'release_status', 'release_checked_at']:
+                self.assertEqual(row[key], obs.safe_csv(project[key]))
+            self.assertEqual(row['categories'], '; '.join(project['categories']))
+            self.assertEqual(row['source_sha'], self.snapshot['source_sha'])
+
+    def test_prefooter_logo_and_standalone_embedding(self):
+        import base64
+        logo=build_site.ROOT/'site/brand/botanical-128.png'
+        for name in ['index.html', 'report.html']:
+            page=Page((self.output/'observatory'/name).read_text())
+            self.assertEqual(len(page.images), 1)
+            image=page.images[0]
+            self.assertEqual(image['class'], 'obs-logo')
+            self.assertEqual((image['width'], image['height']), ('128', '128'))
+            self.assertEqual(image['alt'], 'Awesome Open* botanical logo')
+            self.assertEqual(page.nodes('figcaption'), [])
+            expected=('../brand/botanical-128.png' if name == 'index.html' else
+                      'data:image/png;base64,'+base64.b64encode(logo.read_bytes()).decode('ascii'))
+            self.assertEqual(image['src'], expected)
+            main=page.by_id['observatory-main']
+            closing=[node for node in page.elements if node.has_class('obs-closing-mark')]
+            self.assertEqual(len(closing), 1)
+            self.assertIs(main.children[-1], closing[0])
+            self.assertEqual(closing[0].tag, 'div')
+            self.assertEqual([node.tag for node in closing[0].children], ['img'])
+            self.assertEqual(closing[0].text.strip(), '')
+            self.assertEqual(closing[0].children[0].attrs, image)
+            hero=next(node for node in page.elements if node.has_class('obs-hero'))
+            self.assertEqual(hero.descendants('img'), [])
+            parent=next(node for node in page.elements if main in node.children)
+            self.assertTrue(parent.children[parent.children.index(main)+1].has_class('obs-footer'))
+        self.assertEqual((self.output/'brand/botanical-128.png').read_bytes(), logo.read_bytes())
 
     def test_thin_index_and_no_runtime_remote_dependencies(self):
         node=self.page.by_id['observatory-data'];data=json.loads(node.text)

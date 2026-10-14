@@ -112,6 +112,14 @@ Aim for 44px interactive targets. All controls work with a keyboard and show vis
 
 Motion clarifies state: short opacity/position transitions, roughly 120–220ms. A reduced-motion preference removes nonessential movement. No automatic marquee, mandatory parallax, scroll pinning, scrubbing, stacked-sheet trapping or entry animation that leaves content hidden when JavaScript fails. If later motion earns its place, review its purpose and fallback separately.
 
+Category navigation uses the owner-uploaded category illustrations at 48 CSS px
+inside the existing Table of contents disclosure. Keep complete silhouettes,
+wrapping category labels, counts and current-category marking. The illustration
+is decorative beside its text label, with empty alt text. Preserve the All link
+without a placeholder. Local 104/207/414px WebPs provide responsive candidates;
+native lazy loading defers closed-menu artwork. The standalone edition embeds
+only the small variant. See [category provenance](domains/provenance.json).
+
 ## 6. Artwork: strange, obscure, direct
 
 Apply Speculative FOSSoligy through disciplined observation and invention. Start with a readable silhouette and credible structure; introduce one governing impossibility. Ink, pencil, crosshatching and selective translucent color should feel made by a curious observer. A second look reveals the oddity; a first look still identifies the subject.
@@ -275,7 +283,7 @@ Add a PNG or WebP to `site/footer-backgrounds/` and rebuild to extend the pool; 
 
 ### Specimen plates — three-record study, 2026-10-13
 
-*Superseded on 2026-10-14 by the specimen plate for every record (B22), below.*
+*Superseded on 2026-10-14 by the specimen plate for every record (B29), below.*
 
 Proposed on OpenTofu (broad), OpenRefine (upright), and Open WebUI (without art).
 Folded summaries remain unchanged. An open plate pairs a larger complete specimen
@@ -316,30 +324,15 @@ sources” and “View source & retrieval history”. Stars link their plot and
 plot treatment. Keep cache status and observation date; place the counting
 method in About. No historical-total or adoption claim is implied.
 
-### Two specimen staging passes — 2026-10-13, user-authorized prototype
+### Restored specimen studies — 2026-10-14
 
-*Superseded on 2026-10-14 by the specimen plate for every record (B22), below.*
+*Superseded on 2026-10-14 by the specimen plate for every record (B29), below.*
 
-OpenTofu's broad pod is enlarged past the left artwork gutter and the ruled
-boundary separating its main study from the close-up. Reserve the space below
-that rule so the full silhouette remains visible and the note stays readable.
-Its enlargement is a horizontal view into the seed chambers. OpenRefine's
-upright calyx rises through the heading rule on desktop; its close-up is a tall
-strip of the central strands. On mobile, the calyx crosses its own upper study
-rule after the Function/identity block. All full images use contain sizing;
-only the deliberately enlarged detail windows crop the source drawing.
-
-Feature notes may be directly attached to drawing enlargements. Independence
-is semantic: factual capability copy cites official sources and never argues
-that a drawn shape demonstrates software performance or superiority. No visual
-separator, disclaimer or analogy explanation is required. Preserve the current
-reviewed capability copy and source links during these composition passes.
-
-Each main drawing settles once in 320–360ms; the scarlet leader draws once.
-Content is immediately available. Reduced motion shows the finished composition.
-Keep the folded ledger, type, evidence and centered departure stable. Open WebUI
-remains the text-only control. Source image bytes and provenance are unchanged.
-
+Withdraw the enlarged rule-crossing composition and the subsequent A/B backdrop
+and interrupted-rule comparison. Restore a plain white study with complete
+artwork, compact detail windows and the scarlet connector from image to feature.
+Keep reviewed feature copy and sources. Shading/contact shadows across all
+illustrated records remain a deferred third option, not an implemented treatment.
 
 ### Clear glass and shallow room — 2026-10-13
 
@@ -391,7 +384,7 @@ Jar captions use the single literal space between number and name; the number
 span adds no extra margin. Rear shadows stay close to the bases, never a rising
 cloud between the jars.
 
-### Specimen plate for every record — 2026-10-14, user-approved (B22)
+### Specimen plate for every record — 2026-10-14, user-approved (B29)
 
 Every expanded record is a plate. Folded ledger rows are unchanged.
 

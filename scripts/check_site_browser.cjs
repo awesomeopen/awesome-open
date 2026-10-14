@@ -89,6 +89,48 @@ const path = require('node:path');
     report.sourceSha = data.source_sha;
     writeReport();
     if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Browser must test the generated checkout');
+    // Category illustrations stay inside the existing native disclosure. Check
+    // actual decoding and candidate selection at desktop and narrow widths.
+    assert.equal(await page.locator('.category-art').count(), data.categories.filter(category => category.artwork).length);
+    assert.equal(await page.locator('.category-panel').evaluate(node => node.open), false);
+    assert.equal(await page.evaluate(() => performance.getEntriesByType('resource').filter(e => /\/domains\/.*\.webp/.test(e.name)).length), 0,
+      'Closed category disclosure must not load its artwork');
+    for (const width of [1440, 390, 320, 768]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.locator('.category-panel > summary').click();
+      const firstArt = page.locator('.category-art').first();
+      await firstArt.scrollIntoViewIfNeeded();
+      await firstArt.evaluate(image => image.decode());
+      assert.equal(await firstArt.evaluate(image => image.getBoundingClientRect().width), 48);
+      assert.equal(await firstArt.getAttribute('alt'), '');
+      assert.ok(await firstArt.evaluate(image => image.currentSrc.endsWith('-s.webp')),
+        'A 48 CSS px category icon uses the small candidate at 1x');
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true,
+        `Expanded category art fits ${width}px`);
+      if ([1440, 390].includes(width)) await capture(`categories-${width}.png`);
+      await page.locator('.category-panel > summary').click();
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.locator('.category-panel > summary').focus();
+    await page.keyboard.press('Enter');
+    await page.locator('.category-nav a[data-category="developer-tools"] img').click();
+    assert.equal(await visible(), data.projects.filter(project => project.categories.includes('developer-tools')).length);
+    await page.locator('#clear-filters').click();
+    if (await page.locator('.category-panel').evaluate(node => node.open)) await page.locator('.category-panel > summary').click();
+    for (const [density, suffix] of [[2, 's'], [3, 'm']]) {
+      const denseContext = await browser.newContext({ viewport: { width: 1440, height: 1000 },
+        deviceScaleFactor: density, reducedMotion: 'reduce' });
+      try {
+        const densePage = await denseContext.newPage();
+        await densePage.goto(url);
+        await densePage.locator('.category-panel > summary').click();
+        const art = densePage.locator('.category-art').first();
+        await art.scrollIntoViewIfNeeded();
+        await art.evaluate(image => image.decode());
+        assert.ok(await art.evaluate((image, suffix) => image.currentSrc.endsWith(`-${suffix}.webp`), suffix),
+          `Category artwork uses the expected candidate at ${density}x`);
+      } finally { await denseContext.close(); }
+    }
     // Deterministically exercise the first and last entries of the random background pool.
     const backgrounds = data.footer_backgrounds || [];
     if (backgrounds.length) {

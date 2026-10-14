@@ -58,10 +58,10 @@ changes check the relevant desktop/narrow states, keyboard/focus, reduced motion
 real asset paths and output modes. Record unavailable browser checks explicitly.
 Do not mark a reference “approved” merely because a build succeeds.
 
-## Specimen plate for every record (B22)
+## Specimen plate for every record (B29)
 
 The expanded record is one plate for all projects; the bounded three-record study
-(B13–B15) is superseded. Order: Function statement and reviewed prose, the specimen,
+(B13–B15) and its plain restoration (B24) are superseded. Order: Function statement and reviewed prose, the specimen,
 feature notes, the specimen label, then II / Repository record, III / Where it runs,
 Observations & evidence and Reviewed alternatives (numbered by presence), and the
 centered “In the wild” departure on a Prussian band.
@@ -77,7 +77,7 @@ centered “In the wild” departure on a Prussian band.
   software facts; no anchors are placed on the drawing.
 - The label under the illustration: a QR code of the permalink, “Awesome Open* · Field
   record” (or “Archived on GitHub” when GitHub reports it), name, Registry ID · Folio,
-  “Domain:” with every domain, and the permalink. No paper or object treatment (B21).
+  “Domain:” with every domain, and the permalink. No paper or object treatment (B28).
 - Section labels are scarlet blocks with mist type (5.86:1). No horizontal rules inside the
   plate; spacing and labels carry the hierarchy. Chart axes remain.
 - Repository record: large values plus a literal timeline of creation, latest release and
@@ -108,8 +108,19 @@ space remains clear around the collection. Labels retain their common baseline.
 
 The user-directed `/observatory/` extension uses the current typography and
 white/Prussian instrument language for literal snapshot distributions, native SVG
-and accessible underlying tables. A single compact approved Open Doc specimen
-interrupts the opening; artwork never encodes a value or modifies chart geometry.
+and accessible underlying tables. The existing 128px botanical logo appears
+in the opening without a visible caption; artwork never modifies chart geometry.
 Filters update distributions and records together. Whole-collection findings and
 coverage retain explicit scope. See [observatory contract](../site/OBSERVATORY.md)
 and B20; the initial implementation awaits visual review.
+
+## Category illustrations
+
+The Table of contents pairs each category name with its existing transparent
+illustration at 48 CSS px. Keep the entire silhouette, a fixed image box and
+readable wrapping labels/counts inside the existing native disclosure. The
+adjacent text names the link; the image has empty alternative text. Preserve
+keyboard selection, current-category marking, narrow layouts and text-only
+fallbacks when a category has no artwork. The All link has no artwork placeholder.
+Use local responsive derivatives and lazy loading; embed the small source in the
+standalone edition. Existing hero, ledger and filter behavior remain unchanged.

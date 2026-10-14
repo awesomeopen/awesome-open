@@ -12,6 +12,7 @@ byte sizes and SHA-256 hashes; it is an integrity inventory, not approval metada
 | Full logo artwork | `site/brand/awesome-open-logo.png` | Retained tracked asset; do not infer that every retained variant is the active header |
 | Search loupe | `site/brand/search-loupe.png` | Implemented; [owner-supplied icon](../site/brand/SEARCH-ICON.md); 96px source, 32px display in 44px target |
 | Seven specimen interpretations | `site/specimens/*.webp` | Per-entry status, alt, prompt and source in [specimen manifest](../data/specimen_art.json) |
+| Category illustrations | `site/domains/*-{s,m,l}.webp` | 21 owner-uploaded category interpretations; source filename mapping, verified derivative hashes/dimensions, recipe and provenance limits in [category provenance](../site/domains/provenance.json) |
 | Photographic jars | `site/jars/*.webp` | Active/retained unlabelled variants distinguished by [jar provenance](../site/jars/provenance.json) |
 | Footer floor images | `site/footer-backgrounds/valley.webp`, `abyssal.webp` | Implemented; original filenames, original hashes and processing in [footer provenance](../site/footer-backgrounds/provenance.json) |
 | Fraunces + Commit Mono | `site/vendor/fonts.css` | Embedded complete variable WOFF2; [pinned source provenance](../site/vendor/FONT-PROVENANCE.json) and [SIL OFL notice](../site/vendor/FONT-LICENSE.txt) |
@@ -83,12 +84,33 @@ The square bottle also reuses its original brown cork as a clipped overlay.
 
 ## Observatory use
 
-The snapshot observatory reuses the approved Open Doc drawing at
-`site/specimens/10d69f0daa625d430823f0f96fe4a54501756699271de233b676a41c1fdc2576.webp`
-as a single compact editorial specimen. It is labeled an original interpretation,
-not a software logo or numerical encoding. Existing bytes, full silhouette,
-manifest provenance and checksum remain unchanged. The offline report embeds
-that same file; no artwork collection is downloaded by the new route.
+The Observatory opening uses `site/brand/botanical-128.png`, the existing 128 × 128
+botanical logo, without a visible caption. Display it at no more than its intrinsic
+width; retain descriptive alt text. The standalone report embeds the same PNG.
+The previous Open Doc specimen remains unchanged in the catalog; its Observatory
+placement is superseded by the user-directed logo replacement (B23). No asset
+bytes or source provenance changed.
+
+## Category navigation
+
+The 21 category illustrations retain all 63 owner-uploaded WebPs unchanged from
+commit `7045703d7b8fa09135fee41dd4a72da42476c6f3`. The variants are 104, 207 and
+414px square with transparency, totaling 1,874,384 bytes. The Table of contents
+uses 48 CSS px decorative images beside the existing category names and counts.
+Responsive candidates choose the small source at 1×/2×; native lazy loading
+defers the closed disclosure's images. The full small set is 150,040 bytes.
+The standalone edition embeds only that set (about 200 KB after base64 encoding).
+No category art is added to the hero, project identities or Observatory charts.
+
+Original PNGs stay in the owner's archive. The public provenance records their
+descriptive filenames and the known resize recipe, but original hashes, original
+encoding versions, generation tool and prompts remain unknown. The recorded
+validation environment describes synthetic tests, not the original encoder.
+See [regeneration instructions](../scripts/RESIZE-CATEGORY-IMAGES.md). Do not claim a
+byte-identical rebuild until the archived originals and toolchain are verified.
+
+The geometry trials are withdrawn by B24. Original illustration bytes remain
+unchanged; no comparison clipping contour or new shadows are deployed.
 
 ## Specimen plate derivatives
 
