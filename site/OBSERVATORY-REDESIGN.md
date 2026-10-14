@@ -23,12 +23,13 @@ then work through each block in this order:
 2. **Keep the evidence contract fixed.** Counting rules, scope labels (whole
    collection versus selection), Unknown values and literal labels do not change
    in a visual pass. Write down any contract change explicitly (see below).
-3. **Unfold graph-driven blocks; fold long listings.** Charts, metrics and
-   comparison plates stay open. A table that repeats hundreds of rows sits behind
-   a native disclosure that states its row count.
+3. **Unfold graph-driven blocks; fold listings.** Charts, metrics and tallies
+   stay open. Listings of projects (name-group plates, the data table) sit behind
+   a native disclosure whose summary states what it holds.
 4. **Mark only true differences.** Emphasis (bold owner, scarlet underline)
    points at the one fact that distinguishes items. It never implies a relation,
-   rank or verdict.
+   rank or verdict. Categorical marks use equal weight and differ by shape;
+   dark/light pairs read as done/not done or as progress.
 5. **Remove explanatory captions the layout already makes clear.** Keep method
    text in one disclosure rather than repeating it beside every block.
 6. **Verify numbers against the published snapshot** before review, and record
@@ -44,19 +45,23 @@ then work through each block in this order:
 | Metrics | Four numbers | Ruled row of four; ratio metrics show “456 / 501” and a 4px linear proportion line | Literal values; linear geometry |
 | Finding | Sentence | Sentence plus a whole-collection strip: top-10 star share against other mapped projects, drawn to scale | Finding keeps whole-collection scope |
 | Charts 01–06 | Fixed-viewBox SVG, label column truncated at 28 characters | HTML/CSS bar lists, zero-based and linear, labels wrap instead of truncating. Narrow screens put the label above its bar. Unknown bars are hatched as well as labeled. Categories sorted by count. Push and release charts are paired on one shared scale, marked “shared scale”. “Chart data” tables stay in folded disclosures | Linear from zero; no new dependency |
-| Shared names | Count, closed group disclosures with name and URL | Unit tally (one mark per tool, clustered by group, zero counts kept in the legend, each cluster links to its plate) and open comparison plates: repository, short description, category, license, GitHub stars, created, last push, ledger record, aligned across columns | Dense comparable information stays close |
+| Chart notes | Longer method captions | 01 “Projects can belong to several categories.” · 02 “Cached GitHub license identifiers.” · 03 “Top 10 specimen by GitHub stars.” · 06 “Days since last GitHub release (cached, excludes prereleases).” Method detail stays in the CSV, snapshot and this contract | User direction 2026-10-14 |
+| Shared names | Count, closed group disclosures with name and URL | Open unit tally: one mark per tool, clustered by group, all marks the same Prussian fill and distinguished by shape (square exact, triangle capitalization, circle whitespace; not a star, which reads as GitHub stars). Zero counts stay in the legend. Below it, one folded “Name groups” disclosure (summary: groups · tools) holds the comparison plates: repository, short description, category, license, GitHub stars, created, last push, ledger record, aligned across columns. A tally cluster opens the disclosure and jumps to its plate | Dense comparable information stays close; no implied progress |
 | Exact names | Name repeated | Owner set bold in the repository path | Emphasis anchored to the differing identifier |
 | Capitalization | Variants joined with a slash | Differing letters underlined in scarlet (form, not only color) | Scarlet directs attention |
 | Relationship | Only in the contract | Paragraph states that a shared name does not mean the projects are related; plates list category/license “In common”, nothing more | Name matches do not establish aliases |
 | Match-type labels | Sub-heading and summaries with rule captions | Scarlet block labels with mist type and no rule caption; rules live in “How groups are formed” | B29 label treatment |
-| Coverage | Table | Mist band labeled “Whole collection”, “Unaffected by filters”; each row has a linear bar of value / total, the count and the scope note | Coverage keeps whole-collection scope |
+| Coverage | Table | Mist band labeled “Whole collection” (no further scope sentence); each row has a linear bar of value / total, the count and the scope note. Collection dates and evidence links span the full width | Coverage keeps whole-collection scope |
 | Project data | Downloads, folded table | Downloads as bordered links; table folded, summary shows the selected row count | Listing folded so the page stays short |
 | Closing, footer | Logo, footer | Unchanged | B27 |
 
 Removed copy (user direction 2026-10-14): the Category and License labels above
-the selects, the “compare owners and descriptions” advice, and the three
-match-type rule captions (“Identical displayed names…”, “Names match after
-lowercasing…”, “Names match after removing whitespace…”).
+the selects, the “compare owners and descriptions” advice, the three match-type
+rule captions (“Identical displayed names…”, “Names match after lowercasing…”,
+“Names match after removing whitespace…”), “Sorted by count”, “Missing or
+unrecognized identifiers are Unknown”, and the coverage sentence “Unaffected by
+filters. Counts are out of 501 unique projects.” The rendered “Unknown” labels and
+the Whole collection label carry those meanings.
 
 ## Unchanged
 
