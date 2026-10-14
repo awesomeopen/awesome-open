@@ -7,6 +7,9 @@ const assert=require('node:assert/strict');
   await page.setViewportSize({width,height:1100});
   await page.goto((process.env.SITE_URL||'http://127.0.0.1:8000')+'/specimen-comparison.html');
   await page.locator('.plate-art img').evaluate(n=>n.decode());
+  await page.evaluate(()=>document.fonts.ready);
+  assert.ok(await page.locator('h1').evaluate(n=>getComputedStyle(n).fontFamily.includes('Fraunces')),'Display tokens loaded');
+  assert.ok(await page.locator('.function-detail').evaluate(n=>getComputedStyle(n).fontFamily.includes('Commit Mono')),'Body tokens loaded');
   const before=await page.locator('.plate-art').boundingBox();
   for(const variant of ['field','rule']){
    await page.locator('#treatment-'+variant).check();
