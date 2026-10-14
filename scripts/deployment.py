@@ -118,7 +118,7 @@ def attach(projects, document, canonical_url):
             project['deployment'] = deepcopy(entry)
 
 
-def render(project, *, embedded=False):
+def render(project, *, embedded=False, overview=True):
     """Plain factual disclosure; no commands, inferred support badges or ratings."""
     record = project.get('deployment')
     if not record:
@@ -143,14 +143,14 @@ def render(project, *, embedded=False):
             items.append(f'<li><strong>{esc(label)}</strong><p>{esc(fact["scope"])}</p><p class="fine-print">{links}</p></li>')
         if items:
             sections.append(f'<div class="deployment-group"><h5>{title}</h5><ul>{"".join(items)}</ul></div>')
-    overview = []
+    summary = []
     for field, label, names in (('run_modes', 'Run', RUN_MODES), ('install_methods', 'Install', INSTALL_METHODS)):
-        if record.get(field):
-            overview.append('<p><strong>' + label + ':</strong> ' + esc(' / '.join(names[f['value']] for f in record[field])) + '</p>')
+        if overview and record.get(field):
+            summary.append('<p><strong>' + label + ':</strong> ' + esc(' / '.join(names[f['value']] for f in record[field])) + '</p>')
     opening = ('<div class="deployment-evidence">' if embedded else
                '<section class="deployment-evidence" aria-labelledby="deployment-' + esc(project['id']) + '"><h4 id="deployment-' + esc(project['id']) + '">Deployment and installation</h4>')
     return (opening +
             '<p class="fine-print">Reviewed ' + esc(record['checked_at']) + ' · ' + esc(record['reviewed_by']) + ' · Approved evidence record</p>'
-            + ''.join(overview) + '<details><summary>View setup facts &amp; sources</summary>' + ''.join(sections) +
+            + ''.join(summary) + '<details><summary>View setup facts &amp; sources</summary>' + ''.join(sections) +
             '<p class="fine-print">' + esc(record['review_note']) + '</p>'
-            '<p class="fine-print">Only documented paths are listed. Omitted facts are unknown. Package records are source observations, not live availability checks. Requirements apply only to their stated scope.</p></details>' + ('</div>' if embedded else '</section>'))
+            '<p class="fine-print">Only documented paths are listed. Package records are source observations, not live availability checks. Requirements apply only to their stated scope.</p></details>' + ('</div>' if embedded else '</section>'))

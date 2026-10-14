@@ -395,7 +395,7 @@ const path = require('node:path');
     assert.equal(await fallback.locator('.no-script').isVisible(), true);
     await assertLedgerFits(fallback, 'no JavaScript');
     await fallback.locator('.specimen-drawer').first().locator(':scope > summary').click();
-    assert.equal(await fallback.locator('.specimen-drawer').first().locator('.source-link').isVisible(), true);
+    assert.equal(await fallback.locator('.specimen-drawer').first().locator('.plate-departure > a').isVisible(), true);
     await noJS.close();
 
     // The downloadable HTML must load without any neighboring runtime assets.

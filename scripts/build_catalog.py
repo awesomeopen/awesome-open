@@ -160,13 +160,17 @@ def _github_metadata(url, snapshot):
     license_id = (record.get("license") or {}).get("spdx_id")
     if not license_id or license_id in {"NOASSERTION", "OTHER"}:
         license_id = None
-    return {
+    metadata = {
         "repo": repo,
         "stars": record["stargazers_count"],
         "license": license_id,
         "created_at": record["created_at"],
         "pushed_at": record.get("pushed_at"),
     }
+    # Collected from the next metrics refresh on; absent means not yet observed, never "not archived".
+    if record.get("archived") is not None:
+        metadata["archived"] = record["archived"]
+    return metadata
 
 
 

@@ -275,6 +275,8 @@ Add a PNG or WebP to `site/footer-backgrounds/` and rebuild to extend the pool; 
 
 ### Specimen plates — three-record study, 2026-10-13
 
+*Superseded on 2026-10-14 by the specimen plate for every record (B22), below.*
+
 Proposed on OpenTofu (broad), OpenRefine (upright), and Open WebUI (without art).
 Folded summaries remain unchanged. An open plate pairs a larger complete specimen
 with a Fraunces function statement, then spans the sheet with a compact repository
@@ -315,6 +317,8 @@ plot treatment. Keep cache status and observation date; place the counting
 method in About. No historical-total or adoption claim is implied.
 
 ### Two specimen staging passes — 2026-10-13, user-authorized prototype
+
+*Superseded on 2026-10-14 by the specimen plate for every record (B22), below.*
 
 OpenTofu's broad pod is enlarged past the left artwork gutter and the ruled
 boundary separating its main study from the close-up. Reserve the space below
@@ -386,3 +390,26 @@ no-JavaScript stacked fallback. Preserve the paper stickers and natural cork.
 Jar captions use the single literal space between number and name; the number
 span adds no extra margin. Rear shadows stay close to the bases, never a rising
 cloud between the jars.
+
+### Specimen plate for every record — 2026-10-14, user-approved (B22)
+
+Every expanded record is a plate. Folded ledger rows are unchanged.
+
+- **Study:** Function label, Fraunces statement and bracketed reviewed prose on the right;
+  the specimen on the left with its label directly underneath; feature notes beside the
+  drawing. Without art, the label takes the specimen's place. Narrow screens read Function,
+  specimen, label, notes.
+- **Floor and art:** decorative contour rings (seeded by Registry ID, lower half only) behind a
+  transparent cut-out. Art renders at exactly 627px (half the source) and never rotates; a
+  frameless loupe shows the source at 2×. Opening draws the floor and settles the art once.
+- **Feature notes:** up to two, with 112px and 64px windows of the drawing and scarlet elbow
+  leaders starting on the ground. They state sourced capabilities only.
+- **Label:** permalink QR code (build-time SVG), “Awesome Open* · Field record” or
+  “Archived on GitHub”, name, Registry ID · Folio, “Domain:” with every domain, permalink.
+- **Bands:** scarlet block labels (`--rs-scarlet` ground, `--rs-mist` type), no horizontal
+  rules. Repository record with large values and a creation/release/push timeline; Where it
+  runs with reviewed chips and the setup disclosure; evidence cards with enlarged charts;
+  reviewed alternatives; “In the wild” departure on Prussian with the floor continuing.
+- **Removed captions:** contour/loupe disclaimers, “Under the loupe”, timeline and flow
+  qualifiers, the alternatives footnote, “Submissions, not sentiment” and “Omitted facts are
+  unknown”. Their meanings stay in the evidence downloads and the foundation evidence contract.

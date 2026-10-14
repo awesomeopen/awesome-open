@@ -1,4 +1,4 @@
-/* Three-record visual study: geometry, real source links, keyboard and offline assets. */
+/* Specimen plates for every record: geometry, label, QR code, decoration, keyboard and offline assets. */
 const assert=require('node:assert/strict');
 module.exports=async({page,url,data,capture})=>{
  const names=['OpenTofu','OpenRefine','Open WebUI'];
@@ -10,67 +10,68 @@ module.exports=async({page,url,data,capture})=>{
    const row=page.locator('#project-'+p.id),plate=row.locator('.specimen-plate');
    await row.locator('> details').evaluate(n=>n.open=true);
    await plate.scrollIntoViewIfNeeded();
-   await plate.locator('img').evaluateAll(ns=>Promise.all(ns.map(n=>n.decode())));
+   await plate.locator('img').evaluateAll(ns=>Promise.all(ns.map(n=>n.decode().catch(()=>null))));
    assert.equal(await plate.count(),1);
    assert.equal(await plate.locator('.plate-departure>a').getAttribute('href'),p.url);
-   assert.equal(await plate.locator('.plate-art').count(),name==='Open WebUI'?0:1);
-   assert.equal(await plate.locator('.source-link').count(),0);
+   assert.equal(await plate.locator('.plate-art').count(),p.artwork?1:0);
    assert.equal(await plate.locator('.plate-departure .sheet-label').textContent(),'In the wild');
-   assert.equal(await plate.locator('.plate-departure').evaluate(n=>getComputedStyle(n).textAlign),'center');
    assert.equal(await plate.locator('.permalink').innerText(),'Specimen: '+name+' (permalink)');
-   if(name!=='Open WebUI'){
-    assert.equal(await plate.locator('.function-detail mark').innerText(),name);
-    assert.equal(await plate.locator('.plate-detail .feature-source').count(),1);
-    assert.equal(await plate.locator('[data-signal=release] .deployment-evidence').count(),1);
+   const qr=plate.locator('.label-qr');
+   assert.equal(await qr.getAttribute('href'),'https://awesomeopen.github.io/awesome-open/#project-'+p.id);
+   assert.ok(await qr.locator('img').evaluate(img=>img.complete&&img.naturalWidth>0),'QR code loads');
+   assert.equal(await plate.locator('.specimen-label .tag').count(),p.categories.length,'Label lists every domain');
+   if(p.artwork){
     const geometry=await plate.evaluate(n=>{
      const art=n.querySelector('.plate-art img').getBoundingClientRect();
-     const stage=n.querySelector('.plate-art-stage').getBoundingClientRect();
      const prose=n.querySelector('.plate-function').getBoundingClientRect();
-     const heading=n.querySelector('.plate-heading').getBoundingClientRect();
-     const detail=n.querySelector('.plate-detail').getBoundingClientRect();
-     const crop=n.querySelector('.plate-detail-crop').getBoundingClientRect();
-     return {art:{left:art.left,right:art.right,top:art.top,bottom:art.bottom},
-      stage:{top:stage.top,bottom:stage.bottom},proseLeft:prose.left,headingBottom:heading.bottom,
-      detailTop:detail.top,cropRatio:crop.width/crop.height,
+     const label=n.querySelector('.specimen-label').getBoundingClientRect();
+     return {art:{left:art.left,right:art.right,bottom:art.bottom,width:art.width},proseLeft:prose.left,labelTop:label.top,
+      cutout:n.querySelector('.plate-field').dataset.cutout,terrain:!!n.querySelector('.plate-terrain'),
       animation:getComputedStyle(n.querySelector('.plate-art')).animationName};
     });
     assert.ok(geometry.art.left>=0&&geometry.art.right<=width,'Complete artwork fits viewport');
-    if(width>720)assert.ok(geometry.art.right<geometry.proseLeft,'Artwork leaves prose clear');
-    assert.ok(geometry.detailTop>=geometry.art.bottom-1,'Feature note leaves full silhouette clear');
+    if(width>900)assert.ok(geometry.art.right<=geometry.proseLeft,'Artwork leaves prose clear');
+    if(width>=1440)assert.equal(geometry.art.width,627,'Half-size artwork stays an exact 2:1 downscale');
+    assert.ok(geometry.labelTop>=geometry.art.bottom-1,'Label sits below the illustration');
+    assert.equal(geometry.terrain,geometry.cutout==='true','Ground is drawn only behind transparent cut-outs');
     assert.equal(geometry.animation,'none','Reduced motion leaves the final composition');
-    if(name==='OpenTofu'){
-     assert.ok(geometry.art.bottom>geometry.stage.bottom+10,'Pod extends below study rule');
-     assert.ok(geometry.cropRatio>1.5,'Broad pod close-up');
-    }else{
-     assert.ok(geometry.art.top< (width>720?geometry.headingBottom:geometry.stage.top),'Calyx rises through rule');
-     assert.ok(geometry.cropRatio<.65,'Tall strand close-up');
-    }
+   }
+   if(p.function_summary?.features?.length&&p.artwork){
+    assert.equal(await plate.locator('.plate-crop.is-ready').count(),Math.min(2,p.function_summary.features.length));
+    assert.ok((await plate.locator('.plate-leaders path').getAttribute('d')).startsWith('M'),'Leader lines join the drawing to its details');
    }
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
-   const clipped=await plate.locator('.plate-function,.plate-register,.evidence-note,.plate-departure').evaluateAll(ns=>ns.filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.right>innerWidth+1}).map(n=>n.className));
+   const clipped=await plate.locator('.plate-function,.specimen-label,.plate-register,.evidence-note,.plate-departure').evaluateAll(ns=>ns.filter(n=>{const r=n.getBoundingClientRect();return r.left<-1||r.right>innerWidth+1}).map(n=>n.className));
    assert.deepEqual(clipped,[],name+' at '+width);
    await plate.evaluate(n=>n.scrollIntoView({block:'start'}));
    await capture('plate-'+name.toLowerCase().replaceAll(' ','-')+'-'+width+'.png');
-   if(name!=='Open WebUI'){
-    await plate.locator('.plate-detail').scrollIntoViewIfNeeded();
-    await capture('plate-detail-'+name.toLowerCase().replaceAll(' ','-')+'-'+width+'.png');
-   }
    await plate.locator('.plate-departure>a').focus();
    assert.equal(await plate.locator('.plate-departure>a').evaluate(n=>n===document.activeElement),true);
   }
  }
- // Opening settles the artwork once; it never gates text or repeats indefinitely.
+ // The loupe follows a mouse over the drawing and leaves no object behind.
+ await page.setViewportSize({width:1440,height:1000});
+ const tofu=data.projects.find(p=>p.name==='OpenTofu');
+ await page.goto(new URL('#project-'+tofu.id,url).href);
+ const tofuRow=page.locator('#project-'+tofu.id);
+ await tofuRow.locator('> details').evaluate(n=>n.open=true);
+ const field=tofuRow.locator('.plate-field');
+ await field.scrollIntoViewIfNeeded();
+ const box=await field.boundingBox();
+ await page.mouse.move(box.x+box.width*.6,box.y+box.height*.6);
+ assert.equal(await tofuRow.locator('.plate-lens').evaluate(n=>n.classList.contains('is-on')),true);
+ await page.mouse.move(2,2);
+ assert.equal(await tofuRow.locator('.plate-lens').evaluate(n=>n.classList.contains('is-on')),false);
+ // Opening runs once; it never gates text or repeats.
  await page.emulateMedia({reducedMotion:'no-preference'});
- const animated=data.projects.find(p=>p.name==='OpenTofu');
- await page.goto(new URL('#project-'+animated.id,url).href);
- const study=page.locator('#project-'+animated.id);
+ await page.goto(new URL('#project-'+tofu.id,url).href);
+ const study=page.locator('#project-'+tofu.id);
  await study.locator('> details').evaluate(n=>n.open=true);
  assert.equal(await study.locator('.function-detail').isVisible(),true);
  assert.equal(await study.locator('.plate-art').evaluate(n=>getComputedStyle(n).animationIterationCount),'1');
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.goto(new URL('standalone.html',url).href);
- const p=data.projects.find(p=>p.name==='OpenTofu');
- const row=page.locator('#project-'+p.id);await row.locator('> details').evaluate(n=>n.open=true);
+ const row=page.locator('#project-'+tofu.id);await row.locator('> details').evaluate(n=>n.open=true);
  assert.ok(await row.locator('.plate-art img').getAttribute('src').then(s=>s.startsWith('data:image/')));
- assert.ok(await row.locator('.plate-detail img').getAttribute('src').then(s=>s.startsWith('data:image/')));
+ assert.ok(await row.locator('.label-qr img').getAttribute('src').then(s=>s.startsWith('data:image/svg+xml')));
 };

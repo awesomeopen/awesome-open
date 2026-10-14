@@ -46,6 +46,8 @@ def validate_snapshot(snapshot):
         pushed = record.get("pushed_at")
         if pushed is not None:
             date.fromisoformat(pushed[:10])
+        if record.get("archived") not in (None, True, False):
+            raise ValueError("Expected a boolean archived flag for " + repo)
         license_value = record.get("license")
         if license_value is not None and (not isinstance(license_value, dict)
                 or not isinstance(license_value.get("spdx_id"), (str, type(None)))):

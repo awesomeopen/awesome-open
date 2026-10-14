@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 import unittest
 
-from build_site import BRAND_ASSETS, ROOT, PLATE_STUDIES, build, json_for_html, render_html, search_index
+from build_site import BRAND_ASSETS, ROOT, build, json_for_html, render_html, search_index
 
 
 RUNTIME_SCRIPTS = ('catalog.js',)
@@ -136,9 +136,8 @@ class SiteTests(unittest.TestCase):
                 self.assertIn(project['description'], summary.text)
                 self.assertEqual(len(card.descendants('h3')), 0)
                 links = card.descendants('a')
-                source_class = 'plate-departure' if project['url'] in PLATE_STUDIES else 'source-link'
-                source_links = [n for n in card.descendants() if n.has_class(source_class)]
-                self.assertEqual([n.children[1].attrs['href'] if source_class == 'plate-departure' else n.attrs['href'] for n in source_links], [project['url']])
+                departures = [n for n in card.descendants() if n.has_class('plate-departure')]
+                self.assertEqual([[a.attrs['href'] for a in n.descendants('a')] for n in departures], [[project['url']]])
                 self.assertEqual([node.attrs['href'] for node in links if node.has_class('permalink')], ['#project-' + project['id']])
                 tags = [node for node in links if node.has_class('tag')]
                 self.assertEqual([node.attrs['data-category'] for node in tags], project['categories'])
@@ -357,6 +356,8 @@ for (const input of inputs) {
             if image['alt'] in {'HN discussions / 2y', 'Monthly stars retained at fetch / 2y'}:
                 self.assertEqual(prefix, 'data:image/svg+xml;base64')
                 self.assertIn(b'<svg', decoded)
+            elif prefix == 'data:image/svg+xml;base64':
+                self.assertIn(b'aria-label="QR code: permalink to ', decoded)
             elif prefix == 'data:image/webp;base64':
                 self.assertEqual(decoded[:4], b'RIFF')
                 self.assertEqual(decoded[8:12], b'WEBP')
@@ -441,7 +442,9 @@ for (const input of inputs) {
             self.assertEqual(len(figures), 1 if project.get('artwork') else 0)
             if figures:
                 image = figures[0].descendants('img')[0]
-                self.assertEqual(image.attrs['src'], project['artwork']['path'])
+                # Plates show the transparent derivative while it matches its source; otherwise the original.
+                self.assertIn(image.attrs['src'], (project['artwork']['path'], f'specimens/cutouts/{project["id"]}.webp'))
+                self.assertTrue((self.output / image.attrs['src']).is_file())
                 self.assertEqual(image.attrs['alt'], project['artwork']['alt'])
 
     def test_output_deterministic_and_revision_explicit(self):
