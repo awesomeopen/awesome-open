@@ -117,8 +117,11 @@ inside the existing Table of contents disclosure. Keep complete silhouettes,
 wrapping category labels, counts and current-category marking. The illustration
 is decorative beside its text label, with empty alt text. Preserve the All link
 without a placeholder. Local 104/207/414px WebPs provide responsive candidates;
-native lazy loading defers closed-menu artwork. The standalone edition embeds
-only the small variant. See [category provenance](domains/provenance.json).
+native lazy loading defers closed-menu artwork. The menu has four desktop columns, two at medium widths and one on mobile.
+Hover/focus enlarges an icon to its native 104px canvas inside its clipped row.
+The selected category’s medium image replaces the ledger-end fruit at 207px;
+All restores the fruit. The standalone edition embeds small menu and medium
+closing-mark variants. See [category provenance](domains/provenance.json).
 
 ## 6. Artwork: strange, obscure, direct
 

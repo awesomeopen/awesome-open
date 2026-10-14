@@ -122,5 +122,11 @@ readable wrapping labels/counts inside the existing native disclosure. The
 adjacent text names the link; the image has empty alternative text. Preserve
 keyboard selection, current-category marking, narrow layouts and text-only
 fallbacks when a category has no artwork. The All link has no artwork placeholder.
-Use local responsive derivatives and lazy loading; embed the small source in the
-standalone edition. Existing hero, ledger and filter behavior remain unchanged.
+Use four columns on desktop, two at medium widths and one on mobile. On hover
+or keyboard focus, enlarge the icon to its native 104px canvas, clipped by its
+row without changing layout. Use local responsive derivatives and lazy loading;
+embed small navigation and medium closing-mark sources in the standalone edition.
+The ledger closing mark shows the selected category’s medium (207px) image; All
+or a category without artwork restores the 96px fruit. Keep the desktop name
+column capped at 240px (200px at medium widths), leaving descriptions the remaining
+space. Plate evidence headings read “Hacker News stories” and “GitHub stars”.

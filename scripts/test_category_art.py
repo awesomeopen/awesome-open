@@ -71,6 +71,8 @@ class CategoryArtTests(unittest.TestCase):
         self.assertEqual(len(images), 21)
         for image in images:
             self.assertTrue(image['src'].endswith('-s.webp'))
+            self.assertTrue(image['data-end-src'].endswith('-m.webp'))
+            self.assertEqual(image['data-end-width'], '207')
             self.assertEqual(image['sizes'], '48px')
             self.assertEqual((image['width'], image['height']), ('104', '104'))
             self.assertEqual(image['alt'], '')
@@ -87,6 +89,8 @@ class CategoryArtTests(unittest.TestCase):
         images = Images((self.output / 'standalone.html').read_text()).images
         self.assertEqual(len(images), 21)
         for category, image in zip(self.catalog['categories'], images):
+            self.assertEqual(base64.b64decode(image['data-end-src'].split(',', 1)[1]),
+                             (ROOT / 'site' / category['artwork']['variants']['m']['path']).read_bytes())
             self.assertNotIn('srcset', image)
             self.assertNotIn('sizes', image)
             self.assertTrue(image['src'].startswith('data:image/webp;base64,'))

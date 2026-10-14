@@ -333,7 +333,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None):
     if project['hn']:
         attention = project['hn']
         inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
-        chart = f'<div class="signal evidence-note"><h4>HN discussions</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="HN discussions"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 2y</span></a></div>'
+        chart = f'<div class="signal evidence-note"><h4>Hacker News stories</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="Hacker News stories"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 2y</span></a></div>'
     if chart and project.get('star_history'):
         paired = project['star_history']
         if paired.get('chart_url'):

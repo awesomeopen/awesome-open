@@ -100,7 +100,7 @@ def render(project):
         provenance += ' · Checked ' + esc(record['checked_at'])
     if good:
         provenance += ' · Last successful fetch ' + esc(good['fetched_at'])
-    return (f'<section class="signal evidence-note star-history" data-signal="star-history"><h4>GitHub stars by month <span class="signal-status">{esc(status)}</span></h4>{body}'
+    return (f'<section class="signal evidence-note star-history" data-signal="star-history"><h4>GitHub stars <span class="signal-status">{esc(status)}</span></h4>{body}'
             f'<p class="fine-print">{('As of ' + esc(good['fetched_at'][:10]) + '.') if good else ''}</p><details class="note-provenance"><summary>View source &amp; retrieval history</summary>'
             f'<p class="fine-print">{BOUNDARIES} HN stories and GitHub stars are independent measurements with separate scales. {provenance}'
             f'</p></details></section>')
