@@ -24,7 +24,18 @@ const fs=require('node:fs');
  await capture('exhibition-record.png');
  await page.goto(url);await ready();await page.locator('#ex-search').fill('OpenTofu');
  assert.equal(await page.locator('#ex-hall').isVisible(),false);
- assert.equal(await page.locator('#ex-list .project-card:visible').count(),1);
+ // Search covers names, descriptions and alternative names, so catalog additions
+ // may legitimately add matches. Derive identities independently of OpenCatalog.
+ const expectedSearchIds=data.projects.filter(project=>[
+   project.name,project.description,...(project.alternatives||[]).map(item=>item.name)
+ ].join(' ').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes('opentofu'))
+   .map(project=>project.id).sort();
+ const openTofu=data.projects.find(project=>project.name==='OpenTofu');
+ assert.ok(openTofu,'The search fixture includes OpenTofu');
+ assert.ok(expectedSearchIds.includes(openTofu.id),'OpenTofu must match its own name');
+ const visibleSearchIds=await page.locator('#ex-list .project-card:visible')
+   .evaluateAll(cards=>cards.map(card=>card.dataset.projectId).sort());
+ assert.deepEqual(visibleSearchIds,expectedSearchIds,'Search shows exactly the matching project identities');
  await page.locator('#ex-reset').click();assert.equal(await page.locator('#ex-hall').isVisible(),true);
  await page.locator('[data-view=ledger]').click();assert.equal(await page.locator('#ex-hall').isVisible(),false);
  await page.reload();await ready();assert.equal(await page.locator('[data-view=ledger]').getAttribute('aria-pressed'),'true');
