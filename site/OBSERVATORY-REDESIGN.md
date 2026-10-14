@@ -11,7 +11,9 @@ with the earlier single-section study
 were built from the published `observatory/snapshot.json` (metrics as of
 2026-10-14, source `f906165`) and the short descriptions in `README.source.md`.
 They reproduce the published aggregates in page script; they are not output of
-`scripts/build_observatory.py`.
+`scripts/build_observatory.py`. The full-page mock's source is in
+[design/observatory-redesign/](design/observatory-redesign/): rebuild it with
+`python3 site/design/observatory-redesign/build.py SNAPSHOT_JSON OUTPUT_HTML`.
 
 ## How to use this for a similar redesign
 
@@ -46,7 +48,7 @@ then work through each block in this order:
 | Finding | Sentence | Sentence plus a whole-collection strip: top-10 star share against other mapped projects, drawn to scale | Finding keeps whole-collection scope |
 | Charts 01–06 | Fixed-viewBox SVG, label column truncated at 28 characters | HTML/CSS bar lists, zero-based and linear, labels wrap instead of truncating. Narrow screens put the label above its bar. Unknown bars are hatched as well as labeled. Categories sorted by count. Push and release charts are paired on one shared scale, marked “shared scale”. “Chart data” tables stay in folded disclosures | Linear from zero; no new dependency |
 | Chart notes | Longer method captions | 01 “Projects can belong to several categories.” · 02 “Cached GitHub license identifiers.” · 03 “Top 10 specimen by GitHub stars.” · 06 “Days since last GitHub release (cached, excludes prereleases).” Method detail stays in the CSV, snapshot and this contract | User direction 2026-10-14 |
-| Shared names | Count, closed group disclosures with name and URL | Open unit tally: one mark per tool, clustered by group, all marks the same Prussian fill and distinguished by shape (square for identical names, circle for spelling variants; no star, which reads as GitHub stars). Zero counts stay in the legend. Below it, one folded “Name groups” disclosure (summary: groups · tools) holds the comparison plates: repository, short description, category, license, GitHub stars, created, last push, ledger record, aligned across columns. “How groups are formed” is a nested fold-out at the bottom of “Name groups”. A tally cluster opens the disclosure and jumps to its plate | Dense comparable information stays close; no implied progress |
+| Shared names | Count, closed group disclosures with name and URL | Open unit tally: one mark per tool, clustered by group, all marks the same Prussian fill and distinguished by shape (square for identical names, circle for spelling variants; no star, which reads as GitHub stars). Squares and circles start on separate lines. Zero counts stay in the legend. Below it, one folded “Show name groups” disclosure (summary: groups · tools) holds the comparison plates: repository, short description, category, license, GitHub stars, created, last push, ledger record, aligned across columns. “How groups are formed” is a nested fold-out at the bottom of “Name groups”. A tally cluster opens the disclosure and jumps to its plate | Dense comparable information stays close; no implied progress |
 | Grouping | Three groups filled in order (exact, capitalization, whitespace); a project placed in an early group is withheld from later ones | One matching key per name (see below). Two groups: Identical names and Spelling variants. Variant groups carry tags: Case, Spacing, Exact duplicates | Removes ordered withholding; see “Name grouping model” |
 | Identical names | Name repeated | Owner set bold in the repository path | Emphasis anchored to the differing identifier |
 | Spelling variants | Variants joined with a slash | Letters whose case differs are underlined in scarlet; a differing separator is underlined, and a missing one shows as a thin scarlet bar (form, not only color) | Scarlet directs attention |
@@ -98,9 +100,8 @@ the counted total.
 
 Effect on the 2026-10-14 snapshot: 18 tools in 9 groups instead of 16 in 8. The
 new group is open-dashboard / OpenDashboard (Case, Spacing), which the current
-rules miss because it differs in case and hyphen at once. The mock has an
-off-by-default toggle that adds a hypothetical “Open pilot” (not in the catalog);
-it joins OpenPilot and openpilot in one group of three.
+rules miss because it differs in case and hyphen at once. A future “Open pilot”
+would join OpenPilot and openpilot in one group of three (Case, Spacing).
 
 ## Unchanged
 
