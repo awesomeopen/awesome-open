@@ -160,6 +160,23 @@ This is a candidate set, not a new catalog or an endorsement. Preserve the
 projects' own spellings and factual functions. Do not infer that a project mocks
 another product from its name, or call an old repository abandoned from a date.
 
+### An Awesome Anything trial catalog
+
+**Awesome Anything** is another worthwhile list alongside Closed\*: a showcase
+of the recurring **Anything** naming pattern in software. A proposed rule is to
+match official names containing Anything, including joined words and case/spacing
+variants, while preserving each project's own spelling.
+
+Official examples checked 2026-10-14:
+[AnythingLLM](https://github.com/Mintplex-Labs/anything-llm),
+[REA — Reverse Engineer Anything](https://github.com/morluto/rea), and
+[RSI-Anything](https://github.com/Gen-Verse/RSI-Anything), a framework for recursive
+self-improvement using world-model predictions and interaction feedback.
+The lead “LLManything” still needs an exact official identity; do not silently
+equate it with AnythingLLM or count it as a separate project.
+Research the emerging naming-trend idea before making claims about its growth.
+This is a list proposal, with no catalog entries or implementation added here.
+
 ### Put assistant-assisted workflows in the repository
 
 The repository can hold the public specification of a task even when its runner
