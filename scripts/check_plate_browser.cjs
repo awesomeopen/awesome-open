@@ -38,13 +38,9 @@ module.exports=async({page,url,data,capture})=>{
     if(width>720)assert.ok(geometry.art.right<geometry.proseLeft,'Artwork leaves prose clear');
     assert.ok(geometry.detailTop>=geometry.art.bottom-1,'Feature note leaves full silhouette clear');
     assert.equal(geometry.animation,'none','Reduced motion leaves the final composition');
-    if(name==='OpenTofu'){
-     assert.ok(geometry.art.bottom>geometry.stage.bottom+10,'Pod extends below study rule');
-     assert.ok(geometry.cropRatio>1.5,'Broad pod close-up');
-    }else{
-     assert.ok(geometry.art.top< (width>720?geometry.headingBottom:geometry.stage.top),'Calyx rises through rule');
-     assert.ok(geometry.cropRatio<.65,'Tall strand close-up');
-    }
+    assert.ok(geometry.cropRatio>=.65&&geometry.cropRatio<=1.05,'Compact detail');
+    assert.equal(await plate.locator('.plate-leader').isVisible(),true,'Red connector restored');
+    assert.ok(await plate.locator('.plate-detail-crop').evaluate(n=>n.getBoundingClientRect().width<=112),'Small detail window');
    }
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
    const clipped=await plate.locator('.plate-function,.plate-register,.evidence-note,.plate-departure').evaluateAll(ns=>ns.filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.right>innerWidth+1}).map(n=>n.className));
