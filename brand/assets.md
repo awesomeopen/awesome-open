@@ -106,3 +106,6 @@ encoding versions, generation tool and prompts remain unknown. The recorded
 validation environment describes synthetic tests, not the original encoder.
 See [regeneration instructions](../scripts/RESIZE-CATEGORY-IMAGES.md). Do not claim a
 byte-identical rebuild until the archived originals and toolchain are verified.
+
+The geometry trials are withdrawn by B24. Original illustration bytes remain
+unchanged; no comparison clipping contour or new shadows are deployed.
