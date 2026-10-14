@@ -135,6 +135,34 @@ class ObservatoryBuildTests(unittest.TestCase):
         self.assertIn('href="observatory/"',(self.output/'index.html').read_text())
         self.assertNotIn('observatory.js',(self.output/'index.html').read_text())
 
+    def test_project_data_disclosure_and_copy_in_both_outputs(self):
+        for name in ['index.html', 'report.html']:
+            text=(self.output/'observatory'/name).read_text(); page=Page(text)
+            disclosure=page.by_id['project-data']
+            self.assertEqual(disclosure.tag, 'details')
+            self.assertNotIn('open', disclosure.attrs)
+            self.assertEqual(disclosure.children[0].tag, 'summary')
+            self.assertEqual(disclosure.children[0].text, 'Data table')
+            self.assertIn(page.by_id['project-table'], disclosure.descendants('table'))
+            self.assertNotIn(page.by_id['export-csv'], disclosure.descendants('a'))
+            for copy in ['Projects by category', 'Top 10 (by GitHub stars).',
+                         'Days since GitHub repository creation.', 'Dates are UTC.']:
+                self.assertIn(copy, text)
+            for removed in ['Where the collection gathers', 'Attention is uneven',
+                            'Read the distribution', 'Inspect or take the data',
+                            'What is actually covered?', 'not the project founding date']:
+                self.assertNotIn(removed, text)
+
+    def test_csv_covers_displayed_project_fields(self):
+        rows=list(csv.DictReader(io.StringIO((self.output/'observatory/projects.csv').read_text())))
+        self.assertEqual(len(rows), len(self.snapshot['projects']))
+        for row, project in zip(rows, self.snapshot['projects']):
+            for key in ['id', 'name', 'url', 'license', 'stars', 'created_at',
+                        'pushed_at', 'release_at', 'release_status', 'release_checked_at']:
+                self.assertEqual(row[key], obs.safe_csv(project[key]))
+            self.assertEqual(row['categories'], '; '.join(project['categories']))
+            self.assertEqual(row['source_sha'], self.snapshot['source_sha'])
+
     def test_thin_index_and_no_runtime_remote_dependencies(self):
         node=self.page.by_id['observatory-data'];data=json.loads(node.text)
         self.assertLess(len(node.text.encode()),len(json.dumps(self.catalog).encode())/3)

@@ -144,6 +144,22 @@ async function checkObservatory({ browser, url }) {
     report.screenshots.push({ file: filename, ...dimensions, bytes: png.length, sha256: sha256(png), sourceSha: report.sourceSha });
     writeReport();
   };
+  const checkProjectDisclosure = async (current, label) => {
+    const details = current.locator('#project-data');
+    const summary = details.locator(':scope > summary');
+    assert.equal(await details.evaluate(node => node.open), false, label + ': collapsed initially');
+    assert.equal(await summary.textContent(), 'Data table');
+    assert.equal(await current.locator('#project-table').isVisible(), false, label + ': table hidden');
+    assert.equal(await current.locator('#export-csv').isVisible(), true, label + ': export stays visible');
+    await summary.focus();
+    for (const key of ['Enter', 'Space', 'Space', 'Enter']) {
+      const wasOpen = await details.evaluate(node => node.open);
+      await current.keyboard.press(key);
+      assert.equal(await details.evaluate(node => node.open), !wasOpen, label + ': native keyboard toggle');
+      assert.equal(await current.locator('#project-table').isVisible(), !wasOpen, label + ': table visibility');
+      assert.equal(await summary.evaluate(node => node === document.activeElement), true, label + ': focus retained');
+    }
+  };
   const enhanced = () => page.waitForFunction(() => {
     const form = document.querySelector('#observatory-filters');
     return form && !form.hidden && form.dataset.enhanced === 'true';
@@ -294,6 +310,12 @@ async function checkObservatory({ browser, url }) {
       await capture(name);
       await page.locator('#category-chart').scrollIntoViewIfNeeded();
       await capture(name + '-charts');
+      await checkProjectDisclosure(page, name);
+      await page.locator('#project-records').scrollIntoViewIfNeeded();
+      await capture(name + '-data-closed');
+      await page.locator('#project-data > summary').click();
+      await capture(name + '-data-open');
+      await page.locator('#project-data > summary').click();
     }
     await page.setViewportSize(contextOptions.viewport);
 
@@ -354,6 +376,7 @@ async function checkObservatory({ browser, url }) {
     const second = categories.find(category => category.id !== first.id);
     await select('category-filter', first.id);
     await assertSelection(page, data, records(data, first.id), 'category');
+    await checkProjectDisclosure(page, 'filtered category');
     const categoryURL = page.url();
     assert.equal(new URL(categoryURL).searchParams.get('category'), first.id, 'Category is shareable');
     await select('license-filter', 'unknown');
@@ -463,6 +486,7 @@ async function checkObservatory({ browser, url }) {
     assert.equal(await fallback.locator('#observatory-filters').isVisible(), false, 'No inactive controls without JavaScript');
     assert.equal(await fallback.locator('noscript').isVisible(), true, 'No-JavaScript explanation');
     await assertSelection(fallback, data, data.projects, 'no JavaScript');
+    await checkProjectDisclosure(fallback, 'no JavaScript');
     await fallback.locator('#category-chart details > summary').click();
     assert.equal(await fallback.locator('#category-chart table').isVisible(), true, 'Native data disclosure without JavaScript');
     await fits(fallback, 'no JavaScript');
@@ -492,6 +516,7 @@ async function checkObservatory({ browser, url }) {
     assert.ok(await page.locator('img').evaluateAll(nodes => nodes.every(image => image.src.startsWith('data:') && image.complete && image.naturalWidth > 0)), 'Embedded standalone artwork');
     assert.deepEqual(offlineRequests, [], 'Standalone fetches no neighboring assets');
     await assertSelection(page, data, data.projects, 'standalone initial');
+    await checkProjectDisclosure(page, 'standalone');
     await select('category-filter', first.id);
     await select('license-filter', 'known');
     await assertSelection(page, data, records(data, first.id, 'known'), 'standalone filtered');

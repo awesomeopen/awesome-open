@@ -36,7 +36,11 @@ forecast model. The main-only publisher includes the route automatically.
 Native SVG and standard-library Python do the chart work. Route-only JavaScript
 progressively filters a thin embedded projection, with category/license URL state
 and Back/Forward support. Native HTML tables, exact values, source revision,
-snapshot date and every project row remain available without JavaScript. Charts
+snapshot date and every project row remain available without JavaScript. The
+project data table is collapsed by default in a native `details` disclosure labeled
+“Data table”; exports remain visible. The CSV includes every displayed data field
+with full timestamps, plus project IDs, category IDs, GitHub-mapping flags and
+snapshot/revision provenance. Charts
 use linear zero-based geometry; illustration never changes a measured mark.
 
 `observatory/snapshot.json` contains the thin rows, derived aggregates and coverage.

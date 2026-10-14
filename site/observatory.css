@@ -66,9 +66,9 @@ h3 { font-size: 25px; line-height: 1.2; }
 .chart-visual svg text { fill: var(--rs-ink, #111820); font-size: 12px; }
 .chart-visual svg .chart-scale { fill: var(--rs-muted, #465665); font-size: 10px; }
 .chart-visual svg rect { fill: var(--rs-blueprint, #0b2546); }
-.obs-chart details { margin-top: 20px; border-top: 1px solid #acb6c0; }
-.obs-chart summary { padding-block: 12px; min-height: 48px; font-size: 11px; cursor: pointer; color: var(--rs-muted, #465665); text-decoration: underline; text-underline-offset: 4px; }
-.obs-chart details[open] summary { color: var(--rs-blueprint, #0b2546); }
+.obs-chart details, #project-data { margin-top: 20px; border-top: 1px solid #acb6c0; }
+.obs-chart summary, #project-data > summary { padding-block: 12px; min-height: 48px; font-size: 11px; cursor: pointer; color: var(--rs-muted, #465665); text-decoration: underline; text-underline-offset: 4px; }
+.obs-chart details[open] summary, #project-data[open] > summary { color: var(--rs-blueprint, #0b2546); }
 .chart-label, .chart-count { fill: var(--rs-ink, #111820); font-size: 12px; font-weight: 400; }
 .chart-scale { fill: var(--rs-muted, #465665); font-size: 10px; }
 .chart-gridline { stroke: #d7dfe6; stroke-width: 1; }
