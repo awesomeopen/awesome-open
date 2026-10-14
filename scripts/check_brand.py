@@ -19,7 +19,7 @@ REQUIRED = (
     'brand/sources.md', '.agents/skills/awesome-open-brand/SKILL.md',
     '.agents/skills/awesome-open-brand/agents/openai.yaml',
 )
-ASSET_DIRS = ('site/brand', 'site/footer-backgrounds', 'site/specimens', 'site/jars')
+ASSET_DIRS = ('site/brand', 'site/footer-backgrounds', 'site/specimens', 'site/jars', 'site/domains')
 ASSET_SUFFIXES = {'.png', '.webp', '.ico', '.svg', '.jpg', '.jpeg'}
 FONT_FILES = ('site/vendor/fonts.css', 'site/vendor/FONT-LICENSE.txt',
               'site/vendor/FONT-PROVENANCE.json')

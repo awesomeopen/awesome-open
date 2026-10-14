@@ -116,3 +116,14 @@ interrupts the opening; artwork never encodes a value or modifies chart geometry
 Filters update distributions and records together. Whole-collection findings and
 coverage retain explicit scope. See [observatory contract](../site/OBSERVATORY.md)
 and B20; the initial implementation awaits visual review.
+
+## Category illustrations
+
+The Table of contents pairs each category name with its existing transparent
+illustration at 48 CSS px. Keep the entire silhouette, a fixed image box and
+readable wrapping labels/counts inside the existing native disclosure. The
+adjacent text names the link; the image has empty alternative text. Preserve
+keyboard selection, current-category marking, narrow layouts and text-only
+fallbacks when a category has no artwork. The All link has no artwork placeholder.
+Use local responsive derivatives and lazy loading; embed the small source in the
+standalone edition. Existing hero, ledger and filter behavior remain unchanged.
