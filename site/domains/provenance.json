@@ -1,0 +1,632 @@
+{
+  "schema_version": 1,
+  "purpose": "Category navigation illustrations; original Awesome Open interpretations, not software project logos.",
+  "source": {
+    "kind": "Owner-supplied generated artwork, locally resized and uploaded by the owner.",
+    "upload_commit": "7045703d7b8fa09135fee41dd4a72da42476c6f3",
+    "originals": "Full-resolution PNGs remain in the owner archive; place copies in tmp/awesome-open-cat-logos for regeneration. Originals are not included in this repository.",
+    "original_sha256": null,
+    "generation_tool": null,
+    "generation_prompts": null,
+    "mapping_basis": "Descriptive owner download filenames mapped to existing category IDs; the uploaded subjects and all 21 category IDs were reviewed on 2026-10-14.",
+    "limits": "Original bytes and original generation records were unavailable for this integration. Original hashes, generator details and byte-identical regeneration are not verified."
+  },
+  "recipe": {
+    "script": "scripts/resize.sh",
+    "source_encoder_versions": null,
+    "large_width": "(source_width * 33 + 50) // 100",
+    "medium_width": "(large_width + 1) // 2",
+    "small_width": "(medium_width + 1) // 2",
+    "resize": "ImageMagick -filter Lanczos -distort Resize; every variant from its source PNG",
+    "sharpen": "-channel RGB -unsharp 0x0.7+0.7+0.015 +channel",
+    "webp": {
+      "quality": 88,
+      "method": 6,
+      "alpha_quality": 100
+    },
+    "validation_environment": {
+      "imagemagick": "7.1.1-43 Q16",
+      "libwebp": "1.5.0",
+      "scope": "Synthetic fixture validation only; original encoding environment unknown."
+    }
+  },
+  "review": {
+    "date": "2026-10-14",
+    "checks": [
+      "63 WebPs decode with transparency; 21 category IDs each have three variants.",
+      "Uploaded subjects match the descriptive filename mapping.",
+      "104px and 207px contact sheets reviewed; 207px composited on white, gray and Prussian blue."
+    ],
+    "status": "Prepared for integration review; does not record production merge approval."
+  },
+  "categories": {
+    "ai--language-models": {
+      "source_filename": "Coral-throated open source songbird.png",
+      "alt": "Coral-throated blue songbird holding an open ivory mechanism.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/ai--language-models-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 6496,
+          "sha256": "6a8327f9d0e686049c13337ec73b47379fd44f95cc51f2ad211caded972f9ae2"
+        },
+        "m": {
+          "path": "domains/ai--language-models-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 18042,
+          "sha256": "86eeab8a50f4aed3e712cd8f41b0733196e9e72834d45be9403fd67bac29e33f"
+        },
+        "l": {
+          "path": "domains/ai--language-models-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 55544,
+          "sha256": "a2b7104488aef0cd472aac1e26d75bc3b6a5efdfa0c3558f6ba16a86f3666510"
+        }
+      }
+    },
+    "business--commerce": {
+      "source_filename": "Trumpet-Crowned Seed Market Plant-3.png",
+      "alt": "Trumpet-crowned plant with coral seed pods.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/business--commerce-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 7442,
+          "sha256": "0663e71caaa3323c580b8732a52828abc6749e1a8049c8e672b7e962905e665f"
+        },
+        "m": {
+          "path": "domains/business--commerce-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 21012,
+          "sha256": "1092126dda0930b2cbe6d21be5849a20d9045eb3868e58a70f6971c33d6eab9d"
+        },
+        "l": {
+          "path": "domains/business--commerce-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 65630,
+          "sha256": "d947e369df290aac580de21900db4890dfef69ed17178aa7c19a04192de65f26"
+        }
+      }
+    },
+    "communication--social": {
+      "source_filename": "Coral-pleated relay moth-1.png",
+      "alt": "Moth with broad coral pleated wings.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/communication--social-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 7454,
+          "sha256": "3bd24855279b7066c1ef03680e533a18ec0b6b11058c8af9ac389c7ffbd5d45f"
+        },
+        "m": {
+          "path": "domains/communication--social-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 21210,
+          "sha256": "36786d6f6523b29f6bed45d7df85709dc064650e6c5a403f588952253c7fe107"
+        },
+        "l": {
+          "path": "domains/communication--social-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 68166,
+          "sha256": "e700d3d7d693350b1d2aaf1b15b63123bbff7996c79af9027cfa19b9c6605920"
+        }
+      }
+    },
+    "creative--media": {
+      "source_filename": "Ivory Bow Prism Ribbon Editor-2.png",
+      "alt": "Ivory bow mechanism carrying a colored ribbon and prism.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/creative--media-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 5836,
+          "sha256": "b04a0eaea51cac34e1a75e33320c6a923999411e35fd66b73e67dd51fe2e59cf"
+        },
+        "m": {
+          "path": "domains/creative--media-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 15024,
+          "sha256": "0d526c342ea585b6d5b00a1e5595ae2ea85592a96db0b68b82717f68a2162cb7"
+        },
+        "l": {
+          "path": "domains/creative--media-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 42190,
+          "sha256": "bb1fb1be25a9c1f5660cf72d8f93e03fe2293d16a29934ceecff18c496ed1020"
+        }
+      }
+    },
+    "databases--search": {
+      "source_filename": "Coral Seed Index Fan.png",
+      "alt": "Fan-shaped seed structure with coral clusters and branching veins.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/databases--search-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 7336,
+          "sha256": "c546301df1a088804ea1774de29dd1b7aa896d0b96f31137421ccd76873959cc"
+        },
+        "m": {
+          "path": "domains/databases--search-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 20934,
+          "sha256": "03838110472c5da8d09200f5e66bce1eedd064418bf32f7e08be1653e3bc3c7a"
+        },
+        "l": {
+          "path": "domains/databases--search-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 64350,
+          "sha256": "c10c2279f2ae8546603c3d52f5db0f724cf1eb38d48ff83063a0ef9dd0d885d4"
+        }
+      }
+    },
+    "developer-tools": {
+      "source_filename": "Vermilion specification loom-2.png",
+      "alt": "Vermilion specification loom with an ivory lattice.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/developer-tools-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 10070,
+          "sha256": "3a78af4215d444b44ce8bf26245da3d16eb1c57d211764f4b6f8d5dabe0c102e"
+        },
+        "m": {
+          "path": "domains/developer-tools-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 29274,
+          "sha256": "38518f9533dccca85d0853b3dc3162e7f84469a93018aac2c18e9d33849fecbf"
+        },
+        "l": {
+          "path": "domains/developer-tools-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 85806,
+          "sha256": "5e8883095f397119a3248315b936c942f28904efd5421771d86ffe77eb472019"
+        }
+      }
+    },
+    "education--research": {
+      "source_filename": "Coral Sieve Learning Flower.png",
+      "alt": "Coral flower with a sieve-like center.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/education--research-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 8892,
+          "sha256": "ed88e2d01f642b8ca178f23b0857d8e6472b28956ccf7424be47a783f42f4d88"
+        },
+        "m": {
+          "path": "domains/education--research-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 25190,
+          "sha256": "d5c8316245596f0d67adb96762b2fc3d638851243b4dd52dd8fab5f10331108e"
+        },
+        "l": {
+          "path": "domains/education--research-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 78536,
+          "sha256": "d14467c9a9c29315cd08cb8a75c076738ce940f48600fcf2d89a87074cac717a"
+        }
+      }
+    },
+    "finance--trading": {
+      "source_filename": "Vermilion escrow balance-3.png",
+      "alt": "Balance mechanism with a coral feather and colored tokens.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/finance--trading-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 5810,
+          "sha256": "45ea5c2382024bf8587742991ad21fe85a45236512fa88ff81a7b48ed22e91b5"
+        },
+        "m": {
+          "path": "domains/finance--trading-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 14944,
+          "sha256": "19210efcacfc1df06090d47add8f05717a17416795411f0fc47c48682554808d"
+        },
+        "l": {
+          "path": "domains/finance--trading-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 41638,
+          "sha256": "f22a9d1a03be7fffc69a08097f013b4558dd2b1dd13c6e95f4664a772478857b"
+        }
+      }
+    },
+    "games--emulation": {
+      "source_filename": "Coral Flywheel Strategy Hopper-3.png",
+      "alt": "Mechanical hopper with a coral flywheel.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/games--emulation-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 9108,
+          "sha256": "d81b2e9ecb28644ae30d307691d46d9ee1613ed626a71dd8ad694a1ff4ce0c7a"
+        },
+        "m": {
+          "path": "domains/games--emulation-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 25330,
+          "sha256": "a9eb15dd74532008b7a9658613bbdf5053c9cfca7040ab9ebdc16ce8935f30d6"
+        },
+        "l": {
+          "path": "domains/games--emulation-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 75836,
+          "sha256": "d728dcf7e0cc5a2c4aa86e369ddc4a1d166cd2514cb63b7ac9938ea55ab0f971"
+        }
+      }
+    },
+    "health--medicine": {
+      "source_filename": "Coral-ribbed nutrient reservoir plant.png",
+      "alt": "Rooted plant with a suspended coral-ribbed nutrient reservoir.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/health--medicine-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 8352,
+          "sha256": "9ab1471dff9fa6aab1ee504b902ae12afd39428b25a438147182de763ba44a73"
+        },
+        "m": {
+          "path": "domains/health--medicine-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 25114,
+          "sha256": "f0c2081739c2501d773b85502742836e11f9b168a85c46624842211af47b8a2f"
+        },
+        "l": {
+          "path": "domains/health--medicine-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 79510,
+          "sha256": "6d0a4c09f79bb378cd92122cde1288c99aa0ca961472be3860c05d0ad219165b"
+        }
+      }
+    },
+    "home-automation": {
+      "source_filename": "Folded Leaf Solar Smart Home-2.png",
+      "alt": "Ivory dwelling sheltered by a folded turquoise leaf.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/home-automation-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 6580,
+          "sha256": "04a3c46c68255e75b6396a39226e81c2839c4a88b844565dbec7234f94fb4701"
+        },
+        "m": {
+          "path": "domains/home-automation-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 18726,
+          "sha256": "6bdd12abab944aa1836afc9ec6e36ea7edb26576de9a3bd51df798ff523ae08d"
+        },
+        "l": {
+          "path": "domains/home-automation-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 58424,
+          "sha256": "d2d9a2a5a145c5c9e168ecac241f8662afd5665cdb902efaf865482d38d7ac76"
+        }
+      }
+    },
+    "infrastructure--devops": {
+      "source_filename": "Turquoise-Channel Hexplate Shelter Organism-1.png",
+      "alt": "Shelter organism formed from ivory hexagonal plates and turquoise channels.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/infrastructure--devops-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 8042,
+          "sha256": "dfc143b07b88945a44ed862fe25ab49d4f36b79b883b711f05ef59aed3a0225f"
+        },
+        "m": {
+          "path": "domains/infrastructure--devops-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 23484,
+          "sha256": "b29b6ddf773e57719d707630ef93400bf75b8a4bd158218c705661aa4cf639c7"
+        },
+        "l": {
+          "path": "domains/infrastructure--devops-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 75930,
+          "sha256": "a40d8197e8d30332e9225324b54a804217f064f6af22eed711341d723ed20c0c"
+        }
+      }
+    },
+    "knowledge-management": {
+      "source_filename": "Turquoise archive fruit.png",
+      "alt": "Open archive fruit with layered leaves and a turquoise center.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/knowledge-management-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 8158,
+          "sha256": "5d383d380f2789ba96f5ab1710b437343b11ea03e0cd0676928f767a5abc152d"
+        },
+        "m": {
+          "path": "domains/knowledge-management-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 25182,
+          "sha256": "9b510c6784397f45dc0e2befa70c80274a0eda791ea6e7c5dc22a07df6d21814"
+        },
+        "l": {
+          "path": "domains/knowledge-management-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 85796,
+          "sha256": "8ba60ae29fa2301ce73bd2ebcabf98a55a3de9f8f392e7b87b27e567b40fa71d"
+        }
+      }
+    },
+    "maps--geospatial": {
+      "source_filename": "Tessellated Turquoise Survey Ray-2.png",
+      "alt": "Survey ray with tessellated turquoise plates.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/maps--geospatial-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 6358,
+          "sha256": "706c8b04c978953761182e7648dfc321ac7eb22cc996612f8daa0424d3c40dea"
+        },
+        "m": {
+          "path": "domains/maps--geospatial-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 17640,
+          "sha256": "1260791830e21cadc0e98a7b976a8edaf9be52729c67b5672cbe8298826e028f"
+        },
+        "l": {
+          "path": "domains/maps--geospatial-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 55232,
+          "sha256": "b58c946a5be4e1c1dd00f62d9482e9db4356e643ddafb2d09d2861f6eb140115"
+        }
+      }
+    },
+    "networking": {
+      "source_filename": "Suspended Braided-Cord Routing Shuttle-1.png",
+      "alt": "Suspended routing shuttle with coral and turquoise braided cords.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/networking-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 3916,
+          "sha256": "921e99ae1f1b735327e79d5e42761ea2e394d479459b226d85c50649a52c1e5d"
+        },
+        "m": {
+          "path": "domains/networking-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 10314,
+          "sha256": "e11135f5d5d8bf4b1102be7dd95e7033f2c9e17e35693a19f359a6bef9318299"
+        },
+        "l": {
+          "path": "domains/networking-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 29088,
+          "sha256": "286142fc84ea1797101b655ec0b30f8d072c192a944dd82faa59743bd523d33f"
+        }
+      }
+    },
+    "operating-systems--firmware": {
+      "source_filename": "Turquoise nested ceramic startup mechanism-1.png",
+      "alt": "Nested ivory and turquoise ceramic mechanism with a central lever.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/operating-systems--firmware-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 7010,
+          "sha256": "eb4db8b8f845ebfb39ae4299a1658a0e60fefa1b090d109345415da432849be4"
+        },
+        "m": {
+          "path": "domains/operating-systems--firmware-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 18618,
+          "sha256": "199402f220bd86b27e655b7216a8f70f874ee604cf8ba34fe0580d0199939992"
+        },
+        "l": {
+          "path": "domains/operating-systems--firmware-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 58372,
+          "sha256": "56614146bf7352934e58b1c7fbec6910c90dc0cad46b929ddaf9c8b5387d8846"
+        }
+      }
+    },
+    "productivity--office": {
+      "source_filename": "Self-folding coral folio planner-2.png",
+      "alt": "Open folio planner with self-folding ivory pages and coral edges.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/productivity--office-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 6058,
+          "sha256": "cb2afbb33816649d228fd9eb5312d59797db867840c6b129d1fdc0f4d551e3ec"
+        },
+        "m": {
+          "path": "domains/productivity--office-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 16140,
+          "sha256": "d82e5ac9169c6f31ad6ca7692b9c93f5343631773e0256f071d56e2ccee39802"
+        },
+        "l": {
+          "path": "domains/productivity--office-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 46494,
+          "sha256": "00263e8980cde5bf0fd37d242451ae14b4214fbe3ee0217323814b766ab99988"
+        }
+      }
+    },
+    "robotics--hardware": {
+      "source_filename": "Turquoise Railwalker Surveyor.png",
+      "alt": "Railwalking survey mechanism with articulated legs and a turquoise canopy.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/robotics--hardware-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 7616,
+          "sha256": "4065df2125a857cf7a9e3ee9d9d87b2a7d241ceb5a1681024d0fe3c9f739ffaf"
+        },
+        "m": {
+          "path": "domains/robotics--hardware-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 19850,
+          "sha256": "ccb30d54230c6e02387e4e8164e6bb4201e68b8a5cefbedf9476804a1c26f484"
+        },
+        "l": {
+          "path": "domains/robotics--hardware-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 56070,
+          "sha256": "b854b6f97c81a27efcbd7ba5a08a6f8270a76421ca7938300e6c02938692cd38"
+        }
+      }
+    },
+    "science--engineering": {
+      "source_filename": "Balanced weather lattice with coral crossbar-1.png",
+      "alt": "Upright weather lattice with a turquoise sail and coral crossbar.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/science--engineering-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 5258,
+          "sha256": "eec10269205d85d0a795cc6f4aab636e65cc700cb1871b871d7382b46570a824"
+        },
+        "m": {
+          "path": "domains/science--engineering-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 13844,
+          "sha256": "553c4e758342753a1936551fb6b2d98c6e9e12d46fb9ab8c84ea9e5f990da365"
+        },
+        "l": {
+          "path": "domains/science--engineering-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 40722,
+          "sha256": "ab08057fbaf321c6ca4ce2f84e4eed5d0a8a4b504e47bb7a0e8095ab98bcd34f"
+        }
+      }
+    },
+    "security--privacy": {
+      "source_filename": "Violet-seamed armored burrower.png",
+      "alt": "Armored burrower with blue plates and violet seams.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/security--privacy-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 5678,
+          "sha256": "27777af73875df6e04e0b2a717831c5edc5c72c2fa54bb7447870c6d8f55cf42"
+        },
+        "m": {
+          "path": "domains/security--privacy-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 16550,
+          "sha256": "d4f8e2a3d816aaaead3de3d1cbbaafbc7bbbda4592b631a7d3e81983766f0fb2"
+        },
+        "l": {
+          "path": "domains/security--privacy-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 54840,
+          "sha256": "ad1e2f92c927340f1405ea447b2ddfd3fb92336021e5ec1d86f323b479ffe9d8"
+        }
+      }
+    },
+    "storage--file-management": {
+      "source_filename": "Turquoise braided seed vault.png",
+      "alt": "Open braided seed vault with ivory compartments and turquoise channels.",
+      "review_status": "reviewed-for-integration",
+      "variants": {
+        "s": {
+          "path": "domains/storage--file-management-s.webp",
+          "width": 104,
+          "height": 104,
+          "bytes": 8570,
+          "sha256": "610463819ebae6c02aacd122e574ac1f22957dede13ac5c9a418b6cb48c0ed48"
+        },
+        "m": {
+          "path": "domains/storage--file-management-m.webp",
+          "width": 207,
+          "height": 207,
+          "bytes": 26452,
+          "sha256": "232e5fe034764723c50b8ac399247b5a0ba34c95f3165f09b2d5edf4fa201d47"
+        },
+        "l": {
+          "path": "domains/storage--file-management-l.webp",
+          "width": 414,
+          "height": 414,
+          "bytes": 83296,
+          "sha256": "f9b4683b6439afe11955187883170486533c6435f2a4f3a31cd1d9411ebd6c7d"
+        }
+      }
+    }
+  }
+}

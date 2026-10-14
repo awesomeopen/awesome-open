@@ -112,6 +112,14 @@ Aim for 44px interactive targets. All controls work with a keyboard and show vis
 
 Motion clarifies state: short opacity/position transitions, roughly 120–220ms. A reduced-motion preference removes nonessential movement. No automatic marquee, mandatory parallax, scroll pinning, scrubbing, stacked-sheet trapping or entry animation that leaves content hidden when JavaScript fails. If later motion earns its place, review its purpose and fallback separately.
 
+Category navigation uses the owner-uploaded category illustrations at 48 CSS px
+inside the existing Table of contents disclosure. Keep complete silhouettes,
+wrapping category labels, counts and current-category marking. The illustration
+is decorative beside its text label, with empty alt text. Preserve the All link
+without a placeholder. Local 104/207/414px WebPs provide responsive candidates;
+native lazy loading defers closed-menu artwork. The standalone edition embeds
+only the small variant. See [category provenance](domains/provenance.json).
+
 ## 6. Artwork: strange, obscure, direct
 
 Apply Speculative FOSSoligy through disciplined observation and invention. Start with a readable silhouette and credible structure; introduce one governing impossibility. Ink, pencil, crosshatching and selective translucent color should feel made by a curious observer. A second look reveals the oddity; a first look still identifies the subject.

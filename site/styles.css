@@ -198,6 +198,19 @@ summary::marker {
   border-left:3px solid var(--accent);
   background:var(--rs-mist);
 }
+.category-nav a {
+  display:grid;
+  grid-template-columns:48px minmax(0,1fr) auto;
+  align-items:center;
+}
+.category-art {
+  display:block;
+  width:48px;
+  height:48px;
+  object-fit:contain;
+}
+.category-label { min-width:0; overflow-wrap:anywhere; }
+.category-nav a:not(.has-category-art) .category-label { grid-column:1 / 3; }
 .category-count {
   font:13px var(--mono);
   color:var(--muted);
