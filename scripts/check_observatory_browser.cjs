@@ -85,7 +85,9 @@ function chartRows(data, projects) {
   for (const project of projects.filter(hasLicense)) licenses.set(project.license, (licenses.get(project.license) || 0) + 1);
   const licenseRows = [...licenses].sort((a, b) => b[1] - a[1] || lexical(a[0], b[0]));
   licenseRows.push(['Unknown', projects.filter(project => !hasLicense(project)).length]);
-  const categoryRows = data.categories.map(category => [category.name, projects.filter(project => project.categories.includes(category.id)).length]);
+  // Sorted by count; ties keep catalog order (stable sort). Unknown stays last.
+  const categoryRows = data.categories.map(category => [category.name, projects.filter(project => project.categories.includes(category.id)).length])
+    .sort((a, b) => b[1] - a[1]);
   const knownCategories = new Set(data.categories.map(category => category.id));
   const unmapped = projects.filter(project => !project.categories.some(id => knownCategories.has(id))).length;
   if (unmapped) categoryRows.push(['Unknown', unmapped]);
@@ -98,34 +100,35 @@ function chartRows(data, projects) {
 }
 
 // Independent accounting oracle; runtime and server rendering must agree.
+// One matching key per name: lowercase, Unicode White_Space, hyphen and underscore removed.
+const nameKey = name => name.toLowerCase().replace(/[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000_-]/g, '');
 function sharedGroups(projects) {
   const unique = [...new Map(projects.map(project => [project.id, project])).values()];
-  const group = (rows, key) => {
-    const map = new Map();
-    rows.forEach(project => map.set(key(project), [...(map.get(key(project)) || []), project]));
-    return [...map.values()].filter(rows => rows.length > 1);
-  };
-  const exact = group(unique, project => project.name);
-  const exactIDs = new Set(exact.flat().map(project => project.id));
-  const capitalization = group(unique.filter(project => !exactIDs.has(project.id)), project => project.name.toLowerCase());
-  const usedIDs = new Set([...exact.flat(), ...capitalization.flat()].map(project => project.id));
-  const whitespace = group(unique.filter(project => !usedIDs.has(project.id)),
-    project => project.name.replace(/[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/g, ''))
-    .filter(rows => new Set(rows.map(project => project.name)).size > 1);
-  return { exact, capitalization, whitespace };
+  const map = new Map();
+  for (const project of unique) {
+    const key = nameKey(project.name);
+    if (key) map.set(key, [...(map.get(key) || []), project]);
+  }
+  const groups = [...map.values()].filter(rows => rows.length > 1);
+  return { identical: groups.filter(rows => new Set(rows.map(project => project.name)).size === 1),
+    variants: groups.filter(rows => new Set(rows.map(project => project.name)).size > 1) };
 }
 
 async function assertSharedNames(page, projects, label) {
   const expected = sharedGroups(projects);
   const countedIDs = Object.values(expected).flat(2).map(project => project.id);
-  assert.equal(countedIDs.length, new Set(countedIDs).size, label + ': disjoint name groups');
-  assert.equal(number(await page.locator('#shared-name-count').textContent()), countedIDs.length, label + ': headline includes every match kind');
-  for (const [kind, countID] of [['exact', 'exact-name-count'], ['capitalization', 'capitalization-name-count'], ['whitespace', 'whitespace-name-count']]) {
+  assert.equal(countedIDs.length, new Set(countedIDs).size, label + ': each project in at most one group');
+  assert.equal(number(await page.locator('#shared-name-count').textContent()), countedIDs.length, label + ': headline counts every grouped tool');
+  assert.equal(await page.locator('#name-tally .obs-mark').count(), countedIDs.length, label + ': one tally mark per tool');
+  for (const [kind, prefix] of [['identical', 'identical'], ['variants', 'variant']]) {
     const groups = expected[kind];
-    assert.equal(number(await page.locator('#' + countID).textContent()), groups.flat().length, label + ': ' + kind + ' tool count');
-    const actual = await page.locator('#' + kind + '-name-groups .shared-name-group').evaluateAll(details => details.map(detail => [...detail.querySelectorAll('li')].map(item => ({ id: item.dataset.projectId, name: item.querySelector('a').textContent, url: item.querySelector('a').getAttribute('href'), source: item.querySelector('.shared-name-source').textContent }))));
+    assert.equal(number(await page.locator('#' + prefix + '-name-count').textContent()), groups.flat().length, label + ': ' + kind + ' tool count');
+    assert.equal(await page.locator('#name-tally .obs-mark-' + kind).count(), groups.flat().length, label + ': ' + kind + ' marks');
+    const actual = await page.locator('#' + prefix + '-name-groups .shared-name-group').evaluateAll(plates => plates.map(plate =>
+      [...plate.querySelectorAll('.obs-plate-project')].map(column => ({ id: column.dataset.projectId, url: column.querySelector('.obs-repo').getAttribute('href'),
+        record: column.querySelector('.obs-record').getAttribute('href') }))));
     const normalize = values => values.map(rows => rows.map(row => JSON.stringify(row)).sort().join('|')).sort();
-    assert.deepEqual(normalize(actual), normalize(groups.map(rows => rows.map(project => ({ id: project.id, name: project.name, url: project.url, source: project.url })))), label + ': ' + kind + ' linked identities');
+    assert.deepEqual(normalize(actual), normalize(groups.map(rows => rows.map(project => ({ id: project.id, url: project.url, record: '../#project-' + project.id })))), label + ': ' + kind + ' linked identities');
   }
 }
 
@@ -216,7 +219,7 @@ async function checkObservatory({ browser, url }) {
     const details = current.locator('#project-data');
     const summary = details.locator(':scope > summary');
     assert.equal(await details.evaluate(node => node.open), false, label + ': collapsed initially');
-    assert.equal(await summary.textContent(), 'Data table');
+    assert.ok((await summary.textContent()).startsWith('Data table'), label + ': summary names the table');
     assert.equal(await current.locator('#project-table').isVisible(), false, label + ': table hidden');
     assert.equal(await current.locator('#export-csv').isVisible(), true, label + ': export stays visible');
     await summary.focus();
@@ -236,7 +239,7 @@ async function checkObservatory({ browser, url }) {
     .evaluateAll(nodes => nodes.map(node => node.dataset.id));
   const fits = async (current, label) => {
     assert.ok(await current.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Page fits: ' + label);
-    const clipped = await current.locator('#observatory-filters select, #observatory-filters button, [data-metric], .chart-visual, .obs-table-scroll')
+    const clipped = await current.locator('#observatory-filters select, #observatory-filters button, [data-metric], .obs-bars, .obs-table-scroll, .shared-name-group')
       .evaluateAll(nodes => nodes.filter(node => {
         const box = node.getBoundingClientRect();
         return box.width > 0 && (box.left < -1 || box.right > innerWidth + 1);
@@ -263,32 +266,25 @@ async function checkObservatory({ browser, url }) {
         [row.querySelector('th').textContent.trim(), Number(row.querySelector('td').textContent.replace(/[,\s]/g, ''))]));
       assert.deepEqual(actual, expected[name], `Exact chart data: ${name}, ${label}`);
       assert.equal(await table.locator('tbody th:not([scope="row"])').count(), 0, 'Row-header semantics: ' + name);
-      const svg = chart.locator('svg');
-      assert.equal(await svg.getAttribute('aria-hidden'), 'true', 'Table is the accessible chart equivalent: ' + name);
-      assert.equal(await svg.getAttribute('focusable'), 'false', 'Decorative chart is not keyboard focusable: ' + name);
-      const bars = await svg.locator('rect').evaluateAll(nodes => nodes.map(node => ({
-        x: Number(node.getAttribute('x')), width: Number(node.getAttribute('width')),
-        count: node.hasAttribute('data-count') ? Number(node.dataset.count) : null,
-      })));
-      assert.equal(bars.length, actual.length, `One visible mark per table value: ${name}, ${label}`);
-      const max = Math.max(0, ...actual.map(([, value]) => value));
-      const axis = await svg.locator('text').evaluateAll(nodes => nodes.slice(0, 2).map(node => ({ x: Number(node.getAttribute('x')), label: node.textContent.trim() })));
-      assert.equal(axis[0].label, '0', 'Scale starts at zero: ' + name);
-      assert.ok(axis[1].x > axis[0].x, 'Non-collapsed linear scale: ' + name);
-      assert.equal(axis[1].label, max.toLocaleString('en-US') + (axis[1].label.includes(' ') ? (name === 'star' ? ' stars' : ' projects') : ''), 'Maximum scale label: ' + name);
-      for (let index = 0; index < bars.length; index++) {
-        const bar = bars[index];
-        assert.equal(bar.x, axis[0].x, 'Common zero baseline: ' + name);
-        assert.ok(Math.abs(bar.width - (max ? (axis[1].x - axis[0].x) * actual[index][1] / max : 0)) <= .001, `SVG width matches table: ${name}/${actual[index][0]}, ${label}`);
-        if (bar.count !== null) assert.equal(bar.count, actual[index][1], 'Mark metadata matches displayed value');
+      const visual = chart.locator('.obs-bars');
+      assert.equal(await chart.locator('svg').count(), 0, 'HTML bars, no SVG: ' + name);
+      assert.equal(await visual.getAttribute('aria-hidden'), 'true', 'Table is the accessible chart equivalent: ' + name);
+      const bars = await visual.locator('.obs-bar').evaluateAll(nodes => nodes.map(node => ({
+        label: node.querySelector('.obs-bar-label').textContent, count: Number(node.dataset.count),
+        shown: node.querySelector('.obs-bar-count').textContent, width: parseFloat(node.querySelector('.obs-fill').style.width),
+        unknown: node.classList.contains('obs-bar-unknown') })));
+      assert.deepEqual(bars.map(bar => [bar.label, bar.count]), actual, `One visible bar per table value: ${name}, ${label}`);
+      const shared = ['push', 'release'].includes(name);
+      const max = shared ? Math.max(0, ...expected.push.concat(expected.release).map(([, value]) => value)) : Math.max(0, ...actual.map(([, value]) => value));
+      const scale = clean(await visual.locator('.obs-scale-max').textContent());
+      assert.equal(scale, max.toLocaleString('en-US') + (name === 'star' ? ' stars' : ' projects') + (shared ? ' · shared scale' : ''), 'Maximum scale label: ' + name);
+      assert.equal(clean(await visual.locator('.obs-scale-ends > span').first().textContent()), '0', 'Scale starts at zero: ' + name);
+      for (const bar of bars) {
+        assert.ok(Math.abs(bar.width - (max ? 100 * bar.count / max : 0)) <= .001, `Bar width matches table: ${name}/${bar.label}, ${label}`);
+        assert.equal(bar.shown, bar.count.toLocaleString('en-US'), 'Visible count matches value');
+        assert.equal(bar.unknown, bar.label === 'Unknown', 'Unknown bars are marked by form');
       }
-      const labels = (await svg.locator('text').allTextContents()).map(clean);
-      const modernSVG = (await svg.getAttribute('viewBox')).split(/\s+/)[2] === '640';
-      const expectedLabels = ['0', axis[1].label, ...actual.flatMap(([name, value]) =>
-        [modernSVG && name.length > 29 ? name.slice(0, 28) + '…' : name, value.toLocaleString('en-US')])];
-      if (!actual.length && labels.length === 3) expectedLabels.push('No observed values in this selection.');
-      assert.deepEqual(labels, expectedLabels,
-        `Visible SVG labels/counts match table: ${name}, ${label}`);
+      assert.equal(await visual.locator('.obs-empty').count(), actual.length ? 0 : 1, `Empty note only without rows: ${name}, ${label}`);
       if (!['category', 'star'].includes(name)) assert.equal(actual.reduce((sum, [, value]) => sum + value, 0), selected.length, 'Distribution denominator: ' + name);
     }
   };
@@ -304,7 +300,7 @@ async function checkObservatory({ browser, url }) {
   };
   const assertCSV = (csv, data, selected, label) => {
     const headers = csv.replace(/^\uFEFF/, '').split(/\r?\n/, 1)[0].split(',').map(value => value.replace(/^"|"$/g, ''));
-    assert.deepEqual(headers, ['id', 'name', 'url', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha'], 'CSV schema, including empty exports: ' + label);
+    assert.deepEqual(headers, ['id', 'name', 'url', 'description', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha'], 'CSV schema, including empty exports: ' + label);
     const rows = parseCSV(csv);
     assert.deepEqual(rows.map(row => row.id), selected.map(project => project.id), 'Export selection: ' + label);
     const safeCell = value => {
@@ -313,7 +309,7 @@ async function checkObservatory({ browser, url }) {
     };
     for (let index = 0; index < rows.length; index++) {
       const actual = rows[index], project = selected[index];
-      for (const key of ['id', 'name', 'url', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at']) {
+      for (const key of ['id', 'name', 'url', 'description', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at']) {
         assert.equal(actual[key], safeCell(project[key]), `CSV ${key}: ${label}/${project.id}`);
       }
       assert.equal(actual.github.toLowerCase(), String(project.github), 'CSV GitHub coverage');
@@ -385,29 +381,26 @@ async function checkObservatory({ browser, url }) {
       await checkClosingMark(page, name);
       await page.locator('#shared-names').scrollIntoViewIfNeeded();
       await capture(name + '-shared-names');
-      const firstNameGroup = page.locator('#exact-name-groups details').first();
-      if (await firstNameGroup.count()) {
-        await firstNameGroup.locator('summary').focus();
+      for (const id of ['name-groups', 'name-method']) {
+        const disclosure = page.locator('#' + id);
+        if (id === 'name-method') await page.locator('#name-groups').evaluate(node => { node.open = true; });
+        await disclosure.locator(':scope > summary').focus();
         for (const key of ['Enter', 'Space']) {
-          const previous = await firstNameGroup.evaluate(node => node.open);
+          const previous = await disclosure.evaluate(node => node.open);
           await page.keyboard.press(key);
-          assert.equal(await firstNameGroup.evaluate(node => node.open), !previous, 'Shared-name keyboard disclosure');
-          assert.equal(await firstNameGroup.locator('summary').evaluate(node => node === document.activeElement), true, 'Shared-name disclosure keeps focus');
-          await fits(page, name + ' shared names');
-          if (!previous) await capture(name + '-shared-names-open');
+          assert.equal(await disclosure.evaluate(node => node.open), !previous, 'Keyboard disclosure: ' + id);
+          assert.equal(await disclosure.locator(':scope > summary').evaluate(node => node === document.activeElement), true, 'Disclosure keeps focus: ' + id);
+          await fits(page, name + ' ' + id);
+          if (!previous) await capture(name + '-' + id + '-open');
         }
       }
-      await page.locator('#capitalization-names > summary').click();
-      await page.locator('#capitalization-name-groups details').first().locator('summary').click();
-      await capture(name + '-capitalization-open');
-      await page.locator('#capitalization-names > summary').click();
-      await page.locator('#whitespace-names > summary').focus();
-      for (const key of ['Enter', 'Space']) {
-        const wasOpen = await page.locator('#whitespace-names').evaluate(node => node.open);
-        await page.keyboard.press(key);
-        assert.equal(await page.locator('#whitespace-names').evaluate(node => node.open), !wasOpen, 'Whitespace section keyboard disclosure');
-        await fits(page, name + ' whitespace disclosure');
-        if (!wasOpen) await capture(name + '-whitespace-open');
+      await page.locator('#name-groups').evaluate(node => { node.open = false; });
+      if (await page.locator('#name-tally .obs-cluster').count()) {
+        await page.locator('#name-tally .obs-cluster').first().click();
+        assert.equal(await page.locator('#name-groups').evaluate(node => node.open), true, 'Tally cluster opens name groups');
+        assert.equal(new URL(page.url()).hash, '#name-group-1', 'Tally cluster links to its plate');
+        await page.locator('#name-groups').evaluate(node => { node.open = false; });
+        await page.evaluate(() => history.replaceState(null, '', location.pathname + location.search));
       }
       await page.locator('#category-chart').scrollIntoViewIfNeeded();
       await capture(name + '-charts');
@@ -588,10 +581,10 @@ async function checkObservatory({ browser, url }) {
     assert.equal(await fallback.locator('noscript').isVisible(), true, 'No-JavaScript explanation');
     await assertSelection(fallback, data, data.projects, 'no JavaScript');
     await checkProjectDisclosure(fallback, 'no JavaScript');
-    await fallback.locator('#exact-name-groups details > summary').first().click();
-    assert.equal(await fallback.locator('#exact-name-groups details').first().evaluate(node => node.open), true, 'Shared names expand without JavaScript');
-    await fallback.locator('#whitespace-names > summary').click();
-    assert.equal(await fallback.locator('#whitespace-names').evaluate(node => node.open), true, 'Whitespace section expands without JavaScript');
+    await fallback.locator('#name-groups > summary').click();
+    assert.equal(await fallback.locator('#name-groups').evaluate(node => node.open), true, 'Name groups expand without JavaScript');
+    await fallback.locator('#name-method > summary').click();
+    assert.equal(await fallback.locator('#name-method').evaluate(node => node.open), true, 'Method expands without JavaScript');
     await fallback.locator('#category-chart details > summary').click();
     assert.equal(await fallback.locator('#category-chart table').isVisible(), true, 'Native data disclosure without JavaScript');
     await fits(fallback, 'no JavaScript');
@@ -625,22 +618,18 @@ async function checkObservatory({ browser, url }) {
     });
     await synthetic.goto(target.href);
     await synthetic.waitForFunction(() => document.querySelector('#observatory-filters').dataset.enhanced === 'true');
-    await assertSharedNames(synthetic, syntheticProjects, 'synthetic overlap and Unicode whitespace');
-    assert.equal(number(await synthetic.locator('#shared-name-count').textContent()), 7, 'Synthetic union count');
+    await assertSharedNames(synthetic, syntheticProjects, 'synthetic case, separators and Unicode whitespace');
+    // Every name but the zero-width-space one shares the key "opentool".
+    assert.equal(number(await synthetic.locator('#shared-name-count').textContent()), 9, 'Synthetic single-key count');
+    assert.equal(await synthetic.locator('#variant-name-groups .obs-tag').allTextContents().then(tags => tags.join('|')), 'Case|Spacing|Exact duplicates', 'Synthetic variant tags');
     await synthetic.setViewportSize({ width: 390, height: 844 });
-    await synthetic.locator('#whitespace-names > summary').click();
-    const whitespaceGroup = synthetic.locator('#whitespace-name-groups details').first();
-    await whitespaceGroup.locator('summary').focus();
-    for (const key of ['Enter', 'Space']) {
-      const wasOpen = await whitespaceGroup.evaluate(node => node.open);
-      await synthetic.keyboard.press(key);
-      assert.equal(await whitespaceGroup.evaluate(node => node.open), !wasOpen, 'Whitespace group keyboard toggle');
-      assert.equal(await whitespaceGroup.locator('summary').evaluate(node => node === document.activeElement), true, 'Whitespace group retains focus');
-      await fits(synthetic, 'synthetic whitespace mobile');
-      if (!wasOpen) await capture('synthetic-whitespace-open', synthetic);
-    }
+    await synthetic.locator('#name-groups > summary').click();
+    assert.ok(await synthetic.locator('#variant-name-groups .name-diff').count() > 0, 'Differences are marked');
+    await synthetic.locator('#variant-name-groups .shared-name-group').first().scrollIntoViewIfNeeded();
+    await fits(synthetic, 'synthetic variants mobile');
+    await capture('synthetic-variants-open', synthetic);
     await synthetic.close();
-    report.checks.push('whitespace keyboard disclosure, Unicode matching and exact/capitalization/whitespace priority with synthetic names');
+    report.checks.push('single-key grouping, tags and difference marks with synthetic case/separator/Unicode names');
 
     // Block every neighboring runtime file. A standalone report must render and
     // filter from embedded assets even when none of its sibling files exist.

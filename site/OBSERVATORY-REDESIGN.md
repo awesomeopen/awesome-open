@@ -1,8 +1,10 @@
 # Observatory redesign proposal
 
-Status: **Proposed; awaiting review** (B30). Nothing here is implemented. The
-current route follows [OBSERVATORY.md](OBSERVATORY.md) until this proposal is
-accepted and that contract is updated.
+Status: **User-approved; implemented for review** (B30). The generator, runtime,
+styles and tests implement this design; [OBSERVATORY.md](OBSERVATORY.md) carries the
+updated contract. This note keeps the reasoning and the reusable method. One
+difference from the mock: repository paths show the catalog's canonical URL rather
+than the casing in `README.source.md`.
 
 Reviewed mock: private artifact
 [Collection Observatory Redesign](https://claude.ai/artifact/8TVofdsPuHy4mJNk4J2X6L),
@@ -115,7 +117,7 @@ would join OpenPilot and openpilot in one group of three (Case, Spacing).
 - White/Prussian palette, Fraunces and Commit Mono, 4px spacing, native
   disclosures, closing mark, standalone report, downloads.
 
-## Contract changes needed before implementation
+## Contract changes (applied in the implementation)
 
 - **Chart rendering.** Replace “Native SVG … do the chart work” in
   OBSERVATORY.md with HTML/CSS bars rendered server-side, keeping the zero-based
