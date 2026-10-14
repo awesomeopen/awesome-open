@@ -459,6 +459,230 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Official overview establishes federal/state calculation, PDF auto-fill and mailing, GUI/text workflows, intermediate results and self-preparation with government booklets. No e-filing, all-state coverage, correctness or tax-advice claims."
+    },
+    "0a5a5e152bc1c7df4f5d23dfabd26e769f4a966d29ab347b29ab4026eeadff44": {
+      "project_url": "https://github.com/dogmastr/opendex",
+      "text": "OpenDex runs inside Roblox through an executor and combines an instance explorer with a Luau script viewer. It supports code navigation, cross-script searches, function flowcharts and call graphs. Runtime inspection exposes live values and traces, while annotations can preserve renamed variables and notes between decompilations. Individual features depend on the functions provided by the executor.",
+      "sources": [
+        {
+          "url": "https://github.com/dogmastr/opendex/blob/738061e74839a5118d738388038c96674d072b3b/README.md",
+          "title": "OpenDex official README",
+          "revision": "738061e74839a5118d738388038c96674d072b3b"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited commit-permalink README and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "0ace731f98a4c69ac44ae115a75f75ea976da86291ac94ac192fdb5d45457225": {
+      "project_url": "https://github.com/opentsdb/opentsdb",
+      "text": "OpenTSDB stores, indexes and serves time-series metrics collected from network equipment, operating systems and applications. It uses HBase as its underlying storage layer and makes recorded measurements accessible for querying and graphing. The system is intended for collecting repeated observations across multiple hosts and applications, with storage distributed through HBase.",
+      "sources": [
+        {
+          "url": "https://github.com/opentsdb/opentsdb/blob/0f681b7545d9999506900da5f1c4dbe433dbfb43/README",
+          "title": "OpenTSDB official README",
+          "revision": "0f681b7545d9999506900da5f1c4dbe433dbfb43"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited commit-permalink README and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831": {
+      "project_url": "https://github.com/openclaw/openclaw",
+      "text": "OpenClaw runs an AI assistant on a user-managed computer and connects it to messaging services such as Slack, Telegram and WhatsApp. A Gateway coordinates sessions, tools and channel connections, with browser, terminal and command-line interfaces for control. Hosted or local model providers can supply inference, while plugins, skills and companion applications extend the available actions.",
+      "sources": [
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/0512f3ccfb4bfd665133394c380e309072e99715/README.md",
+          "title": "OpenClaw official README",
+          "revision": "0512f3ccfb4bfd665133394c380e309072e99715"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited commit-permalink README and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "0bc9f846c8e1331834dcdd3a3c23c36a8a16c809525fa44556b0654c8fdc5764": {
+      "project_url": "https://github.com/panarastudios/opensend.cc",
+      "text": "Opensend provides a self-hosted email application with Amazon SES onboarding and domain setup. Authentication, teams, SSO and OAuth use Convex, and deployment can use a local Convex backend or Convex Cloud. The documented installer uses Docker Compose. Other dashboard functions still rely on demo data while their backend implementations are developed.",
+      "sources": [
+        {
+          "url": "https://github.com/panarastudios/opensend.cc/blob/35436ea4995cee1634073e32b5e9a73a25903b13/README.md",
+          "title": "Opensend official README",
+          "revision": "35436ea4995cee1634073e32b5e9a73a25903b13"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited commit-permalink README and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "0c24b19daba066234656599b7689bdce6ce04a8c0d437c377c1d04ac17538dc3": {
+      "project_url": "https://github.com/janpetr93/opentrainer",
+      "text": "OpenTrainer runs an indoor cycling interface in desktop Chrome or Edge, connecting to FTMS trainers through Web Bluetooth. It supports live ride metrics and ERG interval workouts, with activities, workouts and a training calendar stored locally as JSON. An MCP interface lets compatible AI clients create training plans and review recorded activities. Manual FIT export is also available.",
+      "sources": [
+        {
+          "url": "https://github.com/janpetr93/opentrainer/blob/be40678c81308a884b406066f7ae3a6a9e115c4f/README.md",
+          "title": "OpenTrainer official README",
+          "revision": "be40678c81308a884b406066f7ae3a6a9e115c4f"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited commit-permalink README and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "06d30a3e4c183c1f877debce4e5de2025034ce680d2eeca83bfdff9aa47978b2": {
+      "project_url": "https://github.com/tinyhumansai/openscion",
+      "text": "OpenScion provides server-centric source control for large monorepositories used by AI agents and CI jobs. Clients request selected files and directories while the server handles history, diffs, commits and rebasing through an API. The implementation includes a command-line client and web interface, with local filesystem and SQLite storage options for a single-node deployment.",
+      "sources": [
+        {
+          "url": "https://github.com/tinyhumansai/openscion/blob/00e92ab9c2a9985f39a64636b4b6c5c4bb583916/README.md",
+          "title": "OpenScion official README",
+          "revision": "00e92ab9c2a9985f39a64636b4b6c5c4bb583916"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "e2f9ef08304c955ba8342768249b69fa303714352c2af6c57e86a43e646fb72f": {
+      "project_url": "https://github.com/OpenHandheldCollective/OpenABL",
+      "text": "OpenABL adds a graphical boot menu and standard Linux boot methods to Qualcomm Android bootloader firmware for supported handheld chipsets. Users can select Linux or Android and choose internal storage, SD cards or USB drives as boot sources. The menu supports boot entries, recovery options and persistent settings; installation requires firmware flashing for the matching chipset.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenHandheldCollective/OpenABL/blob/78b81b585f0f82882e9272cead99e1d395622de5/README.md",
+          "title": "OpenABL official README",
+          "revision": "78b81b585f0f82882e9272cead99e1d395622de5"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "68c021e20c1d532b053eeea3dd909ae024627c6199f48ec13a7756a4a07d1fa8": {
+      "project_url": "https://github.com/lguerberg/open-sequence",
+      "text": "OpenSequence runs sales outreach sequences through an API, coordinating email follow-ups, SMS, calls and tasks for human operators. It schedules steps, processes replies and opt-outs, and returns events through webhooks. The service is self-hosted with PostgreSQL and container deployment, while REST, TypeScript and MCP interfaces connect it to a separate CRM or application interface.",
+      "sources": [
+        {
+          "url": "https://github.com/lguerberg/open-sequence/blob/9e00448def4622a0a35ad99ab6e25cc0de3dea59/README.md",
+          "title": "OpenSequence official README",
+          "revision": "9e00448def4622a0a35ad99ab6e25cc0de3dea59"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83": {
+      "project_url": "https://github.com/isl-org/Open3D",
+      "text": "Open3D supplies C++ and Python data structures and algorithms for processing three-dimensional data. Its capabilities include scene reconstruction, surface alignment, visualization and physically based rendering, with GPU support for core operations. Python packages and C++ builds support local development, while the Open3D-ML extension connects the library to PyTorch and TensorFlow workflows.",
+      "sources": [
+        {
+          "url": "https://github.com/isl-org/Open3D/blob/b6c5e196384ad71e75b6e6f9c5da22d046221f1d/README.md",
+          "title": "Open3D official README",
+          "revision": "b6c5e196384ad71e75b6e6f9c5da22d046221f1d"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "658154879f83825b5fa01fa5728089b336e72d7522eea4413e4ff92fb5a074b4": {
+      "project_url": "https://github.com/google-deepmind/open_spiel",
+      "text": "OpenSpiel provides game environments, algorithms and evaluation tools for reinforcement learning, search and planning research. It covers single-agent and multi-agent settings, including cooperative, competitive, turn-based and simultaneous-move games with complete or incomplete information. The core game API is implemented in C++ and exposed to Python, with algorithms and analysis tools available in both languages.",
+      "sources": [
+        {
+          "url": "https://github.com/google-deepmind/open_spiel/blob/48401890ee9857e611678302371378175a8e4c6b/README.md",
+          "title": "OpenSpiel official README",
+          "revision": "48401890ee9857e611678302371378175a8e4c6b"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "a61eb4a0cf8007496765bde0c52c2b5c98f6d8e44d1b93bbff8152496fedb090": {
+      "project_url": "https://github.com/PixarAnimationStudios/OpenUSD",
+      "text": "OpenUSD provides libraries for authoring, reading and streaming time-sampled scene descriptions between graphics applications. Its build supports Linux, macOS and Windows, with optional Python bindings, imaging components and the usdview inspection tool. Additional library-only targets support embedding in iOS and visionOS applications or WebAssembly environments; the available components depend on the selected build configuration.",
+      "sources": [
+        {
+          "url": "https://github.com/PixarAnimationStudios/OpenUSD/blob/ce1ed124c1f59368f1248e1bc6d334cd0907b722/README.md",
+          "title": "OpenUSD official README",
+          "revision": "ce1ed124c1f59368f1248e1bc6d334cd0907b722"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "0c1d0e794277c84119b834c4fff9213b247e62fe75f9de0c0cee257ff977d5ec": {
+      "project_url": "https://github.com/OpenWhispr/openwhispr",
+      "text": "OpenWhispr is a desktop application for dictation, meeting transcription and spoken interaction with AI assistants. Hotkeys can insert transcribed speech at the cursor or send a voice command. It also supports notes, imported audio and translation, using local models or configured cloud providers. Desktop releases cover macOS, Windows and Linux, with some features varying by platform.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenWhispr/openwhispr/blob/dacba9bd22ab4323845e02947ce838bce019c3d7/README.md",
+          "title": "OpenWhispr official README",
+          "revision": "dacba9bd22ab4323845e02947ce838bce019c3d7"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "2e067b6f772098b4eab863cdd66e4fe15d4f6788751c76a42eaffc1b6416c27c": {
+      "project_url": "https://github.com/richardr1126/openreader",
+      "text": "OpenReader turns EPUB, PDF, TXT, Markdown and DOCX documents into synchronized read-along audio, with word highlighting and background generation. It can use self-hosted speech servers or cloud text-to-speech providers and export audiobooks as M4B or MP3. Self-hosting options include Docker, configurable database and object storage backends, and a separate compute worker for document processing.",
+      "sources": [
+        {
+          "url": "https://github.com/richardr1126/openreader/blob/fc96d6c43504e6dbd62e255ddfba3c5ab4dfaca0/README.md",
+          "title": "OpenReader official README",
+          "revision": "fc96d6c43504e6dbd62e255ddfba3c5ab4dfaca0"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf": {
+      "project_url": "https://github.com/diggerhq/digger",
+      "text": "OpenTaco, formerly Digger, coordinates Terraform workflows using existing CI infrastructure. A command-line component runs infrastructure commands, while an orchestrator triggers jobs from events such as pull-request comments. Features include plan and apply actions, pull-request locks, policy checks and drift detection. The orchestrator can be self-hosted, and jobs execute in the configured CI environment.",
+      "sources": [
+        {
+          "url": "https://github.com/diggerhq/digger/blob/853f6abf3f7ad9d2fa20b8956e5a758441ddca1e/README.md",
+          "title": "OpenTaco official README",
+          "revision": "853f6abf3f7ad9d2fa20b8956e5a758441ddca1e"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c": {
+      "project_url": "https://developers.reddit.com/apps/open-moderator",
+      "text": "Open Moderator is a Reddit application that assists subreddit moderation. It can send explanations after removals, flag inconsistencies with previously approved content, monitor comment exchanges and suggest rule changes from removal history. Moderators install it through Reddit’s app listing and configure individual features; AI-powered functions use a supplied Gemini API key, while some checks use word matching.",
+      "sources": [
+        {
+          "url": "https://developers.reddit.com/apps/open-moderator",
+          "title": "Open Moderator official Reddit app listing"
+        }
+      ],
+      "checked_at": "2026-10-14",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
     }
   }
 }
