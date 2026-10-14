@@ -46,9 +46,10 @@ then work through each block in this order:
 | Finding | Sentence | Sentence plus a whole-collection strip: top-10 star share against other mapped projects, drawn to scale | Finding keeps whole-collection scope |
 | Charts 01–06 | Fixed-viewBox SVG, label column truncated at 28 characters | HTML/CSS bar lists, zero-based and linear, labels wrap instead of truncating. Narrow screens put the label above its bar. Unknown bars are hatched as well as labeled. Categories sorted by count. Push and release charts are paired on one shared scale, marked “shared scale”. “Chart data” tables stay in folded disclosures | Linear from zero; no new dependency |
 | Chart notes | Longer method captions | 01 “Projects can belong to several categories.” · 02 “Cached GitHub license identifiers.” · 03 “Top 10 specimen by GitHub stars.” · 06 “Days since last GitHub release (cached, excludes prereleases).” Method detail stays in the CSV, snapshot and this contract | User direction 2026-10-14 |
-| Shared names | Count, closed group disclosures with name and URL | Open unit tally: one mark per tool, clustered by group, all marks the same Prussian fill and distinguished by shape (square exact, triangle capitalization, circle whitespace; not a star, which reads as GitHub stars). Zero counts stay in the legend. Below it, one folded “Name groups” disclosure (summary: groups · tools) holds the comparison plates: repository, short description, category, license, GitHub stars, created, last push, ledger record, aligned across columns. “How groups are formed” is a nested fold-out at the bottom of “Name groups”. A tally cluster opens the disclosure and jumps to its plate | Dense comparable information stays close; no implied progress |
-| Exact names | Name repeated | Owner set bold in the repository path | Emphasis anchored to the differing identifier |
-| Capitalization | Variants joined with a slash | Differing letters underlined in scarlet (form, not only color) | Scarlet directs attention |
+| Shared names | Count, closed group disclosures with name and URL | Open unit tally: one mark per tool, clustered by group, all marks the same Prussian fill and distinguished by shape (square for identical names, circle for spelling variants; no star, which reads as GitHub stars). Zero counts stay in the legend. Below it, one folded “Name groups” disclosure (summary: groups · tools) holds the comparison plates: repository, short description, category, license, GitHub stars, created, last push, ledger record, aligned across columns. “How groups are formed” is a nested fold-out at the bottom of “Name groups”. A tally cluster opens the disclosure and jumps to its plate | Dense comparable information stays close; no implied progress |
+| Grouping | Three groups filled in order (exact, capitalization, whitespace); a project placed in an early group is withheld from later ones | One matching key per name (see below). Two groups: Identical names and Spelling variants. Variant groups carry tags: Case, Spacing, Exact duplicates | Removes ordered withholding; see “Name grouping model” |
+| Identical names | Name repeated | Owner set bold in the repository path | Emphasis anchored to the differing identifier |
+| Spelling variants | Variants joined with a slash | Letters whose case differs are underlined in scarlet; a differing separator is underlined, and a missing one shows as a thin scarlet bar (form, not only color) | Scarlet directs attention |
 | Relationship | Only in the contract | Paragraph states that a shared name does not mean the projects are related; plates list category/license “In common”, nothing more | Name matches do not establish aliases |
 | Match-type labels | Sub-heading and summaries with rule captions | Scarlet block labels with mist type and no rule caption; rules live in “How groups are formed” | B29 label treatment |
 | Coverage | Table | Mist band labeled “Whole collection” (no further scope sentence); each row has a linear bar of value / total, the count and the scope note. Collection dates and evidence links span the full width | Coverage keeps whole-collection scope |
@@ -63,10 +64,48 @@ unrecognized identifiers are Unknown”, and the coverage sentence “Unaffected
 filters. Counts are out of 501 unique projects.” The rendered “Unknown” labels and
 the Whole collection label carry those meanings.
 
+## Name grouping model
+
+The current rules assign groups in order and withhold matched projects from later
+groups. Names that differ in more than one way fall through. With the current
+rules, “Open pilot” would match nothing: it lowercases to `open pilot`, not
+`openpilot`, and the whitespace step preserves case and excludes OpenPilot and
+openpilot, which the capitalization step already took. A third project “openbot”
+would likewise stay unlisted beside the two exact OpenBots.
+
+Proposed model: group first, then describe.
+
+1. Deduplicate by canonical project ID.
+2. Matching key: lowercase the displayed name, then remove Unicode White_Space,
+   hyphen and underscore. Use `str.lower()` in Python and `toLowerCase()` in JS
+   for parity (`casefold` has no JS counterpart).
+3. Projects with the same key form one group; a group needs two distinct project
+   IDs. Each project belongs to at most one group. Equality of keys is transitive,
+   so groups cannot chain.
+4. Kind: **Identical name** when all members display the same name, otherwise
+   **Spelling variants**.
+5. Tags on variant groups, not exclusive: **Case**, **Spacing** (whitespace,
+   hyphen, underscore) and **Exact duplicates**. Tag counts do not sum to a total
+   and are not drawn as shares.
+
+Not matched: other punctuation (the dot can be part of a name), spelling and
+sound-alikes. Automated phonetic matching was considered and rejected: every name
+starts with “Open”, so short suffixes collide (Metaphone-style keys merge many
+unrelated names), English-centric rules handle acronyms and digits poorly, and
+“sounds like” is a judgment rather than a fact. If sound-alikes matter later, use a
+reviewed data file with sources and check dates, shown as its own block outside
+the counted total.
+
+Effect on the 2026-10-14 snapshot: 18 tools in 9 groups instead of 16 in 8. The
+new group is open-dashboard / OpenDashboard (Case, Spacing), which the current
+rules miss because it differs in case and hyphen at once. The mock has an
+off-by-default toggle that adds a hypothetical “Open pilot” (not in the catalog);
+it joins OpenPilot and openpilot in one group of three.
+
 ## Unchanged
 
-- Grouping order, Unicode White_Space set and counting in `shared_names` (Python)
-  and `sharedNames` (JS); histogram buckets and UTC day differences.
+- Canonical-ID deduplication, filter behavior and project-once counting in
+  shared names; histogram buckets and UTC day differences.
 - Filters drive metrics, shared names, charts and the listing together; the
   finding and coverage keep whole-collection scope.
 - “GitHub stars”, UTC dates, “Unknown” for missing licenses and dates.
@@ -84,6 +123,11 @@ the Whole collection label carry those meanings.
 - **Category order.** Sorting the category chart by count changes it from catalog
   order; record this in OBSERVATORY.md.
 - **Shared push/release scale.** Document that charts 05 and 06 share one maximum.
+- **Name grouping.** Replace the ordered exact/capitalization/whitespace
+  assignment in OBSERVATORY.md “Accounting” with the single-key model above, in
+  both `shared_names` and `sharedNames`, with parity tests for case, whitespace,
+  hyphen, underscore, mixed differences and exact duplicates inside a variant
+  group.
 
 ## Implementation map
 
@@ -100,8 +144,9 @@ the Whole collection label carry those meanings.
 
 - The page script reproduced the published aggregates: 501 projects, 456 with
   GitHub metrics, 3,611,407 stars, 344 detected licenses, 37.7% top-10 share,
-  every chart row, and 16 shared-name tools (10 exact, 6 capitalization, 0
-  whitespace).
+  every chart row. The current shared-name rules gave 16 tools (10 exact, 6
+  capitalization, 0 whitespace); the proposed model gives 18 tools in 9 groups
+  (10 identical, 8 variants; tags Case 4, Spacing 1).
 - Looked at once at 375px (the Shared names study) and once at 1280px (the full
   page). Keyboard, reduced motion and intermediate widths were not checked.
 - Artifact limits: downloads link to the live files; selection CSV export and
