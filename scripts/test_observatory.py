@@ -500,7 +500,7 @@ class ObservatoryBuildTests(unittest.TestCase):
 
     def test_footer_pattern_resolves_and_embeds_exact_source_bytes(self):
         import base64
-        pattern = 'footer-backgrounds/navypattern2.png'
+        pattern = 'patterns/navypattern2.png'
         source = (build_site.ROOT / 'site' / pattern).read_bytes()
         css = (self.output / 'observatory/observatory.css').read_text()
         self.assertIn(f'url(../{pattern})', css)

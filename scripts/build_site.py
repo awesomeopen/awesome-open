@@ -11,7 +11,7 @@ import re
 import warnings
 from datetime import date
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 import shutil
 
 from build_catalog import build_catalog, load_function_summaries
@@ -21,6 +21,7 @@ import signals
 import star_history
 import deployment
 import qr
+from footer_art import discover_footer_art
 from category_art import (
     attach_category_art,
     category_image,
@@ -30,9 +31,7 @@ from category_art import (
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
-FOOTER_PATTERN = "footer-backgrounds/navypattern2.png"
-# Only transparent panoramas belong in the rotating foreground artwork.
-FOOTER_ILLUSTRATIONS = ("footer-backgrounds/abyssal.webp", "footer-backgrounds/valley.webp")
+FOOTER_PATTERN = "patterns/navypattern2.png"
 BRAND_ASSETS = {
     "botanical-128.png": "image/png",
     "search-loupe.png": "image/png",
@@ -645,9 +644,11 @@ def render_html(catalog, cutouts=None):
             f'<option value="{escape(v)}">{escape(labels[v])}</option>'
             for v in sorted(observed)
         )
-    footer_backgrounds = catalog.get("footer_backgrounds", [])
+    footer_backgrounds = [quote(path, safe="/") for path in catalog.get("footer_backgrounds", [])]
+    footer_sizes = catalog.get("footer_background_sizes", [])
+    footer_size = footer_sizes[0] if footer_sizes else (2048, 682)
     footer_art = (
-        f'<img class="footer-art" data-footer-background data-backgrounds="{escape(json.dumps(footer_backgrounds))}" src="{escape(footer_backgrounds[0])}" width="2048" height="682" alt="" loading="lazy" decoding="async">'
+        f'<img class="footer-art" data-footer-background data-background-sizes="{escape(json.dumps(footer_sizes))}" data-backgrounds="{escape(json.dumps(footer_backgrounds))}" src="{escape(footer_backgrounds[0])}" width="{footer_size[0]}" height="{footer_size[1]}" alt="" loading="lazy" decoding="async">'
         if footer_backgrounds
         else ""
     )
@@ -779,7 +780,9 @@ def build(output, source_sha=None, root=ROOT):
         ),
         star_evidence=star_history.load_optional(root / "data/star_history.json"),
     )
-    catalog["footer_backgrounds"] = list(FOOTER_ILLUSTRATIONS)
+    footer_assets = discover_footer_art(root)
+    catalog["footer_backgrounds"] = list(footer_assets)
+    catalog["footer_background_sizes"] = [list(size) for size in footer_assets.values()]
     attach_specimen_art(catalog, root)
     attach_category_art(catalog, root)
     cutouts = attach_specimen_cutouts(catalog, root)
@@ -869,14 +872,20 @@ def build(output, source_sha=None, root=ROOT):
         'href="#hn-evidence">View evidence',
     )
     standalone = embed_category_art(standalone, catalog, root)
+    footer_urls = [quote(path, safe="/") for path in catalog["footer_backgrounds"]]
+    embedded_backgrounds = []
     for asset in catalog["footer_backgrounds"]:
         mime_type = "image/png" if asset.lower().endswith(".png") else "image/webp"
         encoded = base64.b64encode((output / asset).read_bytes()).decode("ascii")
+        embedded_backgrounds.append(f"data:{mime_type};base64,{encoded}")
+    standalone = standalone.replace(
+        f'data-backgrounds="{escape(json.dumps(footer_urls))}"',
+        f'data-backgrounds="{escape(json.dumps(embedded_backgrounds))}"',
+    )
+    if embedded_backgrounds:
         standalone = standalone.replace(
-            f'src="{asset}"', f'src="data:{mime_type};base64,{encoded}"'
-        )
-        standalone = standalone.replace(
-            f"&quot;{asset}&quot;", f"&quot;data:{mime_type};base64,{encoded}&quot;"
+            f'src="{escape(footer_urls[0])}"',
+            f'src="{embedded_backgrounds[0]}"',
         )
     for name, mime_type in BRAND_ASSETS.items():
         encoded = base64.b64encode((output / "brand" / name).read_bytes()).decode(

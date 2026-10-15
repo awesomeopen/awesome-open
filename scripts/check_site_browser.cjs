@@ -45,14 +45,18 @@ const path = require('node:path');
         const art = node.querySelector('[data-footer-background]');
         await art.decode();
         return { background, width: image.naturalWidth, artWidth: art.naturalWidth,
+          artHeight: art.naturalHeight, widthAttr: Number(art.getAttribute('width')), heightAttr: Number(art.getAttribute('height')),
+          sizes: JSON.parse(art.dataset.backgroundSizes),
           choices: JSON.parse(art.dataset.backgrounds), border: style.borderTopStyle };
       });
       assert.equal(footer.width, 1254);
-      assert.equal(footer.artWidth, 2048);
-      assert.equal(footer.choices.length, 2);
+      assert.equal(footer.artWidth, footer.widthAttr);
+      assert.equal(footer.artHeight, footer.heightAttr);
+      assert.ok(footer.choices.length > 0);
+      assert.equal(footer.choices.length, footer.sizes.length);
       assert.equal(footer.border, 'double');
       assert.equal(footer.background.startsWith('data:image/png;base64,'), offline);
-      if (!offline) assert.ok(footer.background.endsWith('/footer-backgrounds/navypattern2.png'));
+      if (!offline) assert.ok(footer.background.endsWith('/patterns/navypattern2.png'));
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
       await capture(`footer-${offline ? 'standalone' : 'production'}-${width}.png`);
     }

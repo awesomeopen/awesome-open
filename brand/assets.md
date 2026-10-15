@@ -1,7 +1,7 @@
 # Asset index
 
-Keep existing deployable assets in their current `site/` locations; moving them
-into a new folder would add broken-path risk without improving ownership. This
+Keep deployable assets in their documented `site/` families. Repeating CSS
+textures live in `site/patterns/`; rotating panoramas live in `site/footer-backgrounds/`. This
 index centralizes discovery. [assets.lock.json](assets.lock.json) records paths,
 byte sizes and SHA-256 hashes; it is an integrity inventory, not approval metadata.
 
@@ -14,8 +14,8 @@ byte sizes and SHA-256 hashes; it is an integrity inventory, not approval metada
 | Seven specimen interpretations | `site/specimens/*.webp` | Per-entry status, alt, prompt and source in [specimen manifest](../data/specimen_art.json) |
 | Category illustrations | `site/domains/*-{s,m,l}.webp` | 21 owner-uploaded category interpretations; medium variants also close the selected category’s ledger; source filename mapping, verified derivative hashes/dimensions, recipe and provenance limits in [category provenance](../site/domains/provenance.json) |
 | Photographic jars | `site/jars/*.webp` | Active/retained unlabelled variants distinguished by [jar provenance](../site/jars/provenance.json) |
-| Footer pattern | `site/footer-backgrounds/navypattern2.png` | Owner-committed repeating CSS background, kept separate from transparent panorama rotation; unchanged bytes and provenance limits in [footer provenance](../site/footer-backgrounds/provenance.json) |
-| Footer floor images | `site/footer-backgrounds/valley.webp`, `abyssal.webp` | Implemented; original filenames, original hashes and processing in [footer provenance](../site/footer-backgrounds/provenance.json) |
+| Footer pattern | `site/patterns/navypattern2.png` | Owner-committed repeating CSS background, kept separate from transparent panorama rotation; unchanged bytes and provenance limits in [pattern provenance](../site/patterns/provenance.json) |
+| Footer floor images | `site/footer-backgrounds/*.{png,webp}` | Implemented; original filenames, original hashes and processing in [footer provenance](../site/footer-backgrounds/provenance.json) |
 | Fraunces + Commit Mono | `site/vendor/fonts.css` | Embedded complete variable WOFF2; [pinned source provenance](../site/vendor/FONT-PROVENANCE.json) and [SIL OFL notice](../site/vendor/FONT-LICENSE.txt) |
 | Tokens | `site/design/tokens.css` | Exact color/type/spacing values; editable implementation source, not raster artwork |
 | Specimen display cut-outs | `site/specimens/cutouts/*.webp` | Transparent derivatives of approved specimens (border-connected white ground removed); source/derivative hashes, subject box and recipe in [cut-out manifest](../site/specimens/cutouts.json); regenerate with `scripts/build_specimen_cutouts.py` |

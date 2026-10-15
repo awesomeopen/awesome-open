@@ -799,7 +799,7 @@ def build(catalog, hn, output, root):
     ]:
         css = path.read_text(encoding="utf-8")
         if href == "observatory.css":
-            pattern = "footer-backgrounds/navypattern2.png"
+            pattern = "patterns/navypattern2.png"
             encoded = base64.b64encode((root / "site" / pattern).read_bytes()).decode("ascii")
             css = css.replace(f"url(../{pattern})", f"url(data:image/png;base64,{encoded})")
         report = report.replace(
