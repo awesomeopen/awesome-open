@@ -345,7 +345,7 @@ async function checkObservatory({ browser, url }) {
         return { image: css.backgroundImage, position: css.backgroundPosition, repeat: css.backgroundRepeat };
       });
       assert.equal(style.image, art ? 'url("' + new URL(art, current.url()).href + '")' : 'none', 'Metric artwork: ' + label);
-      assert.equal(style.position, '88% 0%', 'Metric artwork position');
+      assert.match(style.position, /^88% 0(?:px|%)$/, 'Metric artwork position');
       assert.equal(style.repeat, 'no-repeat', 'Metric artwork repeat');
       assert.ok(await metric.locator('dt > span, dd > span:not(.obs-ratio)').evaluateAll(nodes =>
         nodes.length >= 2 && nodes.every(node => getComputedStyle(node).backgroundColor === 'rgb(255, 255, 255)')),
