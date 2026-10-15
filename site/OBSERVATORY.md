@@ -10,22 +10,20 @@ forecast model. The main-only publisher includes the route automatically.
 
 - Totals count canonical project IDs once. Cross-listed category memberships may
   overlap, so their sum is not a unique-project count and they are not a pie.
-- Shared-name headline counts the union of canonical project IDs in the three
-  displayed groups. Cross-category listings and overlapping matches count once.
-  Group assignment is ordered: exact displayed names first, then lowercase-name
-  matches among remaining projects, then whitespace-only matches among those
-  still unassigned. Each displayed group needs at least two distinct project IDs;
-  whitespace groups also need different displayed names and a nonempty key.
-  Whitespace comparison removes Unicode `White_Space` characters and preserves
-  case. Python and JavaScript use the same explicit set: U+0009–000D, U+0020,
+- Shared names use one matching key per displayed name: lowercase (`str.lower`
+  in Python, `toLowerCase` in JavaScript), then remove Unicode `White_Space`,
+  hyphen and underscore. The explicit White_Space set is U+0009–000D, U+0020,
   U+0085, U+00A0, U+1680, U+2000–200A, U+2028–2029, U+202F, U+205F and U+3000.
-  Zero-width space and BOM are retained. Combined case-and-whitespace changes,
-  punctuation and spelling are not normalized. Exact/capitalization priority can
-  leave a singleton unlisted in a later group; these sections classify disjoint
-  groups rather than enumerate every possible matching pair.
-  All sections follow selected category/license filters. Native disclosures show
-  unchanged displayed names and source URLs; name matches do not establish aliases.
-  Grouping uses the existing snapshot with no additional collection or dependency.
+  Zero-width space, BOM, the dot and other punctuation are retained; spelling and
+  sound-alike names are not matched. Projects with equal keys form one group, so
+  each canonical project ID belongs to at most one group and groups cannot chain.
+  A group needs two distinct project IDs; empty keys never match. **Identical
+  name** groups display one name; **Spelling variants** display several. Variant
+  groups carry non-exclusive tags (Case, Spacing, Exact duplicates); tag counts do
+  not sum to a total. The headline counts tools in all groups. Groups follow the
+  selected category/license filters. Plates show unchanged displayed names,
+  source URLs and the catalog's short description; a shared key does not
+  establish an alias or relationship. No additional collection or dependency.
 - Stars sum observed cached GitHub counts, including actual zeroes; missing
   metrics remain null. The top-ten concentration denominator is that same sum.
   Neither stars nor a push timestamp is a quality, usage or maintenance verdict.
@@ -37,7 +35,7 @@ forecast model. The main-only publisher includes the route automatically.
   Repository creation is not a founding date. Release uses the cached latest full
   GitHub release's `published_at`, not tag creation, last push or fetch date.
   Release cache status and checked time remain explicit in the underlying table.
-- Coverage is whole-collection and labeled as unaffected by filters. Optional
+- Coverage is whole-collection, labeled “Whole collection” and unaffected by filters. Optional
   provider counts distinguish checked/cached and available/partial/stale/missing.
   Scorecard is coverage only; there is no combined security score or verdict.
 - HN coverage counts tracked and chart-eligible projects separately. Story IDs
@@ -49,19 +47,27 @@ forecast model. The main-only publisher includes the route automatically.
 
 ## Presentation and data
 
-A proposed redesign of this route, with a reusable method for similar passes, is
-recorded in [OBSERVATORY-REDESIGN.md](OBSERVATORY-REDESIGN.md) (B30, not
-implemented). The rules below remain current until it is accepted.
+The B30 layout and its method are recorded in
+[OBSERVATORY-REDESIGN.md](OBSERVATORY-REDESIGN.md).
 
-Native SVG and standard-library Python do the chart work. Route-only JavaScript
+Standard-library Python renders every chart server-side as an HTML bar list:
+zero-based and linear, labels wrap instead of truncating, Unknown bars are hatched
+as well as labeled. The visual is `aria-hidden`; a folded “Chart data” table per
+chart is the accessible equivalent. Categories are sorted by count (ties keep
+catalog order, Unknown last). Last push and latest release share one maximum,
+marked “shared scale”. Route-only JavaScript
 progressively filters a thin embedded projection, with category/license URL state
 and Back/Forward support. Native HTML tables, exact values, source revision,
 snapshot date and every project row remain available without JavaScript. The
-project data table is collapsed by default in a native `details` disclosure labeled
-“Data table”; exports remain visible. The CSV includes every displayed data field
+project data table is collapsed by default in a native `details` disclosure whose
+summary starts “Data table” and states the selected row count; exports remain
+visible. Name-group plates are folded the same way (“Show name groups”), with
+“How groups are formed” as a nested disclosure; the unit tally above them stays
+open, one equal-weight mark per tool, square for identical names and circle for
+spelling variants. The CSV includes every displayed data field
 with full timestamps, plus project IDs, category IDs, GitHub-mapping flags and
-snapshot/revision provenance. Charts
-use linear zero-based geometry; illustration never changes a measured mark.
+snapshot/revision provenance, and the catalog's short `description`. Illustration
+never changes a measured mark.
 
 `observatory/snapshot.json` contains the thin rows, derived aggregates and coverage.
 `observatory/projects.csv` is the complete projection. The browser's CSV link
@@ -78,13 +84,19 @@ manufacture percentages, missing values or a zero-star observation.
 ## Visual concept
 
 - Instrument: white/cool-mist reading ground, Prussian rules, the existing Fraunces
-  and Commit Mono pair, linear charts and explicit evidence labels.
+  and Commit Mono pair, linear charts and explicit evidence labels. The header
+  repeats the ledger's links (Ledger, About, Observatory, GitHub), with Observatory
+  marked as the current page; the standalone report points them at the live site. One sticky
+  selection bar without visible labels (each select has an accessible name) and
+  bold section jumps; no kickers; “N/N selected.” ends the Shared names paragraph.
 - Closing mark: the existing 128px botanical logo is centered before the footer,
   with 128px of vertical space above and below (96px on narrow screens) and no
   visible caption. Its size stays within the source resolution; the standalone
-  report embeds it. The opening is text-only and uses its full available width.
+  report embeds it. The opening is text-only, unruled and uses its full available
+  width; the snapshot date and source revision sit in the footer link list.
   Chart geometry and project specimen artwork remain unchanged.
-- Editorial hand: numbered observations and a bounded whole-collection finding.
+- Editorial hand: a bounded whole-collection finding with a to-scale share strip,
+  and scarlet underlines that mark only real name differences.
   No invented danger seals, risk colors or forecast language.
 
 This extends the existing Retro-Scraperism and Speculative FOSSoligy contract,

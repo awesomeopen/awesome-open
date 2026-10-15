@@ -107,8 +107,8 @@ space remains clear around the collection. Labels retain their common baseline.
 ## Observatory snapshot
 
 The user-directed `/observatory/` extension uses the current typography and
-white/Prussian instrument language for literal snapshot distributions, native SVG
-and accessible underlying tables. The existing 128px botanical logo appears
+white/Prussian instrument language for literal snapshot distributions, HTML bar
+lists drawn linearly from zero and accessible underlying tables (B30). The existing 128px botanical logo appears
 in the opening without a visible caption; artwork never modifies chart geometry.
 Filters update distributions and records together. Whole-collection findings and
 coverage retain explicit scope. See [observatory contract](../site/OBSERVATORY.md)

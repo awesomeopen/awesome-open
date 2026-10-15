@@ -1,4 +1,5 @@
-/* Catalog Observatory: local snapshot only. No requests or chart dependencies. */
+/* Catalog Observatory: local snapshot only. No requests or chart dependencies.
+   Server-rendered markup in build_observatory.py and these renderers must match. */
 (function (root, factory) {
   'use strict';
   var api = factory();
@@ -12,12 +13,11 @@
   'use strict';
 
   var DAY = 86400000;
-  var SVG_NS = 'http://www.w3.org/2000/svg';
   var RECENCY_BOUNDS = [30, 90, 365, 730];
   var RECENCY_LABELS = ['0–30 days', '31–90 days', '91–365 days', '366–730 days', 'Over 730 days', 'Unknown'];
   var AGE_BOUNDS = [365, 1826, 3653];
   var AGE_LABELS = ['0–365 days', '366–1,826 days', '1,827–3,653 days', 'Over 3,653 days', 'Unknown'];
-  var CSV_COLUMNS = ['id', 'name', 'url', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha'];
+  var CSV_COLUMNS = ['id', 'name', 'url', 'description', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha'];
 
   function knownLicense(project) {
     return typeof project.license === 'string' && project.license.trim() !== '';
@@ -112,7 +112,9 @@
       if (!matched.size) unknown += 1;
       matched.forEach(function (id) { counts.set(id, counts.get(id) + 1); });
     });
-    var rows = categories.map(function (category) { return { id: category.id, label: category.name, count: counts.get(category.id) }; });
+    // Sorted by count; ties keep catalog order (Array#sort is stable). Unknown stays last.
+    var rows = categories.map(function (category) { return { id: category.id, label: category.name, count: counts.get(category.id) }; })
+      .sort(function (a, b) { return b.count - a.count; });
     if (unknown) rows.push({ id: 'unknown', label: 'Unknown', count: unknown });
     return rows;
   }
@@ -153,89 +155,190 @@
     return left.length - right.length;
   }
 
+  // Unicode White_Space (shared with build_observatory.py) plus hyphen and underscore.
+  var NAME_SEPARATORS = /[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000_-]/g;
+  var NAME_TAGS = ['Case', 'Spacing', 'Exact duplicates'];
+  // [result key, band label, legend label, ID prefix]
+  var NAME_KINDS = [['identical', 'Identical names', 'Identical name', 'identical'], ['variants', 'Spelling variants', 'Spelling variants', 'variant']];
+
+  function isSeparator(char) { NAME_SEPARATORS.lastIndex = 0; return NAME_SEPARATORS.test(char); }
+  function nameKey(name) { return name.toLowerCase().replace(NAME_SEPARATORS, ''); }
+  function nameAnatomy(name) {
+    var chars = [], gaps = [''];
+    Array.from(name).forEach(function (char) {
+      if (isSeparator(char)) gaps[gaps.length - 1] += char;
+      else { chars.push(char); gaps.push(''); }
+    });
+    return { chars: chars, gaps: gaps };
+  }
+  function nameDifferences(names) {
+    var parts = names.map(nameAnatomy), first = parts[0];
+    return {
+      chars: first.chars.map(function (char, i) { return parts.some(function (part) { return part.chars[i] !== char; }); }),
+      gaps: first.gaps.map(function (gap, i) { return parts.some(function (part) { return part.gaps[i] !== gap; }); })
+    };
+  }
+  function distinctNames(rows) { return Array.from(new Set(rows.map(function (project) { return project.name; }))).sort(compareName); }
+
+  /* One matching key per displayed name, after canonical-ID deduplication. Equal
+     keys form one group, so a project belongs to at most one group. */
   function sharedNames(projects) {
     var unique = new Map(projects.map(function (project) { return [project.id, project]; }));
     var ordered = Array.from(unique.values()).sort(function (a, b) { return compareName(a.name, b.name) || compareName(a.id, b.id); });
-    var exact = new Map();
+    var buckets = new Map();
     ordered.forEach(function (project) {
-      if (!exact.has(project.name)) exact.set(project.name, []);
-      exact.get(project.name).push(project);
-    });
-    var groups = Array.from(exact, function (entry) { return { name: entry[0], projects: entry[1] }; }).filter(function (group) { return group.projects.length > 1; });
-    var exactIDs = new Set(groups.flatMap(function (group) { return group.projects.map(function (project) { return project.id; }); }));
-    var folded = new Map();
-    ordered.forEach(function (project) {
-      if (exactIDs.has(project.id)) return;
-      var key = project.name.toLowerCase();
-      if (!folded.has(key)) folded.set(key, []);
-      folded.get(key).push(project);
-    });
-    var capitalization = Array.from(folded.values()).filter(function (rows) { return rows.length > 1; }).map(function (rows) {
-      return { name: Array.from(new Set(rows.map(function (project) { return project.name; }))).sort(compareName).join(' / '), projects: rows };
-    }).sort(function (a, b) { return compareName(a.name, b.name); });
-    var countedIDs = new Set([...exactIDs, ...capitalization.flatMap(function (group) { return group.projects.map(function (project) { return project.id; }); })]);
-    var compacted = new Map();
-    ordered.forEach(function (project) {
-      if (countedIDs.has(project.id)) return;
-      // Unicode White_Space, shared with build_observatory.py; preserve case.
-      var key = project.name.replace(/[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/g, '');
+      var key = nameKey(project.name);
       if (!key) return;
-      if (!compacted.has(key)) compacted.set(key, []);
-      compacted.get(key).push(project);
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key).push(project);
     });
-    var whitespace = Array.from(compacted.values()).filter(function (rows) {
-      return new Set(rows.map(function (project) { return project.name; })).size > 1;
-    }).map(function (rows) {
-      return { name: Array.from(new Set(rows.map(function (project) { return project.name; }))).sort(compareName).join(' / '), projects: rows };
-    }).sort(function (a, b) { return compareName(a.name, b.name); });
-    whitespace.forEach(function (group) { group.projects.forEach(function (project) { countedIDs.add(project.id); }); });
-    return { exact: groups, capitalization: capitalization, whitespace: whitespace, tool_count: countedIDs.size,
-      exact_tool_count: exactIDs.size,
-      capitalization_tool_count: capitalization.reduce(function (sum, group) { return sum + group.projects.length; }, 0),
-      whitespace_tool_count: whitespace.reduce(function (sum, group) { return sum + group.projects.length; }, 0) };
+    var result = { identical: [], variants: [], tags: {}, tool_count: 0, identical_tool_count: 0, variant_tool_count: 0 };
+    NAME_TAGS.forEach(function (tag) { result.tags[tag] = 0; });
+    buckets.forEach(function (rows) {
+      if (rows.length < 2) return;
+      var names = distinctNames(rows);
+      var group = { name: names.join(' / '), names: names, projects: rows, tags: [] };
+      if (names.length === 1) { result.identical.push(group); result.identical_tool_count += rows.length; return; }
+      var differences = nameDifferences(names);
+      var present = [differences.chars.some(Boolean), differences.gaps.some(Boolean),
+        names.some(function (name) { return rows.filter(function (project) { return project.name === name; }).length > 1; })];
+      group.tags = NAME_TAGS.filter(function (_, i) { return present[i]; });
+      group.tags.forEach(function (tag) { result.tags[tag] += 1; });
+      result.variants.push(group);
+      result.variant_tool_count += rows.length;
+    });
+    var byName = function (a, b) { return compareName(a.name, b.name); };
+    result.identical.sort(byName);
+    result.variants.sort(byName);
+    result.tool_count = result.identical_tool_count + result.variant_tool_count;
+    return result;
   }
 
-  function renderNameGroups(doc, container, groups) {
-    if (!container) return;
-    var openNames = new Set(Array.from(container.querySelectorAll('details[open]')).map(function (detail) { return detail.dataset.name; }));
-    var fragment = doc.createDocumentFragment();
-    groups.forEach(function (group) {
-      var detail = doc.createElement('details');
-      detail.className = 'shared-name-group';
-      detail.dataset.name = group.name;
-      detail.open = openNames.has(group.name);
-      var summary = doc.createElement('summary');
-      summary.textContent = group.name + ' · ' + group.projects.length + ' tools';
-      detail.appendChild(summary);
-      var list = doc.createElement('ul');
-      group.projects.forEach(function (project) {
-        var item = doc.createElement('li');
-        item.dataset.projectId = project.id;
-        var link = doc.createElement('a');
-        link.href = project.url;
-        link.textContent = project.name;
-        var source = doc.createElement('span');
-        source.className = 'shared-name-source';
-        source.textContent = project.url;
-        item.appendChild(link);
-        item.appendChild(source);
-        list.appendChild(item);
-      });
-      detail.appendChild(list);
-      fragment.appendChild(detail);
+  function element(doc, tag, className, text) {
+    var node = doc.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+  function appendMarkedName(doc, parent, name, names) {
+    if (names.length < 2) { parent.appendChild(doc.createTextNode(name)); return; }
+    var differences = nameDifferences(names), anatomy = nameAnatomy(name);
+    anatomy.gaps.forEach(function (gap, i) {
+      if (gap) parent.appendChild(differences.gaps[i] ? element(doc, 'span', 'name-diff name-gap', gap) : doc.createTextNode(gap));
+      else if (differences.gaps[i]) { var bar = element(doc, 'span', 'name-diff name-nogap'); bar.setAttribute('aria-hidden', 'true'); parent.appendChild(bar); }
+      if (i < anatomy.chars.length) parent.appendChild(differences.chars[i] ? element(doc, 'span', 'name-diff', anatomy.chars[i]) : doc.createTextNode(anatomy.chars[i]));
     });
-    if (!groups.length) {
-      var empty = doc.createElement('p');
-      empty.textContent = 'No shared names in this selection.';
-      fragment.appendChild(empty);
-    }
-    container.replaceChildren(fragment);
+  }
+  function categoryNames(project, categories) {
+    return (project.categories || []).map(function (id) { return categories.get(id) || 'Unknown'; }).join(', ') || 'Unknown';
+  }
+  function repositoryLink(doc, url) {
+    var link = element(doc, 'a', 'obs-repo');
+    link.href = url;
+    var github = 'https://github.com/';
+    if (url.indexOf(github) === 0) {
+      var rest = url.slice(github.length), slash = rest.indexOf('/');
+      var owner = slash === -1 ? rest : rest.slice(0, slash);
+      link.append(element(doc, 'span', 'obs-repo-path', 'github.com/'), element(doc, 'span', 'obs-repo-owner', owner),
+        element(doc, 'span', 'obs-repo-path', '/' + (slash === -1 ? '' : rest.slice(slash + 1))));
+    } else link.append(element(doc, 'span', 'obs-repo-path', url.replace(/^https?:\/\//, '')));
+    return link;
+  }
+  function namePlate(doc, group, number, categories) {
+    var id = 'name-group-' + number, rows = group.projects;
+    var plate = element(doc, 'article', 'shared-name-group');
+    plate.id = id;
+    plate.dataset.name = group.name;
+    plate.setAttribute('aria-labelledby', id + '-heading');
+    var head = element(doc, 'header', 'obs-plate-head');
+    var heading = element(doc, 'h4');
+    heading.id = id + '-heading';
+    group.names.forEach(function (name, i) {
+      if (i) heading.appendChild(element(doc, 'span', 'obs-name-sep', '/'));
+      appendMarkedName(doc, heading, name, group.names);
+    });
+    var meta = element(doc, 'p', 'obs-plate-meta');
+    meta.appendChild(element(doc, 'strong', null, rows.length + ' tools'));
+    group.tags.forEach(function (tag) { meta.append(doc.createTextNode(' '), element(doc, 'span', 'obs-tag', tag)); });
+    var common = [];
+    var category = categoryNames(rows[0], categories);
+    if (rows.every(function (project) { return categoryNames(project, categories) === category; })) common.push(category);
+    var license = rows[0].license || 'Unknown';
+    if (rows.every(function (project) { return (project.license || 'Unknown') === license; })) common.push(license);
+    if (common.length) meta.appendChild(doc.createTextNode(' · In common: ' + common.join(' · ')));
+    head.append(heading, meta);
+    var grid = element(doc, 'div', 'obs-plate-projects');
+    grid.style.setProperty('--n', String(rows.length));
+    rows.forEach(function (project) {
+      var column = element(doc, 'div', 'obs-plate-project');
+      column.dataset.projectId = project.id;
+      var name = element(doc, 'p', 'obs-plate-name');
+      appendMarkedName(doc, name, project.name, group.names);
+      var facts = element(doc, 'dl', 'obs-plate-facts');
+      [['Category', categoryNames(project, categories)], ['License', project.license || null],
+        ['GitHub stars', knownStars(project) ? formatNumber(project.stars) : null],
+        ['Created', project.created_at ? project.created_at.slice(0, 10) : null],
+        ['Last push', project.pushed_at ? project.pushed_at.slice(0, 10) : null]].forEach(function (fact) {
+        facts.append(element(doc, 'dt', null, fact[0]), element(doc, 'dd', fact[1] === null ? 'obs-unknown' : null, fact[1] === null ? 'Unknown' : fact[1]));
+      });
+      var record = element(doc, 'a', 'obs-record', 'Ledger record');
+      record.href = '../#project-' + project.id;
+      record.setAttribute('aria-label', 'Ledger record for ' + project.name + ' (' + project.url.replace(/^https?:\/\/(github\.com\/)?/, '') + ')');
+      column.append(name, repositoryLink(doc, project.url), element(doc, 'p', 'obs-plate-desc', project.description || 'No short description in the catalog.'), facts, record);
+      grid.appendChild(column);
+    });
+    plate.append(head, grid);
+    return plate;
+  }
+
+  function renderSharedNames(doc, result, categories) {
+    var tally = doc.getElementById('name-tally'), bands = doc.getElementById('name-group-bands');
+    if (!tally || !bands) return;
+    var clusters = doc.createDocumentFragment(), bandFragment = doc.createDocumentFragment(), number = 0, marks = 0;
+    NAME_KINDS.forEach(function (kind) {
+      var groups = result[kind[0]];
+      if (groups.length && marks) clusters.appendChild(element(doc, 'span', 'obs-tally-break'));
+      var band = element(doc, 'section', 'obs-name-band');
+      band.setAttribute('aria-labelledby', kind[3] + '-names-heading');
+      var count = result[kind[0] === 'identical' ? 'identical_tool_count' : 'variant_tool_count'];
+      var heading = element(doc, 'h3', 'obs-label', kind[1] + ' · ' + count + ' tools');
+      heading.id = kind[3] + '-names-heading';
+      var container = element(doc, 'div');
+      container.id = kind[3] + '-name-groups';
+      groups.forEach(function (group) {
+        number += 1;
+        var cluster = element(doc, 'a', 'obs-cluster');
+        cluster.href = '#name-group-' + number;
+        cluster.setAttribute('aria-label', group.name + ', ' + group.projects.length + ' tools, ' + kind[2].toLowerCase());
+        group.projects.forEach(function () { cluster.appendChild(element(doc, 'span', 'obs-mark obs-mark-' + kind[0])); marks += 1; });
+        clusters.appendChild(cluster);
+        container.appendChild(namePlate(doc, group, number, categories));
+      });
+      if (!groups.length) container.appendChild(element(doc, 'p', 'obs-empty', 'No ' + kind[2].toLowerCase() + ' in this selection.'));
+      band.append(heading, container);
+      bandFragment.appendChild(band);
+      var legendCount = doc.getElementById(kind[3] + '-name-count');
+      if (legendCount) {
+        legendCount.textContent = String(count);
+        legendCount.parentElement.classList.toggle('obs-zero', !count);
+      }
+    });
+    if (!marks) clusters.appendChild(element(doc, 'p', 'obs-muted', 'No shared names in this selection.'));
+    tally.replaceChildren(clusters);
+    bands.replaceChildren(bandFragment);
+    var groupCount = result.identical.length + result.variants.length;
+    var summary = doc.getElementById('name-group-summary');
+    if (summary) summary.textContent = groupCount + (groupCount === 1 ? ' group · ' : ' groups · ') + result.tool_count + ' tools';
+    var total = doc.getElementById('shared-name-count');
+    if (total) total.textContent = formatNumber(result.tool_count);
   }
 
   function aggregate(data, filters) {
     filters = normalizeFilters(filters, data.categories);
     var projects = filterProjects(data.projects, filters);
     var stars = starConcentration(projects);
+    var push = dateHistogram(projects, 'pushed_at', data.metrics_as_of, RECENCY_BOUNDS, RECENCY_LABELS);
+    var release = dateHistogram(projects, 'release_at', data.metrics_as_of, RECENCY_BOUNDS, RECENCY_LABELS);
     return {
       sharedNames: sharedNames(projects),
       filters: filters,
@@ -249,9 +352,11 @@
       categories: categoryCounts(projects, data.categories),
       licenses: licenseCounts(projects),
       age: dateHistogram(projects, 'created_at', data.metrics_as_of, AGE_BOUNDS, AGE_LABELS),
-      push: dateHistogram(projects, 'pushed_at', data.metrics_as_of, RECENCY_BOUNDS, RECENCY_LABELS),
-      release: dateHistogram(projects, 'release_at', data.metrics_as_of, RECENCY_BOUNDS, RECENCY_LABELS),
-      concentration: stars
+      push: push,
+      release: release,
+      concentration: stars,
+      // Push and release share one maximum so their bars compare directly.
+      recencyMaximum: push.concat(release).reduce(function (value, row) { return Math.max(value, row.count); }, 0)
     };
   }
 
@@ -281,69 +386,52 @@
     return new Intl.NumberFormat('en-US').format(value);
   }
 
-  function svgElement(doc, name, attributes, text) {
-    var element = doc.createElementNS(SVG_NS, name);
-    Object.keys(attributes || {}).forEach(function (key) { element.setAttribute(key, attributes[key]); });
-    if (text !== undefined) element.textContent = text;
-    return element;
-  }
+  function barWidth(value, maximum) { return (maximum ? 100 * value / maximum : 0).toFixed(4) + '%'; }
 
-  function renderChart(doc, container, rows, valueLabel) {
+  // Zero-based linear bars; the folded table is the accessible equivalent.
+  function renderChart(doc, container, rows, valueLabel, sharedMaximum) {
     if (!container) return;
+    var max = typeof sharedMaximum === 'number' ? sharedMaximum : rows.reduce(function (value, row) { return Math.max(value, row.count); }, 0);
     var tbody = container.querySelector('tbody');
-    var svg = container.querySelector('svg');
-    var max = rows.reduce(function (value, row) { return Math.max(value, row.count); }, 0);
     if (tbody) {
       var fragment = doc.createDocumentFragment();
       rows.forEach(function (row) {
         var tr = doc.createElement('tr');
-        tr.setAttribute('data-key', row.id || row.label);
+        tr.setAttribute('data-key', row.label);
         tr.setAttribute('data-count', row.count);
-        var label = doc.createElement('th');
+        var label = element(doc, 'th', null, row.label);
         label.setAttribute('scope', 'row');
-        label.textContent = row.label;
-        var count = doc.createElement('td');
-        count.textContent = formatNumber(row.count);
-        count.style.setProperty('--bar-fraction', max ? (row.count / max * 100) + '%' : '0%');
-        tr.appendChild(label);
-        tr.appendChild(count);
+        tr.append(label, element(doc, 'td', null, formatNumber(row.count)));
         fragment.appendChild(tr);
       });
       if (!rows.length) {
         var empty = doc.createElement('tr');
-        var cell = doc.createElement('td');
+        var cell = element(doc, 'td', null, 'No observed values in this selection.');
         cell.colSpan = 2;
-        cell.textContent = 'No observed values in this selection.';
         empty.appendChild(cell);
         fragment.appendChild(empty);
       }
       tbody.replaceChildren(fragment);
     }
-    if (!svg) return;
-    var width = 640;
-    var labelWidth = 240;
-    var plotWidth = 330;
-    var rowHeight = 32;
-    var top = 36;
-    var height = Math.max(80, top + rows.length * rowHeight + 8);
-    svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
-    svg.setAttribute('aria-hidden', 'true');
-    svg.setAttribute('focusable', 'false');
-    svg.replaceChildren();
-    svg.appendChild(svgElement(doc, 'text', { x: labelWidth, y: 14, 'class': 'chart-scale' }, '0'));
-    svg.appendChild(svgElement(doc, 'text', { x: labelWidth + plotWidth, y: 14, 'text-anchor': 'end', 'class': 'chart-scale' }, formatNumber(max) + ' ' + (valueLabel || 'projects')));
-    for (var tick = 0; tick <= 4; tick += 1) {
-      var x = labelWidth + plotWidth * tick / 4;
-      svg.appendChild(svgElement(doc, 'line', { x1: x, y1: 24, x2: x, y2: height - 10, 'class': tick === 0 ? 'chart-zero' : 'chart-gridline' }));
-    }
-    rows.forEach(function (row, index) {
-      var y = top + index * rowHeight;
-      var label = row.label.length > 29 ? row.label.slice(0, 28) + '…' : row.label;
-      svg.appendChild(svgElement(doc, 'text', { x: 0, y: y + 11, 'class': 'chart-label' }, label));
-      svg.appendChild(svgElement(doc, 'rect', { x: labelWidth, y: y, width: max ? row.count / max * plotWidth : 0, height: 15, 'data-key': row.id || row.label, 'data-count': row.count, 'class': row.label === 'Unknown' ? 'chart-bar chart-bar-unknown' : 'chart-bar' }));
-      svg.appendChild(svgElement(doc, 'text', { x: width, y: y + 11, 'text-anchor': 'end', 'class': 'chart-count' }, formatNumber(row.count)));
+    var list = container.querySelector('.obs-bar-list');
+    if (!list) return;
+    var scale = container.querySelector('.obs-scale-max');
+    if (scale) scale.textContent = formatNumber(max) + ' ' + (valueLabel || 'projects') + (typeof sharedMaximum === 'number' ? ' · shared scale' : '');
+    var bars = doc.createDocumentFragment();
+    rows.forEach(function (row) {
+      var item = element(doc, 'li', row.label === 'Unknown' ? 'obs-bar obs-bar-unknown' : 'obs-bar');
+      item.setAttribute('data-key', row.label);
+      item.setAttribute('data-count', row.count);
+      var track = element(doc, 'span', 'obs-track'), fill = element(doc, 'span', 'obs-fill');
+      fill.style.width = barWidth(row.count, max);
+      track.appendChild(fill);
+      item.append(element(doc, 'span', 'obs-bar-label', row.label), track, element(doc, 'span', 'obs-bar-count', formatNumber(row.count)));
+      bars.appendChild(item);
     });
-    if (!rows.length) svg.appendChild(svgElement(doc, 'text', { x: 0, y: 53, 'class': 'chart-label' }, 'No observed values in this selection.'));
+    list.replaceChildren(bars);
+    var emptyNote = container.querySelector('.obs-bars > .obs-empty');
+    if (!rows.length && !emptyNote) list.after(element(doc, 'p', 'obs-empty', 'No observed values in this selection.'));
+    if (rows.length && emptyNote) emptyNote.remove();
   }
 
   function init(doc, win) {
@@ -357,6 +445,13 @@
     var license = doc.getElementById('license-filter');
     if (!category || !license) return null;
     var reset = doc.getElementById('reset-filters');
+    var categoryMap = new Map(data.categories.map(function (item) { return [item.id, item.name]; }));
+    var groupsDisclosure = doc.getElementById('name-groups');
+    var tallyNode = doc.getElementById('name-tally');
+    // A tally cluster opens the folded name groups before the browser follows its link.
+    if (tallyNode && groupsDisclosure) tallyNode.addEventListener('click', function (event) {
+      if (event.target.closest && event.target.closest('.obs-cluster')) groupsDisclosure.open = true;
+    });
     var summary = doc.getElementById('selection-summary');
     var download = doc.getElementById('export-csv');
     var objectURL = null;
@@ -387,32 +482,25 @@
       category.value = result.filters.category === 'all' && Array.from(category.options).some(function (option) { return option.value === ''; }) ? '' : result.filters.category;
       license.value = result.filters.license;
       if (updateLocation) setLocation(result.filters, replace);
-      doc.querySelectorAll('[data-metric]').forEach(function (element) {
-        var key = element.getAttribute('data-metric');
-        if (Object.prototype.hasOwnProperty.call(result.metrics, key)) element.textContent = formatNumber(result.metrics[key]);
+      doc.querySelectorAll('[data-metric]').forEach(function (node) {
+        var key = node.getAttribute('data-metric');
+        if (Object.prototype.hasOwnProperty.call(result.metrics, key)) node.textContent = formatNumber(result.metrics[key]);
       });
-      var names = data.categories.filter(function (item) { return item.id === result.filters.category; });
-      if (summary) {
-        var selection = names.length ? names[0].name : 'all categories';
-        var licenseSelection = result.filters.license === 'all' ? 'all license observations' : result.filters.license === 'known' ? 'known license' : 'unknown license';
-        summary.textContent = formatNumber(result.metrics.total) + ' of ' + formatNumber(data.projects.length) + ' projects · ' + selection + ' · ' + licenseSelection + '.';
-      }
+      doc.querySelectorAll('[data-metric-of]').forEach(function (node) { node.textContent = formatNumber(result.metrics.total); });
+      doc.querySelectorAll('[data-ratio]').forEach(function (node) {
+        node.style.width = barWidth(result.metrics[node.getAttribute('data-ratio')], result.metrics.total);
+      });
+      if (summary) summary.textContent = formatNumber(result.metrics.total) + '/' + formatNumber(data.projects.length) + ' selected.';
+      var projectCount = doc.getElementById('project-count');
+      if (projectCount) projectCount.textContent = formatNumber(result.metrics.total);
       if (reset) reset.disabled = result.filters.category === 'all' && result.filters.license === 'all';
-      doc.getElementById('shared-name-count').textContent = formatNumber(result.sharedNames.tool_count);
-      doc.getElementById('exact-name-count').textContent = formatNumber(result.sharedNames.exact_tool_count);
-      doc.getElementById('whitespace-name-count').textContent = formatNumber(result.sharedNames.whitespace_tool_count);
-      doc.getElementById('capitalization-name-count').textContent = formatNumber(result.sharedNames.capitalization_tool_count);
-      renderNameGroups(doc, doc.getElementById('exact-name-groups'), result.sharedNames.exact);
-      renderNameGroups(doc, doc.getElementById('capitalization-name-groups'), result.sharedNames.capitalization);
-      renderNameGroups(doc, doc.getElementById('whitespace-name-groups'), result.sharedNames.whitespace);
+      renderSharedNames(doc, result.sharedNames, categoryMap);
       renderChart(doc, doc.getElementById('category-chart'), result.categories);
       renderChart(doc, doc.getElementById('license-chart'), result.licenses);
-      renderChart(doc, doc.getElementById('age-chart'), result.age);
-      renderChart(doc, doc.getElementById('push-chart'), result.push);
-      renderChart(doc, doc.getElementById('release-chart'), result.release);
       renderChart(doc, doc.getElementById('star-chart'), result.concentration.rows, 'stars');
-      var concentration = doc.getElementById('star-concentration-summary');
-      if (concentration) concentration.textContent = result.concentration.share === null ? 'No observed stars in this selection.' : 'The ' + result.concentration.topCount + ' largest observed counts total ' + formatNumber(result.concentration.topTotal) + ' stars (' + (result.concentration.share * 100).toFixed(1) + '% of observed stars in this selection).';
+      renderChart(doc, doc.getElementById('age-chart'), result.age);
+      renderChart(doc, doc.getElementById('push-chart'), result.push, 'projects', result.recencyMaximum);
+      renderChart(doc, doc.getElementById('release-chart'), result.release, 'projects', result.recencyMaximum);
       var visible = new Set(result.projects.map(function (project) { return project.id; }));
       projectRows.forEach(function (row) { row.hidden = !visible.has(row.getAttribute('data-id')); });
       var empty = doc.getElementById('project-table-empty');
@@ -450,6 +538,7 @@
     normalizeFilters: normalizeFilters, readFilters: readFilters, filterSearch: filterSearch,
     filterProjects: filterProjects, isoDay: isoDay, dateHistogram: dateHistogram,
     categoryCounts: categoryCounts, licenseCounts: licenseCounts, starConcentration: starConcentration,
-    sharedNames: sharedNames, aggregate: aggregate, csvCell: csvCell, exportCSV: exportCSV, renderChart: renderChart, init: init
+    nameKey: nameKey, sharedNames: sharedNames, aggregate: aggregate, csvCell: csvCell, exportCSV: exportCSV,
+    renderChart: renderChart, renderSharedNames: renderSharedNames, init: init
   };
 }));

@@ -45,7 +45,8 @@ summary { cursor: pointer; }
 .site-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 32px; padding-block: 20px; }
 .brand { font-family: var(--rs-display); font-weight: 600; font-variation-settings: 'SOFT' 100, 'WONK' 1; font-size: 28px; line-height: 1.1; text-decoration: none; }
 .brand span { color: var(--rs-scarlet); }
-.site-nav { display: flex; flex-wrap: wrap; gap: 4px 24px; font-size: 13px; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 4px 24px; font-size: 14px; }
+.site-nav [aria-current='page'] { text-decoration: none; box-shadow: inset 0 -2px 0 var(--rs-scarlet); }
 .site-nav a { display: inline-flex; align-items: center; min-height: 44px; }
 
 /* Opening: text only, full width */
@@ -236,10 +237,11 @@ summary { cursor: pointer; }
 
 <header class="shell site-head">
   <a class="brand" href="https://awesomeopen.github.io/awesome-open/">Awesome Open<span aria-hidden="true">*</span></a>
-  <nav class="site-nav" aria-label="Observatory">
-    <a href="https://awesomeopen.github.io/awesome-open/">Project ledger</a>
-    <a href="#coverage">Coverage</a>
-    <a href="#project-records">Data</a>
+  <nav class="site-nav" aria-label="Field guide">
+    <a href="https://awesomeopen.github.io/awesome-open/#catalog">Ledger</a>
+    <a href="https://awesomeopen.github.io/awesome-open/#method">About</a>
+    <a href="#observatory-main" aria-current="page">Observatory</a>
+    <a href="https://github.com/awesomeopen/awesome-open">GitHub</a>
   </nav>
 </header>
 
