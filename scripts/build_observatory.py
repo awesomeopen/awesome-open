@@ -565,18 +565,29 @@ def finding_html(counts):
     else:
         text = f"{counts['leader_count']} projects have an observed star count."
     strip = ""
-    leaders = [
-        value for label, value in counts["star_rows"] if label != "Other projects"
-    ]
+    # star_rows ends with an aggregate tail when more than ten projects are
+    # observed. Its editable display label is not a project identifier.
+    leaders = counts["star_rows"][:counts["leader_count"]]
     if counts["stars"]:
-        top = sum(leaders)
-        segments = "".join(
-            f'<i style="width: {bar_width(value, counts["stars"])}"></i>'
-            for value in leaders
-        )
+        top = sum(value for _, value in leaders)
+        tail = counts["stars"] - top
+
+        def segment(label, value, kind):
+            description = escape(f"{label} · {value:,} stars", quote=True)
+            focus = ' tabindex="0"' if value else ''
+            return (
+                f'<span class="obs-strip-segment {kind}"{focus} role="img" '
+                f'aria-label="{description}" title="{description}" '
+                f'data-stars="{value}" style="width: {bar_width(value, counts["stars"])}">'
+                f'<span class="obs-strip-tooltip" aria-hidden="true">{description}</span></span>'
+            )
+
+        segments = "".join(segment(label, value, "obs-strip-leader") for label, value in leaders)
+        if tail:
+            segments += segment("Other projects", tail, "obs-strip-tail")
         strip = (
-            f'<figure class="obs-strip-figure"><div class="obs-strip" aria-hidden="true">{segments}</div><figcaption class="obs-strip-key">'
-            f'<span>Top {len(leaders)} · {top:,} stars</span><span class="obs-muted">Other projects · {counts["stars"] - top:,}</span></figcaption></figure>'
+            f'<figure class="obs-strip-figure"><div class="obs-strip">{segments}</div><figcaption class="obs-strip-key">'
+            f'<span>Top {len(leaders)} · {top:,} stars</span><span class="obs-muted">Other projects · {tail:,}</span></figcaption></figure>'
         )
     return f'<aside class="obs-finding" aria-labelledby="obs-finding-text"><p id="obs-finding-text">{text}</p>{strip}</aside>'
 
