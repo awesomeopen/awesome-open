@@ -2,11 +2,12 @@
 """Cache aggregate GitHub star history; renderers never make network requests.
 
 Only GET /repos/{owner}/{repo}/stargazers/history is queried. No individual
-stargazer records are requested or stored. The pilot is explicitly curated in
-star_history_projects.json. Add repositories there to expand the rotation.
+stargazer records are requested or stored. Eligibility is configured in
+star_history_projects.json; the default selects every canonical GitHub
+repository from README.source.md.
 
 Default limits are 16 HTTP attempts per UTC day and four repositories per run.
-Successful windows refresh every 14 days and at month rollover. Retries count
+Successful windows become due after 14 days and at month rollover. Retries count
 against the persisted daily budget; failed attempts rotate behind other work.
 """
 import argparse
@@ -141,6 +142,44 @@ def validate_projects(document):
         seen.add(repo)
         normalized.append({'repo': repo, 'name': entry['name'], 'readme_url': entry['readme_url']})
     return normalized
+
+
+def load_projects(document, source):
+    """Schema 2 derives identities from the source; schema 1 remains explicit."""
+    if isinstance(document, dict) and document.get('schema_version') == 1:
+        return validate_projects(document)
+    if document != {'schema_version': 2, 'scope': 'catalog_github'}:
+        raise ValueError('Invalid star-history eligibility configuration')
+    # Import lazily: build_catalog also imports the offline history presenter.
+    from build_catalog import canonical_url
+    from render_readme import ENTRY, validate_source
+    validate_source(source)
+    projects = {}
+    for line in source.splitlines():
+        match = ENTRY.fullmatch(line)
+        if match is None:
+            continue
+        name, url, _ = match.groups()
+        url = canonical_url(url)
+        repo = repo_from_url(url)
+        if repo is None:
+            continue
+        project = {'name': name, 'repo': repo, 'readme_url': url}
+        if repo in projects and projects[repo] != project:
+            raise ValueError('Conflicting catalog history identity: ' + repo)
+        projects[repo] = project
+    return validate_projects({'schema_version': 1, 'projects': list(projects.values())})
+
+
+def priority_key(project, records, metadata):
+    """Unseen first by stars; attempted work rotates oldest first, stars break ties."""
+    record = records.get(project['repo'], {})
+    checked = record.get('checked_at')
+    # Compare timestamps rather than their textual offsets.
+    attempted_at = parse_time(checked).timestamp() if checked else float('-inf')
+    stars = (metadata or {}).get('repositories', {}).get(project['repo'], {}).get('stargazers_count')
+    known = type(stars) is int and stars >= 0
+    return (attempted_at, not known, -stars if known else 0, project['repo'])
 
 
 def validate_weeks(rows, previous=None, now=None):
@@ -289,6 +328,15 @@ def validate_cache(document):
     if budget:
         parse_time(budget['utc_date'] + 'T00:00:00+00:00')
         RequestBudget(budget['limit'], budget['requests_used'])
+    report = document.get('selection_report')
+    if report is not None:
+        keys = {'eligible_repositories', 'due_repositories', 'attempted_repositories', 'unattempted_repositories'}
+        if (not isinstance(report, dict) or set(report) != keys
+                or any(type(n) is not int or n < 0 for n in report.values())
+                or report['attempted_repositories'] > report['due_repositories']
+                or report['due_repositories'] > report['eligible_repositories']
+                or report['unattempted_repositories'] > report['eligible_repositories']):
+            raise ValueError('Invalid history selection report')
     for repo, record in document['repositories'].items():
         if (normalize_repo(repo) != repo or not isinstance(record, dict) or record.get('repo') != repo
                 or repo_from_url(record.get('readme_url')) != repo
@@ -298,6 +346,8 @@ def validate_cache(document):
             raise ValueError('Cache source URL does not match repository identity')
         if record.get('source_sha') is not None and (not isinstance(record['source_sha'], str) or SHA.fullmatch(record['source_sha']) is None):
             raise ValueError('Invalid cache source revision')
+        if record.get('checked_at') is not None:
+            parse_time(record['checked_at'])
         good = record.get('last_good')
         if good is None:
             if record['status'] == 'ok':
@@ -407,7 +457,7 @@ def refresh(projects, existing=None, metadata=None, now=None, getter=None, token
     records = {repo: deepcopy(record) for repo, record in existing['repositories'].items() if repo in eligible}
     # Removing a curated identity also removes it from the published cache.
     due = [p for p in projects if needs_refresh(records.get(p['repo']), now, window(now)[2], force)]
-    due.sort(key=lambda p: (records.get(p['repo'], {}).get('checked_at') or '', p['repo']))
+    due.sort(key=lambda p: priority_key(p, records, metadata))
     attempted = 0
     for project in due:
         if attempted >= max_repositories or not budget.remaining:
@@ -438,7 +488,11 @@ def refresh(projects, existing=None, metadata=None, now=None, getter=None, token
         'documentation_url': DOCUMENTATION_URL, 'updated_at': now.isoformat(), 'source_sha': source_sha,
         'budget': {'utc_date': now.date().isoformat(), 'requests_used': budget.used, 'limit': budget.limit, 'paused_reason': budget.paused_reason},
         'refresh_policy': {'successful_refresh_days': REFRESH_DAYS, 'max_repositories_per_run': max_repositories,
-                           'month_rollover_refresh': True},
+                           'month_rollover_refresh': True,
+                           'selection': 'unseen-stars-desc-then-oldest-attempt-stars-desc'},
+        'selection_report': {'eligible_repositories': len(projects), 'due_repositories': len(due),
+                             'attempted_repositories': attempted,
+                             'unattempted_repositories': sum(not records.get(p['repo'], {}).get('checked_at') for p in projects)},
         'repositories': records,
     }
     validate_cache(result)
@@ -463,7 +517,7 @@ def write_cache(path, document):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--refresh', action='store_true', help='Refresh due pilot even before its 14-day interval; daily budget still applies')
+    parser.add_argument('--refresh', action='store_true', help='Make all histories due before their 14-day interval; daily budget and fair rotation still apply')
     parser.add_argument('--request-budget', type=int, default=DEFAULT_REQUEST_BUDGET)
     parser.add_argument('--max-repositories', type=int, default=DEFAULT_MAX_REPOSITORIES)
     parser.add_argument('--source-sha')
@@ -471,8 +525,9 @@ def main():
     parser.add_argument('--cache', type=Path, default=CACHE_PATH)
     parser.add_argument('--projects', type=Path, default=PROJECTS_PATH)
     parser.add_argument('--metadata', type=Path, default=METADATA_PATH)
+    parser.add_argument('--source', type=Path, default=ROOT / 'README.source.md')
     args = parser.parse_args()
-    projects = validate_projects(json.loads(args.projects.read_text(encoding='utf-8')))
+    projects = load_projects(json.loads(args.projects.read_text(encoding='utf-8')), args.source.read_text(encoding='utf-8'))
     existing = json.loads(args.cache.read_text(encoding='utf-8')) if args.cache.exists() else None
     metadata = json.loads(args.metadata.read_text(encoding='utf-8')) if args.metadata.exists() else None
     result = refresh(projects, existing, metadata, token=os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN'),
@@ -482,7 +537,8 @@ def main():
     write_cache(args.cache, result)
     records = result['repositories']
     print(f"Star history: {sum(r['status'] == 'ok' for r in records.values())}/{len(records)} complete; "
-          f"{result['budget']['requests_used']}/{result['budget']['limit']} HTTP attempts used today")
+          f"{result['budget']['requests_used']}/{result['budget']['limit']} HTTP attempts used today; "
+          f"{len(projects)} eligible, {result['selection_report']['unattempted_repositories']} not yet attempted")
     for project in projects:
         record = records.get(project['repo'], {})
         if record.get('error'):

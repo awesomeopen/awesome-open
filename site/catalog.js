@@ -18,7 +18,7 @@
   "use strict";
 
   var DEFAULTS = Object.freeze({
-    q: "", category: "", license: "all", stars: null, pushed: "", sort: "name",
+    q: "", category: "", license: "all", stars: null, pushed: "", sort: "stars",
     window: "all", alternative: "", metrics: "all", run_mode: "", install_method: ""
   });
   var PARAMS = ["q", "category", "license", "stars", "pushed", "sort", "window", "alternative", "metrics", "run_mode", "install_method"];
@@ -135,7 +135,7 @@
         ? license : "all",
       stars: stars,
       pushed: validDate(String(get("pushed") || "")),
-      sort: ["name", "stars", "pushed"].indexOf(get("sort")) !== -1 ? get("sort") : "name",
+      sort: ["name", "stars", "pushed"].indexOf(get("sort")) !== -1 ? get("sort") : DEFAULTS.sort,
       window: ["all", "recent", "older", "unknown"].indexOf(get("window")) !== -1 ? get("window") : "all",
       alternative: alternativeNames(data.projects || []).indexOf(alternative) !== -1 ? alternative : "",
       run_mode: setupFilter(String(get("run_mode") || ""), data.projects || [], "run_modes"),
