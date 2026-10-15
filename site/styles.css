@@ -1,5 +1,5 @@
 
-/* Scoped reviewed setup facts; folded rows and hero remain unchanged. */
+/* Setup */
 .deployment-evidence {margin-top:24px;padding-top:20px;border-top:1px solid var(--rule);overflow-wrap:anywhere;}
 .deployment-evidence>h4 {font:14px/1.5 var(--mono);}
 .deployment-evidence>p {margin:8px 0;line-height:1.55;}
@@ -12,9 +12,10 @@
 .deployment-group p {font-size:14px;line-height:1.55;}
 .deployment-group .fine-print {font-size:12px;}
 
-/* Retro-Scraperism: ledger-first, native disclosures, no animation dependency. */
+/* Retro-Scraperism */
 :root {
   --paper:var(--rs-paper);
+  --mist:var(--rs-mist);
   --ink:var(--rs-ink);
   --muted:var(--rs-muted);
   --accent:var(--rs-scarlet);
@@ -187,9 +188,9 @@ summary::marker {
   align-items:baseline;
   gap:12px;
   min-height:44px;
-  padding:10px 8px;
-  border-bottom:1px solid #d4dce2;
-  font-size:14px;
+  padding:2px;
+  border-bottom:1px solid var(--mist);
+  font-size:13px;
   text-decoration:none;
 }
 .category-nav a[aria-current] {
@@ -846,7 +847,7 @@ h1>span {
 }
 
 
-/* Compact ledger controls: native, exclusive disclosures above the records. */
+/* ledger controls */
 .site-header { gap:24px; padding-block:10px; }
 .brand-name { display:inline; }
 .header-search { padding:0; flex:1; max-width:320px; min-width:160px; }
@@ -890,7 +891,7 @@ h1 { font-size:28px; margin:0; }
   .leader-key { line-height:1.4; }
 }
 
-/* Compact production ledger: names set row height; complete prose stays in drawers. */
+/* Compact production ledger */
 .results-heading { justify-content:flex-end; }
 .header-links a:first-child { display:inline; }
 .leader-label { display:none; }
@@ -906,12 +907,12 @@ h1 { font-size:28px; margin:0; }
   .specimen-drawer > summary > .description, .specimen-drawer > summary > .license-readout { display:none; }
 }
 
-/* Supplied loupe: 32px image, 44px keyboard/touch target. */
+/* loupe */
 .header-search .search-submit {flex:0 0 44px;width:44px;height:44px;min-height:44px;display:grid;place-items:center;padding:6px;border:0;background:transparent;cursor:pointer;}
 .header-search .search-submit img {display:block;width:32px;height:32px;object-fit:contain;}
 .header-search .search-submit:hover {background:var(--rs-mist);}
 
-/* Specimen sheets: image and identity at left, function and accrued evidence at right. */
+/* Specimen sheets */
 .specimen-interior {
   grid-template-columns:minmax(220px,.85fr) minmax(0,1.65fr);
   gap:clamp(28px,4vw,64px);
@@ -1232,3 +1233,4 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .category-nav a:hover .category-art,
 .category-nav a:focus-visible .category-art {transform:scale(var(--category-scale,1));}
 .category-label,.category-count {position:relative;}
+.category-label {background:var(--paper);padding-left:2px}
