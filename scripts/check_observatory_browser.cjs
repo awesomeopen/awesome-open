@@ -326,13 +326,16 @@ async function checkObservatory({ browser, url }) {
       for (let i=0;i<Math.min(10,ranked.length);i++) {
         assert.equal(segments[i].label,ranked[i].name + ' · ' + ranked[i].stars.toLocaleString('en-US') + ' stars');
       }
-      const first=leaders.first();
-      await first.hover();
-      assert.equal(await first.locator('.obs-strip-tooltip').isVisible(),true,label + ': hover label');
-      await current.mouse.move(0,0);
-      await first.focus();
-      assert.equal(await first.locator('.obs-strip-tooltip').isVisible(),true,label + ': keyboard label');
-      await first.evaluate(node => node.blur());
+      // Do not disturb the filter-focus lifecycle assertions on later selections.
+      if (['initial', 'standalone initial', 'no JavaScript'].includes(label)) {
+        const first=leaders.first();
+        await first.hover();
+        assert.equal(await first.locator('.obs-strip-tooltip').isVisible(),true,label + ': hover label');
+        await current.mouse.move(0,0);
+        await first.focus();
+        assert.equal(await first.locator('.obs-strip-tooltip').isVisible(),true,label + ': keyboard label');
+        await first.evaluate(node => node.blur());
+      }
     }
     assert.deepEqual(await visibleIDs(current), selected.map(project => project.id), 'Underlying project selection: ' + label);
     const expected = { total: selected.length, mapped: selected.filter(project => project.github).length,
