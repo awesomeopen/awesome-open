@@ -67,7 +67,8 @@ def assert_generated_only(root):
 def collect_and_render(root, star_budget_file=None):
     # Collectors own only their snapshots. The offline renderer owns all output.
     run(root, sys.executable, "scripts/update_stats.py")
-    run(root, sys.executable, "scripts/update_hn.py")
+    hn_arguments = ["--invocation-budget-file", str(star_budget_file.with_name("hn-budget.json"))] if star_budget_file else []
+    run(root, sys.executable, "scripts/update_hn.py", *hn_arguments)
     # Optional upstream outages are handled by the collector, preserving its
     # last-good records. Local corruption and invalid identities still fail.
     # Resolve provenance here, in each fresh detached attempt, never from the

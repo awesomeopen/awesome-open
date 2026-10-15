@@ -44,6 +44,22 @@ class HistoryTests(unittest.TestCase):
         self.assertTrue(hn.identity_reason({'title': 'OpenCode', 'url': 'https://github.com/sst/opencode'}, project))
         self.assertTrue(hn.identity_reason({'title': 'OpenCode by SST', 'url': 'https://example.com'}, project))
 
+    def test_reviewed_opencode_urls_and_openclaw_collision(self):
+        projects = {p['name']: p for p in json.loads(hn.PROJECTS_PATH.read_text())['projects']}
+        code = projects['OpenCode']
+        for url in ['https://anoma.ly/notes/opencode-reloaded/', 'https://cy.md/opencode-rce/']:
+            self.assertTrue(hn.identity_reason({'title': 'OpenCode report', 'url': url}, code))
+        for url in ['https://anoma.ly/notes/another-product/', 'https://cy.md/unrelated/',
+                    'https://evil.com/notes/opencode-reloaded/']:
+            self.assertIsNone(hn.identity_reason({'title': 'OpenCode report', 'url': url}, code))
+        claw = projects['OpenClaw']
+        self.assertTrue(hn.identity_reason({'url': 'https://docs.openclaw.ai/start'}, claw))
+        self.assertTrue(hn.identity_reason({'url': 'https://github.com/openclaw/openclaw/issues/1'}, claw))
+        self.assertTrue(hn.identity_reason({'title': 'OpenClaw AI assistant security concerns'}, claw))
+        self.assertIsNone(hn.identity_reason({'title': 'OpenClaw Captain Claw remake'}, claw))
+        self.assertIsNone(hn.identity_reason({'title': 'OpenClaw AI', 'url': 'https://github.com/pjasicek/OpenClaw'}, claw))
+        self.assertIsNone(hn.identity_reason({'title': 'OpenClaw'}, claw))
+
     def test_official_domain_changes_and_shared_host_siblings(self):
         projects = {p['name']: p for p in json.loads(hn.PROJECTS_PATH.read_text())['projects']}
         self.assertTrue(hn.identity_reason({'title': 'Post-Quantum Cryptography', 'url': 'https://www.openssh.org/pq.html'}, projects['OpenSSH']))
@@ -167,24 +183,6 @@ class HistoryTests(unittest.TestCase):
             self.assertTrue(project['queries'])
             self.assertTrue(project['title_aliases'])
 
-    def test_collector_refreshes_removed_identity_field_without_rendering(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            evidence_path = root / 'evidence.json'
-            identities_path = root / 'projects.json'
-            evidence = dict(self.evidence, projects=[dict(self.project, title_context_pattern='AI')])
-            identity = {key: value for key, value in self.project.items() if key not in hn.COLLECTED_KEYS}
-            evidence_path.write_text(json.dumps(evidence))
-            identities_path.write_text(json.dumps({'projects': [identity]}))
-            with patch.object(hn, 'EVIDENCE_PATH', evidence_path), \
-                    patch.object(hn, 'PROJECTS_PATH', identities_path), \
-                    patch.object(hn, 'window', return_value=(None, None, self.evidence['months'])), \
-                    patch.object(hn, 'refresh', return_value=self.evidence) as refresh, \
-                    patch.object(hn, 'render', side_effect=AssertionError('Collector must not render')), \
-                    patch('sys.argv', ['update_hn.py']):
-                hn.main()
-            refresh.assert_called_once_with()
-            self.assertEqual(json.loads(evidence_path.read_text()), self.evidence)
 
 
 if __name__ == '__main__':

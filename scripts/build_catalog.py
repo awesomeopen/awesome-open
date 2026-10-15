@@ -74,10 +74,10 @@ def _nonempty_text(value, label):
     return value
 
 
-def _projects(document, label, require_schema=True):
+def _projects(document, label, require_schema=True, versions=(1,)):
     if not isinstance(document, dict):
         raise ValueError("Expected " + label + " object")
-    if document.get("schema_version", None if require_schema else 1) != 1:
+    if document.get("schema_version", None if require_schema else 1) not in versions:
         raise ValueError("Unsupported " + label + " schema")
     projects = document.get("projects")
     if not isinstance(projects, list) or not all(isinstance(item, dict) for item in projects):
@@ -121,7 +121,7 @@ def _alternative_evidence(document):
 def _hn_evidence(document):
     by_url = {}
     slugs = set()
-    for project in _projects(document, "HN evidence", require_schema=False):
+    for project in _projects(document, "HN evidence", require_schema=False, versions=(1, 2)):
         url = canonical_url(project.get("readme_url"))
         slug = project.get("slug")
         if not isinstance(slug, str) or SLUG.fullmatch(slug) is None:
