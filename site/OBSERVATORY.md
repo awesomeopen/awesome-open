@@ -84,7 +84,9 @@ manufacture percentages, missing values or a zero-star observation.
 ## Visual concept
 
 - Instrument: white/cool-mist reading ground, Prussian rules, the existing Fraunces
-  and Commit Mono pair, linear charts and explicit evidence labels. One sticky
+  and Commit Mono pair, linear charts and explicit evidence labels. The header
+  repeats the ledger's links (Ledger, About, Observatory, GitHub), with Observatory
+  marked as the current page; the standalone report points them at the live site. One sticky
   selection bar without visible labels (each select has an accessible name) and
   bold section jumps; no kickers; “N/N selected.” ends the Shared names paragraph.
 - Closing mark: the existing 128px botanical logo is centered before the footer,

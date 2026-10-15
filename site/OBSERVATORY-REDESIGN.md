@@ -45,6 +45,7 @@ then work through each block in this order:
 | --- | --- | --- | --- |
 | Opening | Kicker, title, provenance lines | Title only, no rule above it. Snapshot date and source revision move to the footer | Opening stays text-only (Observatory contract) |
 | Kickers | Small uppercase eyebrow above most blocks (`01 / projects`, `Whole collection`, …) | Removed. Section headings carry the structure: h2 for Shared names, Charts, Evidence coverage and Project data; h3 per chart | User direction 2026-10-14 |
+| Header links | Project ledger · Coverage · Data | The ledger's own links: Ledger · About · Observatory · GitHub, with Observatory marked current (`aria-current`, scarlet underline). Coverage and Data stay in the selection bar's jumps | User direction 2026-10-14 |
 | Filters | Labeled selects above the metrics | One sticky selection bar for the whole page: Category, Detected license, Reset (disabled at default) and section jumps. No visible labels; `aria-label` names each select. Section jumps are bold | User direction 2026-10-14 |
 | Selection count | “N projects selected.” paragraph | “N/N selected.” at the end of the Shared names paragraph; the metric row repeats the selected total | User direction 2026-10-14 |
 | Metrics | Four numbers | Ruled row of four; ratio metrics show “456 / 501” and a 4px linear proportion line | Literal values; linear geometry |

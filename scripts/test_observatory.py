@@ -293,6 +293,20 @@ class ObservatoryBuildTests(unittest.TestCase):
         self.assertIn('href="observatory/"',(self.output/'index.html').read_text())
         self.assertNotIn('observatory.js',(self.output/'index.html').read_text())
 
+    def test_header_uses_ledger_links_in_both_outputs(self):
+        ledger=Page((self.output/'index.html').read_text())
+        wanted=[a.text for a in next(n for n in ledger.elements if n.has_class('header-links')).descendants('a')]
+        self.assertEqual(wanted,['Ledger','About','Observatory','GitHub'])
+        live='https://awesomeopen.github.io/awesome-open/'
+        for name,hrefs in [('index.html',['../#catalog','../#method','./',obs.REPOSITORY]),
+                           ('report.html',[live+'#catalog',live+'#method',live+'observatory/',obs.REPOSITORY])]:
+            with self.subTest(name=name):
+                nav=next(n for n in Page((self.output/'observatory'/name).read_text()).elements if n.has_class('obs-nav'))
+                links=nav.descendants('a')
+                self.assertEqual([a.text for a in links],wanted)
+                self.assertEqual([a.attrs['href'] for a in links],hrefs)
+                self.assertEqual([a.attrs.get('aria-current') for a in links],[None,None,'page',None])
+
     def test_project_data_disclosure_and_copy_in_both_outputs(self):
         for name in ['index.html', 'report.html']:
             text=(self.output/'observatory'/name).read_text(); page=Page(text)

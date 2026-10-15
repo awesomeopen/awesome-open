@@ -398,7 +398,7 @@ def render(index, counts, covered):
     names = shared_names_html(counts['shared_names'], categories, counts['total'], len(index['projects']))
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Observatory · Awesome Open*</title><meta name="description" content="A snapshot of the Awesome Open collection: categories, detected licenses, repository dates, stars and evidence coverage."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../vendor/fonts.css"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="observatory.css"><script src="observatory.js" defer></script></head>
-<body class="observatory"><a class="skip-link" href="#observatory-main">Skip to observatory</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Observatory"><a href="../">Project ledger</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a></nav></header></div>
+<body class="observatory"><a class="skip-link" href="#observatory-main">Skip to observatory</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Ledger</a><a href="../#method">About</a><a href="./" aria-current="page">Observatory</a><a href="{REPOSITORY}">GitHub</a></nav></header></div>
 <form id="observatory-filters" class="obs-filters" hidden aria-label="Filter observatory"><div class="obs-shell obs-filters-row"><select id="category-filter" name="category" aria-label="Category"><option value="">All categories</option>{options}</select><select id="license-filter" name="license" aria-label="Detected license"><option value="all">Any license</option><option value="known">License detected</option><option value="unknown">License unknown</option></select><button id="reset-filters" type="button">Reset filters</button><nav class="obs-jump" aria-label="Sections"><a href="#shared-names">Names</a><a href="#charts">Charts</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a></nav></div></form>
 <main id="observatory-main" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><div class="obs-hero-copy"><h1>Collection observatory</h1></div></section>
 <noscript><p>Filters and filtered CSV export require JavaScript.</p></noscript>{metrics_html(counts)}{finding_html(aggregate(index))}{names}
@@ -438,7 +438,8 @@ def build(catalog, hn, output, root):
     # dependencies and downloads are embedded; optional source links are online.
     for name in ['project_signals.json','hn_evidence.json','star_history.json']:
         report = report.replace(f'href="../data/{name}"',f'href="{REPOSITORY}/blob/{index["source_sha"] or "main"}/data/{name}"')
-    report = report.replace('href="../#project-', 'href="https://awesomeopen.github.io/awesome-open/#project-')
+    report = report.replace('href="../#', 'href="https://awesomeopen.github.io/awesome-open/#')
+    report = report.replace('href="./"', 'href="https://awesomeopen.github.io/awesome-open/observatory/"')
     report = report.replace('href="../"','href="https://awesomeopen.github.io/awesome-open/"')
     (target/'report.html').write_text(report,encoding='utf-8')
     return snapshot
