@@ -337,6 +337,24 @@ async function checkObservatory({ browser, url }) {
     }
   };
   const assertSelection = async (current, data, selected, label) => {
+    const art = await current.locator('#category-filter').evaluate(select =>
+      select.options[select.selectedIndex].getAttribute('data-metric-art') || '');
+    for (const metric of await current.locator('.obs-metric').all()) {
+      const style = await metric.evaluate(node => {
+        const css = getComputedStyle(node);
+        return { image: css.backgroundImage, position: css.backgroundPosition, repeat: css.backgroundRepeat };
+      });
+      assert.equal(style.image, art ? 'url("' + new URL(art, current.url()).href + '")' : 'none', 'Metric artwork: ' + label);
+      assert.match(style.position, /^88% 0(?:px|%)$/, 'Metric artwork position');
+      assert.equal(style.repeat, 'no-repeat', 'Metric artwork repeat');
+      assert.ok(await metric.locator('dt > span, dd > span:not(.obs-ratio)').evaluateAll(nodes =>
+        nodes.length >= 2 && nodes.every(node => getComputedStyle(node).backgroundColor === 'rgb(255, 255, 255)')),
+      'Paper-backed metric text: ' + label);
+    }
+    if (art) await current.evaluate(async source => {
+      const image = new Image(); image.src = source; await image.decode();
+    }, art);
+
     await assertSharedNames(current, selected, label);
     // This finding always describes the whole collection, including after filters.
     const observed = data.projects.filter(project => project.github && Number.isFinite(project.stars))
@@ -571,6 +589,15 @@ async function checkObservatory({ browser, url }) {
     const second = categories.find(category => category.id !== first.id);
     await select('category-filter', first.id);
     await assertSelection(page, data, records(data, first.id), 'category');
+    const metricViewport = page.viewportSize();
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.evaluate(() => scrollTo(0, 0));
+      await fits(page, 'selected category ' + width);
+      await capture('category-metrics-' + width);
+    }
+    await page.setViewportSize(metricViewport);
+
     await checkProjectDisclosure(page, 'filtered category');
     const categoryURL = page.url();
     assert.equal(new URL(categoryURL).searchParams.get('category'), first.id, 'Category is shareable');
@@ -759,7 +786,11 @@ async function checkObservatory({ browser, url }) {
     await select('license-filter', 'known');
     await assertSelection(page, data, records(data, first.id, 'known'), 'standalone filtered');
     await downloadCSV(page, data, records(data, first.id, 'known'), 'standalone filtered export');
+    assert.deepEqual(offlineRequests, [], 'Standalone category art makes no requests');
+    await page.evaluate(() => scrollTo(0, 0));
+    await capture('standalone-category-metrics');
     await page.locator('#reset-filters').click();
+    await assertSelection(page, data, data.projects, 'standalone reset');
     await page.evaluate(() => scrollTo(0, 0));
     await capture('standalone-mobile');
     assert.deepEqual(failures, [], 'No JavaScript, console, network or HTTP errors');

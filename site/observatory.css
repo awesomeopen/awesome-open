@@ -49,8 +49,9 @@ noscript p { margin-block: 8px 0; font-size: 12px; color: var(--rs-muted, #46566
 .obs-hero { padding-block: 48px 40px; }
 .obs-hero-copy { min-width: 0; }
 .obs-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 64px; margin-bottom:88px}
-.obs-metric { display: grid; gap: 8px; align-content: start; padding: 16px 24px 20px 0; min-width: 0; }
+.obs-metric { background-position: 88% 0; background-repeat: no-repeat; display: grid; gap: 8px; align-content: start; padding: 16px 24px 20px 0; min-width: 0; }
 .obs-metric + .obs-metric { padding-left: 24px; border-left: 1px solid var(--obs-rule); }
+.obs-metric dt > span, .obs-metric dd > span:not(.obs-ratio) { background: var(--rs-paper, #fff); }
 .obs-metric dt { font-size: 12px; color: var(--rs-muted, #465665); }
 .obs-metric [data-metric] { font-size: clamp(26px, 3vw, 34px); line-height: 1.15; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .obs-of { font-size: 13px; color: var(--rs-muted, #465665); font-variant-numeric: tabular-nums; }
