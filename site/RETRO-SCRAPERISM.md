@@ -282,7 +282,11 @@ The concise description remains the large Function headline and folded-row descr
 
 Owner-supplied transparent valley and abyssal artwork occupy the footer floor over Prussian blue. Text and controls stay above the artwork on solid blue. Fade the upper edge with a CSS mask; do not animate the background. Select one image uniformly per page load using the number of available images. Keep the first sorted image as a no-JavaScript fallback.
 
-Add a PNG or WebP to `site/footer-backgrounds/` and rebuild to extend the pool; do not edit probabilities or JavaScript. Keep artwork provenance beside the assets. The standalone download embeds the complete pool and uses the same selection logic. On narrow screens crop the decorative panorama centrally while preserving legible footer text.
+Add a static transparent PNG (RGBA or grayscale with alpha) or extended WebP with alpha directly to `site/footer-backgrounds/` and rebuild to extend the pool; do not edit a filename list, probabilities or JavaScript. The builder sorts filenames deterministically, validates their actual canvas against provenance and uses its dimensions in image attributes, and copies/embeds the original bytes without resizing. A wide panorama near 3:1 is recommended for the existing CSS crop; other resolutions are accepted without altering layout. Only direct, non-hidden regular files with `.png` or `.webp` extensions (case-insensitive) enter the pool. Hidden files, subdirectories and unsupported formats are ignored; symlink images are rejected.
+
+Add the matching filename, actual width/height, truthful source and processing record to `site/footer-backgrounds/provenance.json`. Missing or inconsistent provenance fails the build. Update `brand/assets.md` if the role changes, then run `python3 scripts/check_brand.py --refresh` and `python3 scripts/check_brand.py`. Adding a file alone intentionally still fails CI: automatic discovery does not waive provenance or the checksum inventory. Never invent generation or rights details.
+
+Repeating CSS textures belong in `site/patterns/`, with their own provenance; they never enter panorama rotation. `navypattern2.png` is the existing owner-committed texture, moved unchanged from the footer directory. Ledger and Observatory CSS use the same texture; both standalone outputs embed its original PNG bytes. The standalone download embeds the complete pool and uses the same selection logic. On narrow screens crop the decorative panorama centrally while preserving legible footer text.
 
 ### Specimen plates — three-record study, 2026-10-13
 

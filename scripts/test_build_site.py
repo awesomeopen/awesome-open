@@ -407,14 +407,16 @@ for (const input of inputs) {
                 self.assertTrue(resource.startswith('data:'), resource[:100])
 
     def test_footer_pattern_is_copied_embedded_and_not_rotating_art(self):
-        pattern = 'footer-backgrounds/navypattern2.png'
+        pattern = 'patterns/navypattern2.png'
         original = (ROOT / 'site' / pattern).read_bytes()
         self.assertEqual((self.output / pattern).read_bytes(), original)
         css = (self.output / 'styles.css').read_text()
         self.assertIn(f'url({pattern})', css)
         self.assertNotIn('url(site/footer-backgrounds/', css)
-        self.assertEqual(self.catalog['footer_backgrounds'], [
-            'footer-backgrounds/abyssal.webp', 'footer-backgrounds/valley.webp'])
+        self.assertEqual(self.catalog['footer_backgrounds'], sorted(
+            str(p.relative_to(ROOT / 'site')) for p in (ROOT / 'site/footer-backgrounds').glob('*')
+            if p.is_file() and not p.name.startswith('.') and p.suffix.lower() in {'.png', '.webp'}))
+        self.assertNotIn(pattern, self.catalog['footer_backgrounds'])
         footer = next(image for image in self.page.images if 'data-footer-background' in image)
         self.assertEqual(json.loads(footer['data-backgrounds']), self.catalog['footer_backgrounds'])
         self.assertNotEqual(footer['src'], pattern)
@@ -426,7 +428,7 @@ for (const input of inputs) {
         self.assertNotIn(pattern, styles)
         offline_footer = next(image for image in standalone.images if 'data-footer-background' in image)
         choices = json.loads(offline_footer['data-backgrounds'])
-        self.assertEqual(len(choices), 2)
+        self.assertEqual(len(choices), len(self.catalog['footer_backgrounds']))
         for choice, asset in zip(choices, self.catalog['footer_backgrounds']):
             self.assertEqual(base64.b64decode(choice.split(',', 1)[1], validate=True),
                              (ROOT / 'site' / asset).read_bytes())

@@ -220,9 +220,9 @@ async function checkObservatory({ browser, url }) {
       if (offline) {
         assert.ok(footer.background.startsWith('data:image/png;base64,'));
         assert.deepEqual(Buffer.from(footer.background.split(',')[1], 'base64'),
-          fs.readFileSync(path.join(ROOT, 'site/footer-backgrounds/navypattern2.png')));
+          fs.readFileSync(path.join(ROOT, 'site/patterns/navypattern2.png')));
       } else {
-        assert.equal(footer.background, new URL('../footer-backgrounds/navypattern2.png', target).href);
+        assert.equal(footer.background, new URL('../patterns/navypattern2.png', target).href);
       }
       await capture('footer-' + (offline ? 'standalone' : 'hosted') + '-' + width);
     }

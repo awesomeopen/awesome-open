@@ -379,7 +379,15 @@
     var footerArt = document.querySelector('[data-footer-background]');
     if (footerArt) {
       var backgrounds = JSON.parse(footerArt.dataset.backgrounds);
-      if (backgrounds.length) footerArt.src = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+      if (backgrounds.length) {
+        var selected = Math.floor(Math.random() * backgrounds.length);
+        var sizes = JSON.parse(footerArt.dataset.backgroundSizes || '[]');
+        if (sizes[selected]) {
+          footerArt.width = sizes[selected][0];
+          footerArt.height = sizes[selected][1];
+        }
+        footerArt.src = backgrounds[selected];
+      }
     }
     var embedded = document.getElementById("catalog-data");
     var list = document.getElementById("project-list");
