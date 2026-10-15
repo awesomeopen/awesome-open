@@ -797,9 +797,14 @@ def build(catalog, hn, output, root):
         ("../tokens.css", root / "site/design/tokens.css"),
         ("observatory.css", root / "site/observatory.css"),
     ]:
+        css = path.read_text(encoding="utf-8")
+        if href == "observatory.css":
+            pattern = "footer-backgrounds/navypattern2.png"
+            encoded = base64.b64encode((root / "site" / pattern).read_bytes()).decode("ascii")
+            css = css.replace(f"url(../{pattern})", f"url(data:image/png;base64,{encoded})")
         report = report.replace(
             f'<link rel="stylesheet" href="{href}">',
-            "<style>" + path.read_text(encoding="utf-8") + "</style>",
+            "<style>" + css + "</style>",
         )
     encoded = base64.b64encode((root / "site/observatory.js").read_bytes()).decode(
         "ascii"
