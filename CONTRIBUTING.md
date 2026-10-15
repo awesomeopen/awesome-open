@@ -271,3 +271,53 @@ runtime index deliberately excludes full prose, artwork payloads and raw provide
 checks. Its standalone report and CSV are generated artifacts, not authored files.
 
 The star-history collector queries its separate history endpoint and does not turn cached star totals into new observations. It uses repository creation metadata only to bound historical coverage; unavailable creation dates remain unknown. Repository metadata collection does not write history snapshots or manufacture fresh history points.
+
+### One-time fast star-history backfill
+
+The publisher's manual `history_backfill` input is an opt-in, bounded chunk,
+not a recurring schedule. Merge its dependency (PR #67, catalog-wide eligibility)
+and this change before dispatching it on `main`. Keep the default input false
+for ordinary publication; the normal 16-attempt daily history budget is unchanged.
+
+Fast mode uses only the existing `GITHUB_TOKEN`, requests aggregate history
+sequentially, and skips repositories already carrying a validated window for the
+current 24 complete months. Each chunk has a 15-minute collection deadline,
+a 900-request ceiling, and a live quota floor reserving one core metadata request per eligible repository,
+350 optional release attempts, 16 normal history attempts, and 20 requests of
+overhead (842 for 456 repositories). This reserves a healthy normal publishing
+sweep; unexpected retries or unrelated simultaneous API use can still consume
+shared quota. Quota headers and bounded
+Retry-After/secondary-limit backoff control pacing. Authentication, unexpected
+HTTP responses and invalid transport data stop the chunk for review. Incomplete
+repository coverage is recorded separately while independent repositories continue.
+No individual stargazer records, personal tokens, cookies, or new permissions are used.
+
+The existing `publish-readme-main` concurrency group remains the single writer.
+Every completed repository is atomically saved under `tmp/history-backfill/`.
+Batches of at most 20 successful repositories are validated by the full offline
+suite, merged with fresh main's eligible identities and newer evidence, and pushed
+with ordinary fast-forward checks. Curated source, metadata, the daily history
+budget and unrelated files are never replaced. Failed validation never publishes
+that batch. A successful or time/quota-limited chunk then renders validated cached
+snapshots without repeating core API collection and uses the existing Pages flow.
+
+The run summary/checkpoint reports complete, partial or blocked, remaining
+repositories, request count, the live quota reset time and `resume_after` (also
+respecting Retry-After). For partial work, wait until `resume_after`, then dispatch
+another chunk; successful
+remote checkpoints are skipped automatically. Do not repeatedly dispatch a blocked
+run without reviewing its reason. There is no self-dispatch loop, paid idle quota
+wait, or permanent schedule to remove. The parent/requester coordinates the finite
+continuations and stops when all eligible histories are complete or remaining
+repositories need review. The normal publisher keeps its existing fail-closed safety checks.
+
+An `always()` artifact step retains the per-repository checkpoint for 14 days,
+including failures and ordinary cancellation when Actions still permits cleanup.
+A hard runner termination can prevent upload; at most the unfinished batch then
+needs recollection, while previously pushed batches remain durable. If a push
+failed, the artifact is recovery evidence: validate its complete records against
+current main and current eligibility before any manual import. Never overwrite
+main with the artifact snapshot or bypass branch rules. This implementation does
+not automatically trust/import artifacts; ordinary redispatch safely recollects
+any uncommitted records. The workflow's total backfill job bound is 45 minutes,
+including validation/build. No backfill is activated by opening or merging a PR.

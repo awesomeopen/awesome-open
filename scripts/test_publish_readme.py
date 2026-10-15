@@ -157,6 +157,14 @@ class PublisherGitTests(unittest.TestCase):
         listed = self.git(self.checkout, 'worktree', 'list', '--porcelain')
         self.assertEqual(listed.count('worktree '), 1)
 
+    def test_cached_publication_never_invokes_collectors(self):
+        publisher.publish(self.checkout)
+        before = self.remote_head()
+        with patch.object(publisher, 'collect_and_render', side_effect=AssertionError('network collection')) as collect:
+            result = publisher.publish(self.checkout, cached=True)
+        collect.assert_not_called()
+        self.assertEqual(result, before)
+
     def test_publishes_only_generated_files_and_preserves_callers_dirty_index(self):
         (self.checkout / 'README.source.md').write_text('Unpublished local curation.\n')
         self.git(self.checkout, 'add', 'README.source.md')
