@@ -363,7 +363,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None):
     good_release = (((project.get('signals') or {}).get('release') or {}).get('last_good') or {}).get('value')
     release = (good_release['published_at'][:10], good_release['tag_name']) if good_release else None
     vitals = f'''<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text or 'Unknown')}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl>'''
-    vitals += f'<p class="fine-print metrics-freshness">{escape(metrics_freshness(github, catalog["metrics_as_of"]))}</p>'
+    vitals += f'<p class="fine-print metrics-freshness">{escape(metrics_freshness(github, catalog.get("metrics_as_of")))}</p>'
     if github:
         vitals += timeline(created, release, github['pushed_at'][:10] if github['pushed_at'] else None)
     interior = specimen_plate(project, number, tags, function_detail, vitals, chart, alternatives, (cutouts or {}).get(project['id']))
