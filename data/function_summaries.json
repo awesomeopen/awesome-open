@@ -683,6 +683,203 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+    },
+    "0c5e750b6c4f40cc0308f50945d2af6b2d6d8b5ca3b4e61db41d0bc957f491d1": {
+      "project_url": "https://github.com/open-cascade-sas/occt",
+      "text": "Open CASCADE Technology supplies C++ libraries for building applications that create, manipulate and display 3D surfaces and solids. Its CAD data-exchange components support moving models between engineering workflows. Developers integrate the libraries into CAD, manufacturing, measurement or simulation software, using source builds or platform-specific binary packages.",
+      "sources": [
+        {
+          "url": "https://github.com/open-cascade-sas/occt/blob/3d097a0328e71b826377d4814ab05ec3c3d23871/README.md",
+          "title": "Open CASCADE Technology official README",
+          "revision": "3d097a0328e71b826377d4814ab05ec3c3d23871"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "0d064ee8884cc3b3956851e001bdb0df09b648e340b58b647a389cb950765fed": {
+      "project_url": "https://github.com/greenbone/openvas-scanner",
+      "text": "OpenVAS Scanner executes vulnerability tests from the Greenbone feed as the scanning engine within Greenbone Community Edition and Enterprise appliances. Administrators can build the scanner from source or deploy its container image alongside the other Greenbone components. The repository also contains a Rust implementation that brings scanner services together around the existing scan engine.",
+      "sources": [
+        {
+          "url": "https://github.com/greenbone/openvas-scanner/blob/dd85efa1b3c023103bb2a99e368cd944f8d3c6a3/README.md",
+          "title": "OpenVAS Scanner official README",
+          "revision": "dd85efa1b3c023103bb2a99e368cd944f8d3c6a3"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "0d4467f306bb25393b8b8247afed58ae0367b1fb5239ff1d24d4a366f121d277": {
+      "project_url": "https://github.com/dscripka/openwakeword",
+      "text": "openWakeWord detects activation words and phrases in audio streams for voice-controlled applications. Its Python interface accepts microphone, network or file audio and returns detection scores using supplied or custom-trained models. Local inference supports ONNX and, on Linux, TensorFlow Lite. Optional voice-activity detection, noise suppression and speaker-specific verification can refine which activations are accepted.",
+      "sources": [
+        {
+          "url": "https://github.com/dscripka/openwakeword/blob/368c03716d1e92591906a84949bc477f3a834455/README.md",
+          "title": "openWakeWord official README",
+          "revision": "368c03716d1e92591906a84949bc477f3a834455"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "0d5ca9e51c318e2cb063417b27f678cd3e3d1aee45cb7a555c8e66098f89e0d4": {
+      "project_url": "https://github.com/mymemoai/openmymemo",
+      "text": "OpenMyMemo stores AI memory in a local folder of editable Markdown files and shares selected topics with connected MCP applications. A desktop app, browser-based local panel and command-line interface expose memories, imports, exports and change history. Users can review, edit or undo proposed changes and configure connector access and approval requirements.",
+      "sources": [
+        {
+          "url": "https://github.com/mymemoai/openmymemo/blob/ff507b197fc8d9d33f28accd1bbd549d5b80609f/README.md",
+          "title": "OpenMyMemo official README",
+          "revision": "ff507b197fc8d9d33f28accd1bbd549d5b80609f"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "0d67a1ccd6b1930005c9295d21493d4c0020a343398ed5dbc6da46d4d6287c94": {
+      "project_url": "https://www.openldap.org/software",
+      "text": "OpenLDAP provides directory services through its slapd server, storing structured entries that applications can search and update using LDAP. Administrators can organize account, group, address-book or configuration data, define access controls and replicate directories across servers. Database backends and extension modules support different deployments; the suite also includes lloadd for distributing requests among directory servers.",
+      "sources": [
+        {
+          "url": "https://www.openldap.org/doc/admin26/intro.html",
+          "title": "OpenLDAP 2.6 Administrator’s Guide: Introduction to OpenLDAP Directory Services"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "d2742f542f3a2152f203c9334f100c7f2cd60f126531ef59eb3e8bfb1832d7dc": {
+      "project_url": "https://github.com/corentinravoux/opendeck",
+      "text": "opendeck edits slide decks locally in a desktop window or browser, storing each presentation as an HTML file with its media. It provides movable text, image, drawing and mathematics blocks, layer controls and restorable version history. Decks export as PDF, an HTML folder or a self-contained HTML file; mathematics uses KaTeX.",
+      "sources": [
+        {
+          "url": "https://github.com/corentinravoux/opendeck/blob/28525dfc7ea6adb287514156ec82c0dd50a6756a/README.md",
+          "title": "opendeck official README",
+          "revision": "28525dfc7ea6adb287514156ec82c0dd50a6756a"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "1572e285c724ada6578327e70e3118d947558b96ca11d4d275b00dcbdc0d0690": {
+      "project_url": "https://github.com/dexterlabs1/openpatch",
+      "text": "OpenPatch is a native desktop modular synthesizer for assembling sound from connected oscillators, filters, envelopes, sequencers and effects. Its rack interface supports cable editing, signal inspection and undoable changes. A local MCP server exposes patch construction, analysis and rendering to connected agents. The development preview builds from source, with macOS as its primary design target.",
+      "sources": [
+        {
+          "url": "https://github.com/dexterlabs1/openpatch/blob/fd6f57e0c3cc665a0f096ac2b5b6083a055dfc24/README.md",
+          "title": "OpenPatch official README",
+          "revision": "fd6f57e0c3cc665a0f096ac2b5b6083a055dfc24"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "5132ce65107a57b9b9d930186927d58478241f8b0ef705a8af746a920967c60a": {
+      "project_url": "https://github.com/aristidedongo/opentask",
+      "text": "OpenTask provides a self-hosted foundation for team workspaces, with accounts, membership, roles and invitations. Its current pre-release implements authentication and workspace permissions; project and task management, list and Kanban views remain planned. Deployment uses Docker Compose with a NestJS API, React interface and PostgreSQL database, accompanied by installation and backup documentation.",
+      "sources": [
+        {
+          "url": "https://github.com/AristideDongo/opentask/blob/3d106c420c9794c55fe84988cc5494cca2bf587c/README.md",
+          "title": "OpenTask official README",
+          "revision": "3d106c420c9794c55fe84988cc5494cca2bf587c"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "2adc6806f7bb3286c4dc6a8fb5efa74e0137cc5c039f9519512c38a7fd8f926a": {
+      "project_url": "https://github.com/anichikage/open-typora",
+      "text": "Open Typora edits Markdown directly in a rendered document while retaining a source view and ordinary local files. It includes folder search, outline navigation, tables, mathematics, Mermaid diagrams and HTML/PDF export, with additional conversion formats through Pandoc. The supported packaged application runs on Apple Silicon Macs with macOS 14 or later; its interface is currently Simplified Chinese.",
+      "sources": [
+        {
+          "url": "https://github.com/AniChikage/open-typora/blob/045bc718bcded023f6e440b3b0a039e86f02503a/README.md",
+          "title": "Open Typora official README",
+          "revision": "045bc718bcded023f6e440b3b0a039e86f02503a"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "2b4473c7cde9083b5e771b1a008a09389bbdf9deb45f21ef8c047860bf04fe7c": {
+      "project_url": "https://github.com/iranimij/openimport",
+      "text": "OpenImport adds reusable import and export profiles to Magento 2 and Mage-OS administration. Profiles combine field mapping, value transformations, row filters, scheduled runs and remote file transfers. A dry run previews record changes before execution. The module handles catalog and customer data plus order exports, using Magento’s import engine and cron for queued work.",
+      "sources": [
+        {
+          "url": "https://github.com/iranimij/openimport/blob/8fdc34c67e79f57fcdc858f9b49461dfe3d5319c/README.md",
+          "title": "OpenImport official README",
+          "revision": "8fdc34c67e79f57fcdc858f9b49461dfe3d5319c"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "2f56cf3f22e121c02757e83abb089378c7a9418353f78b72f9b2e5eb9a61a8f9": {
+      "project_url": "https://github.com/adamsilverstein/open-ancestry",
+      "text": "open-ancestry imports GEDCOM and GEDZIP family trees into a local library, then provides browsing, searching, editing and re-exporting through a browser interface. Each tree is stored in its own folder, with SQLite-backed data and optional media. A Node.js server listens on the local machine; a command-line importer supports importing trees without the interface.",
+      "sources": [
+        {
+          "url": "https://github.com/adamsilverstein/open-ancestry/blob/db5d4bab70ff0f4e7cca59740970be69a1577109/README.md",
+          "title": "open-ancestry official README",
+          "revision": "db5d4bab70ff0f4e7cca59740970be69a1577109"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "eb4480351153f771c975926274ffd59606fd7bc1204e924cfac522660f61fb7a": {
+      "project_url": "https://github.com/mathiasbk/openesl",
+      "text": "OpenESL develops firmware for SoluM electronic price tags and an ESP32-C6 access point. The access point accepts tag text and prices through an HTTP API, while a web interface supplies label-design and flashing tools. The protocol and drawing code currently run in a PC simulation; the tag hardware layer is still awaiting implementation.",
+      "sources": [
+        {
+          "url": "https://github.com/mathiasbk/openESL/blob/c1a293109e43689076a2a523fe5259406ee631ee/README.md",
+          "title": "OpenESL official README",
+          "revision": "c1a293109e43689076a2a523fe5259406ee631ee"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "1c5a8343da2d0d21957fb2784e044fea8274fa5b0dc62a86010624cf65a7598b": {
+      "project_url": "https://www.graphics.rwth-aachen.de/software/openmesh/",
+      "text": "OpenMesh supplies C++ data structures for representing and manipulating polygonal and triangular meshes, with Python bindings available separately. Developers can traverse vertices, edges and faces, access neighboring elements and attach custom attributes or runtime properties. Its examples demonstrate smoothing, mesh decimation and Qt integration for geometry-processing applications.",
+      "sources": [
+        {
+          "url": "https://www.graphics.rwth-aachen.de/software/openmesh/",
+          "title": "OpenMesh official overview"
+        },
+        {
+          "url": "https://www.graphics.rwth-aachen.de/software/openmesh/intro/",
+          "title": "OpenMesh introduction and features"
+        }
+      ],
+      "checked_at": "2026-10-15",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
     }
   }
 }
