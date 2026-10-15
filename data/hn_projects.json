@@ -378,18 +378,56 @@
         "OpenCode",
         "opencode.ai",
         "github.com/anomalyco/opencode",
-        "github.com/sst/opencode"
+        "github.com/sst/opencode",
+        "anoma.ly/notes/opencode-reloaded",
+        "cy.md/opencode-rce"
       ],
       "identity_sources": [
         "https://github.com/anomalyco/opencode",
         "https://github.com/sst/opencode",
-        "https://github.com/opencode-ai/opencode"
+        "https://github.com/opencode-ai/opencode",
+        "https://opencode.ai/",
+        "https://anoma.ly/notes/opencode-reloaded/",
+        "https://cy.md/opencode-rce/"
       ],
-      "scope_note": "OpenCode has unrelated same-name coding agents. Accept only its official opencode.ai domain, anomalyco/opencode or historical sst/opencode repository, or a title explicitly identifying SST/Anomaly. Exclude opencode-ai/opencode (now Crush). Generic OpenCode/AI titles are deliberately omitted. Counts include critical coverage, not endorsement.",
+      "scope_note": "OpenCode has unrelated same-name coding agents. Accept only its official opencode.ai domain, anomalyco/opencode or historical sst/opencode repository, or a title explicitly identifying SST/Anomaly. Exclude opencode-ai/opencode (now Crush). Generic OpenCode/AI titles are deliberately omitted. Counts include critical coverage, not endorsement. Reviewed 2026-10-15: the exact OpenCode Reloaded vendor article links opencode.ai, whose footer identifies Anomaly; the exact cy.md security article links anomalyco/opencode as affected software. These specific URLs count even without SST/Anomaly in the HN title. Other company or third-party URLs are not automatically trusted. The broad name-search link is for browsing, not the accepted evidence set.",
       "title_context_pattern": "\\b(anomalyco|sst)\\b",
       "excluded_repositories": [
         "opencode-ai/opencode"
+      ],
+      "exact_urls": [
+        "https://anoma.ly/notes/opencode-reloaded/",
+        "https://cy.md/opencode-rce/"
       ]
+    },
+    {
+      "name": "OpenClaw",
+      "slug": "openclaw",
+      "readme_url": "https://github.com/openclaw/openclaw",
+      "repositories": [
+        "openclaw/openclaw"
+      ],
+      "domains": [
+        "openclaw.ai"
+      ],
+      "title_aliases": [
+        "OpenClaw"
+      ],
+      "queries": [
+        "OpenClaw",
+        "openclaw.ai",
+        "github.com/openclaw/openclaw"
+      ],
+      "identity_sources": [
+        "https://github.com/openclaw/openclaw",
+        "https://openclaw.ai/",
+        "https://github.com/pjasicek/OpenClaw"
+      ],
+      "title_context_pattern": "\\b(?:AI|assistant|assistants|agent|agents|LLM|chatbot|chatbots)\\b",
+      "excluded_repositories": [
+        "pjasicek/OpenClaw"
+      ],
+      "scope_note": "Reviewed 2026-10-15: openclaw/openclaw is the personal AI assistant and its official repository links openclaw.ai. An unrelated Captain Claw game reimplementation exists at pjasicek/OpenClaw; its repository is excluded. Third-party OpenClaw titles need explicit AI/assistant/agent/LLM/chatbot context. Generic same-name titles and historical rename aliases are not inferred. This conservative identity coverage includes critical attention, not endorsement."
     }
   ]
 }
