@@ -241,3 +241,17 @@ test('categories sort by count with stable catalog ties; push and release share 
   assert.equal(result.recencyMaximum, 2);
   assert.ok(observatory.CSV_COLUMNS.indexOf('description') === 3);
 });
+
+test('all unknown star counts remain unknown; observed zero stays zero', () => {
+  assert.equal(observatory.aggregate(index([project({ github: false, stars: null, metrics_status: 'unavailable' })])).metrics.stars, null);
+  assert.equal(observatory.aggregate(index([project({ stars: 0, metrics_status: 'stale', metrics_last_success_at: '2026-10-07' })])).metrics.stars, 0);
+  const data = index([project({ metrics_status: 'stale', metrics_last_success_at: '2026-10-07', metrics_attempt_at: '2026-10-14T01:00:00Z', metrics_attempt_status: 'unavailable', metrics_attempt_http_status: 404, metrics_attempt_reason: 'repository_unavailable' })]);
+  const csv = observatory.exportCSV(data, data.projects);
+  assert.ok(csv.includes('"stale","2026-10-07","2026-10-14T01:00:00Z","unavailable","404","repository_unavailable"'));
+});
+
+
+test('comparison plates retain cache status and successful observation date', () => {
+  assert.equal(observatory.metricsCacheLabel({ metrics_status: 'stale', metrics_last_success_at: '2026-10-07' }), 'stale · observed 2026-10-07 UTC');
+  assert.equal(observatory.metricsCacheLabel({ metrics_status: 'unavailable', metrics_last_success_at: null }), 'unavailable · no successful observation');
+});

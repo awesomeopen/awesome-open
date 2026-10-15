@@ -60,18 +60,19 @@ def json_for_html(value):
 
 
 def search_index(catalog):
-    """Project only the fields consumed by catalog.js; keep evidence in HTML/downloads.
+    """Project runtime fields and cache provenance; keep full evidence in HTML/downloads.
 
     Retain the runtime's existing shape and raw values so search folding, unknown
     metrics, date thresholds, setup filters and category leaders stay unchanged.
-    In particular, a present GitHub record with no measurements is not missing.
+    Explicit unavailable records have no cached measurements; legacy records retain
+    their existing presence semantics.
     """
     projects = []
     for project in catalog['projects']:
         github = project.get('github')
         item = {key: project[key] for key in ('id', 'name', 'description', 'categories')}
         item['leader_categories'] = project.get('leader_categories', [])
-        item['github'] = ({key: github.get(key) for key in ('license', 'stars', 'pushed_at')}
+        item['github'] = ({key: github.get(key) for key in ('license', 'stars', 'pushed_at', 'status', 'last_success_at')}
                           if github is not None else None)
         item['alternatives'] = [{'name': alternative['name']}
                                 for alternative in project.get('alternatives', [])]
@@ -318,13 +319,26 @@ def specimen_plate(project, number, tags, function_detail, vitals, chart, altern
             f'<span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{address}</span></nav></div>')
 
 
+def metrics_freshness(github, as_of):
+    if not github:
+        return 'GitHub metrics: Unknown'
+    status = github.get('status', 'fresh')
+    observed = github.get('last_success_at', as_of)
+    attempt = github.get('last_attempt') or {}
+    if status == 'unavailable':
+        return 'GitHub metrics unavailable; no successful observation. Last attempt: ' + str(attempt.get('at') or 'Unknown') + ' UTC (repository unavailable).'
+    if status == 'stale':
+        return 'Stale GitHub metrics; last successful observation: ' + str(observed or 'Unknown') + ' UTC. Last attempt: ' + str(attempt.get('at') or 'Unknown') + ' UTC (repository unavailable).'
+    return 'GitHub metrics observed: ' + str(observed or 'Unknown') + ' UTC.'
+
+
 def project_html(project, categories, catalog, number=0, cutouts=None):
     pid = escape(project['id'])
     github = project['github']
     license_text = (github['license'] if github else None) or ''
     pushed = github['pushed_at'][:10] if github and github['pushed_at'] else 'Unknown'
-    created = github['created_at'][:10] if github else 'Unknown'
-    stars = f'{github["stars"]:,}' if github else 'Unknown'
+    created = github['created_at'][:10] if github and github.get('created_at') else 'Unknown'
+    stars = f'{github["stars"]:,}' if github and github.get("stars") is not None else 'Unknown'
     tags = ' / '.join(f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>' for cid in project['categories'])
     evidence = ''.join(f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">Checked {escape(a["checked_utc_date"])}</span><p>{escape(a["scope"])}</p></li>' for a in project['alternatives'])
     alternatives = f'<div class="comparison evidence-note"><ul>{evidence}</ul></div>' if evidence else ''
@@ -349,6 +363,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None):
     good_release = (((project.get('signals') or {}).get('release') or {}).get('last_good') or {}).get('value')
     release = (good_release['published_at'][:10], good_release['tag_name']) if good_release else None
     vitals = f'''<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text or 'Unknown')}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl>'''
+    vitals += f'<p class="fine-print metrics-freshness">{escape(metrics_freshness(github, catalog.get("metrics_as_of")))}</p>'
     if github:
         vitals += timeline(created, release, github['pushed_at'][:10] if github['pushed_at'] else None)
     interior = specimen_plate(project, number, tags, function_detail, vitals, chart, alternatives, (cutouts or {}).get(project['id']))

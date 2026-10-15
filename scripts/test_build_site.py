@@ -243,7 +243,7 @@ class SiteTests(unittest.TestCase):
                 self.assertIsNone(item['github'])
             else:
                 self.assertEqual(item['github'], {key: full['github'].get(key)
-                                                  for key in ('license', 'stars', 'pushed_at')})
+                                                  for key in ('license', 'stars', 'pushed_at', 'status', 'last_success_at')})
             self.assertEqual(item['alternatives'], [{'name': a['name']} for a in full['alternatives']])
             self.assertEqual(item['deployment'], {
                 field: [{'value': fact['value']} for fact in full.get('deployment', {}).get(field, [])]

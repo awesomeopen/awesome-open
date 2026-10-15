@@ -18,7 +18,7 @@ import shutil
 REPOSITORY = 'https://github.com/awesomeopen/awesome-open'
 RECENCY = [('0–30 days', 30), ('31–90 days', 90), ('91–365 days', 365), ('366–730 days', 730), ('Over 730 days', None)]
 AGES = [('0–365 days', 365), ('366–1,826 days', 1826), ('1,827–3,653 days', 3653), ('Over 3,653 days', None)]
-CSV_FIELDS = ['id', 'name', 'url', 'description', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha']
+CSV_FIELDS = ['id', 'name', 'url', 'description', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha', 'metrics_status', 'metrics_last_success_at', 'metrics_attempt_at', 'metrics_attempt_status', 'metrics_attempt_http_status', 'metrics_attempt_reason']
 
 
 def days_before(value, as_of):
@@ -56,7 +56,13 @@ def project_index(catalog):
         release = (project.get('signals') or {}).get('release') or {}
         good = release.get('last_good') or {}
         rows.append(dict(id=project['id'], name=project['name'], url=project['url'], description=project.get('description'),
-                         categories=list(dict.fromkeys(project['categories'])), github=bool(github),
+                         categories=list(dict.fromkeys(project['categories'])), github=bool(github) and github.get('status') != 'unavailable',
+                         metrics_status=github.get('status', 'fresh') if github else 'unknown',
+                         metrics_last_success_at=github.get('last_success_at', catalog['metrics_as_of']) if github else None,
+                         metrics_attempt_at=(github.get('last_attempt') or {}).get('at'),
+                         metrics_attempt_status=(github.get('last_attempt') or {}).get('status'),
+                         metrics_attempt_http_status=(github.get('last_attempt') or {}).get('http_status'),
+                         metrics_attempt_reason=(github.get('last_attempt') or {}).get('reason'),
                          stars=github.get('stars'), license=github.get('license'),
                          created_at=github.get('created_at'), pushed_at=github.get('pushed_at'),
                          release_at=good.get('value', {}).get('published_at'),
@@ -168,6 +174,12 @@ def category_names(project, categories):
     return ', '.join(categories.get(c, 'Unknown') for c in project['categories']) or 'Unknown'
 
 
+def metrics_cache_label(project):
+    status = project.get('metrics_status', 'unknown')
+    observed = project.get('metrics_last_success_at')
+    return status + (' · observed ' + observed + ' UTC' if observed else ' · no successful observation')
+
+
 def name_plate_html(group, number, categories):
     names, rows = group['names'], group['projects']
     plate_id = f'name-group-{number}'
@@ -189,7 +201,8 @@ def name_plate_html(group, number, categories):
         facts = (f'<dt>Category</dt><dd>{escape(category_names(p, categories))}</dd><dt>License</dt>{unknown(p["license"])}'
                  f'<dt>GitHub stars</dt>{unknown(stars)}'
                  f'<dt>Created</dt>{unknown(p["created_at"][:10] if p["created_at"] else None)}'
-                 f'<dt>Last push</dt>{unknown(p["pushed_at"][:10] if p["pushed_at"] else None)}')
+                 f'<dt>Last push</dt>{unknown(p["pushed_at"][:10] if p["pushed_at"] else None)}'
+                 f'<dt>Metrics cache</dt><dd>{escape(metrics_cache_label(p))}</dd>')
         label = escape(f'Ledger record for {p["name"]} ({re.sub(r"^https?://(github.com/)?", "", p["url"])})', quote=True)
         projects.append(f'<div class="obs-plate-project" data-project-id="{escape(p["id"], quote=True)}"><p class="obs-plate-name">{marked_name(p["name"], names)}</p>'
                         f'{repository_html(p["url"])}<p class="obs-plate-desc">{escape(p.get("description") or "No short description in the catalog.")}</p>'
@@ -241,7 +254,7 @@ def aggregate(index, projects=None):
     if unmapped:
         categories.append(['Unknown', unmapped])
     ranked = sorted((p for p in projects if p['github'] and p['stars'] is not None), key=lambda p: (-p['stars'], p['name'], p['id']))
-    stars = sum(p['stars'] for p in ranked)
+    stars = sum(p['stars'] for p in ranked) if ranked or not projects else None
     leaders = ranked[:10]
     concentration = sum(p['stars'] for p in leaders)
     star_rows = [[p['name'], p['stars']] for p in leaders]
@@ -266,7 +279,7 @@ def coverage(catalog, hn):
         local = {str(s['id']) for s in project.get('stories', [])}
         ids.update(local)
         matches += len(local)
-    result = dict(total=len(projects), github=sum(bool(p.get('github')) for p in projects),
+    result = dict(total=len(projects), github=sum(bool(p.get('github')) and p['github'].get('status') != 'unavailable' for p in projects),
                   alternatives=sum(bool(p.get('alternatives')) for p in projects),
                   summaries=sum(bool(p.get('function_summary')) for p in projects),
                   deployment=sum(bool(p.get('deployment')) for p in projects),
@@ -351,7 +364,7 @@ def metrics_html(counts):
                 f'<span class="obs-ratio" aria-hidden="true"><i data-ratio="{key}" style="width: {bar_width(value, total)}"></i></span>')
     items = [('Unique projects', f'<span data-metric="total">{counts["total"]:,}</span>'),
              ('Cached GitHub metrics', ratio('mapped', counts['mapped'], counts['total'])),
-             ('Observed GitHub stars', f'<span data-metric="stars">{counts["stars"]:,}</span>'),
+             ('Observed GitHub stars', f'<span data-metric="stars">{format(counts["stars"], ",") if counts["stars"] is not None else "Unknown"}</span>'),
              ('License detected', ratio('known-license', counts['known_license'], counts['total']))]
     return '<dl id="metrics" class="obs-metrics">' + ''.join(f'<div class="obs-metric"><dt>{label}</dt><dd>{value}</dd></div>' for label, value in items) + '</dl>'
 
@@ -369,7 +382,7 @@ def render(index, counts, covered):
               + chart('category-chart', 'Projects by category', 'Projects can belong to several categories.', counts['categories'])
               + chart('license-chart', 'Detected licenses', 'Cached GitHub license identifiers.', counts['licenses'])
               + '</div>'
-              + chart('star-chart', 'GitHub stars', 'Top 10 specimen by GitHub stars.', counts['star_rows'], 'Stars', wide=True)
+              + chart('star-chart', 'GitHub stars', 'Top 10 specimen by GitHub stars. Observed counts may include dated stale cache.', counts['star_rows'], 'Stars', wide=True)
               + chart('age-chart', 'Repository age', 'Days since GitHub repository creation.', counts['ages'], wide=True)
               + '<div class="obs-chart-pair">'
               + chart('push-chart', 'Last repository push', 'Days since last repository push.', counts['pushes'], maximum=recency)
@@ -377,7 +390,7 @@ def render(index, counts, covered):
               + '</div>')
     project_rows = []
     for p in index['projects']:
-        project_rows.append(f'<tr data-id="{p["id"]}"><th scope="row"><a href="../#project-{p["id"]}">{esc(p["name"])}</a></th><td>{esc(p["license"] or "Unknown")}</td><td>{p["stars"] if p["stars"] is not None else "Unknown"}</td>' + ''.join(f'<td>{esc(p[k][:10] if p[k] else "Unknown")}</td>' for k in ['created_at','pushed_at','release_at']) + f'<td>{esc(p["release_status"])}<br>{esc(p["release_checked_at"] or "Not checked")}</td><td><a href="{esc(p["url"])}">Official source</a></td></tr>')
+        project_rows.append(f'<tr data-id="{p["id"]}"><th scope="row"><a href="../#project-{p["id"]}">{esc(p["name"])}</a></th><td>{esc(p["license"] or "Unknown")}</td><td>{p["stars"] if p["stars"] is not None else "Unknown"}</td>' + ''.join(f'<td>{esc(p[k][:10] if p[k] else "Unknown")}</td>' for k in ['created_at','pushed_at','release_at']) + f'<td>{esc(p.get("metrics_status", "unknown"))}<br>Last success: {esc(p.get("metrics_last_success_at") or "Unknown")}<br>Last attempt: {esc(p.get("metrics_attempt_at") or "Not recorded")}<br>{esc(p.get("metrics_attempt_status") or "Unknown")}{(" · HTTP " + esc(p["metrics_attempt_http_status"])) if p.get("metrics_attempt_http_status") else ""}{(" · " + esc(p["metrics_attempt_reason"])) if p.get("metrics_attempt_reason") else ""}</td><td>{esc(p["release_status"])}<br>{esc(p["release_checked_at"] or "Not checked")}</td><td><a href="{esc(p["url"])}">Official source</a></td></tr>')
     status = lambda name: '; '.join(f'{v:,} {k}' for k,v in covered[name]['states'].items())
     rows = [
         ('Cached GitHub metrics', covered['github'], 'Projects with cached GitHub metrics.'),
@@ -404,8 +417,8 @@ def render(index, counts, covered):
 <noscript><p>Filters and filtered CSV export require JavaScript.</p></noscript>{metrics_html(counts)}{finding_html(aggregate(index))}{names}
 <section id="charts" class="obs-section" aria-labelledby="charts-heading"><h2 id="charts-heading">Charts</h2>{charts}</section></div>
 <section id="coverage" class="obs-coverage" aria-labelledby="coverage-heading"><div class="obs-shell"><h2 id="coverage-heading">Evidence coverage</h2><p><span class="obs-label">Whole collection</span></p><table class="obs-coverage-table"><caption class="visually-hidden">Evidence coverage</caption><thead><tr><th scope="col">Evidence</th><th scope="col">Projects</th><th scope="col">Scope</th></tr></thead><tbody>{coverage_rows}</tbody></table><div class="obs-coverage-notes"><p>Evidence collection: {esc(covered['signals_collected_at'] or 'Not available')}. HN checked: {esc(covered['hn_checked'] or 'Not available')}; window {esc(covered['hn_window_start'])} to {esc(covered['hn_window_end_exclusive'])} (end exclusive). Provider checks can be older than the build.</p><p>{evidence_links}</p></div></div></section>
-<div class="obs-shell"><section id="project-records" class="obs-section obs-ledger" aria-labelledby="project-data-heading"><h2 id="project-data-heading">Project data</h2><p>Dates are UTC.</p><p class="obs-downloads"><a id="export-csv" href="projects.csv" download="awesome-open-observatory.csv">Download selection CSV</a><a href="snapshot.json" download>Download complete snapshot JSON</a><a href="report.html" download>Download standalone report</a></p><details id="project-data"><summary>Data table <span class="obs-muted"><span id="project-count">{counts['total']:,}</span> projects in this selection</span></summary><div class="obs-table-scroll" tabindex="0" role="region" aria-label="Project data table"><table id="project-table"><caption>Project records</caption><thead><tr><th scope="col">Project</th><th scope="col">Detected license</th><th scope="col">GitHub stars</th><th scope="col">Repository created</th><th scope="col">Last push</th><th scope="col">Latest full release</th><th scope="col">Release cache / checked UTC</th><th scope="col">Source</th></tr></thead><tbody>{''.join(project_rows)}</tbody></table></div></details></section></div>
-<div class="obs-closing-mark">{art}</div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Observatory</p><ul class="obs-footer-links"><li><a href="../">Return to project ledger</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li><li>Metrics snapshot: <time>{index['metrics_as_of']}</time> UTC</li></ul></div></footer><script id="observatory-data" type="application/json">{json_html(index)}</script></body></html>'''
+<div class="obs-shell"><section id="project-records" class="obs-section obs-ledger" aria-labelledby="project-data-heading"><h2 id="project-data-heading">Project data</h2><p>Dates are UTC. Cached measurements may be stale; per-project observation dates appear below. Unknown counts are excluded from observed-star totals.</p><p class="obs-downloads"><a id="export-csv" href="projects.csv" download="awesome-open-observatory.csv">Download selection CSV</a><a href="snapshot.json" download>Download complete snapshot JSON</a><a href="report.html" download>Download standalone report</a></p><details id="project-data"><summary>Data table <span class="obs-muted"><span id="project-count">{counts['total']:,}</span> projects in this selection</span></summary><div class="obs-table-scroll" tabindex="0" role="region" aria-label="Project data table"><table id="project-table"><caption>Project records</caption><thead><tr><th scope="col">Project</th><th scope="col">Detected license</th><th scope="col">GitHub stars</th><th scope="col">Repository created</th><th scope="col">Last push</th><th scope="col">Latest full release</th><th scope="col">Metrics cache / observed UTC</th><th scope="col">Release cache / checked UTC</th><th scope="col">Source</th></tr></thead><tbody>{''.join(project_rows)}</tbody></table></div></details></section></div>
+<div class="obs-closing-mark">{art}</div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Observatory</p><ul class="obs-footer-links"><li><a href="../">Return to project ledger</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li><li>Metrics collection date: <time>{index['metrics_as_of']}</time> UTC</li></ul></div></footer><script id="observatory-data" type="application/json">{json_html(index)}</script></body></html>'''
 
 
 def build(catalog, hn, output, root):

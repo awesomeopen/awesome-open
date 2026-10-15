@@ -1,4 +1,7 @@
 import unittest
+import json
+import io
+from contextlib import redirect_stderr
 from datetime import date
 import tempfile
 from pathlib import Path
@@ -183,13 +186,14 @@ class UpdateStatsTests(unittest.TestCase):
             (root / 'README.source.md').write_text(self.row)
             (root / 'README.md').write_text('Published output.\n')
             snapshot = root / 'data/github_metrics.json'
-            snapshot.write_text('previous snapshot\n')
+            previous = json.dumps({'schema_version': 1, 'as_of': '2026-10-02', 'repositories': self.data})
+            snapshot.write_text(previous)
             with patch.object(stats, 'ROOT', root), \
                     patch.object(stats, 'fetch', side_effect=RuntimeError('API unavailable')), \
                     patch.dict(stats.os.environ, {'GH_TOKEN': 'test'}):
                 with self.assertRaisesRegex(RuntimeError, 'API unavailable'):
                     stats.main()
-            self.assertEqual(snapshot.read_text(), 'previous snapshot\n')
+            self.assertEqual(snapshot.read_text(), previous)
             self.assertEqual((root / 'README.md').read_text(), 'Published output.\n')
 
     def test_successful_collection_only_replaces_snapshot(self):
@@ -221,6 +225,125 @@ class UpdateStatsTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "HTTP 404"):
             stats.fetch("example/openexample", "test-token")
         self.assertEqual(urlopen.call_count, 1)
+
+
+class UnavailableMetricsTests(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        self.root = Path(self.directory.name)
+        (self.root / 'data').mkdir()
+        (self.root / 'README.source.md').write_text(
+            '| [A](https://github.com/example/a) | A. |\n'
+            '| [B](https://github.com/example/b) | B. |\n')
+        self.output = self.root / 'data/github_metrics.json'
+        self.record = dict(archived=False, created_at='2020-01-01T00:00:00Z',
+                           pushed_at=None, license=None, stargazers_count=0)
+        self.previous = dict(schema_version=1, as_of='2026-10-01',
+                             repositories={'example/a': self.record})
+        self.output.write_text(json.dumps(self.previous))
+
+    def run_collection(self, result):
+        with patch.object(stats, 'ROOT', self.root), patch.object(stats, 'fetch', side_effect=result), \
+                patch.dict(stats.os.environ, {'GH_TOKEN': 'test'}), redirect_stderr(io.StringIO()) as errors:
+            stats.main()
+        return json.loads(self.output.read_text()), errors.getvalue()
+
+    def fail_a(self, repo, token):
+        if repo == 'example/a':
+            raise stats.RepositoryUnavailable('HTTP 404')
+        return dict(self.record, stargazers_count=7)
+
+    def test_cached_404_preserves_original_date_and_true_zero(self):
+        snapshot, warnings = self.run_collection(self.fail_a)
+        a, b = [snapshot['repositories'][repo] for repo in ('example/a', 'example/b')]
+        self.assertEqual(a['status'], 'stale')
+        self.assertEqual(a['last_success_at'], '2026-10-01')
+        self.assertEqual(a['stargazers_count'], 0)
+        self.assertEqual(a['last_attempt']['http_status'], 404)
+        self.assertEqual(b['status'], 'fresh')
+        self.assertEqual(b['stargazers_count'], 7)
+        self.assertIn('example/a: HTTP 404', warnings)
+        again, _ = self.run_collection(self.fail_a)
+        self.assertEqual(again['repositories']['example/a']['last_success_at'], '2026-10-01')
+
+    def test_uncached_404_is_unknown_and_recovers(self):
+        self.output.unlink()
+        snapshot, _ = self.run_collection(self.fail_a)
+        a = snapshot['repositories']['example/a']
+        self.assertEqual(a['status'], 'unavailable')
+        self.assertIsNone(a['last_success_at'])
+        self.assertIsNone(a['stargazers_count'])
+        self.assertIn('Unknown', stats.metadata(a))
+        source = '| [A](https://github.com/example/a) | A. |'
+        self.assertEqual(stats.category_leaders(source, snapshot['repositories']), {0: set()})
+        result, _ = self.run_collection(lambda repo, token: self.record)
+        a = result['repositories']['example/a']
+        self.assertEqual(a['status'], 'fresh')
+        self.assertEqual(a['stargazers_count'], 0)
+        self.assertEqual(a['last_success_at'], a['last_attempt']['at'])
+        self.assertNotIn('unavailable', stats.metadata(a))
+
+    def test_systemic_failures_never_replace_cache(self):
+        for error in [RuntimeError('HTTP 401'), RuntimeError('HTTP 403'), RuntimeError('HTTP 429'),
+                      RuntimeError('HTTP 503'), RuntimeError('network failed'), stats.RepositoryUnavailable('HTTP 404')]:
+            with self.subTest(error=str(error)):
+                before = self.output.read_bytes()
+                with self.assertRaises(RuntimeError):
+                    self.run_collection(lambda repo, token: (_ for _ in ()).throw(error))
+                self.assertEqual(before, self.output.read_bytes())
+
+    def test_invalid_cache_fails_before_network(self):
+        self.output.write_text('invalid')
+        with patch.object(stats, 'fetch') as fetch:
+            with self.assertRaises(ValueError):
+                self.run_collection(fetch)
+            fetch.assert_not_called()
+        self.assertEqual(self.output.read_text(), 'invalid')
+
+    def test_invalid_success_never_replaces_cache(self):
+        before = self.output.read_bytes()
+        with self.assertRaises(ValueError):
+            self.run_collection(lambda repo, token: dict(self.record, stargazers_count=None))
+        self.assertEqual(before, self.output.read_bytes())
+
+    def test_write_failure_leaves_previous_snapshot(self):
+        before = self.output.read_bytes()
+        with patch.object(Path, 'replace', side_effect=OSError('atomic replacement failed')):
+            with self.assertRaises(OSError):
+                self.run_collection(lambda repo, token: self.record)
+        self.assertEqual(before, self.output.read_bytes())
+
+    def test_concurrent_cache_edit_is_preserved(self):
+        def fetch(repo, token):
+            self.output.write_text('concurrent content')
+            return self.record
+        with self.assertRaisesRegex(RuntimeError, 'snapshot changed'):
+            self.run_collection(fetch)
+        self.assertEqual(self.output.read_text(), 'concurrent content')
+
+    def test_freshness_contract_rejects_inconsistent_records(self):
+        from render_readme import validate_snapshot
+        snapshot, _ = self.run_collection(self.fail_a)
+        record = snapshot['repositories']['example/a']
+        for changes in [dict(last_success_at=None), dict(stargazers_count=None),
+                        dict(last_success_at='9999-01-01'), dict(status='invalid')]:
+            with self.subTest(changes=changes):
+                changed = json.loads(json.dumps(snapshot))
+                changed['repositories']['example/a'].update(changes)
+                with self.assertRaises(ValueError):
+                    validate_snapshot(changed)
+
+    def test_readme_strict_compatible_explicit_unknown_and_stale(self):
+        from render_readme import render_text
+        from unittest.mock import patch
+        snapshot, _ = self.run_collection(self.fail_a)
+        with patch('render_readme.hn.decorate_readme', side_effect=lambda text, evidence: text):
+            rendered = render_text((self.root / 'README.source.md').read_text(), snapshot, {})
+        self.assertIn('Metrics stale; last success 2026-10-01', rendered)
+        self.assertIn('HTTP 404', rendered)
+        self.assertIn(' / 0 / ', rendered)
+        self.assertIn(' / 7</sub>', rendered)
 
 
 if __name__ == "__main__":
