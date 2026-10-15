@@ -3,6 +3,7 @@ from copy import deepcopy
 import csv
 import io
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -196,7 +197,11 @@ class ObservatoryAccountingTests(unittest.TestCase):
         disclosure=page.by_id['name-groups']
         self.assertEqual(disclosure.tag,'details');self.assertNotIn('open',disclosure.attrs)
         self.assertEqual(disclosure.children[0].tag,'summary')
-        self.assertIn('Show name groups',disclosure.children[0].text)
+        # The native control needs a label, but ordinary wording is editable.
+        summary=page.by_id['name-group-summary']
+        self.assertTrue(disclosure.children[0].text.replace(summary.text,'').strip())
+        self.assertIn(page.by_id['name-group-summary'],disclosure.children[0].descendants())
+        self.assertIn(page.by_id['name-group-bands'],disclosure.descendants('div'))
         self.assertEqual(page.by_id['name-group-summary'].text,'2 groups · 4 tools')
         method=page.by_id['name-method']
         self.assertIn(method,disclosure.descendants('details'));self.assertNotIn('open',method.attrs)
@@ -320,8 +325,7 @@ class ObservatoryBuildTests(unittest.TestCase):
             self.assertNotIn(page.by_id['export-csv'], disclosure.descendants('a'))
             for copy in ['Projects by category', 'Top 10 specimen by GitHub stars.', 'Cached GitHub license identifiers.',
                          'Days since last GitHub release (cached, excludes prereleases).',
-                         'Days since GitHub repository creation.', 'Dates are UTC.', 'License detected',
-                         'Across the whole collection, the 10 most-starred projects hold']:
+                         'Days since GitHub repository creation.', 'Dates are UTC.', 'License detected']:
                 self.assertIn(copy, text)
             for removed in ['Where the collection gathers', 'Attention is uneven',
                             'Read the distribution', 'Inspect or take the data',
@@ -329,6 +333,26 @@ class ObservatoryBuildTests(unittest.TestCase):
                             'obs-kicker', 'Detected license available', 'Unaffected by filters',
                             'Sorted by count', 'Variant groups with']:
                 self.assertNotIn(removed, text)
+
+    def test_top_ten_share_is_computed_and_displayed_in_both_outputs(self):
+        # Derive the value from project observations, not the renderer's aggregate.
+        stars=sorted((p['stars'] for p in self.snapshot['projects']
+                      if p['github'] and p['stars'] is not None),reverse=True)
+        expected=round(100 * sum(stars[:10]) / sum(stars),1)
+        self.assertGreater(len(stars),10)
+        self.assertEqual(self.snapshot['aggregate']['concentration'],expected)
+        for name in ['index.html','report.html']:
+            with self.subTest(name=name):
+                page=Page((self.output/'observatory'/name).read_text())
+                finding=page.by_id['obs-finding-text']
+                aside=next(n for n in page.elements if n.has_class('obs-finding'))
+                self.assertEqual(aside.tag,'aside')
+                self.assertEqual(aside.attrs['aria-labelledby'],'obs-finding-text')
+                self.assertIn(finding,aside.descendants('p'))
+                self.assertEqual(re.findall(r'(\d+(?:\.\d+)?)%',finding.text),[f'{expected:.1f}'])
+                # Keep the subject, unit and top-ten scope, without fixing a sentence.
+                for meaning in [r'\b10\b',r'\bprojects\b',r'\bstars\b']:
+                    self.assertRegex(finding.text,meaning)
 
     def test_shared_names_static_and_standalone_match_snapshot(self):
         expected=obs.shared_names(self.snapshot['projects'])
