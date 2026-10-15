@@ -785,6 +785,7 @@ async function checkObservatory({ browser, url }) {
     await assertSelection(page, data, records(data, first.id, 'known'), 'standalone filtered');
     await downloadCSV(page, data, records(data, first.id, 'known'), 'standalone filtered export');
     assert.deepEqual(offlineRequests, [], 'Standalone category art makes no requests');
+    await page.evaluate(() => scrollTo(0, 0));
     await capture('standalone-category-metrics');
     await page.locator('#reset-filters').click();
     await assertSelection(page, data, data.projects, 'standalone reset');
