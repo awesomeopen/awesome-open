@@ -29,6 +29,9 @@ from category_art import (
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
+FOOTER_PATTERN = "footer-backgrounds/navypattern2.png"
+# Only transparent panoramas belong in the rotating foreground artwork.
+FOOTER_ILLUSTRATIONS = ("footer-backgrounds/abyssal.webp", "footer-backgrounds/valley.webp")
 BRAND_ASSETS = {
     "botanical-128.png": "image/png",
     "search-loupe.png": "image/png",
@@ -768,11 +771,7 @@ def build(output, source_sha=None, root=ROOT):
         ),
         star_evidence=star_history.load_optional(root / "data/star_history.json"),
     )
-    catalog["footer_backgrounds"] = [
-        "footer-backgrounds/" + p.name
-        for p in sorted((root / "site/footer-backgrounds").glob("*"))
-        if p.is_file() and p.suffix.lower() in {".webp", ".png"} and not p.is_symlink()
-    ]
+    catalog["footer_backgrounds"] = list(FOOTER_ILLUSTRATIONS)
     attach_specimen_art(catalog, root)
     attach_category_art(catalog, root)
     cutouts = attach_specimen_cutouts(catalog, root)
@@ -847,7 +846,7 @@ def build(output, source_sha=None, root=ROOT):
         (output / cutout["path"]).parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(root / "site" / cutout["path"], output / cutout["path"])
     shutil.rmtree(output / "footer-backgrounds", ignore_errors=True)
-    for asset in catalog["footer_backgrounds"]:
+    for asset in (*catalog["footer_backgrounds"], FOOTER_PATTERN):
         (output / asset).parent.mkdir(exist_ok=True)
         shutil.copyfile(root / "site" / asset, output / asset)
     (output / "brand").mkdir(exist_ok=True)
@@ -882,9 +881,12 @@ def build(output, source_sha=None, root=ROOT):
             )
     for name in ("vendor/fonts.css", "tokens.css", "styles.css"):
         href = f"{name}?v={source_sha or 'preview'}" if name == "styles.css" else name
+        css = (output / name).read_text(encoding="utf-8")
+        if name == "styles.css":
+            encoded = base64.b64encode((output / FOOTER_PATTERN).read_bytes()).decode("ascii")
+            css = css.replace(f"url({FOOTER_PATTERN})", f"url(data:image/png;base64,{encoded})")
         standalone = standalone.replace(
-            f'<link rel="stylesheet" href="{href}">',
-            "<style>" + (output / name).read_text(encoding="utf-8") + "</style>",
+            f'<link rel="stylesheet" href="{href}">', "<style>" + css + "</style>",
         )
     for name in ("catalog.js",):
         # Keep parser ordering identical to deferred scripts: initialize after DOM.

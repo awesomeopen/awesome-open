@@ -32,6 +32,32 @@ const path = require('node:path');
     report.screenshots.push({ file: name, ...dimensions, bytes: png.length });
     writeReport();
   };
+  const checkFooter = async (offline = false) => {
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.locator('.site-footer').scrollIntoViewIfNeeded();
+      const footer = await page.locator('.site-footer').evaluate(async node => {
+        const style = getComputedStyle(node);
+        const background = style.backgroundImage.slice(5, -2);
+        const image = new Image();
+        image.src = background;
+        await image.decode();
+        const art = node.querySelector('[data-footer-background]');
+        await art.decode();
+        return { background, width: image.naturalWidth, artWidth: art.naturalWidth,
+          choices: JSON.parse(art.dataset.backgrounds), border: style.borderTopStyle };
+      });
+      assert.equal(footer.width, 1254);
+      assert.equal(footer.artWidth, 2048);
+      assert.equal(footer.choices.length, 2);
+      assert.equal(footer.border, 'double');
+      assert.equal(footer.background.startsWith('data:image/png;base64,'), offline);
+      if (!offline) assert.ok(footer.background.endsWith('/footer-backgrounds/navypattern2.png'));
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+      await capture(`footer-${offline ? 'standalone' : 'production'}-${width}.png`);
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
+  };
   const visible = () => page.locator('.project-card:not([hidden])').count();
   const change = async (id, value) => {
     if (id !== 'search' && !await page.locator('.filter-options').evaluate(node => node.open)) await page.locator('.filter-options > summary').click();
@@ -438,6 +464,8 @@ const path = require('node:path');
     }
     await page.setViewportSize({width:1440, height:1000});
 
+    await checkFooter();
+
     const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     const fallback = await noJS.newPage();
     await fallback.goto(url);
@@ -452,8 +480,18 @@ const path = require('node:path');
 
     // The downloadable HTML must load without any neighboring runtime assets.
     const standaloneURL = new URL('standalone.html', page.url());
+    const offlineRequests = [];
+    const blockOfflineResources = route => {
+      if (route.request().isNavigationRequest() && route.request().url() === standaloneURL.href) return route.continue();
+      offlineRequests.push(route.request().url());
+      return route.abort();
+    };
+    await page.route('**/*', blockOfflineResources);
     await page.goto(standaloneURL.href);
     await waitForState();
+    await checkFooter(true);
+    assert.deepEqual(offlineRequests, [], 'Standalone requested neighboring or remote resources');
+    await page.unroute('**/*', blockOfflineResources);
     assert.equal(await visible(), data.projects.length);
     assert.equal(await page.locator('script[src^="data:text/javascript;base64,"]').count(), 1);
     const expectedDownloads = ['catalog.json', 'hn_evidence.json', 'alternatives.json'];

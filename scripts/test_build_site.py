@@ -396,6 +396,31 @@ for (const input of inputs) {
                 resource = next(value for value in token if value)
                 self.assertTrue(resource.startswith('data:'), resource[:100])
 
+    def test_footer_pattern_is_copied_embedded_and_not_rotating_art(self):
+        pattern = 'footer-backgrounds/navypattern2.png'
+        original = (ROOT / 'site' / pattern).read_bytes()
+        self.assertEqual((self.output / pattern).read_bytes(), original)
+        css = (self.output / 'styles.css').read_text()
+        self.assertIn(f'url({pattern})', css)
+        self.assertNotIn('url(site/footer-backgrounds/', css)
+        self.assertEqual(self.catalog['footer_backgrounds'], [
+            'footer-backgrounds/abyssal.webp', 'footer-backgrounds/valley.webp'])
+        footer = next(image for image in self.page.images if 'data-footer-background' in image)
+        self.assertEqual(json.loads(footer['data-backgrounds']), self.catalog['footer_backgrounds'])
+        self.assertNotEqual(footer['src'], pattern)
+        standalone = Page((self.output / 'standalone.html').read_text())
+        styles = '\n'.join(node.text for node in standalone.nodes('style'))
+        encoded = re.search(r'background-image: url\(data:image/png;base64,([^)]*)\)', styles)
+        self.assertIsNotNone(encoded)
+        self.assertEqual(base64.b64decode(encoded.group(1), validate=True), original)
+        self.assertNotIn(pattern, styles)
+        offline_footer = next(image for image in standalone.images if 'data-footer-background' in image)
+        choices = json.loads(offline_footer['data-backgrounds'])
+        self.assertEqual(len(choices), 2)
+        for choice, asset in zip(choices, self.catalog['footer_backgrounds']):
+            self.assertEqual(base64.b64decode(choice.split(',', 1)[1], validate=True),
+                             (ROOT / 'site' / asset).read_bytes())
+
     def test_supplied_brand_assets_are_sized_transparent_and_copied_unchanged(self):
         for name in BRAND_ASSETS:
             self.assertEqual((self.output / 'brand' / name).read_bytes(), (ROOT / 'site/brand' / name).read_bytes())

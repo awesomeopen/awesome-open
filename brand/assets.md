@@ -14,6 +14,7 @@ byte sizes and SHA-256 hashes; it is an integrity inventory, not approval metada
 | Seven specimen interpretations | `site/specimens/*.webp` | Per-entry status, alt, prompt and source in [specimen manifest](../data/specimen_art.json) |
 | Category illustrations | `site/domains/*-{s,m,l}.webp` | 21 owner-uploaded category interpretations; medium variants also close the selected category’s ledger; source filename mapping, verified derivative hashes/dimensions, recipe and provenance limits in [category provenance](../site/domains/provenance.json) |
 | Photographic jars | `site/jars/*.webp` | Active/retained unlabelled variants distinguished by [jar provenance](../site/jars/provenance.json) |
+| Footer pattern | `site/footer-backgrounds/navypattern2.png` | Owner-committed repeating CSS background, kept separate from transparent panorama rotation; unchanged bytes and provenance limits in [footer provenance](../site/footer-backgrounds/provenance.json) |
 | Footer floor images | `site/footer-backgrounds/valley.webp`, `abyssal.webp` | Implemented; original filenames, original hashes and processing in [footer provenance](../site/footer-backgrounds/provenance.json) |
 | Fraunces + Commit Mono | `site/vendor/fonts.css` | Embedded complete variable WOFF2; [pinned source provenance](../site/vendor/FONT-PROVENANCE.json) and [SIL OFL notice](../site/vendor/FONT-LICENSE.txt) |
 | Tokens | `site/design/tokens.css` | Exact color/type/spacing values; editable implementation source, not raster artwork |
