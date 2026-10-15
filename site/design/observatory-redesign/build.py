@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the Observatory redesign mock (B30) from a published snapshot.
+"""Build the Observatory redesign mock (B31) from a published snapshot.
 
 Usage: python3 site/design/observatory-redesign/build.py SNAPSHOT_JSON OUTPUT_HTML
 
