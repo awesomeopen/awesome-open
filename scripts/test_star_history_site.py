@@ -74,22 +74,85 @@ class StarSiteTests(unittest.TestCase):
         self.good['monthly_counts'] = collector.monthly_counts(self.good['weeks'], self.good['months'])
         star_history.attach(projects,self.snapshot,self.hn)
         self.assertNotIn('star_history',projects['x'])
-    def test_deployment_and_star_pilots_coexist_after_main_integration(self):
-        deployment = json.loads((self.root/'data/deployment_evidence.json').read_text())
-        star_cache = star_history.load_optional(self.root/'data/star_history.json')
-        catalog = build_catalog.build_catalog(self.source,self.metrics,self.alternatives,self.hn,
+    def integrated_catalog(self, star_cache, deployment):
+        return build_catalog.build_catalog(self.source,self.metrics,self.alternatives,self.hn,
             function_summaries=build_catalog.load_function_summaries(self.root/'data/function_summaries.json'),
             deployment_evidence=deployment,star_evidence=star_cache)
-        combined = [p for p in catalog['projects'] if p.get('star_history')]
-        self.assertEqual(len(combined),3)
-        for project in combined:
-            self.assertTrue(project.get('deployment'))
-            card = build_site.project_html(project,{c['id']:c['name'] for c in catalog['categories']},catalog)
-            self.assertIn('class="deployment-evidence"',card)
-            self.assertIn('class="signal evidence-note star-history"',card)
-            self.assertIn('<div class="deployment-evidence">',card)
-            self.assertNotIn('Deployment and installation',card)
-            self.assertIn('Function',card)
+
+    def assert_history_coverage(self, catalog, star_cache, deployment):
+        # Derive membership from the catalog without history attachment. A broken
+        # attachment must not shrink both the actual and expected sets together.
+        baseline = self.integrated_catalog(None, deployment)
+        records = collector.validate_cache(star_cache)['repositories']
+        expected = {p['url'] for p in baseline['projects']
+                    if p['url'].startswith('https://github.com/')
+                    and p['url'].removeprefix('https://github.com/') in records}
+        actual = {p['url'] for p in catalog['projects'] if p.get('star_history')}
+        self.assertEqual(actual, expected)
+        approved = {entry['project_url'] for entry in deployment['projects'].values()
+                    if entry['review_status'] == 'approved'}
+        combined = {p['url'] for p in catalog['projects']
+                    if p.get('star_history') and p.get('deployment')}
+        self.assertEqual(combined, expected & approved)
+        categories = {c['id']:c['name'] for c in catalog['categories']}
+        for project in catalog['projects']:
+            if project['url'] not in expected:
+                continue
+            card = build_site.project_html(project,categories,catalog)
+            self.assertEqual('class="signal evidence-note star-history"' in card,
+                             project['url'] in expected)
+            if project['url'] in expected & approved:
+                self.assertIn('<div class="deployment-evidence">',card)
+                self.assertNotIn('Deployment and installation',card)
+                self.assertIn('Function',card)
+        return expected, combined
+
+    def test_all_cached_histories_and_approved_deployment_overlap_render(self):
+        deployment = json.loads((self.root/'data/deployment_evidence.json').read_text())
+        star_cache = star_history.load_optional(self.root/'data/star_history.json')
+        catalog = self.integrated_catalog(star_cache, deployment)
+        expected, combined = self.assert_history_coverage(catalog, star_cache, deployment)
+        # Preserve the three original integration pilots without limiting expansion.
+        pilots = {'https://github.com/'+repo for repo in
+                  ('opentofu/opentofu', 'open-webui/open-webui', 'openwrt/openwrt')}
+        self.assertTrue(pilots <= expected)
+        self.assertTrue(pilots <= combined)
+
+    def test_expanded_history_only_missing_and_unlisted_records(self):
+        deployment = json.loads((self.root/'data/deployment_evidence.json').read_text())
+        baseline = self.integrated_catalog(None, deployment)
+        approved = {entry['project_url'] for entry in deployment['projects'].values()
+                    if entry['review_status'] == 'approved'}
+        urls = [p['url'] for p in baseline['projects']
+                if p['url'].startswith('https://github.com/') and p['url'] not in approved][:4]
+        self.assertEqual(len(urls),4)
+        cache = deepcopy(self.snapshot)
+        for url in urls + ['https://github.com/not-in-catalog/history-fixture']:
+            repo = url.removeprefix('https://github.com/')
+            record = deepcopy(self.snapshot['repositories'][self.repo])
+            record.update(repo=repo,readme_url=url,
+                          source_url='https://api.github.com/repos/'+repo+'/stargazers/history')
+            record['last_good']['source_urls'] = [value.replace(self.repo,repo)
+                                                for value in record['last_good']['source_urls']]
+            cache['repositories'][repo] = record
+        catalog = self.integrated_catalog(cache, deployment)
+        expected, combined = self.assert_history_coverage(catalog, cache, deployment)
+        self.assertEqual(len(expected),5)
+        self.assertEqual(combined,{'https://github.com/'+self.repo})
+        # A missing attachment or an invented attachment cannot pass coverage.
+        broken = deepcopy(catalog)
+        next(p for p in broken['projects'] if p['url']==urls[0]).pop('star_history')
+        with self.assertRaises(AssertionError):
+            self.assert_history_coverage(broken, cache, deployment)
+        broken = deepcopy(catalog)
+        next(p for p in broken['projects'] if p['url'] not in expected)['star_history'] = deepcopy(
+            next(p['star_history'] for p in catalog['projects'] if p.get('star_history')))
+        with self.assertRaises(AssertionError):
+            self.assert_history_coverage(broken, cache, deployment)
+        del cache['repositories'][urls[0].removeprefix('https://github.com/')]
+        self.assert_history_coverage(self.integrated_catalog(cache,deployment),cache,deployment)
+        self.assert_history_coverage(self.integrated_catalog(dict(schema_version=1,repositories={}),deployment),
+                                     dict(schema_version=1,repositories={}),deployment)
 
     def test_assets_evidence_standalone_and_removal(self):
         with tempfile.TemporaryDirectory() as directory:
