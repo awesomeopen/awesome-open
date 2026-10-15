@@ -117,6 +117,11 @@ function sharedGroups(projects) {
 async function assertSharedNames(page, projects, label) {
   const expected = sharedGroups(projects);
   const countedIDs = Object.values(expected).flat(2).map(project => project.id);
+  const summary = clean(await page.locator('#name-group-summary').textContent());
+  assert.equal(Number(summary.match(/([\d,]+) groups?\b/)?.[1].replaceAll(',', '')),
+    expected.identical.length + expected.variants.length, label + ': disclosure group count');
+  assert.equal(Number(summary.match(/([\d,]+) tools\b/)?.[1].replaceAll(',', '')),
+    countedIDs.length, label + ': disclosure tool count');
   assert.equal(countedIDs.length, new Set(countedIDs).size, label + ': each project in at most one group');
   assert.equal(number(await page.locator('#shared-name-count').textContent()), countedIDs.length, label + ': headline counts every grouped tool');
   assert.equal(await page.locator('#name-tally .obs-mark').count(), countedIDs.length, label + ': one tally mark per tool');
@@ -292,6 +297,17 @@ async function checkObservatory({ browser, url }) {
   };
   const assertSelection = async (current, data, selected, label) => {
     await assertSharedNames(current, selected, label);
+    // This finding always describes the whole collection, including after filters.
+    const observed = data.projects.filter(project => project.github && Number.isFinite(project.stars))
+      .map(project => project.stars).sort((a, b) => b - a);
+    const total = observed.reduce((sum, stars) => sum + stars, 0);
+    if (observed.length >= 10 && total > 0) {
+      const text = await current.locator('#obs-finding-text').textContent();
+      const share = 100 * observed.slice(0, 10).reduce((sum, stars) => sum + stars, 0) / total;
+      assert.deepEqual([...text.matchAll(/(\d+(?:\.\d+)?)%/g)].map(match => match[1]),
+        [share.toFixed(1)], label + ': displayed whole-collection top-ten percentage');
+      for (const meaning of [/\b10\b/, /\bprojects\b/, /\bstars\b/]) assert.match(text, meaning);
+    }
     assert.deepEqual(await visibleIDs(current), selected.map(project => project.id), 'Underlying project selection: ' + label);
     const expected = { total: selected.length, mapped: selected.filter(project => project.github).length,
       stars: selected.filter(project => project.github && Number.isFinite(project.stars)).reduce((sum, project) => sum + project.stars, 0),
