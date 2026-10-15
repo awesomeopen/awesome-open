@@ -339,12 +339,12 @@ async function checkObservatory({ browser, url }) {
   const assertSelection = async (current, data, selected, label) => {
     const art = await current.locator('#category-filter').evaluate(select =>
       select.options[select.selectedIndex].getAttribute('data-metric-art') || '');
-    for (const metric of await current.locator('.obs-metric').all()) {
+    for (const [index, metric] of (await current.locator('.obs-metric').all()).entries()) {
       const style = await metric.evaluate(node => {
         const css = getComputedStyle(node);
         return { image: css.backgroundImage, position: css.backgroundPosition, repeat: css.backgroundRepeat };
       });
-      assert.equal(style.image, art ? 'url("' + new URL(art, current.url()).href + '")' : 'none', 'Metric artwork: ' + label);
+      assert.equal(style.image, index === 0 && art ? 'url("' + new URL(art, current.url()).href + '")' : 'none', 'Metric artwork: ' + label);
       assert.match(style.position, /^88% 0(?:px|%)$/, 'Metric artwork position');
       assert.equal(style.repeat, 'no-repeat', 'Metric artwork repeat');
       assert.ok(await metric.locator('dt > span, dd > span:not(.obs-ratio)').evaluateAll(nodes =>
