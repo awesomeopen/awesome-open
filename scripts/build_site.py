@@ -20,18 +20,23 @@ import signals
 import star_history
 import deployment
 import qr
-from category_art import attach_category_art, category_image, copy_category_art, embed_category_art
+from category_art import (
+    attach_category_art,
+    category_image,
+    copy_category_art,
+    embed_category_art,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
 BRAND_ASSETS = {
     "botanical-128.png": "image/png",
     "search-loupe.png": "image/png",
-    'favicon.ico': 'image/x-icon',
-    'fruit-16.png': 'image/png',
-    'fruit-32.png': 'image/png',
-    'fruit-96.png': 'image/png',
-    'awesome-open-logo.png': 'image/png',
+    "favicon.ico": "image/x-icon",
+    "fruit-16.png": "image/png",
+    "fruit-32.png": "image/png",
+    "fruit-96.png": "image/png",
+    "awesome-open-logo.png": "image/png",
 }
 
 
@@ -41,10 +46,16 @@ def escape(value):
 
 def highlight_name(text, name):
     """Highlight the first complete name in plain prose, escaping every fragment."""
-    match = re.search(r'(?<!\w)' + re.escape(name) + r'(?!\w)', text, re.IGNORECASE)
+    match = re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)", text, re.IGNORECASE)
     if not match:
         return escape(text)
-    return escape(text[:match.start()]) + '<mark class="tool-name">' + escape(match.group()) + '</mark>' + escape(text[match.end():])
+    return (
+        escape(text[: match.start()])
+        + '<mark class="tool-name">'
+        + escape(match.group())
+        + "</mark>"
+        + escape(text[match.end() :])
+    )
 
 
 def source_url(catalog, path, anchor=""):
@@ -54,9 +65,14 @@ def source_url(catalog, path, anchor=""):
 
 def json_for_html(value):
     """A JSON script is still parsed as raw HTML text; never allow a closing tag."""
-    return (json.dumps(value, ensure_ascii=False, separators=(",", ":"))
-            .replace("&", "\\u0026").replace("<", "\\u003c").replace(">", "\\u003e")
-            .replace("\u2028", "\\u2028").replace("\u2029", "\\u2029"))
+    return (
+        json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+        .replace("&", "\\u0026")
+        .replace("<", "\\u003c")
+        .replace(">", "\\u003e")
+        .replace("\u2028", "\\u2028")
+        .replace("\u2029", "\\u2029")
+    )
 
 
 def search_index(catalog):
@@ -68,343 +84,604 @@ def search_index(catalog):
     their existing presence semantics.
     """
     projects = []
-    for project in catalog['projects']:
-        github = project.get('github')
-        item = {key: project[key] for key in ('id', 'name', 'description', 'categories')}
-        item['leader_categories'] = project.get('leader_categories', [])
-        item['github'] = ({key: github.get(key) for key in ('license', 'stars', 'pushed_at', 'status', 'last_success_at')}
-                          if github is not None else None)
-        item['alternatives'] = [{'name': alternative['name']}
-                                for alternative in project.get('alternatives', [])]
-        setup = project.get('deployment', {})
-        item['deployment'] = {
-            field: [{'value': fact['value']} for fact in setup.get(field, [])]
-            for field in ('run_modes', 'install_methods')
+    for project in catalog["projects"]:
+        github = project.get("github")
+        item = {
+            key: project[key] for key in ("id", "name", "description", "categories")
+        }
+        item["leader_categories"] = project.get("leader_categories", [])
+        item["github"] = (
+            {
+                key: github.get(key)
+                for key in (
+                    "license",
+                    "stars",
+                    "pushed_at",
+                    "status",
+                    "last_success_at",
+                )
+            }
+            if github is not None
+            else None
+        )
+        item["alternatives"] = [
+            {"name": alternative["name"]}
+            for alternative in project.get("alternatives", [])
+        ]
+        setup = project.get("deployment", {})
+        item["deployment"] = {
+            field: [{"value": fact["value"]} for fact in setup.get(field, [])]
+            for field in ("run_modes", "install_methods")
         }
         projects.append(item)
     return {
-        'metrics_as_of': catalog['metrics_as_of'],
-        'categories': [{key: category[key] for key in ('id', 'name')}
-                       for category in catalog['categories']],
-        'projects': projects,
+        "metrics_as_of": catalog["metrics_as_of"],
+        "categories": [
+            {key: category[key] for key in ("id", "name")}
+            for category in catalog["categories"]
+        ],
+        "projects": projects,
     }
 
 
 def split_name(name):
     """The prefix treatment never changes the canonical name or identity."""
-    if name[:4].lower() == 'open':
+    if name[:4].lower() == "open":
         return f'<span class="name-prefix">{escape(name[:4])}</span><span class="name-stem">{escape(name[4:])}</span>'
     return f'<span class="name-stem">{escape(name)}</span>'
 
 
-def signal_time(value, precision='second'):
-    return value[:10] + ' (date only)' if precision == 'day' else value
+def signal_time(value, precision="second"):
+    return value[:10] + " (date only)" if precision == "day" else value
 
 
 def optional_signal_html(project, embed_setup=True):
     """Evidence stays in native drawers; unknown values never become zeroes."""
-    records = project.get('signals')
-    if not records and not (embed_setup and project.get('deployment')):
-        return ''
+    records = project.get("signals")
+    if not records and not (embed_setup and project.get("deployment")):
+        return ""
     pieces = []
-    for provider, title in (('release', 'Latest GitHub release'), ('scorecard', 'OpenSSF Scorecard')):
+    for provider, title in (
+        ("release", "Latest GitHub release"),
+        ("scorecard", "OpenSSF Scorecard"),
+    ):
         if not records or provider not in records:
-            if provider == 'release' and embed_setup and project.get('deployment'):
-                pieces.append('<section class="optional-signal evidence-note" data-signal="release"><h4>Latest GitHub release</h4><p>Release not checked.</p>' + deployment.render(project, embedded=True) + '</section>')
+            if provider == "release" and embed_setup and project.get("deployment"):
+                pieces.append(
+                    '<section class="optional-signal evidence-note" data-signal="release"><h4>Latest GitHub release</h4><p>Release not checked.</p>'
+                    + deployment.render(project, embedded=True)
+                    + "</section>"
+                )
             continue
         record = records[provider]
-        good = record['last_good']
-        state = record['status'].capitalize()
+        good = record["last_good"]
+        state = record["status"].capitalize()
         if good is None:
-            label = {'not_checked': 'Not checked', 'not_found': 'No result returned',
-                     'pending': 'Provider pending', 'error': 'Unavailable', 'deferred': 'Check deferred'}.get(record['fetch_status'], 'Unavailable')
-            content = f'<p>{escape(label)}</p>'
-        elif provider == 'release':
-            value = good['value']
-            content = (f'<p><a class="note-value" href="{escape(value["html_url"])}">{escape(value["tag_name"])}</a>'
-                       f'Published <span class="metric-value">{escape(value["published_at"][:10])}</span></p>')
+            label = {
+                "not_checked": "Not checked",
+                "not_found": "No result returned",
+                "pending": "Provider pending",
+                "error": "Unavailable",
+                "deferred": "Check deferred",
+            }.get(record["fetch_status"], "Unavailable")
+            content = f"<p>{escape(label)}</p>"
+        elif provider == "release":
+            value = good["value"]
+            content = (
+                f'<p><a class="note-value" href="{escape(value["html_url"])}">{escape(value["tag_name"])}</a>'
+                f'Published <span class="metric-value">{escape(value["published_at"][:10])}</span></p>'
+            )
         else:
-            value = good['value']
-            scored = sum(check['score'] is not None for check in value['checks'])
-            total = len(value['checks'])
-            aggregate = f'{value["score"]:g}/10' if value['score'] is not None else 'Aggregate inconclusive'
-            checks = ''.join(f'<li><strong>{escape(c["name"])}</strong> · '
-                             + (f'{c["score"]:g}/10' if c['score'] is not None else 'Inconclusive')
-                             + f'<p>{escape(c["reason"])}</p></li>' for c in value['checks'])
-            commit = good['source_commit']
-            repo = value['repository'].removeprefix('github.com/')
-            content = (f'<p><span class="note-value">{aggregate}</span>Scanned <span class="metric-value">{escape(good["observed_at"][:10])}</span> · '
-                       f'{scored} scored / {total} returned checks</p>'
-                       f'<details class="signal-checks"><summary>Check results and scan provenance</summary><ul>{checks}</ul>'
-                       f'<p class="fine-print">Repository commit <a href="https://github.com/{escape(repo)}/commit/{commit}">{commit[:12]}</a>'
-                       f' · Scorecard {escape(good["tool_version"])}</p></details>')
+            value = good["value"]
+            scored = sum(check["score"] is not None for check in value["checks"])
+            total = len(value["checks"])
+            aggregate = (
+                f"{value['score']:g}/10"
+                if value["score"] is not None
+                else "Aggregate inconclusive"
+            )
+            checks = "".join(
+                f"<li><strong>{escape(c['name'])}</strong> · "
+                + (f"{c['score']:g}/10" if c["score"] is not None else "Inconclusive")
+                + f"<p>{escape(c['reason'])}</p></li>"
+                for c in value["checks"]
+            )
+            commit = good["source_commit"]
+            repo = value["repository"].removeprefix("github.com/")
+            content = (
+                f'<p><span class="note-value">{aggregate}</span>Scanned <span class="metric-value">{escape(good["observed_at"][:10])}</span> · '
+                f"{scored} scored / {total} returned checks</p>"
+                f'<details class="signal-checks"><summary>Check results and scan provenance</summary><ul>{checks}</ul>'
+                f'<p class="fine-print">Repository commit <a href="https://github.com/{escape(repo)}/commit/{commit}">{commit[:12]}</a>'
+                f" · Scorecard {escape(good['tool_version'])}</p></details>"
+            )
         provenance = []
-        if record['checked_at']:
-            provenance.append('Checked ' + signal_time(record['checked_at'], record.get('check_time_precision', 'second')))
-        if record['last_success_at']:
-            provenance.append('Last successful fetch ' + signal_time(record['last_success_at'], record.get('success_time_precision', record.get('check_time_precision', 'second'))))
+        if record["checked_at"]:
+            provenance.append(
+                "Checked "
+                + signal_time(
+                    record["checked_at"], record.get("check_time_precision", "second")
+                )
+            )
+        if record["last_success_at"]:
+            provenance.append(
+                "Last successful fetch "
+                + signal_time(
+                    record["last_success_at"],
+                    record.get(
+                        "success_time_precision",
+                        record.get("check_time_precision", "second"),
+                    ),
+                )
+            )
         if good:
-            provenance.append('Value fetched ' + signal_time(good['fetched_at'], good.get('fetch_time_precision', 'second')))
-        if record['fetch_status'] not in {'ok', 'not_modified', 'not_checked'}:
-            provenance.append('Latest attempt: ' + record['fetch_status'].replace('_', ' '))
-        provenance.append(f'<a href="{escape(record["source_url"])}">Provider source</a>')
-        setup = deployment.render(project, embedded=True) if provider == 'release' and embed_setup else ''
-        pieces.append(f'<section class="optional-signal evidence-note" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}{setup}<details class="note-provenance"><summary>View source &amp; retrieval history</summary><p class="fine-print">' + ' · '.join(provenance) + '</p></details></section>')
-    return '<div class="optional-signals">' + ''.join(pieces) + '</div>'
+            provenance.append(
+                "Value fetched "
+                + signal_time(
+                    good["fetched_at"], good.get("fetch_time_precision", "second")
+                )
+            )
+        if record["fetch_status"] not in {"ok", "not_modified", "not_checked"}:
+            provenance.append(
+                "Latest attempt: " + record["fetch_status"].replace("_", " ")
+            )
+        provenance.append(
+            f'<a href="{escape(record["source_url"])}">Provider source</a>'
+        )
+        setup = (
+            deployment.render(project, embedded=True)
+            if provider == "release" and embed_setup
+            else ""
+        )
+        pieces.append(
+            f'<section class="optional-signal evidence-note" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}{setup}<details class="note-provenance"><summary>View source &amp; retrieval history</summary><p class="fine-print">'
+            + " · ".join(provenance)
+            + "</p></details></section>"
+        )
+    return '<div class="optional-signals">' + "".join(pieces) + "</div>"
 
 
 def attach_specimen_art(catalog, root):
-    manifest = root / 'data/specimen_art.json'
+    manifest = root / "data/specimen_art.json"
     if not manifest.exists():
         return
-    document = json.loads(manifest.read_text(encoding='utf-8'))
-    if document.get('schema_version') != 1 or not isinstance(document.get('artworks'), dict):
-        raise ValueError('Invalid specimen art manifest')
-    projects = {p['id']: p for p in catalog['projects']}
-    for pid, entry in document['artworks'].items():
+    document = json.loads(manifest.read_text(encoding="utf-8"))
+    if document.get("schema_version") != 1 or not isinstance(
+        document.get("artworks"), dict
+    ):
+        raise ValueError("Invalid specimen art manifest")
+    projects = {p["id"]: p for p in catalog["projects"]}
+    for pid, entry in document["artworks"].items():
         if pid not in projects:
-            warnings.warn('Specimen art has no current catalog record: ' + pid)
+            warnings.warn("Specimen art has no current catalog record: " + pid)
             continue
-        if entry.get('review_status') != 'approved':
+        if entry.get("review_status") != "approved":
             continue
-        expected = f'specimens/{pid}.webp'
-        if entry.get('path') != expected or entry.get('project_url') != projects[pid]['url']:
-            raise ValueError('Specimen identity/path mismatch: ' + pid)
-        if not isinstance(entry.get('alt'), str) or not entry['alt'].strip():
-            raise ValueError('Specimen artwork needs descriptive alt text: ' + pid)
-        asset = root / 'site' / expected
+        expected = f"specimens/{pid}.webp"
+        if (
+            entry.get("path") != expected
+            or entry.get("project_url") != projects[pid]["url"]
+        ):
+            raise ValueError("Specimen identity/path mismatch: " + pid)
+        if not isinstance(entry.get("alt"), str) or not entry["alt"].strip():
+            raise ValueError("Specimen artwork needs descriptive alt text: " + pid)
+        asset = root / "site" / expected
         if not asset.is_file():
-            warnings.warn('Skipping missing specimen artwork: ' + expected)
+            warnings.warn("Skipping missing specimen artwork: " + expected)
             continue
         if asset.is_symlink():
-            raise ValueError('Specimen assets must be regular repository files')
+            raise ValueError("Specimen assets must be regular repository files")
         data = asset.read_bytes()
-        if data[:4] != b'RIFF' or data[8:12] != b'WEBP':
-            raise ValueError('Expected a WebP specimen asset: ' + expected)
-        width, height = entry.get('width'), entry.get('height')
+        if data[:4] != b"RIFF" or data[8:12] != b"WEBP":
+            raise ValueError("Expected a WebP specimen asset: " + expected)
+        width, height = entry.get("width"), entry.get("height")
         if any(type(v) is not int or not 1 <= v <= 8192 for v in (width, height)):
-            raise ValueError('Invalid specimen image dimensions: ' + pid)
-        projects[pid]['artwork'] = {k: entry[k] for k in ('path', 'alt', 'width', 'height')}
+            raise ValueError("Invalid specimen image dimensions: " + pid)
+        projects[pid]["artwork"] = {
+            k: entry[k] for k in ("path", "alt", "width", "height")
+        }
 
 
 def attach_specimen_cutouts(catalog, root):
     """Use a committed transparent derivative only while it still matches its approved source bytes."""
-    path = root / 'site/specimens/cutouts.json'
+    path = root / "site/specimens/cutouts.json"
     if not path.exists():
         return {}
-    document = json.loads(path.read_text(encoding='utf-8'))
-    if document.get('schema_version') != 1 or not isinstance(document.get('cutouts'), dict):
-        raise ValueError('Invalid specimen cut-out manifest')
+    document = json.loads(path.read_text(encoding="utf-8"))
+    if document.get("schema_version") != 1 or not isinstance(
+        document.get("cutouts"), dict
+    ):
+        raise ValueError("Invalid specimen cut-out manifest")
     result = {}
-    for project in catalog['projects']:
-        art = project.get('artwork')
-        entry = document['cutouts'].get(project['id'])
+    for project in catalog["projects"]:
+        art = project.get("artwork")
+        entry = document["cutouts"].get(project["id"])
         if not art or not entry:
             continue
-        source, derivative = root / 'site' / art['path'], root / 'site' / entry['path']
-        if entry['source'] != art['path'] or entry['path'] != f'specimens/cutouts/{project["id"]}.webp':
-            raise ValueError('Specimen cut-out identity/path mismatch: ' + project['id'])
+        source, derivative = root / "site" / art["path"], root / "site" / entry["path"]
+        if (
+            entry["source"] != art["path"]
+            or entry["path"] != f"specimens/cutouts/{project['id']}.webp"
+        ):
+            raise ValueError(
+                "Specimen cut-out identity/path mismatch: " + project["id"]
+            )
         if not derivative.is_file() or derivative.is_symlink():
-            warnings.warn('Skipping missing specimen cut-out: ' + entry['path'])
+            warnings.warn("Skipping missing specimen cut-out: " + entry["path"])
             continue
-        if hashlib.sha256(source.read_bytes()).hexdigest() != entry['source_sha256']:
-            warnings.warn('Specimen cut-out is older than its source; run build_specimen_cutouts.py: ' + project['id'])
+        if hashlib.sha256(source.read_bytes()).hexdigest() != entry["source_sha256"]:
+            warnings.warn(
+                "Specimen cut-out is older than its source; run build_specimen_cutouts.py: "
+                + project["id"]
+            )
             continue
-        if hashlib.sha256(derivative.read_bytes()).hexdigest() != entry['sha256']:
-            raise ValueError('Specimen cut-out bytes do not match the manifest: ' + entry['path'])
-        result[project['id']] = {'path': entry['path'], 'bbox': entry['subject_bbox']}
+        if hashlib.sha256(derivative.read_bytes()).hexdigest() != entry["sha256"]:
+            raise ValueError(
+                "Specimen cut-out bytes do not match the manifest: " + entry["path"]
+            )
+        result[project["id"]] = {"path": entry["path"], "bbox": entry["subject_bbox"]}
     return result
 
 
-PERMALINK_BASE = 'https://awesomeopen.github.io/awesome-open/#project-'
+PERMALINK_BASE = "https://awesomeopen.github.io/awesome-open/#project-"
 
 
 def qr_path(project):
-    return f'assets/qr/{project["id"][:16]}.svg'
+    return f"assets/qr/{project['id'][:16]}.svg"
 
 
 def timeline(created, release, pushed):
     """Repository timestamps on one axis; positions are literal dates, labels repeat them."""
-    points = [('Repository created', created, '')]
+    points = [("Repository created", created, "")]
     if release:
-        points.append(('Latest GitHub release', release[0], release[1]))
+        points.append(("Latest GitHub release", release[0], release[1]))
     if pushed:
-        points.append(('Last repository push', pushed, ''))
+        points.append(("Last repository push", pushed, ""))
     try:
-        dated = [(label, date.fromisoformat(value), tag) for label, value, tag in points]
+        dated = [
+            (label, date.fromisoformat(value), tag) for label, value, tag in points
+        ]
     except ValueError:
-        return ''
+        return ""
     first = dated[0][1].year
     last = max(day for _, day, _ in dated).year + 1
     lo, hi = date(first, 1, 1), date(last, 1, 1)
     pct = lambda day: round((day - lo).days / (hi - lo).days * 100, 2)
     step = 2 if last - first > 8 else 1
-    years = ''.join(f'<span class="timeline-year" style="left:{pct(date(y, 1, 1))}%">{y}</span>' for y in range(first, last + 1, step))
+    years = "".join(
+        f'<span class="timeline-year" style="left:{pct(date(y, 1, 1))}%">{y}</span>'
+        for y in range(first, last + 1, step)
+    )
     marks, labels = [], []
     for label, day, tag in dated:
         left = pct(day)
-        side = 'up' if tag else 'down'
-        anchor = f'right:{round(100 - left, 2)}%;text-align:right' if left > 55 else f'left:{left}%'
-        extra = f' · {escape(tag)}' if tag else ''
-        marks.append(f'<span class="timeline-mark{" is-release" if tag else ""}" style="left:{left}%"></span>')
-        labels.append(f'<span class="timeline-label {side}{"" if tag else " repeats-vitals"}" style="{anchor}">{escape(label)}<br><span class="metric-value">{day.isoformat()}</span>{extra}</span>')
+        side = "up" if tag else "down"
+        anchor = (
+            f"right:{round(100 - left, 2)}%;text-align:right"
+            if left > 55
+            else f"left:{left}%"
+        )
+        extra = f" · {escape(tag)}" if tag else ""
+        marks.append(
+            f'<span class="timeline-mark{" is-release" if tag else ""}" style="left:{left}%"></span>'
+        )
+        labels.append(
+            f'<span class="timeline-label {side}{"" if tag else " repeats-vitals"}" style="{anchor}">{escape(label)}<br><span class="metric-value">{day.isoformat()}</span>{extra}</span>'
+        )
     first_pct, last_pct = pct(dated[0][1]), max(pct(day) for _, day, _ in dated)
     span = f'<span class="timeline-span" style="left:{first_pct}%;width:{round(last_pct - first_pct, 2)}%"></span>'
-    summary = '; '.join(f'{label} {day.isoformat()}' + (f' ({tag})' if tag else '') for label, day, tag in dated)
+    summary = "; ".join(
+        f"{label} {day.isoformat()}" + (f" ({tag})" if tag else "")
+        for label, day, tag in dated
+    )
     return f'<div class="timeline" role="img" aria-label="{escape(summary)}"><span class="timeline-axis"></span>{span}{years}{"".join(marks)}{"".join(labels)}</div>'
 
 
 def specimen_label(project, tags, number):
-    pid, name = escape(project['id']), escape(project['name'])
-    github = project.get('github') or {}
-    status = ('<span class="label-status">Archived on GitHub</span>' if github.get('archived') is True
-              else '<span class="label-header">Awesome Open* · Field record</span>')
-    return (f'<div class="specimen-label specimen-identity"><a class="label-qr" href="{escape(PERMALINK_BASE + project["id"])}" aria-label="QR code: permalink to {name}">'
-            f'<img src="{escape(qr_path(project))}" width="92" height="92" alt="" loading="lazy"></a><div class="label-lines">{status}'
-            f'<span class="label-name">{name}</span>'
-            f'<span><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span> · <span class="sheet-folio" title="Folio number">Folio {number:03d}</span></span>'
-            f'<span>Domain: {tags}</span>'
-            f'<nav class="specimen-links" aria-label="Record for {name}"><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen: {name} (permalink)</a></nav></div></div>')
+    pid, name = escape(project["id"]), escape(project["name"])
+    github = project.get("github") or {}
+    status = (
+        '<span class="label-status">Archived on GitHub</span>'
+        if github.get("archived") is True
+        else '<span class="label-header">Awesome Open* · Field record</span>'
+    )
+    return (
+        f'<div class="specimen-label specimen-identity"><a class="label-qr" href="{escape(PERMALINK_BASE + project["id"])}" aria-label="QR code: permalink to {name}">'
+        f'<img src="{escape(qr_path(project))}" width="92" height="92" alt="" loading="lazy"></a><div class="label-lines">{status}'
+        f'<span class="label-name">{name}</span>'
+        f'<span><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span> · <span class="sheet-folio" title="Folio number">Folio {number:03d}</span></span>'
+        f"<span>Domain: {tags}</span>"
+        f'<nav class="specimen-links" aria-label="Record for {name}"><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen: {name} (permalink)</a></nav></div></div>'
+    )
 
 
 def where_it_runs(project):
-    record = project.get('deployment')
+    record = project.get("deployment")
     if not record:
-        return ''
+        return ""
     rows = []
-    for field, label, names in (('run_modes', 'Run', deployment.RUN_MODES), ('install_methods', 'Install', deployment.INSTALL_METHODS),
-                                ('platforms', 'Documented platforms', None)):
+    for field, label, names in (
+        ("run_modes", "Run", deployment.RUN_MODES),
+        ("install_methods", "Install", deployment.INSTALL_METHODS),
+        ("platforms", "Documented platforms", None),
+    ):
         facts = record.get(field, [])
         if facts:
-            chips = ''.join(f'<span>{escape(names[f["value"]] if names else f["value"])}</span>' for f in facts)
-            rows.append(f'<div><dt>{label}</dt><dd class="plate-chips">{chips}</dd></div>')
-    return f'<dl class="plate-kit">{"".join(rows)}</dl>' + deployment.render(project, embedded=True, overview=False)
+            chips = "".join(
+                f"<span>{escape(names[f['value']] if names else f['value'])}</span>"
+                for f in facts
+            )
+            rows.append(
+                f'<div><dt>{label}</dt><dd class="plate-chips">{chips}</dd></div>'
+            )
+    return f'<dl class="plate-kit">{"".join(rows)}</dl>' + deployment.render(
+        project, embedded=True, overview=False
+    )
 
 
-def specimen_plate(project, number, tags, function_detail, vitals, chart, alternatives, cutout):
-    pid, name, url = escape(project['id']), escape(project['name']), escape(project['url'])
-    art = project.get('artwork')
-    specimen = notes = ''
+def specimen_plate(
+    project, number, tags, function_detail, vitals, chart, alternatives, cutout
+):
+    pid, name, url = (
+        escape(project["id"]),
+        escape(project["name"]),
+        escape(project["url"]),
+    )
+    art = project.get("artwork")
+    specimen = notes = ""
     if art:
-        src = cutout['path'] if cutout else art['path']
-        bbox = ' '.join(str(v) for v in (cutout['bbox'] if cutout else (0, 0, 1, 1)))
-        specimen = (f'<div class="plate-specimen"><div class="plate-field" data-seed="{pid[:16]}" data-cutout="{"true" if cutout else "false"}" data-bbox="{bbox}">'
-                    f'<figure class="specimen-art plate-art"><img src="{escape(src)}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure></div></div>')
-        features = project.get('function_summary', {}).get('features', [])[:2]
+        src = cutout["path"] if cutout else art["path"]
+        bbox = " ".join(str(v) for v in (cutout["bbox"] if cutout else (0, 0, 1, 1)))
+        specimen = (
+            f'<div class="plate-specimen"><div class="plate-field" data-seed="{pid[:16]}" data-cutout="{"true" if cutout else "false"}" data-bbox="{bbox}">'
+            f'<figure class="specimen-art plate-art"><img src="{escape(src)}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure></div></div>'
+        )
+        features = project.get("function_summary", {}).get("features", [])[:2]
         if features:
-            items = ''.join(f'<li class="plate-note"><span class="plate-crop{" is-tiny" if i else ""}" data-crop="{i}" aria-hidden="true"></span><div><span class="plate-index">{i + 1:02d} / Feature note</span>'
-                            f'<strong>{escape(f["title"])}</strong><p>{escape(f["text"])}</p><a class="feature-source" href="{escape(f["source_url"])}">Feature source ↗</a></div></li>'
-                            for i, f in enumerate(features))
+            items = "".join(
+                f'<li class="plate-note"><span class="plate-crop{" is-tiny" if i else ""}" data-crop="{i}" aria-hidden="true"></span><div><span class="plate-index">{i + 1:02d} / Feature note</span>'
+                f'<strong>{escape(f["title"])}</strong><p>{escape(f["text"])}</p><a class="feature-source" href="{escape(f["source_url"])}">Feature source ↗</a></div></li>'
+                for i, f in enumerate(features)
+            )
             notes = f'<ol class="plate-notes" aria-label="Feature notes">{items}</ol>'
     label = specimen_label(project, tags, number)
     runs = where_it_runs(project)
-    numerals = iter(('II', 'III', 'IV', 'V', 'VI'))
-    sections = [f'<section class="plate-band plate-register" aria-label="Repository facts"><span class="sheet-label">{next(numerals)} / Repository record</span>{vitals}</section>']
+    numerals = iter(("II", "III", "IV", "V", "VI"))
+    sections = [
+        f'<section class="plate-band plate-register" aria-label="Repository facts"><span class="sheet-label">{next(numerals)} / Repository record</span>{vitals}</section>'
+    ]
     if runs:
-        sections.append(f'<section class="plate-band plate-runs" aria-label="Where it runs"><span class="sheet-label">{next(numerals)} / Where it runs</span>{runs}</section>')
-    evidence = chart + star_history.render(project) + optional_signal_html(project, embed_setup=False)
+        sections.append(
+            f'<section class="plate-band plate-runs" aria-label="Where it runs"><span class="sheet-label">{next(numerals)} / Where it runs</span>{runs}</section>'
+        )
+    evidence = (
+        chart
+        + star_history.render(project)
+        + optional_signal_html(project, embed_setup=False)
+    )
     if evidence:
-        sections.append(f'<section class="plate-band diagnostics plate-evidence" aria-label="Observations and evidence"><span class="sheet-label">{next(numerals)} / Observations &amp; evidence</span><div class="evidence-notes">{evidence}</div></section>')
+        sections.append(
+            f'<section class="plate-band diagnostics plate-evidence" aria-label="Observations and evidence"><span class="sheet-label">{next(numerals)} / Observations &amp; evidence</span><div class="evidence-notes">{evidence}</div></section>'
+        )
     if alternatives:
-        sections.append(f'<section class="plate-band plate-alternatives" aria-label="Reviewed alternatives"><span class="sheet-label">{next(numerals)} / Reviewed alternatives</span>{alternatives}</section>')
-    host = 'GitHub' if urlsplit(project['url']).hostname in ('github.com', 'www.github.com') else 'its official site'
-    address = escape(project['url'].removeprefix('https://').removeprefix('http://'))
-    return (f'<div class="specimen-interior specimen-plate{"" if art else " without-art"}" aria-labelledby="name-{pid}">'
-            f'<div class="plate-heading"><span class="plate-index">Field notes / {number:03d}</span><span class="plate-index">{name}</span></div>'
-            f'<div class="plate-study"><svg class="plate-leaders" aria-hidden="true"></svg>'
-            f'<div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}</div>'
-            f'{specimen}{notes}{label}</div>'
-            + ''.join(sections) +
-            f'<nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">In the wild</span><a href="{url}"><span>Explore {name} on {host}</span>'
-            f'<span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{address}</span></nav></div>')
+        sections.append(
+            f'<section class="plate-band plate-alternatives" aria-label="Reviewed alternatives"><span class="sheet-label">{next(numerals)} / Reviewed alternatives</span>{alternatives}</section>'
+        )
+    host = (
+        "GitHub"
+        if urlsplit(project["url"]).hostname in ("github.com", "www.github.com")
+        else "its official site"
+    )
+    address = escape(project["url"].removeprefix("https://").removeprefix("http://"))
+    return (
+        f'<div class="specimen-interior specimen-plate{"" if art else " without-art"}" aria-labelledby="name-{pid}">'
+        f'<div class="plate-heading"><span class="plate-index">Field notes / {number:03d}</span><span class="plate-index">{name}</span></div>'
+        f'<div class="plate-study"><svg class="plate-leaders" aria-hidden="true"></svg>'
+        f'<div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}</div>'
+        f"{specimen}{notes}{label}</div>"
+        + "".join(sections)
+        + f'<nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">In the wild</span><a href="{url}"><span>Explore {name} on {host}</span>'
+        f'<span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{address}</span></nav></div>'
+    )
 
 
 def metrics_freshness(github, as_of):
     if not github:
-        return 'GitHub metrics: Unknown'
-    status = github.get('status', 'fresh')
-    observed = github.get('last_success_at', as_of)
-    attempt = github.get('last_attempt') or {}
-    if status == 'unavailable':
-        return 'GitHub metrics unavailable; no successful observation. Last attempt: ' + str(attempt.get('at') or 'Unknown') + ' UTC (repository unavailable).'
-    if status == 'stale':
-        return 'Stale GitHub metrics; last successful observation: ' + str(observed or 'Unknown') + ' UTC. Last attempt: ' + str(attempt.get('at') or 'Unknown') + ' UTC (repository unavailable).'
-    return 'GitHub metrics observed: ' + str(observed or 'Unknown') + ' UTC.'
+        return "GitHub metrics: Unknown"
+    status = github.get("status", "fresh")
+    observed = github.get("last_success_at", as_of)
+    attempt = github.get("last_attempt") or {}
+    if status == "unavailable":
+        return (
+            "GitHub metrics unavailable; no successful observation. Last attempt: "
+            + str(attempt.get("at") or "Unknown")
+            + " UTC (repository unavailable)."
+        )
+    if status == "stale":
+        return (
+            "Stale GitHub metrics; last successful observation: "
+            + str(observed or "Unknown")
+            + " UTC. Last attempt: "
+            + str(attempt.get("at") or "Unknown")
+            + " UTC (repository unavailable)."
+        )
+    return "GitHub metrics observed: " + str(observed or "Unknown") + " UTC."
 
 
 def project_html(project, categories, catalog, number=0, cutouts=None):
-    pid = escape(project['id'])
-    github = project['github']
-    license_text = (github['license'] if github else None) or ''
-    pushed = github['pushed_at'][:10] if github and github['pushed_at'] else 'Unknown'
-    created = github['created_at'][:10] if github and github.get('created_at') else 'Unknown'
-    stars = f'{github["stars"]:,}' if github and github.get("stars") is not None else 'Unknown'
-    tags = ' / '.join(f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>' for cid in project['categories'])
-    evidence = ''.join(f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">Checked {escape(a["checked_utc_date"])}</span><p>{escape(a["scope"])}</p></li>' for a in project['alternatives'])
-    alternatives = f'<div class="comparison evidence-note"><ul>{evidence}</ul></div>' if evidence else ''
-    chart = ''
-    inline_chart = ''
-    if project['hn']:
-        attention = project['hn']
+    pid = escape(project["id"])
+    github = project["github"]
+    license_text = (github["license"] if github else None) or ""
+    pushed = github["pushed_at"][:10] if github and github["pushed_at"] else "Unknown"
+    created = (
+        github["created_at"][:10] if github and github.get("created_at") else "Unknown"
+    )
+    stars = (
+        f"{github['stars']:,}"
+        if github and github.get("stars") is not None
+        else "Unknown"
+    )
+    tags = " / ".join(
+        f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>'
+        for cid in project["categories"]
+    )
+    evidence = "".join(
+        f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">Checked {escape(a["checked_utc_date"])}</span><p>{escape(a["scope"])}</p></li>'
+        for a in project["alternatives"]
+    )
+    alternatives = (
+        f'<div class="comparison evidence-note"><ul>{evidence}</ul></div>'
+        if evidence
+        else ""
+    )
+    chart = ""
+    inline_chart = ""
+    if project["hn"]:
+        attention = project["hn"]
         inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
         chart = f'<div class="signal evidence-note"><h4>Hacker News stories</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="Hacker News stories"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 2y</span></a></div>'
-    if chart and project.get('star_history'):
-        paired = project['star_history']
-        if paired.get('chart_url'):
-            good = paired['last_good']
-            chart = chart.replace('</a></div>', '</a><p class="fine-print star-window">' + escape(good['months'][0]) + '–' + escape(good['months'][-1]) + ' · oldest at left<br>Square-root scale: 0–' + escape(paired['hn_monthly_maximum']) + ' stories/month (shared across HN charts)</p></div>')
-    summary = project.get('function_summary')
-    function_detail = ''
+    if chart and project.get("star_history"):
+        paired = project["star_history"]
+        if paired.get("chart_url"):
+            good = paired["last_good"]
+            chart = chart.replace(
+                "</a></div>",
+                '</a><p class="fine-print star-window">'
+                + escape(good["months"][0])
+                + "–"
+                + escape(good["months"][-1])
+                + " · oldest at left<br>Square-root scale: 0–"
+                + escape(paired["hn_monthly_maximum"])
+                + " stories/month (shared across HN charts)</p></div>",
+            )
+    summary = project.get("function_summary")
+    function_detail = ""
     if summary:
-        sources = ' / '.join(f'<a href="{escape(item["url"])}">{escape(item["title"])}</a>' for item in summary['sources'])
+        sources = " / ".join(
+            f'<a href="{escape(item["url"])}">{escape(item["title"])}</a>'
+            for item in summary["sources"]
+        )
         function_detail = f'<div class="function-detail"><p>{highlight_name(summary["text"], project["name"])}</p><p class="function-provenance">{sources} · Reviewed <span class="metric-value">{escape(summary["checked_at"])}</span></p></div>'
-    leader_categories = project.get('leader_categories', [])
-    leader_label = ' / '.join(categories[c] for c in leader_categories) if leader_categories else ''
-    good_release = (((project.get('signals') or {}).get('release') or {}).get('last_good') or {}).get('value')
-    release = (good_release['published_at'][:10], good_release['tag_name']) if good_release else None
-    vitals = f'''<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text or 'Unknown')}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl>'''
+    leader_categories = project.get("leader_categories", [])
+    leader_label = (
+        " / ".join(categories[c] for c in leader_categories)
+        if leader_categories
+        else ""
+    )
+    good_release = (
+        ((project.get("signals") or {}).get("release") or {}).get("last_good") or {}
+    ).get("value")
+    release = (
+        (good_release["published_at"][:10], good_release["tag_name"])
+        if good_release
+        else None
+    )
+    vitals = f"""<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text or "Unknown")}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl>"""
     vitals += f'<p class="fine-print metrics-freshness">{escape(metrics_freshness(github, catalog.get("metrics_as_of")))}</p>'
     if github:
-        vitals += timeline(created, release, github['pushed_at'][:10] if github['pushed_at'] else None)
-    interior = specimen_plate(project, number, tags, function_detail, vitals, chart, alternatives, (cutouts or {}).get(project['id']))
-    return f'''<article class="project-card" data-leader="{'true' if leader_categories else 'false'}" id="project-{pid}" data-project-id="{pid}">
+        vitals += timeline(
+            created, release, github["pushed_at"][:10] if github["pushed_at"] else None
+        )
+    interior = specimen_plate(
+        project,
+        number,
+        tags,
+        function_detail,
+        vitals,
+        chart,
+        alternatives,
+        (cutouts or {}).get(project["id"]),
+    )
+    return f'''<article class="project-card" data-leader="{"true" if leader_categories else "false"}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
-  <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project['name'])}</span>{inline_chart}<span class="leader-label"{'' if leader_categories else ' hidden'}>{escape(leader_label)}</span></span><span class="description">{escape(project['description'])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
+  <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}<span class="leader-label"{"" if leader_categories else " hidden"}>{escape(leader_label)}</span></span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
 {interior}
  </details>
 </article>'''
 
 
 def render_html(catalog, cutouts=None):
-    categories = {c['id']: c['name'] for c in catalog['categories']}
-    count = len(catalog['projects'])
-    nav = ''.join(f'<a class="{"has-category-art" if c.get("artwork") else ""}" data-category="{escape(c["id"])}" href="{escape(source_url(catalog, "README.source.md", "#" + c["id"]))}">{category_image(c)}<span class="category-label">{escape(c["name"])}</span><span class="category-count">{c["count"]:02d}</span></a>' for c in catalog['categories'])
-    category_options = ''.join(f'<option value="{escape(c["id"])}">{escape(c["name"])}</option>' for c in catalog['categories'])
-    licenses = sorted({p['github']['license'] for p in catalog['projects'] if p['github'] and p['github']['license']})
-    license_options = ''.join(f'<option value="{escape(v)}">{escape(v)}</option>' for v in licenses)
-    alternative_names = sorted({a['name'] for p in catalog['projects'] for a in p['alternatives']})
-    alternative_options = ''.join(f'<option value="{escape(v)}">{escape(v)}</option>' for v in alternative_names)
+    categories = {c["id"]: c["name"] for c in catalog["categories"]}
+    count = len(catalog["projects"])
+    nav = "".join(
+        f'<a class="{"has-category-art" if c.get("artwork") else ""}" data-category="{escape(c["id"])}" href="{escape(source_url(catalog, "README.source.md", "#" + c["id"]))}">{category_image(c)}<span class="category-label">{escape(c["name"])}</span><span class="category-count">{c["count"]:02d}</span></a>'
+        for c in catalog["categories"]
+    )
+    category_options = "".join(
+        f'<option value="{escape(c["id"])}">{escape(c["name"])}</option>'
+        for c in catalog["categories"]
+    )
+    licenses = sorted(
+        {
+            p["github"]["license"]
+            for p in catalog["projects"]
+            if p["github"] and p["github"]["license"]
+        }
+    )
+    license_options = "".join(
+        f'<option value="{escape(v)}">{escape(v)}</option>' for v in licenses
+    )
+    alternative_names = sorted(
+        {a["name"] for p in catalog["projects"] for a in p["alternatives"]}
+    )
+    alternative_options = "".join(
+        f'<option value="{escape(v)}">{escape(v)}</option>' for v in alternative_names
+    )
     deployment_options = {}
-    for field, labels in (("run_modes", deployment.RUN_MODES), ("install_methods", deployment.INSTALL_METHODS)):
-        observed = {f["value"] for p in catalog["projects"] for f in p.get("deployment", {}).get(field, [])}
-        deployment_options[field] = "".join(f'<option value="{escape(v)}">{escape(labels[v])}</option>' for v in sorted(observed))
-    footer_backgrounds = catalog.get('footer_backgrounds', [])
-    footer_art = (f'<img class="footer-art" data-footer-background data-backgrounds="{escape(json.dumps(footer_backgrounds))}" src="{escape(footer_backgrounds[0])}" width="2048" height="682" alt="" loading="lazy" decoding="async">' if footer_backgrounds else '')
-    projects = '\n'.join(project_html(p, categories, catalog, i+1, cutouts) for i, p in enumerate(catalog['projects']))
-    signal_projects = [p for p in catalog['projects'] if p.get('signals')]
+    for field, labels in (
+        ("run_modes", deployment.RUN_MODES),
+        ("install_methods", deployment.INSTALL_METHODS),
+    ):
+        observed = {
+            f["value"]
+            for p in catalog["projects"]
+            for f in p.get("deployment", {}).get(field, [])
+        }
+        deployment_options[field] = "".join(
+            f'<option value="{escape(v)}">{escape(labels[v])}</option>'
+            for v in sorted(observed)
+        )
+    footer_backgrounds = catalog.get("footer_backgrounds", [])
+    footer_art = (
+        f'<img class="footer-art" data-footer-background data-backgrounds="{escape(json.dumps(footer_backgrounds))}" src="{escape(footer_backgrounds[0])}" width="2048" height="682" alt="" loading="lazy" decoding="async">'
+        if footer_backgrounds
+        else ""
+    )
+    projects = "\n".join(
+        project_html(p, categories, catalog, i + 1, cutouts)
+        for i, p in enumerate(catalog["projects"])
+    )
+    signal_projects = [p for p in catalog["projects"] if p.get("signals")]
     signal_coverage = []
-    for provider, label in (('release', 'Release'), ('scorecard', 'Scorecard')):
-        checked = sum(bool(p['signals'][provider]['checked_at']) for p in signal_projects)
-        values = sum(bool(p['signals'][provider]['last_good']) for p in signal_projects)
-        signal_coverage.append(f'{label}: {values} cached results / {checked} checked')
-    optional_notes = ('<ul class="coverage-notes">' + ''.join(f'<li>{item}</li>' for item in signal_coverage)
-                      + f'<li>{len(signal_projects)} mapped GitHub repositories.</li>'
-                      + f'<li>Collection snapshot {escape(catalog.get("signals_collected_at"))}.</li></ul>'
-                      + '<p><a href="data/project_signals.json">Release and Scorecard evidence</a></p>') if signal_projects else ''
-    if any(p.get('star_history') for p in catalog['projects']):
-        optional_notes += '<p>GitHub stars / past 2y: ' + escape(star_history.MEANING) + '</p><p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
-    sha = catalog.get('source_sha')
-    revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else 'Local preview (revision not supplied)'
+    for provider, label in (("release", "Release"), ("scorecard", "Scorecard")):
+        checked = sum(
+            bool(p["signals"][provider]["checked_at"]) for p in signal_projects
+        )
+        values = sum(bool(p["signals"][provider]["last_good"]) for p in signal_projects)
+        signal_coverage.append(f"{label}: {values} cached results / {checked} checked")
+    optional_notes = (
+        (
+            '<ul class="coverage-notes">'
+            + "".join(f"<li>{item}</li>" for item in signal_coverage)
+            + f"<li>{len(signal_projects)} mapped GitHub repositories.</li>"
+            + f"<li>Collection snapshot {escape(catalog.get('signals_collected_at'))}.</li></ul>"
+            + '<p><a href="data/project_signals.json">Release and Scorecard evidence</a></p>'
+        )
+        if signal_projects
+        else ""
+    )
+    if any(p.get("star_history") for p in catalog["projects"]):
+        optional_notes += (
+            "<p>GitHub stars / past 2y: "
+            + escape(star_history.MEANING)
+            + '</p><p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
+        )
+    sha = catalog.get("source_sha")
+    revision = (
+        f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>'
+        if sha
+        else "Local preview (revision not supplied)"
+    )
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -414,7 +691,7 @@ def render_html(catalog, cutouts=None):
  <link rel="icon" href="brand/favicon.ico" sizes="16x16 32x32 48x48">
  <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
- <link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="styles.css?v={escape(sha or 'preview')}">
+ <link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="styles.css?v={escape(sha or "preview")}">
  <script src="catalog.js" defer></script>
 </head>
 <body>
@@ -441,154 +718,253 @@ def render_html(catalog, cutouts=None):
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{' has-art' if footer_backgrounds else ''}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, 'CONTRIBUTING.md'))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>Latest GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, 'LICENSE.md'))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>Latest GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
 <script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
+
 
 def build(output, source_sha=None, root=ROOT):
     root = Path(root)
     output = Path(output).resolve()
     # Protect source directories from accidental --output . or --output site.
-    for protected in (root, root / 'site', root / 'scripts', root / 'data', root / 'assets', root / '.github'):
-        if (output == protected.resolve() or output in protected.resolve().parents
-                or (protected != root and protected.resolve() in output.parents)):
-            raise ValueError('Use a separate generated output directory (default: tmp/site)')
-    source = (root / 'README.source.md').read_text(encoding='utf-8')
-    snapshot = json.loads((root / 'data/github_metrics.json').read_text(encoding='utf-8'))
-    alternatives = json.loads((root / 'data/alternatives.json').read_text(encoding='utf-8'))
-    evidence = json.loads((root / 'data/hn_evidence.json').read_text(encoding='utf-8'))
-    optional = signals.load_optional(root / 'data/project_signals.json')
-    catalog = build_catalog(source, snapshot, alternatives, evidence, source_sha=source_sha, optional_signals=optional,
-                            function_summaries=load_function_summaries(root / "data/function_summaries.json"),
-                            deployment_evidence=deployment.load_optional(root / "data/deployment_evidence.json"),
-                            star_evidence=star_history.load_optional(root / "data/star_history.json"))
-    catalog['footer_backgrounds'] = ['footer-backgrounds/' + p.name for p in sorted((root / 'site/footer-backgrounds').glob('*')) if p.is_file() and p.suffix.lower() in {'.webp', '.png'} and not p.is_symlink()]
+    for protected in (
+        root,
+        root / "site",
+        root / "scripts",
+        root / "data",
+        root / "assets",
+        root / ".github",
+    ):
+        if (
+            output == protected.resolve()
+            or output in protected.resolve().parents
+            or (protected != root and protected.resolve() in output.parents)
+        ):
+            raise ValueError(
+                "Use a separate generated output directory (default: tmp/site)"
+            )
+    source = (root / "README.source.md").read_text(encoding="utf-8")
+    snapshot = json.loads(
+        (root / "data/github_metrics.json").read_text(encoding="utf-8")
+    )
+    alternatives = json.loads(
+        (root / "data/alternatives.json").read_text(encoding="utf-8")
+    )
+    evidence = json.loads((root / "data/hn_evidence.json").read_text(encoding="utf-8"))
+    optional = signals.load_optional(root / "data/project_signals.json")
+    catalog = build_catalog(
+        source,
+        snapshot,
+        alternatives,
+        evidence,
+        source_sha=source_sha,
+        optional_signals=optional,
+        function_summaries=load_function_summaries(
+            root / "data/function_summaries.json"
+        ),
+        deployment_evidence=deployment.load_optional(
+            root / "data/deployment_evidence.json"
+        ),
+        star_evidence=star_history.load_optional(root / "data/star_history.json"),
+    )
+    catalog["footer_backgrounds"] = [
+        "footer-backgrounds/" + p.name
+        for p in sorted((root / "site/footer-backgrounds").glob("*"))
+        if p.is_file() and p.suffix.lower() in {".webp", ".png"} and not p.is_symlink()
+    ]
     attach_specimen_art(catalog, root)
     attach_category_art(catalog, root)
     cutouts = attach_specimen_cutouts(catalog, root)
     page = render_html(catalog, cutouts)
     # Validate charts before touching generated files. The renderer is shared with README.
-    charts = {p['slug']: hn.svg(p, evidence) for p in evidence['projects'] if p['eligible']}
-    star_charts = {p['star_history']['chart_url']: star_history.svg(p) for p in catalog['projects']
-                   if p.get('star_history', {}).get('chart_url')}
-    qr_codes = {qr_path(p): qr.svg(PERMALINK_BASE + p['id'], 'QR code: permalink to ' + p['name']) for p in catalog['projects']}
-    assets = {name: (root / 'site' / name).read_text(encoding='utf-8') for name in ('styles.css', 'catalog.js')}
-    assets['tokens.css'] = (root / 'site/design/tokens.css').read_text(encoding='utf-8')
+    charts = {
+        p["slug"]: hn.svg(p, evidence) for p in evidence["projects"] if p["eligible"]
+    }
+    star_charts = {
+        p["star_history"]["chart_url"]: star_history.svg(p)
+        for p in catalog["projects"]
+        if p.get("star_history", {}).get("chart_url")
+    }
+    qr_codes = {
+        qr_path(p): qr.svg(
+            PERMALINK_BASE + p["id"], "QR code: permalink to " + p["name"]
+        )
+        for p in catalog["projects"]
+    }
+    assets = {
+        name: (root / "site" / name).read_text(encoding="utf-8")
+        for name in ("styles.css", "catalog.js")
+    }
+    assets["tokens.css"] = (root / "site/design/tokens.css").read_text(encoding="utf-8")
     output.mkdir(parents=True, exist_ok=True)
-    (output / 'index.html').write_text(page, encoding='utf-8')
-    (output / 'catalog.json').write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+    (output / "index.html").write_text(page, encoding="utf-8")
+    (output / "catalog.json").write_text(
+        json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     for name, content in assets.items():
-        (output / name).write_text(content, encoding='utf-8')
-    (output / 'assets/hn').mkdir(parents=True, exist_ok=True)
+        (output / name).write_text(content, encoding="utf-8")
+    (output / "assets/hn").mkdir(parents=True, exist_ok=True)
     for slug, chart in charts.items():
-        (output / 'assets/hn' / (slug + '.svg')).write_text(chart, encoding='utf-8')
-    shutil.rmtree(output / 'assets/stars', ignore_errors=True)
-    (output / 'assets/stars').mkdir(parents=True, exist_ok=True)
+        (output / "assets/hn" / (slug + ".svg")).write_text(chart, encoding="utf-8")
+    shutil.rmtree(output / "assets/stars", ignore_errors=True)
+    (output / "assets/stars").mkdir(parents=True, exist_ok=True)
     for path, chart in star_charts.items():
-        (output / path).write_text(chart, encoding='utf-8')
-    shutil.rmtree(output / 'assets/qr', ignore_errors=True)
-    (output / 'assets/qr').mkdir(parents=True, exist_ok=True)
+        (output / path).write_text(chart, encoding="utf-8")
+    shutil.rmtree(output / "assets/qr", ignore_errors=True)
+    (output / "assets/qr").mkdir(parents=True, exist_ok=True)
     for path, code in qr_codes.items():
-        (output / path).write_text(code, encoding='utf-8')
-    (output / 'data').mkdir(exist_ok=True)
-    evidence_files = ['alternatives.json', 'hn_evidence.json']
-    if (root / 'data/star_history.json').exists():
-        evidence_files.append('star_history.json')
+        (output / path).write_text(code, encoding="utf-8")
+    (output / "data").mkdir(exist_ok=True)
+    evidence_files = ["alternatives.json", "hn_evidence.json"]
+    if (root / "data/star_history.json").exists():
+        evidence_files.append("star_history.json")
     else:
-        (output / 'data/star_history.json').unlink(missing_ok=True)
+        (output / "data/star_history.json").unlink(missing_ok=True)
     if optional is not None:
-        evidence_files.append('project_signals.json')
+        evidence_files.append("project_signals.json")
     else:
-        (output / 'data/project_signals.json').unlink(missing_ok=True)
+        (output / "data/project_signals.json").unlink(missing_ok=True)
     for name in evidence_files:
-        shutil.copyfile(root / 'data' / name, output / 'data' / name)
-    (output / 'vendor').mkdir(exist_ok=True)
-    for name in ('fonts.css', 'FONT-LICENSE.txt', 'FONT-PROVENANCE.json'):
-        shutil.copyfile(root / 'site/vendor' / name, output / 'vendor' / name)
-    for old in ('motion.js', 'vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'vendor/GSAP-PROVENANCE.txt'):
+        shutil.copyfile(root / "data" / name, output / "data" / name)
+    (output / "vendor").mkdir(exist_ok=True)
+    for name in ("fonts.css", "FONT-LICENSE.txt", "FONT-PROVENANCE.json"):
+        shutil.copyfile(root / "site/vendor" / name, output / "vendor" / name)
+    for old in (
+        "motion.js",
+        "vendor/gsap.min.js",
+        "vendor/ScrollTrigger.min.js",
+        "vendor/GSAP-PROVENANCE.txt",
+    ):
         (output / old).unlink(missing_ok=True)
-    shutil.rmtree(output / 'specimens', ignore_errors=True)
-    for project in catalog['projects']:
-        if 'artwork' in project:
-            asset = project['artwork']['path']
+    shutil.rmtree(output / "specimens", ignore_errors=True)
+    for project in catalog["projects"]:
+        if "artwork" in project:
+            asset = project["artwork"]["path"]
             (output / asset).parent.mkdir(exist_ok=True)
-            shutil.copyfile(root / 'site' / asset, output / asset)
+            shutil.copyfile(root / "site" / asset, output / asset)
     for cutout in cutouts.values():
-        (output / cutout['path']).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(root / 'site' / cutout['path'], output / cutout['path'])
-    shutil.rmtree(output / 'footer-backgrounds', ignore_errors=True)
-    for asset in catalog['footer_backgrounds']:
+        (output / cutout["path"]).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(root / "site" / cutout["path"], output / cutout["path"])
+    shutil.rmtree(output / "footer-backgrounds", ignore_errors=True)
+    for asset in catalog["footer_backgrounds"]:
         (output / asset).parent.mkdir(exist_ok=True)
-        shutil.copyfile(root / 'site' / asset, output / asset)
-    (output / 'brand').mkdir(exist_ok=True)
+        shutil.copyfile(root / "site" / asset, output / asset)
+    (output / "brand").mkdir(exist_ok=True)
     for name in BRAND_ASSETS:
-        shutil.copyfile(root / 'site/brand' / name, output / 'brand' / name)
+        shutil.copyfile(root / "site/brand" / name, output / "brand" / name)
     copy_category_art(catalog, root, output)
-    (output / '.nojekyll').write_text('', encoding='utf-8')
+    (output / ".nojekyll").write_text("", encoding="utf-8")
     # A phone/download-friendly edition: every runtime asset and evidence download
     # is embedded, so opening one HTML file never depends on adjacent files.
-    standalone = page.replace('href="data/hn_evidence.json">View evidence', 'href="#hn-evidence">View evidence')
+    standalone = page.replace(
+        'href="data/hn_evidence.json">View evidence',
+        'href="#hn-evidence">View evidence',
+    )
     standalone = embed_category_art(standalone, catalog, root)
-    for asset in catalog['footer_backgrounds']:
-        mime_type = 'image/png' if asset.lower().endswith('.png') else 'image/webp'
-        encoded = base64.b64encode((output / asset).read_bytes()).decode('ascii')
-        standalone = standalone.replace(f'src="{asset}"', f'src="data:{mime_type};base64,{encoded}"')
-        standalone = standalone.replace(f'&quot;{asset}&quot;', f'&quot;data:{mime_type};base64,{encoded}&quot;')
+    for asset in catalog["footer_backgrounds"]:
+        mime_type = "image/png" if asset.lower().endswith(".png") else "image/webp"
+        encoded = base64.b64encode((output / asset).read_bytes()).decode("ascii")
+        standalone = standalone.replace(
+            f'src="{asset}"', f'src="data:{mime_type};base64,{encoded}"'
+        )
+        standalone = standalone.replace(
+            f"&quot;{asset}&quot;", f"&quot;data:{mime_type};base64,{encoded}&quot;"
+        )
     for name, mime_type in BRAND_ASSETS.items():
-        encoded = base64.b64encode((output / 'brand' / name).read_bytes()).decode('ascii')
-        for attribute in ('src', 'href'):
-            standalone = standalone.replace(f'{attribute}="brand/{name}"',
-                                            f'{attribute}="data:{mime_type};base64,{encoded}"')
-    for name in ('vendor/fonts.css', 'tokens.css', 'styles.css'):
-        href = f'{name}?v={source_sha or "preview"}' if name == 'styles.css' else name
-        standalone = standalone.replace(f'<link rel="stylesheet" href="{href}">',
-                                        '<style>' + (output / name).read_text(encoding='utf-8') + '</style>')
-    for name in ('catalog.js',):
+        encoded = base64.b64encode((output / "brand" / name).read_bytes()).decode(
+            "ascii"
+        )
+        for attribute in ("src", "href"):
+            standalone = standalone.replace(
+                f'{attribute}="brand/{name}"',
+                f'{attribute}="data:{mime_type};base64,{encoded}"',
+            )
+    for name in ("vendor/fonts.css", "tokens.css", "styles.css"):
+        href = f"{name}?v={source_sha or 'preview'}" if name == "styles.css" else name
+        standalone = standalone.replace(
+            f'<link rel="stylesheet" href="{href}">',
+            "<style>" + (output / name).read_text(encoding="utf-8") + "</style>",
+        )
+    for name in ("catalog.js",):
         # Keep parser ordering identical to deferred scripts: initialize after DOM.
-        code = (output / name).read_text(encoding='utf-8')
-        encoded = base64.b64encode(code.encode('utf-8')).decode('ascii')
-        standalone = standalone.replace(f'src="{name}"', f'src="data:text/javascript;base64,{encoded}"')
-    for project in catalog['projects']:
-        if 'artwork' in project:
-            asset = cutouts[project['id']]['path'] if project['id'] in cutouts else project['artwork']['path']
-            encoded = base64.b64encode((output / asset).read_bytes()).decode('ascii')
-            standalone = standalone.replace(f'src="{asset}"', f'src="data:image/webp;base64,{encoded}"')
+        code = (output / name).read_text(encoding="utf-8")
+        encoded = base64.b64encode(code.encode("utf-8")).decode("ascii")
+        standalone = standalone.replace(
+            f'src="{name}"', f'src="data:text/javascript;base64,{encoded}"'
+        )
+    for project in catalog["projects"]:
+        if "artwork" in project:
+            asset = (
+                cutouts[project["id"]]["path"]
+                if project["id"] in cutouts
+                else project["artwork"]["path"]
+            )
+            encoded = base64.b64encode((output / asset).read_bytes()).decode("ascii")
+            standalone = standalone.replace(
+                f'src="{asset}"', f'src="data:image/webp;base64,{encoded}"'
+            )
     for path, code in qr_codes.items():
-        encoded = base64.b64encode(code.encode('utf-8')).decode('ascii')
-        standalone = standalone.replace(f'src="{path}"', f'src="data:image/svg+xml;base64,{encoded}"')
-    standalone = standalone.replace('<a href="standalone.html" download>Download</a>', '')
+        encoded = base64.b64encode(code.encode("utf-8")).decode("ascii")
+        standalone = standalone.replace(
+            f'src="{path}"', f'src="data:image/svg+xml;base64,{encoded}"'
+        )
+    standalone = standalone.replace(
+        '<a href="standalone.html" download>Download</a>', ""
+    )
     for slug, chart in charts.items():
-        encoded = base64.b64encode(chart.encode('utf-8')).decode('ascii')
-        standalone = standalone.replace(f'src="assets/hn/{slug}.svg"', f'src="data:image/svg+xml;base64,{encoded}"')
+        encoded = base64.b64encode(chart.encode("utf-8")).decode("ascii")
+        standalone = standalone.replace(
+            f'src="assets/hn/{slug}.svg"', f'src="data:image/svg+xml;base64,{encoded}"'
+        )
     for path, chart in star_charts.items():
-        encoded = base64.b64encode(chart.encode('utf-8')).decode('ascii')
-        standalone = standalone.replace(f'src="{path}"', f'src="data:image/svg+xml;base64,{encoded}"')
-    for name in ['catalog.json', *('data/' + item for item in evidence_files)]:
-        encoded = base64.b64encode((output / name).read_bytes()).decode('ascii')
-        standalone = standalone.replace(f'href="{name}"',
-                                        f'download="{Path(name).name}" href="data:application/json;base64,{encoded}"')
+        encoded = base64.b64encode(chart.encode("utf-8")).decode("ascii")
+        standalone = standalone.replace(
+            f'src="{path}"', f'src="data:image/svg+xml;base64,{encoded}"'
+        )
+    for name in ["catalog.json", *("data/" + item for item in evidence_files)]:
+        encoded = base64.b64encode((output / name).read_bytes()).decode("ascii")
+        standalone = standalone.replace(
+            f'href="{name}"',
+            f'download="{Path(name).name}" href="data:application/json;base64,{encoded}"',
+        )
     standalone = standalone.replace('href="./"', 'href="#page-title"')
-    standalone = standalone.replace('href="observatory/"', 'href="https://awesomeopen.github.io/awesome-open/observatory/"')
-    (output / 'standalone.html').write_text(standalone, encoding='utf-8')
+    standalone = standalone.replace(
+        'href="observatory/"',
+        'href="https://awesomeopen.github.io/awesome-open/observatory/"',
+    )
+    (output / "standalone.html").write_text(standalone, encoding="utf-8")
     from build_observatory import build as build_observatory
+
     build_observatory(catalog, evidence, output, root)
     return catalog
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=ROOT / 'tmp/site')
-    parser.add_argument('--source-sha', help='Explicit full source commit SHA, supplied by the caller; never inferred')
-    parser.add_argument('--production', action='store_true', help='Use the reviewed specimen hero on the main entry point')
+    parser.add_argument("--output", type=Path, default=ROOT / "tmp/site")
+    parser.add_argument(
+        "--source-sha",
+        help="Explicit full source commit SHA, supplied by the caller; never inferred",
+    )
+    parser.add_argument(
+        "--production",
+        action="store_true",
+        help="Use the reviewed specimen hero on the main entry point",
+    )
     args = parser.parse_args()
     catalog = build(args.output, args.source_sha)
     if args.production:
         from build_jar_preview import build as build_hero
+
         build_hero(args.output, production=True)
-    print(f"Built {len(catalog['projects'])} projects / {catalog['category_memberships']} category memberships in {args.output}")
-    print(f"Cached GitHub metrics as of {catalog['metrics_as_of']}; no data fetched or deployed.")
+    print(
+        f"Built {len(catalog['projects'])} projects / {catalog['category_memberships']} category memberships in {args.output}"
+    )
+    print(
+        f"Cached GitHub metrics as of {catalog['metrics_as_of']}; no data fetched or deployed."
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
