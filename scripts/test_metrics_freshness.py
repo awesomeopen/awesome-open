@@ -33,12 +33,22 @@ class MetricsFreshnessTests(unittest.TestCase):
         self.assertIsNone(obs.aggregate(index)['stars'])
         self.assertEqual(obs.aggregate(index)['mapped'], 0)
         html = obs.render(index, obs.aggregate(index), obs.coverage(catalog, {}))
-        self.assertIn('data-metric="stars">Unknown</dd>', html)
+        self.assertIn('data-metric="stars">Unknown</span>', html)
         github.update(status='stale', stars=0, last_success_at='2026-10-07')
         index = obs.project_index(catalog)
         self.assertEqual(obs.aggregate(index)['stars'], 0)
         self.assertIn('metrics_last_success_at', obs.csv_text(index))
         self.assertIn('2026-10-07', obs.csv_text(index))
+
+    def test_comparison_plates_date_cached_metrics(self):
+        catalog = fixture()
+        for p in catalog['projects']:
+            p['name'] = 'Open'
+        catalog['projects'][0]['github'].update(status='stale', last_success_at='2026-10-07')
+        index = obs.project_index(catalog)
+        html = obs.render(index, obs.aggregate(index), obs.coverage(catalog, {}))
+        self.assertIn('<dt>Metrics cache</dt><dd>stale · observed 2026-10-07 UTC</dd>', html)
+        self.assertIn('<dt>GitHub stars</dt><dd>0</dd>', html)
 
     def test_mixed_cache_normal_standalone_and_observatory_outputs(self):
         # Use real catalog shape/assets while replacing only repository measurements.
@@ -67,6 +77,7 @@ class MetricsFreshnessTests(unittest.TestCase):
                 self.assertIn('Last success: 2026-10-07', text)
                 self.assertIn('unavailable<br>Last success: Unknown', text)
                 self.assertIn('Cached measurements may be stale', text)
+                self.assertIn('Top 10 specimen by GitHub stars. Observed counts may include dated stale cache.', text)
                 self.assertIn('unavailable · HTTP 404 · repository_unavailable', text)
             index = obs.project_index(catalog)
             row = next(p for p in index['projects'] if p['id'] == stale['id'])
