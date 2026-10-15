@@ -1,8 +1,10 @@
 # Observatory redesign proposal
 
-Status: **Proposed; awaiting review** (B30). Nothing here is implemented. The
-current route follows [OBSERVATORY.md](OBSERVATORY.md) until this proposal is
-accepted and that contract is updated.
+Status: **User-approved; implemented for review** (B31). The generator, runtime,
+styles and tests implement this design; [OBSERVATORY.md](OBSERVATORY.md) carries the
+updated contract. This note keeps the reasoning and the reusable method. One
+difference from the mock: repository paths show the catalog's canonical URL rather
+than the casing in `README.source.md`.
 
 Reviewed mock: private artifact
 [Collection Observatory Redesign](https://claude.ai/artifact/8TVofdsPuHy4mJNk4J2X6L),
@@ -41,14 +43,16 @@ then work through each block in this order:
 
 | Area | Current | Proposed | Basis |
 | --- | --- | --- | --- |
-| Opening | Kicker, title, provenance lines | Same content; provenance as a two-row ruled list beside the title. Text only, full width | Opening stays text-only (Observatory contract) |
-| Filters | Labeled selects above the metrics | One sticky selection bar for the whole page: Category, Detected license, Reset (disabled at default) and section jumps. No visible labels; `aria-label` names each select | User direction 2026-10-14 |
+| Opening | Kicker, title, provenance lines | Title only, no rule above it. Snapshot date and source revision move to the footer | Opening stays text-only (Observatory contract) |
+| Kickers | Small uppercase eyebrow above most blocks (`01 / projects`, `Whole collection`, …) | Removed. Section headings carry the structure: h2 for Shared names, Charts, Evidence coverage and Project data; h3 per chart | User direction 2026-10-14 |
+| Header links | Project ledger · Coverage · Data | The ledger's own links: Ledger · About · Observatory · GitHub, with Observatory marked current (`aria-current`, scarlet underline). Coverage and Data stay in the selection bar's jumps | User direction 2026-10-14 |
+| Filters | Labeled selects above the metrics | One sticky selection bar for the whole page: Category, Detected license, Reset (disabled at default) and section jumps. No visible labels; `aria-label` names each select. Section jumps are bold | User direction 2026-10-14 |
 | Selection count | “N projects selected.” paragraph | “N/N selected.” at the end of the Shared names paragraph; the metric row repeats the selected total | User direction 2026-10-14 |
 | Metrics | Four numbers | Ruled row of four; ratio metrics show “456 / 501” and a 4px linear proportion line | Literal values; linear geometry |
-| Finding | Sentence | Sentence plus a whole-collection strip: top-10 star share against other mapped projects, drawn to scale | Finding keeps whole-collection scope |
+| Finding | Sentence | Sentence that states its scope (“Across the whole collection, …”) plus a whole-collection strip: top-10 star share against other mapped projects, drawn to scale | Finding keeps whole-collection scope |
 | Charts 01–06 | Fixed-viewBox SVG, label column truncated at 28 characters | HTML/CSS bar lists, zero-based and linear, labels wrap instead of truncating. Narrow screens put the label above its bar. Unknown bars are hatched as well as labeled. Categories sorted by count. Push and release charts are paired on one shared scale, marked “shared scale”. “Chart data” tables stay in folded disclosures | Linear from zero; no new dependency |
 | Chart notes | Longer method captions | 01 “Projects can belong to several categories.” · 02 “Cached GitHub license identifiers.” · 03 “Top 10 specimen by GitHub stars.” · 06 “Days since last GitHub release (cached, excludes prereleases).” Method detail stays in the CSV, snapshot and this contract | User direction 2026-10-14 |
-| Shared names | Count, closed group disclosures with name and URL | Open unit tally: one mark per tool, clustered by group, all marks the same Prussian fill and distinguished by shape (square for identical names, circle for spelling variants; no star, which reads as GitHub stars). Squares and circles start on separate lines. Zero counts stay in the legend. Below it, one folded “Show name groups” disclosure (summary: groups · tools) holds the comparison plates: repository, short description, category, license, GitHub stars, created, last push, ledger record, aligned across columns. “How groups are formed” is a nested fold-out at the bottom of “Name groups”. A tally cluster opens the disclosure and jumps to its plate | Dense comparable information stays close; no implied progress |
+| Shared names | Count, closed group disclosures with name and URL | Open unit tally: one mark per tool, clustered by group, all marks the same Prussian fill and distinguished by shape (square for identical names, circle for spelling variants; no star, which reads as GitHub stars). Squares and circles start on separate lines. Zero counts stay in the legend; tag counts are not shown there. Below it, one folded “Show name groups” disclosure (summary: groups · tools) holds the comparison plates: repository, short description, category, license, GitHub stars, created, last push, ledger record, aligned across columns. “How groups are formed” is a nested fold-out at the bottom of “Show name groups”. Both disclosures are borderless and open from a right-facing arrow that turns down when open. A tally cluster opens the disclosure and jumps to its plate | Dense comparable information stays close; no implied progress |
 | Grouping | Three groups filled in order (exact, capitalization, whitespace); a project placed in an early group is withheld from later ones | One matching key per name (see below). Two groups: Identical names and Spelling variants. Variant groups carry tags: Case, Spacing, Exact duplicates | Removes ordered withholding; see “Name grouping model” |
 | Identical names | Name repeated | Owner set bold in the repository path | Emphasis anchored to the differing identifier |
 | Spelling variants | Variants joined with a slash | Letters whose case differs are underlined in scarlet; a differing separator is underlined, and a missing one shows as a thin scarlet bar (form, not only color) | Scarlet directs attention |
@@ -56,7 +60,8 @@ then work through each block in this order:
 | Match-type labels | Sub-heading and summaries with rule captions | Scarlet block labels with mist type and no rule caption; rules live in “How groups are formed” | B29 label treatment |
 | Coverage | Table | Mist band labeled “Whole collection” (no further scope sentence); each row has a linear bar of value / total, the count and the scope note. Collection dates and evidence links span the full width | Coverage keeps whole-collection scope |
 | Project data | Downloads, folded table | Downloads as bordered links; table folded, summary shows the selected row count | Listing folded so the page stays short |
-| Closing, footer | Logo, footer | Unchanged | B27 |
+| Metrics | — | “Detected license available” reads “License detected” (metric and filter option) | User direction 2026-10-14 |
+| Closing, footer | Logo, footer | Closing logo unchanged. Footer links become a list at the lower right: Return to project ledger, GitHub, Source revision, Metrics snapshot (UTC date) | B27; user direction 2026-10-14 |
 
 Removed copy (user direction 2026-10-14): the Category and License labels above
 the selects, the “compare owners and descriptions” advice, the three match-type
@@ -113,7 +118,7 @@ would join OpenPilot and openpilot in one group of three (Case, Spacing).
 - White/Prussian palette, Fraunces and Commit Mono, 4px spacing, native
   disclosures, closing mark, standalone report, downloads.
 
-## Contract changes needed before implementation
+## Contract changes (applied in the implementation)
 
 - **Chart rendering.** Replace “Native SVG … do the chart work” in
   OBSERVATORY.md with HTML/CSS bars rendered server-side, keeping the zero-based
