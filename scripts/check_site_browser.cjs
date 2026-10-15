@@ -190,6 +190,18 @@ const path = require('node:path');
     }
     assert.equal(await visible(), data.projects.length);
     assert.equal(await page.locator('#sort-order').isEnabled(), true);
+    assert.equal(await page.locator('#sort-order').inputValue(), 'stars');
+    const defaultIds = await page.evaluate(() => {
+      const d = JSON.parse(document.getElementById('catalog-data').textContent);
+      return d.projects.slice().sort(OpenCatalog.comparator('stars')).map(p => p.id);
+    });
+    assert.deepEqual(await page.locator('.project-card').evaluateAll(cards => cards.map(c => c.dataset.projectId)), defaultIds);
+    const nameURL = new URL(page.url()); nameURL.searchParams.set('sort', 'name');
+    await page.goto(nameURL.href);
+    assert.equal(await page.locator('#sort-order').inputValue(), 'name');
+    await page.locator('#clear-filters').click();
+    assert.equal(await page.locator('#sort-order').inputValue(), 'stars');
+
     assert.equal(await page.locator('.specimen-drawer').count(), data.projects.length);
     await assertLedgerFits(page, 'desktop');
     assert.equal(await page.locator('#search').getAttribute('placeholder'), null);
@@ -476,6 +488,7 @@ const path = require('node:path');
     await assertLedgerFits(fallback, 'no JavaScript');
     await fallback.locator('.specimen-drawer').first().locator(':scope > summary').click();
     assert.equal(await fallback.locator('.specimen-drawer').first().locator('.plate-departure > a').isVisible(), true);
+    assert.deepEqual(await fallback.locator('.project-card').evaluateAll(cards => cards.map(c => c.dataset.projectId)), defaultIds);
     await noJS.close();
 
     // The downloadable HTML must load without any neighboring runtime assets.

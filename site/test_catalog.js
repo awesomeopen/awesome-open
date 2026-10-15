@@ -39,7 +39,7 @@ const ids = input => catalog.selectProjects(projects, state(input), data).map(p 
 
 test("defaults keep every project, including unknown metrics", () => {
   assert.deepEqual(state({}), catalog.DEFAULTS);
-  assert.deepEqual(ids({}), ["open-alpha", "open-alpha-2", "open-beta", "open-empty", "open-zero"]);
+  assert.deepEqual(ids({}), ["open-beta", "open-alpha", "open-alpha-2", "open-zero", "open-empty"]);
 });
 
 test("search matches names, descriptions and reviewed alternatives", () => {
@@ -54,29 +54,29 @@ test("search matches names, descriptions and reviewed alternatives", () => {
 test("all filters combine; cross-listed projects are not duplicated", () => {
   assert.deepEqual(ids({ q: "editor", category: "tools", license: "MIT", stars: "25", pushed: "2026-10-09" }), ["open-alpha"]);
   assert.deepEqual(ids({ q: "editor", category: "tools", stars: "26" }), []);
-  assert.deepEqual(ids({ category: "writing", license: "known" }), ["open-alpha", "open-beta"]);
+  assert.deepEqual(ids({ category: "writing", license: "known" }), ["open-beta", "open-alpha"]);
   assert.deepEqual(ids({ category: "writing", license: "unknown" }), ["open-alpha-2"]);
   assert.deepEqual(ids({ category: "writing", license: "Apache-2.0" }), ["open-beta"]);
 });
 
 test("blank threshold includes unknowns; explicit zero excludes them", () => {
   assert.deepEqual(ids({ stars: "" }), ids({}));
-  assert.deepEqual(ids({ stars: "0" }), ["open-alpha", "open-alpha-2", "open-beta", "open-zero"]);
+  assert.deepEqual(ids({ stars: "0" }), ["open-beta", "open-alpha", "open-alpha-2", "open-zero"]);
   assert.equal(state({ stars: 0 }).stars, 0);
-  assert.deepEqual(ids({ stars: "25" }), ["open-alpha", "open-alpha-2", "open-beta"]);
+  assert.deepEqual(ids({ stars: "25" }), ["open-beta", "open-alpha", "open-alpha-2"]);
   assert.deepEqual(ids({ stars: "26" }), ["open-beta"]);
 });
 
 test("date threshold is exact and inclusive in UTC; unknown date fails", () => {
   assert.deepEqual(ids({ pushed: "2026-10-09" }), ["open-alpha", "open-alpha-2"]);
-  assert.deepEqual(ids({ pushed: "2026-10-08" }), ["open-alpha", "open-alpha-2", "open-beta"]);
+  assert.deepEqual(ids({ pushed: "2026-10-08" }), ["open-beta", "open-alpha", "open-alpha-2"]);
   assert.deepEqual(ids({ pushed: "2026-10-10" }), []);
   assert.equal(catalog.pushedAt({ github: { pushed_at: "2026-02-30T01:00:00Z" } }), null);
   assert.equal(catalog.pushedAt({ github: { pushed_at: "invalid" } }), null);
 });
 
 test("unknown, NOASSERTION and OTHER licenses remain unknown", () => {
-  assert.deepEqual(ids({ license: "unknown" }), ["open-alpha-2", "open-empty", "open-zero"]);
+  assert.deepEqual(ids({ license: "unknown" }), ["open-alpha-2", "open-zero", "open-empty"]);
   for (const license of [null, "", "OTHER", "NOASSERTION", "unknown", 7]) {
     assert.equal(catalog.licenseOf({ github: { license } }), "");
   }
@@ -370,7 +370,7 @@ test("sidebar category links filter in place, mark current category and respect 
   assert.equal(ui.ids["category-filter"].value, "tools");
   assert.equal(ui.categoryLinks[0].attributes["aria-current"], undefined);
   assert.equal(ui.categoryLinks[2].attributes["aria-current"], "true");
-  assert.deepEqual(ui.visible(), ["open-alpha", "open-empty", "open-zero"]);
+  assert.deepEqual(ui.visible(), ["open-alpha", "open-zero", "open-empty"]);
   assert.equal(new URL(ui.window.location.href).hash, "#catalog");
 });
 
@@ -394,7 +394,7 @@ test("unavailable history APIs do not break local-file filtering", () => {
   catalog.init(ui.document, ui.window);
   ui.ids["category-filter"].value = "tools";
   assert.doesNotThrow(() => ui.ids["category-filter"].fire("change"));
-  assert.deepEqual(ui.visible(), ["open-alpha", "open-empty", "open-zero"]);
+  assert.deepEqual(ui.visible(), ["open-alpha", "open-zero", "open-empty"]);
 });
 
 test("push windows are anchored to the cached snapshot and use exact inclusive UTC day boundaries", () => {
@@ -413,9 +413,9 @@ test("push windows are anchored to the cached snapshot and use exact inclusive U
   assert.equal(catalog.pushWindowOf(projects[0], "2026-10-10"), "recent");
   assert.equal(catalog.pushWindowOf(projects[0], { metrics_as_of: "invalid" }), "");
   assert.equal(catalog.pushWindowBounds(null), null);
-  assert.deepEqual(ids({ window: "recent" }), ["open-alpha", "open-alpha-2", "open-beta"]);
+  assert.deepEqual(ids({ window: "recent" }), ["open-beta", "open-alpha", "open-alpha-2"]);
   assert.deepEqual(ids({ window: "older" }), []);
-  assert.deepEqual(ids({ window: "unknown" }), ["open-empty", "open-zero"]);
+  assert.deepEqual(ids({ window: "unknown" }), ["open-zero", "open-empty"]);
 });
 
 test("two-calendar-year cutoff clamps leap-day anniversaries without overflowing into March", () => {
@@ -441,7 +441,7 @@ test("reviewed alternative filter uses exact names, independent of description, 
 });
 
 test("metrics presence means a cached GitHub record, not known license, stars or push date", () => {
-  assert.deepEqual(ids({ metrics: "present" }), ["open-alpha", "open-alpha-2", "open-beta", "open-zero"]);
+  assert.deepEqual(ids({ metrics: "present" }), ["open-beta", "open-alpha", "open-alpha-2", "open-zero"]);
   assert.deepEqual(ids({ metrics: "missing" }), ["open-empty"]);
   assert.deepEqual(ids({ metrics: "present", window: "unknown" }), ["open-zero"]);
   assert.deepEqual(ids({ metrics: "missing", license: "known" }), []);
@@ -477,7 +477,7 @@ test("new URL filters normalize, round-trip, canonicalize duplicates and clear i
   assert.deepEqual(canonical.searchParams.getAll("metrics"), ["missing"]);
   assert.deepEqual(canonical.searchParams.getAll("alternative"), ["Google Docs"]);
   const legacyState = { q: "", category: "", license: "all", stars: null, pushed: "", sort: "name" };
-  assert.equal(catalog.stateToURL(input, legacyState).href, input);
+  assert.equal(catalog.stateToURL(input, legacyState).searchParams.get("sort"), "name");
 });
 
 test("older markup works without optional controls and retains URL-only optional state until clear", () => {
@@ -680,4 +680,14 @@ test('unavailable records are unknown while stale zero remains measurable', () =
   assert.equal(catalog.starsOf(unavailable), null);
   assert.equal(catalog.starsOf(stale), 0);
   assert.deepEqual(catalog.selectProjects([unavailable, stale], state({ stars: '0' })).map(p => p.id), ['stale']);
+});
+
+test("explicit name sorting survives URL changes while reset uses stars", () => {
+  const explicit = state(new URLSearchParams("sort=name&category=writing"));
+  assert.equal(explicit.sort, "name");
+  assert.deepEqual(ids({ sort: "name" }), ["open-alpha", "open-alpha-2", "open-beta", "open-empty", "open-zero"]);
+  const url = catalog.stateToURL("https://example.org/?sort=name", explicit);
+  assert.equal(state(url.searchParams).sort, "name");
+  assert.equal(catalog.stateToURL(url, state({})).searchParams.has("sort"), false);
+  assert.equal(state({}).sort, "stars");
 });

@@ -79,6 +79,16 @@ class Page(HTMLParser):
 
 
 class SiteTests(unittest.TestCase):
+    def test_static_default_is_stars_descending_with_alphabetical_folios(self):
+        from build_site import search_index
+        script = "const c=require('./site/catalog.js'); const d=JSON.parse(require('node:fs').readFileSync(0,'utf8')); console.log(JSON.stringify(d.projects.slice().sort(c.comparator('stars')).map(p=>p.id)))"
+        result = subprocess.run(['node', '-e', script], input=json.dumps(search_index(self.catalog)),
+                                cwd=ROOT, capture_output=True, text=True, check=True)
+        self.assertEqual(self.page.cards, json.loads(result.stdout))
+        options = self.page.by_id['sort-order'].descendants('option')
+        self.assertEqual([o.attrs['value'] for o in options if 'selected' in o.attrs], ['stars'])
+        self.assertIn('Folio numbers show alphabetical position', self.html)
+
     @classmethod
     def setUpClass(cls):
         cls.temporary = tempfile.TemporaryDirectory()

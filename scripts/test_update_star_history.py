@@ -248,12 +248,59 @@ class CollectorTests(unittest.TestCase):
             self.assertEqual(path.read_bytes(), before)
             self.assertFalse(path.with_suffix('.tmp').exists())
 
-    def test_curated_pilot_matches_hn_and_stays_small(self):
-        projects = stars.validate_projects(json.loads(stars.PROJECTS_PATH.read_text()))
-        hn = json.loads((stars.ROOT / 'data/hn_projects.json').read_text())['projects']
-        matched = {p['readme_url'].lower() for p in hn if p['repositories']}
-        self.assertLessEqual(len(projects), 4)
-        self.assertTrue(all(p['readme_url'].lower() in matched for p in projects))
+    def test_catalog_eligibility_deduplicates_and_preserves_unknowns(self):
+        config = json.loads(stars.PROJECTS_PATH.read_text())
+        source = (stars.ROOT / 'README.source.md').read_text()
+        projects = stars.load_projects(config, source)
+        from render_readme import validate_source
+        self.assertEqual({p['repo'] for p in projects}, set(validate_source(source)))
+        self.assertEqual(len(projects), len({p['repo'] for p in projects}))
+        fixture = "| [Open A](https://github.com/ORG/A/) | Tool. |\n" * 2
+        fixture += "| [Open B](https://elsewhere.example/org/b) | Tool. |\n"
+        self.assertEqual(stars.load_projects(config, fixture), [
+            {'name': 'Open A', 'repo': 'org/a', 'readme_url': 'https://github.com/org/a'}])
+        with self.assertRaises(ValueError):
+            stars.load_projects({'schema_version': 2, 'scope': 'anything'}, source)
+        with self.assertRaises(ValueError):
+            stars.load_projects(config, fixture + "| [Different](https://github.com/org/a) | Tool. |\n")
+        self.assertEqual(stars.load_projects({'schema_version': 1, 'projects': [PROJECT]}, ''), [PROJECT])
+
+    def test_popular_unseen_first_then_fair_refresh(self):
+        projects = [{**PROJECT, 'repo': 'org/' + name, 'readme_url': 'https://github.com/org/' + name}
+                    for name in ['a', 'b', 'c', 'd', 'e']]
+        metadata = {'repositories': {'org/a': {'stargazers_count': 0},
+                    'org/b': {'stargazers_count': 100}, 'org/c': {'stargazers_count': 100},
+                    'org/d': {'stargazers_count': None}}}
+        calls = []
+        def unavailable(url):
+            calls.append(url.split('/repos/')[1].split('/stargazers')[0])
+            raise stars.HistoryError('Unavailable', 'unavailable')
+        cache = None
+        for day in range(6):
+            cache = stars.refresh(projects, existing=cache, metadata=metadata,
+                now=NOW + timedelta(days=day), getter=unavailable, max_repositories=1)
+        self.assertEqual(calls, ['org/b', 'org/c', 'org/a', 'org/d', 'org/e', 'org/b'])
+        self.assertEqual(cache['selection_report']['eligible_repositories'], 5)
+        self.assertEqual(cache['selection_report']['unattempted_repositories'], 0)
+        self.assertEqual(cache['selection_report']['attempted_repositories'], 1)
+        self.assertEqual(cache['budget']['limit'], 16)
+        self.assertEqual(cache['budget']['requests_used'], 1)
+
+    def test_selection_report_validation_and_offset_order(self):
+        cache = self.refresh(getter=pager(weekly_series()))
+        for value in [-1, True, '4']:
+            bad = deepcopy(cache)
+            bad['selection_report']['eligible_repositories'] = value
+            with self.assertRaises(ValueError):
+                stars.validate_cache(bad)
+        bad = deepcopy(cache)
+        bad['selection_report']['attempted_repositories'] = 2
+        with self.assertRaises(ValueError):
+            stars.validate_cache(bad)
+        records = {'org/example': {'checked_at': '2026-10-15T01:00:00+02:00'}}
+        earlier = stars.priority_key(PROJECT, records, None)
+        records['org/example']['checked_at'] = '2026-10-15T00:00:00+00:00'
+        self.assertLess(earlier, stars.priority_key(PROJECT, records, None))
 
     def test_invocation_budget_survives_discarded_worktree_snapshot(self):
         with tempfile.TemporaryDirectory() as directory:

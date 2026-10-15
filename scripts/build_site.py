@@ -5,6 +5,7 @@ import argparse
 import base64
 import hashlib
 import html
+import unicodedata
 import json
 import re
 import warnings
@@ -650,9 +651,16 @@ def render_html(catalog, cutouts=None):
         if footer_backgrounds
         else ""
     )
+    folios = {p["id"]: i + 1 for i, p in enumerate(catalog["projects"])}
+    def star_order(project):
+        stars = (project.get("github") or {}).get("stars")
+        known = type(stars) is int and stars >= 0
+        name = "".join(c for c in unicodedata.normalize("NFKD", project["name"])
+                       if not "\u0300" <= c <= "\u036f").lower()
+        return (not known, -stars if known else 0, name, project["id"])
     projects = "\n".join(
-        project_html(p, categories, catalog, i + 1, cutouts)
-        for i, p in enumerate(catalog["projects"])
+        project_html(p, categories, catalog, folios[p["id"]], cutouts)
+        for p in sorted(catalog["projects"], key=star_order)
     )
     signal_projects = [p for p in catalog["projects"] if p.get("signals")]
     signal_coverage = []
@@ -714,7 +722,7 @@ def render_html(catalog, cutouts=None):
    <div class="toolbar-bottom"><p class="filter-note">Date filters use the {escape(catalog["metrics_as_of"])} UTC snapshot. Setup filters cover reviewed evidence only; unrecorded paths remain unknown.</p></div></div></details><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
   </form></div>
   <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
-  <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="name">Name A–Z</option><option value="stars">Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
+  <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="name">Name A–Z</option><option value="stars" selected>Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
   <p id="project-link-notice" class="link-notice" role="status" hidden></p><p id="empty-state" class="empty-state" hidden>No projects match these filters. Try a broader search or reset filters.</p>
   <div id="project-list" class="project-list">{projects}</div>
  </main>
