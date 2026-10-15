@@ -310,8 +310,17 @@
         number += 1;
         var cluster = element(doc, 'a', 'obs-cluster');
         cluster.href = '#name-group-' + number;
-        cluster.setAttribute('aria-label', group.name + ', ' + group.projects.length + ' tools, ' + kind[2].toLowerCase());
-        group.projects.forEach(function () { cluster.appendChild(element(doc, 'span', 'obs-mark obs-mark-' + kind[0])); marks += 1; });
+        var projectLabels = group.projects.map(function (project) {
+          return project.name + ' (' + project.url.replace(/^https?:\/\/(github\.com\/)?/, '') + ')';
+        });
+        cluster.title = projectLabels.join('; ');
+        cluster.setAttribute('aria-label', group.name + ', ' + group.projects.length + ' tools, ' + kind[2].toLowerCase() + ': ' + cluster.title);
+        projectLabels.forEach(function (label) {
+          var mark = element(doc, 'span', 'obs-mark obs-mark-' + kind[0]);
+          mark.title = label;
+          cluster.appendChild(mark);
+          marks += 1;
+        });
         clusters.appendChild(cluster);
         container.appendChild(namePlate(doc, group, number, categories));
       });

@@ -125,6 +125,21 @@ async function assertSharedNames(page, projects, label) {
   assert.equal(countedIDs.length, new Set(countedIDs).size, label + ': each project in at most one group');
   assert.equal(number(await page.locator('#shared-name-count').textContent()), countedIDs.length, label + ': headline counts every grouped tool');
   assert.equal(await page.locator('#name-tally .obs-mark').count(), countedIDs.length, label + ': one tally mark per tool');
+  const labels = new Map(projects.map(project => [project.id,
+    project.name + ' (' + project.url.replace(/^https?:\/\/(github\.com\/)?/, '') + ')']));
+  const clusters = await page.locator('#name-tally .obs-cluster').evaluateAll(nodes => nodes.map(node => ({
+    href: node.getAttribute('href'), title: node.title, label: node.getAttribute('aria-label'),
+    marks: [...node.querySelectorAll('.obs-mark')].map(mark => mark.title),
+    ids: [...document.querySelector(node.getAttribute('href')).querySelectorAll('.obs-plate-project')].map(column => column.dataset.projectId)
+  })));
+  for (const cluster of clusters) {
+    const names = cluster.ids.map(id => labels.get(id));
+    assert.deepEqual(cluster.marks, names, label + ': marker titles identify each project');
+    for (const name of names) {
+      assert.ok(cluster.title.includes(name), label + ': cluster title includes project');
+      assert.ok(cluster.label.includes(name), label + ': accessible link label includes project');
+    }
+  }
   for (const [kind, prefix] of [['identical', 'identical'], ['variants', 'variant']]) {
     const groups = expected[kind];
     assert.equal(number(await page.locator('#' + prefix + '-name-count').textContent()), groups.flat().length, label + ': ' + kind + ' tool count');

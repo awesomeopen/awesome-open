@@ -242,6 +242,15 @@ class ObservatoryAccountingTests(unittest.TestCase):
         tally=page.by_id['name-tally']
         clusters=[n for n in tally.descendants('a') if n.has_class('obs-cluster')]
         self.assertEqual([n.attrs['href'] for n in clusters],['#name-group-1','#name-group-2'])
+        groups = obs.aggregate(index)['shared_names']
+        for cluster, group in zip(clusters, groups['identical'] + groups['variants']):
+            labels = [p['name'] + ' (' + re.sub(r'^https?://(github\.com/)?', '', p['url']) + ')' for p in group['projects']]
+            marks = [n for n in cluster.descendants('span') if n.has_class('obs-mark')]
+            self.assertEqual([n.attrs['title'] for n in marks], labels)
+            for label in labels:
+                self.assertIn(label, cluster.attrs['title'])
+                self.assertIn(label, cluster.attrs['aria-label'])
+            self.assertIn(cluster.attrs['href'][1:], page.by_id)
         self.assertEqual(sum(1 for n in tally.descendants('span') if n.has_class('obs-tally-break')),1)
         self.assertEqual(len(page.images),1)
         index['projects']=[]

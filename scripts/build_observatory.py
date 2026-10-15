@@ -343,12 +343,17 @@ def shared_names_html(names, categories, selected, total):
         plates = []
         for group in groups:
             number += 1
+            project_labels = [
+                project["name"] + " (" + re.sub(r"^https?://(github\.com/)?", "", project["url"]) + ")"
+                for project in group["projects"]
+            ]
+            title = "; ".join(project_labels)
             marks = "".join(
-                f'<span class="obs-mark obs-mark-{key}"></span>'
-                for _ in group["projects"]
+                f'<span class="obs-mark obs-mark-{key}" title="{escape(project_label, quote=True)}"></span>'
+                for project_label in project_labels
             )
             clusters.append(
-                f'<a class="obs-cluster" href="#name-group-{number}" aria-label="{escape(group["name"], quote=True)}, {len(group["projects"])} tools, {legend.lower()}">{marks}</a>'
+                f'<a class="obs-cluster" href="#name-group-{number}" title="{escape(title, quote=True)}" aria-label="{escape(group["name"], quote=True)}, {len(group["projects"])} tools, {legend.lower()}: {escape(title, quote=True)}">{marks}</a>'
             )
             plates.append(name_plate_html(group, number, categories))
         count = names[
