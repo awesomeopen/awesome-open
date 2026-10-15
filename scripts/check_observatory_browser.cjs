@@ -201,6 +201,32 @@ async function checkObservatory({ browser, url }) {
     report.screenshots.push({ file: filename, ...dimensions, bytes: png.length, sha256: sha256(png), sourceSha: report.sourceSha });
     writeReport();
   };
+  const checkFooter = async (offline) => {
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.locator('.obs-footer').scrollIntoViewIfNeeded();
+      const footer = await page.locator('.obs-footer').evaluate(async node => {
+        const style = getComputedStyle(node);
+        const background = style.backgroundImage.slice(5, -2);
+        const image = new Image();
+        image.src = background;
+        await image.decode();
+        return { background, width: image.naturalWidth, repeat: style.backgroundRepeat,
+          border: style.borderTopStyle };
+      });
+      assert.equal(footer.width, 1254);
+      assert.equal(footer.repeat, 'repeat');
+      assert.equal(footer.border, 'double');
+      if (offline) {
+        assert.ok(footer.background.startsWith('data:image/png;base64,'));
+        assert.deepEqual(Buffer.from(footer.background.split(',')[1], 'base64'),
+          fs.readFileSync(path.join(ROOT, 'site/footer-backgrounds/navypattern2.png')));
+      } else {
+        assert.equal(footer.background, new URL('../footer-backgrounds/navypattern2.png', target).href);
+      }
+      await capture('footer-' + (offline ? 'standalone' : 'hosted') + '-' + width);
+    }
+  };
   const checkClosingMark = async (current, label) => {
     assert.equal(await current.locator('img').count(), 1, label + ': one image');
     assert.equal(await current.locator('.obs-closing-mark').count(), 1, label + ': one closing mark');
@@ -405,6 +431,7 @@ async function checkObservatory({ browser, url }) {
     const data = JSON.parse(await page.locator('#observatory-data').textContent());
     report.sourceSha = data.source_sha;
     report.metricsAsOf = data.metrics_as_of;
+    await checkFooter(false);
     assert.ok(data.source_sha, 'Embedded data records the source revision');
     if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Exact generated revision');
     const catalogResponse = await context.request.get(new URL('../catalog.json', target).href);
@@ -719,6 +746,7 @@ async function checkObservatory({ browser, url }) {
     await page.evaluate(() => document.fonts.ready);
     assert.equal(await page.locator('link[rel="stylesheet"], script[src]:not([src^="data:"])').count(), 0, 'Embedded standalone styles and runtime');
     assert.ok(await page.locator('img').evaluateAll(nodes => nodes.every(image => image.src.startsWith('data:') && image.complete && image.naturalWidth > 0)), 'Embedded standalone artwork');
+    await checkFooter(true);
     assert.deepEqual(offlineRequests, [], 'Standalone fetches no neighboring assets');
     assert.ok((await page.locator('.obs-logo').getAttribute('src')).startsWith('data:image/png;base64,'));
     await page.setViewportSize({ width: 1440, height: 1000 });

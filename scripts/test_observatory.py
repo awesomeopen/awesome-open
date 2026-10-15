@@ -489,6 +489,28 @@ class ObservatoryBuildTests(unittest.TestCase):
         self.assertIn('data:text/csv;base64,',text)
         self.assertNotIn('href="report.html"',text)
         self.assertIn('SIL OPEN FONT LICENSE',text)
+        for style in page.nodes('style'):
+            self.assertNotRegex(style.text, r'@import\b')
+            # Consume the complete quoted URL. The paper-grain data SVG contains
+            # an inner url(%23n) filter reference, not a second CSS dependency.
+            tokens = re.findall(r'''url\(\s*(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'|([^\s)'"]+))\s*\)''', style.text)
+            for token in tokens:
+                resource = next(value for value in token if value)
+                self.assertTrue(resource.startswith('data:'), resource[:100])
+
+    def test_footer_pattern_resolves_and_embeds_exact_source_bytes(self):
+        import base64
+        pattern = 'footer-backgrounds/navypattern2.png'
+        source = (build_site.ROOT / 'site' / pattern).read_bytes()
+        css = (self.output / 'observatory/observatory.css').read_text()
+        self.assertIn(f'url(../{pattern})', css)
+        self.assertNotIn('/awesome-open/', css)
+        self.assertEqual((self.output / 'observatory' / '..' / pattern).read_bytes(), source)
+        report = (self.output / 'observatory/report.html').read_text()
+        footer = re.search(r'\.obs-footer \{([^}]+)\}', report)[1]
+        encoded = re.search(r'url\(data:image/png;base64,([A-Za-z0-9+/=]+)\)', footer)[1]
+        self.assertEqual(base64.b64decode(encoded, validate=True), source)
+        self.assertNotIn(f'url(../{pattern})', report)
 
     def test_repeat_build_is_deterministic(self):
         before={p.name:p.read_bytes() for p in (self.output/'observatory').iterdir()}
