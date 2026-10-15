@@ -1,5 +1,6 @@
 """Deterministic snapshot accounting, static fallback and thin route payload."""
 from copy import deepcopy
+import base64
 import csv
 import io
 import json
@@ -334,18 +335,38 @@ class ObservatoryBuildTests(unittest.TestCase):
         self.assertNotIn('observatory.js',(self.output/'index.html').read_text())
 
     def test_header_uses_ledger_links_in_both_outputs(self):
-        ledger=Page((self.output/'index.html').read_text())
-        wanted=[a.text for a in next(n for n in ledger.elements if n.has_class('header-links')).descendants('a')]
-        self.assertEqual(wanted,['Ledger','About','Observatory','GitHub'])
         live='https://awesomeopen.github.io/awesome-open/'
-        for name,hrefs in [('index.html',['../#catalog','../#method','./',obs.REPOSITORY]),
-                           ('report.html',[live+'#catalog',live+'#method',live+'observatory/',obs.REPOSITORY])]:
+        for name,hrefs in [('index.html',['../#catalog','../#method','./']),
+                           ('report.html',[live+'#catalog',live+'#method',live+'observatory/'])]:
             with self.subTest(name=name):
                 nav=next(n for n in Page((self.output/'observatory'/name).read_text()).elements if n.has_class('obs-nav'))
                 links=nav.descendants('a')
-                self.assertEqual([a.text for a in links],wanted)
+                self.assertEqual(len(links),3)
                 self.assertEqual([a.attrs['href'] for a in links],hrefs)
-                self.assertEqual([a.attrs.get('aria-current') for a in links],[None,None,'page',None])
+                self.assertEqual([a.attrs.get('aria-current') for a in links],[None,None,'page'])
+
+    def test_metric_art_sources_and_label_backings(self):
+        expected={c['id']:c['artwork']['variants']['s']['path']
+                  for c in self.catalog['categories'] if c.get('artwork')}
+        self.assertTrue(expected)
+        for name in ['index.html','report.html']:
+            page=Page((self.output/'observatory'/name).read_text())
+            options=page.by_id['category-filter'].descendants('option')
+            self.assertNotIn('data-metric-art', options[0].attrs)
+            for option in options[1:]:
+                source=option.attrs.get('data-metric-art','')
+                path=expected.get(option.attrs['value'])
+                if not path:
+                    self.assertEqual(source,'')
+                elif name=='index.html':
+                    self.assertEqual(source,'../'+path)
+                    self.assertTrue((self.output/path).is_file())
+                else:
+                    self.assertEqual(base64.b64decode(source.removeprefix('data:image/webp;base64,')),
+                                     (self.output/path).read_bytes())
+            for metric in page.by_id['metrics'].children:
+                self.assertEqual(len(metric.descendants('dt')[0].children),1)
+                self.assertEqual(metric.descendants('dt')[0].children[0].tag,'span')
 
     def test_project_data_disclosure_and_copy_in_both_outputs(self):
         for name in ['index.html', 'report.html']:

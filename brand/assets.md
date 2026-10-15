@@ -102,6 +102,9 @@ Responsive candidates choose the small source at 1×/2×; native lazy loading
 defers the closed disclosure's images. The full small set is 150,040 bytes.
 The standalone edition embeds only that set (about 200 KB after base64 encoding).
 No category art is added to the hero, project identities or Observatory charts.
+The Observatory reuses the small source as a decorative background in each
+summary metric when its category is selected; All/reset has no background.
+The standalone report embeds these same small sources. Asset bytes are unchanged.
 
 Original PNGs stay in the owner's archive. The public provenance records their
 descriptive filenames and the known resize recipe, but original hashes, original

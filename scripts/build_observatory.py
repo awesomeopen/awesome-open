@@ -619,14 +619,15 @@ def metrics_html(counts):
     return (
         '<dl id="metrics" class="obs-metrics">'
         + "".join(
-            f'<div class="obs-metric"><dt>{label}</dt><dd>{value}</dd></div>'
+            f'<div class="obs-metric"><dt><span>{label}</span></dt><dd>{value}</dd></div>'
             for label, value in items
         )
         + "</dl>"
     )
 
 
-def render(index, counts, covered):
+def render(index, counts, covered, category_art=None):
+    category_art = category_art or {}
     esc = lambda v: escape(str(v), quote=True)
     revision = index["source_sha"]
     source = f"{REPOSITORY}/blob/{revision or 'main'}"
@@ -637,7 +638,7 @@ def render(index, counts, covered):
     )
     art = '<img class="obs-logo" src="../brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo">'
     options = "".join(
-        f'<option value="{esc(c["id"])}">{esc(c["name"])}</option>'
+        f'<option value="{esc(c["id"])}" data-metric-art="{esc(category_art.get(c["id"], ""))}">{esc(c["name"])}</option>'
         for c in index["categories"]
     )
     categories = {c["id"]: c["name"] for c in index["categories"]}
@@ -765,7 +766,7 @@ def render(index, counts, covered):
     )
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Observatory · Awesome Open*</title><meta name="description" content="A snapshot of the Awesome Open collection: categories, detected licenses, repository dates, stars and evidence coverage."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../vendor/fonts.css"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="observatory.css"><script src="observatory.js" defer></script></head>
-<body class="observatory"><a class="skip-link" href="#observatory-main">Skip to observatory</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Ledger</a><a href="../#method">About</a><a href="./" aria-current="page">Observatory</a><a href="{REPOSITORY}">GitHub</a></nav></header></div>
+<body class="observatory"><a class="skip-link" href="#observatory-main">Skip to observatory</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Ledger</a><a href="../#method">About</a><a href="./" aria-current="page">Observatory</a></nav></header></div>
 <main id="observatory-main" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><div class="obs-hero-copy"><h1>Collection <br />observatory</h1></div></section>
 <form id="observatory-filters" class="obs-filters" hidden aria-label="Filter observatory"><div class="obs-filters-row"><select id="category-filter" name="category" aria-label="Category"><option value="">All categories</option>{options}</select><select id="license-filter" name="license" aria-label="Detected license"><option value="all">Any license</option><option value="known">License detected</option><option value="unknown">License unknown</option></select><button id="reset-filters" type="button">Reset filters</button><nav class="obs-jump" aria-label="Sections"><a href="#shared-names">Names</a><a href="#charts">Charts</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a></nav></div></form>
 <noscript><p>Filters and filtered CSV export require JavaScript.</p></noscript>{metrics_html(counts)}{finding_html(aggregate(index))}{names}
@@ -781,7 +782,11 @@ def build(catalog, hn, output, root):
     target.mkdir(parents=True, exist_ok=True)
     index = project_index(catalog)
     counts, covered = aggregate(index), coverage(catalog, hn)
-    page = render(index, counts, covered)
+    category_art = {
+        c["id"]: "../" + c["artwork"]["variants"]["s"]["path"]
+        for c in catalog["categories"] if c.get("artwork")
+    }
+    page = render(index, counts, covered, category_art)
     for name in ["observatory.css", "observatory.js"]:
         shutil.copyfile(root / "site" / name, target / name)
     snapshot = {**index, "aggregate": counts, "coverage": covered}
@@ -792,6 +797,12 @@ def build(catalog, hn, output, root):
     (target / "projects.csv").write_text(csv_text(index), encoding="utf-8", newline="")
     (target / "index.html").write_text(page, encoding="utf-8")
     report = page
+    for source in category_art.values():
+        encoded = base64.b64encode((root / "site" / source.removeprefix("../")).read_bytes()).decode("ascii")
+        report = report.replace(
+            f'data-metric-art="{escape(source, quote=True)}"',
+            f'data-metric-art="data:image/webp;base64,{encoded}"',
+        )
     for href, path in [
         ("../vendor/fonts.css", root / "site/vendor/fonts.css"),
         ("../tokens.css", root / "site/design/tokens.css"),

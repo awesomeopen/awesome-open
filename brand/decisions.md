@@ -91,3 +91,5 @@ approved merely because it appears in this file.
 | B32 | 2026-10-15 | User-directed; implemented for review | Ledger defaults to cached GitHub stars descending, unknown counts last, in static and enhanced views. Explicit URL sorting and filtering remain respected; reset returns to stars. Alphabetical folio identities remain unchanged. Stars indicate popularity, not quality. |
 
 | B33 | 2026-10-15 | User-directed; implemented for review | Separate repeating footer textures into `site/patterns/` and restore sorted automatic PNG/WebP discovery in `site/footer-backgrounds/`. Preserve texture bytes, per-load panorama selection, first-image fallback, spacing and double borders. New panoramas require provenance, actual canvas dimensions and integrity inventory. |
+
+| B34 | 2026-10-15 | User-directed; implemented for review | Observatory top navigation omits GitHub; footer link remains. Selected-category small artwork backgrounds each summary metric at 88% 0 without repeating. All/reset clears the images; paper-backed inner label/value spans protect narrow-screen text. Existing artwork bytes and chart geometry remain unchanged; standalone embeds small sources. |

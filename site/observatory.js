@@ -496,6 +496,11 @@
       var result = aggregate(data, filters);
       category.value = result.filters.category === 'all' && Array.from(category.options).some(function (option) { return option.value === ''; }) ? '' : result.filters.category;
       license.value = result.filters.license;
+      var selectedOption = category.options[category.selectedIndex];
+      var metricArt = selectedOption && selectedOption.getAttribute('data-metric-art');
+      doc.querySelectorAll('.obs-metric').forEach(function (node) {
+        node.style.backgroundImage = metricArt ? 'url("' + metricArt + '")' : '';
+      });
       if (updateLocation) setLocation(result.filters, replace);
       doc.querySelectorAll('[data-metric]').forEach(function (node) {
         var key = node.getAttribute('data-metric');
