@@ -45,7 +45,7 @@ const path = require('node:path');
         const art = node.querySelector('[data-footer-background]');
         await art.decode();
         return { background, width: image.naturalWidth, artWidth: art.naturalWidth,
-          artHeight: art.naturalHeight, widthAttr: art.width, heightAttr: art.height,
+          artHeight: art.naturalHeight, widthAttr: Number(art.getAttribute('width')), heightAttr: Number(art.getAttribute('height')),
           sizes: JSON.parse(art.dataset.backgroundSizes),
           choices: JSON.parse(art.dataset.backgrounds), border: style.borderTopStyle };
       });

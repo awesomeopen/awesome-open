@@ -11,7 +11,7 @@ import re
 import warnings
 from datetime import date
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 import shutil
 
 from build_catalog import build_catalog, load_function_summaries
@@ -644,7 +644,7 @@ def render_html(catalog, cutouts=None):
             f'<option value="{escape(v)}">{escape(labels[v])}</option>'
             for v in sorted(observed)
         )
-    footer_backgrounds = catalog.get("footer_backgrounds", [])
+    footer_backgrounds = [quote(path, safe="/") for path in catalog.get("footer_backgrounds", [])]
     footer_sizes = catalog.get("footer_background_sizes", [])
     footer_size = footer_sizes[0] if footer_sizes else (2048, 682)
     footer_art = (
@@ -782,7 +782,7 @@ def build(output, source_sha=None, root=ROOT):
     )
     footer_assets = discover_footer_art(root)
     catalog["footer_backgrounds"] = list(footer_assets)
-    catalog["footer_background_sizes"] = list(footer_assets.values())
+    catalog["footer_background_sizes"] = [list(size) for size in footer_assets.values()]
     attach_specimen_art(catalog, root)
     attach_category_art(catalog, root)
     cutouts = attach_specimen_cutouts(catalog, root)
@@ -872,14 +872,20 @@ def build(output, source_sha=None, root=ROOT):
         'href="#hn-evidence">View evidence',
     )
     standalone = embed_category_art(standalone, catalog, root)
+    footer_urls = [quote(path, safe="/") for path in catalog["footer_backgrounds"]]
+    embedded_backgrounds = []
     for asset in catalog["footer_backgrounds"]:
         mime_type = "image/png" if asset.lower().endswith(".png") else "image/webp"
         encoded = base64.b64encode((output / asset).read_bytes()).decode("ascii")
+        embedded_backgrounds.append(f"data:{mime_type};base64,{encoded}")
+    standalone = standalone.replace(
+        f'data-backgrounds="{escape(json.dumps(footer_urls))}"',
+        f'data-backgrounds="{escape(json.dumps(embedded_backgrounds))}"',
+    )
+    if embedded_backgrounds:
         standalone = standalone.replace(
-            f'src="{asset}"', f'src="data:{mime_type};base64,{encoded}"'
-        )
-        standalone = standalone.replace(
-            f"&quot;{asset}&quot;", f"&quot;data:{mime_type};base64,{encoded}&quot;"
+            f'src="{escape(footer_urls[0])}"',
+            f'src="{embedded_backgrounds[0]}"',
         )
     for name, mime_type in BRAND_ASSETS.items():
         encoded = base64.b64encode((output / "brand" / name).read_bytes()).decode(
