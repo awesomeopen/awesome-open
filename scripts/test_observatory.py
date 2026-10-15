@@ -77,6 +77,32 @@ class ObservatoryAccountingTests(unittest.TestCase):
         self.assertEqual(counts['star_rows'][-1],['Other mapped projects',20])
         self.assertEqual(sum(n for _,n in counts['star_rows']),120)
 
+    def test_finding_segments_use_leader_count_and_escape_labels(self):
+        index=obs.project_index(fixture())
+        template=index['projects'][0]
+        for values in [list(range(12,0,-1)), [10,0], [0,0], [], [None]]:
+            with self.subTest(values=values):
+                index['projects']=[dict(template,id=str(i),name=f'Project {i}',stars=value) for i,value in enumerate(values)]
+                if values: index['projects'][0]['name']='Other projects'
+                if len(values)>1: index['projects'][1]['name']='A <b> & "quoted"'
+                counts=obs.aggregate(index)
+                # Renaming the aggregate row must never change its membership.
+                if len(values)>10: counts['star_rows'][-1][0]='A renamed tail'
+                page=Page(obs.finding_html(counts))
+                segments=[n for n in page.elements if n.has_class('obs-strip-segment')]
+                expected=counts['star_rows'][:counts['leader_count']] if counts['stars'] else []
+                leaders=[n for n in segments if n.has_class('obs-strip-leader')]
+                self.assertEqual(len(leaders),len(expected))
+                for node,(name,value) in zip(leaders,expected):
+                    self.assertEqual(node.attrs['aria-label'],f'{name} · {value:,} stars')
+                    self.assertEqual(node.attrs['title'],node.attrs['aria-label'])
+                    self.assertEqual(node.attrs.get('tabindex'),'0' if value else None)
+                    self.assertEqual(node.attrs['style'],f"width: {obs.bar_width(value,counts['stars'])}")
+                if segments:
+                    self.assertEqual(sum(int(n.attrs['data-stars']) for n in segments),counts['stars'])
+                    self.assertFalse(any(n.tag=='b' for n in page.elements))
+                    self.assertFalse(any(n.has_class('obs-strip') and n.attrs.get('aria-hidden')=='true' for n in page.elements))
+
     @staticmethod
     def shared_summary(result):
         groups = lambda kind: [dict(name=g['name'], ids=[p['id'] for p in g['projects']], tags=g['tags']) for g in result[kind]]
@@ -346,6 +372,15 @@ class ObservatoryBuildTests(unittest.TestCase):
                 page=Page((self.output/'observatory'/name).read_text())
                 finding=page.by_id['obs-finding-text']
                 aside=next(n for n in page.elements if n.has_class('obs-finding'))
+                leaders=[n for n in page.elements if n.has_class('obs-strip-leader')]
+                tail=[n for n in page.elements if n.has_class('obs-strip-tail')]
+                ranked=sorted((p for p in self.snapshot['projects'] if p['github'] and p['stars'] is not None),key=lambda p:(-p['stars'],p['name'],p['id']))
+                self.assertEqual(len(leaders),min(10,len(ranked)))
+                total=sum(p['stars'] for p in ranked)
+                for node,project in zip(leaders,ranked):
+                    self.assertEqual(node.attrs['aria-label'],f"{project['name']} · {project['stars']:,} stars")
+                    self.assertEqual(node.attrs['style'],f"width: {obs.bar_width(project['stars'],total)}")
+                self.assertEqual(sum(int(n.attrs['data-stars']) for n in leaders+tail),total)
                 self.assertEqual(aside.tag,'aside')
                 self.assertEqual(aside.attrs['aria-labelledby'],'obs-finding-text')
                 self.assertIn(finding,aside.descendants('p'))

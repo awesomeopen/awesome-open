@@ -308,6 +308,35 @@ async function checkObservatory({ browser, url }) {
         [share.toFixed(1)], label + ': displayed whole-collection top-ten percentage');
       for (const meaning of [/\b10\b/, /\bprojects\b/, /\bstars\b/]) assert.match(text, meaning);
     }
+    const ranked = data.projects.filter(project => project.github && Number.isFinite(project.stars))
+      .sort((a,b) => b.stars-a.stars || (a.name < b.name ? -1 : a.name > b.name ? 1 : a.id < b.id ? -1 : 1));
+    const leaders = current.locator('.obs-strip-leader');
+    assert.equal(await leaders.count(), total ? Math.min(10, ranked.length) : 0, label + ': actual leader segments');
+    if (total) {
+      const segments = await current.locator('.obs-strip-segment').evaluateAll(nodes => nodes.map(node => ({
+        stars: Number(node.dataset.stars), width: parseFloat(node.style.width), label: node.getAttribute('aria-label'),
+        hidden: Boolean(node.closest('[aria-hidden="true"]')), focus: node.getAttribute('tabindex'),
+      })));
+      assert.equal(segments.reduce((sum,node) => sum+node.stars,0),total,label + ': leaders plus tail');
+      for (const node of segments) {
+        assert.ok(Math.abs(node.width - 100*node.stars/total) <= .001, label + ': width from raw count');
+        assert.equal(node.hidden,false,label + ': accessible segments');
+        assert.equal(node.focus,node.stars ? '0' : null);
+      }
+      for (let i=0;i<Math.min(10,ranked.length);i++) {
+        assert.equal(segments[i].label,ranked[i].name + ' · ' + ranked[i].stars.toLocaleString('en-US') + ' stars');
+      }
+      // Do not disturb the filter-focus lifecycle assertions on later selections.
+      if (['initial', 'standalone initial', 'no JavaScript'].includes(label)) {
+        const first=leaders.first();
+        await first.hover();
+        assert.equal(await first.locator('.obs-strip-tooltip').isVisible(),true,label + ': hover label');
+        await current.mouse.move(0,0);
+        await first.focus();
+        assert.equal(await first.locator('.obs-strip-tooltip').isVisible(),true,label + ': keyboard label');
+        await first.evaluate(node => node.blur());
+      }
+    }
     assert.deepEqual(await visibleIDs(current), selected.map(project => project.id), 'Underlying project selection: ' + label);
     const expected = { total: selected.length, mapped: selected.filter(project => project.github).length,
       stars: selected.filter(project => project.github && Number.isFinite(project.stars)).reduce((sum, project) => sum + project.stars, 0),
