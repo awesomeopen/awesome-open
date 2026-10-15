@@ -114,7 +114,8 @@ Filters update distributions and records together. Whole-collection findings and
 coverage retain explicit scope. See [observatory contract](../site/OBSERVATORY.md)
 and B20; the initial implementation awaits visual review.
 The Observatory top navigation omits the GitHub link (the footer retains it).
-Each summary metric uses the selected category’s small illustration at 88% 0,
+Only the first summary metric (Unique projects) uses the selected category’s small
+illustration at 88% 0,
 without repetition; All/reset has no image. Inner label and value spans use the
 existing paper token to keep text legible where art underlaps on narrow screens.
 

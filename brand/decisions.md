@@ -93,3 +93,5 @@ approved merely because it appears in this file.
 | B33 | 2026-10-15 | User-directed; implemented for review | Separate repeating footer textures into `site/patterns/` and restore sorted automatic PNG/WebP discovery in `site/footer-backgrounds/`. Preserve texture bytes, per-load panorama selection, first-image fallback, spacing and double borders. New panoramas require provenance, actual canvas dimensions and integrity inventory. |
 
 | B34 | 2026-10-15 | User-directed; implemented for review | Observatory top navigation omits GitHub; footer link remains. Selected-category small artwork backgrounds each summary metric at 88% 0 without repeating. All/reset clears the images; paper-backed inner label/value spans protect narrow-screen text. Existing artwork bytes and chart geometry remain unchanged; standalone embeds small sources. |
+
+| B35 | 2026-10-15 | User-directed; implemented for review | Limit B34’s selected-category artwork to the first Observatory summary metric, Unique projects. The other three metrics remain image-free. Preserve paper-backed label/value spans, category changes, All/reset clearing, navigation and standalone embedding. |

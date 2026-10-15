@@ -498,8 +498,8 @@
       license.value = result.filters.license;
       var selectedOption = category.options[category.selectedIndex];
       var metricArt = selectedOption && selectedOption.getAttribute('data-metric-art');
-      doc.querySelectorAll('.obs-metric').forEach(function (node) {
-        node.style.backgroundImage = metricArt ? 'url("' + metricArt + '")' : '';
+      doc.querySelectorAll('.obs-metric').forEach(function (node, index) {
+        node.style.backgroundImage = index === 0 && metricArt ? 'url("' + metricArt + '")' : '';
       });
       if (updateLocation) setLocation(result.filters, replace);
       doc.querySelectorAll('[data-metric]').forEach(function (node) {
