@@ -95,13 +95,16 @@ def validate(root):
     return assert_generated_only(root)
 
 
-def publish(root=ROOT, max_attempts=5):
+def publish(root=ROOT, max_attempts=5, cached=False):
     # A retry uses another worktree, but shares the optional star-request budget.
     with tempfile.TemporaryDirectory(prefix="star-request-budget-") as directory:
-        return publish_attempts(root, max_attempts, Path(directory) / "budget.json")
+        budget_file = Path(directory) / "budget.json"
+        if cached:
+            return publish_attempts(root, max_attempts, budget_file, cached=True)
+        return publish_attempts(root, max_attempts, budget_file)
 
 
-def publish_attempts(root, max_attempts, star_budget_file):
+def publish_attempts(root, max_attempts, star_budget_file, cached=False):
     root = Path(root).resolve()
     if max_attempts < 1:
         raise ValueError("max_attempts must be positive")
@@ -113,7 +116,10 @@ def publish_attempts(root, max_attempts, star_budget_file):
             git(root, "worktree", "add", "--detach", str(worktree), base)
             try:
                 try:
-                    collect_and_render(worktree, star_budget_file)
+                    if cached:
+                        run(worktree, sys.executable, "scripts/render_readme.py", "--strict-metrics")
+                    else:
+                        collect_and_render(worktree, star_budget_file)
                     changed = validate(worktree)
                 except (RuntimeError, OSError):
                     # A stale input may itself cause collection to fail (for
@@ -160,11 +166,15 @@ def publish_attempts(root, max_attempts, star_budget_file):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--max-attempts", type=int, default=5)
+    parser.add_argument("--cached", action="store_true", help="Render validated current snapshots without collecting, after a backfill")
     args = parser.parse_args()
     if args.max_attempts < 1:
         parser.error("--max-attempts must be positive")
     try:
-        published_sha = publish(max_attempts=args.max_attempts)
+        if args.cached:
+            published_sha = publish(max_attempts=args.max_attempts, cached=True)
+        else:
+            published_sha = publish(max_attempts=args.max_attempts)
         # Expose only the accepted revision, including an already-current main.
         # Deployment must check out this revision, not the invoking checkout.
         if output := os.environ.get("GITHUB_OUTPUT"):
