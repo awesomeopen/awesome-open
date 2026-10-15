@@ -56,7 +56,7 @@
   }
 
   function metricsPresent(project) {
-    return Boolean(project.github && typeof project.github === "object" && !Array.isArray(project.github));
+    return Boolean(project.github && project.github.status !== "unavailable" && typeof project.github === "object" && !Array.isArray(project.github));
   }
 
   function alternativeNames(projects) {

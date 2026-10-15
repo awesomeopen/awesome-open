@@ -17,7 +17,7 @@
   var RECENCY_LABELS = ['0–30 days', '31–90 days', '91–365 days', '366–730 days', 'Over 730 days', 'Unknown'];
   var AGE_BOUNDS = [365, 1826, 3653];
   var AGE_LABELS = ['0–365 days', '366–1,826 days', '1,827–3,653 days', 'Over 3,653 days', 'Unknown'];
-  var CSV_COLUMNS = ['id', 'name', 'url', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha'];
+  var CSV_COLUMNS = ['id', 'name', 'url', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha', 'metrics_status', 'metrics_last_success_at', 'metrics_attempt_at', 'metrics_attempt_status', 'metrics_attempt_http_status', 'metrics_attempt_reason'];
 
   function knownLicense(project) {
     return typeof project.license === 'string' && project.license.trim() !== '';
@@ -140,7 +140,7 @@
     var topTotal = top.reduce(function (sum, project) { return sum + project.stars; }, 0);
     var rows = top.map(function (project) { return { id: project.id, label: project.name, count: project.stars }; });
     if (rest.length) rows.push({ label: 'Other mapped projects', count: rest.reduce(function (sum, project) { return sum + project.stars; }, 0) });
-    return { rows: rows, total: total, topTotal: topTotal, topCount: top.length, share: total ? topTotal / total : null };
+    return { rows: rows, total: mapped.length || !projects.length ? total : null, topTotal: topTotal, topCount: top.length, share: total ? topTotal / total : null };
   }
 
   // Match Python's Unicode code-point ordering, including supplementary letters.
@@ -278,7 +278,7 @@
   }
 
   function formatNumber(value) {
-    return new Intl.NumberFormat('en-US').format(value);
+    return value === null ? 'Unknown' : new Intl.NumberFormat('en-US').format(value);
   }
 
   function svgElement(doc, name, attributes, text) {

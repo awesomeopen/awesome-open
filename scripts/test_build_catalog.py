@@ -50,7 +50,8 @@ class CatalogTests(unittest.TestCase):
         project = result["projects"][0]
         self.assertEqual(project["categories"], ["ai--language-models"])
         self.assertEqual(project["github"], {"repo": "example/open", "stars": 1234, "license": "MIT",
-                                          "created_at": self.record["created_at"], "pushed_at": self.record["pushed_at"]})
+                                          "created_at": self.record["created_at"], "pushed_at": self.record["pushed_at"],
+                                          "status": "fresh", "last_success_at": "2026-10-07", "last_attempt": None})
         self.assertEqual(project["alternatives"], [])
         self.assertIsNone(project["hn"])
 

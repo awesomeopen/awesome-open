@@ -166,6 +166,9 @@ def _github_metadata(url, snapshot):
         "license": license_id,
         "created_at": record["created_at"],
         "pushed_at": record.get("pushed_at"),
+        "status": record.get("status", "fresh"),
+        "last_success_at": record.get("last_success_at", snapshot["as_of"]),
+        "last_attempt": record.get("last_attempt"),
     }
     # Collected from the next metrics refresh on; absent means not yet observed, never "not archived".
     if record.get("archived") is not None:

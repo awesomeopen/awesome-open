@@ -298,13 +298,17 @@ async function checkObservatory({ browser, url }) {
     const expected = { total: selected.length, mapped: selected.filter(project => project.github).length,
       stars: selected.filter(project => project.github && Number.isFinite(project.stars)).reduce((sum, project) => sum + project.stars, 0),
       'known-license': selected.filter(hasLicense).length };
-    for (const [metric, value] of Object.entries(expected)) assert.equal(number(await current.locator('[data-metric="' + metric + '"]').textContent()), value, `Metric ${metric}: ${label}`);
+    if (selected.length && !selected.some(project => project.github && Number.isFinite(project.stars))) expected.stars = null;
+    for (const [metric, value] of Object.entries(expected)) {
+      const text = await current.locator('[data-metric="' + metric + '"]').textContent();
+      assert.equal(value === null ? clean(text) : number(text), value === null ? 'Unknown' : value, `Metric ${metric}: ${label}`);
+    }
     assert.ok(clean(await current.locator('#selection-summary').textContent()).includes(selected.length.toLocaleString('en-US')), 'Announced selection count: ' + label);
     await assertCharts(current, data, selected, label);
   };
   const assertCSV = (csv, data, selected, label) => {
     const headers = csv.replace(/^\uFEFF/, '').split(/\r?\n/, 1)[0].split(',').map(value => value.replace(/^"|"$/g, ''));
-    assert.deepEqual(headers, ['id', 'name', 'url', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha'], 'CSV schema, including empty exports: ' + label);
+    assert.deepEqual(headers, ['id', 'name', 'url', 'categories', 'github', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_as_of', 'source_sha', 'metrics_status', 'metrics_last_success_at', 'metrics_attempt_at', 'metrics_attempt_status', 'metrics_attempt_http_status', 'metrics_attempt_reason'], 'CSV schema, including empty exports: ' + label);
     const rows = parseCSV(csv);
     assert.deepEqual(rows.map(row => row.id), selected.map(project => project.id), 'Export selection: ' + label);
     const safeCell = value => {
@@ -313,7 +317,7 @@ async function checkObservatory({ browser, url }) {
     };
     for (let index = 0; index < rows.length; index++) {
       const actual = rows[index], project = selected[index];
-      for (const key of ['id', 'name', 'url', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at']) {
+      for (const key of ['id', 'name', 'url', 'stars', 'license', 'created_at', 'pushed_at', 'release_at', 'release_status', 'release_checked_at', 'metrics_status', 'metrics_last_success_at', 'metrics_attempt_at', 'metrics_attempt_status', 'metrics_attempt_http_status', 'metrics_attempt_reason']) {
         assert.equal(actual[key], safeCell(project[key]), `CSV ${key}: ${label}/${project.id}`);
       }
       assert.equal(actual.github.toLowerCase(), String(project.github), 'CSV GitHub coverage');
@@ -360,7 +364,10 @@ async function checkObservatory({ browser, url }) {
       assert.equal(project.name, canonical.name);
       assert.equal(project.url, canonical.url);
       assert.deepEqual(project.categories, [...new Set(canonical.categories)]);
-      assert.equal(project.github, Boolean(canonical.github));
+      assert.equal(project.github, Boolean(canonical.github) && github.status !== 'unavailable');
+      assert.equal(project.metrics_status, canonical.github ? (github.status || 'fresh') : 'unknown');
+      assert.equal(project.metrics_last_success_at, canonical.github ? (Object.hasOwn(github, 'last_success_at') ? github.last_success_at : catalog.metrics_as_of) : null);
+      for (const [field, key] of [['metrics_attempt_at', 'at'], ['metrics_attempt_status', 'status'], ['metrics_attempt_http_status', 'http_status'], ['metrics_attempt_reason', 'reason']]) assert.equal(project[field], github.last_attempt?.[key] ?? null, 'Metrics attempt provenance: ' + field);
       for (const field of ['stars', 'license', 'created_at', 'pushed_at']) assert.equal(project[field], github[field] ?? null, 'Cached source projection: ' + field);
       assert.equal(project.release_at, release.last_good?.value?.published_at ?? null, 'Release uses its cached publication date');
       assert.equal(project.release_checked_at, release.checked_at ?? null, 'Release checked time remains distinct');
@@ -452,8 +459,13 @@ async function checkObservatory({ browser, url }) {
       assert.deepEqual(row.cells.slice(0, 5), [project.license || 'Unknown',
         project.stars === null ? 'Unknown' : String(project.stars),
         ...['created_at', 'pushed_at', 'release_at'].map(key => project[key] ? project[key].slice(0, 10) : 'Unknown')], 'Underlying table values: ' + project.id);
-      assert.ok(row.cells[5].includes(project.release_status), 'Underlying release cache status');
-      assert.ok(row.cells[5].includes(project.release_checked_at || 'Not checked'), 'Underlying release check time');
+      assert.ok(row.cells[5].includes(project.metrics_status), 'Underlying metrics cache status');
+      assert.ok(row.cells[5].includes(project.metrics_last_success_at || 'Unknown'), 'Underlying metrics observation time');
+      assert.ok(row.cells[5].includes(project.metrics_attempt_at || 'Not recorded'), 'Underlying metrics attempt time');
+      if (project.metrics_attempt_http_status) assert.ok(row.cells[5].includes('HTTP ' + project.metrics_attempt_http_status), 'Underlying metrics HTTP status');
+      if (project.metrics_attempt_reason) assert.ok(row.cells[5].includes(project.metrics_attempt_reason), 'Underlying metrics attempt reason');
+      assert.ok(row.cells[6].includes(project.release_status), 'Underlying release cache status');
+      assert.ok(row.cells[6].includes(project.release_checked_at || 'Not checked'), 'Underlying release check time');
     }
     const coverage = await page.locator('#coverage').innerText();
     assert.equal(await page.locator('#selection-summary').getAttribute('role'), 'status');

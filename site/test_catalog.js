@@ -671,3 +671,13 @@ test("typing stays in place; submit jumps to the first rendered match", () => {
   assert.equal(first.scrolled, 1);
   assert.equal(ui.document.activeElement, first.querySelector("summary"));
 });
+
+test('unavailable records are unknown while stale zero remains measurable', () => {
+  const unavailable = { id: 'unavailable', name: 'Unavailable', github: { status: 'unavailable', stars: null, pushed_at: null } };
+  const stale = { id: 'stale', name: 'Stale', github: { status: 'stale', stars: 0, pushed_at: '2020-01-01T00:00:00Z' } };
+  assert.equal(catalog.metricsPresent(unavailable), false);
+  assert.equal(catalog.metricsPresent(stale), true);
+  assert.equal(catalog.starsOf(unavailable), null);
+  assert.equal(catalog.starsOf(stale), 0);
+  assert.deepEqual(catalog.selectProjects([unavailable, stale], state({ stars: '0' })).map(p => p.id), ['stale']);
+});

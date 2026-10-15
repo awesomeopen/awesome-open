@@ -292,3 +292,11 @@ test('whitespace groups use the current category and license intersection and de
   assert.deepEqual(sharedSummary(observatory.aggregate(data, { category: 'two', license: 'unknown' }).sharedNames), EMPTY_SHARED);
   assert.equal(observatory.sharedNames([...data.projects, { ...data.projects[0], categories: ['two'] }]).whitespace_tool_count, 3);
 });
+
+test('all unknown star counts remain unknown; observed zero stays zero', () => {
+  assert.equal(observatory.aggregate(index([project({ github: false, stars: null, metrics_status: 'unavailable' })])).metrics.stars, null);
+  assert.equal(observatory.aggregate(index([project({ stars: 0, metrics_status: 'stale', metrics_last_success_at: '2026-10-07' })])).metrics.stars, 0);
+  const data = index([project({ metrics_status: 'stale', metrics_last_success_at: '2026-10-07', metrics_attempt_at: '2026-10-14T01:00:00Z', metrics_attempt_status: 'unavailable', metrics_attempt_http_status: 404, metrics_attempt_reason: 'repository_unavailable' })]);
+  const csv = observatory.exportCSV(data, data.projects);
+  assert.ok(csv.includes('"stale","2026-10-07","2026-10-14T01:00:00Z","unavailable","404","repository_unavailable"'));
+});

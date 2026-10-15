@@ -2,7 +2,7 @@
 """Render README and HN SVGs from curated Markdown and cached evidence, offline."""
 
 import argparse
-from datetime import date
+from datetime import date, datetime
 import json
 from pathlib import Path
 import re
@@ -30,8 +30,16 @@ def validate_source(text):
     return stats.repositories(text, require_markers=False)
 
 
+def observation_time(value, allow_date=False):
+    if allow_date and isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        return datetime.fromisoformat(value + "T00:00:00+00:00")
+    if not isinstance(value, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", value):
+        raise ValueError("Expected UTC observation timestamp")
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
 def validate_snapshot(snapshot):
-    if snapshot.get("schema_version") != 1:
+    if snapshot.get("schema_version") not in (1, 2):
         raise ValueError("Unsupported GitHub metrics snapshot schema")
     as_of = date.fromisoformat(snapshot["as_of"])
     if not isinstance(snapshot.get("repositories"), dict):
@@ -39,6 +47,31 @@ def validate_snapshot(snapshot):
     for repo, record in snapshot["repositories"].items():
         if not re.fullmatch(r"[\w.-]+/[\w.-]+", repo) or repo != repo.lower():
             raise ValueError("Expected lowercase canonical repository path: " + repo)
+        if not isinstance(record, dict):
+            raise ValueError("Expected GitHub metrics record for " + repo)
+        if snapshot["schema_version"] == 2:
+            status = record.get("status")
+            attempt = record.get("last_attempt")
+            if status not in ("fresh", "stale", "unavailable") or not isinstance(attempt, dict):
+                raise ValueError("Invalid GitHub metrics freshness for " + repo)
+            attempted_at = observation_time(attempt.get("at"))
+            if attempted_at.date() != as_of:
+                raise ValueError("Attempt date differs from snapshot date for " + repo)
+            successful_at = record.get("last_success_at")
+            if successful_at is not None and observation_time(successful_at, allow_date=True) > attempted_at:
+                raise ValueError("Success follows latest attempt for " + repo)
+            expected = ("ok", 200, None) if status == "fresh" else ("unavailable", 404, "repository_unavailable")
+            if (attempt.get("status"), attempt.get("http_status"), attempt.get("reason")) != expected:
+                raise ValueError("Invalid GitHub metrics attempt for " + repo)
+            if status == "fresh" and successful_at != attempt["at"]:
+                raise ValueError("Fresh metrics need matching success timestamp for " + repo)
+            if status == "stale" and successful_at is None:
+                raise ValueError("Stale metrics need a successful observation for " + repo)
+            if status == "unavailable":
+                if successful_at is not None or any(key not in record or record[key] is not None
+                        for key in ("archived", "created_at", "pushed_at", "license", "stargazers_count")):
+                    raise ValueError("Unavailable metrics must remain unknown for " + repo)
+                continue
         count = record.get("stargazers_count")
         if type(count) is not int or count < 0:
             raise ValueError("Expected a nonnegative integer star count for " + repo)
