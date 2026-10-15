@@ -250,6 +250,7 @@
 | [OpenClicky](https://github.com/prasanthsasikumar/openclicky) | macOS dictation and voice companion with screen-aware answers and task handoff to a Codex agent. |
 | [OpenClip](https://github.com/ganeshmshetty/openclip) | Programmable text utility for macOS. |
 | [OpenDeck](https://github.com/chrisglaske/opendeck) | Browser-based presentation editor with local storage, slide templates, and standalone HTML export. |
+| [opendeck](https://github.com/corentinravoux/opendeck) | Local slide editor with visual layout controls, image management, version history, and HTML or PDF export. |
 | [OpenDictate](https://github.com/hkumarsaikia/OpenDictate) | Linux voice dictation with local Whisper transcription and cloud AI providers. |
 | [open-doc](https://github.com/simonliu-ai-product/open-doc) | React-based document framework with paginated layouts, outlines, tables of contents, and PDF export. |
 | [OpenFamily](https://github.com/NexaFlowFrance/OpenFamily) | Self-hosted family organizer. |
@@ -272,8 +273,10 @@
 | [OpenSpell](https://github.com/lvanbei/openSpell) | macOS menu-bar app for correcting spelling, grammar, and punctuation with local or cloud models. |
 | [OpenStats](https://github.com/gentpan/OpenStats) | macOS menu-bar system monitor with fan control, keep-awake, and cleanup tools. |
 | [Open Sunsama](https://github.com/ShadowWalker2014/open-sunsama) | Daily planner with Kanban, time blocking, and focus mode.<br>Alternative to: [Sunsama](https://github.com/ShadowWalker2014/open-sunsama#readme) |
+| [OpenTask](https://github.com/AristideDongo/opentask) | Self-hosted teamwork application with accounts, workspaces, member roles, and invitations; task management is planned. |
 | [OpenTodoList](https://opentodolist.rpdev.net) | Tasks, notes, images, and recipes with local storage and optional synchronization. |
 | [OpenTypeless](https://github.com/tover0314-w/opentypeless) | AI voice typing for macOS, Windows, and Linux.<br>Alternative to: [Wispr Flow](https://github.com/tover0314-w/opentypeless#readme), [Superwhisper](https://github.com/tover0314-w/opentypeless#readme), [Typeless](https://www.opentypeless.com/en/typeless-alternative) |
+| [Open Typora](https://github.com/AniChikage/open-typora) | macOS Markdown editor with inline editing, local files, formulas, diagrams, and HTML or PDF export. |
 | [Open Whisper](https://github.com/TwilightDuck/OpenWhisper) | Mac dictation application with local speech recognition, personal vocabulary corrections, transcript history, and usage statistics. |
 | [OpenWhispr](https://github.com/OpenWhispr/openwhispr) | Voice dictation application with local and hosted speech models, meeting transcription, and notes. |
 | [OpenWork](https://github.com/different-ai/openwork) | Desktop workspace where AI agents work on local files.<br>Alternative to: [Claude Cowork](https://github.com/different-ai/openwork#readme), [Codex](https://github.com/different-ai/openwork#readme) |
@@ -293,6 +296,7 @@
 | [OpenEduCat](https://github.com/openeducat/openeducat_erp) | ERP for educational institutions. |
 | [OpenEvents](https://github.com/clawnify/OpenEvents) | Event-networking app template for agent-assisted attendee research, approved outreach, reply tracking, and meeting records. |
 | [openheard](https://github.com/Heilonng23/openheard) | Customer feedback boards with voting, roadmaps, and changelog publishing.<br>Alternative to: [Canny](https://github.com/Heilonng23/openheard), [Featurebase](https://github.com/Heilonng23/openheard) |
+| [OpenImport](https://github.com/iranimij/openimport) | Magento 2 extension for scheduled imports and exports with field mapping, transformations, previews, and run history. |
 | [OpenKuasa OS](https://github.com/OpenKuasa/OpenKuasaOS) | Early-stage business-application prototype with CRM, HR, recruiting, advertising, and accounting interfaces running on sample data. |
 | [OpenLaunch](https://github.com/Securiteru/openlaunch) | Agent-driven product-launch toolkit with submission playbooks and a local progress tracker. |
 | [OpenLoc](https://openloc.com/) | Enterprise translation management software with configurable AI workflows, integrations, dashboards, and MCP access. |
@@ -311,6 +315,7 @@
 
 | Project | Description |
 | --- | --- |
+| [open-ancestry](https://github.com/adamsilverstein/open-ancestry) | Local family-tree application for importing, browsing, searching, editing, and exporting GEDCOM records. |
 | [OpenBlog](https://github.com/techjiang/OpenBlog) | PHP blogging system with article, category, tag, comment, media, and site administration. |
 | [openbooks](https://github.com/evan-buss/openbooks) | Web and command-line interfaces for searching and downloading ebooks over IRC. |
 | [OpenCms](https://github.com/alkacon/opencms-core) | Java content management system. |
@@ -381,6 +386,7 @@
 | [openMarquee](https://github.com/qarl/openmarquee) | Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback. |
 | [OpenMontage](https://github.com/calesthio/OpenMontage) | Video production pipelines and tools for AI coding assistants. |
 | [OpenMPT](https://openmpt.org) | Tracker for composing and editing module music. |
+| [OpenPatch](https://github.com/dexterlabs1/openpatch) | Desktop modular synthesizer with patchable oscillators, filters, sequencers, signal visualization, and local MCP control. |
 | [OpenPencil](https://github.com/open-pencil/open-pencil) | Design editor with Figma-file support, AI tools, and real-time collaboration.<br>Alternative to: [Figma](https://github.com/open-pencil/open-pencil#why) |
 | [OpenPencil](https://github.com/ZSeven-W/openpencil) | Vector design tool with AI-agent control, JSON design files, and code export. |
 | [OpenPhoto](https://github.com/yuanzhixiang/openphoto) | macOS image editor with layered PSD support, selection tools, retouching, and filters.<br>Alternative to: [Photoshop](https://github.com/yuanzhixiang/openphoto/blob/main/README.md) |
@@ -463,6 +469,7 @@
 | [OpenCat](https://github.com/PetoiCamp/OpenCat-Quadruped-Robot) | Framework for building and programming quadruped robots. |
 | [OpenDashboard](https://github.com/JanRi3D/OpenDashboard) | Android car-head-unit dashboard and launcher with app tiles, radio controls, and vehicle-data integrations. |
 | [OpenDeck](https://github.com/nekename/OpenDeck) | Desktop control software for Elgato Stream Deck devices with plugin support, macros, and application-specific profiles. |
+| [OpenESL](https://github.com/mathiasbk/openESL) | Firmware project for electronic shelf labels and an ESP32 access point, with an HTTP API and PC simulation; tag hardware support is unfinished. |
 | [open-gps](https://github.com/open-flight/open-gps) | ESP32-S3 firmware for a handheld golf shot tracker with GPS distance measurement and shot export. |
 | [OpenHaystack](https://github.com/seemoo-lab/openhaystack) | Track personal Bluetooth devices through Apple's Find My network. |
 | [OpenIK](https://github.com/WouterApts/openik-unity) | Unity components for inverse kinematics with FABRIK, CCD, and Jacobian solvers and joint constraints. |
@@ -502,6 +509,7 @@
 | [OpenLayout](https://github.com/vhdani04/OpenLayout) | Custom-IC design environment combining schematic capture, circuit simulation, layout, design-rule checks, and parasitic extraction for ASAP7. |
 | [OpenMC](https://github.com/openmc-dev/openmc) | Monte Carlo particle transport simulation. |
 | [OpenMDAO](https://github.com/OpenMDAO/OpenMDAO) | Python platform for systems analysis and multidisciplinary optimization. |
+| [OpenMesh](https://www.graphics.rwth-aachen.de/software/openmesh/) | C++ library with Python bindings for representing and manipulating polygonal meshes. |
 | [Open-Meteo](https://github.com/open-meteo/open-meteo) | Weather API providing forecasts and historical weather data. |
 | [OpenMM](https://github.com/openmm/openmm) | Molecular simulation toolkit with GPU acceleration. |
 | [OpenModelica](https://github.com/OpenModelica/OpenModelica) | Modelica-based modeling and simulation environment. |
