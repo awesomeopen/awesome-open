@@ -23,7 +23,10 @@ EVIDENCE_PATH = ROOT / 'data/hn_evidence.json'
 PROJECTS_PATH = ROOT / 'data/hn_projects.json'
 SOURCE_PATH = ROOT / 'README.source.md'
 METADATA_PATH = ROOT / 'data/github_metrics.json'
-DEFAULT_REQUESTS, DEFAULT_PROJECTS, DEFAULT_SECONDS = 80, 10, 120
+DEFAULT_REQUESTS, DEFAULT_PROJECTS, DEFAULT_SECONDS = 160, 50, 300
+LANES = ('new', 'refresh', 'continuation')
+PROJECT_SHARES = {'new': 20, 'refresh': 25, 'continuation': 5}
+REQUEST_SHARES = {'new': 64, 'refresh': 80, 'continuation': 16}
 PROJECT_REQUESTS = 24
 REFRESH_DAYS = 30
 API = 'https://hn.algolia.com/api/v1/search_by_date'
@@ -286,6 +289,20 @@ def validate_budget(budget):
             or not isinstance(budget.get('utc_date'), str)):
         raise ValueError('Invalid HN budget')
     datetime.strptime(budget['utc_date'], '%Y-%m-%d')
+    if 'projects_used' in budget:
+        if (type(budget['projects_used']) is not int or budget['projects_used'] < 0
+                or type(budget.get('project_limit')) is not int or not 1 <= budget['project_limit'] <= 50
+                or not isinstance(budget.get('attempted_urls'), list)
+                or not all(isinstance(k, str) for k in budget['attempted_urls'])
+                or len(set(budget['attempted_urls'])) != len(budget['attempted_urls'])
+                or len(budget['attempted_urls']) > budget['projects_used']):
+            raise ValueError('Invalid daily HN project budget')
+        for field, total in [('lane_projects', 'projects_used'), ('lane_requests', 'requests_used')]:
+            value = budget.get(field)
+            if (not isinstance(value, dict) or set(value) != set(LANES)
+                    or any(type(n) is not int or n < 0 for n in value.values())
+                    or sum(value.values()) > budget[total]):
+                raise ValueError('Invalid daily HN lane budget')
 
 
 def checkpoint_budget(path, budget):
@@ -355,10 +372,11 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
             request_budget=DEFAULT_REQUESTS, max_projects=DEFAULT_PROJECTS,
             seconds=DEFAULT_SECONDS, force=False, invocation_budget_file=None,
             checkpoint=None, monotonic=time.monotonic, sleeper=time.sleep):
+    live_clock = now is None
     now = now or datetime.now(timezone.utc)
     start, end, months = window(now)
     if (type(request_budget) is not int or not 0 <= request_budget <= 160
-            or type(max_projects) is not int or not 1 <= max_projects <= 20
+            or type(max_projects) is not int or not 1 <= max_projects <= 50
             or not 0 < seconds <= 300):
         raise ValueError('HN limits exceed bounded collection policy')
     if projects is None:
@@ -380,20 +398,42 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
     identities = {canonical_url(p['readme_url']): p for p in projects}
     records = {k: v for k, v in records.items() if k in identities}
     today = now.date().isoformat()
-    budget = {'utc_date': today, 'requests_used': 0, 'limit': request_budget, 'paused': False}
-    old_budget = existing.get('budget', {})
-    if old_budget.get('utc_date') == today:
-        budget['requests_used'] = old_budget['requests_used']
-        budget['paused'] = old_budget.get('paused', False)
+    budget = {'utc_date': today, 'requests_used': 0, 'limit': request_budget, 'paused': False,
+              'projects_used': 0, 'project_limit': max_projects, 'attempted_urls': [],
+              'lane_projects': dict.fromkeys(LANES, 0), 'lane_requests': dict.fromkeys(LANES, 0)}
+    def merge_budget(prior):
+        validate_budget(prior)
+        if prior['utc_date'] != today:
+            return
+        budget['requests_used'] = max(budget['requests_used'], prior['requests_used'])
+        budget['paused'] = budget['paused'] or prior['paused']
+        # Old request-only guards cannot prove how many project attempts were
+        # made. Charge one project per used request conservatively on migration.
+        budget['projects_used'] = max(budget['projects_used'], prior.get('projects_used', prior['requests_used']))
+        budget['attempted_urls'] = sorted(set(budget['attempted_urls']) | set(prior.get('attempted_urls', [])))
+        for field in ('lane_projects', 'lane_requests'):
+            for lane in LANES:
+                budget[field][lane] = max(budget[field][lane], prior.get(field, {}).get(lane, 0))
+    if existing.get('budget'):
+        merge_budget(existing['budget'])
     budget_path = Path(invocation_budget_file) if invocation_budget_file else None
     if budget_path and budget_path.exists():
-        prior = json.loads(budget_path.read_text())
-        validate_budget(prior)
-        if prior.get('utc_date') == today:
-            budget['requests_used'] = max(budget['requests_used'], prior['requests_used'])
-            budget['paused'] = budget['paused'] or prior.get('paused', False)
-    if type(budget['requests_used']) is not int or budget['requests_used'] < 0:
-        raise ValueError('Invalid HN request budget')
+        merge_budget(json.loads(budget_path.read_text()))
+    known_today = {key for key, record in records.items()
+                   if datetime.fromisoformat(record['checked_at']).astimezone(timezone.utc).date() == now.date()}
+    budget['attempted_urls'] = sorted(set(budget['attempted_urls']) | known_today)
+    budget['projects_used'] = max(budget['projects_used'], len(budget['attempted_urls']),
+                                  sum(budget['lane_projects'].values()))
+    budget['requests_used'] = max(budget['requests_used'], sum(budget['lane_requests'].values()))
+    # A main-branch retry may discard the evidence but retain its quota guard.
+    # Preserve an honest failed-attempt placeholder rather than treating that
+    # identity as unseen again tomorrow or inventing the discarded result.
+    for key in budget['attempted_urls']:
+        if key in identities and key not in known_today:
+            record = records.setdefault(key, {})
+            record.update(checked_at=now.isoformat(), status='unavailable',
+                          error='Earlier invocation attempt has no retained result; retry on a later UTC day')
+    validate_budget(budget)
     deadline = monotonic() + seconds
     metadata = metadata if metadata is not None else json.loads(METADATA_PATH.read_text())
     def due(p):
@@ -402,19 +442,58 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
         return (force or good.get('months') != months or good.get('identity_key') != identity_key(p)
                 or now - datetime.fromisoformat(record.get('checked_at', '1970-01-01T00:00:00+00:00')) >= timedelta(days=REFRESH_DAYS)
                 or record.get('status') != 'ok')
+    def stars_key(p):
+        values = [metadata.get('repositories', {}).get(repo.lower(), {}).get('stargazers_count')
+                  for repo in p['repositories']]
+        known = [n for n in values if type(n) is int and n >= 0]
+        return (not known, -max(known, default=0), canonical_url(p['readme_url']))
+    def lane_for(p):
+        record = records.get(canonical_url(p['readme_url']), {})
+        if (record.get('status') == 'deferred' and record.get('pending')
+                and record.get('pending_identity_key') == identity_key(p)
+                and record.get('pending_months') == months):
+            return 'continuation'
+        return 'refresh' if record.get('checked_at') else 'new'
     def priority(p):
         record = records.get(canonical_url(p['readme_url']), {})
-        stars = max((metadata.get('repositories', {}).get(repo.lower(), {}).get('stargazers_count') or 0
-                     for repo in p['repositories']), default=0)
+        if lane_for(p) == 'new':
+            return stars_key(p)
         changed = (record.get('last_good', {}).get('identity_key') not in (None, identity_key(p))
                    and record.get('pending_identity_key') != identity_key(p))
-        return (0 if changed else 1, record.get('checked_at', ''), -stars, canonical_url(p['readme_url']))
-    waiting = sorted((p for p in projects if due(p)), key=priority)
-    # Reserve at most two preferred slots for resumable work so a large
-    # project need not wait a catalog rotation and lose pages at rollover.
-    continuations = [p for p in waiting if records.get(canonical_url(p['readme_url']), {}).get('status') == 'deferred'][:min(2, max_projects)]
-    waiting = continuations + [p for p in waiting if p not in continuations]
+        return (0 if changed else 1, record.get('checked_at', ''), *stars_key(p))
+    waiting = [p for p in projects if due(p)]
+    queues = {lane: sorted((p for p in waiting if lane_for(p) == lane
+                           and canonical_url(p['readme_url']) not in budget['attempted_urls']), key=priority)
+              for lane in LANES}
     attempted = 0
+    def allowance(lane, kind):
+        shares = PROJECT_SHARES if kind == 'projects' else REQUEST_SHARES
+        limit = max_projects if kind == 'projects' else request_budget
+        # Scale reservations for deliberately smaller test/manual budgets.
+        scale = limit / (DEFAULT_PROJECTS if kind == 'projects' else DEFAULT_REQUESTS)
+        reserved = 0
+        for other in LANES:
+            if other == lane or not queues[other]:
+                continue
+            if kind == 'requests' and allowance(other, 'projects') <= 0:
+                continue
+            need = max(0, math.floor(shares[other] * scale) - budget['lane_' + kind][other])
+            reserved += min(need, len(queues[other])) if kind == 'projects' else need
+        return max(0, limit - budget[kind + '_used'] - reserved)
+    def day_closed():
+        return live_clock and datetime.now(timezone.utc).date() != now.date()
+    def selected_projects():
+        # Interleave lanes so a short time budget also reaches refresh work.
+        # Unused reservations are borrowable only when the other queue is empty.
+        while any(queues.values()):
+            progressed = False
+            for lane in ('continuation', 'new', 'refresh', 'refresh', 'new'):
+                if (queues[lane] and allowance(lane, 'projects') > 0
+                        and allowance(lane, 'requests') > 0):
+                    progressed = True
+                    yield lane, queues[lane].pop(0)
+            if not progressed:
+                break
     def document():
         current = []
         for key, p in identities.items():
@@ -430,31 +509,44 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
                 'selection_report': {'catalog_projects': len(projects), 'due_projects': len(waiting),
                                      'attempted_projects': attempted, 'current_window_projects': len(current),
                                      'never_attempted_projects': sum(k not in records for k in identities)},
-                'refresh_policy': {'successful_refresh_days': REFRESH_DAYS, 'max_projects_per_run': max_projects,
+                'refresh_policy': {'successful_refresh_days': REFRESH_DAYS, 'max_projects_per_utc_day': max_projects,
+                                   'project_reservations': PROJECT_SHARES, 'request_reservations': REQUEST_SHARES,
                                    'max_requests_per_project_run': PROJECT_REQUESTS, 'max_seconds_per_run': seconds,
-                                   'selection': 'up to two partial continuations; changed identity first attempt; then unseen and oldest attempt; stars break ties',
+                                   'max_seconds_per_project_when_queued': min(90, seconds / 3),
+                                   'selection': 'interleaved reserved lanes; new backlog stars descending, unknown last; retries/refreshes and continuations oldest attempt; once per project per UTC day',
                                    'coverage': 'reviewed aliases or conservative catalog URL/repository only'}}
-    for project in waiting:
-        if attempted >= max_projects or budget['paused'] or budget['requests_used'] >= request_budget or monotonic() >= deadline:
+    for lane, project in selected_projects():
+        started = monotonic()
+        if budget['projects_used'] >= max_projects or budget['paused'] or budget['requests_used'] >= request_budget or started >= deadline or day_closed():
             break
+        # Reserve time for other waiting work as well as project/request slots.
+        project_deadline = min(deadline, started + min(90, seconds / 3)) if any(queues.values()) else deadline
         key = canonical_url(project['readme_url'])
-        record = records.setdefault(key, {})
+        prior_record = records.get(key)
+        record = json.loads(json.dumps(prior_record or {}))
+        records[key] = record
         signature = identity_key(project)
         if record.get('pending_identity_key') != signature or record.get('pending_months') != months:
             record['pending'] = {}
-        record.update(checked_at=now.isoformat(), pending_identity_key=signature, pending_months=months)
-        attempted += 1
+        record.update(pending_identity_key=signature, pending_months=months)
         project_requests = 0
         def bounded_get(url):
-            nonlocal project_requests
+            nonlocal project_requests, attempted
             if url in record['pending']:
                 return record['pending'][url]
-            if (budget['requests_used'] >= request_budget or project_requests >= PROJECT_REQUESTS
-                    or monotonic() >= deadline):
+            if (allowance(lane, 'requests') <= 0 or project_requests >= PROJECT_REQUESTS
+                    or monotonic() >= project_deadline or day_closed()):
                 raise Deferred('Collection budget reached; partial pages retained')
             # Every network attempt counts, including failures. Persist before
             # request so a publisher retry cannot reset the invocation quota.
+            if project_requests == 0:
+                attempted += 1
+                budget['projects_used'] += 1
+                budget['lane_projects'][lane] += 1
+                budget['attempted_urls'].append(key)
+                record['checked_at'] = now.isoformat()
             budget['requests_used'] += 1
+            budget['lane_requests'][lane] += 1
             project_requests += 1
             if budget_path:
                 checkpoint_budget(budget_path, budget)
@@ -489,6 +581,11 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
         except (UpstreamFailure, URLError, OSError, TimeoutError, ValueError):
             record['status'] = 'unavailable'
             record['error'] = 'Algolia collection failed; prior evidence and partial pages retained'
+        if project_requests == 0 and record.get('status') != 'ok':
+            if prior_record is None:
+                records.pop(key, None)
+            else:
+                records[key] = prior_record
         if checkpoint:
             checkpoint(document())
     result = document()

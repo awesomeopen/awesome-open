@@ -92,7 +92,7 @@ class QueueTests(unittest.TestCase):
             if 'OpenThing' in url:
                 raise OSError('offline')
             return page(url)
-        result = self.refresh(existing=first, projects=[project(), second_project], force=True, getter=fail_one)
+        result = self.refresh(existing=first, projects=[project(), second_project], now=NOW + timedelta(days=1), force=True, getter=fail_one)
         self.assertEqual(len(result['projects']), 2)
         record = result['queue'][hn.canonical_url(project()['readme_url'])]
         self.assertEqual(record['status'], 'unavailable')
@@ -148,9 +148,9 @@ class QueueTests(unittest.TestCase):
         metadata = {'repositories': {'org/openb': {'stargazers_count': 500}}}
         first = self.refresh(projects=projects, metadata=metadata, max_projects=1)
         self.assertEqual(first['projects'][0]['name'], 'OpenB')
-        second = self.refresh(projects=projects, metadata=metadata, existing=first, max_projects=1, force=True)
+        second = self.refresh(projects=projects, metadata=metadata, existing=first, max_projects=1, now=NOW + timedelta(days=1), force=True)
         self.assertEqual(set(p['name'] for p in second['projects']), {'OpenA', 'OpenB'})
-        third = self.refresh(projects=projects, metadata=metadata, existing=second, max_projects=1, force=True)
+        third = self.refresh(projects=projects, metadata=metadata, existing=second, max_projects=1, now=NOW + timedelta(days=2), force=True)
         self.assertEqual(len(third['projects']), 3)
 
     def test_corrupt_local_queue_fails_before_network(self):
@@ -161,7 +161,7 @@ class QueueTests(unittest.TestCase):
 
     def test_invalid_upstream_preserves_good_and_continues(self):
         first = self.refresh()
-        result = self.refresh(existing=first, force=True, getter=lambda url: {'hits': [], 'nbPages': 'bad', 'nbHits': 0})
+        result = self.refresh(existing=first, now=NOW + timedelta(days=1), force=True, getter=lambda url: {'hits': [], 'nbPages': 'bad', 'nbHits': 0})
         self.assertEqual(result['projects'], first['projects'])
         self.assertEqual(next(iter(result['queue'].values()))['status'], 'unavailable')
 
@@ -180,7 +180,7 @@ class QueueTests(unittest.TestCase):
 
     def test_inconsistent_pagination_cannot_replace_good(self):
         first = self.refresh()
-        result = self.refresh(existing=first, force=True,
+        result = self.refresh(existing=first, now=NOW + timedelta(days=1), force=True,
                               getter=lambda url: {'hits': [], 'nbPages': 0, 'nbHits': 100})
         self.assertEqual(result['projects'], first['projects'])
         self.assertEqual(next(iter(result['queue'].values()))['status'], 'unavailable')
@@ -207,7 +207,7 @@ class QueueTests(unittest.TestCase):
         result = self.refresh(getter=changing)
         self.assertEqual(result['projects'], [])
         self.assertEqual(next(iter(result['queue'].values()))['pending'], {})
-        recovered = self.refresh(existing=result)
+        recovered = self.refresh(existing=result, now=NOW + timedelta(days=1))
         self.assertEqual(len(recovered['projects']), 1)
 
     def test_duplicate_page_and_outside_interval_preserve_good(self):
@@ -224,7 +224,7 @@ class QueueTests(unittest.TestCase):
             result['hits'][0]['created_at_i'] = int(hn.window(NOW)[1].timestamp())
             return result
         for getter in (duplicate, outside):
-            result = self.refresh(existing=first, force=True, getter=getter)
+            result = self.refresh(existing=first, now=NOW + timedelta(days=1), force=True, getter=getter)
             self.assertEqual(result['projects'], first['projects'])
             self.assertEqual(next(iter(result['queue'].values()))['status'], 'unavailable')
 
