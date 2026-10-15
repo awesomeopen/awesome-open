@@ -68,7 +68,7 @@ noscript p { margin-block: 8px 0; font-size: 12px; color: var(--rs-muted, #46566
 .obs-lede { max-width: 72ch; margin: -12px 0 24px; color: var(--rs-muted, #465665); font-size: 13px; }
 .obs-disclosure > summary { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; min-height: 48px; font-size: 14px; }
 .obs-disclosure > summary::-webkit-details-marker { display: none; }
-.obs-disclosure > summary::before { content: '🡲'; content: '🡲' / ''; display: inline-block; width: 1.2em; transition: transform 160ms; }
+.obs-disclosure > summary::before { content: '►►►'; content: '►►►' / ''; display: inline-block; width: 1.2em; transition: transform 160ms; }
 .obs-disclosure[open] > summary::before { transform: rotate(90deg); }
 .obs-disclosure > summary .obs-muted { font-size: 12px; }
 

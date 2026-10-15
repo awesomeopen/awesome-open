@@ -574,6 +574,15 @@ h1>span {
 .hn-chart>span {
   max-width:260px;
 }
+
+.hn-chart img, .star-chart img {
+  border:1px dashed var(--rule);
+}
+.hn-chart img:hover, .star-chart img:hover {
+  border:1px solid  var(--rule);
+}
+
+
 .signal-status {
   font:13px var(--mono);
   border:1px solid var(--rule);
