@@ -589,12 +589,14 @@ async function checkObservatory({ browser, url }) {
     const second = categories.find(category => category.id !== first.id);
     await select('category-filter', first.id);
     await assertSelection(page, data, records(data, first.id), 'category');
+    const metricViewport = page.viewportSize();
     for (const width of [1440, 390, 320]) {
       await page.setViewportSize({ width, height: 1000 });
       await page.evaluate(() => scrollTo(0, 0));
       await fits(page, 'selected category ' + width);
       await capture('category-metrics-' + width);
     }
+    await page.setViewportSize(metricViewport);
 
     await checkProjectDisclosure(page, 'filtered category');
     const categoryURL = page.url();
