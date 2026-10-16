@@ -14,6 +14,7 @@ from unittest.mock import patch
 
 import build_observatory as obs
 import build_site
+from site_test_fixtures import baseline_site, copy_site_fixture
 from test_build_site import Page
 
 
@@ -297,14 +298,10 @@ class ObservatoryAccountingTests(unittest.TestCase):
 class ObservatoryBuildTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.temp=tempfile.TemporaryDirectory();cls.output=Path(cls.temp.name)/'site'
         with patch('urllib.request.urlopen',side_effect=AssertionError('Offline build')):
-            cls.catalog=build_site.build(cls.output,source_sha='a'*40)
+            cls.output,cls.catalog=baseline_site(source_sha='a'*40)
         cls.html=(cls.output/'observatory/index.html').read_text();cls.page=Page(cls.html)
         cls.snapshot=json.loads((cls.output/'observatory/snapshot.json').read_text())
-
-    @classmethod
-    def tearDownClass(cls):cls.temp.cleanup()
 
     def test_integrated_same_revision_complete_static_records(self):
         index=self.snapshot
@@ -534,9 +531,11 @@ class ObservatoryBuildTests(unittest.TestCase):
         self.assertNotIn(f'url(../{pattern})', report)
 
     def test_repeat_build_is_deterministic(self):
-        before={p.name:p.read_bytes() for p in (self.output/'observatory').iterdir()}
-        build_site.build(self.output,source_sha='a'*40)
-        self.assertEqual(before,{p.name:p.read_bytes() for p in (self.output/'observatory').iterdir()})
+        with tempfile.TemporaryDirectory() as temp:
+            output=copy_site_fixture(self.output,Path(temp)/'site')
+            before={p.name:p.read_bytes() for p in (output/'observatory').iterdir()}
+            build_site.build(output,source_sha='a'*40)
+            self.assertEqual(before,{p.name:p.read_bytes() for p in (output/'observatory').iterdir()})
 
     @unittest.skipUnless(shutil.which('node'),'Node is needed for route logic tests')
     def test_browser_independent_route_logic(self):

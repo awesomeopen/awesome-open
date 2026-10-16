@@ -8,6 +8,7 @@ from unittest.mock import patch
 import build_catalog
 import build_site
 import build_observatory as obs
+from site_test_fixtures import baseline_site
 from test_observatory import fixture
 
 
@@ -53,7 +54,7 @@ class MetricsFreshnessTests(unittest.TestCase):
     def test_mixed_cache_normal_standalone_and_observatory_outputs(self):
         # Use real catalog shape/assets while replacing only repository measurements.
         with tempfile.TemporaryDirectory() as temp:
-            original = build_site.build(Path(temp) / 'original')
+            _, original = baseline_site()
             catalog = deepcopy(original)
             projects = [p for p in catalog['projects'] if p['github']][:3]
             stale, unavailable, fresh = projects
