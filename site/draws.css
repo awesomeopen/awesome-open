@@ -1,18 +1,49 @@
-.draw-archive {max-width:1160px;margin:64px auto 96px;padding:0 24px;}
-.draw-archive h1 {font-size:clamp(36px,6vw,64px);margin-bottom:24px;}
-.draw-archive>p {max-width:80ch;margin:16px 0;}
-.draw-edition {margin-top:80px;scroll-margin-top:100px;}
-.draw-edition h2 {font-size:clamp(24px,4vw,36px);}
-.draw-edition h2 a {color:inherit;text-decoration:none;}
-.draw-meta {color:var(--rs-muted);font-size:12px;line-height:1.6;}
-.draw-projects {list-style:none;padding:0;margin:32px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;}
-.draw-projects li {display:grid;grid-template-columns:112px minmax(0,1fr);gap:16px;align-items:center;}
-.draw-projects img {width:112px;height:144px;object-fit:contain;}
-.draw-projects h3 {font-size:24px;margin-bottom:8px;overflow-wrap:anywhere;}
-.draw-projects p {font-size:14px;line-height:1.6;margin:8px 0;}
-.draw-projects .draw-meta {font-size:12px;}
-.draw-edition details {background:var(--rs-mist);padding:16px;}
-.draw-seed {overflow-wrap:anywhere;}
-@media(max-width:760px){.draw-projects{grid-template-columns:1fr;}.draw-archive{margin-top:32px;padding:0 16px;}}
+/* Weekly draws (/draws/). The route shell, labels, metrics, finding band,
+   disclosures, closing mark and footer come from observatory.css (B42).
+   This file only lays out the specimen tray and its records. */
+.draw-jump { margin: 0 0 8px; }
+.draw-metrics { margin-top: 48px; margin-bottom: 0; }
+.draw-metrics [data-metric] { font-size: clamp(20px, 2.2vw, 28px); }
+.draw-finding { grid-template-columns: minmax(0, 1fr); }
 
-.draw-projects li.no-art {grid-template-columns:minmax(0,1fr);}
+.draw-edition { margin-top: 96px; scroll-margin-top: 24px; }
+.draw-edition h2 { margin: 16px 0 40px; }
+.draw-edition h2 a { text-decoration: none; }
+.draw-edition h2 a:hover { text-decoration: underline; }
+
+/* Specimen tray: art on white, no frames; spacing carries the grid. */
+.draw-projects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 56px 32px; }
+.draw-specimen { display: flex; flex-direction: column; min-width: 0; }
+.draw-specimen img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; margin-bottom: 16px; mix-blend-mode: multiply; /* white art ground, as on the plate */ }
+.draw-specimen h3 { font-size: 25px; margin-bottom: 8px; overflow-wrap: anywhere; }
+.draw-specimen h3 a { text-decoration-thickness: 1px; }
+.draw-function { font-size: 13px; line-height: 1.6; }
+.draw-meta { margin-top: 8px; font-size: 12px; color: var(--rs-muted, #465665); }
+.draw-specimen.no-art h3 { margin-top: 0; }
+
+/* Earlier editions: the same tray at a smaller scale. */
+.draw-edition:not(.is-latest) .draw-projects { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 32px 20px; }
+.draw-edition:not(.is-latest) .draw-specimen h3 { font-size: 18px; }
+.draw-edition:not(.is-latest) .draw-function { display: none; }
+
+.draw-record { margin-top: 48px; border-top: 1px solid var(--obs-rule); }
+.draw-record-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 24px; padding: 8px 0 16px; font-size: 12px; }
+.draw-record-list dt { color: var(--rs-muted, #465665); }
+.draw-seed { overflow-wrap: anywhere; }
+
+.draw-empty-text { font: 300 clamp(22px, 2.6vw, 30px)/1.22 var(--rs-display, Georgia, serif); font-variation-settings: 'SOFT' 100, 'WONK' 1; max-width: 32ch; margin-top: 16px; }
+.draw-method-text { display: grid; gap: 12px; max-width: 72ch; }
+
+@media (max-width: 1000px) {
+  .draw-projects { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .draw-edition:not(.is-latest) .draw-projects { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .draw-record-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .draw-projects { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 16px; }
+  .draw-edition:not(.is-latest) .draw-projects { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 12px; }
+  .draw-specimen h3 { font-size: 20px; }
+  .draw-edition:not(.is-latest) .draw-specimen h3 { font-size: 15px; overflow-wrap: break-word; }
+  .draw-edition { margin-top: 64px; }
+  .draw-record-list { grid-template-columns: minmax(0, 1fr); }
+}

@@ -145,7 +145,8 @@ The seven existing jars and interactions stay fixed. A seeded weekly draw select
 only illustrated catalog projects, independent of stars, with an initial four-week
 cooldown; the draw is displayed the following week. Assign the seven illustrations
 to windows by subject fit and contain the whole subject. A small edition link
-leads to the static `/draws/` archive. See [calendar, evidence and fallback
+leads to the static `/draws/` archive, which uses the Observatory route shell
+with a specimen tray per edition (B43). See [calendar, evidence and fallback
 rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
 fallback; it is not retroactively labeled a random draw.
 
