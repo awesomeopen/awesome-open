@@ -587,6 +587,22 @@ class PublisherGitTests(unittest.TestCase):
         self.assertEqual(self.remote_head(), first)
         self.assert_worktree_removed()
 
+    def test_nonreproducible_count_badge_never_pushes(self):
+        script = RENDER_SCRIPT + '''
+badge = output.parent / 'assets/readme/specimen-count.svg'
+badge.parent.mkdir(parents=True, exist_ok=True)
+badge.write_text('main count' if output == root / 'README.md' else 'different count')
+'''
+        (self.actor / 'scripts/render_readme.py').write_text(script)
+        self.git(self.actor, 'add', 'scripts/render_readme.py')
+        self.git(self.actor, 'commit', '-m', 'Add inconsistent count badge')
+        self.git(self.actor, 'push', 'origin', 'main')
+        expected = self.remote_head()
+        with self.assertRaisesRegex(RuntimeError, 'specimen-count badge is not reproducible'):
+            publisher.publish(self.checkout)
+        self.assertEqual(self.remote_head(), expected)
+        self.assert_worktree_removed()
+
     def test_site_build_uses_accepted_revision_not_dirty_or_newer_checkout(self):
         accepted = publisher.publish(self.checkout)
         self.advance_source('A newer source after accepted publication.\n')
@@ -722,12 +738,13 @@ class PublisherScopeTests(unittest.TestCase):
     def test_generated_scope_is_explicit(self):
         for name in ['README.md', 'data/github_metrics.json', 'data/hn_evidence.json',
                      'data/project_signals.json', 'data/star_history.json',
-                     'data/chart_observations.json', 'assets/hn/project.svg']:
+                     'data/chart_observations.json', 'assets/hn/project.svg', 'assets/readme/specimen-count.svg']:
             with self.subTest(name=name):
                 self.assertTrue(publisher.allowed_path(name))
         for name in ['README.source.md', 'CONTRIBUTING.md', 'data/hn_projects.json', 'data/alternatives.json',
                      'data/project_signals.json.tmp', 'data/other_signals.json', 'data/nested/project_signals.json',
                      'data/chart_observations.json.tmp', 'data/nested/chart_observations.json',
+                     'assets/readme/other.svg', 'assets/readme/../../secret.svg', 'site/brand/browse-catalog.svg',
                      '.github/workflows/update-stats.yml', 'assets/hn/../../secret.svg', 'assets/hn/script.py']:
             with self.subTest(name=name):
                 self.assertFalse(publisher.allowed_path(name))

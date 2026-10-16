@@ -10,6 +10,8 @@ byte sizes and SHA-256 hashes; it is an integrity inventory, not approval metada
 | Header botanical mark | `site/brand/botanical-128.png` | Implemented; [owner source and lettering-removal edit](../site/brand/BOTANICAL-LOGO.md); rendered at 64 CSS px |
 | Fruit variants / favicon | `site/brand/fruit-16.png`, `fruit-32.png`, `fruit-96.png`, `favicon.ico` | Tracked brand assets; fruit-96 marks ledger end for All or categories without artwork; earliest generation provenance remains incomplete |
 | Full logo artwork | `site/brand/awesome-open-logo.png` | Retained tracked asset; do not infer that every retained variant is the active header |
+| README catalog banner | `site/brand/readme-banner.png` | User-selected revised image; unchanged 2172 × 724 PNG, source and SHA-256 in [banner provenance](../site/brand/README-BANNER.md); README-only placement for review |
+| README Browse link | `site/brand/browse-catalog.svg` | Local flat-square Prussian text vector; recipe and status/count ownership in [README badge contract](../site/brand/README-BADGES.md); generated count SVG remains publisher-owned under `assets/readme/` |
 | Search loupe | `site/brand/search-loupe.png` | Implemented; [owner-supplied icon](../site/brand/SEARCH-ICON.md); 96px source, 32px display in 44px target |
 | Seven specimen interpretations | `site/specimens/*.webp` | Per-entry status, alt, prompt and source in [specimen manifest](../data/specimen_art.json) |
 | Category illustrations | `site/domains/*-{s,m,l}.webp` | 21 owner-uploaded category interpretations; medium variants also close the selected category’s ledger; source filename mapping, verified derivative hashes/dimensions, recipe and provenance limits in [category provenance](../site/domains/provenance.json) |

@@ -44,6 +44,8 @@ Alternatives are curated manually. Discovery and accuracy checks remain review-o
 
 `README.source.md` is the human-editable catalog: introduction, table of contents, categories, links, descriptions, inline alternatives, and legend. `README.md` is generated. The sole renderer, `scripts/render_readme.py`, combines the source with `data/github_metrics.json` and `data/hn_evidence.json`, and writes README plus HN SVGs. It reuses the existing metadata and chart formatting functions.
 
+The renderer also writes `assets/readme/specimen-count.svg` from distinct canonical catalog URLs (including non-GitHub projects), using the exact label “N specimen”. Cross-listed projects count once. This generated badge belongs to the existing publisher; do not hand-edit its number or include routine badge updates in source-only catalog PRs. Offline previews copy the local README banner and Browse badge alongside the generated count. See the [README badge contract](site/brand/README-BADGES.md).
+
 For a contribution, run these network-free commands with Python 3.11 or newer:
 
 ```sh
