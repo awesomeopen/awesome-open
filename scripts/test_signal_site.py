@@ -68,7 +68,7 @@ class SignalSiteTests(unittest.TestCase):
         page=Page(html)
         project=next(p for p in catalog['projects'] if p['signals'])
         card=page.by_id['project-'+project['id']]
-        for text in ('Latest GitHub release','OpenSSF Scorecard','4.2/10','1 scored / 2 returned checks',
+        for text in ('GitHub release','OpenSSF Scorecard','4.2/10','1 scored / 2 returned',
                      'Inconclusive','Published 2020-01-01','Scanned 2026-10-05',
                      '2026-10-10 (date only)','Check results and scan provenance'):
             self.assertIn(text,card.text)

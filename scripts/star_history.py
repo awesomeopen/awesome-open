@@ -91,7 +91,7 @@ def render(project):
         maximum = max(1, *good['monthly_counts'])
         body = (f'<a class="hn-chart star-chart" href="{esc(record["source_url"])}"><img src="{esc(record["chart_url"])}" width="120" height="24" alt="Monthly stars retained at fetch / 2y" loading="lazy">'
                 f'<span>{sum(good["monthly_counts"]):,} stars / past 2y</span></a>'
-                f'<p class="fine-print star-window">{esc(months[0])}–{esc(months[-1])} · oldest at left<br>Independent square-root scale: 0–{maximum:,} stars/month</p>')
+                f'<p class="fine-print star-window">{esc(months[0])}&nbsp;–&nbsp;{esc(months[-1])}<br>Independent square-root scale: 0–{maximum:,} stars/month</p>')
     elif good:
         body = '<p>Cached history uses a different month window; chart withheld until aligned.</p>'
     provenance = f'Latest attempt: {esc(record.get("status", "unknown"))}'
@@ -100,6 +100,6 @@ def render(project):
     if good:
         provenance += ' · Last successful fetch ' + esc(good['fetched_at'])
     return (f'<section class="signal evidence-note star-history" data-signal="star-history"><h4>GitHub stars <span class="signal-status">{esc(status)}</span></h4>{body}'
-            f'<p class="fine-print">{('As of ' + esc(good['fetched_at'][:10]) + '.') if good else ''}</p><details class="note-provenance"><summary>View source &amp; retrieval history</summary>'
+            f'<details class="note-provenance"><summary>View source &amp; retrieval history</summary>'
             f'<p class="fine-print">{BOUNDARIES} HN stories and GitHub stars are independent measurements with separate scales. {provenance}'
             f'</p></details></section>')
