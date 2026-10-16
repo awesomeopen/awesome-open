@@ -14,7 +14,9 @@
 .jar-square-cork,.jar-ribbed {--setback:7px;}
 .jar-shouldered,.jar-bail {--setback:11px;}
 .jar-central {--setback:12px;--shadow-scale:.94;}
-.jar-exhibit:is(.is-active,:focus-within) {z-index:5;}
+/* Hover selection must paint above a different jar retaining keyboard focus. */
+.jar-exhibit:focus-within {z-index:5;}
+.jar-exhibit.is-active {z-index:6;}
 .vessel {position:absolute;height:var(--display-height);width:var(--display-width);bottom:calc(44px + var(--setback) - var(--display-foot) - var(--my));left:calc((100% - var(--display-width))/2 + var(--mx));left:calc(round(nearest,calc((100% - var(--display-width))/2),1px) + var(--mx));transform:none;pointer-events:none;isolation:isolate;}
 .jar-photo,.jar-reflection {position:absolute;width:100%;height:100%;inset:0;max-width:none;}
 .jar-photo {z-index:0;mask-image:radial-gradient(ellipse calc(var(--sw)*.70) calc(var(--sh)*.85) at calc(var(--sx) + var(--sw)*.5) calc(var(--sy) + var(--sh)*.5),rgb(0 0 0 / .06) 0%,rgb(0 0 0 / .14) 55%,rgb(0 0 0 / .82) 100%);}
