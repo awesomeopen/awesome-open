@@ -152,5 +152,4 @@ def render(project, *, embedded=False, overview=True):
     return (opening +
             '<p class="fine-print">Reviewed ' + esc(record['checked_at']) + ' · ' + esc(record['reviewed_by']) + ' · Approved evidence record</p>'
             + ''.join(summary) + '<details><summary>View setup facts &amp; sources</summary>' + ''.join(sections) +
-            '<p class="fine-print">' + esc(record['review_note']) + '</p>'
-            '<p class="fine-print">Only documented paths are listed. Package records are source observations, not live availability checks. Requirements apply only to their stated scope.</p></details>' + ('</div>' if embedded else '</section>'))
+            '</details>' + ('</div>' if embedded else '</section>'))
