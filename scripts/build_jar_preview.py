@@ -144,11 +144,9 @@ def build(output, production=False):
            <div class="jar-callout callout-inspect"><a href="#project-{pid}" data-jar-inspect="{pid}">Inspect record</a></div>
           </div>
         </article>''')
-    label = (f"Weekly draw · week of {edition['display_week']}" if edition else 'Weekly draws · original display')
     hero=f'''<section class="jar-hall" aria-label="Seven illustrated software specimens">
       <button class="jar-motion-toggle" type="button" aria-pressed="false" aria-label="Pause motion" title="Pause motion" hidden>[II]</button>
       <div class="jar-scroll" role="region" aria-label="Specimen display; scroll horizontally on smaller screens" tabindex="0"><div class="jar-stage">{''.join(exhibits)}</div></div>
-      <p class="jar-draw-link"><a href="draws/{"#week-" + edition["display_week"] if edition else ""}">{label}</a></p>
     </section>'''
     # Mark JS startup before the first body paint. Deferred scripts settle before
     # DOMContentLoaded, which restores the readable fallback if jars.js fails.

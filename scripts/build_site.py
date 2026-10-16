@@ -144,13 +144,13 @@ def optional_signal_html(project, embed_setup=True):
         return ""
     pieces = []
     for provider, title in (
-        ("release", "Latest GitHub release"),
+        ("release", "GitHub release"),
         ("scorecard", "OpenSSF Scorecard"),
     ):
         if not records or provider not in records:
             if provider == "release" and embed_setup and project.get("deployment"):
                 pieces.append(
-                    '<section class="optional-signal evidence-note" data-signal="release"><h4>Latest GitHub release</h4><p>Release not checked.</p>'
+                    '<section class="optional-signal evidence-note" data-signal="release"><h4>GitHub release</h4><p>Release not checked.</p>'
                     + deployment.render(project, embedded=True)
                     + "</section>"
                 )
@@ -192,7 +192,7 @@ def optional_signal_html(project, embed_setup=True):
             repo = value["repository"].removeprefix("github.com/")
             content = (
                 f'<p><span class="note-value">{aggregate}</span>Scanned <span class="metric-value">{escape(good["observed_at"][:10])}</span> · '
-                f"{scored} scored / {total} returned checks</p>"
+                f"{scored} scored / {total} returned</p>"
                 f'<details class="signal-checks"><summary>Check results and scan provenance</summary><ul>{checks}</ul>'
                 f'<p class="fine-print">Repository commit <a href="https://github.com/{escape(repo)}/commit/{commit}">{commit[:12]}</a>'
                 f" · Scorecard {escape(good['tool_version'])}</p></details>"
@@ -336,9 +336,9 @@ def timeline(created, release, pushed):
     """Repository timestamps on one axis; positions are literal dates, labels repeat them."""
     points = [("Repository created", created, "")]
     if release:
-        points.append(("Latest GitHub release", release[0], release[1]))
+        points.append(("GitHub release", release[0], release[1]))
     if pushed:
-        points.append(("Last repository push", pushed, ""))
+        points.append(("Repository push", pushed, ""))
     try:
         dated = [
             (label, date.fromisoformat(value), tag) for label, value, tag in points
@@ -355,6 +355,7 @@ def timeline(created, release, pushed):
         for y in range(first, last + 1, step)
     )
     marks, labels = [], []
+    close_endpoints = bool(pushed) and abs(pct(dated[-1][1]) - pct(dated[0][1])) < 30
     for label, day, tag in dated:
         left = pct(day)
         side = "up" if tag else "down"
@@ -363,6 +364,11 @@ def timeline(created, release, pushed):
             if left > 55
             else f"left:{left}%"
         )
+        # Keep true timestamp positions, but separate labels for short-lived repositories.
+        if close_endpoints and label == "Repository created":
+            anchor = "left:0;text-align:left"
+        elif close_endpoints and label == "Repository push":
+            anchor = "right:0;text-align:right"
         extra = f" · {escape(tag)}" if tag else ""
         marks.append(
             f'<span class="timeline-mark{" is-release" if tag else ""}" style="left:{left}%"></span>'
@@ -507,7 +513,7 @@ def metrics_freshness(github, as_of):
             + str(attempt.get("at") or "Unknown")
             + " UTC (repository unavailable)."
         )
-    return "GitHub metrics observed: " + str(observed or "Unknown") + " UTC."
+    return ""
 
 
 def project_html(project, categories, catalog, number=0, cutouts=None):
@@ -550,9 +556,9 @@ def project_html(project, categories, catalog, number=0, cutouts=None):
                 "</a></div>",
                 '</a><p class="fine-print star-window">'
                 + escape(good["months"][0])
-                + "–"
+                + "&nbsp;–&nbsp;"
                 + escape(good["months"][-1])
-                + " · oldest at left<br>Square-root scale: 0–"
+                + "<br>Square-root scale: 0–"
                 + escape(paired["hn_monthly_maximum"])
                 + " stories/month (shared across HN charts)</p></div>",
             )
@@ -578,8 +584,10 @@ def project_html(project, categories, catalog, number=0, cutouts=None):
         if good_release
         else None
     )
-    vitals = f"""<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text or "Unknown")}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Last repository push</dt><dd>{escape(pushed)}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div></dl>"""
-    vitals += f'<p class="fine-print metrics-freshness">{escape(metrics_freshness(github, catalog.get("metrics_as_of")))}</p>'
+    vitals = f"""<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text or "Unknown")}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div><div><dt>Repository push</dt><dd>{escape(pushed)}</dd></div></dl>"""
+    freshness = metrics_freshness(github, catalog.get("metrics_as_of"))
+    if freshness:
+        vitals += f'<p class="fine-print metrics-freshness">{escape(freshness)}</p>'
     if github:
         vitals += timeline(
             created, release, github["pushed_at"][:10] if github["pushed_at"] else None
@@ -708,7 +716,7 @@ def render_html(catalog, cutouts=None):
 <body>
 <a class="skip-link" href="#catalog">Skip to specimen ledger</a>
 <div class="page-shell">
-<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/botanical-128.png" alt="" width="64" height="64"><span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img class="search-icon" src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="{REPOSITORY}">GitHub</a></nav></header>
+<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/botanical-128.png" alt="" width="64" height="64"><span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img class="search-icon" src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a></nav></header>
 <div class="layout">
 
  <main id="catalog" class="catalog-main" tabindex="-1">
@@ -729,7 +737,7 @@ def render_html(catalog, cutouts=None):
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="draws/">Weekly draws</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>Latest GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="draws/">Weekly draws</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
 <script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
