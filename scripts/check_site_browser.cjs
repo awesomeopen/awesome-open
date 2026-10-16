@@ -33,7 +33,7 @@ const path = require('node:path');
     writeReport();
   };
   const checkFooter = async (offline = false) => {
-    for (const width of [1440, 390]) {
+    for (const width of [2560, 1440, 390]) {
       await page.setViewportSize({ width, height: 1000 });
       await page.locator('.site-footer').scrollIntoViewIfNeeded();
       const footer = await page.locator('.site-footer').evaluate(async node => {
@@ -44,7 +44,10 @@ const path = require('node:path');
         await image.decode();
         const art = node.querySelector('[data-footer-background]');
         await art.decode();
-        return { background, width: image.naturalWidth, artWidth: art.naturalWidth,
+        const rect = art.getBoundingClientRect(), bounds = node.getBoundingClientRect();
+        return { renderedWidth: rect.width, renderedHeight: rect.height, center: (rect.left + rect.right) / 2,
+          footerCenter: (bounds.left + bounds.right) / 2, bottom: rect.bottom, footerBottom: bounds.bottom - parseFloat(style.borderBottomWidth),
+          clipped: style.overflowX, background, width: image.naturalWidth, artWidth: art.naturalWidth,
           artHeight: art.naturalHeight, widthAttr: Number(art.getAttribute('width')), heightAttr: Number(art.getAttribute('height')),
           sizes: JSON.parse(art.dataset.backgroundSizes),
           choices: JSON.parse(art.dataset.backgrounds), border: style.borderTopStyle };
@@ -52,6 +55,11 @@ const path = require('node:path');
       assert.equal(footer.width, 1254);
       assert.equal(footer.artWidth, footer.widthAttr);
       assert.equal(footer.artHeight, footer.heightAttr);
+      assert.equal(footer.renderedWidth, footer.artWidth, "Footer artwork keeps its native width");
+      assert.equal(footer.renderedHeight, footer.artHeight, "Footer artwork keeps its native height");
+      assert.ok(Math.abs(footer.center - footer.footerCenter) < 1, "Footer artwork stays horizontally centered");
+      assert.ok(Math.abs(footer.bottom - footer.footerBottom) < 1, "Footer artwork stays bottom aligned");
+      assert.equal(footer.clipped, "hidden");
       assert.ok(footer.choices.length > 0);
       assert.equal(footer.choices.length, footer.sizes.length);
       assert.equal(footer.border, 'double');
@@ -171,17 +179,24 @@ const path = require('node:path');
           `Category artwork uses the expected candidate at ${density}x`);
       } finally { await denseContext.close(); }
     }
-    // Deterministically exercise the first and last entries of the random background pool.
+    // Exercise every panorama at native size; filename changes must remain automatic.
     const backgrounds = data.footer_backgrounds || [];
     if (backgrounds.length) {
       await page.addInitScript(() => { Math.random = () => Number(sessionStorage.getItem('footer-test-random') || 0); });
-      for (const [random, index] of [[0, 0], [.999999, backgrounds.length - 1]]) {
+      for (const [index] of backgrounds.entries()) {
+        const random = (index + .5) / backgrounds.length;
         await page.evaluate(value => sessionStorage.setItem('footer-test-random', String(value)), random);
         await page.goto(url);
         const art = page.locator('[data-footer-background]');
         await art.scrollIntoViewIfNeeded();
         await art.evaluate(image => image.decode());
         assert.ok((await art.getAttribute('src')).endsWith(backgrounds[index]));
+        for (const width of [2560, 1440, 390]) {
+          await page.setViewportSize({width, height:1000});
+          const size = await art.evaluate(image => { const r=image.getBoundingClientRect(); return [r.width,r.height,image.naturalWidth,image.naturalHeight]; });
+          assert.deepEqual(size.slice(0,2), size.slice(2), 'Every panorama retains native dimensions at '+width+'px');
+        }
+        await page.setViewportSize({width:1440,height:1000});
         await capture('footer-background-' + index + '.png');
       }
       await page.setViewportSize({width:390,height:1000});
@@ -212,7 +227,7 @@ const path = require('node:path');
     assert.equal(await page.locator('#search').evaluate(n => getComputedStyle(n).borderBottomStyle), 'dashed');
     assert.equal(await page.locator('.ledger-columns, .ledger-heading').count(), 0);
     assert.deepEqual(await page.locator('.header-links a').allTextContents(), ['Ledger', 'About', 'Observatory', 'GitHub']);
-    assert.deepEqual(await page.locator('.footer-actions a').allTextContents(), ['Submit a project', 'Download', 'Top']);
+    assert.deepEqual(await page.locator('.footer-actions a').allTextContents(), ['Submit a project', 'Download', 'Weekly draws', 'Top']);
     assert.ok(await page.locator('.footer-baseline').textContent().then(t => t.includes(data.projects.length + ' Projects')));
     const absentLicense = data.projects.find(p => !p.github || !p.github.license);
     if (absentLicense) assert.equal(await page.locator('#project-' + absentLicense.id + ' .license-readout').textContent(), '');

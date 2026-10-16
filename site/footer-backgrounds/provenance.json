@@ -18,49 +18,98 @@
     "processing": "WebP encoding at quality 88; original dimensions and transparency retained"
   },
   {
-    "file": "valley-of-creatures.png",
+    "file": "valley-of-creatures.webp",
     "original": "valley-of-creatures.png",
-    "original_sha256": "9dc0add8454979170624dcbd119392a720b701ee102f26305648e5caf110c671",
-    "original_sha256": "",
+    "original_sha256": "d97bba53283c4ef8bae1c31a45651d08ef4a3eaf405452739963aee2c76c8c7d",
     "width": 1536,
-    "height": 1024,
+    "height": 949,
     "source": "Owner-supplied artwork (Speculative FOSSology, Astra 6)",
-    "processing": "Copied unchanged"
+    "processing": "Bottom-only crop of 75px; content bounds use alpha > 4/255 to exclude nearly transparent edge noise. No resizing. Retained RGBA pixels preserved exactly in lossless WebP; quality=100, method=6, exact=True. Pillow 12.3.0; libwebp 1.6.0.",
+    "original_width": 1536,
+    "original_height": 1024,
+    "crop_box": [
+      0,
+      0,
+      1536,
+      949
+    ],
+    "sha256": "85f23e4f85dc08063192c88755e9b42b93cd162cff3131870fd4bf059b1de819",
+    "original_git_revision": "4239ae8cb9659a926f305eb53e0e61a8526cacd5"
   },
   {
-    "file": "microfauna-of-valley.png",
+    "file": "microfauna-of-valley.webp",
     "original": "microfauna-of-valley.png",
-    "original_sha256": "",
+    "original_sha256": "84ad6744ae7f9a6ff06080687d285a91484fb34544b2807b635eb9b8fc487d4c",
     "width": 1536,
-    "height": 1024,
+    "height": 916,
     "source": "Owner-supplied artwork (Speculative FOSSology, Astra 6)",
-    "processing": "Copied unchanged"
+    "processing": "Bottom-only crop of 108px; content bounds use alpha > 4/255 to exclude nearly transparent edge noise. No resizing. Retained RGBA pixels preserved exactly in lossless WebP; quality=100, method=6, exact=True. Pillow 12.3.0; libwebp 1.6.0.",
+    "original_width": 1536,
+    "original_height": 1024,
+    "crop_box": [
+      0,
+      0,
+      1536,
+      916
+    ],
+    "sha256": "36896f36059b4a662d60f9c8876446958c16c8b7b32e69678a154cd0e9a235a5",
+    "original_git_revision": "4239ae8cb9659a926f305eb53e0e61a8526cacd5"
   },
   {
-    "file": "speculative-seafloor.png",
+    "file": "speculative-seafloor.webp",
     "original": "speculative-seafloor.png",
-    "original_sha256": "",
+    "original_sha256": "4551cb8c1b64876cf42f90665e9f48f60e6276b149529de312d048770f227a65",
     "width": 2172,
-    "height": 724,
+    "height": 673,
     "source": "Owner-supplied artwork (Speculative FOSSology, Astra 6)",
-    "processing": "Copied unchanged"
+    "processing": "Bottom-only crop of 51px; content bounds use alpha > 4/255 to exclude nearly transparent edge noise. No resizing. Retained RGBA pixels preserved exactly in lossless WebP; quality=100, method=6, exact=True. Pillow 12.3.0; libwebp 1.6.0.",
+    "original_width": 2172,
+    "original_height": 724,
+    "crop_box": [
+      0,
+      0,
+      2172,
+      673
+    ],
+    "sha256": "5fd0285f423b0562ea7e1ed38d9f30cf8b04f8c7a2b0aef77a98922ea224c451",
+    "original_git_revision": "4239ae8cb9659a926f305eb53e0e61a8526cacd5"
   },
   {
-    "file": "electrical-relics.png",
+    "file": "electrical-relics.webp",
     "original": "electrical-relics.png",
-    "original_sha256": "",
+    "original_sha256": "a954d347cd21e374cee7a11cb18873e38e4a7cd6fb7be23198ead768063187b1",
     "width": 2172,
-    "height": 724,
+    "height": 678,
     "source": "Owner-supplied artwork (Speculative FOSSology, Astra 6)",
-    "processing": "Copied unchanged"
+    "processing": "Bottom-only crop of 46px; content bounds use alpha > 4/255 to exclude nearly transparent edge noise. No resizing. Retained RGBA pixels preserved exactly in lossless WebP; quality=100, method=6, exact=True. Pillow 12.3.0; libwebp 1.6.0.",
+    "original_width": 2172,
+    "original_height": 724,
+    "crop_box": [
+      0,
+      0,
+      2172,
+      678
+    ],
+    "sha256": "aa045ae3e1e0b9a63f3d3422aca0a764ddcfd466d2ce15a72dc7e0b5a6cd8843",
+    "original_git_revision": "4239ae8cb9659a926f305eb53e0e61a8526cacd5"
   },
   {
-    "file": "aquatic-wreck.png",
+    "file": "aquatic-wreck.webp",
     "original": "aquatic-wreck.png",
-    "original_sha256": "",
+    "original_sha256": "d852b869da5672a8f032893b1018541b6b1c6a48b9bd99052cff87f26215b1c5",
     "width": 2172,
-    "height": 724,
+    "height": 708,
     "source": "Owner-supplied artwork (Speculative FOSSology, Astra 6)",
-    "processing": "Copied unchanged"
+    "processing": "Bottom-only crop of 16px; content bounds use alpha > 4/255 to exclude nearly transparent edge noise. No resizing. Retained RGBA pixels preserved exactly in lossless WebP; quality=100, method=6, exact=True. Pillow 12.3.0; libwebp 1.6.0.",
+    "original_width": 2172,
+    "original_height": 724,
+    "crop_box": [
+      0,
+      0,
+      2172,
+      708
+    ],
+    "sha256": "2fee95891cc93bb3b30894f4ece2107f58d413e6f68fb4155b7809c66668cf8c",
+    "original_git_revision": "4239ae8cb9659a926f305eb53e0e61a8526cacd5"
   }
 ]

@@ -43,7 +43,7 @@ source links name GitHub. ID tooltips name the identifier type: â€œRegistry IDâ€
 Sites output; this PR restores them to the generator.
 
 The footer uses one transparent valley/abyssal image per load over Prussian blue,
-with a static masked upper fade and clear reading space. Its data notes default
+with a static masked upper fade and clear reading space. Panoramas keep their native pixel dimensions, centered horizontally and bottom aligned at every viewport width; clip overflow rather than resize. Excess bottom padding is cropped before lossless WebP conversion, with the original source revision/hash, crop rectangle, output dimensions and checksum recorded in footer provenance. Its data notes default
 open; the coffee support link has its own paragraph. Black footer metadata
 backings are a specific implemented choice, not a new global surface token.
 
