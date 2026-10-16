@@ -90,6 +90,7 @@
 | [OpenPipe](https://github.com/OpenPipe/OpenPipe) | Platform for fine-tuning, hosting, and evaluating language models using recorded prompts and datasets. |
 | [OpenPort](https://github.com/Joseph-B22/OpenPort) | Local Windows AI assistant for IT troubleshooting, with PowerShell command checks, file comparisons, and machine-state checks. |
 | [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) | Real-time detection of body, face, hand, and foot keypoints. |
+| [Open R1](https://github.com/huggingface/open-r1) | Training, evaluation, and synthetic-data generation scripts for reproducing DeepSeek-R1-style reasoning models. |
 | [Open-RAG](https://github.com/ShayekhBinIslam/openrag) | Training and inference code for retrieval-augmented language models with multi-hop question answering. |
 | [OpenRLHF](https://github.com/OpenRLHF/OpenRLHF) | Scalable framework for reinforcement learning with language models. |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
@@ -129,6 +130,8 @@
 | [OpenFaaS](https://github.com/openfaas/faas) | Platform for deploying serverless functions. |
 | [OpenFeature Dart SDKs](https://github.com/open-feature/dart-sdk) | Vendor-neutral feature-flag SDKs for Dart server applications and Dart or Flutter clients. |
 | [OpenFeature JavaScript SDKs](https://github.com/open-feature/js-sdk) | Vendor-neutral feature-flag SDKs for JavaScript servers and browsers, with React and NestJS integrations. |
+| [OpenFst](https://github.com/google-research/openfst) | Library for constructing, combining, optimizing, and searching weighted finite-state transducers. |
+| [Opengist](https://github.com/thomiceli/opengist) | Self-hosted pastebin that stores code snippets in Git repositories and provides web and Git interfaces. |
 | [OpenGrok](https://github.com/oracle/opengrok) | Source-code search and cross-reference engine. |
 | [OpenHands](https://github.com/OpenHands/OpenHands) | AI agents for software development. |
 | [Open Inspector](https://github.com/patlf/open-inspector) | Browser extension for inspecting page styles, layout, typography, assets, and design tokens. |
@@ -411,6 +414,7 @@
 | [OpenPhoto](https://github.com/yuanzhixiang/openphoto) | macOS image editor with layered PSD support, selection tools, retouching, and filters.<br>Alternative to: [Photoshop](https://github.com/yuanzhixiang/openphoto/blob/main/README.md) |
 | [OpenReel Video](https://github.com/Augani/openreel-video) | Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects. |
 | [OpenRV](https://github.com/AcademySoftwareFoundation/OpenRV) | Media review and playback software. |
+| [OpenSceneGraph](https://github.com/openscenegraph/OpenSceneGraph) | C++ and OpenGL scene-graph toolkit for 3D graphics, visual simulation, games, and scientific visualization. |
 | [OpenScissors](https://github.com/L-at-nnes/OpenScissors) | Desktop photo background remover with AI cut-outs, brush corrections, compositing, and batch export. |
 | [OpenScreen](https://github.com/getopenscreen/openscreen) | Screen recording and editing for product demos and walkthroughs.<br>Alternative to: [Screen Studio](https://getopenscreen.com/alternatives/screen-studio/), [Camtasia](https://getopenscreen.com/alternatives/camtasia/) |
 | [OpenShot](https://github.com/OpenShot/openshot-qt) | Video editor with animation, compositing, and audio mixing. |
@@ -455,6 +459,7 @@
 | [OpenHuey](https://github.com/ArnautDaniel/OpenHuey) | In-progress Haunting Ground decompilation, PC port, and actor-based rewrite requiring the original game data. |
 | [OpenJazz](https://github.com/AlisterT/openjazz) | Engine for the original Jazz Jackrabbit games. |
 | [OpenLara](https://github.com/XProger/OpenLara) | Classic Tomb Raider engine reimplementation with browser and standalone builds. |
+| [OpenLieroX](https://github.com/openlierox/openlierox) | Real-time 2D shooter based on Liero Xtreme, featuring worms, weapons, and ninja ropes. |
 | [OpenLoco](https://github.com/OpenLoco/OpenLoco) | Reimplementation of Chris Sawyer's Locomotion. |
 | [OpenMoHAA](https://github.com/openmoh/openmohaa) | Reimplementation of Medal of Honor: Allied Assault and its expansions. |
 | [openMSX](https://github.com/openMSX/openMSX) | MSX home computer emulator. |
@@ -471,6 +476,7 @@
 | [OpenTomb](https://github.com/opentomb/OpenTomb) | Engine remake for Tomb Raider I–V. |
 | [OpenTricky](https://github.com/GiZcesi/OpenTricky) | Recompiled Windows port of SSX Tricky requiring the user's own Xbox game data. |
 | [OpenTTD](https://github.com/OpenTTD/OpenTTD) | Transport simulation based on Transport Tycoon Deluxe. |
+| [OpenTyrian](https://github.com/opentyrian/opentyrian) | Port of the vertical-scrolling shooter Tyrian with story, arcade, and networked multiplayer modes. |
 | [OpenXcom](https://github.com/OpenXcom/OpenXcom) | Reimplementation of the original X-COM games. |
 | [OpenXRay](https://github.com/OpenXRay/xray-16) | Enhanced X-Ray engine for the S.T.A.L.K.E.R. games. |
 | [OpenXW](https://github.com/elyosh/OpenXW) | Reimplementation of Star Wars: X-Wing for Windows, macOS, and Linux using original game data. |
@@ -524,6 +530,7 @@
 | [OpenFAST](https://github.com/OpenFAST/openfast) | Wind turbine and wind farm simulation tools. |
 | [OpenFermion](https://github.com/quantumlib/OpenFermion) | Compile and analyze quantum algorithms for fermionic systems. |
 | [OpenFOAM](https://github.com/OpenFOAM/OpenFOAM-dev) | Computational fluid dynamics software. |
+| [OpenGeoSys](https://gitlab.opengeosys.org/ogs/ogs) | Finite-element framework for simulating coupled thermal, hydraulic, mechanical, and chemical processes in porous and fractured media. |
 | [OpenIPSL](https://github.com/OpenIPSL/OpenIPSL) | Modelica component library for power-system dynamic analysis. |
 | [OpenLayout](https://github.com/vhdani04/OpenLayout) | Custom-IC design environment combining schematic capture, circuit simulation, layout, design-rule checks, and parasitic extraction for ASAP7. |
 | [OpenMC](https://github.com/openmc-dev/openmc) | Monte Carlo particle transport simulation. |
@@ -534,6 +541,7 @@
 | [OpenModelica](https://github.com/OpenModelica/OpenModelica) | Modelica-based modeling and simulation environment. |
 | [OpenMolcas](https://github.com/Molcas/OpenMolcas) | Quantum chemistry software for electronic-structure calculations. |
 | [OpenMS](https://github.com/OpenMS/OpenMS) | Mass-spectrometry data management and analysis tools. |
+| [OpenMVG](https://github.com/openMVG/openMVG) | C++ libraries and pipelines for reconstructing 3D scenes from images using multiple-view geometry and structure from motion. |
 | [OpenMVS](https://github.com/cdcseacave/openMVS) | Multi-view stereo reconstruction library for producing dense point clouds and textured 3D meshes. |
 | [OpenMx](https://github.com/OpenMx/OpenMx) | Structural equation modeling package for R. |
 | [OpenQuake Engine](https://github.com/gem/oq-engine) | Seismic hazard and risk analysis. |
@@ -555,6 +563,7 @@
 | Project | Description |
 | --- | --- |
 | [open-apuracao-brazil](https://github.com/bpinheiroms/open-apuracao-brazil) | Interactive map and dashboard for simulated Brazilian election counts by state, municipality, and electoral zone. |
+| [OpenCage Geocoding API](https://opencagedata.com/) | Hosted API for converting addresses and place names to coordinates and coordinates to place descriptions. |
 | [OpenCPN](https://github.com/OpenCPN/OpenCPN) | Marine chart plotting and navigation. |
 | [Open Data Cube](https://github.com/opendatacube/datacube-core) | Analyze continental-scale Earth observation data over time. |
 | [OpenDroneMap](https://github.com/OpenDroneMap/ODM) | Generate maps, point clouds, and 3D models from aerial imagery. |
@@ -564,6 +573,7 @@
 | [OpenOrienteering Mapper](https://github.com/OpenOrienteering/mapper) | Create maps for orienteering. |
 | [OpenRailwayMap](https://github.com/OpenRailwayMap/OpenRailwayMap) | Web map of railway infrastructure built on OpenStreetMap. |
 | [openrouteservice](https://github.com/GIScience/openrouteservice) | Route-planning API with multiple travel profiles. |
+| [OpenSfM](https://github.com/OpenSfM/OpenSfM) | Structure-from-motion pipeline that reconstructs camera poses, point clouds, meshes, and georeferenced maps from image collections. |
 | [OpenStreetMap website](https://github.com/openstreetmap/openstreetmap-website) | Rails application powering the OpenStreetMap website and API. |
 | [OpenTripPlanner](https://github.com/opentripplanner/OpenTripPlanner) | Plan journeys across transit, cycling, walking, and mobility services. |
 
@@ -665,6 +675,7 @@
 | [OpenEBS](https://github.com/openebs/openebs) | Persistent storage for stateful applications on Kubernetes. |
 | [OpenList](https://github.com/OpenListTeam/OpenList) | File browser with multiple storage backends, previews, and WebDAV access. |
 | [openmediavault](https://github.com/openmediavault/openmediavault) | Debian-based network-attached storage with a web administration interface. |
+| [OpenMTP](https://github.com/ganeshrvel/openmtp) | macOS application for transferring files to and from Android and other MTP devices over USB. |
 | [OpenRWP](https://github.com/recordweb/openRWP) | RecordWeb Protocol demo custodian server for storing versioned documents and sharing read-only capability links. |
 | [OpenStack Cinder](https://github.com/openstack/cinder) | Block storage service for OpenStack clouds. |
 | [OpenStack Swift](https://github.com/openstack/swift) | Distributed object storage for OpenStack clouds. |
