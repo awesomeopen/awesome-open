@@ -1,0 +1,1060 @@
+{
+  "schema_version": 1,
+  "status": "proposed",
+  "source_revision": "4bc3d97",
+  "documentation": "brand/icons.md",
+  "naming": "{id}-{size}.svg, for example state.failed-m.svg",
+  "master_px": 96,
+  "sizes": {
+    "s": {
+      "px": 12,
+      "stroke": 1.5,
+      "padding": 1,
+      "detail": "Silhouette only; badge never used"
+    },
+    "m": {
+      "px": 16,
+      "stroke": 1.5,
+      "padding": 1,
+      "detail": "Silhouette plus one interior detail"
+    },
+    "l": {
+      "px": 24,
+      "stroke": 2,
+      "padding": 2,
+      "detail": "May carry restrained pencil character"
+    }
+  },
+  "icons": [
+    {
+      "id": "state.current",
+      "group": "state",
+      "status": "today",
+      "base": "circle",
+      "shape": "Check mark inside a closed ring",
+      "color_token": "--rs-emerald",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "A value was observed within its freshness window",
+      "labels": [
+        "Available",
+        "Cached GitHub metrics (coverage count)"
+      ],
+      "used_in": [
+        "scripts/build_site.py:239 `signal-status`",
+        "scripts/signals.py:79 `available`",
+        "scripts/build_observatory.py:704 coverage states"
+      ]
+    },
+    {
+      "id": "state.aged",
+      "group": "state",
+      "status": "today",
+      "base": "circle",
+      "shape": "Check mark inside a closed ring with the aged badge in the lower-right quadrant",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "A last good value is retained, but it is old or the latest attempt did not succeed",
+      "labels": [
+        "Stale",
+        "Stale GitHub metrics; last successful observation: …"
+      ],
+      "used_in": [
+        "scripts/build_site.py:239 `signal-status`",
+        "scripts/signals.py:69 `stale`",
+        "scripts/build_site.py:508 `metrics_freshness`",
+        "scripts/build_site.py:740 About the data “Stale:”",
+        "scripts/build_observatory.py:775 “Cached measurements may be stale”"
+      ]
+    },
+    {
+      "id": "state.partial",
+      "group": "state",
+      "status": "today",
+      "base": "circle",
+      "shape": "Ring with the left half filled solid",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "Results were returned but not all of them carry a score",
+      "labels": [
+        "Partial",
+        "Inconclusive",
+        "Aggregate inconclusive"
+      ],
+      "used_in": [
+        "scripts/build_site.py:239 `signal-status`",
+        "scripts/signals.py:78 `partial`",
+        "scripts/build_site.py:183 `Aggregate inconclusive`",
+        "scripts/build_site.py:187 `Inconclusive`"
+      ]
+    },
+    {
+      "id": "state.pending",
+      "group": "state",
+      "status": "today",
+      "base": "circle",
+      "shape": "Ring of eight evenly spaced dots, empty centre",
+      "color_token": "--rs-muted",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "No check has completed yet: not checked, queued or deferred",
+      "labels": [
+        "Pending",
+        "Provider pending",
+        "Not checked",
+        "Check deferred",
+        "Release not checked."
+      ],
+      "used_in": [
+        "scripts/build_site.py:163 fetch_status labels",
+        "scripts/build_site.py:153 `Release not checked.`",
+        "scripts/signals.py:67 `pending`"
+      ]
+    },
+    {
+      "id": "state.none",
+      "group": "state",
+      "status": "today",
+      "base": "circle",
+      "shape": "Closed ring with one short horizontal dash",
+      "color_token": "--rs-muted",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "The provider was asked and returned no result",
+      "labels": [
+        "No result returned"
+      ],
+      "used_in": [
+        "scripts/build_site.py:163 `not_found`"
+      ]
+    },
+    {
+      "id": "state.failed",
+      "group": "state",
+      "status": "today",
+      "base": "circle",
+      "shape": "Diagonal cross inside a closed ring",
+      "color_token": "--rs-scarlet",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "Our retrieval attempt failed or the source was unavailable; says nothing about the project",
+      "labels": [
+        "Unavailable",
+        "GitHub metrics unavailable; no successful observation."
+      ],
+      "used_in": [
+        "scripts/build_site.py:163 `error`",
+        "scripts/signals.py:67 `unavailable`",
+        "scripts/build_site.py:502 `metrics_freshness`"
+      ]
+    },
+    {
+      "id": "state.unknown",
+      "group": "state",
+      "status": "today",
+      "base": "circle",
+      "shape": "Dashed ring with a question mark",
+      "color_token": "--rs-muted",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "The value is not recorded or not detected; unknown, never negative",
+      "labels": [
+        "Unknown",
+        "Push date unknown",
+        "License unknown",
+        "Not recorded",
+        "GitHub metrics: Unknown"
+      ],
+      "used_in": [
+        "scripts/build_site.py:587 `Detected license` Unknown",
+        "scripts/build_site.py:498 `GitHub metrics: Unknown`",
+        "scripts/build_site.py:728 filter options",
+        "scripts/build_site.py:729 `Not recorded`",
+        "scripts/build_observatory.py:304 `obs-unknown`"
+      ]
+    },
+    {
+      "id": "badge.aged",
+      "group": "state",
+      "status": "today",
+      "base": "badge",
+      "shape": "Small clock face (two hands) in a paper-knockout disc; composited onto another glyph's lower-right quadrant",
+      "color_token": "--rs-muted",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Overlay for retained or old values on any base glyph",
+      "labels": [
+        "Stale (with the base glyph's own label)"
+      ],
+      "used_in": [
+        "scripts/signals.py:69 `stale`"
+      ]
+    },
+    {
+      "id": "review.current",
+      "group": "review",
+      "status": "today",
+      "base": "square",
+      "shape": "Check mark inside a closed square with 2px radius",
+      "color_token": "--rs-emerald",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "A person reviewed this evidence against cited sources on the stated date",
+      "labels": [
+        "Reviewed {date}",
+        "Checked {date}",
+        "Approved evidence record"
+      ],
+      "used_in": [
+        "scripts/build_site.py:572 `function-provenance`",
+        "scripts/build_site.py:537 `evidence-date`",
+        "scripts/deployment.py:153 `Approved evidence record`"
+      ]
+    },
+    {
+      "id": "review.pending",
+      "group": "review",
+      "status": "planned",
+      "base": "square",
+      "shape": "Square drawn as evenly spaced dots, empty centre",
+      "color_token": "--rs-muted",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "A review record exists but is not approved yet",
+      "labels": [
+        "Review pending"
+      ],
+      "used_in": [
+        "scripts/deployment.py:49 `review_status` pending (not rendered today)"
+      ]
+    },
+    {
+      "id": "status.archived",
+      "group": "github",
+      "status": "today",
+      "base": "none",
+      "shape": "Closed archive drawer with a horizontal handle",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "GitHub reports the repository as archived",
+      "labels": [
+        "Archived on GitHub"
+      ],
+      "used_in": [
+        "scripts/build_site.py:392 `label-status`"
+      ]
+    },
+    {
+      "id": "link.external",
+      "group": "link",
+      "status": "today",
+      "base": "none",
+      "shape": "Arrow leaving the top-right corner of an open square",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "Leaves the site for an external source",
+      "labels": [
+        "Explore {name} on {host}",
+        "Feature source ↗",
+        "Provider source",
+        "Hacker News stories",
+        "{tag_name}",
+        "{summary source title}",
+        "{alternative name}"
+      ],
+      "used_in": [
+        "scripts/build_site.py:492 `departure-arrow`",
+        "scripts/build_site.py:451 `feature-source`",
+        "scripts/build_site.py:231 `Provider source`",
+        "scripts/build_site.py:550 `hn-chart`",
+        "scripts/build_site.py:173 `note-value`",
+        "scripts/build_site.py:572 summary sources",
+        "scripts/build_site.py:537 alternative links"
+      ]
+    },
+    {
+      "id": "link.permalink",
+      "group": "link",
+      "status": "today",
+      "base": "none",
+      "shape": "Two interlocking chain links",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "Stable link to this specimen record",
+      "labels": [
+        "Specimen: {name} (permalink)",
+        "QR code: permalink to {name}"
+      ],
+      "used_in": [
+        "scripts/build_site.py:402 `permalink`",
+        "scripts/build_site.py:397 `label-qr`"
+      ]
+    },
+    {
+      "id": "link.commit",
+      "group": "link",
+      "status": "today",
+      "base": "none",
+      "shape": "Short horizontal line through a small open circle",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Links to the exact repository commit a result came from",
+      "labels": [
+        "Repository commit {sha}"
+      ],
+      "used_in": [
+        "scripts/build_site.py:197 Scorecard commit"
+      ]
+    },
+    {
+      "id": "link.download",
+      "group": "link",
+      "status": "today",
+      "base": "none",
+      "shape": "Down arrow onto a short baseline",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m",
+        "l"
+      ],
+      "meaning": "Downloads a file",
+      "labels": [
+        "Download",
+        "Download selection CSV",
+        "Download standalone report"
+      ],
+      "used_in": [
+        "scripts/build_site.py:740 `standalone.html`",
+        "scripts/build_observatory.py:775 `export-csv`",
+        "scripts/build_observatory.py:847 report"
+      ]
+    },
+    {
+      "id": "link.data",
+      "group": "link",
+      "status": "today",
+      "base": "none",
+      "shape": "Curly braces { } on a page with a folded corner",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Opens raw evidence or catalog data",
+      "labels": [
+        "HN evidence",
+        "Comparison evidence",
+        "Catalog JSON",
+        "GitHub metric snapshot",
+        "Release and Scorecard evidence",
+        "Star-history evidence"
+      ],
+      "used_in": [
+        "scripts/build_site.py:740 About the data links",
+        "scripts/build_observatory.py:757 `evidence_links`"
+      ]
+    },
+    {
+      "id": "link.copy",
+      "group": "link",
+      "status": "planned",
+      "base": "none",
+      "shape": "Two offset overlapping rectangles",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Copies a link or value to the clipboard",
+      "labels": [
+        "Copy link"
+      ],
+      "used_in": []
+    },
+    {
+      "id": "disclose.closed",
+      "group": "control",
+      "status": "today",
+      "base": "none",
+      "shape": "Plus sign",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "A native disclosure that is closed",
+      "labels": [
+        "Table of contents",
+        "Filters",
+        "More filters",
+        "About the data",
+        "View source & retrieval history",
+        "Check results and scan provenance",
+        "View setup facts & sources"
+      ],
+      "used_in": [
+        "scripts/build_site.py:725",
+        "scripts/build_site.py:728",
+        "scripts/build_site.py:729",
+        "scripts/build_site.py:740",
+        "scripts/build_site.py:239 `note-provenance`",
+        "scripts/build_site.py:196 `signal-checks`",
+        "scripts/deployment.py:154",
+        "site/styles.css:445 `.drawer-sign`"
+      ]
+    },
+    {
+      "id": "disclose.open",
+      "group": "control",
+      "status": "today",
+      "base": "none",
+      "shape": "Minus sign, same length and stroke as the plus",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "A native disclosure that is open",
+      "labels": [
+        "(same summaries, open state)"
+      ],
+      "used_in": [
+        "site/styles.css:457 `.drawer-sign` open"
+      ]
+    },
+    {
+      "id": "control.reset",
+      "group": "control",
+      "status": "today",
+      "base": "none",
+      "shape": "Open circular arrow turning counter-clockwise",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Clears filters back to the default view",
+      "labels": [
+        "Reset filters ↺"
+      ],
+      "used_in": [
+        "scripts/build_site.py:733 `clear-filters`"
+      ]
+    },
+    {
+      "id": "control.info",
+      "group": "control",
+      "status": "planned",
+      "base": "none",
+      "shape": "Lowercase i with a heavy dot, no container (rings belong to states)",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Links a term to its definition",
+      "labels": [
+        "Stale",
+        "OpenSSF Scorecard",
+        "Square-root scale",
+        "Registry ID",
+        "Folio number",
+        "How groups are formed"
+      ],
+      "used_in": [
+        "scripts/build_site.py:740 About the data definitions",
+        "scripts/build_site.py:557 `star-window`",
+        "scripts/build_site.py:400 `title=\"Registry ID\"`",
+        "scripts/build_observatory.py:387 shared names"
+      ]
+    },
+    {
+      "id": "control.sort-asc",
+      "group": "control",
+      "status": "planned",
+      "base": "none",
+      "shape": "Up arrow beside three bars of increasing length",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Ascending sort order",
+      "labels": [
+        "Name A–Z"
+      ],
+      "used_in": [
+        "scripts/build_site.py:733 `sort-order`"
+      ]
+    },
+    {
+      "id": "control.sort-desc",
+      "group": "control",
+      "status": "planned",
+      "base": "none",
+      "shape": "Down arrow beside three bars of decreasing length",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Descending sort order",
+      "labels": [
+        "Most stars",
+        "Latest push"
+      ],
+      "used_in": [
+        "scripts/build_site.py:733 `sort-order`"
+      ]
+    },
+    {
+      "id": "control.filter-active",
+      "group": "control",
+      "status": "planned",
+      "base": "none",
+      "shape": "Funnel with a small filled dot at the upper right",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "At least one filter is applied",
+      "labels": [
+        "Filters"
+      ],
+      "used_in": [
+        "scripts/build_site.py:728 `filter-options`"
+      ]
+    },
+    {
+      "id": "scope.collection",
+      "group": "observatory",
+      "status": "today",
+      "base": "none",
+      "shape": "3×3 grid of filled squares",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Figure covers the whole collection and ignores filters",
+      "labels": [
+        "Whole collection"
+      ],
+      "used_in": [
+        "scripts/build_observatory.py:774 `obs-label`"
+      ]
+    },
+    {
+      "id": "scope.filtered",
+      "group": "observatory",
+      "status": "planned",
+      "base": "none",
+      "shape": "3×3 grid with four filled and five outlined squares",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Figure covers only the current filter selection",
+      "labels": [
+        "Selection"
+      ],
+      "used_in": [
+        "scripts/build_observatory.py:771 `observatory-filters`"
+      ]
+    },
+    {
+      "id": "view.chart",
+      "group": "observatory",
+      "status": "today",
+      "base": "none",
+      "shape": "Three horizontal bars from a shared left axis",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Chart view or chart data",
+      "labels": [
+        "Chart data"
+      ],
+      "used_in": [
+        "scripts/build_observatory.py:562 `obs-chart-data`"
+      ]
+    },
+    {
+      "id": "view.table",
+      "group": "observatory",
+      "status": "today",
+      "base": "none",
+      "shape": "Ruled grid of three rows and two columns",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Tabular view of the records",
+      "labels": [
+        "Data table"
+      ],
+      "used_in": [
+        "scripts/build_observatory.py:775 `project-records`"
+      ]
+    },
+    {
+      "id": "run.cli",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Prompt chevron followed by an underscore",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Runs from a command line",
+      "labels": [
+        "Command line"
+      ],
+      "used_in": [
+        "scripts/deployment.py:11 `RUN_MODES`"
+      ]
+    },
+    {
+      "id": "run.desktop",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Application window with a title bar",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Runs as a desktop application",
+      "labels": [
+        "Desktop application"
+      ],
+      "used_in": [
+        "scripts/deployment.py:11 `RUN_MODES`"
+      ]
+    },
+    {
+      "id": "run.local-web",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Browser window with a small house in the address bar",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Runs a browser interface on the local machine",
+      "labels": [
+        "Local browser interface"
+      ],
+      "used_in": [
+        "scripts/deployment.py:11 `RUN_MODES`"
+      ]
+    },
+    {
+      "id": "run.server",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Two stacked rack units with status dots",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Runs as a self-hosted server",
+      "labels": [
+        "Self-hosted server"
+      ],
+      "used_in": [
+        "scripts/deployment.py:11 `RUN_MODES`"
+      ]
+    },
+    {
+      "id": "run.library",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Three stacked blocks, top block offset",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Used as a library or SDK inside other code",
+      "labels": [
+        "Library / SDK"
+      ],
+      "used_in": [
+        "scripts/deployment.py:11 `RUN_MODES`"
+      ]
+    },
+    {
+      "id": "run.firmware",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Chip outline with pins on two sides",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Runs as device firmware",
+      "labels": [
+        "Device firmware"
+      ],
+      "used_in": [
+        "scripts/deployment.py:12 `RUN_MODES`"
+      ]
+    },
+    {
+      "id": "install.binary",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Archive box with a zip seam",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Installed from a downloadable binary or archive",
+      "labels": [
+        "Downloadable binary / archive"
+      ],
+      "used_in": [
+        "scripts/deployment.py:13 `INSTALL_METHODS`"
+      ]
+    },
+    {
+      "id": "install.installer",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Open box with an arrow entering it",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Installed with an installer",
+      "labels": [
+        "Installer"
+      ],
+      "used_in": [
+        "scripts/deployment.py:13 `INSTALL_METHODS`"
+      ]
+    },
+    {
+      "id": "install.container",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Isometric cube with ribbed sides (generic, no vendor mascot)",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Runs from a container image",
+      "labels": [
+        "Container"
+      ],
+      "used_in": [
+        "scripts/deployment.py:14 `INSTALL_METHODS`"
+      ]
+    },
+    {
+      "id": "install.package-manager",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Parcel with a tied label",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Installed through a package manager",
+      "labels": [
+        "Package manager"
+      ],
+      "used_in": [
+        "scripts/deployment.py:14 `INSTALL_METHODS`"
+      ]
+    },
+    {
+      "id": "install.source",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Angle brackets around a slash",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Built from source",
+      "labels": [
+        "Build from source"
+      ],
+      "used_in": [
+        "scripts/deployment.py:15 `INSTALL_METHODS`"
+      ]
+    },
+    {
+      "id": "install.firmware-image",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Chip outline with a down arrow above it",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "m",
+        "l"
+      ],
+      "meaning": "Flashed as a firmware image",
+      "labels": [
+        "Firmware image"
+      ],
+      "used_in": [
+        "scripts/deployment.py:15 `INSTALL_METHODS`"
+      ]
+    },
+    {
+      "id": "channel.documented",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Page with three text lines",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Upstream documents this package channel",
+      "labels": [
+        "documented"
+      ],
+      "used_in": [
+        "scripts/deployment.py:106 package `status`"
+      ]
+    },
+    {
+      "id": "channel.disabled",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Page with three text lines and a diagonal slash",
+      "color_token": "--rs-muted",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Upstream documents the channel as disabled",
+      "labels": [
+        "disabled"
+      ],
+      "used_in": [
+        "scripts/deployment.py:106 package `status`"
+      ]
+    },
+    {
+      "id": "channel.deprecated",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Page with three text lines, the lines struck through",
+      "color_token": "--rs-muted",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Upstream marks the channel as deprecated",
+      "labels": [
+        "deprecated"
+      ],
+      "used_in": [
+        "scripts/deployment.py:106 package `status`"
+      ]
+    },
+    {
+      "id": "channel.discontinued",
+      "group": "setup",
+      "status": "planned",
+      "base": "none",
+      "shape": "Empty page with a diagonal cross",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Upstream states the channel is discontinued",
+      "labels": [
+        "discontinued"
+      ],
+      "used_in": [
+        "scripts/deployment.py:106 package `status`"
+      ]
+    },
+    {
+      "id": "change.moved",
+      "group": "change",
+      "status": "planned",
+      "base": "none",
+      "shape": "Arrow from one small square to another",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "The canonical URL now redirects elsewhere",
+      "labels": [
+        "Moved to {url}"
+      ],
+      "used_in": []
+    },
+    {
+      "id": "change.renamed",
+      "group": "change",
+      "status": "planned",
+      "base": "none",
+      "shape": "Label tag with a small right arrow",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "The project name changed",
+      "labels": [
+        "Renamed from {name}"
+      ],
+      "used_in": []
+    },
+    {
+      "id": "change.mirror",
+      "group": "change",
+      "status": "planned",
+      "base": "none",
+      "shape": "Two identical squares offset diagonally",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "The repository is a mirror or fork of another record",
+      "labels": [
+        "Mirror of {name}",
+        "Fork of {name}"
+      ],
+      "used_in": []
+    },
+    {
+      "id": "change.new",
+      "group": "change",
+      "status": "planned",
+      "base": "none",
+      "shape": "Small eight-ray spark (not the brand asterisk)",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Added since the previous snapshot",
+      "labels": [
+        "New since {date}"
+      ],
+      "used_in": []
+    },
+    {
+      "id": "change.updated",
+      "group": "change",
+      "status": "planned",
+      "base": "none",
+      "shape": "Page with a filled dot at the upper-right corner",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "Record fields changed since the previous snapshot",
+      "labels": [
+        "Changed since {date}"
+      ],
+      "used_in": []
+    },
+    {
+      "id": "change.license",
+      "group": "change",
+      "status": "planned",
+      "base": "none",
+      "shape": "Page with a small delta (Δ) in the lower-right",
+      "color_token": "--rs-ink",
+      "sizes": [
+        "s",
+        "m"
+      ],
+      "meaning": "The detected license identifier differs from the previous snapshot",
+      "labels": [
+        "Detected license changed from {old}"
+      ],
+      "used_in": []
+    }
+  ]
+}
