@@ -1,5 +1,172 @@
 {
   "schema_version": 1,
-  "as_of": null,
-  "editions": []
+  "as_of": "2026-10-16",
+  "editions": [
+    {
+      "draw_week": "2026-10-12",
+      "display_week": "2026-10-19",
+      "recorded_on": "2026-10-16",
+      "timezone": "America/New_York",
+      "algorithm": "sha256-week-project-v1",
+      "seed": "awesome-open/weekly-draw/v1/2026-10-12",
+      "cooldown_weeks": 4,
+      "eligible_count": 45,
+      "candidates": [
+        "0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6",
+        "0092b9bbc696273433ce71d5772f97bd63b6f23e515bb1269ee5bb18af8b5528",
+        "0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9",
+        "06d30a3e4c183c1f877debce4e5de2025034ce680d2eeca83bfdff9aa47978b2",
+        "072cc86568781283ab19d9c7593fd1702471534610ee159ec25b6bbddcea4212",
+        "0c1d0e794277c84119b834c4fff9213b247e62fe75f9de0c0cee257ff977d5ec",
+        "10d69f0daa625d430823f0f96fe4a54501756699271de233b676a41c1fdc2576",
+        "13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc",
+        "1572e285c724ada6578327e70e3118d947558b96ca11d4d275b00dcbdc0d0690",
+        "1c5a8343da2d0d21957fb2784e044fea8274fa5b0dc62a86010624cf65a7598b",
+        "1cf5521e4f3d971b3cea3d28248f7a30e637e466873a9987de1fb9a0b27b9270",
+        "1e59457b7413d807112e3f60186dcbea5427521288abc92abc37ff9cac7f089b",
+        "1f47a63aaef059c34f053c73f066bce5f50dbad3080c4841c65b8ff4295cde82",
+        "24af095b5c53b4af51066f8a783a935e876f69311ed47b81d39fa17ef9736d96",
+        "2adc6806f7bb3286c4dc6a8fb5efa74e0137cc5c039f9519512c38a7fd8f926a",
+        "2b4473c7cde9083b5e771b1a008a09389bbdf9deb45f21ef8c047860bf04fe7c",
+        "2e067b6f772098b4eab863cdd66e4fe15d4f6788751c76a42eaffc1b6416c27c",
+        "2f56cf3f22e121c02757e83abb089378c7a9418353f78b72f9b2e5eb9a61a8f9",
+        "3e6ed417a41919a48f262b9481f0b9196c860281a9d26fd6a241ca8287acc0fb",
+        "484814187d43f2b6a32f0bebfda32af1c3fcb1fd891d919e76af56334e1d0bec",
+        "5132ce65107a57b9b9d930186927d58478241f8b0ef705a8af746a920967c60a",
+        "5302907b521d495fcd4df1b42cbe473d37d7a22cabc7279fb77f4c7e600e183f",
+        "658154879f83825b5fa01fa5728089b336e72d7522eea4413e4ff92fb5a074b4",
+        "68c021e20c1d532b053eeea3dd909ae024627c6199f48ec13a7756a4a07d1fa8",
+        "73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf",
+        "79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c",
+        "88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906",
+        "8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20",
+        "91874098c295acfc1b15893d4fb08408cc17d91203282c7580ecad07b86aec27",
+        "940b9064d9702a4687a341521a07789d1c7f8d7ca078deb739313338e8194841",
+        "9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660",
+        "a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d",
+        "a61eb4a0cf8007496765bde0c52c2b5c98f6d8e44d1b93bbff8152496fedb090",
+        "b44206282c760da32059c6a76cee1d8f36ed59013550205c1741546ec9d11f39",
+        "c02bf0d1fea4bf7fda6b7c35472c333590aff2bcd0182ccec706217771ccdfe7",
+        "c3cdcfdd208b07c7bb4c5b1d7f3c1e931d7979c657c5261cc479bebb35d7eee2",
+        "c413b557fa79ae25b81f3f438f61e47362e8a0063fac838f842afa257242439f",
+        "d2742f542f3a2152f203c9334f100c7f2cd60f126531ef59eb3e8bfb1832d7dc",
+        "d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54",
+        "e2f9ef08304c955ba8342768249b69fa303714352c2af6c57e86a43e646fb72f",
+        "e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83",
+        "e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b",
+        "eb4480351153f771c975926274ffd59606fd7bc1204e924cfac522660f61fb7a",
+        "ebbe2c1eade172814c32d478695b70656f27f0527b19e79247c6aad09e84a490",
+        "f952835452592537ac04c71a848c03e1758cd346fb54bde42eaba38aefbed9ab"
+      ],
+      "excluded_by_cooldown": [],
+      "source_sha": "4239ae8cb9659a926f305eb53e0e61a8526cacd5",
+      "projects": [
+        {
+          "id": "79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c",
+          "name": "Open Moderator",
+          "url": "https://developers.reddit.com/apps/open-moderator",
+          "description": "Reddit moderation application with removal explanations, consistency alerts, comment monitoring, and rule-improvement suggestions.",
+          "categories": [
+            "communication--social"
+          ],
+          "artwork": {
+            "path": "specimens/79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c.webp",
+            "alt": "A crescent filtering animal sorts morsels through comb plates and a return fold.",
+            "width": 1254,
+            "height": 1254
+          }
+        },
+        {
+          "id": "8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20",
+          "name": "OpenObserve",
+          "url": "https://github.com/openobserve/openobserve",
+          "description": "Observability platform for logs, metrics, traces, and user monitoring.",
+          "categories": [
+            "infrastructure--devops"
+          ],
+          "artwork": {
+            "path": "specimens/8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20.webp",
+            "alt": "A layered blue mineral prism aligns three patterned signal ribbons into a single scarlet seam.",
+            "width": 1254,
+            "height": 1254
+          }
+        },
+        {
+          "id": "484814187d43f2b6a32f0bebfda32af1c3fcb1fd891d919e76af56334e1d0bec",
+          "name": "OpenZL",
+          "url": "https://github.com/facebook/openzl",
+          "description": "Format-aware lossless compression library and tools for generating specialized compressors with a universal decompressor.",
+          "categories": [
+            "storage--file-management"
+          ],
+          "artwork": {
+            "path": "specimens/484814187d43f2b6a32f0bebfda32af1c3fcb1fd891d919e76af56334e1d0bec.webp",
+            "alt": "Nested metal sleeves fold textured sheets into matching grooves.",
+            "width": 1024,
+            "height": 1024
+          }
+        },
+        {
+          "id": "73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf",
+          "name": "OpenTaco",
+          "url": "https://github.com/diggerhq/digger",
+          "description": "Terraform and OpenTofu orchestration with pull-request automation, CI integration, locking, and drift detection.",
+          "categories": [
+            "infrastructure--devops"
+          ],
+          "artwork": {
+            "path": "specimens/73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf.webp",
+            "alt": "A tracing clamp compares a suspended reference tile with a stack of terrain tiles.",
+            "width": 1254,
+            "height": 1254
+          }
+        },
+        {
+          "id": "9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660",
+          "name": "Open Library",
+          "url": "https://github.com/internetarchive/openlibrary",
+          "description": "Web application for an editable book catalog, with book and author search, reader lists, and public data APIs.",
+          "categories": [
+            "knowledge-management"
+          ],
+          "artwork": {
+            "path": "specimens/9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660.webp",
+            "alt": "An open book folds its page edges into blue-lined alcoves holding smaller books.",
+            "width": 1024,
+            "height": 1024
+          }
+        },
+        {
+          "id": "e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83",
+          "name": "Open3D",
+          "url": "https://github.com/isl-org/open3d",
+          "description": "C++ and Python library for processing, reconstructing, and visualizing 3D data.",
+          "categories": [
+            "science--engineering"
+          ],
+          "artwork": {
+            "path": "specimens/e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83.webp",
+            "alt": "A coral bowl reconstructs its rim from a lattice and scattered mineral grains.",
+            "width": 1254,
+            "height": 1254
+          }
+        },
+        {
+          "id": "0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6",
+          "name": "OpenTaxSolver",
+          "url": "https://opentaxsolver.sourceforge.net",
+          "description": "Calculate U.S. federal and supported state income-tax forms and fill printable PDF returns.",
+          "categories": [
+            "finance--trading"
+          ],
+          "artwork": {
+            "path": "specimens/0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6.webp",
+            "alt": "A hand-cranked press aligns and folds blank ruled forms into an orderly stack.",
+            "width": 1024,
+            "height": 1024
+          }
+        }
+      ]
+    }
+  ]
 }
