@@ -880,6 +880,364 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+    },
+    "d477ecc1ebaf968f0b367d8795597d0ac9cee3704cf254357a35977db77b2de5": {
+      "text": "OpenMVG provides libraries and command-line programs for recovering three-dimensional scene structure from photographs. Its components detect and match image features, track observations, model cameras, and estimate geometry. Developers can assemble reconstruction pipelines or reuse individual algorithms, then export reconstructed scenes to multi-view stereo tools for further processing.",
+      "sources": [
+        {
+          "url": "https://github.com/openMVG/openMVG/blob/6887e7385400f4cca378507296ccc20c8a0837dd/README.md",
+          "title": "OpenMVG: official README",
+          "revision": "6887e7385400f4cca378507296ccc20c8a0837dd"
+        }
+      ],
+      "project_url": "https://github.com/openmvg/openmvg",
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "README codebase and pipeline: libraries, feature tracking, camera models, reconstruction binaries and multi-view stereo export. Every summary and feature claim reviewed; proposed content only.",
+      "features": [
+        {
+          "title": "Reconstruction pipelines",
+          "text": "Chain feature detection, matching and structure-from-motion programs, then export the reconstructed scene for multi-view stereo processing.",
+          "source_url": "https://github.com/openMVG/openMVG/blob/6887e7385400f4cca378507296ccc20c8a0837dd/README.md"
+        }
+      ]
+    },
+    "0b51a9b4e9a7c395c92bdfcb8ae8ddfdb0a59ee68f67d6eb505963e8233ac453": {
+      "text": "OpenSfM processes image collections into camera positions and three-dimensional reconstructions. Its pipeline includes feature matching, geometric estimation, dense reconstruction, and georeferenced map generation. GPS observations and ground control points can position results geographically. Outputs include point clouds, meshes, surface models, and orthophotos, with viewers and quality reports for inspecting reconstruction results.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenSfM/OpenSfM/blob/c1fbfcec947e0e4fa4d39eb02a66cddac10934ad/README.md",
+          "title": "OpenSfM: official README",
+          "revision": "c1fbfcec947e0e4fa4d39eb02a66cddac10934ad"
+        }
+      ],
+      "project_url": "https://github.com/opensfm/opensfm",
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "README Overview, Core pipeline, Geolocation, Dense reconstruction, 2D maps, Quality report and Visualisation. Every summary and feature claim reviewed; proposed content only.",
+      "features": [
+        {
+          "title": "Georeferenced outputs",
+          "text": "Use GPS observations and ground control points to produce geographically positioned reconstructions and maps.",
+          "source_url": "https://github.com/OpenSfM/OpenSfM/blob/c1fbfcec947e0e4fa4d39eb02a66cddac10934ad/README.md"
+        }
+      ]
+    },
+    "e54045a2f57827959f557f78bfc6307712e6b703289b674a2f09b4382febada5": {
+      "text": "OpenLieroX is a two-dimensional action game derived from Liero Xtreme. Its real-time combat combines worm characters with ninja-rope movement, taking inspiration from Worms and Quake. The project provides builds for Windows, macOS, Linux, and Android, and supports configurable game-data search paths and separately stored user configuration.",
+      "sources": [
+        {
+          "url": "https://github.com/openlierox/openlierox/blob/d1ad953f4f20610f2648cce26c9739e7c088409d/README.md",
+          "title": "OpenLieroX: official README",
+          "revision": "d1ad953f4f20610f2648cce26c9739e7c088409d"
+        }
+      ],
+      "project_url": "https://github.com/openlierox/openlierox",
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "README Description, About, Installing and Game search paths; no security-warning bypass instructions retained. Every summary and feature claim reviewed; proposed content only.",
+      "features": [
+        {
+          "title": "Game-data paths",
+          "text": "Configure the directories searched for game data while storing modified user configuration separately.",
+          "source_url": "https://github.com/openlierox/openlierox/blob/d1ad953f4f20610f2648cce26c9739e7c088409d/README.md"
+        }
+      ]
+    },
+    "788ab9382462ef370cfd9b78510872f0e45b4d0b0c14bb06ad145e356f78b1c1": {
+      "text": "OpenTyrian brings the DOS shooting game Tyrian to current desktop platforms. Players control a spacecraft through vertically scrolling stages in a story campaign or arcade modes, with one-player and two-player options. Network play connects two players through command-line configuration. The project also provides platform-specific configuration storage and packaged game data.",
+      "sources": [
+        {
+          "url": "https://github.com/opentyrian/opentyrian/blob/624e2f242e66c0adec605acb9f9644664b1ea31e/README.md",
+          "title": "OpenTyrian: official README",
+          "revision": "624e2f242e66c0adec605acb9f9644664b1ea31e"
+        }
+      ],
+      "project_url": "https://github.com/opentyrian/opentyrian",
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "README introduction, Downloads, Configuration and Network Multiplayer; no platform-security bypass instructions retained. Every summary and feature claim reviewed; proposed content only.",
+      "features": [
+        {
+          "title": "Two-player network games",
+          "text": "Start a two-player network game by supplying connection and player details on the command line.",
+          "source_url": "https://github.com/opentyrian/opentyrian/blob/624e2f242e66c0adec605acb9f9644664b1ea31e/README.md"
+        }
+      ]
+    },
+    "92ea50f7a44cebfc8499ecefab1beffb8afaec71fada7a97640ef2beb91d0a91": {
+      "text": "OpenSceneGraph is a C++ graphics toolkit built around OpenGL and scene-graph structures. Application developers use it to construct interactive three-dimensional graphics for simulation, games, virtual reality, modelling, and scientific visualization. Its repository includes libraries, examples, and applications, with a CMake-based build system for configuring platform-specific builds.",
+      "sources": [
+        {
+          "url": "https://github.com/openscenegraph/OpenSceneGraph/blob/2e4ae2ea94595995c1fc56860051410b0c0be605/README.md",
+          "title": "OpenSceneGraph: official README",
+          "revision": "2e4ae2ea94595995c1fc56860051410b0c0be605"
+        },
+        {
+          "url": "https://openscenegraph.github.io/openscenegraph.io/",
+          "title": "OpenSceneGraph: official project documentation"
+        }
+      ],
+      "project_url": "https://github.com/openscenegraph/openscenegraph",
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Official homepage establishes C++/OpenGL, scene-graph toolkit and application domains; pinned README establishes libraries, examples, applications and CMake builds. Every summary and feature claim reviewed; proposed content only.",
+      "features": [
+        {
+          "title": "Platform-specific builds",
+          "text": "Use CMake to configure builds of the graphics libraries, examples and applications.",
+          "source_url": "https://github.com/openscenegraph/OpenSceneGraph/blob/2e4ae2ea94595995c1fc56860051410b0c0be605/README.md"
+        }
+      ]
+    },
+    "001b9a0fd0176cc0a7904bc59d7bb6dc0a9b1d1deee45b285aba01d6bbfb43e2": {
+      "text": "OpenGeoSys models interactions among heat, fluid flow, mechanical deformation, and chemical processes below ground. Researchers can prepare meshes, assign material properties and boundary conditions, and solve coupled models. Applications include groundwater transport, geothermal reservoirs, and geological waste storage. Results use VTK output for visualization, while parallel computation supports larger simulations.",
+      "sources": [
+        {
+          "url": "https://www.opengeosys.org/stable/",
+          "title": "OpenGeoSys: official project documentation"
+        }
+      ],
+      "project_url": "https://gitlab.opengeosys.org/ogs/ogs",
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Official stable homepage: Application areas, Pre-processing tools, Process coupling, Visualize results, High-performance computing and integrated workflow. No source revision invented for unversioned page. Every summary and feature claim reviewed; proposed content only.",
+      "features": [
+        {
+          "title": "Coupled subsurface simulation",
+          "text": "Model coupled thermal, hydraulic, mechanical and chemical processes, with VTK outputs for visualization.",
+          "source_url": "https://www.opengeosys.org/stable/"
+        }
+      ]
+    },
+    "4cd3f55b2c18c6dc14a30651c631ea4ab51fe08b7b988a7b762029f266bfaa20": {
+      "text": "Opengist lets users create public, unlisted, or private snippets and edit them through a browser or ordinary Git commands over HTTP or SSH. It includes code search, syntax highlighting, revision history, topics, and embeddable snippets. The application runs on a self-managed server, with documented container, binary, and source-build deployment options.",
+      "sources": [
+        {
+          "url": "https://github.com/thomiceli/opengist/blob/166c101b0c904cc279f5f5e380b134b323c2f358/README.md",
+          "title": "Opengist README",
+          "revision": "166c101b0c904cc279f5f5e380b134b323c2f358"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Pinned README evidence: introduction, Features and Quick start support snippet visibility, Git/web editing, search/history and self-hosted installation methods. Every summary and feature claim reviewed; proposed content only.",
+      "project_url": "https://github.com/thomiceli/opengist",
+      "features": [
+        {
+          "title": "Git-backed snippets",
+          "text": "Read and update snippets through Git over HTTP or SSH, or edit them through the web interface.",
+          "source_url": "https://github.com/thomiceli/opengist/blob/166c101b0c904cc279f5f5e380b134b323c2f358/README.md"
+        }
+      ]
+    },
+    "ee0c29745f6df38c8b4922ef55e1f814eadf1129b4ab676a558ce1948080ca8f": {
+      "text": "OpenFst provides operations for building and manipulating weighted finite-state transducers used in speech processing, machine translation, pattern matching, and information retrieval. Developers can compose models, minimize or determinize automata, and select paths through them. The library is built locally with C++ tooling and offers command-line executables and an optional Python wrapper.",
+      "sources": [
+        {
+          "url": "https://github.com/google-research/openfst/blob/cd4512b3b454085a38365b5491080c8a50731fda/README.md",
+          "title": "OpenFst README",
+          "revision": "cd4512b3b454085a38365b5491080c8a50731fda"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Pinned README evidence: introduction and Building support finite-state operations, application domains, C++ builds, command-line programs and optional Python wrapper. Every summary and feature claim reviewed; proposed content only.",
+      "project_url": "https://github.com/google-research/openfst",
+      "features": [
+        {
+          "title": "Finite-state operations",
+          "text": "Compose weighted transducers, optimize automata and select results with shortest-path algorithms.",
+          "source_url": "https://github.com/google-research/openfst/blob/cd4512b3b454085a38365b5491080c8a50731fda/README.md"
+        }
+      ]
+    },
+    "a17dd37c5dbe461b5a11ccf2689a96fdbab6263c73e87bcee720c8d328c8df50": {
+      "text": "Open R1 supplies Python scripts and recipes for supervised fine-tuning, GRPO training, model evaluation, and generating synthetic reasoning data. Researchers can use its distributed training configurations and Slurm examples to run experiments on GPU infrastructure. Dataset tools compare prompts against benchmark data with n-grams and can remove contaminated samples before further training.",
+      "sources": [
+        {
+          "url": "https://github.com/huggingface/open-r1/blob/5b6ff22b3fb7aa069c54866e517f39dfc3160e09/README.md",
+          "title": "Open R1 README",
+          "revision": "5b6ff22b3fb7aa069c54866e517f39dfc3160e09"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Pinned README evidence: Overview, Training models, Evaluating models, Data generation and Data decontamination. Replaced maintenance-status sentence with a concrete documented capability. Every summary and feature claim reviewed; proposed content only.",
+      "project_url": "https://github.com/huggingface/open-r1",
+      "features": [
+        {
+          "title": "Dataset decontamination",
+          "text": "Compare dataset prompts against benchmark data with n-grams and remove contaminated samples.",
+          "source_url": "https://github.com/huggingface/open-r1/blob/5b6ff22b3fb7aa069c54866e517f39dfc3160e09/README.md"
+        }
+      ]
+    },
+    "c69a4c499052f166e762bdb3734a113888b48338402fbce9fad7ff5d861f0cc7": {
+      "text": "OpenMTP runs on a Mac and transfers files over USB to Android phones and other devices supporting MTP. Its split-pane interface shows computer and device files, supports drag-and-drop transfers, and switches between internal storage and SD cards. Users can transfer multiple files larger than four gigabytes and navigate with keyboard shortcuts or grid and list views.",
+      "sources": [
+        {
+          "url": "https://github.com/ganeshrvel/openmtp/blob/5da350b69c6d0d4aed67a063498ee89c7448400a/README.md",
+          "title": "OpenMTP README",
+          "revision": "5da350b69c6d0d4aed67a063498ee89c7448400a"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Pinned README evidence: Introduction, Features and Keyboard Shortcuts support macOS/USB/MTP transfer, storage selection, large files and interface controls. Every summary and feature claim reviewed; proposed content only.",
+      "project_url": "https://github.com/ganeshrvel/openmtp",
+      "features": [
+        {
+          "title": "Device file transfers",
+          "text": "Transfer files over USB between a Mac and an MTP device through a split-pane interface.",
+          "source_url": "https://github.com/ganeshrvel/openmtp/blob/5da350b69c6d0d4aed67a063498ee89c7448400a/README.md"
+        }
+      ]
+    },
+    "8516dc3af50fdd8e440adc73d980a32b40f3604baacad33014c4219cd28ed84e": {
+      "text": "OpenCage Geocoding API converts place descriptions into geographic coordinates and performs the reverse lookup for applications processing location data. The hosted service combines multiple geocoders and adds information such as time zones, geographic identifiers, and formatted addresses. Developers access it through HTTP requests or supported language libraries, and can display returned locations on their chosen map.",
+      "sources": [
+        {
+          "url": "https://opencagedata.com/",
+          "title": "OpenCage Geocoding API"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Official homepage: forward/reverse geocoding, SDKs, multiple geocoders, enrichment fields, formatted addresses and API examples. No revision invented for unversioned page. Every summary and feature claim reviewed; proposed content only.",
+      "project_url": "https://opencagedata.com",
+      "features": [
+        {
+          "title": "Forward and reverse geocoding",
+          "text": "Convert place descriptions into coordinates or look up place descriptions for coordinates.",
+          "source_url": "https://opencagedata.com/"
+        }
+      ]
+    },
+    "0dfa33ac22f6aed015926f10b255a7b57cea9446bdd1c32bd6a41220b6287b60": {
+      "project_url": "https://github.com/openchoreo/openchoreo",
+      "text": "OpenChoreo lets developers define services, workers, scheduled jobs, endpoints and dependencies through higher-level Kubernetes resources. Platform teams configure component types and deployment workflows, while developers use a Backstage portal, command line or GitOps. Its Kubernetes-based architecture separates workload execution, control and observability, with metrics, logs and traces plus an optional build plane.",
+      "sources": [
+        {
+          "url": "https://github.com/openchoreo/openchoreo/blob/0f4ee0c118617070a8ba68123c115839e3e2bedd/README.md",
+          "title": "OpenChoreo: official README",
+          "revision": "0f4ee0c118617070a8ba68123c115839e3e2bedd"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed every summary and feature claim against the cited official documentation on 2026-10-16; README read at the full source commit. Proposed for review-only inclusion, not a production merge.",
+      "features": [
+        {
+          "title": "Component definitions",
+          "text": "Define services, workers and scheduled jobs as components, with endpoints and dependencies expressed through the platform API.",
+          "source_url": "https://github.com/openchoreo/openchoreo/blob/0f4ee0c118617070a8ba68123c115839e3e2bedd/README.md"
+        }
+      ]
+    },
+    "0e1c34b3f948e9037466f84680e402b96f2c0b61351865137c4359f41e5d3014": {
+      "project_url": "https://github.com/obsproject/obs-studio",
+      "text": "OBS Studio combines video and audio sources into scenes for recording and live streaming on Windows, macOS and Linux. Sources can include captured windows, webcams, images and browser content. Users switch scenes with transitions, apply audio filters and preview changes in Studio Mode before broadcasting. Plugins and Lua or Python scripts extend its capabilities.",
+      "sources": [
+        {
+          "url": "https://github.com/obsproject/obs-studio/blob/1ad6110186096e0bef0c269120fd14f7b6d4b183/README.rst",
+          "title": "Open Broadcaster Software (OBS Studio): official README",
+          "revision": "1ad6110186096e0bef0c269120fd14f7b6d4b183"
+        },
+        {
+          "url": "https://obsproject.com/",
+          "title": "OBS Studio: Features"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed every summary and feature claim against the cited official documentation on 2026-10-16; README read at the full source commit. Proposed for review-only inclusion, not a production merge.",
+      "features": [
+        {
+          "title": "Preview before broadcasting",
+          "text": "Studio Mode lets users adjust scenes and sources in a preview before sending them live.",
+          "source_url": "https://obsproject.com/"
+        }
+      ]
+    },
+    "0e9657773dd0253c12044a2c3b33dacb22490b1a31a3033d2ae0a29af8acffca": {
+      "project_url": "https://github.com/opensmtpd/opensmtpd",
+      "text": "OpenSMTPD runs a mail server that exchanges messages with other systems over SMTP. It operates on Linux, BSD systems and macOS, with installation paths through distribution packages, container images or source builds. Administrators configure the daemon through smtpd.conf and use smtpctl to control it and the local submission subsystem, including compatibility entry points for historical mail utilities.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenSMTPD/OpenSMTPD/blob/f073a73fe159a9f12b8908bd4dec61d05286c4d3/README.md",
+          "title": "OpenSMTPD: official README",
+          "revision": "f073a73fe159a9f12b8908bd4dec61d05286c4d3"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed every summary and feature claim against the cited official documentation on 2026-10-16; README read at the full source commit. Proposed for review-only inclusion, not a production merge.",
+      "features": [
+        {
+          "title": "Mail administration",
+          "text": "Use smtpctl to control the daemon and local mail submission subsystem.",
+          "source_url": "https://github.com/OpenSMTPD/OpenSMTPD/blob/f073a73fe159a9f12b8908bd4dec61d05286c4d3/README.md"
+        }
+      ]
+    },
+    "0ea95d177e9a5da2cbf379a0656b6dabcc83822270346a68b6ed2ca3826d4317": {
+      "project_url": "https://github.com/co-l/openfox",
+      "text": "OpenFox provides a browser interface and local server for coding tasks backed by an OpenAI-compatible local language model. Its workflows combine planning, implementation and verification against acceptance criteria, with optional sub-agents, shell commands and user gates. Users configure model providers and extend tools or workflows through plugins. Running it requires Node.js and a local model backend.",
+      "sources": [
+        {
+          "url": "https://github.com/co-l/openfox/blob/0694574dc1b1cf432ef5fa63c5429cbc89797b2c/README.md",
+          "title": "OpenFox: official README",
+          "revision": "0694574dc1b1cf432ef5fa63c5429cbc89797b2c"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed every summary and feature claim against the cited official documentation on 2026-10-16; README read at the full source commit. Proposed for review-only inclusion, not a production merge.",
+      "features": [
+        {
+          "title": "Configurable workflows",
+          "text": "Define multi-step workflows with agent turns, sub-agents, shell commands, user gates and conditional transitions.",
+          "source_url": "https://github.com/co-l/openfox/blob/0694574dc1b1cf432ef5fa63c5429cbc89797b2c/README.md"
+        }
+      ]
+    },
+    "0ed43a1a4405b23c829dda68e42fae90bd75a3ad4c18975febf7dc607209f9b1": {
+      "project_url": "https://github.com/opensandbox-group/opensandbox",
+      "text": "OpenSandbox provides environments where AI agents execute code and commands, manage files, and use browsers or desktops. A shared lifecycle API supports local Docker execution and Kubernetes deployments on the operator's infrastructure. Language SDKs, a command-line client and an MCP server connect applications to these environments, supporting coding tasks, data analysis, browser automation and separate sandboxes for evaluation trials.",
+      "sources": [
+        {
+          "url": "https://github.com/opensandbox-group/opensandbox/blob/e7a280f31699a51cb06d85a7eee4ce64d05306e6/README.md",
+          "title": "OpenSandbox: official README",
+          "revision": "e7a280f31699a51cb06d85a7eee4ce64d05306e6"
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed every summary and feature claim against the cited official documentation on 2026-10-16; README read at the full source commit. Proposed for review-only inclusion, not a production merge.",
+      "features": [
+        {
+          "title": "Sandbox lifecycle",
+          "text": "Create and manage sandbox environments through a unified API across Docker and Kubernetes.",
+          "source_url": "https://github.com/opensandbox-group/opensandbox/blob/e7a280f31699a51cb06d85a7eee4ce64d05306e6/README.md"
+        }
+      ]
     }
   }
 }
