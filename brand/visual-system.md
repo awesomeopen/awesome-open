@@ -135,3 +135,14 @@ The ledger closing mark shows the selected category’s medium (207px) image; Al
 or a category without artwork restores the 96px fruit. Keep the desktop name
 column capped at 240px (200px at medium widths), leaving descriptions the remaining
 space. Plate evidence headings read “Hacker News stories” and “GitHub stars”.
+
+## Weekly jar occupants
+
+B38 replaces the hardcoded occupant policy after the first saved draw activates.
+The seven existing jars and interactions stay fixed. A seeded weekly draw selects
+only illustrated catalog projects, independent of stars, with an initial four-week
+cooldown; the draw is displayed the following week. Assign the seven illustrations
+to windows by subject fit and contain the whole subject. A small edition link
+leads to the static `/draws/` archive. See [calendar, evidence and fallback
+rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
+fallback; it is not retroactively labeled a random draw.

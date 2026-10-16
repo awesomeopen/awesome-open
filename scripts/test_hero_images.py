@@ -60,7 +60,10 @@ class HeroImageTests(unittest.TestCase):
             prints = [attrs for tag, attrs in tags if tag == 'source' and attrs.get('media') == 'print']
             self.assertEqual(len(prints), len(hero))
             for img in hero:
-                self.assertTrue(img['src'].startswith('jars/responsive/'))
+                if img['class'] != 'specimen-print':
+                    self.assertTrue(img['src'].startswith('jars/responsive/'))
+                else:
+                    self.assertTrue(img['src'].startswith(('jars/responsive/', 'specimens/')))
                 self.assertIn('srcset', img)
                 self.assertIn('sizes', img)
                 self.assertNotEqual(img.get('loading'), 'lazy')
@@ -79,3 +82,26 @@ class HeroImageTests(unittest.TestCase):
                     self.assertTrue(f'src="{cutout}"' in html or f'src="{project["artwork"]["path"]}"' in html)
             self.assertEqual((output / 'standalone.html').read_bytes(), standalone)
             self.assertNotIn(b'jars/responsive/', standalone)
+
+    def test_weekly_hero_uses_saved_membership_and_fits_subjects(self):
+        from datetime import date
+        import weekly_draw
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            catalog = build(output)
+            state = weekly_draw.advance(weekly_draw.empty(), catalog, date(2026, 10, 12))
+            state = weekly_draw.advance(state, catalog, date(2026, 10, 19))
+            catalog['weekly_draws'] = state
+            (output / 'catalog.json').write_text(json.dumps(catalog))
+            result = build_hero(output, production=True)
+            tags = Tags((output / 'index.html').read_text()).tags
+            occupants = {attrs['data-project'] for tag, attrs in tags
+                         if tag == 'article' and 'jar-exhibit' in attrs.get('class', '')}
+            self.assertEqual(occupants, {p['id'] for p in state['editions'][0]['projects']})
+            self.assertEqual(result['display_week'], '2026-10-19')
+            images = [attrs for tag, attrs in tags if tag == 'img' and attrs.get('class') == 'specimen-print']
+            self.assertEqual(len(images), 7)
+            for img in images:
+                self.assertTrue((output / img['src']).is_file())
+                self.assertIn('transform:translate(', img['style'])
+            self.assertIn('draws/#week-2026-10-19', (output / 'index.html').read_text())
