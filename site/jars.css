@@ -159,3 +159,9 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-stage::before {display:
  .jar-shouldered,.jar-bail {--setback:8px;}
  .jar-stage::before {left:4%;right:4%;}
 }
+
+/* Weekly edition link shares the existing control strip; jar geometry is unchanged. */
+.jar-draw-link {margin:0 52px 0 0;padding-top:8px;text-align:center;font:12px/1.6 var(--mono);}
+.jar-draw-link a {display:inline-block;padding:8px 0;min-height:40px;color:var(--rs-muted);}
+
+.jar-caption {max-width:100%;overflow:hidden;text-overflow:ellipsis;}

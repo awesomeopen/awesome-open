@@ -137,6 +137,7 @@ class PublisherGitTests(unittest.TestCase):
             'scripts/update_hn.py': HN_SCRIPT,
             'scripts/update_signals.py': SIGNALS_SCRIPT,
             'scripts/update_star_history.py': 'import sys\n',
+            'scripts/weekly_draw.py': 'import sys\n',
             'scripts/render_readme.py': RENDER_SCRIPT,
             'scripts/test_fixture.py': CHECK_SCRIPT,
             'scripts/build_site.py': SITE_SCRIPT,

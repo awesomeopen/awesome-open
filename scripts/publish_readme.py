@@ -26,7 +26,7 @@ RECOVERY_PATH = Path("tmp/chart-observations/archive.json")
 GENERATED_FILES = frozenset({
     "README.md", "data/github_metrics.json", "data/hn_evidence.json",
     "data/project_signals.json", "data/star_history.json", str(ARCHIVE_PATH),
-    "assets/readme/specimen-count.svg",
+    "assets/readme/specimen-count.svg", "data/weekly_draws.json",
 })
 
 
@@ -114,6 +114,7 @@ def collect_and_render(root, star_budget_file=None):
     star_arguments = ["--invocation-budget-file", str(star_budget_file)] if star_budget_file else []
     run(root, sys.executable, "scripts/update_star_history.py", "--source-sha", source_sha, *star_arguments)
     run(root, sys.executable, "scripts/render_readme.py", "--strict-metrics")
+    run(root, sys.executable, "scripts/weekly_draw.py", "--source-sha", source_sha)
 
 
 def validate(root):

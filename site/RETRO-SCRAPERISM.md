@@ -413,3 +413,13 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
 - **Removed captions:** contour/loupe disclaimers, “Under the loupe”, timeline and flow
   qualifiers, the alternatives footnote, “Submissions, not sentiment” and “Omitted facts are
   unknown”. Their meanings stay in the evidence downloads and the foundation evidence contract.
+
+## Weekly specimen draw (B38)
+
+Hero occupants come from a persisted seeded draw of seven illustrated projects,
+shown the following week with a four-week repeat cooldown as the initial default.
+Stars do not determine selection. Keep the existing seven jars and height order;
+assign illustrations to their best-fitting windows, centering actual subject
+bounds without cropping. Link the edition to `/draws/`; retain the original set
+until the first saved edition activates. See [weekly draw contract](WEEKLY-DRAWS.md)
+for the calendar, snapshot archive, eligibility and failure behavior.

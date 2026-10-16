@@ -91,9 +91,10 @@ const path=require('node:path');
  await page.locator('#search').fill('OpenTofu');await page.locator('.search-submit').click();
  await page.waitForFunction(expected=>JSON.stringify(Array.from(document.querySelectorAll('.project-card:not([hidden])'),card=>card.dataset.projectId).sort())===JSON.stringify(expected),expectedSearchIds);
  assert.deepEqual(await page.locator('.project-card:visible').evaluateAll(cards=>cards.map(card=>card.dataset.projectId).sort()),expectedSearchIds);
- const openTofuJar=page.locator('.jar-exhibit[data-project="'+openTofu.id+'"]');
- await openTofuJar.locator('.jar-select').focus();await openTofuJar.locator('.jar-annotation a').click();
- assert.ok(await page.locator('#project-'+openTofu.id+' > details').evaluate(n=>n.open));
+ const selectedJar=page.locator('.jar-exhibit').first();
+ const selectedId=await selectedJar.getAttribute('data-project');
+ await selectedJar.locator('.jar-select').focus();await selectedJar.locator('.jar-annotation a').click();
+ assert.ok(await page.locator('#project-'+selectedId+' > details').evaluate(n=>n.open));
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(url);await ready();await first.focus();assert.equal(await first.getAttribute('aria-expanded'),'true');
  assert.equal(await page.locator('.specimen-idle').first().evaluate(n=>getComputedStyle(n).animationName),'none');assert.equal(await page.locator('.jar-steam').first().isVisible(),false);
  await page.keyboard.press('Escape');assert.equal(await first.getAttribute('aria-expanded'),'false');
@@ -109,6 +110,13 @@ const path=require('node:path');
  // larger candidates influencing selection at a lower DPR. The control serves
  // original bytes for each derivative URL, keeping markup/layout identical.
  const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'../site/jars/responsive.json')));
+ // Weekly occupants may use full committed artwork before responsive
+ // derivatives exist. Include those sources without weakening glass checks.
+ const occupantSources=await page.locator('.specimen-print').evaluateAll(nodes=>nodes.map(n=>({
+   path:n.closest('picture').querySelector('source[media="print"]').getAttribute('srcset'),
+   width:Number(n.getAttribute('width')),height:Number(n.getAttribute('height'))})));
+ for(const record of occupantSources)if(!manifest.sources[record.path])manifest.sources[record.path]={
+   width:record.width,height:record.height,variants:[{path:record.path,width:record.width,height:record.height}]};
  const sources=Object.keys(manifest.sources);
  const byVariant=Object.fromEntries(sources.flatMap(source=>manifest.sources[source].variants.map(v=>[v.path,source])));
  const heroPaths=[...sources,...Object.keys(byVariant)];
@@ -169,7 +177,7 @@ const path=require('node:path');
        const images=await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.jar-sticker,.jar-cork,.specimen-print').evaluateAll(nodes=>nodes.map(n=>({
          class:n.className,currentSrc:new URL(n.currentSrc).pathname,cssWidth:n.getBoundingClientRect().width,
          sizes:n.sizes,naturalWidth:n.naturalWidth,complete:n.complete})));
-       assert.ok(images.every(i=>i.complete&&i.currentSrc.includes('/jars/responsive/')),'Screen uses responsive images at '+label);
+       assert.ok(images.every(i=>i.complete&&(i.currentSrc.includes('/jars/responsive/')||(i.class==='specimen-print'&&occupantSources.some(s=>i.currentSrc.endsWith('/'+s.path))))),'Screen uses responsive images at '+label);
        const resources=await probe.evaluate(()=>performance.getEntriesByType('resource').map(r=>({path:new URL(r.name).pathname,bytes:r.decodedBodySize})));
        const heroResources=resources.filter(r=>r.path.includes('/jars/responsive/')||sources.some(s=>r.path.endsWith('/'+s)));
        const selected=new Set(images.map(i=>i.currentSrc));
