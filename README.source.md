@@ -68,6 +68,7 @@
 | [OpenNMT](https://github.com/OpenNMT/OpenNMT-py) | Neural machine translation and language modeling in PyTorch. |
 | [Open Notebook](https://github.com/lfnovo/open-notebook) | NotebookLM-style research notebook with flexible model support.<br>Alternative to: [NotebookLM](https://github.com/lfnovo/open-notebook#open-notebook) |
 | [OPEN-OMNIVOICE-TTS](https://github.com/hypersniper05/open-omnivoice-tts) | Self-hosted text-to-speech server with voice cloning and an OpenAI-compatible API built on OmniVoice. |
+| [OpenOpen](https://github.com/thesongzhu/OpenOpen) | macOS personal AI agent with guided task planning and explicit confirmation of actions. |
 | [OpenPilot](https://github.com/ibmshaikh/OpenPilot) | Desktop AI agent with configurable model providers, file and terminal tools, web research, MCP integrations, skills, and memory. |
 | [OpenPipe](https://github.com/OpenPipe/OpenPipe) | Platform for fine-tuning, hosting, and evaluating language models using recorded prompts and datasets. |
 | [OpenPort](https://github.com/Joseph-B22/OpenPort) | Local Windows AI assistant for IT troubleshooting, with PowerShell command checks, file comparisons, and machine-state checks. |
@@ -260,6 +261,7 @@
 | [OpenNumismat](https://github.com/OpenNumismat/open-numismat) | Catalog coin collections, manage wish and selling lists, and view collection statistics. |
 | [OpenOffice](https://www.openoffice.org) | Office suite for documents, spreadsheets, presentations, and databases. |
 | [openOfficetab](https://github.com/xlennart/openOfficetab) | Windows Office add-in that provides document tabs and window management for Word, Excel, and PowerPoint. |
+| [OpenOPen](https://github.com/TayMcQuaya/OpenOPen) | Desktop text editor with formatting controls and DOCX/PDF export. |
 | [OpenPaste](https://github.com/SwallOwDili/OpenPaste) | macOS clipboard manager with searchable history, favorites, paste queues, image-text extraction, and optional translation. |
 | [openPDF](https://github.com/ej3mpl0/openPDF) | Native Linux PDF application and command-line tools for viewing, organizing, converting, and signing documents. |
 | [OpenProject](https://github.com/opf/openproject) | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) |
