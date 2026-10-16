@@ -62,3 +62,10 @@ copy stays frozen; illustration files retain their existing source identity and
 may change under the ordinary artwork review process (not a byte-frozen image
 archive). Links to removed catalog records use their saved official source URL.
 The standalone ledger links to the hosted archive; no jar animation is embedded.
+
+The page uses the Observatory route shell (B42, B44): shared header and nav,
+display heading, four literal metrics (current edition, editions shown, distinct
+projects shown, eligible count at the last draw), a mist scope band, then the
+latest edition as a four-column specimen tray and earlier editions as a compact
+seven-column tray. Each edition folds its draw record; the method and download
+follow, then the closing mark and patterned footer with source revision.

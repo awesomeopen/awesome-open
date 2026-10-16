@@ -1,4 +1,8 @@
-"""Static weekly draw archive, rendered only from committed draw records."""
+"""Static weekly draw archive, rendered only from committed draw records.
+
+The page uses the Observatory route shell (B42): its header, column, section
+labels, closing mark and footer come from ../observatory/observatory.css.
+"""
 from datetime import date, timedelta
 from html import escape
 import json
@@ -6,6 +10,59 @@ from pathlib import Path
 import shutil
 
 from weekly_draw import visible
+
+REPOSITORY = 'https://github.com/awesomeopen/awesome-open'
+
+
+def week_range(week):
+    end = date.fromisoformat(week) + timedelta(days=6)
+    return f'{week} — {end.isoformat()}'
+
+
+def specimen_html(project, status, output, root, categories, current_ids):
+    pid = project['id']
+    art = project['artwork']
+    source = root / 'site' / art['path']
+    image = ''
+    if source.is_file():
+        dest = output / art['path']
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if not dest.exists():
+            shutil.copyfile(source, dest)
+        image = f'<img src="../{escape(art["path"], quote=True)}" alt="{escape(art["alt"], quote=True)}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async">'
+    link = '../#project-' + pid if pid in current_ids else project['url']
+    domains = ', '.join(categories.get(c, c) for c in project['categories'])
+    return (
+        f'<li class="draw-specimen {"has-art" if image else "no-art"}">{image}'
+        f'<h3><a href="{escape(link, quote=True)}">{escape(project["name"])}</a></h3>'
+        f'<p class="draw-function">{escape(project["description"])}</p>'
+        f'<p class="draw-meta">{escape(domains)}<br>{status}</p></li>'
+    )
+
+
+def edition_html(edition, rows, latest):
+    week = edition['display_week']
+    label = 'This week' if latest else 'Earlier edition'
+    return f'''<section id="week-{week}" class="draw-edition{" is-latest" if latest else ""}" aria-labelledby="week-{week}-heading">
+<p><span class="obs-label">{label}</span></p>
+<h2 id="week-{week}-heading"><a href="#week-{week}">{week_range(week)}</a></h2>
+<ol class="draw-projects">{''.join(rows)}</ol>
+<details class="obs-disclosure draw-record"><summary>Draw record <span class="obs-muted">drawn {edition['recorded_on']} · {edition['eligible_count']} illustrated · {len(edition['candidates'])} after cooldown</span></summary><dl class="draw-record-list"><div><dt>Draw week</dt><dd>{edition['draw_week']}</dd></div><div><dt>Cooldown</dt><dd>{edition['cooldown_weeks']} weeks</dd></div><div><dt>Algorithm</dt><dd>{escape(edition['algorithm'])}</dd></div><div><dt>Seed</dt><dd class="draw-seed">{escape(edition['seed'])}</dd></div></dl></details></section>'''
+
+
+def metrics_html(editions, total_projects):
+    latest = editions[-1] if editions else None
+    seen = {p['id'] for e in editions for p in e['projects']}
+    items = [
+        ('Current edition', 'Week of ' + latest['display_week'] if latest else 'None yet'),
+        ('Editions shown', f'{len(editions):,}'),
+        ('Projects shown so far', f'{len(seen):,} <span class="obs-of">/ {total_projects:,}</span>'),
+        ('Eligible at last draw', f'{latest["eligible_count"]:,}' if latest else 'None yet'),
+    ]
+    return '<dl class="obs-metrics draw-metrics">' + ''.join(
+        f'<div class="obs-metric"><dt><span>{label}</span></dt><dd><span data-metric>{value}</span></dd></div>'
+        for label, value in items
+    ) + '</dl>'
 
 
 def build(catalog, doc, output, root):
@@ -15,48 +72,35 @@ def build(catalog, doc, output, root):
     categories = {c['id']: c['name'] for c in catalog['categories']}
     current_ids = {p['id'] for p in catalog['projects']}
     editions = visible(doc)
-    sections = []
     seen = set()
     # Count appearances chronologically; render newest first.
     rendered = []
-    for edition in editions:
-        week = edition['display_week']
-        end = (date.fromisoformat(week) + timedelta(days=6)).isoformat()
+    for number, edition in enumerate(editions):
         rows = []
         for project in edition['projects']:
-            pid = project['id']
-            art = project['artwork']
-            source = root / 'site' / art['path']
-            image = ''
-            if source.is_file():
-                dest = output / art['path']
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                if not dest.exists():
-                    shutil.copyfile(source, dest)
-                image = f'<img src="../{escape(art["path"], quote=True)}" alt="{escape(art["alt"], quote=True)}" width="{art["width"]}" height="{art["height"]}" loading="lazy">'
-            link = '../#project-' + pid if pid in current_ids else project['url']
-            status = 'Returning' if pid in seen else 'First appearance'
-            domains = ', '.join(categories.get(c, c) for c in project['categories'])
-            rows.append(f'<li class="{"has-art" if image else "no-art"}">{image}<div><h3><a href="{escape(link, quote=True)}">{escape(project["name"])}</a></h3><p>{escape(project["description"])}</p><p class="draw-meta">{escape(domains)} · {status}</p></div></li>')
-            seen.add(pid)
-        recorded = edition['recorded_on']
-        rendered.append(f'''<section id="week-{week}" class="draw-edition">
-<h2><a href="#week-{week}">{week} — {end}</a></h2>
-<p class="draw-meta">Drawn {recorded} for the following week · {edition['eligible_count']} illustrated projects · {len(edition['candidates'])} after cooldown</p>
-<ol class="draw-projects">{''.join(rows)}</ol>
-<details><summary>Draw record</summary><p>Draw week: {edition['draw_week']}. Cooldown: {edition['cooldown_weeks']} weeks. Algorithm: {escape(edition['algorithm'])}.</p><p class="draw-seed">Seed: {escape(edition['seed'])}</p></details></section>''')
+            status = 'Returning' if project['id'] in seen else 'First appearance'
+            rows.append(specimen_html(project, status, output, root, categories, current_ids))
+            seen.add(project['id'])
+        rendered.append(edition_html(edition, rows, number == len(editions) - 1))
     sections = list(reversed(rendered))
     if not sections:
-        sections = ['<p>The first saved draw will appear here when its display week begins. Until then, the original seven remain in the header.</p>']
-    page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly draws · Awesome Open*</title><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../vendor/fonts.css"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="draws.css"></head>
-<body><a class="skip-link" href="#draws">Skip to weekly draws</a>
-<header class="site-header"><a class="brand" href="../"><img class="brand-mark" src="../brand/botanical-128.png" alt="" width="64" height="64"><span class="brand-name">Awesome Open*</span></a><nav aria-label="Main"><a href="../#catalog">Catalog</a> · <a href="../observatory/">Observatory</a></nav></header>
-<main id="draws" class="draw-archive"><h1>Weekly draws</h1>
-<p>Seven illustrated projects, drawn at random each week and displayed the following week. Stars do not affect the draw. A project has a four-week repeat cooldown.</p>
-<p>Weeks run Monday–Sunday in America/New_York. Jar positions follow illustration fit, not draw order. The latest available group stays in the header if a new draw cannot be made.</p>
-<p><a href="draws.json" download>Download draw records</a></p>
-{''.join(sections)}</main><footer class="site-footer"><p><a href="../">Awesome Open*</a> · <a href="https://github.com/awesomeopen/awesome-open">GitHub</a></p></footer></body></html>'''
+        sections = ['<section class="draw-edition draw-empty"><p><span class="obs-label">This week</span></p><p class="draw-empty-text">The first saved draw appears here when its display week begins. Until then, the original seven stay in the ledger header.</p></section>']
+    revision = catalog.get('source_sha')
+    stamp = (
+        f'<a href="{REPOSITORY}/commit/{revision}">{revision[:12]}</a>'
+        if revision else 'Local preview; source revision not supplied'
+    )
+    page = f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Weekly draws · Awesome Open*</title><meta name="description" content="Seven illustrated Awesome Open projects, drawn each week and shown the following week, with every past edition."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../vendor/fonts.css"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../observatory/observatory.css"><link rel="stylesheet" href="draws.css"></head>
+<body class="observatory draws"><a class="skip-link" href="#draws">Skip to weekly draws</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Ledger</a><a href="../#method">About</a><a href="../observatory/">Observatory</a><a href="./" aria-current="page">Weekly draws</a></nav></header></div>
+<main id="draws" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Weekly <br>draws</h1></section>
+<nav class="obs-jump draw-jump" aria-label="Sections"><a href="#editions">Editions</a><a href="#method">How the draw works</a><a href="draws.json" download>Download draw records</a></nav>
+{metrics_html(editions, len(catalog['projects']))}
+<aside class="obs-finding draw-finding"><p id="obs-finding-text">Seven illustrated projects, drawn at random each week and shown the following week. Stars do not affect the draw.</p></aside>
+<div id="editions">{''.join(sections)}</div>
+<section id="method" class="obs-section draw-method" aria-labelledby="method-heading"><p><span class="obs-label">Method</span></p><h2 id="method-heading">How the draw works</h2><div class="draw-method-text"><p>Every catalog project with an approved, present specimen illustration is eligible. Stars, category rank and repository order do not affect selection. A project that appeared in one of the four preceding weeks sits out.</p><p>Weeks run Monday–Sunday in America/New_York. Each draw is seeded by its week and is reproducible from the published record. Jar positions in the ledger header follow illustration fit, not draw order. If a new draw cannot be made, the latest available group stays in the header.</p><p><a href="draws.json" download>Download draw records</a> · <a href="{REPOSITORY}/blob/main/site/WEEKLY-DRAWS.md">Draw contract</a></p></div></section></div>
+<div class="obs-closing-mark"><img class="obs-logo" src="../brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo"></div></main>
+<footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Weekly draws</p><ul class="obs-footer-links"><li><a href="../">Return to project ledger</a></li><li><a href="../observatory/">Observatory</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li></ul></div></footer></body></html>'''
     (target / 'index.html').write_text(page)
     # Pending draws are retained in the repository but not presented as past displays.
     (target / 'draws.json').write_text(json.dumps({**doc, 'editions': editions}, indent=2, ensure_ascii=False) + '\n')
