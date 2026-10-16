@@ -30,6 +30,7 @@ class StopBackfill(RuntimeError):
     def __init__(self, reason, resumable=False):
         super().__init__(reason)
         self.resumable = resumable
+        self.context = None
 
 
 class Transport:
@@ -46,6 +47,7 @@ class Transport:
         self.deadline = self.started + seconds
         self.remaining, self.reset, self.attempts = None, None, 0
         self.not_before = None
+        self.last_response = None
 
     def wait(self, seconds):
         if seconds < 0 or self.clock() + seconds + 35 >= self.deadline:
@@ -80,6 +82,20 @@ class Transport:
     def __call__(self, url):
         if url != RATE_URL and URL.fullmatch(url) is None:
             raise ValueError('Only quota and aggregate history endpoints are allowed')
+        # Only our allowlisted request URL and numeric response status may enter
+        # diagnostics. Never use HTTPError.url, Location, bodies or credentials.
+        context = {'request_url': url, 'http_status': None}
+        self.last_response = None
+        try:
+            result = self.request(url, context)
+            self.last_response = context
+            return result
+        except StopBackfill as error:
+            if error.context is None:
+                error.context = context
+            raise
+
+    def request(self, url, context):
         if self.remaining is None and url != RATE_URL:
             self(RATE_URL)
         for retry in range(4):
@@ -94,8 +110,10 @@ class Transport:
                 'Authorization': 'Bearer ' + self.token,
             })
             self.attempts += 1
+            context['http_status'] = None
             try:
                 with self.open(request, timeout=30) as response:
+                    context['http_status'] = response.status if hasattr(response, 'status') else 200
                     self.observe(response.headers)
                     body = response.read(2_000_001)
                     if len(body) > 2_000_000:
@@ -105,9 +123,12 @@ class Transport:
                     except (ValueError, UnicodeDecodeError):
                         raise StopBackfill('Invalid GitHub JSON response')
             except HTTPError as error:
+                context['http_status'] = error.code
                 # Never log the response body, transport exception or token.
-                if error.code in {401, 301, 302, 307, 308}:
-                    raise StopBackfill('GitHub authentication or identity response requires review')
+                if error.code == 401:
+                    raise StopBackfill('GitHub authentication failed; review the existing credential')
+                if error.code in {301, 302, 307, 308}:
+                    raise StopBackfill('GitHub repository redirect refused; review the repository identity')
                 if error.code in {403, 429}:
                     self.observe(error.headers)
                     raw = error.read(4096).decode('utf-8', errors='replace').lower()
@@ -231,23 +252,44 @@ def collect(projects, cache, metadata, transport, source_sha, checkpoint, flush_
     missing.sort(key=lambda p: history.priority_key(p, cache['repositories'], metadata))
     state = {'schema_version': 1, 'source_sha': source_sha, 'started_at': now.isoformat(),
              'eligible': len(projects), 'initial_missing': len(missing), 'records': {},
-             'status': 'running', 'remaining': len(missing), 'failed_repositories': []}
+             'status': 'running', 'remaining': len(missing), 'failed_repositories': [], 'failures': []}
     pending = {}
     atomic_json(checkpoint, state)
     try:
         for project in missing:
             repo = project['repo']
+            if hasattr(transport, 'last_response'):
+                transport.last_response = None
             try:
                 good = history.collect_repository(repo, now=now, getter=transport,
                     budget=history.RequestBudget(64),
                     created_at=metadata.get('repositories', {}).get(repo, {}).get('created_at'), source_sha=source_sha)
-            except history.HistoryError:
+            except history.HistoryError as error:
                 state['failed_repositories'].append(repo)
+                state['failures'].append({'repo': repo, 'http_status': None,
+                                          'request_url': None, **(getattr(transport, 'last_response', None) or {}),
+                                          'reason': str(error)})
                 atomic_json(checkpoint, state)
                 continue
-            record = {**project, 'checked_at': now.isoformat(), 'source_sha': source_sha,
-                      'source_url': history.API + repo + '/stargazers/history', 'status': 'ok', 'last_good': good}
-            history.validate_cache({'schema_version': 1, 'repositories': {repo: record}})
+            except StopBackfill as error:
+                state['failed_repositories'].append(repo)
+                state['failures'].append({'repo': repo, 'http_status': None,
+                                          'request_url': None, **(error.context or {}), 'reason': str(error)})
+                raise
+            except (ValueError, RuntimeError, OSError):
+                state['failed_repositories'].append(repo)
+                state['failures'].append({'repo': repo, 'http_status': None, 'request_url': None,
+                                          'reason': 'Repository collection validation failed'})
+                raise
+            try:
+                record = {**project, 'checked_at': now.isoformat(), 'source_sha': source_sha,
+                          'source_url': history.history_source_url(repo), 'status': 'ok', 'last_good': good}
+                history.validate_cache({'schema_version': 1, 'repositories': {repo: record}})
+            except (history.HistoryError, ValueError):
+                state['failed_repositories'].append(repo)
+                state['failures'].append({'repo': repo, 'http_status': None, 'request_url': None,
+                                          'reason': 'Collected repository record failed local validation'})
+                raise
             state['records'][repo] = record
             pending[repo] = record
             state['remaining'] -= 1
@@ -277,6 +319,15 @@ def collect(projects, cache, metadata, transport, source_sha, checkpoint, flush_
     return state
 
 
+def failure_summary(state):
+    lines = []
+    for failure in state['failures']:
+        status = f"HTTP {failure['http_status']}" if failure['http_status'] is not None else 'no HTTP status'
+        endpoint = f"; request: {failure['request_url']}" if failure['request_url'] else ''
+        lines.append(f"Repository {failure['repo']}: {status}; {failure['reason']}{endpoint}")
+    return '\n'.join(lines)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--checkpoint', type=Path, default=ROOT / 'tmp/history-backfill/checkpoint.json')
@@ -298,6 +349,8 @@ def main():
                f"{state['remaining']} remaining in this run's manifest; {state['requests']} HTTP attempts. "
                f"Normal publisher reserve: {reserve}. Quota reset: {state['quota_reset_at']}; remaining: {state['quota_remaining']}. "
                f"If partial, resume no earlier than {state['resume_after']}. " + state.get('reason', ''))
+    if state['failures']:
+        summary += '\n' + failure_summary(state)
     print(summary)
     if output := os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(output, 'a') as stream:
