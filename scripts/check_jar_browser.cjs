@@ -34,22 +34,24 @@ const path=require('node:path');
  await page.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
  await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:'tmp/site-qa/jars-desktop.png'});
  assert.ok(await page.locator('.search-submit img').evaluate(n=>n.complete&&n.naturalWidth>0));assert.equal(await page.locator('.jar-central .steam-strand').count(),3);
- const first=page.locator('.jar-select').first();const restingWidth=await page.locator('.vessel').first().evaluate(n=>n.getBoundingClientRect().width);await first.hover({position:{x:45,y:55}});await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-exhibit').style.getPropertyValue('--scene-scale'))>1.08);await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+ const first=page.locator('.jar-select').first();const restingWidth=await page.locator('.vessel').first().evaluate(n=>n.getBoundingClientRect().width);await first.hover({position:{x:45,y:55}});await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-exhibit').style.getPropertyValue('--my'))<-2.9);await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
  assert.equal(await first.getAttribute('aria-expanded'),'true');assert.equal(await page.locator('.jar-annotation:visible').count(),1);assert.equal(await page.locator('.jar-annotation:visible .jar-leaders path[d]').count(),3);assert.equal(await page.locator('.jar-annotation:visible').evaluate(n=>getComputedStyle(n).backgroundColor),'rgba(0, 0, 0, 0)');
- assert.ok(await page.locator('.jar-exhibit').first().evaluate(n=>Math.abs(parseFloat(n.style.getPropertyValue('--mx')))>1));assert.ok(await page.locator('.vessel').first().evaluate((n,w)=>n.getBoundingClientRect().width>w*1.2,restingWidth));assert.equal(await page.locator('.jar-exhibit').first().evaluate(n=>parseFloat(n.style.getPropertyValue('--tilt-x'))),0);
+ assert.ok(await page.locator('.jar-exhibit').first().evaluate(n=>Math.abs(parseFloat(n.style.getPropertyValue('--mx')))>1));assert.equal(await page.locator('.vessel').first().evaluate(n=>n.getBoundingClientRect().width),restingWidth);
+ assert.ok(await page.locator('.jar-exhibit').first().evaluate(n=>['--mx','--my','--inner-x','--inner-y','--reflection-x'].every(key=>Number.isInteger(parseFloat(n.style.getPropertyValue(key))))),'Settled layer positions snap to whole pixels');
  // Presence of SVG paths alone does not prove that Chrome paints them.
  const leaders=page.locator('.jar-annotation:visible .jar-leaders');assert.ok(await leaders.isVisible());
  assert.ok(await leaders.locator('path').first().evaluate(n=>getComputedStyle(n).stroke!=='none'&&n.getTotalLength()>20));
- assert.ok(await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform.startsWith('matrix3d')));
+ assert.equal(await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform),'none');
+ assert.ok(await page.locator('.specimen-window').first().evaluate(n=>!getComputedStyle(n).filter.includes('url(')),'No specimen displacement filter');
  await page.screenshot({path:'tmp/site-qa/jars-hover.png'});
  // Vertical pointer movement must leave the camera unchanged.
- const before=await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform);
+ const before=await page.locator('.vessel').first().evaluate(n=>{const r=n.getBoundingClientRect();return [r.x,r.y,r.width,r.height];});
  await first.hover({position:{x:45,y:150}});await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
- assert.equal(await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform),before);
+ assert.deepEqual(await page.locator('.vessel').first().evaluate(n=>{const r=n.getBoundingClientRect();return [r.x,r.y,r.width,r.height];}),before);
  for(const index of [4,5,6]) assert.equal(await page.locator('.jar-exhibit').nth(index).locator('.callout-function').evaluate(n=>getComputedStyle(n).textAlign),'right');
- // Keyboard selection retains foreground approach and illumination.
+ // Keyboard selection retains the small lift and illumination at a fixed size.
  await page.mouse.move(1400,950);await page.locator('.jar-central .jar-select').focus();
- await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-central').style.getPropertyValue('--scene-scale'))>1.09);
+ await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-central').style.getPropertyValue('--my'))<-2.9);
  await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
  assert.ok(await page.locator('.jar-central .jar-uplight').evaluate(n=>Math.abs(Number(getComputedStyle(n).opacity)-.75)<.02));
  assert.notEqual(await page.locator('.jar-central .jar-lid').evaluate(n=>getComputedStyle(n).transform),'none');
@@ -199,6 +201,6 @@ const path=require('node:path');
    }
  }
  fs.writeFileSync('tmp/site-qa/hero-payload.json',JSON.stringify({prHeadSha:process.env.PR_HEAD_SHA||null,sourceSha:process.env.SITE_SOURCE_SHA||null,originalHeroBytes:sources.reduce((sum,s)=>sum+fs.statSync(path.join(__dirname,'../site',s)).size,0),cases:payload,noJavaScript},null,2)+'\n');
- assert.deepEqual(errors,[]);console.log('Seven jars: assets, hover overlap, foreground zoom, vertical stability, underlight, lid lift, vapor, idle movement/pause, outlined inspect action, record links, search, keyboard/Escape, reduced motion, responsive density, touch selection/scroll and no-JS pass.');
+ assert.deepEqual(errors,[]);console.log('Seven jars: assets, hover overlap, fixed-size translation parallax, pixel-snapped settling, vertical stability, underlight, lid lift, vapor, idle movement/pause, outlined inspect action, record links, search, keyboard/Escape, reduced motion, responsive density, touch selection/scroll and no-JS pass.');
  }catch(e){await page.screenshot({path:'tmp/site-qa/jars-failure.png'});throw e;}finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

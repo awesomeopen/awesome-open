@@ -54,6 +54,12 @@ class HeroImageTests(unittest.TestCase):
             build_hero(output, production=True)
             html = (output / 'index.html').read_text()
             tags = Tags(html).tags
+            for tag, attrs in tags:
+                if tag == 'article' and 'jar-exhibit' in attrs.get('class', ''):
+                    self.assertRegex(attrs['style'], r'--display-height:[1-9][0-9]*px')
+                    self.assertRegex(attrs['style'], r'--display-width:[1-9][0-9]*px')
+                    self.assertRegex(attrs['style'], r'--display-foot:[0-9]+px')
+            self.assertNotIn('glass-displacement', html)
             hero = [attrs for tag, attrs in tags if tag == 'img' and attrs.get('class') in
                     ('jar-photo', 'jar-reflection', 'jar-lid', 'jar-sticker', 'jar-cork', 'specimen-print')]
             self.assertEqual(len(hero), 27)

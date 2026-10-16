@@ -109,6 +109,10 @@ def build(output, production=False):
         stars=github.get('stars'); stars=f'{stars:,} stars' if isinstance(stars,int) else 'Stars unavailable'
         license=github.get('license'); license_line=f'<span>{escape(license)}</span>' if license else ''
         styles=f'--height:{height}px;--foot:{foot}px;--ratio:{asset["width"]}/{asset["height"]};--sx:{x}%;--sy:{y}%;--sw:{w}%;--sh:{h}%;--zoom:{zoom}%'
+        rest = .94 if kind == 'central' else .82
+        display_height = round(height * rest)
+        display_width = round(display_height * asset['width'] / asset['height'])
+        styles += f';--display-height:{display_height}px;--display-width:{display_width}px;--display-foot:{round(foot * rest)}px'
         cut={'central':12.5,'shouldered':15.5,'ribbed':17.5}.get(kind)
         mouth={'low-open':25,'low-lid':26,'square-cork':26,'bail':17}.get(kind,cut or 20)
         styles+=f";--glass-mask:{mask};--mouth:{mouth}%;--idle-delay:{number*1.7}s;--idle-period:{18+number*1.3}s"
@@ -143,7 +147,6 @@ def build(output, production=False):
     label = (f"Weekly draw · week of {edition['display_week']}" if edition else 'Weekly draws · original display')
     hero=f'''<section class="jar-hall" aria-label="Seven illustrated software specimens">
       <button class="jar-motion-toggle" type="button" aria-pressed="false" aria-label="Pause motion" title="Pause motion" hidden>[II]</button>
-      <svg width="0" height="0" class="jar-filter-defs" aria-hidden="true"><defs><filter id="glass-displacement"><feTurbulence type="fractalNoise" baseFrequency=".017 .08" numOctaves="1" seed="6" result="glass"/><feDisplacementMap in="SourceGraphic" in2="glass" scale="1.3" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
       <div class="jar-scroll" role="region" aria-label="Specimen display; scroll horizontally on smaller screens" tabindex="0"><div class="jar-stage">{''.join(exhibits)}</div></div>
       <p class="jar-draw-link"><a href="draws/{"#week-" + edition["display_week"] if edition else ""}">{label}</a></p>
     </section>'''

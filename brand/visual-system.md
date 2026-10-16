@@ -146,3 +146,16 @@ to windows by subject fit and contain the whole subject. A small edition link
 leads to the static `/draws/` archive. See [calendar, evidence and fallback
 rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
 fallback; it is not retroactively labeled a random draw.
+
+## Crisp jar motion (B40)
+
+Use fixed, whole-pixel jar layout dimensions close to the previous resting
+composition; the central jar retains its relative prominence. No whole-vessel
+scale, perspective or rotation at rest or on selection. Small spring-driven
+position changes create parallax between glass, specimen and reflection. Snap
+settled offsets to whole CSS pixels and keep the vessel free of ancestor
+transforms. Remove glass displacement of the drawing and its idle rotation;
+occasional brief translation remains. Preserve the reviewed glass color/opacity,
+labels, cork, shallow arc, lighting, lid opening, vapor, cracks and controls.
+Pause and reduced motion retain the same jar sizes. The no-JavaScript layout
+keeps its existing 300px vessels and readable record links.
