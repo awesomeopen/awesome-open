@@ -73,6 +73,14 @@ refresh; do not use stale output to overwrite a newer GitHub change. This PR por
 the four row-detail refinements from the 2026-10-13 private preview and preserves
 the subsequently merged medium-width source fixes. It does not redeploy the Site.
 
+## Implementing an approved prototype
+
+A prototype approval covers what the prototype shows. When porting it to the
+generator, compare the prototype and the built page section by section. In the
+PR body and the decision entry, list every prototype element that was left out
+or changed, with the reason (missing data, review feedback, scope). Otherwise the
+decision record describes a reduced design as if it were the approved one.
+
 ## If drift is found
 
 Identify both versions and the discrepancy. Use explicit decisions and provenance

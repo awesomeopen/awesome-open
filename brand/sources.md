@@ -1,6 +1,8 @@
 # Source inventory and audit boundary
 
-Audited 2026-10-13. GitHub source baseline: `0be9592` on main. The consolidation
+Audited 2026-10-13. GitHub source baseline: `0be9592` on main. Re-audited
+2026-10-16 against `5b0a7d2` for drift in the visual reference, Observatory and
+new routes (B42). The consolidation
 uses current files and merged history, with conversation-derived refinements
 identified explicitly. No private chat transcript or credentials are included.
 

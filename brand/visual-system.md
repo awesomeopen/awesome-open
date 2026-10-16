@@ -106,13 +106,15 @@ space remains clear around the collection. Labels retain their common baseline.
 
 ## Observatory snapshot
 
-The user-directed `/observatory/` extension uses the current typography and
-white/Prussian instrument language for literal snapshot distributions, HTML bar
-lists drawn linearly from zero and accessible underlying tables (B31). The existing 128px botanical logo appears
-in the opening without a visible caption; artwork never modifies chart geometry.
-Filters update distributions and records together. Whole-collection findings and
-coverage retain explicit scope. See [observatory contract](../site/OBSERVATORY.md)
-and B20; the initial implementation awaits visual review.
+The `/observatory/` route (B20, redesigned under user-approved B31) uses the
+current typography and white/Prussian instrument language for literal snapshot
+distributions, HTML bar lists drawn linearly from zero and accessible underlying
+tables. The 128px botanical logo is the centered closing mark without a caption
+(B27); artwork never modifies chart geometry. Filters update distributions and
+records together. Whole-collection findings and coverage retain explicit scope.
+Layout: [detailed guide](../site/RETRO-SCRAPERISM.md#observatory-instrument-b31-b34-b35);
+data meaning: [observatory contract](../site/OBSERVATORY.md); method and contract
+changes: [B31 record](../site/OBSERVATORY-REDESIGN.md).
 The Observatory top navigation omits the GitHub link (the footer retains it).
 Only the first summary metric (Unique projects) uses the selected category’s small
 illustration at 88% 0,
@@ -159,7 +161,17 @@ labels, cork, shallow arc, lighting, lid opening, vapor, cracks and controls.
 Pause and reduced motion retain the same jar sizes. The no-JavaScript layout
 keeps its existing 300px vessels and readable record links.
 
-## Ledger copy cleanup (B41)
+## Sibling routes share the Observatory shell (B42)
+
+Every new top-level page starts from the Observatory's header, column, display
+heading, scarlet section labels, scope summary, folded detail, closing botanical
+mark and Prussian patterned footer. A page built only from a heading and
+paragraphs on the ledger stylesheet is incomplete, whatever its content. See the
+[route shell](../site/RETRO-SCRAPERISM.md#route-shell-for-sibling-pages-b42) and
+the [visual reference](../site/design/index.html), which is maintained with these
+rules and lists retired patterns.
+
+## Ledger copy cleanup (B43)
 
 The top navigation omits GitHub. Repository vitals place creation before push;
 labels read “Repository push” and “GitHub release”. Close creation/push timestamps
