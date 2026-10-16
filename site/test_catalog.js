@@ -691,3 +691,26 @@ test("explicit name sorting survives URL changes while reset uses stars", () => 
   assert.equal(catalog.stateToURL(url, state({})).searchParams.has("sort"), false);
   assert.equal(state({}).sort, "stars");
 });
+
+test("reviewed aliases match on boundaries and short names do not leak into prose", () => {
+  const fixtures = [
+    {id: 'obs', name: 'OBS Studio', description: 'Streaming and recording', categories: ['media'],
+      github: {stars: 10}, aliases: [{name: 'Open Broadcaster Software'}, {name: 'OBS'}]},
+    {id: 'other', name: 'Open Other', description: 'Observatory for obsolete jobs', github: {stars: 100}},
+    {id: 'unicode', name: 'Open Unicode', description: 'éOBS OBSé OBS2 OBS_name', github: null},
+    {id: 'another', name: 'Another OBS tool', description: 'A distinct project', github: {stars: 20}},
+    {id: 'accent', name: 'Open Accent', description: '', aliases: [{name: 'Café Editor'}, {name: 'C++'}]}
+  ];
+  const snapshot = {projects: fixtures, categories: [{id: 'media'}]};
+  const find = input => catalog.selectProjects(fixtures, catalog.normalizeState(input, snapshot), snapshot).map(p => p.id);
+  assert.deepEqual(find({q: 'OBS'}), ['another', 'obs']);
+  assert.deepEqual(find({q: 'obs streaming'}), ['obs']);
+  assert.deepEqual(find({q: 'Open Broadcaster Software'}), ['obs']);
+  assert.deepEqual(find({q: 'broadcaster recording', category: 'media'}), ['obs']);
+  assert.deepEqual(find({q: 'broadcast'}), []);
+  assert.deepEqual(find({q: 'obso'}), ['other']); // ordinary non-alias substring behavior
+  assert.deepEqual(find({q: 'cafe'}), ['accent']);
+  assert.deepEqual(find({q: 'C++'}), ['accent']); // escaped literal, never a regex
+  assert.deepEqual(find({q: 'OBS', sort: 'name'}), ['another', 'obs']);
+  assert.equal(catalog.stateToURL('https://example.org/', catalog.normalizeState({q:'OBS'}, snapshot)).searchParams.get('q'), 'OBS');
+});

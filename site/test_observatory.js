@@ -255,3 +255,11 @@ test('comparison plates retain cache status and successful observation date', ()
   assert.equal(observatory.metricsCacheLabel({ metrics_status: 'stale', metrics_last_success_at: '2026-10-07' }), 'stale · observed 2026-10-07 UTC');
   assert.equal(observatory.metricsCacheLabel({ metrics_status: 'unavailable', metrics_last_success_at: null }), 'unavailable · no successful observation');
 });
+
+test('shared search aliases never create Observatory display-name groups', () => {
+  const rows = [project({id:'obs', name:'OBS Studio', aliases:[{name:'OBS'}]}),
+    project({id:'build', name:'Open Build Service', aliases:[{name:'OBS'}]})];
+  assert.deepEqual(sharedSummary(observatory.sharedNames(rows)), EMPTY_SHARED);
+  const without = rows.map(({aliases, ...row}) => row);
+  assert.deepEqual(observatory.sharedNames(rows), observatory.sharedNames(without));
+});
