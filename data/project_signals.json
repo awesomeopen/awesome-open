@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-15T20:05:21Z",
+  "collected_at": "2026-10-16T01:56:32Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -22857,6 +22857,34 @@
         "status": "unavailable"
       }
     },
+    "taymcquaya/openopen": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T01:56:32Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/taymcquaya/openopen/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T01:56:32Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/taymcquaya/openopen",
+        "status": "unavailable"
+      }
+    },
     "tbnobody/opendtu": {
       "release": {
         "check_time_precision": "second",
@@ -22992,6 +23020,34 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/theopen-institute/opendesk",
+        "status": "unavailable"
+      }
+    },
+    "thesongzhu/openopen": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T01:56:32Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/thesongzhu/openopen/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T01:56:32Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/thesongzhu/openopen",
         "status": "unavailable"
       }
     },
@@ -24195,5 +24251,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "da4de20223244418fcef0e7feeebd2ba7d3af99b"
+  "source_sha": "181697693e0b47264f1388ee453a4233483d0e6f"
 }
