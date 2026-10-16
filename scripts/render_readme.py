@@ -106,6 +106,14 @@ def render_text(source, snapshot, evidence):
     return NOTICE + hn.decorate_readme(text, evidence)
 
 
+def display_hn_evidence(source, evidence):
+    """Current chart labels only; original evidence and provenance stay intact."""
+    names = {hn.canonical_url(match[2]): match[1] for line in source.splitlines()
+             if (match := ENTRY.fullmatch(line))}
+    return {**evidence, 'projects': [dict(project, name=names.get(hn.canonical_url(project['readme_url']), project['name']))
+                                    for project in evidence['projects']]}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "README.md",
@@ -143,7 +151,7 @@ def main():
         if destination.resolve() != original.resolve():
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(original, destination)
-    hn.render(evidence, args.output.parent / "assets/hn")
+    hn.render(display_hn_evidence(source, evidence), args.output.parent / "assets/hn")
     args.output.write_text(rendered, encoding="utf-8")
     print(f"Rendered {args.output} offline; GitHub metrics as of {snapshot['as_of']}.")
     if missing:

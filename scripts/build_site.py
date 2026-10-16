@@ -15,6 +15,8 @@ from urllib.parse import quote, urlsplit
 import shutil
 
 from build_catalog import build_catalog, load_function_summaries
+from render_readme import display_hn_evidence
+import project_aliases
 import update_hn as hn
 import update_stats as stats
 import signals
@@ -91,6 +93,8 @@ def search_index(catalog):
         item = {
             key: project[key] for key in ("id", "name", "description", "categories")
         }
+        if project.get("aliases"):
+            item["aliases"] = [{"name": alias["name"]} for alias in project["aliases"]]
         item["leader_categories"] = project.get("leader_categories", [])
         item["github"] = (
             {
@@ -799,6 +803,7 @@ def build(output, source_sha=None, root=ROOT):
             root / "data/deployment_evidence.json"
         ),
         star_evidence=star_history.load_optional(root / "data/star_history.json"),
+        aliases=project_aliases.load_optional(root / project_aliases.PATH),
     )
     footer_assets = discover_footer_art(root)
     catalog["footer_backgrounds"] = list(footer_assets)
@@ -812,7 +817,7 @@ def build(output, source_sha=None, root=ROOT):
     page = render_html(catalog, cutouts)
     # Validate charts before touching generated files. The renderer is shared with README.
     charts = {
-        p["slug"]: hn.svg(p, evidence) for p in evidence["projects"] if p["eligible"]
+        p["slug"]: hn.svg(p, evidence) for p in display_hn_evidence(source, evidence)["projects"] if p["eligible"]
     }
     star_charts = {
         p["star_history"]["chart_url"]: star_history.svg(p)

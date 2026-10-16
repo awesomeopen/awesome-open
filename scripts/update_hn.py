@@ -14,6 +14,7 @@ import math
 from pathlib import Path
 import re
 import time
+import project_aliases
 from urllib.parse import urlencode, urlsplit, parse_qs
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
@@ -50,6 +51,10 @@ def identity_reason(story, project):
     host = (parsed.hostname or '').lower().removeprefix('www.')
     title = story.get('title') or ''
     title_match = any(re.search(r'(?<!\w)' + re.escape(alias) + r'(?!\w)', title, re.I) for alias in project['title_aliases'])
+    reviewed_matches = [rule for rule in project.get('catalog_title_aliases', [])
+                        if re.search(r'(?<!\w)' + re.escape(rule['name']) + r'(?!\w)', title, re.I)
+                        and (not rule['context_pattern'] or re.search(rule['context_pattern'], title, re.I))]
+    title_match = title_match or bool(reviewed_matches)
     excluded_context = project.get('other_project_pattern')
     if excluded_context and re.search(excluded_context, title + ' ' + parsed.path, re.I) and not title_match:
         return None
@@ -78,6 +83,9 @@ def identity_reason(story, project):
             context = project.get('title_context_pattern')
             if not context or re.search(context, title, re.I):
                 return 'title alias: ' + alias + ('; required context matched' if context else '')
+    if reviewed_matches:
+        rule = reviewed_matches[0]
+        return 'reviewed catalog title alias: ' + rule['name'] + ('; required context matched' if rule['context_pattern'] else '')
     return None
 
 
@@ -156,11 +164,12 @@ def canonical_url(url):
     return catalog_url(url)
 
 
-def catalog_projects(source, reviewed):
+def catalog_projects(source, reviewed, alias_document=None):
     """Every catalog identity enters; aliases/domain expansion remain reviewed."""
     # Lazy import avoids render_readme's import of this module becoming circular.
     from render_readme import ENTRY, validate_source
     validate_source(source)
+    alias_evidence = project_aliases.validate(alias_document, canonical_url)
     overrides = {}
     slugs = set()
     for project in reviewed:
@@ -184,7 +193,12 @@ def catalog_projects(source, reviewed):
         if key in result:
             continue
         if key in overrides:
-            result[key] = overrides[key]
+            identity = dict(overrides[key], name=name)
+            rules = project_aliases.hn_rules(identity, alias_evidence.get(key))
+            if rules:
+                identity['catalog_title_aliases'] = rules
+                identity['queries'] = list(dict.fromkeys(identity['queries'] + [rule['name'] for rule in rules]))
+            result[key] = identity
             continue
         parsed = urlsplit(url)
         repo = (parsed.path.strip('/') if parsed.hostname == 'github.com'
@@ -205,7 +219,39 @@ def catalog_projects(source, reviewed):
 
 
 def identity_key(project):
+    # Preserve the historical fingerprint contract, including presentation
+    # fields. Existing observations and archive objects must not be rewritten.
     return hashlib.sha256(json.dumps(project, sort_keys=True).encode()).hexdigest()
+
+
+def identity_matches(good, project):
+    """Reuse a verified observation across a display-name-only edit.
+
+    The original fingerprint still authenticates the original complete identity.
+    Only its comparison with today's identity ignores the display name; queries,
+    matching rules, URLs, slugs and provenance fields retain their old semantics.
+    """
+    previous = good.get('project')
+    if not isinstance(previous, dict):
+        return False
+    identity = {k: v for k, v in previous.items() if k not in COLLECTED_KEYS}
+    if good.get('identity_key') != identity_key(identity):
+        return False
+    # Compare canonical JSON fingerprints rather than Python equality, which
+    # would treat True, 1 and 1.0 as interchangeable identity revisions.
+    return (identity_key({k: v for k, v in identity.items() if k != 'name'})
+            == identity_key({k: v for k, v in project.items() if k not in COLLECTED_KEYS | {'name'}}))
+
+
+def pending_identity_matches(record, project):
+    """Never infer what an opaque legacy pending fingerprint represented."""
+    signature = record.get('pending_identity_key')
+    if signature == identity_key(project):
+        return True
+    good = record.get('last_good', {})
+    # A completed observation can prove the original identity of pending pages.
+    # Without that proof, a changed fingerprint must discard those pages.
+    return signature is not None and signature == good.get('identity_key') and identity_matches(good, project)
 
 
 def write_evidence(path, document):
@@ -380,7 +426,8 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
             or not 0 < seconds <= 300):
         raise ValueError('HN limits exceed bounded collection policy')
     if projects is None:
-        projects = catalog_projects(SOURCE_PATH.read_text(), json.loads(PROJECTS_PATH.read_text())['projects'])
+        projects = catalog_projects(SOURCE_PATH.read_text(), json.loads(PROJECTS_PATH.read_text())['projects'],
+                                    project_aliases.load_optional(ROOT / project_aliases.PATH))
     if existing is None:
         existing = json.loads(EVIDENCE_PATH.read_text()) if EVIDENCE_PATH.exists() else {
             'schema_version': 1, 'months': months, 'projects': []}
@@ -439,7 +486,7 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
     def due(p):
         record = records.get(canonical_url(p['readme_url']), {})
         good = record.get('last_good', {})
-        return (force or good.get('months') != months or good.get('identity_key') != identity_key(p)
+        return (force or good.get('months') != months or not identity_matches(good, p)
                 or now - datetime.fromisoformat(record.get('checked_at', '1970-01-01T00:00:00+00:00')) >= timedelta(days=REFRESH_DAYS)
                 or record.get('status') != 'ok')
     def stars_key(p):
@@ -450,7 +497,7 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
     def lane_for(p):
         record = records.get(canonical_url(p['readme_url']), {})
         if (record.get('status') == 'deferred' and record.get('pending')
-                and record.get('pending_identity_key') == identity_key(p)
+                and pending_identity_matches(record, p)
                 and record.get('pending_months') == months):
             return 'continuation'
         return 'refresh' if record.get('checked_at') else 'new'
@@ -458,8 +505,9 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
         record = records.get(canonical_url(p['readme_url']), {})
         if lane_for(p) == 'new':
             return stars_key(p)
-        changed = (record.get('last_good', {}).get('identity_key') not in (None, identity_key(p))
-                   and record.get('pending_identity_key') != identity_key(p))
+        good = record.get('last_good', {})
+        changed = (bool(good.get('identity_key')) and not identity_matches(good, p)
+                   and not pending_identity_matches(record, p))
         return (0 if changed else 1, record.get('checked_at', ''), *stars_key(p))
     waiting = [p for p in projects if due(p)]
     queues = {lane: sorted((p for p in waiting if lane_for(p) == lane
@@ -498,8 +546,10 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
         current = []
         for key, p in identities.items():
             good = records.get(key, {}).get('last_good', {})
-            if good.get('months') == months and good.get('identity_key') == identity_key(p):
-                current.append(good['project'])
+            if good.get('months') == months and identity_matches(good, p):
+                # This is a presentation view, not a replacement observation.
+                # Keep last_good, including its name/hash/date, exactly intact.
+                current.append({**good['project'], 'name': p['name']})
         maximum = max((max(p['monthly_counts']) for p in current if p['eligible']), default=1)
         return {'schema_version': 2, 'window_start': start.isoformat(), 'window_end_exclusive': end.isoformat(),
                 'months': months, 'refreshed_utc_date': today,
@@ -526,9 +576,12 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
         record = json.loads(json.dumps(prior_record or {}))
         records[key] = record
         signature = identity_key(project)
-        if record.get('pending_identity_key') != signature or record.get('pending_months') != months:
+        if not pending_identity_matches(record, project) or record.get('pending_months') != months:
             record['pending'] = {}
-        record.update(pending_identity_key=signature, pending_months=months)
+            record.update(pending_identity_key=signature, pending_months=months)
+        record.setdefault('pending', {})
+        # Keep a proven compatible pending fingerprint until completion. Its
+        # original last_good payload remains the proof after repeated renames.
         project_requests = 0
         def bounded_get(url):
             nonlocal project_requests, attempted

@@ -381,10 +381,10 @@
 
 | Project | Description |
 | --- | --- |
+| [OBS Studio](https://github.com/obsproject/obs-studio) | Live streaming and screen recording. |
 | [OpenAL Soft](https://github.com/kcat/openal-soft) | Cross-platform implementation of the OpenAL 3D audio API. |
 | [OpenAudible](https://openaudible.org) | Desktop audiobook manager for downloading, organizing, playing, and converting Audible libraries. |
 | [OpenBRender](https://github.com/GPTchatly/OpenBRender) | Browser-based scientific figure editor with vector artwork, editable charts, statistical comparisons, portable projects, and image and PDF export. |
-| [Open Broadcaster Software (OBS Studio)](https://github.com/obsproject/obs-studio) | Live streaming and screen recording. |
 | [Open Brush](https://github.com/icosa-foundation/open-brush) | Virtual reality painting application descended from Tilt Brush. |
 | [Open Camera](https://opencamera.org.uk/) | Android camera application with manual controls, RAW capture, HDR, panoramas, and video recording. |
 | [OpenCineAgent](https://github.com/ProgramaGrueso/OpenCineAgent) | Local-model film production pipeline coordinating scripts, video generation, quality checks, audio, and editing. |

@@ -241,7 +241,7 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(len(index['projects']), len(self.catalog['projects']))
         for item, full in zip(index['projects'], self.catalog['projects']):
             self.assertEqual(set(item), {'id', 'name', 'description', 'categories',
-                                        'leader_categories', 'github', 'alternatives', 'deployment'})
+                                        'leader_categories', 'github', 'alternatives', 'deployment'} | ({'aliases'} if full.get('aliases') else set()))
             for key in ('id', 'name', 'description', 'categories', 'leader_categories'):
                 self.assertEqual(item[key], full[key])
             if full['github'] is None:
@@ -249,6 +249,8 @@ class SiteTests(unittest.TestCase):
             else:
                 self.assertEqual(item['github'], {key: full['github'].get(key)
                                                   for key in ('license', 'stars', 'pushed_at', 'status', 'last_success_at')})
+            if full.get('aliases'):
+                self.assertEqual(item['aliases'], [{'name': a['name']} for a in full['aliases']])
             self.assertEqual(item['alternatives'], [{'name': a['name']} for a in full['alternatives']])
             self.assertEqual(item['deployment'], {
                 field: [{'value': fact['value']} for fact in full.get('deployment', {}).get(field, [])]
@@ -290,6 +292,7 @@ for (const category of full.categories) inputs.push({category: category.id});
 for (const alternative of api.alternativeNames(full.projects)) inputs.push({alternative});
 for (const project of full.projects) {
   inputs.push({q: project.name}, {q: project.description});
+  for (const alias of project.aliases || []) inputs.push({q: alias.name});
   if (project.github) inputs.push({license: project.github.license});
   for (const [key, field] of [['run_mode', 'run_modes'], ['install_method', 'install_methods']]) {
     for (const fact of (project.deployment || {})[field] || []) inputs.push({[key]: fact.value});

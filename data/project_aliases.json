@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "projects": [
+    {
+      "project_url": "https://github.com/obsproject/obs-studio",
+      "aliases": [
+        {
+          "name": "OBS Studio",
+          "source_url": "https://obsproject.com/"
+        },
+        {
+          "name": "Open Broadcaster Software",
+          "source_url": "https://obsproject.com/"
+        },
+        {
+          "name": "OBS",
+          "source_url": "https://obsproject.com/",
+          "ambiguous": true
+        }
+      ],
+      "checked_at": "2026-10-16",
+      "reviewed_by": "Junge (AI)"
+    }
+  ]
+}
