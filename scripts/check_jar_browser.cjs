@@ -49,6 +49,22 @@ const path=require('node:path');
  await first.hover({position:{x:45,y:150}});await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
  assert.deepEqual(await page.locator('.vessel').first().evaluate(n=>{const r=n.getBoundingClientRect();return [r.x,r.y,r.width,r.height];}),before);
  for(const index of [4,5,6]) assert.equal(await page.locator('.jar-exhibit').nth(index).locator('.callout-function').evaluate(n=>getComputedStyle(n).textAlign),'right');
+ // Regression: focus can remain on jar 3 while the pointer selects jar 2.
+ // These must not share a stacking level, or the later vessel paints over
+ // jar 2's Inspect record label. Vessels ignore pointer events, so hit-testing
+ // the link alone cannot prove it is visually unobscured.
+ const secondJar=page.locator('.jar-exhibit').nth(1),thirdJar=page.locator('.jar-exhibit').nth(2);
+ await thirdJar.locator('.jar-select').focus();
+ await secondJar.locator('.jar-select').hover({position:{x:45,y:55}});
+ await page.waitForFunction(()=>document.querySelectorAll('.jar-exhibit')[1].classList.contains('is-active'));
+ await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+ assert.ok(await thirdJar.evaluate(n=>n.matches(':focus-within')),'Jar 3 retains keyboard focus');
+ const secondZ=await secondJar.evaluate(n=>Number(getComputedStyle(n).zIndex));
+ const thirdZ=await thirdJar.evaluate(n=>Number(getComputedStyle(n).zIndex));
+ assert.ok(secondZ>thirdZ,'Active jar 2 and its label paint above focused jar 3');
+ await secondJar.locator('[data-jar-inspect]').hover();
+ assert.ok(await secondJar.evaluate(n=>n.classList.contains('is-active')),'Inspect label retains its selected jar');
+ await page.screenshot({path:'tmp/site-qa/jar-2-inspect-over-focused-jar-3.png'});
  // Keyboard selection retains the small lift and illumination at a fixed size.
  await page.mouse.move(1400,950);await page.locator('.jar-central .jar-select').focus();
  await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-central').style.getPropertyValue('--my'))<-2.9);
