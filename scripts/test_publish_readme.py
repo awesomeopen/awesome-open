@@ -1,6 +1,7 @@
 """Offline publisher regression tests using real local Git remotes."""
 
 import contextlib
+from datetime import datetime, timezone
 import io
 import json
 import os
@@ -14,6 +15,28 @@ from unittest.mock import patch
 
 import publish_readme as publisher
 import build_published_site as site_publisher
+import chart_observations as observations
+import update_hn as hn
+import update_star_history as stars
+from test_update_star_history import pager, weekly_series
+
+
+def star_fixture(repo='org/example', day=13):
+    """Complete synthetic aggregate history, with no production/API inputs."""
+    now = datetime(2026, 10, day, 2, tzinfo=timezone.utc)
+    good = stars.collect_repository(repo, now=now, getter=pager(weekly_series()), source_sha='a' * 40)
+    return {'schema_version': 1, 'repositories': {repo: {
+        'repo': repo, 'name': 'Open Example', 'readme_url': 'https://github.com/' + repo,
+        'source_url': stars.API + repo + '/stargazers/history', 'source_sha': 'a' * 40,
+        'checked_at': now.isoformat(), 'status': 'ok', 'last_good': good,
+    }}}
+
+
+def star_archive(*caches):
+    result = observations.empty()
+    for cache in caches:
+        observations.add_stars(result, cache)
+    return result
 
 
 STATS_SCRIPT = '''from pathlib import Path
@@ -106,7 +129,7 @@ class PublisherGitTests(unittest.TestCase):
         files = {
             'README.source.md': 'Initial curated row.\n',
             'README.md': 'Old generated output.\n',
-            '.gitignore': '__pycache__/\n*.py[cod]\n',
+            '.gitignore': '__pycache__/\n*.py[cod]\ntmp/\n',
             'data/github_metrics.json': '{}\n',
             'data/hn_evidence.json': '{}\n',
             'assets/hn/fixture.svg': '<svg>old</svg>\n',
@@ -153,6 +176,16 @@ class PublisherGitTests(unittest.TestCase):
         self.git(self.actor, 'push', 'origin', 'main')
         return self.remote_head()
 
+    def advance_archive(self, cache, archive):
+        self.git(self.actor, 'pull', '--ff-only', 'origin', 'main')
+        (self.actor / 'README.source.md').write_text('Concurrent curated row.\n')
+        stars.write_cache(self.actor / 'data/star_history.json', cache)
+        observations.save(self.actor / publisher.ARCHIVE_PATH, archive)
+        self.git(self.actor, 'add', '.')
+        self.git(self.actor, 'commit', '-m', 'Concurrent evidence and curated source')
+        self.git(self.actor, 'push', 'origin', 'main')
+        return self.remote_head()
+
     def assert_worktree_removed(self):
         listed = self.git(self.checkout, 'worktree', 'list', '--porcelain')
         self.assertEqual(listed.count('worktree '), 1)
@@ -160,7 +193,9 @@ class PublisherGitTests(unittest.TestCase):
     def test_cached_publication_never_invokes_collectors(self):
         publisher.publish(self.checkout)
         before = self.remote_head()
-        with patch.object(publisher, 'collect_and_render', side_effect=AssertionError('network collection')) as collect:
+        # This fixture intentionally uses tiny nonproduction cache schemas.
+        with patch.object(publisher, 'archive_cached_charts'), patch.object(
+                publisher, 'collect_and_render', side_effect=AssertionError('network collection')) as collect:
             result = publisher.publish(self.checkout, cached=True)
         collect.assert_not_called()
         self.assertEqual(result, before)
@@ -204,6 +239,234 @@ class PublisherGitTests(unittest.TestCase):
         signals = json.loads(self.remote_file('data/project_signals.json'))
         self.assertEqual(signals['source'], sources[-1])
         self.assertEqual(signals['source_sha'], latest_contributor[0])
+        self.assert_worktree_removed()
+
+    def test_retry_unions_observations_without_carrying_stale_caches(self):
+        first = star_fixture(day=13)
+        concurrent = star_fixture(day=14)
+        final = star_fixture(day=15)
+        unrelated = star_fixture('other/project')
+        concurrent_archive = star_archive(concurrent, unrelated)
+        original = publisher.collect_and_render
+        attempts = []
+
+        def collect(root, budget=None):
+            attempts.append(root)
+            if len(attempts) == 1:
+                original(root, budget)
+                stars.write_cache(root / 'data/star_history.json', first)
+                observations.save(root / publisher.ARCHIVE_PATH, star_archive(first))
+                self.advance_archive(concurrent, concurrent_archive)
+            else:
+                self.assertEqual(json.loads((root / 'data/star_history.json').read_text()), concurrent)
+                self.assertEqual(observations.load(root / publisher.ARCHIVE_PATH),
+                                 observations.merge(star_archive(first), concurrent_archive))
+                original(root, budget)
+                stars.write_cache(root / 'data/star_history.json', final)
+                archive = observations.load(root / publisher.ARCHIVE_PATH)
+                observations.add_stars(archive, final)
+                observations.save(root / publisher.ARCHIVE_PATH, archive)
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect):
+            published = publisher.publish(self.checkout)
+        self.assertEqual(len(attempts), 2)
+        self.assertEqual(self.remote_head(), published)
+        self.assertEqual(json.loads(self.remote_file('data/star_history.json')), final)
+        self.assertEqual(json.loads(self.remote_file(str(publisher.ARCHIVE_PATH))),
+                         star_archive(first, concurrent, unrelated, final))
+        self.assertEqual(self.remote_file('README.source.md'), 'Concurrent curated row.')
+        self.assert_worktree_removed()
+
+    def test_late_collection_failure_keeps_completed_observations(self):
+        first = star_fixture()
+        concurrent = star_fixture('other/project')
+        original = publisher.collect_and_render
+        attempts = []
+
+        def collect(root, budget=None):
+            attempts.append(root)
+            original(root, budget)
+            if len(attempts) == 1:
+                observations.save(root / publisher.ARCHIVE_PATH, star_archive(first))
+                self.advance_archive(concurrent, star_archive(concurrent))
+                raise RuntimeError('A later collector failed after a complete history')
+            self.assertEqual(observations.load(root / publisher.ARCHIVE_PATH), star_archive(first, concurrent))
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect):
+            publisher.publish(self.checkout)
+        self.assertEqual(json.loads(self.remote_file(str(publisher.ARCHIVE_PATH))), star_archive(first, concurrent))
+        self.assertEqual(len(attempts), 2)
+        self.assert_worktree_removed()
+
+    def test_failed_validation_carries_completed_observations_to_retry(self):
+        first, concurrent = star_fixture(), star_fixture('other/project')
+        original_collect, original_validate = publisher.collect_and_render, publisher.validate
+        attempts = []
+
+        def collect(root, budget=None):
+            original_collect(root, budget)
+            if not attempts:
+                observations.save(root / publisher.ARCHIVE_PATH, star_archive(first))
+
+        def validate(root):
+            attempts.append(root)
+            if len(attempts) == 1:
+                self.advance_archive(concurrent, star_archive(concurrent))
+                raise RuntimeError('Validation failed against superseded inputs')
+            return original_validate(root)
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect), patch.object(
+                publisher, 'validate', side_effect=validate):
+            publisher.publish(self.checkout)
+        self.assertEqual(len(attempts), 2)
+        self.assertEqual(json.loads(self.remote_file(str(publisher.ARCHIVE_PATH))), star_archive(first, concurrent))
+        self.assert_worktree_removed()
+
+    def test_rejected_push_keeps_observations_and_concurrent_archive(self):
+        first, concurrent = star_fixture(), star_fixture('other/project')
+        original_collect, original_git = publisher.collect_and_render, publisher.git
+        attempts, pushes = [], []
+
+        def collect(root, budget=None):
+            attempts.append(root)
+            original_collect(root, budget)
+            if len(attempts) == 1:
+                observations.save(root / publisher.ARCHIVE_PATH, star_archive(first))
+
+        def raced_git(root, *args, **kwargs):
+            if args[:2] == ('push', 'origin'):
+                pushes.append(args)
+                if len(pushes) == 1:
+                    self.advance_archive(concurrent, star_archive(concurrent))
+            return original_git(root, *args, **kwargs)
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect), patch.object(
+                publisher, 'git', side_effect=raced_git):
+            publisher.publish(self.checkout)
+        self.assertEqual(len(pushes), 2)
+        self.assertEqual(json.loads(self.remote_file(str(publisher.ARCHIVE_PATH))), star_archive(first, concurrent))
+        self.assertEqual(json.loads(self.remote_file('data/star_history.json')), concurrent)
+        self.assert_worktree_removed()
+
+    def test_corrupt_existing_archive_blocks_collection_and_publication(self):
+        (self.actor / publisher.ARCHIVE_PATH).write_text('{broken archive')
+        self.git(self.actor, 'add', str(publisher.ARCHIVE_PATH))
+        self.git(self.actor, 'commit', '-m', 'Corrupt archive fixture')
+        self.git(self.actor, 'push', 'origin', 'main')
+        before = self.remote_head()
+        with patch.object(publisher, 'collect_and_render') as collect:
+            with self.assertRaises(ValueError):
+                publisher.publish(self.checkout)
+        collect.assert_not_called()
+        self.assertEqual(before, self.remote_head())
+        self.assert_worktree_removed()
+
+    def test_corrupt_collected_archive_is_not_hidden_by_main_advancing(self):
+        def collect(root, budget=None):
+            (root / publisher.ARCHIVE_PATH).write_text('{broken archive')
+            self.advance_source('New source while a collector corrupted the archive.\n')
+            raise RuntimeError('Collection failed')
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect) as collect:
+            with self.assertRaises(ValueError):
+                publisher.publish(self.checkout)
+        self.assertEqual(collect.call_count, 1)
+        self.assertEqual(self.remote_file('README.md'), 'Old generated output.')
+        self.assert_worktree_removed()
+
+    def test_late_failure_retains_recovery_without_publishing(self):
+        first, prior = star_fixture(), star_fixture('prior/project')
+        observations.save(self.checkout / publisher.RECOVERY_PATH, star_archive(prior))
+        original = publisher.collect_and_render
+
+        def collect(root, budget=None):
+            original(root, budget)
+            observations.save(root / publisher.ARCHIVE_PATH, star_archive(first))
+            raise RuntimeError('Later collector failed on unchanged main')
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect):
+            with self.assertRaisesRegex(RuntimeError, 'Later collector failed'):
+                publisher.publish(self.checkout)
+        self.assertEqual(observations.load(self.checkout / publisher.RECOVERY_PATH), star_archive(prior, first))
+        self.assertEqual(self.remote_head(), self.initial)
+        self.assert_worktree_removed()
+
+    def test_validation_failure_retains_recovery_without_publishing(self):
+        first = star_fixture()
+        original = publisher.collect_and_render
+
+        def collect(root, budget=None):
+            original(root, budget)
+            observations.save(root / publisher.ARCHIVE_PATH, star_archive(first))
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect), patch.object(
+                publisher, 'validate', side_effect=RuntimeError('Validation failed on unchanged main')):
+            with self.assertRaisesRegex(RuntimeError, 'Validation failed'):
+                publisher.publish(self.checkout)
+        self.assertEqual(observations.load(self.checkout / publisher.RECOVERY_PATH), star_archive(first))
+        self.assertEqual(self.remote_head(), self.initial)
+        self.assert_worktree_removed()
+
+    def test_denied_push_retains_recovery_without_publishing(self):
+        first = star_fixture()
+        original_collect, original_git = publisher.collect_and_render, publisher.git
+
+        def collect(root, budget=None):
+            original_collect(root, budget)
+            observations.save(root / publisher.ARCHIVE_PATH, star_archive(first))
+
+        def denied_git(root, *args, **kwargs):
+            if args[:2] == ('push', 'origin'):
+                return subprocess.CompletedProcess(args, 1, '', 'Fixture write denied')
+            return original_git(root, *args, **kwargs)
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect), patch.object(
+                publisher, 'git', side_effect=denied_git):
+            with self.assertRaisesRegex(RuntimeError, 'Push failed while main was unchanged'):
+                publisher.publish(self.checkout)
+        self.assertEqual(observations.load(self.checkout / publisher.RECOVERY_PATH), star_archive(first))
+        self.assertEqual(self.remote_head(), self.initial)
+        self.assert_worktree_removed()
+
+    def test_retry_exhaustion_retains_every_attempt_without_publishing(self):
+        caches = [star_fixture(day=13), star_fixture(day=14)]
+        original = publisher.collect_and_render
+        attempts = []
+
+        def collect(root, budget=None):
+            original(root, budget)
+            archive = observations.load(root / publisher.ARCHIVE_PATH)
+            observations.add_stars(archive, caches[len(attempts)])
+            observations.save(root / publisher.ARCHIVE_PATH, archive)
+            attempts.append(root)
+            self.advance_source('Main source iteration ' + str(len(attempts)) + '\n')
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect):
+            with self.assertRaisesRegex(RuntimeError, 'Main kept advancing across 2 attempts'):
+                publisher.publish(self.checkout, max_attempts=2)
+        self.assertEqual(observations.load(self.checkout / publisher.RECOVERY_PATH), star_archive(*caches))
+        self.assertNotIn(str(publisher.ARCHIVE_PATH), self.git(self.origin, 'ls-tree', '-r', '--name-only', 'main'))
+        self.assertEqual(self.remote_file('README.md'), 'Old generated output.')
+        self.assert_worktree_removed()
+
+    def test_prior_recovery_is_not_silently_imported(self):
+        archive = star_archive(star_fixture())
+        observations.save(self.checkout / publisher.RECOVERY_PATH, archive)
+        publisher.publish(self.checkout)
+        self.assertEqual(observations.load(self.checkout / publisher.RECOVERY_PATH), archive)
+        self.assertNotIn(str(publisher.ARCHIVE_PATH), self.git(self.origin, 'ls-tree', '-r', '--name-only', 'main'))
+
+    def test_corrupt_prior_recovery_blocks_work_without_overwriting_it(self):
+        path = self.checkout / publisher.RECOVERY_PATH
+        path.parent.mkdir(parents=True)
+        path.write_text('{corrupt recovery')
+        with patch.object(publisher, 'collect_and_render') as collect, patch.object(publisher, 'latest_main') as fetch:
+            with self.assertRaises(ValueError):
+                publisher.publish(self.checkout)
+        collect.assert_not_called()
+        fetch.assert_not_called()
+        self.assertEqual(path.read_text(), '{corrupt recovery')
+        self.assertEqual(self.remote_head(), self.initial)
         self.assert_worktree_removed()
 
     def test_optional_upstream_error_preserves_last_good_while_core_publishes(self):
@@ -393,6 +656,49 @@ class PublisherGitTests(unittest.TestCase):
         self.assert_worktree_removed()
 
 
+class CachedChartArchiveTests(unittest.TestCase):
+    def test_cached_charts_are_archived_offline_without_rewriting_evidence(self):
+        cache = star_fixture()
+        now = datetime(2026, 10, 13, 2, tzinfo=timezone.utc)
+        project = {'name': 'Open Example', 'slug': 'openexample',
+                   'readme_url': 'https://github.com/org/example',
+                   'repositories': ['org/example'], 'domains': [],
+                   'title_aliases': ['Open Example'], 'queries': ['Open Example']}
+        evidence = hn.refresh(now=now, projects=[project],
+            existing={'schema_version': 1, 'months': hn.window(now)[2], 'projects': []},
+            metadata={}, getter=lambda url: {
+                'hits': [{'objectID': '123', 'title': 'Open Example', 'url': '',
+                          'created_at_i': int(hn.window(now)[0].timestamp())}],
+                'nbPages': 1, 'nbHits': 1})
+        expected = star_archive(star_fixture('prior/project'), cache)
+        observations.add_hn(expected, evidence)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'data').mkdir()
+            observations.save(root / publisher.ARCHIVE_PATH, star_archive(star_fixture('prior/project')))
+            for name, value in [('star_history.json', cache), ('hn_evidence.json', evidence)]:
+                (root / 'data' / name).write_text(json.dumps(value))
+            before = {name: (root / 'data' / name).read_bytes()
+                      for name in ['star_history.json', 'hn_evidence.json']}
+            publisher.archive_cached_charts(root)
+            self.assertEqual(observations.load(root / publisher.ARCHIVE_PATH), expected)
+            for name, content in before.items():
+                self.assertEqual((root / 'data' / name).read_bytes(), content)
+            archive_bytes = (root / publisher.ARCHIVE_PATH).read_bytes()
+            publisher.archive_cached_charts(root)
+            self.assertEqual((root / publisher.ARCHIVE_PATH).read_bytes(), archive_bytes)
+
+    def test_corrupt_cached_evidence_does_not_overwrite_archive(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            observations.save(root / publisher.ARCHIVE_PATH, star_archive(star_fixture()))
+            before = (root / publisher.ARCHIVE_PATH).read_bytes()
+            (root / 'data/star_history.json').write_text('{"schema_version": 999}')
+            with self.assertRaises(ValueError):
+                publisher.archive_cached_charts(root)
+            self.assertEqual((root / publisher.ARCHIVE_PATH).read_bytes(), before)
+
+
 class PublisherScopeTests(unittest.TestCase):
     def test_cli_exports_only_successfully_published_sha(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -415,11 +721,13 @@ class PublisherScopeTests(unittest.TestCase):
 
     def test_generated_scope_is_explicit(self):
         for name in ['README.md', 'data/github_metrics.json', 'data/hn_evidence.json',
-                     'data/project_signals.json', 'assets/hn/project.svg']:
+                     'data/project_signals.json', 'data/star_history.json',
+                     'data/chart_observations.json', 'assets/hn/project.svg']:
             with self.subTest(name=name):
                 self.assertTrue(publisher.allowed_path(name))
         for name in ['README.source.md', 'CONTRIBUTING.md', 'data/hn_projects.json', 'data/alternatives.json',
                      'data/project_signals.json.tmp', 'data/other_signals.json', 'data/nested/project_signals.json',
+                     'data/chart_observations.json.tmp', 'data/nested/chart_observations.json',
                      '.github/workflows/update-stats.yml', 'assets/hn/../../secret.svg', 'assets/hn/script.py']:
             with self.subTest(name=name):
                 self.assertFalse(publisher.allowed_path(name))

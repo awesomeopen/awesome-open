@@ -426,7 +426,7 @@ def needs_refresh(record, now, months, force=False):
 
 def refresh(projects, existing=None, metadata=None, now=None, getter=None, token=None,
             request_budget=DEFAULT_REQUEST_BUDGET, max_repositories=DEFAULT_MAX_REPOSITORIES,
-            source_sha=None, force=False, invocation_budget_file=None):
+            source_sha=None, force=False, invocation_budget_file=None, retain=None):
     now = now or utc_now()
     if source_sha is not None and (not isinstance(source_sha, str) or SHA.fullmatch(source_sha) is None):
         raise ValueError('Expected a full lowercase source SHA')
@@ -469,10 +469,9 @@ def refresh(projects, existing=None, metadata=None, now=None, getter=None, token
         record.pop('error', None)
         attempted += 1
         try:
-            record['last_good'] = collect_repository(
+            good = collect_repository(
                 repo, now, getter, token, budget,
                 (metadata or {}).get('repositories', {}).get(repo, {}).get('created_at'), source_sha)
-            record['status'] = 'ok'
         except (HistoryError, ValueError, OSError, TimeoutError) as error:
             # Store bounded, non-sensitive diagnostics rather than arbitrary
             # response bodies or transport exception strings that may hold URLs.
@@ -482,6 +481,13 @@ def refresh(projects, existing=None, metadata=None, now=None, getter=None, token
             records[repo] = record
             if getattr(error, 'halt', False):
                 break
+        else:
+            completed = {**record, 'last_good': good, 'status': 'ok'}
+            # Retention failures are local errors: never swallow them as an
+            # optional upstream outage or replace last_good before archiving.
+            if retain:
+                retain(repo, completed)
+            record = completed
         records[repo] = record
     result = {
         'schema_version': 1, 'metric': METRIC, 'source_boundary_note': BOUNDARY_NOTE,
@@ -523,6 +529,7 @@ def main():
     parser.add_argument('--source-sha')
     parser.add_argument('--invocation-budget-file', type=Path, help='Persist every HTTP attempt across publisher worktree retries')
     parser.add_argument('--cache', type=Path, default=CACHE_PATH)
+    parser.add_argument('--archive', type=Path, help='Observation archive (defaults beside the cache)')
     parser.add_argument('--projects', type=Path, default=PROJECTS_PATH)
     parser.add_argument('--metadata', type=Path, default=METADATA_PATH)
     parser.add_argument('--source', type=Path, default=ROOT / 'README.source.md')
@@ -530,10 +537,19 @@ def main():
     projects = load_projects(json.loads(args.projects.read_text(encoding='utf-8')), args.source.read_text(encoding='utf-8'))
     existing = json.loads(args.cache.read_text(encoding='utf-8')) if args.cache.exists() else None
     metadata = json.loads(args.metadata.read_text(encoding='utf-8')) if args.metadata.exists() else None
+    import chart_observations as observations
+    archive_path = args.archive or args.cache.with_name('chart_observations.json')
+    archive = observations.load(archive_path)
+    if existing is not None:
+        observations.add_stars(archive, existing)
+    observations.save(archive_path, archive)
+    def retain(repo, record):
+        observations.add_stars(archive, {'schema_version': 1, 'repositories': {repo: record}})
+        observations.save(archive_path, archive)
     result = refresh(projects, existing, metadata, token=os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN'),
                      request_budget=args.request_budget, max_repositories=args.max_repositories,
                      source_sha=args.source_sha or source_revision(), force=args.refresh,
-                     invocation_budget_file=args.invocation_budget_file)
+                     invocation_budget_file=args.invocation_budget_file, retain=retain)
     write_cache(args.cache, result)
     records = result['repositories']
     print(f"Star history: {sum(r['status'] == 'ok' for r in records.values())}/{len(records)} complete; "

@@ -371,7 +371,7 @@ def validate_page(url, data):
 def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=None,
             request_budget=DEFAULT_REQUESTS, max_projects=DEFAULT_PROJECTS,
             seconds=DEFAULT_SECONDS, force=False, invocation_budget_file=None,
-            checkpoint=None, monotonic=time.monotonic, sleeper=time.sleep):
+            checkpoint=None, monotonic=time.monotonic, sleeper=time.sleep, retain=None):
     live_clock = now is None
     now = now or datetime.now(timezone.utc)
     start, end, months = window(now)
@@ -566,11 +566,6 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
             return data
         try:
             collected = collect_project(project, start, end, months, getter=bounded_get)
-            record['last_good'] = {'months': months, 'identity_key': signature, 'project': collected,
-                                   'collected_at': now.isoformat()}
-            record['status'] = 'ok'
-            record['pending'] = {}
-            record.pop('error', None)
         except Deferred:
             record['status'] = 'deferred'
             record['error'] = 'Incomplete collection; resume saved pages on a later run'
@@ -581,6 +576,16 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
         except (UpstreamFailure, URLError, OSError, TimeoutError, ValueError):
             record['status'] = 'unavailable'
             record['error'] = 'Algolia collection failed; prior evidence and partial pages retained'
+        else:
+            good = {'months': months, 'identity_key': signature, 'project': collected,
+                    'collected_at': now.isoformat()}
+            # Retain before replacement, outside upstream-failure handling.
+            if retain:
+                retain(key, good)
+            record['last_good'] = good
+            record['status'] = 'ok'
+            record['pending'] = {}
+            record.pop('error', None)
         if project_requests == 0 and record.get('status') != 'ok':
             if prior_record is None:
                 records.pop(key, None)
@@ -641,7 +646,18 @@ def main():
     parser.add_argument('--refresh', action='store_true', help='Make all projects due; budgets still apply')
     parser.add_argument('--invocation-budget-file', type=Path)
     args = parser.parse_args()
-    evidence = refresh(force=args.refresh, invocation_budget_file=args.invocation_budget_file,
+    import chart_observations as observations
+    archive_path = EVIDENCE_PATH.with_name('chart_observations.json')
+    archive = observations.load(archive_path)
+    existing = json.loads(EVIDENCE_PATH.read_text(encoding='utf-8')) if EVIDENCE_PATH.exists() else {
+        'schema_version': 1, 'months': window()[2], 'projects': []}
+    observations.add_hn(archive, existing)
+    observations.save(archive_path, archive)
+    def retain(key, good):
+        observations.add_hn(archive, {'schema_version': 2, 'months': good['months'], 'projects': [],
+            'queue': {key: {'status': 'ok', 'checked_at': good['collected_at'], 'last_good': good}}})
+        observations.save(archive_path, archive)
+    evidence = refresh(existing=existing, retain=retain, force=args.refresh, invocation_budget_file=args.invocation_budget_file,
                        checkpoint=lambda document: write_evidence(EVIDENCE_PATH, document))
     write_evidence(EVIDENCE_PATH, evidence)
     report = evidence['selection_report']

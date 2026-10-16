@@ -5,21 +5,27 @@ Every attempt uses a disposable, detached worktree of freshly fetched main.
 Nothing is rebased onto a stale generated README: if main advances, collection
 and rendering start again from its new source. The final ordinary Git push is
 an additional compare-and-swap guard against a race after the last fetch.
+Completed observations are unioned across attempts without reusing old caches.
 The invoking checkout (including any local curated edits) is never reset.
 """
 
 import argparse
+import json
 import os
 from pathlib import Path, PurePosixPath
 import subprocess
 import sys
 import tempfile
 
+import chart_observations as observations
+
 
 ROOT = Path(__file__).resolve().parents[1]
+ARCHIVE_PATH = Path(observations.ARCHIVE)
+RECOVERY_PATH = Path("tmp/chart-observations/archive.json")
 GENERATED_FILES = frozenset({
     "README.md", "data/github_metrics.json", "data/hn_evidence.json",
-    "data/project_signals.json", "data/star_history.json",
+    "data/project_signals.json", "data/star_history.json", str(ARCHIVE_PATH),
 })
 
 
@@ -64,8 +70,37 @@ def assert_generated_only(root):
     return changed
 
 
+def merge_observations(root, carried):
+    """Union evidence only; current caches and curated inputs stay on fresh main."""
+    path = Path(root) / ARCHIVE_PATH
+    current = observations.load(path)
+    merged = observations.merge(current, carried)
+    if merged != current:
+        observations.save(path, merged)
+    return merged
+
+
+def checkpoint_observations(root, carried):
+    """Retain failed-job evidence locally; do not import prior recovery files."""
+    path = Path(root) / RECOVERY_PATH
+    observations.save(path, observations.merge(observations.load(path), carried))
+
+
+def archive_cached_charts(root):
+    """Retain existing complete evidence when publishing without collectors."""
+    root = Path(root)
+    path = root / ARCHIVE_PATH
+    archive = observations.load(path)
+    for name, add in (("star_history.json", observations.add_stars),
+                      ("hn_evidence.json", observations.add_hn)):
+        cache_path = root / "data" / name
+        if cache_path.exists():
+            add(archive, json.loads(cache_path.read_text(encoding="utf-8")))
+    observations.save(path, archive)
+
+
 def collect_and_render(root, star_budget_file=None):
-    # Collectors own only their snapshots. The offline renderer owns all output.
+    # Collectors own snapshots and retained observations; rendering stays offline.
     run(root, sys.executable, "scripts/update_stats.py")
     hn_arguments = ["--invocation-budget-file", str(star_budget_file.with_name("hn-budget.json"))] if star_budget_file else []
     run(root, sys.executable, "scripts/update_hn.py", *hn_arguments)
@@ -109,6 +144,10 @@ def publish_attempts(root, max_attempts, star_budget_file, cached=False):
     root = Path(root).resolve()
     if max_attempts < 1:
         raise ValueError("max_attempts must be positive")
+    # Validate any earlier recovery file before publication can change main.
+    # Its evidence remains available for review, not an automatic import.
+    observations.load(root / RECOVERY_PATH)
+    carried = observations.empty()
     for attempt in range(1, max_attempts + 1):
         base = latest_main(root)
         print(f"Publishing attempt {attempt}/{max_attempts} from main {base}", flush=True)
@@ -116,11 +155,16 @@ def publish_attempts(root, max_attempts, star_budget_file, cached=False):
             worktree = Path(directory) / "checkout"
             git(root, "worktree", "add", "--detach", str(worktree), base)
             try:
+                # Validate before collecting. A corrupt archive must not be
+                # discarded just because main happened to advance as well.
+                carried = merge_observations(worktree, carried)
                 try:
                     if cached:
+                        archive_cached_charts(worktree)
                         run(worktree, sys.executable, "scripts/render_readme.py", "--strict-metrics")
                     else:
                         collect_and_render(worktree, star_budget_file)
+                    carried = merge_observations(worktree, carried)
                     changed = validate(worktree)
                 except (RuntimeError, OSError):
                     # A stale input may itself cause collection to fail (for
@@ -158,9 +202,16 @@ def publish_attempts(root, max_attempts, star_budget_file, cached=False):
                     raise RuntimeError("Push failed while main was unchanged; check repository write permissions or branch rules")
                 print("Main advanced before push; regenerating from its latest source.", flush=True)
             finally:
-                # This is only our disposable generated worktree, never the
-                # caller's checkout or any contributor branch.
-                git(root, "worktree", "remove", "--force", str(worktree))
+                try:
+                    # A later collector/validation failure or rejected push
+                    # must not erase earlier successful observations on retry.
+                    try:
+                        carried = observations.merge(carried, observations.load(worktree / ARCHIVE_PATH))
+                    finally:
+                        checkpoint_observations(root, carried)
+                finally:
+                    # Only our disposable worktree, never the caller's checkout.
+                    git(root, "worktree", "remove", "--force", str(worktree))
     raise RuntimeError(f"Main kept advancing across {max_attempts} attempts; no stale output was pushed. Rerun the publisher.")
 
 
@@ -181,7 +232,7 @@ def main():
         if output := os.environ.get("GITHUB_OUTPUT"):
             with open(output, "a", encoding="utf-8") as stream:
                 stream.write(f"published_sha={published_sha}\n")
-    except (RuntimeError, OSError) as error:
+    except (RuntimeError, OSError, ValueError) as error:
         raise SystemExit(str(error)) from error
 
 
