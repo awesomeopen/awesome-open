@@ -16,7 +16,7 @@ module.exports = async ({ page, url, data, capture }) => {
     assert.equal(await chart.evaluate(img=>img.complete && img.naturalWidth===120),true);
     assert.equal(await card.locator('summary .star-chart').count(),0);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
-    assert.ok((await card.innerText()).includes('As of '));
+    assert.ok(!(await card.innerText()).includes('As of '));
     const provenance=card.locator('.star-history .note-provenance');
     await provenance.locator('summary').click();
     assert.ok((await provenance.innerText()).includes('not guaranteed UTC'));

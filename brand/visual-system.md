@@ -144,9 +144,8 @@ B38 replaces the hardcoded occupant policy after the first saved draw activates.
 The seven existing jars and interactions stay fixed. A seeded weekly draw selects
 only illustrated catalog projects, independent of stars, with an initial four-week
 cooldown; the draw is displayed the following week. Assign the seven illustrations
-to windows by subject fit and contain the whole subject. A small edition link
-leads to the static `/draws/` archive, which uses the Observatory route shell
-with a specimen tray per edition (B43). See [calendar, evidence and fallback
+to windows by subject fit and contain the whole subject. The static `/draws/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
+with a specimen tray per edition (B44). See [calendar, evidence and fallback
 rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
 fallback; it is not retroactively labeled a random draw.
 
@@ -172,3 +171,13 @@ paragraphs on the ledger stylesheet is incomplete, whatever its content. See the
 [route shell](../site/RETRO-SCRAPERISM.md#route-shell-for-sibling-pages-b42) and
 the [visual reference](../site/design/index.html), which is maintained with these
 rules and lists retired patterns.
+
+## Ledger copy cleanup (B43)
+
+The top navigation omits GitHub. Repository vitals place creation before push;
+labels read “Repository push” and “GitHub release”. Close creation/push timestamps
+keep literal marker positions with labels aligned left/right across the axis.
+Chart month ranges use non-breaking spaces around an en dash, without the
+“oldest at left” caption. Fetch dates remain in retrieval history; fresh metrics
+omit the observation sentence while stale/unavailable notices remain visible.
+Scorecard coverage ends at “returned”.

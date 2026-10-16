@@ -91,9 +91,18 @@ class PlateTests(unittest.TestCase):
     def test_timeline_positions_are_literal_dates(self):
         line = timeline('2012-01-01', ('2026-03-04', '3.10.1'), '2026-10-11')
         self.assertIn('style="left:0.0%"', line)
-        self.assertIn('Latest GitHub release<br><span class="metric-value">2026-03-04</span> · 3.10.1', line)
-        self.assertIn('aria-label="Repository created 2012-01-01; Latest GitHub release 2026-03-04 (3.10.1); Last repository push 2026-10-11"', line)
+        self.assertIn('GitHub release<br><span class="metric-value">2026-03-04</span> · 3.10.1', line)
+        self.assertIn('aria-label="Repository created 2012-01-01; GitHub release 2026-03-04 (3.10.1); Repository push 2026-10-11"', line)
         self.assertEqual(timeline('unknown', None, None), '')
+
+    def test_close_timeline_endpoints_have_opposing_labels(self):
+        line = timeline('2026-10-01', None, '2026-10-02')
+        self.assertIn('style="left:0;text-align:left">Repository created', line)
+        self.assertIn('style="right:0;text-align:right">Repository push', line)
+        marks = re.findall(r'class="timeline-mark" style="left:([0-9.]+)%"', line)
+        self.assertEqual(len(marks), 2)
+        self.assertGreater(float(marks[1]), float(marks[0]))
+        self.assertLess(float(marks[1]) - float(marks[0]), 1)
 
 
 class CutoutTests(unittest.TestCase):
