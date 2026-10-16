@@ -19,6 +19,7 @@
 
 - [ ] Read AGENTS.md and brand/README.md; preserved current project choices over generic skill defaults.
 - [ ] Updated affected rules/decisions/provenance in this PR, or explained why they are unchanged.
+- [ ] New decisions use this PR's `B-PR<number>-<ordinal>` namespace in separate `brand/decisions/<ID>.md` files; followed `brand/DECISION-GUIDE.md`, retained existing IDs/links and declared any supersession. No generated overview or new legacy table row is committed.
 - [ ] Ran scripts/check_brand.py; refreshed asset/skill hashes only for intentional changes.
 - [ ] Recorded relevant visual/accessibility/offline checks and any unavailable verification.
 - [ ] If previewed, recorded the exact GitHub source SHA; a private Sites URL alone is not revision evidence.

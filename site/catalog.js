@@ -150,11 +150,36 @@
     ).join(" "));
   }
 
-  function matchesProject(project, state, snapshot) {
+  function aliasNames(project) {
+    return (project.aliases || []).map(function (alias) { return fold(alias.name); });
+  }
+
+  function shortAliasNames(projects) {
+    return new Set(projects.reduce(function (names, project) {
+      return names.concat(aliasNames(project).filter(function (name) {
+        return /^[\p{L}\p{N}_]{1,4}$/u.test(name);
+      }));
+    }, []));
+  }
+
+  function boundaryMatch(text, token) {
+    var literal = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp("(^|[^\\p{L}\\p{N}\\p{M}_])" + literal + "(?=$|[^\\p{L}\\p{N}\\p{M}_])", "u").test(text);
+  }
+
+  function matchesProject(project, state, snapshot, shortAliases) {
     var tokens = fold(state.q).split(/\s+/).filter(Boolean);
     if (tokens.length) {
       var text = searchText(project);
-      if (!tokens.every(function (token) { return text.indexOf(token) !== -1; })) return false;
+      var aliases = aliasNames(project);
+      shortAliases = shortAliases || shortAliasNames((snapshot && snapshot.projects) || [project]);
+      if (!tokens.every(function (token) {
+        // Preserve ordinary substring search; an exact reviewed short name such
+        // as OBS must not match incidental prose like "obsolete". Alias-only
+        // terms always use word boundaries, including Unicode letters/numbers.
+        return (shortAliases.has(token) ? boundaryMatch(text, token) : text.indexOf(token) !== -1) ||
+          aliases.some(function (alias) { return boundaryMatch(alias, token); });
+      })) return false;
     }
     if (state.category && (project.categories || []).indexOf(state.category) === -1) return false;
     if (state.window && state.window !== "all" && pushWindowOf(project, snapshot) !== state.window) return false;
@@ -207,7 +232,8 @@
   }
 
   function selectProjects(projects, state, snapshot) {
-    return projects.filter(function (project) { return matchesProject(project, state, snapshot); })
+    var shortAliases = shortAliasNames(projects);
+    return projects.filter(function (project) { return matchesProject(project, state, snapshot, shortAliases); })
       .sort(comparator(state.sort));
   }
 
