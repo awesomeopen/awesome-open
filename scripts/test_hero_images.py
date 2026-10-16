@@ -110,4 +110,5 @@ class HeroImageTests(unittest.TestCase):
             for img in images:
                 self.assertTrue((output / img['src']).is_file())
                 self.assertIn('transform:translate(', img['style'])
-            self.assertIn('draws/#week-2026-10-19', (output / 'index.html').read_text())
+            self.assertNotIn('class="jar-draw-link"', (output / 'index.html').read_text())
+            self.assertIn('href="draws/"', (output / 'index.html').read_text())
