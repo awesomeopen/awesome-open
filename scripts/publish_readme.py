@@ -26,6 +26,7 @@ RECOVERY_PATH = Path("tmp/chart-observations/archive.json")
 GENERATED_FILES = frozenset({
     "README.md", "data/github_metrics.json", "data/hn_evidence.json",
     "data/project_signals.json", "data/star_history.json", str(ARCHIVE_PATH),
+    "assets/readme/specimen-count.svg",
 })
 
 
@@ -128,6 +129,11 @@ def validate(root):
         actual = {path.name: path.read_bytes() for path in (root / "assets/hn").glob("*.svg")}
         if actual != expected:
             raise RuntimeError("The offline HN assets are not reproducible")
+        badge = "assets/readme/specimen-count.svg"
+        expected_badge, actual_badge = output.parent / badge, root / badge
+        if expected_badge.exists() != actual_badge.exists() or (
+                expected_badge.exists() and expected_badge.read_bytes() != actual_badge.read_bytes()):
+            raise RuntimeError("The offline specimen-count badge is not reproducible")
     return assert_generated_only(root)
 
 

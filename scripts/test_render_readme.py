@@ -99,6 +99,44 @@ class RenderTests(unittest.TestCase):
             self.assertEqual((root / "README.source.md").read_text(), self.source)
             self.assertEqual(output.read_text(), render.render_text(self.source, self.snapshot, self.evidence))
 
+    def test_preview_packages_referenced_banner_without_changing_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "data").mkdir()
+            relative = "site/brand/readme-banner.png"
+            original = root / relative
+            original.parent.mkdir(parents=True)
+            original.write_bytes(b"unchanged image bytes")
+            source = f"![Descriptive banner]({relative})\n\n" + self.source
+            (root / "README.source.md").write_text(source)
+            (root / "data/github_metrics.json").write_text(json.dumps(self.snapshot))
+            (root / "data/hn_evidence.json").write_text(json.dumps(self.evidence))
+            preview = root / "tmp/preview/README.md"
+            for output in (preview, root / "README.md"):
+                with self.subTest(output=output), patch.object(render, "ROOT", root), \
+                        patch("sys.argv", ["render_readme.py", "--output", str(output)]):
+                    render.main()
+                    self.assertIn(f"]({relative})", output.read_text())
+                    self.assertEqual((output.parent / relative).read_bytes(), b"unchanged image bytes")
+            self.assertEqual(original.read_bytes(), b"unchanged image bytes")
+            self.assertEqual((root / "README.source.md").read_text(), source)
+            self.assertIn('1 specimen', (preview.parent / render.badges.COUNT_PATH).read_text())
+
+    def test_missing_referenced_banner_fails_before_writing_preview(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "data").mkdir()
+            source = "![Banner](site/brand/readme-banner.png)\n\n" + self.source
+            (root / "README.source.md").write_text(source)
+            (root / "data/github_metrics.json").write_text(json.dumps(self.snapshot))
+            (root / "data/hn_evidence.json").write_text(json.dumps(self.evidence))
+            output = root / "tmp/preview/README.md"
+            with patch.object(render, "ROOT", root), \
+                    patch("sys.argv", ["render_readme.py", "--output", str(output)]), \
+                    self.assertRaisesRegex(ValueError, "Missing README artwork"):
+                render.main()
+            self.assertFalse(output.parent.exists())
+
     def test_checked_in_source_and_snapshot_render_without_curated_changes(self):
         source = (render.ROOT / "README.source.md").read_text()
         snapshot = json.loads((render.ROOT / "data/github_metrics.json").read_text())
