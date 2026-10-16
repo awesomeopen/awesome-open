@@ -75,6 +75,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HISTORY_BACKFILL: ${{ github.event_name == 'workflow_dispatch' && inputs.history_backfill }}
+      - name: Preserve unpublished chart observations on failure
+        if: failure() || cancelled()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chart-observations-${{ github.run_id }}-${{ github.run_attempt }}
+          path: tmp/chart-observations/archive.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Build field guide from the accepted published revision
         run: python3 scripts/build_published_site.py --source-sha "$PUBLISHED_SHA" --output tmp/site
         env:

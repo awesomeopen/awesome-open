@@ -251,7 +251,7 @@ Successful collections become due after 30 days, a month-window change or an ide
 
 Only completed project collections replace last-good evidence. Ordinary upstream failures preserve that evidence and partial progress while healthy projects continue. Corrupt local queue data still fails visibly. Cached results from a different window or identity stay retained but are withheld from current charts. Same-window last-good results remain available after a failed refresh, with retrieval and attempt status in the evidence. Checkpoints are atomically written after each attempted project; the existing publisher owns committing generated evidence. Run `python3 scripts/update_hn.py --refresh` to mark everything due, still within the same budgets, then `python3 scripts/render_readme.py` to render offline. Do not edit generated HN markers or SVGs manually.
 
-The publisher never force-pushes. If another contributor or automation updates main during collection, it discards that attempt and regenerates against the new branch tip rather than overwriting concurrent edits.
+The publisher never force-pushes. If another contributor or automation updates main during collection, it regenerates against the new branch tip rather than overwriting concurrent edits. Completed observations carry forward in the archive; current caches and curated input are rebuilt from fresh main.
 
 ## Reviewed Function summaries
 
@@ -333,3 +333,13 @@ main with the artifact snapshot or bypass branch rules. This implementation does
 not automatically trust/import artifacts; ordinary redispatch safely recollects
 any uncommitted records. The workflow's total backfill job bound is 45 minutes,
 including validation/build. No backfill is activated by opening or merging a PR.
+
+## Retaining collected chart evidence
+
+Completed HN and GitHub-star collections are retained in
+[`data/chart_observations.json`](data/chart_observations.json), independently of
+the current two-year display caches. See the [observation archive contract](site/CHART-OBSERVATIONS.md)
+for immutable dates/identity revisions, raw-evidence deduplication, bounded Git
+recovery, and publication/crash boundaries. Successful refreshes do not overwrite
+previous observations. Star buckets remain retained-at-fetch measurements, never
+historical totals. No selector, new schedule or historical API crawl is added.

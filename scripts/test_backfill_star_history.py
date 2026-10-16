@@ -1,5 +1,7 @@
 import io
 import json
+from copy import deepcopy
+from datetime import timedelta
 from pathlib import Path
 import tempfile
 import unittest
@@ -8,6 +10,22 @@ from urllib.error import HTTPError
 
 import backfill_star_history as b
 import update_star_history as h
+import chart_observations as observations
+from test_update_star_history import NOW, PROJECT, SHA, pager, weekly_series
+
+
+def archive_of(*records):
+    archive = observations.empty()
+    for record in records:
+        observations.add_stars(archive, {'schema_version': 1, 'repositories': {record['repo']: record}})
+    return archive
+
+
+def later(record, days=1):
+    record = deepcopy(record)
+    fetched = h.parse_time(record['last_good']['fetched_at']) + timedelta(days=days)
+    record['last_good']['fetched_at'] = record['checked_at'] = fetched.isoformat()
+    return record
 
 
 class Response:
@@ -111,10 +129,11 @@ class BackfillTests(unittest.TestCase):
             t('https://example.org/')
 
     def fixtures(self):
-        root = Path(__file__).resolve().parents[1]
-        cache = json.loads((root / 'data/star_history.json').read_text())
-        records = [r for r in cache['repositories'].values() if r.get('last_good')]
-        record = records[0]
+        good = h.collect_repository(PROJECT['repo'], NOW, getter=pager(weekly_series()), source_sha=SHA)
+        record = {**PROJECT, 'source_url': h.API + PROJECT['repo'] + '/stargazers/history',
+                  'checked_at': NOW.isoformat(), 'source_sha': SHA, 'status': 'ok', 'last_good': good}
+        cache = {'schema_version': 1, 'repositories': {record['repo']: record},
+                 'budget': {'utc_date': NOW.date().isoformat(), 'requests_used': 4, 'limit': 16}}
         return cache, record
 
     def test_merge_preserves_budget_newer_evidence_and_removed_identities(self):
@@ -217,7 +236,165 @@ class CheckpointGitTests(unittest.TestCase):
         project['name'] = (Path(root) / 'README.source.md').read_text()
         return [project], json.loads((Path(root) / 'data/star_history.json').read_text()), {}
 
+    def no_tests(self, root, *args, **kwargs):
+        if args[:2] == ('python3', '-m'):
+            return self.subprocess.CompletedProcess(args, 0)
+        return self.original_run(root, *args, **kwargs)
+
+    def remote_archive(self):
+        return json.loads(self.git(self.origin, 'show', 'main:' + str(b.publisher.ARCHIVE_PATH)))
+
+    def remote_cache(self):
+        return json.loads(self.git(self.origin, 'show', 'main:data/star_history.json'))
+
+    def seed(self, cache=None, archive=None):
+        self.git(self.actor, 'pull', '--ff-only', 'origin', 'main')
+        if cache is not None:
+            h.write_cache(self.actor / 'data/star_history.json', cache)
+        if archive is not None:
+            observations.save(self.actor / b.publisher.ARCHIVE_PATH, archive)
+        self.git(self.actor, 'add', '.')
+        self.git(self.actor, 'commit', '-m', 'Current evidence fixture')
+        self.git(self.actor, 'push', 'origin', 'main')
+
+    def flush(self, records, load=None):
+        self.original_run = b.publisher.run
+        with patch.object(b, 'load', side_effect=load or self.load), patch.object(
+                b.publisher, 'run', side_effect=self.no_tests):
+            b.flush(self.checkout, records)
+
+    def assert_worktree_removed(self):
+        self.assertEqual(self.git(self.checkout, 'worktree', 'list', '--porcelain').count('worktree '), 1)
+
+    def test_overwritten_cache_and_new_evidence_share_one_atomic_commit(self):
+        self.seed(cache={**self.cache, 'repositories': {self.record['repo']: self.record}})
+        incoming = later(self.record)
+        self.flush({incoming['repo']: incoming})
+        self.assertEqual(self.remote_archive(), archive_of(self.record, incoming))
+        self.assertEqual(self.remote_cache()['repositories'][incoming['repo']]['last_good'], incoming['last_good'])
+        changed = self.git(self.origin, 'diff-tree', '--no-commit-id', '--name-only', '-r', 'main').splitlines()
+        self.assertEqual(set(changed), {'data/star_history.json', str(b.publisher.ARCHIVE_PATH)})
+        self.assert_worktree_removed()
+
+    def test_older_complete_record_is_archived_without_replacing_newer_cache(self):
+        current = later(self.record)
+        cache = {**self.cache, 'repositories': {current['repo']: current}}
+        self.seed(cache=cache)
+        self.flush({self.record['repo']: self.record})
+        self.assertEqual(self.remote_archive(), archive_of(current, self.record))
+        self.assertEqual(self.remote_cache(), cache)
+        changed = self.git(self.origin, 'diff-tree', '--no-commit-id', '--name-only', '-r', 'main').splitlines()
+        self.assertEqual(changed, [str(b.publisher.ARCHIVE_PATH)])
+
+    def test_removed_repository_is_archived_without_reentering_current_cache(self):
+        def ineligible(root):
+            return [], self.load(root)[1], {}
+        self.flush({self.record['repo']: self.record}, load=ineligible)
+        self.assertEqual(self.remote_archive(), archive_of(self.record))
+        self.assertEqual(self.remote_cache(), self.cache)
+        before = self.git(self.origin, 'rev-parse', 'main')
+        self.flush({self.record['repo']: self.record}, load=ineligible)
+        self.assertEqual(self.git(self.origin, 'rev-parse', 'main'), before)
+
+    def test_invalid_incoming_record_fails_before_fetching_or_replacing_cache(self):
+        invalid = deepcopy(self.record)
+        invalid['last_good']['monthly_counts'][0] += 1
+        with patch.object(b.publisher, 'latest_main') as fetch:
+            with self.assertRaises(ValueError):
+                b.flush(self.checkout, {invalid['repo']: invalid})
+        fetch.assert_not_called()
+
+    def test_fetch_failure_retains_complete_incoming_observations(self):
+        before = self.git(self.origin, 'rev-parse', 'main')
+        with patch.object(b.publisher, 'latest_main', side_effect=RuntimeError('Fixture fetch failure')):
+            with self.assertRaisesRegex(RuntimeError, 'Fixture fetch failure'):
+                b.flush(self.checkout, {self.record['repo']: self.record})
+        self.assertEqual(observations.load(self.checkout / b.publisher.RECOVERY_PATH), archive_of(self.record))
+        self.assertEqual(self.git(self.origin, 'rev-parse', 'main'), before)
+        self.assert_worktree_removed()
+
+    def test_corrupt_archive_fails_closed_and_removes_worktree(self):
+        (self.actor / b.publisher.ARCHIVE_PATH).write_text('{broken archive')
+        self.git(self.actor, 'add', '.')
+        self.git(self.actor, 'commit', '-m', 'Corrupt archive fixture')
+        self.git(self.actor, 'push', 'origin', 'main')
+        before = self.git(self.origin, 'rev-parse', 'main')
+        with self.assertRaises(ValueError):
+            self.flush({self.record['repo']: self.record})
+        self.assertEqual(self.git(self.origin, 'rev-parse', 'main'), before)
+        self.assert_worktree_removed()
+
+    def test_corrupt_recovery_blocks_work_without_overwriting_it(self):
+        path = self.checkout / b.publisher.RECOVERY_PATH
+        path.parent.mkdir(parents=True)
+        path.write_text('{corrupt recovery')
+        with patch.object(b.publisher, 'latest_main') as fetch:
+            with self.assertRaises(ValueError):
+                b.flush(self.checkout, {self.record['repo']: self.record})
+        fetch.assert_not_called()
+        self.assertEqual(path.read_text(), '{corrupt recovery')
+
+    def test_denied_push_retains_recovery_without_publishing(self):
+        before = self.git(self.origin, 'rev-parse', 'main')
+        original_git = b.publisher.git
+
+        def git(root, *args, **kwargs):
+            if args[:1] == ('push',):
+                return self.subprocess.CompletedProcess(args, 1, '', 'Fixture write denied')
+            return original_git(root, *args, **kwargs)
+
+        with patch.object(b.publisher, 'git', side_effect=git):
+            with self.assertRaisesRegex(b.StopBackfill, 'Checkpoint push blocked'):
+                self.flush({self.record['repo']: self.record})
+        self.assertEqual(observations.load(self.checkout / b.publisher.RECOVERY_PATH), archive_of(self.record))
+        self.assertEqual(self.git(self.origin, 'rev-parse', 'main'), before)
+        self.assert_worktree_removed()
+
+    def test_retry_exhaustion_retains_recovery_without_publishing(self):
+        self.original_run = b.publisher.run
+        attempts = []
+
+        def run(root, *args, **kwargs):
+            if args[:2] == ('python3', '-m'):
+                attempts.append(root)
+                self.git(self.actor, 'pull', '--ff-only', 'origin', 'main')
+                (self.actor / 'README.source.md').write_text('Source iteration ' + str(len(attempts)))
+                self.git(self.actor, 'add', 'README.source.md')
+                self.git(self.actor, 'commit', '-m', 'Concurrent source iteration')
+                self.git(self.actor, 'push', 'origin', 'main')
+                return self.subprocess.CompletedProcess(args, 0)
+            return self.original_run(root, *args, **kwargs)
+
+        with patch.object(b, 'load', side_effect=self.load), patch.object(b.publisher, 'run', side_effect=run):
+            with self.assertRaisesRegex(b.StopBackfill, 'Main kept advancing'):
+                b.flush(self.checkout, {self.record['repo']: self.record})
+        self.assertEqual(len(attempts), 5)
+        self.assertEqual(observations.load(self.checkout / b.publisher.RECOVERY_PATH), archive_of(self.record))
+        self.assertEqual(self.remote_cache(), self.cache)
+        self.assertNotIn(str(b.publisher.ARCHIVE_PATH), self.git(self.origin, 'ls-tree', '-r', '--name-only', 'main'))
+        self.assert_worktree_removed()
+
+    def test_checkpoint_rejects_similarly_named_or_unrelated_paths(self):
+        original = h.write_cache
+        for unexpected in ('data/chart_observations.json.tmp', 'data/nested/chart_observations.json',
+                           'README.source.md'):
+            with self.subTest(path=unexpected):
+                before = self.git(self.origin, 'rev-parse', 'main')
+                def write(path, cache):
+                    original(path, cache)
+                    target = Path(path).parents[1] / unexpected
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_text('Unauthorized checkpoint output')
+                with patch.object(h, 'write_cache', side_effect=write):
+                    with self.assertRaisesRegex(b.StopBackfill, 'unauthorized path'):
+                        self.flush({self.record['repo']: self.record})
+                self.assertEqual(self.git(self.origin, 'rev-parse', 'main'), before)
+                self.assert_worktree_removed()
+
     def test_push_race_refetches_and_preserves_current_source(self):
+        self.seed(cache={**self.cache, 'repositories': {self.record['repo']: self.record}})
+        incoming, concurrent = later(self.record), later(self.record, days=2)
+        concurrent['name'] = 'Concurrent name'
         original = b.publisher.git
         raced = False
         def git(root, *args, **kwargs):
@@ -225,6 +402,9 @@ class CheckpointGitTests(unittest.TestCase):
             if args[:1] == ('push',) and not raced:
                 raced = True
                 (self.actor / 'README.source.md').write_text('Concurrent name')
+                h.write_cache(self.actor / 'data/star_history.json',
+                              {**self.cache, 'repositories': {concurrent['repo']: concurrent}})
+                observations.save(self.actor / b.publisher.ARCHIVE_PATH, archive_of(concurrent))
                 self.git(self.actor, 'add', '.')
                 self.git(self.actor, 'commit', '-m', 'Concurrent curated update')
                 self.git(self.actor, 'push', 'origin', 'main')
@@ -235,12 +415,15 @@ class CheckpointGitTests(unittest.TestCase):
                 return self.subprocess.CompletedProcess(args, 0)
             return original_run(root, *args, **kwargs)
         with patch.object(b, 'load', side_effect=self.load), patch.object(b.publisher, 'git', side_effect=git), patch.object(b.publisher, 'run', side_effect=run):
-            b.flush(self.checkout, {self.record['repo']: self.record})
+            b.flush(self.checkout, {incoming['repo']: incoming})
         self.assertTrue(raced)
         self.assertEqual(self.git(self.origin, 'show', 'main:README.source.md'), 'Concurrent name')
         cache = json.loads(self.git(self.origin, 'show', 'main:data/star_history.json'))
         self.assertEqual(cache['repositories'][self.record['repo']]['name'], 'Concurrent name')
+        self.assertEqual(cache['repositories'][self.record['repo']]['last_good'], concurrent['last_good'])
         self.assertEqual(cache['budget'], self.cache['budget'])
+        self.assertEqual(self.remote_archive(), archive_of(self.record, incoming, concurrent))
+        self.assert_worktree_removed()
 
     def test_validation_failure_never_pushes(self):
         before = self.git(self.origin, 'rev-parse', 'main')
@@ -253,3 +436,5 @@ class CheckpointGitTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 b.flush(self.checkout, {self.record['repo']: self.record})
         self.assertEqual(before, self.git(self.origin, 'rev-parse', 'main'))
+        self.assertEqual(observations.load(self.checkout / b.publisher.RECOVERY_PATH), archive_of(self.record))
+        self.assert_worktree_removed()

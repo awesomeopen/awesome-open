@@ -18,6 +18,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, build_opener
 
 import publish_readme as publisher
+import chart_observations as observations
 import update_star_history as history
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -170,6 +171,14 @@ def merge_records(cache, projects, records):
 def flush(root, records):
     if not records:
         return
+    observations.load(Path(root) / publisher.RECOVERY_PATH)
+    # Keep every complete incoming observation, even if fresh main has a newer
+    # result or no longer lists that repository. Neither case can replace its
+    # current cache, but neither invalidates already collected evidence.
+    carried = observations.empty()
+    observations.add_stars(carried, {'schema_version': 1, 'repositories': records})
+    publisher.checkpoint_observations(root, carried)
+    allowed = {'data/star_history.json', str(publisher.ARCHIVE_PATH)}
     for attempt in range(5):
         base = publisher.latest_main(root)
         with tempfile.TemporaryDirectory(prefix='history-checkpoint-') as directory:
@@ -177,17 +186,21 @@ def flush(root, records):
             publisher.git(root, 'worktree', 'add', '--detach', str(worktree), base)
             try:
                 projects, cache, _ = load(worktree)
+                archive = observations.merge(carried, observations.load(worktree / publisher.ARCHIVE_PATH))
+                observations.add_stars(archive, cache)
+                observations.save(worktree / publisher.ARCHIVE_PATH, archive)
                 merged = merge_records(cache, projects, records)
                 history.write_cache(worktree / 'data/star_history.json', merged)
                 changed = publisher.changed_paths(worktree)
-                if changed - {'data/star_history.json'}:
+                if changed - allowed:
                     raise StopBackfill('Checkpoint modified an unauthorized path')
-                if not changed:
-                    return
-                publisher.run(worktree, 'python3', '-m', 'unittest', 'discover', '-s', 'scripts', '-p', 'test_*.py')
+                if changed:
+                    publisher.run(worktree, 'python3', '-m', 'unittest', 'discover', '-s', 'scripts', '-p', 'test_*.py')
                 if publisher.latest_main(root) != base:
                     continue
-                publisher.git(worktree, 'add', '--', 'data/star_history.json')
+                if not changed:
+                    return
+                publisher.git(worktree, '--literal-pathspecs', 'add', '--all', '--', *sorted(changed))
                 publisher.git(worktree, '-c', 'user.name=github-actions[bot]', '-c',
                               'user.email=41898282+github-actions[bot]@users.noreply.github.com',
                               'commit', '-m', 'chore: checkpoint aggregate star-history backfill')
@@ -201,7 +214,13 @@ def flush(root, records):
                 if current == base:
                     raise StopBackfill('Checkpoint push blocked; retained the recovery artifact')
             finally:
-                publisher.git(root, 'worktree', 'remove', '--force', str(worktree))
+                try:
+                    try:
+                        carried = observations.merge(carried, observations.load(worktree / publisher.ARCHIVE_PATH))
+                    finally:
+                        publisher.checkpoint_observations(root, carried)
+                finally:
+                    publisher.git(root, 'worktree', 'remove', '--force', str(worktree))
     raise StopBackfill('Main kept advancing; retained the recovery artifact')
 
 
@@ -247,7 +266,7 @@ def collect(projects, cache, metadata, transport, source_sha, checkpoint, flush_
     # remain failed, not be disguised as a successful or complete collection.
     try:
         flush_records(pending)
-    except (RuntimeError, OSError):
+    except (RuntimeError, OSError, ValueError):
         state.update(status='blocked', reason='Checkpoint publication failed; recover validated local evidence')
     state['requests'] = transport.attempts
     state['quota_reset_at'] = datetime.fromtimestamp(transport.reset, timezone.utc).isoformat() if getattr(transport, 'reset', None) else None
