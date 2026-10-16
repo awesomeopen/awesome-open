@@ -41,6 +41,11 @@ METRIC = ('Stars retained on the repository at fetch time, grouped by the month 
           'removed stars are absent and past buckets can change.')
 REPOSITORY = re.compile(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+')
 SHA = re.compile(r'[0-9a-f]{40}')
+# Reviewed 2026-10-16: the old GitHub API path redirects to repository ID
+# 50994619, and /repos/openremote/core reports that same ID. See CONTRIBUTING.
+# This changes only the aggregate endpoint, never the catalog/cache identity.
+# Do not learn aliases from a response or follow redirects automatically.
+REVIEWED_REPOSITORY_RENAMES = {'openremote/openremote': 'openremote/core'}
 
 
 class HistoryError(RuntimeError):
@@ -106,6 +111,17 @@ def normalize_repo(value):
     if any(part in {'.', '..'} for part in value.split('/')):
         raise ValueError('Invalid repository identity')
     return value.lower()
+
+
+def history_source_url(repo):
+    repo = normalize_repo(repo)
+    return API + REVIEWED_REPOSITORY_RENAMES.get(repo, repo) + '/stargazers/history'
+
+
+def accepted_history_sources(repo):
+    """Keep original evidence valid without rewriting its historical URLs."""
+    repo = normalize_repo(repo)
+    return {API + repo + '/stargazers/history', history_source_url(repo)}
 
 
 def repo_from_url(value):
@@ -276,7 +292,7 @@ def collect_repository(repo, now=None, getter=None, token=None, budget=None, cre
         raise HistoryError('Repository creation timestamp is in the future')
     rows, sources, terminal, creation_reached = [], [], None, False
     for page in range(1, 101):
-        url = API + repo + '/stargazers/history?' + urlencode({'per_page': PER_PAGE, 'page': page})
+        url = history_source_url(repo) + '?' + urlencode({'per_page': PER_PAGE, 'page': page})
         if getter is None:
             payload = request_page(url, token, budget)
         else:
@@ -342,7 +358,7 @@ def validate_cache(document):
                 or repo_from_url(record.get('readme_url')) != repo
                 or record.get('status') not in {'ok', 'partial', 'unavailable', 'deferred'}):
             raise ValueError('Invalid star-history cache identity or status: ' + repo)
-        if record.get('source_url') != API + repo + '/stargazers/history':
+        if record.get('source_url') not in accepted_history_sources(repo):
             raise ValueError('Cache source URL does not match repository identity')
         if record.get('source_sha') is not None and (not isinstance(record['source_sha'], str) or SHA.fullmatch(record['source_sha']) is None):
             raise ValueError('Invalid cache source revision')
@@ -399,10 +415,14 @@ def validate_cache(document):
             elif created < end:
                 raise ValueError('Empty history cannot prove complete-window zeros')
         source_urls = good.get('source_urls')
-        if not isinstance(source_urls, list) or not 1 <= len(source_urls) <= 100 or source_urls != [
-                API + repo + '/stargazers/history?' + urlencode({'per_page': PER_PAGE, 'page': page})
-                for page in range(1, len(source_urls) + 1)]:
+        if (not isinstance(source_urls, list) or not 1 <= len(source_urls) <= 100
+                or not any(source_urls == [
+                    source + '?' + urlencode({'per_page': PER_PAGE, 'page': page})
+                    for page in range(1, len(source_urls) + 1)]
+                    for source in accepted_history_sources(repo))):
             raise ValueError('History source URLs do not match repository identity')
+        if source_urls[0].split('?')[0] != record['source_url']:
+            raise ValueError('History source URL differs from its last-good evidence')
         if terminal is not None:
             if terminal != len(source_urls) or not (terminal - 1) * PER_PAGE <= len(rows) < terminal * PER_PAGE:
                 raise ValueError('Terminal page does not match stored aggregate count')
@@ -465,7 +485,7 @@ def refresh(projects, existing=None, metadata=None, now=None, getter=None, token
         repo = project['repo']
         prior = records.get(repo, {})
         record = {**prior, **project, 'checked_at': now.isoformat(), 'source_sha': source_sha,
-                  'source_url': API + repo + '/stargazers/history'}
+                  'source_url': prior['source_url'] if prior.get('last_good') else history_source_url(repo)}
         record.pop('error', None)
         attempted += 1
         try:
@@ -482,7 +502,7 @@ def refresh(projects, existing=None, metadata=None, now=None, getter=None, token
             if getattr(error, 'halt', False):
                 break
         else:
-            completed = {**record, 'last_good': good, 'status': 'ok'}
+            completed = {**record, 'source_url': history_source_url(repo), 'last_good': good, 'status': 'ok'}
             # Retention failures are local errors: never swallow them as an
             # optional upstream outage or replace last_good before archiving.
             if retain:

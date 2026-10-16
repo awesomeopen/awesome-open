@@ -6,12 +6,12 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 
 import backfill_star_history as b
 import update_star_history as h
 import chart_observations as observations
-from test_update_star_history import NOW, PROJECT, SHA, pager, weekly_series
+from test_update_star_history import NOW, OPENREMOTE, PROJECT, SHA, pager, weekly_series
 
 
 def archive_of(*records):
@@ -100,13 +100,107 @@ class BackfillTests(unittest.TestCase):
         self.assertGreaterEqual(t.not_before, 1202)
 
     def test_auth_unexpected_and_non_rate_403_stop(self):
-        for status in [401, 403, 404, 302]:
+        for status in [401, 403, 404, 301, 302, 307, 308]:
             with self.subTest(status=status):
                 t, calls, _ = self.transport([Response({}), self.error(status, 'permission denied')])
                 with self.assertRaises(b.StopBackfill) as caught:
                     t(URL)
                 self.assertFalse(caught.exception.resumable)
                 self.assertEqual(len(calls), 2)
+                self.assertEqual(caught.exception.context, {'request_url': URL, 'http_status': status})
+                self.assertNotIn('permission denied', str(caught.exception))
+                if status in [301, 302, 307, 308]:
+                    self.assertIn('redirect refused', str(caught.exception))
+                elif status == 401:
+                    self.assertIn('authentication failed', str(caught.exception))
+
+    def test_failure_diagnostics_exclude_upstream_urls_bodies_and_credentials(self):
+        secret = 'sensitive-test-token'
+        error = HTTPError('https://other.example/' + secret, 301, secret,
+                          {'Location': 'https://other.example/' + secret}, io.BytesIO(secret.encode()))
+        t, calls, _ = self.transport([Response({}), error])
+        with self.assertRaises(b.StopBackfill) as caught:
+            t(URL)
+        diagnostic = str(caught.exception) + json.dumps(caught.exception.context)
+        self.assertNotIn(secret, diagnostic)
+        self.assertNotIn('other.example', diagnostic)
+        self.assertEqual([url for _, url in calls], [b.RATE_URL, URL])
+        t, _, _ = self.transport([Response({})] + [URLError(secret)] * 4)
+        with self.assertRaises(b.StopBackfill) as caught:
+            t(URL)
+        self.assertNotIn(secret, str(caught.exception) + json.dumps(caught.exception.context))
+        self.assertEqual(caught.exception.context, {'request_url': URL, 'http_status': None})
+
+    def test_quota_probe_failure_identifies_its_actual_endpoint(self):
+        t, _, _ = self.transport([self.error(401, 'secret')])
+        with self.assertRaises(b.StopBackfill) as caught:
+            t(URL)
+        self.assertEqual(caught.exception.context, {'request_url': b.RATE_URL, 'http_status': 401})
+
+    def test_backfill_uses_reviewed_endpoint_and_retains_catalog_identity(self):
+        rows = weekly_series()
+        t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
+        flushed = []
+        with tempfile.TemporaryDirectory() as directory:
+            state = b.collect([OPENREMOTE], {'schema_version': 1, 'repositories': {}}, {}, t,
+                              SHA, Path(directory) / 'c.json', lambda records: flushed.append(deepcopy(records)), NOW)
+        self.assertEqual(state['status'], 'complete')
+        self.assertEqual(state['failures'], [])
+        self.assertEqual(set(state['records']), {'openremote/openremote'})
+        record = state['records'][OPENREMOTE['repo']]
+        self.assertEqual(record['readme_url'], OPENREMOTE['readme_url'])
+        self.assertEqual(record['source_url'], h.API + 'openremote/core/stargazers/history')
+        self.assertTrue(all('/openremote/core/' in url for _, url in calls[1:]))
+        self.assertEqual(flushed[-1][OPENREMOTE['repo']], record)
+
+    def test_blocked_checkpoint_and_summary_identify_repository_status_and_reason(self):
+        for status in [301, 401, 403, 404]:
+            with self.subTest(status=status), tempfile.TemporaryDirectory() as directory:
+                checkpoint = Path(directory) / 'checkpoint.json'
+                t, _, _ = self.transport([Response({}), self.error(status, 'do not log this body')])
+                state = b.collect([OPENREMOTE], {'schema_version': 1, 'repositories': {}}, {}, t,
+                                  SHA, checkpoint, lambda records: None, NOW)
+                self.assertEqual(state, json.loads(checkpoint.read_text()))
+                self.assertEqual(state['status'], 'blocked')
+                self.assertEqual(state['failed_repositories'], [OPENREMOTE['repo']])
+                failure = state['failures'][0]
+                self.assertEqual(failure['repo'], OPENREMOTE['repo'])
+                self.assertEqual(failure['http_status'], status)
+                self.assertEqual(failure['request_url'], h.history_source_url(OPENREMOTE['repo']) + '?per_page=30&page=1')
+                self.assertNotIn('do not log', json.dumps(state))
+                summary = b.failure_summary(state)
+                self.assertIn('Repository openremote/openremote', summary)
+                self.assertIn('openremote/core', summary)
+                self.assertIn('HTTP ' + str(status), summary)
+                self.assertIn(failure['reason'], summary)
+
+    def test_coverage_failure_records_completed_response_without_stale_context(self):
+        t, _, _ = self.transport([Response({}), Response([])])
+        with tempfile.TemporaryDirectory() as directory:
+            state = b.collect([OPENREMOTE], {'schema_version': 1, 'repositories': {}}, {}, t,
+                              SHA, Path(directory) / 'c.json', lambda records: None, NOW)
+        failure = state['failures'][0]
+        self.assertEqual(failure['http_status'], 200)
+        self.assertEqual(failure['request_url'], h.history_source_url(OPENREMOTE['repo']) + '?per_page=30&page=1')
+        self.assertIn('Empty history', failure['reason'])
+        # A later preflight failure must not borrow the preceding response.
+        with tempfile.TemporaryDirectory() as directory, patch.object(h, 'collect_repository', side_effect=h.HistoryError('Invalid preflight')):
+            state = b.collect([PROJECT], {'schema_version': 1, 'repositories': {}}, {}, t,
+                              SHA, Path(directory) / 'c.json', lambda records: None, NOW)
+        self.assertEqual(state['failures'][0]['request_url'], None)
+        self.assertEqual(state['failures'][0]['http_status'], None)
+
+    def test_record_validation_failure_reports_repository_without_raw_error(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(h, 'collect_repository', return_value={}), \
+                patch.object(h, 'validate_cache', side_effect=ValueError('secret local details')):
+            state = b.collect([OPENREMOTE], {'schema_version': 1, 'repositories': {}}, {},
+                              type('Transport', (), {'attempts': 1})(), SHA, Path(directory) / 'c.json',
+                              lambda records: None, NOW)
+        self.assertEqual(state['status'], 'blocked')
+        self.assertEqual(state['failed_repositories'], [OPENREMOTE['repo']])
+        self.assertIn('local validation', state['failures'][0]['reason'])
+        self.assertNotIn('secret', json.dumps(state))
+        self.assertEqual(state['records'], {})
 
     def test_invalid_headers_fail_closed(self):
         response = Response([])
@@ -177,6 +271,8 @@ class BackfillTests(unittest.TestCase):
                 now=h.parse_time(record['last_good']['fetched_at']))
         self.assertEqual(state['status'], 'blocked')
         self.assertEqual(state['failed_repositories'], ['a/b'])
+        self.assertEqual(state['failures'], [{'repo': 'a/b', 'http_status': None,
+                                             'request_url': None, 'reason': 'bad coverage'}])
         self.assertIn(record['repo'], state['records'])
         self.assertEqual(state['remaining'], 1)
 
@@ -190,6 +286,9 @@ class BackfillTests(unittest.TestCase):
                 type('Transport', (), {'attempts': 4})(), record['source_sha'], Path(directory) / 'c.json', fail,
                 now=h.parse_time(record['last_good']['fetched_at']))
         self.assertEqual(result['status'], 'blocked')
+        self.assertEqual(result['failed_repositories'], [])
+        self.assertEqual(result['failures'], [])
+        self.assertEqual(b.failure_summary(result), '')
 
     def test_workflow_keeps_single_writer_and_no_automatic_fast_schedule(self):
         root = Path(__file__).resolve().parents[1]

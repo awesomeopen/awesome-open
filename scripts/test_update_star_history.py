@@ -16,6 +16,8 @@ import update_star_history as stars
 NOW = datetime(2026, 10, 13, 2, tzinfo=timezone.utc)
 SHA = 'a' * 40
 PROJECT = {'name': 'Example', 'repo': 'org/example', 'readme_url': 'https://github.com/org/example'}
+OPENREMOTE = {'name': 'OpenRemote', 'repo': 'openremote/openremote',
+              'readme_url': 'https://github.com/openremote/openremote'}
 
 
 def weekly_series(count=108, offset=0):
@@ -60,6 +62,66 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(good['source_sha'], SHA)
         self.assertTrue(all('/stargazers/history?' in url for url in calls))
         self.assertNotIn('login', json.dumps(good))
+
+    def test_reviewed_rename_only_changes_history_endpoint(self):
+        calls = []
+        cache = stars.refresh([OPENREMOTE], now=NOW, source_sha=SHA,
+                              getter=pager(weekly_series(), calls))
+        record = cache['repositories'][OPENREMOTE['repo']]
+        for key, value in OPENREMOTE.items():
+            self.assertEqual(record[key], value)
+        expected = stars.API + 'openremote/core/stargazers/history'
+        self.assertEqual(record['source_url'], expected)
+        self.assertEqual(record['last_good']['source_urls'], calls)
+        self.assertEqual(calls, [expected + f'?per_page=30&page={page}' for page in range(1, 5)])
+        self.assertEqual(stars.history_source_url('unknown/renamed'), stars.API + 'unknown/renamed/stargazers/history')
+        self.assertEqual(stars.history_source_url('openremote/core'), expected)
+        source = '| [OpenRemote](https://github.com/openremote/openremote) | IoT platform. |\n'
+        self.assertEqual(stars.load_projects({'schema_version': 2, 'scope': 'catalog_github'}, source), [OPENREMOTE])
+
+    def test_rename_retains_old_evidence_urls_and_archive_observations(self):
+        import chart_observations as observations
+        with patch.dict(stars.REVIEWED_REPOSITORY_RENAMES, {}, clear=True):
+            original = stars.refresh([OPENREMOTE], now=NOW, source_sha=SHA, getter=pager(weekly_series()))
+        before = deepcopy(original)
+        archive = observations.add_stars(observations.empty(), original)
+        prior_observations = deepcopy(archive['observations'])
+        def unavailable(url):
+            raise stars.HistoryError('GitHub history HTTP 503', 'unavailable')
+        failed = stars.refresh([OPENREMOTE], existing=original, now=NOW + timedelta(days=1),
+                               source_sha=SHA, getter=unavailable, force=True)
+        old = original['repositories'][OPENREMOTE['repo']]
+        retained = failed['repositories'][OPENREMOTE['repo']]
+        self.assertEqual(retained['last_good'], old['last_good'])
+        self.assertEqual(retained['source_url'], old['source_url'])
+        observations.add_stars(archive, failed)
+        self.assertEqual(archive['observations'], prior_observations)
+        current = stars.refresh([OPENREMOTE], existing=failed, now=NOW + timedelta(days=2),
+                                source_sha=SHA, getter=pager(weekly_series()), force=True)
+        observations.add_stars(archive, current)
+        observations.validate(archive)
+        self.assertEqual(len(archive['observations']), 2)
+        for key, value in prior_observations.items():
+            self.assertEqual(archive['observations'][key], value)
+        self.assertEqual(original, before)
+
+    def test_rename_cannot_remap_other_repos_or_mix_pagination_identities(self):
+        cache = stars.refresh([OPENREMOTE], now=NOW, getter=pager(weekly_series()))
+        for mutation in ['unreviewed', 'mixed_pages', 'mismatched_source', 'reverse']:
+            bad = deepcopy(cache)
+            record = bad['repositories'][OPENREMOTE['repo']]
+            if mutation == 'unreviewed':
+                record['source_url'] = stars.API + 'openremote/other/stargazers/history'
+            elif mutation == 'mixed_pages':
+                record['last_good']['source_urls'][1] = record['last_good']['source_urls'][1].replace('/core/', '/openremote/')
+            elif mutation == 'mismatched_source':
+                record['source_url'] = stars.API + 'openremote/openremote/stargazers/history'
+            else:
+                bad['repositories'] = {'openremote/core': record}
+                record.update(repo='openremote/core', readme_url='https://github.com/openremote/core',
+                              source_url=stars.API + 'openremote/openremote/stargazers/history')
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                stars.validate_cache(bad)
 
     def test_month_assignment_excludes_current_and_older_month(self):
         rows = [

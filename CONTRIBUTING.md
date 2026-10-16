@@ -273,6 +273,26 @@ Current total star counts are already maintained by the separate ordinary reposi
 
 Only complete, validated history becomes a last-good result. Missing pages, contradictory totals, HTTP failures, rate limits, or unavailable data retain prior evidence and expose status and retrieval time. A last-good chart may remain visibly stale when its month window still matches HN; mismatched windows are withheld rather than silently overlaid. SVGs are generated in preview/Pages output, not tracked. Test fixtures are synthetic and isolated from production cache.
 
+### Reviewed repository rename
+
+The aggregate-history collector has one explicit, code-reviewed endpoint mapping:
+`openremote/openremote` → `openremote/core`. On 2026-10-16 the
+[old repository API path](https://api.github.com/repos/openremote/openremote)
+reported a move to GitHub repository ID `50994619`, and the
+[current repository API record](https://api.github.com/repos/openremote/core)
+reported that same ID. The mapping is in `REVIEWED_REPOSITORY_RENAMES` in
+`scripts/update_star_history.py`; it applies to ordinary history collection and
+the bounded backfill. It adds no request or permission.
+
+The catalog URL, project permalink, cache key, curated records and archived
+observations remain under the existing identity. New histories record their
+actual `openremote/core` source URLs. Previously collected evidence remains
+valid with its original URLs and fetch dates; failed refreshes do not rewrite
+those sources. A single history cannot mix old/new endpoints across pages or
+borrow an unreviewed repository's evidence. This mapping does not change other
+collectors. Further renames require independent identity verification and review;
+both history transports still refuse redirects without following them.
+
 ## Observatory snapshot
 
 The site build also creates `/observatory/` from the same validated catalog and
@@ -315,7 +335,12 @@ snapshots without repeating core API collection and uses the existing Pages flow
 
 The run summary/checkpoint reports complete, partial or blocked, remaining
 repositories, request count, the live quota reset time and `resume_after` (also
-respecting Retry-After). For partial work, wait until `resume_after`, then dispatch
+respecting Retry-After). Repository failures also report the catalog repository,
+the allowlisted request URL and HTTP status when available, and a locally defined
+reason. The checkpoint's `failures` list retains these details, including coverage
+failures that allow other repositories to continue. Authentication and refused
+redirects have distinct reasons. Response bodies, redirect destinations, tokens,
+headers and raw transport exceptions are never included. For partial work, wait until `resume_after`, then dispatch
 another chunk; successful
 remote checkpoints are skipped automatically. Do not repeatedly dispatch a blocked
 run without reviewing its reason. There is no self-dispatch loop, paid idle quota

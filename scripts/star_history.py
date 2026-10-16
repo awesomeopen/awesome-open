@@ -6,7 +6,7 @@ import json
 import math
 import re
 
-from update_star_history import validate_cache
+from update_star_history import accepted_history_sources, validate_cache
 
 REPO = re.compile(r'[a-z0-9_.-]+/[a-z0-9_.-]+')
 BOUNDARIES = 'GitHub day boundaries are not guaranteed UTC; month-edge counts may differ from UTC months.'
@@ -41,8 +41,7 @@ def attach(projects, snapshot, evidence):
             continue
         if record.get('repo') != repo or record.get('readme_url') != url:
             raise ValueError('Star-history identity mismatch: ' + repo)
-        source = 'https://api.github.com/repos/' + repo + '/stargazers/history'
-        if record.get('source_url') != source:
+        if record.get('source_url') not in accepted_history_sources(repo):
             raise ValueError('Invalid star-history provider URL')
         selected = deepcopy(record)
         good = selected.get('last_good')
