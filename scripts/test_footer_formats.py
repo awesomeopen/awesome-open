@@ -111,6 +111,11 @@ class FooterFormatTests(unittest.TestCase):
             manifest.write_text(json.dumps(records))
             self.assertEqual(discover_footer_art(root), expected)
             self.assertEqual(list(discover_footer_art(root)), sorted(expected))
+            records[-1]['sha256'] = '0' * 64
+            manifest.write_text(json.dumps(records))
+            with self.assertRaisesRegex(ValueError, 'checksum must match provenance'):
+                discover_footer_art(root)
+            del records[-1]['sha256']
             records[-1]['width'] += 1
             manifest.write_text(json.dumps(records))
             with self.assertRaisesRegex(ValueError, 'dimensions must match provenance'):

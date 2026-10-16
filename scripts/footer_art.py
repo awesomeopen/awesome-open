@@ -1,5 +1,6 @@
 """Discover footer panoramas without a filename list or image-library dependency."""
 import json
+import hashlib
 from pathlib import Path
 import struct
 import zlib
@@ -127,6 +128,8 @@ def discover_footer_art(root):
         if not record.get('source') or not record.get('processing'):
             raise ValueError('Missing footer artwork provenance: ' + path.name)
         data = path.read_bytes()
+        if record.get("sha256") and hashlib.sha256(data).hexdigest() != record["sha256"]:
+            raise ValueError("Footer panorama checksum must match provenance: " + path.name)
         try:
             dimensions = webp_dimensions(data) if path.suffix.lower() == '.webp' else png_dimensions(data)
         except ValueError as error:
