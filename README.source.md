@@ -1,15 +1,22 @@
-# Awesome Open [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-
+<div align="center">
 ![Awesome Open*. Catalog of software named Open*. An unfolding blue-green specimen with fan-like translucent panels.](site/brand/readme-banner.png)
 
 [![Browse catalog](site/brand/browse-catalog.svg)](https://awesomeopen.github.io/awesome-open/)
 [![Publish](https://img.shields.io/github/actions/workflow/status/awesomeopen/awesome-open/update-stats.yml?branch=main&style=flat-square&label=Publish&labelColor=0B2546)](https://github.com/awesomeopen/awesome-open/actions/workflows/update-stats.yml)
 [![Catalog specimen count](assets/readme/specimen-count.svg)](https://awesomeopen.github.io/awesome-open/)
-· [Add a project](CONTRIBUTING.md)
+[![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+[![Add project](https://img.shields.io/badge/Add%20yours-00A86B)](https://github.com/awesomeopen/awesome-open/blob/main/CONTRIBUTING.md)
 
+</div>
+
+--- 
+
+- Awesome Open*
 - Best open alternatives to proprietary SaaS
 - Open developer tools & local workflows
 - Self-hosted AI infrastructure & automation
+
+--- 
 
 ## Table of Contents
 
