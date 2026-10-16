@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-16T08:15:03Z",
+  "collected_at": "2026-10-16T08:36:44Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -3997,6 +3997,130 @@
         "status": "unavailable"
       }
     },
+    "ganeshrvel/openmtp": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": null,
+        "etag": "\"16dd9942fdaef538ea5b6180d6b2928901a860ee15d896ced6480ab9d9688b19\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-16T08:36:44Z",
+          "observed_at": "2026-08-22T16:28:55Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/ganeshrvel/openmtp/releases/tag/v3.3.0",
+            "published_at": "2026-08-22T16:28:55Z",
+            "release_id": 374972750,
+            "tag_name": "v3.3.0"
+          }
+        },
+        "last_success_at": "2026-10-16T08:36:44Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/ganeshrvel/openmtp/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": null,
+        "etag": null,
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-16T08:36:44Z",
+          "observed_at": "2026-10-12T00:00:00Z",
+          "source_commit": "5da350b69c6d0d4aed67a063498ee89c7448400a",
+          "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
+          "tool_version": "v5.6.0",
+          "value": {
+            "checks": [
+              {
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
+                "score": 10
+              },
+              {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
+              },
+              {
+                "name": "Maintained",
+                "reason": "30 commit(s) and 14 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
+              },
+              {
+                "name": "Code-Review",
+                "reason": "Found 0/28 approved changesets -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "detected GitHub workflow tokens with excessive permissions",
+                "score": 0
+              },
+              {
+                "name": "Binary-Artifacts",
+                "reason": "binaries present in source code",
+                "score": 0
+              },
+              {
+                "name": "CII-Best-Practices",
+                "reason": "no effort to earn an OpenSSF best practices badge detected",
+                "score": 0
+              },
+              {
+                "name": "Pinned-Dependencies",
+                "reason": "dependency not pinned by hash detected -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file not detected",
+                "score": 0
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
+                "score": 0
+              },
+              {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
+              },
+              {
+                "name": "Signed-Releases",
+                "reason": "Project has not signed or included provenance with any releases.",
+                "score": 0
+              },
+              {
+                "name": "SAST",
+                "reason": "SAST tool is not run on all commits -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "Branch-Protection",
+                "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
+                "score": null
+              }
+            ],
+            "repository": "github.com/ganeshrvel/openmtp",
+            "score": 2.8
+          }
+        },
+        "last_success_at": "2026-10-16T08:36:44Z",
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/ganeshrvel/openmtp",
+        "status": "partial",
+        "success_time_precision": "second"
+      }
+    },
     "gem/oq-engine": {
       "release": {
         "check_time_precision": "second",
@@ -4382,6 +4506,34 @@
         "status": "unavailable"
       }
     },
+    "google-research/openfst": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/google-research/openfst/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/google-research/openfst",
+        "status": "unavailable"
+      }
+    },
     "gptchatly/openbrender": {
       "release": {
         "check_time_precision": "second",
@@ -4722,6 +4874,34 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/hpcaitech/open-sora",
+        "status": "unavailable"
+      }
+    },
+    "huggingface/open-r1": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/huggingface/open-r1/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/huggingface/open-r1",
         "status": "unavailable"
       }
     },
@@ -14330,6 +14510,47 @@
         "status": "unavailable"
       }
     },
+    "openlierox/openlierox": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": null,
+        "etag": "\"f596e4988529a5091ed5754617d8ee7bfb4c76824b8347c194dd0a63544eef7b\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-16T08:36:44Z",
+          "observed_at": "2026-07-17T13:08:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/openlierox/openlierox/releases/tag/20260717.2",
+            "published_at": "2026-07-17T13:08:27Z",
+            "release_id": 355688305,
+            "tag_name": "20260717.2"
+          }
+        },
+        "last_success_at": "2026-10-16T08:36:44Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openlierox/openlierox/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/openlierox/openlierox",
+        "status": "unavailable"
+      }
+    },
     "openlightingproject/ola": {
       "release": {
         "check_time_precision": "second",
@@ -15607,6 +15828,47 @@
         "source_url": "https://api.scorecard.dev/projects/github.com/openmv/openmv",
         "status": "partial",
         "success_time_precision": "second"
+      }
+    },
+    "openmvg/openmvg": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": null,
+        "etag": "\"333014d5e0f92c4e18ddf11dbbe0e481748f10f578a8f257a1223c5572634e16\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-16T08:36:44Z",
+          "observed_at": "2023-12-28T22:57:28Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/openMVG/openMVG/releases/tag/v2.1",
+            "published_at": "2023-12-28T22:57:28Z",
+            "release_id": 135319845,
+            "tag_name": "v2.1"
+          }
+        },
+        "last_success_at": "2026-10-16T08:36:44Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openmvg/openmvg/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/openmvg/openmvg",
+        "status": "unavailable"
       }
     },
     "openmw/openmw": {
@@ -17541,6 +17803,34 @@
         "status": "unavailable"
       }
     },
+    "openscenegraph/openscenegraph": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openscenegraph/openscenegraph/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/openscenegraph/openscenegraph",
+        "status": "unavailable"
+      }
+    },
     "opensearch-project/opensearch": {
       "release": {
         "check_time_precision": "second",
@@ -17773,6 +18063,47 @@
         "source_url": "https://api.scorecard.dev/projects/github.com/opensemanticsearch/open-semantic-search",
         "status": "partial",
         "success_time_precision": "second"
+      }
+    },
+    "opensfm/opensfm": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": null,
+        "etag": "\"bb7e7f28c4ec89d16cda1d76cfd1c54f5ef351ba97da6f6e11ea7376e30349e5\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-16T08:36:44Z",
+          "observed_at": "2026-08-16T10:22:44Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/OpenSfM/OpenSfM/releases/tag/v1.1",
+            "published_at": "2026-08-16T10:22:44Z",
+            "release_id": 371294055,
+            "tag_name": "v1.1"
+          }
+        },
+        "last_success_at": "2026-10-16T08:36:44Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/opensfm/opensfm/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/opensfm/opensfm",
+        "status": "unavailable"
       }
     },
     "openshot/openshot-qt": {
@@ -19579,6 +19910,47 @@
         "source_url": "https://api.scorecard.dev/projects/github.com/opentx/opentx",
         "status": "partial",
         "success_time_precision": "second"
+      }
+    },
+    "opentyrian/opentyrian": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": null,
+        "etag": "\"4209072aef44c5d556039cc01ef4f4b4ed73737a642bffc2d7396134f4171ef6\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-16T08:36:44Z",
+          "observed_at": "2026-09-14T00:00:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/opentyrian/opentyrian/releases/tag/v2.1.20260913",
+            "published_at": "2026-09-14T00:00:40Z",
+            "release_id": 388074596,
+            "tag_name": "v2.1.20260913"
+          }
+        },
+        "last_success_at": "2026-10-16T08:36:44Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/opentyrian/opentyrian/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/opentyrian/opentyrian",
+        "status": "unavailable"
       }
     },
     "openutau/openutau": {
@@ -23244,6 +23616,47 @@
         "success_time_precision": "second"
       }
     },
+    "thomiceli/opengist": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": null,
+        "etag": "\"3f8fcd89b99c657877e31788c0890c89ad96f9d227f8affceea5700f1904c16e\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-16T08:36:44Z",
+          "observed_at": "2026-08-30T02:05:36Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/thomiceli/opengist/releases/tag/v1.15.2",
+            "published_at": "2026-08-30T02:05:36Z",
+            "release_id": 379156607,
+            "tag_name": "v1.15.2"
+          }
+        },
+        "last_success_at": "2026-10-16T08:36:44Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/thomiceli/opengist/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-16T08:36:44Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/thomiceli/opengist",
+        "status": "unavailable"
+      }
+    },
     "thu-maic/openmaic": {
       "release": {
         "check_time_precision": "second",
@@ -24251,5 +24664,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "af0d90d119fb0406c8d350fa1ade649ff68b612f"
+  "source_sha": "c2050ef971d425d78229de31f56ec9b24f29192b"
 }
