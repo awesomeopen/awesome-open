@@ -10,6 +10,7 @@ from unittest.mock import patch
 from build_catalog import canonical_url
 from build_site import build
 import deployment
+from site_test_fixtures import baseline_site
 
 ROOT = Path(__file__).resolve().parents[1]
 URL = 'https://example.org/OpenPilot'
@@ -110,9 +111,9 @@ class DeploymentTests(unittest.TestCase):
     def test_pilot_offline_build_and_unchanged_core_metadata(self):
         document = deployment.load_optional(ROOT / 'data/deployment_evidence.json')
         self.assertEqual(len(document['projects']), 8)
-        with tempfile.TemporaryDirectory() as folder, patch('socket.create_connection', side_effect=AssertionError('Offline build attempted network')):
-            catalog = build(Path(folder) / 'site')
-            if catalog is None: catalog = json.loads((Path(folder) / 'site/catalog.json').read_text())
+        with patch('socket.create_connection', side_effect=AssertionError('Offline build attempted network')):
+            output, catalog = baseline_site()
+            if catalog is None: catalog = json.loads((output / 'catalog.json').read_text())
             reviewed = [p for p in catalog['projects'] if p.get('deployment')]
             self.assertEqual(len(reviewed), 8)
             expected_function_urls = {'https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad'}
@@ -127,8 +128,8 @@ class DeploymentTests(unittest.TestCase):
             for project in catalog['projects']:
                 for key in ('name', 'url', 'description', 'categories', 'github', 'alternatives', 'hn'):
                     self.assertEqual(project[key], by_id[project['id']][key])
-            page = (Path(folder) / 'site/index.html').read_text()
-            standalone = (Path(folder) / 'site/standalone.html').read_text()
+            page = (output / 'index.html').read_text()
+            standalone = (output / 'standalone.html').read_text()
             self.assertEqual(page.count('class="deployment-evidence"'), 8)
             self.assertIn('id="run-mode-filter"', page)
             self.assertIn('id="install-method-filter"', standalone)

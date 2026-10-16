@@ -26,7 +26,6 @@ from category_art import (
     attach_category_art,
     category_image,
     copy_category_art,
-    embed_category_art,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -736,6 +735,19 @@ def render_html(catalog, cutouts=None):
 '''
 
 
+def replace_literals_once(text, replacements):
+    """Replace exact source literals without scanning newly embedded payloads.
+
+    Insertion order gives a more specific literal priority over its prefix
+    (for example, an evidence link before the generic downloadable href).
+    A callable replacement preserves backslashes and other payload bytes.
+    """
+    if not replacements:
+        return text
+    pattern = re.compile("|".join(re.escape(literal) for literal in replacements))
+    return pattern.sub(lambda match: replacements[match.group()], text)
+
+
 def build(output, source_sha=None, root=ROOT):
     root = Path(root)
     output = Path(output).resolve()
@@ -870,34 +882,37 @@ def build(output, source_sha=None, root=ROOT):
     (output / ".nojekyll").write_text("", encoding="utf-8")
     # A phone/download-friendly edition: every runtime asset and evidence download
     # is embedded, so opening one HTML file never depends on adjacent files.
-    standalone = page.replace(
-        'href="data/hn_evidence.json">View evidence',
+    # Collect substitutions against the original page, then expand it once.
+    # Repeated replacements used to rescan the growing base64-heavy document.
+    replacements = {
+        'href="data/hn_evidence.json">View evidence':
         'href="#hn-evidence">View evidence',
-    )
-    standalone = embed_category_art(standalone, catalog, root)
+    }
+    for category in catalog["categories"]:
+        if category.get("artwork"):
+            replacements[category_image(category)] = category_image(
+                category, offline=True, root=root
+            )
     footer_urls = [quote(path, safe="/") for path in catalog["footer_backgrounds"]]
     embedded_backgrounds = []
     for asset in catalog["footer_backgrounds"]:
         mime_type = "image/png" if asset.lower().endswith(".png") else "image/webp"
         encoded = base64.b64encode((output / asset).read_bytes()).decode("ascii")
         embedded_backgrounds.append(f"data:{mime_type};base64,{encoded}")
-    standalone = standalone.replace(
-        f'data-backgrounds="{escape(json.dumps(footer_urls))}"',
-        f'data-backgrounds="{escape(json.dumps(embedded_backgrounds))}"',
+    replacements[f'data-backgrounds="{escape(json.dumps(footer_urls))}"'] = (
+        f'data-backgrounds="{escape(json.dumps(embedded_backgrounds))}"'
     )
     if embedded_backgrounds:
-        standalone = standalone.replace(
-            f'src="{escape(footer_urls[0])}"',
-            f'src="{embedded_backgrounds[0]}"',
+        replacements[f'src="{escape(footer_urls[0])}"'] = (
+            f'src="{embedded_backgrounds[0]}"'
         )
     for name, mime_type in BRAND_ASSETS.items():
         encoded = base64.b64encode((output / "brand" / name).read_bytes()).decode(
             "ascii"
         )
         for attribute in ("src", "href"):
-            standalone = standalone.replace(
-                f'{attribute}="brand/{name}"',
-                f'{attribute}="data:{mime_type};base64,{encoded}"',
+            replacements[f'{attribute}="brand/{name}"'] = (
+                f'{attribute}="data:{mime_type};base64,{encoded}"'
             )
     for name in ("vendor/fonts.css", "tokens.css", "styles.css"):
         href = f"{name}?v={source_sha or 'preview'}" if name == "styles.css" else name
@@ -905,16 +920,14 @@ def build(output, source_sha=None, root=ROOT):
         if name == "styles.css":
             encoded = base64.b64encode((output / FOOTER_PATTERN).read_bytes()).decode("ascii")
             css = css.replace(f"url({FOOTER_PATTERN})", f"url(data:image/png;base64,{encoded})")
-        standalone = standalone.replace(
-            f'<link rel="stylesheet" href="{href}">', "<style>" + css + "</style>",
+        replacements[f'<link rel="stylesheet" href="{href}">'] = (
+            "<style>" + css + "</style>"
         )
     for name in ("catalog.js",):
         # Keep parser ordering identical to deferred scripts: initialize after DOM.
         code = (output / name).read_text(encoding="utf-8")
         encoded = base64.b64encode(code.encode("utf-8")).decode("ascii")
-        standalone = standalone.replace(
-            f'src="{name}"', f'src="data:text/javascript;base64,{encoded}"'
-        )
+        replacements[f'src="{name}"'] = f'src="data:text/javascript;base64,{encoded}"'
     for project in catalog["projects"]:
         if "artwork" in project:
             asset = (
@@ -923,39 +936,30 @@ def build(output, source_sha=None, root=ROOT):
                 else project["artwork"]["path"]
             )
             encoded = base64.b64encode((output / asset).read_bytes()).decode("ascii")
-            standalone = standalone.replace(
-                f'src="{asset}"', f'src="data:image/webp;base64,{encoded}"'
-            )
+            replacements[f'src="{asset}"'] = f'src="data:image/webp;base64,{encoded}"'
     for path, code in qr_codes.items():
         encoded = base64.b64encode(code.encode("utf-8")).decode("ascii")
-        standalone = standalone.replace(
-            f'src="{path}"', f'src="data:image/svg+xml;base64,{encoded}"'
-        )
-    standalone = standalone.replace(
-        '<a href="standalone.html" download>Download</a>', ""
-    )
+        replacements[f'src="{path}"'] = f'src="data:image/svg+xml;base64,{encoded}"'
+    replacements['<a href="standalone.html" download>Download</a>'] = ""
     for slug, chart in charts.items():
         encoded = base64.b64encode(chart.encode("utf-8")).decode("ascii")
-        standalone = standalone.replace(
-            f'src="assets/hn/{slug}.svg"', f'src="data:image/svg+xml;base64,{encoded}"'
+        replacements[f'src="assets/hn/{slug}.svg"'] = (
+            f'src="data:image/svg+xml;base64,{encoded}"'
         )
     for path, chart in star_charts.items():
         encoded = base64.b64encode(chart.encode("utf-8")).decode("ascii")
-        standalone = standalone.replace(
-            f'src="{path}"', f'src="data:image/svg+xml;base64,{encoded}"'
-        )
+        replacements[f'src="{path}"'] = f'src="data:image/svg+xml;base64,{encoded}"'
     for name in ["catalog.json", *("data/" + item for item in evidence_files)]:
         encoded = base64.b64encode((output / name).read_bytes()).decode("ascii")
-        standalone = standalone.replace(
-            f'href="{name}"',
-            f'download="{Path(name).name}" href="data:application/json;base64,{encoded}"',
+        replacements[f'href="{name}"'] = (
+            f'download="{Path(name).name}" href="data:application/json;base64,{encoded}"'
         )
-    standalone = standalone.replace('href="./"', 'href="#page-title"')
-    standalone = standalone.replace(
-        'href="observatory/"',
-        'href="https://awesomeopen.github.io/awesome-open/observatory/"',
+    replacements['href="./"'] = 'href="#page-title"'
+    replacements['href="observatory/"'] = (
+        'href="https://awesomeopen.github.io/awesome-open/observatory/"'
     )
-    standalone = standalone.replace('href="draws/"', 'href="https://awesomeopen.github.io/awesome-open/draws/"')
+    replacements['href="draws/"'] = 'href="https://awesomeopen.github.io/awesome-open/draws/"'
+    standalone = replace_literals_once(page, replacements)
     (output / "standalone.html").write_text(standalone, encoding="utf-8")
     from build_observatory import build as build_observatory
 

@@ -13,6 +13,7 @@ import tempfile
 import unittest
 
 from build_site import BRAND_ASSETS, ROOT, build, json_for_html, render_html, search_index
+from site_test_fixtures import baseline_site, copy_site_fixture
 
 
 RUNTIME_SCRIPTS = ('catalog.js',)
@@ -91,15 +92,9 @@ class SiteTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.temporary = tempfile.TemporaryDirectory()
-        cls.output = Path(cls.temporary.name) / 'site'
-        cls.catalog = build(cls.output, source_sha='a' * 40)
+        cls.output, cls.catalog = baseline_site(source_sha='a' * 40)
         cls.html = (cls.output / 'index.html').read_text()
         cls.page = Page(cls.html)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.temporary.cleanup()
 
     def test_production_entry_contains_hero_without_preview_metadata(self):
         from build_jar_preview import build as build_hero
@@ -485,10 +480,12 @@ for (const input of inputs) {
                 self.assertEqual(image.attrs['alt'], project['artwork']['alt'])
 
     def test_output_deterministic_and_revision_explicit(self):
-        before = {str(p.relative_to(self.output)): p.read_bytes() for p in self.output.rglob('*') if p.is_file()}
-        build(self.output, source_sha='a' * 40)
-        after = {str(p.relative_to(self.output)): p.read_bytes() for p in self.output.rglob('*') if p.is_file()}
-        self.assertEqual(before, after)
+        with tempfile.TemporaryDirectory() as temp:
+            output = copy_site_fixture(self.output, Path(temp) / 'site')
+            before = {str(p.relative_to(output)): p.read_bytes() for p in output.rglob('*') if p.is_file()}
+            build(output, source_sha='a' * 40)
+            after = {str(p.relative_to(output)): p.read_bytes() for p in output.rglob('*') if p.is_file()}
+            self.assertEqual(before, after)
         self.assertIn('/commit/' + 'a' * 40, self.html)
         local = copy.deepcopy(self.catalog)
         local['source_sha'] = None

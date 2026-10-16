@@ -9,8 +9,9 @@ import shutil
 import tempfile
 import unittest
 
-from build_site import ROOT, build, search_index
+from build_site import ROOT, search_index
 from category_art import attach_category_art, category_image, webp_dimensions
+from site_test_fixtures import baseline_site
 
 
 class Images(HTMLParser):
@@ -28,14 +29,8 @@ class Images(HTMLParser):
 class CategoryArtTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.temporary = tempfile.TemporaryDirectory()
-        cls.output = Path(cls.temporary.name) / 'site'
-        cls.catalog = build(cls.output, source_sha='a' * 40)
+        cls.output, cls.catalog = baseline_site(source_sha='a' * 40)
         cls.manifest = json.loads((ROOT / 'site/domains/provenance.json').read_text())
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.temporary.cleanup()
 
     def test_complete_category_ids_and_source_filename_mapping(self):
         categories = self.manifest['categories']
