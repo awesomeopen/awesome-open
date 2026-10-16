@@ -425,3 +425,15 @@ assign illustrations to their best-fitting windows, centering actual subject
 bounds without cropping. Link the edition to `/draws/`; retain the original set
 until the first saved edition activates. See [weekly draw contract](WEEKLY-DRAWS.md)
 for the calendar, snapshot archive, eligibility and failure behavior.
+
+## Crisp photographic jar motion (B40)
+
+B40 supersedes earlier whole-vessel zoom and perspective motion. Lay out each
+jar at a fixed size close to its previous resting footprint (82%, central 94%),
+rounded to whole CSS pixels by the generator. Keep pointer parallax small and
+translation-only: glass, drawing and reflection move by different amounts.
+Settled offsets snap to whole pixels; the vessel itself has no transform.
+Remove SVG displacement and idle rotation of the drawing. Brief idle translation,
+lid rotation/opening, lighting, vapor, shadows and cracks remain. Preserve
+keyboard/touch, pause, reduced-motion and readable no-JavaScript fallbacks.
+No image bytes or responsive derivatives change.

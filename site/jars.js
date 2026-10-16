@@ -1,4 +1,4 @@
-/* Shared scene camera and spring depth. The source artwork remains photographic planes. */
+/* Fixed-size photographic planes; depth comes from translation, not rescaling. */
 (()=>{
  'use strict';
  const hall=document.querySelector('.jar-hall');if(!hall)return;
@@ -21,47 +21,48 @@
  const staticMotion=()=>reduced.matches||motionPaused;
  function syncAmbient(){hall.classList.toggle('ambient-paused',staticMotion()||document.hidden||!inView);}
  const pointer={inside:false,x:0};
- const keys=['scale','x','y','rx','ry','ix','iy','light'];
- const resting={scale:.82,x:0,y:0,rx:0,ry:0,ix:0,iy:0,light:.14};
- const restScale=node=>node.classList.contains('jar-central')?.94:.82;
- const motion=exhibits.map(node=>({node,value:{...resting,scale:restScale(node)},velocity:Object.fromEntries(keys.map(k=>[k,0]))}));
+ const keys=['x','y','ix','iy','reflection','light'];
+ const resting={x:0,y:0,ix:0,iy:0,reflection:0,light:.14};
+ const motion=exhibits.map(node=>({node,value:{...resting},velocity:Object.fromEntries(keys.map(k=>[k,0]))}));
  const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
- function paint(item){
+ function paint(item,moving=false){
    const v=item.value,style=item.node.style;
-   style.setProperty('--scene-scale',v.scale.toFixed(4));
-   style.setProperty('--mx',v.x.toFixed(3)+'px');style.setProperty('--my',v.y.toFixed(3)+'px');
-   style.setProperty('--tilt-x',v.rx.toFixed(3)+'deg');style.setProperty('--tilt-y',v.ry.toFixed(3)+'deg');
-   style.setProperty('--inner-x',v.ix.toFixed(3)+'px');style.setProperty('--inner-y',v.iy.toFixed(3)+'px');
+   // Fractional positions are used only in flight. Settle on whole CSS pixels,
+   // without a transformed ancestor retaining a composited raster of the jar.
+   const pixels=value=>(moving?value.toFixed(3):Math.round(value))+'px';
+   style.setProperty('--mx',pixels(v.x));style.setProperty('--my',pixels(v.y));
+   style.setProperty('--inner-x',pixels(v.ix));style.setProperty('--inner-y',pixels(v.iy));
+   style.setProperty('--reflection-x',pixels(v.reflection));
    style.setProperty('--glass-light',v.light.toFixed(3));
  }
  function targets(item,index,scene){
-   if(staticMotion())return {...resting,scale:1};
+   if(staticMotion())return {...resting};
    const box=item.node.getBoundingClientRect(),center=box.left+box.width/2;
    const cameraX=pointer.inside?clamp((pointer.x-scene.left)/scene.width*2-1,-1,1):0;
    const near=pointer.inside?Math.exp(-Math.pow((center-pointer.x)/220,2)):0;
    const selected=active===item.node,depth=1-Math.abs(index-3)/5;
    const forward=selected?1:near*.42;
-   const baseScale=restScale(item.node);
-   return {scale:baseScale+(1.1-baseScale)*forward,x:-cameraX*(10+depth*8),y:-forward*6,
-     rx:0,ry:cameraX*(3+forward*5),
-     ix:-cameraX*(2+forward*3),iy:0,light:.14+forward*.11+Math.abs(cameraX)*.04};
+   return {x:-cameraX*(4+depth*3),y:-forward*3,
+     ix:cameraX*(2+forward),iy:0,reflection:-cameraX*2,
+     light:.14+forward*.11+Math.abs(cameraX)*.04};
  }
  function tick(time){
    frame=0;if(document.hidden||!inView)return;
    const dt=Math.min((time-(lastTime||time-16.67))/1000,1/30);lastTime=time;
    const scene=stage.getBoundingClientRect();let moving=false;
-   // Read scene geometry before writing transforms. Hit regions stay fixed.
+   // Read scene geometry before writing positions. Hit regions stay fixed.
    const goals=motion.map((item,i)=>targets(item,i,scene));
    motion.forEach((item,i)=>{
+     let itemMoving=false;
      keys.forEach(key=>{
        const goal=goals[i][key];
        if(staticMotion()){item.value[key]=goal;item.velocity[key]=0;return;}
        const delta=goal-item.value[key];
        item.velocity[key]+=(190*delta-25*item.velocity[key])*dt;
        item.value[key]+=item.velocity[key]*dt;
-       if(Math.abs(delta)>.0008||Math.abs(item.velocity[key])>.003)moving=true;
+       if(Math.abs(delta)>.0008||Math.abs(item.velocity[key])>.003)itemMoving=true;
        else{item.value[key]=goal;item.velocity[key]=0;}
-     });paint(item);
+     });moving=moving||itemMoving;paint(item,itemMoving);
    });
    drawLeaders(active);
    document.body.dataset.jarMotion=moving?'moving':'settled';
@@ -144,5 +145,5 @@
  },{rootMargin:'40px'}).observe(hall);
  document.fonts.ready.then(()=>drawLeaders(active));
  toggle.hidden=false;toggle.addEventListener('click',()=>{motionPaused=!motionPaused;pointer.inside=false;toggle.setAttribute('aria-pressed',String(motionPaused));toggle.textContent=motionPaused?'[>]':'[II]';toggle.setAttribute('aria-label',motionPaused?'Play motion':'Pause motion');toggle.title=motionPaused?'Play motion':'Pause motion';hall.classList.toggle('motion-paused',motionPaused);syncAmbient();wake();});
- syncAmbient();motion.forEach(paint);select(null);document.body.classList.add('photo-ready');document.body.dataset.jarsReady='true';
+ syncAmbient();motion.forEach(item=>paint(item));select(null);document.body.classList.add('photo-ready');document.body.dataset.jarsReady='true';
 })();
