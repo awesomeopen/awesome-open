@@ -13,7 +13,8 @@ are proposed by this PR. Existing merged behavior is identified separately.
 | --- | --- |
 | Purpose, naming, voice and evidence limits | [Foundation](foundation.md), [contribution policy](../CONTRIBUTING.md) |
 | Palette, type, UI, motion | [Visual system](visual-system.md), detailed [Retro-Scraperism guide](../site/RETRO-SCRAPERISM.md), [tokens](../site/design/tokens.css) |
-| Design a new page or route | In order: [visual system](visual-system.md), [Retro-Scraperism guide](../site/RETRO-SCRAPERISM.md), [tokens](../site/design/tokens.css), [visual reference](../site/design/index.html); check [decisions](decisions.md) before changing a rule. Feature contracts such as [Observatory](../site/OBSERVATORY.md) apply only when the page uses that feature. [Archive](archive/README.md), [design plan](../site/design_plan.md) and the historical part of [DESIGN.md](../site/DESIGN.md) are background, not instructions |
+| Design a new page or route | In order: [visual system](visual-system.md), [Retro-Scraperism guide](../site/RETRO-SCRAPERISM.md) including its [route shell](../site/RETRO-SCRAPERISM.md#route-shell-for-sibling-pages-b42), [tokens](../site/design/tokens.css), [visual reference](../site/design/index.html); then open the built `/observatory/` page and `site/observatory.css` as the working model for the frame. Check [decisions](decisions.md) before changing a rule. The Observatory's *data* contract ([OBSERVATORY.md](../site/OBSERVATORY.md)) applies only when the page uses its data; its *shell* applies to every sibling route. [Archive](archive/README.md), [design plan](../site/design_plan.md) and the historical part of [DESIGN.md](../site/DESIGN.md) are background, not instructions |
+| Change the specimen plate or ledger record | [Visual system](visual-system.md#specimen-plate-for-every-record-b29), guide section B29, [specimen handoff](../site/SPECIMEN-ART.md) for artwork, then `site/styles.css` and the generator |
 | Illustration and brand assets | [Illustration](illustration.md), [asset index](assets.md), existing per-family provenance |
 | Decisions and unresolved questions | [Decision register](decisions.md) |
 | Skills and editing authority | [Skill policy](skills.md), [pinned files](skills.lock.json) |
@@ -42,7 +43,8 @@ Status vocabulary:
 - **Historical / superseded:** retained to explain evolution; not instructions.
 - **Unresolved:** missing evidence, conflicting sources or a pending decision.
 
-Source baseline: main commit `0be9592`. Production promotion is recorded in PR
+Source baseline: main commit `0be9592` (consolidation); re-audited against
+`5b0a7d2` on 2026-10-16 for the specimen plate, Observatory and route shell (B42). Production promotion is recorded in PR
 [#26](https://github.com/awesomeopen/awesome-open/pull/26); medium-width corrections
 in PR [#27](https://github.com/awesomeopen/awesome-open/pull/27). The private Sites
 wrapper is a review output, not the canonical GitHub source.

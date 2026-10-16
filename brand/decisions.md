@@ -1,6 +1,6 @@
 # Decision register
 
-Baseline audit: 2026-10-13, GitHub main `0be9592`. Dates below are recorded project
+Baseline audit: 2026-10-13, GitHub main `0be9592`; drift re-audit 2026-10-16 at `5b0a7d2` (B42). Dates below are recorded project
 dates; commit links identify the exact change when timezones differ. This register
 summarizes decisions without publishing private conversation transcripts.
 
@@ -107,3 +107,5 @@ approved merely because it appears in this file.
 | B40 | 2026-10-16 | User-directed; implemented for review | Keep hero jars at fixed layout sizes approximating the former 82% / central 94% resting composition. Replace whole-vessel scaling/perspective/tilt with small spring-driven translation parallax: glass, specimen and reflection shift independently; settle to whole pixels with no transformed vessel ancestor. Remove specimen displacement and idle rotation; retain occasional translation, the original glass treatment, shadows, lids, lighting, vapor, cracks, keyboard/touch and pause/reduced-motion behavior. Image asset bytes and responsive sources are unchanged. |
 
 | B41 | 2026-10-16 | User-directed; implemented for review | Reduce the existing cropped aquatic-wreck and electrical-relics footer WebPs to 75% in both axes (1629×531 and 1629×509), using Lanczos and gentle RGB unsharp masking (radius 0.6, amount 50%, threshold 3). Blend sharpening by resized alpha and preserve that alpha unchanged; retain lossless WebP encoding. Record prior cropped-source revisions/hashes, resize/sharpen settings, new dimensions and checksums in provenance. Other footer art and native-size positioning are unchanged. |
+
+| B42 | 2026-10-16 | User-directed drift fix; documentation for review | Sibling routes start from the Observatory shell (header/nav, 1200px column, display heading, scarlet section labels, scope summary, folded detail, closing mark, patterned footer). Rebuild the visual reference to the implemented system: route shell, specimen plate excerpt (B29), Observatory bar list (B31) and a retired-patterns list; it no longer shows the pre-B29 ruled record or scarlet margin rules. Correct the Observatory status in the visual-system index, add Observatory and route-shell sections to the guide and point the brand skill at feature contracts. Prompted by `/draws/` (B38), which shipped on the ledger stylesheet without the shell; its redesign is separate. No token, asset or skill-pin change. |

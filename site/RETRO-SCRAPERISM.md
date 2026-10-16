@@ -437,3 +437,39 @@ Remove SVG displacement and idle rotation of the drawing. Brief idle translation
 lid rotation/opening, lighting, vapor, shadows and cracks remain. Preserve
 keyboard/touch, pause, reduced-motion and readable no-JavaScript fallbacks.
 No image bytes or responsive derivatives change.
+
+## Observatory instrument (B31, B34, B35)
+
+The `/observatory/` route is the instrument expression of this system: one 1200px
+column, a scarlet-asterisk wordmark with literal navigation, a display heading,
+then one sticky selection bar (category and license selects, reset, scarlet jump
+links) without visible labels. A four-metric row follows, with ratio bars where a
+denominator exists; only Unique projects carries the selected category's small
+illustration. Findings sit on mist bands with explicit scope. Charts are HTML/CSS
+bar lists drawn linearly from zero with printed values; the Shared names tally
+uses shape only (square identical, circle variant). Project listings and the
+data table are folded native disclosures; downloads stay visible. Whole-collection
+coverage is a mist band. The botanical mark closes the page above the Prussian
+patterned footer with source revision and collection date. Data meaning and the
+method are in [the Observatory contract](OBSERVATORY.md) and
+[the B31 redesign record](OBSERVATORY-REDESIGN.md); visual rules live here and in
+`observatory.css`.
+
+## Route shell for sibling pages (B42)
+
+Any new top-level page (an archive, gallery or spotlight) starts from the
+Observatory shell, not from a heading and paragraphs on the ledger stylesheet:
+
+- the Observatory header markup and nav, with `aria-current` underlined in scarlet;
+- the 1200px column with 48/24/16px gutters, a Fraunces display `h1` and
+  64–96px section spacing;
+- scarlet block section labels (mist on scarlet, 5.86:1) and jump links when
+  the page has more than two sections;
+- a summary row or mist band that states the page's literal scope before records;
+- folded native disclosures for evidence detail, with downloads visible;
+- the centered botanical closing mark and the Prussian `navypattern2` footer with
+  a double white top border, ledger link, GitHub link and source revision.
+
+Share the CSS rather than copying class names that the page's stylesheet does not
+define. Page content and specimen artwork vary; the frame does not. The
+[visual reference](design/index.html) shows the shell and the specimen plate.

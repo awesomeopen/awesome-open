@@ -14,7 +14,7 @@ This installed skill is a routing workflow, not a copy of the brand rules. In a 
 ## Apply the project contract
 
 1. Establish the bounded task and which existing decisions it affects.
-2. Read `brand/visual-system.md` and the detailed guide it points to for interface work; read `brand/illustration.md` and the repository's pinned FOSSoligy skill for artwork.
+2. Read `brand/visual-system.md` and the detailed guide it points to for interface work. For a new page, follow the route shell in that guide and open the built Observatory and `site/observatory.css` as the working model; a heading and paragraphs on the ledger stylesheet is not a finished page. For the expanded record, read the specimen plate rules (B29). Read any feature contract the change touches (`site/OBSERVATORY.md`, `site/WEEKLY-DRAWS.md`, `site/SPECIMEN-ART.md`). For artwork, read `brand/illustration.md` and the repository's pinned FOSSoligy skill. Compare the result with `site/design/index.html` and its retired-patterns list; if that reference is out of date, fix it in the same PR.
 3. Preserve explicit user constraints and approved project choices over generic design-skill defaults. Distinguish implemented behavior from newly proposed policy. Keep evidence labels factual and sources traceable.
 4. Edit source files, not generated HTML or the disposable Sites wrapper alone. For source-only copy edits, update the generator. Follow `site/PREVIEW.md` for any preview and publication workflow.
 5. Update the affected brand rule, decision entry, asset provenance or skill pin in the same PR. For implementation-only changes, record why no brand rule changed in the PR body. Never invent an approval to close an unresolved decision.
