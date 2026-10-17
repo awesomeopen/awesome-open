@@ -52,6 +52,21 @@ function assertGeometry(m, label) {
   assert.ok(left >= 0 && right <= 1, label + ' normalized horizontal bounds');
 }
 
+async function captureSpecimen(page, filename) {
+  // The field deliberately reaches into the column gutters. Capture its union
+  // with the label, not the narrower parent, so evidence never clips the art.
+  await page.locator('.plate-field').scrollIntoViewIfNeeded();
+  const clip = await page.locator('.specimen-plate').evaluate(plate => {
+    const nodes = ['.plate-field', '.specimen-label'].map(selector => plate.querySelector(selector).getBoundingClientRect());
+    const x = Math.max(0, Math.min(...nodes.map(r => r.left)) + scrollX);
+    const y = Math.max(0, Math.min(...nodes.map(r => r.top)) + scrollY);
+    const right = Math.max(...nodes.map(r => r.right)) + scrollX;
+    const bottom = Math.max(...nodes.map(r => r.bottom)) + scrollY;
+    return { x, y, width: right - x, height: bottom - y };
+  });
+  await page.screenshot({ path: filename, clip, animations: 'disabled', caret: 'hide', scale: 'css' });
+}
+
 module.exports = async function checkSpecimenBounds({ browser, context, url, data }) {
   const cutouts = JSON.parse(fs.readFileSync(path.join(__dirname, '../site/specimens/cutouts.json'), 'utf8')).cutouts;
   const projects = data.projects.filter(p => p.artwork && cutouts[p.id]);
@@ -82,7 +97,7 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
           await page.evaluate(() => document.fonts.ready);
           await page.locator('.plate-specimen').scrollIntoViewIfNeeded();
           const file = `bounds-${project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${width}.png`;
-          await page.locator('.plate-specimen').screenshot({ path: path.join(output, file), animations: 'disabled', caret: 'hide', scale: 'css' });
+          await captureSpecimen(page, path.join(output, file));
           screenshots.push(file);
         }
       }
@@ -111,7 +126,7 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
           await page.locator('.plate-art img').evaluate(image => image.decode());
           await page.evaluate(() => document.fonts.ready);
           const file = `bounds-before-${project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${width}.png`;
-          await page.locator('.plate-field').screenshot({ path: path.join(output, file), animations: 'disabled', caret: 'hide', scale: 'css' });
+          await captureSpecimen(page, path.join(output, file));
           screenshots.push(file);
         }
       }
