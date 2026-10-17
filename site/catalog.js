@@ -1,4 +1,4 @@
-/* Progressive enhancement for the static catalog. No requests or dependencies. */
+/* Progressive enhancement for the static catalog. Same-origin records load on demand. */
 (function (root, factory) {
   "use strict";
   var catalog = factory();
@@ -307,6 +307,7 @@
     }
     if (!field) return;
     var image = field.querySelector("img");
+    if (!image) return;
     if (field.dataset.cutout === "true") {
       field.insertBefore(terrain(document, "plate-terrain", field.dataset.seed, "0 0 1000 1000",
         plateRings(field.dataset.seed, 500, 860, 22, 34, 1.55, 0.5), "none"), field.firstChild);
@@ -329,13 +330,24 @@
       var art = image.getBoundingClientRect();
       return [Math.min(1, Math.max(0, (event.clientX - art.left) / art.width)), Math.min(1, Math.max(0, (event.clientY - art.top) / art.height))];
     }
-    field.addEventListener("pointermove", function (event) { if (event.pointerType === "mouse") place.apply(null, fraction(event)); });
-    field.addEventListener("pointerleave", function (event) { if (event.pointerType === "mouse") lens.classList.remove("is-on"); });
-    field.addEventListener("click", function (event) {
+    function move(event) { if (event.pointerType === "mouse") place.apply(null, fraction(event)); }
+    function leave(event) { if (event.pointerType === "mouse") lens.classList.remove("is-on"); }
+    function click(event) {
       if (event.pointerType === "mouse") return;
       if (lens.classList.contains("is-on")) lens.classList.remove("is-on"); else place.apply(null, fraction(event));
-    });
+    }
+    field.addEventListener("pointermove", move);
+    field.addEventListener("pointerleave", leave);
+    field.addEventListener("click", click);
     plate.plateLayout = function () { layoutPlate(plate, field, image, window); };
+    plate.plateCleanup = function () {
+      field.removeEventListener("pointermove", move);
+      field.removeEventListener("pointerleave", leave);
+      field.removeEventListener("click", click);
+      image.removeEventListener("load", plate.plateLayout);
+      delete plate.plateLayout;
+      delete plate.plateCleanup;
+    };
     if (image.complete) plate.plateLayout(); else image.addEventListener("load", plate.plateLayout, { once: true });
   }
 
@@ -376,20 +388,196 @@
     svg.innerHTML = '<path d="' + d + '"/>' + dots;
   }
 
+  var plateManagers = new WeakMap();
+  var CLOSED_PLATE_LIMIT = 3;
+
+  // Generated record pages are the no-JS fallback and the fetch payload. Never
+  // insert their outer document, script, style or navigation into the ledger.
+  function recordPlate(html, url, projectId, document, window) {
+    if (html.length > 2 * 1024 * 1024) throw new Error("Record is too large");
+    var record = new window.DOMParser().parseFromString(html, "text/html");
+    var cards = record.querySelectorAll(".project-card[data-project-id]");
+    var plates = record.querySelectorAll(".specimen-plate");
+    if (cards.length !== 1 || cards[0].dataset.projectId !== projectId ||
+        cards[0].id !== "project-" + projectId || plates.length !== 1 ||
+        !cards[0].contains(plates[0]) || !record.getElementById("name-" + projectId) ||
+        plates[0].getAttribute("aria-labelledby") !== "name-" + projectId) {
+      throw new Error("Record identity does not match");
+    }
+    var base = record.querySelector("base[href]");
+    var assetBase = new URL(base ? base.getAttribute("href") : url.href, url);
+    if (assetBase.origin !== url.origin || !/^https?:$/.test(assetBase.protocol)) {
+      throw new Error("Invalid record base URL");
+    }
+    var plate = plates[0];
+    Array.from(plate.querySelectorAll("*")).concat(plate).forEach(function (node) {
+      if (/^(script|style|iframe|frame|frameset|object|embed|base|link|meta|form|foreignobject|animate|animatemotion|animatetransform|set)$/i.test(node.tagName)) {
+        throw new Error("Unexpected active record content");
+      }
+      Array.from(node.attributes).forEach(function (attribute) {
+        var name = attribute.name.toLowerCase(), value = attribute.value.trim();
+        if (/^on/.test(name) || name === "srcdoc" || name === "srcset" ||
+            (name === "style" && /url\s*\(|@import|expression\s*\(/i.test(value))) {
+          throw new Error("Unexpected active record attribute");
+        }
+        if (["src", "href", "xlink:href"].indexOf(name) === -1 || value.charAt(0) === "#") return;
+        var resolved = new URL(value, assetBase);
+        if (!/^https?:$/.test(resolved.protocol) ||
+            (name === "src" && resolved.origin !== url.origin)) throw new Error("Invalid record resource URL");
+        node.setAttribute(attribute.name, resolved.href);
+      });
+    });
+    return document.importNode(plate, true);
+  }
+
   function enhancePlates(document, window) {
+    if (plateManagers.has(document)) return plateManagers.get(document);
+    var states = new WeakMap(), closed = [];
+
+    function showPlate(plate) {
+      enhancePlate(plate, document, window);
+      plate.classList.remove("is-opening");
+      void plate.offsetWidth;
+      plate.classList.add("is-opening");
+      if (plate.plateLayout) plate.plateLayout();
+    }
+
+    function forgetClosed(state) {
+      var index = closed.indexOf(state);
+      if (index !== -1) closed.splice(index, 1);
+    }
+
+    function trimClosed() {
+      // Open drawers are never evicted, even when a native toggle event has not
+      // reached us yet. Keep only small disclosure booleans after an eviction.
+      closed = closed.filter(function (state) { return !state.drawer.open; });
+      while (closed.length > CLOSED_PLATE_LIMIT) {
+        var state = closed.shift(), plate = state.host.querySelector(".specimen-plate");
+        if (!plate) continue;
+        state.disclosures = Array.from(plate.querySelectorAll("details")).map(function (detail) { return detail.open; });
+        if (plate.plateCleanup) plate.plateCleanup();
+        plate.remove();
+        state.shown = false;
+        status(state, "idle");
+      }
+    }
+
+    function status(state, value, message, retry) {
+      state.host.dataset.detailState = value;
+      if (value === "loading") state.host.setAttribute("aria-busy", "true");
+      else state.host.removeAttribute("aria-busy");
+      // The permanent static link also provides a printable full record.
+      if (state.fallback) state.fallback.hidden = false;
+      if (message && !state.status) {
+        state.status = document.createElement("p");
+        state.status.className = "detail-status";
+        state.status.setAttribute("role", "status");
+        state.host.appendChild(state.status);
+      }
+      if (state.status) {
+        state.status.textContent = message || "";
+        state.status.hidden = !message;
+      }
+      if (retry && !state.retry) {
+        state.retry = document.createElement("button");
+        state.retry.type = "button";
+        state.retry.className = "detail-retry";
+        state.retry.textContent = "Retry loading record";
+        state.retry.addEventListener("click", function () { if (state.drawer.open) open(state.drawer); });
+        state.host.appendChild(state.retry);
+      }
+      if (state.retry) {
+        if (!retry && document.activeElement === state.retry) {
+          var summary = state.drawer.querySelector("summary");
+          if (summary) summary.focus({ preventScroll: true });
+        }
+        state.retry.hidden = !retry;
+      }
+    }
+
+    function cancel(state) {
+      state.sequence += 1;
+      if (state.request) state.request.abort();
+      state.request = null;
+      if (state.host && state.host.dataset.detailState === "loading") status(state, "idle");
+    }
+
+    async function load(state) {
+      var url, projectId = state.host.dataset.projectId;
+      try {
+        var pageURL = new URL(window.location.href);
+        url = new URL(state.host.dataset.detailUrl, document.baseURI || pageURL.href);
+        if (!/^[a-f0-9]{64}$/.test(projectId) || !/^https?:$/.test(url.protocol) ||
+            url.origin !== pageURL.origin || url.username || url.password ||
+            !url.pathname.endsWith("/records/" + projectId + ".html")) throw new Error("Invalid record URL");
+        if (typeof window.fetch !== "function" || typeof window.DOMParser !== "function") throw new Error("Fetch unavailable");
+      } catch (_) {
+        status(state, "error", "Open the full record using the record link.", false);
+        return;
+      }
+      var sequence = ++state.sequence;
+      var request = typeof window.AbortController === "function" ? new window.AbortController() : { abort: function () {} };
+      state.request = request;
+      status(state, "loading", "Loading record…");
+      function current() {
+        return state.sequence === sequence && state.drawer.open && state.host.isConnected !== false;
+      }
+      try {
+        var response = await window.fetch(url.href, { signal: request.signal, credentials: "same-origin", mode: "same-origin", redirect: "error" });
+        if (!current()) return;
+        if (!response.ok || (response.url && new URL(response.url).origin !== url.origin)) throw new Error("Record request failed");
+        var type = response.headers && response.headers.get("content-type");
+        if (type && !/^(text\/html|application\/xhtml\+xml)(?:;|$)/i.test(type)) throw new Error("Unexpected record type");
+        var html = await response.text();
+        if (!current()) return;
+        var plate = recordPlate(html, url, projectId, document, window);
+        if (!current()) return;
+        if (state.disclosures) Array.from(plate.querySelectorAll("details")).forEach(function (detail, index) {
+          if (index < state.disclosures.length) detail.open = state.disclosures[index];
+        });
+        state.host.appendChild(plate);
+        status(state, "loaded");
+        state.shown = true;
+        showPlate(plate);
+      } catch (_) {
+        if (current()) status(state, "error", "The record couldn’t load. Retry or use the full record link.", true);
+      } finally {
+        if (state.sequence === sequence) state.request = null;
+      }
+    }
+
+    function open(drawer) {
+      var state = states.get(drawer);
+      if (!state || !drawer.open) return;
+      forgetClosed(state);
+      var plate = drawer.querySelector(".specimen-plate");
+      if (plate) {
+        if (!state.shown) showPlate(plate);
+        state.shown = true;
+      } else if (state.host && !state.request) {
+        load(state);
+      }
+    }
+
     var drawers = document.querySelectorAll ? document.querySelectorAll("details.specimen-drawer") : [];
     Array.prototype.forEach.call(drawers, function (drawer) {
-      var plate = drawer.querySelector(".specimen-plate");
-      if (!plate) return;
-      function open() {
-        enhancePlate(plate, document, window);
-        plate.classList.remove("is-opening");
-        void plate.offsetWidth;
-        plate.classList.add("is-opening");
-        if (plate.plateLayout) plate.plateLayout();
-      }
-      drawer.addEventListener("toggle", function () { if (drawer.open) open(); });
-      if (drawer.open) open();
+      var host = drawer.querySelector(".specimen-detail-host");
+      var state = { drawer: drawer, host: host, sequence: 0, request: null, shown: false,
+        fallback: host && host.querySelector(".detail-fallback") };
+      states.set(drawer, state);
+      drawer.addEventListener("toggle", function () {
+        if (drawer.open) open(drawer);
+        else {
+          cancel(state);
+          state.shown = false;
+          if (host && host.querySelector(".specimen-plate")) {
+            forgetClosed(state);
+            closed.push(state);
+            trimClosed();
+          }
+        }
+      });
+      if (drawer.open) open(drawer);
     });
     if (window.addEventListener) {
       window.addEventListener("resize", function () {
@@ -397,11 +585,22 @@
           if (plate.plateLayout) plate.plateLayout();
         });
       });
+      // Abort pending transfers on real navigation. Keep mounted records and
+      // listeners intact so a back/forward-cache restore stays usable.
+      window.addEventListener("pagehide", function () {
+        Array.prototype.forEach.call(drawers, function (drawer) { cancel(states.get(drawer)); });
+      });
+      window.addEventListener("pageshow", function (event) {
+        if (event.persisted) Array.prototype.forEach.call(drawers, function (drawer) { if (drawer.open) open(drawer); });
+      });
     }
+    var manager = { open: open };
+    plateManagers.set(document, manager);
+    return manager;
   }
 
   function init(document, window) {
-    enhancePlates(document, window);
+    var plates = enhancePlates(document, window);
     var footerArt = document.querySelector('[data-footer-background]');
     if (footerArt) {
       var backgrounds = JSON.parse(footerArt.dataset.backgrounds);
@@ -515,7 +714,10 @@
       if (!focus && !becameVisible) return;
       var drawer = String(card.tagName || "").toLowerCase() === "details" ? card
         : typeof card.querySelector === "function" ? card.querySelector("details.specimen-drawer") : null;
-      if (drawer) drawer.open = true;
+      if (drawer) {
+        drawer.open = true;
+        plates.open(drawer);
+      }
       if (focus) {
         var target = drawer && typeof drawer.querySelector === "function" ? drawer.querySelector("summary") : null;
         target = target || card;
@@ -647,18 +849,25 @@
       setControls(DEFAULTS);
       apply();
     });
+    function followCategory(event, link) {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      var category = link.dataset.category;
+      if (category && !data.categories.some(function (item) { return item.id === category; })) return;
+      event.preventDefault();
+      cancelPending();
+      controls.category.value = category;
+      apply();
+      var catalogMain = document.getElementById("catalog");
+      if (catalogMain && typeof catalogMain.focus === "function") catalogMain.focus();
+    }
     categoryLinks.forEach(function (link) {
-      link.addEventListener("click", function (event) {
-        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        var category = link.dataset.category;
-        if (category && !data.categories.some(function (item) { return item.id === category; })) return;
-        event.preventDefault();
-        cancelPending();
-        controls.category.value = category;
-        apply();
-        var catalogMain = document.getElementById("catalog");
-        if (catalogMain && typeof catalogMain.focus === "function") catalogMain.focus();
-      });
+      if (!list.contains(link)) link.addEventListener("click", function (event) { followCategory(event, link); });
+    });
+    // Delegate record links so newly mounted plates work without per-plate
+    // listeners or a closure retaining an evicted record.
+    list.addEventListener("click", function (event) {
+      var link = event.target && event.target.closest("a[data-category]");
+      if (link && list.contains(link)) followCategory(event, link);
     });
     window.addEventListener("popstate", restore);
     window.addEventListener("hashchange", restore);

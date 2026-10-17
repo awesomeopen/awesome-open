@@ -9,6 +9,7 @@ module.exports = async ({ page, url, data, capture }) => {
     const card = page.locator('#project-' + project.id);
     const drawer = card.locator('.specimen-drawer');
     await drawer.evaluate(node => {node.open = true;});
+    await card.locator('.specimen-plate').waitFor({ state: 'visible' });
     const chart = card.locator('.star-chart img');
     await chart.scrollIntoViewIfNeeded();
     assert.equal(await chart.isVisible(),true);

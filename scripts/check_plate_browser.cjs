@@ -9,6 +9,7 @@ module.exports=async({page,url,data,capture})=>{
    await page.goto(new URL('#project-'+p.id,url).href);
    const row=page.locator('#project-'+p.id),plate=row.locator('.specimen-plate');
    await row.locator('> details').evaluate(n=>n.open=true);
+   await plate.waitFor({state:'visible'});
    await plate.scrollIntoViewIfNeeded();
    await plate.locator('img').evaluateAll(ns=>Promise.all(ns.map(n=>n.decode().catch(()=>null))));
    assert.equal(await plate.count(),1);
@@ -55,6 +56,7 @@ module.exports=async({page,url,data,capture})=>{
  await page.goto(new URL('#project-'+tofu.id,url).href);
  const tofuRow=page.locator('#project-'+tofu.id);
  await tofuRow.locator('> details').evaluate(n=>n.open=true);
+ await tofuRow.locator('.specimen-plate').waitFor({state:'visible'});
  const field=tofuRow.locator('.plate-field');
  await field.scrollIntoViewIfNeeded();
  const box=await field.boundingBox();
@@ -67,6 +69,7 @@ module.exports=async({page,url,data,capture})=>{
  await page.goto(new URL('#project-'+tofu.id,url).href);
  const study=page.locator('#project-'+tofu.id);
  await study.locator('> details').evaluate(n=>n.open=true);
+ await study.locator('.specimen-plate').waitFor({state:'visible'});
  assert.equal(await study.locator('.function-detail').isVisible(),true);
  assert.equal(await study.locator('.plate-art').evaluate(n=>getComputedStyle(n).animationIterationCount),'1');
  await page.emulateMedia({reducedMotion:'reduce'});
