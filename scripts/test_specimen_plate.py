@@ -97,8 +97,8 @@ class PlateTests(unittest.TestCase):
 
     def test_close_timeline_endpoints_have_opposing_labels(self):
         line = timeline('2026-10-01', None, '2026-10-02')
-        self.assertIn('style="left:0;text-align:left">Repository created', line)
-        self.assertIn('style="right:0;text-align:right">Repository push', line)
+        self.assertIn('style="right:25.21%;margin-right:8px;text-align:right">Repository created', line)
+        self.assertIn('style="left:75.07%;margin-left:8px;text-align:left">Repository push', line)
         marks = re.findall(r'class="timeline-mark" style="left:([0-9.]+)%"', line)
         self.assertEqual(len(marks), 2)
         self.assertGreater(float(marks[1]), float(marks[0]))
