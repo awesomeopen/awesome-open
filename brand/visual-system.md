@@ -58,7 +58,7 @@ changes check the relevant desktop/narrow states, keyboard/focus, reduced motion
 real asset paths and output modes. Record unavailable browser checks explicitly.
 Do not mark a reference “approved” merely because a build succeeds.
 
-## Icons (B44, proposed)
+## Icons (B-PR101-01, proposed)
 
 Status, link, control and setup icons follow the [icon map](icons.md). Icons
 restate a visible evidence label; they never replace it or add a verdict. No
@@ -150,7 +150,8 @@ B38 replaces the hardcoded occupant policy after the first saved draw activates.
 The seven existing jars and interactions stay fixed. A seeded weekly draw selects
 only illustrated catalog projects, independent of stars, with an initial four-week
 cooldown; the draw is displayed the following week. Assign the seven illustrations
-to windows by subject fit and contain the whole subject. The static `/draws/` archive is linked from the footer; the hero has no edition link. See [calendar, evidence and fallback
+to windows by subject fit and contain the whole subject. The static `/draws/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
+with a specimen tray per edition (B44). See [calendar, evidence and fallback
 rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
 fallback; it is not retroactively labeled a random draw.
 

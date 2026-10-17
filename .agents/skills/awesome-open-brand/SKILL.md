@@ -7,7 +7,7 @@ description: Apply and maintain Awesome Open* brand decisions, design documentat
 
 ## Resolve the working source
 
-Use the `awesomeopen/awesome-open` repository. Read its root `AGENTS.md`, `brand/README.md`, `brand/decisions.md`, and the relevant references from that index. Check the current branch and working tree before editing. Use a focused branch from the current base and preserve other work.
+Use the `awesomeopen/awesome-open` repository. Read its root `AGENTS.md`, `brand/README.md`, `brand/DECISION-GUIDE.md`, relevant individual records in `brand/decisions/`, the legacy `brand/decisions.md`, and the relevant references from that index. Check the current branch and working tree before editing. Use a focused branch from the current base and preserve other work.
 
 This installed skill is a routing workflow, not a copy of the brand rules. In a repository checkout, prefer the matching `.agents/skills/awesome-open-brand/SKILL.md`. If the brand reference is absent on the selected revision, check whether the consolidation PR is still pending; do not pretend its contents are merged. Resolve the intended branch or report the limitation. Do not guess current colors, approval status, asset selections or branch names from chat memory.
 
@@ -22,6 +22,14 @@ This installed skill is a routing workflow, not a copy of the brand rules. In a 
 7. Run the checks appropriate to the actual code/art change. State unavailable visual checks honestly. Submit a draft PR identifying the exact source revision; do not merge or change hosting access merely because this skill was invoked.
 
 ## Maintain skills without drift
+
+For a new decision, open a useful early draft PR to obtain its number, then add
+`brand/decisions/B-PR<number>-<ordinal>.md` using the authoring guide's metadata.
+Each PR owns its namespace; do not reserve a global counter or append the legacy
+table. Keep merged IDs and filenames stable. Declare full replacements in the
+new record's `supersedes` list; explain partial changes with ordinary citations.
+Generate the combined overview into ignored output, not a shared tracked table.
+Run the decision checks with the real base SHA and PR number before review.
 
 Read `brand/skills.md` and `brand/skills.lock.json`. This workflow's authority is the project repository; an installed copy is a convenience mirror. Reusable Retro-Scraperism and Speculative FOSSoligy originals remain owner-maintained Skills; their repository copies are pinned dependencies, updated deliberately with a reviewed diff and all referenced files. General design tools are optional and never supersede the project contract.
 

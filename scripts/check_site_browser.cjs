@@ -90,6 +90,25 @@ const path = require('node:path');
     await page.locator('#' + id).selectOption(value);
   };
   const waitForState = () => page.waitForFunction(() => document.querySelector('#filters').dataset.enhanced === 'true');
+  const checkReviewedAliases = async (label, data) => {
+    const obsId = '0e1c34b3f948e9037466f84680e402b96f2c0b61351865137c4359f41e5d3014';
+    const record = data.projects.find(p => p.url === 'https://github.com/obsproject/obs-studio');
+    assert.ok(record && record.name === 'OBS Studio');
+    assert.equal(record.id, obsId);
+    for (const query of ['Open Broadcaster Software', 'obs', 'OBS streaming']) {
+      await change('search', query);
+      assert.deepEqual(await page.locator('.project-card:not([hidden])').evaluateAll(nodes => nodes.map(n => n.dataset.projectId)), [record.id], label + ': ' + query);
+      assert.equal(new URL(page.url()).searchParams.get('q'), query);
+    }
+    await page.locator('#project-' + record.id + ' > details > summary').click();
+    assert.equal(await page.locator('#project-' + record.id + ' details.specimen-drawer').evaluate(n => n.open), true);
+    assert.ok(await page.locator('#project-' + record.id).textContent().then(t => t.includes('OBS Studio')));
+    await capture('aliases-' + label + '.png');
+    await page.locator('#project-' + record.id + ' > details > summary').click();
+    assert.equal(await page.locator('#project-' + record.id + ' details.specimen-drawer').evaluate(n => n.open), false);
+    await page.locator('#clear-filters').click();
+    assert.equal(await visible(), data.projects.length);
+  };
   const assertLedgerFits = async (target, label) => {
     assert.equal(await target.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `Horizontal overflow: ${label}`);
     // overflow-x:clip on a page shell can hide a grid that is wider than its screen.
@@ -232,6 +251,8 @@ const path = require('node:path');
     const absentLicense = data.projects.find(p => !p.github || !p.github.license);
     if (absentLicense) assert.equal(await page.locator('#project-' + absentLicense.id + ' .license-readout').textContent(), '');
     assert.ok(await page.locator('.specimen-drawer > summary').first().evaluate(n => n.getBoundingClientRect().height <= 50), 'Compact one-line row');
+
+    await checkReviewedAliases('production', data);
 
     // Exact reviewed alternative search, combined metadata filters, empty/reset.
     await change('search', 'NotebookLM');
@@ -534,6 +555,7 @@ const path = require('node:path');
     })));
     assert.deepEqual(downloads.map(item => item.name).sort(), expectedDownloads.sort());
     assert.ok(downloads.every(item => item.href.startsWith('data:application/json;base64,')));
+    await checkReviewedAliases('standalone', data);
     await change('search', 'OpenTofu');
     assert.ok(await visible() > 0);
     await require('./check_deployment_browser.cjs')({ page, browser, url, data, capture });
@@ -553,7 +575,7 @@ const path = require('node:path');
         'screenshots.json, and browser/server logs.\n');
     }
     console.log(JSON.stringify({ status: 'passed', projects: data.projects.length, screenshots: output,
-      checks: ['search', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'no-JS drawers', 'standalone', 'no page errors'] }, null, 2));
+      checks: ['search', 'reviewed aliases and stable OBS identity', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'no-JS drawers', 'standalone', 'no page errors'] }, null, 2));
   } catch (error) {
     report.status = 'failed';
     report.error = error.message;

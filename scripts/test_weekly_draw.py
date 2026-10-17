@@ -85,6 +85,10 @@ class WeeklyDrawTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             build_archive(cat, doc, tmp, ROOT)
             self.assertNotIn('id="week-2026-10-19"', (Path(tmp)/'draws/index.html').read_text())
+            empty = (Path(tmp)/'draws/index.html').read_text()
+            # B42: the archive uses the Observatory route shell, not bare ledger styles.
+            for marker in ('href="../observatory/observatory.css"', 'class="obs-header"', 'aria-current="page">Weekly draws', 'class="obs-closing-mark"', 'class="obs-footer"', 'Source revision:'):
+                self.assertIn(marker, empty)
             doc = draw.advance(doc, cat, date(2026, 10, 19))
             build_archive(cat, doc, tmp, ROOT)
             html = (Path(tmp)/'draws/index.html').read_text()

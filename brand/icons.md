@@ -1,6 +1,6 @@
 # Icon map
 
-Status: proposed (B44). No icon artwork exists yet and no generator reads the
+Status: proposed ([B-PR101-01](decisions/B-PR101-01.md)). No icon artwork exists yet and no generator reads the
 manifest. Audited against main `4bc3d97` on 2026-10-16; line references point to
 that revision and drift as code changes, so each one also names an anchor string.
 
@@ -227,7 +227,7 @@ Snapshot-to-snapshot facts; no collector exists yet.
 
 1. Add or change the row here and the entry in `site/brand/icons.json` in the
    same PR. A new state needs a literal meaning tied to a field or label in code.
-2. Record new rules in [decisions](decisions.md); when artwork lands, add the
+2. Record new rules as a PR-scoped record under [decisions/](decisions/) following the [decision guide](DECISION-GUIDE.md); when artwork lands, add the
    family to the [asset index](assets.md) with provenance and refresh the lock.
 3. Before implementing an icon, re-check the referenced line and label against
    the current source.

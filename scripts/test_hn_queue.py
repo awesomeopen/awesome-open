@@ -113,6 +113,153 @@ class QueueTests(unittest.TestCase):
         self.assertEqual(result['projects'], [])
         self.assertTrue(next(iter(result['queue'].values()))['last_good'])
 
+    def test_display_rename_reuses_observation_and_updates_only_current_view(self):
+        import chart_observations as observations
+        first = self.refresh()
+        original = copy.deepcopy(first)
+        archive = observations.add_hn(observations.empty(), first)
+        before_archive = copy.deepcopy(archive)
+        renamed = dict(project(), name='Open Thing Display Name')
+        result = self.refresh(existing=first, projects=[renamed], now=NOW + timedelta(days=1),
+                              getter=lambda url: self.fail('A display rename must not fetch'))
+        old_good = next(iter(first['queue'].values()))['last_good']
+        new_good = next(iter(result['queue'].values()))['last_good']
+        self.assertEqual(new_good, old_good)
+        self.assertEqual(first, original)
+        self.assertNotEqual(hn.identity_key(renamed), old_good['identity_key'])
+        self.assertTrue(hn.identity_matches(old_good, renamed))
+        self.assertEqual(result['selection_report']['due_projects'], 0)
+        self.assertEqual(result['selection_report']['attempted_projects'], 0)
+        self.assertEqual(result['projects'], [dict(old_good['project'], name=renamed['name'])])
+        self.assertIn(renamed['name'] + ': HN discussions / 2y', hn.svg(result['projects'][0], result))
+        observations.add_hn(archive, result)
+        observations.validate(archive)
+        self.assertEqual(archive, before_archive)
+        observation = next(iter(archive['observations'].values()))
+        self.assertEqual(observations.materialize(archive, observation), old_good)
+
+    def test_legacy_snapshot_rename_preserves_original_observation_without_redating(self):
+        first = self.refresh()
+        legacy = {'schema_version': 1, 'months': first['months'], 'projects': first['projects'],
+                  'refreshed_utc_date': NOW.date().isoformat()}
+        renamed = dict(project(), name='Open Thing')
+        result = self.refresh(existing=legacy, projects=[renamed], now=NOW + timedelta(days=1),
+                              getter=lambda url: self.fail('A display rename must not fetch'))
+        good = next(iter(result['queue'].values()))['last_good']
+        self.assertEqual(good['project'], first['projects'][0])
+        self.assertEqual(good['identity_key'], hn.identity_key(project()))
+        self.assertNotIn('collected_at', good)
+        self.assertEqual(result['projects'][0]['name'], renamed['name'])
+
+    def test_rename_does_not_reuse_any_changed_matching_or_provenance_fields(self):
+        first = self.refresh()
+        changes = {
+            'queries': ['different discovery query'],
+            'title_aliases': ['AnotherThing'],
+            'domains': ['another.example'],
+            'repositories': ['another/project'],
+            'exact_urls': ['https://example.org/exact'],
+            'excluded_repositories': ['unrelated/project'],
+            'title_context_pattern': 'required',
+            'other_project_pattern': 'unrelated',
+            'identity_sources': ['https://example.org/review'],
+            'scope_note': 'A different reviewed scope',
+            'slug': 'another-asset',
+            'catalog_aliases': [{'name': 'AnotherThing'}],
+            'future_identity_revision': 'review-2',
+        }
+        good = next(iter(first['queue'].values()))['last_good']
+        for field, value in changes.items():
+            with self.subTest(field=field):
+                changed = dict(project(), name='Open Thing', **{field: value})
+                self.assertFalse(hn.identity_matches(good, changed))
+                result = self.refresh(existing=first, projects=[changed], request_budget=0)
+                self.assertEqual(result['projects'], [])
+                self.assertEqual(next(iter(result['queue'].values()))['last_good'], good)
+
+    def test_display_compatibility_preserves_json_revision_types(self):
+        for revision in [1, {'nested':[1]}]:
+            original = dict(project(), identity_revision=revision)
+            good = {'project':original, 'identity_key':hn.identity_key(original)}
+            for replacement in ([True, 1.0] if revision == 1 else [{'nested':[True]}, {'nested':[1.0]}]):
+                current = dict(original, name='Renamed', identity_revision=replacement)
+                self.assertNotEqual(hn.identity_key(original), hn.identity_key(current))
+                self.assertFalse(hn.identity_matches(good,current))
+                record = {'last_good':good, 'pending_identity_key':good['identity_key']}
+                self.assertFalse(hn.pending_identity_matches(record,current))
+
+    def test_display_compatibility_cannot_hide_corrupt_original_fingerprint(self):
+        first = self.refresh()
+        broken = copy.deepcopy(first)
+        good = next(iter(broken['queue'].values()))['last_good']
+        good['project']['name'] = 'Tampered Original Name'
+        renamed = dict(project(), name='Current Display Name')
+        self.assertFalse(hn.identity_matches(good, renamed))
+        with self.assertRaisesRegex(ValueError, 'fingerprint'):
+            self.refresh(existing=broken, projects=[renamed], request_budget=0)
+
+    def test_repeated_display_renames_resume_proven_pending_pages(self):
+        first = self.refresh()
+        original_good = copy.deepcopy(next(iter(first['queue'].values()))['last_good'])
+        calls = []
+        def paged(url):
+            n = int(parse_qs(urlsplit(url).query)['page'][0])
+            calls.append(n)
+            response = page(url)
+            response['hits'] = [dict(response['hits'][0], objectID=str(100 + n * 100 + i))
+                                for i in range(100 if n < 2 else 1)]
+            response.update(nbPages=3, nbHits=201)
+            return response
+        partial = self.refresh(existing=first, now=NOW + timedelta(days=1), force=True,
+                               getter=paged, request_budget=1)
+        renamed = dict(project(), name='Open Thing')
+        partial = self.refresh(existing=partial, projects=[renamed], now=NOW + timedelta(days=2),
+                               getter=paged, request_budget=1)
+        record = next(iter(partial['queue'].values()))
+        self.assertEqual(record['last_good'], original_good)
+        self.assertEqual(record['pending_identity_key'], original_good['identity_key'])
+        self.assertEqual(partial['projects'][0]['name'], renamed['name'])
+        renamed_again = dict(renamed, name='Open Thing Display')
+        result = self.refresh(existing=partial, projects=[renamed_again], now=NOW + timedelta(days=3),
+                              getter=paged, request_budget=1)
+        self.assertEqual(calls, [0, 1, 2])
+        self.assertEqual(result['projects'][0]['story_count'], 201)
+        self.assertEqual(result['projects'][0]['name'], renamed_again['name'])
+        self.assertEqual(result['budget']['lane_requests']['continuation'], 1)
+
+    def test_unprovable_or_changed_pending_identity_restarts_safely(self):
+        calls = []
+        def paged(url):
+            n = int(parse_qs(urlsplit(url).query)['page'][0])
+            calls.append(n)
+            response = page(url)
+            response['hits'] = [dict(response['hits'][0], objectID=str(100 + n * 100 + i))
+                                for i in range(100 if n == 0 else 1)]
+            response.update(nbPages=2, nbHits=101)
+            return response
+        # A first, incomplete legacy attempt has no complete identity payload to
+        # prove that its opaque hash differs only by the name.
+        partial_only = self.refresh(getter=paged, request_budget=1)
+        # A completed payload can prove the old identity, but never a genuinely
+        # changed matching rule or a different monthly window.
+        completed = self.refresh()
+        partial_good = self.refresh(existing=completed, now=NOW + timedelta(days=1),
+                                    force=True, getter=paged, request_budget=1)
+        cases = [
+            (partial_only, dict(project(), name='Renamed'), NOW + timedelta(days=1)),
+            (partial_good, dict(project(), name='Renamed', title_context_pattern='required'), NOW + timedelta(days=2)),
+            (partial_good, dict(project(), name='Renamed'), NOW.replace(month=11)),
+        ]
+        for previous, changed, now in cases:
+            with self.subTest(name=changed['name'], context=changed.get('title_context_pattern'), month=now.month):
+                calls.clear()
+                result = self.refresh(existing=previous, projects=[changed], now=now,
+                                      getter=paged, request_budget=1)
+                self.assertEqual(calls, [0])
+                self.assertEqual(result['projects'], [])
+                record = next(iter(result['queue'].values()))
+                self.assertEqual(record['pending_identity_key'], hn.identity_key(changed))
+
     def test_budget_persists_same_day_and_invocation_retry(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'budget.json'

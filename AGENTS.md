@@ -25,7 +25,12 @@ listed there before editing; do not load every design skill for a small fix.
 
 ## Maintenance in the same PR
 
-- New or changed brand rule: update the relevant reference and `brand/decisions.md`.
+- New or changed brand rule: update the relevant reference and add a PR-scoped
+  record under `brand/decisions/`, following `brand/DECISION-GUIDE.md`. Open a
+  useful early draft to get its number; use `B-PR<number>-<ordinal>` IDs. Keep
+  merged IDs/filenames stable and declare replacements explicitly. Preserve the
+  legacy IDs and links; never append a shared decision table. Make later status
+  or evidence corrections only with review evidence; do not redefine old rules.
 - Artwork: update its existing provenance/manifest and `brand/assets.md` when its
   role changes; refresh `brand/assets.lock.json` for intentional byte changes.
 - Skill dependency: follow `brand/skills.md`; update the snapshot, its provenance,

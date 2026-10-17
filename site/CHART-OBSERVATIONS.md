@@ -123,3 +123,11 @@ python3 -m unittest discover -s scripts -p 'test_*.py'
 Recovery does not fetch Git or call upstream APIs. The command prints exact
 coverage and any truncated/skipped history. A source commit in its manifest
 establishes where evidence was recovered, not when the provider was queried.
+
+## Display-name-only changes
+
+The original HN identity hash and observation payload stay immutable. Current
+queue reuse can verify that original hash and compare all identity fields except
+the display name; matching/query changes still invalidate reuse. See the
+[alias and rename contract](PROJECT-ALIASES.md). Current chart labels may use the
+new catalog name without rewriting archived names, collection dates or hashes.
