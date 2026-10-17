@@ -77,12 +77,15 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
       assert.equal(await plate(sample).count(), 0);
       await host(sample).scrollIntoViewIfNeeded();
       await capture('detail-loading.png');
+      await page.keyboard.press('Tab');
+      assert.equal(await host(sample).locator('.detail-fallback a').evaluate(node => node === document.activeElement), true,
+        'Fallback is keyboard-accessible while loading');
       release();
       await loaded(sample);
       assert.notEqual(await host(sample).getAttribute('aria-busy'), 'true');
-      assert.equal(await host(sample).locator('.detail-fallback a').isVisible(), true, 'Printable static record remains available after loading');
+      assert.equal(await host(sample).locator('.detail-fallback a').isVisible(), false, 'Loaded plate hides its fallback link');
       assert.equal(await drawer(sample).locator(':scope > summary').evaluate(node => node === document.activeElement), true,
-        'Loading does not steal focus from the native summary');
+        'Focus returns to the native summary before the fallback disappears');
       assert.equal(await plate(sample).getAttribute('aria-labelledby'), 'name-' + sample.id);
       assert.equal(await plate(sample).locator('.plate-departure > a').getAttribute('href'), sample.url);
       await plate(sample).locator('.plate-art img').evaluate(image => image.decode());
@@ -145,6 +148,7 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
         await retry.click();
         await loaded(sample);
         assert.equal(attempts, 2, failure + ': one explicit retry succeeds');
+        assert.equal(await host(sample).locator('.detail-fallback a').isVisible(), false);
         assert.equal(await host(sample).locator('button.detail-retry').isVisible(), false);
       } finally {
         await page.unroute(detailURL, failOnce);
@@ -256,7 +260,13 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     try {
       const staticPage = await noJS.newPage();
-      await staticPage.goto(detailURL);
+      await staticPage.goto(base.href);
+      const staticDrawer = staticPage.locator('#project-' + sample.id + ' .specimen-drawer');
+      await staticDrawer.locator(':scope > summary').click();
+      const staticFallback = staticDrawer.locator('.detail-fallback a');
+      assert.equal(await staticFallback.isVisible(), true, 'No-JS drawers retain their full-record link');
+      await staticFallback.click();
+      await staticPage.waitForURL(detailURL);
       assert.equal(await staticPage.locator('.specimen-plate').count(), 1);
       assert.equal(await staticPage.locator('.specimen-detail-host').count(), 0);
       assert.equal(await staticPage.locator('.specimen-drawer').evaluate(node => node.open), true);

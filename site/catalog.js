@@ -466,8 +466,14 @@
       state.host.dataset.detailState = value;
       if (value === "loading") state.host.setAttribute("aria-busy", "true");
       else state.host.removeAttribute("aria-busy");
-      // The permanent static link also provides a printable full record.
-      if (state.fallback) state.fallback.hidden = false;
+      // The static link is a fallback, not an extra heading above a loaded plate.
+      if (state.fallback) {
+        if (value === "loaded" && state.fallback.contains(document.activeElement)) {
+          var fallbackSummary = state.drawer.querySelector("summary");
+          if (fallbackSummary) fallbackSummary.focus({ preventScroll: true });
+        }
+        state.fallback.hidden = value === "loaded";
+      }
       if (message && !state.status) {
         state.status = document.createElement("p");
         state.status.className = "detail-status";
