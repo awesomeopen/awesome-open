@@ -4,23 +4,29 @@
   "source_revision": "a9455b9",
   "documentation": "brand/icons.md",
   "naming": "{id}-{size}.svg, for example state.failed-m.svg",
-  "production": "Hand-written SVG per size on its pixel grid, currentColor only; not Speculative FOSSoligy. Raster allowed only for l setup icons (run.*, install.*).",
+  "production": "Hand-written SVG per size on its pixel grid, currentColor only; not Speculative FOSSoligy. Generated Retro-Scraperism drafts may guide composition but are not shipped. Raster allowed only for l setup icons (run.*, install.*).",
   "sizes": {
     "s": {
       "px": 12,
-      "stroke": 1.5,
+      "stroke": 1,
+      "accent_stroke": 1,
+      "tick": 1,
       "padding": 1,
       "detail": "Silhouette only; the aged badge is reduced to a solid 4px dot"
     },
     "m": {
       "px": 16,
-      "stroke": 1.5,
+      "stroke": 2,
+      "accent_stroke": 1.5,
+      "tick": 1,
       "padding": 1,
       "detail": "Silhouette plus one interior detail; full clock badge"
     },
     "l": {
       "px": 24,
       "stroke": 2,
+      "accent_stroke": 2,
+      "tick": 3,
       "padding": 2,
       "detail": "Full detail; setup icons may carry restrained pencil character"
     }
@@ -1056,5 +1062,6 @@
       ],
       "used_in": []
     }
-  ]
+  ],
+  "files": "site/brand/icons/{id}-{size}.svg, written by scripts/build_icons.py"
 }
