@@ -30,7 +30,16 @@ dimensions, concise alt text, source-document provenance, prompt and review stat
 Only approved existing assets render. Pending or missing art leaves no placeholder.
 After adding or changing art, regenerate the transparent display cut-out with
 `scripts/build_specimen_cutouts.py`; the original remains the reviewed source.
-“Approved” in the manifest means reviewed for inclusion, not a production merge.
+New specimen images are display-approved by default under the owner's standing
+direction of 2026-10-17 once actual pixel inspection and technical, provenance
+and safety checks are complete. Stylistic reservations stay in review notes and
+do not block display; individual images can be redone later when requested.
+Follow the [approval and review contract](../site/SPECIMEN-ART.md#default-display-approval-and-review)
+for blocking issues and truthful reviewer attribution. This does not change
+historical statuses or authorize replacement of existing accepted assets.
+“Approved” in the manifest permits proposed-build inclusion; it is not a
+production merge or a claim of individual human sign-off. Keep draft-PR review
+and separate publication approval.
 
 Review silhouette, anatomy, functional analogy, palette, background, legibility
 at use size, and differentiation from other specimens. Store actual results, not
