@@ -1,7 +1,9 @@
 # Icon map
 
-Status: proposed ([B-PR101-01](decisions/B-PR101-01.md), corrected by [B-PR102-01](decisions/B-PR102-01.md)). No icon artwork exists yet and no generator reads the
-manifest. Audited against main `a9455b9` on 2026-10-16 (first audit `4bc3d97`); line references point to
+Status: proposed ([B-PR101-01](decisions/B-PR101-01.md), corrected by [B-PR102-01](decisions/B-PR102-01.md); first set and stroke
+change [B-PR103-01](decisions/B-PR103-01.md)). The 21 `today` icons exist as
+SVG in [`site/brand/icons/`](../site/brand/icons/), written by
+`scripts/build_icons.py`; the site does not use them yet. Audited against main `a9455b9` on 2026-10-16 (first audit `4bc3d97`); line references point to
 that revision and drift as code changes, so each one also names an anchor string.
 
 The machine-readable twin is [`site/brand/icons.json`](../site/brand/icons.json).
@@ -63,16 +65,23 @@ Each size is drawn for its own pixel grid. Do not downscale one master: a
 24px drawing reduced to 12px blurs strokes off the grid and loses detail that
 the smaller size should drop on purpose.
 
-| Size | Display px | Stroke | Padding | Detail | Typical use |
-| --- | --- | --- | --- | --- | --- |
-| `s` | 12 | 1.5px | 1px | Silhouette only. The aged badge is reduced to a solid 4px dot (see below) | 11px `.signal-status` pill, 12px fine print, `feature-source` |
-| `m` | 16 | 1.5px | 1px | Silhouette plus one interior detail; full clock badge | 15px evidence-note body, chips, link suffixes, summaries |
-| `l` | 24 | 2px | 2px | Full detail; setup icons may carry restrained pencil character | Headings, Observatory coverage legend, empty states, setup chips |
+Strokes are whole pixels so straight lines land on the grid; 1.5px strokes
+always render soft.
+
+| Size | Display px | Stroke | Accent stroke | Tick length | Padding | Detail | Typical use |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `s` | 12 | 1px | 1px | 1px | 1px | Silhouette only. The aged badge is reduced to a solid 4px dot (see below) | 11px `.signal-status` pill, 12px fine print, `feature-source` |
+| `m` | 16 | 2px | 1.5px | 1px | 1px | Silhouette plus one interior detail; full clock badge | 15px evidence-note body, chips, link suffixes, summaries |
+| `l` | 24 | 2px | 2px | 3px | 2px | Full detail; setup icons may carry restrained pencil character | Headings, Observatory coverage legend, empty states, setup chips |
 
 Bases are part of the grammar:
 
 - **Ring** = shared evidence state (automated observation).
 - **Square, 2px radius** (`--rs-radius`) = human review.
+- **Registration ticks:** ring and square bases carry four 2px-wide ticks
+  outside the outline, top, right, bottom and left (user-directed; kept for
+  review). At 12px they crowd the ring; reconsider them for `s` if that size
+  reads poorly in use.
 - **No container** = links, controls, nouns. Rings are reserved for states, so
   `control.info` is a bare “i”, not the usual circled “i”.
 - `badge.aged` sits in the lower-right quadrant (about 45% of the canvas) with a
@@ -106,6 +115,19 @@ Bases are part of the grammar:
   land.
 - Line style: Retro-Scraperism ink, square caps, no shadows, no perspective
   except where a shape says “isometric”.
+
+### Using the files
+
+- Inline the SVG (or reference it with `<use>`) so CSS reaches it. Set `color`
+  to the structure colour and `--icon-accent` to the row's token, for example
+  `color: var(--rs-blueprint); --icon-accent: var(--rs-emerald)` for
+  `state.current`. Without `--icon-accent` the accent falls back to `color`.
+- As an `<img>`, CSS variables do not apply and the icon renders black.
+- On Prussian surfaces set both to `--rs-paper` or `--rs-trace`.
+- Files are decorative (`aria-hidden="true"`); the paired label carries the
+  meaning. Give a standalone icon an accessible name equal to that label.
+- Regenerate with `python3 scripts/build_icons.py` after changing geometry;
+  `scripts/test_build_icons.py` checks that the committed files match.
 
 ### Brief for the drawing agent
 
