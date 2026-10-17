@@ -52,6 +52,7 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   const sample = reviewed.find(p => p.name.toLowerCase().includes('openscad')) || reviewed[0];
   await page.goto(url + '#project-' + sample.id);
   const card = page.locator('#project-' + sample.id);
+  await card.locator('.specimen-plate').waitFor({ state: 'visible' });
   const evidence = card.locator('.deployment-evidence');
   assert.equal(await card.locator('.function-detail').isVisible(), true, 'Function section remains visible');
   await evidence.locator('details > summary').focus();
@@ -77,8 +78,9 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   await fallback.goto(url);
   const fallbackCard = fallback.locator('#project-' + sample.id);
   await fallbackCard.locator('.specimen-drawer > summary').click();
-  await fallbackCard.locator('.deployment-evidence details > summary').click();
-  assert.equal(await fallbackCard.locator('.deployment-group').first().isVisible(), true);
+  await fallbackCard.locator('.detail-fallback a').click();
+  await fallback.locator('.deployment-evidence details > summary').click();
+  assert.equal(await fallback.locator('.deployment-group').first().isVisible(), true);
   await noJS.close();
   await page.goto(new URL('standalone.html', url).href);
   await openFilters();

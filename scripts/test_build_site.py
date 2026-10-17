@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 import unittest
 
-from build_site import BRAND_ASSETS, ROOT, build, json_for_html, render_html, search_index
+from build_site import BRAND_ASSETS, ROOT, attach_specimen_cutouts, build, json_for_html, render_html, search_index
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
@@ -58,7 +58,7 @@ class Page(HTMLParser):
         if 'id' in attrs:
             self.ids.append(attrs['id'])
             self.by_id[attrs['id']] = node
-        if 'data-project-id' in attrs:
+        if tag == 'article' and 'data-project-id' in attrs:
             self.cards.append(attrs['data-project-id'])
         if tag == 'a':
             self.links.append(attrs.get('href', ''))
@@ -105,7 +105,9 @@ class SiteTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.output, cls.catalog = baseline_site(source_sha='a' * 40)
-        cls.html = (cls.output / 'index.html').read_text()
+        # The complete renderer is retained for standalone and static records.
+        # LazyDetailSiteTests below exercise the actual slim initial entry point.
+        cls.html = render_html(cls.catalog, attach_specimen_cutouts(cls.catalog, ROOT))
         cls.page = Page(cls.html)
 
     def test_production_entry_contains_hero_without_preview_metadata(self):

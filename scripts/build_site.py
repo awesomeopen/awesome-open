@@ -520,7 +520,7 @@ def metrics_freshness(github, as_of):
     return ""
 
 
-def project_html(project, categories, catalog, number=0, cutouts=None, position=None):
+def project_html(project, categories, catalog, number=0, cutouts=None, position=None, deferred=False):
     position = number if position is None else position
     pid = escape(project["id"])
     github = project["github"]
@@ -607,6 +607,11 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         alternatives,
         (cutouts or {}).get(project["id"]),
     )
+    if deferred:
+        interior = (
+            f'<div class="specimen-detail-host" data-detail-url="records/{pid}.html" data-project-id="{pid}">'
+            f'<p class="detail-fallback"><a href="records/{pid}.html">Read or print the full record for {escape(project["name"])}</a></p></div>'
+        )
     return f'''<article class="project-card" data-leader="{"true" if leader_categories else "false"}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
   <summary><span class="folio" title="Position in current results" aria-hidden="true">{position:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}<span class="leader-label"{"" if leader_categories else " hidden"}>{escape(leader_label)}</span></span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
@@ -615,7 +620,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
 </article>'''
 
 
-def render_html(catalog, cutouts=None):
+def render_html(catalog, cutouts=None, deferred=False):
     categories = {c["id"]: c["name"] for c in catalog["categories"]}
     count = len(catalog["projects"])
     nav = "".join(
@@ -672,7 +677,7 @@ def render_html(catalog, cutouts=None):
                        if not "\u0300" <= c <= "\u036f").lower()
         return (not known, -stars if known else 0, name, project["id"])
     projects = "\n".join(
-        project_html(p, categories, catalog, folios[p["id"]], cutouts, position)
+        project_html(p, categories, catalog, folios[p["id"]], cutouts, position, deferred=deferred)
         for position, p in enumerate(sorted(catalog["projects"], key=star_order), 1)
     )
     signal_projects = [p for p in catalog["projects"] if p.get("signals")]
@@ -732,7 +737,7 @@ def render_html(catalog, cutouts=None):
    <details class="more-filters"><summary>More filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="run-mode-filter">Reviewed run mode</label><select id="run-mode-filter" name="run_mode"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["run_modes"]}</select></div><div class="filter-field"><label for="install-method-filter">Reviewed install method</label><select id="install-method-filter" name="install_method"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["install_methods"]}</select></div><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
    <div class="toolbar-bottom"><p class="filter-note">Date filters use the {escape(catalog["metrics_as_of"])} UTC snapshot. Setup filters cover reviewed evidence only; unrecorded paths remain unknown.</p></div></div></details><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
   </form></div>
-  <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
+  <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. {"Follow its full-record link for evidence and printing. " if deferred else ""}Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
   <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="name">Name A–Z</option><option value="stars" selected>Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
   <p id="project-link-notice" class="link-notice" role="status" hidden></p><p id="empty-state" class="empty-state" hidden>No projects match these filters. Try a broader search or reset filters.</p>
   <div id="project-list" class="project-list">{projects}</div>
@@ -744,6 +749,34 @@ def render_html(catalog, cutouts=None):
 <script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
+
+
+def render_record(project, categories, catalog, number, cutouts=None):
+    """A native no-JS record is also the same-origin fetch-on-open source.
+
+    Keep asset paths identical to the ledger via the explicit base. The loader
+    resolves them against this base before adopting only the validated plate.
+    """
+    pid = escape(project["id"])
+    name = escape(project["name"])
+    card = project_html(project, categories, catalog, number, cutouts, position=1)
+    card = card.replace('<details class="specimen-drawer">', '<details class="specimen-drawer" open>', 1)
+    sha = catalog.get("source_sha")
+    revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else "Local preview (revision not supplied)"
+    return f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="../"><meta name="color-scheme" content="light"><title>{name} · Awesome Open*</title>
+<meta name="description" content="{escape(project['description'])}">
+<link rel="icon" href="brand/favicon.ico"><link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css?v={escape(sha or 'preview')}"><link rel="stylesheet" href="observatory/observatory.css">
+<script src="catalog.js" defer></script></head>
+<body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>
+<div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="draws/">Weekly draws</a></nav></header></div>
+<main class="obs-shell" id="record" tabindex="-1"><section class="obs-hero"><p><span class="obs-label">Project record</span></p><h1>{name}</h1></section>
+<aside class="obs-finding"><p>Full catalog record, evidence and sources. <a href="#project-{pid}">Return to this project in the ledger</a>. Use your browser’s Print command to print this record.</p></aside>
+{card}
+<div class="obs-closing-mark"><img class="obs-logo" src="brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo"></div></main>
+<footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Project record</p><ul class="obs-footer-links"><li><a href="./">Return to project ledger</a></li><li><a href="standalone.html" download>Download complete catalog</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {revision}</li></ul></div></footer></body></html>'''
 
 
 def replace_literals_once(text, replacements):
@@ -814,6 +847,7 @@ def build(output, source_sha=None, root=ROOT):
     draws = weekly_draw.load(root / weekly_draw.PATH)
     catalog["weekly_draws"] = draws
     page = render_html(catalog, cutouts)
+    ledger = render_html(catalog, cutouts, deferred=True)
     # Validate charts before touching generated files. The renderer is shared with README.
     charts = {
         p["slug"]: hn.svg(p, evidence) for p in display_hn_evidence(source, evidence)["projects"] if p["eligible"]
@@ -835,7 +869,15 @@ def build(output, source_sha=None, root=ROOT):
     }
     assets["tokens.css"] = (root / "site/design/tokens.css").read_text(encoding="utf-8")
     output.mkdir(parents=True, exist_ok=True)
-    (output / "index.html").write_text(page, encoding="utf-8")
+    (output / "index.html").write_text(ledger, encoding="utf-8")
+    records = output / "records"
+    shutil.rmtree(records, ignore_errors=True)
+    records.mkdir()
+    categories = {c["id"]: c["name"] for c in catalog["categories"]}
+    for number, project in enumerate(catalog["projects"], 1):
+        (records / (project["id"] + ".html")).write_text(
+            render_record(project, categories, catalog, number, cutouts), encoding="utf-8"
+        )
     (output / "catalog.json").write_text(
         json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )

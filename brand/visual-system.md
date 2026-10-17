@@ -35,7 +35,11 @@ Typing filters; search submit jumps to the first result. Two crack stages lead t
 inspection on the third click, which restores the glass. Preserve the calmer first
 crack stage. Native navigation remains available.
 
-Expanded records use the specimen plate below. Missing
+Expanded records use the specimen plate below. The normal ledger loads a plate
+on demand and retains a full-record link for no-JavaScript access and printing;
+static record pages reuse the B42 route shell. The standalone remains complete.
+See [B-PR111-01](decisions/B-PR111-01.md) and the
+[loading contract](../site/DETAIL-LOADING.md). Missing
 artwork leaves no placeholder. Reviewed alternatives follow the evidence as their
 own band. HN and stars summaries use “past 2y”. GitHub official
 source links name GitHub. ID tooltips name the identifier type: “Registry ID” and

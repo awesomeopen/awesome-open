@@ -1,5 +1,15 @@
 
 /* Setup */
+.detail-fallback,.detail-status {padding:16px 24px;font:14px/1.6 var(--mono);}
+.detail-retry {margin:0 24px 16px;min-height:44px;}
+.record-page .obs-hero h1 {overflow-wrap:anywhere;}
+.record-page .project-card {margin-top:48px;}
+@media print {
+ .record-page .obs-header,.record-page .obs-finding,.record-page .obs-closing-mark,.record-page .obs-footer,.record-page .plate-lens {display:none;}
+ .record-page details::details-content {content-visibility:visible;}
+ .record-page .specimen-drawer>.specimen-plate {display:block!important;}
+ .record-page .plate-art,.record-page .plate-leaders,.record-page .plate-terrain path {animation:none!important;opacity:1!important;transform:none!important;}
+}
 .deployment-evidence {margin-top:24px;padding-top:20px;border-top:1px solid var(--rule);overflow-wrap:anywhere;}
 .deployment-evidence>h4 {font:14px/1.5 var(--mono);}
 .deployment-evidence>p {margin:8px 0;line-height:1.55;}

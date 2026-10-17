@@ -66,8 +66,8 @@ class MetricsFreshnessTests(unittest.TestCase):
             output = Path(temp) / 'mixed'
             with patch.object(build_site, 'build_catalog', return_value=catalog):
                 build_site.build(output)
-            for name in ('index.html', 'standalone.html'):
-                text = (output / name).read_text()
+            records = ''.join(path.read_text() for path in (output / 'records').glob('*.html'))
+            for text in (records, (output / 'standalone.html').read_text()):
                 self.assertIn('Stale GitHub metrics; last successful observation: 2026-10-07 UTC', text)
                 self.assertIn('GitHub metrics unavailable; no successful observation.', text)
                 self.assertNotIn('GitHub metrics observed:', text)

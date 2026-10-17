@@ -80,24 +80,47 @@ const path = require('node:path');
     assert.ok(rows.every(row => row.title === 'Position in current results'), label + ': position tooltip');
   };
   const assertRecordIdentities = async (target, data, label) => {
-    const records = await target.locator('.project-card').evaluateAll(cards => cards.map(card => ({
-      id: card.dataset.projectId, anchor: card.id,
-      folio: card.querySelector('.sheet-folio').textContent,
-      notes: card.querySelector('.plate-heading .plate-index').textContent,
-      registry: card.querySelector('.registry').textContent,
-      permalink: card.querySelector('.permalink').getAttribute('href'),
-    })));
+    const records = await target.locator('.project-card').evaluateAll(cards => cards.map(card => {
+      const host = card.querySelector('.specimen-detail-host');
+      const plate = card.querySelector('.specimen-plate');
+      return {
+        id: card.dataset.projectId, anchor: card.id,
+        nameId: card.querySelector('.specimen-name').id,
+        detailURL: host?.dataset.detailUrl || null,
+        fallbackURL: host?.querySelector('.detail-fallback a')?.getAttribute('href') || null,
+        plate: plate ? {
+          folio: plate.querySelector('.sheet-folio').textContent,
+          notes: plate.querySelector('.plate-heading .plate-index').textContent,
+          registry: plate.querySelector('.registry').textContent,
+          permalink: plate.querySelector('.permalink').getAttribute('href'),
+        } : null,
+      };
+    }));
     const byId = new Map(records.map(record => [record.id, record]));
     assert.equal(byId.size, data.projects.length, label + ': all identities retained');
     data.projects.forEach((project, i) => {
-      const folio = String(i + 1).padStart(3, '0');
-      assert.deepEqual(byId.get(project.id), {
-        id: project.id, anchor: 'project-' + project.id,
-        folio: 'Folio ' + folio, notes: 'Field notes / ' + folio,
-        registry: 'OP-' + project.id.slice(0, 8).toUpperCase(), permalink: '#project-' + project.id,
-      }, label + ': stable alphabetical folio and URL identity for ' + project.name);
+      const record = byId.get(project.id);
+      assert.ok(record, label + ': record exists for ' + project.name);
+      assert.equal(record.anchor, 'project-' + project.id, label + ': stable anchor');
+      assert.equal(record.nameId, 'name-' + project.id, label + ': stable accessible name');
+      if (record.detailURL) {
+        assert.equal(record.detailURL, 'records/' + project.id + '.html', label + ': stable detail URL');
+        assert.equal(record.fallbackURL, record.detailURL, label + ': static fallback URL');
+      } else {
+        assert.ok(record.plate, label + ': inline editions retain every plate');
+      }
+      // Normal pages deliberately have no closed plate markup at startup. Check
+      // mounted plates without fetching all records just to inspect identity.
+      if (record.plate) {
+        const folio = String(i + 1).padStart(3, '0');
+        assert.deepEqual(record.plate, {
+          folio: 'Folio ' + folio, notes: 'Field notes / ' + folio,
+          registry: 'OP-' + project.id.slice(0, 8).toUpperCase(), permalink: '#project-' + project.id,
+        }, label + ': stable alphabetical folio and URL identity for ' + project.name);
+      }
     });
   };
+  const waitForPlate = card => card.locator('.specimen-plate').waitFor({ state: 'visible' });
   const change = async (id, value) => {
     if (id !== 'search' && !await page.locator('.filter-options').evaluate(node => node.open)) await page.locator('.filter-options > summary').click();
     if (['category-filter', 'metrics-filter', 'min-stars', 'pushed-since'].includes(id)) {
@@ -129,6 +152,7 @@ const path = require('node:path');
     }
     await page.locator('#project-' + record.id + ' > details > summary').click();
     assert.equal(await page.locator('#project-' + record.id + ' details.specimen-drawer').evaluate(n => n.open), true);
+    await waitForPlate(page.locator('#project-' + record.id));
     assert.ok(await page.locator('#project-' + record.id).textContent().then(t => t.includes('OBS Studio')));
     await capture('aliases-' + label + '.png');
     await page.locator('#project-' + record.id + ' > details > summary').click();
@@ -173,6 +197,8 @@ const path = require('node:path');
     report.sourceSha = data.source_sha;
     writeReport();
     if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Browser must test the generated checkout');
+    report.detailLoading = await require('./check_lazy_details_browser.cjs')({ page, context, browser, url, data, capture });
+    writeReport();
     // Category illustrations stay inside the existing native disclosure. Check
     // actual decoding and candidate selection at desktop and narrow widths.
     assert.equal(await page.locator('.category-art').count(), data.categories.filter(category => category.artwork).length);
@@ -288,7 +314,11 @@ const path = require('node:path');
     // Exact reviewed alternative search, combined metadata filters, empty/reset.
     await change('search', 'NotebookLM');
     assert.ok(await visible() > 0);
-    assert.ok((await page.locator('.project-card:not([hidden])').allTextContents()).every(text => text.includes('NotebookLM')));
+    const notebookIds = data.projects.filter(project => [project.name, project.description,
+      ...project.alternatives.map(item => item.name), ...(project.aliases || []).map(item => item.name)]
+      .join(' ').toLowerCase().includes('notebooklm')).map(project => project.id).sort();
+    assert.deepEqual(await page.locator('.project-card:not([hidden])').evaluateAll(cards => cards.map(card => card.dataset.projectId).sort()), notebookIds,
+      'Search matches reviewed alternatives without mounting their evidence');
     await page.locator('#clear-filters').click();
     await select('category-filter', 'developer-tools');
     await page.locator('#license-filter').selectOption('known');
@@ -371,6 +401,7 @@ const path = require('node:path');
     const firstDrawer = page.locator('.project-card:not([hidden]) .specimen-drawer').first();
     await firstDrawer.locator(':scope > summary').click();
     assert.equal(await firstDrawer.evaluate(node => node.open), true);
+    await waitForPlate(firstDrawer);
     const permalink = await page.locator('.project-card:not([hidden]) .permalink').first().getAttribute('href');
     await page.locator('.project-card:not([hidden]) .permalink').first().click();
     assert.equal(new URL(page.url()).hash, permalink);
@@ -386,16 +417,19 @@ const path = require('node:path');
     await waitForState();
     const linked = page.locator('#project-' + target.id + ' .specimen-drawer');
     assert.equal(await linked.evaluate(node => node.open), true);
+    await waitForPlate(linked);
     assert.equal(await page.locator(':focus').evaluate(node => node.parentElement.className), 'specimen-drawer');
     direct.searchParams.set('metrics', 'missing');
     await page.goto(direct.href);
     await waitForState();
     assert.equal(await page.locator('#project-link-notice').isVisible(), true);
     assert.equal(await page.locator('#project-' + target.id).isVisible(), false);
+    assert.equal(await linked.locator('.specimen-plate').count(), 0, 'Filtered-out deep link does not mount a hidden plate');
     assert.equal(new URL(page.url()).searchParams.get('metrics'), 'missing');
     await page.locator('#clear-filters').click();
     assert.equal(await page.locator('#project-link-notice').isVisible(), false);
     assert.equal(await linked.evaluate(node => node.open), true);
+    await waitForPlate(linked);
 
     // Keyboard entry points and responsive category disclosure.
     await page.goto(url);
@@ -414,6 +448,7 @@ const path = require('node:path');
     await keyboardDrawer.locator(':scope > summary').focus();
     await page.keyboard.press('Enter');
     assert.equal(await keyboardDrawer.evaluate(node => node.open), true);
+    await waitForPlate(keyboardDrawer);
     await page.keyboard.press('Enter');
     assert.equal(await keyboardDrawer.evaluate(node => node.open), false);
     for (const width of [390, 320, 601, 640, 700, 720, 721, 768, 900, 901]) {
@@ -458,6 +493,7 @@ const path = require('node:path');
       const card = page.locator('#project-' + tofu.id);
       const drawer = card.locator('.specimen-drawer');
       assert.equal(await drawer.evaluate(node => node.open), true);
+      await waitForPlate(card);
       const catalogWidth = await page.locator('#catalog').evaluate(node => node.getBoundingClientRect().width);
       assert.ok(catalogWidth >= width - 100, `Catalog uses available width at ${width}px`);
       const diagnostics = card.locator('.diagnostics');
@@ -505,6 +541,7 @@ const path = require('node:path');
     assert.ok(await tracedCard.locator('.name-sparkline').isVisible());
     await tracedCard.locator('.name-sparkline').evaluate(image => image.decode());
     await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = true; });
+    await waitForPlate(tracedCard);
     assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
     assert.ok(await tracedCard.locator('.signal.evidence-note:not(.star-history)').isVisible());
     await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
@@ -517,6 +554,7 @@ const path = require('node:path');
       const card = page.locator('#project-' + project.id);
       await card.locator('summary').first().click();
       assert.equal(await card.locator('details.specimen-drawer').evaluate(node => node.open), true, 'Click after search must open ' + project.name);
+      await waitForPlate(card);
       if (project.function_summary) {
         assert.equal(await card.locator('.function-detail > p').first().textContent(), project.function_summary.text);
         assert.ok(await card.locator('.function-provenance a').count() > 0);
@@ -551,6 +589,7 @@ const path = require('node:path');
       await change('search', project.name);
       const card = page.locator('#project-' + project.id);
       await card.locator('details.specimen-drawer').evaluate(node => { node.open = true; });
+      await waitForPlate(card);
       for (const width of [1440, 390, 320]) {
         await page.setViewportSize({width, height:1000});
         await card.scrollIntoViewIfNeeded();
@@ -572,11 +611,19 @@ const path = require('node:path');
     assert.equal(await fallback.locator('#sort-order').isDisabled(), true);
     assert.equal(await fallback.locator('.no-script').isVisible(), true);
     await assertLedgerFits(fallback, 'no JavaScript');
+    assert.equal(await fallback.locator('.specimen-plate').count(), 0, 'No-JS ledger keeps complete summaries and static links');
     await fallback.locator('.specimen-drawer').first().locator(':scope > summary').click();
-    assert.equal(await fallback.locator('.specimen-drawer').first().locator('.plate-departure > a').isVisible(), true);
+    const fallbackLink = fallback.locator('.specimen-drawer').first().locator('.detail-fallback a');
+    assert.equal(await fallbackLink.isVisible(), true);
     assert.deepEqual(await fallback.locator('.project-card').evaluateAll(cards => cards.map(c => c.dataset.projectId)), defaultIds);
     await assertVisiblePositions(fallback, 'no JavaScript');
     await assertRecordIdentities(fallback, data, 'no JavaScript');
+    const staticRecordId = await fallback.locator('.project-card').first().getAttribute('data-project-id');
+    await fallbackLink.click();
+    assert.equal(new URL(fallback.url()).pathname, new URL('records/' + staticRecordId + '.html', url).pathname);
+    assert.equal(await fallback.locator('.specimen-plate').count(), 1);
+    assert.equal(await fallback.locator('.plate-departure > a').isVisible(), true);
+    assert.equal(await fallback.locator('.plate-departure > a').getAttribute('href'), data.projects.find(project => project.id === staticRecordId).url);
     await noJS.close();
 
     // The downloadable HTML must load without any neighboring runtime assets.
@@ -590,6 +637,15 @@ const path = require('node:path');
     await page.route('**/*', blockOfflineResources);
     await page.goto(standaloneURL.href);
     await waitForState();
+    report.detailLoading.standaloneDomControl = await page.evaluate(() => ({
+      elements: document.querySelectorAll('*').length, summaries: document.querySelectorAll('.specimen-drawer > summary').length,
+      plates: document.querySelectorAll('.specimen-plate').length, hosts: document.querySelectorAll('.specimen-detail-host').length,
+    }));
+    assert.equal(report.detailLoading.standaloneDomControl.plates, data.projects.length);
+    assert.equal(report.detailLoading.standaloneDomControl.hosts, 0);
+    assert.ok(report.detailLoading.cold.elements < report.detailLoading.standaloneDomControl.elements, 'Deferred index has fewer DOM elements than the fully inlined export');
+    report.detailLoading.controlLimit = 'Same Chromium, viewport and catalog; structural DOM comparison only. Standalone embeds assets and omits the hero. It is not an equivalent transfer, startup-time, JS-heap or process-memory baseline.';
+    writeReport();
     await checkFooter(true);
     assert.deepEqual(offlineRequests, [], 'Standalone requested neighboring or remote resources');
     await page.unroute('**/*', blockOfflineResources);
@@ -627,7 +683,7 @@ const path = require('node:path');
         'screenshots.json, and browser/server logs.\n');
     }
     console.log(JSON.stringify({ status: 'passed', projects: data.projects.length, screenshots: output,
-      checks: ['visible result positions and stable alphabetical folios/Registry IDs/permalinks', 'search', 'reviewed aliases and stable OBS identity', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'no-JS drawers', 'standalone', 'no page errors'] }, null, 2));
+      checks: ['visible result positions and stable alphabetical folios/Registry IDs/permalinks', 'search', 'reviewed aliases and stable OBS identity', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'cold summary-only DOM', 'fetch-on-open detail lifecycle', 'failure/retry and stale-response guards', 'bounded closed-plate retention', 'no-JS static records and print route', 'standalone DOM control (not RAM benchmark)', 'standalone', 'no page errors'] }, null, 2));
   } catch (error) {
     report.status = 'failed';
     report.error = error.message;

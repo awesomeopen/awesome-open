@@ -85,7 +85,9 @@ class HeroImageTests(unittest.TestCase):
             for project in catalog['projects']:
                 if project.get('artwork'):
                     cutout = f'specimens/cutouts/{project["id"]}.webp'
-                    self.assertTrue(f'src="{cutout}"' in html or f'src="{project["artwork"]["path"]}"' in html)
+                    record = (output / 'records' / (project['id'] + '.html')).read_text()
+                    self.assertTrue(f'src="{cutout}"' in record or f'src="{project["artwork"]["path"]}"' in record)
+                self.assertIn(f'data-detail-url="records/{project["id"]}.html"', html)
             self.assertEqual((output / 'standalone.html').read_bytes(), standalone)
             self.assertNotIn(b'jars/responsive/', standalone)
 

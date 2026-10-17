@@ -155,16 +155,29 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
       this.children = [];
       this.dataset = {};
       this.attributes = {};
+      Object.defineProperty(this.attributes, Symbol.iterator, { value: function* () {
+        for (const [name, value] of Object.entries(this)) yield { name, value };
+      } });
       this.listeners = {};
-      this.classList = { add() {} };
+      this.className = "";
+      this.classList = {
+        add: (...names) => { this.className = [...new Set(this.className.split(/\s+/).filter(Boolean).concat(names))].join(" "); },
+        remove: (...names) => { this.className = this.className.split(/\s+/).filter(name => !names.includes(name)).join(" "); },
+        contains: name => this.className.split(/\s+/).includes(name)
+      };
+      this.style = { setProperty(key, value) { this[key] = value; } };
       this.textContent = "";
+      this.isConnected = true;
     }
     addEventListener(type, listener) {
       (this.listeners[type] ||= []).push(listener);
     }
+    removeEventListener(type, listener) {
+      this.listeners[type] = (this.listeners[type] || []).filter(item => item !== listener);
+    }
     fire(type, extra = {}) {
-      const event = { button: 0, defaultPrevented: false, preventDefault() { this.defaultPrevented = true; }, ...extra };
-      (this.listeners[type] || []).forEach(listener => listener(event));
+      const event = { target: this, button: 0, defaultPrevented: false, preventDefault() { this.defaultPrevented = true; }, ...extra };
+      (this.listeners[type] || []).slice().forEach(listener => listener(event));
       return event;
     }
     appendChild(child) {
@@ -177,23 +190,74 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
       child.parent = this;
       return child;
     }
-    querySelectorAll() { return this.children.slice(); }
-    querySelector(selector) {
-      if (selector === "details.specimen-drawer") return this.children.find(child => child.name === "details") || null;
-      if (selector === "summary") return this.children.find(child => child.name === "summary") || null;
-      if (selector.startsWith(".")) {
-        for (const child of this.children) {
-          if (child.className === selector.slice(1)) return child;
-          const nested = child.querySelector(selector);
-          if (nested) return nested;
-        }
+    insertBefore(child, before) {
+      this.appendChild(child);
+      if (before) {
+        this.children.splice(this.children.indexOf(child), 1);
+        this.children.splice(this.children.indexOf(before), 0, child);
       }
-      return null;
+      return child;
     }
+    get firstChild() { return this.children[0] || null; }
+    remove() {
+      if (this.parent) this.parent.children = this.parent.children.filter(node => node !== this);
+      this.parent = null;
+      this.isConnected = false;
+    }
+    contains(node) { return node === this || this.children.some(child => child.contains(node)); }
+    matches(selector) {
+      if (selector.includes(" ")) {
+        const parts = selector.split(/\s+/), last = parts.pop();
+        if (!this.matches(last)) return false;
+        let parent = this.parent;
+        while (parent) { if (parent.matches(parts.join(" "))) return true; parent = parent.parent; }
+        return false;
+      }
+      const tag = selector.match(/^[a-z][a-z0-9-]*/i);
+      if (tag && this.tagName !== tag[0].toUpperCase()) return false;
+      for (const [, name] of selector.matchAll(/\.([a-z0-9_-]+)/gi)) if (!this.classList.contains(name)) return false;
+      for (const [, name, expected] of selector.matchAll(/\[([a-z0-9_-]+)(?:="([^"]*)")?\]/gi)) {
+        const actual = this.getAttribute(name);
+        if (actual === null || (expected !== undefined && actual !== expected)) return false;
+      }
+      return true;
+    }
+    closest(selector) { return this.matches(selector) ? this : this.parent && this.parent.closest(selector); }
+    querySelectorAll(selector) {
+      const found = [];
+      for (const child of this.children) {
+        if (child.matches(selector)) found.push(child);
+        found.push(...child.querySelectorAll(selector));
+      }
+      return found;
+    }
+    querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
     focus() { document.activeElement = this; }
     scrollIntoView() { this.scrolled += 1; }
-    setAttribute(key, value) { this.attributes[key] = value; }
+    getBoundingClientRect() { return { left: 0, top: 0, width: 100, height: 100 }; }
+    setAttribute(key, value) {
+      this.attributes[key] = String(value);
+      if (key === "class") this.className = String(value);
+      if (key === "id") this.id = String(value);
+      if (key.startsWith("data-")) this.dataset[key.slice(5).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = String(value);
+      if (key === "src") this.src = String(value);
+    }
+    getAttribute(key) {
+      if (key === "class") return this.className || null;
+      if (key === "id") return this.id || null;
+      if (key === "open") return this.open ? "" : null;
+      if (key.startsWith("data-")) return this.dataset[key.slice(5).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] ?? null;
+      return this.attributes[key] ?? null;
+    }
     removeAttribute(key) { delete this.attributes[key]; }
+    cloneNode(deep) {
+      const clone = new Element(this.name);
+      Object.assign(clone.dataset, this.dataset);
+      Object.assign(clone.attributes, this.attributes);
+      for (const key of ["className", "id", "textContent", "open", "src", "complete"]) clone[key] = this[key];
+      if (deep) this.children.forEach(child => clone.appendChild(child.cloneNode(true)));
+      return clone;
+    }
   }
   const ids = {};
   for (const id of ["catalog", "catalog-data", "project-list", "filters", "result-count", "empty-state", "clear-filters", "search", "category-filter", "license-filter", "min-stars", "pushed-since", "sort-order"]) ids[id] = new Element();
@@ -217,11 +281,13 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
   const alphabeticalIds = fixtureData.projects.slice().sort(catalog.comparator("name")).map(project => project.id);
   fixtureData.projects.forEach(project => {
     const card = new Element(options.detailsCard ? "details" : "article");
+    card.className = "project-card";
     card.dataset.projectId = project.id;
     card.id = "project-" + project.id;
     ids[card.id] = card;
     if (options.drawers !== false) {
       const drawer = options.detailsCard ? card : new Element("details");
+      drawer.classList.add("specimen-drawer");
       const summary = new Element("summary");
       const folio = String(alphabeticalIds.indexOf(project.id) + 1).padStart(3, "0");
       const addText = (parent, className, text) => {
@@ -260,10 +326,12 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
     querySelectorAll(selector) {
       if (selector === "[data-diagnostic]") return diagnostics;
       if (selector === "a[data-category]" || selector === ".category-nav a[data-category]") return categoryLinks;
-      return [];
+      return ids["project-list"].querySelectorAll(selector);
     },
-    querySelector(selector) { return selector === ".category-panel" ? panel : null; },
+    querySelector(selector) { return selector === ".category-panel" ? panel : ids["project-list"].querySelector(selector); },
     createElement(name) { return new Element(name); },
+    createElementNS(_namespace, name) { return new Element(name); },
+    importNode(node, deep) { return node.cloneNode(deep); },
     createDocumentFragment() { return new Element("fragment"); }
   };
   ids.catalog.focus = () => { document.activeElement = ids.catalog; };
@@ -300,7 +368,7 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
     matchMedia() { return mobile; }
   };
   return {
-    document, window, ids, entries, timers, categoryLinks, panel, mobile, diagnostics,
+    document, window, ids, entries, timers, categoryLinks, panel, mobile, diagnostics, Element, events,
     fire: events.fire.bind(events),
     flush() { const callbacks = Array.from(timers.values()); timers.clear(); callbacks.forEach(callback => callback()); },
     visible() { return ids["project-list"].children.filter(card => !card.hidden).map(card => card.dataset.projectId); }
@@ -794,4 +862,474 @@ test("reviewed aliases match on boundaries and short names do not leak into pros
   assert.deepEqual(find({q: 'C++'}), ['accent']); // escaped literal, never a regex
   assert.deepEqual(find({q: 'OBS', sort: 'name'}), ['another', 'obs']);
   assert.equal(catalog.stateToURL('https://example.org/', catalog.normalizeState({q:'OBS'}, snapshot)).searchParams.get('q'), 'OBS');
+});
+
+// Fetch and parsing are injected browser interfaces. The fixture models the
+// generated static-record DOM; integration/browser checks exercise real HTML.
+function detailFixture(options = {}) {
+  const detailProjects = Array.from({ length: options.count || 5 }, (_, index) => ({
+    ...projects[index % projects.length], id: (index + 1).toString(16).repeat(64), name: 'Record ' + index
+  }));
+  const detailData = { ...data, projects: detailProjects };
+  const ui = fixture(options.url, { data: detailData });
+  const { Element } = ui;
+  ui.calls = [];
+  ui.parseCount = 0;
+  ui.records = detailProjects.map(project => {
+    const card = ui.ids['project-' + project.id], drawer = card.querySelector('details.specimen-drawer');
+    drawer.children.slice(1).forEach(child => child.remove());
+    const label = new Element('span');
+    label.id = 'name-' + project.id;
+    drawer.querySelector('summary').appendChild(label);
+    const host = new Element();
+    host.className = 'specimen-detail-host';
+    host.dataset.projectId = project.id;
+    host.dataset.detailUrl = 'records/' + project.id + '.html';
+    const fallback = new Element('p');
+    fallback.className = 'detail-fallback';
+    const link = new Element('a');
+    link.setAttribute('href', host.dataset.detailUrl);
+    fallback.appendChild(link);
+    host.appendChild(fallback);
+    drawer.appendChild(host);
+    return { project, card, drawer, host, fallback, summary: drawer.querySelector('summary') };
+  });
+  function createRecord(spec) {
+    const record = new Element('html');
+    record.getElementById = id => record.querySelectorAll('*').find(node => node.id === id) || null;
+    const base = new Element('base');
+    base.setAttribute('href', spec.base || '../');
+    if (!spec.noBase) record.appendChild(base);
+    const card = new Element('article');
+    card.className = 'project-card';
+    card.dataset.projectId = spec.wrongIdentity ? 'other' : spec.projectId;
+    card.id = 'project-' + card.dataset.projectId;
+    const label = new Element('summary');
+    label.id = 'name-' + spec.projectId;
+    if (!spec.noLabel) card.appendChild(label);
+    const plate = new Element();
+    plate.className = 'specimen-interior specimen-plate';
+    plate.setAttribute('aria-labelledby', spec.wrongLabel ? 'name-other' : label.id);
+    const field = new Element();
+    field.className = 'plate-field';
+    field.dataset.seed = spec.projectId.slice(0, 16);
+    const img = new Element('img');
+    img.setAttribute('src', spec.imageURL || 'specimens/drawing.webp');
+    img.complete = false;
+    field.appendChild(img);
+    plate.appendChild(field);
+    const crop = new Element();
+    crop.className = 'plate-crop';
+    crop.clientWidth = 50;
+    plate.appendChild(crop);
+    const departure = new Element('nav');
+    departure.className = 'plate-departure';
+    plate.appendChild(departure);
+    for (const [index, value] of [false, true, false].entries()) {
+      const detail = new Element('details');
+      detail.id = 'evidence-' + index;
+      detail.open = value;
+      plate.appendChild(detail);
+    }
+    const category = new Element('a');
+    category.dataset.category = 'tools';
+    category.setAttribute('href', 'https://example.org/source#tools');
+    plate.appendChild(category);
+    const permalink = new Element('a');
+    permalink.className = 'permalink';
+    permalink.setAttribute('href', '#project-' + spec.projectId);
+    plate.appendChild(permalink);
+    const evidence = new Element('a');
+    evidence.className = 'evidence-download';
+    evidence.setAttribute('href', 'catalog.json');
+    plate.appendChild(evidence);
+    if (spec.activeTag) plate.appendChild(new Element(spec.activeTag));
+    if (spec.attribute) field.setAttribute(spec.attribute[0], spec.attribute[1]);
+    card.appendChild(plate);
+    if (spec.duplicatePlate) card.appendChild(plate.cloneNode(true));
+    record.appendChild(card);
+    if (spec.duplicateCard) record.appendChild(card.cloneNode(true));
+    if (spec.detachedPlate) { plate.remove(); record.appendChild(plate); }
+    return record;
+  }
+  ui.window.AbortController = AbortController;
+  ui.window.DOMParser = class {
+    parseFromString(body, mime) {
+      assert.equal(mime, 'text/html');
+      ui.parseCount += 1;
+      return createRecord(JSON.parse(body));
+    }
+  };
+  ui.window.fetch = (url, init) => new Promise((resolve, reject) => {
+    ui.calls.push({ url, init, resolve, reject });
+  });
+  ui.respond = (index, spec = {}, overrides = {}) => {
+    const call = ui.calls[index];
+    const projectId = /\/([a-f0-9]{64})\.html$/.exec(call.url)[1];
+    call.resolve({ ok: true, url: call.url, headers: { get: () => 'text/html; charset=utf-8' },
+      text: async () => JSON.stringify({ projectId, ...spec }), ...overrides });
+  };
+  ui.toggle = (index, open) => {
+    ui.records[index].drawer.open = open;
+    ui.records[index].drawer.fire('toggle');
+  };
+  ui.plate = index => ui.records[index].host.querySelector('.specimen-plate');
+  ui.settle = () => new Promise(resolve => setImmediate(resolve));
+  ui.createRecord = createRecord;
+  return ui;
+}
+
+test('deferred records allocate no plate, requests or loading UI until a native drawer opens', () => {
+  const ui = detailFixture();
+  assert.equal(catalog.init(ui.document, ui.window), true);
+  assert.equal(ui.calls.length, 0);
+  assert.equal(ui.document.querySelectorAll('.specimen-plate').length, 0);
+  for (const { host, drawer, fallback } of ui.records) {
+    assert.equal(host.children.length, 1);
+    assert.equal(fallback.hidden, false);
+    assert.equal(drawer.listeners.toggle.length, 1);
+  }
+  catalog.init(ui.document, ui.window);
+  assert.equal(ui.events.listeners.resize.length, 1);
+  assert.equal(ui.events.listeners.pagehide.length, 1);
+  assert.equal(ui.records[0].drawer.listeners.toggle.length, 1);
+  assert.equal(ui.ids['project-list'].listeners.click.length, 1);
+});
+
+test('opening fetches one same-origin record, imports only its matching plate and rebases assets', async () => {
+  const ui = detailFixture();
+  catalog.init(ui.document, ui.window);
+  ui.records[0].summary.focus();
+  ui.toggle(0, true);
+  const { host, fallback, summary } = ui.records[0];
+  assert.equal(ui.calls.length, 1);
+  assert.equal(host.dataset.detailState, 'loading');
+  assert.equal(host.getAttribute('aria-busy'), 'true');
+  assert.equal(host.querySelector('.detail-status').getAttribute('role'), 'status');
+  assert.equal(fallback.hidden, false);
+  assert.equal(ui.calls[0].url, 'https://example.org/catalog/records/' + ui.records[0].project.id + '.html');
+  assert.equal(ui.calls[0].init.mode, 'same-origin');
+  assert.equal(ui.calls[0].init.redirect, 'error');
+  ui.toggle(0, true);
+  catalog.init(ui.document, ui.window);
+  assert.equal(ui.calls.length, 1);
+  ui.respond(0);
+  await ui.settle();
+  const plate = ui.plate(0);
+  assert.ok(plate);
+  assert.equal(plate.querySelector('img').getAttribute('src'), 'https://example.org/catalog/specimens/drawing.webp');
+  assert.equal(plate.querySelector('.evidence-download').getAttribute('href'), 'https://example.org/catalog/catalog.json');
+  assert.equal(plate.querySelector('.permalink').getAttribute('href'), '#project-' + ui.records[0].project.id);
+  assert.equal(host.querySelector('base'), null);
+  assert.equal(host.querySelector('.project-card'), null);
+  assert.equal(host.dataset.detailState, 'loaded');
+  assert.equal(host.getAttribute('aria-busy'), null);
+  assert.equal(host.querySelector('.detail-status').hidden, true);
+  assert.equal(fallback.hidden, false, 'Read/print fallback remains accessible after loading');
+  assert.equal(ui.document.activeElement, summary);
+  assert.equal(plate.querySelectorAll('.plate-lens').length, 1);
+  assert.equal(plate.querySelectorAll('.plate-wild-terrain').length, 1);
+  ui.toggle(0, false);
+  ui.toggle(0, true);
+  catalog.init(ui.document, ui.window);
+  assert.equal(ui.calls.length, 1);
+  assert.equal(ui.plate(0), plate);
+  assert.equal(plate.querySelectorAll('.plate-lens').length, 1);
+  assert.equal(plate.querySelector('.plate-field').listeners.pointermove.length, 1);
+});
+
+test('record URLs without base tags resolve relative to the static file', async () => {
+  const ui = detailFixture();
+  catalog.init(ui.document, ui.window);
+  ui.toggle(0, true);
+  ui.respond(0, { noBase: true, imageURL: '../specimens/drawing.webp' });
+  await ui.settle();
+  assert.equal(ui.plate(0).querySelector('img').getAttribute('src'), 'https://example.org/catalog/specimens/drawing.webp');
+});
+
+test('closing aborts and stale responses cannot mount, overwrite or duplicate a newer request', async () => {
+  const ui = detailFixture();
+  catalog.init(ui.document, ui.window);
+  ui.toggle(0, true);
+  ui.toggle(0, false);
+  assert.equal(ui.calls[0].init.signal.aborted, true);
+  assert.equal(ui.records[0].host.dataset.detailState, 'idle');
+  ui.toggle(0, true);
+  assert.equal(ui.calls.length, 2);
+  ui.respond(0);
+  await ui.settle();
+  assert.equal(ui.parseCount, 0);
+  assert.equal(ui.plate(0), null);
+  assert.equal(ui.records[0].host.dataset.detailState, 'loading');
+  ui.respond(1);
+  await ui.settle();
+  assert.ok(ui.plate(0));
+  assert.equal(ui.parseCount, 1);
+  assert.equal(ui.document.querySelectorAll('.specimen-plate').length, 1);
+});
+
+test('closing during response text and late abort errors are ignored', async () => {
+  const ui = detailFixture();
+  catalog.init(ui.document, ui.window);
+  ui.toggle(0, true);
+  let finishText;
+  ui.respond(0, {}, { text: () => new Promise(resolve => { finishText = resolve; }) });
+  await ui.settle();
+  ui.toggle(0, false);
+  finishText(JSON.stringify({ projectId: ui.records[0].project.id }));
+  await ui.settle();
+  assert.equal(ui.parseCount, 0);
+  assert.equal(ui.plate(0), null);
+  assert.equal(ui.records[0].host.dataset.detailState, 'idle');
+  ui.toggle(0, true);
+  ui.toggle(0, false);
+  ui.toggle(0, true);
+  ui.calls[1].reject(new Error('aborted transfer completed late'));
+  await ui.settle();
+  assert.equal(ui.records[0].host.dataset.detailState, 'loading');
+  ui.respond(2);
+  await ui.settle();
+  assert.ok(ui.plate(0));
+});
+
+test('failure exposes a retry and static fallback; repeated retry starts only one request', async () => {
+  const ui = detailFixture();
+  catalog.init(ui.document, ui.window);
+  ui.toggle(0, true);
+  ui.calls[0].reject(new Error('offline'));
+  await ui.settle();
+  const { host, summary } = ui.records[0];
+  const retry = host.querySelector('.detail-retry');
+  assert.equal(host.dataset.detailState, 'error');
+  assert.equal(retry.hidden, false);
+  assert.equal(ui.records[0].fallback.hidden, false);
+  retry.focus();
+  retry.fire('click');
+  retry.fire('click');
+  assert.equal(ui.calls.length, 2);
+  assert.equal(ui.document.activeElement, summary, 'Focus returns to a stable control before retry is hidden');
+  ui.respond(1);
+  await ui.settle();
+  assert.equal(host.dataset.detailState, 'loaded');
+  assert.equal(retry.hidden, true);
+  assert.ok(ui.plate(0));
+});
+
+test('bad responses, identity mismatches and active or cross-origin payloads leave the fallback intact', async () => {
+  const cases = [
+    [{}, { ok: false }],
+    [{}, { headers: { get: () => 'application/json' } }],
+    [{}, { url: 'https://elsewhere.example/record.html' }],
+    [{}, { text: async () => 'not a valid record' }],
+    [{}, { text: async () => 'x'.repeat(2 * 1024 * 1024 + 1) }],
+    [{ wrongIdentity: true }], [{ wrongLabel: true }], [{ noLabel: true }],
+    [{ duplicatePlate: true }], [{ duplicateCard: true }], [{ detachedPlate: true }],
+    [{ base: 'https://elsewhere.example/' }],
+    [{ imageURL: 'https://elsewhere.example/drawing.webp' }],
+    [{ imageURL: 'javascript:alert(1)' }],
+    [{ activeTag: 'script' }], [{ activeTag: 'iframe' }], [{ activeTag: 'foreignObject' }],
+    [{ attribute: ['onclick', 'alert(1)'] }],
+    [{ attribute: ['style', 'background:url(https://elsewhere.example/image)'] }],
+    [{ attribute: ['srcdoc', '<script></script>'] }],
+    [{ attribute: ['href', 'javascript:alert(1)'] }]
+  ];
+  for (const [spec, overrides] of cases) {
+    const ui = detailFixture();
+    catalog.init(ui.document, ui.window);
+    ui.toggle(0, true);
+    ui.respond(0, spec, overrides);
+    await ui.settle();
+    assert.equal(ui.plate(0), null, JSON.stringify(spec));
+    assert.equal(ui.records[0].host.dataset.detailState, 'error');
+    assert.equal(ui.records[0].fallback.hidden, false);
+    assert.equal(ui.records[0].host.querySelector('.detail-retry').hidden, false);
+  }
+});
+
+test('invalid destinations, local files and missing APIs never request a record or break filtering', () => {
+  const cases = [
+    ui => { ui.records[0].host.dataset.detailUrl = 'https://elsewhere.example/records/' + ui.records[0].project.id + '.html'; },
+    ui => { ui.records[0].host.dataset.detailUrl = '/records/other.html'; },
+    ui => { ui.records[0].host.dataset.projectId = 'invalid'; },
+    ui => { ui.window.location.href = 'file:///tmp/site/index.html'; },
+    ui => { delete ui.window.fetch; },
+    ui => { delete ui.window.DOMParser; }
+  ];
+  for (const change of cases) {
+    const ui = detailFixture();
+    change(ui);
+    assert.equal(catalog.init(ui.document, ui.window), true);
+    ui.toggle(0, true);
+    assert.equal(ui.calls.length, 0);
+    assert.equal(ui.records[0].fallback.hidden, false);
+    assert.equal(ui.records[0].host.dataset.detailState, 'error');
+    assert.equal(ui.records[0].host.querySelector('.detail-retry'), null);
+    ui.ids['category-filter'].value = 'tools';
+    assert.doesNotThrow(() => ui.ids['category-filter'].fire('change'));
+  }
+});
+
+test('closed-plate LRU keeps three, never evicts an open plate, cleans listeners and restores nested disclosures', async () => {
+  const ui = detailFixture({ count: 6 });
+  catalog.init(ui.document, ui.window);
+  for (let index = 0; index < 6; index += 1) { ui.toggle(index, true); ui.respond(index); }
+  await ui.settle();
+  assert.equal(ui.document.querySelectorAll('.specimen-plate').length, 6, 'Every intentionally open plate remains mounted');
+  const first = ui.plate(0), field = first.querySelector('.plate-field'), img = first.querySelector('img');
+  first.querySelectorAll('details').forEach((detail, index) => { detail.open = index !== 1; });
+  assert.equal(field.listeners.pointermove.length, 1);
+  assert.equal(img.listeners.load.length, 1);
+  for (let index = 0; index < 4; index += 1) ui.toggle(index, false);
+  assert.equal(ui.plate(0), null);
+  assert.ok(ui.plate(4));
+  assert.ok(ui.plate(5));
+  assert.equal(ui.document.querySelectorAll('.specimen-plate').length, 5);
+  assert.deepEqual(field.listeners.pointermove, []);
+  assert.deepEqual(field.listeners.pointerleave, []);
+  assert.deepEqual(field.listeners.click, []);
+  assert.deepEqual(img.listeners.load, []);
+  assert.equal(first.plateLayout, undefined);
+  assert.equal(first.plateCleanup, undefined);
+  assert.equal(ui.records[0].host.dataset.detailState, 'idle');
+  // Reusing a cached closed plate moves it to the newest closed position.
+  ui.toggle(1, true);
+  ui.toggle(1, false);
+  ui.toggle(4, false);
+  assert.equal(ui.plate(2), null);
+  assert.ok(ui.plate(1));
+  ui.toggle(0, true);
+  assert.equal(ui.calls.length, 7);
+  ui.respond(6);
+  await ui.settle();
+  assert.notEqual(ui.plate(0), first);
+  assert.deepEqual(ui.plate(0).querySelectorAll('details').map(detail => detail.open), [true, false, true]);
+  assert.equal(ui.plate(0).querySelectorAll('.plate-lens').length, 1);
+});
+
+test('an open drawer awaiting its toggle event is protected from closed-cache eviction', async () => {
+  const ui = detailFixture();
+  catalog.init(ui.document, ui.window);
+  for (let index = 0; index < 5; index += 1) { ui.toggle(index, true); ui.respond(index); }
+  await ui.settle();
+  for (let index = 0; index < 3; index += 1) ui.toggle(index, false);
+  ui.records[0].drawer.open = true;
+  ui.toggle(3, false);
+  assert.ok(ui.plate(0));
+  assert.ok(ui.plate(1));
+  assert.equal(ui.document.querySelectorAll('.specimen-plate').length, 5);
+  ui.records[0].drawer.fire('toggle');
+  ui.toggle(4, false);
+  assert.equal(ui.plate(1), null);
+  assert.ok(ui.plate(0));
+});
+
+test('deep links open before fetching; filtered links load only when visible, and category links work after mounting', async () => {
+  const id = '1'.repeat(64);
+  const ui = detailFixture({ url: 'https://example.org/catalog/?metrics=missing#project-' + id });
+  catalog.init(ui.document, ui.window);
+  assert.equal(ui.calls.length, 0);
+  assert.equal(ui.records[0].drawer.open, false);
+  assert.equal(ui.ids['project-link-notice'].hidden, false);
+  ui.ids['clear-filters'].fire('click');
+  assert.equal(ui.records[0].drawer.open, true);
+  assert.equal(ui.calls.length, 1, 'Deep links request without waiting for toggle delivery');
+  ui.records[0].drawer.fire('toggle');
+  assert.equal(ui.calls.length, 1);
+  ui.respond(0);
+  await ui.settle();
+  const category = ui.plate(0).querySelector('a[data-category]');
+  const list = ui.ids['project-list'];
+  assert.equal(list.fire('click', { target: category, ctrlKey: true }).defaultPrevented, false);
+  assert.equal(list.fire('click', { target: category }).defaultPrevented, true);
+  assert.equal(ui.ids['category-filter'].value, 'tools');
+  assert.equal(ui.document.activeElement, ui.ids.catalog);
+  assert.equal(ui.records[0].drawer.open, true);
+  assert.ok(ui.plate(0));
+  ui.window.location.href = 'https://example.org/catalog/#project-' + ui.records[1].project.id;
+  ui.fire('hashchange');
+  assert.equal(ui.calls.length, 2);
+  assert.equal(ui.records[1].drawer.open, true);
+  assert.equal(ui.document.activeElement, ui.records[1].summary);
+  ui.respond(1);
+  await ui.settle();
+  assert.ok(ui.plate(1));
+});
+
+test('initial project links fetch their record exactly once and do not refetch on history restoration', async () => {
+  const ui = detailFixture({ url: 'https://example.org/catalog/#project-' + '1'.repeat(64) });
+  catalog.init(ui.document, ui.window);
+  assert.equal(ui.records[0].drawer.open, true);
+  assert.equal(ui.calls.length, 1);
+  assert.equal(ui.document.activeElement, ui.records[0].summary);
+  ui.respond(0);
+  await ui.settle();
+  ui.fire('popstate');
+  ui.fire('pageshow', { persisted: true });
+  assert.equal(ui.calls.length, 1);
+});
+
+test('pagehide aborts transfers and bfcache restoration retries only still-open drawers', async () => {
+  const ui = detailFixture();
+  catalog.init(ui.document, ui.window);
+  ui.toggle(0, true);
+  ui.toggle(1, true);
+  ui.toggle(1, false);
+  ui.fire('pagehide');
+  assert.equal(ui.calls[0].init.signal.aborted, true);
+  ui.fire('pageshow', { persisted: false });
+  assert.equal(ui.calls.length, 2);
+  ui.fire('pageshow', { persisted: true });
+  assert.equal(ui.calls.length, 3);
+  assert.equal(ui.calls[2].url, ui.calls[0].url);
+  ui.respond(0);
+  ui.respond(1);
+  ui.respond(2);
+  await ui.settle();
+  assert.ok(ui.plate(0));
+  assert.equal(ui.plate(1), null);
+  assert.equal(ui.parseCount, 1);
+});
+
+test('without AbortController stale protection still works; detached hosts ignore completion', async () => {
+  const ui = detailFixture();
+  delete ui.window.AbortController;
+  catalog.init(ui.document, ui.window);
+  ui.toggle(0, true);
+  ui.toggle(0, false);
+  ui.respond(0);
+  await ui.settle();
+  assert.equal(ui.plate(0), null);
+  ui.toggle(1, true);
+  ui.records[1].host.isConnected = false;
+  ui.respond(1);
+  await ui.settle();
+  assert.equal(ui.plate(1), null);
+  assert.equal(ui.parseCount, 0);
+});
+
+test('legacy fully rendered standalone and single-record pages enhance without fetching or catalog controls', () => {
+  for (const single of [false, true]) {
+    const ui = detailFixture({ url: 'file:///tmp/site/standalone.html' });
+    for (const record of ui.records) {
+      record.host.remove();
+      const html = ui.createRecord({ projectId: record.project.id });
+      record.drawer.appendChild(ui.document.importNode(html.querySelector('.specimen-plate'), true));
+    }
+    if (single) {
+      delete ui.ids['catalog-data'];
+      ui.records[0].drawer.open = true;
+    }
+    assert.equal(catalog.init(ui.document, ui.window), !single);
+    if (!single) ui.toggle(0, true);
+    const plate = ui.records[0].drawer.querySelector('.specimen-plate');
+    assert.equal(plate.dataset.enhanced, 'true');
+    ui.toggle(0, false);
+    ui.toggle(0, true);
+    catalog.init(ui.document, ui.window);
+    assert.equal(ui.calls.length, 0);
+    assert.equal(plate.querySelectorAll('.plate-lens').length, 1);
+    assert.equal(ui.records[0].drawer.listeners.toggle.length, 1);
+    assert.equal(ui.events.listeners.resize.length, 1);
+    assert.equal(ui.document.querySelectorAll('.specimen-plate').length, ui.records.length);
+  }
 });
