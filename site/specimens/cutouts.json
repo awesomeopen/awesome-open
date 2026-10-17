@@ -1084,6 +1084,46 @@
         "scipy": "1.17.0",
         "webp": "1.6.0"
       }
+    },
+    "dbdde6b88e3ec3e235ad3028f85146b3353ddf4003c2863c6c812f2a6cfcb48f": {
+      "source": "specimens/dbdde6b88e3ec3e235ad3028f85146b3353ddf4003c2863c6c812f2a6cfcb48f.webp",
+      "source_sha256": "e01dfe09f7a5b86d8a525eab977c706efefea62f83783040fbb12773ebbf5cad",
+      "path": "specimens/cutouts/dbdde6b88e3ec3e235ad3028f85146b3353ddf4003c2863c6c812f2a6cfcb48f.webp",
+      "sha256": "7bf66c97d49ef452fd805f221f97fe7d382cc8b713874491bb6bf2040c2825a6",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0104,
+        0.0949,
+        0.9936,
+        0.9051
+      ],
+      "tools": {
+        "pillow": "12.3.0",
+        "numpy": "2.3.5",
+        "scipy": "1.17.0",
+        "webp": "1.6.0"
+      }
+    },
+    "389b8d780d9a0873e27cb35c2b6d0390fa7594d52c30d407f1a700d2a2b63b03": {
+      "source": "specimens/389b8d780d9a0873e27cb35c2b6d0390fa7594d52c30d407f1a700d2a2b63b03.webp",
+      "source_sha256": "0b9a959b0debd40bdf3bc4d7763e1e6f4faf6d510326791c9a61ebe6e8da3f25",
+      "path": "specimens/cutouts/389b8d780d9a0873e27cb35c2b6d0390fa7594d52c30d407f1a700d2a2b63b03.webp",
+      "sha256": "c1d758d85ab263297da9ae8b5c505bb32bd3fb39bbfea24664f484bcfc225aec",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0566,
+        0.047,
+        0.9553,
+        0.9386
+      ],
+      "tools": {
+        "pillow": "12.3.0",
+        "numpy": "2.3.5",
+        "scipy": "1.17.0",
+        "webp": "1.6.0"
+      }
     }
   }
 }
