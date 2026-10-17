@@ -1,28 +1,28 @@
 {
   "schema_version": 1,
   "status": "proposed",
-  "source_revision": "4bc3d97",
+  "source_revision": "a9455b9",
   "documentation": "brand/icons.md",
   "naming": "{id}-{size}.svg, for example state.failed-m.svg",
-  "master_px": 96,
+  "production": "Hand-written SVG per size on its pixel grid, currentColor only; not Speculative FOSSoligy. Raster allowed only for l setup icons (run.*, install.*).",
   "sizes": {
     "s": {
       "px": 12,
       "stroke": 1.5,
       "padding": 1,
-      "detail": "Silhouette only; badge never used"
+      "detail": "Silhouette only; the aged badge is reduced to a solid 4px dot"
     },
     "m": {
       "px": 16,
       "stroke": 1.5,
       "padding": 1,
-      "detail": "Silhouette plus one interior detail"
+      "detail": "Silhouette plus one interior detail; full clock badge"
     },
     "l": {
       "px": 24,
       "stroke": 2,
       "padding": 2,
-      "detail": "May carry restrained pencil character"
+      "detail": "Full detail; setup icons may carry restrained pencil character"
     }
   },
   "icons": [
@@ -44,9 +44,9 @@
         "Cached GitHub metrics (coverage count)"
       ],
       "used_in": [
-        "scripts/build_site.py:239 `signal-status`",
+        "scripts/build_site.py:243 `signal-status`",
         "scripts/signals.py:79 `available`",
-        "scripts/build_observatory.py:704 coverage states"
+        "scripts/build_observatory.py:704 `coverage states`"
       ]
     },
     {
@@ -54,7 +54,7 @@
       "group": "state",
       "status": "today",
       "base": "circle",
-      "shape": "Check mark inside a closed ring with the aged badge in the lower-right quadrant",
+      "shape": "Check mark inside a closed ring with the aged badge in the lower-right quadrant; at s the badge is a solid 4px dot with a 1px paper knockout",
       "color_token": "--rs-blueprint",
       "sizes": [
         "s",
@@ -67,11 +67,11 @@
         "Stale GitHub metrics; last successful observation: …"
       ],
       "used_in": [
-        "scripts/build_site.py:239 `signal-status`",
+        "scripts/build_site.py:243 `signal-status`",
         "scripts/signals.py:69 `stale`",
-        "scripts/build_site.py:508 `metrics_freshness`",
-        "scripts/build_site.py:740 About the data “Stale:”",
-        "scripts/build_observatory.py:775 “Cached measurements may be stale”"
+        "scripts/build_site.py:512 `metrics_freshness stale`",
+        "scripts/build_site.py:744 `About the data “Stale:”`",
+        "scripts/build_observatory.py:775 `Cached measurements may be stale`"
       ]
     },
     {
@@ -93,10 +93,10 @@
         "Aggregate inconclusive"
       ],
       "used_in": [
-        "scripts/build_site.py:239 `signal-status`",
+        "scripts/build_site.py:243 `signal-status`",
         "scripts/signals.py:78 `partial`",
-        "scripts/build_site.py:183 `Aggregate inconclusive`",
-        "scripts/build_site.py:187 `Inconclusive`"
+        "scripts/build_site.py:187 `Aggregate inconclusive`",
+        "scripts/build_site.py:191 `Inconclusive`"
       ]
     },
     {
@@ -120,8 +120,8 @@
         "Release not checked."
       ],
       "used_in": [
-        "scripts/build_site.py:163 fetch_status labels",
-        "scripts/build_site.py:153 `Release not checked.`",
+        "scripts/build_site.py:167 `fetch_status labels`",
+        "scripts/build_site.py:157 `Release not checked.`",
         "scripts/signals.py:67 `pending`"
       ]
     },
@@ -142,7 +142,7 @@
         "No result returned"
       ],
       "used_in": [
-        "scripts/build_site.py:163 `not_found`"
+        "scripts/build_site.py:168 `not_found`"
       ]
     },
     {
@@ -163,9 +163,9 @@
         "GitHub metrics unavailable; no successful observation."
       ],
       "used_in": [
-        "scripts/build_site.py:163 `error`",
+        "scripts/build_site.py:170 `error`",
         "scripts/signals.py:67 `unavailable`",
-        "scripts/build_site.py:502 `metrics_freshness`"
+        "scripts/build_site.py:506 `metrics_freshness unavailable`"
       ]
     },
     {
@@ -189,10 +189,10 @@
         "GitHub metrics: Unknown"
       ],
       "used_in": [
-        "scripts/build_site.py:587 `Detected license` Unknown",
-        "scripts/build_site.py:498 `GitHub metrics: Unknown`",
-        "scripts/build_site.py:728 filter options",
-        "scripts/build_site.py:729 `Not recorded`",
+        "scripts/build_site.py:591 `Detected license Unknown`",
+        "scripts/build_site.py:502 `GitHub metrics: Unknown`",
+        "scripts/build_site.py:732 `filter options`",
+        "scripts/build_site.py:733 `Not recorded`",
         "scripts/build_observatory.py:304 `obs-unknown`"
       ]
     },
@@ -201,7 +201,7 @@
       "group": "state",
       "status": "today",
       "base": "badge",
-      "shape": "Small clock face (two hands) in a paper-knockout disc; composited onto another glyph's lower-right quadrant",
+      "shape": "Small clock face (two hands) in a paper-knockout disc; composited onto another glyph's lower-right quadrant. Not drawn at s: state.aged-s uses a solid 4px dot instead",
       "color_token": "--rs-muted",
       "sizes": [
         "m",
@@ -234,8 +234,8 @@
         "Approved evidence record"
       ],
       "used_in": [
-        "scripts/build_site.py:572 `function-provenance`",
-        "scripts/build_site.py:537 `evidence-date`",
+        "scripts/build_site.py:576 `function-provenance`",
+        "scripts/build_site.py:541 `evidence-date`",
         "scripts/deployment.py:153 `Approved evidence record`"
       ]
     },
@@ -256,7 +256,7 @@
         "Review pending"
       ],
       "used_in": [
-        "scripts/deployment.py:49 `review_status` pending (not rendered today)"
+        "scripts/deployment.py:49 `review_status pending (not rendered today)`"
       ]
     },
     {
@@ -276,7 +276,7 @@
         "Archived on GitHub"
       ],
       "used_in": [
-        "scripts/build_site.py:392 `label-status`"
+        "scripts/build_site.py:396 `label-status`"
       ]
     },
     {
@@ -302,13 +302,13 @@
         "{alternative name}"
       ],
       "used_in": [
-        "scripts/build_site.py:492 `departure-arrow`",
-        "scripts/build_site.py:451 `feature-source`",
-        "scripts/build_site.py:231 `Provider source`",
-        "scripts/build_site.py:550 `hn-chart`",
-        "scripts/build_site.py:173 `note-value`",
-        "scripts/build_site.py:572 summary sources",
-        "scripts/build_site.py:537 alternative links"
+        "scripts/build_site.py:496 `departure-arrow`",
+        "scripts/build_site.py:455 `feature-source`",
+        "scripts/build_site.py:235 `Provider source`",
+        "scripts/build_site.py:554 `hn-chart`",
+        "scripts/build_site.py:177 `note-value`",
+        "scripts/build_site.py:576 `summary sources`",
+        "scripts/build_site.py:541 `alternative links`"
       ]
     },
     {
@@ -329,8 +329,8 @@
         "QR code: permalink to {name}"
       ],
       "used_in": [
-        "scripts/build_site.py:402 `permalink`",
-        "scripts/build_site.py:397 `label-qr`"
+        "scripts/build_site.py:406 `permalink`",
+        "scripts/build_site.py:401 `label-qr`"
       ]
     },
     {
@@ -349,7 +349,7 @@
         "Repository commit {sha}"
       ],
       "used_in": [
-        "scripts/build_site.py:197 Scorecard commit"
+        "scripts/build_site.py:201 `Scorecard commit`"
       ]
     },
     {
@@ -371,9 +371,9 @@
         "Download standalone report"
       ],
       "used_in": [
-        "scripts/build_site.py:740 `standalone.html`",
+        "scripts/build_site.py:744 `standalone.html`",
         "scripts/build_observatory.py:775 `export-csv`",
-        "scripts/build_observatory.py:847 report"
+        "scripts/build_observatory.py:847 `report`"
       ]
     },
     {
@@ -397,7 +397,7 @@
         "Star-history evidence"
       ],
       "used_in": [
-        "scripts/build_site.py:740 About the data links",
+        "scripts/build_site.py:744 `About the data links`",
         "scripts/build_observatory.py:757 `evidence_links`"
       ]
     },
@@ -440,13 +440,13 @@
         "View setup facts & sources"
       ],
       "used_in": [
-        "scripts/build_site.py:725",
-        "scripts/build_site.py:728",
-        "scripts/build_site.py:729",
-        "scripts/build_site.py:740",
-        "scripts/build_site.py:239 `note-provenance`",
-        "scripts/build_site.py:196 `signal-checks`",
-        "scripts/deployment.py:154",
+        "scripts/build_site.py:729 `Table of contents`",
+        "scripts/build_site.py:732 `Filters`",
+        "scripts/build_site.py:733 `More filters`",
+        "scripts/build_site.py:744 `About the data`",
+        "scripts/build_site.py:243 `note-provenance`",
+        "scripts/build_site.py:200 `signal-checks`",
+        "scripts/deployment.py:154 `View setup facts`",
         "site/styles.css:445 `.drawer-sign`"
       ]
     },
@@ -466,7 +466,7 @@
         "(same summaries, open state)"
       ],
       "used_in": [
-        "site/styles.css:457 `.drawer-sign` open"
+        "site/styles.css:457 `.drawer-sign open`"
       ]
     },
     {
@@ -485,7 +485,7 @@
         "Reset filters ↺"
       ],
       "used_in": [
-        "scripts/build_site.py:733 `clear-filters`"
+        "scripts/build_site.py:737 `clear-filters`"
       ]
     },
     {
@@ -509,10 +509,10 @@
         "How groups are formed"
       ],
       "used_in": [
-        "scripts/build_site.py:740 About the data definitions",
-        "scripts/build_site.py:557 `star-window`",
-        "scripts/build_site.py:400 `title=\"Registry ID\"`",
-        "scripts/build_observatory.py:387 shared names"
+        "scripts/build_site.py:744 `About the data definitions`",
+        "scripts/build_site.py:561 `star-window`",
+        "scripts/build_site.py:404 `title=\"Registry ID\"`",
+        "scripts/build_observatory.py:387 `shared names`"
       ]
     },
     {
@@ -531,7 +531,7 @@
         "Name A–Z"
       ],
       "used_in": [
-        "scripts/build_site.py:733 `sort-order`"
+        "scripts/build_site.py:737 `sort-order`"
       ]
     },
     {
@@ -551,7 +551,7 @@
         "Latest push"
       ],
       "used_in": [
-        "scripts/build_site.py:733 `sort-order`"
+        "scripts/build_site.py:737 `sort-order`"
       ]
     },
     {
@@ -570,7 +570,7 @@
         "Filters"
       ],
       "used_in": [
-        "scripts/build_site.py:728 `filter-options`"
+        "scripts/build_site.py:732 `filter-options`"
       ]
     },
     {
@@ -893,7 +893,7 @@
         "documented"
       ],
       "used_in": [
-        "scripts/deployment.py:106 package `status`"
+        "scripts/deployment.py:106 `package status`"
       ]
     },
     {
@@ -912,7 +912,7 @@
         "disabled"
       ],
       "used_in": [
-        "scripts/deployment.py:106 package `status`"
+        "scripts/deployment.py:106 `package status`"
       ]
     },
     {
@@ -931,7 +931,7 @@
         "deprecated"
       ],
       "used_in": [
-        "scripts/deployment.py:106 package `status`"
+        "scripts/deployment.py:106 `package status`"
       ]
     },
     {
@@ -950,7 +950,7 @@
         "discontinued"
       ],
       "used_in": [
-        "scripts/deployment.py:106 package `status`"
+        "scripts/deployment.py:106 `package status`"
       ]
     },
     {
