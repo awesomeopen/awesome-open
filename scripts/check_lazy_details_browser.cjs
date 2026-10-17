@@ -265,6 +265,8 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
       assert.equal(await staticPage.locator('.plate-art img').evaluate(image => image.complete && image.naturalWidth > 0), true);
       await staticPage.emulateMedia({ media: 'print' });
       assert.equal(await staticPage.locator('.specimen-plate').isVisible(), true);
+      assert.equal(await staticPage.locator('.deployment-group').first().isVisible(), true,
+        'Printing includes evidence inside closed nested disclosures');
       assert.equal(await staticPage.locator('.plate-departure > a').isVisible(), true);
       assert.equal(await staticPage.locator('.plate-departure > a').getAttribute('href'), sample.url);
     } finally {
