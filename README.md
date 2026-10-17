@@ -59,7 +59,7 @@
 | [open-cot](https://github.com/minimAluminiumalism/open-CoT) | Research scripts for eliciting and evaluating reasoning text from language-model APIs. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-10 / MIT / 108</sub><!-- STATS:END --> |
 | [OpenCV](https://github.com/opencv/opencv) | Computer vision library. <!-- STATS:START --><br><sub>2012-07-19 -- 2026-10-16 / Apache-2.0 / 91.2k</sub><!-- STATS:END --> |
 | [Open Deep Research](https://github.com/langchain-ai/open_deep_research) | Configurable research agent supporting multiple model providers, search tools, and MCP servers. <!-- STATS:START --><br><sub>2024-11-20 -- 2026-08-10 / MIT / 12.7k</sub><!-- STATS:END --> |
-| [OpenDisplay](https://github.com/Script-k1tty/OpenDisplay) | Experimental AI assistant for Ray-Ban Display glasses with lens cards, captions, translation, and a teleprompter. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-09 / MIT / 0 / Metrics stale; last success 2026-10-14; unavailable at 2026-10-17T08:00:20Z (HTTP 404)</sub><!-- STATS:END --> |
+| [OpenDisplay](https://github.com/Script-k1tty/OpenDisplay) | Experimental AI assistant for Ray-Ban Display glasses with lens cards, captions, translation, and a teleprompter. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-09 / MIT / 0 / Metrics stale; last success 2026-10-14; unavailable at 2026-10-17T08:09:35Z (HTTP 404)</sub><!-- STATS:END --> |
 | [Open Dot](https://github.com/composio-community/open-dot) | Mac application for persistent personal AI agents with browsers, app integrations, and scheduled tasks. <!-- STATS:START --><br><sub>2026-09-29 -- 2026-09-30 / 656</sub><!-- STATS:END --> |
 | [OpenDots](https://github.com/CopilotKit/OpenDots) | Self-hostable template for persistent AI agents with individual computers, document workspaces, text, calls, and Slack. <!-- STATS:START --><br><sub>2026-09-29 -- 2026-10-15 / MIT / 5.5k</sub><!-- STATS:END --> |
 | [OpenFace](https://github.com/cmusatyalab/openface) | Face recognition with deep neural networks. <!-- STATS:START --><br><sub>2015-09-16 -- 2026-10-14 / Apache-2.0 / 15.4k</sub><!-- STATS:END --> |
@@ -358,13 +358,13 @@
 | [OpenStudy](https://github.com/OpenStudy-dev/OpenStudy) | Self-hosted study dashboard with an MCP server for AI assistants. <!-- STATS:START --><br><sub>2026-04-17 -- 2026-09-25 / MIT / 76</sub><!-- STATS:END --> |
 | [OpenText Content Manager](https://www.opentext.com/products/content-manager) | Enterprise document and records management. |
 | [OpenTodoList](https://opentodolist.rpdev.net) | Tasks, notes, images, and recipes with local storage and optional synchronization. |
-| **[OpenWiki](https://github.com/langchain-ai/openwiki)** | Builds and maintains linked Markdown wikis from code and knowledge sources. <!-- STATS:START --><br><sub>2026-06-22 -- 2026-10-16 / MIT / 17.2k</sub><!-- STATS:END --> |
+| **[OpenWiki](https://github.com/langchain-ai/openwiki)** | Builds and maintains linked Markdown wikis from code and knowledge sources. <!-- STATS:START --><br><sub>2026-06-22 -- 2026-10-17 / MIT / 17.2k</sub><!-- STATS:END --> |
 
 ## Communication & Social
 
 | Project | Description |
 | --- | --- |
-| [OpenChat](https://github.com/open-chat-labs/open-chat) | Chat application running on the Internet Computer. <!-- STATS:START --><br><sub>2020-12-18 -- 2026-10-16 / AGPL-3.0 / 209</sub><!-- STATS:END --> |
+| [OpenChat](https://github.com/open-chat-labs/open-chat) | Chat application running on the Internet Computer. <!-- STATS:START --><br><sub>2020-12-18 -- 2026-10-17 / AGPL-3.0 / 209</sub><!-- STATS:END --> |
 | **[Openfire](https://github.com/igniterealtime/Openfire)** | XMPP server for real-time messaging. <!-- STATS:START --><br><sub>2014-04-07 -- 2026-10-01 / Apache-2.0 / 3.1k</sub><!-- STATS:END --> |
 | [Open Grind](https://git.opengrind.org/open-grind/open-grind) | Cross-platform unofficial client for Grindr. |
 | **[OpenIM](https://github.com/openimsdk/open-im-server)** | Instant messaging server and infrastructure for chat applications. <!-- STATS:START --><br><sub>2021-05-26 -- 2026-10-16 / Apache-2.0 / 16.7k</sub><!-- STATS:END --> |
@@ -402,7 +402,7 @@
 | [OpenDLSS-NR](https://github.com/maanHimself/OpenDLSS-NR) | Vulkan and WebGPU implementations of a DLSS neural-rendering network using user-supplied weights. <!-- STATS:START --><br><sub>2026-09-20 -- 2026-09-21 / MIT / 922</sub><!-- STATS:END --> |
 | [OpenDVR](https://github.com/McGeaverBeaver/OpenDVR) | Self-hosted live-TV and DVR server for HDHomeRun tuners, with shared streams, pause and rewind, and scheduled recordings. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-15 / MIT / 1</sub><!-- STATS:END --> |
 | [OpenEXR](https://github.com/AcademySoftwareFoundation/openexr) | Libraries and tools for high dynamic range EXR images. <!-- STATS:START --><br><sub>2012-02-24 -- 2026-10-16 / BSD-3-Clause / 1.9k</sub><!-- STATS:END --> |
-| [OpenFilm](https://github.com/openfilm/openfilm) | Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration. <!-- STATS:START --><br><sub>2026-10-04 -- 2026-10-17 / MIT / 665</sub><!-- STATS:END --> |
+| [OpenFilm](https://github.com/openfilm/openfilm) | Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration. <!-- STATS:START --><br><sub>2026-10-04 -- 2026-10-17 / MIT / 668</sub><!-- STATS:END --> |
 | [openFrameworks](https://github.com/openframeworks/openFrameworks) | Cross-platform C++ toolkit for creative coding. <!-- STATS:START --><br><sub>2009-10-21 -- 2026-10-17 / 10.4k</sub><!-- STATS:END --> |
 | [OpenH264](https://github.com/cisco/openh264) | H.264 video encoding and decoding library for real-time applications such as WebRTC. <!-- STATS:START --><br><sub>2013-10-27 -- 2026-10-12 / BSD-2-Clause / 6.2k</sub><!-- STATS:END --> |
 | [OpenImageIO](https://github.com/AcademySoftwareFoundation/OpenImageIO) | Image reading, writing, and processing library for visual effects. <!-- STATS:START --><br><sub>2011-02-02 -- 2026-10-17 / Apache-2.0 / 2.4k</sub><!-- STATS:END --> |
@@ -476,7 +476,7 @@
 | [OpenSpades](https://openspades.yvt.jp) | Voxel first-person shooter based on Ace of Spades 0.75, with destructible terrain and community game modes. |
 | **[OpenSpeedy](https://github.com/game1024/OpenSpeedy)** | Game speed controller for Windows. <!-- STATS:START --><br><sub>2025-05-16 -- 2026-10-04 / GPL-3.0 / 19.6k</sub><!-- STATS:END --> |
 | [OpenTomb](https://github.com/opentomb/OpenTomb) | Engine remake for Tomb Raider I–V. <!-- STATS:START --><br><sub>2015-04-08 -- <b>2025-02-24</b> / LGPL-3.0 / 1.4k</sub><!-- STATS:END --> |
-| [OpenTricky](https://github.com/GiZcesi/OpenTricky) | Recompiled Windows port of SSX Tricky requiring the user's own Xbox game data. <!-- STATS:START --><br><sub>2026-10-04 -- 2026-10-14 / GPL-3.0 / 73</sub><!-- STATS:END --> |
+| [OpenTricky](https://github.com/GiZcesi/OpenTricky) | Recompiled Windows port of SSX Tricky requiring the user's own Xbox game data. <!-- STATS:START --><br><sub>2026-10-04 -- 2026-10-14 / GPL-3.0 / 74</sub><!-- STATS:END --> |
 | [OpenTTD](https://github.com/OpenTTD/OpenTTD)<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openttd.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenTTD&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Transport simulation based on Transport Tycoon Deluxe. <!-- STATS:START --><br><sub>2018-04-06 -- 2026-10-15 / 8.4k</sub><!-- STATS:END --> |
 | [OpenTyrian](https://github.com/opentyrian/opentyrian) | Port of the vertical-scrolling shooter Tyrian with story, arcade, and networked multiplayer modes. <!-- STATS:START --><br><sub>2020-02-22 -- 2026-10-10 / GPL-2.0 / 587</sub><!-- STATS:END --> |
 | [OpenXcom](https://github.com/OpenXcom/OpenXcom) | Reimplementation of the original X-COM games. <!-- STATS:START --><br><sub>2011-02-06 -- 2026-09-28 / GPL-3.0 / 2.2k</sub><!-- STATS:END --> |
@@ -492,7 +492,7 @@
 | [OpenASIP](https://github.com/cpc/openasip) | Toolset for designing and programming customized instruction-set processors and generating processor RTL. <!-- STATS:START --><br><sub>2015-10-22 -- 2026-10-08 / 197</sub><!-- STATS:END --> |
 | [OpenBionics](https://github.com/OpenBionics/Prosthetic-Hands) | Arduino control software and MATLAB kinematics for prosthetic hands. <!-- STATS:START --><br><sub>2015-03-18 -- <b>2018-02-10</b> / 190</sub><!-- STATS:END --> |
 | [OpenBot](https://github.com/ob-f/OpenBot) | Smartphone-powered robotics with person following and autonomous navigation. <!-- STATS:START --><br><sub>2020-07-31 -- 2026-10-12 / MIT / 3.5k</sub><!-- STATS:END --> |
-| [OpenCarLink](https://github.com/opencarlink-cmd/OpenCarLink) | Early-development Android car head-unit app for phone projection and screen-mirroring protocols. <!-- STATS:START --><br><sub>2026-10-08 -- 2026-10-08 / Apache-2.0 / 96</sub><!-- STATS:END --> |
+| [OpenCarLink](https://github.com/opencarlink-cmd/OpenCarLink) | Early-development Android car head-unit app for phone projection and screen-mirroring protocols. <!-- STATS:START --><br><sub>2026-10-08 -- 2026-10-08 / Apache-2.0 / 97</sub><!-- STATS:END --> |
 | **[OpenCat](https://github.com/PetoiCamp/OpenCat-Quadruped-Robot)** | Framework for building and programming quadruped robots. <!-- STATS:START --><br><sub>2021-01-03 -- 2026-09-08 / MIT / 5.5k</sub><!-- STATS:END --> |
 | [OpenDashboard](https://github.com/JanRi3D/OpenDashboard) | Android car-head-unit dashboard and launcher with app tiles, radio controls, and vehicle-data integrations. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-14 / 0</sub><!-- STATS:END --> |
 | [OpenDeck](https://github.com/nekename/OpenDeck) | Desktop control software for Elgato Stream Deck devices with plugin support, macros, and application-specific profiles. <!-- STATS:START --><br><sub>2022-09-24 -- 2026-10-11 / GPL-3.0 / 2.3k</sub><!-- STATS:END --> |
@@ -631,7 +631,7 @@
 | [OpenRTX](https://github.com/OpenRTX/OpenRTX) | Modular firmware for digital amateur radios. <!-- STATS:START --><br><sub>2020-03-30 -- 2026-10-15 / 922</sub><!-- STATS:END --> |
 | [openSIL](https://github.com/openSIL/openSIL) | AMD silicon initialization libraries for x86 host firmware. <!-- STATS:START --><br><sub>2023-06-11 -- 2026-10-13 / 591</sub><!-- STATS:END --> |
 | [openSUSE](https://www.opensuse.org) | Linux distributions for desktops, servers, and containers. |
-| [OpenTracker](https://github.com/sandlbn/polyend-tracker-re) | Firmware reimplementation for the original Polyend Tracker music workstation. <!-- STATS:START --><br><sub>2026-10-16 -- 2026-10-17 / 6</sub><!-- STATS:END --> |
+| [OpenTracker](https://github.com/sandlbn/polyend-tracker-re) | Firmware reimplementation for the original Polyend Tracker music workstation. <!-- STATS:START --><br><sub>2026-10-16 -- 2026-10-17 / 7</sub><!-- STATS:END --> |
 | [OpenTX](https://github.com/opentx/opentx) | Custom firmware for radio-control transmitters. <!-- STATS:START --><br><sub>2013-11-29 -- 2026-07-23 / GPL-2.0 / 2.2k</sub><!-- STATS:END --> |
 | **[OpenWrt](https://github.com/openwrt/openwrt)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/openwrt.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenWrt&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | Linux operating system for routers and other embedded devices. <!-- STATS:START --><br><sub>2015-11-09 -- 2026-10-17 / 28.8k</sub><!-- STATS:END --> |
 
