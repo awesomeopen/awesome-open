@@ -20,6 +20,8 @@ async function measure(page, selector = '.specimen-plate') {
       bbox: field.dataset.bbox.split(' ').map(Number), cutout: field.dataset.cutout,
       naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight,
       overflow: getComputedStyle(stage).overflow,
+      studyTop: plate.querySelector('.plate-study').getBoundingClientRect().top,
+      leaderY: Array.from(plate.querySelectorAll('.plate-leaders circle'), n => Number(n.getAttribute('cy'))),
       pageFits: document.documentElement.scrollWidth <= innerWidth,
       terrain: field.querySelector('.plate-terrain')?.getAttribute('viewBox') || null };
   });
@@ -44,6 +46,7 @@ function assertGeometry(m, label) {
     const viewBox = m.terrain.split(' ').map(Number);
     near(viewBox[3], 1000 * m.stage.height / m.stage.width, label + ' terrain uses compact stage proportions');
   }
+  m.leaderY.forEach((y, i) => near(m.studyTop + y, paintedBottom + 3 + i * 2, label + ' leader follows subject baseline'));
   assert.ok(m.pageFits, label + ' fits viewport');
   assert.equal(m.overflow, 'visible', label + ' does not hard-clip soft artwork edges');
   assert.ok(left >= 0 && right <= 1, label + ' normalized horizontal bounds');
@@ -128,6 +131,18 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
     await staticPage.goto(new URL(`records/${cases[0].id}.html`, url).href);
     await staticPage.locator('.plate-art img').evaluate(image => image.decode());
     assertGeometry(await measure(staticPage), 'No-JS static record');
+    await staticPage.emulateMedia({ media: 'print' });
+    assertGeometry(await measure(staticPage), 'Printed no-JS static record');
   } finally { await noJS.close(); }
-  return { cases: results, screenshots, noJS: true, standalone: true };
+  const touch = await browser.newContext({ hasTouch: true, viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+  try {
+    const touchPage = await touch.newPage();
+    await touchPage.goto(new URL(`records/${cases[0].id}.html`, url).href);
+    await touchPage.locator('.plate-art img').evaluate(image => image.decode());
+    await touchPage.locator('.plate-stage').tap();
+    assert.equal(await touchPage.locator('.plate-lens').evaluate(n => n.classList.contains('is-on')), true, 'Tap opens loupe');
+    await touchPage.locator('.plate-stage').tap();
+    assert.equal(await touchPage.locator('.plate-lens').evaluate(n => n.classList.contains('is-on')), false, 'Second tap closes loupe');
+  } finally { await touch.close(); }
+  return { cases: results, screenshots, noJS: true, print: true, touch: true, standalone: true };
 };
