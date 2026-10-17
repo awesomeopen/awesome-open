@@ -724,6 +724,66 @@
         "scipy": "1.17.0",
         "webp": "1.6.0"
       }
+    },
+    "005bd9f29aff8832050b843a0d5451f4a91eae39424376761245670799a1450b": {
+      "source": "specimens/005bd9f29aff8832050b843a0d5451f4a91eae39424376761245670799a1450b.webp",
+      "source_sha256": "e2b78ae50cd1df5b02c460be4e98a269b4d24540bf0862df3dc13c588029d5bc",
+      "path": "specimens/cutouts/005bd9f29aff8832050b843a0d5451f4a91eae39424376761245670799a1450b.webp",
+      "sha256": "9079ac54559e649f3771e3ff6dc587e0634e23a6e3d8e4a41e4b5916f4ca0f30",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0207,
+        0.2663,
+        0.9825,
+        0.7313
+      ],
+      "tools": {
+        "pillow": "12.3.0",
+        "numpy": "2.3.5",
+        "scipy": "1.17.0",
+        "webp": "1.6.0"
+      }
+    },
+    "ffccace0ba14fd154d902639a2f95b1ae1083081bc9a5e17e891a557c23f7895": {
+      "source": "specimens/ffccace0ba14fd154d902639a2f95b1ae1083081bc9a5e17e891a557c23f7895.webp",
+      "source_sha256": "dd63c947bdea07afb8e28e4fc4856fbd5d8f7771bee8b188178bcb830a736bca",
+      "path": "specimens/cutouts/ffccace0ba14fd154d902639a2f95b1ae1083081bc9a5e17e891a557c23f7895.webp",
+      "sha256": "64550e475266399acab21bf687d280a919cb8016f7b0b9d1f1ebf8b57f04f0d6",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0104,
+        0.0606,
+        0.9864,
+        0.8915
+      ],
+      "tools": {
+        "pillow": "12.3.0",
+        "numpy": "2.3.5",
+        "scipy": "1.17.0",
+        "webp": "1.6.0"
+      }
+    },
+    "c1c999537ac0a73310f8944c29223d431535669ecebd838ad38a04eeda64411f": {
+      "source": "specimens/c1c999537ac0a73310f8944c29223d431535669ecebd838ad38a04eeda64411f.webp",
+      "source_sha256": "45fc149bdc97050aaeaf5a85aa01da8436e04c342b1f700cace4e0f85e33807c",
+      "path": "specimens/cutouts/c1c999537ac0a73310f8944c29223d431535669ecebd838ad38a04eeda64411f.webp",
+      "sha256": "7e0caafea467fc6ce4fa919e1ca9c13fe29e1631c959ee149a4fe3daa41c58a2",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0287,
+        0.193,
+        0.9697,
+        0.752
+      ],
+      "tools": {
+        "pillow": "12.3.0",
+        "numpy": "2.3.5",
+        "scipy": "1.17.0",
+        "webp": "1.6.0"
+      }
     }
   }
 }
