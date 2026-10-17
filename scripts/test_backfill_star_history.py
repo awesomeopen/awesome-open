@@ -11,7 +11,7 @@ from urllib.error import HTTPError, URLError
 import backfill_star_history as b
 import update_star_history as h
 import chart_observations as observations
-from test_update_star_history import NOW, OPENREMOTE, PROJECT, SHA, pager, weekly_series
+from test_update_star_history import NOW, OPENOMSI, OPENREMOTE, PROJECT, SHA, pager, weekly_series
 
 
 def archive_of(*records):
@@ -152,6 +152,22 @@ class BackfillTests(unittest.TestCase):
         self.assertEqual(record['source_url'], h.API + 'openremote/core/stargazers/history')
         self.assertTrue(all('/openremote/core/' in url for _, url in calls[1:]))
         self.assertEqual(flushed[-1][OPENREMOTE['repo']], record)
+
+    def test_openomsi_backfill_uses_reviewed_endpoint_and_retains_catalog_identity(self):
+        rows = weekly_series()
+        t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
+        flushed = []
+        with tempfile.TemporaryDirectory() as directory:
+            state = b.collect([OPENOMSI], {'schema_version': 1, 'repositories': {}}, {}, t,
+                              SHA, Path(directory) / 'c.json', lambda records: flushed.append(deepcopy(records)), NOW)
+        self.assertEqual(state['status'], 'complete')
+        self.assertEqual(state['failures'], [])
+        self.assertEqual(set(state['records']), {'openomsi-project/openomsi'})
+        record = state['records'][OPENOMSI['repo']]
+        self.assertEqual(record['readme_url'], OPENOMSI['readme_url'])
+        self.assertEqual(record['source_url'], h.API + 'openomsi-org/openomsi/stargazers/history')
+        self.assertTrue(all('/openomsi-org/openomsi/' in url for _, url in calls[1:]))
+        self.assertEqual(flushed[-1][OPENOMSI['repo']], record)
 
     def test_blocked_checkpoint_and_summary_identify_repository_status_and_reason(self):
         for status in [301, 401, 403, 404]:
