@@ -4,7 +4,7 @@
   "source_revision": "a9455b9",
   "documentation": "brand/icons.md",
   "naming": "{id}-{size}.svg, for example state.failed-m.svg",
-  "production": "Hand-written SVG per size on its pixel grid, currentColor only; not Speculative FOSSoligy. Raster allowed only for l setup icons (run.*, install.*).",
+  "production": "Hand-written SVG per size on its pixel grid, currentColor only; not Speculative FOSSoligy. Generated Retro-Scraperism drafts may guide composition but are not shipped. Raster allowed only for l setup icons (run.*, install.*).",
   "sizes": {
     "s": {
       "px": 12,

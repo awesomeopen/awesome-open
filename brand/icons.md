@@ -91,9 +91,13 @@ Bases are part of the grammar:
   skill does not apply to them: no governing impossibility, no invented anatomy,
   no saturated colour, no warm ground. Use the Retro-Scraperism skill for
   interface context.
-- Image generation is not needed for state, review, link, control or Observatory
-  icons; generating and tracing adds noise to simple geometry. It is optional
-  only for `l` setup icons (`run.*`, `install.*`) when pencil character is
+- Generated drafts may guide composition. Prompt for Retro-Scraperism only:
+  bold technical-drafting pictograms in ink and Prussian blue on white, with
+  four registration ticks on ring and square icons; never specimen references.
+  Drafts stay unpublished references (record model, seed and prompt in the icon
+  provenance) because local image-model licences may not permit redistribution.
+  The shipped files are redrawn SVG, never traced or embedded generated pixels.
+- Raster output is optional only for `l` setup icons (`run.*`, `install.*`) when pencil character is
   wanted. A raster `l` icon is a transparent `{id}-l.webp` with prompt and tool in the
   provenance.
 - File names: `site/brand/icons/{id}-{size}.svg`, for example
@@ -105,7 +109,8 @@ Bases are part of the grammar:
 
 ### Brief for the drawing agent
 
-> Draw each icon in `brand/icons.md` as hand-written SVG, one file per listed
+> Draw each icon in `brand/icons.md` as hand-written SVG (optionally guided by
+> unpublished Retro-Scraperism drafts), one file per listed
 > size (12, 16, 24 px), following the “Shape” column exactly and the stroke and
 > padding of the sizes table. Use `currentColor` only. Rings mean automated
 > evidence state, 2px-radius squares mean human review, everything else has no
