@@ -42,6 +42,11 @@ source links name GitHub. ID tooltips name the identifier type: “Registry ID�
 “Folio number”. These four refinements were initially present only in the private
 Sites output; this PR restores them to the generator.
 
+Collapsed ledger numbers show the current visible result position, starting at 001
+and updating with sorting and filtering. Expanded Folio and Field notes numbers
+retain alphabetical catalog position; Registry IDs and permalinks retain URL-based
+identity. See [B-PR104-01](decisions/B-PR104-01.md).
+
 The footer uses one transparent valley/abyssal image per load over Prussian blue,
 with a static masked upper fade and clear reading space. Panoramas keep their native pixel dimensions, centered horizontally and bottom aligned at every viewport width; clip overflow rather than resize. Excess bottom padding is cropped before lossless WebP conversion, with the original source revision/hash, crop rectangle, output dimensions and checksum recorded in footer provenance. Its data notes default
 open; the coffee support link has its own paragraph. Black footer metadata

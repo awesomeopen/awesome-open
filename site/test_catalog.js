@@ -181,6 +181,13 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
     querySelector(selector) {
       if (selector === "details.specimen-drawer") return this.children.find(child => child.name === "details") || null;
       if (selector === "summary") return this.children.find(child => child.name === "summary") || null;
+      if (selector.startsWith(".")) {
+        for (const child of this.children) {
+          if (child.className === selector.slice(1)) return child;
+          const nested = child.querySelector(selector);
+          if (nested) return nested;
+        }
+      }
       return null;
     }
     focus() { document.activeElement = this; }
@@ -207,6 +214,7 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
     option.value = value;
     ids["license-filter"].appendChild(option);
   });
+  const alphabeticalIds = fixtureData.projects.slice().sort(catalog.comparator("name")).map(project => project.id);
   fixtureData.projects.forEach(project => {
     const card = new Element(options.detailsCard ? "details" : "article");
     card.dataset.projectId = project.id;
@@ -214,7 +222,22 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
     ids[card.id] = card;
     if (options.drawers !== false) {
       const drawer = options.detailsCard ? card : new Element("details");
-      drawer.appendChild(new Element("summary"));
+      const summary = new Element("summary");
+      const folio = String(alphabeticalIds.indexOf(project.id) + 1).padStart(3, "0");
+      const addText = (parent, className, text) => {
+        const node = new Element("span");
+        node.className = className;
+        node.textContent = text;
+        parent.appendChild(node);
+        return node;
+      };
+      addText(summary, "folio", folio);
+      drawer.appendChild(summary);
+      addText(drawer, "sheet-folio", "Folio " + folio);
+      addText(drawer, "plate-index", "Field notes / " + folio);
+      addText(drawer, "registry", "OP-" + project.id.slice(0, 8).toUpperCase());
+      const permalink = addText(drawer, "permalink", "Permalink");
+      permalink.setAttribute("href", "#project-" + project.id);
       if (drawer !== card) card.appendChild(drawer);
     }
     ids["project-list"].appendChild(card);
@@ -283,6 +306,64 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
     visible() { return ids["project-list"].children.filter(card => !card.hidden).map(card => card.dataset.projectId); }
   };
 }
+
+function assertVisiblePositions(ui, expectedIds) {
+  assert.deepEqual(ui.visible(), expectedIds);
+  assert.deepEqual(expectedIds.map(id => ui.ids["project-" + id].querySelector(".folio").textContent),
+    expectedIds.map((_, index) => String(index + 1).padStart(3, "0")));
+}
+
+function recordIdentities(ui) {
+  return Object.fromEntries(projects.map(project => {
+    const card = ui.ids["project-" + project.id];
+    return [project.id, {
+      id: card.id, projectId: card.dataset.projectId,
+      folio: card.querySelector(".sheet-folio").textContent,
+      notes: card.querySelector(".plate-index").textContent,
+      registry: card.querySelector(".registry").textContent,
+      permalink: card.querySelector(".permalink").attributes.href
+    }];
+  }));
+}
+
+test("visible positions follow default stars, name and latest-push sort without changing record identity", () => {
+  const ui = fixture();
+  const original = recordIdentities(ui);
+  catalog.init(ui.document, ui.window);
+  assertVisiblePositions(ui, ids({}));
+  assert.equal(ui.ids["project-open-beta"].querySelector(".folio").textContent, "001");
+  assert.equal(ui.ids["project-open-beta"].querySelector(".sheet-folio").textContent, "Folio 003");
+  for (const sort of ["name", "pushed", "stars"]) {
+    ui.ids["sort-order"].value = sort;
+    ui.ids["sort-order"].fire("change");
+    assertVisiblePositions(ui, ids({ sort }));
+    assert.deepEqual(recordIdentities(ui), original);
+  }
+});
+
+test("visible positions restart after filtering, clear and history, including zero results", () => {
+  const ui = fixture();
+  const original = recordIdentities(ui);
+  catalog.init(ui.document, ui.window);
+  ui.ids["category-filter"].value = "tools";
+  ui.ids["category-filter"].fire("change");
+  assertVisiblePositions(ui, ["open-alpha", "open-zero", "open-empty"]);
+  ui.ids.search.value = "unfindable";
+  ui.ids.search.fire("change");
+  assertVisiblePositions(ui, []);
+  assert.equal(ui.ids["empty-state"].hidden, false);
+  ui.ids["clear-filters"].fire("click");
+  assertVisiblePositions(ui, ids({}));
+  ui.window.history.go(-1);
+  assertVisiblePositions(ui, []);
+  ui.window.history.go(-1);
+  assertVisiblePositions(ui, ["open-alpha", "open-zero", "open-empty"]);
+  ui.window.history.go(1);
+  assertVisiblePositions(ui, []);
+  ui.window.history.go(1);
+  assertVisiblePositions(ui, ids({}));
+  assert.deepEqual(recordIdentities(ui), original);
+});
 
 test("progressive enhancement reveals controls, enables sorting and leaves category disclosure closed", () => {
   const ui = fixture();

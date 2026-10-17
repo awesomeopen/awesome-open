@@ -71,6 +71,33 @@ const path = require('node:path');
     await page.setViewportSize({ width: 1440, height: 1000 });
   };
   const visible = () => page.locator('.project-card:not([hidden])').count();
+  const assertVisiblePositions = async (target, label) => {
+    const rows = await target.locator('.project-card:not([hidden])').evaluateAll(cards => cards.map(card => ({
+      text: card.querySelector('summary .folio').textContent,
+      title: card.querySelector('summary .folio').getAttribute('title'),
+    })));
+    assert.deepEqual(rows.map(row => row.text), rows.map((_, i) => String(i + 1).padStart(3, '0')), label + ': contiguous visible positions');
+    assert.ok(rows.every(row => row.title === 'Position in current results'), label + ': position tooltip');
+  };
+  const assertRecordIdentities = async (target, data, label) => {
+    const records = await target.locator('.project-card').evaluateAll(cards => cards.map(card => ({
+      id: card.dataset.projectId, anchor: card.id,
+      folio: card.querySelector('.sheet-folio').textContent,
+      notes: card.querySelector('.plate-heading .plate-index').textContent,
+      registry: card.querySelector('.registry').textContent,
+      permalink: card.querySelector('.permalink').getAttribute('href'),
+    })));
+    const byId = new Map(records.map(record => [record.id, record]));
+    assert.equal(byId.size, data.projects.length, label + ': all identities retained');
+    data.projects.forEach((project, i) => {
+      const folio = String(i + 1).padStart(3, '0');
+      assert.deepEqual(byId.get(project.id), {
+        id: project.id, anchor: 'project-' + project.id,
+        folio: 'Folio ' + folio, notes: 'Field notes / ' + folio,
+        registry: 'OP-' + project.id.slice(0, 8).toUpperCase(), permalink: '#project-' + project.id,
+      }, label + ': stable alphabetical folio and URL identity for ' + project.name);
+    });
+  };
   const change = async (id, value) => {
     if (id !== 'search' && !await page.locator('.filter-options').evaluate(node => node.open)) await page.locator('.filter-options > summary').click();
     if (['category-filter', 'metrics-filter', 'min-stars', 'pushed-since'].includes(id)) {
@@ -234,9 +261,13 @@ const path = require('node:path');
       return d.projects.slice().sort(OpenCatalog.comparator('stars')).map(p => p.id);
     });
     assert.deepEqual(await page.locator('.project-card').evaluateAll(cards => cards.map(c => c.dataset.projectId)), defaultIds);
+    await assertVisiblePositions(page, 'default stars');
+    await assertRecordIdentities(page, data, 'default stars');
     const nameURL = new URL(page.url()); nameURL.searchParams.set('sort', 'name');
     await page.goto(nameURL.href);
     assert.equal(await page.locator('#sort-order').inputValue(), 'name');
+    await assertVisiblePositions(page, 'name sort');
+    await assertRecordIdentities(page, data, 'name sort');
     await page.locator('#clear-filters').click();
     assert.equal(await page.locator('#sort-order').inputValue(), 'stars');
 
@@ -269,12 +300,19 @@ const path = require('node:path');
       return OpenCatalog.selectProjects(data.projects, state, data).map(project => project.id);
     });
     assert.deepEqual(await page.locator('.project-card:not([hidden])').evaluateAll(nodes => nodes.map(node => node.dataset.projectId)), expected);
+    await assertVisiblePositions(page, 'combined filters');
+    await assertRecordIdentities(page, data, 'combined filters');
     await change('search', 'no-project-could-match-this-string-98273');
     assert.equal(await visible(), 0);
     assert.equal(await page.locator('#empty-state').isVisible(), true);
+    await assertVisiblePositions(page, 'zero results');
+    await assertRecordIdentities(page, data, 'zero results');
     await page.locator('#clear-filters').click();
     await page.locator('#clear-filters').click();
     assert.equal(await visible(), data.projects.length);
+
+    await assertVisiblePositions(page, 'clear filters');
+    await assertRecordIdentities(page, data, 'clear filters');
 
     // Snapshot-relative filters, exact alternatives and honest missing metrics.
     for (const value of ['recent', 'older', 'unknown']) {
@@ -305,6 +343,8 @@ const path = require('node:path');
     await page.locator('#sort-order').selectOption('pushed');
     const newest = data.projects.filter(project => project.github && project.github.pushed_at).sort((a, b) => Date.parse(b.github.pushed_at) - Date.parse(a.github.pushed_at))[0];
     assert.equal(await page.locator('.project-card:not([hidden])').first().getAttribute('data-project-id'), newest.id);
+    await assertVisiblePositions(page, 'latest push');
+    await assertRecordIdentities(page, data, 'latest push');
     await page.locator('#clear-filters').click();
     await change('search', 'OpenTofu');
     const savedURL = page.url();
@@ -316,12 +356,18 @@ const path = require('node:path');
     assert.equal(page.url(), savedURL);
     assert.equal(await page.locator('#search').inputValue(), 'OpenTofu');
     assert.equal(await visible(), savedCount);
+    await assertVisiblePositions(page, 'Back');
+    await assertRecordIdentities(page, data, 'Back');
     await page.goForward();
+    await assertVisiblePositions(page, 'Forward');
+    await assertRecordIdentities(page, data, 'Forward');
     assert.equal(await page.locator('#category-filter').inputValue(), 'infrastructure--devops');
     await page.reload();
     await waitForState();
     assert.equal(await page.locator('#search').inputValue(), 'OpenTofu');
     assert.equal(await page.locator('#category-filter').inputValue(), 'infrastructure--devops');
+    await assertVisiblePositions(page, 'URL reload');
+    await assertRecordIdentities(page, data, 'URL reload');
     const firstDrawer = page.locator('.project-card:not([hidden]) .specimen-drawer').first();
     await firstDrawer.locator(':scope > summary').click();
     assert.equal(await firstDrawer.evaluate(node => node.open), true);
@@ -529,6 +575,8 @@ const path = require('node:path');
     await fallback.locator('.specimen-drawer').first().locator(':scope > summary').click();
     assert.equal(await fallback.locator('.specimen-drawer').first().locator('.plate-departure > a').isVisible(), true);
     assert.deepEqual(await fallback.locator('.project-card').evaluateAll(cards => cards.map(c => c.dataset.projectId)), defaultIds);
+    await assertVisiblePositions(fallback, 'no JavaScript');
+    await assertRecordIdentities(fallback, data, 'no JavaScript');
     await noJS.close();
 
     // The downloadable HTML must load without any neighboring runtime assets.
@@ -555,9 +603,13 @@ const path = require('node:path');
     })));
     assert.deepEqual(downloads.map(item => item.name).sort(), expectedDownloads.sort());
     assert.ok(downloads.every(item => item.href.startsWith('data:application/json;base64,')));
+    await assertVisiblePositions(page, 'standalone default');
+    await assertRecordIdentities(page, data, 'standalone default');
     await checkReviewedAliases('standalone', data);
     await change('search', 'OpenTofu');
     assert.ok(await visible() > 0);
+    await assertVisiblePositions(page, 'standalone filtered');
+    await assertRecordIdentities(page, data, 'standalone filtered');
     await require('./check_deployment_browser.cjs')({ page, browser, url, data, capture });
     assert.deepEqual(errors, []);
     await require('./check_star_history_browser.cjs')({ page, url, data, capture });
@@ -575,7 +627,7 @@ const path = require('node:path');
         'screenshots.json, and browser/server logs.\n');
     }
     console.log(JSON.stringify({ status: 'passed', projects: data.projects.length, screenshots: output,
-      checks: ['search', 'reviewed aliases and stable OBS identity', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'no-JS drawers', 'standalone', 'no page errors'] }, null, 2));
+      checks: ['visible result positions and stable alphabetical folios/Registry IDs/permalinks', 'search', 'reviewed aliases and stable OBS identity', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'no-JS drawers', 'standalone', 'no page errors'] }, null, 2));
   } catch (error) {
     report.status = 'failed';
     report.error = error.message;
