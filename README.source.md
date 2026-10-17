@@ -629,6 +629,7 @@
 | [OpenRTX](https://github.com/OpenRTX/OpenRTX) | Modular firmware for digital amateur radios. |
 | [openSIL](https://github.com/openSIL/openSIL) | AMD silicon initialization libraries for x86 host firmware. |
 | [openSUSE](https://www.opensuse.org) | Linux distributions for desktops, servers, and containers. |
+| [OpenTracker](https://github.com/sandlbn/polyend-tracker-re) | Firmware reimplementation for the original Polyend Tracker music workstation. |
 | [OpenTX](https://github.com/opentx/opentx) | Custom firmware for radio-control transmitters. |
 | [OpenWrt](https://github.com/openwrt/openwrt) | Linux operating system for routers and other embedded devices. |
 
