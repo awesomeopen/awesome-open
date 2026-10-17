@@ -1238,6 +1238,141 @@
           "source_url": "https://github.com/opensandbox-group/opensandbox/blob/e7a280f31699a51cb06d85a7eee4ce64d05306e6/README.md"
         }
       ]
+    },
+    "0f31f951fb9a817de2559fa3c590ccabd5a590599495ab422b590680d510e7ed": {
+      "project_url": "https://github.com/openbionics/prosthetic-hands",
+      "text": "OpenBionics combines software for operating a prosthetic hand with files for reproducing its hardware. Arduino code controls a HerkuleX DRS-0201 servo motor, while MATLAB scripts model hand kinematics using the Robotics Toolbox. The repository also includes an assembly guide, a breakout-board design and parametric CAD files for laser-cut or 3D-printed parts.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenBionics/Prosthetic-Hands/blob/639aca3a53c682d00c5a10d9c96e47c74e04a57c/README.md",
+          "title": "OpenBionics: official README",
+          "revision": "639aca3a53c682d00c5a10d9c96e47c74e04a57c"
+        }
+      ],
+      "checked_at": "2026-10-17",
+      "review_status": "approved",
+      "reviewed_by": "Codex (AI)",
+      "review_note": "Each summary and feature claim was checked against the official README at the cited commit on the UTC review date. Content approval is for this draft proposal, not permission to merge.",
+      "features": [
+        {
+          "title": "Servo motor control",
+          "text": "Arduino software operates the HerkuleX DRS-0201 servo motor.",
+          "source_url": "https://github.com/OpenBionics/Prosthetic-Hands/blob/639aca3a53c682d00c5a10d9c96e47c74e04a57c/README.md"
+        },
+        {
+          "title": "Hand kinematics",
+          "text": "MATLAB code uses the Robotics Toolbox to model prosthetic-hand kinematics.",
+          "source_url": "https://github.com/OpenBionics/Prosthetic-Hands/blob/639aca3a53c682d00c5a10d9c96e47c74e04a57c/README.md"
+        }
+      ]
+    },
+    "10d3bff30cecd6cc4c5b38d1ce1b3c041b9d506d89e37094c53f67baca3e23bc": {
+      "project_url": "https://github.com/bsamud/openfoundry-agentic-framework",
+      "text": "OpenFoundry coordinates AI agents through a command-line interface and an HTTP API. Its workflow engine runs independent steps in parallel within directed acyclic graphs, while model routing selects among providers with fallback support. Chainable checks examine prompts for injection attempts and personal information, and OpenTelemetry traces and Prometheus metrics expose execution activity.",
+      "sources": [
+        {
+          "url": "https://github.com/bsamud/openfoundry-agentic-framework/blob/e10ef26859bb93d6bcc27fd66d1cacffa683fdee/README.md",
+          "title": "OpenFoundry: official README",
+          "revision": "e10ef26859bb93d6bcc27fd66d1cacffa683fdee"
+        }
+      ],
+      "checked_at": "2026-10-17",
+      "review_status": "approved",
+      "reviewed_by": "Codex (AI)",
+      "review_note": "Each summary and feature claim was checked against the official README at the cited commit on the UTC review date. Content approval is for this draft proposal, not permission to merge.",
+      "features": [
+        {
+          "title": "Parallel workflow steps",
+          "text": "The DAG workflow engine automatically runs independent steps in parallel.",
+          "source_url": "https://github.com/bsamud/openfoundry-agentic-framework/blob/e10ef26859bb93d6bcc27fd66d1cacffa683fdee/README.md"
+        },
+        {
+          "title": "Provider routing",
+          "text": "Condition-based model routing supports A/B testing, with a cascading fallback chain for model providers.",
+          "source_url": "https://github.com/bsamud/openfoundry-agentic-framework/blob/e10ef26859bb93d6bcc27fd66d1cacffa683fdee/README.md"
+        }
+      ]
+    },
+    "10f0478043f12ea4853a0c6a46ea975c9006108a69a76f333dfe4f083801ecaf": {
+      "project_url": "https://github.com/openpanel-dev/openpanel",
+      "text": "Openpanel collects web, mobile and server-side events for product analysis. Teams can examine funnels, cohorts, user profiles and session history, replay sessions, and build dashboards with live charts. Variant testing, event alerts and revenue tracking connect behavior to experiments and purchases. SDKs and APIs support integration, and the platform can run on self-hosted infrastructure.",
+      "sources": [
+        {
+          "url": "https://github.com/Openpanel-dev/openpanel/blob/7020a8edc55c02874c62eb280823cbc2719013d1/README.md",
+          "title": "Openpanel: official README",
+          "revision": "7020a8edc55c02874c62eb280823cbc2719013d1"
+        }
+      ],
+      "checked_at": "2026-10-17",
+      "review_status": "approved",
+      "reviewed_by": "Codex (AI)",
+      "review_note": "Each summary and feature claim was checked against the official README at the cited commit on the UTC review date. Content approval is for this draft proposal, not permission to merge.",
+      "features": [
+        {
+          "title": "Analyze user journeys",
+          "text": "Funnels, cohorts, user profiles and session history support analysis of product behavior.",
+          "source_url": "https://github.com/Openpanel-dev/openpanel/blob/7020a8edc55c02874c62eb280823cbc2719013d1/README.md"
+        },
+        {
+          "title": "Replay sessions",
+          "text": "Recorded user sessions can be replayed alongside the analytics views.",
+          "source_url": "https://github.com/Openpanel-dev/openpanel/blob/7020a8edc55c02874c62eb280823cbc2719013d1/README.md"
+        }
+      ]
+    },
+    "116d6a334994a21a564c3fef5cf0d03566abc92263735df85a9ed2974340cf2e": {
+      "project_url": "https://github.com/inpoint-cloud/openbarcode",
+      "text": "OpenBarcode extracts barcode values from image files and PDFs through a .NET library or command-line tool. It scans embedded PDF images and rasterizes vector paths, returning decoded text, formats and page information. Callers can restrict formats and page ranges or process documents incrementally with cancellation. Managed-code decoding avoids native imaging libraries; barcode-font text inside PDFs is unsupported.",
+      "sources": [
+        {
+          "url": "https://github.com/InPoint-Cloud/OpenBarcode/blob/0683ae32f043b44076f6e9098ab5228c22c7e8aa/README.md",
+          "title": "OpenBarcode: official README",
+          "revision": "0683ae32f043b44076f6e9098ab5228c22c7e8aa"
+        }
+      ],
+      "checked_at": "2026-10-17",
+      "review_status": "approved",
+      "reviewed_by": "Codex (AI)",
+      "review_note": "Each summary and feature claim was checked against the official README at the cited commit on the UTC review date. Content approval is for this draft proposal, not permission to merge.",
+      "features": [
+        {
+          "title": "Read PDF content",
+          "text": "The reader searches embedded images and rasterized vector graphics on PDF pages.",
+          "source_url": "https://github.com/InPoint-Cloud/OpenBarcode/blob/0683ae32f043b44076f6e9098ab5228c22c7e8aa/README.md"
+        },
+        {
+          "title": "Process documents incrementally",
+          "text": "Page-by-page enumeration yields decoded barcodes as each page finishes and supports cancellation.",
+          "source_url": "https://github.com/InPoint-Cloud/OpenBarcode/blob/0683ae32f043b44076f6e9098ab5228c22c7e8aa/README.md"
+        }
+      ]
+    },
+    "12ebff74e851ffb8e9ae5c84fc7b08e0f70c39565cfe39d3fae4eba8c45dfa75": {
+      "project_url": "https://github.com/acidanthera/opencorepkg",
+      "text": "OpenCore provides a bootloader, a development SDK and UEFI support libraries used by Acidanthera projects. The libraries add functions for Apple-specific UEFI drivers, including disk-image loading, keyboard input aggregation and audio with screen-reading support. Developers can also use ACPI and SMBIOS manipulation, configuration parsing, graphics output, and an XNU kernel-driver injection and patch engine.",
+      "sources": [
+        {
+          "url": "https://github.com/acidanthera/OpenCorePkg/blob/d9ef47a2a7bd69a026a92b0eb040b9be71810620/README.md",
+          "title": "OpenCore: official README",
+          "revision": "d9ef47a2a7bd69a026a92b0eb040b9be71810620"
+        }
+      ],
+      "checked_at": "2026-10-17",
+      "review_status": "approved",
+      "reviewed_by": "Codex (AI)",
+      "review_note": "Each summary and feature claim was checked against the official README at the cited commit on the UTC review date. Content approval is for this draft proposal, not permission to merge.",
+      "features": [
+        {
+          "title": "UEFI support libraries",
+          "text": "Shared libraries provide supplemental functions for Apple-specific UEFI drivers.",
+          "source_url": "https://github.com/acidanthera/OpenCorePkg/blob/d9ef47a2a7bd69a026a92b0eb040b9be71810620/README.md"
+        },
+        {
+          "title": "Firmware data handling",
+          "text": "Library functions cover ACPI and SMBIOS manipulation, UEFI variables and plist configuration parsing.",
+          "source_url": "https://github.com/acidanthera/OpenCorePkg/blob/d9ef47a2a7bd69a026a92b0eb040b9be71810620/README.md"
+        }
+      ]
     }
   }
 }
