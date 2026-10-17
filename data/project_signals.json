@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-17T06:31:18Z",
+  "collected_at": "2026-10-17T06:45:18Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -21947,7 +21947,7 @@
     "pkp/ops": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-16T05:27:42Z",
+        "checked_at": "2026-10-17T06:45:18Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24703,5 +24703,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "1dd2d5cd495ce6a0ff8a132d81c85d2a8cf6e633"
+  "source_sha": "5f709bca452e713fc078c353a4a199a25bce66d9"
 }
