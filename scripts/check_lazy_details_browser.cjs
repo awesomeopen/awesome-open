@@ -18,6 +18,8 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     await state(project, 'loaded');
     await plate(project).waitFor({ state: 'visible' });
     assert.equal(await plate(project).count(), 1, 'Exactly one mounted plate for ' + project.name);
+    assert.equal(await host(project).locator('.detail-fallback a').isVisible(), false,
+      'Successfully loaded drawers hide the fallback, including retry/reopen');
   };
   // Wait for native toggle delivery as well as the open property, so retention
   // assertions cannot run before the disclosure's event handler.
