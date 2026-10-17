@@ -129,3 +129,10 @@ changed original silently falls back to itself (with a build warning) until the 
 is regenerated. Normal builds copy the committed bytes and need no new dependency.
 Originals, alt text and approval status are unchanged. Permalink QR codes are generated
 during the build (`scripts/qr.py`) and are not committed assets.
+
+On 2026-10-17 UTC, the owner approved the existing OpenCode, openpilot and
+OpenAssistant drawings as-is for inclusion. Their manifest entries retain the
+prior visual observations and generation provenance. The full source WebPs are
+unchanged; three display cut-outs were added using the existing recipe. Each new
+cut-out records its actual tool versions without rewriting older derivatives or
+their provenance. This updates asset eligibility, not the drawing rules.
