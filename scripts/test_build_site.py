@@ -179,8 +179,14 @@ class SiteTests(unittest.TestCase):
         for qualification in ('Detected licenses: verify against current official terms',
                               'Repository dates refer to GitHub activity',
                               'HN charts: matched stories / 2 years, shared square-root scale',
-                              'Specimen illustrations are original artwork, not official logos'):
+                              'Specimen illustrations are original artwork'):
             self.assertIn(qualification, methods.text)
+        self.assertIn('<title>Awesome Open* Catalog</title>', self.html)
+        self.assertIn('href="#about">About</a>', self.html)
+        self.assertEqual(self.page.by_id['about'].tag, 'footer')
+        self.assertIn('href="draws/">Spotlight</a>', self.html)
+        self.assertIn('href="https://github.com/awesomeopen/awesome-open">GitHub</a><a href="#catalog">Top</a>', self.html)
+        self.assertIn('shared square-root scale</li><li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>', self.html)
 
     def test_ledger_starts_without_cover_and_retains_plain_controls(self):
         for document in (self.html, (self.output / 'standalone.html').read_text()):
@@ -554,3 +560,4 @@ for (const input of inputs) {
 
 if __name__ == '__main__':
     unittest.main()
+
