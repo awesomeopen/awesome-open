@@ -197,6 +197,7 @@ const path = require('node:path');
     report.sourceSha = data.source_sha;
     writeReport();
     if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Browser must test the generated checkout');
+    report.specimenBounds = await require('./check_specimen_bounds_browser.cjs')({ browser, context, url, data });
     report.detailLoading = await require('./check_lazy_details_browser.cjs')({ page, context, browser, url, data, capture });
     writeReport();
     // Category illustrations stay inside the existing native disclosure. Check

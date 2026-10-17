@@ -377,7 +377,8 @@
     Array.prototype.forEach.call(crops, function (crop, i) {
       var C = crop.getBoundingClientRect();
       var sx = A.left - S.left + A.width * (box[0] + (box[2] - box[0]) * (0.62 + i * 0.12));
-      var sy = A.top - S.top + A.height * Math.min(0.98, box[3] + 0.02 + i * 0.025);
+      // Start just below the same subject baseline as the contour floor.
+      var sy = A.top - S.top + A.height * box[3] + 3 + i * 2;
       var cy = C.top - S.top + C.height / 2;
       if (!stacked) {
         var ex = C.left - S.left, mx = ex - 30 + i * 12;
