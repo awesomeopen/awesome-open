@@ -62,7 +62,8 @@ Do not mark a reference “approved” merely because a build succeeds.
 
 Status, link, control and setup icons follow the [icon map](icons.md). Icons
 restate a visible evidence label; they never replace it or add a verdict. No
-icon artwork is implemented yet.
+icon artwork is implemented yet. Icons are hand-written SVG, not
+Speculative FOSSoligy drawings ([B-PR102-01](decisions/B-PR102-01.md)).
 
 ## Specimen plate for every record (B29)
 

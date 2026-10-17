@@ -2,7 +2,8 @@
 
 Use the pinned [Speculative FOSSoligy skill](../.agents/skills/speculative-fossoligy/SKILL.md)
 for eligible drawings and the [Retro-Scraperism skill](../.agents/skills/retro-scraperism/SKILL.md)
-for the project's interface context. The detailed [specimen handoff](../site/SPECIMEN-ART.md)
+for the project's interface context. Interface icons are not eligible drawings:
+they follow the [icon map](icons.md) as hand-written SVG, without FOSSoligy. The detailed [specimen handoff](../site/SPECIMEN-ART.md)
 governs identities, review and publication.
 
 Preserve these project-specific choices:
