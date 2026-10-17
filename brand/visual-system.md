@@ -192,8 +192,18 @@ rules and lists retired patterns.
 
 The top navigation omits GitHub. Repository vitals place creation before push;
 labels read “Repository push” and “GitHub release”. Close creation/push timestamps
-keep literal marker positions with labels aligned left/right across the axis.
+keep literal marker positions; creation text sits 8px left of its marker and is
+right aligned, while push text sits 8px right and is left aligned.
 Chart month ranges use non-breaking spaces around an en dash, without the
 “oldest at left” caption. Fetch dates remain in retrieval history; fresh metrics
 omit the observation sentence while stale/unavailable notices remain visible.
 Scorecard coverage ends at “returned”.
+
+
+## Catalog and Spotlight naming
+
+Page titles are “Awesome Open* Catalog” and “Awesome Open* Observatory”.
+Top navigation uses Catalog and links About to the catalog footer’s `#about`.
+The weekly draw archive retains `/draws/` and its evidence contract, with the
+visible page name Spotlight. The catalog footer puts GitHub immediately before
+Top. Its shortened stars note follows the HN note; source evidence remains linked.

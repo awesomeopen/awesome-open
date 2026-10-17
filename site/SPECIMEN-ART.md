@@ -4,7 +4,7 @@ Read [the current brand reference](../brand/README.md) and use the pinned skills
 
 > Use **@Speculative FOSSoligy** and **@Retro-Scraperism** to generate one original specimen illustration from the project's repository and documentation. Read the repository first. Derive one coherent visual analogy from the tool's actual function. Use hand-drawn ink/pencil, a distinct silhouette, selective color, a square white background and no lettering. This is Awesome Open artwork, not the project's official logo. Avoid repeated anatomy and obligatory gears. Do not regenerate an existing accepted illustration unless asked.
 >
-> Save an optimized WebP as `site/specimens/<project-id>.webp`. Add its record to `data/specimen_art.json`. Regenerate the display cut-outs with `python3 scripts/build_specimen_cutouts.py` (needs Pillow, NumPy and SciPy) and refresh checksums with `python3 scripts/check_brand.py --refresh`. Submit all of it in the same PR. Review the image before marking it `approved`; leave unreviewed work `pending`. If image generation is unavailable or fails, continue discovery without an illustration. No placeholder is needed.
+> Save an optimized WebP as `site/specimens/<project-id>.webp`. Add its record to `data/specimen_art.json`. Regenerate the display cut-outs with `python3 scripts/build_specimen_cutouts.py` (needs Pillow, NumPy and SciPy) and refresh checksums with `python3 scripts/check_brand.py --refresh`. Submit all of it in the same PR. Inspect the actual image pixels and record review findings. New images are display-approved by default under the owner's standing direction: use `approved` once technical, provenance and safety checks pass, even when stylistic reservations remain. Record those reservations as nonblocking notes; do not wait for individual owner image sign-off. Leave work `pending` if the required inspection or checks are incomplete. If image generation is unavailable or fails, continue discovery without an illustration. No placeholder is needed.
 
 Skills are instructions, not APIs or image-generation services. Junge must have access to the two skills and an image-generation tool. Where skill mentions are unavailable, provide the skill files in its environment and instruct it to read them. Do not claim to invoke a skill by running an invented command.
 
@@ -37,15 +37,49 @@ The file has `schema_version: 1` and an `artworks` object keyed by full catalog 
   "generator": "<actual image-generation tool/model if known>",
   "style": "Speculative FOSSoligy / Retro-Scraperism",
   "prompt": "<complete final generation prompt>",
-  "review_status": "pending",
-  "reviewed_by": null,
-  "review_note": ""
+  "review_status": "approved",
+  "reviewed_by": "<actual inspecting agent/person; identify AI reviewers as AI>",
+  "review_note": "<actual pixel-review findings and checks; display-approved under owner standing direction; any nonblocking style reservations>"
 }
 ```
 
 For a source outside Git, replace `source_blob_sha` with `source_retrieved_at` and `source_content_sha256`. Record what was actually read; a source-document blob SHA is not a repository commit SHA. Keep generation provenance in the manifest; only path, alt text and dimensions enter the public catalog payload.
 
-Review checks: function-based analogy; coherent structure; distinct silhouette within the series; no official-logo claim; readable at drawer size; no lettering; correct background; safe local path and matching project identity. The reviewer can be the design agent. `approved` means checked for inclusion in the proposed build; merging the PR remains the owner's publication approval. A change in star ranking does not delete existing artwork.
+## Default display approval and review
+
+The owner's standing direction of 2026-10-17 approves new images for display by
+default; individual drawings can be redone later. For new specimen records, use
+`approved` after actual pixel inspection and the required technical, provenance
+and safety checks. No separate owner sign-off on each image is needed. This
+policy does not bulk-change historical statuses or authorize replacing existing
+accepted illustrations.
+
+Inspect function-based analogy, coherent structure, silhouette differentiation,
+readability at drawer size, lettering, palette and background. Record what the
+pixels actually show, including shortcomings. Style and aesthetic-quality
+reservations are nonblocking: keep the image `approved`, describe them in
+`review_note`, and identify any useful later revision. Do not claim that every
+style criterion passed because display is approved by default.
+
+Technical validity, safe local paths, matching project identity, correct image
+format/dimensions, meaningful alt text, source/generation provenance, rights and
+safety remain required. Do not treat an official-logo misrepresentation, unsafe
+content or an unresolved rights/provenance issue as a style reservation. Use
+`pending` while required inspection or checks are incomplete or unresolved;
+use `rejected` for a confirmed blocking issue and record the reason. Generation
+failure still leaves no placeholder.
+
+`reviewed_by` names the actual inspector and identifies an AI reviewer as AI;
+`review_note` records the checks, findings and approval basis as owner standing
+direction. Never name the owner as the individual reviewer unless that review
+actually happened, or invent a human review. The manifest example above is a
+completed-record template, not evidence that its placeholder checks occurred.
+
+`approved` means eligible for inclusion in the proposed build under this policy.
+It does not authorize merging, deploying, bypassing validation or changing
+repository protections. Continue using draft PRs; merging remains the owner's
+separate publication approval. A change in star ranking does not delete existing
+artwork.
 
 ## Build behavior
 

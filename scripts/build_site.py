@@ -370,9 +370,9 @@ def timeline(created, release, pushed):
         )
         # Keep true timestamp positions, but separate labels for short-lived repositories.
         if close_endpoints and label == "Repository created":
-            anchor = "left:0;text-align:left"
+            anchor = f"right:{round(100 - left, 2)}%;margin-right:8px;text-align:right"
         elif close_endpoints and label == "Repository push":
-            anchor = "right:0;text-align:right"
+            anchor = f"left:{left}%;margin-left:8px;text-align:left"
         extra = f" · {escape(tag)}" if tag else ""
         marks.append(
             f'<span class="timeline-mark{" is-release" if tag else ""}" style="left:{left}%"></span>'
@@ -699,12 +699,10 @@ def render_html(catalog, cutouts=None, deferred=False):
         if signal_projects
         else ""
     )
+    star_note = ""
     if any(p.get("star_history") for p in catalog["projects"]):
-        optional_notes += (
-            "<p>GitHub stars / past 2y: "
-            + escape(star_history.MEANING)
-            + '</p><p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
-        )
+        star_note = "<li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>"
+        optional_notes += '<p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
     sha = catalog.get("source_sha")
     revision = (
         f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>'
@@ -716,7 +714,7 @@ def render_html(catalog, cutouts=None, deferred=False):
 <head>
  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
  <meta name="description" content="A natural-history field guide to software named Open, with searchable project records, repository data, and reviewed comparisons.">
- <meta name="color-scheme" content="light"><title>Awesome Open — Project ledger</title>
+ <meta name="color-scheme" content="light"><title>Awesome Open* Catalog</title>
  <link rel="icon" href="brand/favicon.ico" sizes="16x16 32x32 48x48">
  <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
@@ -726,7 +724,7 @@ def render_html(catalog, cutouts=None, deferred=False):
 <body>
 <a class="skip-link" href="#catalog">Skip to specimen ledger</a>
 <div class="page-shell">
-<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/botanical-128.png" alt="" width="64" height="64"><span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img class="search-icon" src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a></nav></header>
+<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/botanical-128.png" alt="" width="64" height="64"><span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img class="search-icon" src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Catalog</a><a href="#about">About</a><a href="observatory/">Observatory</a></nav></header>
 <div class="layout">
 
  <main id="catalog" class="catalog-main" tabindex="-1">
@@ -747,7 +745,7 @@ def render_html(catalog, cutouts=None, deferred=False):
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="draws/">Weekly draws</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="draws/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
 <script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
@@ -1053,3 +1051,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

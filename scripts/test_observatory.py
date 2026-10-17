@@ -333,8 +333,8 @@ class ObservatoryBuildTests(unittest.TestCase):
 
     def test_header_uses_ledger_links_in_both_outputs(self):
         live='https://awesomeopen.github.io/awesome-open/'
-        for name,hrefs in [('index.html',['../#catalog','../#method','./']),
-                           ('report.html',[live+'#catalog',live+'#method',live+'observatory/'])]:
+        for name,hrefs in [('index.html',['../#catalog','../#about','./']),
+                           ('report.html',[live+'#catalog',live+'#about',live+'observatory/'])]:
             with self.subTest(name=name):
                 nav=next(n for n in Page((self.output/'observatory'/name).read_text()).elements if n.has_class('obs-nav'))
                 links=nav.descendants('a')
