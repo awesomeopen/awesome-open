@@ -11,11 +11,13 @@ from pathlib import Path
 import subprocess
 import sys
 
+import brand_decisions
+
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = (
     'AGENTS.md', 'brand/README.md', 'brand/foundation.md',
     'brand/visual-system.md', 'brand/illustration.md', 'brand/assets.md',
-    'brand/decisions.md', 'brand/skills.md', 'brand/maintenance.md',
+    'brand/decisions.md', 'brand/DECISION-GUIDE.md', 'brand/skills.md', 'brand/maintenance.md',
     'brand/sources.md', '.agents/skills/awesome-open-brand/SKILL.md',
     '.agents/skills/awesome-open-brand/agents/openai.yaml',
 )
@@ -96,8 +98,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--refresh', action='store_true')
     parser.add_argument('--base', help='Optional PR base commit/ref for advisory')
+    parser.add_argument('--pr-number', type=int, help='Namespace for new decisions (requires --base)')
     args = parser.parse_args()
     errors = [f'Missing required file: {p}' for p in REQUIRED if not safe_path(p).is_file()]
+    brand_decisions.validate(ROOT, args.base, args.pr_number)
     assets_path = ROOT / 'brand/assets.lock.json'
     skills_path = ROOT / 'brand/skills.lock.json'
     skills = json.loads(skills_path.read_text())

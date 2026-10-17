@@ -22,8 +22,27 @@ jobs:
           python-version: '3.12'
       - name: Check brand assets, skill pins and reference files
         run: python3 scripts/check_brand.py
-      - name: Flag undocumented design changes for review
+      - name: Check stable decision identities and flag undocumented design changes
         if: github.event_name == 'pull_request'
         env:
           BRAND_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BRAND_PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: python3 scripts/check_brand.py --base "$BRAND_BASE_SHA" --pr-number "$BRAND_PR_NUMBER"
+      - name: Preserve existing decision identities on main
+        if: github.event_name == 'push'
+        env:
+          BRAND_BASE_SHA: ${{ github.event.before }}
         run: python3 scripts/check_brand.py --base "$BRAND_BASE_SHA"
+      - name: Test decision validation and generate overview
+        run: |
+          python3 -m unittest discover -s scripts -p 'test_brand_decisions.py'
+          python3 scripts/brand_decisions.py --output tmp/brand-decisions.md --source-ref "$GITHUB_SHA"
+          python3 scripts/brand_decisions.py --output tmp/brand-decisions.md --source-ref "$GITHUB_SHA" --check
+          cat tmp/brand-decisions.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload generated decision overview
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: brand-decision-overview
+          path: tmp/brand-decisions.md
+          if-no-files-found: error
+          retention-days: 14
