@@ -58,6 +58,12 @@ changes check the relevant desktop/narrow states, keyboard/focus, reduced motion
 real asset paths and output modes. Record unavailable browser checks explicitly.
 Do not mark a reference “approved” merely because a build succeeds.
 
+## Icons (B-PR101-01, proposed)
+
+Status, link, control and setup icons follow the [icon map](icons.md). Icons
+restate a visible evidence label; they never replace it or add a verdict. No
+icon artwork is implemented yet.
+
 ## Specimen plate for every record (B29)
 
 The expanded record is one plate for all projects; the bounded three-record study

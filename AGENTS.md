@@ -18,6 +18,10 @@ listed there before editing; do not load every design skill for a small fix.
   optional generic design-skill defaults. Preserve the fixed specimen concept,
   white/Prussian system, existing assets and accessible controls unless the task
   explicitly changes them.
+- Icons follow `brand/icons.md` and its twin `site/brand/icons.json`. Add or change
+  the row in both before drawing or using an icon. Icons restate evidence labels
+  and never add a verdict; unknown is not negative, and colour never carries
+  state alone.
 
 ## Maintenance in the same PR
 
