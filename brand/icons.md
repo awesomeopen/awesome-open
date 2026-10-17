@@ -1,6 +1,6 @@
 # Icon map
 
-Status: proposed ([B-PR101-01](decisions/B-PR101-01.md)). No icon artwork exists yet and no generator reads the
+Status: proposed ([B-PR101-01](decisions/B-PR101-01.md), corrected by [B-PR102-01](decisions/B-PR102-01.md)). No icon artwork exists yet and no generator reads the
 manifest. Audited against main `a9455b9` on 2026-10-16 (first audit `4bc3d97`); line references point to
 that revision and drift as code changes, so each one also names an anchor string.
 
