@@ -564,7 +564,11 @@
             return data.categories.find(function (category) { return category.id === id; }).name;
           }).join(' / ') : '';
         }
-        if (visible) total += 1;
+        if (visible) {
+          total += 1;
+          var position = typeof card.querySelector === "function" ? card.querySelector(".folio") : null;
+          if (position) position.textContent = String(total).padStart(3, "0");
+        }
         if (reorder) fragment.appendChild(card);
       });
       if (reorder) list.appendChild(fragment);

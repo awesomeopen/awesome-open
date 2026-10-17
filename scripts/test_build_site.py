@@ -80,7 +80,7 @@ class Page(HTMLParser):
 
 
 class SiteTests(unittest.TestCase):
-    def test_static_default_is_stars_descending_with_alphabetical_folios(self):
+    def test_static_default_has_result_positions_and_alphabetical_detail_folios(self):
         from build_site import search_index
         script = "const c=require('./site/catalog.js'); const d=JSON.parse(require('node:fs').readFileSync(0,'utf8')); console.log(JSON.stringify(d.projects.slice().sort(c.comparator('stars')).map(p=>p.id)))"
         result = subprocess.run(['node', '-e', script], input=json.dumps(search_index(self.catalog)),
@@ -88,7 +88,19 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(self.page.cards, json.loads(result.stdout))
         options = self.page.by_id['sort-order'].descendants('option')
         self.assertEqual([o.attrs['value'] for o in options if 'selected' in o.attrs], ['stars'])
+        self.assertIn('List numbers show position in current results', self.html)
         self.assertIn('Folio numbers show alphabetical position', self.html)
+        folios = {p['id']: i + 1 for i, p in enumerate(self.catalog['projects'])}
+        for position, pid in enumerate(self.page.cards, 1):
+            card = self.page.by_id['project-' + pid]
+            row = next(node for node in card.descendants() if node.has_class('folio'))
+            detail = next(node for node in card.descendants() if node.has_class('sheet-folio'))
+            registry = next(node for node in card.descendants() if node.has_class('registry'))
+            self.assertEqual(row.text, f'{position:03d}')
+            self.assertEqual(row.attrs['title'], 'Position in current results')
+            self.assertEqual(detail.text, f'Folio {folios[pid]:03d}')
+            self.assertEqual(registry.text, 'OP-' + pid[:8].upper())
+            self.assertIn(f'Field notes / {folios[pid]:03d}', card.text)
 
     @classmethod
     def setUpClass(cls):
