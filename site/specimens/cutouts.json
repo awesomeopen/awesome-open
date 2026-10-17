@@ -384,6 +384,26 @@
         0.9697,
         0.7705
       ]
+    },
+    "0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831": {
+      "source": "specimens/0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831.webp",
+      "source_sha256": "7496e78c1f37f9e51e339c4d074d79f3c8d8defe1c276888653609bfa815e35a",
+      "path": "specimens/cutouts/0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831.webp",
+      "sha256": "0d175ef9344c3bb603daf0b95e380d8ac3bf88dd32a3bb70c344d5eca536a2a0",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0159,
+        0.0159,
+        0.9856,
+        0.9649
+      ],
+      "tools": {
+        "pillow": "12.3.0",
+        "numpy": "2.3.5",
+        "scipy": "1.17.0",
+        "webp": "1.6.0"
+      }
     }
   }
 }
