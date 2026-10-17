@@ -64,7 +64,7 @@ async function captureSpecimen(page, filename) {
     const bottom = Math.max(...nodes.map(r => r.bottom)) + scrollY;
     return { x, y, width: right - x, height: bottom - y };
   });
-  await page.screenshot({ path: filename, clip, animations: 'disabled', caret: 'hide', scale: 'css' });
+  await page.screenshot({ path: filename, fullPage: true, clip, animations: 'disabled', caret: 'hide', scale: 'css' });
 }
 
 module.exports = async function checkSpecimenBounds({ browser, context, url, data }) {
