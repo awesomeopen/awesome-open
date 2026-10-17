@@ -520,7 +520,8 @@ def metrics_freshness(github, as_of):
     return ""
 
 
-def project_html(project, categories, catalog, number=0, cutouts=None):
+def project_html(project, categories, catalog, number=0, cutouts=None, position=None):
+    position = number if position is None else position
     pid = escape(project["id"])
     github = project["github"]
     license_text = (github["license"] if github else None) or ""
@@ -608,7 +609,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None):
     )
     return f'''<article class="project-card" data-leader="{"true" if leader_categories else "false"}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
-  <summary><span class="folio" aria-hidden="true">{number:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}<span class="leader-label"{"" if leader_categories else " hidden"}>{escape(leader_label)}</span></span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
+  <summary><span class="folio" title="Position in current results" aria-hidden="true">{position:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}<span class="leader-label"{"" if leader_categories else " hidden"}>{escape(leader_label)}</span></span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
 {interior}
  </details>
 </article>'''
@@ -671,8 +672,8 @@ def render_html(catalog, cutouts=None):
                        if not "\u0300" <= c <= "\u036f").lower()
         return (not known, -stars if known else 0, name, project["id"])
     projects = "\n".join(
-        project_html(p, categories, catalog, folios[p["id"]], cutouts)
-        for p in sorted(catalog["projects"], key=star_order)
+        project_html(p, categories, catalog, folios[p["id"]], cutouts, position)
+        for position, p in enumerate(sorted(catalog["projects"], key=star_order), 1)
     )
     signal_projects = [p for p in catalog["projects"] if p.get("signals")]
     signal_coverage = []
@@ -741,7 +742,7 @@ def render_html(catalog, cutouts=None):
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="draws/">Weekly draws</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="draws/">Weekly draws</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork, not official logos</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li><li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining: aggregate, scored/returned coverage, scan date and check reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
 <script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
