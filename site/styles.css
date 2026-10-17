@@ -1100,7 +1100,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-heading .plate-index:last-child {color:var(--muted);text-align:right;}
 .specimen-plate .sheet-label {display:inline-block;background:var(--rs-scarlet);color:var(--rs-mist);padding:1px 8px;margin:0 0 16px;font:700 11px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;}
 
-.plate-study {position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);grid-template-areas:"field fn" "field notes" "label notes" ". notes";grid-template-rows:auto auto auto 1fr;column-gap:48px;align-items:start;margin-top:16px;}
+.plate-study {position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);grid-template-areas:"field fn" "field notes";grid-template-rows:auto 1fr;column-gap:48px;align-items:start;margin-top:16px;}
 .without-art .plate-study {grid-template-areas:"label fn" ". notes";grid-template-rows:auto 1fr;}
 .plate-function {grid-area:fn;min-width:0;padding-top:16px;}
 .plate-specimen {grid-area:field;min-width:0;}
@@ -1114,15 +1114,17 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .tool-name {background:var(--rs-blueprint);color:white;padding:0 .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
 
 /* The field: the specimen stands on its own decorative ground; no frame. */
-.plate-field {position:relative;aspect-ratio:1/1;margin:0 calc(-1 * clamp(16px,2.5vw,32px));touch-action:manipulation;cursor:zoom-in;}
+.plate-field {position:relative;margin:0 calc(-1 * clamp(16px,2.5vw,32px));touch-action:manipulation;cursor:zoom-in;}
+.plate-stage {position:relative;width:100%;max-width:627px;aspect-ratio:1 / var(--plate-height,1);margin-inline:auto;}
 .plate-terrain {position:absolute;inset:0;width:100%;height:100%;overflow:visible;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 42%,#000 68%),radial-gradient(ellipse 60% 50% at 50% 74%,#000 55%,transparent 100%);-webkit-mask-composite:source-in;
-  mask-image:linear-gradient(to bottom,transparent 42%,#000 68%),radial-gradient(ellipse 60% 50% at 50% 74%,#000 55%,transparent 100%);mask-composite:intersect;}
+  -webkit-mask-image:linear-gradient(to bottom,transparent var(--plate-fade-start,42%),#000 var(--plate-fade-end,68%)),radial-gradient(ellipse 60% 50% at 50% var(--plate-ground,74%),#000 55%,transparent 100%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,transparent var(--plate-fade-start,42%),#000 var(--plate-fade-end,68%)),radial-gradient(ellipse 60% 50% at 50% var(--plate-ground,74%),#000 55%,transparent 100%);mask-composite:intersect;}
 .plate-terrain path {fill:none;stroke:#BDD7E6;stroke-width:.9;vector-effect:non-scaling-stroke;}
 .plate-terrain path.is-index {stroke:#86AEC6;stroke-width:1.2;}
-/* Exactly half the 1254px source: a 2:1 downscale stays crisp; the loupe reads the full source. */
-.specimen-plate .plate-art {position:absolute;inset:0;margin:0;display:grid;place-items:center;max-width:none;}
-.specimen-plate .plate-art img {width:627px;max-width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:contain;mix-blend-mode:normal;background:transparent;user-select:none;-webkit-user-drag:none;}
+/* Retain the 627px canvas cap (half of 1254px sources); never enlarge a short subject.
+   The entire image remains rendered, including faint shadows outside its stored bounds. */
+.specimen-plate .plate-art {position:absolute;inset:auto 0 auto;top:var(--plate-offset,0%);margin:0;display:block;max-width:none;pointer-events:none;}
+.specimen-plate .plate-art img {display:block;width:100%;max-width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:contain;mix-blend-mode:normal;background:transparent;user-select:none;-webkit-user-drag:none;}
 .plate-field[data-cutout="false"] .plate-art img {mix-blend-mode:multiply;}
 .plate-lens {position:absolute;z-index:4;left:0;top:0;width:200px;height:200px;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);
   background-color:white;background-repeat:no-repeat;opacity:0;transition:opacity .3s;
@@ -1212,7 +1214,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 @keyframes plate-emerge {from {opacity:0;transform:translateY(14px);} to {opacity:1;transform:none;}}
 
 @media(max-width:900px) {
- .plate-study,.without-art .plate-study {grid-template-columns:1fr;grid-template-areas:"fn" "field" "label" "notes";grid-template-rows:none;row-gap:24px;}
+ .plate-study,.without-art .plate-study {grid-template-columns:1fr;grid-template-areas:"fn" "field" "notes";grid-template-rows:none;row-gap:24px;}
  .without-art .plate-study {grid-template-areas:"fn" "label" "notes";}
  .plate-notes {margin-bottom:0;}
 }

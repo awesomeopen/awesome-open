@@ -92,5 +92,10 @@ Pilot artwork covers OpenTofu, OpenRefine and OpenSCAD. The remaining top-three 
 The expanded record shows `site/specimens/cutouts/<project-id>.webp`, a transparent derivative
 with only the border-connected white ground removed, so the decorative contour floor passes
 behind the drawing. `site/specimens/cutouts.json` records the source and derivative hashes and
-the subject's bounding box (used to place the feature-note crops). A missing or stale cut-out
+the subject's bounding box (used to place feature crops, compact the vertical field
+and align its decorative ground). This alpha > 0.5 box is not a pixel-clipping
+boundary: display keeps 8% source-height safety padding and visible overflow,
+retaining the entire image and its faint marks. No browser pixel scan is needed;
+layout metadata is emitted at build time. Missing or malformed bounds retain the
+full canvas. A missing or stale cut-out
 never blocks a build: the original is shown without the floor and the build warns.

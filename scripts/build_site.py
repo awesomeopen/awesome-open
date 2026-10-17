@@ -7,6 +7,7 @@ import hashlib
 import html
 import unicodedata
 import json
+import math
 import re
 import warnings
 from datetime import date
@@ -325,7 +326,7 @@ def attach_specimen_cutouts(catalog, root):
             raise ValueError(
                 "Specimen cut-out bytes do not match the manifest: " + entry["path"]
             )
-        result[project["id"]] = {"path": entry["path"], "bbox": entry["subject_bbox"]}
+        result[project["id"]] = {"path": entry["path"], "bbox": entry.get("subject_bbox")}
     return result
 
 
@@ -431,6 +432,31 @@ def where_it_runs(project):
     )
 
 
+def specimen_geometry(art, bbox):
+    """Compose from stored bounds, without sampling or cropping image pixels.
+
+    The alpha > .5 box describes the main subject, not every faint mark. Keep
+    eight percent of source height on each side and leave overflow visible.
+    Missing/malformed bounds conservatively retain the complete canvas.
+    """
+    valid = (isinstance(bbox, (list, tuple)) and len(bbox) == 4
+             and all(isinstance(v, (int, float)) and not isinstance(v, bool)
+                     and math.isfinite(v) for v in bbox)
+             and 0 <= bbox[0] < bbox[2] <= 1
+             and 0 <= bbox[1] < bbox[3] <= 1)
+    box = list(bbox) if valid else [0, 0, 1, 1]
+    top = max(0, box[1] - .08) if valid else 0
+    bottom = min(1, box[3] + .08) if valid else 1
+    extent = bottom - top
+    ratio = art["height"] / art["width"]
+    ground = (box[3] - top) / extent if valid else .86
+    return {"bbox": box, "top": top, "bottom": bottom,
+            "height": extent * ratio, "offset": -top / extent,
+            "ground": ground,
+            "fade_start": max(.5, ground - .24),
+            "fade_end": max(.5, ground - .08)}
+
+
 def specimen_plate(
     project, number, tags, function_detail, vitals, chart, alternatives, cutout
 ):
@@ -441,12 +467,22 @@ def specimen_plate(
     )
     art = project.get("artwork")
     specimen = notes = ""
+    label = specimen_label(project, tags, number)
     if art:
         src = cutout["path"] if cutout else art["path"]
-        bbox = " ".join(str(v) for v in (cutout["bbox"] if cutout else (0, 0, 1, 1)))
+        geometry = specimen_geometry(art, cutout.get("bbox") if cutout else None)
+        bbox = " ".join(str(v) for v in geometry["bbox"])
+        stage_style = (
+            f'--plate-height:{geometry["height"]:.6f};'
+            f'--plate-offset:{geometry["offset"] * 100:.6f}%;'
+            f'--plate-ground:{geometry["ground"] * 100:.6f}%;'
+            f'--plate-fade-start:{geometry["fade_start"] * 100:.6f}%;'
+            f'--plate-fade-end:{geometry["fade_end"] * 100:.6f}%'
+        )
         specimen = (
             f'<div class="plate-specimen"><div class="plate-field" data-seed="{pid[:16]}" data-cutout="{"true" if cutout else "false"}" data-bbox="{bbox}">'
-            f'<figure class="specimen-art plate-art"><img src="{escape(src)}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure></div></div>'
+            f'<div class="plate-stage" style="{stage_style}" data-height="{geometry["height"]:.6f}" data-ground="{geometry["ground"]:.6f}">'
+            f'<figure class="specimen-art plate-art"><img src="{escape(src)}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure></div></div>{label}</div>'
         )
         features = project.get("function_summary", {}).get("features", [])[:2]
         if features:
@@ -456,7 +492,7 @@ def specimen_plate(
                 for i, f in enumerate(features)
             )
             notes = f'<ol class="plate-notes" aria-label="Feature notes">{items}</ol>'
-    label = specimen_label(project, tags, number)
+        label = ""
     runs = where_it_runs(project)
     numerals = iter(("II", "III", "IV", "V", "VI"))
     sections = [
