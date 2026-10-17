@@ -309,8 +309,11 @@
     var image = field.querySelector("img");
     if (!image) return;
     if (field.dataset.cutout === "true") {
-      field.insertBefore(terrain(document, "plate-terrain", field.dataset.seed, "0 0 1000 1000",
-        plateRings(field.dataset.seed, 500, 860, 22, 34, 1.55, 0.5), "none"), field.firstChild);
+      var stage = field.querySelector(".plate-stage") || field;
+      var stageHeight = Number(stage.dataset.height) * 1000 || 1000;
+      var ground = Number(stage.dataset.ground) || .86;
+      stage.insertBefore(terrain(document, "plate-terrain", field.dataset.seed, "0 0 1000 " + stageHeight,
+        plateRings(field.dataset.seed, 500, ground * stageHeight, 22, 34, 1.55, 0.5), "none"), stage.firstChild);
     }
     var lens = document.createElement("div");
     lens.className = "plate-lens";
@@ -318,12 +321,12 @@
     field.appendChild(lens);
     function place(fx, fy) {
       var outer = field.getBoundingClientRect(), art = image.getBoundingClientRect(), size = lens.offsetWidth;
-      var src = image.currentSrc || image.src, scale = art.width * 2;
+      var src = image.currentSrc || image.src, scale = art.width * 2, scaleY = art.height * 2;
       lens.style.left = (art.left - outer.left + fx * art.width) + "px";
       lens.style.top = (art.top - outer.top + fy * art.height) + "px";
       lens.style.backgroundImage = 'url("' + src + '")';
-      lens.style.backgroundSize = scale + "px " + scale + "px";
-      lens.style.backgroundPosition = (size / 2 - fx * scale) + "px " + (size / 2 - fy * scale) + "px";
+      lens.style.backgroundSize = scale + "px " + scaleY + "px";
+      lens.style.backgroundPosition = (size / 2 - fx * scale) + "px " + (size / 2 - fy * scaleY) + "px";
       lens.classList.add("is-on");
     }
     function fraction(event) {
@@ -358,10 +361,10 @@
     var centres = [[box[0] + (box[2] - box[0]) * 0.5, box[1] + (box[3] - box[1]) * 0.3],
                    [box[0] + (box[2] - box[0]) * 0.62, box[1] + (box[3] - box[1]) * 0.66]];
     Array.prototype.forEach.call(plate.querySelectorAll(".plate-crop"), function (crop, i) {
-      var width = crop.clientWidth, zoom = i ? 4.2 : 3, size = width * zoom, c = centres[i] || centres[0];
+      var width = crop.clientWidth, zoom = i ? 4.2 : 3, size = width * zoom, sizeY = size * image.naturalHeight / image.naturalWidth, c = centres[i] || centres[0];
       crop.style.backgroundImage = 'url("' + src + '")';
-      crop.style.backgroundSize = size + "px " + size + "px";
-      crop.style.backgroundPosition = (width / 2 - c[0] * size) + "px " + (width / 2 - c[1] * size) + "px";
+      crop.style.backgroundSize = size + "px " + sizeY + "px";
+      crop.style.backgroundPosition = (width / 2 - c[0] * size) + "px " + (width / 2 - c[1] * sizeY) + "px";
       crop.classList.add("is-ready");
     });
     var svg = plate.querySelector(".plate-leaders"), study = plate.querySelector(".plate-study");
@@ -374,7 +377,8 @@
     Array.prototype.forEach.call(crops, function (crop, i) {
       var C = crop.getBoundingClientRect();
       var sx = A.left - S.left + A.width * (box[0] + (box[2] - box[0]) * (0.62 + i * 0.12));
-      var sy = A.top - S.top + A.height * Math.min(0.98, box[3] + 0.02 + i * 0.025);
+      // Start just below the same subject baseline as the contour floor.
+      var sy = A.top - S.top + A.height * box[3] + 3 + i * 2;
       var cy = C.top - S.top + C.height / 2;
       if (!stacked) {
         var ex = C.left - S.left, mx = ex - 30 + i * 12;

@@ -24,16 +24,17 @@ module.exports=async({page,url,data,capture})=>{
    if(p.artwork){
     const geometry=await plate.evaluate(n=>{
      const art=n.querySelector('.plate-art img').getBoundingClientRect();
+     const bbox=n.querySelector('.plate-field').dataset.bbox.split(' ').map(Number);
      const prose=n.querySelector('.plate-function').getBoundingClientRect();
      const label=n.querySelector('.specimen-label').getBoundingClientRect();
-     return {art:{left:art.left,right:art.right,bottom:art.bottom,width:art.width},proseLeft:prose.left,labelTop:label.top,
+     return {art:{left:art.left,right:art.right,bottom:art.top+art.height*bbox[3],width:art.width},proseLeft:prose.left,labelTop:label.top,
       cutout:n.querySelector('.plate-field').dataset.cutout,terrain:!!n.querySelector('.plate-terrain'),
       animation:getComputedStyle(n.querySelector('.plate-art')).animationName};
     });
     assert.ok(geometry.art.left>=0&&geometry.art.right<=width,'Complete artwork fits viewport');
     if(width>900)assert.ok(geometry.art.right<=geometry.proseLeft,'Artwork leaves prose clear');
     if(width>=1440)assert.equal(geometry.art.width,627,'Half-size artwork stays an exact 2:1 downscale');
-    assert.ok(geometry.labelTop>=geometry.art.bottom-1,'Label sits below the illustration');
+    assert.ok(geometry.labelTop>=geometry.art.bottom-1,'Label sits below visible specimen bounds');
     assert.equal(geometry.terrain,geometry.cutout==='true','Ground is drawn only behind transparent cut-outs');
     assert.equal(geometry.animation,'none','Reduced motion leaves the final composition');
    }

@@ -9,7 +9,7 @@ import unittest
 import warnings
 
 import qr
-from build_site import PERMALINK_BASE, attach_specimen_cutouts, project_html, qr_path, timeline
+from build_site import PERMALINK_BASE, attach_specimen_cutouts, project_html, qr_path, timeline, specimen_geometry
 from render_readme import validate_snapshot
 
 PID = 'b' * 64
@@ -61,6 +61,8 @@ class PlateTests(unittest.TestCase):
     def test_every_record_gets_a_plate_label_and_departure(self):
         html = render(copy.deepcopy(PROJECT))
         self.assertIn('class="specimen-interior specimen-plate without-art"', html)
+        self.assertNotIn('class="plate-stage"', html)
+        self.assertNotIn('class="plate-field"', html)
         self.assertIn(f'href="{PERMALINK_BASE + PID}" aria-label="QR code: permalink to OpenExample"', html)
         self.assertIn(f'src="{qr_path(PROJECT)}"', html)
         self.assertIn('Domain: <a class="tag" data-category="tools"', html)
@@ -111,6 +113,52 @@ class PlateTests(unittest.TestCase):
 
 
 
+class SpecimenGeometryTests(unittest.TestCase):
+    art = {'width': 1254, 'height': 1254}
+
+    def test_short_subject_only_trims_empty_canvas_with_safety_margin(self):
+        geometry = specimen_geometry(self.art, [.01, .3365, .98, .6802])
+        self.assertAlmostEqual(geometry['top'], .2565)
+        self.assertAlmostEqual(geometry['bottom'], .7602)
+        self.assertAlmostEqual(geometry['height'], .5037)
+        self.assertAlmostEqual(geometry['offset'] * geometry['height'], -.2565)
+        self.assertAlmostEqual(geometry['ground'] * geometry['height'], .4237)
+
+    def test_subject_near_edges_retains_full_canvas(self):
+        geometry = specimen_geometry(self.art, [.2, .0064, .8, .9896])
+        self.assertEqual((geometry['top'], geometry['bottom'], geometry['height']), (0, 1, 1))
+        self.assertEqual(geometry['offset'], 0)
+        self.assertAlmostEqual(geometry['ground'], .9896)
+
+    def test_non_square_source_keeps_intrinsic_aspect_ratio(self):
+        for ratio in [.5, 2]:
+            with self.subTest(ratio=ratio):
+                geometry = specimen_geometry({'width': 1000, 'height': 1000 * ratio}, [.1, .2, .9, .8])
+                self.assertAlmostEqual(geometry['height'], .76 * ratio)
+                self.assertAlmostEqual(geometry['offset'], -.12 / .76)
+
+    def test_invalid_or_missing_bbox_keeps_full_canvas(self):
+        invalid = [None, [], [0, 0, 1], '0 0 1 1', [0, .8, 1, .2],
+                   [0, .5, 1, .5], [.8, 0, .2, 1], [-.1, 0, 1, 1],
+                   [0, 0, 1, 1.1], [False, 0, 1, 1], ['0', 0, 1, 1],
+                   [0, float('nan'), 1, 1], [0, 0, 1, float('inf')]]
+        for bbox in invalid:
+            with self.subTest(bbox=bbox):
+                geometry = specimen_geometry(self.art, bbox)
+                self.assertEqual(geometry['bbox'], [0, 0, 1, 1])
+                self.assertEqual((geometry['top'], geometry['bottom'], geometry['height'], geometry['offset']), (0, 1, 1, 0))
+                self.assertEqual(geometry['ground'], .86)
+
+    def test_zero_edge_bounds_are_valid(self):
+        for bbox in [[0, 0, 1, .4], [0, .6, 1, 1], [0, 0, 1, 1]]:
+            with self.subTest(bbox=bbox):
+                geometry = specimen_geometry(self.art, bbox)
+                self.assertEqual(geometry['bbox'], bbox)
+                self.assertGreater(geometry['height'], 0)
+                self.assertGreaterEqual(geometry['fade_start'], .5)
+                self.assertGreaterEqual(geometry['fade_end'], geometry['fade_start'])
+
+
 class CutoutTests(unittest.TestCase):
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
@@ -139,6 +187,9 @@ class CutoutTests(unittest.TestCase):
         html = render(self.project, cutouts)
         self.assertIn(f'src="specimens/cutouts/{PID}.webp"', html)
         self.assertIn('data-cutout="true" data-bbox="0.1 0.2 0.9 0.8"', html)
+        self.assertIn('class="plate-stage"', html)
+        self.assertIn('--plate-height:0.760000;', html)
+        self.assertIn('width="1254" height="1254"', html)
 
     def test_stale_cutout_falls_back_to_the_original(self):
         stale = dict(self.entry, source_sha256='0' * 64)
@@ -149,7 +200,8 @@ class CutoutTests(unittest.TestCase):
         self.assertIn('older than its source', str(caught[0].message))
         html = render(self.project, cutouts)
         self.assertIn(f'src="specimens/{PID}.webp"', html)
-        self.assertIn('data-cutout="false"', html)
+        self.assertIn('data-cutout="false" data-bbox="0 0 1 1"', html)
+        self.assertIn('--plate-height:1.000000;', html)
 
     def test_changed_derivative_or_path_is_rejected(self):
         with self.assertRaises(ValueError):

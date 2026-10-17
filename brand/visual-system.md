@@ -86,8 +86,13 @@ centered “In the wild” departure on a Prussian band.
 - The illustration stands on a decorative contour “floor”, seeded by Registry ID and
   confined to the lower half. Contours encode no data. The floor is drawn only behind a
   transparent cut-out derivative so it never crosses the drawing.
-- Artwork shows at exactly half its 1254px source (627px) for a crisp 2:1 downscale; a
-  frameless loupe magnifies the source 2× under the pointer or a tap. No sway: rotating a
+- Artwork retains its 627px canvas-width cap, shrinking to available width without
+  changing proportions (a 2:1 downscale for 1254px sources; some sources are 1024px).
+  Stored subject bounds compact the vertical field with 8% source-height safety
+  padding above and below; the full image remains rendered without clipping. The
+  floor follows the subject baseline and the label stays with the specimen. Missing
+  or invalid bounds keep the full canvas. A frameless loupe magnifies the displayed
+  drawing 2× under the pointer or a tap. No sway: rotating a
   raster blurs it. Opening draws the floor and settles the art once; reduced motion is static.
 - Up to two feature notes carry small/tiny enlarged windows of the drawing joined by
   scarlet leader lines from the ground, echoing the jar captions. Notes are sourced

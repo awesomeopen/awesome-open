@@ -404,7 +404,15 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   drawing. Without art, the label takes the specimen's place. Narrow screens read Function,
   specimen, label, notes.
 - **Floor and art:** decorative contour rings (seeded by Registry ID, lower half only) behind a
-  transparent cut-out. Art renders at exactly 627px (half the source) and never rotates; a
+  transparent cut-out. Art keeps a 627px canvas-width cap, shrinking at narrow widths
+  without changing proportions, and never rotates. Stored subject bounds compact the
+  vertical field with 8% source-height safety padding above/below. The complete image
+  remains rendered with visible overflow, preserving faint marks and shadows; no
+  asset pixels are cropped or resampled. The contour center follows the subject
+  baseline, its fade stays in the lower half, and the label stays directly below the
+  specimen rather than inheriting neighboring prose height. Missing or malformed
+  bounds retain the full canvas. The 627px cap is half of 1254px sources; existing
+  1024px sources retain the same display cap. A
   frameless loupe shows the source at 2×. Opening draws the floor and settles the art once.
 - **Feature notes:** up to two, with 112px and 64px windows of the drawing and scarlet elbow
   leaders starting on the ground. They state sourced capabilities only.

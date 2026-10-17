@@ -60,6 +60,13 @@ jobs:
           python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA" --production
           python3 scripts/build_exhibition_preview.py --output tmp/site
           python3 scripts/build_jar_preview.py --output tmp/site
+      - name: Build specimen comparison records from PR base
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          python3 scripts/build_specimen_bounds_control.py --base "$BASE_SHA"
       - name: Upload field-guide preview
         uses: actions/upload-artifact@v4
         with:
