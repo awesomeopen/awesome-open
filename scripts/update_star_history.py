@@ -45,7 +45,11 @@ SHA = re.compile(r'[0-9a-f]{40}')
 # 50994619, and /repos/openremote/core reports that same ID. See CONTRIBUTING.
 # This changes only the aggregate endpoint, never the catalog/cache identity.
 # Do not learn aliases from a response or follow redirects automatically.
-REVIEWED_REPOSITORY_RENAMES = {'openremote/openremote': 'openremote/core'}
+REVIEWED_REPOSITORY_RENAMES = {
+    'openremote/openremote': 'openremote/core',
+    # Reviewed 2026-10-17: both API identities resolve to repository 1391454845.
+    'openomsi-project/openomsi': 'openomsi-org/openomsi',
+}
 
 
 class HistoryError(RuntimeError):

@@ -279,20 +279,29 @@ Current total star counts are already maintained by the separate ordinary reposi
 
 Only complete, validated history becomes a last-good result. Missing pages, contradictory totals, HTTP failures, rate limits, or unavailable data retain prior evidence and expose status and retrieval time. A last-good chart may remain visibly stale when its month window still matches HN; mismatched windows are withheld rather than silently overlaid. SVGs are generated in preview/Pages output, not tracked. Test fixtures are synthetic and isolated from production cache.
 
-### Reviewed repository rename
+### Reviewed repository renames
 
-The aggregate-history collector has one explicit, code-reviewed endpoint mapping:
+The aggregate-history collector has explicit, code-reviewed endpoint mappings:
 `openremote/openremote` → `openremote/core`. On 2026-10-16 the
 [old repository API path](https://api.github.com/repos/openremote/openremote)
 reported a move to GitHub repository ID `50994619`, and the
 [current repository API record](https://api.github.com/repos/openremote/core)
-reported that same ID. The mapping is in `REVIEWED_REPOSITORY_RENAMES` in
-`scripts/update_star_history.py`; it applies to ordinary history collection and
-the bounded backfill. It adds no request or permission.
+reported that same ID.
+
+`openomsi-project/openomsi` → `openomsi-org/openomsi` was verified on 2026-10-17:
+the [old repository API path](https://api.github.com/repos/openomsi-project/openomsi)
+reported a move to repository ID `1391454845`, and the
+[current repository API record](https://api.github.com/repos/openOMSI-org/openOMSI)
+reports that same ID as `openOMSI-org/openOMSI`. The endpoint mapping uses the
+collector's normalized lowercase spelling.
+
+These mappings are in `REVIEWED_REPOSITORY_RENAMES` in
+`scripts/update_star_history.py`; they apply to ordinary history collection and
+the bounded backfill. They add no request or permission.
 
 The catalog URL, project permalink, cache key, curated records and archived
 observations remain under the existing identity. New histories record their
-actual `openremote/core` source URLs. Previously collected evidence remains
+actual mapped source URLs. Previously collected evidence remains
 valid with its original URLs and fetch dates; failed refreshes do not rewrite
 those sources. A single history cannot mix old/new endpoints across pages or
 borrow an unreviewed repository's evidence. This mapping does not change other
