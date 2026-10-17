@@ -36,7 +36,8 @@ inspection on the third click, which restores the glass. Preserve the calmer fir
 crack stage. Native navigation remains available.
 
 Expanded records use the specimen plate below. The normal ledger loads a plate
-on demand and retains a full-record link for no-JavaScript access and printing;
+on demand and retains a full-record fallback for no-JavaScript access and printing;
+the fallback line is hidden once the plate loads successfully;
 static record pages reuse the B42 route shell. The standalone remains complete.
 See [B-PR111-01](decisions/B-PR111-01.md) and the
 [loading contract](../site/DETAIL-LOADING.md). Missing

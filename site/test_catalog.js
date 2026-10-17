@@ -1025,7 +1025,7 @@ test('opening fetches one same-origin record, imports only its matching plate an
   assert.equal(host.dataset.detailState, 'loaded');
   assert.equal(host.getAttribute('aria-busy'), null);
   assert.equal(host.querySelector('.detail-status').hidden, true);
-  assert.equal(fallback.hidden, false, 'Read/print fallback remains accessible after loading');
+  assert.equal(fallback.hidden, true, 'Loaded plates hide the fallback from display and keyboard access');
   assert.equal(ui.document.activeElement, summary);
   assert.equal(plate.querySelectorAll('.plate-lens').length, 1);
   assert.equal(plate.querySelectorAll('.plate-wild-terrain').length, 1);
@@ -1092,6 +1092,18 @@ test('closing during response text and late abort errors are ignored', async () 
   assert.ok(ui.plate(0));
 });
 
+test('successful loading returns focus from the disappearing fallback to the summary', async () => {
+  const ui = detailFixture();
+  catalog.init(ui.document, ui.window);
+  ui.toggle(0, true);
+  const { fallback, summary } = ui.records[0];
+  fallback.querySelector('a').focus();
+  ui.respond(0);
+  await ui.settle();
+  assert.equal(fallback.hidden, true);
+  assert.equal(ui.document.activeElement, summary);
+});
+
 test('failure exposes a retry and static fallback; repeated retry starts only one request', async () => {
   const ui = detailFixture();
   catalog.init(ui.document, ui.window);
@@ -1112,6 +1124,7 @@ test('failure exposes a retry and static fallback; repeated retry starts only on
   await ui.settle();
   assert.equal(host.dataset.detailState, 'loaded');
   assert.equal(retry.hidden, true);
+  assert.equal(ui.records[0].fallback.hidden, true);
   assert.ok(ui.plate(0));
 });
 
