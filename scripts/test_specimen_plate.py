@@ -104,6 +104,12 @@ class PlateTests(unittest.TestCase):
         self.assertGreater(float(marks[1]), float(marks[0]))
         self.assertLess(float(marks[1]) - float(marks[0]), 1)
 
+    def test_same_day_timeline_labels_extend_away_from_shared_marker(self):
+        line = timeline('2026-10-17', None, '2026-10-17')
+        self.assertIn('right:20.82%;margin-right:8px;text-align:right', line)
+        self.assertIn('left:79.18%;margin-left:8px;text-align:left', line)
+
+
 
 class CutoutTests(unittest.TestCase):
     def setUp(self):
