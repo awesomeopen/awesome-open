@@ -274,7 +274,10 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     }
     await page.setViewportSize(report.viewport);
     await page.goto(detailURL);
+    await page.locator('.plate-lens').waitFor({ state: 'attached' });
+    await page.locator('.plate-lens').evaluate(node => node.classList.add('is-on'));
     await page.emulateMedia({ media: 'print' });
+    assert.equal(await page.locator('.plate-lens').isVisible(), false, 'Print hides an active magnifier');
     await page.locator('.specimen-plate').scrollIntoViewIfNeeded();
     await capture('detail-static-print.png');
     await page.emulateMedia({ media: 'screen' });

@@ -5,7 +5,7 @@
 .record-page .obs-hero h1 {overflow-wrap:anywhere;}
 .record-page .project-card {margin-top:48px;}
 @media print {
- .record-page .obs-header,.record-page .obs-finding,.record-page .obs-closing-mark,.record-page .obs-footer {display:none;}
+ .record-page .obs-header,.record-page .obs-finding,.record-page .obs-closing-mark,.record-page .obs-footer,.record-page .plate-lens {display:none;}
  .record-page details::details-content {content-visibility:visible;}
  .record-page .specimen-drawer>.specimen-plate {display:block!important;}
  .record-page .plate-art,.record-page .plate-leaders,.record-page .plate-terrain path {animation:none!important;opacity:1!important;transform:none!important;}
