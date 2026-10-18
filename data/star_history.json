@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 8,
+    "requests_used": 16,
     "utc_date": "2026-10-18"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -21545,6 +21545,112 @@
       "repo": "andykr1k/opencomputer",
       "source_sha": "4c290af73fe22ff03a7118576d027e8fcae7fbce",
       "source_url": "https://api.github.com/repos/andykr1k/opencomputer/stargazers/history",
+      "status": "ok"
+    },
+    "anichikage/open-typora": {
+      "checked_at": "2026-10-18T15:52:55.557389+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791676800,
+          "repository_created_at": "2026-10-15T05:54:23+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-18T15:52:55.557389+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "6c532e79e66bae6f5b7717ce80c775abbef40e46",
+        "source_urls": [
+          "https://api.github.com/repos/anichikage/open-typora/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              3,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 3,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              4,
+              0,
+              9
+            ],
+            "total": 13,
+            "week": 1791676800
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "Open Typora",
+      "readme_url": "https://github.com/anichikage/open-typora",
+      "repo": "anichikage/open-typora",
+      "source_sha": "6c532e79e66bae6f5b7717ce80c775abbef40e46",
+      "source_url": "https://api.github.com/repos/anichikage/open-typora/stargazers/history",
       "status": "ok"
     },
     "annasusu/opencontextengine": {
@@ -90704,6 +90810,125 @@
       "source_url": "https://api.github.com/repos/hydra-db/open-glean/stargazers/history",
       "status": "ok"
     },
+    "iamjsd/opencomputeruse": {
+      "checked_at": "2026-10-18T15:52:55.557389+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791072000,
+          "repository_created_at": "2026-10-07T12:29:28+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-18T15:52:55.557389+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "6c532e79e66bae6f5b7717ce80c775abbef40e46",
+        "source_urls": [
+          "https://api.github.com/repos/iamjsd/opencomputeruse/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              8,
+              2,
+              2,
+              2
+            ],
+            "total": 14,
+            "week": 1791072000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenComputerUse",
+      "readme_url": "https://github.com/iamjsd/opencomputeruse",
+      "repo": "iamjsd/opencomputeruse",
+      "source_sha": "6c532e79e66bae6f5b7717ce80c775abbef40e46",
+      "source_url": "https://api.github.com/repos/iamjsd/opencomputeruse/stargazers/history",
+      "status": "ok"
+    },
     "ibmshaikh/openpilot": {
       "checked_at": "2026-10-18T02:18:38.985744+00:00",
       "last_good": {
@@ -106787,6 +107012,125 @@
       "repo": "kevinbadi/open-edits",
       "source_sha": "9ce6badca1678ecd1011eca26a80616bedb4df77",
       "source_url": "https://api.github.com/repos/kevinbadi/open-edits/stargazers/history",
+      "status": "ok"
+    },
+    "koosoli/openposeidon": {
+      "checked_at": "2026-10-18T15:52:55.557389+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791072000,
+          "repository_created_at": "2026-10-05T16:43:43+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-18T15:52:55.557389+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "6c532e79e66bae6f5b7717ce80c775abbef40e46",
+        "source_urls": [
+          "https://api.github.com/repos/koosoli/openposeidon/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              1,
+              2,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 4,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              5,
+              6,
+              1,
+              0
+            ],
+            "total": 12,
+            "week": 1791072000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "Open Poseidon Engine",
+      "readme_url": "https://github.com/koosoli/openposeidon",
+      "repo": "koosoli/openposeidon",
+      "source_sha": "6c532e79e66bae6f5b7717ce80c775abbef40e46",
+      "source_url": "https://api.github.com/repos/koosoli/openposeidon/stargazers/history",
       "status": "ok"
     },
     "krillinai/opencreator": {
@@ -332921,6 +333265,138 @@
       "source_url": "https://api.github.com/repos/openra/openra/stargazers/history",
       "status": "ok"
     },
+    "openrac/openrac": {
+      "checked_at": "2026-10-18T15:52:55.557389+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1790467200,
+          "repository_created_at": "2026-10-03T21:00:55+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-18T15:52:55.557389+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "6c532e79e66bae6f5b7717ce80c775abbef40e46",
+        "source_urls": [
+          "https://api.github.com/repos/openrac/openrac/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              3,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 3,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              2,
+              3,
+              1,
+              2,
+              3,
+              3
+            ],
+            "total": 14,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              1,
+              1,
+              0,
+              1,
+              0
+            ],
+            "total": 3,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 1,
+            "week": 1790467200
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenRAC",
+      "readme_url": "https://github.com/openrac/openrac",
+      "repo": "openrac/openrac",
+      "source_sha": "6c532e79e66bae6f5b7717ce80c775abbef40e46",
+      "source_url": "https://api.github.com/repos/openrac/openrac/stargazers/history",
+      "status": "ok"
+    },
     "openrailwaymap/openrailwaymap": {
       "checked_at": "2026-10-17T06:55:42.662177+00:00",
       "last_good": {
@@ -507350,11 +507826,11 @@
   "schema_version": 1,
   "selection_report": {
     "attempted_repositories": 4,
-    "due_repositories": 83,
+    "due_repositories": 79,
     "eligible_repositories": 475,
-    "unattempted_repositories": 79
+    "unattempted_repositories": 75
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "4c290af73fe22ff03a7118576d027e8fcae7fbce",
-  "updated_at": "2026-10-18T03:11:47.031041+00:00"
+  "source_sha": "6c532e79e66bae6f5b7717ce80c775abbef40e46",
+  "updated_at": "2026-10-18T15:52:55.557389+00:00"
 }
