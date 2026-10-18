@@ -1373,6 +1373,121 @@
           "source_url": "https://github.com/acidanthera/OpenCorePkg/blob/d9ef47a2a7bd69a026a92b0eb040b9be71810620/README.md"
         }
       ]
+    },
+    "135e284294da4cfb75613963b517af509be21a16a8fb334cab30492b7eb17af8": {
+      "project_url": "https://github.com/openyurtio/openyurt",
+      "text": "OpenYurt extends a Kubernetes cluster to manage applications and devices at edge sites from a cloud control plane. Edge nodes are organized into regional pools, with components for disconnected operation, cloud-edge networking, and device integration. Operators install control-plane components and join worker nodes; the system retains Kubernetes APIs for deploying and managing workloads.",
+      "sources": [
+        {
+          "url": "https://github.com/openyurtio/openyurt/blob/83ce3925379d28ee691d8f55e512b3c6e1dfc31e/README.md",
+          "title": "OpenYurt: official README",
+          "revision": "83ce3925379d28ee691d8f55e512b3c6e1dfc31e"
+        }
+      ],
+      "checked_at": "2026-10-18",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the pinned official documentation. AI content review for this proposal; merge remains subject to maintainer review.",
+      "features": [
+        {
+          "title": "Regional edge pools",
+          "text": "Groups edge nodes by physical region for cloud-edge management.",
+          "source_url": "https://github.com/openyurtio/openyurt/blob/83ce3925379d28ee691d8f55e512b3c6e1dfc31e/README.md"
+        }
+      ]
+    },
+    "14b424e67f34f14a1ec248844149305178cf09a12404d8bc2e785f3523d4d788": {
+      "project_url": "https://github.com/openslides/openslides",
+      "text": "OpenSlides provides a browser-based system for organizing assemblies and presenting their proceedings. It manages agendas, motions, and elections, with material that can be projected during a meeting. Administrators can run an instance using containerized services and Docker Compose. The installation tools generate configuration and manage initial accounts, while participants access the server through HTTPS.",
+      "sources": [
+        {
+          "url": "https://github.com/openslides/openslides/blob/ff57555b598e60d1f4366f70173a9e5baf259c04/README.md",
+          "title": "OpenSlides: official README",
+          "revision": "ff57555b598e60d1f4366f70173a9e5baf259c04"
+        },
+        {
+          "url": "https://github.com/openslides/openslides/blob/ff57555b598e60d1f4366f70173a9e5baf259c04/INSTALL.md",
+          "title": "OpenSlides: installation",
+          "revision": "ff57555b598e60d1f4366f70173a9e5baf259c04"
+        }
+      ],
+      "checked_at": "2026-10-18",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the pinned official documentation. AI content review for this proposal; merge remains subject to maintainer review.",
+      "features": [
+        {
+          "title": "Assembly proceedings",
+          "text": "Manages and projects agendas, motions, and elections for an assembly.",
+          "source_url": "https://github.com/openslides/openslides/blob/ff57555b598e60d1f4366f70173a9e5baf259c04/README.md"
+        }
+      ]
+    },
+    "14be414e845acfc119f2226413dd1b2034ed8736671d4daafe5b57343a5c63d6": {
+      "project_url": "https://github.com/open-cluster-management-io/ocm",
+      "text": "Open Cluster Management coordinates multiple Kubernetes clusters through a central hub and agents installed on managed clusters. Administrators register clusters, select deployment targets using labels or resource criteria, and distribute Kubernetes manifests through declarative APIs. Its add-on framework supports additional multicluster tools, while status reporting lets the hub track resources applied by the agents.",
+      "sources": [
+        {
+          "url": "https://github.com/open-cluster-management-io/ocm/blob/8b0d31f8ad45624339fee5c2813e033febee6aad/README.md",
+          "title": "Open Cluster Management: official README",
+          "revision": "8b0d31f8ad45624339fee5c2813e033febee6aad"
+        }
+      ],
+      "checked_at": "2026-10-18",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the pinned official documentation. AI content review for this proposal; merge remains subject to maintainer review.",
+      "features": [
+        {
+          "title": "Manifest distribution",
+          "text": "Distributes Kubernetes resource manifests from a hub to managed clusters using ManifestWork.",
+          "source_url": "https://github.com/open-cluster-management-io/ocm/blob/8b0d31f8ad45624339fee5c2813e033febee6aad/README.md"
+        }
+      ]
+    },
+    "14c74141d4c4541c70d2a4cff6c5b68394817eb54cab1354d7e333c53ffbc109": {
+      "project_url": "https://github.com/open-mercato/open-mercato",
+      "text": "Open Mercato is a TypeScript framework for building business applications on Next.js and PostgreSQL. Its modules cover customers, product catalogs, sales, warehouses, portals, and workflows, with starter configurations for different applications. Developers can scaffold and run their own app, extending its modules and interfaces. The repository also supplies architecture guidance and skills for coding assistants working on those applications.",
+      "sources": [
+        {
+          "url": "https://github.com/open-mercato/open-mercato/blob/4374c48def1654927805c4b760f0e7f8648280f2/README.md",
+          "title": "Open Mercato: official README",
+          "revision": "4374c48def1654927805c4b760f0e7f8648280f2"
+        }
+      ],
+      "checked_at": "2026-10-18",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the pinned official documentation. AI content review for this proposal; merge remains subject to maintainer review.",
+      "features": [
+        {
+          "title": "Business modules",
+          "text": "Combines customer, catalog, sales, warehouse, portal, and workflow modules in a business application framework.",
+          "source_url": "https://github.com/open-mercato/open-mercato/blob/4374c48def1654927805c4b760f0e7f8648280f2/README.md"
+        }
+      ]
+    },
+    "165ea624b01f1752d28e5d3e337ae078c3163290890996c2253b416907b4b8e4": {
+      "project_url": "https://github.com/openpipe/openpipe",
+      "text": "OpenPipe records language-model requests and turns selected examples or imported JSONL datasets into fine-tuning data. Users can filter logs, remove repeated prompt text, and compare model outputs before switching an application to a trained model through an OpenAI-compatible endpoint. The published repository documents a local Node.js and PostgreSQL application, alongside hosted model access and downloadable model weights.",
+      "sources": [
+        {
+          "url": "https://github.com/openpipe/openpipe/blob/1da9a24127973b65f40f5da0d7b52bd61b0bfedd/README.md",
+          "title": "OpenPipe: official README",
+          "revision": "1da9a24127973b65f40f5da0d7b52bd61b0bfedd"
+        }
+      ],
+      "checked_at": "2026-10-18",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the pinned official documentation. AI content review for this proposal; merge remains subject to maintainer review.",
+      "features": [
+        {
+          "title": "Training datasets",
+          "text": "Imports OpenAI-compatible JSONL datasets and filters recorded requests for fine-tuning.",
+          "source_url": "https://github.com/openpipe/openpipe/blob/1da9a24127973b65f40f5da0d7b52bd61b0bfedd/README.md"
+        }
+      ]
     }
   }
 }
