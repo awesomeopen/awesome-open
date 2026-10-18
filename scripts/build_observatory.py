@@ -136,6 +136,79 @@ def project_index(catalog):
     )
 
 
+def reviewed_rhymes(catalog, path):
+    """Validate a bounded editorial pronunciation map; never infer from aliases."""
+    path = Path(path)
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    required = {"schema_version", "language", "checked_at", "reviewed_by", "basis", "projects"}
+    if not isinstance(data, dict) or set(data) != required or data["schema_version"] != 1:
+        raise ValueError("Invalid name rhyme schema")
+    if data["language"] != "en-US" or not isinstance(data["projects"], list):
+        raise ValueError("Name rhymes require reviewed en-US readings")
+    date.fromisoformat(data["checked_at"])
+    for field in ("reviewed_by", "basis"):
+        if not isinstance(data[field], str) or not data[field].strip():
+            raise ValueError("Missing name rhyme review basis")
+    projects = {canonical_url(p["url"]): p for p in catalog["projects"]}
+    result = {}
+    for row in data["projects"]:
+        fields = {"project_url", "name", "pronunciation", "key", "onset", "source_url"}
+        if not isinstance(row, dict) or set(row) != fields or any(not isinstance(v, str) or not v.strip() for v in row.values()):
+            raise ValueError("Invalid name rhyme record")
+        url = canonical_url(row["project_url"])
+        project = projects.get(url)
+        if not project or project["id"] in result or project["name"] != row["name"]:
+            raise ValueError("Unknown, duplicate or renamed rhyme identity")
+        if not re.match(r"(?i)^open", row["name"]) or not row["source_url"].startswith("https://"):
+            raise ValueError("Rhyme evidence needs an Open display name and HTTPS source")
+        # ARPABET onset + last stressed vowel and following sounds. Initial scope
+        # deliberately supports single-syllable remainders, with no guessed G2P.
+        consonants = r"(?:B|CH|D|DH|F|G|HH|JH|K|L|M|N|NG|P|R|S|SH|T|TH|V|W|Y|Z|ZH)"
+        vowels = r"(?:AA|AE|AH|AO|AW|AY|EH|ER|EY|IH|IY|OW|OY|UH|UW)1"
+        if not re.fullmatch(consonants + r"(?: " + consonants + r")*", row["onset"]):
+            raise ValueError("Invalid rhyme onset")
+        if not re.fullmatch(vowels + r"(?: " + consonants + r")*", row["key"]):
+            raise ValueError("Invalid stressed rhyme ending")
+        if row["pronunciation"] != row["onset"] + " " + row["key"]:
+            raise ValueError("Pronunciation does not match rhyme onset and ending")
+        result[project["id"]] = {**row, "language": data["language"],
+                                 "checked_at": data["checked_at"], "basis": data["basis"],
+                                 "reviewed_by": data["reviewed_by"]}
+    return result
+
+
+def rhyming_names(projects):
+    """Separate measure: reviewed spoken endings, never identity equivalence."""
+    unique = {p["id"]: p for p in projects}
+    buckets = {}
+    for project in sorted(unique.values(), key=lambda p: (p["name"], p["id"])):
+        rhyme = project.get("rhyme")
+        if rhyme:
+            buckets.setdefault((rhyme["language"], rhyme["key"]), []).append(project)
+    groups = []
+    for (language, key), rows in sorted(buckets.items()):
+        if len({name_key(p["name"]) for p in rows}) < 2 or len({p["rhyme"]["onset"] for p in rows}) < 2:
+            continue
+        groups.append(dict(key=key, language=language, projects=rows))
+    return dict(groups=groups, tool_count=sum(len(g["projects"]) for g in groups),
+                reviewed_count=sum(bool(p.get("rhyme")) for p in unique.values()))
+
+
+def rhyming_names_html(result):
+    groups = []
+    for group in result["groups"]:
+        items = "".join(
+            f'<li><a href="../#project-{escape(p["id"], quote=True)}">{escape(p["name"])}</a> '
+            f'<span class="obs-muted">({escape(re.sub(r"^https?://(github\.com/)?", "", p["url"]))}) · {escape(p["rhyme"]["pronunciation"])}</span></li>'
+            for p in group["projects"]
+        )
+        groups.append(f'<section class="obs-rhyme-group" data-rhyme-key="{escape(group["key"], quote=True)}"><h3 class="obs-label">{escape(group["key"])} · {len(group["projects"])} tools</h3><ul class="obs-rhyme-projects">{items}</ul></section>')
+    body = "".join(groups) or '<p class="obs-muted">No reviewed rhyming names in this selection.</p>'
+    return f'''<section class="obs-section obs-rhymes" aria-label="Rhyming names"><details id="rhyme-groups" class="obs-disclosure"><summary><span id="rhyme-count">{result["tool_count"]}</span> tools have rhyming names <span id="rhyme-group-summary" class="obs-muted">{len(result["groups"])} groups · {result["reviewed_count"]} reviewed readings</span></summary><p>Reviewed American English readings after Open. Same ending from the stressed vowel, different preceding consonants. These are pronunciation assumptions, not official brand pronunciations.</p><p>A small reviewed subset, not a complete count. Aliases, abbreviations, identical names alone and homophones alone do not form rhyme groups. Each project counts once here; it may also appear in Shared names. These totals are not additive.</p><div id="rhyme-group-list" data-ledger-base="../">{body}</div><p class="obs-muted">Pronunciations use ARPABET; 1 marks primary stress. No project relationship is implied.</p></details></section>'''
+
+
 # Unicode White_Space, shared with observatory.js (not Python/JS-specific \s).
 NAME_WHITESPACE = re.compile(
     r"[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]"
@@ -416,6 +489,7 @@ def aggregate(index, projects=None):
         star_rows.append(["Other mapped projects", stars - concentration])
     return dict(
         shared_names=shared_names(projects),
+        rhyming_names=rhyming_names(projects),
         total=len(projects),
         mapped=sum(p["github"] for p in projects),
         stars=stars,
@@ -769,7 +843,7 @@ def render(index, counts, covered, category_art=None):
 <body class="observatory"><a class="skip-link" href="#observatory-main">Skip to observatory</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../#about">About</a><a href="./" aria-current="page">Observatory</a></nav></header></div>
 <main id="observatory-main" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><div class="obs-hero-copy"><h1>Collection <br />observatory</h1></div></section>
 <form id="observatory-filters" class="obs-filters" hidden aria-label="Filter observatory"><div class="obs-filters-row"><select id="category-filter" name="category" aria-label="Category"><option value="">All categories</option>{options}</select><select id="license-filter" name="license" aria-label="Detected license"><option value="all">Any license</option><option value="known">License detected</option><option value="unknown">License unknown</option></select><button id="reset-filters" type="button">Reset filters</button><nav class="obs-jump" aria-label="Sections"><a href="#shared-names">Names</a><a href="#charts">Charts</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a></nav></div></form>
-<noscript><p>Filters and filtered CSV export require JavaScript.</p></noscript>{metrics_html(counts)}{finding_html(aggregate(index))}{names}
+<noscript><p>Filters and filtered CSV export require JavaScript.</p></noscript>{metrics_html(counts)}{finding_html(aggregate(index))}{names}{rhyming_names_html(counts["rhyming_names"])}
 <section id="charts" class="obs-section" aria-labelledby="charts-heading"><h2 id="charts-heading">Charts</h2>{charts}</section></div>
 <section id="coverage" class="obs-coverage" aria-labelledby="coverage-heading"><div class="obs-shell"><h2 id="coverage-heading">Evidence coverage</h2><p><span class="obs-label">Whole collection</span></p><table class="obs-coverage-table"><caption class="visually-hidden">Evidence coverage</caption><thead><tr><th scope="col">Evidence</th><th scope="col">Projects</th><th scope="col">Scope</th></tr></thead><tbody>{coverage_rows}</tbody></table><div class="obs-coverage-notes"><p>Evidence collection: {esc(covered["signals_collected_at"] or "Not available")}. <br />HN checked: {esc(covered["hn_checked"] or "Not available")}; window {esc(covered["hn_window_start"])} to {esc(covered["hn_window_end_exclusive"])}.</p><p>{evidence_links}</p></div></div></section>
 <div class="obs-shell"><section id="project-records" class="obs-section obs-ledger" aria-labelledby="project-data-heading"><h2 id="project-data-heading">Project data</h2><p>Dates are UTC. Cached measurements may be stale. Per-project observation dates appear below.</p><p class="obs-downloads"><a id="export-csv" href="projects.csv" download="awesome-open-observatory.csv">Download selection CSV</a><a href="snapshot.json" download>Download complete snapshot JSON</a><a href="report.html" download>Download standalone report</a></p><details id="project-data"><summary>Data table <span class="obs-muted"><span id="project-count">{counts["total"]:,}</span> projects in this selection</span></summary><div class="obs-table-scroll" tabindex="0" role="region" aria-label="Project data table"><table id="project-table"><caption>Project records</caption><thead><tr><th scope="col">Project</th><th scope="col">Detected license</th><th scope="col">GitHub stars</th><th scope="col">Repository created</th><th scope="col">Last push</th><th scope="col">Latest full release</th><th scope="col">Metrics cache / observed UTC</th><th scope="col">Release cache / checked UTC</th><th scope="col">Source</th></tr></thead><tbody>{"".join(project_rows)}</tbody></table></div></details></section></div>
@@ -781,6 +855,10 @@ def build(catalog, hn, output, root):
     target = output / "observatory"
     target.mkdir(parents=True, exist_ok=True)
     index = project_index(catalog)
+    rhymes = reviewed_rhymes(catalog, root / "data/name_rhymes.json")
+    for project in index["projects"]:
+        if project["id"] in rhymes:
+            project["rhyme"] = rhymes[project["id"]]
     counts, covered = aggregate(index), coverage(catalog, hn)
     category_art = {
         c["id"]: "../" + c["artwork"]["variants"]["s"]["path"]
@@ -862,5 +940,6 @@ def build(catalog, hn, output, root):
     report = report.replace(
         'href="../"', 'href="https://awesomeopen.github.io/awesome-open/"'
     )
+    report = report.replace('data-ledger-base="../"', 'data-ledger-base="https://awesomeopen.github.io/awesome-open/"')
     (target / "report.html").write_text(report, encoding="utf-8")
     return snapshot

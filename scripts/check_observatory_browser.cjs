@@ -154,6 +154,31 @@ async function assertSharedNames(page, projects, label) {
   }
 }
 
+// Independent reviewed-rhyme oracle: no spelling inference or transitive matches.
+function rhymeGroups(projects) {
+  const unique = [...new Map(projects.map(project => [project.id, project])).values()];
+  const reviewed = unique.filter(project => project.rhyme);
+  const keys = [...new Set(reviewed.map(project => project.rhyme.key))];
+  return { reviewed: reviewed.length, groups: keys.map(key => ({ key, projects: reviewed.filter(project => project.rhyme.key === key) }))
+    .filter(group => group.projects.length >= 2 && new Set(group.projects.map(project => nameKey(project.name))).size >= 2 &&
+      new Set(group.projects.map(project => project.rhyme.onset)).size >= 2) };
+}
+
+async function assertRhymingNames(page, projects, label) {
+  const expected = rhymeGroups(projects);
+  const ledgerBase = await page.locator('#rhyme-group-list').getAttribute('data-ledger-base') || '../';
+  const count = expected.groups.reduce((total, group) => total + group.projects.length, 0);
+  assert.equal(number(await page.locator('#rhyme-count').textContent()), count, label + ': separate rhyme tool count');
+  assert.equal(clean(await page.locator('#rhyme-group-summary').textContent()), expected.groups.length + ' groups · ' + expected.reviewed + ' reviewed readings', label + ': selected reviewed coverage');
+  const actual = await page.locator('#rhyme-group-list .obs-rhyme-group').evaluateAll(groups => groups.map(group => ({
+    key: group.dataset.rhymeKey, links: [...group.querySelectorAll('li a')].map(link => [link.textContent, link.getAttribute('href')])
+  })));
+  const normalize = groups => groups.map(group => JSON.stringify({ key: group.key, links: group.links.map(link => link.join('|')).sort() })).sort();
+  assert.deepEqual(normalize(actual), normalize(expected.groups.map(group => ({ key: group.key,
+    links: group.projects.map(project => [project.name, ledgerBase + '#project-' + project.id]) }))), label + ': rhyme names retain distinct linked identities');
+  if (!count) assert.equal(clean(await page.locator('#rhyme-group-list').textContent()), 'No reviewed rhyming names in this selection.', label + ': honest empty state');
+}
+
 async function checkObservatory({ browser, url }) {
   const target = localURL(url);
   fs.mkdirSync(OUTPUT, { recursive: true });
@@ -287,7 +312,7 @@ async function checkObservatory({ browser, url }) {
     .evaluateAll(nodes => nodes.map(node => node.dataset.id));
   const fits = async (current, label) => {
     assert.ok(await current.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Page fits: ' + label);
-    const clipped = await current.locator('#observatory-filters select, #observatory-filters button, [data-metric], .obs-bars, .obs-table-scroll, .shared-name-group')
+    const clipped = await current.locator('#observatory-filters select, #observatory-filters button, [data-metric], .obs-bars, .obs-table-scroll, .shared-name-group, .obs-rhyme-group')
       .evaluateAll(nodes => nodes.filter(node => {
         const box = node.getBoundingClientRect();
         return box.width > 0 && (box.left < -1 || box.right > innerWidth + 1);
@@ -356,6 +381,7 @@ async function checkObservatory({ browser, url }) {
     }, art);
 
     await assertSharedNames(current, selected, label);
+    await assertRhymingNames(current, selected, label);
     // This finding always describes the whole collection, including after filters.
     const observed = data.projects.filter(project => project.github && Number.isFinite(project.stars))
       .map(project => project.stars).sort((a, b) => b - a);
@@ -495,7 +521,7 @@ async function checkObservatory({ browser, url }) {
       await checkClosingMark(page, name);
       await page.locator('#shared-names').scrollIntoViewIfNeeded();
       await capture(name + '-shared-names');
-      for (const id of ['name-groups', 'name-method']) {
+      for (const id of ['name-groups', 'name-method', 'rhyme-groups']) {
         const disclosure = page.locator('#' + id);
         if (id === 'name-method') await page.locator('#name-groups').evaluate(node => { node.open = true; });
         await disclosure.locator(':scope > summary').focus();
@@ -709,6 +735,10 @@ async function checkObservatory({ browser, url }) {
     assert.equal(await fallback.locator('noscript').isVisible(), true, 'No-JavaScript explanation');
     await assertSelection(fallback, data, data.projects, 'no JavaScript');
     await checkProjectDisclosure(fallback, 'no JavaScript');
+    await fallback.locator('#rhyme-groups > summary').click();
+    assert.equal(await fallback.locator('#rhyme-groups').evaluate(node => node.open), true, 'Rhyming names expand without JavaScript');
+    await fallback.locator('#rhyme-groups').scrollIntoViewIfNeeded();
+    await capture('no-js-rhymes-open', fallback);
     await fallback.locator('#name-groups > summary').click();
     assert.equal(await fallback.locator('#name-groups').evaluate(node => node.open), true, 'Name groups expand without JavaScript');
     await fallback.locator('#name-method > summary').click();
@@ -756,8 +786,40 @@ async function checkObservatory({ browser, url }) {
     await synthetic.locator('#variant-name-groups .shared-name-group').first().scrollIntoViewIfNeeded();
     await fits(synthetic, 'synthetic variants mobile');
     await capture('synthetic-variants-open', synthetic);
+    const rhymeProjects = [
+      { ...syntheticProjects[0], id: 'rhyme-cat', name: 'OpenCat', categories: [data.categories[0].id], license: 'MIT', rhyme: { key: 'AE1 T', onset: 'K', pronunciation: 'K AE1 T', language: 'en-US' } },
+      { ...syntheticProjects[0], id: 'rhyme-chat', name: 'OpenChat', categories: [data.categories[1].id], license: null, rhyme: { key: 'AE1 T', onset: 'CH', pronunciation: 'CH AE1 T', language: 'en-US' } },
+      { ...syntheticProjects[0], id: 'rhyme-chat-other', name: 'OpenChat', categories: [data.categories[1].id], license: 'MIT', rhyme: { key: 'AE1 T', onset: 'CH', pronunciation: 'CH AE1 T', language: 'en-US' } },
+    ];
+    await synthetic.unroute(target.href);
+    await synthetic.route(target.href, async route => {
+      const response = await route.fetch();
+      const body = (await response.text()).replace(/(<script id="observatory-data" type="application\/json">)[\s\S]*?(<\/script>)/,
+        (_, open, close) => open + JSON.stringify({ ...data, projects: rhymeProjects }).replace(/</g, '\\u003c') + close);
+      await route.fulfill({ response, body });
+    });
+    await synthetic.goto(target.href);
+    await synthetic.waitForFunction(() => document.querySelector('#observatory-filters').dataset.enhanced === 'true');
+    await assertRhymingNames(synthetic, rhymeProjects, 'synthetic rhyme all');
+    await synthetic.locator('#rhyme-groups > summary').click();
+    await synthetic.locator('#category-filter').selectOption(data.categories[0].id);
+    await assertRhymingNames(synthetic, rhymeProjects.slice(0, 1), 'rhyme single survivor');
+    assert.equal(await synthetic.locator('#rhyme-groups').evaluate(node => node.open), true, 'Filter preserves open rhyme disclosure');
+    await fits(synthetic, 'rhyme single survivor');
+    await synthetic.locator('#rhyme-groups').scrollIntoViewIfNeeded();
+    await capture('rhymes-single-survivor', synthetic);
+    await synthetic.locator('#category-filter').selectOption(data.categories[1].id);
+    await assertRhymingNames(synthetic, rhymeProjects.slice(1), 'duplicate-only survivors do not rhyme');
+    await synthetic.goBack();
+    await synthetic.waitForFunction(value => document.querySelector('#category-filter').value === value, data.categories[0].id);
+    await assertRhymingNames(synthetic, rhymeProjects.slice(0, 1), 'rhyme history back');
+    await synthetic.goForward();
+    await synthetic.waitForFunction(value => document.querySelector('#category-filter').value === value, data.categories[1].id);
+    await assertRhymingNames(synthetic, rhymeProjects.slice(1), 'rhyme history forward');
+    await synthetic.locator('#reset-filters').click();
+    await assertRhymingNames(synthetic, rhymeProjects, 'rhyme reset');
     await synthetic.close();
-    report.checks.push('single-key grouping, tags and difference marks with synthetic case/separator/Unicode names');
+    report.checks.push('single-key grouping, tags and difference marks with synthetic case/separator/Unicode names; reviewed rhyme counts, empty survivors, reset and history');
 
     // Block every neighboring runtime file. A standalone report must render and
     // filter from embedded assets even when none of its sibling files exist.
