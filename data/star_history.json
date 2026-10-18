@@ -2,8 +2,8 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 16,
-    "utc_date": "2026-10-17"
+    "requests_used": 4,
+    "utc_date": "2026-10-18"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
   "metric": "Stars retained on the repository at fetch time, grouped by the month their stars were created. This is not historical total stars, net star growth, or all stars ever received; removed stars are absent and past buckets can change.",
@@ -33407,6 +33407,112 @@
       "repo": "bpinheiroms/open-apuracao-brazil",
       "source_sha": "9ce6badca1678ecd1011eca26a80616bedb4df77",
       "source_url": "https://api.github.com/repos/bpinheiroms/open-apuracao-brazil/stargazers/history",
+      "status": "ok"
+    },
+    "brunovncs/opencontroller": {
+      "checked_at": "2026-10-18T02:18:38.985744+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1791676800,
+          "oldest_week": 1791072000,
+          "repository_created_at": "2026-10-06T12:21:41+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-18T02:18:38.985744+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "1df9a2d3c5834bf706ccbfd7ebe7b5ecc5e80e4e",
+        "source_urls": [
+          "https://api.github.com/repos/brunovncs/opencontroller/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              4,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 4,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              10,
+              2,
+              3,
+              2
+            ],
+            "total": 17,
+            "week": 1791072000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenController",
+      "readme_url": "https://github.com/brunovncs/opencontroller",
+      "repo": "brunovncs/opencontroller",
+      "source_sha": "1df9a2d3c5834bf706ccbfd7ebe7b5ecc5e80e4e",
+      "source_url": "https://api.github.com/repos/brunovncs/opencontroller/stargazers/history",
       "status": "ok"
     },
     "bsamud/openfoundry-agentic-framework": {
@@ -82079,6 +82185,16 @@
       "source_url": "https://api.github.com/repos/google-research/openfst/stargazers/history",
       "status": "ok"
     },
+    "gptchatly/openbrender": {
+      "checked_at": "2026-10-18T02:18:38.985744+00:00",
+      "error": "GitHub history HTTP 301",
+      "name": "OpenBRender",
+      "readme_url": "https://github.com/gptchatly/openbrender",
+      "repo": "gptchatly/openbrender",
+      "source_sha": "1df9a2d3c5834bf706ccbfd7ebe7b5ecc5e80e4e",
+      "source_url": "https://api.github.com/repos/gptchatly/openbrender/stargazers/history",
+      "status": "unavailable"
+    },
     "greenbone/openvas-scanner": {
       "checked_at": "2026-10-15T23:34:55.975088+00:00",
       "last_good": {
@@ -90231,6 +90347,242 @@
       "repo": "hydra-db/open-glean",
       "source_sha": "5b86e38e38c617e2ea1fae4b68c6e42658ab5f8c",
       "source_url": "https://api.github.com/repos/hydra-db/open-glean/stargazers/history",
+      "status": "ok"
+    },
+    "ibmshaikh/openpilot": {
+      "checked_at": "2026-10-18T02:18:38.985744+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1791676800,
+          "oldest_week": 1785024000,
+          "repository_created_at": "2026-07-27T11:41:57+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-18T02:18:38.985744+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "1df9a2d3c5834bf706ccbfd7ebe7b5ecc5e80e4e",
+        "source_urls": [
+          "https://api.github.com/repos/ibmshaikh/openpilot/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              2,
+              4,
+              3,
+              2,
+              0,
+              0,
+              1
+            ],
+            "total": 12,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              3,
+              3
+            ],
+            "total": 6,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1787443200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786838400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786233600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1785628800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "total": 1,
+            "week": 1785024000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenPilot",
+      "readme_url": "https://github.com/ibmshaikh/openpilot",
+      "repo": "ibmshaikh/openpilot",
+      "source_sha": "1df9a2d3c5834bf706ccbfd7ebe7b5ecc5e80e4e",
+      "source_url": "https://api.github.com/repos/ibmshaikh/openpilot/stargazers/history",
       "status": "ok"
     },
     "icosa-foundation/open-brush": {
@@ -449007,6 +449359,190 @@
       "source_url": "https://api.github.com/repos/panarastudios/opensend.cc/stargazers/history",
       "status": "ok"
     },
+    "patlf/open-inspector": {
+      "checked_at": "2026-10-18T02:18:38.985744+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1791676800,
+          "oldest_week": 1787443200,
+          "repository_created_at": "2026-08-26T18:30:39+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-18T02:18:38.985744+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "1df9a2d3c5834bf706ccbfd7ebe7b5ecc5e80e4e",
+        "source_urls": [
+          "https://api.github.com/repos/patlf/open-inspector/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              3,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "total": 5,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              9,
+              8
+            ],
+            "total": 17,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1787443200
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "Open Inspector",
+      "readme_url": "https://github.com/patlf/open-inspector",
+      "repo": "patlf/open-inspector",
+      "source_sha": "1df9a2d3c5834bf706ccbfd7ebe7b5ecc5e80e4e",
+      "source_url": "https://api.github.com/repos/patlf/open-inspector/stargazers/history",
+      "status": "ok"
+    },
     "petoicamp/opencat-quadruped-robot": {
       "checked_at": "2026-10-15T23:34:55.975088+00:00",
       "last_good": {
@@ -506246,12 +506782,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
-    "due_repositories": 136,
+    "attempted_repositories": 4,
+    "due_repositories": 87,
     "eligible_repositories": 475,
-    "unattempted_repositories": 136
+    "unattempted_repositories": 83
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "3322a66577b682a3005a22d04d87de4eb2d64108",
-  "updated_at": "2026-10-17T17:28:46.747171+00:00"
+  "source_sha": "1df9a2d3c5834bf706ccbfd7ebe7b5ecc5e80e4e",
+  "updated_at": "2026-10-18T02:18:38.985744+00:00"
 }
