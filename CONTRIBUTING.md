@@ -295,6 +295,16 @@ reported a move to repository ID `1391454845`, and the
 reports that same ID as `openOMSI-org/openOMSI`. The endpoint mapping uses the
 collector's normalized lowercase spelling.
 
+`gptchatly/openbrender` → `gptchatly/drawplotia` was verified on 2026-10-18:
+the [old repository API path](https://api.github.com/repos/gptchatly/openbrender)
+returned HTTP 301 pointing to repository ID `1409342562`, and the
+[current repository API record](https://api.github.com/repos/GPTchatly/DrawPlotia)
+reports that same ID as `GPTchatly/DrawPlotia`. Its
+[official README](https://github.com/GPTchatly/DrawPlotia/blob/main/README.md)
+still identifies “OpenBRender 0.1.0” and links the OpenBRender application at
+`openbrender.gptchatly.com`. Only the normalized history endpoint changes;
+the catalog display name remains OpenBRender.
+
 These mappings are in `REVIEWED_REPOSITORY_RENAMES` in
 `scripts/update_star_history.py`; they apply to ordinary history collection and
 the bounded backfill. They add no request or permission.

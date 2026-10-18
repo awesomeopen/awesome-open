@@ -49,6 +49,8 @@ REVIEWED_REPOSITORY_RENAMES = {
     'openremote/openremote': 'openremote/core',
     # Reviewed 2026-10-17: both API identities resolve to repository 1391454845.
     'openomsi-project/openomsi': 'openomsi-org/openomsi',
+    # Reviewed 2026-10-18: both API identities resolve to repository 1409342562.
+    'gptchatly/openbrender': 'gptchatly/drawplotia',
 }
 
 
