@@ -214,6 +214,56 @@
     return result;
   }
 
+  /* Reviewed pronunciations only: one non-chaining rhyme key per canonical ID.
+     Distinct names and onsets exclude duplicate-only and homophone-only groups. */
+  function rhymingNames(projects) {
+    var unique = new Map(projects.map(function (project) { return [project.id, project]; }));
+    var buckets = new Map(), result = { groups: [], tool_count: 0, reviewed_count: 0 };
+    Array.from(unique.values()).sort(function (a, b) { return compareName(a.name, b.name) || compareName(a.id, b.id); }).forEach(function (project) {
+      var rhyme = project.rhyme;
+      if (!rhyme || rhyme.language !== 'en-US' || typeof rhyme.key !== 'string' || !rhyme.key ||
+          typeof rhyme.onset !== 'string' || typeof rhyme.pronunciation !== 'string' || !rhyme.pronunciation) return;
+      result.reviewed_count += 1;
+      if (!buckets.has(rhyme.key)) buckets.set(rhyme.key, []);
+      buckets.get(rhyme.key).push(project);
+    });
+    Array.from(buckets.keys()).sort(compareText).forEach(function (key) {
+      var rows = buckets.get(key);
+      if (rows.length < 2 || new Set(rows.map(function (project) { return nameKey(project.name); })).size < 2 ||
+          new Set(rows.map(function (project) { return project.rhyme.onset; })).size < 2) return;
+      result.groups.push({ key: key, language: 'en-US', projects: rows });
+      result.tool_count += rows.length;
+    });
+    return result;
+  }
+
+  function renderRhymingNames(doc, result) {
+    var list = doc.getElementById('rhyme-group-list');
+    if (!list) return;
+    var fragment = doc.createDocumentFragment();
+    var ledgerBase = list.dataset.ledgerBase || '../';
+    result.groups.forEach(function (group) {
+      var section = element(doc, 'section', 'obs-rhyme-group');
+      section.dataset.rhymeKey = group.key;
+      section.appendChild(element(doc, 'h3', 'obs-label', group.key + ' · ' + group.projects.length + ' tools'));
+      var links = element(doc, 'ul', 'obs-rhyme-projects');
+      group.projects.forEach(function (project) {
+        var item = element(doc, 'li'), link = element(doc, 'a', null, project.name);
+        link.href = ledgerBase + '#project-' + project.id;
+        item.append(link, element(doc, 'span', 'obs-muted', '(' + project.url.replace(/^https?:\/\/(github\.com\/)?/, '') + ') · ' + project.rhyme.pronunciation));
+        links.appendChild(item);
+      });
+      section.appendChild(links);
+      fragment.appendChild(section);
+    });
+    if (!result.groups.length) fragment.appendChild(element(doc, 'p', 'obs-muted', 'No reviewed rhyming names in this selection.'));
+    list.replaceChildren(fragment);
+    var total = doc.getElementById('rhyme-count');
+    if (total) total.textContent = formatNumber(result.tool_count);
+    var summary = doc.getElementById('rhyme-group-summary');
+    if (summary) summary.textContent = result.groups.length + ' groups · ' + result.reviewed_count + ' reviewed readings';
+  }
+
   function element(doc, tag, className, text) {
     var node = doc.createElement(tag);
     if (className) node.className = className;
@@ -351,6 +401,7 @@
     var release = dateHistogram(projects, 'release_at', data.metrics_as_of, RECENCY_BOUNDS, RECENCY_LABELS);
     return {
       sharedNames: sharedNames(projects),
+      rhymingNames: rhymingNames(projects),
       filters: filters,
       projects: projects,
       metrics: {
@@ -515,6 +566,7 @@
       if (projectCount) projectCount.textContent = formatNumber(result.metrics.total);
       if (reset) reset.disabled = result.filters.category === 'all' && result.filters.license === 'all';
       renderSharedNames(doc, result.sharedNames, categoryMap);
+      renderRhymingNames(doc, result.rhymingNames);
       renderChart(doc, doc.getElementById('category-chart'), result.categories);
       renderChart(doc, doc.getElementById('license-chart'), result.licenses);
       renderChart(doc, doc.getElementById('star-chart'), result.concentration.rows, 'stars');
@@ -558,7 +610,7 @@
     normalizeFilters: normalizeFilters, readFilters: readFilters, filterSearch: filterSearch,
     filterProjects: filterProjects, isoDay: isoDay, dateHistogram: dateHistogram,
     categoryCounts: categoryCounts, licenseCounts: licenseCounts, starConcentration: starConcentration,
-    nameKey: nameKey, sharedNames: sharedNames, aggregate: aggregate, csvCell: csvCell, exportCSV: exportCSV,
-    renderChart: renderChart, renderSharedNames: renderSharedNames, init: init
+    nameKey: nameKey, sharedNames: sharedNames, rhymingNames: rhymingNames, aggregate: aggregate, csvCell: csvCell, exportCSV: exportCSV,
+    renderChart: renderChart, renderSharedNames: renderSharedNames, renderRhymingNames: renderRhymingNames, init: init
   };
 }));

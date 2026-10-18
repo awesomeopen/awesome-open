@@ -263,3 +263,83 @@ test('shared search aliases never create Observatory display-name groups', () =>
   const without = rows.map(({aliases, ...row}) => row);
   assert.deepEqual(observatory.sharedNames(rows), observatory.sharedNames(without));
 });
+
+function rhymingProject(id, name, key, onset, overrides = {}) {
+  return project({ id, name, rhyme: { key, onset, pronunciation: '/' + onset + key + '/', language: 'en-US' }, ...overrides });
+}
+
+test('reviewed rhymes use distinct identities, names and onsets without changing shared names', () => {
+  const chat = rhymingProject('chat', 'OpenChat', 'AE1 T', 'tʃ');
+  const rows = [chat, chat, rhymingProject('cat', 'OpenCat', 'AE1 T', 'k'), rhymingProject('vat', 'OpenVat', 'AE1 T', 'v'),
+    rhymingProject('shell', 'OpenShell', 'EH1 L', 'ʃ'), rhymingProject('spell', 'OpenSpell', 'EH1 L', 'sp'),
+    rhymingProject('bell', 'Openbell', 'EH1 L', 'b'), project({ id: 'unreviewed', name: 'OpenMat' })];
+  const result = observatory.rhymingNames(rows);
+  assert.equal(result.tool_count, 6);
+  assert.equal(result.reviewed_count, 6);
+  assert.deepEqual(result.groups.map(group => group.key), ['AE1 T', 'EH1 L']);
+  assert.deepEqual(result.groups.map(group => group.projects.map(row => row.id)), [['cat', 'chat', 'vat'], ['shell', 'spell', 'bell']]);
+  assert.deepEqual(observatory.rhymingNames(rows.slice().reverse()), result);
+  assert.equal(observatory.aggregate(index(rows)).sharedNames.tool_count, 0);
+  assert.deepEqual(observatory.aggregate(index(rows)).rhymingNames, result);
+});
+
+test('duplicate-only, spelling-only, homophone-only and unreviewed matches are excluded', () => {
+  for (const rows of [
+    [rhymingProject('a', 'OpenCat', 'AE1 T', 'k'), rhymingProject('b', 'OpenCat', 'AE1 T', 'x')],
+    [rhymingProject('a', 'OpenCat', 'AE1 T', 'k'), rhymingProject('b', 'Open-Cat', 'AE1 T', 'x')],
+    [rhymingProject('a', 'OpenSee', 'ee', 's'), rhymingProject('b', 'OpenSea', 'ee', 's')],
+    [rhymingProject('a', 'OpenCat', 'AE1 T', 'k'), project({ id: 'b', name: 'OpenChat' })],
+    [rhymingProject('a', 'OpenCat', 'AE1 T', 'k'), rhymingProject('b', 'OpenChat', 'EH1 L', 'tʃ')],
+  ]) assert.equal(observatory.rhymingNames(rows).tool_count, 0);
+});
+
+test('rhyme selection recomputes eligibility and coverage at fewer than two survivors', () => {
+  const data = index([
+    rhymingProject('cat', 'OpenCat', 'AE1 T', 'k', { categories: ['one', 'two'], license: 'MIT' }),
+    rhymingProject('chat', 'OpenChat', 'AE1 T', 'tʃ', { categories: ['one'], license: 'MIT' }),
+    rhymingProject('vat', 'OpenVat', 'AE1 T', 'v', { categories: ['two'] }),
+  ]);
+  assert.equal(observatory.aggregate(data).rhymingNames.tool_count, 3);
+  assert.equal(observatory.aggregate(data, { category: 'one' }).rhymingNames.tool_count, 2);
+  const one = observatory.aggregate(data, { category: 'two', license: 'known' }).rhymingNames;
+  assert.deepEqual(one, { groups: [], tool_count: 0, reviewed_count: 1 });
+  assert.deepEqual(observatory.aggregate(data, { category: 'one', license: 'unknown' }).rhymingNames,
+    { groups: [], tool_count: 0, reviewed_count: 0 });
+  assert.equal(observatory.aggregate(data).rhymingNames.tool_count, 3);
+});
+
+test('invalid rhyme annotations are not counted as reviewed and empty onsets remain valid', () => {
+  const valid = rhymingProject('a', 'OpenAt', 'AE1 T', '');
+  const cat = rhymingProject('b', 'OpenCat', 'AE1 T', 'k');
+  const invalid = [null, {}, { ...cat.rhyme, language: 'other' }, { ...cat.rhyme, key: '' }, { ...cat.rhyme, onset: null }, { ...cat.rhyme, pronunciation: '' }];
+  const rows = [valid, cat, ...invalid.map((rhyme, i) => project({ id: 'invalid-' + i, rhyme }))];
+  assert.equal(observatory.rhymingNames(rows).reviewed_count, 2);
+  assert.equal(observatory.rhymingNames(rows).tool_count, 2);
+});
+
+test('rhyme renderer keeps names as text, linked IDs, selected coverage and empty disclosure', () => {
+  class Node {
+    constructor(tag) { this.tag = tag; this.children = []; this.dataset = {}; this.textContent = ''; }
+    append(...nodes) { this.children.push(...nodes); }
+    appendChild(node) { this.children.push(node); return node; }
+    replaceChildren(...nodes) { this.children = nodes; }
+  }
+  const ids = new Map(['rhyme-count', 'rhyme-group-summary', 'rhyme-group-list'].map(id => [id, new Node('div')]));
+  const doc = { createElement: tag => new Node(tag), createDocumentFragment: () => new Node('fragment'), getElementById: id => ids.get(id) };
+  const rows = [rhymingProject('cat', 'OpenCat', 'AE1 T', 'K'), rhymingProject('chat', '<OpenChat>', 'AE1 T', 'CH')];
+  observatory.renderRhymingNames(doc, observatory.rhymingNames(rows));
+  assert.equal(ids.get('rhyme-count').textContent, '2');
+  assert.equal(ids.get('rhyme-group-summary').textContent, '1 groups · 2 reviewed readings');
+  const group = ids.get('rhyme-group-list').children[0].children[0];
+  assert.equal(group.dataset.rhymeKey, 'AE1 T');
+  const links = group.children[1].children.map(item => item.children[0]);
+  assert.deepEqual(links.map(link => [link.textContent, link.href]), [['<OpenChat>', '../#project-chat'], ['OpenCat', '../#project-cat']]);
+  ids.get('rhyme-group-list').dataset.ledgerBase = 'https://awesomeopen.github.io/awesome-open/';
+  observatory.renderRhymingNames(doc, observatory.rhymingNames(rows));
+  const standalone = ids.get('rhyme-group-list').children[0].children[0].children[1].children[0].children[0];
+  assert.equal(standalone.href, 'https://awesomeopen.github.io/awesome-open/#project-chat');
+  observatory.renderRhymingNames(doc, observatory.rhymingNames(rows.slice(0, 1)));
+  assert.equal(ids.get('rhyme-count').textContent, '0');
+  assert.equal(ids.get('rhyme-group-summary').textContent, '0 groups · 1 reviewed readings');
+  assert.equal(ids.get('rhyme-group-list').children[0].children[0].textContent, 'No reviewed rhyming names in this selection.');
+});

@@ -109,3 +109,38 @@ Run `python3 -m unittest discover -s scripts -p 'test_*.py'`,
 browser check invokes `scripts/check_observatory_browser.cjs`, retaining route
 screenshots and a source manifest in the existing browser artifact. No new
 workflow, permissions, dependencies or public preview host is needed.
+
+## Reviewed rhyming names
+
+The separate clickable “tools have rhyming names” disclosure is a bounded
+editorial measure, not another shared-name category. It does not increase the
+shared-name headline. A project can occur in both measures; totals are not additive.
+Native HTML shows the reviewed groups without JavaScript. Category/license
+filters recalculate both participation and reviewed-reading coverage.
+
+`data/name_rhymes.json` owns the small reviewed subset. Records bind the exact
+current displayed name to its canonical project URL, resolved to the existing
+project ID. Build validation rejects unknown URLs, duplicate IDs, name drift,
+invalid phonemes and inconsistent onset/ending decomposition. The index and
+snapshot preserve review date, reviewer, source URL and explicit assumption basis.
+Missing records mean unclassified, never a claim that the name cannot rhyme.
+
+The initial seven project readings form two groups: OpenChat (two separate
+projects), OpenCat and OpenVat; OpenShell, OpenSpell and Openbell. They use ordinary
+American English readings of the single-syllable remainder after Open. Official
+source links establish names, not officially approved pronunciation. The display
+states this limitation. A key consists of the final stressed vowel and subsequent
+sounds in ARPABET; `1` marks primary stress. A group needs at least two different
+normalized display names and two different preceding consonant onsets. Identical
+names alone, homophones alone and identical terminal words do not form groups.
+A duplicate-named project can participate when another genuinely rhyming name is
+present, but each canonical ID counts once. Language and exact ending form the
+bucket, so groups cannot chain.
+
+Aliases and abbreviations are never expanded or added to rhyme matching. There
+is no suffix-letter heuristic, automatic pronunciation service or browser API.
+Acronyms, invented words, numbers, ambiguous and non-English readings remain
+unclassified in this initial subset. The initial validator deliberately accepts
+single-syllable ARPABET remainders only; broadening coverage or languages requires
+reviewing that contract rather than guessing. No catalog identity, HN attribution,
+workflow, collection budget, credential, dependency or hosting change is involved.
