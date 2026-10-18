@@ -102,7 +102,11 @@ For each eligible model and voice, compare:
 
 Repeat across multiple seeds where supported. Pin checkpoint revision, runtime,
 quantization, conditioning and settings. Record prompt, spoken text, generated
-duration, generation time and all failures, not just the selected best output.
+duration, generation time (cold startup and warmed inference separately) and all failures,
+not just the selected best output.
+Listening must be performed by a person or an actually available audio-capable
+reviewer; text inspection alone cannot approve sound. Ask the owner to audition
+the pilot when no verified listening capability is available.
 Compare neutral and unusual descriptions under the same conditions. Audition
 blind when practical, scoring complete name accuracy, extra/omitted speech,
 onset/ending artifacts, intelligibility and repeatable character. Transcription
