@@ -88,9 +88,9 @@ const path=require('node:path');
    await first.focus();
    await page.mouse.move(x,200);
    await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
-   await page.locator('.specimen-idle').evaluateAll(nodes=>nodes.forEach(n=>{
-     for(const a of n.getAnimations()){a.pause();a.currentTime=a.effect.getTiming().delay+a.effect.getTiming().duration*.08;}
-   }));
+   await page.locator('.specimen-idle').evaluateAll((nodes,phase)=>nodes.forEach(n=>{
+     for(const a of n.getAnimations()){a.pause();a.currentTime=a.effect.getTiming().delay+a.effect.getTiming().duration*phase;}
+   }),label==='left'?.16:.08);
    await checkSubjectClearance();
    await page.screenshot({path:`tmp/site-qa/jars-fit-motion-${label}.png`});
  }
