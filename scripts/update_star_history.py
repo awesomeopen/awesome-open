@@ -53,6 +53,8 @@ REVIEWED_REPOSITORY_RENAMES = {
     'gptchatly/openbrender': 'gptchatly/drawplotia',
     # Reviewed 2026-10-19: both API identities resolve to repository 1412123384.
     'sophontrace/opennex': 'sophontrace/openlnku',
+    # Reviewed 2026-10-19: both API identities resolve to repository 1414588015.
+    'hzdavy/openmijia': 'hzdavy/openmexia',
 }
 
 

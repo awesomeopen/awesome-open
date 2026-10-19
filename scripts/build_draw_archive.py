@@ -3,6 +3,7 @@
 The page uses the Observatory route shell (B42): its header, column, section
 labels, closing mark and footer come from ../observatory/observatory.css.
 """
+from font_assets import font_asset_url
 from datetime import date, timedelta
 from html import escape
 import json
@@ -14,9 +15,9 @@ from weekly_draw import visible
 REPOSITORY = 'https://github.com/awesomeopen/awesome-open'
 
 
-def week_range(week):
-    end = date.fromisoformat(week) + timedelta(days=6)
-    return f'{week} — {end.isoformat()}'
+def week_label(week):
+    year, number, _ = date.fromisoformat(week).isocalendar()
+    return f'{year}-W{number:02d}'
 
 
 def specimen_html(project, status, output, root, categories, current_ids):
@@ -41,11 +42,11 @@ def specimen_html(project, status, output, root, categories, current_ids):
 
 
 def edition_html(edition, rows, latest):
-    week = edition['display_week']
+    week = week_label(edition['display_week'])
     label = 'This week' if latest else 'Earlier edition'
-    return f'''<section id="week-{week}" class="draw-edition{" is-latest" if latest else ""}" aria-labelledby="week-{week}-heading">
+    return f'''<section id="{week}" class="draw-edition{" is-latest" if latest else ""}" aria-labelledby="{week}-heading">
 <p><span class="obs-label">{label}</span></p>
-<h2 id="week-{week}-heading"><a href="#week-{week}">{week_range(week)}</a></h2>
+<h2 id="{week}-heading"><a href="#{week}">{week}</a></h2>
 <ol class="draw-projects">{''.join(rows)}</ol>
 <details class="obs-disclosure draw-record"><summary>Draw record <span class="obs-muted">drawn {edition['recorded_on']} · {edition['eligible_count']} illustrated · {len(edition['candidates'])} after cooldown</span></summary><dl class="draw-record-list"><div><dt>Draw week</dt><dd>{edition['draw_week']}</dd></div><div><dt>Cooldown</dt><dd>{edition['cooldown_weeks']} weeks</dd></div><div><dt>Algorithm</dt><dd>{escape(edition['algorithm'])}</dd></div><div><dt>Seed</dt><dd class="draw-seed">{escape(edition['seed'])}</dd></div></dl></details></section>'''
 
@@ -54,7 +55,7 @@ def metrics_html(editions, total_projects):
     latest = editions[-1] if editions else None
     seen = {p['id'] for e in editions for p in e['projects']}
     items = [
-        ('Current edition', 'Week of ' + latest['display_week'] if latest else 'None yet'),
+        ('Current edition', week_label(latest['display_week']) if latest else 'None yet'),
         ('Editions shown', f'{len(editions):,}'),
         ('Projects shown so far', f'{len(seen):,} <span class="obs-of">/ {total_projects:,}</span>'),
         ('Eligible at last draw', f'{latest["eligible_count"]:,}' if latest else 'None yet'),
@@ -67,7 +68,7 @@ def metrics_html(editions, total_projects):
 
 def build(catalog, doc, output, root):
     output, root = Path(output), Path(root)
-    target = output / 'draws'
+    target = output / 'spotlight'
     target.mkdir(exist_ok=True)
     categories = {c['id']: c['name'] for c in catalog['categories']}
     current_ids = {p['id'] for p in catalog['projects']}
@@ -91,16 +92,15 @@ def build(catalog, doc, output, root):
         if revision else 'Local preview; source revision not supplied'
     )
     page = f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Spotlight</title><meta name="description" content="Seven illustrated Awesome Open projects, drawn each week and shown the following week, with every past edition."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../vendor/fonts.css"><link rel="stylesheet" href="../tokens.css"><script src="../serif-preview.js" defer></script><link rel="stylesheet" href="../observatory/observatory.css"><link rel="stylesheet" href="draws.css"></head>
-<body class="observatory draws"><a class="skip-link" href="#draws">Skip to spotlight</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../#about">About</a><a href="../observatory/">Observatory</a><a href="./" aria-current="page">Spotlight</a></nav></header></div>
-<main id="draws" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Spotlight</h1></section>
-<nav class="obs-jump draw-jump" aria-label="Sections"><a href="#editions">Editions</a><a href="#method">How the draw works</a><a href="draws.json" download>Download draw records</a></nav>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Spotlight</title><meta name="description" content="Seven illustrated Awesome Open projects, drawn each week and shown the following week, with every past edition."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><script src="../{font_asset_url('serif-preview.js', root)}" defer></script><link rel="stylesheet" href="../observatory/observatory.css"><link rel="stylesheet" href="draws.css"></head>
+<body class="observatory draws"><a class="skip-link" href="#spotlight">Skip to spotlight</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../#about">About</a><a href="./" aria-current="page">Spotlight</a></nav></header></div>
+<main id="spotlight" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Spotlight</h1></section>
+<nav class="obs-jump draw-jump" aria-label="Sections" hidden><a href="#editions">Editions</a><a href="draws.json" download>Download draw records</a></nav>
 {metrics_html(editions, len(catalog['projects']))}
-<aside class="obs-finding draw-finding"><p id="obs-finding-text">Seven illustrated projects, drawn at random each week and shown the following week. Stars do not affect the draw.</p></aside>
 <div id="editions">{''.join(sections)}</div>
-<section id="method" class="obs-section draw-method" aria-labelledby="method-heading"><p><span class="obs-label">Method</span></p><h2 id="method-heading">How the draw works</h2><div class="draw-method-text"><p>Every catalog project with an approved, present specimen illustration is eligible. Stars, category rank and repository order do not affect selection. A project that appeared in one of the four preceding weeks sits out.</p><p>Weeks run Monday–Sunday in America/New_York. Each draw is seeded by its week and is reproducible from the published record. Jar positions in the ledger header follow illustration fit, not draw order. If a new draw cannot be made, the latest available group stays in the header.</p><p><a href="draws.json" download>Download draw records</a> · <a href="{REPOSITORY}/blob/main/site/WEEKLY-DRAWS.md">Draw contract</a></p></div></section></div>
+</div>
 <div class="obs-closing-mark"><img class="obs-logo" src="../brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo"></div></main>
-<footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Spotlight</p><ul class="obs-footer-links"><li><a href="../">Return to project ledger</a></li><li><a href="../observatory/">Observatory</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li></ul></div></footer></body></html>'''
+<footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Spotlight</p><ul class="obs-footer-links"><li><a href="draws.json" download>Download draw records</a> · <a href="{REPOSITORY}/blob/main/site/WEEKLY-DRAWS.md">Draw contract</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li></ul></div></footer></body></html>'''
     (target / 'index.html').write_text(page)
     # Pending draws are retained in the repository but not presented as past displays.
     (target / 'draws.json').write_text(json.dumps({**doc, 'editions': editions}, indent=2, ensure_ascii=False) + '\n')

@@ -2,8 +2,10 @@
 
 The hero draws seven distinct catalog projects with approved, present specimen
 illustrations. GitHub presence, stars and category rank do not affect eligibility.
-Selection is independent of jar fit. The seven photographic jars, their order,
-heights, shadows, stickers, cork and interactions stay unchanged. Specimen interiors
+Selection is independent of jar fit. The seven photographic jars retain their
+windows, heights, shadows, stickers, cork and interactions. Their left-to-right
+order is original jars 1, 2, 5, 3, 4, 6, 7; occupants move with their vessels
+([jar order](../brand/decisions/B-PR134-02.md)). Specimen interiors
 are calibrated separately from the glass-light and crack geometry.
 
 ## Calendar and publication
@@ -75,8 +77,11 @@ specimens, new artwork or different vessels require a separate decision. Visual
 review must compare actual before/after pixels and the supplied reference;
 passing containment tests alone does not establish the intended composition.
 
-`/draws/` shows current and past scheduled editions, newest first, with permanent
-`#week-YYYY-MM-DD` links. Show saved names/functions/categories, illustrations when
+`/spotlight/` shows current and past scheduled editions, newest first, with permanent
+`#YYYY-WNN` ISO week links, such as `/spotlight/#2026-W43` for the display week
+beginning 2026-10-19. Use the ISO week year even at calendar-year boundaries.
+Current-edition values and edition headings use the same label; saved record dates
+retain their existing ISO date format. Show saved names/functions/categories, illustrations when
 still present, first/returning appearance and literal draw details. Stars are not
 a selection metric and are omitted. Future draws remain committed evidence but
 are omitted from the archive listing/download until their display week. Snapshot
@@ -87,7 +92,10 @@ The standalone ledger links to the hosted archive; no jar animation is embedded.
 
 The page uses the Observatory route shell (B42, B44): shared header and nav,
 display heading, four literal metrics (current edition, editions shown, distinct
-projects shown, eligible count at the last draw), a mist scope band, then the
-latest edition as a four-column specimen tray and earlier editions as a compact
-seven-column tray. Each edition folds its draw record; the method and download
-follow, then the closing mark and patterned footer with source revision.
+projects shown, eligible count at the last draw), then the latest edition as a four-column specimen tray and earlier editions as a compact
+seven-column tray. Each edition folds its draw record. The scope and method
+blocks are omitted; the section jump navigation is hidden. Spotlight has no
+Observatory links or Return to project ledger footer link. The closing mark and
+patterned footer remain; Download draw records · Draw contract appears immediately
+above GitHub, followed by the source revision. The download is
+`/spotlight/draws.json`. See [the route decision](../brand/decisions/B-PR134-01.md).

@@ -671,6 +671,7 @@ const path = require('node:path');
     assert.deepEqual(errors, []);
     await require('./check_star_history_browser.cjs')({ page, url, data, capture });
     await require('./check_plate_browser.cjs')({ page, url, data, capture });
+    await require('./check_history_browser.cjs')({ page, url, data, capture });
     await require('./check_observatory_browser.cjs')({ browser, url });
     await require('./check_serif_preview_browser.cjs')({ browser, url, data, output });
     assert.deepEqual(errors, []);

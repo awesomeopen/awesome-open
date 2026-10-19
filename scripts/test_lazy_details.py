@@ -1,4 +1,5 @@
 """Initial-memory budget and native fallback contracts, without network or a browser."""
+from font_assets import font_asset_url
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 import json
@@ -26,7 +27,7 @@ class LazyDetailSiteTests(unittest.TestCase):
         for path in [self.output / 'index.html', *sorted((self.output / 'records').glob('*.html'))]:
             page = Page(path.read_text())
             scripts = [node.attrs['src'] for node in page.nodes('script') if 'src' in node.attrs]
-            self.assertEqual(scripts, ["serif-preview.js", expected], path.name)
+            self.assertEqual(scripts, [font_asset_url("serif-preview.js"), expected], path.name)
         # A metadata-only revision keeps the same runtime identity; raw renderer
         # callers remain compatible with historical preview tooling.
         for revision in ('b' * 40, 'c' * 40):
@@ -87,6 +88,8 @@ class LazyDetailSiteTests(unittest.TestCase):
             self.assertIn('open', drawer.attrs)
             expected = project_html(project, categories, self.catalog, folio, cutouts, position=1)
             expected = expected.replace('<details class="specimen-drawer">', '<details class="specimen-drawer" open>', 1)
+            expected = expected.replace(f'href="#history-{pid}-',
+                                        f'href="records/{pid}.html#history-{pid}-')
             self.assertIn(expected, text)
             self.assertIn(project['url'], page.links)
             self.assertIn(f'#project-{pid}', page.links)

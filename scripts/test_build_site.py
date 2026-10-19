@@ -4,6 +4,7 @@ import copy
 import base64
 from html.parser import HTMLParser
 import json
+from font_assets import font_asset_url
 from pathlib import Path
 import re
 import shutil
@@ -16,7 +17,7 @@ from build_site import BRAND_ASSETS, ROOT, attach_specimen_cutouts, build, json_
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
-RUNTIME_SCRIPTS = ('serif-preview.js', 'catalog.js')
+RUNTIME_SCRIPTS = (font_asset_url('serif-preview.js'), 'catalog.js')
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 
 
@@ -186,7 +187,17 @@ class SiteTests(unittest.TestCase):
         self.assertIn('<title>Awesome Open* Catalog</title>', self.html)
         self.assertIn('href="#about">About</a>', self.html)
         self.assertEqual(self.page.by_id['about'].tag, 'footer')
-        self.assertIn('href="draws/">Spotlight</a>', self.html)
+        self.assertIn('href="spotlight/">Spotlight</a>', self.html)
+        standalone = (self.output / 'standalone.html').read_text()
+        self.assertIn('href="https://awesomeopen.github.io/awesome-open/spotlight/"', standalone)
+        record = next((self.output / 'records').glob('*.html')).read_text()
+        self.assertIn('href="spotlight/"', record)
+        for document in (self.html, standalone, record):
+            self.assertNotIn('href="draws/"', document)
+            self.assertNotIn('awesome-open/draws/', document)
+        self.assertTrue((self.output / 'spotlight/index.html').is_file())
+        self.assertTrue((self.output / 'spotlight/draws.json').is_file())
+
         self.assertIn('href="https://github.com/awesomeopen/awesome-open">GitHub</a><a href="#catalog">Top</a>', self.html)
         self.assertIn('shared square-root scale</li><li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>', self.html)
 
@@ -236,7 +247,10 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(len(scripts), len(RUNTIME_SCRIPTS) + 1)
         self.assertEqual([node.attrs.get('src') for node in scripts[:-1]], list(RUNTIME_SCRIPTS))
         for node in scripts[:-1]:
-            self.assertIn('defer', node.attrs)
+            if node.attrs.get('src') == font_asset_url('serif-preview.js'):
+                self.assertNotIn('defer', node.attrs)
+            else:
+                self.assertIn('defer', node.attrs)
             self.assertEqual(node.text, '')
         self.assertEqual(scripts[-1].attrs, {'id': 'catalog-data', 'type': 'application/json'})
         for node in page.elements:
@@ -248,6 +262,7 @@ class SiteTests(unittest.TestCase):
         self.assert_safe_script_allowlist(self.page)
         self.assertEqual(json.loads(self.page.by_id['catalog-data'].text), search_index(self.catalog))
         for name in RUNTIME_SCRIPTS:
+            name = name.split('?')[0]
             self.assertEqual((self.output / name).read_bytes(), (ROOT / 'site' / name).read_bytes())
 
     def test_search_index_contains_only_runtime_fields_without_mutating_catalog(self):
