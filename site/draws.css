@@ -1,10 +1,9 @@
-/* Weekly draws (/draws/). The route shell, labels, metrics, finding band,
+/* Spotlight (/spotlight/). The route shell, labels, metrics,
    disclosures, closing mark and footer come from observatory.css (B42).
    This file only lays out the specimen tray and its records. */
 .draw-jump { margin: 0 0 8px; }
 .draw-metrics { margin-top: 48px; margin-bottom: 0; }
 .draw-metrics [data-metric] { font-size: clamp(20px, 2.2vw, 28px); }
-.draw-finding { grid-template-columns: minmax(0, 1fr); }
 
 .draw-edition { margin-top: 96px; scroll-margin-top: 24px; }
 .draw-edition h2 { margin: 16px 0 40px; }
@@ -32,7 +31,6 @@
 .draw-seed { overflow-wrap: anywhere; }
 
 .draw-empty-text { font: 300 clamp(22px, 2.6vw, 30px)/1.22 var(--rs-display, Georgia, serif); font-variation-settings: 'SOFT' 100, 'WONK' 1; max-width: 32ch; margin-top: 16px; }
-.draw-method-text { display: grid; gap: 12px; max-width: 72ch; }
 
 @media (max-width: 1000px) {
   .draw-projects { grid-template-columns: repeat(3, minmax(0, 1fr)); }

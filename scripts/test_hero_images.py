@@ -118,4 +118,4 @@ class HeroImageTests(unittest.TestCase):
                 self.assertTrue((output / img['src']).is_file())
                 self.assertIn('transform:translate(', img['style'])
             self.assertNotIn('class="jar-draw-link"', (output / 'index.html').read_text())
-            self.assertIn('href="draws/"', (output / 'index.html').read_text())
+            self.assertIn('href="spotlight/"', (output / 'index.html').read_text())
