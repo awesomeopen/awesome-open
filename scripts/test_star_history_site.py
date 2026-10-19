@@ -105,6 +105,17 @@ class StarSiteTests(unittest.TestCase):
         self.assertEqual(updated['name'], original['name'])
         self.assertIsNotNone(updated['star_history']['chart_url'])
         self.assertIn('https://api.github.com/repos/sophontrace/openlnku/stargazers/history', star_history.render(updated))
+    def test_reviewed_openmijia_endpoint_preserves_project_id_and_chart_attachment(self):
+        from test_update_star_history import NOW, OPENMIJIA, pager, weekly_series
+        baseline = self.catalog()
+        original = next(p for p in baseline['projects'] if p['url'] == OPENMIJIA['readme_url'])
+        self.snapshot = collector.refresh([OPENMIJIA], now=NOW, getter=pager(weekly_series()))
+        updated = next(p for p in self.catalog()['projects'] if p['url'] == OPENMIJIA['readme_url'])
+        self.assertEqual(updated['id'], original['id'])
+        self.assertEqual(updated['url'], original['url'])
+        self.assertEqual(updated['name'], original['name'])
+        self.assertIsNotNone(updated['star_history']['chart_url'])
+        self.assertIn('https://api.github.com/repos/hzdavy/openmexia/stargazers/history', star_history.render(updated))
     def test_identity_and_invalid_counts_rejected_non_github_omitted(self):
         record=self.snapshot['repositories'][self.repo]
         record['repo']='wrong/repo'

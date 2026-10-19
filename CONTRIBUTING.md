@@ -313,6 +313,14 @@ reports that same ID as `SophonTrace/OpenLnku`. Only the normalized history
 endpoint changes; the existing OpenNex catalog name and URL remain unchanged.
 Any product-name update is a separate curated change.
 
+`hzdavy/openmijia` → `hzdavy/openmexia` was verified on 2026-10-19:
+the [old repository API path](https://api.github.com/repos/hzdavy/openmijia)
+returned HTTP 301 pointing to repository ID `1414588015`, and the
+[current repository API record](https://api.github.com/repos/HZDavy/OpenMexia)
+reports that same ID as `HZDavy/OpenMexia`. Only the normalized history
+endpoint changes; the existing OpenMijia catalog name and URL remain unchanged.
+Any product-name update is a separate curated change.
+
 These mappings are in `REVIEWED_REPOSITORY_RENAMES` in
 `scripts/update_star_history.py`; they apply to ordinary history collection and
 the bounded backfill. They add no request or permission.
