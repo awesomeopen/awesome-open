@@ -63,7 +63,7 @@ The self-contained download remains a motion-free ledger with embedded artwork, 
 
 On a hosted revision containing the switcher, append `?serif=fraunces`,
 `?serif=instrument`, or `?serif=poltawski` to the catalog, Observatory, Weekly
- draws, individual record or design-reference URL. The labeled preview control
+draws, individual record or design-reference URL. The labeled preview control
 switches between them and Exit preview restores the ordinary URL. Existing
 filters and fragments survive; same-site page links carry the choice. There is
 no cookie or localStorage preference. Plain or unrecognized URLs keep Fraunces.
