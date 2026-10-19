@@ -701,7 +701,7 @@ def metrics_html(counts):
     )
 
 
-def render(index, counts, covered, category_art=None):
+def render(index, counts, covered, category_art=None, root=None):
     category_art = category_art or {}
     esc = lambda v: escape(str(v), quote=True)
     revision = index["source_sha"]
@@ -840,7 +840,7 @@ def render(index, counts, covered, category_art=None):
         counts["shared_names"], categories, counts["total"], len(index["projects"])
     )
     return f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Observatory</title><meta name="description" content="A snapshot of the Awesome Open collection: categories, detected licenses, repository dates, stars and evidence coverage."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css')}"><link rel="stylesheet" href="../{font_asset_url('tokens.css')}"><script src="../{font_asset_url('serif-preview.js')}"></script><link rel="stylesheet" href="observatory.css"><script src="observatory.js" defer></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Observatory</title><meta name="description" content="A snapshot of the Awesome Open collection: categories, detected licenses, repository dates, stars and evidence coverage."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><script src="../{font_asset_url('serif-preview.js', root)}"></script><link rel="stylesheet" href="observatory.css"><script src="observatory.js" defer></script></head>
 <body class="observatory"><a class="skip-link" href="#observatory-main">Skip to observatory</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../#about">About</a><a href="./" aria-current="page">Observatory</a></nav></header></div>
 <main id="observatory-main" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><div class="obs-hero-copy"><h1>Collection <br />observatory</h1></div></section>
 <form id="observatory-filters" class="obs-filters" hidden aria-label="Filter observatory"><div class="obs-filters-row"><select id="category-filter" name="category" aria-label="Category"><option value="">All categories</option>{options}</select><select id="license-filter" name="license" aria-label="Detected license"><option value="all">Any license</option><option value="known">License detected</option><option value="unknown">License unknown</option></select><button id="reset-filters" type="button">Reset filters</button><nav class="obs-jump" aria-label="Sections"><a href="#shared-names">Names</a><a href="#charts">Charts</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a></nav></div></form>
@@ -865,7 +865,7 @@ def build(catalog, hn, output, root):
         c["id"]: "../" + c["artwork"]["variants"]["s"]["path"]
         for c in catalog["categories"] if c.get("artwork")
     }
-    page = render(index, counts, covered, category_art)
+    page = render(index, counts, covered, category_art, root=root)
     for name in ["observatory.css", "observatory.js"]:
         shutil.copyfile(root / "site" / name, target / name)
     snapshot = {**index, "aggregate": counts, "coverage": covered}
@@ -875,7 +875,7 @@ def build(catalog, hn, output, root):
     )
     (target / "projects.csv").write_text(csv_text(index), encoding="utf-8", newline="")
     (target / "index.html").write_text(page, encoding="utf-8")
-    report = page.replace(f'''<script src="../{font_asset_url('serif-preview.js')}"></script>''', "")
+    report = page.replace(f'''<script src="../{font_asset_url('serif-preview.js', root)}"></script>''', "")
     for source in category_art.values():
         encoded = base64.b64encode((root / "site" / source.removeprefix("../")).read_bytes()).decode("ascii")
         report = report.replace(
@@ -895,7 +895,7 @@ def build(catalog, hn, output, root):
             encoded = base64.b64encode((root / "site" / pattern).read_bytes()).decode("ascii")
             css = css.replace(f"url(../{pattern})", f"url(data:image/png;base64,{encoded})")
         report = report.replace(
-            f'<link rel="stylesheet" href="{"../" + font_asset_url(href.removeprefix("../")) if href.startswith("../") else href}">',
+            f'<link rel="stylesheet" href="{"../" + font_asset_url(href.removeprefix("../"), root) if href.startswith("../") else href}">',
             "<style>" + css + "</style>",
         )
     encoded = base64.b64encode((root / "site/observatory.js").read_bytes()).decode(

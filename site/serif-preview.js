@@ -8,6 +8,7 @@
   var base = new URL('./', document.currentScript.src);
   var selected = initial;
   var generation = 0;
+  var originalLinks = new WeakMap();
   var families = { fraunces: 'Fraunces', instrument: 'Instrument Serif', poltawski: 'Poltawski Nowy' };
   var status, select, panel;
   var message = '';
@@ -20,10 +21,18 @@
     var links = scope.querySelectorAll('a[href]');
     links.forEach(function (a) {
       if (a.hasAttribute('download') || a.dataset.serifExit !== undefined) return;
-      var url = new URL(a.getAttribute('href'), document.baseURI);
+      var original = originalLinks.get(a) || a.getAttribute('href');
+      if (original.startsWith('#')) return; // Keep same-document anchors native.
+      var explicit = new URL(location.href).searchParams.get('serif');
+      if (!Object.prototype.hasOwnProperty.call(choices, explicit)) {
+        if (originalLinks.has(a)) a.setAttribute('href', original);
+        return;
+      }
+      var url = new URL(original, document.baseURI);
       if (url.origin !== base.origin || !url.pathname.startsWith(base.pathname)) return;
       var path = url.pathname.slice(base.pathname.length);
       if (!/^(?:index\.html)?$|^(?:observatory|draws)\/(?:index\.html)?$|^records\/[^/]+\.html$|^design\/(?:index\.html)?$/.test(path)) return;
+      originalLinks.set(a, original);
       url.searchParams.set('serif', selected);
       if (a.href !== url.href) a.href = url.href;
     });

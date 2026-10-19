@@ -64,3 +64,19 @@ class SerifPreviewTests(unittest.TestCase):
             self.assertEqual(hashlib.sha256(data).hexdigest(), font['embedded_woff2_sha256'])
             self.assertEqual(len(data), font['embedded_bytes'])
         self.assertEqual(hashlib.sha256((vendor / 'fonts.css').read_bytes()).hexdigest(), provenance['output_css_sha256'])
+
+    def test_private_reference_hashes_and_custom_root(self):
+        import tempfile
+        from font_assets import font_asset_url, standalone_font_css
+        page = (ROOT / 'site/design/index.html').read_text()
+        for name in ['vendor/fonts.css', 'tokens.css', 'serif-preview.js']:
+            self.assertIn(font_asset_url(name), page)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'site').mkdir()
+            (root / 'site/serif-preview.js').write_text('different source')
+            self.assertNotEqual(font_asset_url('serif-preview.js', root), font_asset_url('serif-preview.js'))
+        historical = standalone_font_css(ROOT, serif='fraunces')
+        self.assertIn("font-family:'Fraunces'", historical)
+        self.assertNotIn("font-family:'Poltawski Nowy'", historical)
+        self.assertEqual(historical.count('data:font/woff2;base64,'), 2)

@@ -495,7 +495,7 @@ class ObservatoryBuildTests(unittest.TestCase):
         for node in self.page.nodes('script')+self.page.nodes('link')+self.page.nodes('img'):
             path=node.attrs.get('src') or node.attrs.get('href')
             if path and not path.startswith(('https:','http:','data:','#')):
-                self.assertTrue((self.output/'observatory'/path).is_file(),path)
+                self.assertTrue((self.output/'observatory'/path.split('?')[0]).is_file(),path)
         self.assertLessEqual(len(self.page.images),1)
 
     def test_standalone_embeds_runtime_and_downloads(self):

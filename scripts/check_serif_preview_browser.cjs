@@ -1,6 +1,7 @@
 /* Runs inside the existing serial field-guide browser check. */
 const assert = require('node:assert/strict');
 const path = require('node:path');
+const fs = require('node:fs');
 module.exports = async ({ browser, url, data, output }) => {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
   const page = await context.newPage();
@@ -25,6 +26,13 @@ module.exports = async ({ browser, url, data, output }) => {
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Horizontal overflow');
     assert.equal(await page.locator('#serif-preview-choice').inputValue(), choice);
   };
+  // The private reference is intentionally not published by the production builder.
+  await page.route(url + '/design/**', route => {
+    const pathname = new URL(route.request().url()).pathname;
+    const tokens = pathname.endsWith('/tokens.css');
+    route.fulfill({ contentType: tokens ? 'text/css' : 'text/html',
+      body: fs.readFileSync(path.join(__dirname, '../site/design/', tokens ? 'tokens.css' : 'index.html')) });
+  });
   try {
     for (const [suffix, choice] of [['', 'poltawski'], ['?serif=invalid', 'poltawski'], ['?serif=fraunces', 'fraunces'], ['?serif=instrument', 'instrument']]) {
       requests.length = 0; await page.goto(url + '/' + suffix); await check(choice);
@@ -33,6 +41,7 @@ module.exports = async ({ browser, url, data, output }) => {
       assert.equal(await page.locator('.serif-preview').count(), 1);
     }
     await page.goto(url + '/'); await check('poltawski');
+    assert.equal(await page.locator('a[href="#catalog"]').count() > 0, true, 'Default anchors remain same-document links');
     await page.screenshot({ path: path.join(output, 'serif-poltawski-default-desktop.png') });
     await page.locator('#serif-preview-choice').focus();
     assert.equal(await page.locator('#serif-preview-choice').evaluate(node => getComputedStyle(node).outlineStyle), 'solid');
@@ -49,7 +58,7 @@ module.exports = async ({ browser, url, data, output }) => {
     await page.reload(); await check('instrument');
     const record = data.projects.find(p => p.artwork) || data.projects[0];
     for (const choice of ['instrument', 'poltawski', 'fraunces']) {
-      for (const route of ['/', '/observatory/', '/draws/', '/records/' + record.id + '.html']) {
+      for (const route of ['/', '/observatory/', '/draws/', '/records/' + record.id + '.html', '/design/']) {
         await page.setViewportSize({ width: 390, height: 844 });
         await page.goto(url + route + '?serif=' + choice); await check(choice);
         await page.screenshot({ path: path.join(output, 'serif-' + choice + '-' + (route.split('/')[1] || 'catalog') + '-mobile.png') });
