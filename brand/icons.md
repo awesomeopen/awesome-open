@@ -266,6 +266,45 @@ Snapshot-to-snapshot facts; no collector exists yet.
   them for `link.external` / `control.reset` is an implementation choice to
   review, not part of this map.
 
+## Proposed: plate detail popovers
+
+See [B-PR146-01](decisions/B-PR146-01.md). Proposal for the first use of these files on the site. Inventory against main
+`20286c7` (after B-PR144-01); anchors are strings in `scripts/`. No row changes
+yet, so `site/brand/icons.json` is unchanged; rows change in both files when the
+implementation lands.
+
+Goal: compress the specimen plate and the four evidence boxes so more of a record
+fits the viewport, keeping the plate's open layout. Minor details move one click
+away. The icon is the trigger, its paired label stays visible, and a small popup
+holds the detail. Every popup ends with links that are external sources
+(`link.external`) or evidence files (`link.data`), never another site page.
+
+| Detail on the plate today | Anchor | Trigger | Popup ends with |
+| --- | --- | --- | --- |
+| Signal retrieval history | build_site.py `note-provenance`; star_history.py `note-provenance` | the box's `state.*` glyph beside its status label | `link.external` “Provider source” |
+| Scorecard check list and commit | build_site.py `signal-checks` | `state.*` / `state.partial` on the aggregate | `link.commit`, then `link.external` |
+| Function summary sources and review date | build_site.py `function-provenance` | `review.current` with “Reviewed {date}” | `link.external` per source |
+| Alternative scope and check date | build_site.py `evidence-date` | `review.current` with “Checked {date}” | `link.external` to the alternative |
+| Name-change evidence | history_view.py `history-evidence` | `review.current` | `link.external` per source |
+| Metrics freshness note | build_site.py `metrics-freshness` | `state.current` / `state.aged` / `state.failed` | `link.data` “GitHub metric snapshot” |
+| HN/star scale note | build_site.py `star-window` | `control.info` with “Square-root scale” | `link.data` “HN evidence” |
+| Registry ID and Folio number | build_site.py `title="Registry ID"` | `control.info` | none (definition only) |
+| Setup facts and sources | deployment.py `View setup facts` | stays a disclosure unless review moves it | `link.external` |
+
+Rows this would change, in both files:
+
+- `control.info`: planned → today; meaning becomes “Opens a term's definition”.
+- `disclose.closed` / `disclose.open`: drop the uses that become popups.
+- `state.*`, `review.current`: add “popup trigger” uses; meanings unchanged.
+- `link.external`: replaces “Feature source ↗” and the departure “↗”, so the
+  second bullet under [Not icons](#not-icons) goes away.
+- `link.data`: gains per-record evidence-file links.
+
+Open questions for review: whether a popup trigger needs an affordance that
+differs from a native disclosure; popup behaviour on touch and in the no-JS and
+offline editions (native `<details>` as the fallback); whether the 12px `s`
+ring with registration ticks reads well enough as a click target.
+
 ## Maintaining the map
 
 1. Add or change the row here and the entry in `site/brand/icons.json` in the
