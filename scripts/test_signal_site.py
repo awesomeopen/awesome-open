@@ -70,7 +70,8 @@ class SignalSiteTests(unittest.TestCase):
         card=page.by_id['project-'+project['id']]
         for text in ('GitHub release','OpenSSF Scorecard','4.2/10','1 scored / 2 returned',
                      'Inconclusive','Published 2020-01-01','Scanned 2026-10-05',
-                     '2026-10-10 (date only)','Check results and scan provenance'):
+                     '2026-10-10 (date only)','OpenSSF Scorecard: source and retrieval history',
+                     'Repository commit '+'c'*12):
             self.assertIn(text,card.text)
         self.assertNotIn('<tag>',html)
         self.assertNotIn('<script>not executed</script>',html)

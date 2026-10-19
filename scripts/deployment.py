@@ -8,6 +8,8 @@ import json
 import re
 import unicodedata
 
+import plate_detail
+
 RUN_MODES = {'cli': 'Command line', 'desktop': 'Desktop application', 'local_web': 'Local browser interface',
              'server': 'Self-hosted server', 'library': 'Library / SDK', 'firmware': 'Device firmware'}
 INSTALL_METHODS = {'binary': 'Downloadable binary / archive', 'installer': 'Installer',
@@ -118,7 +120,7 @@ def attach(projects, document, canonical_url):
             project['deployment'] = deepcopy(entry)
 
 
-def render(project, *, embedded=False, overview=True):
+def render(project, *, embedded=False, overview=True, popup=False):
     """Plain factual disclosure; no commands, inferred support badges or ratings."""
     record = project.get('deployment')
     if not record:
@@ -149,6 +151,13 @@ def render(project, *, embedded=False, overview=True):
             summary.append('<p><strong>' + label + ':</strong> ' + esc(' / '.join(names[f['value']] for f in record[field])) + '</p>')
     opening = ('<div class="deployment-evidence">' if embedded else
                '<section class="deployment-evidence" aria-labelledby="deployment-' + esc(project['id']) + '"><h4 id="deployment-' + esc(project['id']) + '">Deployment and installation</h4>')
+    if popup:
+        # Specimen plate: the review date opens the setup facts (B-PR146-01).
+        trigger, panel = plate_detail.detail(
+            plate_detail.uid(project['id'], 'setup'), 'review.current',
+            'Reviewed <span class="metric-value">' + esc(record['checked_at']) + '</span>', 'Setup facts and sources',
+            '<p class="fine-print">' + esc(record['reviewed_by']) + ' · Approved evidence record</p>' + ''.join(sections))
+        return opening + '<p class="fine-print">' + trigger + '</p>' + panel + ('</div>' if embedded else '</section>')
     return (opening +
             '<p class="fine-print">Reviewed ' + esc(record['checked_at']) + ' · ' + esc(record['reviewed_by']) + ' · Approved evidence record</p>'
             + ''.join(summary) + '<details><summary>View setup facts &amp; sources</summary>' + ''.join(sections) +

@@ -135,7 +135,8 @@ class DeploymentTests(unittest.TestCase):
             self.assertEqual(records.count('class="deployment-evidence"'), 8)
             self.assertIn('id="run-mode-filter"', page)
             self.assertIn('id="install-method-filter"', standalone)
-            self.assertIn('View setup facts &amp; sources', standalone)
+            # Setup facts open from the review date (B-PR146-01).
+            self.assertIn('data-title="Setup facts and sources"', standalone)
 
 
 if __name__ == '__main__': unittest.main()

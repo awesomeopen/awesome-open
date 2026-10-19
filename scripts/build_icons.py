@@ -276,6 +276,14 @@ def disclose_open(p):
         p.path(f"M{n(x - dx)} {n(y - sign * dy)} L{n(x + dx)} {n(y + sign * dy)}", extra=' stroke-linecap="butt"')
 
 
+def control_info(p):
+    """Lowercase i: a heavy dot over a stem, no ring (rings belong to states)."""
+    r, stem = (1.5, 2) if p.S == 12 else (2, 2)
+    p.dot(p.c, p.p + r, r)
+    top = p.p + round(2 * r) + (2 if p.S == 12 else 2)
+    p.rect(p.c - stem / 2, top, stem, p.S - p.p - top)
+
+
 def control_reset(p):
     r = p.c - p.p - p.w / 2 - (0.5 if p.S == 12 else 1)
     start, sweep = 90, 270  # from the top, counter-clockwise to the right side
@@ -330,7 +338,7 @@ DRAW = {
     "state.unknown": state_unknown, "badge.aged": badge_aged, "review.current": review_current,
     "status.archived": status_archived, "link.external": link_external, "link.permalink": link_permalink,
     "link.commit": link_commit, "link.download": link_download, "link.data": link_data,
-    "disclose.closed": disclose_closed, "disclose.open": disclose_open, "control.reset": control_reset,
+    "disclose.closed": disclose_closed, "disclose.open": disclose_open, "control.reset": control_reset, "control.info": control_info,
     "scope.collection": scope_collection, "view.chart": view_chart, "view.table": view_table,
 }
 

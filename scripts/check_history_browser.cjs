@@ -19,14 +19,15 @@ module.exports = async ({page, url, data, capture}) => {
     assert.equal(await list.evaluate(n=>getComputedStyle(n).listStyleType),'decimal',label+': entries keep their marker numbers');
     assert.equal(await list.locator('li').count(), await markers.count());
     assert.equal(await list.locator('li').filter({hasText:'Project renamed'}).locator('time').filter({hasText:'2026-10-19'}).count(),0,'Review day is not a milestone');
-    assert.equal(await plate.locator('.history-evidence').getAttribute('open'),null,'Secondary evidence starts folded');
-    await plate.locator('.history-evidence summary').click();
-    assert.ok((await plate.locator('.history-evidence').innerText()).includes('Reviewed 2026-10-19'));
-    const clipped=await plate.locator('.history-dates li,.history-evidence').evaluateAll(ns=>ns.filter(n=>{
+    assert.equal(await plate.locator('.history-evidence .detail-body').isVisible(),false,'Secondary evidence starts behind its trigger');
+    await plate.locator('.history-evidence .detail-trigger').click();
+    const evidence=page.locator('dialog.detail-dialog[open]');
+    assert.ok((await evidence.innerText()).includes('Reviewed 2026-10-19'));
+    const clipped=await page.locator('.history-dates li,dialog.detail-dialog[open]').evaluateAll(ns=>ns.filter(n=>{
       const r=n.getBoundingClientRect(); return r.left<0||r.right>innerWidth||n.scrollWidth>n.clientWidth+1;
     }).map(n=>n.className));
     assert.deepEqual(clipped,[],label+': history text wraps');
-    await plate.locator('.history-evidence summary').click();
+    await page.keyboard.press('Escape');
     const marker=plate.locator('.history-marker[data-record-anchor*="-event-"]').first();
     const target=await marker.getAttribute('data-record-anchor');
     await marker.focus(); await page.keyboard.press('Enter');

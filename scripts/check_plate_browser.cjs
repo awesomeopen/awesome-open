@@ -56,6 +56,34 @@ module.exports=async({page,url,data,capture})=>{
    assert.equal(await plate.locator('.plate-departure>a').evaluate(n=>n===document.activeElement),true);
   }
  }
+ // Details one click away (B-PR146-01): panels hidden, icon triggers open one
+ // shared dialog that ends with external or evidence-file links.
+ for(const width of [1440,390]){
+  await page.setViewportSize({width,height:900});
+  const p=data.projects.find(p=>p.name==='OpenTofu');
+  await page.goto(new URL('#project-'+p.id,url).href);
+  const row=page.locator('#project-'+p.id),plate=row.locator('.specimen-plate');
+  await row.locator('> details').evaluate(n=>n.open=true);
+  await plate.waitFor({state:'visible'});
+  assert.equal(await plate.locator('.detail-body').evaluateAll(ns=>ns.filter(n=>n.offsetParent).length),0,'Panels start hidden');
+  const triggers=plate.locator('.detail-trigger');
+  assert.ok(await triggers.count()>=4);
+  for(let i=0;i<await triggers.count();i++){
+   const trigger=triggers.nth(i);
+   assert.ok((await trigger.innerText()).trim(),'Trigger keeps its visible label');
+   const box=await trigger.boundingBox();assert.ok(box.width>=24&&box.height>=24,'Trigger target is at least 24px');
+   await trigger.click();
+   const dialog=page.locator('dialog.detail-dialog[open]');
+   const r=await dialog.boundingBox();
+   assert.ok(r.x>=0&&r.x+r.width<=width&&r.height<=900*0.9+1,'Dialog fits within 90% of the viewport');
+   const stray=await dialog.locator('.detail-links a').evaluateAll(ns=>ns.map(n=>new URL(n.href)).filter(u=>
+    u.origin===location.origin&&!/\/data\/[a-z_]+\.json$/.test(u.pathname)).map(u=>u.href));
+   assert.deepEqual(stray,[],'Closing links are external or evidence files');
+   if(i===0&&width===390)await capture('plate-detail-dialog-390.png');
+   await page.keyboard.press('Escape');
+   assert.equal(await trigger.evaluate(n=>n===document.activeElement),true,'Focus returns to the trigger');
+  }
+ }
  // The loupe follows a mouse over the drawing and leaves no object behind.
  await page.setViewportSize({width:1440,height:1000});
  const tofu=data.projects.find(p=>p.name==='OpenTofu');

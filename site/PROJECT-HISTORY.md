@@ -45,7 +45,8 @@ happened on August 19. The release is supporting evidence, not another event.
 Only verified day-precision occurrence dates enter the timeline. Labels state
 the date basis, so an implementation and an announcement are not presented as
 interchangeable. Approximate/unknown occurrence dates, review dates and first
-observations stay in the folded, secondary **Name-change evidence** block. They
+observations stay in the secondary **Name-change evidence** detail, which opens
+in a dialog and stays inline without script (B-PR146-01). They
 never substitute for occurrence dates or enter future monthly occurrence counts.
 An announcement about a future change needs that distinction in its evidence;
 do not mark a proposal as an accomplished rename.

@@ -333,8 +333,10 @@ make literal software claims with a separate feature-source link.
 
 Embed reviewed setup evidence in Latest GitHub release, retaining independently
 reviewed setup dates and fact sources. A missing release stays “not checked”; it
-does not hide reviewed setup facts. Disclosure labels are “View setup facts &
-sources” and “View source & retrieval history”. Stars link their plot and
+does not hide reviewed setup facts. On the specimen plate, setup facts open from
+“Reviewed {date}” and retrieval history from each box's status label, in one
+shared detail dialog; without script they stay inline under their box
+([B-PR146-01](../brand/decisions/B-PR146-01.md)). Stars link their plot and
 “count stars / past 2y” summary to the aggregate provider, matching HN's linked
 plot treatment. Keep cache status and observation date; place the counting
 method in About. No historical-total or adoption claim is implied.
@@ -431,7 +433,7 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   rules. Repository record with large values and a creation/release/push timeline.
   For reviewed name changes, numbered lanes keep literal dates and point to a
   wrapping chronological list. Unknown/coarse dates and first-observed/review
-  dates stay in a folded Name-change evidence block, never on the axis
+  dates open from the Name-change evidence trigger (B-PR146-01), never on the axis
   ([B-PR139-01](../brand/decisions/B-PR139-01.md)). Where it
   runs with reviewed chips and the setup disclosure; evidence cards with enlarged charts;
   reviewed alternatives; “In the wild” departure on plain Prussian blue with its

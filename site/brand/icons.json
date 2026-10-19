@@ -52,7 +52,9 @@
       "used_in": [
         "scripts/build_site.py:243 `signal-status`",
         "scripts/signals.py:79 `available`",
-        "scripts/build_observatory.py:704 `coverage states`"
+        "scripts/build_observatory.py:704 `coverage states`",
+        "scripts/build_site.py:253 `optional_signal_html` popup trigger",
+        "scripts/star_history.py:104 `render` popup trigger"
       ]
     },
     {
@@ -70,14 +72,18 @@
       "meaning": "A last good value is retained, but it is old or the latest attempt did not succeed",
       "labels": [
         "Stale",
-        "Stale GitHub metrics; last successful observation: …"
+        "Stale GitHub metrics; last successful observation: …",
+        "GitHub metrics: Stale"
       ],
       "used_in": [
         "scripts/build_site.py:243 `signal-status`",
         "scripts/signals.py:69 `stale`",
         "scripts/build_site.py:512 `metrics_freshness stale`",
         "scripts/build_site.py:744 `About the data “Stale:”`",
-        "scripts/build_observatory.py:775 `Cached measurements may be stale`"
+        "scripts/build_observatory.py:775 `Cached measurements may be stale`",
+        "scripts/build_site.py:253 `optional_signal_html` popup trigger",
+        "scripts/star_history.py:104 `render` popup trigger",
+        "scripts/build_site.py:668 `metrics-freshness` popup trigger"
       ]
     },
     {
@@ -102,7 +108,8 @@
         "scripts/build_site.py:243 `signal-status`",
         "scripts/signals.py:78 `partial`",
         "scripts/build_site.py:187 `Aggregate inconclusive`",
-        "scripts/build_site.py:191 `Inconclusive`"
+        "scripts/build_site.py:191 `Inconclusive`",
+        "scripts/build_site.py:253 `optional_signal_html` popup trigger"
       ]
     },
     {
@@ -128,7 +135,8 @@
       "used_in": [
         "scripts/build_site.py:167 `fetch_status labels`",
         "scripts/build_site.py:157 `Release not checked.`",
-        "scripts/signals.py:67 `pending`"
+        "scripts/signals.py:67 `pending`",
+        "scripts/build_site.py:253 `optional_signal_html` popup trigger"
       ]
     },
     {
@@ -145,10 +153,12 @@
       ],
       "meaning": "The provider was asked and returned no result",
       "labels": [
-        "No result returned"
+        "No result returned",
+        "Unavailable (status pill when no result was returned)"
       ],
       "used_in": [
-        "scripts/build_site.py:168 `not_found`"
+        "scripts/build_site.py:168 `not_found`",
+        "scripts/build_site.py:253 `optional_signal_html` popup trigger (not_found)"
       ]
     },
     {
@@ -166,12 +176,16 @@
       "meaning": "Our retrieval attempt failed or the source was unavailable; says nothing about the project",
       "labels": [
         "Unavailable",
-        "GitHub metrics unavailable; no successful observation."
+        "GitHub metrics unavailable; no successful observation.",
+        "GitHub metrics: Unavailable"
       ],
       "used_in": [
         "scripts/build_site.py:170 `error`",
         "scripts/signals.py:67 `unavailable`",
-        "scripts/build_site.py:506 `metrics_freshness unavailable`"
+        "scripts/build_site.py:506 `metrics_freshness unavailable`",
+        "scripts/build_site.py:253 `optional_signal_html` popup trigger",
+        "scripts/star_history.py:104 `render` popup trigger",
+        "scripts/build_site.py:668 `metrics-freshness` popup trigger"
       ]
     },
     {
@@ -237,12 +251,17 @@
       "labels": [
         "Reviewed {date}",
         "Checked {date}",
-        "Approved evidence record"
+        "Approved evidence record",
+        "Name-change evidence"
       ],
       "used_in": [
         "scripts/build_site.py:576 `function-provenance`",
         "scripts/build_site.py:541 `evidence-date`",
-        "scripts/deployment.py:153 `Approved evidence record`"
+        "scripts/deployment.py:153 `Approved evidence record`",
+        "scripts/build_site.py:641 `function-provenance` popup trigger",
+        "scripts/build_site.py:595 `evidence-date` popup trigger",
+        "scripts/history_view.py:81 `history-evidence` popup trigger",
+        "scripts/deployment.py:156 `Setup facts and sources` popup trigger"
       ]
     },
     {
@@ -300,21 +319,23 @@
       "meaning": "Leaves the site for an external source",
       "labels": [
         "Explore {name} on {host}",
-        "Feature source ↗",
+        "Feature source",
         "Provider source",
         "Hacker News stories",
         "{tag_name}",
         "{summary source title}",
-        "{alternative name}"
+        "{alternative name}",
+        "Star-history source"
       ],
       "used_in": [
         "scripts/build_site.py:496 `departure-arrow`",
         "scripts/build_site.py:455 `feature-source`",
-        "scripts/build_site.py:235 `Provider source`",
         "scripts/build_site.py:554 `hn-chart`",
         "scripts/build_site.py:177 `note-value`",
         "scripts/build_site.py:576 `summary sources`",
-        "scripts/build_site.py:541 `alternative links`"
+        "scripts/build_site.py:541 `alternative links`",
+        "scripts/plate_detail.py:44 `link` (popup closing links, `feature-source`)",
+        "scripts/build_site.py:249 `Provider source`"
       ]
     },
     {
@@ -355,7 +376,7 @@
         "Repository commit {sha}"
       ],
       "used_in": [
-        "scripts/build_site.py:201 `Scorecard commit`"
+        "scripts/build_site.py:211 `commit_link` popup closing link"
       ]
     },
     {
@@ -400,11 +421,13 @@
         "Catalog JSON",
         "GitHub metric snapshot",
         "Release and Scorecard evidence",
-        "Star-history evidence"
+        "Star-history evidence",
+        "GitHub star-history evidence"
       ],
       "used_in": [
         "scripts/build_site.py:744 `About the data links`",
-        "scripts/build_observatory.py:757 `evidence_links`"
+        "scripts/build_observatory.py:757 `evidence_links`",
+        "scripts/plate_detail.py:44 `link` (popup closing links)"
       ]
     },
     {
@@ -440,19 +463,13 @@
         "Table of contents",
         "Filters",
         "More filters",
-        "About the data",
-        "View source & retrieval history",
-        "Check results and scan provenance",
-        "View setup facts & sources"
+        "About the data"
       ],
       "used_in": [
         "scripts/build_site.py:729 `Table of contents`",
         "scripts/build_site.py:732 `Filters`",
         "scripts/build_site.py:733 `More filters`",
         "scripts/build_site.py:744 `About the data`",
-        "scripts/build_site.py:243 `note-provenance`",
-        "scripts/build_site.py:200 `signal-checks`",
-        "scripts/deployment.py:154 `View setup facts`",
         "site/styles.css:461 `.drawer-sign`"
       ]
     },
@@ -498,7 +515,7 @@
     {
       "id": "control.info",
       "group": "control",
-      "status": "planned",
+      "status": "today",
       "base": "none",
       "shape": "Lowercase i with a heavy dot, no container (rings belong to states)",
       "color_token": "--rs-blueprint",
@@ -506,20 +523,12 @@
         "s",
         "m"
       ],
-      "meaning": "Links a term to its definition",
+      "meaning": "Opens the definition of a term or scale",
       "labels": [
-        "Stale",
-        "OpenSSF Scorecard",
-        "Square-root scale",
-        "Registry ID",
-        "Folio number",
-        "How groups are formed"
+        "Square-root scale"
       ],
       "used_in": [
-        "scripts/build_site.py:744 `About the data definitions`",
-        "scripts/build_site.py:561 `star-window`",
-        "scripts/build_site.py:404 `title=\"Registry ID\"`",
-        "scripts/build_observatory.py:387 `shared names`"
+        "scripts/build_site.py:625 `Hacker News stories` popup trigger"
       ]
     },
     {

@@ -510,12 +510,15 @@ const path = require('node:path');
           image.getBoundingClientRect().width >= 120 && image.getBoundingClientRect().height >= 24),
           `Loaded, non-collapsed ${selector} at ${width}px`);
       }
-      const setup = card.locator('.deployment-evidence details');
-      await setup.locator(':scope > summary').click();
-      assert.equal(await setup.evaluate(node => node.open), true);
+      // Setup facts open from their review date in the shared dialog (B-PR146-01).
+      await card.locator('.deployment-evidence .detail-trigger').click();
+      const setup = page.locator('dialog.detail-dialog[open]');
       assert.equal(await setup.locator('.deployment-group').first().isVisible(), true);
+      assert.equal(await setup.evaluate(n => { const r = n.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth && r.bottom <= innerHeight; }), true, `Setup dialog fits at ${width}px`);
+      await page.keyboard.press('Escape');
+      assert.equal(await setup.count(), 0);
       await assertLedgerFits(page, `expanded OpenTofu at ${width}px`);
-      const clipped = await card.locator('.specimen-interior, .diagnostics, .function-detail, .evidence-note, .deployment-evidence, .deployment-group')
+      const clipped = await card.locator('.specimen-interior, .diagnostics, .function-detail, .evidence-note, .deployment-evidence')
         .evaluateAll(nodes => nodes.filter(node => {
           const rect = node.getBoundingClientRect();
           return rect.width <= 0 || rect.left < -1 || rect.right > innerWidth + 1 || node.scrollWidth > node.clientWidth + 1;
@@ -523,8 +526,6 @@ const path = require('node:path');
       assert.deepEqual(clipped, [], `Expanded sections fit at ${width}px`);
       await diagnostics.scrollIntoViewIfNeeded();
       await capture(`expanded-opentofu-${width}.png`);
-      await setup.locator(':scope > summary').click();
-      assert.equal(await setup.evaluate(node => node.open), false);
       await drawer.locator(':scope > summary').click();
       assert.equal(await diagnostics.isVisible(), false);
       await drawer.locator(':scope > summary').click();
@@ -558,7 +559,7 @@ const path = require('node:path');
       await waitForPlate(card);
       if (project.function_summary) {
         assert.equal(await card.locator('.function-detail > p').first().textContent(), project.function_summary.text);
-        assert.ok(await card.locator('.function-provenance a').count() > 0);
+        assert.ok(await card.locator('.function-detail .detail-body a').count() > 0);
         assert.ok((await card.locator('.description').textContent()).includes(project.description));
       } else {
         assert.equal(await card.locator('.function-detail').count(), 0);

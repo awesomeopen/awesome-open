@@ -2,6 +2,7 @@
 from datetime import date
 from html import escape
 
+import plate_detail
 from project_history import BASES, KINDS, exact_events
 
 
@@ -59,7 +60,7 @@ def timeline(created, release, pushed, events, pid):
             + '<ol class="history-dates">' + ''.join(rows) + '</ol></div>')
 
 
-def evidence(events):
+def evidence(events, project_id):
     if not events:
         return ''
     rows = []
@@ -77,4 +78,7 @@ def evidence(events):
                              for s in event['sources'])
         rows.append(f'<li><p>{escape(event_title(event))}. {escape(timing)}.</p><p>{escape(event["note"])}</p>'
                     f'<p>{sources}</p><p>Reviewed {event["checked_at"]} · {escape(event["reviewed_by"])}{escape(observed)}</p></li>')
-    return '<details class="history-evidence fine-print"><summary>Name-change evidence</summary><ul>' + ''.join(rows) + '</ul></details>'
+    trigger, panel = plate_detail.detail(
+        plate_detail.uid(project_id, 'history'), 'review.current', 'Name-change evidence',
+        'Name changes: reviewed sources', '<ul>' + ''.join(rows) + '</ul>')
+    return f'<div class="history-evidence fine-print"><p>{trigger}</p>{panel}</div>'

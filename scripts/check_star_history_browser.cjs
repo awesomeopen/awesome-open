@@ -18,10 +18,10 @@ module.exports = async ({ page, url, data, capture }) => {
     assert.equal(await card.locator('summary .star-chart').count(),0);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     assert.ok(!(await card.innerText()).includes('As of '));
-    const provenance=card.locator('.star-history .note-provenance');
-    await provenance.locator('summary').click();
+    await card.locator('.star-history .detail-trigger').click();
+    const provenance=page.locator('dialog.detail-dialog[open]');
     assert.ok((await provenance.innerText()).includes('not guaranteed UTC'));
-    await provenance.locator('summary').click();
+    await page.keyboard.press('Escape');
     await capture(name);
     await drawer.locator(':scope > summary').click();
     assert.equal(await chart.isVisible(),false);

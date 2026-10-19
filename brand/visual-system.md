@@ -216,7 +216,9 @@ keep literal marker positions; creation text sits 8px left of its marker and is
 right aligned, while push text sits 8px right and is left aligned.
 Chart month ranges use non-breaking spaces around an en dash, without the
 “oldest at left” caption. Fetch dates remain in retrieval history; fresh metrics
-omit the observation sentence while stale/unavailable notices remain visible.
+omit the observation sentence. Stale/unavailable metrics keep a visible status
+label whose icon opens the full notice
+([B-PR146-01](decisions/B-PR146-01.md)).
 Scorecard coverage ends at “returned”.
 
 

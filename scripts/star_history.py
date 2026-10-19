@@ -6,6 +6,7 @@ import json
 import math
 import re
 
+import plate_detail
 from update_star_history import accepted_history_sources, validate_cache
 
 REPO = re.compile(r'[a-z0-9_.-]+/[a-z0-9_.-]+')
@@ -85,13 +86,13 @@ def render(project):
     esc = lambda value: html.escape(str(value), quote=True)
     good = record.get('last_good')
     status = record.get('display_status') or ('Cached' if record.get('status') == 'ok' else 'Stale cached result' if good else 'Unavailable')
-    body = '<p>History unavailable; no zero values inferred.</p>'
+    body, window = '<p>History unavailable; no zero values inferred.</p>', ''
     if record.get('chart_url'):
         months = good['months']
         maximum = max(1, *good['monthly_counts'])
         body = (f'<a class="hn-chart star-chart" href="{esc(record["source_url"])}"><img src="{esc(record["chart_url"])}" width="120" height="24" alt="Monthly stars retained at fetch / 2y" loading="lazy">'
-                f'<span>{sum(good["monthly_counts"]):,} stars / past 2y</span></a>'
-                f'<p class="fine-print star-window">{esc(months[0])}&nbsp;–&nbsp;{esc(months[-1])}<br>Independent square-root scale: 0–{maximum:,} stars/month</p>')
+                f'<span>{sum(good["monthly_counts"]):,} stars / past 2y</span></a>')
+        window = f'<p class="fine-print star-window">{esc(months[0])}&nbsp;–&nbsp;{esc(months[-1])}<br>Independent square-root scale: 0–{maximum:,} stars/month</p>'
     elif good:
         body = '<p>Cached history uses a different month window; chart withheld until aligned.</p>'
     provenance = f'Latest attempt: {esc(record.get("status", "unknown"))}'
@@ -99,7 +100,11 @@ def render(project):
         provenance += ' · Checked ' + esc(record['checked_at'])
     if good:
         provenance += ' · Last successful fetch ' + esc(good['fetched_at'])
-    return (f'<section class="signal evidence-note star-history" data-signal="star-history"><h4>GitHub stars <span class="signal-status">{esc(status)}</span></h4>{body}'
-            f'<details class="note-provenance"><summary>View source &amp; retrieval history</summary>'
-            f'<p class="fine-print">{BOUNDARIES} HN stories and GitHub stars are independent measurements with separate scales. {provenance}'
-            f'</p></details></section>')
+    glyph = 'state.current' if record.get('status') == 'ok' else 'state.aged' if good else 'state.failed'
+    trigger, panel = plate_detail.detail(
+        plate_detail.uid(project['id'], 'stars'), glyph, f'<span class="signal-status">{esc(status)}</span>',
+        'GitHub stars: scale, source and retrieval history',
+        f'{window}<p class="fine-print">{MEANING} {BOUNDARIES} HN stories and GitHub stars are independent measurements with separate scales. {provenance}</p>',
+        [plate_detail.link(record['source_url'], 'Star-history source'),
+         plate_detail.link('data/star_history.json', 'GitHub star-history evidence', 'data')])
+    return (f'<section class="signal evidence-note star-history" data-signal="star-history"><h4>GitHub stars {trigger}</h4>{body}{panel}</section>')

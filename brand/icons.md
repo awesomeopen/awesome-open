@@ -1,9 +1,9 @@
 # Icon map
 
 Status: proposed ([B-PR101-01](decisions/B-PR101-01.md), corrected by [B-PR102-01](decisions/B-PR102-01.md); first set and stroke
-change [B-PR103-01](decisions/B-PR103-01.md)). The 21 `today` icons exist as
+change [B-PR103-01](decisions/B-PR103-01.md)). The 22 `today` icons exist as
 SVG in [`site/brand/icons/`](../site/brand/icons/), written by
-`scripts/build_icons.py`; the site does not use them yet. Audited against main `a9455b9` on 2026-10-16 (first audit `4bc3d97`); line references point to
+`scripts/build_icons.py`; the specimen plate uses them since B-PR146-01. Audited against main `a9455b9` on 2026-10-16 (first audit `4bc3d97`); line references point to
 that revision and drift as code changes, so each one also names an anchor string.
 
 The machine-readable twin is [`site/brand/icons.json`](../site/brand/icons.json).
@@ -158,12 +158,12 @@ Ring base. One glyph serves retrieval checks, repository-metric freshness and Ob
 
 | ID | Status | Meaning (literal) | Paired label (current text) | Shape | Token | Sizes | Source today |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `state.current` | today | A value was observed within its freshness window | “Available”; “Cached GitHub metrics (coverage count)” | Check mark inside a closed ring | `--rs-emerald` | s m l | scripts/build_site.py:243 `signal-status`<br>scripts/signals.py:79 `available`<br>scripts/build_observatory.py:704 `coverage states` |
-| `state.aged` | today | A last good value is retained, but it is old or the latest attempt did not succeed | “Stale”; “Stale GitHub metrics; last successful observation: …” | Check mark inside a closed ring with the aged badge in the lower-right quadrant; at s the badge is a solid 4px dot with a 1px paper knockout | `--rs-blueprint` | s m l | scripts/build_site.py:243 `signal-status`<br>scripts/signals.py:69 `stale`<br>scripts/build_site.py:512 `metrics_freshness stale`<br>scripts/build_site.py:744 `About the data “Stale:”`<br>scripts/build_observatory.py:775 `Cached measurements may be stale` |
-| `state.partial` | today | Results were returned but not all of them carry a score | “Partial”; “Inconclusive”; “Aggregate inconclusive” | Ring with the left half filled solid | `--rs-blueprint` | s m l | scripts/build_site.py:243 `signal-status`<br>scripts/signals.py:78 `partial`<br>scripts/build_site.py:187 `Aggregate inconclusive`<br>scripts/build_site.py:191 `Inconclusive` |
-| `state.pending` | today | No check has completed yet: not checked, queued or deferred | “Pending”; “Provider pending”; “Not checked”; “Check deferred”; “Release not checked.” | Ring of eight evenly spaced dots, empty centre | `--rs-muted` | s m l | scripts/build_site.py:167 `fetch_status labels`<br>scripts/build_site.py:157 `Release not checked.`<br>scripts/signals.py:67 `pending` |
-| `state.none` | today | The provider was asked and returned no result | “No result returned” | Closed ring with one short horizontal dash | `--rs-muted` | s m l | scripts/build_site.py:168 `not_found` |
-| `state.failed` | today | Our retrieval attempt failed or the source was unavailable; says nothing about the project | “Unavailable”; “GitHub metrics unavailable; no successful observation.” | Diagonal cross inside a closed ring | `--rs-scarlet` | s m l | scripts/build_site.py:170 `error`<br>scripts/signals.py:67 `unavailable`<br>scripts/build_site.py:506 `metrics_freshness unavailable` |
+| `state.current` | today | A value was observed within its freshness window | “Available”; “Cached GitHub metrics (coverage count)” | Check mark inside a closed ring | `--rs-emerald` | s m l | scripts/build_site.py:243 `signal-status`<br>scripts/signals.py:79 `available`<br>scripts/build_observatory.py:704 `coverage states`<br>scripts/build_site.py:253 `optional_signal_html` popup trigger<br>scripts/star_history.py:104 `render` popup trigger |
+| `state.aged` | today | A last good value is retained, but it is old or the latest attempt did not succeed | “Stale”; “Stale GitHub metrics; last successful observation: …”; “GitHub metrics: Stale” | Check mark inside a closed ring with the aged badge in the lower-right quadrant; at s the badge is a solid 4px dot with a 1px paper knockout | `--rs-blueprint` | s m l | scripts/build_site.py:243 `signal-status`<br>scripts/signals.py:69 `stale`<br>scripts/build_site.py:512 `metrics_freshness stale`<br>scripts/build_site.py:744 `About the data “Stale:”`<br>scripts/build_observatory.py:775 `Cached measurements may be stale`<br>scripts/build_site.py:253 `optional_signal_html` popup trigger<br>scripts/star_history.py:104 `render` popup trigger<br>scripts/build_site.py:668 `metrics-freshness` popup trigger |
+| `state.partial` | today | Results were returned but not all of them carry a score | “Partial”; “Inconclusive”; “Aggregate inconclusive” | Ring with the left half filled solid | `--rs-blueprint` | s m l | scripts/build_site.py:243 `signal-status`<br>scripts/signals.py:78 `partial`<br>scripts/build_site.py:187 `Aggregate inconclusive`<br>scripts/build_site.py:191 `Inconclusive`<br>scripts/build_site.py:253 `optional_signal_html` popup trigger |
+| `state.pending` | today | No check has completed yet: not checked, queued or deferred | “Pending”; “Provider pending”; “Not checked”; “Check deferred”; “Release not checked.” | Ring of eight evenly spaced dots, empty centre | `--rs-muted` | s m l | scripts/build_site.py:167 `fetch_status labels`<br>scripts/build_site.py:157 `Release not checked.`<br>scripts/signals.py:67 `pending`<br>scripts/build_site.py:253 `optional_signal_html` popup trigger |
+| `state.none` | today | The provider was asked and returned no result | “No result returned”; “Unavailable (status pill when no result was returned)” | Closed ring with one short horizontal dash | `--rs-muted` | s m l | scripts/build_site.py:168 `not_found`<br>scripts/build_site.py:253 `optional_signal_html` popup trigger (not_found) |
+| `state.failed` | today | Our retrieval attempt failed or the source was unavailable; says nothing about the project | “Unavailable”; “GitHub metrics unavailable; no successful observation.”; “GitHub metrics: Unavailable” | Diagonal cross inside a closed ring | `--rs-scarlet` | s m l | scripts/build_site.py:170 `error`<br>scripts/signals.py:67 `unavailable`<br>scripts/build_site.py:506 `metrics_freshness unavailable`<br>scripts/build_site.py:253 `optional_signal_html` popup trigger<br>scripts/star_history.py:104 `render` popup trigger<br>scripts/build_site.py:668 `metrics-freshness` popup trigger |
 | `state.unknown` | today | The value is not recorded or not detected; unknown, never negative | “Unknown”; “Push date unknown”; “License unknown”; “Not recorded”; “GitHub metrics: Unknown” | Dashed ring with a question mark | `--rs-muted` | s m l | scripts/build_site.py:591 `Detected license Unknown`<br>scripts/build_site.py:502 `GitHub metrics: Unknown`<br>scripts/build_site.py:732 `filter options`<br>scripts/build_site.py:733 `Not recorded`<br>scripts/build_observatory.py:304 `obs-unknown` |
 | `badge.aged` | today | Overlay for retained or old values on any base glyph | “Stale (with the base glyph's own label)” | Small clock face (two hands) in a paper-knockout disc; composited onto another glyph's lower-right quadrant. Not drawn at s: state.aged-s uses a solid 4px dot instead | `--rs-muted` | m l | scripts/signals.py:69 `stale` |
 
@@ -173,7 +173,7 @@ Square base, so review by a person never looks like an automated check.
 
 | ID | Status | Meaning (literal) | Paired label (current text) | Shape | Token | Sizes | Source today |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `review.current` | today | A person reviewed this evidence against cited sources on the stated date | “Reviewed {date}”; “Checked {date}”; “Approved evidence record” | Check mark inside a closed square with 2px radius | `--rs-emerald` | s m l | scripts/build_site.py:576 `function-provenance`<br>scripts/build_site.py:541 `evidence-date`<br>scripts/deployment.py:153 `Approved evidence record` |
+| `review.current` | today | A person reviewed this evidence against cited sources on the stated date | “Reviewed {date}”; “Checked {date}”; “Approved evidence record”; “Name-change evidence” | Check mark inside a closed square with 2px radius | `--rs-emerald` | s m l | scripts/build_site.py:576 `function-provenance`<br>scripts/build_site.py:541 `evidence-date`<br>scripts/deployment.py:153 `Approved evidence record`<br>scripts/build_site.py:641 `function-provenance` popup trigger<br>scripts/build_site.py:595 `evidence-date` popup trigger<br>scripts/history_view.py:81 `history-evidence` popup trigger<br>scripts/deployment.py:156 `Setup facts and sources` popup trigger |
 | `review.pending` | planned | A review record exists but is not approved yet | “Review pending” | Square drawn as evenly spaced dots, empty centre | `--rs-muted` | s m l | scripts/deployment.py:49 `review_status pending (not rendered today)` |
 
 ### C. GitHub status
@@ -190,11 +190,11 @@ No container; direction or object only.
 
 | ID | Status | Meaning (literal) | Paired label (current text) | Shape | Token | Sizes | Source today |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `link.external` | today | Leaves the site for an external source | “Explore {name} on {host}”; “Feature source ↗”; “Provider source”; “Hacker News stories”; “{tag_name}”; “{summary source title}”; “{alternative name}” | Arrow leaving the top-right corner of an open square | `--rs-ink` | s m l | scripts/build_site.py:496 `departure-arrow`<br>scripts/build_site.py:455 `feature-source`<br>scripts/build_site.py:235 `Provider source`<br>scripts/build_site.py:554 `hn-chart`<br>scripts/build_site.py:177 `note-value`<br>scripts/build_site.py:576 `summary sources`<br>scripts/build_site.py:541 `alternative links` |
+| `link.external` | today | Leaves the site for an external source | “Explore {name} on {host}”; “Feature source”; “Provider source”; “Hacker News stories”; “{tag_name}”; “{summary source title}”; “{alternative name}”; “Star-history source” | Arrow leaving the top-right corner of an open square | `--rs-ink` | s m l | scripts/build_site.py:496 `departure-arrow`<br>scripts/build_site.py:455 `feature-source`<br>scripts/build_site.py:554 `hn-chart`<br>scripts/build_site.py:177 `note-value`<br>scripts/build_site.py:576 `summary sources`<br>scripts/build_site.py:541 `alternative links`<br>scripts/plate_detail.py:44 `link` (popup closing links, `feature-source`)<br>scripts/build_site.py:249 `Provider source` |
 | `link.permalink` | today | Stable link to this specimen record | “Specimen: {name} (permalink)”; “QR code: permalink to {name}” | Two interlocking chain links | `--rs-ink` | s m l | scripts/build_site.py:406 `permalink`<br>scripts/build_site.py:401 `label-qr` |
-| `link.commit` | today | Links to the exact repository commit a result came from | “Repository commit {sha}” | Short horizontal line through a small open circle | `--rs-ink` | s m | scripts/build_site.py:201 `Scorecard commit` |
+| `link.commit` | today | Links to the exact repository commit a result came from | “Repository commit {sha}” | Short horizontal line through a small open circle | `--rs-ink` | s m | scripts/build_site.py:211 `commit_link` popup closing link |
 | `link.download` | today | Downloads a file | “Download”; “Download selection CSV”; “Download standalone report” | Down arrow onto a short baseline | `--rs-ink` | s m l | scripts/build_site.py:744 `standalone.html`<br>scripts/build_observatory.py:775 `export-csv`<br>scripts/build_observatory.py:847 `report` |
-| `link.data` | today | Opens raw evidence or catalog data | “HN evidence”; “Comparison evidence”; “Catalog JSON”; “GitHub metric snapshot”; “Release and Scorecard evidence”; “Star-history evidence” | Curly braces { } on a page with a folded corner | `--rs-ink` | s m | scripts/build_site.py:744 `About the data links`<br>scripts/build_observatory.py:757 `evidence_links` |
+| `link.data` | today | Opens raw evidence or catalog data | “HN evidence”; “Comparison evidence”; “Catalog JSON”; “GitHub metric snapshot”; “Release and Scorecard evidence”; “Star-history evidence”; “GitHub star-history evidence” | Curly braces { } on a page with a folded corner | `--rs-ink` | s m | scripts/build_site.py:744 `About the data links`<br>scripts/build_observatory.py:757 `evidence_links`<br>scripts/plate_detail.py:44 `link` (popup closing links) |
 | `link.copy` | planned | Copies a link or value to the clipboard | “Copy link” | Two offset overlapping rectangles | `--rs-ink` | s m | — |
 
 ### E. Disclosure and controls
@@ -203,10 +203,10 @@ No container.
 
 | ID | Status | Meaning (literal) | Paired label (current text) | Shape | Token | Sizes | Source today |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `disclose.closed` | today | A native disclosure that is closed | “Table of contents”; “Filters”; “More filters”; “About the data”; “View source & retrieval history”; “Check results and scan provenance”; “View setup facts & sources” | Plus sign | `--rs-ink` | s m | scripts/build_site.py:729 `Table of contents`<br>scripts/build_site.py:732 `Filters`<br>scripts/build_site.py:733 `More filters`<br>scripts/build_site.py:744 `About the data`<br>scripts/build_site.py:243 `note-provenance`<br>scripts/build_site.py:200 `signal-checks`<br>scripts/deployment.py:154 `View setup facts`<br>site/styles.css:461 `.drawer-sign` |
+| `disclose.closed` | today | A native disclosure that is closed | “Table of contents”; “Filters”; “More filters”; “About the data” | Plus sign | `--rs-ink` | s m | scripts/build_site.py:729 `Table of contents`<br>scripts/build_site.py:732 `Filters`<br>scripts/build_site.py:733 `More filters`<br>scripts/build_site.py:744 `About the data`<br>site/styles.css:461 `.drawer-sign` |
 | `disclose.open` | today | A native disclosure that is open | (same summaries, open state) | Upright six-arm asterisk, same centre, arm length and stroke as the plus | `--rs-ink` | s m | site/styles.css:464 `.specimen-drawer[open] .drawer-sign`<br>site/styles.css:1002 `.data-notes[open]` |
 | `control.reset` | today | Clears filters back to the default view | “Reset filters ↺” | Open circular arrow turning counter-clockwise | `--rs-ink` | s m | scripts/build_site.py:737 `clear-filters` |
-| `control.info` | planned | Links a term to its definition | “Stale”; “OpenSSF Scorecard”; “Square-root scale”; “Registry ID”; “Folio number”; “How groups are formed” | Lowercase i with a heavy dot, no container (rings belong to states) | `--rs-blueprint` | s m | scripts/build_site.py:744 `About the data definitions`<br>scripts/build_site.py:561 `star-window`<br>scripts/build_site.py:404 `title="Registry ID"`<br>scripts/build_observatory.py:387 `shared names` |
+| `control.info` | today | Opens the definition of a term or scale | “Square-root scale” | Lowercase i with a heavy dot, no container (rings belong to states) | `--rs-blueprint` | s m | scripts/build_site.py:625 `Hacker News stories` popup trigger |
 | `control.sort-asc` | planned | Ascending sort order | “Name A–Z” | Up arrow beside three bars of increasing length | `--rs-ink` | s m | scripts/build_site.py:737 `sort-order` |
 | `control.sort-desc` | planned | Descending sort order | “Most stars”; “Latest push” | Down arrow beside three bars of decreasing length | `--rs-ink` | s m | scripts/build_site.py:737 `sort-order` |
 | `control.filter-active` | planned | At least one filter is applied | “Filters” | Funnel with a small filled dot at the upper right | `--rs-ink` | s m | scripts/build_site.py:732 `filter-options` |
@@ -262,43 +262,45 @@ Snapshot-to-snapshot facts; no collector exists yet.
 
 - Unknown bars in Observatory charts keep their hatch pattern
   (`site/observatory.css:141` `.obs-bar-unknown`); it is a fill, not a glyph.
-- The departure “↗” and the reset “↺” are typographic characters today. Swapping
-  them for `link.external` / `control.reset` is an implementation choice to
-  review, not part of this map.
+- The departure “↗” (display size, `--rs-scarlet-art`) and the reset “↺” stay
+  typographic. Swapping them for `link.external` / `control.reset` would change an
+  approved visual; it is not part of this map.
 
-## Proposed: plate detail popovers
+## Plate detail popovers
 
-See [B-PR146-01](decisions/B-PR146-01.md). Proposal for the first use of these files on the site. Inventory against main
-`20286c7` (after B-PR144-01); anchors are strings in `scripts/`. No row changes
-yet, so `site/brand/icons.json` is unchanged; rows change in both files when the
-implementation lands.
+See [B-PR146-01](decisions/B-PR146-01.md). First use of these files on the site,
+implemented on main `20286c7` (after B-PR144-01); anchors are strings in
+`scripts/`. The shared helpers are in `scripts/plate_detail.py`.
 
 Goal: compress the specimen plate and the four evidence boxes so more of a record
 fits the viewport, keeping the plate's open layout. Minor details move one click
-away. The icon is the trigger, its paired label stays visible, and a small popup
-holds the detail. Every popup ends with links that are external sources
-(`link.external`) or evidence files (`link.data`), never another site page.
+away. The icon is the trigger, its paired label stays visible inside the button,
+and a small popup holds the detail. One popup per box: title, data, then all
+additional data. Every popup ends with links that are external sources
+(`link.external`), a commit (`link.commit`) or evidence files (`link.data`),
+never another site page.
 
-| Detail on the plate today | Anchor | Trigger | Popup ends with |
+| Detail | Anchor | Trigger | Popup ends with |
 | --- | --- | --- | --- |
-| Signal retrieval history | build_site.py `note-provenance`; star_history.py `note-provenance` | the box's `state.*` glyph beside its status label | `link.external` “Provider source” |
-| Scorecard check list and commit | build_site.py `signal-checks` | `state.*` / `state.partial` on the aggregate | `link.commit`, then `link.external` |
-| Function summary sources and review date | build_site.py `function-provenance` | `review.current` with “Reviewed {date}” | `link.external` per source |
-| Alternative scope and check date | build_site.py `evidence-date` | `review.current` with “Checked {date}” | `link.external` to the alternative |
-| Name-change evidence | history_view.py `history-evidence` | `review.current` | `link.external` per source |
-| Metrics freshness note | build_site.py `metrics-freshness` | `state.current` / `state.aged` / `state.failed` | `link.data` “GitHub metric snapshot” |
-| HN/star scale note | build_site.py `star-window` | `control.info` with “Square-root scale” | `link.data` “HN evidence” |
-| Registry ID and Folio number | build_site.py `title="Registry ID"` | `control.info` | none (definition only) |
-| Setup facts and sources | deployment.py `View setup facts` | stays a disclosure unless review moves it | `link.external` |
+| Release and Scorecard: check list, commit, retrieval history | build_site.py `optional_signal_html` | the box's `state.*` glyph with its status label; `state.none` when no result was returned | `link.commit` (Scorecard), `link.external` “Provider source”, `link.data` “Release and Scorecard evidence” |
+| GitHub stars: window, scale, meaning, retrieval history | star_history.py `render` | `state.current` / `state.aged` / `state.failed` with the status label | `link.external` “Star-history source”, `link.data` “GitHub star-history evidence” |
+| Hacker News: window and scale | build_site.py `Hacker News stories` | `control.info` with “Square-root scale” | `link.external` “Hacker News stories”, `link.data` “HN evidence” |
+| Function summary sources | build_site.py `function-provenance` | `review.current` with “Reviewed {date}” | `link.external` per source |
+| Alternative scope | build_site.py `evidence-date` | `review.current` with “Checked {date}” | `link.external` to the alternative, `link.data` “Comparison evidence” |
+| Name-change evidence | history_view.py `history-evidence` | `review.current` with “Name-change evidence” | `link.external` per source |
+| Metrics freshness note | build_site.py `metrics-freshness` | `state.aged` / `state.failed` with “GitHub metrics: Stale / Unavailable” | `link.data` “GitHub metric snapshot” (repository file at the source revision) |
+| Setup facts and sources | deployment.py `Setup facts and sources` | `review.current` with “Reviewed {date}” | `link.external` per fact |
 
-Rows this would change, in both files:
+“Feature source” now ends with the `link.external` glyph instead of “↗”. Left
+out on purpose: Registry ID and Folio number keep their `title` text (an info
+button in the label would add clutter for a one-line definition); the departure
+“↗” stays typographic (see [Not icons](#not-icons)). Fresh GitHub metrics show
+nothing, as before, and “GitHub metrics: Unknown” stays plain text, because
+there is no further detail to open.
 
-- `control.info`: planned → today; meaning becomes “Opens a term's definition”.
-- `disclose.closed` / `disclose.open`: drop the uses that become popups.
-- `state.*`, `review.current`: add “popup trigger” uses; meanings unchanged.
-- `link.external`: replaces “Feature source ↗” and the departure “↗”, so the
-  second bullet under [Not icons](#not-icons) goes away.
-- `link.data`: gains per-record evidence-file links.
+Pages carry one hidden sprite (`plate_detail.sprite()`) and reference glyphs with
+`<use>`, so 500+ plates do not repeat SVG markup. In the standalone edition,
+plate evidence links point at the footer's single embedded copy of each file.
 
 Answered in review (owner, 2026-10-19):
 
@@ -311,13 +313,14 @@ Answered in review (owner, 2026-10-19):
   backdrop, contained focus, and focus returns to the trigger on close.
 - **No-JS, offline and print.** The generator writes every detail inline under
   its box: title, data, then all additional data. Script hides it and wires the
-  triggers; without script nothing is hidden. Whether the standalone edition
-  keeps the script is checked during implementation.
-- **Trigger size.** Test the `m` (16px) glyph in a 24×24px button first, and `s`
-  only where space is tight. Do not scale `s` up: each size is drawn for its
-  own grid. The hit area may exceed the glyph.
+  triggers; without script, or without native `<dialog>`, nothing is hidden.
+  The standalone edition embeds `catalog.js`, so it gets the popups too. Print
+  shows the panels inline.
+- **Trigger size.** Triggers use the `m` (16px) glyph in a button at least
+  24×24px; closing links use `s`. Do not scale `s` up: each size is drawn for
+  its own grid. The hit area may exceed the glyph.
 
-Corrected with this proposal: `disclose.open` was mapped as a minus, but the
+Corrected in the same PR: `disclose.open` was mapped as a minus, but the
 site shows an upright asterisk on open ledger rows and the open data notes
 (user direction recorded in the [guide](../site/RETRO-SCRAPERISM.md)). The row
 and SVGs now follow the site. At `s`, the 30° arms render soft, like other

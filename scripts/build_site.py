@@ -26,6 +26,7 @@ import update_stats as stats
 import signals
 import star_history
 import deployment
+import plate_detail
 import qr
 from footer_art import discover_footer_art
 from category_art import (
@@ -166,6 +167,7 @@ def optional_signal_html(project, embed_setup=True):
         record = records[provider]
         good = record["last_good"]
         state = record["status"].capitalize()
+        extra, commit_link = "", None
         if good is None:
             label = {
                 "not_checked": "Not checked",
@@ -201,9 +203,13 @@ def optional_signal_html(project, embed_setup=True):
             content = (
                 f'<p><span class="note-value">{aggregate}</span>Scanned <span class="metric-value">{escape(good["observed_at"][:10])}</span> · '
                 f"{scored} scored / {total} returned</p>"
-                f'<details class="signal-checks"><summary>Check results and scan provenance</summary><ul>{checks}</ul>'
-                f'<p class="fine-print">Repository commit <a href="https://github.com/{escape(repo)}/commit/{commit}">{commit[:12]}</a>'
-                f" · Scorecard {escape(good['tool_version'])}</p></details>"
+            )
+            extra = (
+                f'<ul class="signal-checks">{checks}</ul>'
+                f'<p class="fine-print">Scorecard {escape(good["tool_version"])} · Repository commit {commit[:12]}</p>'
+            )
+            commit_link = plate_detail.link(
+                f"https://github.com/{repo}/commit/{commit}", f"Repository commit {escape(commit[:12])}", "commit"
             )
         provenance = []
         if record["checked_at"]:
@@ -235,18 +241,26 @@ def optional_signal_html(project, embed_setup=True):
             provenance.append(
                 "Latest attempt: " + record["fetch_status"].replace("_", " ")
             )
-        provenance.append(
-            f'<a href="{escape(record["source_url"])}">Provider source</a>'
-        )
         setup = (
             deployment.render(project, embedded=True)
             if provider == "release" and embed_setup
             else ""
         )
+        links = [plate_detail.link(record["source_url"], "Provider source")]
+        if commit_link:
+            links.insert(0, commit_link)
+        links.append(plate_detail.link("data/project_signals.json", "Release and Scorecard evidence", "data"))
+        trigger, panel = plate_detail.detail(
+            plate_detail.uid(project["id"], provider),
+            "state.none" if good is None and record["fetch_status"] == "not_found"
+            else plate_detail.STATE.get(record["status"], "state.unknown"),
+            f'<span class="signal-status">{escape(state)}</span>',
+            f"{title}: source and retrieval history",
+            extra + '<p class="fine-print">' + " · ".join(provenance) + "</p>",
+            links,
+        )
         pieces.append(
-            f'<section class="optional-signal evidence-note" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}{setup}<details class="note-provenance"><summary>View source &amp; retrieval history</summary><p class="fine-print">'
-            + " · ".join(provenance)
-            + "</p></details></section>"
+            f'<section class="optional-signal evidence-note" data-signal="{provider}"><h4>{title} {trigger}</h4>{content}{setup}{panel}</section>'
         )
     return '<div class="optional-signals">' + "".join(pieces) + "</div>"
 
@@ -431,7 +445,7 @@ def where_it_runs(project):
                 f'<div><dt>{label}</dt><dd class="plate-chips">{chips}</dd></div>'
             )
     return f'<dl class="plate-kit">{"".join(rows)}</dl>' + deployment.render(
-        project, embedded=True, overview=False
+        project, embedded=True, overview=False, popup=True
     )
 
 
@@ -491,7 +505,7 @@ def specimen_plate(
         if features:
             items = "".join(
                 f'<li class="plate-note"><span class="plate-crop{" is-tiny" if i else ""}" data-crop="{i}" aria-hidden="true"></span><div><span class="plate-index">{i + 1:02d} / Feature note</span>'
-                f'<strong>{escape(f["title"])}</strong><p>{escape(f["text"])}</p><a class="feature-source" href="{escape(f["source_url"])}">Feature source ↗</a></div></li>'
+                f'<strong>{escape(f["title"])}</strong><p>{escape(f["text"])}</p>{plate_detail.link(f["source_url"], "Feature source", cls="feature-source")}</div></li>'
                 for i, f in enumerate(features)
             )
             notes = f'<ol class="plate-notes" aria-label="Feature notes">{items}</ol>'
@@ -577,10 +591,19 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>'
         for cid in project["categories"]
     )
-    evidence = "".join(
-        f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">Checked {escape(a["checked_utc_date"])}</span><p>{escape(a["scope"])}</p></li>'
-        for a in project["alternatives"]
-    )
+    def alternative(i, a):
+        trigger, panel = plate_detail.detail(
+            plate_detail.uid(project["id"], f"alt{i}"),
+            "review.current",
+            f'Checked <span class="metric-value">{escape(a["checked_utc_date"])}</span>',
+            f'{escape(a["name"])}: reviewed scope',
+            f'<p>{escape(a["scope"])}</p>',
+            [plate_detail.link(a["source_url"], escape(a["name"])),
+             plate_detail.link("data/alternatives.json", "Comparison evidence", "data")],
+        )
+        return f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">{trigger}</span>{panel}</li>'
+
+    evidence = "".join(alternative(i, a) for i, a in enumerate(project["alternatives"]))
     alternatives = (
         f'<div class="comparison evidence-note"><ul>{evidence}</ul></div>'
         if evidence
@@ -591,29 +614,39 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
     if project["hn"]:
         attention = project["hn"]
         inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
-        chart = f'<div class="signal evidence-note"><h4>Hacker News stories</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="Hacker News stories"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 2y</span></a></div>'
-    if chart and project.get("star_history"):
-        paired = project["star_history"]
+        window = ""
+        paired = project.get("star_history") or {}
         if paired.get("chart_url"):
             good = paired["last_good"]
-            chart = chart.replace(
-                "</a></div>",
-                '</a><p class="fine-print star-window">'
-                + escape(good["months"][0])
-                + "&nbsp;–&nbsp;"
-                + escape(good["months"][-1])
-                + "<br>Square-root scale: 0–"
-                + escape(paired["hn_monthly_maximum"])
-                + " stories/month (shared across HN charts)</p></div>",
+            window = (
+                f'<p class="fine-print star-window">{escape(good["months"][0])}&nbsp;–&nbsp;{escape(good["months"][-1])}'
+                f'<br>Square-root scale: 0–{escape(paired["hn_monthly_maximum"])} stories/month (shared across HN charts)</p>'
             )
+        trigger, panel = plate_detail.detail(
+            plate_detail.uid(project["id"], "hn"),
+            "control.info",
+            "Square-root scale",
+            "Hacker News stories: window and scale",
+            window + '<p class="fine-print">Matched stories per month over the past two years, on a square-root scale shared by every HN chart. Story counts are not sentiment.</p>',
+            [plate_detail.link(attention["search_url"], "Hacker News stories"),
+             plate_detail.link("data/hn_evidence.json", "HN evidence", "data")],
+        )
+        chart = (
+            f'<div class="signal evidence-note"><h4>Hacker News stories {trigger}</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="Hacker News stories">'
+            f'<img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 2y</span></a>{panel}</div>'
+        )
     summary = project.get("function_summary")
     function_detail = ""
     if summary:
-        sources = " / ".join(
-            f'<a href="{escape(item["url"])}">{escape(item["title"])}</a>'
-            for item in summary["sources"]
+        trigger, panel = plate_detail.detail(
+            plate_detail.uid(project["id"], "function"),
+            "review.current",
+            f'Reviewed <span class="metric-value">{escape(summary["checked_at"])}</span>',
+            "Function summary: sources",
+            "",
+            [plate_detail.link(item["url"], escape(item["title"])) for item in summary["sources"]],
         )
-        function_detail = f'<div class="function-detail"><p>{highlight_name(summary["text"], project["name"])}</p><p class="function-provenance">{sources} · Reviewed <span class="metric-value">{escape(summary["checked_at"])}</span></p></div>'
+        function_detail = f'<div class="function-detail"><p>{highlight_name(summary["text"], project["name"])}</p><p class="function-provenance">{trigger}</p>{panel}</div>'
     leader_categories = project.get("leader_categories", [])
     leader_label = (
         " / ".join(categories[c] for c in leader_categories)
@@ -630,13 +663,24 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
     )
     vitals = f"""<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text or "Unknown")}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div><div><dt>Repository push</dt><dd>{escape(pushed)}</dd></div></dl>"""
     freshness = metrics_freshness(github, catalog.get("metrics_as_of"))
-    if freshness:
+    status = (github or {}).get("status", "fresh")
+    if freshness and status in ("stale", "unavailable"):
+        trigger, panel = plate_detail.detail(
+            plate_detail.uid(project["id"], "metrics"),
+            "state.aged" if status == "stale" else "state.failed",
+            "GitHub metrics: " + ("Stale" if status == "stale" else "Unavailable"),
+            "GitHub metrics: retrieval",
+            f'<p class="fine-print">{escape(freshness)}</p>',
+            [plate_detail.link(source_url(catalog, "data/github_metrics.json"), "GitHub metric snapshot", "data")],
+        )
+        vitals += f'<p class="fine-print metrics-freshness">{trigger}</p>{panel}'
+    elif freshness:
         vitals += f'<p class="fine-print metrics-freshness">{escape(freshness)}</p>'
     history = project.get("history", [])
     pushed_date = github["pushed_at"][:10] if github and github.get("pushed_at") else None
     if history:
         vitals += history_view.timeline(created, release, pushed_date, history, project["id"])
-        vitals += history_view.evidence(history)
+        vitals += history_view.evidence(history, project["id"])
     elif github:
         vitals += timeline(created, release, pushed_date)
     interior = specimen_plate(
@@ -741,7 +785,7 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", 
             + "".join(f"<li>{item}</li>" for item in signal_coverage)
             + f"<li>{len(signal_projects)} mapped GitHub repositories.</li>"
             + f"<li>Collection snapshot {escape(catalog.get('signals_collected_at'))}.</li></ul>"
-            + '<p><a href="data/project_signals.json">Release and Scorecard evidence</a></p>'
+            + '<p><a id="signal-evidence" href="data/project_signals.json">Release and Scorecard evidence</a></p>'
         )
         if signal_projects
         else ""
@@ -769,7 +813,7 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", 
  <script src="{escape(script_url)}" defer></script>
 </head>
 <body>
-<a class="skip-link" href="#catalog">Skip to specimen ledger</a>
+<a class="skip-link" href="#catalog">Skip to specimen ledger</a>{plate_detail.sprite()}
 <div class="page-shell">
 <header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/botanical-128.png" alt="" width="64" height="64"><span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img class="search-icon" src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Catalog</a><a href="#about">About</a><a href="observatory/">Observatory</a></nav></header>
 <div class="layout">
@@ -792,7 +836,7 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", 
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a id="comparison-evidence" href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
 <script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
@@ -819,7 +863,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <link rel="icon" href="brand/favicon.ico"><link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}"><script src="{font_asset_url('serif-preview.js', root)}"></script>
 <link rel="stylesheet" href="styles.css?v={escape(sha or 'preview')}"><link rel="stylesheet" href="observatory/observatory.css">
 <script src="{escape(script_url)}" defer></script></head>
-<body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>
+<body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>{plate_detail.sprite()}
 <div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="spotlight/">Weekly draws</a></nav></header></div>
 <main class="obs-shell" id="record" tabindex="-1"><section class="obs-hero"><p><span class="obs-label">Project record</span></p><h1>{name}</h1></section>
 <aside class="obs-finding"><p>Full catalog record, evidence and sources. <a href="#project-{pid}">Return to this project in the ledger</a>. Use your browser’s Print command to print this record.</p></aside>
@@ -1003,6 +1047,11 @@ def build(output, source_sha=None, root=ROOT):
         'href="data/hn_evidence.json">View evidence':
         'href="#hn-evidence">View evidence',
     }
+    # Plate popups link each evidence file; point them at the footer's one
+    # embedded copy so the file is not repeated once per project.
+    for name, anchor in (("hn_evidence.json", "hn-evidence"), ("star_history.json", "star-evidence"),
+                         ("project_signals.json", "signal-evidence"), ("alternatives.json", "comparison-evidence")):
+        replacements[f'class="evidence-file" href="data/{name}"'] = f'class="evidence-file" href="#{anchor}"'
     for category in catalog["categories"]:
         if category.get("artwork"):
             replacements[category_image(category)] = category_image(

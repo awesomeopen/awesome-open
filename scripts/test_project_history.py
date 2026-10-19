@@ -71,7 +71,7 @@ class HistoryTests(unittest.TestCase):
             self.assertEqual(history.exact_events(events), [])
             plotted = history_view.timeline(None, None, None, events, 'abc')
             self.assertEqual(plotted, '')
-            evidence = history_view.evidence(events)
+            evidence = history_view.evidence(events, 'abc')
             self.assertIn('First observed 2026-10-19', evidence)
             self.assertNotIn('<time', evidence)
             self.assertIn('Rename date unknown' if occurrence is None else 'not plotted', evidence)

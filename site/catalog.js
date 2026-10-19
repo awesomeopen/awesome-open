@@ -631,7 +631,71 @@
     return manager;
   }
 
+  var detailDocuments = new WeakSet();
+
+  // Plate details (B-PR146-01) are written inline under their box. With a
+  // native dialog available they move behind their icon trigger and open in
+  // one shared dialog; without one, nothing is hidden. Delegated, so fetched
+  // record plates need no extra wiring.
+  function enhanceDetails(document) {
+    if (detailDocuments.has(document) || !document.documentElement || !document.body ||
+        typeof document.createElement("dialog").showModal !== "function") return;
+    detailDocuments.add(document);
+    document.documentElement.classList.add("details-enhanced");
+    var dialog, heading, content, opener;
+
+    function build() {
+      dialog = document.createElement("dialog");
+      dialog.className = "detail-dialog";
+      dialog.setAttribute("aria-labelledby", "detail-dialog-title");
+      var header = document.createElement("div");
+      header.className = "detail-dialog-header";
+      heading = document.createElement("h2");
+      heading.id = "detail-dialog-title";
+      var close = document.createElement("button");
+      close.type = "button";
+      close.className = "detail-close";
+      close.textContent = "Close";
+      close.addEventListener("click", function () { dialog.close(); });
+      header.append(heading, close);
+      content = document.createElement("div");
+      content.className = "detail-dialog-content";
+      dialog.append(header, content);
+      // A click on the dialog element itself is a click on its backdrop.
+      dialog.addEventListener("click", function (event) { if (event.target === dialog) dialog.close(); });
+      dialog.addEventListener("close", function () {
+        // "close" is queued; never pull focus back from wherever it has moved since.
+        var active = document.activeElement;
+        var stray = !active || active === document.body || dialog.contains(active);
+        content.replaceChildren();
+        if (stray && opener && opener.isConnected) opener.focus();
+        opener = null;
+      });
+      document.body.appendChild(dialog);
+    }
+
+    document.addEventListener("click", function (event) {
+      var trigger = event.target.closest && event.target.closest(".detail-trigger[data-detail]");
+      var panel = trigger && document.getElementById(trigger.dataset.detail);
+      if (!panel) return;
+      if (!dialog) build();
+      heading.textContent = panel.dataset.title || "";
+      content.replaceChildren();
+      Array.from(panel.children).forEach(function (node) {
+        if (node.classList.contains("detail-title")) return;
+        var copy = node.cloneNode(true);
+        copy.removeAttribute("id");
+        copy.querySelectorAll("[id]").forEach(function (n) { n.removeAttribute("id"); });
+        content.appendChild(copy);
+      });
+      opener = trigger;
+      dialog.showModal();
+      content.scrollTop = 0;
+    });
+  }
+
   function init(document, window) {
+    enhanceDetails(document);
     var plates = enhancePlates(document, window);
     var footerArt = document.querySelector('[data-footer-background]');
     if (footerArt) {

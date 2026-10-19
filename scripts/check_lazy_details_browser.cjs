@@ -213,8 +213,8 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     await ready();
     await setOpen(sample, true);
     await loaded(sample);
-    await plate(sample).locator('.deployment-evidence details > summary').click();
-    assert.equal(await plate(sample).locator('.deployment-evidence details').evaluate(node => node.open), true);
+    // Plate details open in a shared dialog (B-PR146-01); plates carry no nested disclosures.
+    assert.equal(await plate(sample).locator('details').count(), 0);
     await setOpen(sample, false);
     const others = data.projects.filter(project => project.id !== sample.id).slice(0, 6);
     const pinned = others[0];
@@ -234,10 +234,16 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     assert.equal(await plate(pinned).getAttribute('data-lifecycle-marker'), 'open', 'An open plate is never evicted');
     await setOpen(sample, true);
     await loaded(sample);
-    assert.equal(await plate(sample).locator('.deployment-evidence details').evaluate(node => node.open), true,
-      'Nested disclosure state survives eviction and remount');
+    await plate(sample).locator('.deployment-evidence .detail-trigger').click();
+    assert.equal(await page.locator('dialog.detail-dialog[open] .deployment-group').first().isVisible(), true,
+      'A remounted plate opens its details');
+    await page.keyboard.press('Escape');
+    await page.emulateMedia({ media: 'print' });
+    assert.equal(await plate(sample).locator('.deployment-evidence .detail-body').isVisible(), true,
+      'Printing shows details inline with script enabled');
+    await page.emulateMedia({ media: 'screen' });
     report.afterRetention = await counts();
-    report.checks.push('bounded closed-plate LRU, open-plate retention, nested disclosure restoration');
+    report.checks.push('bounded closed-plate LRU, open-plate retention, remounted detail popups, print shows details');
 
     // Keyboard toggling at a narrow viewport also exercises the real native
     // summary rather than a custom disclosure control.
@@ -349,7 +355,7 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
       await staticPage.emulateMedia({ media: 'print' });
       assert.equal(await staticPage.locator('.specimen-plate').isVisible(), true);
       assert.equal(await staticPage.locator('.deployment-group').first().isVisible(), true,
-        'Printing includes evidence inside closed nested disclosures');
+        'Printing includes setup evidence written inline');
       assert.equal(await staticPage.locator('.plate-departure > a').isVisible(), true);
       assert.equal(await staticPage.locator('.plate-departure > a').getAttribute('href'), sample.url);
     } finally {
