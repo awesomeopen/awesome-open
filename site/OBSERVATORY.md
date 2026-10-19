@@ -112,7 +112,9 @@ workflow, permissions, dependencies or public preview host is needed.
 
 ## Reviewed rhyming names
 
-The separate clickable “tools have rhyming names” disclosure is a bounded
+The “Show names that rhyme” disclosure sits directly below “Show duplicate
+names” as a sibling native disclosure in Shared names. Its tool count remains
+secondary summary metadata. This separate measure is a bounded
 editorial measure, not another shared-name category. It does not increase the
 shared-name headline. A project can occur in both measures; totals are not additive.
 Native HTML shows the reviewed groups without JavaScript. Category/license
