@@ -16,7 +16,7 @@ from build_site import BRAND_ASSETS, ROOT, attach_specimen_cutouts, build, json_
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
-RUNTIME_SCRIPTS = ('catalog.js',)
+RUNTIME_SCRIPTS = ('serif-preview.js', 'catalog.js')
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 
 
@@ -233,7 +233,7 @@ class SiteTests(unittest.TestCase):
 
     def assert_safe_script_allowlist(self, page):
         scripts = page.nodes('script')
-        self.assertEqual(len(scripts), 2)
+        self.assertEqual(len(scripts), len(RUNTIME_SCRIPTS) + 1)
         self.assertEqual([node.attrs.get('src') for node in scripts[:-1]], list(RUNTIME_SCRIPTS))
         for node in scripts[:-1]:
             self.assertIn('defer', node.attrs)
@@ -372,7 +372,7 @@ for (const input of inputs) {
             prefix, encoded = link.attrs['href'].split(',', 1)
             self.assertEqual(prefix, f'data:{BRAND_ASSETS[name]};base64')
             self.assertEqual(base64.b64decode(encoded, validate=True), (self.output / 'brand' / name).read_bytes())
-        for name, script in zip(RUNTIME_SCRIPTS, page.nodes('script')[:-1]):
+        for name, script in zip(('catalog.js',), page.nodes('script')[:-1]):
             self.assertIn('defer', script.attrs)
             self.assertEqual(script.text, '')
             prefix, encoded = script.attrs['src'].split(',', 1)

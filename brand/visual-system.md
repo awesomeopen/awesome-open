@@ -224,3 +224,13 @@ The “In the wild” departure uses plain Prussian blue with decorative contour
 centered around its link (y=200 in the 1000 × 400 viewBox). The navy texture
 remains in the footer only. Asset pixels, filter semantics, contour styling and
 clipping are unchanged. See [B-PR129-01](decisions/B-PR129-01.md).
+
+## Explicit serif comparison
+
+The optional URL-only comparison described in [PREVIEW.md](../site/PREVIEW.md#opt-in-serif-comparison)
+keeps Fraunces as the public default. Instrument Serif and Półtawski Nowy are
+review candidates at regular 400 throughout, with Commit Mono unchanged. Exit
+preview clears the choice; downloaded offline editions retain Fraunces. Candidate
+assets and notices live in `site/vendor/serif-preview/`; this does not supersede
+the existing typography decision.
+

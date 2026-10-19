@@ -26,14 +26,14 @@ class LazyDetailSiteTests(unittest.TestCase):
         for path in [self.output / 'index.html', *sorted((self.output / 'records').glob('*.html'))]:
             page = Page(path.read_text())
             scripts = [node.attrs['src'] for node in page.nodes('script') if 'src' in node.attrs]
-            self.assertEqual(scripts, [expected], path.name)
+            self.assertEqual(scripts, ["serif-preview.js", expected], path.name)
         # A metadata-only revision keeps the same runtime identity; raw renderer
         # callers remain compatible with historical preview tooling.
         for revision in ('b' * 40, 'c' * 40):
             catalog = {**self.catalog, 'source_sha': revision}
             page = Page(render_html(catalog, deferred=True, script_url=expected))
-            self.assertEqual(page.nodes('script')[0].attrs['src'], expected)
-        self.assertEqual(Page(render_html(self.catalog)).nodes('script')[0].attrs['src'], 'catalog.js')
+            self.assertEqual(page.nodes('script')[1].attrs['src'], expected)
+        self.assertEqual(Page(render_html(self.catalog)).nodes('script')[1].attrs['src'], 'catalog.js')
 
     def test_exhibition_uses_runtime_from_its_output_bundle(self):
         from build_exhibition_preview import build as build_exhibition

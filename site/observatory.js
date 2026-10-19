@@ -46,8 +46,10 @@
     return normalizeFilters({ category: params.get('category'), license: params.get('license') }, categories);
   }
 
-  function filterSearch(filters) {
+  function filterSearch(filters, search) {
     var params = new URLSearchParams();
+    var serif = new URLSearchParams(search || '').get('serif');
+    if (['fraunces', 'instrument', 'poltawski'].includes(serif)) params.set('serif', serif);
     if (filters.category !== 'all') params.set('category', filters.category);
     if (filters.license !== 'all') params.set('license', filters.license);
     var value = params.toString();
@@ -536,7 +538,7 @@
     }
 
     function setLocation(filters, replace) {
-      var target = win.location.pathname + filterSearch(filters) + win.location.hash;
+      var target = win.location.pathname + filterSearch(filters, win.location.search) + win.location.hash;
       if (target === win.location.pathname + win.location.search + win.location.hash) return;
       // A sandboxed/offline document may prohibit history updates; its local
       // filtering and export remain usable in that case.

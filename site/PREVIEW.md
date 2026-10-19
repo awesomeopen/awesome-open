@@ -58,3 +58,27 @@ Active branch: `design/jar-depth-motion`. Review `/jars-05/jars.html`. Hover/foc
 ## Production promotion
 The production publisher runs build_site.py --production, composing the reviewed seven-jar hero into index.html with the current catalog and all evidence cards. Production has no preview title or noindex directive. PR Chromium checks exercise index.html, including jar interactions. The private Site root mirrors this build for review; historical preview subdirectories remain available.
 The self-contained download remains a motion-free ledger with embedded artwork, fonts and evidence.
+
+## Opt-in serif comparison
+
+On a hosted revision containing the switcher, append `?serif=fraunces`,
+`?serif=instrument`, or `?serif=poltawski` to the catalog, Observatory, Weekly
+draws, individual record or design-reference URL. The labeled preview control
+switches between them and Exit preview restores the ordinary URL. Existing
+filters and fragments survive; same-site page links carry the choice. There is
+no cookie or localStorage preference. Plain or unrecognized URLs keep Fraunces.
+
+Instrument Serif and Półtawski Nowy use regular 400 for every serif role, including
+the wordmark. Fraunces retains its existing 300/600 weights and variation axes;
+Commit Mono, sizes and spacing stay unchanged. Candidate font failure leaves
+Fraunces visible with a status message. The selected candidate is loaded from
+local WOFF2 only; no Google Fonts request is made by visitors. The default page
+loads the small opt-in detector, but no candidate font or preview stylesheet.
+The existing embedded Fraunces/Commit Mono bundle is not split by this change.
+
+Downloaded standalone catalog and Observatory reports retain the default fonts
+and remain self-contained. Historical jar/exhibition studies are not new preview
+targets. This is a comparison tool, not approval to replace the default family.
+See [font provenance](vendor/serif-preview/provenance.json) and the two adjacent
+SIL OFL notices. Converted WOFF2 assets retain the full original character sets;
+Półtawski's variable source is exposed only at 400 by this preview.

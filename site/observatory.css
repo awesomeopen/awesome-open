@@ -16,7 +16,7 @@ button:disabled { color: var(--rs-muted, #465665); border-color: var(--obs-rule)
 img { display: block; max-width: 100%; }
 h1, h2, h3, h4, p, figure, dl, dd, ol, ul { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
-h1, h2, h3, h4 { font-family: var(--rs-display, Georgia, serif); font-weight: 300; font-variation-settings: 'SOFT' 100, 'WONK' 1; font-optical-sizing: auto; text-wrap: balance; }
+h1, h2, h3, h4 { font-family: var(--rs-display, Georgia, serif); font-weight:var(--rs-display-weight, 300); font-variation-settings:var(--rs-display-axes, 'SOFT' 100, 'WONK' 1); font-optical-sizing: auto; text-wrap: balance; }
 h1 { font-size: clamp(48px, 8vw, 104px); line-height: .98; letter-spacing: -.035em; }
 h2 { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.16; letter-spacing: -.02em; }
 h3 { font-size: 25px; line-height: 1.2; }
@@ -31,7 +31,7 @@ noscript p { margin-block: 8px 0; font-size: 12px; color: var(--rs-muted, #46566
 
 /* Header and selection bar */
 .obs-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 32px; padding-block: 20px; }
-.obs-brand { font: 600 28px/1.1 var(--rs-display, Georgia, serif); font-variation-settings: 'SOFT' 100, 'WONK' 1; text-decoration: none; letter-spacing: -.02em; }
+.obs-brand { font: var(--rs-wordmark-weight, 600) 28px/1.1 var(--rs-display, Georgia, serif); font-variation-settings:var(--rs-display-axes, 'SOFT' 100, 'WONK' 1); text-decoration: none; letter-spacing: -.02em; }
 .obs-brand span { color: var(--rs-scarlet, #b62420); }
 /* Same links and spacing as the ledger's .header-links. */
 .obs-nav { display: flex; flex-wrap: wrap; gap: 4px 24px; font-size: 14px; }
@@ -58,7 +58,7 @@ noscript p { margin-block: 8px 0; font-size: 12px; color: var(--rs-muted, #46566
 .obs-ratio { display: block; height: 4px; margin-top: 8px; background: var(--rs-mist, #f0f5f8); }
 .obs-ratio i { display: block; height: 100%; background: var(--rs-blueprint, #0b2546); }
 .obs-finding { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px 48px; align-items: center; margin-top: 40px; padding: 28px 32px 32px; background: var(--rs-mist, #f0f5f8); }
-#obs-finding-text { font: 300 clamp(22px, 2.6vw, 30px)/1.22 var(--rs-display, Georgia, serif); font-variation-settings: 'SOFT' 100, 'WONK' 1; text-wrap: balance; }
+#obs-finding-text { font:var(--rs-display-weight, 300) clamp(22px, 2.6vw, 30px)/1.22 var(--rs-display, Georgia, serif); font-variation-settings:var(--rs-display-axes, 'SOFT' 100, 'WONK' 1); text-wrap: balance; }
 .obs-strip { position: relative; display: flex; height: 28px; background: var(--rs-paper, #fff); box-shadow: inset 0 0 0 1px var(--obs-rule); }
 .obs-strip-segment { display: block; flex: none; height: 100%; background: var(--rs-blueprint, #0b2546); box-shadow: inset -1px 0 0 var(--rs-paper, #fff); }
 .obs-strip-tail { background: transparent; box-shadow: none; }
