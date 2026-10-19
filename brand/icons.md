@@ -103,9 +103,11 @@ Bases are part of the grammar:
 - Generated drafts may guide composition. Prompt for Retro-Scraperism only:
   bold technical-drafting pictograms in ink and Prussian blue on white, with
   four registration ticks on ring and square icons; never specimen references.
-  Drafts stay unpublished references (record model, seed and prompt in the icon
-  provenance) because local image-model licences may not permit redistribution.
-  The shipped files are redrawn SVG, never traced or embedded generated pixels.
+  Record model, seed and prompt in the icon provenance. Commit drafts as a
+  study under `brand/studies/` only when the model's licence permits
+  redistribution (FLUX.2 [klein] 4B, Apache 2.0, does; the 9B's non-commercial
+  licence does not). The shipped files are redrawn SVG, never traced or embedded
+  generated pixels.
 - Raster output is optional only for `l` setup icons (`run.*`, `install.*`) when pencil character is
   wanted. A raster `l` icon is a transparent `{id}-l.webp` with prompt and tool in the
   provenance.
