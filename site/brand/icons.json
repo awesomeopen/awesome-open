@@ -453,7 +453,7 @@
         "scripts/build_site.py:243 `note-provenance`",
         "scripts/build_site.py:200 `signal-checks`",
         "scripts/deployment.py:154 `View setup facts`",
-        "site/styles.css:445 `.drawer-sign`"
+        "site/styles.css:461 `.drawer-sign`"
       ]
     },
     {
@@ -461,7 +461,7 @@
       "group": "control",
       "status": "today",
       "base": "none",
-      "shape": "Minus sign, same length and stroke as the plus",
+      "shape": "Upright six-arm asterisk, same centre, arm length and stroke as the plus",
       "color_token": "--rs-ink",
       "sizes": [
         "s",
@@ -472,7 +472,8 @@
         "(same summaries, open state)"
       ],
       "used_in": [
-        "site/styles.css:457 `.drawer-sign open`"
+        "site/styles.css:464 `.specimen-drawer[open] .drawer-sign`",
+        "site/styles.css:1002 `.data-notes[open]`"
       ]
     },
     {

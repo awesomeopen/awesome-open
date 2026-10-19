@@ -265,8 +265,15 @@ def disclose_closed(p):
 
 
 def disclose_open(p):
+    """Upright six-arm asterisk on the plus's centre and arm length (B-PR146-01)."""
+    a, b = p.p + 1, p.S - p.p - 1 - (1 if p.w % 2 else 0)
     x = snap(p.c, p.w)
-    p.line([(p.p + 1, x), (p.S - p.p - 1 - (1 if p.w % 2 else 0), x)], cap=' stroke-linecap="butt"')
+    p.line([(x, a), (x, b)], cap=' stroke-linecap="butt"')
+    top, bottom = snap(a, p.w), snap(b, p.w)  # diagonals cross at the snapped stroke's midpoint
+    y, r = (top + bottom) / 2, (bottom - top) / 2
+    dx, dy = r * math.cos(math.radians(30)), r * math.sin(math.radians(30))
+    for sign in (1, -1):
+        p.path(f"M{n(x - dx)} {n(y - sign * dy)} L{n(x + dx)} {n(y + sign * dy)}", extra=' stroke-linecap="butt"')
 
 
 def control_reset(p):

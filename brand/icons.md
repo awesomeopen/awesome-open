@@ -203,8 +203,8 @@ No container.
 
 | ID | Status | Meaning (literal) | Paired label (current text) | Shape | Token | Sizes | Source today |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `disclose.closed` | today | A native disclosure that is closed | “Table of contents”; “Filters”; “More filters”; “About the data”; “View source & retrieval history”; “Check results and scan provenance”; “View setup facts & sources” | Plus sign | `--rs-ink` | s m | scripts/build_site.py:729 `Table of contents`<br>scripts/build_site.py:732 `Filters`<br>scripts/build_site.py:733 `More filters`<br>scripts/build_site.py:744 `About the data`<br>scripts/build_site.py:243 `note-provenance`<br>scripts/build_site.py:200 `signal-checks`<br>scripts/deployment.py:154 `View setup facts`<br>site/styles.css:445 `.drawer-sign` |
-| `disclose.open` | today | A native disclosure that is open | (same summaries, open state) | Minus sign, same length and stroke as the plus | `--rs-ink` | s m | site/styles.css:457 `.drawer-sign open` |
+| `disclose.closed` | today | A native disclosure that is closed | “Table of contents”; “Filters”; “More filters”; “About the data”; “View source & retrieval history”; “Check results and scan provenance”; “View setup facts & sources” | Plus sign | `--rs-ink` | s m | scripts/build_site.py:729 `Table of contents`<br>scripts/build_site.py:732 `Filters`<br>scripts/build_site.py:733 `More filters`<br>scripts/build_site.py:744 `About the data`<br>scripts/build_site.py:243 `note-provenance`<br>scripts/build_site.py:200 `signal-checks`<br>scripts/deployment.py:154 `View setup facts`<br>site/styles.css:461 `.drawer-sign` |
+| `disclose.open` | today | A native disclosure that is open | (same summaries, open state) | Upright six-arm asterisk, same centre, arm length and stroke as the plus | `--rs-ink` | s m | site/styles.css:464 `.specimen-drawer[open] .drawer-sign`<br>site/styles.css:1002 `.data-notes[open]` |
 | `control.reset` | today | Clears filters back to the default view | “Reset filters ↺” | Open circular arrow turning counter-clockwise | `--rs-ink` | s m | scripts/build_site.py:737 `clear-filters` |
 | `control.info` | planned | Links a term to its definition | “Stale”; “OpenSSF Scorecard”; “Square-root scale”; “Registry ID”; “Folio number”; “How groups are formed” | Lowercase i with a heavy dot, no container (rings belong to states) | `--rs-blueprint` | s m | scripts/build_site.py:744 `About the data definitions`<br>scripts/build_site.py:561 `star-window`<br>scripts/build_site.py:404 `title="Registry ID"`<br>scripts/build_observatory.py:387 `shared names` |
 | `control.sort-asc` | planned | Ascending sort order | “Name A–Z” | Up arrow beside three bars of increasing length | `--rs-ink` | s m | scripts/build_site.py:737 `sort-order` |
@@ -300,10 +300,29 @@ Rows this would change, in both files:
   second bullet under [Not icons](#not-icons) goes away.
 - `link.data`: gains per-record evidence-file links.
 
-Open questions for review: whether a popup trigger needs an affordance that
-differs from a native disclosure; popup behaviour on touch and in the no-JS and
-offline editions (native `<details>` as the fallback); whether the 12px `s`
-ring with registration ticks reads well enough as a click target.
+Answered in review (owner, 2026-10-19):
+
+- **Trigger affordance.** No separate popup affordance. On the plate, native
+  disclosures are underlined text without a marker; the `+` marker appears
+  only on ledger rows, the sidebar and the footer. Icon triggers therefore do
+  not compete with it.
+- **Popup size.** Sized to content up to 90% × 90% of the viewport, scrolling
+  inside, close button pinned at the top. A native `<dialog>` gives Esc,
+  backdrop, contained focus, and focus returns to the trigger on close.
+- **No-JS, offline and print.** The generator writes every detail inline under
+  its box: title, data, then all additional data. Script hides it and wires the
+  triggers; without script nothing is hidden. Whether the standalone edition
+  keeps the script is checked during implementation.
+- **Trigger size.** Test the `m` (16px) glyph in a 24×24px button first, and `s`
+  only where space is tight. Do not scale `s` up: each size is drawn for its
+  own grid. The hit area may exceed the glyph.
+
+Corrected with this proposal: `disclose.open` was mapped as a minus, but the
+site shows an upright asterisk on open ledger rows and the open data notes
+(user direction recorded in the [guide](../site/RETRO-SCRAPERISM.md)). The row
+and SVGs now follow the site. At `s`, the 30° arms render soft, like other
+diagonals at 1px; judge it in the trigger test. Category and filter panels
+rotate their `+` by 45° when open; that is left as is and not mapped.
 
 ## Maintaining the map
 
