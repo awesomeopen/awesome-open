@@ -1015,10 +1015,10 @@ h1 { font-size:28px; margin:0; }
 /* Typography revision: soft editorial headings, precise ledger text. */
 body {font-size:15px;line-height:1.6;font-weight:400;font-variant-numeric:tabular-nums;font-synthesis:none;}
 h1,h2,h3,.record-description,.data-notes>summary,.diagnostics .evidence-note h4 {
-  font-family:var(--rs-display);font-weight:300;font-optical-sizing:auto;
-  font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.025em;text-wrap:pretty;
+  font-family:var(--rs-display);font-weight:var(--rs-display-weight, 300);font-optical-sizing:auto;
+  font-variation-settings:var(--rs-display-axes, "SOFT" 100,"WONK" 1);letter-spacing:-.025em;text-wrap:pretty;
 }
-.brand {font-family:var(--rs-display);font-weight:600;font-size:30px;line-height:1.1;letter-spacing:-.035em;font-optical-sizing:auto;font-variation-settings:"SOFT" 100,"WONK" 1;gap:10px;}
+.brand {font-family:var(--rs-display);font-weight:var(--rs-wordmark-weight, 600);font-size:30px;line-height:1.1;letter-spacing:-.035em;font-optical-sizing:auto;font-variation-settings:var(--rs-display-axes, "SOFT" 100,"WONK" 1);gap:10px;}
 .site-header {gap:clamp(16px,2vw,32px);padding-block:12px;}
 .header-links {font:13px/1.5 var(--mono);gap:20px;}
 .header-search {max-width:300px;}
@@ -1133,7 +1133,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-crop {display:block;width:112px;height:112px;border:1px solid var(--rs-ink);background:white no-repeat;visibility:hidden;}
 .plate-crop.is-tiny {width:64px;height:64px;}
 .plate-crop.is-ready {visibility:visible;}
-.plate-note strong {display:block;font:300 22px/1.2 var(--rs-display);font-variation-settings:'SOFT' 100;color:var(--rs-blueprint);margin:2px 0 4px;}
+.plate-note strong {display:block;font:var(--rs-display-weight, 300) 22px/1.2 var(--rs-display);font-variation-settings:var(--rs-display-axes, 'SOFT' 100);color:var(--rs-blueprint);margin:2px 0 4px;}
 .plate-note p {margin:0;font:14px/1.65 var(--mono);color:var(--rs-ink);}
 .feature-source {display:inline-block;margin-top:6px;font:12px/1.6 var(--mono);}
 .plate-leaders {position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:2;}
@@ -1156,7 +1156,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-band {margin-top:64px;}
 .specimen-plate .vitals {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding:0;margin:0 0 32px;border:0;}
 .specimen-plate .vitals dt {font-size:12px;color:var(--muted);}
-.specimen-plate .vitals dd {margin:4px 0 0;font:300 30px/1.1 var(--rs-display);font-variation-settings:'SOFT' 100;color:var(--rs-blueprint);font-variant-numeric:tabular-nums;}
+.specimen-plate .vitals dd {margin:4px 0 0;font:var(--rs-display-weight, 300) 30px/1.1 var(--rs-display);font-variation-settings:var(--rs-display-axes, 'SOFT' 100);color:var(--rs-blueprint);font-variant-numeric:tabular-nums;}
 .timeline {position:relative;height:92px;margin:0 6px;}
 .timeline-axis {position:absolute;left:0;right:0;top:46px;border-top:1px solid var(--rs-blueprint);}
 .timeline-span {position:absolute;top:44px;height:5px;background:var(--rs-trace);border:1px solid #a9c8da;}
@@ -1179,14 +1179,14 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-evidence .evidence-notes {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 48px;}
 .plate-evidence .optional-signals {display:contents;}
 .specimen-plate .evidence-note,.specimen-plate .signal.evidence-note {padding:0;border:0;background:transparent;box-shadow:none;margin:0;}
-.specimen-plate .diagnostics .evidence-note h4 {font:300 26px/1.2 var(--rs-display);font-variation-settings:'SOFT' 100;color:var(--rs-blueprint);display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 12px;}
+.specimen-plate .diagnostics .evidence-note h4 {font:var(--rs-display-weight, 300) 26px/1.2 var(--rs-display);font-variation-settings:var(--rs-display-axes, 'SOFT' 100);color:var(--rs-blueprint);display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 12px;}
 .specimen-plate .hn-chart {display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
 .specimen-plate .evidence-note .hn-chart img,.specimen-plate .evidence-note .star-chart img {width:100%;max-width:480px;height:auto;aspect-ratio:5;}
 .specimen-plate .evidence-note .hn-chart {margin-bottom:12px;}
-.specimen-plate .note-value {display:block;font:300 40px/1 var(--rs-display);font-variation-settings:'SOFT' 100;color:var(--rs-blueprint);margin-bottom:6px;}
+.specimen-plate .note-value {display:block;font:var(--rs-display-weight, 300) 40px/1 var(--rs-display);font-variation-settings:var(--rs-display-axes, 'SOFT' 100);color:var(--rs-blueprint);margin-bottom:6px;}
 .specimen-plate :is(.note-provenance,.signal-checks,.deployment-evidence details) {margin-top:12px;padding-top:0;border:0;}
 .plate-alternatives .comparison ul {list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px 48px;}
-.plate-alternatives .comparison li>a {font:300 26px/1.2 var(--rs-display);font-variation-settings:'SOFT' 100;}
+.plate-alternatives .comparison li>a {font:var(--rs-display-weight, 300) 26px/1.2 var(--rs-display);font-variation-settings:var(--rs-display-axes, 'SOFT' 100);}
 .plate-alternatives .comparison li>p {max-width:72ch;margin-top:6px;}
 .plate-alternatives .evidence-date {display:block;font-size:12px;}
 
@@ -1197,7 +1197,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-wild-terrain path.is-index {stroke:rgba(217,238,248,.3);}
 .plate-departure>*:not(svg) {position:relative;}
 .plate-departure .sheet-label {margin-bottom:24px;}
-.plate-departure>a {display:flex;justify-content:center;align-items:baseline;gap:14px;text-decoration-color:rgba(255,255,255,.4);text-underline-offset:6px;font:300 clamp(30px,4vw,52px)/1.15 var(--rs-display);font-variation-settings:'SOFT' 100;color:white;}
+.plate-departure>a {display:flex;justify-content:center;align-items:baseline;gap:14px;text-decoration-color:rgba(255,255,255,.4);text-underline-offset:6px;font:var(--rs-display-weight, 300) clamp(30px,4vw,52px)/1.15 var(--rs-display);font-variation-settings:var(--rs-display-axes, 'SOFT' 100);color:white;}
 .plate-departure>a:is(:hover,:focus-visible) {text-decoration-color:white;}
 .departure-arrow {font:300 .8em/1 var(--mono);color:var(--rs-scarlet-art);}
 .departure-address {display:block;margin-top:12px;font:12px/1.6 var(--mono);color:var(--rs-trace);overflow-wrap:anywhere;}

@@ -562,6 +562,61 @@
           "confidence": "high"
         }
       ]
+    },
+    {
+      "readme_url": "https://github.com/openrecall/openrecall",
+      "alternatives": [
+        {
+          "name": "Windows Recall",
+          "source_url": "https://github.com/openrecall/openrecall/blob/main/README.md",
+          "checked_utc_date": "2026-10-19",
+          "scope": "Searchable desktop activity history captured as screenshots. The official README explicitly names Windows Recall as an alternative target; the claim concerns recalling on-screen activity.",
+          "source_quote": "alternative to proprietary solutions like Microsoft's Windows Recall or Limitless' Rewind.ai.",
+          "confidence": "high"
+        },
+        {
+          "name": "Rewind.ai",
+          "source_url": "https://github.com/openrecall/openrecall/blob/main/README.md",
+          "checked_utc_date": "2026-10-19",
+          "scope": "Searchable desktop activity history captured as screenshots. The official README explicitly names Rewind.ai as an alternative target; the claim concerns recalling on-screen activity.",
+          "source_quote": "alternative to proprietary solutions like Microsoft's Windows Recall or Limitless' Rewind.ai.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/OpenWhispr/openwhispr",
+      "alternatives": [
+        {
+          "name": "Wispr Flow",
+          "source_url": "https://github.com/OpenWhispr/openwhispr/blob/main/README.md",
+          "checked_utc_date": "2026-10-19",
+          "scope": "Desktop voice-to-text dictation into applications. The README explicitly positions OpenWhispr against WisprFlow.",
+          "source_quote": "The open-source and free alternative to WisprFlow and Granola.",
+          "confidence": "high"
+        },
+        {
+          "name": "Granola",
+          "source_url": "https://github.com/OpenWhispr/openwhispr/blob/main/README.md",
+          "checked_utc_date": "2026-10-19",
+          "scope": "Meeting transcription and notes. The README explicitly names Granola and describes meeting capture; Intel Macs lack live speaker identification and voice fingerprinting.",
+          "source_quote": "The open-source and free alternative to WisprFlow and Granola.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/OpenSilver/OpenSilver",
+      "alternatives": [
+        {
+          "name": "Silverlight",
+          "source_url": "https://doc.opensilver.net/documentation/migrate-from-silverlight/overview.html",
+          "checked_utc_date": "2026-10-19",
+          "scope": "Migrating Silverlight application code and XAML to OpenSilver. The guide requires new OpenSilver projects, compilation and runtime fixes; unsupported functionality and third-party libraries may require manual changes.",
+          "source_quote": "Migrating from Silverlight to OpenSilver",
+          "confidence": "high"
+        }
+      ]
     }
   ]
 }

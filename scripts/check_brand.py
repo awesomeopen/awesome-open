@@ -47,6 +47,7 @@ def asset_inventory():
         paths.extend(p for p in (ROOT / directory).rglob('*')
                      if p.is_file() and p.suffix.lower() in ASSET_SUFFIXES)
     paths.extend(ROOT / p for p in FONT_FILES)
+    paths.extend(p for p in (ROOT / 'site/vendor/serif-preview').rglob('*') if p.is_file())
     return {str(p.relative_to(ROOT)): record(safe_path(str(p.relative_to(ROOT))))
             for p in sorted(paths)}
 
