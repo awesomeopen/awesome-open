@@ -656,7 +656,12 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
 </article>'''
 
 
-def render_html(catalog, cutouts=None, deferred=False):
+def catalog_script_url(code):
+    """Use identical runtime bytes as the cache identity across generated routes."""
+    return "catalog.js?v=" + hashlib.sha256(code.encode("utf-8")).hexdigest()
+
+
+def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js"):
     categories = {c["id"]: c["name"] for c in catalog["categories"]}
     count = len(catalog["projects"])
     nav = "".join(
@@ -755,7 +760,7 @@ def render_html(catalog, cutouts=None, deferred=False):
  <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
  <link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="styles.css?v={escape(sha or "preview")}">
- <script src="catalog.js" defer></script>
+ <script src="{escape(script_url)}" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#catalog">Skip to specimen ledger</a>
@@ -787,7 +792,7 @@ def render_html(catalog, cutouts=None, deferred=False):
 '''
 
 
-def render_record(project, categories, catalog, number, cutouts=None):
+def render_record(project, categories, catalog, number, cutouts=None, script_url="catalog.js"):
     """A native no-JS record is also the same-origin fetch-on-open source.
 
     Keep asset paths identical to the ledger via the explicit base. The loader
@@ -805,7 +810,7 @@ def render_record(project, categories, catalog, number, cutouts=None):
 <meta name="description" content="{escape(project['description'])}">
 <link rel="icon" href="brand/favicon.ico"><link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="styles.css?v={escape(sha or 'preview')}"><link rel="stylesheet" href="observatory/observatory.css">
-<script src="catalog.js" defer></script></head>
+<script src="{escape(script_url)}" defer></script></head>
 <body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>
 <div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="draws/">Weekly draws</a></nav></header></div>
 <main class="obs-shell" id="record" tabindex="-1"><section class="obs-hero"><p><span class="obs-label">Project record</span></p><h1>{name}</h1></section>
@@ -882,8 +887,12 @@ def build(output, source_sha=None, root=ROOT):
     import weekly_draw
     draws = weekly_draw.load(root / weekly_draw.PATH)
     catalog["weekly_draws"] = draws
-    page = render_html(catalog, cutouts)
-    ledger = render_html(catalog, cutouts, deferred=True)
+    # HTML and its drawer runtime must not share a cache key with older code.
+    # Hash content, not snapshots: evidence-only publishes can reuse the script.
+    runtime = (root / "site/catalog.js").read_text(encoding="utf-8")
+    script_url = catalog_script_url(runtime)
+    page = render_html(catalog, cutouts, script_url=script_url)
+    ledger = render_html(catalog, cutouts, deferred=True, script_url=script_url)
     # Validate charts before touching generated files. The renderer is shared with README.
     charts = {
         p["slug"]: hn.svg(p, evidence) for p in display_hn_evidence(source, evidence)["projects"] if p["eligible"]
@@ -900,8 +909,8 @@ def build(output, source_sha=None, root=ROOT):
         for p in catalog["projects"]
     }
     assets = {
-        name: (root / "site" / name).read_text(encoding="utf-8")
-        for name in ("styles.css", "catalog.js")
+        "styles.css": (root / "site/styles.css").read_text(encoding="utf-8"),
+        "catalog.js": runtime,
     }
     assets["tokens.css"] = (root / "site/design/tokens.css").read_text(encoding="utf-8")
     output.mkdir(parents=True, exist_ok=True)
@@ -912,7 +921,7 @@ def build(output, source_sha=None, root=ROOT):
     categories = {c["id"]: c["name"] for c in catalog["categories"]}
     for number, project in enumerate(catalog["projects"], 1):
         (records / (project["id"] + ".html")).write_text(
-            render_record(project, categories, catalog, number, cutouts), encoding="utf-8"
+            render_record(project, categories, catalog, number, cutouts, script_url=script_url), encoding="utf-8"
         )
     (output / "catalog.json").write_text(
         json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
@@ -1017,7 +1026,7 @@ def build(output, source_sha=None, root=ROOT):
         # Keep parser ordering identical to deferred scripts: initialize after DOM.
         code = (output / name).read_text(encoding="utf-8")
         encoded = base64.b64encode(code.encode("utf-8")).decode("ascii")
-        replacements[f'src="{name}"'] = f'src="data:text/javascript;base64,{encoded}"'
+        replacements[f'src="{script_url}"'] = f'src="data:text/javascript;base64,{encoded}"'
     for project in catalog["projects"]:
         if "artwork" in project:
             asset = (

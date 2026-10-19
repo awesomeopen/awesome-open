@@ -20,6 +20,12 @@ same-origin record request; no framework runtime or remote data service is used.
 
 ## Runtime ownership
 
+Generated ledger, record and exhibition pages use the same content-hashed
+`catalog.js` URL. A fresh lazy ledger must not reuse a cached pre-loader script;
+evidence-only publishes can reuse unchanged runtime bytes. The standalone embeds
+those bytes directly. This prevents mixed-version cache failures; it does not
+establish the cause of every device-specific loading report.
+
 Fetch only a same-origin generated record URL for the expected stable ID, reject
 redirects and unexpected documents, and resolve relative artwork/evidence links
 against the record's base before insertion. Active scripts and event attributes

@@ -4,7 +4,7 @@ import argparse
 import json
 import shutil
 from pathlib import Path
-from build_site import escape, json_for_html, project_html
+from build_site import catalog_script_url, escape, json_for_html, project_html
 
 ROOT = Path(__file__).resolve().parents[1]
 CATEGORY = 'infrastructure--devops'
@@ -17,6 +17,7 @@ NOTES = {
 def build(output):
     output = Path(output)
     catalog = json.loads((output / 'catalog.json').read_text())
+    script_url = catalog_script_url((output / "catalog.js").read_text(encoding="utf-8"))
     category = next(c for c in catalog['categories'] if c['id'] == CATEGORY)
     projects = [{**p, 'leader_categories': [c for c in p.get('leader_categories', []) if c == CATEGORY]} for p in catalog['projects'] if CATEGORY in p['categories']]
     leaders = [p for p in projects if CATEGORY in p.get('leader_categories', [])]
@@ -43,7 +44,7 @@ def build(output):
     page=f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Infrastructure & DevOps — Awesome Open / Preview 01</title><meta name="robots" content="noindex,nofollow">
     <link rel="icon" href="brand/favicon.ico"><link rel="stylesheet" href="vendor/fonts.css"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="exhibition.css">
-    <script src="catalog.js" defer></script><script src="exhibition.js" defer></script></head><body class="exhibition-page">
+    <script src="{escape(script_url)}" defer></script><script src="exhibition.js" defer></script></head><body class="exhibition-page">
     <a class="skip-link" href="#ex-ledger">Skip to category ledger</a>
     <header class="ex-header"><a class="brand" href="index.html"><img class="brand-mark" src="brand/fruit-96.png" alt="" width="40" height="40"><span>Awesome Open<span class="brand-asterisk">*</span></span></a>
     <form class="ex-search" id="ex-search-form" hidden><label for="ex-search">Search this category</label><input id="ex-search" type="search" placeholder="Name, function, alternative…" autocomplete="off"></form>
