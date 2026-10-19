@@ -4,7 +4,9 @@ Status: **experiments failed; direction replaced**. On 2026-10-18 the owner
 listened to the test batches below and ended the attempt to steer TTS models
 toward interpretative, function-derived character voices. The work continues on
 a different path: a consented cloned voice reading the plain name, plus a quiet
-ambient "scene" beneath it. See [Outcome](#outcome-experiments-failed) and
+ambient "scene" beneath it (proposed in
+[B-PR121-01](../brand/decisions/B-PR121-01.md)). See
+[Outcome](#outcome-experiments-failed) and
 [Next path](#next-path-cloned-name-voice-and-ambient-scene). The sections below
 are kept as the record of what was tried. This document does not install a
 model, enable a service, authorize spending, change the site, or extend existing
