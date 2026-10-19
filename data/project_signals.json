@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-19T19:25:48Z",
+  "collected_at": "2026-10-19T19:40:44Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -516,16 +516,29 @@
     "adamsilverstein/open-ancestry": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
-        "error": "not_found",
-        "etag": null,
-        "fetch_status": "not_found",
-        "http_status": 404,
-        "last_good": null,
-        "last_success_at": null,
+        "checked_at": "2026-10-19T19:40:44Z",
+        "error": null,
+        "etag": "\"9ac71f039381a9ceff608309d10adbf4cb0c7069df178051302bb7bc8b8d4b6b\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-19T19:40:44Z",
+          "observed_at": "2026-10-18T23:22:20Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/adamsilverstein/open-ancestry/releases/tag/v1.0.0",
+            "published_at": "2026-10-18T23:22:20Z",
+            "release_id": 416768896,
+            "tag_name": "v1.0.0"
+          }
+        },
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/adamsilverstein/open-ancestry/releases/latest",
-        "status": "unavailable"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "scorecard": {
         "check_time_precision": "second",
@@ -793,25 +806,25 @@
     "anichikage/open-typora": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"c558fb374d3a5383e8bee5a7d60e3caa040ecbaa5bde695ff7eefa8135367494\"",
+        "etag": "\"372251fdd461c93db4b5ad545b36d4305b63f4b639dae6ce0459b3907ad52924\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
-          "observed_at": "2026-10-18T14:25:58Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
+          "observed_at": "2026-10-19T15:02:46Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "html_url": "https://github.com/AniChikage/open-typora/releases/tag/v0.11.0",
-            "published_at": "2026-10-18T14:25:58Z",
-            "release_id": 416495310,
-            "tag_name": "v0.11.0"
+            "html_url": "https://github.com/AniChikage/open-typora/releases/tag/v0.12.0",
+            "published_at": "2026-10-19T15:02:46Z",
+            "release_id": 417431939,
+            "tag_name": "v0.12.0"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/anichikage/open-typora/releases/latest",
         "status": "available",
@@ -1287,7 +1300,7 @@
     "aristidedongo/opentask": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -2556,7 +2569,7 @@
     "corentinravoux/opendeck": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -2819,25 +2832,25 @@
     "dexterlabs1/openpatch": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"b2029101260b0c0b70025df030a1b57d040b82a6e1e4c6a0fd0e916c90aff4df\"",
+        "etag": "\"b31ac5ea2362891ce4ade5e846c3ea077cb07a442f14f71c66a1ed23f2577546\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
-          "observed_at": "2026-10-18T02:46:49Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
+          "observed_at": "2026-10-19T14:47:50Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "html_url": "https://github.com/dexterlabs1/openpatch/releases/tag/v0.3.0",
-            "published_at": "2026-10-18T02:46:49Z",
-            "release_id": 416196874,
-            "tag_name": "v0.3.0"
+            "html_url": "https://github.com/dexterlabs1/openpatch/releases/tag/v0.3.1",
+            "published_at": "2026-10-19T14:47:50Z",
+            "release_id": 417412598,
+            "tag_name": "v0.3.1"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/dexterlabs1/openpatch/releases/latest",
         "status": "available",
@@ -2901,13 +2914,13 @@
     "diggerhq/digger": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"a1ee05ef04cce7b5e42aadad86119190e3a4ee174960c4da819ada17e2ea9de7\"",
+        "etag": "\"43badd9f1c287f27294e98e4aafb29f238c1bd1d8767c6be2ece6f2f091907e7\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-10-07T13:28:26Z",
           "source_commit": null,
           "tool_commit": null,
@@ -2919,7 +2932,7 @@
             "tag_name": "v0.6.154"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/diggerhq/digger/releases/latest",
         "status": "available",
@@ -4013,13 +4026,13 @@
     "ganeshrvel/openmtp": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"05842f6222632eb2ac2deb2d5583771f23a74901ae96f5ec7ab44c0b55aa9e6e\"",
+        "etag": "\"317644abcf4e1b4992ae5a2c61a181ccafa1debaa1e15eb0137c3bbc9acff6c8\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-08-22T16:28:55Z",
           "source_commit": null,
           "tool_commit": null,
@@ -4031,7 +4044,7 @@
             "tag_name": "v3.3.0"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/ganeshrvel/openmtp/releases/latest",
         "status": "available",
@@ -4481,13 +4494,13 @@
     "google-deepmind/open_spiel": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"067a0dd9acf3d7494ecd117a479925206715ab945a1e21cf6d496fde1ded7de4\"",
+        "etag": "\"65e18659e9bda1e9af579011ca89edf2511a4b2cd3e2a4d528ecc88caed3f5a6\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-08-12T21:12:55Z",
           "source_commit": null,
           "tool_commit": null,
@@ -4499,7 +4512,7 @@
             "tag_name": "v2.0.2"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/google-deepmind/open_spiel/releases/latest",
         "status": "available",
@@ -4522,7 +4535,7 @@
     "google-research/openfst": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -4893,7 +4906,7 @@
     "huggingface/open-r1": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -5581,13 +5594,13 @@
     "iranimij/openimport": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"c2cf5137676e0b1937e51bc22fd3db00a4ec191e5c2c52fe705f3187fda0aa42\"",
+        "etag": "\"2d46cb0042cba264d202afcb0a24fefd60eacf1acfbf8c45b4ec4723132f0b2c\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-10-16T14:40:46Z",
           "source_commit": null,
           "tool_commit": null,
@@ -5599,7 +5612,7 @@
             "tag_name": "v1.3.0"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/iranimij/openimport/releases/latest",
         "status": "available",
@@ -5622,13 +5635,13 @@
     "isl-org/open3d": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"c66636f307c2eb295cc83e4d7fc07a8f1eff39c500ee70ff0408afedbf4fdb43\"",
+        "etag": "\"296c82ed38ad291d5a16073ae1a11faed9dc9c75c9d7f9678f7340cfbb4b6972\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-09-16T21:38:20Z",
           "source_commit": null,
           "tool_commit": null,
@@ -5640,7 +5653,7 @@
             "tag_name": "v0.20.0"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/isl-org/open3d/releases/latest",
         "status": "available",
@@ -6518,7 +6531,7 @@
     "lguerberg/open-sequence": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -6931,25 +6944,25 @@
     "mathiasbk/openesl": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"d21ca361f623d3ef7bc65d4f4dc166edb05d12dbdf0c6ee432d4c7de57e9eab3\"",
+        "etag": "\"ac5e7b0e0acd691f82085a57df7e116de64f23d14af614d260316e650316087f\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
-          "observed_at": "2026-10-18T06:59:21Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
+          "observed_at": "2026-10-19T18:25:53Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "html_url": "https://github.com/mathiasbk/openESL/releases/tag/v0.4.6",
-            "published_at": "2026-10-18T06:59:21Z",
-            "release_id": 416290485,
-            "tag_name": "v0.4.6"
+            "html_url": "https://github.com/mathiasbk/openESL/releases/tag/v0.4.7",
+            "published_at": "2026-10-19T18:25:53Z",
+            "release_id": 417607900,
+            "tag_name": "v0.4.7"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/mathiasbk/openesl/releases/latest",
         "status": "available",
@@ -13719,25 +13732,25 @@
     "openhandheldcollective/openabl": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"c6baebc8c2987f537532de6b22279cabe7cae1c39ad1f42890adc7d942a9b27c\"",
+        "etag": "\"1bf38f9901ffb990bd0cc5b62232c4a4e7ee8bf2724a228cb20668c0c0f46da6\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
-          "observed_at": "2026-10-14T02:05:23Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
+          "observed_at": "2026-10-19T08:41:26Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "html_url": "https://github.com/OpenHandheldCollective/OpenABL/releases/tag/v1.0",
-            "published_at": "2026-10-14T02:05:23Z",
-            "release_id": 412269286,
-            "tag_name": "v1.0"
+            "html_url": "https://github.com/OpenHandheldCollective/OpenABL/releases/tag/v1.1",
+            "published_at": "2026-10-19T08:41:26Z",
+            "release_id": 417072017,
+            "tag_name": "v1.1"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openhandheldcollective/openabl/releases/latest",
         "status": "available",
@@ -14537,13 +14550,13 @@
     "openlierox/openlierox": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"838175404093d3258b2bffbc5169725b2c34e1a7d7c45b6727100a52c90eec05\"",
+        "etag": "\"b8fc7f7125306f3dde97eb3c4dfb9d31b3a83694e7a0c53d401fb2fc2309dee0\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-07-17T13:08:27Z",
           "source_commit": null,
           "tool_commit": null,
@@ -14555,7 +14568,7 @@
             "tag_name": "20260717.2"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openlierox/openlierox/releases/latest",
         "status": "available",
@@ -15857,13 +15870,13 @@
     "openmvg/openmvg": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"22e7fb361afa029e55b5e7ad43d8df4b09752d46fafa3266d5add305880de62c\"",
+        "etag": "\"5525743d9b4ebe73ae3059848de7e87929f2d8cd97b80100b0b3fe5d20335ed1\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2023-12-28T22:57:28Z",
           "source_commit": null,
           "tool_commit": null,
@@ -15875,7 +15888,7 @@
             "tag_name": "v2.1"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openmvg/openmvg/releases/latest",
         "status": "available",
@@ -17830,7 +17843,7 @@
     "openscenegraph/openscenegraph": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -18092,13 +18105,13 @@
     "opensfm/opensfm": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"d1adc6423dfa435e6ccf4ba0c570bd3de87c828253749d4e4c1be05085aa6b8e\"",
+        "etag": "\"ee3dcfe44857c4fb68ba0c3462948042ddddab10852f02a550c0c3d3a0db48fd\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-08-16T10:22:44Z",
           "source_commit": null,
           "tool_commit": null,
@@ -18110,7 +18123,7 @@
             "tag_name": "v1.1"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opensfm/opensfm/releases/latest",
         "status": "available",
@@ -19939,13 +19952,13 @@
     "opentyrian/opentyrian": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"40b511647922f47de51fdb58a26f2a80c11dc45acc7017ad113e298bc2290ba7\"",
+        "etag": "\"8bf214e7267a6c975c53be68cf973979d5569a6b435a1e7fe450f78f139efbe4\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-09-14T00:00:40Z",
           "source_commit": null,
           "tool_commit": null,
@@ -19957,7 +19970,7 @@
             "tag_name": "v2.1.20260913"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opentyrian/opentyrian/releases/latest",
         "status": "available",
@@ -20422,13 +20435,13 @@
     "openwhispr/openwhispr": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"98c190dd3ad633ebe3d48794100ab899a5d7d0eb36566866c72f70d4e3e76706\"",
+        "etag": "\"7c1ebd37118d4f31f9aaee614c859b4577bba4b1fb5d0081b35ed06bec2521dd\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-10-12T16:56:16Z",
           "source_commit": null,
           "tool_commit": null,
@@ -20440,7 +20453,7 @@
             "tag_name": "v1.10.3"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openwhispr/openwhispr/releases/latest",
         "status": "available",
@@ -21793,13 +21806,13 @@
     "pixaranimationstudios/openusd": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"697dde33f02bfa959367a6ae531d37f3e2dc4b495de6d364cca3173608048d0c\"",
+        "etag": "\"7662da5598ea7298ca7c4419a129ab1fdd361cfa60033001485fcf4dcff63630\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-07-20T14:30:42Z",
           "source_commit": null,
           "tool_commit": null,
@@ -21811,7 +21824,7 @@
             "tag_name": "v26.08"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/pixaranimationstudios/openusd/releases/latest",
         "status": "available",
@@ -22470,13 +22483,13 @@
     "richardr1126/openreader": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"141422ec4e19c5988b04ff4293ff7fb75c77fe4077c94d8944f97dd1c51e42bb\"",
+        "etag": "\"5b64654004260e12255de5f3218188173c242c27bff16714a52fff1fee09e410\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-10-14T14:58:36Z",
           "source_commit": null,
           "tool_commit": null,
@@ -22488,7 +22501,7 @@
             "tag_name": "v5.2.1"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/richardr1126/openreader/releases/latest",
         "status": "available",
@@ -23684,13 +23697,13 @@
     "thomiceli/opengist": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": null,
-        "etag": "\"4d67de0c164ead084aff7e6dd8270009abb3a398f02da3cb38194a9d796f8d7c\"",
+        "etag": "\"0625186a0ad681177909613c01dd161b5223b9077088c0d0825b9663dd169c1a\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-18T19:37:51Z",
+          "fetched_at": "2026-10-19T19:40:44Z",
           "observed_at": "2026-08-30T02:05:36Z",
           "source_commit": null,
           "tool_commit": null,
@@ -23702,7 +23715,7 @@
             "tag_name": "v1.15.2"
           }
         },
-        "last_success_at": "2026-10-18T19:37:51Z",
+        "last_success_at": "2026-10-19T19:40:44Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/thomiceli/opengist/releases/latest",
         "status": "available",
@@ -23807,7 +23820,7 @@
     "tinyhumansai/openscion": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-18T19:37:51Z",
+        "checked_at": "2026-10-19T19:40:44Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24729,5 +24742,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "5d69f5d30054b138f4b01d2651da8afee59a6f55"
+  "source_sha": "c32b1fe70f81f9c2f6f1043e0c2743d90add0149"
 }
