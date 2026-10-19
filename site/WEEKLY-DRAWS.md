@@ -5,7 +5,8 @@ illustrations. GitHub presence, stars and category rank do not affect eligibilit
 Selection is independent of jar fit. The seven photographic jars retain their
 windows, heights, shadows, stickers, cork and interactions. Their left-to-right
 order is original jars 1, 2, 5, 3, 4, 6, 7; occupants move with their vessels
-([jar order](../brand/decisions/B-PR134-02.md)).
+([jar order](../brand/decisions/B-PR134-02.md)). Specimen interiors
+are calibrated separately from the glass-light and crack geometry.
 
 ## Calendar and publication
 
@@ -47,16 +48,34 @@ and descriptive alt text. A cut-out is optional; absent art is never eligible.
 
 ## Fit and archive
 
-Try all 5,040 assignments of the selected seven to the seven fixed windows.
-Maximize the least-filled window first, then total fractional fill, using source-matched cut-out subject boxes
-where available and whole-image bounds otherwise. Scale and center the subject
-inside its window toward 94% fill, capped by at least 4.25 CSS px horizontal
-and 2.25 CSS px vertical clearance per side for the existing pointer/idle motion.
-The fixed enhanced footprint is the conservative sizing reference; fallback jars
-are larger. Missing or invalid subject bounds use the entire canvas. Do not crop the subject or change jar
-geometry. Equal fits break deterministically by project ID. Existing responsive
-art derivatives are reused where available; newly eligible art uses its committed
-full-resolution source/cut-out without a runtime image-processing dependency.
+Try all 5,040 assignments of the selected seven to the seven measured glass
+interiors. Maximize the least-filled interior first, then total fractional fill,
+using source-matched cut-out subject boxes where available and whole-image bounds
+otherwise. Equal fits break deterministically by project ID. Selection remains
+independent of placement; recalibrating an interior may change positions, never
+the saved seven projects or their draw counts.
+
+`scripts/build_jar_preview.py::SPECIMEN_INTERIORS` records x/y/width/height as
+percentages of each original photograph's full canvas. These bounds follow the
+usable inner body, not the older, narrower compositing rectangles. The detached
+lid limits the right edge of the low-lid jar. Glass feathering, cracks, lights,
+closures and vessel dimensions retain their existing independent coordinates.
+
+Contain the complete subject with one motion inset: at least 4.25 CSS px on each
+horizontal side and 2.25 CSS px on each vertical side at the fixed enhanced
+footprint. Do not apply a second percentage shrink. Put 90% of unused vertical
+space above the subject and 10% below, so short specimens sit toward the base
+rather than floating centrally. Preserve aspect ratio and all important parts.
+Missing or invalid bounds use the entire canvas. No browser pixel processing is
+introduced. Existing responsive derivatives are reused.
+
+A narrow vessel cannot make a broad silhouette fill its height: OpenObserve's
+left ribbons count toward its width. Its old compositing window extended beyond
+the central cylinder's actual inner walls; fitting within the corrected interior
+therefore makes that complete silhouette smaller. Cropping, stretching, grouped
+specimens, new artwork or different vessels require a separate decision. Visual
+review must compare actual before/after pixels and the supplied reference;
+passing containment tests alone does not establish the intended composition.
 
 `/spotlight/` shows current and past scheduled editions, newest first, with permanent
 `#YYYY-WNN` ISO week links, such as `/spotlight/#2026-W43` for the display week

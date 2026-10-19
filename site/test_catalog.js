@@ -1029,6 +1029,13 @@ test('opening fetches one same-origin record, imports only its matching plate an
   assert.equal(ui.document.activeElement, summary);
   assert.equal(plate.querySelectorAll('.plate-lens').length, 1);
   assert.equal(plate.querySelectorAll('.plate-wild-terrain').length, 1);
+  const departureContour = plate.querySelector('.plate-wild-terrain').querySelector('path');
+  const contourPoints = [...departureContour.getAttribute('d').matchAll(/[ML](-?[\d.]+) (-?[\d.]+)/g)]
+    .map(match => ({ x: Number(match[1]), y: Number(match[2]) }));
+  assert.ok(contourPoints.length > 0);
+  assert.ok(contourPoints.every(point => point.x > 0 && point.x < 1000 && point.y > 100 && point.y < 300),
+    'Inner departure contour remains visible in the center of the band, including desktop slice cropping');
+
   ui.toggle(0, false);
   ui.toggle(0, true);
   catalog.init(ui.document, ui.window);

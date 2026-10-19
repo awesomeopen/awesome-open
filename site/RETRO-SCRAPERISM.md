@@ -421,8 +421,9 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
 - **Bands:** scarlet block labels (`--rs-scarlet` ground, `--rs-mist` type), no horizontal
   rules. Repository record with large values and a creation/release/push timeline; Where it
   runs with reviewed chips and the setup disclosure; evidence cards with enlarged charts;
-  reviewed alternatives; “In the wild” departure on Prussian with the existing repeating
-  navy footer pattern beneath the continuing contour floor (B-PR128-01).
+  reviewed alternatives; “In the wild” departure on plain Prussian blue with its
+  decorative contours centered around the link (B-PR129-01). The repeating navy
+  pattern remains exclusive to the footer.
 - **Removed captions:** contour/loupe disclaimers, “Under the loupe”, timeline and flow
   qualifiers, the alternatives footnote, “Submissions, not sentiment” and “Omitted facts are
   unknown”. Their meanings stay in the evidence downloads and the foundation evidence contract.
@@ -431,11 +432,14 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
 
 Hero occupants come from a persisted seeded draw of seven illustrated projects,
 shown the following week with a four-week repeat cooldown as the initial default.
-Stars do not determine selection. Keep the existing seven jars, ordered by
-original position 1, 2, 5, 3, 4, 6, 7 (B-PR134-02);
-assign illustrations by protecting the worst-filled window before total fill,
-centering actual subject bounds without cropping. Aim for 94% fill with explicit
-pixel clearance for the existing pointer and idle motion. Link the archive from the footer at `/spotlight/`; retain the original set
+Stars do not determine selection. Keep the existing seven jars, ordered by 
+original position 1, 2, 5, 3, 4, 6, 7 (B-PR134-02); 
+assign illustrations by protecting the worst-filled measured glass interior before 
+total fill. Contain actual subject bounds without cropping or stretching, with 
+one pixel inset for existing pointer/idle motion. Keep glass-light and crack 
+coordinates independent. Place spare vertical room mainly above the specimen, 
+so it sits toward the interior base. A narrow cylinder may still have spare height 
+when the complete silhouette is width-limited. Link the archive from the footer at `/spotlight/`; retain the original set
 until the first saved edition activates. See [weekly draw contract](WEEKLY-DRAWS.md)
 for the calendar, snapshot archive, eligibility and failure behavior. Spotlight
 uses ISO week edition labels and anchors (`2026-W43`, `#2026-W43`). Its scope and
