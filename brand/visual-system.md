@@ -234,3 +234,12 @@ preview clears the choice; downloaded offline editions retain Fraunces. Candidat
 assets and notices live in `site/vendor/serif-preview/`; this does not supersede
 the existing typography decision.
 
+
+## Jar callout colors and Inspect link
+
+Jar function text (`.label-ink`) has a `#ffc800` backing; `.jar-metrics span` uses
+`#D9EEF8`. These are local callout treatments rather than a page palette change.
+The link reads “Inspect”, with no visible resting border and a 3px solid border
+on hover or keyboard focus. Reserve transparent border space to avoid layout
+shift. The third-activation accessible label also reads Inspect. See
+[B-PR141-01](decisions/B-PR141-01.md).
