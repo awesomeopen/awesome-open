@@ -23,6 +23,22 @@ DISPLAY = [
 ]
 
 
+# Specimen interiors calibrated against the original photographs: x/y/w/h in
+# percent of the full source canvas, including its transparent margins. Keep
+# these separate from DISPLAY's glass feather, crack and lighting coordinates.
+# The low-lid right edge avoids the detached lid; the central cylinder's actual
+# inner walls are narrower than its historical compositing window.
+SPECIMEN_INTERIORS = {
+    'low-open': (10, 39, 81, 41),
+    'square-cork': (17, 37, 67, 51),
+    'shouldered': (24, 33, 52, 53),
+    'central': (40, 22, 21, 63),
+    'bail': (22, 28, 58, 59),
+    'ribbed': (21, 34, 58, 51),
+    'low-lid': (10, 40, 56, 40),
+}
+
+
 def responsive_image(source, width, manifest, source_width=None):
     """Share the same responsive resource for glass, reflection, lid and mask.
 
@@ -66,7 +82,7 @@ def assign_to_jars(projects, assets, cutouts):
         art = project['artwork']
         box = subject_box(project, cutouts)
         return art['width'] * (box[2]-box[0]) / (art['height'] * (box[3]-box[1]))
-    windows = [assets[row[1]]['width'] / assets[row[1]]['height'] * row[7] / row[8]
+    windows = [assets[row[1]]['width'] / assets[row[1]]['height'] * SPECIMEN_INTERIORS[row[1]][2] / SPECIMEN_INTERIORS[row[1]][3]
                for row in DISPLAY]
     ratios = {p['id']: ratio(p) for p in projects}
     def occupancy(order):
@@ -79,22 +95,24 @@ def assign_to_jars(projects, assets, cutouts):
 def fitted_image(project, slot, asset, cutouts):
     art = project['artwork']
     box = subject_box(project, cutouts)
-    window_ratio = asset['width'] / asset['height'] * slot[7] / slot[8]
     canvas_ratio = art['width'] / art['height']
-    # Aim for 94% fill, with explicit clearance for unchanged 3px pointer depth
-    # plus 1px horizontal / 2px vertical idle drift and a fractional-pixel guard.
-    # Use the smaller enhanced footprint; no-JS/print vessels are larger.
+    _, _, width, height = SPECIMEN_INTERIORS[slot[1]]
+    # One inset only, measured from actual inner walls. Cover unchanged 3px
+    # pointer depth + 1px horizontal / 2px vertical idle drift, plus rounding.
     display_height = round(slot[3] * (.94 if slot[1] == 'central' else .82))
     display_width = round(display_height * asset['width'] / asset['height'])
-    window_width, window_height = display_width * slot[7] / 100, display_height * slot[8] / 100
-    window_ratio = window_width / window_height
-    fill_x = min(.94, max(0, 1 - 8.5 / window_width))
-    fill_y = min(.94, max(0, 1 - 4.5 / window_height))
-    scale = min(fill_x / (box[2]-box[0]),
-                fill_y * canvas_ratio / (window_ratio * (box[3]-box[1])))
-    cx, cy = (box[0]+box[2])/2, (box[1]+box[3])/2
-    return (f'width:{scale*100:.4f}%;left:50%;top:50%;'
-            f'transform:translate({-cx*100:.4f}%,{-cy*100:.4f}%);')
+    window_width = display_width * width / 100
+    window_height = display_height * height / 100
+    usable_width, usable_height = window_width - 8.5, window_height - 4.5
+    scale = min(usable_width / (window_width * (box[2]-box[0])),
+                usable_height * canvas_ratio / (window_width * (box[3]-box[1])))
+    subject_height = window_width * scale / canvas_ratio * (box[3]-box[1])
+    # Put 90% of unused vertical room above the specimen, recalling a specimen
+    # near the base rather than a small icon floating in the middle of a jar.
+    top = (2.25 + .9 * (usable_height - subject_height)) / window_height
+    cx = (box[0]+box[2])/2
+    return (f'width:{scale*100:.4f}%;left:50%;top:{top*100:.4f}%;'
+            f'transform:translate({-cx*100:.4f}%,{-box[1]*100:.4f}%);')
 
 
 def build(output, production=False):
@@ -125,10 +143,13 @@ def build(output, production=False):
         glass_width=max(height*1.1,300)*asset['width']/asset['height']
         glass_attrs,mask=responsive_image(asset['path'],glass_width,manifest)
         image_scale = float(image_style.split('%')[0].split(':')[1]) if selected else zoom
-        art_attrs,_=responsive_image(art['path'],glass_width*w/100*image_scale/100,manifest,art['width'])
+        art_attrs,_=responsive_image(art['path'],glass_width*(SPECIMEN_INTERIORS[kind][2] if selected else w)/100*image_scale/100,manifest,art['width'])
         stars=github.get('stars'); stars=f'{stars:,} stars' if isinstance(stars,int) else 'Stars unavailable'
         license=github.get('license'); license_line=f'<span>{escape(license)}</span>' if license else ''
         styles=f'--height:{height}px;--foot:{foot}px;--ratio:{asset["width"]}/{asset["height"]};--sx:{x}%;--sy:{y}%;--sw:{w}%;--sh:{h}%;--zoom:{zoom}%'
+        if selected:
+            ix, iy, iw, ih = SPECIMEN_INTERIORS[kind]
+            styles += f';--specimen-x:{ix}%;--specimen-y:{iy}%;--specimen-w:{iw}%;--specimen-h:{ih}%'
         rest = .94 if kind == 'central' else .82
         display_height = round(height * rest)
         display_width = round(display_height * asset['width'] / asset['height'])

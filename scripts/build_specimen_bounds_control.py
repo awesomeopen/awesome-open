@@ -40,6 +40,28 @@ def build(base, site):
             (output / f"{project['id']}.html").write_text(html)
         for path in ('styles.css', 'catalog.js'):
             (output / path).write_text(source('site/' + path))
+        # Jar comparison uses the actual base generator, CSS and JS with the
+        # same edition and unchanged artwork. It is a CI-only review route.
+        jar_output = site / 'jars-before'
+        jar_output.mkdir(exist_ok=True)
+        jar_module = Path(temporary) / 'base_build_jars.py'
+        jar_module.write_text(source('scripts/build_jar_preview.py'))
+        jar_spec = importlib.util.spec_from_file_location('base_build_jars', jar_module)
+        jars = importlib.util.module_from_spec(jar_spec)
+        jar_spec.loader.exec_module(jars)
+        jars.ROOT = root
+        (jar_output / 'catalog.json').write_text(json.dumps(catalog))
+        (jar_output / 'index.html').write_text(
+            '<!doctype html><html><head><base href="../">'
+            '<link rel="stylesheet" href="styles.css">'
+            '</head><body><div class="layout"></div></body></html>')
+        jars.build(jar_output, production=True)
+        html = (jar_output / 'index.html').read_text()
+        html = html.replace('href="jars.css"', 'href="jars-before/jars.css"')
+        html = html.replace('src="jars.js"', 'src="jars-before/jars.js"')
+        (jar_output / 'index.html').write_text(html)
+        for name in ('jars.css', 'jars.js'):
+            (jar_output / name).write_text(source('site/' + name))
         (output / 'source.json').write_text(json.dumps({'base_sha': revision,
             'comparison': 'Base renderer/CSS/JS, same current cached catalog and unchanged artwork.'}) + '\n')
 

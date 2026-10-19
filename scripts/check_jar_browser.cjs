@@ -47,8 +47,8 @@ const path=require('node:path');
  // Read committed bounds, never scan image pixels in the browser.
  const cutoutBounds=JSON.parse(fs.readFileSync(path.join(__dirname,'../site/specimens/cutouts.json'))).cutouts;
  const cutoutVariants=Object.entries(JSON.parse(fs.readFileSync(path.join(__dirname,'../site/jars/responsive.json'))).sources).filter(([source])=>source.includes('/cutouts/')).flatMap(([,entry])=>entry.variants.map(v=>v.path));
- const checkSubjectClearance=async()=>{
-   const subjects=await page.locator('.jar-exhibit').evaluateAll((nodes,{bounds,variants})=>nodes.map(n=>{
+ const checkSubjectClearance=async(targetPage=page)=>{
+   const subjects=await targetPage.locator('.jar-exhibit').evaluateAll((nodes,{bounds,variants})=>nodes.map(n=>{
      const image=n.querySelector('.specimen-print'),window=n.querySelector('.specimen-window').getBoundingClientRect(),rect=image.getBoundingClientRect();
      const box=(image.getAttribute('src').includes('/cutouts/')||variants.includes(image.getAttribute('src')))?bounds[n.dataset.project].subject_bbox:[0,0,1,1];
      return {id:n.dataset.project,left:rect.left+rect.width*box[0]-window.left,
@@ -63,6 +63,38 @@ const path=require('node:path');
  await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
  await checkSubjectClearance();
  await page.screenshot({path:'tmp/site-qa/jars-central-fit.png'});
+ // Matched stage captures use the real PR-base generator, not a CSS mock.
+ const baseMetadata=path.join(__dirname,'../tmp/site/bounds-before/source.json');
+ if(fs.existsSync(baseMetadata)){
+   const comparison=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
+   await comparison.addInitScript(()=>{Math.random=()=>.5;});
+   const compare=await comparison.newPage();
+   for(const [label,route] of [['before','jars-before/index.html'],['after',process.env.JAR_PAGE||'jars.html']]){
+     await compare.goto(new URL(route,process.env.SITE_URL||'http://127.0.0.1:8000/').href);
+     await compare.waitForSelector('body[data-jars-ready=true]');
+     await compare.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+     await compare.evaluate(()=>document.fonts.ready);
+     await compare.locator('.jar-stage').screenshot({path:`tmp/site-qa/jars-fit-${label}.png`});
+   }
+   fs.writeFileSync('tmp/site-qa/jars-fit-comparison.json',JSON.stringify({
+     ...JSON.parse(fs.readFileSync(baseMetadata)),headSha:process.env.PR_HEAD_SHA||null,
+     viewport:{width:1440,height:1000},crop:'.jar-stage',reducedMotion:true,
+     limitation:'Central cylinder cannot fill vertically without cropping or distorting the full OpenObserve ribbons.'
+   },null,2));
+   await comparison.close();
+ }
+ // Exercise both horizontal motion extremes with idle translation at its peak.
+ for(const [x,label] of [[33,'left'],[1406,'right']]){
+   await first.focus();
+   await page.mouse.move(x,200);
+   await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+   await page.locator('.specimen-idle').evaluateAll(nodes=>nodes.forEach(n=>{
+     for(const a of n.getAnimations()){a.pause();a.currentTime=a.effect.getTiming().delay+a.effect.getTiming().duration*.08;}
+   }));
+   await checkSubjectClearance();
+   await page.screenshot({path:`tmp/site-qa/jars-fit-motion-${label}.png`});
+ }
+
  await first.hover({position:{x:45,y:55}});
  await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
 
@@ -143,10 +175,19 @@ const path=require('node:path');
  await checkSubjectClearance();
  await page.screenshot({path:'tmp/site-qa/jars-reduced-motion-fit.png'});
  const touch=await browser.newPage({viewport:{width:390,height:900},isMobile:true,hasTouch:true,reducedMotion:'reduce'});await touch.goto(url);await touch.waitForSelector('body[data-jars-ready=true]');
+ await checkSubjectClearance(touch);
  await touch.locator('.jar-select').first().tap();assert.equal(await touch.locator('.jar-annotation:visible').count(),1);assert.equal(new URL(touch.url()).hash,'');assert.equal(await touch.locator('.jar-exhibit').first().getAttribute('data-cracks'),'1');
  await touch.screenshot({path:'tmp/site-qa/jars-mobile.png'});
  await touch.locator('.jar-scroll').evaluate(n=>n.scrollLeft=n.scrollWidth);await touch.locator('.jar-select').last().tap();assert.equal(await touch.locator('.jar-select').last().getAttribute('aria-expanded'),'true');
  await touch.locator('.jar-select').last().tap();assert.equal(await touch.locator('.jar-exhibit').last().getAttribute('data-cracks'),'2');await touch.locator('.jar-select').last().tap();assert.match(new URL(touch.url()).hash,/^#project-/);await touch.close();
+ const mobileMotion=await browser.newPage({viewport:{width:390,height:900},isMobile:true,hasTouch:true});
+ await mobileMotion.goto(url);await mobileMotion.waitForSelector('body[data-jars-ready=true]');
+ await mobileMotion.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+ await mobileMotion.locator('.jar-select').first().tap();
+ await mobileMotion.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+ await checkSubjectClearance(mobileMotion);
+ await mobileMotion.screenshot({path:'tmp/site-qa/jars-fit-mobile-motion.png'});
+ await mobileMotion.close();
  const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});await fallback.goto(url);assert.equal(await fallback.locator('.jar-annotation:visible').count(),7);assert.equal(await fallback.locator('[data-jar-inspect]').count(),7);await fallback.locator('.project-card summary').first().click();assert.ok(await fallback.locator('.project-card details').first().evaluate(n=>n.open));await fallback.close();
  // Resource/visual evidence at real device densities. New contexts avoid cached
  // larger candidates influencing selection at a lower DPR. The control serves
