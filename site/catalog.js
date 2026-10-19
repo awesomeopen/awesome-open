@@ -470,13 +470,13 @@
       state.host.dataset.detailState = value;
       if (value === "loading") state.host.setAttribute("aria-busy", "true");
       else state.host.removeAttribute("aria-busy");
-      // The static link is a fallback, not an extra heading above a loaded plate.
+      // Keep the static link for failures/no JS without flashing it during fetch.
       if (state.fallback) {
-        if (value === "loaded" && state.fallback.contains(document.activeElement)) {
+        if ((value === "loading" || value === "loaded") && state.fallback.contains(document.activeElement)) {
           var fallbackSummary = state.drawer.querySelector("summary");
           if (fallbackSummary) fallbackSummary.focus({ preventScroll: true });
         }
-        state.fallback.hidden = value === "loaded";
+        state.fallback.hidden = value === "loading" || value === "loaded";
       }
       if (message && !state.status) {
         state.status = document.createElement("p");

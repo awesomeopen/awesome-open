@@ -1006,7 +1006,7 @@ test('opening fetches one same-origin record, imports only its matching plate an
   assert.equal(host.dataset.detailState, 'loading');
   assert.equal(host.getAttribute('aria-busy'), 'true');
   assert.equal(host.querySelector('.detail-status').getAttribute('role'), 'status');
-  assert.equal(fallback.hidden, false);
+  assert.equal(fallback.hidden, true, 'Loading hides the fallback before the response settles');
   assert.equal(ui.calls[0].url, 'https://example.org/catalog/records/' + ui.records[0].project.id + '.html');
   assert.equal(ui.calls[0].init.mode, 'same-origin');
   assert.equal(ui.calls[0].init.redirect, 'error');
@@ -1054,6 +1054,7 @@ test('closing aborts and stale responses cannot mount, overwrite or duplicate a 
   ui.toggle(0, false);
   assert.equal(ui.calls[0].init.signal.aborted, true);
   assert.equal(ui.records[0].host.dataset.detailState, 'idle');
+  assert.equal(ui.records[0].fallback.hidden, false, 'Idle restores fallback after cancellation or eviction');
   ui.toggle(0, true);
   assert.equal(ui.calls.length, 2);
   ui.respond(0);
@@ -1081,6 +1082,7 @@ test('closing during response text and late abort errors are ignored', async () 
   assert.equal(ui.parseCount, 0);
   assert.equal(ui.plate(0), null);
   assert.equal(ui.records[0].host.dataset.detailState, 'idle');
+  assert.equal(ui.records[0].fallback.hidden, false, 'Idle restores fallback after cancellation or eviction');
   ui.toggle(0, true);
   ui.toggle(0, false);
   ui.toggle(0, true);
@@ -1092,12 +1094,15 @@ test('closing during response text and late abort errors are ignored', async () 
   assert.ok(ui.plate(0));
 });
 
-test('successful loading returns focus from the disappearing fallback to the summary', async () => {
+test('starting loading returns focus from the disappearing fallback to the summary', async () => {
   const ui = detailFixture();
   catalog.init(ui.document, ui.window);
-  ui.toggle(0, true);
   const { fallback, summary } = ui.records[0];
+  assert.equal(fallback.hidden, false, 'Initialized but idle fallback remains available');
   fallback.querySelector('a').focus();
+  ui.toggle(0, true);
+  assert.equal(fallback.hidden, true);
+  assert.equal(ui.document.activeElement, summary);
   ui.respond(0);
   await ui.settle();
   assert.equal(fallback.hidden, true);
@@ -1119,6 +1124,7 @@ test('failure exposes a retry and static fallback; repeated retry starts only on
   retry.fire('click');
   retry.fire('click');
   assert.equal(ui.calls.length, 2);
+  assert.equal(ui.records[0].fallback.hidden, true, 'Retry hides the fallback again before settling');
   assert.equal(ui.document.activeElement, summary, 'Focus returns to a stable control before retry is hidden');
   ui.respond(1);
   await ui.settle();
@@ -1204,6 +1210,7 @@ test('closed-plate LRU keeps three, never evicts an open plate, cleans listeners
   assert.equal(first.plateLayout, undefined);
   assert.equal(first.plateCleanup, undefined);
   assert.equal(ui.records[0].host.dataset.detailState, 'idle');
+  assert.equal(ui.records[0].fallback.hidden, false, 'Idle restores fallback after cancellation or eviction');
   // Reusing a cached closed plate moves it to the newest closed position.
   ui.toggle(1, true);
   ui.toggle(1, false);
