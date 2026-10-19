@@ -257,6 +257,53 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     await loaded(sample);
     report.checks.push('mobile native keyboard disclosure');
 
+    // Exercise real touch input in a separate mobile-emulated context. Serve an
+    // obsolete no-loader script only at the old cache key: a fresh generated
+    // ledger must request its content-versioned runtime instead.
+    const touch = await browser.newContext({ viewport: { width: 390, height: 844 },
+      hasTouch: true, isMobile: true, reducedMotion: 'reduce' });
+    try {
+      const touchPage = await touch.newPage();
+      const touchErrors = [], touchRequests = [];
+      touchPage.on('pageerror', error => touchErrors.push(error.message));
+      let obsoleteRequests = 0;
+      await touchPage.route(new URL('catalog.js', base).href, route => {
+        obsoleteRequests++;
+        return route.fulfill({ contentType: 'application/javascript',
+          body: '/* Cached runtime from before deferred drawers: no loader. */' });
+      });
+      touchPage.on('request', request => {
+        if (/\/records\/[^/]+\.html(?:[?#]|$)/.test(request.url()) && !request.isNavigationRequest()) {
+          touchRequests.push(request.url());
+        }
+      });
+      await touchPage.goto(filtered.href);
+      const runtime = await touchPage.locator('script[src*="catalog.js"]').getAttribute('src');
+      assert.match(runtime, /^catalog\.js\?v=[a-f0-9]{64}$/, 'Fresh HTML uses a content-versioned runtime');
+      await touchPage.waitForFunction(() => document.querySelector('#filters')?.dataset.enhanced === 'true');
+      assert.equal(obsoleteRequests, 0, 'Old cached script URL is never requested');
+      assert.deepEqual(touchRequests, [], 'Touch context still fetches no closed records');
+      const touchDrawer = touchPage.locator('#project-' + sample.id + ' .specimen-drawer');
+      const touchSummary = touchDrawer.locator(':scope > summary');
+      await touchSummary.tap();
+      await touchPage.waitForFunction(id => document.querySelector('#project-' + id +
+        ' .specimen-detail-host')?.dataset.detailState === 'loaded', sample.id);
+      assert.equal(await touchDrawer.locator('.specimen-plate').isVisible(), true);
+      assert.equal(await touchDrawer.locator('.detail-fallback a').isVisible(), false);
+      assert.equal(touchRequests.length, 1, 'One tap loads one record');
+      assert.equal(await touchPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+      await capture('detail-touch-mobile.png', touchPage);
+      await touchSummary.tap();
+      await touchPage.waitForFunction(id => !document.querySelector('#project-' + id + ' .specimen-drawer').open, sample.id);
+      await touchSummary.tap();
+      await touchDrawer.locator('.specimen-plate').waitFor({ state: 'visible' });
+      assert.equal(touchRequests.length, 1, 'Touch reopen reuses the retained plate');
+      assert.deepEqual(touchErrors, []);
+      report.checks.push('content-versioned runtime bypasses obsolete cache key; mobile-emulated touch open/close/reopen');
+    } finally {
+      await touch.close();
+    }
+
     // Direct static record routes are the explicit printing/no-JS destination.
     // Check them with scripting disabled, including <base>-resolved assets.
     const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });

@@ -2,10 +2,11 @@
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 import json
+import hashlib
 import tempfile
 import unittest
 
-from build_site import ROOT, attach_specimen_cutouts, build, render_html
+from build_site import ROOT, attach_specimen_cutouts, build, catalog_script_url, render_html
 from site_test_fixtures import baseline_site, copy_site_fixture
 from test_build_site import Page
 
@@ -16,6 +17,33 @@ class LazyDetailSiteTests(unittest.TestCase):
         cls.output, cls.catalog = baseline_site(source_sha='a' * 40)
         cls.initial = (cls.output / 'index.html').read_text()
         cls.page = Page(cls.initial)
+
+    def test_generated_routes_share_content_versioned_drawer_runtime(self):
+        code = (self.output / 'catalog.js').read_bytes()
+        expected = 'catalog.js?v=' + hashlib.sha256(code).hexdigest()
+        self.assertEqual(catalog_script_url(code.decode('utf-8')), expected)
+        self.assertNotEqual(catalog_script_url(code.decode('utf-8') + '\n// changed'), expected)
+        for path in [self.output / 'index.html', *sorted((self.output / 'records').glob('*.html'))]:
+            page = Page(path.read_text())
+            scripts = [node.attrs['src'] for node in page.nodes('script') if 'src' in node.attrs]
+            self.assertEqual(scripts, [expected], path.name)
+        # A metadata-only revision keeps the same runtime identity; raw renderer
+        # callers remain compatible with historical preview tooling.
+        for revision in ('b' * 40, 'c' * 40):
+            catalog = {**self.catalog, 'source_sha': revision}
+            page = Page(render_html(catalog, deferred=True, script_url=expected))
+            self.assertEqual(page.nodes('script')[0].attrs['src'], expected)
+        self.assertEqual(Page(render_html(self.catalog)).nodes('script')[0].attrs['src'], 'catalog.js')
+
+    def test_exhibition_uses_runtime_from_its_output_bundle(self):
+        from build_exhibition_preview import build as build_exhibition
+        with tempfile.TemporaryDirectory() as directory:
+            output = copy_site_fixture(self.output, Path(directory) / 'site')
+            runtime = (output / 'catalog.js').read_text() + '\n// fixture revision'
+            (output / 'catalog.js').write_text(runtime)
+            build_exhibition(output)
+            page = Page((output / 'exhibition.html').read_text())
+            self.assertEqual(page.nodes('script')[0].attrs['src'], catalog_script_url(runtime))
 
     def test_initial_entry_has_all_rows_but_no_detail_subtrees(self):
         ids = {p['id'] for p in self.catalog['projects']}

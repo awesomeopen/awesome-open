@@ -24,11 +24,11 @@ const path = require('node:path');
   const report = { status: 'running', url, sourceSha: null,
     prHeadSha: process.env.PR_HEAD_SHA || null, screenshots: [] };
   const writeReport = () => fs.writeFileSync(path.join(output, 'screenshots.json'), JSON.stringify(report, null, 2) + '\n');
-  const capture = async name => {
-    await page.evaluate(() => document.fonts.ready);
-    const png = await page.screenshot({ path: path.join(output, name), animations: 'disabled', caret: 'hide', scale: 'css' });
+  const capture = async (name, target = page) => {
+    await target.evaluate(() => document.fonts.ready);
+    const png = await target.screenshot({ path: path.join(output, name), animations: 'disabled', caret: 'hide', scale: 'css' });
     const dimensions = { width: png.readUInt32BE(16), height: png.readUInt32BE(20) };
-    assert.deepEqual(dimensions, page.viewportSize(), `Screenshot dimensions: ${name}`);
+    assert.deepEqual(dimensions, target.viewportSize(), `Screenshot dimensions: ${name}`);
     report.screenshots.push({ file: name, ...dimensions, bytes: png.length });
     writeReport();
   };
