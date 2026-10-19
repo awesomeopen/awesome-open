@@ -2,8 +2,8 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 16,
-    "utc_date": "2026-10-18"
+    "requests_used": 4,
+    "utc_date": "2026-10-19"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
   "metric": "Stars retained on the repository at fetch time, grouped by the month their stars were created. This is not historical total stars, net star growth, or all stars ever received; removed stars are absent and past buckets can change.",
@@ -32013,6 +32013,112 @@
       "repo": "bazodev/open-vids",
       "source_sha": "9ce6badca1678ecd1011eca26a80616bedb4df77",
       "source_url": "https://api.github.com/repos/bazodev/open-vids/stargazers/history",
+      "status": "ok"
+    },
+    "becoolme/openuptime": {
+      "checked_at": "2026-10-19T02:33:58.959742+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791676800,
+          "repository_created_at": "2026-10-11T23:44:22+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-19T02:33:58.959742+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "95967838c8ddc01bd2370898dfbbd56637667c87",
+        "source_urls": [
+          "https://api.github.com/repos/becoolme/openuptime/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              9,
+              3,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 13,
+            "week": 1791676800
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenUptime",
+      "readme_url": "https://github.com/becoolme/openuptime",
+      "repo": "becoolme/openuptime",
+      "source_sha": "95967838c8ddc01bd2370898dfbbd56637667c87",
+      "source_url": "https://api.github.com/repos/becoolme/openuptime/stargazers/history",
       "status": "ok"
     },
     "bentoml/openllm": {
@@ -202955,6 +203061,125 @@
       "repo": "opencloud-eu/opencloud",
       "source_sha": "6f5d5aca5f8a01abe08e4baf277cd0aa4d1f6134",
       "source_url": "https://api.github.com/repos/opencloud-eu/opencloud/stargazers/history",
+      "status": "ok"
+    },
+    "opencloudgaming/opennow-ps5": {
+      "checked_at": "2026-10-19T02:33:58.959742+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791072000,
+          "repository_created_at": "2026-10-04T19:23:01+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-19T02:33:58.959742+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "95967838c8ddc01bd2370898dfbbd56637667c87",
+        "source_urls": [
+          "https://api.github.com/repos/opencloudgaming/opennow-ps5/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              4,
+              0,
+              1,
+              0,
+              1,
+              1
+            ],
+            "total": 7,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              1,
+              4,
+              0,
+              1,
+              0,
+              1,
+              0
+            ],
+            "total": 7,
+            "week": 1791072000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenNOW PS5",
+      "readme_url": "https://github.com/opencloudgaming/opennow-ps5",
+      "repo": "opencloudgaming/opennow-ps5",
+      "source_sha": "95967838c8ddc01bd2370898dfbbd56637667c87",
+      "source_url": "https://api.github.com/repos/opencloudgaming/opennow-ps5/stargazers/history",
       "status": "ok"
     },
     "opencmiss/cm": {
@@ -464148,6 +464373,307 @@
       "source_url": "https://api.github.com/repos/rehan-remade/open-annie/stargazers/history",
       "status": "ok"
     },
+    "reubencfernandes/open-video-craft": {
+      "checked_at": "2026-10-19T02:33:58.959742+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1782604800,
+          "repository_created_at": "2026-07-01T11:54:32+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-19T02:33:58.959742+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          12,
+          1,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "95967838c8ddc01bd2370898dfbbd56637667c87",
+        "source_urls": [
+          "https://api.github.com/repos/reubencfernandes/open-video-craft/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1787443200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786838400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786233600
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1785628800
+          },
+          {
+            "days": [
+              2,
+              2,
+              1,
+              0,
+              2,
+              1,
+              0
+            ],
+            "total": 8,
+            "week": 1785024000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              2,
+              1,
+              0
+            ],
+            "total": 4,
+            "week": 1784419200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1783814400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1783209600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1782604800
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "Open Video Craft",
+      "readme_url": "https://github.com/reubencfernandes/open-video-craft",
+      "repo": "reubencfernandes/open-video-craft",
+      "source_sha": "95967838c8ddc01bd2370898dfbbd56637667c87",
+      "source_url": "https://api.github.com/repos/reubencfernandes/open-video-craft/stargazers/history",
+      "status": "ok"
+    },
     "richardr1126/openreader": {
       "checked_at": "2026-10-17T06:55:42.662177+00:00",
       "last_good": {
@@ -506620,6 +507146,125 @@
       "source_url": "https://api.github.com/repos/yang-ai-lab/opensla/stargazers/history",
       "status": "ok"
     },
+    "yuanzhixiang/openphoto": {
+      "checked_at": "2026-10-19T02:33:58.959742+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791072000,
+          "repository_created_at": "2026-10-06T13:56:00+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-19T02:33:58.959742+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "95967838c8ddc01bd2370898dfbbd56637667c87",
+        "source_urls": [
+          "https://api.github.com/repos/yuanzhixiang/openphoto/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              3,
+              3,
+              0,
+              1,
+              0,
+              0,
+              2
+            ],
+            "total": 9,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              1,
+              2,
+              1,
+              1,
+              0
+            ],
+            "total": 5,
+            "week": 1791072000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenPhoto",
+      "readme_url": "https://github.com/yuanzhixiang/openphoto",
+      "repo": "yuanzhixiang/openphoto",
+      "source_sha": "95967838c8ddc01bd2370898dfbbd56637667c87",
+      "source_url": "https://api.github.com/repos/yuanzhixiang/openphoto/stargazers/history",
+      "status": "ok"
+    },
     "zai-org/open-autoglm": {
       "checked_at": "2026-10-15T18:22:24.727650+00:00",
       "last_good": {
@@ -507825,12 +508470,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
-    "due_repositories": 75,
+    "attempted_repositories": 4,
+    "due_repositories": 76,
     "eligible_repositories": 475,
-    "unattempted_repositories": 75
+    "unattempted_repositories": 71
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "fe027f879924d03183eeecf61880ec7db444ca5c",
-  "updated_at": "2026-10-18T19:38:02.966067+00:00"
+  "source_sha": "95967838c8ddc01bd2370898dfbbd56637667c87",
+  "updated_at": "2026-10-19T02:33:58.959742+00:00"
 }
