@@ -10,8 +10,10 @@ must not override that policy.
 
 The field guide helps readers inspect a project's function, official sources and
 available evidence. Working audience definition: people comparing software and
-following those sources, especially developers and self-hosters. This is a
-product framing inferred from the interface, not a completed audience study.
+following those sources, especially developers and self-hosters, and curious
+browsers exploring the catalog and its specimen world without a specific tool in
+mind. This framing was confirmed by the owner, not established by an audience
+study.
 
 ## Name and metaphor
 
