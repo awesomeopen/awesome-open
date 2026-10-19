@@ -16,6 +16,7 @@ module.exports = async ({page, url, data, capture}) => {
       }
     }
     const list=plate.locator('.history-dates');
+    assert.equal(await list.evaluate(n=>getComputedStyle(n).listStyleType),'decimal',label+': entries keep their marker numbers');
     assert.equal(await list.locator('li').count(), await markers.count());
     assert.equal(await list.locator('li').filter({hasText:'Project renamed'}).locator('time').filter({hasText:'2026-10-19'}).count(),0,'Review day is not a milestone');
     assert.equal(await plate.locator('.history-evidence').getAttribute('open'),null,'Secondary evidence starts folded');
