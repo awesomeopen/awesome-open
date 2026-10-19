@@ -1488,6 +1488,80 @@
           "source_url": "https://github.com/openpipe/openpipe/blob/1da9a24127973b65f40f5da0d7b52bd61b0bfedd/README.md"
         }
       ]
+    },
+    "171a8a0520cba0dcd5b1a61596e8506be873aa5d13b50369d38df4e8141709bb": {
+      "project_url": "https://opensong.org",
+      "text": "OpenSong manages song lyrics and chord sheets for printing and live projection. Users can transpose chords, show regular and capo chords together, and arrange songs, Bible passages and timed slide loops into presentation sets. Font styling and backgrounds are configurable. The desktop application is available for Windows, macOS and Linux.",
+      "sources": [
+        {
+          "url": "https://opensong.org/",
+          "title": "OpenSong features and downloads"
+        }
+      ],
+      "checked_at": "2026-10-19",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed each capability against the official source. This is a source review, not installation or runtime testing; approval is for proposed build inclusion only."
+    },
+    "179e346e1df208ea8c6775aeccfe8870a7f2658582f76a8f03323c69a9566751": {
+      "project_url": "https://github.com/securiteru/openlaunch",
+      "text": "OpenLaunch supplies a local toolkit for submitting a product to launch sites and directories with an AI coding agent. A product brief, platform registry and submission playbooks guide preparation and platform selection. A local dashboard tracks pending submissions and live listings with evidence links. It requires an agent with file and browser access, with user approval for accounts, payments and public actions.",
+      "sources": [
+        {
+          "url": "https://github.com/securiteru/openlaunch/blob/727bf3155ae5b9d004fbe3317a61129c8fcc03e4/README.md",
+          "title": "OpenLaunch official README",
+          "revision": "727bf3155ae5b9d004fbe3317a61129c8fcc03e4"
+        }
+      ],
+      "checked_at": "2026-10-19",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed each capability against the official source. This is a source review, not installation or runtime testing; approval is for proposed build inclusion only."
+    },
+    "17e47f9bdfe68b28aa5c6c0ff98fc08c24a9dfdd3323f099d47fd4a621da250d": {
+      "project_url": "https://github.com/openwisp/openwisp-network-topology",
+      "text": "OpenWISP Network Topology is a web application and API for gathering and inspecting network graphs. It collects topology information from networking software, including dynamic mesh routing protocols and OpenVPN, then stores and visualizes that information. Operators can edit topology details, while Django signal hooks let developers run code when a network link changes status.",
+      "sources": [
+        {
+          "url": "https://github.com/openwisp/openwisp-network-topology/blob/88b2cabe8972382fcae3f73186e4260227ead850/README.rst",
+          "title": "OpenWISP Network Topology official README",
+          "revision": "88b2cabe8972382fcae3f73186e4260227ead850"
+        }
+      ],
+      "checked_at": "2026-10-19",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed each capability against the official source. This is a source review, not installation or runtime testing; approval is for proposed build inclusion only."
+    },
+    "18408b2908bef7cd4eabd599dc0e9b73302b44e0165dc5c0467ac0270a9bb4ee": {
+      "project_url": "https://github.com/openarena/engine",
+      "text": "OpenArena’s engine adapts ioquake3 for the game’s client and server. Its modular renderer can be selected at runtime, including an OpenArena renderer with GLSL and bloom effects or the base OpenGL renderer. The source build produces native binaries and renderer libraries. Additional engine changes include widescreen horizontal expansion and tracker-module music playback through libxmp.",
+      "sources": [
+        {
+          "url": "https://github.com/openarena/engine/blob/fd74931a3cc76277647a64ff849910eea27e2fbb/README.md",
+          "title": "OpenArena official README",
+          "revision": "fd74931a3cc76277647a64ff849910eea27e2fbb"
+        }
+      ],
+      "checked_at": "2026-10-19",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed each capability against the official source. This is a source review, not installation or runtime testing; approval is for proposed build inclusion only."
+    },
+    "1855a51d260f8b47a209342ceebdf6341c75243dd192bcb18e945cd776403f1c": {
+      "project_url": "https://github.com/arnautdaniel/openhuey",
+      "text": "OpenHuey rebuilds Haunting Ground for PC through a C decompilation, a native reference implementation and a rewrite aimed at modding. The rewrite combines a C engine with message-passing game actors written in Forth and an interactive Forth console. Linux and Windows builds import the user’s own USA PS2 disc image; game data is not included.",
+      "sources": [
+        {
+          "url": "https://github.com/arnautdaniel/openhuey/blob/d9825f64e1eb7d920c7557a27d38aae2449b0c43/README.md",
+          "title": "OpenHuey official README",
+          "revision": "d9825f64e1eb7d920c7557a27d38aae2449b0c43"
+        }
+      ],
+      "checked_at": "2026-10-19",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed each capability against the official source. This is a source review, not installation or runtime testing; approval is for proposed build inclusion only."
     }
   }
 }
