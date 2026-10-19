@@ -69,11 +69,14 @@ const path=require('node:path');
    const comparison=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
    await comparison.addInitScript(()=>{Math.random=()=>.5;});
    const compare=await comparison.newPage();
+   let baselineFonts;
    for(const [label,route] of [['before','jars-before/index.html'],['after',process.env.JAR_PAGE||'jars.html']]){
      await compare.goto(new URL(route,process.env.SITE_URL||'http://127.0.0.1:8000/').href);
      await compare.waitForSelector('body[data-jars-ready=true]');
      await compare.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
      await compare.evaluate(()=>document.fonts.ready);
+     const fonts=await compare.locator('.jar-caption').first().evaluate(n=>({family:getComputedStyle(n).fontFamily,size:getComputedStyle(n).fontSize}));
+     if(label==='before')baselineFonts=fonts;else assert.deepEqual(fonts,baselineFonts,'Matched comparison uses the same caption typography');
      await compare.locator('.jar-stage').screenshot({path:`tmp/site-qa/jars-fit-${label}.png`});
    }
    fs.writeFileSync('tmp/site-qa/jars-fit-comparison.json',JSON.stringify({

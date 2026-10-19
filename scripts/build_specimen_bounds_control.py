@@ -6,6 +6,7 @@ The base must already be fetched. Output is test-only, never a production route.
 import argparse
 import importlib.util
 import json
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -51,9 +52,14 @@ def build(base, site):
         jar_spec.loader.exec_module(jars)
         jars.ROOT = root
         (jar_output / 'catalog.json').write_text(json.dumps(catalog))
+        # Reuse the shared typography/tokens head from the same generated page.
+        # Remove scripts and jar CSS: build() adds only the base jar enhancement.
+        # A styles.css-only shell would silently compare fallback serif labels.
+        head = (site / 'index.html').read_text().split('<head>', 1)[1].split('</head>', 1)[0]
+        head = re.sub(r'<script\b[^>]*>.*?</script>', '', head, flags=re.S)
+        head = re.sub(r'<link\b[^>]*href="jars\.css"[^>]*>', '', head)
         (jar_output / 'index.html').write_text(
-            '<!doctype html><html><head><base href="../">'
-            '<link rel="stylesheet" href="styles.css">'
+            '<!doctype html><html><head><base href="../">' + head +
             '</head><body><div class="layout"></div></body></html>')
         jars.build(jar_output, production=True)
         html = (jar_output / 'index.html').read_text()
