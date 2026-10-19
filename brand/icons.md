@@ -268,7 +268,7 @@ Snapshot-to-snapshot facts; no collector exists yet.
 
 ## Proposed: plate detail popovers
 
-Proposal for the first use of these files on the site. Inventory against main
+See [B-PR146-01](decisions/B-PR146-01.md). Proposal for the first use of these files on the site. Inventory against main
 `20286c7` (after B-PR144-01); anchors are strings in `scripts/`. No row changes
 yet, so `site/brand/icons.json` is unchanged; rows change in both files when the
 implementation lands.
