@@ -1464,6 +1464,63 @@
         0.9657,
         0.953
       ]
+    },
+    "79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c": {
+      "source": "specimens/79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c.webp",
+      "source_sha256": "305aa2536c9039a6394cd6cd06a23e4578df497e699cc3d32c1ad1d624d3309d",
+      "path": "specimens/cutouts/79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c.webp",
+      "sha256": "44229d9540f3b7d571d30479d065e0fe5d1ea3962378b3d66bf7824022adccd7",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0223,
+        0.0973,
+        0.9856,
+        0.9027
+      ],
+      "tools": {
+        "pillow": "12.3.0",
+        "numpy": "2.3.5",
+        "webp": "1.6.0"
+      }
+    },
+    "73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf": {
+      "source": "specimens/73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf.webp",
+      "source_sha256": "1ce1df43ac2ec46db80cd9269453c19359d04cccd4d0edc4145498696536d14c",
+      "path": "specimens/cutouts/73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf.webp",
+      "sha256": "6b9c648a006e23c0dd34143b51fdf94608773bd333a9f80e0d721161620c94ad",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0319,
+        0.0375,
+        0.9872,
+        0.9514
+      ],
+      "tools": {
+        "pillow": "12.3.0",
+        "numpy": "2.3.5",
+        "webp": "1.6.0"
+      }
+    },
+    "e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83": {
+      "source": "specimens/e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83.webp",
+      "source_sha256": "eca822e263708014ce71abba3616a37d9c8aaa7aac44714ccae01ae05b72294d",
+      "path": "specimens/cutouts/e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83.webp",
+      "sha256": "95143dcd17a57473b8a085d4411470f31b347712c99465e4033d830890efa359",
+      "width": 1254,
+      "height": 1254,
+      "subject_bbox": [
+        0.0861,
+        0.1691,
+        0.9426,
+        0.827
+      ],
+      "tools": {
+        "pillow": "12.3.0",
+        "numpy": "2.3.5",
+        "webp": "1.6.0"
+      }
     }
   }
 }

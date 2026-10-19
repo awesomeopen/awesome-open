@@ -46,9 +46,12 @@ and descriptive alt text. A cut-out is optional; absent art is never eligible.
 ## Fit and archive
 
 Try all 5,040 assignments of the selected seven to the seven fixed windows.
-Maximize total occupied subject area, using source-matched cut-out subject boxes
+Maximize the least-filled window first, then total fractional fill, using source-matched cut-out subject boxes
 where available and whole-image bounds otherwise. Scale and center the subject
-inside its window with 12% room for motion. Do not crop the subject or change jar
+inside its window toward 94% fill, capped by at least 4.25 CSS px horizontal
+and 2.25 CSS px vertical clearance per side for the existing pointer/idle motion.
+The fixed enhanced footprint is the conservative sizing reference; fallback jars
+are larger. Missing or invalid subject bounds use the entire canvas. Do not crop the subject or change jar
 geometry. Equal fits break deterministically by project ID. Existing responsive
 art derivatives are reused where available; newly eligible art uses its committed
 full-resolution source/cut-out without a runtime image-processing dependency.

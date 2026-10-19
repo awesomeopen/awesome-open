@@ -136,3 +136,9 @@ prior visual observations and generation provenance. The full source WebPs are
 unchanged; three display cut-outs were added using the existing recipe. Each new
 cut-out records its actual tool versions without rewriting older derivatives or
 their provenance. This updates asset eligibility, not the drawing rules.
+
+The 2026-10-19 jar-fit proposal adds only the missing OpenTaco, Open Moderator
+and Open3D display cut-outs from their existing approved originals. Source bytes,
+identity and approval status remain unchanged. Their cut-out manifest entries
+record source/derivative hashes, measured bounds and the actual encoding tools;
+older derivatives and their provenance are preserved.

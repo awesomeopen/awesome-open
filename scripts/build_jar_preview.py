@@ -45,33 +45,53 @@ def responsive_image(source, width, manifest, source_width=None):
         f"url('{path}') {pixels / sizes:.6f}x" for path, pixels in candidates) + ')'
     return attrs, mask
 
+def subject_box(project, cutouts):
+    """Unmeasured or invalid bounds conservatively retain the entire canvas."""
+    box = cutouts.get(project['id'], {}).get('bbox')
+    if (isinstance(box, (list, tuple)) and len(box) == 4
+            and all(isinstance(v, (int, float)) and not isinstance(v, bool)
+                    and math.isfinite(v) for v in box)
+            and 0 <= box[0] < box[2] <= 1 and 0 <= box[1] < box[3] <= 1):
+        return box
+    return [0, 0, 1, 1]
+
+
 def assign_to_jars(projects, assets, cutouts):
-    """Try all 7! assignments; maximize subject area without cropping any subject.
+    """Try all 7! assignments; protect the worst fit, then maximize total fill.
 
     Positions and window geometry belong to the jars. Subject boxes belong to
     validated cut-outs; an unmeasured image conservatively uses its whole canvas.
     """
     def ratio(project):
         art = project['artwork']
-        box = cutouts.get(project['id'], {}).get('bbox', [0, 0, 1, 1])
+        box = subject_box(project, cutouts)
         return art['width'] * (box[2]-box[0]) / (art['height'] * (box[3]-box[1]))
     windows = [assets[row[1]]['width'] / assets[row[1]]['height'] * row[7] / row[8]
                for row in DISPLAY]
     ratios = {p['id']: ratio(p) for p in projects}
     def occupancy(order):
-        return sum(min(ratios[p['id']] / window, window / ratios[p['id']])
-                   for p, window in zip(order, windows))
+        fills = [min(ratios[p['id']] / window, window / ratios[p['id']])
+                 for p, window in zip(order, windows)]
+        return min(fills), sum(fills)
     return max(permutations(sorted(projects, key=lambda p: p['id'])), key=occupancy)
 
 
 def fitted_image(project, slot, asset, cutouts):
     art = project['artwork']
-    box = cutouts.get(project['id'], {}).get('bbox', [0, 0, 1, 1])
+    box = subject_box(project, cutouts)
     window_ratio = asset['width'] / asset['height'] * slot[7] / slot[8]
     canvas_ratio = art['width'] / art['height']
-    # Reserve 12% breathing room for idle motion/displacement; center the subject,
-    # rather than the source canvas's possibly asymmetric white margins.
-    scale = .88 * min(1 / (box[2]-box[0]), canvas_ratio / (window_ratio * (box[3]-box[1])))
+    # Aim for 94% fill, with explicit clearance for unchanged 3px pointer depth
+    # plus 1px horizontal / 2px vertical idle drift and a fractional-pixel guard.
+    # Use the smaller enhanced footprint; no-JS/print vessels are larger.
+    display_height = round(slot[3] * (.94 if slot[1] == 'central' else .82))
+    display_width = round(display_height * asset['width'] / asset['height'])
+    window_width, window_height = display_width * slot[7] / 100, display_height * slot[8] / 100
+    window_ratio = window_width / window_height
+    fill_x = min(.94, max(0, 1 - 8.5 / window_width))
+    fill_y = min(.94, max(0, 1 - 4.5 / window_height))
+    scale = min(fill_x / (box[2]-box[0]),
+                fill_y * canvas_ratio / (window_ratio * (box[3]-box[1])))
     cx, cy = (box[0]+box[2])/2, (box[1]+box[3])/2
     return (f'width:{scale*100:.4f}%;left:50%;top:50%;'
             f'transform:translate({-cx*100:.4f}%,{-cy*100:.4f}%);')
