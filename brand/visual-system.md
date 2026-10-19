@@ -215,11 +215,12 @@ The weekly draw archive retains `/draws/` and its evidence contract, with the
 visible page name Spotlight. The catalog footer puts GitHub immediately before
 Top. Its shortened stars note follows the HN note; source evidence remains linked.
 
-## Compact Catalog rows and departure texture
+## Compact Catalog rows and centered departure contours
 
 The Catalog omits the snapshot/setup explanation beneath Filters. Folded summaries
 have no authored padding or minimum height at desktop or narrow widths; folio
-numbers retain 4px left padding. The “In the wild” departure reuses the existing
-repeating navy footer pattern beneath its decorative contour SVG. Asset pixels,
-filter semantics and contour generation are unchanged. See
-[B-PR128-01](decisions/B-PR128-01.md).
+numbers retain 4px left padding ([B-PR128-01](decisions/B-PR128-01.md)).
+The “In the wild” departure uses plain Prussian blue with decorative contours
+centered around its link (y=200 in the 1000 × 400 viewBox). The navy texture
+remains in the footer only. Asset pixels, filter semantics, contour styling and
+clipping are unchanged. See [B-PR129-01](decisions/B-PR129-01.md).
