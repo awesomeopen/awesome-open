@@ -164,6 +164,21 @@ class HeroImageTests(unittest.TestCase):
             occupants = {attrs['data-project'] for tag, attrs in tags
                          if tag == 'article' and 'jar-exhibit' in attrs.get('class', '')}
             self.assertEqual(occupants, {p['id'] for p in state['editions'][0]['projects']})
+            vessels = [attrs for tag, attrs in tags
+                       if tag == 'article' and 'jar-exhibit' in attrs.get('class', '')]
+            self.assertEqual([v['class'].split()[1] for v in vessels], [
+                'jar-low-open', 'jar-square-cork', 'jar-bail', 'jar-shouldered',
+                'jar-central', 'jar-ribbed', 'jar-low-lid'])
+            from build_site import attach_specimen_cutouts
+            from build_jar_preview import assign_to_jars
+            assets = {a['id']: a for a in json.loads((ROOT / 'site/jars/provenance.json').read_text())}
+            by_id = {p['id']: p for p in catalog['projects']}
+            assigned = assign_to_jars([by_id[p['id']] for p in state['editions'][0]['projects']],
+                                      assets, attach_specimen_cutouts(catalog, ROOT))
+            expected = {slot[1]: p['id'] for slot, p in zip(DISPLAY, assigned)}
+            self.assertEqual({v['class'].split()[1].removeprefix('jar-'): v['data-project'] for v in vessels},
+                             expected, 'Reordering keeps each occupant in its fitted vessel')
+
             self.assertEqual(result['display_week'], '2026-10-19')
             images = [attrs for tag, attrs in tags if tag == 'img' and attrs.get('class') == 'specimen-print']
             self.assertEqual(len(images), 7)
@@ -171,4 +186,4 @@ class HeroImageTests(unittest.TestCase):
                 self.assertTrue((output / img['src']).is_file())
                 self.assertIn('transform:translate(', img['style'])
             self.assertNotIn('class="jar-draw-link"', (output / 'index.html').read_text())
-            self.assertIn('href="draws/"', (output / 'index.html').read_text())
+            self.assertIn('href="spotlight/"', (output / 'index.html').read_text())

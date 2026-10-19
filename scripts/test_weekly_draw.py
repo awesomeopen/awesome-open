@@ -8,7 +8,7 @@ import unittest
 
 import weekly_draw as draw
 from build_jar_preview import assign_to_jars, fitted_image, subject_box, DISPLAY, SPECIMEN_INTERIORS
-from build_draw_archive import build as build_archive
+from build_draw_archive import build as build_archive, week_label
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -84,18 +84,34 @@ class WeeklyDrawTests(unittest.TestCase):
         doc = draw.advance(draw.empty(), cat, date(2026, 10, 12))
         with tempfile.TemporaryDirectory() as tmp:
             build_archive(cat, doc, tmp, ROOT)
-            self.assertNotIn('id="week-2026-10-19"', (Path(tmp)/'draws/index.html').read_text())
-            empty = (Path(tmp)/'draws/index.html').read_text()
+            self.assertNotIn('id="2026-W43"', (Path(tmp)/'spotlight/index.html').read_text())
+            empty = (Path(tmp)/'spotlight/index.html').read_text()
             # B42: the archive uses the Observatory route shell, not bare ledger styles.
             for marker in ('href="../observatory/observatory.css"', 'class="obs-header"', 'aria-current="page">Spotlight', 'class="obs-closing-mark"', 'class="obs-footer"', 'Source revision:'):
                 self.assertIn(marker, empty)
             doc = draw.advance(doc, cat, date(2026, 10, 19))
             build_archive(cat, doc, tmp, ROOT)
-            html = (Path(tmp)/'draws/index.html').read_text()
-            self.assertIn('id="week-2026-10-19"', html)
-            self.assertNotIn('id="week-2026-10-26"', html)
+            html = (Path(tmp)/'spotlight/index.html').read_text()
+            self.assertIn('id="2026-W43"', html)
+            self.assertNotIn('id="2026-W44"', html)
             self.assertNotIn('<script>bad</script>', html)
-            self.assertEqual(len(json.loads((Path(tmp)/'draws/draws.json').read_text())['editions']), 1)
+            self.assertIn('href="#2026-W43">2026-W43</a>', html)
+            self.assertIn('<span data-metric>2026-W43</span>', html)
+            for removed in ('Week of ', 'How the draw works', 'Stars do not affect the draw.',
+                            'class="obs-finding', 'Return to project ledger', '>Observatory</a>', '#week-'):
+                self.assertNotIn(removed, html)
+            self.assertIn('class="obs-jump draw-jump" aria-label="Sections" hidden', html)
+            footer = html.split('<footer class="obs-footer">', 1)[1]
+            self.assertIn('href="draws.json" download>Download draw records</a> · ', footer)
+            self.assertLess(footer.index('Draw contract</a>'), footer.index('>GitHub</a>'))
+            self.assertFalse((Path(tmp) / 'draws').exists())
+
+            self.assertEqual(len(json.loads((Path(tmp)/'spotlight/draws.json').read_text())['editions']), 1)
+
+    def test_iso_week_labels_use_the_iso_year_at_calendar_boundaries(self):
+        self.assertEqual(week_label('2026-10-19'), '2026-W43')
+        self.assertEqual(week_label('2025-12-29'), '2026-W01')
+        self.assertEqual(week_label('2027-01-01'), '2026-W53')
 
     def test_fit_assigns_wide_and_tall_without_changing_jars(self):
         assets = {a['id']: a for a in json.loads((ROOT/'site/jars/provenance.json').read_text())}

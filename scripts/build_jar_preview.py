@@ -13,14 +13,12 @@ import shutil
 from pathlib import Path
 from html import escape
 ROOT = Path(__file__).resolve().parents[1]
-
-
 def jar_stylesheet_href(css):
     """Keep generated geometry paired with its CSS across cached page visits."""
     return 'jars.css?v=' + hashlib.sha256(css).hexdigest()
 
 
-# Ordered by vessel height, not by project rank. Calibrated to the source photographs.
+# Calibrated vessel slots; retain these indices for specimen assignment.
 DISPLAY = [
  ('OpenSCAD','low-open','Model',225,32,24,38,53,43,125),
  ('OpenSSL','square-cork','Encrypt',242,15,23,39,54,44,110),
@@ -30,6 +28,8 @@ DISPLAY = [
  ('OpenResty','ribbed','Serve',254,24,24,46,52,36,140),
  ('OpenTofu','low-lid','Provision',215,23,20,40,49,39,130),
 ]
+# Move the original fifth vessel between the second and third, with its contents.
+DISPLAY_ORDER = (0, 1, 4, 2, 3, 5, 6)
 
 
 # Specimen interiors calibrated against the original photographs: x/y/w/h in
@@ -137,7 +137,9 @@ def build(output, production=False):
         by_id = {p['id']: p for p in catalog['projects']}
         selected = assign_to_jars([by_id[p['id']] for p in edition['projects']], assets, cutouts)
     exhibits=[]
-    for number,(name,kind,verb,height,foot,x,y,w,h,zoom) in enumerate(DISPLAY,1):
+    for index in DISPLAY_ORDER:
+        number = index + 1
+        name,kind,verb,height,foot,x,y,w,h,zoom = DISPLAY[index]
         p=selected[number-1] if selected else next(p for p in catalog['projects'] if p['name']==name)
         name=p['name']
         verb='Function' if selected else verb
