@@ -305,6 +305,14 @@ still identifies “OpenBRender 0.1.0” and links the OpenBRender application a
 `openbrender.gptchatly.com`. Only the normalized history endpoint changes;
 the catalog display name remains OpenBRender.
 
+`sophontrace/opennex` → `sophontrace/openlnku` was verified on 2026-10-19:
+the [old history API path](https://api.github.com/repos/sophontrace/opennex/stargazers/history?per_page=30&page=1)
+returned HTTP 301 pointing to repository ID `1412123384`, and the
+[current repository API record](https://api.github.com/repos/SophonTrace/OpenLnku)
+reports that same ID as `SophonTrace/OpenLnku`. Only the normalized history
+endpoint changes; the existing OpenNex catalog name and URL remain unchanged.
+Any product-name update is a separate curated change.
+
 These mappings are in `REVIEWED_REPOSITORY_RENAMES` in
 `scripts/update_star_history.py`; they apply to ordinary history collection and
 the bounded backfill. They add no request or permission.
