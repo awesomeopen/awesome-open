@@ -173,7 +173,8 @@ geometry, and the narrower column follows the tall vessel at desktop, medium
 and mobile widths ([B-PR134-02](decisions/B-PR134-02.md)). A seeded weekly draw selects
 only illustrated catalog projects, independent of stars, with an initial four-week
 cooldown; the draw is displayed the following week. Assign the seven illustrations
-to windows by subject fit and contain the whole subject. The static `/spotlight/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
+to windows by reviewed body fit, with complete-subject fallback. Protrusions may
+clip at photo-traced inner glass walls while original illustrations remain whole. The static `/spotlight/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
 with a specimen tray per edition (B44). See [calendar, evidence and fallback
 rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
 fallback; it is not retroactively labeled a random draw.
@@ -253,3 +254,6 @@ Półtawski supports genuine bold 700 when explicitly requested with `font-weigh
 or `700`. Its existing variable file exposes 400–700; regular 400 remains the
 default for headings and wordmarks. No extra font download or synthetic bold is
 needed. Italic cuts are not included.
+
+
+Body-led wall clipping is proposed in [B-PR143-01](decisions/B-PR143-01.md).
