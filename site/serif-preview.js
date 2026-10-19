@@ -21,14 +21,14 @@
     var links = scope.querySelectorAll('a[href]');
     links.forEach(function (a) {
       if (a.hasAttribute('download') || a.dataset.serifExit !== undefined) return;
-      var original = originalLinks.get(a) || a.getAttribute('href');
-      if (original.startsWith('#')) return; // Keep same-document anchors native.
+      var original = originalLinks.has(a) ? originalLinks.get(a) : a.getAttribute('href');
+      var url = new URL(original, document.baseURI);
+      if (original.startsWith('#') && url.origin === location.origin && url.pathname === location.pathname) return;
       var explicit = new URL(location.href).searchParams.get('serif');
       if (!Object.prototype.hasOwnProperty.call(choices, explicit)) {
         if (originalLinks.has(a)) a.setAttribute('href', original);
         return;
       }
-      var url = new URL(original, document.baseURI);
       if (url.origin !== base.origin || !url.pathname.startsWith(base.pathname)) return;
       var path = url.pathname.slice(base.pathname.length);
       if (!/^(?:index\.html)?$|^(?:observatory|draws)\/(?:index\.html)?$|^records\/[^/]+\.html$|^design\/(?:index\.html)?$/.test(path)) return;
@@ -75,7 +75,10 @@
     var exit = document.createElement('a'); exit.dataset.serifExit = ''; exit.textContent = 'Reset to default';
     function exitURL() { var url = new URL(location.href); url.searchParams.delete('serif'); exit.href = url.href; }
     exitURL(); exit.addEventListener('pointerdown', exitURL); exit.addEventListener('focus', exitURL); exit.addEventListener('click', exitURL);
-    panel.append(label, select, status, exit); document.body.prepend(panel);
+    panel.append(label, select, status, exit);
+    var skip = document.body.querySelector('.skip-link,.skip');
+    if (skip && skip.parentNode === document.body) skip.after(panel);
+    else document.body.prepend(panel);
     decorate(document);
     new MutationObserver(function (records) {
       if (records.some(function (record) { return Array.from(record.addedNodes).some(function (node) { return node.nodeType === 1; }); })) decorate(document);

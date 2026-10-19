@@ -57,6 +57,10 @@ module.exports = async ({ browser, url, data, output }) => {
     assert.equal(new URL(page.url()).searchParams.get('serif'), 'instrument');
     await page.reload(); await check('instrument');
     const record = data.projects.find(p => p.artwork) || data.projects[0];
+    await page.goto(url + '/records/' + record.id + '.html?serif=instrument'); await check('instrument');
+    await page.locator('.permalink').first().click();
+    assert.equal(new URL(page.url()).searchParams.get('serif'), 'instrument');
+    assert.equal(new URL(page.url()).hash, '#project-' + record.id); await check('instrument');
     for (const choice of ['instrument', 'poltawski', 'fraunces']) {
       for (const route of ['/', '/observatory/', '/draws/', '/records/' + record.id + '.html', '/design/']) {
         await page.setViewportSize({ width: 390, height: 844 });
