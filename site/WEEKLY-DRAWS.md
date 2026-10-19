@@ -49,33 +49,45 @@ and descriptive alt text. A cut-out is optional; absent art is never eligible.
 ## Fit and archive
 
 Try all 5,040 assignments of the selected seven to the seven measured glass
-interiors. Maximize the least-filled interior first, then total fractional fill,
-using source-matched cut-out subject boxes where available and whole-image bounds
-otherwise. Equal fits break deterministically by project ID. Selection remains
-independent of placement; recalibrating an interior may change positions, never
-the saved seven projects or their draw counts.
+interiors. Maximize the least-filled interior first, then total fractional fill.
+Use source-matched, reviewed body spans where present, otherwise the complete
+cut-out subject box or whole canvas. Equal fits break deterministically by
+project ID. Selection remains independent of placement: the saved seven projects
+and draw counts never change to improve a composition.
 
-`scripts/build_jar_preview.py::SPECIMEN_INTERIORS` records x/y/width/height as
-percentages of each original photograph's full canvas. These bounds follow the
-usable inner body, not the older, narrower compositing rectangles. The detached
-lid limits the right edge of the low-lid jar. Glass feathering, cracks, lights,
-closures and vessel dimensions retain their existing independent coordinates.
+`scripts/build_jar_preview.py::SPECIMEN_INTERIORS` records fitting boxes in
+percentages of each original photograph's full canvas. Separate photo-traced
+`SPECIMEN_INTERIOR_CONTOURS` follow the inner walls, shoulders, curved floors and
+leaning-lid occlusion. Convert those contours into window coordinates and keep
+the clipping boundary fixed to the glass while existing specimen motion runs.
+Do not clip at an arbitrary inset rectangle: an interrupted protrusion must meet
+the visible inside wall. Glass feathering, cracks, lights, closures and vessel
+layout dimensions retain their independent coordinates.
 
-Contain the complete subject with one motion inset: at least 4.25 CSS px on each
-horizontal side and 2.25 CSS px on each vertical side at the fixed enhanced
-footprint. Do not apply a second percentage shrink. Put 90% of unused vertical
-space above the subject and 10% below, so short specimens sit toward the base
-rather than floating centrally. Preserve aspect ratio and all important parts.
-Missing or invalid bounds use the entire canvas. No browser pixel processing is
-introduced. Existing responsive derivatives are reused.
+Fit the visible body wall-to-wall, preserving aspect ratio. Do not subtract a
+horizontal motion inset: existing pointer/idle movement may pass behind the
+stationary glass contour. Keep 2.25 CSS px of vertical clearance above/below the
+height-limited subject, and put all remaining vertical slack above it so the
+baseline sits near the glass floor. No opacity reduction, stretching, grouping
+or original-art changes. Unreviewed or invalid composition metadata retains the
+complete subject as the fitting target; peripheral motion may still meet the wall.
 
-A narrow vessel cannot make a broad silhouette fill its height: OpenObserve's
-left ribbons count toward its width. Its old compositing window extended beyond
-the central cylinder's actual inner walls; fitting within the corrected interior
-therefore makes that complete silhouette smaller. Cropping, stretching, grouped
-specimens, new artwork or different vessels require a separate decision. Visual
-review must compare actual before/after pixels and the supplied reference;
-passing containment tests alone does not establish the intended composition.
+`SPECIMEN_BODY_SPANS` contains a reviewed horizontal span for OpenObserve's
+mineral column, keyed to its original source hash. It excludes the left ribbons
+and forked foot tips from scale/centering, but retains complete subject height.
+Those protrusions are still rendered and only disappear at the physical glass
+boundary. Replaced source art automatically falls back to whole-subject fitting.
+The original and record/Spotlight archive illustrations remain complete.
+
+Before the first scheduled edition activated on October 19, OpenObserve used the
+commissioning layout's fixed 300% zoom and horizontal clipping, about 154px tall
+at the enhanced footprint. Whole-silhouette fitting reduced it first to about
+83px and then 64px. Body-led placement restores approximately that original scale
+inside the more accurate glass contour; it does not claim every shape can fill
+both dimensions. No browser pixel analysis is introduced. Visual review includes
+matched before/after pixels, current occupants, extreme tall/wide approved art,
+mobile, active motion and reduced motion. Tests alone do not establish aesthetic
+acceptance.
 
 `/spotlight/` shows current and past scheduled editions, newest first, with permanent
 `#YYYY-WNN` ISO week links, such as `/spotlight/#2026-W43` for the display week

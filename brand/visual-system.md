@@ -173,7 +173,8 @@ geometry, and the narrower column follows the tall vessel at desktop, medium
 and mobile widths ([B-PR134-02](decisions/B-PR134-02.md)). A seeded weekly draw selects
 only illustrated catalog projects, independent of stars, with an initial four-week
 cooldown; the draw is displayed the following week. Assign the seven illustrations
-to windows by subject fit and contain the whole subject. The static `/spotlight/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
+to windows by reviewed body fit, with complete-subject fallback. Protrusions may
+clip at photo-traced inner glass walls while original illustrations remain whole. The static `/spotlight/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
 with a specimen tray per edition (B44). See [calendar, evidence and fallback
 rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
 fallback; it is not retroactively labeled a random draw.

@@ -7,7 +7,9 @@ import tempfile
 import unittest
 
 import weekly_draw as draw
-from build_jar_preview import assign_to_jars, fitted_image, subject_box, DISPLAY, SPECIMEN_INTERIORS
+from build_jar_preview import (assign_to_jars, fitted_image, subject_box, composition_box,
+                               DISPLAY, SPECIMEN_INTERIORS, SPECIMEN_BODY_SPANS,
+                               SPECIMEN_INTERIOR_CONTOURS, interior_clip)
 from build_draw_archive import build as build_archive, week_label
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -153,7 +155,7 @@ class WeeklyDrawTests(unittest.TestCase):
         self.assertEqual(subject_box(p, {}), [0, 0, 1, 1])
         self.assertEqual(subject_box(p, {'0': {'bbox': [.1, .2, .8, .9]}}), [.1, .2, .8, .9])
 
-    def test_fitting_keeps_subject_inside_motion_envelope(self):
+    def test_unreviewed_subjects_fit_wall_width_and_keep_vertical_clearance(self):
         assets = {a['id']: a for a in json.loads((ROOT/'site/jars/provenance.json').read_text())}
         for slot in DISPLAY:
             asset = assets[slot[1]]
@@ -169,10 +171,10 @@ class WeeklyDrawTests(unittest.TestCase):
                 scale = float(style.split('%')[0].split(':')[1]) / 100
                 subject_w = ww * scale * (box[2] - box[0])
                 subject_h = ww * scale / ratio * (box[3] - box[1])
-                self.assertLessEqual(subject_w + 8.5, ww + .001)
+                self.assertLessEqual(subject_w, ww + .001)
                 self.assertLessEqual(subject_h + 4.5, wh + .01)
 
-    def test_bottom_bias_and_one_motion_inset(self):
+    def test_wall_width_and_grounded_base_without_horizontal_shrink(self):
         assets = {a['id']: a for a in json.loads((ROOT/'site/jars/provenance.json').read_text())}
         for slot in DISPLAY:
             asset = assets[slot[1]]
@@ -189,11 +191,38 @@ class WeeklyDrawTests(unittest.TestCase):
             top = float(style.split('top:')[1].split('%')[0]) / 100 * wh
             subject_h = ww * scale / 3
             bottom = wh - top - subject_h
-            self.assertAlmostEqual(ww * scale, ww - 8.5, places=3)
-            self.assertGreaterEqual(bottom, 2.24)
-            self.assertAlmostEqual(top - 2.25, 9 * (bottom - 2.25), places=2)
+            self.assertAlmostEqual(ww * scale, ww, places=3)
+            self.assertAlmostEqual(bottom, 2.25, places=2)
+
+    def test_reviewed_body_recovers_original_scale_without_changing_art(self):
+        pid = next(iter(SPECIMEN_BODY_SPANS))
+        project = {'id': pid, 'artwork': {'path': f'specimens/{pid}.webp',
+                                         'width': 1254, 'height': 1254}}
+        box = [.2057, .0183, .7289, .9745]
+        cutouts = {pid: {'bbox': box}}
+        self.assertEqual(composition_box(project, cutouts), [.415, box[1], .68, box[3]])
+        self.assertEqual(composition_box(project, {}), [0, 0, 1, 1])
+        self.assertEqual(composition_box(project, {pid: {'bbox': None}}), [0, 0, 1, 1])
+        asset = next(a for a in json.loads((ROOT/'site/jars/provenance.json').read_text())
+                     if a['id'] == 'central')
+        style = fitted_image(project, DISPLAY[3], asset, cutouts)
+        scale = float(style.split('%')[0].split(':')[1]) / 100
+        height = 207 * SPECIMEN_INTERIORS['central'][2] / 100 * scale * (box[3] - box[1])
+        self.assertGreater(height, 150)
+        self.assertLess(height, 165)
+        from unittest.mock import patch
+        with patch.dict(SPECIMEN_BODY_SPANS[pid], {'source_sha256': 'stale'}):
+            self.assertEqual(composition_box(project, cutouts), box)
 
     def test_real_interiors_do_not_redefine_glass_geometry(self):
         self.assertEqual(DISPLAY[3][5:9], (37, 29, 26, 55))
-        self.assertEqual(SPECIMEN_INTERIORS['central'], (40, 22, 21, 63))
-        self.assertEqual(SPECIMEN_INTERIORS['low-lid'][0] + SPECIMEN_INTERIORS['low-lid'][2], 66)
+        self.assertEqual(SPECIMEN_INTERIORS['central'], (40.1, 22, 20.6, 63.7))
+        self.assertEqual(SPECIMEN_INTERIORS['low-lid'][0] + SPECIMEN_INTERIORS['low-lid'][2], 72.5)
+        for kind, points in SPECIMEN_INTERIOR_CONTOURS.items():
+            self.assertGreater(len(points), 10)
+            self.assertTrue(all(0 <= x <= 100 and 0 <= y <= 100 for x, y in points))
+            self.assertTrue(interior_clip(kind).startswith('polygon('))
+        # Trace the lid occlusion and curved floor, not the old x66% rectangle.
+        self.assertIn((66.6, 59.2), SPECIMEN_INTERIOR_CONTOURS['low-lid'])
+        self.assertIn((82, 45), SPECIMEN_INTERIOR_CONTOURS['low-lid'])
+        self.assertIn((53, 85.7), SPECIMEN_INTERIOR_CONTOURS['central'])

@@ -149,3 +149,14 @@ with the existing Lanczos/WebP q85 recipe, under distinct `-cutout-` filenames.
 Per-source recipes and hashes live in `site/jars/responsive.json`; no existing
 hero derivative is replaced. These reduce their screen payload; original cut-outs
 remain the high-density and print candidates.
+
+## Jar body composition
+
+The hero may fit a reviewed horizontal body span while peripheral parts disappear
+behind a photo-traced inner-wall contour. OpenObserve's span and original-source
+hash live in `scripts/build_jar_preview.py::SPECIMEN_BODY_SPANS`; complete subject
+bounds, original WebPs, cut-outs and record/Spotlight archive illustrations remain
+unchanged. Contours are manually calibrated against the existing photographic
+sources, including the low jar's leaning-lid occlusion. They affect display
+composition only; no asset bytes or checksum inventory change. See the
+[fit contract](../site/WEEKLY-DRAWS.md#fit-and-archive).

@@ -50,13 +50,19 @@ const path=require('node:path');
  const checkSubjectClearance=async(targetPage=page)=>{
    const subjects=await targetPage.locator('.jar-exhibit').evaluateAll((nodes,{bounds,variants})=>nodes.map(n=>{
      const image=n.querySelector('.specimen-print'),window=n.querySelector('.specimen-window').getBoundingClientRect(),rect=image.getBoundingClientRect();
-     const box=(image.getAttribute('src').includes('/cutouts/')||variants.includes(image.getAttribute('src')))?bounds[n.dataset.project].subject_bbox:[0,0,1,1];
-     return {id:n.dataset.project,left:rect.left+rect.width*box[0]-window.left,
+     const box=n.dataset.fitBounds?n.dataset.fitBounds.split(',').map(Number):
+       ((image.getAttribute('src').includes('/cutouts/')||variants.includes(image.getAttribute('src')))?bounds[n.dataset.project].subject_bbox:[0,0,1,1]);
+     return {id:n.dataset.project,clip:getComputedStyle(n.querySelector('.specimen-window')).clipPath,
+       left:rect.left+rect.width*box[0]-window.left,
        right:window.right-(rect.left+rect.width*box[2]),top:rect.top+rect.height*box[1]-window.top,
        bottom:window.bottom-(rect.top+rect.height*box[3])};
    }),{bounds:cutoutBounds,variants:cutoutVariants});
-   for(const subject of subjects) for(const edge of ['left','right','top','bottom'])
-     assert.ok(subject[edge]>=-.1,`Subject ${subject.id} stays inside ${edge}: ${subject[edge]}`);
+   for(const subject of subjects){
+     assert.ok(subject.clip.startsWith('polygon('),'A stationary photo-traced wall clips protrusions');
+     for(const edge of ['left','right','top','bottom'])
+       assert.ok(subject[edge]>=(edge==='left'||edge==='right'?-4.2:-.1),
+         `Body ${subject.id} respects its unchanged motion allowance at ${edge}: ${subject[edge]}`);
+   }
  };
  await checkSubjectClearance();
  await page.locator('.jar-central .jar-select').hover();
@@ -82,9 +88,32 @@ const path=require('node:path');
    fs.writeFileSync('tmp/site-qa/jars-fit-comparison.json',JSON.stringify({
      ...JSON.parse(fs.readFileSync(baseMetadata)),headSha:process.env.PR_HEAD_SHA||null,
      viewport:{width:1440,height:1000},crop:'.jar-stage',reducedMotion:true,
-     limitation:'Central cylinder cannot fill vertically without cropping or distorting the full OpenObserve ribbons.'
+     composition:'Reviewed body bounds; peripheral ribbons and foot tips may clip at photo-traced inner glass. Proportions unchanged.'
    },null,2));
    await comparison.close();
+ }
+ // The generator builds actual extreme-aspect artwork in a review-only set.
+ const outlierMetadata=path.join(__dirname,'../tmp/site/jars-outliers/source.json');
+ if(fs.existsSync(outlierMetadata)){
+   for(const [label,viewport,reducedMotion] of [
+     ['desktop',{width:1440,height:1000},'reduce'],
+     ['mobile',{width:390,height:900},'reduce'],
+     ['motion',{width:1440,height:1000},'no-preference']]){
+     const stress=await browser.newPage({viewport,reducedMotion});
+     await stress.goto(new URL('jars-outliers/index.html',process.env.SITE_URL||'http://127.0.0.1:8000/').href);
+     await stress.waitForSelector('body[data-jars-ready=true]');
+     await stress.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+     await stress.evaluate(()=>document.fonts.ready);
+     if(label==='motion'){
+       await stress.locator('.jar-select').first().hover();
+       await stress.mouse.move(33,200);
+       await stress.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+     }
+     await checkSubjectClearance(stress);
+     await stress.screenshot({path:`tmp/site-qa/jars-outliers-${label}.png`});
+     await stress.close();
+   }
+   fs.copyFileSync(outlierMetadata,'tmp/site-qa/jars-outliers.json');
  }
  // Exercise both horizontal motion extremes with idle translation at its peak.
  for(const [x,label] of [[33,'left'],[1406,'right']]){
