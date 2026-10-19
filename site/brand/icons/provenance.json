@@ -1,179 +1,183 @@
 {
   "schema_version": 1,
   "family": "Interface icons",
-  "status": "Proposed first set for review (B-PR103-01); not referenced by the site.",
+  "status": "Proposed first set for review (B-PR103-01; drafts per B-PR130-01); not referenced by the site.",
   "created": "2026-10-16",
   "method": "SVG written by scripts/build_icons.py from the shapes in brand/icons.md: whole-pixel strokes, straight lines snapped to the pixel grid, currentColor structure and var(--icon-accent, currentColor) accents. No generated pixels are traced or embedded.",
   "source_revision": "Branch feat/icon-set on main a9455b9 with PR #102",
-  "reference_drafts": {
-    "published": false,
-    "reason": "Drafts were generated locally with FLUX.2 [klein] 9B, which is under the FLUX Non-Commercial License; redistribution rights were not cleared, so the drafts stay outside the repository.",
-    "generator": {
-      "app": "ComfyUI 0.38.0 (owner's server)",
-      "model": "flux-2-klein-9b-fp8.safetensors",
-      "text_encoder": "qwen_3_8b_fp8mixed.safetensors (flux2)",
-      "vae": "flux2-vae.safetensors",
-      "sampler": "euler, 4 steps, BasicGuider, Flux2Scheduler",
-      "size": "1024x1024",
-      "mode": "text-to-image, no reference images"
-    },
-    "style_prompt_suffix": "Retro technical pictogram, like a symbol engraved on a mid-century scientific instrument dial or printed in a surveying field manual. Hand-inked technical drafting with a broad ruling pen: BOLD, HEAVY lines of even weight, about one twelfth of the icon's width, square line ends, slight hand variation only. Flat solid ink colors on pure white paper: Prussian blue (#0B2546) and ink black (#111820), plus only the accent color named in the description. The symbol fills about 80 percent of the square canvas, perfectly centered, flat, frontal, orthographic, symmetric where the shape is symmetric. Plain and precise, like an instrument marking, readable at 16 pixels. No text, no letters, no numbers, no frame, no background shape, no shadow, no shading, no 3D, no gradient, no glossy app-icon style, no bubbly cartoon, no emoji, no sticker, no creature, no plant, no distressed texture, no beige paper.",
-    "selection": "Three seeds per icon (101, 202, 303; 404, 505, 606 for state.unknown and view.table); the closest match to the map shape was picked by the agent; the project owner approved proceeding from those picks.",
-    "items": [
-      {
-        "icon": "state.current",
-        "seed": 303,
-        "prompt": "Icon: A single bold closed circle (ring) in Prussian blue. Inside it, a bold check mark that does not touch the ring: a short left stroke and a longer right stroke meeting at a sharp angle, in deep emerald green (#006B4F). Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
-        "sha256": "ccc9711c10100167668c034801323970bb18e4b6d6b5d5120a8085966df2a209",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "state.aged",
-        "seed": 101,
-        "prompt": "Icon: A single bold closed circle (ring) in Prussian blue with a bold Prussian blue check mark inside it, not touching the ring. Overlapping the ring's lower-right edge, a small flat clock badge: a small solid circle outline with two straight hands, separated from the ring by a clear white gap, drawn flat in slate grey (#465665) with no shading. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
-        "sha256": "1d46bcbbb83d097d6ec71a81b5b340618fc96dbd44a67c580cf5e474cda972c0",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "state.partial",
-        "seed": 202,
-        "prompt": "Icon: A single bold closed circle (ring) in Prussian blue; its left half is filled solid Prussian blue and its right half is empty white, divided by a straight vertical line through the centre. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
-        "sha256": "1e7ce6544690286ae937caf2072faed319f66cfda05cbd49f176e5271bdce8d0",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "state.pending",
-        "seed": 202,
-        "prompt": "Icon: Exactly eight bold round dots, evenly spaced on an imaginary circle, in slate grey (#465665). No ring line, no inner circle, nothing inside; the centre is empty white. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
-        "sha256": "6ec26461c85fbce2415d7f0742cd7661742f222d81927f67d170efd2c33aab2a",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "state.none",
-        "seed": 303,
-        "prompt": "Icon: A single bold closed circle (ring) in slate grey (#465665) with one short bold horizontal dash centered inside it, not touching the ring. Nothing else inside. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
-        "sha256": "48bc53d3f036a7982bf1f84042746fcb1868124e3d68b157db8140f99d1d6613",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "state.failed",
-        "seed": 303,
-        "prompt": "Icon: A single bold closed circle (ring) in Prussian blue. Inside it, a small bold diagonal cross (X) in deep scarlet red (#B62420). The X is entirely inside the ring with clear white space between its four ends and the ring; the X does not touch or cross the ring. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
-        "sha256": "d49c470e5520e4224780193818d32242b8cba3ae645115db964e8fdeb1ec0d5b",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "state.unknown",
-        "seed": 606,
-        "prompt": "Icon: A ring drawn only as a broken outline of about ten short thick dashes with gaps between them, in slate grey (#465665); the dashes are ON the ring line itself, nothing radiates inward. One bold plain question mark centered inside. No clock face, no hands, no inner tick marks, no second circle. Exactly four short straight registration tick marks sit just outside the outline: one at the top, right, bottom and left, like an instrument dial.",
-        "sha256": "2cc82f3b214915ee225aabe810653863b4b4653ce2e11c4239fddb8352cd301a",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "badge.aged",
-        "seed": 101,
-        "prompt": "Icon: A small flat clock face: one bold circle outline with two straight bold hands from the centre, one pointing up and one pointing right, in slate grey (#465665). No numerals, no tick marks on the face, no shading.",
-        "sha256": "281bc3467516b6cc9213b4997999fbc9327d598013957288b8a0a2f195bbfbee",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "review.current",
-        "seed": 101,
-        "prompt": "Icon: A single bold closed square with slightly rounded corners in Prussian blue. Inside it, a bold check mark not touching the square, in deep emerald green (#006B4F). Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
-        "sha256": "7823f7728e0d7b83e2814c80f8e0c70706228d482e54af13bb31ecf290ec299b",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "status.archived",
-        "seed": 101,
-        "prompt": "Icon: A bold front view of a closed filing drawer: a wide rectangle with a narrow horizontal handle bar centered in its upper part, all in ink black. Flat, frontal, no perspective.",
-        "sha256": "a2873f088e0c4d19b3bc03885f9932b42c531bd7e69428b8ae2995a67b01d2ee",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "link.external",
-        "seed": 303,
-        "prompt": "Icon: A bold square outline in ink black that is open at its top-right corner: the top edge and the right edge both stop short of the corner, leaving a gap. A bold straight diagonal arrow starts near the square's centre and exits through that gap toward the upper right, arrowhead pointing up-right.",
-        "sha256": "6e7f3d5892a8a4ddc6592475d3ed25edae7df9dd2ccb0a418f88b6e31584da91",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "link.permalink",
-        "seed": 202,
-        "prompt": "Icon: Two bold interlocking chain links, each a rounded elongated oval loop, joined diagonally from lower-left to upper-right, in ink black. Flat, no shading.",
-        "sha256": "53858b3ea3767ebaf2e859eea70e199617163d1d379b84422b330628aa2991f0",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "link.commit",
-        "seed": 202,
-        "prompt": "Icon: A bold horizontal straight line across the full width with a bold open circle (ring) in its centre; the line stops at the circle's edge on both sides. Ink black.",
-        "sha256": "4a08939a27fcac4b874cf054e1f0dfc3879de94034f0f9581475b66375dfd03c",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "link.download",
-        "seed": 202,
-        "prompt": "Icon: A bold straight arrow pointing straight down onto a bold short horizontal baseline below it, in ink black.",
-        "sha256": "6690a927f9fde078b3947e2ece2993e3d1b033f5214668ba066090e711b3012f",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "link.data",
-        "seed": 202,
-        "prompt": "Icon: A bold page outline with a folded top-right corner, in ink black, with a pair of bold curly braces { } centered on the page.",
-        "sha256": "5e1aeec70b3b1fb969daed39d2ff46f09b1b74150d1eae2d69e727936b3b8854",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "disclose.closed",
-        "seed": 202,
-        "prompt": "Icon: A bold plus sign with two equal-length strokes, in ink black. Nothing else.",
-        "sha256": "f0f364ae64289ce2deeb5330906132aa6afdbcd03b5696f3da077aba68132d0f",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "disclose.open",
-        "seed": 101,
-        "prompt": "Icon: A single bold horizontal minus stroke, in ink black. Nothing else.",
-        "sha256": "4711a8b6880439ca15c4438ef3f74e6b04161d2b87d1efe9f553af9d3cb2cd4d",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "control.reset",
-        "seed": 202,
-        "prompt": "Icon: A bold open circular arrow, about three quarters of a circle, turning counter-clockwise, with one arrowhead at its end, in ink black.",
-        "sha256": "0aa36f437419f2e695e2f83259cf5e14f18b4588076692998466db5139549de3",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "scope.collection",
-        "seed": 101,
-        "prompt": "Icon: A 3 by 3 grid of nine equal solid filled squares with even white gaps between them, in Prussian blue.",
-        "sha256": "3788f11d7f371b01e3c42c2255843ea524771e38d969c2dfbfa6c5e1898b1f96",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "view.chart",
-        "seed": 202,
-        "prompt": "Icon: Three bold horizontal bars of different lengths stacked vertically, all starting from one bold shared vertical axis line on the left, in Prussian blue.",
-        "sha256": "9e570f68a1ced540f555ddedcdc657f1f5aba1be3ac0f970eaf97f12ce08c8af",
-        "used_as": "composition reference"
-      },
-      {
-        "icon": "view.table",
-        "seed": 101,
-        "prompt": "Icon: A bold ruled table grid: an outer rectangle divided into three rows and two columns by bold lines, in Prussian blue.",
-        "sha256": "7a31426c62c65d0fbb706806f898bc6a29b8de5200d3643b57b0ec83c4a24bd6",
-        "used_as": "composition reference"
-      }
-    ]
-  },
   "deviations_from_drafts": [
     "view.table: no draft produced 3 rows by 2 columns; drawn directly from the map.",
     "state.unknown: drafts read as clock faces; drawn as a dashed ring with a question mark from the map.",
     "status.archived: drafts collapsed to a solid block; drawn as an outlined drawer with a handle.",
     "disclose.closed/open: drafts had unequal weights; drawn with equal strokes.",
     "Ticks normalised to four per ring or square; drafts varied between four and eight."
-  ]
+  ],
+  "reference_drafts": {
+    "published": true,
+    "study": "brand/studies/icon-drafts/ (provenance.json lists model, seeds, prompts and hashes)",
+    "model": "FLUX.2 [klein] 4B with Qwen3 4B, both Apache-2.0",
+    "note": "Replaces the unpublished FLUX.2 [klein] 9B round-3 drafts that guided the first SVG set (non-commercial licence; seeds, prompts and hashes kept below). The SVGs were not redrawn: the 4B drafts confirm the same compositions.",
+    "superseded_9b_drafts": {
+      "generator": {
+        "app": "ComfyUI 0.38.0 (owner's server)",
+        "model": "flux-2-klein-9b-fp8.safetensors",
+        "text_encoder": "qwen_3_8b_fp8mixed.safetensors (flux2)",
+        "vae": "flux2-vae.safetensors",
+        "sampler": "euler, 4 steps, BasicGuider, Flux2Scheduler",
+        "size": "1024x1024",
+        "mode": "text-to-image, no reference images"
+      },
+      "style_prompt_suffix": "Retro technical pictogram, like a symbol engraved on a mid-century scientific instrument dial or printed in a surveying field manual. Hand-inked technical drafting with a broad ruling pen: BOLD, HEAVY lines of even weight, about one twelfth of the icon's width, square line ends, slight hand variation only. Flat solid ink colors on pure white paper: Prussian blue (#0B2546) and ink black (#111820), plus only the accent color named in the description. The symbol fills about 80 percent of the square canvas, perfectly centered, flat, frontal, orthographic, symmetric where the shape is symmetric. Plain and precise, like an instrument marking, readable at 16 pixels. No text, no letters, no numbers, no frame, no background shape, no shadow, no shading, no 3D, no gradient, no glossy app-icon style, no bubbly cartoon, no emoji, no sticker, no creature, no plant, no distressed texture, no beige paper.",
+      "selection": "Three seeds per icon (101, 202, 303; 404, 505, 606 for state.unknown and view.table); the closest match to the map shape was picked by the agent; the project owner approved proceeding from those picks.",
+      "items": [
+        {
+          "icon": "state.current",
+          "seed": 303,
+          "prompt": "Icon: A single bold closed circle (ring) in Prussian blue. Inside it, a bold check mark that does not touch the ring: a short left stroke and a longer right stroke meeting at a sharp angle, in deep emerald green (#006B4F). Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
+          "sha256": "ccc9711c10100167668c034801323970bb18e4b6d6b5d5120a8085966df2a209",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "state.aged",
+          "seed": 101,
+          "prompt": "Icon: A single bold closed circle (ring) in Prussian blue with a bold Prussian blue check mark inside it, not touching the ring. Overlapping the ring's lower-right edge, a small flat clock badge: a small solid circle outline with two straight hands, separated from the ring by a clear white gap, drawn flat in slate grey (#465665) with no shading. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
+          "sha256": "1d46bcbbb83d097d6ec71a81b5b340618fc96dbd44a67c580cf5e474cda972c0",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "state.partial",
+          "seed": 202,
+          "prompt": "Icon: A single bold closed circle (ring) in Prussian blue; its left half is filled solid Prussian blue and its right half is empty white, divided by a straight vertical line through the centre. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
+          "sha256": "1e7ce6544690286ae937caf2072faed319f66cfda05cbd49f176e5271bdce8d0",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "state.pending",
+          "seed": 202,
+          "prompt": "Icon: Exactly eight bold round dots, evenly spaced on an imaginary circle, in slate grey (#465665). No ring line, no inner circle, nothing inside; the centre is empty white. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
+          "sha256": "6ec26461c85fbce2415d7f0742cd7661742f222d81927f67d170efd2c33aab2a",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "state.none",
+          "seed": 303,
+          "prompt": "Icon: A single bold closed circle (ring) in slate grey (#465665) with one short bold horizontal dash centered inside it, not touching the ring. Nothing else inside. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
+          "sha256": "48bc53d3f036a7982bf1f84042746fcb1868124e3d68b157db8140f99d1d6613",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "state.failed",
+          "seed": 303,
+          "prompt": "Icon: A single bold closed circle (ring) in Prussian blue. Inside it, a small bold diagonal cross (X) in deep scarlet red (#B62420). The X is entirely inside the ring with clear white space between its four ends and the ring; the X does not touch or cross the ring. Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
+          "sha256": "d49c470e5520e4224780193818d32242b8cba3ae645115db964e8fdeb1ec0d5b",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "state.unknown",
+          "seed": 606,
+          "prompt": "Icon: A ring drawn only as a broken outline of about ten short thick dashes with gaps between them, in slate grey (#465665); the dashes are ON the ring line itself, nothing radiates inward. One bold plain question mark centered inside. No clock face, no hands, no inner tick marks, no second circle. Exactly four short straight registration tick marks sit just outside the outline: one at the top, right, bottom and left, like an instrument dial.",
+          "sha256": "2cc82f3b214915ee225aabe810653863b4b4653ce2e11c4239fddb8352cd301a",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "badge.aged",
+          "seed": 101,
+          "prompt": "Icon: A small flat clock face: one bold circle outline with two straight bold hands from the centre, one pointing up and one pointing right, in slate grey (#465665). No numerals, no tick marks on the face, no shading.",
+          "sha256": "281bc3467516b6cc9213b4997999fbc9327d598013957288b8a0a2f195bbfbee",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "review.current",
+          "seed": 101,
+          "prompt": "Icon: A single bold closed square with slightly rounded corners in Prussian blue. Inside it, a bold check mark not touching the square, in deep emerald green (#006B4F). Four short straight registration tick marks sit just outside the outline at the top, right, bottom and left, like an instrument dial.",
+          "sha256": "7823f7728e0d7b83e2814c80f8e0c70706228d482e54af13bb31ecf290ec299b",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "status.archived",
+          "seed": 101,
+          "prompt": "Icon: A bold front view of a closed filing drawer: a wide rectangle with a narrow horizontal handle bar centered in its upper part, all in ink black. Flat, frontal, no perspective.",
+          "sha256": "a2873f088e0c4d19b3bc03885f9932b42c531bd7e69428b8ae2995a67b01d2ee",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "link.external",
+          "seed": 303,
+          "prompt": "Icon: A bold square outline in ink black that is open at its top-right corner: the top edge and the right edge both stop short of the corner, leaving a gap. A bold straight diagonal arrow starts near the square's centre and exits through that gap toward the upper right, arrowhead pointing up-right.",
+          "sha256": "6e7f3d5892a8a4ddc6592475d3ed25edae7df9dd2ccb0a418f88b6e31584da91",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "link.permalink",
+          "seed": 202,
+          "prompt": "Icon: Two bold interlocking chain links, each a rounded elongated oval loop, joined diagonally from lower-left to upper-right, in ink black. Flat, no shading.",
+          "sha256": "53858b3ea3767ebaf2e859eea70e199617163d1d379b84422b330628aa2991f0",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "link.commit",
+          "seed": 202,
+          "prompt": "Icon: A bold horizontal straight line across the full width with a bold open circle (ring) in its centre; the line stops at the circle's edge on both sides. Ink black.",
+          "sha256": "4a08939a27fcac4b874cf054e1f0dfc3879de94034f0f9581475b66375dfd03c",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "link.download",
+          "seed": 202,
+          "prompt": "Icon: A bold straight arrow pointing straight down onto a bold short horizontal baseline below it, in ink black.",
+          "sha256": "6690a927f9fde078b3947e2ece2993e3d1b033f5214668ba066090e711b3012f",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "link.data",
+          "seed": 202,
+          "prompt": "Icon: A bold page outline with a folded top-right corner, in ink black, with a pair of bold curly braces { } centered on the page.",
+          "sha256": "5e1aeec70b3b1fb969daed39d2ff46f09b1b74150d1eae2d69e727936b3b8854",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "disclose.closed",
+          "seed": 202,
+          "prompt": "Icon: A bold plus sign with two equal-length strokes, in ink black. Nothing else.",
+          "sha256": "f0f364ae64289ce2deeb5330906132aa6afdbcd03b5696f3da077aba68132d0f",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "disclose.open",
+          "seed": 101,
+          "prompt": "Icon: A single bold horizontal minus stroke, in ink black. Nothing else.",
+          "sha256": "4711a8b6880439ca15c4438ef3f74e6b04161d2b87d1efe9f553af9d3cb2cd4d",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "control.reset",
+          "seed": 202,
+          "prompt": "Icon: A bold open circular arrow, about three quarters of a circle, turning counter-clockwise, with one arrowhead at its end, in ink black.",
+          "sha256": "0aa36f437419f2e695e2f83259cf5e14f18b4588076692998466db5139549de3",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "scope.collection",
+          "seed": 101,
+          "prompt": "Icon: A 3 by 3 grid of nine equal solid filled squares with even white gaps between them, in Prussian blue.",
+          "sha256": "3788f11d7f371b01e3c42c2255843ea524771e38d969c2dfbfa6c5e1898b1f96",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "view.chart",
+          "seed": 202,
+          "prompt": "Icon: Three bold horizontal bars of different lengths stacked vertically, all starting from one bold shared vertical axis line on the left, in Prussian blue.",
+          "sha256": "9e570f68a1ced540f555ddedcdc657f1f5aba1be3ac0f970eaf97f12ce08c8af",
+          "used_as": "composition reference"
+        },
+        {
+          "icon": "view.table",
+          "seed": 101,
+          "prompt": "Icon: A bold ruled table grid: an outer rectangle divided into three rows and two columns by bold lines, in Prussian blue.",
+          "sha256": "7a31426c62c65d0fbb706806f898bc6a29b8de5200d3643b57b0ec83c4a24bd6",
+          "used_as": "composition reference"
+        }
+      ]
+    }
+  }
 }
