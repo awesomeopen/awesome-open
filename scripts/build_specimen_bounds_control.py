@@ -5,6 +5,7 @@ The base must already be fetched. Output is test-only, never a production route.
 """
 import argparse
 import importlib.util
+import inspect
 import json
 import re
 from pathlib import Path
@@ -51,7 +52,10 @@ def build(base, site):
         for number, project in enumerate(catalog['projects'], 1):
             if project['name'].lower() not in names or not project.get('artwork'):
                 continue
-            html = renderer.render_record(project, categories, catalog, number, cutouts)
+            # Newer base renderers hash fonts using an explicit root; older
+            # revisions have no such argument. Never resolve assets in /tmp.
+            options = {'root': root} if 'root' in inspect.signature(renderer.render_record).parameters else {}
+            html = renderer.render_record(project, categories, catalog, number, cutouts, **options)
             html = html.replace('href="styles.css?', 'href="bounds-before/styles.css?')
             html = html.replace('src="catalog.js"', 'src="bounds-before/catalog.js"')
             (output / f"{project['id']}.html").write_text(html)
