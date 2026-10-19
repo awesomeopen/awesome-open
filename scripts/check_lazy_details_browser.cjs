@@ -75,19 +75,21 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
       await state(sample, 'loading');
       assert.equal(await host(sample).getAttribute('aria-busy'), 'true');
       assert.equal(await host(sample).locator('.detail-status[role="status"]').isVisible(), true);
-      assert.equal(await host(sample).locator('.detail-fallback a').isVisible(), true);
+      assert.equal(await host(sample).locator('.detail-fallback a').isVisible(), false,
+        'The fallback stays hidden while the response is deliberately held');
       assert.equal(await plate(sample).count(), 0);
       await host(sample).scrollIntoViewIfNeeded();
       await capture('detail-loading.png');
       await page.keyboard.press('Tab');
-      assert.equal(await host(sample).locator('.detail-fallback a').evaluate(node => node === document.activeElement), true,
-        'Fallback is keyboard-accessible while loading');
+      assert.equal(await host(sample).locator('.detail-fallback a').evaluate(node => node === document.activeElement), false,
+        'The hidden loading fallback is skipped by keyboard navigation');
+      await drawer(sample).locator(':scope > summary').focus();
       release();
       await loaded(sample);
       assert.notEqual(await host(sample).getAttribute('aria-busy'), 'true');
       assert.equal(await host(sample).locator('.detail-fallback a').isVisible(), false, 'Loaded plate hides its fallback link');
       assert.equal(await drawer(sample).locator(':scope > summary').evaluate(node => node === document.activeElement), true,
-        'Focus returns to the native summary before the fallback disappears');
+        'Loading keeps focus on the native summary');
       assert.equal(await plate(sample).getAttribute('aria-labelledby'), 'name-' + sample.id);
       assert.equal(await plate(sample).locator('.plate-departure > a').getAttribute('href'), sample.url);
       await plate(sample).locator('.plate-art img').evaluate(image => image.decode());
@@ -292,6 +294,7 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
       assert.equal(await touchDrawer.locator('.detail-fallback a').isVisible(), false);
       assert.equal(touchRequests.length, 1, 'One tap loads one record');
       assert.equal(await touchPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+      await touchDrawer.locator('.plate-function').scrollIntoViewIfNeeded();
       await capture('detail-touch-mobile.png', touchPage);
       await touchSummary.tap();
       await touchPage.waitForFunction(id => !document.querySelector('#project-' + id + ' .specimen-drawer').open, sample.id);
@@ -303,6 +306,27 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     } finally {
       await touch.close();
     }
+
+    const brokenRuntime = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    try {
+      const brokenPage = await brokenRuntime.newPage();
+      let blockedScripts = 0;
+      await brokenPage.route('**/catalog.js?*', route => {
+        blockedScripts++;
+        return route.abort('failed');
+      });
+      await brokenPage.goto(filtered.href);
+      assert.equal(blockedScripts, 1, 'The generated runtime request was blocked');
+      assert.notEqual(await brokenPage.locator('#filters').getAttribute('data-enhanced'), 'true');
+      const brokenDrawer = brokenPage.locator('#project-' + sample.id + ' .specimen-drawer');
+      await brokenDrawer.locator(':scope > summary').click();
+      assert.equal(await brokenDrawer.locator('.detail-fallback a').isVisible(), true,
+        'A script download failure leaves the full-record link available');
+      assert.equal(await brokenDrawer.locator('.specimen-plate').count(), 0);
+    } finally {
+      await brokenRuntime.close();
+    }
+    report.checks.push('script download failure preserves static fallback');
 
     // Direct static record routes are the explicit printing/no-JS destination.
     // Check them with scripting disabled, including <base>-resolved assets.

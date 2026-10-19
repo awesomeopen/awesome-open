@@ -44,6 +44,27 @@ const path=require('node:path');
  assert.equal(await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform),'none');
  assert.ok(await page.locator('.specimen-window').first().evaluate(n=>!getComputedStyle(n).filter.includes('url(')),'No specimen displacement filter');
  await page.screenshot({path:'tmp/site-qa/jars-hover.png'});
+ // Read committed bounds, never scan image pixels in the browser.
+ const cutoutBounds=JSON.parse(fs.readFileSync(path.join(__dirname,'../site/specimens/cutouts.json'))).cutouts;
+ const checkSubjectClearance=async()=>{
+   const subjects=await page.locator('.jar-exhibit').evaluateAll((nodes,bounds)=>nodes.map(n=>{
+     const image=n.querySelector('.specimen-print'),window=n.querySelector('.specimen-window').getBoundingClientRect(),rect=image.getBoundingClientRect();
+     const box=image.getAttribute('src').includes('/cutouts/')?bounds[n.dataset.project].subject_bbox:[0,0,1,1];
+     return {id:n.dataset.project,left:rect.left+rect.width*box[0]-window.left,
+       right:window.right-(rect.left+rect.width*box[2]),top:rect.top+rect.height*box[1]-window.top,
+       bottom:window.bottom-(rect.top+rect.height*box[3])};
+   }),cutoutBounds);
+   for(const subject of subjects) for(const edge of ['left','right','top','bottom'])
+     assert.ok(subject[edge]>=-.1,`Subject ${subject.id} stays inside ${edge}: ${subject[edge]}`);
+ };
+ await checkSubjectClearance();
+ await page.locator('.jar-select').nth(3).hover();
+ await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+ await checkSubjectClearance();
+ await page.screenshot({path:'tmp/site-qa/jars-central-fit.png'});
+ await first.hover({position:{x:45,y:55}});
+ await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
+
  // Vertical pointer movement must leave the camera unchanged.
  const before=await page.locator('.vessel').first().evaluate(n=>{const r=n.getBoundingClientRect();return [r.x,r.y,r.width,r.height];});
  await first.hover({position:{x:45,y:150}});await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
@@ -118,6 +139,8 @@ const path=require('node:path');
  await page.keyboard.press('Escape');assert.equal(await first.getAttribute('aria-expanded'),'false');
  await first.hover({position:{x:45,y:55}});assert.equal(await page.locator('.jar-exhibit').first().evaluate(n=>parseFloat(n.style.getPropertyValue('--mx'))||0),0);assert.equal(await page.locator('.vessel').first().evaluate(n=>getComputedStyle(n).transform.startsWith('matrix3d')),false);
  for(const width of [320,390,680,768,1024]){await page.setViewportSize({width,height:900});await page.goto(url);await ready();await fits(width);if(width===768)assert.equal(await page.locator('.jar-exhibit:visible').count(),5);}
+ await checkSubjectClearance();
+ await page.screenshot({path:'tmp/site-qa/jars-reduced-motion-fit.png'});
  const touch=await browser.newPage({viewport:{width:390,height:900},isMobile:true,hasTouch:true,reducedMotion:'reduce'});await touch.goto(url);await touch.waitForSelector('body[data-jars-ready=true]');
  await touch.locator('.jar-select').first().tap();assert.equal(await touch.locator('.jar-annotation:visible').count(),1);assert.equal(new URL(touch.url()).hash,'');assert.equal(await touch.locator('.jar-exhibit').first().getAttribute('data-cracks'),'1');
  await touch.screenshot({path:'tmp/site-qa/jars-mobile.png'});
