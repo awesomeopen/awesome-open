@@ -1,0 +1,33 @@
+{
+  "source_repository": "https://github.com/google/fonts",
+  "source_revision": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
+  "retrieved": "2026-10-19",
+  "fonts": [
+    {
+      "choice": "instrument",
+      "source_url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/instrumentserif/InstrumentSerif-Regular.ttf",
+      "source_sha256": "498efd461f6ddfcb7a111bf9a565709d2085d48201d501ead960d93e84ffbb88",
+      "output": "instrument.woff2",
+      "output_sha256": "c8f8125ce0c47ba4859beb32c3d7d8ee841f94b6a9e84130f5da249126ac1074",
+      "bytes": 27380,
+      "conversion": "FontTools 4.57.0 TTFont, flavor=woff2; no subsetting or outline changes",
+      "css_weight": 400,
+      "style": "normal",
+      "license": "instrument-OFL.txt",
+      "metadata": "instrument-METADATA.pb"
+    },
+    {
+      "choice": "poltawski",
+      "source_url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/poltawskinowy/PoltawskiNowy%5Bwght%5D.ttf",
+      "source_sha256": "7fd9a33287fa563c2c6d2c2ffb8d9750b453f301c07c9f5077dbf3567aaf024e",
+      "output": "poltawski.woff2",
+      "output_sha256": "550a4c424b422a02b5c6359d37981750300cba2dab3f530ac0f969f864d6cde3",
+      "bytes": 124040,
+      "conversion": "FontTools 4.57.0 TTFont, flavor=woff2; no subsetting or outline changes",
+      "css_weight": 400,
+      "style": "normal",
+      "license": "poltawski-OFL.txt",
+      "metadata": "poltawski-METADATA.pb"
+    }
+  ]
+}

@@ -223,3 +223,12 @@ numbers retain 4px left padding. The “In the wild” departure reuses the exis
 repeating navy footer pattern beneath its decorative contour SVG. Asset pixels,
 filter semantics and contour generation are unchanged. See
 [B-PR128-01](decisions/B-PR128-01.md).
+
+## Explicit serif comparison
+
+The optional URL-only comparison described in [PREVIEW.md](../site/PREVIEW.md#opt-in-serif-comparison)
+keeps Fraunces as the public default. Instrument Serif and Półtawski Nowy are
+review candidates at regular 400 throughout, with Commit Mono unchanged. Exit
+preview clears the choice; downloaded offline editions retain Fraunces. Candidate
+assets and notices live in `site/vendor/serif-preview/`; this does not supersede
+the existing typography decision.

@@ -31,7 +31,7 @@
 .draw-record-list dt { color: var(--rs-muted, #465665); }
 .draw-seed { overflow-wrap: anywhere; }
 
-.draw-empty-text { font: 300 clamp(22px, 2.6vw, 30px)/1.22 var(--rs-display, Georgia, serif); font-variation-settings: 'SOFT' 100, 'WONK' 1; max-width: 32ch; margin-top: 16px; }
+.draw-empty-text { font:var(--rs-display-weight, 300) clamp(22px, 2.6vw, 30px)/1.22 var(--rs-display, Georgia, serif); font-variation-settings:var(--rs-display-axes, 'SOFT' 100, 'WONK' 1); max-width: 32ch; margin-top: 16px; }
 .draw-method-text { display: grid; gap: 12px; max-width: 72ch; }
 
 @media (max-width: 1000px) {
