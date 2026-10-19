@@ -14,6 +14,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT / 'scripts'))
+from font_assets import standalone_font_css
 HERE = Path(__file__).resolve().parent
 NOTES = 'https://github.com/awesomeopen/awesome-open/blob/main/site/OBSERVATORY-REDESIGN.md'
 # Unicode White_Space, shared with build_observatory.py and observatory.js.
@@ -42,7 +44,7 @@ def main(snapshot_path, output_path):
     logo = 'data:image/png;base64,' + base64.b64encode((ROOT / 'site/brand/botanical-128.png').read_bytes()).decode()
     sha = snap['source_sha'] or 'unknown'
     page = ((HERE / 'template.html').read_text(encoding='utf-8')
-            .replace('/*FONTS*/', (ROOT / 'site/vendor/fonts.css').read_text(encoding='utf-8'))
+            .replace('/*FONTS*/', standalone_font_css(ROOT, serif='fraunces'))
             .replace('/*WS*/', '/' + WS + ']/g').replace('/*SEP*/', '/' + WS + '_-]/g')
             .replace('/*DATA*/', json.dumps(data, ensure_ascii=True, separators=(',', ':')).replace('</', '<\\/'))
             .replace('{{FULLSHA}}', sha).replace('{{SHA12}}', sha[:12]).replace('{{SHA}}', sha[:7])

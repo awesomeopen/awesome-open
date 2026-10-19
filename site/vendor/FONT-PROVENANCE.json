@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-13",
+  "checked_at": "2026-10-19",
   "fonts": [
     {
       "family": "Fraunces",
@@ -33,7 +33,8 @@
           1.0
         ]
       },
-      "transformation": "Complete font retained, lossless WOFF2 compression; no glyph or outline changes. Base64 embedded in fonts.css."
+      "transformation": "Existing verified WOFF2 bytes extracted unchanged from the original base64 bundle; hosted separately for demand loading.",
+      "output": "fraunces.woff2"
     },
     {
       "family": "Commit Mono",
@@ -57,9 +58,11 @@
           1.0
         ]
       },
-      "transformation": "Complete font retained, lossless WOFF2 compression; no glyph or outline changes. Base64 embedded in fonts.css."
+      "transformation": "Existing verified WOFF2 bytes extracted unchanged from the original base64 bundle; hosted separately for demand loading.",
+      "output": "commit-mono.woff2"
     }
   ],
   "output_css": "fonts.css",
-  "output_css_sha256": "ba7790be9b0fd0c335919fd48ebb83bb50982b112b27bfdea67a63eca89835c3"
+  "output_css_sha256": "1e20c4515b25d8be373ed314bc88efed618bc3d8d815d0f3c115ae7353d3dced",
+  "additional_families_provenance": "serif-preview/provenance.json"
 }
