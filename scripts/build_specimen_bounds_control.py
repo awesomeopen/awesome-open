@@ -12,6 +12,21 @@ import subprocess
 import sys
 import tempfile
 
+from build_jar_preview import jar_stylesheet_href
+
+
+JAR_STYLESHEET = r'jars\.css(?:\?[^"<>]*)?'
+
+
+def strip_jar_stylesheet(head):
+    return re.sub(r'<link\b[^>]*href="' + JAR_STYLESHEET + r'"[^>]*>', '', head)
+
+
+def comparison_stylesheet(html, css):
+    # Hash the actual base bytes, not the current ROOT used by its renderer.
+    href = 'jars-before/' + jar_stylesheet_href(css)
+    return re.sub(r'href="' + JAR_STYLESHEET + '"', f'href="{href}"', html)
+
 
 def build(base, site):
     revision = subprocess.check_output(['git', 'rev-parse', '--verify', base + '^{commit}'], text=True).strip()
@@ -57,13 +72,14 @@ def build(base, site):
         # A styles.css-only shell would silently compare fallback serif labels.
         head = (site / 'index.html').read_text().split('<head>', 1)[1].split('</head>', 1)[0]
         head = re.sub(r'<script\b[^>]*>.*?</script>', '', head, flags=re.S)
-        head = re.sub(r'<link\b[^>]*href="jars\.css"[^>]*>', '', head)
+        head = strip_jar_stylesheet(head)
         (jar_output / 'index.html').write_text(
             '<!doctype html><html><head><base href="../">' + head +
             '</head><body><div class="layout"></div></body></html>')
         jars.build(jar_output, production=True)
         html = (jar_output / 'index.html').read_text()
-        html = html.replace('href="jars.css"', 'href="jars-before/jars.css"')
+        base_css = source('site/jars.css')
+        html = comparison_stylesheet(html, base_css.encode('utf-8'))
         html = html.replace('src="jars.js"', 'src="jars-before/jars.js"')
         (jar_output / 'index.html').write_text(html)
         for name in ('jars.css', 'jars.js'):

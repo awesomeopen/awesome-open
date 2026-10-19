@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Compose the specimen hero for the production guide or an isolated preview."""
 import argparse
+import hashlib
 import json
 import math
+import re
 from itertools import permutations
 
 import weekly_draw
@@ -11,6 +13,13 @@ import shutil
 from pathlib import Path
 from html import escape
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def jar_stylesheet_href(css):
+    """Keep generated geometry paired with its CSS across cached page visits."""
+    return 'jars.css?v=' + hashlib.sha256(css).hexdigest()
+
+
 # Ordered by vessel height, not by project rank. Calibrated to the source photographs.
 DISPLAY = [
  ('OpenSCAD','low-open','Model',225,32,24,38,53,43,125),
@@ -193,12 +202,17 @@ def build(output, production=False):
     # DOMContentLoaded, which restores the readable fallback if jars.js fails.
     startup = '<script>document.documentElement.classList.add("jars-pending");document.addEventListener("DOMContentLoaded",()=>document.documentElement.classList.remove("jars-pending"),{once:true});</script>'
     page=(output/'index.html').read_text()
+    css = (ROOT / 'site/jars.css').read_bytes()
+    stylesheet = jar_stylesheet_href(css)
     if 'class="jar-page"' not in page:
-        page=page.replace('<body>','<body class="jar-page">').replace('</head>',startup+'<link rel="stylesheet" href="jars.css"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
+        page=page.replace('<body>','<body class="jar-page">').replace('</head>',startup+f'<link rel="stylesheet" href="{stylesheet}"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
+    # Recomposition must not retain a previous token while copying newer CSS.
+    page = re.sub(r'href="jars\.css(?:\?[^"<>]*)?"', f'href="{stylesheet}"', page)
     if not production:
         page=page.replace('</head>','<meta name="robots" content="noindex,nofollow"></head>').replace('<title>','<title>Preview / ',1)
     (output/('index.html' if production else 'jars.html')).write_text(page)
-    for filename in ('jars.css','jars.js'): shutil.copyfile(ROOT/'site'/filename,output/filename)
+    (output / 'jars.css').write_bytes(css)
+    shutil.copyfile(ROOT / 'site/jars.js', output / 'jars.js')
     shutil.copytree(ROOT/'site/jars',output/'jars',dirs_exist_ok=True)
     return {'exhibits':len(exhibits), 'display_week': edition['display_week'] if edition else None}
 if __name__=='__main__':
