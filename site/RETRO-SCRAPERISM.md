@@ -443,11 +443,14 @@ shown the following week with a four-week repeat cooldown as the initial default
 Stars do not determine selection. Keep the existing seven jars, ordered by 
 original position 1, 2, 5, 3, 4, 6, 7 (B-PR134-02); 
 assign illustrations by protecting the worst-filled measured glass interior before 
-total fill. Contain actual subject bounds without cropping or stretching, with 
-one pixel inset for existing pointer/idle motion. Keep glass-light and crack 
-coordinates independent. Place spare vertical room mainly above the specimen, 
-so it sits toward the interior base. A narrow cylinder may still have spare height 
-when the complete silhouette is width-limited. Link the archive from the footer at `/spotlight/`; retain the original set
+total fill. Fit source-matched, reviewed body bounds wall-to-wall; unreviewed
+illustrations use complete-subject bounds. Preserve proportions and original art.
+Peripheral ribbons, foot tips and existing horizontal motion may clip only at
+photo-traced inner glass walls, curved floors or the leaning lid, never at a
+floating inset rectangle. Keep that contour fixed to the glass. Retain vertical
+idle clearance and place all spare vertical room above the specimen so its base
+sits near the floor. Glass-light, crack and interaction coordinates remain
+independent. Link the archive from the footer at `/spotlight/`; retain the original set
 until the first saved edition activates. See [weekly draw contract](WEEKLY-DRAWS.md)
 for the calendar, snapshot archive, eligibility and failure behavior. Spotlight
 uses ISO week edition labels and anchors (`2026-W43`, `#2026-W43`). Its scope and
@@ -507,3 +510,5 @@ Półtawski supports genuine bold 700 when explicitly requested with `font-weigh
 or `700`. Its existing variable file exposes 400–700; regular 400 remains the
 default for headings and wordmarks. No extra font download or synthetic bold is
 needed. Italic cuts are not included.
+
+Body-led wall clipping is proposed in [B-PR143-01](../brand/decisions/B-PR143-01.md).

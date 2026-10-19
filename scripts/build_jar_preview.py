@@ -38,13 +38,86 @@ DISPLAY_ORDER = (0, 1, 4, 2, 3, 5, 6)
 # The low-lid right edge avoids the detached lid; the central cylinder's actual
 # inner walls are narrower than its historical compositing window.
 SPECIMEN_INTERIORS = {
-    'low-open': (10, 39, 81, 41),
-    'square-cork': (17, 37, 67, 51),
-    'shouldered': (24, 33, 52, 53),
-    'central': (40, 22, 21, 63),
-    'bail': (22, 28, 58, 59),
-    'ribbed': (21, 34, 58, 51),
-    'low-lid': (10, 40, 56, 40),
+    'low-open': (9.2, 39, 83.6, 43.7),
+    'square-cork': (16.3, 37, 68.3, 51.5),
+    'shouldered': (23.7, 33, 52.9, 55),
+    'central': (40.1, 22, 20.6, 63.7),
+    'bail': (20.3, 28, 60.5, 61.4),
+    'ribbed': (20, 34, 60, 53.9),
+    'low-lid': (9.5, 40, 63, 46),
+}
+
+# Photo-traced inner wall/floor contours in full source-canvas percentages.
+# These masks stay fixed to the glass while specimen depth and idle layers move.
+# The low-lid trace follows the leaning lid instead of a floating vertical cut.
+SPECIMEN_INTERIOR_CONTOURS = {
+    'low-open': (
+        (17, 28.5), (85, 28.5), (86, 32), (90, 35),
+        (92.8, 39), (92.8, 75), (91, 78.5), (85, 80.8),
+        (75, 82), (50, 82.7), (25, 82), (15, 80.8),
+        (10, 78.5), (9.2, 75), (9.2, 42), (10.5, 38),
+        (15, 34), (17, 31),
+    ),
+    'square-cork': (
+        (34.5, 23.7), (67, 23.7), (67.5, 28.5), (74, 31.5),
+        (81, 35.5), (84.6, 40), (84.6, 84.5), (83, 87.4),
+        (77, 88.5), (24, 88.5), (18, 87.4), (16.3, 84.5),
+        (16.3, 42), (19, 37), (26, 32.5), (33.5, 29),
+    ),
+    'shouldered': (
+        (34, 27.8), (67, 27.8), (73, 30), (76, 33),
+        (76.6, 38), (76.6, 84.5), (74.8, 86.5), (67, 87.7),
+        (50, 88), (33, 87.7), (25.3, 86.5), (23.7, 84.5),
+        (23.7, 38), (24.5, 33), (28, 30),
+    ),
+    'central': (
+        (41, 21.8), (59.8, 21.8), (60.7, 23), (60.7, 82.8),
+        (60.5, 84.3), (58, 85.2), (53, 85.7), (47, 85.7),
+        (42.5, 85.2), (40.4, 84.3), (40.1, 82.8), (40.1, 25),
+        (39.8, 23),
+    ),
+    'bail': (
+        (28.5, 18.5), (73.5, 18.5), (73.5, 22.3), (77.5, 25.7),
+        (80.3, 29.3), (80.8, 34), (80.8, 84.1), (79, 86.3),
+        (73, 88), (63, 89), (50, 89.4), (36, 89),
+        (26, 88), (21.7, 86.3), (20.3, 84.1), (20.3, 34),
+        (20.8, 29.3), (24, 25.7), (28.5, 22.3),
+    ),
+    'ribbed': (
+        (29, 22.4), (71, 22.4), (72, 25.8), (78, 30),
+        (80, 34), (80, 82.3), (78, 85.2), (71, 87.1),
+        (59, 87.9), (41, 87.9), (29, 87.1), (22, 85.2),
+        (20, 82.3), (20, 35), (21, 31.5), (27, 27),
+        (29, 24.7),
+    ),
+    'low-lid': (
+        (20, 29.2), (71, 29.2), (72, 33.5), (78, 36.8),
+        (81.3, 40), (82, 45), (82, 50.5), (80, 49.1),
+        (76.2, 48.9), (71.9, 50.4), (68.6, 53.9), (66.6, 59.2),
+        (66.8, 66.4), (69, 74), (72.2, 80.4), (75.6, 84.8),
+        (65, 85.8), (45, 86), (25, 85), (15, 83),
+        (10.1, 79.4), (8.8, 75), (8.8, 46), (10, 41),
+        (14.5, 37), (19, 34),
+    ),
+}
+
+
+def interior_clip(kind):
+    """Express the full-glass contour relative to the independent fit box."""
+    x, y, w, h = SPECIMEN_INTERIORS[kind]
+    points = SPECIMEN_INTERIOR_CONTOURS[kind]
+    return "polygon(" + ",".join(
+        f"{(px-x)/w*100:.4f}% {(py-y)/h*100:.4f}%" for px, py in points) + ")"
+
+
+# Reviewed horizontal body span, not a destructive crop. Full-height bounds
+# remain authoritative; ribbons and foot tips may meet the fixed glass mask.
+# Bind the composition to its approved original so replacement art falls back.
+SPECIMEN_BODY_SPANS = {
+    '8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20': {
+        'x': (.415, .68),
+        'source_sha256': 'e4e24a73382c5e8da45cea057877c1557795a8282774c76244af12868dc88199',
+    },
 }
 
 
@@ -81,15 +154,29 @@ def subject_box(project, cutouts):
     return [0, 0, 1, 1]
 
 
+def composition_box(project, cutouts):
+    """Use only source-matched, reviewed body spans; otherwise keep all parts."""
+    box = subject_box(project, cutouts)
+    entry = SPECIMEN_BODY_SPANS.get(project['id'])
+    if entry and project['id'] in cutouts and box != [0, 0, 1, 1]:
+        source = ROOT / 'site/specimens' / (project['id'] + '.webp')
+        if (project['artwork']['path'] == 'specimens/' + project['id'] + '.webp'
+                and source.is_file()
+                and hashlib.sha256(source.read_bytes()).hexdigest() == entry['source_sha256']
+                and box[0] <= entry['x'][0] < entry['x'][1] <= box[2]):
+            return [entry['x'][0], box[1], entry['x'][1], box[3]]
+    return box
+
+
 def assign_to_jars(projects, assets, cutouts):
     """Try all 7! assignments; protect the worst fit, then maximize total fill.
 
-    Positions and window geometry belong to the jars. Subject boxes belong to
-    validated cut-outs; an unmeasured image conservatively uses its whole canvas.
+    Positions and window geometry belong to the jars. Reviewed body spans may
+    exclude protrusions; an unmeasured image conservatively uses its whole canvas.
     """
     def ratio(project):
         art = project['artwork']
-        box = subject_box(project, cutouts)
+        box = composition_box(project, cutouts)
         return art['width'] * (box[2]-box[0]) / (art['height'] * (box[3]-box[1]))
     windows = [assets[row[1]]['width'] / assets[row[1]]['height'] * SPECIMEN_INTERIORS[row[1]][2] / SPECIMEN_INTERIORS[row[1]][3]
                for row in DISPLAY]
@@ -103,22 +190,22 @@ def assign_to_jars(projects, assets, cutouts):
 
 def fitted_image(project, slot, asset, cutouts):
     art = project['artwork']
-    box = subject_box(project, cutouts)
+    box = composition_box(project, cutouts)
     canvas_ratio = art['width'] / art['height']
     _, _, width, height = SPECIMEN_INTERIORS[slot[1]]
-    # One inset only, measured from actual inner walls. Cover unchanged 3px
-    # pointer depth + 1px horizontal / 2px vertical idle drift, plus rounding.
+    # Fit the visible body wall-to-wall. The stationary, photo-traced glass
+    # mask contains horizontal motion and approved protrusions, not an inset
+    # rectangle. Retain vertical idle clearance without shrinking width again.
     display_height = round(slot[3] * (.94 if slot[1] == 'central' else .82))
     display_width = round(display_height * asset['width'] / asset['height'])
     window_width = display_width * width / 100
     window_height = display_height * height / 100
-    usable_width, usable_height = window_width - 8.5, window_height - 4.5
+    usable_width, usable_height = window_width, window_height - 4.5
     scale = min(usable_width / (window_width * (box[2]-box[0])),
                 usable_height * canvas_ratio / (window_width * (box[3]-box[1])))
     subject_height = window_width * scale / canvas_ratio * (box[3]-box[1])
-    # Put 90% of unused vertical room above the specimen, recalling a specimen
-    # near the base rather than a small icon floating in the middle of a jar.
-    top = (2.25 + .9 * (usable_height - subject_height)) / window_height
+    # Seat the specimen at the glass floor rather than sharing slack below it.
+    top = (window_height - 2.25 - subject_height) / window_height
     cx = (box[0]+box[2])/2
     return (f'width:{scale*100:.4f}%;left:50%;top:{top*100:.4f}%;'
             f'transform:translate({-cx*100:.4f}%,{-box[1]*100:.4f}%);')
@@ -146,8 +233,10 @@ def build(output, production=False):
         if not p.get('artwork'): continue
         art=dict(p['artwork'])
         image_style = ''
+        fit_bounds = ''
         if selected:
             image_style = fitted_image(p, DISPLAY[number-1], asset=assets[kind], cutouts=cutouts)
+            fit_bounds = ' data-fit-bounds="' + ','.join(map(str, composition_box(p, cutouts))) + '"'
             if p['id'] in cutouts:
                 art['path'] = cutouts[p['id']]['path']
         github=p.get('github') or {}; pid=p['id'];asset=assets[kind]
@@ -160,7 +249,7 @@ def build(output, production=False):
         styles=f'--height:{height}px;--foot:{foot}px;--ratio:{asset["width"]}/{asset["height"]};--sx:{x}%;--sy:{y}%;--sw:{w}%;--sh:{h}%;--zoom:{zoom}%'
         if selected:
             ix, iy, iw, ih = SPECIMEN_INTERIORS[kind]
-            styles += f';--specimen-x:{ix}%;--specimen-y:{iy}%;--specimen-w:{iw}%;--specimen-h:{ih}%'
+            styles += f';--specimen-x:{ix}%;--specimen-y:{iy}%;--specimen-w:{iw}%;--specimen-h:{ih}%;--specimen-clip:{interior_clip(kind)};--specimen-overflow:visible'
         rest = .94 if kind == 'central' else .82
         display_height = round(height * rest)
         display_width = round(display_height * asset['width'] / asset['height'])
@@ -178,7 +267,7 @@ def build(output, production=False):
             styles+=f';--lid-cut:{cut}%'
             lid=f'<picture><source media="print" srcset="{asset["path"]}"><img class="jar-lid" {glass_attrs} alt="" width="{asset["width"]}" height="{asset["height"]}"></picture>'
         steam='<svg class="jar-steam" viewBox="0 0 60 64" aria-hidden="true"><text class="steam-strand" x="4" y="54">∰</text><text class="steam-strand" x="23" y="34">⋈</text><text class="steam-strand" x="40" y="17">⌘</text></svg>' if cut or kind in ('low-open','low-lid') else ''
-        exhibits.append(f'''<article class="jar-exhibit jar-{kind}{" has-lid" if cut else ""}" style="{styles}" data-project="{pid}">
+        exhibits.append(f'''<article class="jar-exhibit jar-{kind}{" has-lid" if cut else ""}" style="{styles}" data-project="{pid}"{fit_bounds}>
           <button class="jar-select" type="button" aria-expanded="false" aria-controls="jar-info-{pid}" aria-label="Crack glass — {escape(name, quote=True)}" hidden></button>
           <div class="jar-shadow" aria-hidden="true"></div><span class="jar-light-source" aria-hidden="true"></span><div class="vessel" aria-hidden="true">
            <picture><source media="print" srcset="{asset['path']}"><img class="jar-photo" {glass_attrs} alt="" width="{asset['width']}" height="{asset['height']}" fetchpriority="high"></picture>

@@ -14,6 +14,7 @@ import sys
 import tempfile
 
 from build_jar_preview import jar_stylesheet_href
+import build_jar_preview as current_jars
 
 
 JAR_STYLESHEET = r'jars\.css(?:\?[^"<>]*)?'
@@ -90,6 +91,34 @@ def build(base, site):
             (jar_output / name).write_text(source('site/' + name))
         (output / 'source.json').write_text(json.dumps({'base_sha': revision,
             'comparison': 'Base renderer/CSS/JS, same current cached catalog and unchanged artwork.'}) + '\n')
+        # Review-only stress set: two tallest and two widest approved subjects,
+        # plus intermediate shapes. Never changes publisher-owned draw data.
+        measured = []
+        for project in catalog['projects']:
+            if not project.get('artwork'):
+                continue
+            box = current_jars.subject_box(project, cutouts)
+            art = project['artwork']
+            ratio = art['width'] * (box[2]-box[0]) / (art['height'] * (box[3]-box[1]))
+            measured.append((ratio, project['id'], project))
+        measured.sort(key=lambda item: item[:2])
+        if len(measured) >= 7:
+            indices = (0, 1, len(measured)//3, len(measured)//2,
+                       2*len(measured)//3, len(measured)-2, len(measured)-1)
+            selected = [measured[i][2] for i in indices]
+            review = dict(catalog)
+            review['weekly_draws'] = {'as_of': '2000-01-03', 'editions': [{
+                'display_week': '2000-01-03', 'projects': [{'id': p['id']} for p in selected]}]}
+            stress = site / 'jars-outliers'
+            stress.mkdir(exist_ok=True)
+            (stress / 'catalog.json').write_text(json.dumps(review))
+            (stress / 'index.html').write_text(
+                '<!doctype html><html><head><base href="../">' + head +
+                '</head><body><div class="layout"></div></body></html>')
+            current_jars.build(stress, production=True)
+            (stress / 'source.json').write_text(json.dumps({
+                'purpose': 'Review-only shape outliers; not a saved Spotlight draw.',
+                'projects': [{'id': p['id'], 'name': p['name']} for p in selected]}, indent=2))
 
 
 if __name__ == '__main__':
