@@ -108,7 +108,7 @@ const path=require('node:path');
  for(const index of [4,5,6]) assert.equal(await page.locator('.jar-exhibit').nth(index).locator('.callout-function').evaluate(n=>getComputedStyle(n).textAlign),'right');
  // Regression: focus can remain on jar 3 while the pointer selects jar 2.
  // These must not share a stacking level, or the later vessel paints over
- // jar 2's Inspect record label. Vessels ignore pointer events, so hit-testing
+ // jar 2's Inspect label. Vessels ignore pointer events, so hit-testing
  // the link alone cannot prove it is visually unobscured.
  const secondJar=page.locator('.jar-exhibit').nth(1),thirdJar=page.locator('.jar-exhibit').nth(2);
  await thirdJar.locator('.jar-select').focus();
@@ -138,7 +138,17 @@ const path=require('node:path');
 
  await first.hover({position:{x:45,y:55}});
 
- const link=page.locator('.jar-annotation:visible a');assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopStyle),'dashed');await link.hover();assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopStyle),'solid');const id=await link.getAttribute('data-jar-inspect');await link.click();
+ const link=page.locator('.jar-annotation:visible a');
+ assert.equal(await link.textContent(),'Inspect');
+ assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopColor),'rgba(0, 0, 0, 0)');
+ const linkSize=await link.evaluate(n=>[n.offsetWidth,n.offsetHeight]);
+ await link.hover();
+ assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopStyle),'solid');
+ assert.equal(await link.evaluate(n=>getComputedStyle(n).borderTopWidth),'3px');
+ assert.deepEqual(await link.evaluate(n=>[n.offsetWidth,n.offsetHeight]),linkSize);
+ assert.equal(await page.locator('.jar-annotation:visible .label-ink').evaluate(n=>getComputedStyle(n).backgroundColor),'rgb(255, 200, 0)');
+ assert.equal(await page.locator('.jar-annotation:visible .jar-metrics span').first().evaluate(n=>getComputedStyle(n).backgroundColor),'rgb(217, 238, 248)');
+ const id=await link.getAttribute('data-jar-inspect');await link.click();
  assert.ok(await page.locator('#project-'+id+' > details').evaluate(n=>n.open));
  // Three activations reveal two fractures, then open the record; progress survives hover changes.
  await page.goto(url);await ready();
@@ -147,7 +157,7 @@ const path=require('node:path');
  assert.equal(await jar.locator('.crack-first').evaluate(n=>getComputedStyle(n).opacity),'0.38');
  await page.screenshot({path:'tmp/site-qa/jars-crack-first.png'});
  await page.mouse.move(1400,950);await first.focus();await page.keyboard.press('Enter');
- assert.equal(await jar.getAttribute('data-cracks'),'2');assert.equal(await jar.locator('.crack-first').evaluate(n=>getComputedStyle(n).opacity),'1');assert.match(await first.getAttribute('aria-label'),/^Inspect record/);
+ assert.equal(await jar.getAttribute('data-cracks'),'2');assert.equal(await jar.locator('.crack-first').evaluate(n=>getComputedStyle(n).opacity),'1');assert.match(await first.getAttribute('aria-label'),/^Inspect/);
  await page.screenshot({path:'tmp/site-qa/jars-crack-second.png'});
  await page.keyboard.press('Space');
  await page.waitForFunction(id=>document.querySelector('#project-'+id+' > details').open,target);

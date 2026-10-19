@@ -50,11 +50,11 @@
 .jar-exhibit:nth-last-child(-n+3) .callout-inspect {left:auto;right:82%;}
 .callout-kicker {display:table;font:13px/1.5 var(--mono);color:var(--rs-scarlet);background:white;padding:1px 4px;margin-bottom:4px;}
 .jar-callout p {font-size:15px;line-height:1.55;}
-.label-ink {background:rgb(255 255 255 / .95);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:2px 4px;}
+.label-ink {background:#ffc800;box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:2px 4px;}
 .jar-metrics {font:13px/1.7 var(--mono);color:var(--rs-blueprint);}
-.jar-metrics span {display:table;background:rgb(255 255 255 / .95);padding:0 4px;}
-.jar-callout a {display:inline-flex;align-items:center;min-height:44px;padding:0 9px;border:1px dashed currentColor;text-decoration:none;color:var(--rs-scarlet);font-size:15px;background:rgb(255 255 255 / .93);}
-.jar-callout a:is(:hover,:focus-visible) {border-style:solid;}
+.jar-metrics span {display:table;background:#D9EEF8;padding:0 4px;}
+.jar-callout a {display:inline-flex;align-items:center;min-height:44px;padding:0 9px;border:3px solid transparent;text-decoration:none;color:var(--rs-scarlet);font-size:15px;background:rgb(255 255 255 / .93);}
+.jar-callout a:is(:hover,:focus-visible) {border-color:currentColor;}
 .jar-leaders {position:absolute;overflow:visible;pointer-events:none;}
 .jar-leaders path {fill:none;stroke:var(--rs-scarlet);stroke-width:1.25;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0;animation:draw-leader .36s ease-out both;}
 .jar-leaders circle {fill:white;stroke:var(--rs-scarlet);stroke-width:1.25;}
@@ -68,7 +68,7 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .vessel {bottom:auto;top:0;h
 html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-caption,html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-shadow {display:none;}
 html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-annotation {position:static;width:auto;pointer-events:auto;}
 html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-callout {position:static;width:auto;margin:12px 0;}
-html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-callout a:is(:hover,:focus-visible) {border-style:solid;}
+html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-callout a:is(:hover,:focus-visible) {border-color:currentColor;}
 html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 
 @media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(2,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:13px;}.callout-function{width:190px;}}
