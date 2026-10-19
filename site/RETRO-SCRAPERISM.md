@@ -60,19 +60,20 @@ Color alone never communicates selection, errors or maintenance state. Use a lab
 
 ## 3. Typography
 
-Use locally bundled **Fraunces** for editorial headings and **Commit Mono** for the
-ledger, evidence, controls and reading text. This is the user's typography direction
-of 2026-10-13, replacing the earlier Outfit/system-monospace baseline.
+Use locally bundled **Półtawski Nowy** for editorial headings and **Commit Mono** for the
+ledger, evidence, controls and reading text. The owner selected Półtawski as the default on 2026-10-19. The hosted selector
+retains Fraunces and Instrument Serif; this is a deliberate choice, not a theme lottery.
 
-- Headlines and the large Function description: Fraunces **300**, `SOFT 100`,
-  `WONK 1`, automatic optical sizing. Use 28–42px and line-height 1.15–1.22.
-- Header wordmark: Fraunces **600**, `SOFT 100`, `WONK 1`, 26–30px.
+- Headlines and the large Function description: Półtawski Nowy **400**, normal variation settings. Use 28–42px and line-height 1.15–1.22.
+- Header wordmark: Półtawski Nowy **400**, 26–30px.
 - Ledger names: Commit Mono **450**, 16px/1.5; category leaders **650**.
 - Ledger descriptions: Commit Mono 14px/1.6. Expanded prose: 15px/1.7 (14px on narrow screens).
 - Metadata: 12–13px with 1.5–1.65 line-height. Keep numbers tabular and labels literal.
-- Evidence headings: Fraunces 300 at 21px/1.25; factual values stay Commit Mono.
+- Evidence headings: Półtawski Nowy 400 at 21px/1.25; factual values stay Commit Mono.
 - Preserve monospaced character advances; do not enable programming-symbol
   substitutions in evidence labels or source URLs. Do not synthesize missing weights.
+- Fraunces remains available at 300 headings / 600 wordmark, `SOFT 100`, `WONK 1`;
+  Instrument Serif uses 400 throughout. Both alternatives clear or restore axes explicitly.
 - Keep 48px minimum row targets, measured column gaps and consistent 16/24/32px
   detail spacing. Reduce arbitrary gaps, not legibility. Keep narrow details stacked.
 - Both families use SIL OFL 1.1. Complete font data and notices are embedded in
@@ -173,7 +174,7 @@ Ship fonts and artwork as repository assets with relative paths that work under 
 
 Use `design/tokens.css` as the versioned reference. The ledger-first build loads these tokens before its component CSS. Update the shared tokens and reference together.
 
-For this project, explicit user decisions and this system override generic skill defaults: specimen is fixed, no theme lottery; Fraunces/Commit Mono are deliberate choices, no random font swap; evidence-first layout, not forced marketing AIDA or bento; useful motion, not mandatory GSAP effects; cold white, not warm naturalist paper. GPT Taste contributes hierarchy, composition and refinement. The frontend-image skill contributes coherent section direction. FOSSoligy contributes original drawing logic. None makes the current interface inaccessible or changes the task's scope.
+For this project, explicit user decisions and this system override generic skill defaults: specimen is fixed, no theme lottery; Półtawski Nowy/Commit Mono are deliberate choices, no random font swap; evidence-first layout, not forced marketing AIDA or bento; useful motion, not mandatory GSAP effects; cold white, not warm naturalist paper. GPT Taste contributes hierarchy, composition and refinement. The frontend-image skill contributes coherent section direction. FOSSoligy contributes original drawing logic. None makes the current interface inaccessible or changes the task's scope.
 
 ## 9. Extension and review
 
@@ -298,7 +299,7 @@ Repeating CSS textures belong in `site/patterns/`, with their own provenance; th
 
 Proposed on OpenTofu (broad), OpenRefine (upright), and Open WebUI (without art).
 Folded summaries remain unchanged. An open plate pairs a larger complete specimen
-with a Fraunces function statement, then spans the sheet with a compact repository
+with a Półtawski function statement, then spans the sheet with a compact repository
 register, paired observation plots, ruled evidence notes, reviewed alternatives,
 and a prominent literal GitHub departure link. The source link lives in the centered final “In the wild” capstone; omit the duplicate identity link in these prototypes.
 
@@ -399,7 +400,7 @@ cloud between the jars.
 
 Every expanded record is a plate. Folded ledger rows are unchanged.
 
-- **Study:** Function label, Fraunces statement and bracketed reviewed prose on the right;
+- **Study:** Function label, Półtawski statement and bracketed reviewed prose on the right;
   the specimen on the left with its label directly underneath; feature notes beside the
   drawing. Without art, the label takes the specimen's place. Narrow screens read Function,
   specimen, label, notes.
@@ -489,7 +490,7 @@ Any new top-level page (an archive, gallery or spotlight) starts from the
 Observatory shell, not from a heading and paragraphs on the ledger stylesheet:
 
 - the Observatory header markup and nav, with `aria-current` underlined in scarlet;
-- the 1200px column with 48/24/16px gutters, a Fraunces display `h1` and
+- the 1200px column with 48/24/16px gutters, a Półtawski display `h1` and
   64–96px section spacing;
 - scarlet block section labels (mist on scarlet, 5.86:1) and jump links when
   the page has more than two sections;
@@ -501,5 +502,10 @@ Observatory shell, not from a heading and paragraphs on the ledger stylesheet:
 Share the CSS rather than copying class names that the page's stylesheet does not
 define. Page content and specimen artwork vary; the frame does not. The
 [visual reference](design/index.html) shows the shell and the specimen plate.
+
+Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold`
+or `700`. Its existing variable file exposes 400–700; regular 400 remains the
+default for headings and wordmarks. No extra font download or synthetic bold is
+needed. Italic cuts are not included.
 
 Body-led wall clipping is proposed in [B-PR143-01](../brand/decisions/B-PR143-01.md).
