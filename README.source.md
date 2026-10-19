@@ -464,6 +464,7 @@
 | [OpenMoHAA](https://github.com/openmoh/openmohaa) | Reimplementation of Medal of Honor: Allied Assault and its expansions. |
 | [openMSX](https://github.com/openMSX/openMSX) | MSX home computer emulator. |
 | [OpenMW](https://github.com/OpenMW/openmw) | Role-playing game engine supporting Morrowind. |
+| [openmw-web](https://github.com/Virtastic/openmw-web) | WebAssembly build of OpenMW for playing Morrowind in a desktop browser using your own game data. |
 | [OpenNOW PS5](https://github.com/OpenCloudGaming/OpenNOW-PS5) | GeForce NOW streaming client for PlayStation 5 consoles that support native homebrew. |
 | [openOMSI](https://github.com/openOMSI-Project/openOMSI) | Rust recreation of the OMSI 2 bus simulator that requires the original game's content. |
 | [Open Poseidon Engine](https://github.com/koosoli/OpenPoseidon) | Community continuation of the Operation Flashpoint and Arma: Cold War Assault engine with modern rendering, physics, and terrain editing, requiring original game data. |
