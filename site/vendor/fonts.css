@@ -194,5 +194,5 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 @font-face {font-family:'Commit Mono';font-style:normal;font-weight:200 700;font-display:swap;src:url(commit-mono.woff2) format('woff2');}
 
 /* Półtawski and Instrument: pinned source and OFL notices in serif-preview/. */
-@font-face {font-family:'Poltawski Nowy';font-style:normal;font-weight:400;font-display:swap;src:url(serif-preview/poltawski.woff2) format('woff2');}
+@font-face {font-family:'Poltawski Nowy';font-style:normal;font-weight:400 700;font-display:swap;src:url(serif-preview/poltawski.woff2) format('woff2');}
 @font-face {font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(serif-preview/instrument.woff2) format('woff2');}

@@ -27,7 +27,18 @@
       "css_weight": 400,
       "style": "normal",
       "license": "poltawski-OFL.txt",
-      "metadata": "poltawski-METADATA.pb"
+      "metadata": "poltawski-METADATA.pb",
+      "css_weight_range": [
+        400,
+        700
+      ],
+      "variation_axes": {
+        "wght": {
+          "min": 400,
+          "default": 400,
+          "max": 700
+        }
+      }
     }
   ]
 }

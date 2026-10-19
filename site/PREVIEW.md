@@ -85,3 +85,8 @@ with license notices, and have no hosted selector/runtime dependencies. Historic
 jar/exhibition studies are not selector targets. Font outlines and character sets
 are unchanged: see [base provenance](vendor/FONT-PROVENANCE.json) and
 [alternative provenance](vendor/serif-preview/provenance.json).
+
+Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold`
+or `700`. Its existing variable file exposes 400–700; regular 400 remains the
+default for headings and wordmarks. No extra font download or synthetic bold is
+needed. Italic cuts are not included.

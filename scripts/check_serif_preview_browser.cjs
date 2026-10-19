@@ -41,6 +41,30 @@ module.exports = async ({ browser, url, data, output }) => {
       assert.equal(await page.locator('.serif-preview').count(), 1);
     }
     await page.goto(url + '/'); await check('poltawski');
+    // Genuine variable bold, with browser synthesis disabled, using the same file.
+    const boldMetrics = await page.evaluate(async () => {
+      const faces = await document.fonts.load('700 40px "Poltawski Nowy"');
+      const sample = document.createElement('div'); sample.id = 'bold-font-probe';
+      sample.style.cssText = 'background:white;color:black;padding:16px;font-family:"Poltawski Nowy";font-size:40px;font-synthesis:none';
+      for (const weight of [400, 700]) {
+        const line = document.createElement('div'), span = document.createElement('span');
+        span.textContent = 'Hamburgefonts 0123456789'; span.style.fontWeight = weight;
+        line.append(span); sample.append(line);
+      }
+      document.body.append(sample);
+      const spans = Array.from(sample.querySelectorAll('span'));
+      return { weights: faces.map(face => face.weight), loaded: faces.every(face => face.status === 'loaded'),
+        widths: spans.map(node => node.getBoundingClientRect().width),
+        synthesis: spans.map(node => getComputedStyle(node).fontSynthesis),
+        computed: spans.map(node => getComputedStyle(node).fontWeight) };
+    });
+    assert.ok(boldMetrics.loaded); assert.ok(boldMetrics.weights.includes('400 700'));
+    assert.deepEqual(boldMetrics.computed, ['400', '700']);
+    assert.deepEqual(boldMetrics.synthesis, ['none', 'none']);
+    assert.notEqual(boldMetrics.widths[0], boldMetrics.widths[1], 'Real bold changes glyph metrics without synthesis');
+    await page.locator('#bold-font-probe').screenshot({ path: path.join(output, 'serif-poltawski-real-bold.png') });
+    await page.locator('#bold-font-probe').evaluate(node => node.remove());
+    await page.evaluate(() => scrollTo(0, 0));
     assert.equal(await page.locator('a[href="#catalog"]').count() > 0, true, 'Default anchors remain same-document links');
     await page.screenshot({ path: path.join(output, 'serif-poltawski-default-desktop.png') });
     await page.locator('#serif-preview-choice').focus();

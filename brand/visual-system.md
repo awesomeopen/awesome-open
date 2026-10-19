@@ -248,3 +248,8 @@ hosted selector. See [PREVIEW.md](../site/PREVIEW.md#serif-selection).
 Hosted fonts use separate same-origin WOFF2 files; only the selected serif and
 Commit Mono are requested. Font failure leaves readable system fallback text and
 an accessible status. Complete font outlines, provenance and licenses are retained.
+
+Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold`
+or `700`. Its existing variable file exposes 400–700; regular 400 remains the
+default for headings and wordmarks. No extra font download or synthetic bold is
+needed. Italic cuts are not included.

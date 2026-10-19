@@ -80,3 +80,14 @@ class SerifPreviewTests(unittest.TestCase):
         self.assertIn("font-family:'Fraunces'", historical)
         self.assertNotIn("font-family:'Poltawski Nowy'", historical)
         self.assertEqual(historical.count('data:font/woff2;base64,'), 2)
+
+    def test_poltawski_bold_uses_existing_variable_font(self):
+        from font_assets import standalone_font_css
+        declaration = "font-family:'Poltawski Nowy';font-style:normal;font-weight:400 700;"
+        self.assertIn(declaration, (ROOT / 'site/vendor/fonts.css').read_text())
+        self.assertIn(declaration, standalone_font_css(ROOT))
+        provenance = json.loads((ROOT / 'site/vendor/serif-preview/provenance.json').read_text())
+        font = next(item for item in provenance['fonts'] if item['choice'] == 'poltawski')
+        self.assertEqual(font['css_weight_range'], [400, 700])
+        self.assertEqual(font['variation_axes']['wght'], {'min': 400, 'default': 400, 'max': 700})
+        self.assertEqual(font['bytes'], 124040)

@@ -499,3 +499,8 @@ Observatory shell, not from a heading and paragraphs on the ledger stylesheet:
 Share the CSS rather than copying class names that the page's stylesheet does not
 define. Page content and specimen artwork vary; the frame does not. The
 [visual reference](design/index.html) shows the shell and the specimen plate.
+
+Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold`
+or `700`. Its existing variable file exposes 400–700; regular 400 remains the
+default for headings and wordmarks. No extra font download or synthetic bold is
+needed. Italic cuts are not included.

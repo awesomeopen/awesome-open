@@ -11,7 +11,7 @@ def standalone_font_css(root: Path, serif: str = 'poltawski') -> str:
     rules = []
     for family, weight, path in [
         ('Commit Mono', '200 700', 'commit-mono.woff2'),
-        ('Poltawski Nowy', '400', 'serif-preview/poltawski.woff2') if serif == 'poltawski'
+        ('Poltawski Nowy', '400 700', 'serif-preview/poltawski.woff2') if serif == 'poltawski'
         else ('Fraunces', '100 900', 'fraunces.woff2'),
     ]:
         data = base64.b64encode((vendor / path).read_bytes()).decode('ascii')
