@@ -34,8 +34,10 @@ must never be imported. Leave original native summaries and their focus alone.
 Show a live loading status and retry on failure. Closing a pending drawer aborts
 its request; sequence checks also ignore stale responses when abort is unavailable
 or a request has already resolved. Rapid reopen must not duplicate requests,
-plates or enhancement listeners. Full-record links remain visible before loading and on failure. Once a plate loads,
-hide its fallback line using the native hidden attribute. Return focus to the
+plates or enhancement listeners. Full-record links remain visible before enhancement
+and on failure. Hide the fallback line as soon as a record starts loading, and
+keep it hidden after success, using the native hidden attribute. The live loading
+status remains visible while the response is pending. Return focus to the
 summary first if that link held keyboard focus. Eviction restores the fallback;
 static record pages and the standalone download remain printable.
 
