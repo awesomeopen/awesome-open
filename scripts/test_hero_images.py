@@ -23,7 +23,12 @@ class Tags(HTMLParser):
 class HeroImageTests(unittest.TestCase):
     def test_manifest_matches_originals_and_derivatives(self):
         manifest = json.loads((ROOT / 'site/jars/responsive.json').read_text())
-        self.assertEqual(len(manifest['sources']), 14)
+        self.assertEqual(len(manifest['sources']), 17)
+        cutouts = {source for source in manifest['sources'] if '/cutouts/' in source}
+        self.assertEqual({Path(source).stem for source in cutouts}, {
+            '73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf',
+            '79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c',
+            'e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83'})
         for source, record in manifest['sources'].items():
             with self.subTest(source=source):
                 self.assertEqual(hashlib.sha256((ROOT / 'site' / source).read_bytes()).hexdigest(), record['sha256'])
