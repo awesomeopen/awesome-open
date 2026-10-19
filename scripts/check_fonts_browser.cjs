@@ -16,6 +16,7 @@ module.exports = async ({ browser, url, data, output }) => {
     assert.match(css.family, /Poltawski Nowy/); assert.equal(css.weight, '400'); assert.equal(css.axes, 'normal');
     assert.equal(await page.locator('.brand,.obs-brand').first().evaluate(node => getComputedStyle(node).fontWeight), '400');
     assert.ok(await page.evaluate(() => Array.from(document.fonts).some(face => face.family.replace(/["']/g, '') === 'Poltawski Nowy' && face.status === 'loaded')));
+    assert.ok(await page.evaluate(() => Array.from(document.fonts).some(face => face.family.replace(/["']/g, '') === 'Commit Mono' && face.status === 'loaded')));
     assert.match(await page.locator('body').evaluate(node => getComputedStyle(node).fontFamily), /Commit Mono/);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
     assert.equal(await page.locator('.serif-preview,#serif-preview-choice').count(), 0);
@@ -29,6 +30,8 @@ module.exports = async ({ browser, url, data, output }) => {
       requests.length = 0; await page.goto(url + '/' + suffix); await check();
       const fonts = requests.filter(value => /\.woff2(?:\?|$)/.test(value));
       assert.equal(fonts.filter(value => /poltawski\.woff2$/.test(value)).length, 1);
+      assert.equal(fonts.filter(value => /commit-mono\.woff2$/.test(value)).length, 1);
+      assert.equal(fonts.length, 2);
       assert.ok(fonts.every(value => /(?:poltawski|commit-mono)\.woff2$/.test(value)));
       assert.ok(!requests.some(value => /serif-preview\.(js|css)/.test(value)));
     }

@@ -230,7 +230,7 @@ The header is unboxed on white. Glass front/back move as one vessel, with restra
 
 Seven vessels form a shallow arch: tallest in the middle, heights falling toward both sides. Position encodes physical height only. Use contact shadows; remove the baseline comparison. Photograph-like glass surrounds original drawn specimens, with independently replaceable assets, restrained displacement and front reflection. Glass texture can be imperfect; the page stays white.
 
-Desktop hover or keyboard focus raises one annotation over adjacent vessels on a small white backing. Touch first selects, then the separate Inspect record link navigates. Escape dismisses. Medium screens show the central five; narrow screens keep all seven in a horizontal display. Reduced motion removes depth movement. No 3D runtime is required. Vessel prompts and dimensions live in `site/jars/provenance.json`; two new function-derived specimens (OpenSSL and OpenSearch) follow the existing artwork manifest contract.
+Desktop hover or keyboard focus raises one annotation over adjacent vessels on a small white backing. Touch first selects, then the separate Inspect link navigates. Escape dismisses. Medium screens show the central five; narrow screens keep all seven in a horizontal display. Reduced motion removes depth movement. No 3D runtime is required. Vessel prompts and dimensions live in `site/jars/provenance.json`; two new function-derived specimens (OpenSSL and OpenSearch) follow the existing artwork manifest contract.
 
 Preview 03 refinement: omit the preview captions beneath the display. Replace the enclosing hover card with three separately positioned labels for function, cached metrics and the record link. Fine scarlet leaders end in open point markers on the specimen; line drawing is disabled under reduced motion. Two photographic jars carry small illegible white paper stickers. These marks are decorative, not project identity or evidence. The photographic assets retain their original unlabelled versions and record their edit prompts in `site/jars/provenance.json`.
 
@@ -238,7 +238,10 @@ Preview 03 refinement: omit the preview captions beneath the display. Replace th
 
 The photographic parade starts at 82% scale, with the middle vessel at 94% for a stronger central silhouette. A nearby pointer creates a shallow approach wave; the selected vessel advances to 110% (the middle vessel therefore grows less), with its contents enlarging as part of the same object. A shared virtual camera adds differential translation and perspective tilt (12° forward pitch on selection, pointer-adjusted up to 22° vertically and 8° horizontally), while internal contents and reflection strength respond independently. This is limited-angle 2.5D using photographs, not a rotatable 3D model. Labels remain in the reading plane; their leaders follow the specimen.
 
-Use a damped spring and stable hit regions. Keyboard focus and touch selection also advance the selected jar. Stop rendering once settled or offscreen; suspend in background tabs. Reduced motion keeps vessels at static full size and removes tilt/depth movement. Never intercept scroll or request device-orientation access. “Inspect record” has a dashed border, solid on hover or keyboard focus, with no layout shift.
+Use a damped spring and stable hit regions. Keyboard focus and touch selection also advance the selected jar. Stop rendering once settled or offscreen; suspend in background tabs. Reduced motion keeps vessels at static full size and removes tilt/depth movement. Never intercept scroll or request device-orientation access. “Inspect” has no visible resting border and shows a 3px solid border on hover or
+keyboard focus. Reserve transparent border space so its dimensions do not shift.
+Function text (`.label-ink`) uses `#ffc800`; repository metric spans use `#D9EEF8`.
+These are bounded jar-callout treatments (B-PR141-01).
 
 
 ### Preview 05: underlight and occasional movement (proposal)
@@ -399,7 +402,7 @@ cloud between the jars.
 Every expanded record is a plate. Folded ledger rows are unchanged.
 
 - **Study:** Function label, Półtawski statement and bracketed reviewed prose on the right;
-  the specimen on the left with its label directly underneath; feature notes beside the
+  the specimen on the left with its label overlapping the lower illustration; feature notes beside the
   drawing. Without art, the label takes the specimen's place. Narrow screens read Function,
   specimen, label, notes.
 - **Floor and art:** decorative contour rings (seeded by Registry ID, lower half only) behind a
@@ -408,8 +411,8 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   vertical field with 8% source-height safety padding above/below. The complete image
   remains rendered with visible overflow, preserving faint marks and shadows; no
   asset pixels are cropped or resampled. The contour center follows the subject
-  baseline, its fade stays in the lower half, and the label stays directly below the
-  specimen rather than inheriting neighboring prose height. Missing or malformed
+  baseline, its fade stays in the lower half, and the label overlaps the lower field by 4em rather than inheriting neighboring
+  prose height. A negative margin also brings the following content upward. Missing or malformed
   bounds retain the full canvas. The 627px cap is half of 1254px sources; existing
   1024px sources retain the same display cap. A
   frameless loupe shows the source at 2×. Opening draws the floor and settles the art once.
@@ -417,6 +420,11 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   leaders starting on the ground. They state sourced capabilities only.
 - **Label:** permalink QR code (build-time SVG), “Awesome Open* · Field record” or
   “Archived on GitHub”, name, Registry ID · Folio, “Domain:” with every domain, permalink.
+  Use 65% width with a 320px minimum capped at 100% on narrow screens, white
+  background, 1px `--rule` border, 2px radius and 0.8 opacity. Links have no underline;
+  the QR has a 2px white border. Without art, retain a positive top margin inside
+  the plate. Evidence uses four equal columns above 1100px, two down to 720px,
+  then one column; charts shrink with their columns.
 - **Bands:** scarlet block labels (`--rs-scarlet` ground, `--rs-mist` type), no horizontal
   rules. Repository record with large values and a creation/release/push timeline.
   For reviewed name changes, numbered lanes keep literal dates and point to a

@@ -98,7 +98,13 @@ centered “In the wild” departure on a Prussian band.
 - Up to two feature notes carry small/tiny enlarged windows of the drawing joined by
   scarlet leader lines from the ground, echoing the jar captions. Notes are sourced
   software facts; no anchors are placed on the drawing.
-- The label under the illustration: a QR code of the permalink, “Awesome Open* · Field
+- The label overlaps the illustration by 4em using negative margin to reclaim flow
+  space. It uses 65% width (a 320px minimum capped at available width for legibility),
+  white background, 1px rule border, 2px radius and 0.8 opacity. Links have no
+  underline; the QR code has a 2px white border. Without artwork, the label stays
+  in normal flow inside the plate. Evidence uses four equal desktop columns, two
+  below 1100px and one below 720px.
+- Label contents: a QR code of the permalink, “Awesome Open* · Field
   record” (or “Archived on GitHub” when GitHub reports it), name, Registry ID · Folio,
   “Domain:” with every domain, and the permalink. No paper or object treatment (B28).
 - Section labels are scarlet blocks with mist type (5.86:1). No horizontal rules inside the
@@ -248,10 +254,10 @@ See [PREVIEW.md](../site/PREVIEW.md#serif-selection).
 Hosted fonts use separate same-origin WOFF2 files; only Półtawski and
 Commit Mono are requested. Font failure leaves readable system fallback text. Complete font outlines, provenance and licenses are retained.
 
-Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold`
-or `700`. Its existing variable file exposes 400–700; regular 400 remains the
-default for headings and wordmarks. No extra font download or synthetic bold is
-needed. Italic cuts are not included.
+Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold` or `700`. Its existing variable file exposes 400–700; regular 400 remains the default for headings and wordmarks. No extra font download or synthetic bold is needed. Italic cuts are not included.
 
+## Jar callout colors and Inspect link
+
+Jar function text (`.label-ink`) has a `#ffc800` backing; `.jar-metrics span` uses `#D9EEF8`. These are local callout treatments rather than a page palette change. The link reads “Inspect”, with no visible resting border and a 3px solid border on hover or keyboard focus. Reserve transparent border space to avoid layout shift. The third-activation accessible label also reads Inspect. See [B-PR141-01](decisions/B-PR141-01.md).
 
 Body-led wall clipping is proposed in [B-PR143-01](decisions/B-PR143-01.md).
