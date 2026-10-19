@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 import weekly_draw as draw
-from build_jar_preview import assign_to_jars, fitted_image, subject_box, DISPLAY
+from build_jar_preview import assign_to_jars, fitted_image, subject_box, DISPLAY, SPECIMEN_INTERIORS
 from build_draw_archive import build as build_archive
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -108,9 +108,10 @@ class WeeklyDrawTests(unittest.TestCase):
         for project, slot in zip(ordered, DISPLAY):
             style = fitted_image(project, slot, assets[slot[1]], {})
             scale = float(style.split('%')[0].split(':')[1])/100
-            ratio = assets[slot[1]]['width']/assets[slot[1]]['height']*slot[7]/slot[8]
-            self.assertLessEqual(scale, .94001)
-            self.assertLessEqual(scale*ratio*project['artwork']['height']/project['artwork']['width'], .94001)
+            interior = SPECIMEN_INTERIORS[slot[1]]
+            ratio = assets[slot[1]]['width']/assets[slot[1]]['height']*interior[2]/interior[3]
+            self.assertLessEqual(scale, 1)
+            self.assertLessEqual(scale*ratio*project['artwork']['height']/project['artwork']['width'], 1)
 
 
     def test_week_one_preserves_selected_set_and_protects_worst_fit(self):
@@ -142,7 +143,8 @@ class WeeklyDrawTests(unittest.TestCase):
             asset = assets[slot[1]]
             h = round(slot[3] * (.94 if slot[1] == 'central' else .82))
             w = round(h * asset['width'] / asset['height'])
-            ww, wh = w * slot[7] / 100, h * slot[8] / 100
+            interior = SPECIMEN_INTERIORS[slot[1]]
+            ww, wh = w * interior[2] / 100, h * interior[3] / 100
             for ratio in (.15, .5, 1, 2, 5):
                 p = catalog(1)['projects'][0]
                 p['artwork']['width'] = 100 * ratio
@@ -153,3 +155,29 @@ class WeeklyDrawTests(unittest.TestCase):
                 subject_h = ww * scale / ratio * (box[3] - box[1])
                 self.assertLessEqual(subject_w + 8.5, ww + .001)
                 self.assertLessEqual(subject_h + 4.5, wh + .01)
+
+    def test_bottom_bias_and_one_motion_inset(self):
+        assets = {a['id']: a for a in json.loads((ROOT/'site/jars/provenance.json').read_text())}
+        for slot in DISPLAY:
+            asset = assets[slot[1]]
+            h = round(slot[3] * (.94 if slot[1] == 'central' else .82))
+            w = round(h * asset['width'] / asset['height'])
+            x, y, iw, ih = SPECIMEN_INTERIORS[slot[1]]
+            self.assertTrue(0 <= x < x + iw <= 100)
+            self.assertTrue(0 <= y < y + ih <= 100)
+            ww, wh = w * iw / 100, h * ih / 100
+            p = catalog(1)['projects'][0]
+            p['artwork']['width'] = 300
+            style = fitted_image(p, slot, asset, {})
+            scale = float(style.split('%')[0].split(':')[1]) / 100
+            top = float(style.split('top:')[1].split('%')[0]) / 100 * wh
+            subject_h = ww * scale / 3
+            bottom = wh - top - subject_h
+            self.assertAlmostEqual(ww * scale, ww - 8.5, places=3)
+            self.assertGreaterEqual(bottom, 2.24)
+            self.assertAlmostEqual(top - 2.25, 9 * (bottom - 2.25), places=2)
+
+    def test_real_interiors_do_not_redefine_glass_geometry(self):
+        self.assertEqual(DISPLAY[3][5:9], (37, 29, 26, 55))
+        self.assertEqual(SPECIMEN_INTERIORS['central'], (40, 22, 21, 63))
+        self.assertEqual(SPECIMEN_INTERIORS['low-lid'][0] + SPECIMEN_INTERIORS['low-lid'][2], 66)
