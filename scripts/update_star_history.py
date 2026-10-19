@@ -51,6 +51,8 @@ REVIEWED_REPOSITORY_RENAMES = {
     'openomsi-project/openomsi': 'openomsi-org/openomsi',
     # Reviewed 2026-10-18: both API identities resolve to repository 1409342562.
     'gptchatly/openbrender': 'gptchatly/drawplotia',
+    # Reviewed 2026-10-19: both API identities resolve to repository 1412123384.
+    'sophontrace/opennex': 'sophontrace/openlnku',
 }
 
 

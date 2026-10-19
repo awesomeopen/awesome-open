@@ -11,7 +11,7 @@ from urllib.error import HTTPError, URLError
 import backfill_star_history as b
 import update_star_history as h
 import chart_observations as observations
-from test_update_star_history import NOW, OPENBRENDER, OPENOMSI, OPENREMOTE, PROJECT, SHA, pager, weekly_series
+from test_update_star_history import NOW, OPENNEX, OPENBRENDER, OPENOMSI, OPENREMOTE, PROJECT, SHA, pager, weekly_series
 
 
 def archive_of(*records):
@@ -184,6 +184,22 @@ class BackfillTests(unittest.TestCase):
         self.assertEqual(record['source_url'], h.API + 'gptchatly/drawplotia/stargazers/history')
         self.assertTrue(all('/gptchatly/drawplotia/' in url for _, url in calls[1:]))
         self.assertEqual(flushed[-1][OPENBRENDER['repo']], record)
+
+    def test_opennex_backfill_uses_reviewed_endpoint_and_retains_catalog_identity(self):
+        rows = weekly_series()
+        t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
+        flushed = []
+        with tempfile.TemporaryDirectory() as directory:
+            state = b.collect([OPENNEX], {'schema_version': 1, 'repositories': {}}, {}, t,
+                              SHA, Path(directory) / 'c.json', lambda records: flushed.append(deepcopy(records)), NOW)
+        self.assertEqual(state['status'], 'complete')
+        self.assertEqual(state['failures'], [])
+        self.assertEqual(set(state['records']), {'sophontrace/opennex'})
+        record = state['records'][OPENNEX['repo']]
+        self.assertEqual(record['readme_url'], OPENNEX['readme_url'])
+        self.assertEqual(record['source_url'], h.API + 'sophontrace/openlnku/stargazers/history')
+        self.assertTrue(all('/sophontrace/openlnku/' in url for _, url in calls[1:]))
+        self.assertEqual(flushed[-1][OPENNEX['repo']], record)
 
     def test_blocked_checkpoint_and_summary_identify_repository_status_and_reason(self):
         for status in [301, 401, 403, 404]:
