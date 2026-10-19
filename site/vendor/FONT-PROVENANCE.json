@@ -2,41 +2,6 @@
   "checked_at": "2026-10-19",
   "fonts": [
     {
-      "family": "Fraunces",
-      "source_repository": "https://github.com/google/fonts",
-      "source_revision": "66928797f271fed5ee428544e7229685e2d90127",
-      "source_path": "ofl/fraunces/Fraunces[SOFT,WONK,opsz,wght].ttf",
-      "source_sha256": "177ff6c0f14e5550a3c624247cd1189611d4eb65d000b14944c63d967958abbb",
-      "embedded_woff2_sha256": "32e765ffbc98eabc567716404fca430f2999035cf5f122ca5b80eeba264ca193",
-      "embedded_bytes": 194976,
-      "license": "SIL Open Font License 1.1",
-      "license_sha256": "bdf4c22802eaf804f998195871c6b8938aac2ac14b2d78a8bd66a6f1eced833b",
-      "axes": {
-        "opsz": [
-          9.0,
-          9.0,
-          144.0
-        ],
-        "wght": [
-          100.0,
-          900.0,
-          900.0
-        ],
-        "SOFT": [
-          0.0,
-          0.0,
-          100.0
-        ],
-        "WONK": [
-          0.0,
-          1.0,
-          1.0
-        ]
-      },
-      "transformation": "Existing verified WOFF2 bytes extracted unchanged from the original base64 bundle; hosted separately for demand loading.",
-      "output": "fraunces.woff2"
-    },
-    {
       "family": "Commit Mono",
       "source_repository": "https://github.com/eigilnikolajsen/commit-mono",
       "source_revision": "d407cd2bf8e01ca1db70544052fbbb9606406c3b",
@@ -63,6 +28,6 @@
     }
   ],
   "output_css": "fonts.css",
-  "output_css_sha256": "1e20c4515b25d8be373ed314bc88efed618bc3d8d815d0f3c115ae7353d3dced",
+  "output_css_sha256": "30c0ace3cf814eb82aab16a111dd6668940b91720d98a607f2248d42782a3094",
   "additional_families_provenance": "serif-preview/provenance.json"
 }

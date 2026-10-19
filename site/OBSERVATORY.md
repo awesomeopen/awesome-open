@@ -83,7 +83,7 @@ manufacture percentages, missing values or a zero-star observation.
 
 ## Visual concept
 
-- Instrument: white/cool-mist reading ground, Prussian rules, the existing Fraunces
+- Instrument: white/cool-mist reading ground, Prussian rules, the existing Półtawski Nowy
   and Commit Mono pair, linear charts and explicit evidence labels. The header
   repeats the ledger's links (Ledger, About, Observatory, GitHub), with Observatory
   marked as the current page; the standalone report points them at the live site. One sticky

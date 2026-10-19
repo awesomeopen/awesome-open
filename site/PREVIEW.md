@@ -63,30 +63,22 @@ The self-contained download remains a motion-free ledger with embedded artwork, 
 
 ## Serif selection
 
-Półtawski Nowy is the default serif at regular 400 on hosted pages and offline
-editions. The labeled hosted selector remains available on the catalog,
-Observatory, Spotlight, individual record and private design-reference routes.
-`?serif=fraunces`, `?serif=instrument` and `?serif=poltawski` select a family.
-Plain or unrecognized URLs use Półtawski. Reset to default removes the parameter,
-preserving other filters and fragments. Internal links carry the choice, with no
-cookie or localStorage preference. Fraunces keeps its original 300/600 weights and
-SOFT/WONK axes; Instrument and Półtawski use 400 throughout. Commit Mono is unchanged.
+The font comparison is retired. Półtawski Nowy is the settled serif at regular 400
+on hosted pages and offline editions; Commit Mono serves body text and controls.
+There is no selector, preview script or stored preference. Old `?serif=` URLs are
+harmless: all values use Półtawski, while ordinary filters and fragments still work.
 
-Hosted fonts are same-origin WOFF2 files; only the selected serif and Commit Mono
-load. The early selector script sets URL choices before page content renders.
-It is cache-versioned with the font CSS and default tokens. There are no remote
-font-service requests or new permissions. If a font fails, readable system-serif
-fallback remains and the selector reports the failure. No JavaScript still uses
-the default. The separate Poltawski font is 124,040 bytes, compared with the
-194,976-byte Fraunces previously embedded in every fonts.css response.
+Hosted fonts are two same-origin WOFF2 files, with no remote font-service requests.
+Font CSS and tokens are content-versioned. Failed fonts leave readable system
+fallbacks. No JavaScript is required for typography. Półtawski remains 124,040 bytes;
+Commit Mono remains 86,748 bytes. No font outlines or character sets changed.
 
-Standalone catalog and Observatory reports embed only Półtawski and Commit Mono,
-with license notices, and have no hosted selector/runtime dependencies. Historical
-jar/exhibition studies are not selector targets. Font outlines and character sets
-are unchanged: see [base provenance](vendor/FONT-PROVENANCE.json) and
-[alternative provenance](vendor/serif-preview/provenance.json).
+Standalone catalog and Observatory reports embed both fonts and complete licenses.
+The maintained historical Observatory mock now rebuilds with current typography;
+its original design remains documented in the historical source. See
+[base provenance](vendor/FONT-PROVENANCE.json) and
+[Półtawski provenance](vendor/serif-preview/provenance.json).
 
-Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold`
-or `700`. Its existing variable file exposes 400–700; regular 400 remains the
-default for headings and wordmarks. No extra font download or synthetic bold is
-needed. Italic cuts are not included.
+Półtawski supports genuine bold 700 through its existing 400–700 variable range,
+without another download or synthetic bold. Regular 400 remains the default for
+headings and wordmarks. Italic cuts are not included.

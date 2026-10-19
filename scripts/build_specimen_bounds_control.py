@@ -15,6 +15,7 @@ import tempfile
 
 from build_jar_preview import jar_stylesheet_href
 import build_jar_preview as current_jars
+from font_assets import font_asset_url
 
 
 JAR_STYLESHEET = r'jars\.css(?:\?[^"<>]*)?'
@@ -30,6 +31,15 @@ def comparison_stylesheet(html, css):
     return re.sub(r'href="' + JAR_STYLESHEET + '"', f'href="{href}"', html)
 
 
+def comparison_font_asset_url(path, root=None):
+    # The comparison keeps current shared typography. Pre-retirement renderers
+    # still ask for this script while assembling HTML; it is stripped below,
+    # never copied or executed, and no longer exists in the current checkout.
+    if path == 'serif-preview.js':
+        return path
+    return font_asset_url(path, root)
+
+
 def build(base, site):
     revision = subprocess.check_output(['git', 'rev-parse', '--verify', base + '^{commit}'], text=True).strip()
     site = Path(site)
@@ -43,6 +53,7 @@ def build(base, site):
         spec = importlib.util.spec_from_file_location('base_build_site', module_path)
         renderer = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(renderer)
+        renderer.font_asset_url = comparison_font_asset_url
         catalog = json.loads((site / 'catalog.json').read_text())
         catalog['source_sha'] = revision
         root = Path(__file__).resolve().parents[1]
@@ -56,6 +67,7 @@ def build(base, site):
             # revisions have no such argument. Never resolve assets in /tmp.
             options = {'root': root} if 'root' in inspect.signature(renderer.render_record).parameters else {}
             html = renderer.render_record(project, categories, catalog, number, cutouts, **options)
+            html = re.sub(r'<script\b[^>]*src=["\'][^"\']*serif-preview\.js(?:\?[^"\']*)?["\'][^>]*>\s*</script>', '', html)
             html = html.replace('href="styles.css?', 'href="bounds-before/styles.css?')
             html = html.replace('src="catalog.js"', 'src="bounds-before/catalog.js"')
             (output / f"{project['id']}.html").write_text(html)

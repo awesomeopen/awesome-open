@@ -47,6 +47,15 @@ class ComparisonRendererRootTests(unittest.TestCase):
             '    return "historical renderer"\n')
         self.assertEqual(html, 'historical renderer')
 
+    def test_retired_selector_is_not_resolved_or_emitted_by_base_renderer(self):
+        html = self.build_with_renderer(
+            'def render_record(project, categories, catalog, number, cutouts=None, root=ROOT):\n'
+            '    script = font_asset_url("serif-preview.js", root)\n'
+            '    fonts = font_asset_url("vendor/fonts.css", root)\n'
+            '    return f\'<script src="{script}"></script><link href="{fonts}">\'\n')
+        self.assertNotIn('serif-preview', html)
+        self.assertIn('vendor/fonts.css?v=', html)
+
 
 if __name__ == '__main__':
     unittest.main()

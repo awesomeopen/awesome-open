@@ -48,8 +48,6 @@
 
   function filterSearch(filters, search) {
     var params = new URLSearchParams();
-    var serif = new URLSearchParams(search || '').get('serif');
-    if (['fraunces', 'instrument', 'poltawski'].includes(serif)) params.set('serif', serif);
     if (filters.category !== 'all') params.set('category', filters.category);
     if (filters.license !== 'all') params.set('license', filters.license);
     var value = params.toString();

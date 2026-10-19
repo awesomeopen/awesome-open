@@ -95,7 +95,6 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - First and returning appearances - See whether a specimen has appeared in an earlier published draw.
 - Inspectable draw records - Check the saved selection details or download the published draw records.
 - Changing footer artwork - Encounter a different decorative footer illustration when reloading the catalog page.
-- Optional serif preview - Compare Fraunces, Instrument Serif and Półtawski Nowy through an explicit `?serif=` preview URL, then exit the preview; this is not a permanently saved preference.
 
 ## Available: examine the collection in Observatory
 
@@ -149,7 +148,6 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 ## Pending or planned: not available in the current catalog
 
 - Verified rename history - Pending [PR #139](https://github.com/awesomeopen/awesome-open/pull/139) would add sourced name changes to project records and dated timeline entries where exact dates are verified.
-- Default serif selection - Pending [PR #140](https://github.com/awesomeopen/awesome-open/pull/140) would make Półtawski Nowy the default and expose the font selector during ordinary browsing.
 - Specimen audio scenes - The [audio plan](site/SPECIMEN-VOICE-PLAN.md) explores spoken names with ambient scenes; local AI experiments are authoring work, not a shipped visitor-facing audio or bring-your-own-key feature.
 - Former Open-name archive - A [proposed frozen-record page](TODO.md) would let readers investigate projects that have renamed away from Open.
 - Illustrations-only gallery - A [proposed gallery](TODO.md) would make the artwork browsable together on one page.

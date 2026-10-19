@@ -16,6 +16,8 @@ They reproduce the published aggregates in page script; they are not output of
 `scripts/build_observatory.py`. The full-page mock's source is in
 [design/observatory-redesign/](design/observatory-redesign/): rebuild it with
 `python3 site/design/observatory-redesign/build.py SNAPSHOT_JSON OUTPUT_HTML`.
+Maintained rebuilds now use the settled Półtawski typography; the original Fraunces
+mock source is preserved at [the pre-retirement revision](https://github.com/awesomeopen/awesome-open/tree/f0007445529b439372d2cc84e59556e58e5263d0/site/design/observatory-redesign).
 
 ## How to use this for a similar redesign
 

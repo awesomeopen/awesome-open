@@ -17,7 +17,7 @@ from build_site import BRAND_ASSETS, ROOT, attach_specimen_cutouts, build, json_
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
-RUNTIME_SCRIPTS = (font_asset_url('serif-preview.js'), 'catalog.js')
+RUNTIME_SCRIPTS = ('catalog.js',)
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 
 
@@ -247,10 +247,7 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(len(scripts), len(RUNTIME_SCRIPTS) + 1)
         self.assertEqual([node.attrs.get('src') for node in scripts[:-1]], list(RUNTIME_SCRIPTS))
         for node in scripts[:-1]:
-            if node.attrs.get('src') == font_asset_url('serif-preview.js'):
-                self.assertNotIn('defer', node.attrs)
-            else:
-                self.assertIn('defer', node.attrs)
+            self.assertIn('defer', node.attrs)
             self.assertEqual(node.text, '')
         self.assertEqual(scripts[-1].attrs, {'id': 'catalog-data', 'type': 'application/json'})
         for node in page.elements:
