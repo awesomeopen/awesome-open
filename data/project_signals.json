@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-19T07:46:04Z",
+  "collected_at": "2026-10-19T15:49:35Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -19360,23 +19360,38 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-12T08:50:44Z",
+        "checked_at": "2026-10-19T15:49:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-12T08:50:44Z",
-          "observed_at": "2026-10-05T00:00:00Z",
+          "fetched_at": "2026-10-19T15:49:35Z",
+          "observed_at": "2026-10-12T00:00:00Z",
           "source_commit": "cd71c7609421bed2a07b9642a3c02a58c9fd2cdf",
-          "tool_commit": "ac4b584439389e57f8d56d925f7fef245d8dda1f",
-          "tool_version": "v5.5.1-0.20260928043300-ac4b58443938",
+          "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
+          "tool_version": "v5.6.0",
           "value": {
             "checks": [
+              {
+                "name": "Maintained",
+                "reason": "0 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 0",
+                "score": 0
+              },
               {
                 "name": "Code-Review",
                 "reason": "Found 8/24 approved changesets -- score normalized to 3",
                 "score": 3
+              },
+              {
+                "name": "Binary-Artifacts",
+                "reason": "no binaries found in the repo",
+                "score": 10
+              },
+              {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
               },
               {
                 "name": "Dangerous-Workflow",
@@ -19387,21 +19402,6 @@
                 "name": "Token-Permissions",
                 "reason": "GitHub workflow tokens follow principle of least privilege",
                 "score": 10
-              },
-              {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
-                "score": null
-              },
-              {
-                "name": "Binary-Artifacts",
-                "reason": "no binaries found in the repo",
-                "score": 10
-              },
-              {
-                "name": "Maintained",
-                "reason": "0 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 0",
-                "score": 0
               },
               {
                 "name": "Pinned-Dependencies",
@@ -19448,7 +19448,7 @@
             "score": 4.4
           }
         },
-        "last_success_at": "2026-10-12T08:50:44Z",
+        "last_success_at": "2026-10-19T15:49:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opentimestamps/opentimestamps-client",
         "status": "partial",
@@ -24729,5 +24729,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "9202ee9f59bbeff808963cad8b40693341ca61a8"
+  "source_sha": "d8c6682c9e667868c2427bfb8e4aec636577f732"
 }

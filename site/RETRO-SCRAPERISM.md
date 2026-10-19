@@ -433,9 +433,12 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
 Hero occupants come from a persisted seeded draw of seven illustrated projects,
 shown the following week with a four-week repeat cooldown as the initial default.
 Stars do not determine selection. Keep the existing seven jars and height order;
-assign illustrations by protecting the worst-filled window before total fill,
-centering actual subject bounds without cropping. Aim for 94% fill with explicit
-pixel clearance for the existing pointer and idle motion. Link the edition to `/draws/`; retain the original set
+assign illustrations by protecting the worst-filled measured glass interior before
+total fill. Contain actual subject bounds without cropping or stretching, with
+one pixel inset for existing pointer/idle motion. Keep glass-light and crack
+coordinates independent. Place spare vertical room mainly above the specimen,
+so it sits toward the interior base. A narrow cylinder may still have spare height
+when the complete silhouette is width-limited. Link the edition to `/draws/`; retain the original set
 until the first saved edition activates. See [weekly draw contract](WEEKLY-DRAWS.md)
 for the calendar, snapshot archive, eligibility and failure behavior.
 
