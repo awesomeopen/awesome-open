@@ -246,14 +246,12 @@ URL choices. Reset to default removes the parameter; no browser preference is
 stored. Downloaded offline editions embed Półtawski and Commit Mono, without the
 hosted selector. See [PREVIEW.md](../site/PREVIEW.md#serif-selection).
 
-Hosted fonts use separate same-origin WOFF2 files; only the selected serif and
-Commit Mono are requested. Font failure leaves readable system fallback text and
-an accessible status. Complete font outlines, provenance and licenses are retained.
+Hosted fonts use separate same-origin WOFF2 files; only the selected serif and Commit Mono are requested. Font failure leaves readable system fallback text and an accessible status. Complete font outlines, provenance and licenses are retained.
 
-Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold`
-or `700`. Its existing variable file exposes 400–700; regular 400 remains the
-default for headings and wordmarks. No extra font download or synthetic bold is
-needed. Italic cuts are not included.
+Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold` or `700`. Its existing variable file exposes 400–700; regular 400 remains the default for headings and wordmarks. No extra font download or synthetic bold is needed. Italic cuts are not included.
 
+## Jar callout colors and Inspect link
+
+Jar function text (`.label-ink`) has a `#ffc800` backing; `.jar-metrics span` uses `#D9EEF8`. These are local callout treatments rather than a page palette change. The link reads “Inspect”, with no visible resting border and a 3px solid border on hover or keyboard focus. Reserve transparent border space to avoid layout shift. The third-activation accessible label also reads Inspect. See [B-PR141-01](decisions/B-PR141-01.md).
 
 Body-led wall clipping is proposed in [B-PR143-01](decisions/B-PR143-01.md).

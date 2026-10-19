@@ -111,7 +111,7 @@
    button.addEventListener('click',()=>{
      if(cracks<2){
        cracks++;exhibit.dataset.cracks=String(cracks);select(exhibit);
-       button.setAttribute('aria-label',(cracks===1?'Crack further — ':'Inspect record — ')+name);
+       button.setAttribute('aria-label',(cracks===1?'Crack further — ':'Inspect — ')+name);
      }else{
        cracks=0;exhibit.dataset.cracks='0';
        button.setAttribute('aria-label','Crack glass — '+name);
