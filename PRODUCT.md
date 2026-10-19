@@ -20,7 +20,7 @@ web
   without a specific tool in mind.
 
 Both are a working definition confirmed by the owner on 2026-10-19
-(decision record pending), not the result of an audience study.
+([B-PR123-01](brand/decisions/B-PR123-01.md)), not the result of an audience study.
 
 ## Product Purpose
 
