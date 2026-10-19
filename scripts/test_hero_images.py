@@ -5,8 +5,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
-from build_jar_preview import build as build_hero, DISPLAY, responsive_image
+from build_jar_preview import build as build_hero, DISPLAY, responsive_image, jar_stylesheet_href
 from build_site import ROOT, build
 
 
@@ -21,6 +22,24 @@ class Tags(HTMLParser):
 
 
 class HeroImageTests(unittest.TestCase):
+    def test_stylesheet_version_depends_only_on_exact_css_bytes(self):
+        css = (ROOT / 'site/jars.css').read_bytes()
+        expected = 'jars.css?v=' + hashlib.sha256(css).hexdigest()
+        self.assertEqual(jar_stylesheet_href(css), expected)
+        self.assertEqual(jar_stylesheet_href(bytes(bytearray(css))), expected)
+        self.assertNotEqual(jar_stylesheet_href(css + b'\n'), expected)
+
+    def test_comparison_stylesheet_accepts_old_and_versioned_links(self):
+        from build_specimen_bounds_control import strip_jar_stylesheet, comparison_stylesheet
+        base_css = b'/* base bytes differ from current CSS */'
+        for suffix in ('', '?v=old', '?v=current'):
+            link = f'<link rel="stylesheet" href="jars.css{suffix}">'
+            other = '<link rel="stylesheet" href="styles.css?v=keep">'
+            self.assertEqual(strip_jar_stylesheet(other + link), other)
+            rewritten = comparison_stylesheet(link, base_css)
+            self.assertEqual(rewritten, '<link rel="stylesheet" href="jars-before/' +
+                             jar_stylesheet_href(base_css) + '">')
+
     def test_manifest_matches_originals_and_derivatives(self):
         manifest = json.loads((ROOT / 'site/jars/responsive.json').read_text())
         self.assertEqual(len(manifest['sources']), 17)
@@ -56,9 +75,22 @@ class HeroImageTests(unittest.TestCase):
             output = Path(directory)
             catalog = build(output)
             standalone = (output / 'standalone.html').read_bytes()
+            original_page = (output / 'index.html').read_text()
+            build_hero(output)
+            self.assertIn('href="' + jar_stylesheet_href((output / 'jars.css').read_bytes()) + '"',
+                          (output / 'jars.html').read_text())
             build_hero(output, production=True)
             html = (output / 'index.html').read_text()
             tags = Tags(html).tags
+            stylesheet = jar_stylesheet_href((output / 'jars.css').read_bytes())
+            self.assertEqual([attrs['href'] for tag, attrs in tags
+                              if tag == 'link' and attrs.get('href', '').startswith('jars.css')],
+                             [stylesheet])
+            self.assertNotIn('href="jars.css"', html)
+            build_hero(output)
+            preview = (output / 'jars.html').read_text()
+            self.assertIn(f'href="{stylesheet}"', preview)
+            self.assertNotIn('href="jars.css"', preview)
             for tag, attrs in tags:
                 if tag == 'article' and 'jar-exhibit' in attrs.get('class', ''):
                     self.assertRegex(attrs['style'], r'--display-height:[1-9][0-9]*px')
@@ -95,6 +127,27 @@ class HeroImageTests(unittest.TestCase):
                 self.assertIn(f'data-detail-url="records/{project["id"]}.html"', html)
             self.assertEqual((output / 'standalone.html').read_bytes(), standalone)
             self.assertNotIn(b'jars/responsive/', standalone)
+            self.assertNotIn(b'jars.css', standalone)
+            self.assertNotIn(b'jars.js', standalone)
+            self.assertNotIn(b'class="jar-hall"', standalone)
+            # Simulate a CSS-only rebuild without touching approved source files.
+            css_path = ROOT / 'site/jars.css'
+            changed_css = css_path.read_bytes() + b'\n/* cache regression */\n'
+            read_bytes = Path.read_bytes
+            with patch.object(Path, 'read_bytes', lambda path:
+                              changed_css if path == css_path else read_bytes(path)):
+                build_hero(output, production=True)
+            changed_href = jar_stylesheet_href(changed_css)
+            self.assertNotEqual(changed_href, stylesheet)
+            self.assertIn(f'href="{changed_href}"', (output / 'index.html').read_text())
+            self.assertEqual((output / 'jars.css').read_bytes(), changed_css)
+            # Catalog source revision alone must not invalidate unchanged CSS.
+            catalog['source_sha'] = 'f' * 40
+            (output / 'catalog.json').write_text(json.dumps(catalog))
+            (output / 'index.html').write_text(original_page)
+            build_hero(output, production=True)
+            self.assertIn(f'href="{stylesheet}"', (output / 'index.html').read_text())
+            self.assertEqual((output / 'jars.css').read_bytes(), css_path.read_bytes())
 
     def test_weekly_hero_uses_saved_membership_and_fits_subjects(self):
         from datetime import date
