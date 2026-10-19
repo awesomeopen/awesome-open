@@ -32,6 +32,14 @@ Corrections, additional categories, and newly discovered projects are welcome. T
 
 Contributions to this list are made under [CC0-1.0](LICENSE.md). Listed projects retain their own licenses.
 
+## Reviewed name-change history
+
+Use the optional [history contract](site/PROJECT-HISTORY.md) for source-backed
+software renames, repository path changes and owner transfers. Only verified
+exact occurrence dates enter record timelines; review/discovery dates and
+unknown or approximate occurrence dates remain secondary evidence. This ledger
+does not alter current names, aliases, IDs, collection schedules or eligibility.
+
 ## Reviewed project aliases
 
 Use the optional [alias contract](site/PROJECT-ALIASES.md) for official expanded, abbreviated or alternate names. The curated display name can change without changing the canonical URL or stable project ID. Alias evidence is reviewed separately from HN attribution; search inclusion never grants HN matching permission.

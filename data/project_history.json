@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "events": [
+    {
+      "id": "opentf-to-opentofu",
+      "project_url": "https://github.com/opentofu/opentofu",
+      "kind": "software_rename",
+      "old_name": "OpenTF",
+      "new_name": "OpenTofu",
+      "occurred": {
+        "value": "2023-09-20",
+        "precision": "day",
+        "basis": "announcement",
+        "source_url": "https://www.linuxfoundation.org/press/announcing-opentofu"
+      },
+      "sources": [
+        {
+          "url": "https://www.linuxfoundation.org/press/announcing-opentofu",
+          "title": "Linux Foundation announces OpenTofu, previously OpenTF",
+          "role": "announcement",
+          "date": "2023-09-20"
+        },
+        {
+          "url": "https://github.com/opentofu/opentofu/issues/451",
+          "title": "Maintainers track the announced OpenTF to OpenTofu rename",
+          "role": "implementation",
+          "date": "2023-09-20"
+        }
+      ],
+      "checked_at": "2026-10-19",
+      "reviewed_by": "Junge (AI)",
+      "note": "The date is the official public announcement of the new name. Terraform to OpenTF was a fork, not this rename. Codebase renaming continued separately."
+    },
+    {
+      "id": "opendevin-to-openhands",
+      "project_url": "https://github.com/OpenHands/OpenHands",
+      "kind": "software_rename",
+      "old_name": "OpenDevin",
+      "new_name": "OpenHands",
+      "occurred": {
+        "value": "2024-08-19",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/OpenHands/OpenHands/pull/3472"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/OpenHands/OpenHands/pull/3472",
+          "title": "Project-wide rename merged into main",
+          "role": "implementation",
+          "date": "2024-08-19"
+        },
+        {
+          "url": "https://github.com/OpenHands/OpenHands/blob/01ae22ef57d497f7cfdfba96a99b96af06be5a05/README.md",
+          "title": "README at the merged rename revision",
+          "role": "identity",
+          "date": "2024-08-19"
+        },
+        {
+          "url": "https://github.com/OpenHands/OpenHands/releases/tag/0.9.0",
+          "title": "Release 0.9.0 includes the rename",
+          "role": "release",
+          "date": "2024-08-23"
+        }
+      ],
+      "checked_at": "2026-10-19",
+      "reviewed_by": "Junge (AI)",
+      "note": "The date records the project-wide name change merged into main, including the README. Release 0.9.0 followed on August 23. This is not a claim about the exact public announcement or GitHub repository-transfer time."
+    }
+  ]
+}

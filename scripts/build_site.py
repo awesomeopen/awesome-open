@@ -18,6 +18,8 @@ import shutil
 from build_catalog import build_catalog, load_function_summaries
 from render_readme import display_hn_evidence
 import project_aliases
+import project_history
+import history_view
 import update_hn as hn
 import update_stats as stats
 import signals
@@ -629,10 +631,13 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
     freshness = metrics_freshness(github, catalog.get("metrics_as_of"))
     if freshness:
         vitals += f'<p class="fine-print metrics-freshness">{escape(freshness)}</p>'
-    if github:
-        vitals += timeline(
-            created, release, github["pushed_at"][:10] if github["pushed_at"] else None
-        )
+    history = project.get("history", [])
+    pushed_date = github["pushed_at"][:10] if github and github.get("pushed_at") else None
+    if history:
+        vitals += history_view.timeline(created, release, pushed_date, history, project["id"])
+        vitals += history_view.evidence(history)
+    elif github:
+        vitals += timeline(created, release, pushed_date)
     interior = specimen_plate(
         project,
         number,
@@ -802,6 +807,8 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
     name = escape(project["name"])
     card = project_html(project, categories, catalog, number, cutouts, position=1)
     card = card.replace('<details class="specimen-drawer">', '<details class="specimen-drawer" open>', 1)
+    card = re.sub(r'href="#(history-[a-z0-9-]+)"',
+                  lambda match: f'href="records/{pid}.html#{match[1]}"', card)
     sha = catalog.get("source_sha")
     revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else "Local preview (revision not supplied)"
     return f'''<!doctype html>
@@ -877,6 +884,7 @@ def build(output, source_sha=None, root=ROOT):
         ),
         star_evidence=star_history.load_optional(root / "data/star_history.json"),
         aliases=project_aliases.load_optional(root / project_aliases.PATH),
+        history=project_history.load_optional(root / project_history.PATH),
     )
     footer_assets = discover_footer_art(root)
     catalog["footer_backgrounds"] = list(footer_assets)
@@ -944,6 +952,10 @@ def build(output, source_sha=None, root=ROOT):
         (output / path).write_text(code, encoding="utf-8")
     (output / "data").mkdir(exist_ok=True)
     evidence_files = ["alternatives.json", "hn_evidence.json"]
+    if (root / project_history.PATH).exists():
+        evidence_files.append("project_history.json")
+    else:
+        (output / project_history.PATH).unlink(missing_ok=True)
     if (root / "data/star_history.json").exists():
         evidence_files.append("star_history.json")
     else:
