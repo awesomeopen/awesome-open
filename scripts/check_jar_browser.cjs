@@ -46,14 +46,15 @@ const path=require('node:path');
  await page.screenshot({path:'tmp/site-qa/jars-hover.png'});
  // Read committed bounds, never scan image pixels in the browser.
  const cutoutBounds=JSON.parse(fs.readFileSync(path.join(__dirname,'../site/specimens/cutouts.json'))).cutouts;
+ const cutoutVariants=Object.entries(JSON.parse(fs.readFileSync(path.join(__dirname,'../site/jars/responsive.json'))).sources).filter(([source])=>source.includes('/cutouts/')).flatMap(([,entry])=>entry.variants.map(v=>v.path));
  const checkSubjectClearance=async()=>{
-   const subjects=await page.locator('.jar-exhibit').evaluateAll((nodes,bounds)=>nodes.map(n=>{
+   const subjects=await page.locator('.jar-exhibit').evaluateAll((nodes,{bounds,variants})=>nodes.map(n=>{
      const image=n.querySelector('.specimen-print'),window=n.querySelector('.specimen-window').getBoundingClientRect(),rect=image.getBoundingClientRect();
-     const box=image.getAttribute('src').includes('/cutouts/')?bounds[n.dataset.project].subject_bbox:[0,0,1,1];
+     const box=(image.getAttribute('src').includes('/cutouts/')||variants.includes(image.getAttribute('src')))?bounds[n.dataset.project].subject_bbox:[0,0,1,1];
      return {id:n.dataset.project,left:rect.left+rect.width*box[0]-window.left,
        right:window.right-(rect.left+rect.width*box[2]),top:rect.top+rect.height*box[1]-window.top,
        bottom:window.bottom-(rect.top+rect.height*box[3])};
-   }),cutoutBounds);
+   }),{bounds:cutoutBounds,variants:cutoutVariants});
    for(const subject of subjects) for(const edge of ['left','right','top','bottom'])
      assert.ok(subject[edge]>=-.1,`Subject ${subject.id} stays inside ${edge}: ${subject[edge]}`);
  };

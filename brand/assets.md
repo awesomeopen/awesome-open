@@ -142,3 +142,9 @@ and Open3D display cut-outs from their existing approved originals. Source bytes
 identity and approval status remain unchanged. Their cut-out manifest entries
 record source/derivative hashes, measured bounds and the actual encoding tools;
 older derivatives and their provenance are preserved.
+
+The same proposal adds only those three cut-outs' 256/512/768px hero derivatives
+with the existing Lanczos/WebP q85 recipe, under distinct `-cutout-` filenames.
+Per-source recipes and hashes live in `site/jars/responsive.json`; no existing
+hero derivative is replaced. These reduce their screen payload; original cut-outs
+remain the high-density and print candidates.
