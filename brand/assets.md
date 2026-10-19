@@ -136,3 +136,15 @@ prior visual observations and generation provenance. The full source WebPs are
 unchanged; three display cut-outs were added using the existing recipe. Each new
 cut-out records its actual tool versions without rewriting older derivatives or
 their provenance. This updates asset eligibility, not the drawing rules.
+
+The 2026-10-19 jar-fit proposal adds only the missing OpenTaco, Open Moderator
+and Open3D display cut-outs from their existing approved originals. Source bytes,
+identity and approval status remain unchanged. Their cut-out manifest entries
+record source/derivative hashes, measured bounds and the actual encoding tools;
+older derivatives and their provenance are preserved.
+
+The same proposal adds only those three cut-outs' 256/512/768px hero derivatives
+with the existing Lanczos/WebP q85 recipe, under distinct `-cutout-` filenames.
+Per-source recipes and hashes live in `site/jars/responsive.json`; no existing
+hero derivative is replaced. These reduce their screen payload; original cut-outs
+remain the high-density and print candidates.

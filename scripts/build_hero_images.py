@@ -19,7 +19,7 @@ def generate(root=ROOT):
     jars = json.loads((root / 'site/jars/provenance.json').read_text())
     # Resolve the same seven specimens as the hero without changing their manifest.
     from build_catalog import build_catalog
-    from build_site import attach_specimen_art
+    from build_site import attach_specimen_art, attach_specimen_cutouts
     catalog = build_catalog((root / 'README.source.md').read_text(),
                             *[json.loads((root / 'data' / name).read_text()) for name in
                               ('github_metrics.json', 'alternatives.json', 'hn_evidence.json')])
@@ -27,6 +27,12 @@ def generate(root=ROOT):
     names = {item[0] for item in DISPLAY}
     sources = {a['path'] for a in jars if a['id'] in {item[1] for item in DISPLAY}}
     sources.update(p['artwork']['path'] for p in catalog['projects'] if p['name'] in names and p.get('artwork'))
+    # Retain deliberately registered weekly cut-outs on regeneration, only while
+    # they still match approved source bytes. Do not expand to every specimen.
+    registered_path = root / 'site/jars/responsive.json'
+    registered = json.loads(registered_path.read_text())['sources'] if registered_path.exists() else {}
+    valid_cutouts = {entry['path'] for entry in attach_specimen_cutouts(catalog, root).values()}
+    sources.update(source for source in registered if source in valid_cutouts)
     entries = {}
     for source in sorted(sources):
         path = root / 'site' / source
@@ -36,7 +42,8 @@ def generate(root=ROOT):
             if width >= original.width:
                 continue
             height = round(original.height * width / original.width)
-            relative = f'jars/responsive/{Path(source).stem}-{width}.webp'
+            suffix = '-cutout' if '/cutouts/' in source else ''
+            relative = f'jars/responsive/{Path(source).stem}{suffix}-{width}.webp'
             target = root / 'site' / relative
             target.parent.mkdir(parents=True, exist_ok=True)
             original.resize((width, height), Image.Resampling.LANCZOS).save(

@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 import weekly_draw as draw
-from build_jar_preview import assign_to_jars, fitted_image, DISPLAY
+from build_jar_preview import assign_to_jars, fitted_image, subject_box, DISPLAY
 from build_draw_archive import build as build_archive
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -109,6 +109,47 @@ class WeeklyDrawTests(unittest.TestCase):
             style = fitted_image(project, slot, assets[slot[1]], {})
             scale = float(style.split('%')[0].split(':')[1])/100
             ratio = assets[slot[1]]['width']/assets[slot[1]]['height']*slot[7]/slot[8]
-            self.assertLessEqual(scale, .88001)
-            self.assertLessEqual(scale*ratio*project['artwork']['height']/project['artwork']['width'], .88001)
+            self.assertLessEqual(scale, .94001)
+            self.assertLessEqual(scale*ratio*project['artwork']['height']/project['artwork']['width'], .94001)
 
+
+    def test_week_one_preserves_selected_set_and_protects_worst_fit(self):
+        assets = {a['id']: a for a in json.loads((ROOT/'site/jars/provenance.json').read_text())}
+        projects = json.loads((ROOT/'data/weekly_draws.json').read_text())['editions'][0]['projects']
+        manifest = json.loads((ROOT/'site/specimens/cutouts.json').read_text())['cutouts']
+        cutouts = {pid: {'bbox': entry['subject_bbox']} for pid, entry in manifest.items()}
+        ordered = assign_to_jars(projects, assets, cutouts)
+        self.assertEqual(len(ordered), 7)
+        self.assertEqual({p['id'] for p in ordered}, {p['id'] for p in projects})
+        self.assertEqual(ordered, assign_to_jars(projects[::-1], assets, cutouts))
+        self.assertEqual(ordered[3]['name'], 'OpenObserve')
+        self.assertNotEqual(ordered[3]['name'], 'Open Library')
+        for p in projects:
+            self.assertIn(p['id'], cutouts)
+
+    def test_invalid_or_missing_bounds_use_full_canvas(self):
+        p = catalog(1)['projects'][0]
+        for box in (None, [], [0, 0, 0, 1], [-1, 0, 1, 1], [0, 0, 2, 1],
+                    [0, 0, float('nan'), 1], [0, 0, float('inf'), 1],
+                    [False, 0, 1, 1], ['0', 0, 1, 1]):
+            self.assertEqual(subject_box(p, {'0': {'bbox': box}}), [0, 0, 1, 1])
+        self.assertEqual(subject_box(p, {}), [0, 0, 1, 1])
+        self.assertEqual(subject_box(p, {'0': {'bbox': [.1, .2, .8, .9]}}), [.1, .2, .8, .9])
+
+    def test_fitting_keeps_subject_inside_motion_envelope(self):
+        assets = {a['id']: a for a in json.loads((ROOT/'site/jars/provenance.json').read_text())}
+        for slot in DISPLAY:
+            asset = assets[slot[1]]
+            h = round(slot[3] * (.94 if slot[1] == 'central' else .82))
+            w = round(h * asset['width'] / asset['height'])
+            ww, wh = w * slot[7] / 100, h * slot[8] / 100
+            for ratio in (.15, .5, 1, 2, 5):
+                p = catalog(1)['projects'][0]
+                p['artwork']['width'] = 100 * ratio
+                box = [.1, .2, .85, .9]
+                style = fitted_image(p, slot, asset, {'0': {'bbox': box}})
+                scale = float(style.split('%')[0].split(':')[1]) / 100
+                subject_w = ww * scale * (box[2] - box[0])
+                subject_h = ww * scale / ratio * (box[3] - box[1])
+                self.assertLessEqual(subject_w + 8.5, ww + .001)
+                self.assertLessEqual(subject_h + 4.5, wh + .01)
