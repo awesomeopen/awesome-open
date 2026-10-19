@@ -98,7 +98,13 @@ centered “In the wild” departure on a Prussian band.
 - Up to two feature notes carry small/tiny enlarged windows of the drawing joined by
   scarlet leader lines from the ground, echoing the jar captions. Notes are sourced
   software facts; no anchors are placed on the drawing.
-- The label under the illustration: a QR code of the permalink, “Awesome Open* · Field
+- The label overlaps the illustration by 4em using negative margin to reclaim flow
+  space. It uses 65% width (a 320px minimum capped at available width for legibility),
+  white background, 1px rule border, 2px radius and 0.8 opacity. Links have no
+  underline; the QR code has a 2px white border. Without artwork, the label stays
+  in normal flow inside the plate. Evidence uses four equal desktop columns, two
+  below 1100px and one below 720px.
+- Label contents: a QR code of the permalink, “Awesome Open* · Field
   record” (or “Archived on GitHub” when GitHub reports it), name, Registry ID · Folio,
   “Domain:” with every domain, and the permalink. No paper or object treatment (B28).
 - Section labels are scarlet blocks with mist type (5.86:1). No horizontal rules inside the

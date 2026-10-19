@@ -404,7 +404,7 @@ cloud between the jars.
 Every expanded record is a plate. Folded ledger rows are unchanged.
 
 - **Study:** Function label, Półtawski statement and bracketed reviewed prose on the right;
-  the specimen on the left with its label directly underneath; feature notes beside the
+  the specimen on the left with its label overlapping the lower illustration; feature notes beside the
   drawing. Without art, the label takes the specimen's place. Narrow screens read Function,
   specimen, label, notes.
 - **Floor and art:** decorative contour rings (seeded by Registry ID, lower half only) behind a
@@ -413,8 +413,8 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   vertical field with 8% source-height safety padding above/below. The complete image
   remains rendered with visible overflow, preserving faint marks and shadows; no
   asset pixels are cropped or resampled. The contour center follows the subject
-  baseline, its fade stays in the lower half, and the label stays directly below the
-  specimen rather than inheriting neighboring prose height. Missing or malformed
+  baseline, its fade stays in the lower half, and the label overlaps the lower field by 4em rather than inheriting neighboring
+  prose height. A negative margin also brings the following content upward. Missing or malformed
   bounds retain the full canvas. The 627px cap is half of 1254px sources; existing
   1024px sources retain the same display cap. A
   frameless loupe shows the source at 2×. Opening draws the floor and settles the art once.
@@ -422,6 +422,11 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   leaders starting on the ground. They state sourced capabilities only.
 - **Label:** permalink QR code (build-time SVG), “Awesome Open* · Field record” or
   “Archived on GitHub”, name, Registry ID · Folio, “Domain:” with every domain, permalink.
+  Use 65% width with a 320px minimum capped at 100% on narrow screens, white
+  background, 1px `--rule` border, 2px radius and 0.8 opacity. Links have no underline;
+  the QR has a 2px white border. Without art, retain a positive top margin inside
+  the plate. Evidence uses four equal columns above 1100px, two down to 720px,
+  then one column; charts shrink with their columns.
 - **Bands:** scarlet block labels (`--rs-scarlet` ground, `--rs-mist` type), no horizontal
   rules. Repository record with large values and a creation/release/push timeline.
   For reviewed name changes, numbered lanes keep literal dates and point to a

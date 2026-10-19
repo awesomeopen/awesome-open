@@ -17,6 +17,7 @@ async function measure(page, selector = '.specimen-plate') {
     };
     return { field: rect(field), stage: rect(stage), image: rect(image),
       label: rect(plate.querySelector('.specimen-label')),
+      labelFont: parseFloat(getComputedStyle(plate.querySelector('.specimen-label')).fontSize),
       bbox: field.dataset.bbox.split(' ').map(Number), cutout: field.dataset.cutout,
       naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight,
       overflow: getComputedStyle(stage).overflow,
@@ -40,8 +41,7 @@ function assertGeometry(m, label) {
   const paintedBottom = m.image.top + bottom * m.image.height;
   assert.ok(paintedTop >= m.field.top - 1.1, label + ' preserves subject top');
   assert.ok(paintedBottom <= m.field.bottom + 1.1, label + ' preserves subject bottom');
-  assert.ok(m.label.top >= paintedBottom - 1.1, label + ' label does not overlap subject');
-  near(m.label.top - m.field.bottom, 8, label + ' label follows compact field without grid stretch');
+  near(m.label.top - m.field.bottom, -4 * m.labelFont, label + ' label overlaps field and reclaims flow space');
   if (m.terrain) {
     const viewBox = m.terrain.split(' ').map(Number);
     near(viewBox[3], 1000 * m.stage.height / m.stage.width, label + ' terrain uses compact stage proportions');

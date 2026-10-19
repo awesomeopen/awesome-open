@@ -1,7 +1,7 @@
 /* Specimen plates for every record: geometry, label, QR code, decoration, keyboard and offline assets. */
 const assert=require('node:assert/strict');
 module.exports=async({page,url,data,capture})=>{
- const names=['OpenTofu','OpenRefine','Open WebUI'];
+ const names=['OpenTofu','OpenRefine','Open WebUI',data.projects.find(p=>!p.artwork).name];
  for(const width of [1600,1440,768,390,320]){
   await page.setViewportSize({width,height:1000});
   for(const name of names){
@@ -21,6 +21,11 @@ module.exports=async({page,url,data,capture})=>{
    assert.equal(await qr.getAttribute('href'),'https://awesomeopen.github.io/awesome-open/#project-'+p.id);
    assert.ok(await qr.locator('img').evaluate(img=>img.complete&&img.naturalWidth>0),'QR code loads');
    assert.equal(await plate.locator('.specimen-label .tag').count(),p.categories.length,'Label lists every domain');
+   const evidence=await plate.locator('.evidence-notes').evaluate(n=>({columns:getComputedStyle(n).gridTemplateColumns.split(' ').map(Number.parseFloat)}));
+   assert.equal(evidence.columns.length,width>1100?4:width>720?2:1,'Evidence wraps at narrow widths');
+   assert.ok(evidence.columns.every(w=>Math.abs(w-evidence.columns[0])<1),'Evidence columns have equal width');
+   assert.equal(await qr.evaluate(n=>getComputedStyle(n).borderTopWidth),'2px');
+   if(!p.artwork)assert.ok(await plate.locator('.specimen-label').evaluate(n=>n.getBoundingClientRect().top>=n.closest('.specimen-plate').getBoundingClientRect().top),'Unillustrated label stays inside plate');
    if(p.artwork){
     const geometry=await plate.evaluate(n=>{
      const art=n.querySelector('.plate-art img').getBoundingClientRect();
@@ -34,7 +39,7 @@ module.exports=async({page,url,data,capture})=>{
     assert.ok(geometry.art.left>=0&&geometry.art.right<=width,'Complete artwork fits viewport');
     if(width>900)assert.ok(geometry.art.right<=geometry.proseLeft,'Artwork leaves prose clear');
     if(width>=1440)assert.equal(geometry.art.width,627,'Half-size artwork stays an exact 2:1 downscale');
-    assert.ok(geometry.labelTop>=geometry.art.bottom-1,'Label sits below visible specimen bounds');
+    assert.ok(await plate.locator('.specimen-label').evaluate(n=>Math.abs(n.getBoundingClientRect().top-n.previousElementSibling.getBoundingClientRect().bottom+4*parseFloat(getComputedStyle(n).fontSize))<1.1),'Label overlaps illustration by 4em');
     assert.equal(geometry.terrain,geometry.cutout==='true','Ground is drawn only behind transparent cut-outs');
     assert.equal(geometry.animation,'none','Reduced motion leaves the final composition');
    }
