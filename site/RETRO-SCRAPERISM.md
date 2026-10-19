@@ -434,9 +434,13 @@ shown the following week with a four-week repeat cooldown as the initial default
 Stars do not determine selection. Keep the existing seven jars and height order;
 assign illustrations by protecting the worst-filled window before total fill,
 centering actual subject bounds without cropping. Aim for 94% fill with explicit
-pixel clearance for the existing pointer and idle motion. Link the edition to `/draws/`; retain the original set
+pixel clearance for the existing pointer and idle motion. Link the archive from the footer at `/spotlight/`; retain the original set
 until the first saved edition activates. See [weekly draw contract](WEEKLY-DRAWS.md)
-for the calendar, snapshot archive, eligibility and failure behavior.
+for the calendar, snapshot archive, eligibility and failure behavior. Spotlight
+uses ISO week edition labels and anchors (`2026-W43`, `#2026-W43`). Its scope and
+method blocks are omitted, its section jump navigation is hidden, and its footer
+puts Download draw records · Draw contract above GitHub. Omit Observatory links
+and the Return to project ledger footer link on this route (B-PR134-01).
 
 ## Crisp photographic jar motion (B40)
 
