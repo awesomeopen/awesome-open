@@ -59,26 +59,29 @@ Active branch: `design/jar-depth-motion`. Review `/jars-05/jars.html`. Hover/foc
 The production publisher runs build_site.py --production, composing the reviewed seven-jar hero into index.html with the current catalog and all evidence cards. Production has no preview title or noindex directive. PR Chromium checks exercise index.html, including jar interactions. The private Site root mirrors this build for review; historical preview subdirectories remain available.
 The self-contained download remains a motion-free ledger with embedded artwork, fonts and evidence.
 
-## Opt-in serif comparison
+<a id="opt-in-serif-comparison"></a>
 
-On a hosted revision containing the switcher, append `?serif=fraunces`,
-`?serif=instrument`, or `?serif=poltawski` to the catalog, Observatory, Weekly
-draws, individual record or design-reference URL. The labeled preview control
-switches between them and Exit preview restores the ordinary URL. Existing
-filters and fragments survive; same-site page links carry the choice. There is
-no cookie or localStorage preference. Plain or unrecognized URLs keep Fraunces.
+## Serif selection
 
-Instrument Serif and Półtawski Nowy use regular 400 for every serif role, including
-the wordmark. Fraunces retains its existing 300/600 weights and variation axes;
-Commit Mono, sizes and spacing stay unchanged. Candidate font failure leaves
-Fraunces visible with a status message. The selected candidate is loaded from
-local WOFF2 only; no Google Fonts request is made by visitors. The default page
-loads the small opt-in detector, but no candidate font or preview stylesheet.
-The existing embedded Fraunces/Commit Mono bundle is not split by this change.
+Półtawski Nowy is the default serif at regular 400 on hosted pages and offline
+editions. The labeled hosted selector remains available on the catalog,
+Observatory, Spotlight, individual record and private design-reference routes.
+`?serif=fraunces`, `?serif=instrument` and `?serif=poltawski` select a family.
+Plain or unrecognized URLs use Półtawski. Reset to default removes the parameter,
+preserving other filters and fragments. Internal links carry the choice, with no
+cookie or localStorage preference. Fraunces keeps its original 300/600 weights and
+SOFT/WONK axes; Instrument and Półtawski use 400 throughout. Commit Mono is unchanged.
 
-Downloaded standalone catalog and Observatory reports retain the default fonts
-and remain self-contained. Historical jar/exhibition studies are not new preview
-targets. This is a comparison tool, not approval to replace the default family.
-See [font provenance](vendor/serif-preview/provenance.json) and the two adjacent
-SIL OFL notices. Converted WOFF2 assets retain the full original character sets;
-Półtawski's variable source is exposed only at 400 by this preview.
+Hosted fonts are same-origin WOFF2 files; only the selected serif and Commit Mono
+load. The early selector script sets URL choices before page content renders.
+It is cache-versioned with the font CSS and default tokens. There are no remote
+font-service requests or new permissions. If a font fails, readable system-serif
+fallback remains and the selector reports the failure. No JavaScript still uses
+the default. The separate Poltawski font is 124,040 bytes, compared with the
+194,976-byte Fraunces previously embedded in every fonts.css response.
+
+Standalone catalog and Observatory reports embed only Półtawski and Commit Mono,
+with license notices, and have no hosted selector/runtime dependencies. Historical
+jar/exhibition studies are not selector targets. Font outlines and character sets
+are unchanged: see [base provenance](vendor/FONT-PROVENANCE.json) and
+[alternative provenance](vendor/serif-preview/provenance.json).
