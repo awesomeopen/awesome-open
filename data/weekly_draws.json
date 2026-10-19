@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-19",
   "editions": [
     {
       "draw_week": "2026-10-12",
@@ -162,6 +162,244 @@
           "artwork": {
             "path": "specimens/0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6.webp",
             "alt": "A hand-cranked press aligns and folds blank ruled forms into an orderly stack.",
+            "width": 1024,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "draw_week": "2026-10-19",
+      "display_week": "2026-10-26",
+      "recorded_on": "2026-10-19",
+      "timezone": "America/New_York",
+      "algorithm": "sha256-week-project-v1",
+      "seed": "awesome-open/weekly-draw/v1/2026-10-19",
+      "cooldown_weeks": 4,
+      "eligible_count": 116,
+      "candidates": [
+        "001b9a0fd0176cc0a7904bc59d7bb6dc0a9b1d1deee45b285aba01d6bbfb43e2",
+        "005bd9f29aff8832050b843a0d5451f4a91eae39424376761245670799a1450b",
+        "00898489ed72fd55e12dd50a965973e95ccb79411eade2298ab10e31fe05761d",
+        "0092b9bbc696273433ce71d5772f97bd63b6f23e515bb1269ee5bb18af8b5528",
+        "012cd304d8265ea55d6a07975d08a58b66834d9d3ef824678bde0b7d1baf0bbc",
+        "0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9",
+        "06d30a3e4c183c1f877debce4e5de2025034ce680d2eeca83bfdff9aa47978b2",
+        "072cc86568781283ab19d9c7593fd1702471534610ee159ec25b6bbddcea4212",
+        "0b51a9b4e9a7c395c92bdfcb8ae8ddfdb0a59ee68f67d6eb505963e8233ac453",
+        "0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831",
+        "0c1d0e794277c84119b834c4fff9213b247e62fe75f9de0c0cee257ff977d5ec",
+        "0e1c34b3f948e9037466f84680e402b96f2c0b61351865137c4359f41e5d3014",
+        "0ed43a1a4405b23c829dda68e42fae90bd75a3ad4c18975febf7dc607209f9b1",
+        "10d69f0daa625d430823f0f96fe4a54501756699271de233b676a41c1fdc2576",
+        "12ebff74e851ffb8e9ae5c84fc7b08e0f70c39565cfe39d3fae4eba8c45dfa75",
+        "13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc",
+        "1572e285c724ada6578327e70e3118d947558b96ca11d4d275b00dcbdc0d0690",
+        "1c5a8343da2d0d21957fb2784e044fea8274fa5b0dc62a86010624cf65a7598b",
+        "1cf5521e4f3d971b3cea3d28248f7a30e637e466873a9987de1fb9a0b27b9270",
+        "1e59457b7413d807112e3f60186dcbea5427521288abc92abc37ff9cac7f089b",
+        "1f47a63aaef059c34f053c73f066bce5f50dbad3080c4841c65b8ff4295cde82",
+        "20237f789032d8a04653f8fb3967f89e82183cb84a15519fc79e71184d6f9d6e",
+        "24af095b5c53b4af51066f8a783a935e876f69311ed47b81d39fa17ef9736d96",
+        "28ac2bcf5454481b3fd62560d79a1f9e7b2665642e89bd8cf940b50379df16f6",
+        "2adc6806f7bb3286c4dc6a8fb5efa74e0137cc5c039f9519512c38a7fd8f926a",
+        "2b4473c7cde9083b5e771b1a008a09389bbdf9deb45f21ef8c047860bf04fe7c",
+        "2e067b6f772098b4eab863cdd66e4fe15d4f6788751c76a42eaffc1b6416c27c",
+        "2f3847bf2fbe1533a1e419da9a440054286ceed23b60306f3cedbf2f80267318",
+        "2f56cf3f22e121c02757e83abb089378c7a9418353f78b72f9b2e5eb9a61a8f9",
+        "349d687dce9f4e18a768e8097d67ac572aacd6ad9bc51372878f927ae9309852",
+        "389b8d780d9a0873e27cb35c2b6d0390fa7594d52c30d407f1a700d2a2b63b03",
+        "3bcfdb2e7c940ecf1f6360e3fb375125cb1a3728fe9228ae61527fc0fdc8097c",
+        "3d4109cbeddbb9302a39368007702f6bb25e31b1b2b20162d5e95056289d2483",
+        "3e6ed417a41919a48f262b9481f0b9196c860281a9d26fd6a241ca8287acc0fb",
+        "401437d296950840c94b759fd1ee341c9acd87c40cb3709996c28b4fb217779a",
+        "42ce57e518242da21e861c49909cc145addd6a6b80ff7a49444d89672f3aab1d",
+        "4a4e1b20d1ed2ee1d20e5417ff369e528e72f36271c2d2ea9d708b8c47573374",
+        "4c89801631da76789aa90293fe92c2041c981bb3afbd66b6b2c5b75c6665efc9",
+        "4cd3f55b2c18c6dc14a30651c631ea4ab51fe08b7b988a7b762029f266bfaa20",
+        "5132ce65107a57b9b9d930186927d58478241f8b0ef705a8af746a920967c60a",
+        "5162276ebf713c38b60b6d1578fcbaf03761809341ddd44004dd180a093f9189",
+        "517eac85218e64f63ff749bf39909786c8c1c654289b4c66507163605e77e589",
+        "518382fd43e354ec84ae2de886feb18c62c9ba31932d935318624d7a1b424334",
+        "5302907b521d495fcd4df1b42cbe473d37d7a22cabc7279fb77f4c7e600e183f",
+        "658154879f83825b5fa01fa5728089b336e72d7522eea4413e4ff92fb5a074b4",
+        "6659e927dd4f0d8a062e4060ab3fb40c6c2d4c7237ec34d22996b63cc14ce1f1",
+        "679f7bb50af52541b0f4f1a7427b8effcba2be32ba9384922c478309b377c220",
+        "68c021e20c1d532b053eeea3dd909ae024627c6199f48ec13a7756a4a07d1fa8",
+        "691b43787fdd5b5a626612489e2520b1ee46dd45ec39403862105d0dbb17ab8a",
+        "707bb54ecfbbbe654192b6cc868e1a6967b2d267b07cc6943c0ef49583afae0f",
+        "72c709a1cefa588fb94189b10d5b6afa3dbdd8ab0d7c6ea5f7304d9ac1e4065e",
+        "788ab9382462ef370cfd9b78510872f0e45b4d0b0c14bb06ad145e356f78b1c1",
+        "7c94eb734f17ebfcce7230067c672f89ec9b7d5fca87ca8e4c3a39dc6012b1dd",
+        "80862cbd9c524c35c3464f40ea9115665a9f7ecc857d4d510d4ae8e69d0324fd",
+        "819f64c64bb9f39aab65d948e8a8e4259c5efb724fbcd2a64cf07f8636d5fcf4",
+        "8516dc3af50fdd8e440adc73d980a32b40f3604baacad33014c4219cd28ed84e",
+        "875e1a110ecd8a2e297176972fac494474ca97357edc53928fe3a6cda2b9d6bd",
+        "88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906",
+        "8946eb62f7ed8d372772f38d12406e95efd28f4552d90a9dc2693fbf6a949141",
+        "8b3d47c790c2825f313993fb2dcea050b57238b81201333bac9f3a1296b9dc98",
+        "8ed2cce02536b2fac8708e67e14ab1136fcb76481ac22657c331df6ebb6ffb92",
+        "91874098c295acfc1b15893d4fb08408cc17d91203282c7580ecad07b86aec27",
+        "92ea50f7a44cebfc8499ecefab1beffb8afaec71fada7a97640ef2beb91d0a91",
+        "936033ea14abbbd15d50b6c5cf102626c758ef2b0fb132d9729b0d0592b48f32",
+        "940b9064d9702a4687a341521a07789d1c7f8d7ca078deb739313338e8194841",
+        "940ec4695c1e241c2ff4b2dbbe30fd7fe9adf683efa182142fa954be4f3c9973",
+        "945bc92dc0f949ad7e9961f52fc1c6a29c8864d975151dd99095fc298b9c9fac",
+        "94c48af14511c86ca201b7008085c5b6a429d5b5ec76e2c406e99d9b644efe6f",
+        "977cc08ae17462a3692fdb52bd8c298fa091201b7a44c99f6c14ba55df1a5843",
+        "a03dc41f3c45d7161cc30d734d50f6ea56b1a6ccf5608fc30bc930e16fb2c1ce",
+        "a17dd37c5dbe461b5a11ccf2689a96fdbab6263c73e87bcee720c8d328c8df50",
+        "a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d",
+        "a610d283510b474201b8553d572ed377952e3cd3772b6b0b8c2f7ca18af569d0",
+        "a61eb4a0cf8007496765bde0c52c2b5c98f6d8e44d1b93bbff8152496fedb090",
+        "ab034d20301ddd3e54c641d158795bbf9c6295f230c5e36298711c3e8ac3f5ca",
+        "addc6db4abdb10cb4c804fce0e3ab1f6d7a08e4a050e094b720609883b07a7d5",
+        "b0c06936fb4ad8e57a0b50fa3e6b9d570250c9daaf3f220959f80e14f49551e0",
+        "b44206282c760da32059c6a76cee1d8f36ed59013550205c1741546ec9d11f39",
+        "b8e4b739e6b4909e17b15ecb82779020a04e1861fc384e010d6a0e199b8b22c4",
+        "ba95e748639f9bf1e2d548075ea1db7c41689aac3d2c3da3247f1f30d19001ed",
+        "bbf06f292bc52c53f3d0053a3abce42da5f504d64afa90fe3a83b30c5df712dd",
+        "c02bf0d1fea4bf7fda6b7c35472c333590aff2bcd0182ccec706217771ccdfe7",
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "c1c999537ac0a73310f8944c29223d431535669ecebd838ad38a04eeda64411f",
+        "c3cdcfdd208b07c7bb4c5b1d7f3c1e931d7979c657c5261cc479bebb35d7eee2",
+        "c413b557fa79ae25b81f3f438f61e47362e8a0063fac838f842afa257242439f",
+        "c69a4c499052f166e762bdb3734a113888b48338402fbce9fad7ff5d861f0cc7",
+        "cb2c51bc30a37065c6d71c045783a9818235d35e53752baf737c5068066a5737",
+        "d2742f542f3a2152f203c9334f100c7f2cd60f126531ef59eb3e8bfb1832d7dc",
+        "d3cd42bbe7b97edc42bfbcf0968b758c1b7de91070f1219abb8eef95866178c9",
+        "d477ecc1ebaf968f0b367d8795597d0ac9cee3704cf254357a35977db77b2de5",
+        "d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54",
+        "d7a9433531dff7e055ba9f15912f85b064882af2137d422146e3d557776ffad4",
+        "d8ff876dfb1eadf08a100b53f794ef54a69e7b476b1a3a841ca2e4b21264a13d",
+        "d9330c307f7dbfb63c2fd1774f785815ec7f1221d80dad006ea980909c10db50",
+        "dbdde6b88e3ec3e235ad3028f85146b3353ddf4003c2863c6c812f2a6cfcb48f",
+        "e2f9ef08304c955ba8342768249b69fa303714352c2af6c57e86a43e646fb72f",
+        "e390eb08d6cbc3fdb42e665d32bff22f4a619bba354ac990eadfce5d23287485",
+        "e3f813edf912b296b4d2654b327108091f5ce6ce395ad47e0cfcc56ea20f5adf",
+        "e54045a2f57827959f557f78bfc6307712e6b703289b674a2f09b4382febada5",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951",
+        "e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b",
+        "eb1cd71bbc85c172dd554bb8f46db5f72ac4e757764868efc4d9c048f1a60b46",
+        "eb4480351153f771c975926274ffd59606fd7bc1204e924cfac522660f61fb7a",
+        "ebbe2c1eade172814c32d478695b70656f27f0527b19e79247c6aad09e84a490",
+        "ee0c29745f6df38c8b4922ef55e1f814eadf1129b4ab676a558ce1948080ca8f",
+        "f952835452592537ac04c71a848c03e1758cd346fb54bde42eaba38aefbed9ab",
+        "fae7e9e22c64821de6429b59c530c0f404713f0cb7e4296b2dde17da1ac8018c",
+        "ffccace0ba14fd154d902639a2f95b1ae1083081bc9a5e17e891a557c23f7895"
+      ],
+      "excluded_by_cooldown": [
+        "0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6",
+        "484814187d43f2b6a32f0bebfda32af1c3fcb1fd891d919e76af56334e1d0bec",
+        "73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf",
+        "79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c",
+        "8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20",
+        "9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660",
+        "e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83"
+      ],
+      "source_sha": "dbbb9076482e4862d81f46c991cff433b3e25966",
+      "projects": [
+        {
+          "id": "5132ce65107a57b9b9d930186927d58478241f8b0ef705a8af746a920967c60a",
+          "name": "OpenTask",
+          "url": "https://github.com/aristidedongo/opentask",
+          "description": "Self-hosted teamwork application with accounts, workspaces, member roles, and invitations; task management is planned.",
+          "categories": [
+            "productivity--office"
+          ],
+          "artwork": {
+            "path": "specimens/5132ce65107a57b9b9d930186927d58478241f8b0ef705a8af746a920967c60a.webp",
+            "alt": "Sliding basalt rooms surround a shared orange courtyard.",
+            "width": 1024,
+            "height": 1024
+          }
+        },
+        {
+          "id": "658154879f83825b5fa01fa5728089b336e72d7522eea4413e4ff92fb5a074b4",
+          "name": "OpenSpiel",
+          "url": "https://github.com/google-deepmind/open_spiel",
+          "description": "Game environments and algorithms for reinforcement-learning, search, and multi-agent research.",
+          "categories": [
+            "ai--language-models"
+          ],
+          "artwork": {
+            "path": "specimens/658154879f83825b5fa01fa5728089b336e72d7522eea4413e4ff92fb5a074b4.webp",
+            "alt": "A branching wooden strategy board has hinged bridges and stone playing pieces.",
+            "width": 1254,
+            "height": 1254
+          }
+        },
+        {
+          "id": "707bb54ecfbbbe654192b6cc868e1a6967b2d267b07cc6943c0ef49583afae0f",
+          "name": "OpenWA",
+          "url": "https://github.com/rmyndharis/openwa",
+          "description": "Self-hosted WhatsApp API gateway with multiple sessions, webhooks, and a management dashboard.",
+          "categories": [
+            "communication--social"
+          ],
+          "artwork": {
+            "path": "specimens/707bb54ecfbbbe654192b6cc868e1a6967b2d267b07cc6943c0ef49583afae0f.webp",
+            "alt": "Four green message tubes hang from a shared manifold and release folded slips through red valves.",
+            "width": 1254,
+            "height": 1254
+          }
+        },
+        {
+          "id": "0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831",
+          "name": "OpenClaw",
+          "url": "https://github.com/openclaw/openclaw",
+          "description": "Personal AI assistant that runs on your devices and connects to messaging apps.",
+          "categories": [
+            "ai--language-models"
+          ],
+          "artwork": {
+            "path": "specimens/0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831.webp",
+            "alt": "A suspended cloth pouch routes coloured cords through woven seams into retaining pockets.",
+            "width": 1254,
+            "height": 1254
+          }
+        },
+        {
+          "id": "13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc",
+          "name": "OpenSCAD",
+          "url": "https://github.com/openscad/openscad",
+          "description": "Script-based solid 3D CAD modeling.",
+          "categories": [
+            "science--engineering"
+          ],
+          "artwork": {
+            "path": "specimens/13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc.webp",
+            "alt": "Layered blue profiles forming a geometric solid with a circular opening and red cut surface.",
+            "width": 1254,
+            "height": 1254
+          }
+        },
+        {
+          "id": "d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54",
+          "name": "OpenResty",
+          "url": "https://github.com/openresty/openresty",
+          "description": "Web application platform based on Nginx and LuaJIT.",
+          "categories": [
+            "infrastructure--devops"
+          ],
+          "artwork": {
+            "path": "specimens/d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54.webp",
+            "alt": "Three porcelain arches reweave a band through teal combs into a red pleated strip.",
+            "width": 1254,
+            "height": 1254
+          }
+        },
+        {
+          "id": "1572e285c724ada6578327e70e3118d947558b96ca11d4d275b00dcbdc0d0690",
+          "name": "OpenPatch",
+          "url": "https://github.com/dexterlabs1/openpatch",
+          "description": "Desktop modular synthesizer with patchable oscillators, filters, sequencers, signal visualization, and local MCP control.",
+          "categories": [
+            "creative--media"
+          ],
+          "artwork": {
+            "path": "specimens/1572e285c724ada6578327e70e3118d947558b96ca11d4d275b00dcbdc0d0690.webp",
+            "alt": "A curved wooden instrument connects a yellow reed to pleated ceramic resonators.",
             "width": 1024,
             "height": 1024
           }
