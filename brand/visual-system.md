@@ -10,7 +10,7 @@ the full application. Historical demo routes do not establish current behavior.
 
 - High-contrast white/cool mist, Prussian blue and dark ink. Restrained scarlet
   directs attention. Saturated color may belong to specimens and jar lighting.
-- Półtawski Nowy regular 400 headings and wordmark; Commit Mono ledger, prose and metadata. Automatic optical sizing, restrained tracking, consistent 16/24/32px spacing. Keep bundled provenance and SIL OFL notices. The hosted selector retains Fraunces 300/600 with its axes and Instrument Serif 400.
+- Półtawski Nowy regular 400 headings and wordmark; Commit Mono ledger, prose and metadata. Automatic optical sizing, restrained tracking, consistent 16/24/32px spacing. Keep bundled provenance and SIL OFL notices.
 - Ruled, searchable records and expandable evidence. Dense comparable information
   stays close; do not replace the ledger with generic cards or forced AIDA.
 - Plain labeled controls, visible focus, native disclosures, touch/keyboard
@@ -238,17 +238,15 @@ centered around its link (y=200 in the 1000 × 400 viewBox). The navy texture
 remains in the footer only. Asset pixels, filter semantics, contour styling and
 clipping are unchanged. See [B-PR129-01](decisions/B-PR129-01.md).
 
-## Serif selection
+## Settled typography
 
 Półtawski Nowy is the user-directed default at regular 400 for every serif role.
-The hosted selector stays visible, with Fraunces and Instrument Serif as explicit
-URL choices. Reset to default removes the parameter; no browser preference is
-stored. Downloaded offline editions embed Półtawski and Commit Mono, without the
-hosted selector. See [PREVIEW.md](../site/PREVIEW.md#serif-selection).
+The font comparison is retired. Old serif query parameters are ignored; there is
+no selector or preference runtime. Offline editions embed Półtawski and Commit Mono.
+See [PREVIEW.md](../site/PREVIEW.md#serif-selection).
 
-Hosted fonts use separate same-origin WOFF2 files; only the selected serif and
-Commit Mono are requested. Font failure leaves readable system fallback text and
-an accessible status. Complete font outlines, provenance and licenses are retained.
+Hosted fonts use separate same-origin WOFF2 files; only Półtawski and
+Commit Mono are requested. Font failure leaves readable system fallback text. Complete font outlines, provenance and licenses are retained.
 
 Półtawski supports genuine bold 700 when explicitly requested with `font-weight: bold`
 or `700`. Its existing variable file exposes 400–700; regular 400 remains the

@@ -61,8 +61,7 @@ Color alone never communicates selection, errors or maintenance state. Use a lab
 ## 3. Typography
 
 Use locally bundled **Półtawski Nowy** for editorial headings and **Commit Mono** for the
-ledger, evidence, controls and reading text. The owner selected Półtawski as the default on 2026-10-19. The hosted selector
-retains Fraunces and Instrument Serif; this is a deliberate choice, not a theme lottery.
+ledger, evidence, controls and reading text. The owner settled on Półtawski on 2026-10-19 and retired the font selector and alternatives.
 
 - Headlines and the large Function description: Półtawski Nowy **400**, normal variation settings. Use 28–42px and line-height 1.15–1.22.
 - Header wordmark: Półtawski Nowy **400**, 26–30px.
@@ -72,12 +71,11 @@ retains Fraunces and Instrument Serif; this is a deliberate choice, not a theme 
 - Evidence headings: Półtawski Nowy 400 at 21px/1.25; factual values stay Commit Mono.
 - Preserve monospaced character advances; do not enable programming-symbol
   substitutions in evidence labels or source URLs. Do not synthesize missing weights.
-- Fraunces remains available at 300 headings / 600 wordmark, `SOFT 100`, `WONK 1`;
-  Instrument Serif uses 400 throughout. Both alternatives clear or restore axes explicitly.
+- Genuine Półtawski 700 is available for explicit bold; headings remain regular 400.
 - Keep 48px minimum row targets, measured column gaps and consistent 16/24/32px
   detail spacing. Reduce arbitrary gaps, not legibility. Keep narrow details stacked.
-- Both families use SIL OFL 1.1. Complete font data and notices are embedded in
-  `site/vendor/fonts.css`, including the standalone edition. Exact source revisions,
+- Both families use SIL OFL 1.1. Complete font data is self-hosted and license notices accompany
+  `site/vendor/fonts.css`; the standalone edition embeds both fonts and notices. Exact source revisions,
   axes and hashes live in `FONT-PROVENANCE.json`. No live Google Fonts dependency.
 
 The portable skill snapshot still describes the older font choice; its instruction

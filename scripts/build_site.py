@@ -765,7 +765,7 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", 
  <link rel="icon" href="brand/favicon.ico" sizes="16x16 32x32 48x48">
  <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
- <link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}"><script src="{font_asset_url('serif-preview.js', root)}"></script><link rel="stylesheet" href="styles.css?v={escape(sha or "preview")}">
+ <link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="styles.css?v={escape(sha or "preview")}">
  <script src="{escape(script_url)}" defer></script>
 </head>
 <body>
@@ -816,7 +816,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <base href="../"><meta name="color-scheme" content="light"><title>{name} · Awesome Open*</title>
 <meta name="description" content="{escape(project['description'])}">
-<link rel="icon" href="brand/favicon.ico"><link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}"><script src="{font_asset_url('serif-preview.js', root)}"></script>
+<link rel="icon" href="brand/favicon.ico"><link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}">
 <link rel="stylesheet" href="styles.css?v={escape(sha or 'preview')}"><link rel="stylesheet" href="observatory/observatory.css">
 <script src="{escape(script_url)}" defer></script></head>
 <body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>
@@ -923,8 +923,6 @@ def build(output, source_sha=None, root=ROOT):
     }
     assets["tokens.css"] = (root / "site/design/tokens.css").read_text(encoding="utf-8")
     output.mkdir(parents=True, exist_ok=True)
-    for name in ("serif-preview.js", "serif-preview.css"):
-        shutil.copyfile(root / "site" / name, output / name)
     shutil.copytree(root / "site/vendor/serif-preview", output / "vendor/serif-preview", dirs_exist_ok=True)
     (output / "index.html").write_text(ledger, encoding="utf-8")
     records = output / "records"
@@ -968,9 +966,13 @@ def build(output, source_sha=None, root=ROOT):
     for name in evidence_files:
         shutil.copyfile(root / "data" / name, output / "data" / name)
     (output / "vendor").mkdir(exist_ok=True)
-    for name in ("fonts.css", "FONT-LICENSE.txt", "FONT-PROVENANCE.json", "fraunces.woff2", "commit-mono.woff2"):
+    for name in ("fonts.css", "FONT-LICENSE.txt", "FONT-PROVENANCE.json", "commit-mono.woff2"):
         shutil.copyfile(root / "site/vendor" / name, output / "vendor" / name)
     for old in (
+        "serif-preview.js", "serif-preview.css", "vendor/fraunces.woff2",
+        "vendor/serif-preview/instrument.woff2",
+        "vendor/serif-preview/instrument-METADATA.pb",
+        "vendor/serif-preview/instrument-OFL.txt",
         "motion.js",
         "vendor/gsap.min.js",
         "vendor/ScrollTrigger.min.js",
@@ -1029,7 +1031,6 @@ def build(output, source_sha=None, root=ROOT):
             replacements[f'{attribute}="brand/{name}"'] = (
                 f'{attribute}="data:{mime_type};base64,{encoded}"'
             )
-    replacements[f'''<script src="{font_asset_url('serif-preview.js', root)}"></script>'''] = ""
     for name in ("vendor/fonts.css", "tokens.css", "styles.css"):
         href = f"{name}?v={source_sha or 'preview'}" if name == "styles.css" else font_asset_url(name, root)
         css = (output / name).read_text(encoding="utf-8")

@@ -24,7 +24,7 @@ REQUIRED = (
 ASSET_DIRS = ('site/brand', 'site/footer-backgrounds', 'site/patterns', 'site/specimens', 'site/jars', 'brand/studies', 'site/domains')
 ASSET_SUFFIXES = {'.png', '.webp', '.ico', '.svg', '.jpg', '.jpeg'}
 FONT_FILES = ('site/vendor/fonts.css', 'site/vendor/FONT-LICENSE.txt',
-              'site/vendor/FONT-PROVENANCE.json', 'site/vendor/fraunces.woff2',
+              'site/vendor/FONT-PROVENANCE.json',
               'site/vendor/commit-mono.woff2')
 
 

@@ -44,7 +44,7 @@ def main(snapshot_path, output_path):
     logo = 'data:image/png;base64,' + base64.b64encode((ROOT / 'site/brand/botanical-128.png').read_bytes()).decode()
     sha = snap['source_sha'] or 'unknown'
     page = ((HERE / 'template.html').read_text(encoding='utf-8')
-            .replace('/*FONTS*/', standalone_font_css(ROOT, serif='fraunces'))
+            .replace('/*FONTS*/', standalone_font_css(ROOT))
             .replace('/*WS*/', '/' + WS + ']/g').replace('/*SEP*/', '/' + WS + '_-]/g')
             .replace('/*DATA*/', json.dumps(data, ensure_ascii=True, separators=(',', ':')).replace('</', '<\\/'))
             .replace('{{FULLSHA}}', sha).replace('{{SHA12}}', sha[:12]).replace('{{SHA}}', sha[:7])

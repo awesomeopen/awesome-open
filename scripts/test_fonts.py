@@ -1,4 +1,4 @@
-"""URL-only serif preview packaging and provenance contracts."""
+"""Settled typography packaging and provenance contracts."""
 import hashlib
 import json
 from pathlib import Path
@@ -7,22 +7,22 @@ from site_test_fixtures import baseline_site
 
 ROOT = Path(__file__).resolve().parents[1]
 
-class SerifPreviewTests(unittest.TestCase):
+class FontTests(unittest.TestCase):
     def test_hosted_and_offline_scope(self):
         output, catalog = baseline_site()
         for path in ['index.html', 'observatory/index.html', 'spotlight/index.html',
                      'records/' + catalog['projects'][0]['id'] + '.html']:
-            self.assertIn('serif-preview.js', (output / path).read_text())
+            self.assertNotIn('serif-preview.js', (output / path).read_text())
         for path in ['standalone.html', 'observatory/report.html']:
             self.assertNotIn('serif-preview.js', (output / path).read_text())
-        for choice in ['instrument', 'poltawski']:
+        for choice in ['poltawski']:
             self.assertTrue((output / 'vendor/serif-preview' / (choice + '.woff2')).is_file())
 
     def test_font_hashes_and_notices(self):
         directory = ROOT / 'site/vendor/serif-preview'
         provenance = json.loads((directory / 'provenance.json').read_text())
         self.assertEqual(len(provenance['source_revision']), 40)
-        self.assertEqual(len(provenance['fonts']), 2)
+        self.assertEqual(len(provenance['fonts']), 1)
         for entry in provenance['fonts']:
             data = (directory / entry['output']).read_bytes()
             self.assertEqual(data[:4], b'wOF2')
@@ -38,7 +38,7 @@ class SerifPreviewTests(unittest.TestCase):
         css = (ROOT / 'site/vendor/fonts.css').read_text()
         self.assertNotIn('base64,', css)
         self.assertIn('serif-preview/poltawski.woff2', css)
-        self.assertIn('fraunces.woff2', css)
+        self.assertNotIn('fraunces.woff2', css)
         embedded = standalone_font_css(ROOT)
         self.assertIn("font-family:'Poltawski Nowy'", embedded)
         self.assertIn("font-family:'Commit Mono'", embedded)
@@ -51,10 +51,10 @@ class SerifPreviewTests(unittest.TestCase):
             page = (output / path).read_text()
             self.assertIn(embedded, page)
             self.assertNotIn('src:url(serif-preview/', page)
-        runtime = (ROOT / 'site/serif-preview.js').read_text()
-        self.assertNotIn('localStorage', runtime)
-        self.assertNotIn('sessionStorage', runtime)
-        self.assertNotIn('https://fonts.', runtime)
+        self.assertFalse((ROOT / 'site/serif-preview.js').exists())
+        self.assertFalse((ROOT / 'site/serif-preview.css').exists())
+        self.assertFalse((ROOT / 'site/vendor/fraunces.woff2').exists())
+        self.assertFalse((ROOT / 'site/vendor/serif-preview/instrument.woff2').exists())
 
     def test_extracted_original_font_bytes(self):
         vendor = ROOT / 'site/vendor'
@@ -69,17 +69,13 @@ class SerifPreviewTests(unittest.TestCase):
         import tempfile
         from font_assets import font_asset_url, standalone_font_css
         page = (ROOT / 'site/design/index.html').read_text()
-        for name in ['vendor/fonts.css', 'tokens.css', 'serif-preview.js']:
+        for name in ['vendor/fonts.css', 'tokens.css']:
             self.assertIn(font_asset_url(name), page)
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / 'site').mkdir()
-            (root / 'site/serif-preview.js').write_text('different source')
-            self.assertNotEqual(font_asset_url('serif-preview.js', root), font_asset_url('serif-preview.js'))
-        historical = standalone_font_css(ROOT, serif='fraunces')
-        self.assertIn("font-family:'Fraunces'", historical)
-        self.assertNotIn("font-family:'Poltawski Nowy'", historical)
-        self.assertEqual(historical.count('data:font/woff2;base64,'), 2)
+            (root / 'site/styles.css').write_text('different source')
+            self.assertNotEqual(font_asset_url('styles.css', root), font_asset_url('styles.css'))
 
     def test_poltawski_bold_uses_existing_variable_font(self):
         from font_assets import standalone_font_css
@@ -91,3 +87,22 @@ class SerifPreviewTests(unittest.TestCase):
         self.assertEqual(font['css_weight_range'], [400, 700])
         self.assertEqual(font['variation_axes']['wght'], {'min': 400, 'default': 400, 'max': 700})
         self.assertEqual(font['bytes'], 124040)
+
+    def test_rebuild_removes_retired_font_assets(self):
+        import tempfile
+        from build_site import build
+        from site_test_fixtures import copy_site_fixture
+        baseline, _ = baseline_site()
+        with tempfile.TemporaryDirectory() as tmp:
+            output = copy_site_fixture(baseline, Path(tmp) / 'site')
+            retired = ['serif-preview.js', 'serif-preview.css', 'vendor/fraunces.woff2',
+                       'vendor/serif-preview/instrument.woff2',
+                       'vendor/serif-preview/instrument-METADATA.pb',
+                       'vendor/serif-preview/instrument-OFL.txt']
+            for name in retired:
+                path = output / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text('retired fixture')
+            build(output=output)
+            for name in retired:
+                self.assertFalse((output / name).exists(), name)

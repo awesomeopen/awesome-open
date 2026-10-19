@@ -344,10 +344,8 @@ test('rhyme renderer keeps names as text, linked IDs, selected coverage and empt
   assert.equal(ids.get('rhyme-group-list').children[0].children[0].textContent, 'No reviewed rhyming names in this selection.');
 });
 
-test('explicit valid serif preview survives Observatory filter serialization', () => {
-  for (const choice of ['fraunces', 'instrument', 'poltawski']) {
-    const result = observatory.filterSearch({ category: 'all', license: 'unknown' }, '?serif=' + choice + '&unrelated=1');
-    assert.equal(result, '?serif=' + choice + '&license=unknown');
+test('obsolete serif choices are ignored by filter serialization', () => {
+  for (const choice of ['fraunces', 'instrument', 'poltawski', 'invalid']) {
+    assert.equal(observatory.filterSearch({ category: 'all', license: 'unknown' }, '?serif=' + choice), '?license=unknown');
   }
-  assert.equal(observatory.filterSearch({ category: 'all', license: 'all' }, '?serif=invalid'), '');
 });
