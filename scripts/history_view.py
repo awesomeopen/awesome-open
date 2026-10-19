@@ -37,13 +37,13 @@ def timeline(created, release, pushed, events, pid):
     lo = date(min(p[0] for p in points).year, 1, 1)
     hi = date(max(p[0] for p in points).year + 1, 1, 1)
     pct = lambda d: round((d - lo).days / (hi - lo).days * 100, 4)
-    axis = len(points) * 28 + 12
+    axis = len(points) * 1.75 + .75
     markers, rows = [], []
     for i, (when, label, key, event) in enumerate(points, 1):
         tid = target(pid, ('event-' if event else 'repository-') + key)
         markers.append(f'<a class="history-marker" href="#{tid}" data-record-anchor="{tid}" '
                        f'aria-label="{escape(str(i) + ". " + label + ", " + when.isoformat(), quote=True)}" '
-                       f'style="left:{pct(when)}%;top:{(i-1)*28}px;--stem:{axis-(i-1)*28-22}px">{i}</a>')
+                       f'style="left:{pct(when)}%;top:{(i-1)*1.75}rem;--stem:{axis-(i-1)*1.75-1.375}rem">{i}</a>')
         source = '' if event is None else f' · <a href="{escape(event["occurred"]["source_url"], quote=True)}">Source</a>'
         rows.append(f'<li id="{tid}" tabindex="-1"><time datetime="{when.isoformat()}">{when.isoformat()}</time> · {escape(label)}{source}</li>')
     # The repository lifetime segment starts at creation, even when project events predate it.
@@ -53,7 +53,7 @@ def timeline(created, release, pushed, events, pid):
     if created_day:
         end = max(repository_days)
         span = f'<span class="history-repository-span" style="left:{pct(created_day)}%;width:{max(0,pct(end)-pct(created_day))}%"></span>'
-    return (f'<div class="history-timeline"><div class="history-axis" style="height:{axis+36}px;--axis:{axis}px">'
+    return (f'<div class="history-timeline"><div class="history-axis" style="height:{axis+2.25}rem;--axis:{axis}rem">'
             + ''.join(markers) + span
             + f'<span class="history-start">{lo.year}</span><span class="history-end">{hi.year}</span></div>'
             + '<ol class="history-dates">' + ''.join(rows) + '</ol></div>')

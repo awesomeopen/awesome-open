@@ -26,7 +26,7 @@ module.exports = async ({page, url, data, capture}) => {
     }).map(n=>n.className));
     assert.deepEqual(clipped,[],label+': history text wraps');
     await plate.locator('.history-evidence summary').click();
-    const marker=markers.first();
+    const marker=plate.locator('.history-marker[data-record-anchor*="-event-"]').first();
     const target=await marker.getAttribute('data-record-anchor');
     await marker.focus(); await page.keyboard.press('Enter');
     assert.equal(new URL(page.url()).hash,'#'+target,label+': marker navigates to matching text');
@@ -49,7 +49,7 @@ module.exports = async ({page, url, data, capture}) => {
       assert.equal(page.url(), historyURL, 'Back/Forward retains the history anchor');
       await page.reload();
       await plate.waitFor({state:'visible'});
-      const restored = await plate.locator('.history-marker').first().getAttribute('data-record-anchor');
+      const restored = await plate.locator('.history-marker[data-record-anchor*="-event-"]').first().getAttribute('data-record-anchor');
       assert.equal(await plate.locator('[id="'+restored+'"]').evaluate(n=>document.activeElement===n),true,'Reload restores history target after lazy loading');
       await plate.locator('.history-timeline').scrollIntoViewIfNeeded();
       await capture('history-'+p.name.toLowerCase()+'-'+width+'.png');
@@ -58,8 +58,11 @@ module.exports = async ({page, url, data, capture}) => {
       await page.goto(new URL(route,url).href);
       const row=page.locator('#project-'+p.id);
       await row.locator('>details').evaluate(n=>n.open=true);
-      await page.evaluate(()=>document.documentElement.style.fontSize='200%');
       const plate=row.locator('.specimen-plate');
+      const before=await plate.locator('.history-dates,.history-marker,.history-evidence').evaluateAll(ns=>ns.map(n=>parseFloat(getComputedStyle(n).fontSize)));
+      await page.evaluate(()=>document.documentElement.style.fontSize='200%');
+      const after=await plate.locator('.history-dates,.history-marker,.history-evidence').evaluateAll(ns=>ns.map(n=>parseFloat(getComputedStyle(n).fontSize)));
+      assert.ok(after.every((value,i)=>value>=before[i]*1.99),'History text really doubles at 200%');
       await check(plate,p.name+' '+route+' 320px 200%');
       assert.equal(new URL(page.url()).pathname,new URL(route,url).pathname,'Marker stays on its output route');
       await plate.locator('.history-timeline').scrollIntoViewIfNeeded();

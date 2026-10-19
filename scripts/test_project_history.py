@@ -81,7 +81,7 @@ class HistoryTests(unittest.TestCase):
         first = deepcopy(self.event); second = deepcopy(self.event)
         second.update(id='second', old_name='OpenTofu', new_name='OpenTofu Next')
         line = history_view.timeline('2023-09-20', ('2023-09-20', 'v1'), '2023-09-21', [first, second], 'abc')
-        positions = re.findall(r'style="left:([\d.]+)%;top:(\d+)px;', line)
+        positions = re.findall(r'style="left:([\d.]+)%;top:([\d.]+)rem;', line)
         self.assertEqual(len(positions), 5)
         self.assertEqual(len({x for x, y in positions}), 2)
         self.assertEqual(len({y for x, y in positions}), 5)
