@@ -1,17 +1,19 @@
 # Features from the user's point of view
 
 What readers and contributors can do with Awesome Open*. The available features
-below reflect `main` reviewed on 2026-10-19; features awaiting review or still being
+below reflect `main` reviewed on 2026-10-19; selected features awaiting review or still being
 planned are listed separately. Evidence and artwork coverage vary by project.
 
 ## Available: find software
 
-- Open-named software catalog - Explore software whose names begin with Open, including lesser-known, proprietary, hosted and archived projects.
+- Open-named software catalog - Explore software with Open names or documented expanded Open names, including lesser-known, proprietary, hosted and archived projects.
 - Browse on the web or GitHub - Read the field-guide website or the category-based README from the same curated collection.
 - Plain descriptions - See what each project does before opening its record or visiting another site.
 - Search as you type - Find projects by name, short description or reviewed alternative name without submitting each search.
+- Flexible text matching - Search without matching capitalization or accents; each entered word must appear in the supported search fields.
 - Reviewed name aliases - Find supported alternate or expanded names where they have been checked.
 - Function categories - Browse tools by what they do, and follow a project's category links to related entries.
+- Illustrated category navigation - Browse category artwork and project counts in the table of contents.
 - Multiple categories per project - Find a tool under each relevant function without treating its repeated listing as a different project.
 - Combined filters - Narrow a search with several criteria at once.
 - Alternative-to filter - Find tools with a reviewed comparison to a particular product.
@@ -71,7 +73,7 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Background data refreshes - Receive updated repository facts and due optional evidence through the existing publisher, without refreshing each project yourself.
 - Snapshot date and source revision - Identify which edition of the collection you are reading.
 - Downloadable evidence - Inspect the underlying catalog, comparison and chart evidence rather than relying only on the display.
-- Retained chart observations - Consult saved chart evidence from earlier collections even after it leaves the current display window.
+- Retained chart observations - Consult the [repository archive](data/chart_observations.json) for saved chart evidence from earlier collections; this is separate from the website charts and offline downloads.
 
 ## Available: explore the specimen world
 
@@ -88,9 +90,11 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Repeat-appearance cooldown - Get more variety because recently drawn projects sit out four subsequent display weeks.
 - Last-complete-edition fallback - Keep a complete illustrated selection when a new draw cannot be published, labeled with its original week.
 - Spotlight archive - Revisit published weekly selections, with saved names, descriptions and categories.
+- Spotlight totals - See the current edition, number of editions, distinct projects shown and eligible illustration count at the last draw.
 - Permanent edition links - Share a particular Spotlight week directly.
 - First and returning appearances - See whether a specimen has appeared in an earlier published draw.
 - Inspectable draw records - Check the saved selection details or download the published draw records.
+- Changing footer artwork - Encounter a different decorative footer illustration when reloading the catalog page.
 - Optional serif preview - Compare Fraunces, Instrument Serif and Półtawski Nowy through an explicit `?serif=` preview URL, then exit the preview; this is not a permanently saved preference.
 
 ## Available: examine the collection in Observatory
@@ -101,6 +105,7 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Repository age and recency - Explore repository creation, push and release dates without inferring project health.
 - Star concentration - See how much of the observed star total belongs to the highest-starred projects.
 - Duplicate and variant names - Find separate projects with identical names or reviewed grouping rules for case, spacing, hyphen and underscore variants.
+- Name-difference highlights - See which letters, spaces or separators differ within Observatory name groups.
 - Reviewed rhyming names - Explore a small set of names that rhyme under the stated pronunciation assumptions; unreviewed names remain unclassified.
 - Observatory filters - Restrict charts, project rows and name groups by category and license.
 - Shareable Observatory selections - Preserve a selection in the URL and revisit it with Back and Forward.
