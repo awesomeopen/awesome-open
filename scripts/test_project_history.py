@@ -55,7 +55,7 @@ class HistoryTests(unittest.TestCase):
                 history.attach(self.projects, {'schema_version': 1, 'events': [self.event, other]}, canonical_url)
 
     def test_invalid_occurrences_fail(self):
-        for field, value in [('value', '2023-13-20'), ('value', '2027-01-01'),
+        for field, value in [('value', '2023-13-20'), ('value', '2027-01-01'), ('value', '2023-09-21'),
                              ('precision', 'week'), ('basis', 'discovered'),
                              ('source_url', 'https://example.org/unreviewed'),
                              ('source_url', self.event['sources'][1]['url'])]:
@@ -88,6 +88,14 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual(line.count('<li id='), 5)
         self.assertIn('OpenTF → OpenTofu (announced)', line)
 
+    def test_event_ids_cannot_collide_with_repository_milestones(self):
+        event = deepcopy(self.event); event['id'] = 'created'
+        line = history_view.timeline('2023-09-20', None, None, [event], 'abc')
+        ids = re.findall(r'<li id="([^"]+)"', line)
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertIn('history-abc-event-created', ids)
+        self.assertIn('history-abc-repository-created', ids)
+
     def test_pre_repository_and_missing_creation(self):
         for created in (None, 'Unknown', '2025-01-01'):
             line = history_view.timeline(created, None, None, [self.event], 'abc')
@@ -112,3 +120,23 @@ class HistoryTests(unittest.TestCase):
 
 
 if __name__ == '__main__': unittest.main()
+
+
+class HistoryOutputTests(unittest.TestCase):
+    def test_full_record_and_offline_share_evidence(self):
+        from site_test_fixtures import baseline_site
+        output, catalog = baseline_site()
+        projects = [p for p in catalog['projects'] if p.get('history')]
+        self.assertEqual(len(projects), 2)
+        standalone = (output / 'standalone.html').read_text()
+        for project in projects:
+            pid = project['id']
+            record = (output / 'records' / (pid + '.html')).read_text()
+            self.assertIn(f'href="records/{pid}.html#history-{pid}-', record)
+            self.assertIn(f'href="#history-{pid}-', standalone)
+            self.assertIn(history_view.event_title(project['history'][0]), record)
+            self.assertIn(history_view.event_title(project['history'][0]), standalone)
+        self.assertTrue((output / history.PATH).exists())
+        exported = json.loads((output / 'catalog.json').read_text())
+        self.assertEqual(sum(len(p.get('history', [])) for p in exported['projects']), 2)
+        self.assertFalse(any(p.get('history') for p in exported['projects'] if p['name'] not in {'OpenHands', 'OpenTofu'}))

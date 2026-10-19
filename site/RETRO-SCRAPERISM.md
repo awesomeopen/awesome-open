@@ -419,7 +419,11 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
 - **Label:** permalink QR code (build-time SVG), “Awesome Open* · Field record” or
   “Archived on GitHub”, name, Registry ID · Folio, “Domain:” with every domain, permalink.
 - **Bands:** scarlet block labels (`--rs-scarlet` ground, `--rs-mist` type), no horizontal
-  rules. Repository record with large values and a creation/release/push timeline; Where it
+  rules. Repository record with large values and a creation/release/push timeline.
+  For reviewed name changes, numbered lanes keep literal dates and point to a
+  wrapping chronological list. Unknown/coarse dates and first-observed/review
+  dates stay in a folded Name-change evidence block, never on the axis
+  ([B-PR139-01](../brand/decisions/B-PR139-01.md)). Where it
   runs with reviewed chips and the setup disclosure; evidence cards with enlarged charts;
   reviewed alternatives; “In the wild” departure on plain Prussian blue with its
   decorative contours centered around the link (B-PR129-01). The repeating navy

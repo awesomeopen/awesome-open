@@ -40,7 +40,7 @@ def timeline(created, release, pushed, events, pid):
     axis = len(points) * 28 + 12
     markers, rows = [], []
     for i, (when, label, key, event) in enumerate(points, 1):
-        tid = target(pid, key)
+        tid = target(pid, ('event-' if event else 'repository-') + key)
         markers.append(f'<a class="history-marker" href="#{tid}" data-record-anchor="{tid}" '
                        f'aria-label="{escape(str(i) + ". " + label + ", " + when.isoformat(), quote=True)}" '
                        f'style="left:{pct(when)}%;top:{(i-1)*28}px;--stem:{axis-(i-1)*28-22}px">{i}</a>')

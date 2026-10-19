@@ -749,8 +749,6 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js"):
     if any(p.get("star_history") for p in catalog["projects"]):
         star_note = "<li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>"
         optional_notes += '<p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
-    card = re.sub(r'href="#(history-[a-z0-9-]+)"',
-                  lambda match: f'href="records/{pid}.html#{match[1]}"', card)
     sha = catalog.get("source_sha")
     revision = (
         f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>'

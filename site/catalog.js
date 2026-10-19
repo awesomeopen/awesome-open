@@ -445,6 +445,16 @@
     return document.importNode(plate, true);
   }
 
+  function focusHistory(plate, document, window) {
+    var anchor = new URL(window.location.href).hash.slice(1);
+    if (!/^history-[a-f0-9]{64}-(?:event|repository)-[a-z0-9-]+$/.test(anchor)) return false;
+    var target = document.getElementById(anchor);
+    if (!target || !plate.contains(target)) return false;
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ block: "center" });
+    return true;
+  }
+
   function enhancePlates(document, window) {
     if (plateManagers.has(document)) return plateManagers.get(document);
     var states = new WeakMap(), closed = [];
@@ -455,6 +465,7 @@
       void plate.offsetWidth;
       plate.classList.add("is-opening");
       if (plate.plateLayout) plate.plateLayout();
+      focusHistory(plate, document, window);
     }
 
     function forgetClosed(state) {
@@ -713,7 +724,9 @@
       var anchor;
       try { anchor = decodeURIComponent(new URL(window.location.href).hash.slice(1)); }
       catch (_) { anchor = ""; }
-      var card = anchor.indexOf("project-") === 0 ? cards.get(anchor.slice(8)) : null;
+      var historyMatch = /^history-([a-f0-9]{64})-(?:event|repository)-[a-z0-9-]+$/.exec(anchor);
+      var card = anchor.indexOf("project-") === 0 ? cards.get(anchor.slice(8))
+        : historyMatch ? cards.get(historyMatch[1]) : null;
       var becameVisible = card && card === lastLinkedCard && linkedWasHidden && !card.hidden;
       lastLinkedCard = card;
       linkedWasHidden = Boolean(card && card.hidden);
@@ -739,6 +752,7 @@
         drawer.open = true;
         plates.open(drawer);
       }
+      if (focus && historyMatch && focusHistory(card, document, window)) return;
       if (focus) {
         var target = drawer && typeof drawer.querySelector === "function" ? drawer.querySelector("summary") : null;
         target = target || card;

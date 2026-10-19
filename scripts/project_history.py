@@ -84,8 +84,11 @@ def attach(projects, document, canonical_url):
             supporting = next((s for s in sources if canonical_url(s['url']) == source_url), None)
             if supporting is None or supporting['role'] != occurred['basis']:
                 raise ValueError('Occurrence needs a source with the same date meaning')
+            if (precision == 'day' and occurred['basis'] != 'effective'
+                    and supporting['date'] != value):
+                raise ValueError('Exact source milestone must match its documented date')
         fact = (url, event['kind'], event['old_name'], event['new_name'],
-                json.dumps(occurred, sort_keys=True))
+                json.dumps({k:v for k,v in occurred.items() if k != 'source_url'}, sort_keys=True) if occurred else None)
         if fact in facts:
             raise ValueError('Duplicate history event')
         facts.add(fact)

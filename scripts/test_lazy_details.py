@@ -87,6 +87,8 @@ class LazyDetailSiteTests(unittest.TestCase):
             self.assertIn('open', drawer.attrs)
             expected = project_html(project, categories, self.catalog, folio, cutouts, position=1)
             expected = expected.replace('<details class="specimen-drawer">', '<details class="specimen-drawer" open>', 1)
+            expected = expected.replace(f'href="#history-{pid}-',
+                                        f'href="records/{pid}.html#history-{pid}-')
             self.assertIn(expected, text)
             self.assertIn(project['url'], page.links)
             self.assertIn(f'#project-{pid}', page.links)
