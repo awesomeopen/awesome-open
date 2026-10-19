@@ -247,3 +247,5 @@ preview clears the choice; downloaded offline editions retain Fraunces. Candidat
 assets and notices live in `site/vendor/serif-preview/`; this does not supersede
 the existing typography decision.
 
+
+Body-led wall clipping is proposed in [B-PR143-01](decisions/B-PR143-01.md).

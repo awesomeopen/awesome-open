@@ -111,3 +111,5 @@ Observatory links or Return to project ledger footer link. The closing mark and
 patterned footer remain; Download draw records · Draw contract appears immediately
 above GitHub, followed by the source revision. The download is
 `/spotlight/draws.json`. See [the route decision](../brand/decisions/B-PR134-01.md).
+
+Body-led wall clipping is proposed in [B-PR143-01](../brand/decisions/B-PR143-01.md).

@@ -501,3 +501,5 @@ Observatory shell, not from a heading and paragraphs on the ledger stylesheet:
 Share the CSS rather than copying class names that the page's stylesheet does not
 define. Page content and specimen artwork vary; the frame does not. The
 [visual reference](design/index.html) shows the shell and the specimen plate.
+
+Body-led wall clipping is proposed in [B-PR143-01](../brand/decisions/B-PR143-01.md).
