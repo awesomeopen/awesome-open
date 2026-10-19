@@ -28,7 +28,7 @@ class ComparisonRendererRootTests(unittest.TestCase):
             site = Path(directory)
             (site / 'catalog.json').write_text(json.dumps({
                 'categories': [], 'projects': [
-                    {'id': 'openbb', 'name': 'OpenBB', 'artwork': True}]}))
+                    {'id': 'openbb', 'name': 'OpenBB', 'artwork': {'width': 100, 'height': 100}}]}))
             (site / 'index.html').write_text('<head></head>')
             with patch.object(control.subprocess, 'check_output', side_effect=git_output):
                 control.build('base', site)
