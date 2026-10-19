@@ -164,7 +164,10 @@ space. Plate evidence headings read “Hacker News stories” and “GitHub star
 ## Weekly jar occupants
 
 B38 replaces the hardcoded occupant policy after the first saved draw activates.
-The seven existing jars and interactions stay fixed. A seeded weekly draw selects
+The seven existing jars and interactions stay fixed. Their left-to-right order
+is now original jars 1, 2, 5, 3, 4, 6, 7; each retains its contents and calibrated
+geometry, and the narrower column follows the tall vessel at desktop, medium
+and mobile widths ([B-PR134-02](decisions/B-PR134-02.md)). A seeded weekly draw selects
 only illustrated catalog projects, independent of stars, with an initial four-week
 cooldown; the draw is displayed the following week. Assign the seven illustrations
 to windows by subject fit and contain the whole subject. The static `/spotlight/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell

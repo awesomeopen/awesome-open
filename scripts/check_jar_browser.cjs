@@ -59,7 +59,7 @@ const path=require('node:path');
      assert.ok(subject[edge]>=-.1,`Subject ${subject.id} stays inside ${edge}: ${subject[edge]}`);
  };
  await checkSubjectClearance();
- await page.locator('.jar-select').nth(3).hover();
+ await page.locator('.jar-central .jar-select').hover();
  await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
  await checkSubjectClearance();
  await page.screenshot({path:'tmp/site-qa/jars-central-fit.png'});

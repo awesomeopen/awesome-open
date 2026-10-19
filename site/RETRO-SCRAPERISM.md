@@ -431,7 +431,8 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
 
 Hero occupants come from a persisted seeded draw of seven illustrated projects,
 shown the following week with a four-week repeat cooldown as the initial default.
-Stars do not determine selection. Keep the existing seven jars and height order;
+Stars do not determine selection. Keep the existing seven jars, ordered by
+original position 1, 2, 5, 3, 4, 6, 7 (B-PR134-02);
 assign illustrations by protecting the worst-filled window before total fill,
 centering actual subject bounds without cropping. Aim for 94% fill with explicit
 pixel clearance for the existing pointer and idle motion. Link the archive from the footer at `/spotlight/`; retain the original set

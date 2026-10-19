@@ -2,8 +2,10 @@
 
 The hero draws seven distinct catalog projects with approved, present specimen
 illustrations. GitHub presence, stars and category rank do not affect eligibility.
-Selection is independent of jar fit. The seven photographic jars, their order,
-windows, heights, shadows, stickers, cork and interactions stay unchanged.
+Selection is independent of jar fit. The seven photographic jars retain their
+windows, heights, shadows, stickers, cork and interactions. Their left-to-right
+order is original jars 1, 2, 5, 3, 4, 6, 7; occupants move with their vessels
+([jar order](../brand/decisions/B-PR134-02.md)).
 
 ## Calendar and publication
 
