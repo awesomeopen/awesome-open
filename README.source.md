@@ -149,7 +149,7 @@
 | [OpenRPC Generator](https://github.com/open-rpc/generator) | Generate components and language bindings from OpenRPC documents. |
 | [OpenSaaS](https://github.com/wasp-lang/open-saas) | Full-stack SaaS starter with authentication, payments, email, and file uploads. |
 | [OpenScion](https://github.com/tinyhumansai/openscion) | Server-centric source control for large monorepos, with API-based history, diffs, commits, and sparse checkouts. |
-| [OpenSilver](https://github.com/OpenSilver/OpenSilver) | Framework for cross-platform applications using C#, VB.NET, or F# with XAML and WebAssembly or native .NET. |
+| [OpenSilver](https://github.com/OpenSilver/OpenSilver) | Framework for cross-platform applications using C#, VB.NET, or F# with XAML and WebAssembly or native .NET.<br>Alternative to: [Silverlight](https://doc.opensilver.net/documentation/migrate-from-silverlight/overview.html) |
 | [OpenSpec](https://github.com/Fission-AI/OpenSpec) | Specification-driven development tools for AI coding assistants. |
 | [OpenStore](https://github.com/dev-krish-xyz/OpenStore) | Searchable software directory with curated project listings, comparison filters, and community submissions. |
 | [Open Terminal](https://github.com/open-webui/open-terminal) | Self-hosted terminal and file-management API for AI agents and automation. |
@@ -286,7 +286,7 @@
 | [openPDF](https://github.com/ej3mpl0/openPDF) | Native Linux PDF application and command-line tools for viewing, organizing, converting, and signing documents. |
 | [OpenProject](https://github.com/opf/openproject) | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) |
 | [OpenReader](https://github.com/richardr1126/openreader) | Read-along document reader with text-to-speech, synchronized highlighting, and audiobook export. |
-| [OpenRecall](https://github.com/openrecall/openrecall) | Captures periodic desktop screenshots and makes activity history searchable with local OCR and semantic search. |
+| [OpenRecall](https://github.com/openrecall/openrecall) | Captures periodic desktop screenshots and makes activity history searchable with local OCR and semantic search.<br>Alternative to: [Windows Recall](https://github.com/openrecall/openrecall/blob/main/README.md), [Rewind.ai](https://github.com/openrecall/openrecall/blob/main/README.md) |
 | [Open Receipt OCR](https://github.com/iursevla/open-receipt-ocr) | Self-hosted receipt and document OCR with a web interface, job management, and local or cloud engines. |
 | [OpenResume](https://github.com/xitanggg/open-resume) | Browser-based resume builder and parser that creates PDFs and checks resume readability for applicant tracking systems. |
 | [OpenScan](https://github.com/ethereal-developers/OpenScan) | Mobile document scanning with image cropping and PDF or JPG export. |
@@ -300,7 +300,7 @@
 | [OpenTypeless](https://github.com/tover0314-w/opentypeless) | AI voice typing for macOS, Windows, and Linux.<br>Alternative to: [Wispr Flow](https://github.com/tover0314-w/opentypeless#readme), [Superwhisper](https://github.com/tover0314-w/opentypeless#readme), [Typeless](https://www.opentypeless.com/en/typeless-alternative) |
 | [Open Typora](https://github.com/AniChikage/open-typora) | macOS Markdown editor with inline editing, local files, formulas, diagrams, and HTML or PDF export. |
 | [Open Whisper](https://github.com/TwilightDuck/OpenWhisper) | Mac dictation application with local speech recognition, personal vocabulary corrections, transcript history, and usage statistics. |
-| [OpenWhispr](https://github.com/OpenWhispr/openwhispr) | Voice dictation application with local and hosted speech models, meeting transcription, and notes. |
+| [OpenWhispr](https://github.com/OpenWhispr/openwhispr) | Voice dictation application with local and hosted speech models, meeting transcription, and notes.<br>Alternative to: [Wispr Flow](https://github.com/OpenWhispr/openwhispr/blob/main/README.md), [Granola](https://github.com/OpenWhispr/openwhispr/blob/main/README.md) |
 | [OpenWork](https://github.com/different-ai/openwork) | Desktop workspace where AI agents work on local files.<br>Alternative to: [Claude Cowork](https://github.com/different-ai/openwork#readme), [Codex](https://github.com/different-ai/openwork#readme) |
 
 ## Business & Commerce
