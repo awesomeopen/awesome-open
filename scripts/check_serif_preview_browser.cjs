@@ -7,39 +7,40 @@ module.exports = async ({ browser, url, data, output }) => {
   const requests = [], errors = [];
   page.on('request', request => requests.push(request.url()));
   page.on('pageerror', error => errors.push(error.message));
-  const candidateRequests = () => requests.filter(value => /serif-preview\/.*\.woff2/.test(value));
-  const heading = () => page.locator('h1').first().evaluate(node => {
-    const css = getComputedStyle(node); return { family: css.fontFamily, weight: css.fontWeight, axes: css.fontVariationSettings };
-  });
-  const waitChoice = async choice => page.waitForFunction(value => document.documentElement.dataset.serif === value, choice);
+  const families = { poltawski: 'Poltawski Nowy', instrument: 'Instrument Serif', fraunces: 'Fraunces' };
+  const serifRequests = () => requests.filter(value => /\/(fraunces|instrument|poltawski)\.woff2(?:\?|$)/.test(value));
   const check = async choice => {
-    await waitChoice(choice);
-    const css = await heading();
-    assert.match(css.family, new RegExp('Preview ' + choice)); assert.equal(css.weight, '400'); assert.equal(css.axes, 'normal');
-    assert.equal(await page.locator('.brand,.obs-brand').first().evaluate(node => getComputedStyle(node).fontWeight), '400');
+    await page.waitForFunction(value => document.documentElement.dataset.serif === value, choice);
+    await page.evaluate(() => document.fonts.ready);
+    const css = await page.locator('h1').first().evaluate(node => {
+      const s = getComputedStyle(node); return { family: s.fontFamily, weight: s.fontWeight, axes: s.fontVariationSettings };
+    });
+    assert.ok(css.family.includes(families[choice]));
+    assert.equal(css.weight, choice === 'fraunces' ? '300' : '400');
+    if (choice !== 'fraunces') assert.equal(css.axes, 'normal');
+    else { assert.match(css.axes, /SOFT.*100/); assert.match(css.axes, /WONK.*1/); }
+    assert.equal(await page.locator('.brand,.obs-brand').first().evaluate(node => getComputedStyle(node).fontWeight), choice === 'fraunces' ? '600' : '400');
+    assert.ok(await page.evaluate(family => Array.from(document.fonts).some(face => face.family.replace(/["']/g, '') === family && face.status === 'loaded'), families[choice]), 'Selected face actually loaded');
     assert.match(await page.locator('body').evaluate(node => getComputedStyle(node).fontFamily), /Commit Mono/);
-    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Preview horizontal overflow');
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Horizontal overflow');
+    assert.equal(await page.locator('#serif-preview-choice').inputValue(), choice);
   };
   try {
-    for (const suffix of ['', '?serif=invalid', '?serif=fraunces']) {
-      requests.length = 0; await page.goto(url + '/' + suffix); await page.evaluate(() => document.fonts.ready);
-      assert.deepEqual(candidateRequests(), []);
-      assert.equal((await heading()).weight, '300');
-      assert.equal(await page.locator('.serif-preview').count(), suffix.includes('fraunces') ? 1 : 0);
+    for (const [suffix, choice] of [['', 'poltawski'], ['?serif=invalid', 'poltawski'], ['?serif=fraunces', 'fraunces'], ['?serif=instrument', 'instrument']]) {
+      requests.length = 0; await page.goto(url + '/' + suffix); await check(choice);
+      assert.equal(serifRequests().length, 1, 'Only selected serif is requested on a fresh navigation');
+      assert.match(serifRequests()[0], new RegExp('/' + choice + '\\.woff2$'));
+      assert.equal(await page.locator('.serif-preview').count(), 1);
     }
-    requests.length = 0;
-    await page.goto(url + '/?serif=instrument'); await check('instrument');
-    assert.equal(candidateRequests().length, 1); assert.match(candidateRequests()[0], /instrument\.woff2$/);
-    await page.screenshot({ path: path.join(output, 'serif-instrument-desktop.png') });
+    await page.goto(url + '/'); await check('poltawski');
+    await page.screenshot({ path: path.join(output, 'serif-poltawski-default-desktop.png') });
     await page.locator('#serif-preview-choice').focus();
     assert.equal(await page.locator('#serif-preview-choice').evaluate(node => getComputedStyle(node).outlineStyle), 'solid');
-    await page.locator('#serif-preview-choice').selectOption('poltawski'); await check('poltawski');
-    assert.equal(candidateRequests().length, 2);
-    await page.goBack(); await check('instrument'); await page.goForward(); await check('poltawski');
-    await page.locator('#serif-preview-choice').selectOption('fraunces');
-    assert.match((await heading()).family, /Fraunces/); assert.equal((await heading()).weight, '300');
-    assert.equal(await page.locator('.brand').first().evaluate(node => getComputedStyle(node).fontWeight), '600');
-    // Real navigation, not just direct URLs; query and fragment are retained.
+    await page.locator('#serif-preview-choice').selectOption('instrument'); await check('instrument');
+    await page.screenshot({ path: path.join(output, 'serif-instrument-desktop.png') });
+    await page.goBack(); await check('poltawski'); await page.goForward(); await check('instrument');
+    await page.locator('#serif-preview-choice').selectOption('fraunces'); await check('fraunces');
+    // Real navigation and filter serialization keep the explicit URL choice.
     await page.locator('#serif-preview-choice').selectOption('instrument'); await check('instrument');
     const obs = page.locator('a[href*="observatory/"]').first();
     assert.match(await obs.getAttribute('href'), /serif=instrument/); await obs.click(); await check('instrument');
@@ -47,30 +48,40 @@ module.exports = async ({ browser, url, data, output }) => {
     assert.equal(new URL(page.url()).searchParams.get('serif'), 'instrument');
     await page.reload(); await check('instrument');
     const record = data.projects.find(p => p.artwork) || data.projects[0];
-    for (const choice of ['instrument', 'poltawski']) {
+    for (const choice of ['instrument', 'poltawski', 'fraunces']) {
       for (const route of ['/', '/observatory/', '/draws/', '/records/' + record.id + '.html']) {
         await page.setViewportSize({ width: 390, height: 844 });
         await page.goto(url + route + '?serif=' + choice); await check(choice);
         await page.screenshot({ path: path.join(output, 'serif-' + choice + '-' + (route.split('/')[1] || 'catalog') + '-mobile.png') });
       }
     }
-    await page.goto(url + '/?serif=poltawski#catalog'); await check('poltawski');
-    await page.getByRole('link', { name: 'Exit preview' }).click();
+    await page.goto(url + '/?serif=instrument&test=keep#catalog'); await check('instrument');
+    await page.getByRole('link', { name: 'Reset to default' }).click();
     assert.equal(new URL(page.url()).searchParams.has('serif'), false);
-    assert.equal(await page.locator('.serif-preview').count(), 0);
-    assert.match((await heading()).family, /Fraunces/);
-    // No stored preference leaks to a normal URL, even in the same browser.
+    assert.equal(new URL(page.url()).searchParams.get('test'), 'keep');
+    assert.equal(new URL(page.url()).hash, '#catalog'); await check('poltawski');
     await page.goto(url + '/?serif=instrument'); await check('instrument');
-    await page.goto(url + '/'); assert.equal(await page.locator('.serif-preview').count(), 0);
+    await page.goto(url + '/'); await check('poltawski');
+    assert.equal(await page.evaluate(() => localStorage.length + sessionStorage.length), 0);
     const failed = await context.newPage();
-    await failed.route('**/vendor/serif-preview/*.woff2', route => route.abort());
-    await failed.goto(url + '/?serif=instrument');
+    await failed.route('**/vendor/serif-preview/poltawski.woff2', route => route.abort());
+    await failed.goto(url + '/');
     await failed.getByRole('status').filter({ hasText: 'Could not load' }).waitFor();
-    assert.match(await failed.locator('h1').first().evaluate(node => getComputedStyle(node).fontFamily), /Fraunces/);
+    assert.ok(await failed.locator('h1').first().isVisible());
     await failed.locator('#serif-preview-choice').selectOption('fraunces');
     await failed.getByRole('status').filter({ hasText: 'original weights' }).waitFor();
     await failed.close();
+    const nojs = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+    const staticPage = await nojs.newPage();
+    for (const route of ['/', '/standalone.html', '/observatory/report.html']) {
+      await staticPage.goto(url + route);
+      await staticPage.evaluate(() => document.fonts.ready);
+      assert.match(await staticPage.locator('h1').first().evaluate(node => getComputedStyle(node).fontFamily), /Poltawski Nowy/);
+      assert.ok(await staticPage.evaluate(() => Array.from(document.fonts).some(face => face.family.replace(/["']/g, '') === 'Poltawski Nowy' && face.status === 'loaded')));
+      assert.ok(await staticPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+    }
+    await nojs.close();
     assert.deepEqual(errors, []);
-    console.log('Serif preview: URL choices, 400 weights, fonts, default/no-storage, navigation, history, failure and narrow layouts passed');
+    console.log('Serif defaults, selected-font requests, URL navigation, offline/no-JS, weights, accessibility and failure: passed');
   } finally { await context.close(); }
 };

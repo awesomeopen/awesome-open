@@ -33,11 +33,34 @@ class SerifPreviewTests(unittest.TestCase):
             self.assertIn('SIL OPEN FONT LICENSE Version 1.1', (directory / entry['license']).read_text())
             self.assertIn('weight: 400', (directory / entry['metadata']).read_text())
 
-    def test_default_bundle_unchanged_by_candidates(self):
+    def test_demand_loaded_hosted_and_embedded_offline_fonts(self):
+        from font_assets import standalone_font_css
         css = (ROOT / 'site/vendor/fonts.css').read_text()
-        self.assertNotIn('Instrument', css)
-        self.assertNotIn('Poltawski', css)
+        self.assertNotIn('base64,', css)
+        self.assertIn('serif-preview/poltawski.woff2', css)
+        self.assertIn('fraunces.woff2', css)
+        embedded = standalone_font_css(ROOT)
+        self.assertIn("font-family:'Poltawski Nowy'", embedded)
+        self.assertIn("font-family:'Commit Mono'", embedded)
+        self.assertNotIn("font-family:'Fraunces'", embedded)
+        self.assertNotIn("font-family:'Instrument Serif'", embedded)
+        self.assertEqual(embedded.count('data:font/woff2;base64,'), 2)
+        self.assertIn('SIL OPEN FONT LICENSE', embedded)
+        output, _ = baseline_site()
+        for path in ['standalone.html', 'observatory/report.html']:
+            page = (output / path).read_text()
+            self.assertIn(embedded, page)
+            self.assertNotIn('src:url(serif-preview/', page)
         runtime = (ROOT / 'site/serif-preview.js').read_text()
         self.assertNotIn('localStorage', runtime)
         self.assertNotIn('sessionStorage', runtime)
         self.assertNotIn('https://fonts.', runtime)
+
+    def test_extracted_original_font_bytes(self):
+        vendor = ROOT / 'site/vendor'
+        provenance = json.loads((vendor / 'FONT-PROVENANCE.json').read_text())
+        for font in provenance['fonts']:
+            data = (vendor / font['output']).read_bytes()
+            self.assertEqual(hashlib.sha256(data).hexdigest(), font['embedded_woff2_sha256'])
+            self.assertEqual(len(data), font['embedded_bytes'])
+        self.assertEqual(hashlib.sha256((vendor / 'fonts.css').read_bytes()).hexdigest(), provenance['output_css_sha256'])

@@ -1,14 +1,14 @@
-/* Explicit, URL-only typography comparison. No storage, analytics or remote fonts. */
+/* Local serif selection. Applied before paint; no storage or remote font service. */
 (function () {
   'use strict';
   var choices = { fraunces: 'Fraunces', instrument: 'Instrument Serif', poltawski: 'Półtawski Nowy' };
   var initial = new URL(location.href).searchParams.get('serif');
-  if (!Object.prototype.hasOwnProperty.call(choices, initial)) return;
+  if (!Object.prototype.hasOwnProperty.call(choices, initial)) initial = 'poltawski';
   var root = document.documentElement;
   var base = new URL('./', document.currentScript.src);
   var selected = initial;
   var generation = 0;
-  var loaded = {};
+  var families = { fraunces: 'Fraunces', instrument: 'Instrument Serif', poltawski: 'Poltawski Nowy' };
   var status, select, panel;
   var message = '';
   var style = document.createElement('link');
@@ -16,10 +16,6 @@
   document.head.appendChild(style);
 
   function say(text) { message = text; if (status) status.textContent = text; }
-  function reset() {
-    ['--rs-display', '--rs-display-weight', '--rs-wordmark-weight', '--rs-display-axes'].forEach(function (key) { root.style.removeProperty(key); });
-    delete root.dataset.serif;
-  }
   function decorate(scope) {
     var links = scope.querySelectorAll('a[href]');
     links.forEach(function (a) {
@@ -41,34 +37,33 @@
       history.pushState(null, '', url);
     }
     if (panel) decorate(document);
-    if (choice === 'fraunces') { reset(); say('Fraunces · original weights'); return; }
-    reset();
-    say('Loading ' + choices[choice] + '…');
-    if (!window.FontFace || !document.fonts) { say('Font loading unavailable. Showing Fraunces.'); return; }
-    if (!loaded[choice]) {
-      var face = new FontFace('Preview ' + choice, 'url("' + new URL('vendor/serif-preview/' + choice + '.woff2', base).href + '")', { weight: '400', style: 'normal' });
-      loaded[choice] = face.load().then(function (font) { document.fonts.add(font); return font; }).catch(function (error) { delete loaded[choice]; throw error; });
+    // Inline variables override the shared no-JavaScript default before rendering.
+    root.style.setProperty('--rs-display', '"' + families[choice] + '", Georgia, serif');
+    root.style.setProperty('--rs-display-weight', choice === 'fraunces' ? '300' : '400');
+    root.style.setProperty('--rs-wordmark-weight', choice === 'fraunces' ? '600' : '400');
+    root.style.setProperty('--rs-display-axes', choice === 'fraunces' ? '"SOFT" 100, "WONK" 1' : 'normal');
+    root.dataset.serif = choice;
+    say(choices[choice] + (choice === 'fraunces' ? ' · original weights' : ' · regular 400'));
+    function verifyFont() {
+      if (ticket !== generation || !document.fonts) return;
+      document.fonts.load((choice === 'fraunces' ? '300' : '400') + ' 16px "' + families[choice] + '"').then(function (faces) {
+        if (ticket === generation && !faces.length) say('Font unavailable. Showing a system serif.');
+      }).catch(function () { if (ticket === generation) say('Could not load ' + choices[choice] + '. Showing a system serif.'); });
     }
-    loaded[choice].then(function () {
-      if (ticket !== generation) return;
-      root.style.setProperty('--rs-display', '"Preview ' + choice + '", Georgia, serif');
-      root.style.setProperty('--rs-display-weight', '400');
-      root.style.setProperty('--rs-wordmark-weight', '400');
-      root.style.setProperty('--rs-display-axes', 'normal');
-      root.dataset.serif = choice;
-      say(choices[choice] + ' · regular 400');
-    }).catch(function () { if (ticket === generation) { reset(); say('Could not load ' + choices[choice] + '. Showing Fraunces.'); } });
+    // Wait for linked @font-face rules, not an early duplicate FontFace request.
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', verifyFont, { once: true });
+    else verifyFont();
   }
   apply(initial, false);
   function ready() {
-    panel = document.createElement('aside'); panel.className = 'serif-preview'; panel.setAttribute('aria-label', 'Typography preview');
-    var label = document.createElement('label'); label.htmlFor = 'serif-preview-choice'; label.textContent = 'Serif preview';
+    panel = document.createElement('aside'); panel.className = 'serif-preview'; panel.setAttribute('aria-label', 'Typography selection');
+    var label = document.createElement('label'); label.htmlFor = 'serif-preview-choice'; label.textContent = 'Serif font';
     select = document.createElement('select'); select.id = 'serif-preview-choice';
     Object.keys(choices).forEach(function (key) { var option = document.createElement('option'); option.value = key; option.textContent = choices[key]; select.appendChild(option); });
     select.value = selected;
     select.addEventListener('change', function () { apply(select.value, true); });
     status = document.createElement('span'); status.setAttribute('role', 'status'); status.textContent = message;
-    var exit = document.createElement('a'); exit.dataset.serifExit = ''; exit.textContent = 'Exit preview';
+    var exit = document.createElement('a'); exit.dataset.serifExit = ''; exit.textContent = 'Reset to default';
     function exitURL() { var url = new URL(location.href); url.searchParams.delete('serif'); exit.href = url.href; }
     exitURL(); exit.addEventListener('pointerdown', exitURL); exit.addEventListener('focus', exitURL); exit.addEventListener('click', exitURL);
     panel.append(label, select, status, exit); document.body.prepend(panel);
@@ -78,7 +73,7 @@
     }).observe(document.body, { childList: true, subtree: true });
     window.addEventListener('popstate', function () {
       var choice = new URL(location.href).searchParams.get('serif');
-      if (!Object.prototype.hasOwnProperty.call(choices, choice)) { location.reload(); return; }
+      if (!Object.prototype.hasOwnProperty.call(choices, choice)) choice = 'poltawski';
       apply(choice, false); exitURL();
     });
   }

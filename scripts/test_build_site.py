@@ -4,6 +4,7 @@ import copy
 import base64
 from html.parser import HTMLParser
 import json
+from font_assets import font_asset_url
 from pathlib import Path
 import re
 import shutil
@@ -16,7 +17,7 @@ from build_site import BRAND_ASSETS, ROOT, attach_specimen_cutouts, build, json_
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
-RUNTIME_SCRIPTS = ('serif-preview.js', 'catalog.js')
+RUNTIME_SCRIPTS = (font_asset_url('serif-preview.js'), 'catalog.js')
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 
 
@@ -236,7 +237,10 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(len(scripts), len(RUNTIME_SCRIPTS) + 1)
         self.assertEqual([node.attrs.get('src') for node in scripts[:-1]], list(RUNTIME_SCRIPTS))
         for node in scripts[:-1]:
-            self.assertIn('defer', node.attrs)
+            if node.attrs.get('src') == font_asset_url('serif-preview.js'):
+                self.assertNotIn('defer', node.attrs)
+            else:
+                self.assertIn('defer', node.attrs)
             self.assertEqual(node.text, '')
         self.assertEqual(scripts[-1].attrs, {'id': 'catalog-data', 'type': 'application/json'})
         for node in page.elements:
@@ -248,6 +252,7 @@ class SiteTests(unittest.TestCase):
         self.assert_safe_script_allowlist(self.page)
         self.assertEqual(json.loads(self.page.by_id['catalog-data'].text), search_index(self.catalog))
         for name in RUNTIME_SCRIPTS:
+            name = name.split('?')[0]
             self.assertEqual((self.output / name).read_bytes(), (ROOT / 'site' / name).read_bytes())
 
     def test_search_index_contains_only_runtime_fields_without_mutating_catalog(self):

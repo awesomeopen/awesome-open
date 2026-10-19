@@ -10,7 +10,7 @@ the full application. Historical demo routes do not establish current behavior.
 
 - High-contrast white/cool mist, Prussian blue and dark ink. Restrained scarlet
   directs attention. Saturated color may belong to specimens and jar lighting.
-- Fraunces Light 300 / SuperSoft 100 headings and Semibold 600 wordmark; Commit Mono ledger, prose and metadata. Automatic optical sizing, restrained tracking, consistent 16/24/32px spacing. Keep bundled provenance and both SIL OFL notices.
+- Półtawski Nowy regular 400 headings and wordmark; Commit Mono ledger, prose and metadata. Automatic optical sizing, restrained tracking, consistent 16/24/32px spacing. Keep bundled provenance and SIL OFL notices. The hosted selector retains Fraunces 300/600 with its axes and Instrument Serif 400.
 - Ruled, searchable records and expandable evidence. Dense comparable information
   stays close; do not replace the ledger with generic cards or forced AIDA.
 - Plain labeled controls, visible focus, native disclosures, touch/keyboard
@@ -225,12 +225,14 @@ centered around its link (y=200 in the 1000 × 400 viewBox). The navy texture
 remains in the footer only. Asset pixels, filter semantics, contour styling and
 clipping are unchanged. See [B-PR129-01](decisions/B-PR129-01.md).
 
-## Explicit serif comparison
+## Serif selection
 
-The optional URL-only comparison described in [PREVIEW.md](../site/PREVIEW.md#opt-in-serif-comparison)
-keeps Fraunces as the public default. Instrument Serif and Półtawski Nowy are
-review candidates at regular 400 throughout, with Commit Mono unchanged. Exit
-preview clears the choice; downloaded offline editions retain Fraunces. Candidate
-assets and notices live in `site/vendor/serif-preview/`; this does not supersede
-the existing typography decision.
+Półtawski Nowy is the user-directed default at regular 400 for every serif role.
+The hosted selector stays visible, with Fraunces and Instrument Serif as explicit
+URL choices. Reset to default removes the parameter; no browser preference is
+stored. Downloaded offline editions embed Półtawski and Commit Mono, without the
+hosted selector. See [PREVIEW.md](../site/PREVIEW.md#serif-selection).
 
+Hosted fonts use separate same-origin WOFF2 files; only the selected serif and
+Commit Mono are requested. Font failure leaves readable system fallback text and
+an accessible status. Complete font outlines, provenance and licenses are retained.
