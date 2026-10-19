@@ -187,7 +187,17 @@ class SiteTests(unittest.TestCase):
         self.assertIn('<title>Awesome Open* Catalog</title>', self.html)
         self.assertIn('href="#about">About</a>', self.html)
         self.assertEqual(self.page.by_id['about'].tag, 'footer')
-        self.assertIn('href="draws/">Spotlight</a>', self.html)
+        self.assertIn('href="spotlight/">Spotlight</a>', self.html)
+        standalone = (self.output / 'standalone.html').read_text()
+        self.assertIn('href="https://awesomeopen.github.io/awesome-open/spotlight/"', standalone)
+        record = next((self.output / 'records').glob('*.html')).read_text()
+        self.assertIn('href="spotlight/"', record)
+        for document in (self.html, standalone, record):
+            self.assertNotIn('href="draws/"', document)
+            self.assertNotIn('awesome-open/draws/', document)
+        self.assertTrue((self.output / 'spotlight/index.html').is_file())
+        self.assertTrue((self.output / 'spotlight/draws.json').is_file())
+
         self.assertIn('href="https://github.com/awesomeopen/awesome-open">GitHub</a><a href="#catalog">Top</a>', self.html)
         self.assertIn('shared square-root scale</li><li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>', self.html)
 

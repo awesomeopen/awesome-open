@@ -51,18 +51,23 @@ module.exports = async ({ browser, url, data, output }) => {
     await page.locator('#serif-preview-choice').selectOption('fraunces'); await check('fraunces');
     // Real navigation and filter serialization keep the explicit URL choice.
     await page.locator('#serif-preview-choice').selectOption('instrument'); await check('instrument');
+    const spotlight = page.locator('a[href*="spotlight/"]').first();
+    assert.match(await spotlight.getAttribute('href'), /serif=instrument/);
+    await spotlight.click(); await check('instrument');
+    assert.equal(new URL(page.url()).pathname.endsWith('/spotlight/'), true);
+    await page.getByRole('link', { name: 'Catalog', exact: true }).click(); await check('instrument');
     const obs = page.locator('a[href*="observatory/"]').first();
     assert.match(await obs.getAttribute('href'), /serif=instrument/); await obs.click(); await check('instrument');
     await page.locator('#category-filter').selectOption({ index: 1 });
     assert.equal(new URL(page.url()).searchParams.get('serif'), 'instrument');
     await page.reload(); await check('instrument');
     const record = data.projects.find(p => p.artwork) || data.projects[0];
-    await page.goto(url + '/records/' + record.id + '.html?serif=instrument'); await check('instrument');
-    await page.locator('.permalink').first().click();
-    assert.equal(new URL(page.url()).searchParams.get('serif'), 'instrument');
-    assert.equal(new URL(page.url()).hash, '#project-' + record.id); await check('instrument');
-    for (const choice of ['instrument', 'poltawski', 'fraunces']) {
-      for (const route of ['/', '/observatory/', '/draws/', '/records/' + record.id + '.html', '/design/']) {
+await page.goto(url + '/records/' + record.id + '.html?serif=instrument'); await check('instrument');
+  await page.locator('.permalink').first().click();
+  assert.equal(new URL(page.url()).searchParams.get('serif'), 'instrument');
+  assert.equal(new URL(page.url()).hash, '#project-' + record.id); await check('instrument');
+  for (const choice of ['instrument', 'poltawski', 'fraunces']) {
+    for (const route of ['/', '/observatory/', '/spotlight/', '/records/' + record.id + '.html', '/design/']) {
         await page.setViewportSize({ width: 390, height: 844 });
         await page.goto(url + route + '?serif=' + choice); await check(choice);
         await page.screenshot({ path: path.join(output, 'serif-' + choice + '-' + (route.split('/')[1] || 'catalog') + '-mobile.png') });

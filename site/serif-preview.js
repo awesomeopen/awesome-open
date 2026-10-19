@@ -31,8 +31,8 @@
       }
       if (url.origin !== base.origin || !url.pathname.startsWith(base.pathname)) return;
       var path = url.pathname.slice(base.pathname.length);
-      if (!/^(?:index\.html)?$|^(?:observatory|draws)\/(?:index\.html)?$|^records\/[^/]+\.html$|^design\/(?:index\.html)?$/.test(path)) return;
-      originalLinks.set(a, original);
+if (!/^(?:index\.html)?$|^(?:observatory|spotlight)\/(?:index\.html)?$|^records\/[^/]+\.html$|^design\/(?:index\.html)?$/.test(path)) return;
+    originalLinks.set(a, original);
       url.searchParams.set('serif', selected);
       if (a.href !== url.href) a.href = url.href;
     });

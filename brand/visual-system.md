@@ -104,7 +104,10 @@ centered “In the wild” departure on a Prussian band.
 - Section labels are scarlet blocks with mist type (5.86:1). No horizontal rules inside the
   plate; spacing and labels carry the hierarchy. Chart axes remain.
 - Repository record: large values plus a literal timeline of creation, latest release and
-  last push. Where it runs: reviewed run/install/platform chips with the setup disclosure.
+  last push. Reviewed name-change records extend it with true-date numbered lanes
+  and a wrapping chronological list; unknown/coarse dates and discovery/review
+  dates stay in folded secondary evidence. See [B-PR139-01](decisions/B-PR139-01.md)
+  and the [history contract](../site/PROJECT-HISTORY.md). Where it runs: reviewed run/install/platform chips with the setup disclosure.
 
 ## Clearer jar glass
 
@@ -164,10 +167,13 @@ space. Plate evidence headings read “Hacker News stories” and “GitHub star
 ## Weekly jar occupants
 
 B38 replaces the hardcoded occupant policy after the first saved draw activates.
-The seven existing jars and interactions stay fixed. A seeded weekly draw selects
+The seven existing jars and interactions stay fixed. Their left-to-right order
+is now original jars 1, 2, 5, 3, 4, 6, 7; each retains its contents and calibrated
+geometry, and the narrower column follows the tall vessel at desktop, medium
+and mobile widths ([B-PR134-02](decisions/B-PR134-02.md)). A seeded weekly draw selects
 only illustrated catalog projects, independent of stars, with an initial four-week
 cooldown; the draw is displayed the following week. Assign the seven illustrations
-to windows by subject fit and contain the whole subject. The static `/draws/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
+to windows by subject fit and contain the whole subject. The static `/spotlight/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
 with a specimen tray per edition (B44). See [calendar, evidence and fallback
 rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
 fallback; it is not retroactively labeled a random draw.
@@ -211,8 +217,14 @@ Scorecard coverage ends at “returned”.
 
 Page titles are “Awesome Open* Catalog” and “Awesome Open* Observatory”.
 Top navigation uses Catalog and links About to the catalog footer’s `#about`.
-The weekly draw archive retains `/draws/` and its evidence contract, with the
-visible page name Spotlight. The catalog footer puts GitHub immediately before
+The weekly draw archive uses `/spotlight/` and the visible page name Spotlight.
+Edition labels, current-edition values and anchors use ISO week years/numbers
+(`2026-W43`, linking to `/spotlight/#2026-W43`). Its page hides the section jump
+navigation, omits the scope and method blocks, and removes Observatory links and
+the footer’s Return to project ledger link. Download draw records · Draw contract
+sits in the footer immediately above GitHub. The download lives at
+`/spotlight/draws.json`; the draw evidence contract and saved dates are unchanged.
+See [B-PR134-01](decisions/B-PR134-01.md). The catalog footer puts GitHub immediately before
 Top. Its shortened stars note follows the HN note; source evidence remains linked.
 
 ## Compact Catalog rows and centered departure contours

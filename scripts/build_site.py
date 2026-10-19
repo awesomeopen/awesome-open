@@ -19,6 +19,8 @@ import shutil
 from build_catalog import build_catalog, load_function_summaries
 from render_readme import display_hn_evidence
 import project_aliases
+import project_history
+import history_view
 import update_hn as hn
 import update_stats as stats
 import signals
@@ -630,10 +632,13 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
     freshness = metrics_freshness(github, catalog.get("metrics_as_of"))
     if freshness:
         vitals += f'<p class="fine-print metrics-freshness">{escape(freshness)}</p>'
-    if github:
-        vitals += timeline(
-            created, release, github["pushed_at"][:10] if github["pushed_at"] else None
-        )
+    history = project.get("history", [])
+    pushed_date = github["pushed_at"][:10] if github and github.get("pushed_at") else None
+    if history:
+        vitals += history_view.timeline(created, release, pushed_date, history, project["id"])
+        vitals += history_view.evidence(history)
+    elif github:
+        vitals += timeline(created, release, pushed_date)
     interior = specimen_plate(
         project,
         number,
@@ -787,7 +792,7 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", 
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="draws/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
 <script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
@@ -803,6 +808,8 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
     name = escape(project["name"])
     card = project_html(project, categories, catalog, number, cutouts, position=1)
     card = card.replace('<details class="specimen-drawer">', '<details class="specimen-drawer" open>', 1)
+    card = re.sub(r'href="#(history-[a-z0-9-]+)"',
+                  lambda match: f'href="records/{pid}.html#{match[1]}"', card)
     sha = catalog.get("source_sha")
     revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else "Local preview (revision not supplied)"
     return f'''<!doctype html>
@@ -813,7 +820,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <link rel="stylesheet" href="styles.css?v={escape(sha or 'preview')}"><link rel="stylesheet" href="observatory/observatory.css">
 <script src="{escape(script_url)}" defer></script></head>
 <body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>
-<div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="draws/">Weekly draws</a></nav></header></div>
+<div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="spotlight/">Weekly draws</a></nav></header></div>
 <main class="obs-shell" id="record" tabindex="-1"><section class="obs-hero"><p><span class="obs-label">Project record</span></p><h1>{name}</h1></section>
 <aside class="obs-finding"><p>Full catalog record, evidence and sources. <a href="#project-{pid}">Return to this project in the ledger</a>. Use your browser’s Print command to print this record.</p></aside>
 {card}
@@ -878,6 +885,7 @@ def build(output, source_sha=None, root=ROOT):
         ),
         star_evidence=star_history.load_optional(root / "data/star_history.json"),
         aliases=project_aliases.load_optional(root / project_aliases.PATH),
+        history=project_history.load_optional(root / project_history.PATH),
     )
     footer_assets = discover_footer_art(root)
     catalog["footer_backgrounds"] = list(footer_assets)
@@ -945,6 +953,10 @@ def build(output, source_sha=None, root=ROOT):
         (output / path).write_text(code, encoding="utf-8")
     (output / "data").mkdir(exist_ok=True)
     evidence_files = ["alternatives.json", "hn_evidence.json"]
+    if (root / project_history.PATH).exists():
+        evidence_files.append("project_history.json")
+    else:
+        (output / project_history.PATH).unlink(missing_ok=True)
     if (root / "data/star_history.json").exists():
         evidence_files.append("star_history.json")
     else:
@@ -1064,7 +1076,7 @@ def build(output, source_sha=None, root=ROOT):
     replacements['href="observatory/"'] = (
         'href="https://awesomeopen.github.io/awesome-open/observatory/"'
     )
-    replacements['href="draws/"'] = 'href="https://awesomeopen.github.io/awesome-open/draws/"'
+    replacements['href="spotlight/"'] = 'href="https://awesomeopen.github.io/awesome-open/spotlight/"'
     standalone = replace_literals_once(page, replacements)
     (output / "standalone.html").write_text(standalone, encoding="utf-8")
     from build_observatory import build as build_observatory

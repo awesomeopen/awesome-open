@@ -32,6 +32,14 @@ Corrections, additional categories, and newly discovered projects are welcome. T
 
 Contributions to this list are made under [CC0-1.0](LICENSE.md). Listed projects retain their own licenses.
 
+## Reviewed name-change history
+
+Use the optional [history contract](site/PROJECT-HISTORY.md) for source-backed
+software renames, repository path changes and owner transfers. Only verified
+exact occurrence dates enter record timelines; review/discovery dates and
+unknown or approximate occurrence dates remain secondary evidence. This ledger
+does not alter current names, aliases, IDs, collection schedules or eligibility.
+
 ## Reviewed project aliases
 
 Use the optional [alias contract](site/PROJECT-ALIASES.md) for official expanded, abbreviated or alternate names. The curated display name can change without changing the canonical URL or stable project ID. Alias evidence is reviewed separately from HN attribution; search inclusion never grants HN matching permission.
@@ -311,6 +319,14 @@ returned HTTP 301 pointing to repository ID `1412123384`, and the
 [current repository API record](https://api.github.com/repos/SophonTrace/OpenLnku)
 reports that same ID as `SophonTrace/OpenLnku`. Only the normalized history
 endpoint changes; the existing OpenNex catalog name and URL remain unchanged.
+Any product-name update is a separate curated change.
+
+`hzdavy/openmijia` → `hzdavy/openmexia` was verified on 2026-10-19:
+the [old repository API path](https://api.github.com/repos/hzdavy/openmijia)
+returned HTTP 301 pointing to repository ID `1414588015`, and the
+[current repository API record](https://api.github.com/repos/HZDavy/OpenMexia)
+reports that same ID as `HZDavy/OpenMexia`. Only the normalized history
+endpoint changes; the existing OpenMijia catalog name and URL remain unchanged.
 Any product-name update is a separate curated change.
 
 These mappings are in `REVIEWED_REPOSITORY_RENAMES` in

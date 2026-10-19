@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class SerifPreviewTests(unittest.TestCase):
     def test_hosted_and_offline_scope(self):
         output, catalog = baseline_site()
-        for path in ['index.html', 'observatory/index.html', 'draws/index.html',
+        for path in ['index.html', 'observatory/index.html', 'spotlight/index.html',
                      'records/' + catalog['projects'][0]['id'] + '.html']:
             self.assertIn('serif-preview.js', (output / path).read_text())
         for path in ['standalone.html', 'observatory/report.html']:

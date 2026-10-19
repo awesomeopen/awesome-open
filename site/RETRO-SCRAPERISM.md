@@ -420,7 +420,11 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
 - **Label:** permalink QR code (build-time SVG), “Awesome Open* · Field record” or
   “Archived on GitHub”, name, Registry ID · Folio, “Domain:” with every domain, permalink.
 - **Bands:** scarlet block labels (`--rs-scarlet` ground, `--rs-mist` type), no horizontal
-  rules. Repository record with large values and a creation/release/push timeline; Where it
+  rules. Repository record with large values and a creation/release/push timeline.
+  For reviewed name changes, numbered lanes keep literal dates and point to a
+  wrapping chronological list. Unknown/coarse dates and first-observed/review
+  dates stay in a folded Name-change evidence block, never on the axis
+  ([B-PR139-01](../brand/decisions/B-PR139-01.md)). Where it
   runs with reviewed chips and the setup disclosure; evidence cards with enlarged charts;
   reviewed alternatives; “In the wild” departure on plain Prussian blue with its
   decorative contours centered around the link (B-PR129-01). The repeating navy
@@ -433,15 +437,20 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
 
 Hero occupants come from a persisted seeded draw of seven illustrated projects,
 shown the following week with a four-week repeat cooldown as the initial default.
-Stars do not determine selection. Keep the existing seven jars and height order;
-assign illustrations by protecting the worst-filled measured glass interior before
-total fill. Contain actual subject bounds without cropping or stretching, with
-one pixel inset for existing pointer/idle motion. Keep glass-light and crack
-coordinates independent. Place spare vertical room mainly above the specimen,
-so it sits toward the interior base. A narrow cylinder may still have spare height
-when the complete silhouette is width-limited. Link the edition to `/draws/`; retain the original set
+Stars do not determine selection. Keep the existing seven jars, ordered by 
+original position 1, 2, 5, 3, 4, 6, 7 (B-PR134-02); 
+assign illustrations by protecting the worst-filled measured glass interior before 
+total fill. Contain actual subject bounds without cropping or stretching, with 
+one pixel inset for existing pointer/idle motion. Keep glass-light and crack 
+coordinates independent. Place spare vertical room mainly above the specimen, 
+so it sits toward the interior base. A narrow cylinder may still have spare height 
+when the complete silhouette is width-limited. Link the archive from the footer at `/spotlight/`; retain the original set
 until the first saved edition activates. See [weekly draw contract](WEEKLY-DRAWS.md)
-for the calendar, snapshot archive, eligibility and failure behavior.
+for the calendar, snapshot archive, eligibility and failure behavior. Spotlight
+uses ISO week edition labels and anchors (`2026-W43`, `#2026-W43`). Its scope and
+method blocks are omitted, its section jump navigation is hidden, and its footer
+puts Download draw records · Draw contract above GitHub. Omit Observatory links
+and the Return to project ledger footer link on this route (B-PR134-01).
 
 ## Crisp photographic jar motion (B40)
 
