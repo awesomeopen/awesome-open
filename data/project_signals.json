@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-19T21:11:53Z",
+  "collected_at": "2026-10-19T21:45:51Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -24244,6 +24244,47 @@
         "status": "unavailable"
       }
     },
+    "virtastic/openmw-web": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-19T21:45:51Z",
+        "error": null,
+        "etag": "\"17bd96ef8676c38bfc1dea47e1d80a0cc071d49b98e1384f71c891384a745257\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-19T21:45:51Z",
+          "observed_at": "2026-10-19T19:37:07Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/Virtastic/openmw-web/releases/tag/v1.6.2",
+            "published_at": "2026-10-19T19:37:07Z",
+            "release_id": 417671041,
+            "tag_name": "v1.6.2"
+          }
+        },
+        "last_success_at": "2026-10-19T21:45:51Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/virtastic/openmw-web/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-19T21:45:51Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/virtastic/openmw-web",
+        "status": "unavailable"
+      }
+    },
     "vittorioromeo/ssvopenhexagon": {
       "release": {
         "check_time_precision": "second",
@@ -24742,5 +24783,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "307c0a658e1e40e8f14abff9d5880051b79d6ec2"
+  "source_sha": "638ec7d628f84f6c12a2b30a429096d29c2b4712"
 }
