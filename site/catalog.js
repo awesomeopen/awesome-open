@@ -303,7 +303,7 @@
     if (departure) {
       var seed = (field && field.dataset.seed) || (plate.getAttribute("aria-labelledby") || "").replace("name-", "").slice(0, 16) || "0";
       departure.insertBefore(terrain(document, "plate-wild-terrain", seed, "0 0 1000 400",
-        plateRings(seed, 500, 1150, 30, 42, 1.9, 0.55), "xMidYMid slice"), departure.firstChild);
+        plateRings(seed, 500, 200, 30, 42, 1.9, 0.55), "xMidYMid slice"), departure.firstChild);
     }
     if (!field) return;
     var image = field.querySelector("img");
