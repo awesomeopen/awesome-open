@@ -425,6 +425,17 @@
           throw new Error("Unexpected active record attribute");
         }
         if (["src", "href", "xlink:href"].indexOf(name) === -1 || value.charAt(0) === "#") return;
+        // Generated history markers point within this plate. Static record pages
+        // need their own path because of <base>; adopted drawers need local fragments.
+        var anchor = node.getAttribute("data-record-anchor");
+        if (name === "href" && anchor) {
+          var anchorNode = record.getElementById(anchor);
+          if (!/^history-[a-z0-9-]+$/.test(anchor) || !anchorNode || !plate.contains(anchorNode)) {
+            throw new Error("Invalid history anchor");
+          }
+          node.setAttribute("href", "#" + anchor);
+          return;
+        }
         var resolved = new URL(value, assetBase);
         if (!/^https?:$/.test(resolved.protocol) ||
             (name === "src" && resolved.origin !== url.origin)) throw new Error("Invalid record resource URL");
