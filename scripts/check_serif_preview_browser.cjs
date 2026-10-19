@@ -41,6 +41,11 @@ module.exports = async ({ browser, url, data, output }) => {
     assert.equal(await page.locator('.brand').first().evaluate(node => getComputedStyle(node).fontWeight), '600');
     // Real navigation, not just direct URLs; query and fragment are retained.
     await page.locator('#serif-preview-choice').selectOption('instrument'); await check('instrument');
+    const spotlight = page.locator('a[href*="spotlight/"]').first();
+    assert.match(await spotlight.getAttribute('href'), /serif=instrument/);
+    await spotlight.click(); await check('instrument');
+    assert.equal(new URL(page.url()).pathname.endsWith('/spotlight/'), true);
+    await page.getByRole('link', { name: 'Catalog', exact: true }).click(); await check('instrument');
     const obs = page.locator('a[href*="observatory/"]').first();
     assert.match(await obs.getAttribute('href'), /serif=instrument/); await obs.click(); await check('instrument');
     await page.locator('#category-filter').selectOption({ index: 1 });
@@ -48,7 +53,7 @@ module.exports = async ({ browser, url, data, output }) => {
     await page.reload(); await check('instrument');
     const record = data.projects.find(p => p.artwork) || data.projects[0];
     for (const choice of ['instrument', 'poltawski']) {
-      for (const route of ['/', '/observatory/', '/draws/', '/records/' + record.id + '.html']) {
+      for (const route of ['/', '/observatory/', '/spotlight/', '/records/' + record.id + '.html']) {
         await page.setViewportSize({ width: 390, height: 844 });
         await page.goto(url + route + '?serif=' + choice); await check(choice);
         await page.screenshot({ path: path.join(output, 'serif-' + choice + '-' + (route.split('/')[1] || 'catalog') + '-mobile.png') });

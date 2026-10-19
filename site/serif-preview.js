@@ -27,7 +27,7 @@
       var url = new URL(a.getAttribute('href'), document.baseURI);
       if (url.origin !== base.origin || !url.pathname.startsWith(base.pathname)) return;
       var path = url.pathname.slice(base.pathname.length);
-      if (!/^(?:index\.html)?$|^(?:observatory|draws)\/(?:index\.html)?$|^records\/[^/]+\.html$|^design\/(?:index\.html)?$/.test(path)) return;
+      if (!/^(?:index\.html)?$|^(?:observatory|spotlight)\/(?:index\.html)?$|^records\/[^/]+\.html$|^design\/(?:index\.html)?$/.test(path)) return;
       url.searchParams.set('serif', selected);
       if (a.href !== url.href) a.href = url.href;
     });
