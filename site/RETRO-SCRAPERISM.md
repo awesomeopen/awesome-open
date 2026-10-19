@@ -421,7 +421,8 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
 - **Bands:** scarlet block labels (`--rs-scarlet` ground, `--rs-mist` type), no horizontal
   rules. Repository record with large values and a creation/release/push timeline; Where it
   runs with reviewed chips and the setup disclosure; evidence cards with enlarged charts;
-  reviewed alternatives; “In the wild” departure on Prussian with the floor continuing.
+  reviewed alternatives; “In the wild” departure on Prussian with the existing repeating
+  navy footer pattern beneath the continuing contour floor (B-PR128-01).
 - **Removed captions:** contour/loupe disclaimers, “Under the loupe”, timeline and flow
   qualifiers, the alternatives footnote, “Submissions, not sentiment” and “Omitted facts are
   unknown”. Their meanings stay in the evidence downloads and the foundation evidence contract.

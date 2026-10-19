@@ -407,14 +407,11 @@ h1>span {
   scroll-margin-top:24px;
   border-bottom:1px solid var(--rule);
 }
-.specimen-drawer>summary {
-  padding:8px;
-  min-height:44px;
-}
 .specimen-drawer>summary:hover {
   background:var(--rs-mist);
 }
 .folio {
+  padding-left:4px;
   font:13px var(--mono);
   color:var(--muted);
 }
@@ -913,7 +910,7 @@ h1 { font-size:28px; margin:0; }
 .colophon li { margin:4px 0; }
 .colophon .coverage-notes { margin-top:24px; }
 @media(max-width:720px) {
-  .specimen-drawer > summary { grid-template-columns:28px minmax(0,1fr) 24px; padding:8px; }
+  .specimen-drawer > summary { grid-template-columns:28px minmax(0,1fr) 24px; }
   .specimen-drawer > summary > .description, .specimen-drawer > summary > .license-readout { display:none; }
 }
 
@@ -1034,7 +1031,6 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .results-heading {margin:12px 0;}
 .ledger-columns,.specimen-drawer>summary {column-gap:20px;grid-template-columns:36px minmax(180px,240px) minmax(180px,1fr) 120px 24px;}
 .ledger-columns {font-size:12px;line-height:1.5;padding:10px 12px;letter-spacing:.015em;}
-.specimen-drawer>summary {padding:11px 12px;min-height:48px;}
 .specimen-name {font:450 16px/1.5 var(--mono);letter-spacing:-.025em;}
 .project-card[data-leader="true"] .specimen-name {font-weight:650;}
 .description {font-size:14px;line-height:1.6;letter-spacing:-.02em;}
@@ -1083,7 +1079,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
   .header-search input {font-size:16px;}
   .header-links {font-size:12px;}
   .ledger-heading {align-items:flex-start;flex-wrap:wrap;gap:8px;}
-  .specimen-drawer>summary {grid-template-columns:28px minmax(0,1fr) 24px;gap:8px 12px;padding:12px 8px;}
+  .specimen-drawer>summary {grid-template-columns:28px minmax(0,1fr) 24px;gap:8px 12px;}
   .specimen-name {font-size:16px;line-height:1.45;}
   .specimen-interior,.specimen-interior.without-art {padding:24px 12px 32px;gap:24px;}
   .record-description {font-size:28px;line-height:1.22;margin-bottom:20px;}
@@ -1195,7 +1191,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-alternatives .evidence-date {display:block;font-size:12px;}
 
 /* In the wild: the ground continues out into the departure band. */
-.plate-departure {position:relative;overflow:hidden;margin:64px calc(-1 * clamp(16px,2.5vw,32px)) 0;padding:64px 32px;background:var(--rs-blueprint);color:white;text-align:center;}
+.plate-departure {position:relative;overflow:hidden;margin:64px calc(-1 * clamp(16px,2.5vw,32px)) 0;padding:64px 32px;background:var(--rs-blueprint);background-image:url(patterns/navypattern2.png);color:white;text-align:center;}
 .plate-wild-terrain {position:absolute;inset:0;width:100%;height:100%;}
 .plate-wild-terrain path {fill:none;stroke:rgba(217,238,248,.16);stroke-width:1;vector-effect:non-scaling-stroke;}
 .plate-wild-terrain path.is-index {stroke:rgba(217,238,248,.3);}

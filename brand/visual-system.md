@@ -214,3 +214,12 @@ Top navigation uses Catalog and links About to the catalog footer’s `#about`.
 The weekly draw archive retains `/draws/` and its evidence contract, with the
 visible page name Spotlight. The catalog footer puts GitHub immediately before
 Top. Its shortened stars note follows the HN note; source evidence remains linked.
+
+## Compact Catalog rows and departure texture
+
+The Catalog omits the snapshot/setup explanation beneath Filters. Folded summaries
+have no authored padding or minimum height at desktop or narrow widths; folio
+numbers retain 4px left padding. The “In the wild” departure reuses the existing
+repeating navy footer pattern beneath its decorative contour SVG. Asset pixels,
+filter semantics and contour generation are unchanged. See
+[B-PR128-01](decisions/B-PR128-01.md).
