@@ -49,6 +49,9 @@ class Clock:
 
 
 URL = h.API + 'o/r/stargazers/history?per_page=30&page=1'
+OPENDISPLAY = {'name': 'OpenDisplay', 'repo': 'script-k1tty/opendisplay',
+               'readme_url': 'https://github.com/script-k1tty/opendisplay'}
+OPENDISPLAY_URL = h.history_source_url(OPENDISPLAY['repo']) + '?per_page=30&page=1'
 
 
 class BackfillTests(unittest.TestCase):
@@ -254,6 +257,168 @@ class BackfillTests(unittest.TestCase):
                               SHA, Path(directory) / 'c.json', lambda records: None, NOW)
         self.assertEqual(state['failures'][0]['request_url'], None)
         self.assertEqual(state['failures'][0]['http_status'], None)
+
+    def test_reviewed_opendisplay_404_records_unavailable_and_continues(self):
+        rows = weekly_series()
+        t, calls, _ = self.transport([Response({}), self.error(404, 'private or deleted? secret')] +
+                                     [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
+        flushed = []
+        metadata = {'repositories': {OPENDISPLAY['repo']: {'stargazers_count': 999999}}}
+        with tempfile.TemporaryDirectory() as directory:
+            checkpoint = Path(directory) / 'c.json'
+            state = b.collect([OPENDISPLAY, PROJECT], {'schema_version': 1, 'repositories': {}},
+                              metadata, t, SHA, checkpoint,
+                              lambda records: flushed.append(deepcopy(records)), NOW)
+            self.assertEqual(state, json.loads(checkpoint.read_text()))
+        self.assertEqual(state['status'], 'complete_with_unavailable')
+        self.assertEqual(state['initial_missing'], 2)
+        self.assertEqual(state['remaining'], 1)
+        self.assertEqual(set(state['records']), {PROJECT['repo']})
+        self.assertEqual(flushed, [state['records']])
+        self.assertEqual(state['failed_repositories'], [])
+        self.assertEqual(state['failures'], [])
+        self.assertEqual(state['unavailable'], [{
+            'repo': OPENDISPLAY['repo'], 'status': 'unavailable',
+            'checked_at': NOW.isoformat(), 'reviewed_at': '2026-10-20',
+            'http_status': 404, 'request_url': OPENDISPLAY_URL,
+            'reason': 'Reviewed history endpoint returned HTTP 404; cause not established',
+        }])
+        self.assertEqual([url for _, url in calls[:2]], [b.RATE_URL, OPENDISPLAY_URL])
+        self.assertEqual(sum(url == OPENDISPLAY_URL for _, url in calls), 1)
+        self.assertEqual(state['requests'], 6)
+        self.assertNotIn('secret', json.dumps(state))
+        summary = b.unavailable_summary(state)
+        self.assertIn('unavailable; HTTP 404', summary)
+        self.assertIn(NOW.isoformat(), summary)
+        self.assertIn(OPENDISPLAY_URL, summary)
+
+    def test_reviewed_unavailability_preserves_last_good_cache_and_archive(self):
+        old_now = NOW - timedelta(days=35)
+        cache = h.refresh([OPENDISPLAY], now=old_now, source_sha=SHA,
+                          getter=pager(weekly_series(offset=-35 * h.DAY)))
+        before = deepcopy(cache)
+        archive = archive_of(cache['repositories'][OPENDISPLAY['repo']])
+        before_archive = deepcopy(archive)
+        t, _, _ = self.transport([Response({}), self.error(404, 'not found')])
+        flushed = []
+        with tempfile.TemporaryDirectory() as directory:
+            state = b.collect([OPENDISPLAY], cache, {}, t, SHA, Path(directory) / 'c.json',
+                              lambda records: flushed.append(deepcopy(records)), NOW)
+        self.assertEqual(state['status'], 'complete_with_unavailable')
+        self.assertEqual(state['remaining'], 1)
+        self.assertEqual(state['records'], {})
+        self.assertEqual(flushed, [{}])
+        self.assertEqual(cache, before)
+        merged = b.merge_records(cache, [OPENDISPLAY], state['records'])
+        self.assertEqual(merged, before)
+        observations.add_stars(archive, merged)
+        self.assertEqual(archive, before_archive)
+
+    def test_reviewed_repository_success_recovers_without_override(self):
+        rows = weekly_series()
+        t, _, _ = self.transport([Response({})] +
+                                 [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
+        with tempfile.TemporaryDirectory() as directory:
+            state = b.collect([OPENDISPLAY], {'schema_version': 1, 'repositories': {}}, {},
+                              t, SHA, Path(directory) / 'c.json', lambda records: None, NOW)
+        self.assertEqual(state['status'], 'complete')
+        self.assertEqual(state['unavailable'], [])
+        self.assertEqual(state['remaining'], 0)
+        self.assertEqual(state['records'][OPENDISPLAY['repo']]['status'], 'ok')
+        self.assertEqual(state['records'][OPENDISPLAY['repo']]['readme_url'], OPENDISPLAY['readme_url'])
+
+    def test_reviewed_exception_does_not_accept_other_errors_or_endpoints(self):
+        cases = [
+            ('authentication', [Response({}), self.error(401, 'secret')], 401),
+            ('permission', [Response({}), self.error(403, 'denied')], 403),
+            ('redirect', [Response({}), self.error(301, 'secret')], 301),
+            ('server', [Response({})] + [self.error(503, 'secret')] * 4, 503),
+            ('quota probe', [self.error(404, 'secret')], 404),
+            ('later page', [Response({}), Response(weekly_series()[:30]),
+                            self.error(404, 'secret')], 404),
+        ]
+        for name, responses, status in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                t, _, _ = self.transport(responses)
+                state = b.collect([OPENDISPLAY], {'schema_version': 1, 'repositories': {}}, {},
+                                  t, SHA, Path(directory) / 'c.json', lambda records: None, NOW)
+                self.assertEqual(state['status'], 'blocked')
+                self.assertEqual(state['unavailable'], [])
+                self.assertEqual(state['records'], {})
+                self.assertEqual(state['failed_repositories'], [OPENDISPLAY['repo']])
+                self.assertEqual(state['failures'][0]['http_status'], status)
+
+    def test_reviewed_unavailability_does_not_hide_later_failure_or_failed_flush(self):
+        for failure in ('unreviewed 404', 'flush'):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as directory:
+                responses = [Response({}), self.error(404, 'secret')]
+                projects = [OPENDISPLAY]
+                if failure == 'unreviewed 404':
+                    responses.append(self.error(404, 'secret'))
+                    projects.append(PROJECT)
+                t, _, _ = self.transport(responses)
+                def flush(records):
+                    if failure == 'flush':
+                        raise RuntimeError('secret')
+                state = b.collect(projects, {'schema_version': 1, 'repositories': {}},
+                                  {'repositories': {OPENDISPLAY['repo']: {'stargazers_count': 999999}}},
+                                  t, SHA, Path(directory) / 'c.json', flush, NOW)
+                self.assertEqual(state['status'], 'blocked')
+                self.assertEqual(len(state['unavailable']), 1)
+                self.assertEqual(state['records'], {})
+                self.assertNotIn('secret', json.dumps(state))
+                if failure == 'unreviewed 404':
+                    self.assertEqual(state['failed_repositories'], [PROJECT['repo']])
+
+    def test_reviewed_404_observes_quota_before_continuing(self):
+        t, calls, _ = self.transport([Response({}, 557, 2000),
+                                     self.error(404, 'secret', remaining=556, reset=2100)])
+        with tempfile.TemporaryDirectory() as directory:
+            state = b.collect([OPENDISPLAY, PROJECT], {'schema_version': 1, 'repositories': {}},
+                              {'repositories': {OPENDISPLAY['repo']: {'stargazers_count': 999999}}},
+                              t, SHA, Path(directory) / 'c.json', lambda records: None, NOW)
+        self.assertEqual([url for _, url in calls], [b.RATE_URL, OPENDISPLAY_URL])
+        self.assertEqual(state['status'], 'partial')
+        self.assertEqual(len(state['unavailable']), 1)
+        self.assertEqual(state['remaining'], 2)
+        self.assertEqual(state['quota_remaining'], 556)
+        self.assertEqual(h.parse_time(state['quota_reset_at']).timestamp(), 2100)
+        self.assertIn('Quota floor', state['reason'])
+
+    def test_reviewed_404_with_invalid_quota_headers_still_blocks(self):
+        for headers in ({}, {'X-RateLimit-Remaining': 'bad', 'X-RateLimit-Reset': '2000'}):
+            with self.subTest(headers=headers), tempfile.TemporaryDirectory() as directory:
+                error = self.error(404, 'secret')
+                error.headers = headers
+                t, calls, _ = self.transport([Response({}), error])
+                state = b.collect([OPENDISPLAY], {'schema_version': 1, 'repositories': {}}, {},
+                                  t, SHA, Path(directory) / 'c.json', lambda records: None, NOW)
+                self.assertEqual(state['status'], 'blocked')
+                self.assertEqual(state['unavailable'], [])
+                self.assertEqual(state['failures'][0]['http_status'], 404)
+                self.assertIn('quota headers', state['reason'])
+                self.assertEqual(len(calls), 2)
+
+    def test_main_reports_reviewed_unavailable_without_blocking_cached_publication(self):
+        t, _, _ = self.transport([Response({}), self.error(404, 'secret')])
+        with tempfile.TemporaryDirectory() as directory:
+            state = b.collect([OPENDISPLAY], {'schema_version': 1, 'repositories': {}}, {},
+                              t, SHA, Path(directory) / 'c.json', lambda records: None, NOW)
+            summary_path = Path(directory) / 'summary.md'
+            with patch('sys.argv', ['backfill_star_history.py']), \
+                    patch.object(b.publisher, 'latest_main', return_value=SHA), \
+                    patch.object(b.publisher, 'git'), \
+                    patch.object(b, 'load', return_value=([OPENDISPLAY], {}, {})), \
+                    patch.object(b, 'Transport'), patch.object(b, 'collect', return_value=state), \
+                    patch.dict(b.os.environ, {'GITHUB_STEP_SUMMARY': str(summary_path)}), \
+                    patch('sys.stdout', new_callable=io.StringIO) as stdout:
+                b.main()
+            summary = summary_path.read_text()
+            self.assertEqual(stdout.getvalue(), summary)
+            self.assertIn('complete_with_unavailable; 0 completed', summary)
+            self.assertIn('1 remaining', summary)
+            self.assertIn('1 reviewed unavailable', summary)
+            self.assertIn(b.unavailable_summary(state), summary)
 
     def test_record_validation_failure_reports_repository_without_raw_error(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(h, 'collect_repository', return_value={}), \
