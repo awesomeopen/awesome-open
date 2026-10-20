@@ -55,6 +55,10 @@ REVIEWED_REPOSITORY_RENAMES = {
     'sophontrace/opennex': 'sophontrace/openlnku',
     # Reviewed 2026-10-19: both API identities resolve to repository 1414588015.
     'hzdavy/openmijia': 'hzdavy/openmexia',
+    # Reviewed 2026-10-20: both API identities resolve to repository 1413392799.
+    'twilightduck/openwhisper': 'twilightduck/openquill',
+    # Reviewed 2026-10-20: both API identities resolve to repository 1409520720.
+    'shoemoney/openskitch': 'shoemoney/opensnap',
 }
 
 

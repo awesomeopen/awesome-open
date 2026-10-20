@@ -329,6 +329,22 @@ reports that same ID as `HZDavy/OpenMexia`. Only the normalized history
 endpoint changes; the existing OpenMijia catalog name and URL remain unchanged.
 Any product-name update is a separate curated change.
 
+`twilightduck/openwhisper` → `twilightduck/openquill` was verified on 2026-10-20:
+the [old repository API path](https://api.github.com/repos/TwilightDuck/OpenWhisper)
+reported a move to repository ID `1413392799`, and the
+[current repository API record](https://api.github.com/repos/TwilightDuck/OpenQuill)
+reports that same ID as `TwilightDuck/OpenQuill`. Only the normalized history
+endpoint changes; the existing Open Whisper catalog name and URL remain unchanged.
+Any product-name update is a separate curated change.
+
+`shoemoney/openskitch` → `shoemoney/opensnap` was verified on 2026-10-20:
+the [old repository API path](https://api.github.com/repos/shoemoney/OpenSkitch)
+reported a move to repository ID `1409520720`, and the
+[current repository API record](https://api.github.com/repos/shoemoney/OpenSnap)
+reports that same ID as `shoemoney/OpenSnap`. Only the normalized history
+endpoint changes; the existing OpenSkitch catalog name and URL remain unchanged.
+Any product-name update is a separate curated change.
+
 These mappings are in `REVIEWED_REPOSITORY_RENAMES` in
 `scripts/update_star_history.py`; they apply to ordinary history collection and
 the bounded backfill. They add no request or permission.

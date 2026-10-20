@@ -11,7 +11,7 @@ from urllib.error import HTTPError, URLError
 import backfill_star_history as b
 import update_star_history as h
 import chart_observations as observations
-from test_update_star_history import NOW, OPENNEX, OPENMIJIA, OPENBRENDER, OPENOMSI, OPENREMOTE, PROJECT, SHA, pager, weekly_series
+from test_update_star_history import NOW, OCT20_RENAMES, OPENNEX, OPENMIJIA, OPENBRENDER, OPENOMSI, OPENREMOTE, PROJECT, SHA, pager, weekly_series
 
 
 def archive_of(*records):
@@ -220,6 +220,29 @@ class BackfillTests(unittest.TestCase):
         self.assertEqual(record['source_url'], h.API + 'hzdavy/openmexia/stargazers/history')
         self.assertTrue(all('/hzdavy/openmexia/' in url for _, url in calls[1:]))
         self.assertEqual(flushed[-1][OPENMIJIA['repo']], record)
+
+    def test_oct20_backfill_uses_reviewed_endpoints_and_preserves_checkpoint_identities(self):
+        for project, target in OCT20_RENAMES:
+            with self.subTest(repo=project['repo']):
+                rows = weekly_series()
+                t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
+                flushed = []
+                with tempfile.TemporaryDirectory() as directory:
+                    state = b.collect([project], {'schema_version': 1, 'repositories': {}}, {}, t,
+                                      SHA, Path(directory) / 'c.json', lambda records: flushed.append(deepcopy(records)), NOW)
+                    self.assertEqual(state, json.loads((Path(directory) / 'c.json').read_text()))
+                self.assertEqual(state['status'], 'complete')
+                self.assertEqual(state['failures'], [])
+                self.assertEqual(set(state['records']), {project['repo']})
+                record = state['records'][project['repo']]
+                for key, value in project.items():
+                    self.assertEqual(record[key], value)
+                expected = h.API + target + '/stargazers/history'
+                self.assertEqual(record['source_url'], expected)
+                self.assertEqual([url for _, url in calls],
+                                 [b.RATE_URL] + [expected + f'?per_page=30&page={page}' for page in range(1, 5)])
+                self.assertEqual(record['last_good']['source_urls'], [url for _, url in calls[1:]])
+                self.assertEqual(flushed[-1], {project['repo']: record})
 
     def test_blocked_checkpoint_and_summary_identify_repository_status_and_reason(self):
         for status in [301, 401, 403, 404]:
