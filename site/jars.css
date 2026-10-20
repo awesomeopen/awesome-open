@@ -42,7 +42,10 @@
 .jar-callout {position:absolute;pointer-events:auto;max-width:224px;}
 .callout-function {left:78%;top:18px;width:224px;}
 .callout-metrics {left:108%;top:170px;min-width:160px;}
-.callout-inspect {left:82%;top:273px;white-space:nowrap;}
+.callout-inspect {left:82%;top:273px;white-space:nowrap}
+.callout-inspect {border: 3px solid var(--rs-scarlet);text-transform: uppercase;font-weight:700;letter-spacing:1px;font-family:'Poltawski Nowy',serif;}
+.callout-inspect:hover {border-color:var(--rs-scarlet-art);color:var(--rs-scarlet-art)}
+
 .jar-exhibit:nth-last-child(-n+3) .jar-callout {text-align:right;}
 .jar-exhibit:nth-last-child(-n+3) .callout-kicker,.jar-exhibit:nth-last-child(-n+3) .jar-metrics span {margin-left:auto;}
 .jar-exhibit:nth-last-child(-n+3) .callout-function {left:auto;right:78%;}
