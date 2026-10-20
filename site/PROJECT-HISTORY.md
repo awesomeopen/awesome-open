@@ -24,7 +24,9 @@ The document contains `schema_version: 1` and an `events` array. Each event has:
   the bases above, or `identity`) and a dated source's ISO `date`, or null.
   A source's publication/merge/release date is not automatically the event date.
 - `checked_at`, `reviewed_by`: actual review provenance.
-- `note`: what the evidence establishes and any uncertainty or limits.
+- `note`: what the evidence establishes and any real uncertainty. Readers see it
+  behind the timeline's "(i)"; do not add sentences disclaiming claims the
+  record never makes ([B-PR150-01](../brand/decisions/B-PR150-01.md)).
 - Optional `first_observed_at`: our first observation date, only when known.
   A new review does not backfill a previously unknown first-observation date.
 
@@ -42,27 +44,29 @@ happened on August 19. The release is supporting evidence, not another event.
 
 ## Display and future counting
 
-Only verified day-precision occurrence dates enter the timeline. Labels state
-the date basis, so an implementation and an announcement are not presented as
-interchangeable. Approximate/unknown occurrence dates, review dates and first
-observations stay in the folded, secondary **Name-change evidence** block. They
-never substitute for occurrence dates or enter future monthly occurrence counts.
-An announcement about a future change needs that distinction in its evidence;
-do not mark a proposal as an accomplished rename.
+Only verified day-precision occurrence dates enter the timeline. They join the
+existing Repository record timeline ([B-PR150-01](../brand/decisions/B-PR150-01.md)):
+a true-date marker on the axis and a label above it reading, for example,
+"Renamed: OpenDevin → OpenHands (i)" with the date below. The "(i)" disclosure
+opens the full evidence: kind, date basis and date, note, every source link and
+review provenance. Upper labels whose dates are close climb a row instead of
+moving their markers; rename labels sit above the release label. Repository
+creation/release/push retain their literal meanings. The axis spans all
+verified dates, including events before the current repository existed; the
+repository lifetime segment still starts at repository creation. Missing
+repository dates are omitted, without hiding a verified project-name event.
+Records without reviewed history keep their existing timeline unchanged.
 
-For records with history, true-date numbered markers occupy separate vertical
-lanes and link to wrapping chronological entries. Same-day markers retain the
-same x position; nearby dates are not spread apart to fit labels. Repository
-creation/release/push retain their literal meanings. The axis spans all verified
-dates, including events before the current repository existed; the repository
-lifetime segment still starts at repository creation. Missing repository dates
-are omitted, without hiding a verified project-name event. Records without
-reviewed history keep their existing timeline.
+Approximate/unknown occurrence dates, review dates and first observations never
+enter the axis or future monthly occurrence counts. Events without an exact date
+stay in the folded, secondary **Name-change evidence** block. An announcement
+about a future change needs that distinction in its evidence; do not mark a
+proposal as an accomplished rename.
 
 The same renderer serves fetched drawers, full record pages, exhibition and
 offline output. The standalone includes its evidence in the catalog JSON.
-Source links need a network; no runtime collection is introduced. Marker links
-work with the full-record base URL and become local anchors in adopted drawers.
+Source links need a network; no runtime collection is introduced. The "(i)" is
+a native disclosure and works without JavaScript.
 
 Future Observatory use must count event IDs once, retain event kinds and date
 bases, and state coverage. A release corroborating an implementation is not a
@@ -76,6 +80,7 @@ curated decision; the proposed frozen archive is not implemented here.
 Run the full offline Python suite and brand checks, build production-shaped
 output, and run the existing browser suite. History regressions cover invalid
 schema/identity/dates, unknown and coarse dates, source roles, duplicate events,
-literal positions, close/coincident events, pre-repository events and absent
-repository dates. Browser checks exercise the seeded records at 320px and desktop,
-200% root text size, marker navigation, full-record and standalone output.
+the rename label and its details, stacked close labels, pre-repository events and
+absent repository dates. Browser checks exercise the seeded records at 320px and
+desktop in drawers, full records and standalone output: label text, keyboard
+opening of "(i)", the source link and details fitting the viewport.

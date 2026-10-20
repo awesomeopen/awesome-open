@@ -7,6 +7,7 @@ import unittest
 
 from build_catalog import canonical_url, build_catalog
 import history_view
+from build_site import timeline
 import project_history as history
 from test_specimen_plate import PROJECT, render
 
@@ -69,54 +70,55 @@ class HistoryTests(unittest.TestCase):
             event['first_observed_at'] = '2026-10-19'
             events = self.attach(event)
             self.assertEqual(history.exact_events(events), [])
-            plotted = history_view.timeline(None, None, None, events, 'abc')
-            self.assertEqual(plotted, '')
+            self.assertEqual(history_view.timeline_events(events), [])
+            self.assertEqual(timeline(None, None, None, history_view.timeline_events(events)), '')
             evidence = history_view.evidence(events)
             self.assertIn('First observed 2026-10-19', evidence)
-            self.assertNotIn('<time', evidence)
             self.assertIn('Rename date unknown' if occurrence is None else 'not plotted', evidence)
             self.projects[canonical_url(PROJECT['url'])].pop('history')
 
-    def test_literal_same_day_and_nearby_markers_use_separate_lanes(self):
-        first = deepcopy(self.event); second = deepcopy(self.event)
-        second.update(id='second', old_name='OpenTofu', new_name='OpenTofu Next')
-        line = history_view.timeline('2023-09-20', ('2023-09-20', 'v1'), '2023-09-21', [first, second], 'abc')
-        positions = re.findall(r'style="left:([\d.]+)%;top:([\d.]+)rem;', line)
-        self.assertEqual(len(positions), 5)
-        self.assertEqual(len({x for x, y in positions}), 2)
-        self.assertEqual(len({y for x, y in positions}), 5)
-        self.assertEqual(line.count('<li id='), 5)
-        self.assertIn('OpenTF → OpenTofu (announced)', line)
+    def test_rename_label_opens_details_with_source(self):
+        events = history_view.timeline_events(self.attach())
+        line = timeline('2023-08-16', ('2026-10-01', 'v1'), '2026-10-20', events)
+        self.assertIn('Renamed: OpenTF → OpenTofu <details class="timeline-info">', line)
+        self.assertIn('<summary aria-label="Details: Renamed: OpenTF → OpenTofu">(i)</summary>', line)
+        panel = line.split('timeline-info-panel">')[1].split('</div>')[0]
+        self.assertIn('Announced 2023-09-20', panel)
+        self.assertIn('href="https://www.linuxfoundation.org/press/announcing-opentofu"', panel)
+        self.assertIn('Reviewed 2026-10-19', panel)
+        self.assertNotIn('role="img"', line)
+        self.assertEqual(history_view.evidence(self.attach()), '')
 
-    def test_event_ids_cannot_collide_with_repository_milestones(self):
-        event = deepcopy(self.event); event['id'] = 'created'
-        line = history_view.timeline('2023-09-20', None, None, [event], 'abc')
-        ids = re.findall(r'<li id="([^"]+)"', line)
-        self.assertEqual(len(ids), len(set(ids)))
-        self.assertIn('history-abc-event-created', ids)
-        self.assertIn('history-abc-repository-created', ids)
+    def test_close_upper_labels_stack_without_moving_dates(self):
+        events = [(history_view.day('2023-09-20'), 'Renamed: A → B', ''),
+                  (history_view.day('2023-09-20'), 'Renamed: B → C', '')]
+        line = timeline('2023-08-16', ('2023-10-01', 'v1'), '2023-10-20', events)
+        lefts = re.findall(r'class="timeline-mark is-rename" style="left:([\d.]+)%', line)
+        self.assertEqual(len(set(lefts)), 1)
+        self.assertEqual(sorted(re.findall(r'bottom:(\d+)px', line)), ['126', '58', '92'])
+        self.assertIn('margin-top:68px', line)
 
     def test_pre_repository_and_missing_creation(self):
+        events = history_view.timeline_events(self.attach())
         for created in (None, 'Unknown', '2025-01-01'):
-            line = history_view.timeline(created, None, None, [self.event], 'abc')
+            line = timeline(created, None, None, events)
             self.assertIn('2023-09-20', line)
             self.assertNotIn('left:-', line)
-            if created != '2025-01-01': self.assertNotIn('history-repository-span', line)
+            if created != '2025-01-01': self.assertNotIn('timeline-span', line)
 
-    def test_shared_record_uses_history_and_evidence(self):
+    def test_shared_record_uses_existing_timeline(self):
         events = self.attach()
         project = deepcopy(PROJECT); project['history'] = events
         page = render(project)
-        self.assertIn('history-timeline', page)
-        self.assertIn('Name-change evidence', page)
-        self.assertIn('Reviewed 2026-10-19', page)
-        self.assertNotIn('2026-10-19</time>', page)
+        self.assertIn('class="timeline"', page)
+        self.assertIn('Renamed: OpenTF → OpenTofu', page)
+        self.assertNotIn('Name-change evidence', page)
         project['github'] = None
         self.assertIn('OpenTF → OpenTofu', render(project))
 
     def test_existing_timeline_unchanged_without_history(self):
-        self.assertIn('class="timeline"', render(PROJECT))
-        self.assertNotIn('Name-change evidence', render(PROJECT))
+        self.assertIn('class="timeline" role="img"', render(PROJECT))
+        self.assertNotIn('timeline-info', render(PROJECT))
 
 
 if __name__ == '__main__': unittest.main()
@@ -132,10 +134,8 @@ class HistoryOutputTests(unittest.TestCase):
         for project in projects:
             pid = project['id']
             record = (output / 'records' / (pid + '.html')).read_text()
-            self.assertIn(f'href="records/{pid}.html#history-{pid}-', record)
-            self.assertIn(f'href="#history-{pid}-', standalone)
-            self.assertIn(history_view.event_title(project['history'][0]), record)
-            self.assertIn(history_view.event_title(project['history'][0]), standalone)
+            self.assertIn(history_view.timeline_title(project['history'][0]), record)
+            self.assertIn(history_view.timeline_title(project['history'][0]), standalone)
         self.assertTrue((output / history.PATH).exists())
         exported = json.loads((output / 'catalog.json').read_text())
         self.assertEqual(sum(len(p.get('history', [])) for p in exported['projects']), 2)

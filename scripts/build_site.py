@@ -340,21 +340,29 @@ def qr_path(project):
     return f"assets/qr/{project['id'][:16]}.svg"
 
 
-def timeline(created, release, pushed):
-    """Repository timestamps on one axis; positions are literal dates, labels repeat them."""
+def timeline(created, release, pushed, events=()):
+    """Repository timestamps on one axis; positions are literal dates, labels repeat them.
+
+    Reviewed name changes (date, title, details HTML) join the axis above it; their
+    "(i)" disclosure carries the evidence. Upper labels that would collide stack.
+    """
     points = [("Repository created", created, "")]
     if release:
         points.append(("GitHub release", release[0], release[1]))
     if pushed:
         points.append(("Repository push", pushed, ""))
-    try:
-        dated = [
-            (label, date.fromisoformat(value), tag) for label, value, tag in points
-        ]
-    except ValueError:
+    dated = []
+    for label, value, tag in points:
+        try:
+            dated.append((label, date.fromisoformat(value), tag))
+        except (TypeError, ValueError):
+            if not events:
+                return ""
+    if not dated and not events:
         return ""
-    first = dated[0][1].year
-    last = max(day for _, day, _ in dated).year + 1
+    days = [day for _, day, _ in dated] + [day for day, _, _ in events]
+    first = min(days).year
+    last = max(days).year + 1
     lo, hi = date(first, 1, 1), date(last, 1, 1)
     pct = lambda day: round((day - lo).days / (hi - lo).days * 100, 2)
     step = 2 if last - first > 8 else 1
@@ -362,8 +370,21 @@ def timeline(created, release, pushed):
         f'<span class="timeline-year" style="left:{pct(date(y, 1, 1))}%">{y}</span>'
         for y in range(first, last + 1, step)
     )
-    marks, labels = [], []
-    close_endpoints = bool(pushed) and abs(pct(dated[-1][1]) - pct(dated[0][1])) < 30
+    marks, labels, rows = [], [], []
+
+    def upper_row(left, lowest=0):
+        # True positions stay; only the label climbs a row when neighbours are close.
+        while len(rows) < lowest:
+            rows.append([])
+        row = next((i for i, taken in enumerate(rows) if i >= lowest and all(abs(left - x) >= 30 for x in taken)), len(rows))
+        if row == len(rows):
+            rows.append([])
+        rows[row].append(left)
+        return row
+
+    created_day = dated[0][1] if dated and dated[0][0] == "Repository created" else None
+    pushed_day = dated[-1][1] if dated and dated[-1][0] == "Repository push" else None
+    close_endpoints = bool(created_day and pushed_day) and abs(pct(pushed_day) - pct(created_day)) < 30
     for label, day, tag in dated:
         left = pct(day)
         side = "up" if tag else "down"
@@ -377,6 +398,8 @@ def timeline(created, release, pushed):
             anchor = f"right:{round(100 - left, 2)}%;margin-right:8px;text-align:right"
         elif close_endpoints and label == "Repository push":
             anchor = f"left:{left}%;margin-left:8px;text-align:left"
+        if tag:
+            anchor += f";bottom:{58 + 34 * upper_row(left)}px"
         extra = f" · {escape(tag)}" if tag else ""
         marks.append(
             f'<span class="timeline-mark{" is-release" if tag else ""}" style="left:{left}%"></span>'
@@ -384,13 +407,40 @@ def timeline(created, release, pushed):
         labels.append(
             f'<span class="timeline-label {side}{"" if tag else " repeats-vitals"}" style="{anchor}">{escape(label)}<br><span class="metric-value">{day.isoformat()}</span>{extra}</span>'
         )
-    first_pct, last_pct = pct(dated[0][1]), max(pct(day) for _, day, _ in dated)
-    span = f'<span class="timeline-span" style="left:{first_pct}%;width:{round(last_pct - first_pct, 2)}%"></span>'
+    for day, title, details in events:
+        left = pct(day)
+        right = left > 55
+        anchor = (
+            f"right:{round(100 - left, 2)}%;text-align:right;max-width:{left}%;--room:{left}"
+            if right
+            else f"left:{left}%;max-width:{round(100 - left, 2)}%;--room:{round(100 - left, 2)}"
+        )
+        # Rename labels sit above the release row; label widths are unknown on narrow screens.
+        anchor += f";bottom:{58 + 34 * upper_row(left, 1 if release else 0)}px"
+        marks.append(f'<span class="timeline-mark is-rename" style="left:{left}%"></span>')
+        labels.append(
+            f'<span class="timeline-label up is-rename{" is-right" if right else ""}" style="{anchor}">{escape(title)} '
+            f'<details class="timeline-info"><summary aria-label="Details: {escape(title)}">(i)</summary>'
+            f'<div class="timeline-info-panel">{details}</div></details>'
+            f'<span class="metric-value timeline-date">{day.isoformat()}</span></span>'
+        )
+    span = ""
+    repository = [day for _, day, _ in dated]
+    if created_day:
+        first_pct, last_pct = pct(created_day), max(pct(day) for day in repository)
+        span = f'<span class="timeline-span" style="left:{first_pct}%;width:{round(last_pct - first_pct, 2)}%"></span>'
     summary = "; ".join(
         f"{label} {day.isoformat()}" + (f" ({tag})" if tag else "")
         for label, day, tag in dated
     )
-    return f'<div class="timeline" role="img" aria-label="{escape(summary)}"><span class="timeline-axis"></span>{span}{years}{"".join(marks)}{"".join(labels)}</div>'
+    raised = f' style="margin-top:{34 * (len(rows) - 1)}px"' if len(rows) > 1 else ""
+    # Rename details are interactive, so that variant cannot be a single image.
+    role = (
+        f'role="group" aria-label="Repository timeline: {escape(summary)}"'
+        if events
+        else f'role="img" aria-label="{escape(summary)}"'
+    )
+    return f'<div class="timeline" {role}{raised}><span class="timeline-axis"></span>{span}{years}{"".join(marks)}{"".join(labels)}</div>'
 
 
 def specimen_label(project, tags, number):
@@ -634,11 +684,10 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         vitals += f'<p class="fine-print metrics-freshness">{escape(freshness)}</p>'
     history = project.get("history", [])
     pushed_date = github["pushed_at"][:10] if github and github.get("pushed_at") else None
-    if history:
-        vitals += history_view.timeline(created, release, pushed_date, history, project["id"])
-        vitals += history_view.evidence(history)
-    elif github:
-        vitals += timeline(created, release, pushed_date)
+    events = history_view.timeline_events(history)
+    if github or events:
+        vitals += timeline(created, release, pushed_date, events)
+    vitals += history_view.evidence(history)
     interior = specimen_plate(
         project,
         number,
@@ -808,8 +857,6 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
     name = escape(project["name"])
     card = project_html(project, categories, catalog, number, cutouts, position=1)
     card = card.replace('<details class="specimen-drawer">', '<details class="specimen-drawer" open>', 1)
-    card = re.sub(r'href="#(history-[a-z0-9-]+)"',
-                  lambda match: f'href="records/{pid}.html#{match[1]}"', card)
     sha = catalog.get("source_sha")
     revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else "Local preview (revision not supplied)"
     return f'''<!doctype html>
