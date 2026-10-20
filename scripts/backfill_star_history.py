@@ -25,12 +25,26 @@ ROOT = Path(__file__).resolve().parents[1]
 RATE_URL = 'https://api.github.com/rate_limit'
 URL = re.compile(r'https://api\.github\.com/repos/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/stargazers/history\?per_page=30&page=[1-9][0-9]*')
 
+# Reviewed in CONTRIBUTING.md, not a general exemption for HTTP 404. Recheck on
+# every backfill: only this first-page response may be unavailable without
+# stopping independent histories. A later successful response needs no override.
+REVIEWED_UNAVAILABLE = {
+    'script-k1tty/opendisplay': {
+        'reviewed_at': '2026-10-20',
+        'request_url': 'https://api.github.com/repos/script-k1tty/opendisplay/stargazers/history?per_page=30&page=1',
+    },
+}
+
 
 class StopBackfill(RuntimeError):
     def __init__(self, reason, resumable=False):
         super().__init__(reason)
         self.resumable = resumable
         self.context = None
+
+
+class ReviewedUnavailable(StopBackfill):
+    """An exact reviewed 404 whose quota headers were successfully observed."""
 
 
 class Transport:
@@ -129,6 +143,12 @@ class Transport:
                     raise StopBackfill('GitHub authentication failed; review the existing credential')
                 if error.code in {301, 302, 307, 308}:
                     raise StopBackfill('GitHub repository redirect refused; review the repository identity')
+                if error.code == 404 and any(
+                        url == entry['request_url'] for entry in REVIEWED_UNAVAILABLE.values()):
+                    # Continuation must not spend beyond the live reserve. A
+                    # header-validation error stays an ordinary blocking error.
+                    self.observe(error.headers)
+                    raise ReviewedUnavailable('Reviewed history endpoint returned HTTP 404; cause not established')
                 if error.code in {403, 429}:
                     self.observe(error.headers)
                     raw = error.read(4096).decode('utf-8', errors='replace').lower()
@@ -252,7 +272,8 @@ def collect(projects, cache, metadata, transport, source_sha, checkpoint, flush_
     missing.sort(key=lambda p: history.priority_key(p, cache['repositories'], metadata))
     state = {'schema_version': 1, 'source_sha': source_sha, 'started_at': now.isoformat(),
              'eligible': len(projects), 'initial_missing': len(missing), 'records': {},
-             'status': 'running', 'remaining': len(missing), 'failed_repositories': [], 'failures': []}
+             'status': 'running', 'remaining': len(missing), 'failed_repositories': [], 'failures': [],
+             'unavailable': []}
     pending = {}
     atomic_json(checkpoint, state)
     try:
@@ -272,6 +293,20 @@ def collect(projects, cache, metadata, transport, source_sha, checkpoint, flush_
                 atomic_json(checkpoint, state)
                 continue
             except StopBackfill as error:
+                reviewed = REVIEWED_UNAVAILABLE.get(repo)
+                context = error.context or {}
+                if (isinstance(error, ReviewedUnavailable) and reviewed and context.get('http_status') == 404
+                        and context.get('request_url') == reviewed['request_url']):
+                    state['unavailable'].append({
+                        'repo': repo, 'status': 'unavailable', 'checked_at': now.isoformat(),
+                        'reviewed_at': reviewed['reviewed_at'], 'http_status': 404,
+                        'request_url': reviewed['request_url'],
+                        'reason': 'Reviewed history endpoint returned HTTP 404; cause not established',
+                    })
+                    # Do not fabricate a success, replace last-good data or
+                    # reduce remaining: this repository still lacks the window.
+                    atomic_json(checkpoint, state)
+                    continue
                 state['failed_repositories'].append(repo)
                 state['failures'].append({'repo': repo, 'http_status': None,
                                           'request_url': None, **(error.context or {}), 'reason': str(error)})
@@ -297,9 +332,12 @@ def collect(projects, cache, metadata, transport, source_sha, checkpoint, flush_
             if len(pending) >= 20:
                 flush_records(pending)
                 pending = {}
-        state['status'] = 'blocked' if state['failed_repositories'] else 'complete'
+        state['status'] = ('blocked' if state['failed_repositories'] else
+                           'complete_with_unavailable' if state['unavailable'] else 'complete')
         if state['failed_repositories']:
             state['reason'] = 'Some aggregate histories failed coverage validation; review the checkpoint'
+        elif state['unavailable']:
+            state['reason'] = 'Other histories completed; reviewed unavailable histories remain without a current window'
     except StopBackfill as error:
         state.update(status='partial' if error.resumable else 'blocked', reason=str(error))
     except (history.HistoryError, ValueError, RuntimeError, OSError):
@@ -328,6 +366,14 @@ def failure_summary(state):
     return '\n'.join(lines)
 
 
+def unavailable_summary(state):
+    return '\n'.join(
+        f"Repository {entry['repo']}: unavailable; HTTP {entry['http_status']}; "
+        f"checked at {entry['checked_at']}; reviewed {entry['reviewed_at']}; "
+        f"{entry['reason']}; request: {entry['request_url']}"
+        for entry in state['unavailable'])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--checkpoint', type=Path, default=ROOT / 'tmp/history-backfill/checkpoint.json')
@@ -346,11 +392,14 @@ def main():
     transport = Transport(os.environ.get('GITHUB_TOKEN'), reserve, args.seconds)
     state = collect(projects, cache, metadata, transport, base, args.checkpoint, lambda records: flush(ROOT, records))
     summary = (f"History backfill: {state['status']}; {len(state['records'])} completed this run; "
-               f"{state['remaining']} remaining in this run's manifest; {state['requests']} HTTP attempts. "
+               f"{state['remaining']} remaining in this run's manifest "
+               f"({len(state['unavailable'])} reviewed unavailable); {state['requests']} HTTP attempts. "
                f"Normal publisher reserve: {reserve}. Quota reset: {state['quota_reset_at']}; remaining: {state['quota_remaining']}. "
                f"If partial, resume no earlier than {state['resume_after']}. " + state.get('reason', ''))
     if state['failures']:
         summary += '\n' + failure_summary(state)
+    if state['unavailable']:
+        summary += '\n' + unavailable_summary(state)
     print(summary)
     if output := os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(output, 'a') as stream:

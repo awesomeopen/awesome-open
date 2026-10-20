@@ -373,16 +373,39 @@ HTTP responses and invalid transport data stop the chunk for review. Incomplete
 repository coverage is recorded separately while independent repositories continue.
 No individual stargazer records, personal tokens, cookies, or new permissions are used.
 
+The sole reviewed unavailable exception is OpenDisplay
+(`script-k1tty/opendisplay`). On 2026-10-20, [backfill run 39376825555](https://github.com/awesomeopen/awesome-open/actions/runs/39376825555)
+recorded HTTP 404 from its [first aggregate-history page](https://api.github.com/repos/script-k1tty/opendisplay/stargazers/history?per_page=30&page=1)
+at 05:54 UTC; the [repository API](https://api.github.com/repos/script-k1tty/opendisplay)
+also returned HTTP 404 when checked at 11:56 UTC. This establishes only that
+these requests were unavailable, not that the repository moved, became private,
+or was deleted. No replacement identity is inferred.
+
+`REVIEWED_UNAVAILABLE` in `scripts/backfill_star_history.py` lets only that
+repository's first-page HTTP 404 continue to independent repositories. It is
+requested again on every backfill where its current window is missing, so a
+successful response recovers normally. A later-page 404, an unreviewed
+repository's 404, authentication/permission failures, redirects and all other
+transport errors retain the existing stop behavior. Ordinary collection and its
+budget are unchanged. The checkpoint's separate `unavailable` list records the
+attempt time, review date, HTTP status and allowlisted request URL. It neither
+adds a successful record nor changes cached or archived evidence, the catalog
+identity, or the missing-history count. If all other histories complete, status
+is `complete_with_unavailable`: cached publication may proceed, but coverage is
+not complete. Unavailable histories still need review; do not repeatedly
+dispatch solely to retry the same reviewed 404.
+
 The existing `publish-readme-main` concurrency group remains the single writer.
 Every completed repository is atomically saved under `tmp/history-backfill/`.
 Batches of at most 20 successful repositories are validated by the full offline
 suite, merged with fresh main's eligible identities and newer evidence, and pushed
 with ordinary fast-forward checks. Curated source, metadata, the daily history
 budget and unrelated files are never replaced. Failed validation never publishes
-that batch. A successful or time/quota-limited chunk then renders validated cached
-snapshots without repeating core API collection and uses the existing Pages flow.
+that batch. A successful, reviewed-unavailable or time/quota-limited chunk then
+renders validated cached snapshots without repeating core API collection and uses
+the existing Pages flow.
 
-The run summary/checkpoint reports complete, partial or blocked, remaining
+The run summary/checkpoint reports complete, complete_with_unavailable, partial or blocked, remaining
 repositories, request count, the live quota reset time and `resume_after` (also
 respecting Retry-After). Repository failures also report the catalog repository,
 the allowlisted request URL and HTTP status when available, and a locally defined
