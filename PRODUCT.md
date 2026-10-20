@@ -60,9 +60,9 @@ meaning. The strangeness lives in artwork and organization, never in the facts.
   CSS/JS in `site/`. Fix the generator or authored files, never built HTML.
 - Search and filters work from an embedded index; detail records load lazily with
   a no-JavaScript full-record fallback ([detail loading](site/DETAIL-LOADING.md)).
-- Evidence contracts are binding: unknown stays unknown, stars are not quality,
-  HN counts are not sentiment, last push is not a maintenance verdict,
-  alternatives are not ancestry ([evidence contract](brand/foundation.md#evidence-contract)).
+- Evidence contracts are binding: each label keeps the meaning recorded in the
+  [evidence contract](brand/foundation.md#evidence-contract), and copy states
+  that meaning directly.
 - Brand, artwork, icon and skill changes follow [AGENTS.md](AGENTS.md) and
   [brand/maintenance.md](brand/maintenance.md), with decision records per PR.
 - Open, not started: specimen audio, ex-Open* frozen page, illustrations

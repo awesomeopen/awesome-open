@@ -36,22 +36,25 @@ fake archival secrecy or closing taglines. The detailed writing contract is in
 
 Examples: “Detected license”, “Last repository push”, “Reviewed alternatives”,
 “Official source (GitHub)”. Avoid “license sincerity”, “active metabolism”, and
-“forks of war” as unsupported classifications. A missing value stays unknown.
+“forks of war” as unsupported classifications. Show a missing value as “Unknown”.
 
 ## Evidence contract
 
-| Observation | Meaning that must be preserved |
-| --- | --- |
-| GitHub license detection | Metadata; not independent legal review |
-| Stars / category top three | Count/ranking within that category; not endorsement |
-| HN submissions / 2y | Matched submissions; not sentiment, adoption or controversy |
-| Monthly stars retained at fetch | Retained stars in the cached history; preserve qualifications |
-| Last push / repository creation | Repository timestamps; not project health/birth |
-| Alternatives | Reviewed use-case comparison; not descent or feature parity |
-| Registry ID | Stable canonical-URL identity; not display position |
-| Folio number | Alphabetical position in the generated edition; not identity |
-| Archived on GitHub | The owner's GitHub archive flag; not a quality, safety or abandonment verdict |
-| Detected license “Unknown” | No SPDX license detected (including NOASSERTION/OTHER); not “no license” |
+Copy uses the meaning column. The last column is a review checklist: reject a
+change that implies one of those readings, and keep the list itself out of copy.
+
+| Observation | Meaning that must be preserved | Readings it does not support (review only) |
+| --- | --- | --- |
+| GitHub license detection | GitHub license metadata | Independent legal review |
+| Stars / category top three | Count/ranking within that category | Endorsement or quality |
+| HN submissions / 2y | Matched submissions | Sentiment, adoption or controversy |
+| Monthly stars retained at fetch | Retained stars in the cached history, with its qualifications | |
+| Last push / repository creation | Repository timestamps | Project health or birth |
+| Alternatives | Reviewed use-case comparison | Descent or feature parity |
+| Registry ID | Stable canonical-URL identity | Display position |
+| Folio number | Alphabetical position in the generated edition | Identity |
+| Archived on GitHub | The owner's GitHub archive flag | Quality, safety or abandonment verdict |
+| Detected license “Unknown” | No SPDX license detected (including NOASSERTION/OTHER) | “No license” |
 
 Release, Scorecard, function-summary and deployment evidence retain their own
 source and review contracts. A design change must not erase uncertainty or

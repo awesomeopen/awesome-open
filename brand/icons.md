@@ -11,20 +11,19 @@ Both must carry the same IDs, shapes, tokens and sizes; change them together.
 
 ## What an icon may say
 
-An icon restates an evidence label. It never replaces the label and never adds a
-judgment the label does not make.
+An icon restates an evidence label. It accompanies the label and adds no judgment
+of its own.
 
-- **State, not quality.** Icons describe what we know about a record and how
-  recently we observed it. “Failed” means our retrieval attempt failed; it says
-  nothing about the project. A Scorecard 3/10 is a value with no state icon.
-- **Unknown is not negative.** `state.unknown` is muted and dashed, never scarlet
+- **State only.** Icons describe what we know about a record and how
+  recently we observed it. “Failed” means our retrieval attempt failed. A Scorecard 3/10 is a value with no state icon.
+- **Unknown is muted.** `state.unknown` is muted and dashed; scarlet stays reserved for attention
   ([guide, Status](../site/RETRO-SCRAPERISM.md)).
 - **Shape carries meaning; colour confirms it.** Every glyph must be
   distinguishable in monochrome and in forced-colours mode. Colour is never the
   only signal ([guide, Color](../site/RETRO-SCRAPERISM.md)).
-- **Aged is a modifier, not a midpoint.** A stale value had a good observation
+- **Aged is a modifier.** A stale value had a good observation
   that is now old or followed by a failed attempt. It gets the `badge.aged`
-  overlay, not a step between current and failed.
+  overlay.
 - **Do not mark everything “cached”.** The whole site is a snapshot. Use the aged
   state only where the code already distinguishes retained values.
 - **Always pair with text.** Decorative icons next to their label get

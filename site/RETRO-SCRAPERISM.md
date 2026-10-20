@@ -2,13 +2,13 @@
 
 Version 0.1 · established project guide · consolidated 2026-10-13
 
-**Specimen is the chosen concept spine.** It is a deliberate fit for inspecting software and its evidence, not the result of a random theme selection. Retro-Scraperism is a precise, high-contrast field of technical information interrupted by curious hand-drawn life and visible editorial attention. Think a working sketchbook meeting a drafting instrument: lucid, slightly strange, and useful.
+**Specimen is the chosen concept spine.** It was chosen because it fits inspecting software and its evidence. Retro-Scraperism is a precise, high-contrast field of technical information interrupted by curious hand-drawn life and visible editorial attention. Think a working sketchbook meeting a drafting instrument: lucid, slightly strange, and useful.
 
 This is the detailed canonical project guide. Start at [the brand reference](../brand/README.md) for current status, assets, skills and maintenance. Later component sections retain their original proposal wording as implementation history; see [the decision register](../brand/decisions.md) for current status. [The visual reference](design/index.html) and [CSS tokens](design/tokens.css) make it concrete. The portable `retro-scraperism` skill carries these principles elsewhere; for Awesome Open, this document wins over its bundled snapshot. The current production composition is recorded in [the visual-system index](../brand/visual-system.md).
 
 ## 1. Direction and boundaries
 
-The interface helps people inspect, compare, and follow evidence about open software. A specimen is an inspectable record, not a verdict, a collectible rarity, or a claim about biological ancestry. Functional labels remain ordinary language: Search projects, Repository, License, Last push, Sources.
+The interface helps people inspect, compare, and follow evidence about open software. A specimen is an inspectable record of observed evidence. Functional labels remain ordinary language: Search projects, Repository, License, Last push, Sources.
 
 Three layers work together:
 
@@ -136,14 +136,15 @@ When generating website reference images, request one separate horizontal image 
 
 ## 7. Evidence and language
 
-Preserve the site's existing evidence boundaries:
+Preserve the site's existing evidence meanings, as listed in the
+[evidence contract](../brand/foundation.md#evidence-contract):
 
-- Unknown license means unknown; it is not a legal verdict.
-- Last push is a UTC repository timestamp, not a maintenance diagnosis.
-- Repository creation is not project birth or a specimen collection date.
-- Stable IDs derive from actual identifiers; display positions are not identities.
-- Reviewed alternatives are comparisons, not descent or dependency claims.
-- HN counts/charts represent matched submissions, not sentiment or controversy.
+- An undetected license reads “Unknown”.
+- Last push is a UTC repository timestamp.
+- Repository creation dates the repository.
+- Stable IDs derive from actual identifiers.
+- Reviewed alternatives are use-case comparisons.
+- HN counts/charts count matched submissions.
 - Never invent clades, motives, citations, testimonials or compliance claims.
 
 Metaphor lives in headings and illustration. Searchable labels, evidence units and destinations remain literal. A scarlet mark can identify an editorial question; it cannot silently convert absence of evidence into alarm.
@@ -156,6 +157,7 @@ Apply these rules to all writing: interface copy, headings, annotations, documen
 - **Zero interpretation:** Do not analyze, reflect on, or comment on the user's mindset, emotions, motives, or underlying journey. Answer only the explicit operational premise. State relevant facts, actions, constraints, and uncertainties.
 - **Answer first:** Put the concrete answer, result, or required action in sentence one. Never begin with a rhetorical wind-up or warm-up phrase such as “It makes sense that…”, “At its core…”, or “This speaks to a larger truth…”.
 - **No editorial taglines:** Omit closing encouragement, philosophical takeaways, life advice, closing remarks, and unsolicited summaries. Stop when the requested information is complete.
+- **Positive statements:** Say what a value, label or rule is and link its method. Do not define it by what it is not (“X, not Y”, “X is not a verdict”), pre-empt conclusions (“does not establish”, “says nothing about”) or disclaim claims nobody made. A limit that matters is stated once, positively, in the method section or the “(i)” disclosure. Instructions and constraints (“Do not…”, “Never invent…”) are fine.
 - **Direct structure:** Omit filler transitions. Use precise verbs and literal headings. Include explanation only when it supports the requested operational answer; do not turn a technical observation into a broader life lesson.
 
 The specimen concept governs visual organization and artwork; it does not authorize elevated prose or commentary about the reader.
