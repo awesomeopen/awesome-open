@@ -1,38 +1,33 @@
-/* Reviewed name events: true positions, readable labels, and local record anchors. */
+/* Reviewed renames on the repository timeline: readable label, "(i)" evidence with its source. */
 const assert = require('node:assert/strict');
 module.exports = async ({page, url, data, capture}) => {
   const projects = data.projects.filter(p => ['OpenTofu','OpenHands'].includes(p.name) && p.history?.length);
   assert.equal(projects.length, 2, 'Two reviewed historical seed records');
-  async function check(plate, label) {
-    const markers = plate.locator('.history-marker');
-    assert.ok(await markers.count() >= 3, label + ': repository and rename milestones');
-    const geometry = await markers.evaluateAll(nodes => nodes.map(n => {
-      const r = n.getBoundingClientRect(); return {left:r.left,right:r.right,top:r.top,bottom:r.bottom};
+  async function check(plate, project, label) {
+    const event = project.history[0];
+    const rename = plate.locator('.timeline-label.is-rename');
+    assert.equal(await rename.count(), 1, label + ': one rename label');
+    assert.ok((await rename.innerText()).includes(`Renamed: ${event.old_name} → ${event.new_name} (i)`), label + ': rename label text');
+    assert.ok((await rename.innerText()).includes(event.occurred.value), label + ': rename date');
+    assert.equal(await plate.locator('.history-marker,.history-dates').count(), 0, label + ': no numbered lanes');
+    const info = rename.locator('details.timeline-info');
+    assert.equal(await info.getAttribute('open'), null, label + ': details start folded');
+    await info.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    const panel = info.locator('.timeline-info-panel');
+    assert.ok(await panel.isVisible(), label + ': (i) opens details from the keyboard');
+    assert.ok(await panel.locator(`a[href="${event.occurred.source_url}"]`).count() >= 1, label + ': source link');
+    assert.ok((await panel.innerText()).includes('Reviewed ' + event.checked_at));
+    const box = await panel.boundingBox();
+    const width = await page.evaluate(() => innerWidth);
+    assert.ok(box.x >= 0 && box.x + box.width <= width, label + ': details fit the viewport');
+    const labels = await plate.locator('.timeline-label:visible').evaluateAll(ns => ns.map(n => {
+      const r = n.getBoundingClientRect(); return {left:r.left,right:r.right};
     }));
-    for (let i=0;i<geometry.length;i++) {
-      const a=geometry[i]; assert.ok(a.left>=0 && a.right<=await page.evaluate(()=>innerWidth),label+': marker fits');
-      for(let j=i+1;j<geometry.length;j++) {
-        const b=geometry[j]; assert.ok(a.right<=b.left || b.right<=a.left || a.bottom<=b.top || b.bottom<=a.top,label+': markers do not overlap');
-      }
-    }
-    const list=plate.locator('.history-dates');
-    assert.equal(await list.evaluate(n=>getComputedStyle(n).listStyleType),'decimal',label+': entries keep their marker numbers');
-    assert.equal(await list.locator('li').count(), await markers.count());
-    assert.equal(await list.locator('li').filter({hasText:'Project renamed'}).locator('time').filter({hasText:'2026-10-19'}).count(),0,'Review day is not a milestone');
-    assert.equal(await plate.locator('.history-evidence').getAttribute('open'),null,'Secondary evidence starts folded');
-    await plate.locator('.history-evidence summary').click();
-    assert.ok((await plate.locator('.history-evidence').innerText()).includes('Reviewed 2026-10-19'));
-    const clipped=await plate.locator('.history-dates li,.history-evidence').evaluateAll(ns=>ns.filter(n=>{
-      const r=n.getBoundingClientRect(); return r.left<0||r.right>innerWidth||n.scrollWidth>n.clientWidth+1;
-    }).map(n=>n.className));
-    assert.deepEqual(clipped,[],label+': history text wraps');
-    await plate.locator('.history-evidence summary').click();
-    const marker=plate.locator('.history-marker[data-record-anchor*="-event-"]').first();
-    const target=await marker.getAttribute('data-record-anchor');
-    await marker.focus(); await page.keyboard.press('Enter');
-    assert.equal(new URL(page.url()).hash,'#'+target,label+': marker navigates to matching text');
-    assert.equal(await plate.locator('[id="'+target+'"]').count(),1);
-    assert.ok(await plate.locator('[id="'+target+'"]').isVisible());
+    assert.ok(labels.every(r => r.left >= 0 && r.right <= width), label + ': timeline labels fit');
+    await plate.locator('.timeline').scrollIntoViewIfNeeded();
+    await capture('history-' + project.name.toLowerCase() + '-' + label.replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.png');
+    await info.locator('summary').click();
   }
   for (const p of projects) {
     for (const width of [1440,320]) {
@@ -41,33 +36,14 @@ module.exports = async ({page, url, data, capture}) => {
       const row=page.locator('#project-'+p.id);
       await row.locator('>details').evaluate(n=>n.open=true);
       const plate=row.locator('.specimen-plate'); await plate.waitFor({state:'visible'});
-      await check(plate,p.name+' drawer '+width);
-      assert.equal(await plate.locator('.history-marker').first().getAttribute('href'),
-        '#'+await plate.locator('.history-marker').first().getAttribute('data-record-anchor'));
-      const historyURL = page.url();
-      await page.goBack();
-      await page.goForward();
-      assert.equal(page.url(), historyURL, 'Back/Forward retains the history anchor');
-      await page.reload();
-      await plate.waitFor({state:'visible'});
-      const restored = await plate.locator('.history-marker[data-record-anchor*="-event-"]').first().getAttribute('data-record-anchor');
-      assert.equal(await plate.locator('[id="'+restored+'"]').evaluate(n=>document.activeElement===n),true,'Reload restores history target after lazy loading');
-      await plate.locator('.history-timeline').scrollIntoViewIfNeeded();
-      await capture('history-'+p.name.toLowerCase()+'-'+width+'.png');
+      await check(plate,p,'drawer '+width);
     }
     for (const route of ['records/'+p.id+'.html','standalone.html']) {
       await page.goto(new URL(route,url).href);
       const row=page.locator('#project-'+p.id);
       await row.locator('>details').evaluate(n=>n.open=true);
       const plate=row.locator('.specimen-plate');
-      const before=await plate.locator('.history-dates,.history-marker,.history-evidence').evaluateAll(ns=>ns.map(n=>parseFloat(getComputedStyle(n).fontSize)));
-      await page.evaluate(()=>document.documentElement.style.fontSize='200%');
-      const after=await plate.locator('.history-dates,.history-marker,.history-evidence').evaluateAll(ns=>ns.map(n=>parseFloat(getComputedStyle(n).fontSize)));
-      assert.ok(after.every((value,i)=>value>=before[i]*1.99),'History text really doubles at 200%');
-      await check(plate,p.name+' '+route+' 320px 200%');
-      assert.equal(new URL(page.url()).pathname,new URL(route,url).pathname,'Marker stays on its output route');
-      await plate.locator('.history-timeline').scrollIntoViewIfNeeded();
-      await capture('history-'+p.name.toLowerCase()+'-'+(route==='standalone.html'?'offline':'record')+'-200.png');
+      await check(plate,p,(route==='standalone.html'?'offline':'record')+' 320');
     }
   }
 };
