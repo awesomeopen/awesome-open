@@ -110,9 +110,10 @@ centered “In the wild” departure on a Prussian band.
 - Section labels are scarlet blocks with mist type (5.86:1). No horizontal rules inside the
   plate; spacing and labels carry the hierarchy. Chart axes remain.
 - Repository record: large values plus a literal timeline of creation, latest release and
-  last push. Reviewed name-change records extend it with true-date numbered lanes
-  and a wrapping chronological list; unknown/coarse dates and discovery/review
-  dates stay in folded secondary evidence. See [B-PR139-01](decisions/B-PR139-01.md)
+  last push. A reviewed exact rename date joins the same timeline as a marker and a
+  label such as “Renamed: OpenDevin → OpenHands (i)”; the “(i)” opens its sources and
+  evidence. Unknown/coarse dates and discovery/review dates stay in folded secondary
+  evidence. See [B-PR139-01](decisions/B-PR139-01.md), [B-PR150-01](decisions/B-PR150-01.md)
   and the [history contract](../site/PROJECT-HISTORY.md). Where it runs: reviewed run/install/platform chips with the setup disclosure.
 
 ## Clearer jar glass
