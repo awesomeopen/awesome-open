@@ -2,8 +2,8 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 16,
-    "utc_date": "2026-10-19"
+    "requests_used": 4,
+    "utc_date": "2026-10-20"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
   "metric": "Stars retained on the repository at fetch time, grouped by the month their stars were created. This is not historical total stars, net star growth, or all stars ever received; removed stars are absent and past buckets can change.",
@@ -94120,6 +94120,112 @@
       "source_url": "https://api.github.com/repos/hyunwoo137/openattention/stargazers/history",
       "status": "ok"
     },
+    "hzdavy/openmijia": {
+      "checked_at": "2026-10-20T02:46:37.535740+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791676800,
+          "repository_created_at": "2026-10-11T17:18:17+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-20T02:46:37.535740+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "6b0b726abdab38f06122dc97f5a1f8c7bf872e2c",
+        "source_urls": [
+          "https://api.github.com/repos/hzdavy/openmexia/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791676800
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenMijia",
+      "readme_url": "https://github.com/hzdavy/openmijia",
+      "repo": "hzdavy/openmijia",
+      "source_sha": "6b0b726abdab38f06122dc97f5a1f8c7bf872e2c",
+      "source_url": "https://api.github.com/repos/hzdavy/openmexia/stargazers/history",
+      "status": "ok"
+    },
     "iamjsd/opencomputeruse": {
       "checked_at": "2026-10-18T15:52:55.557389+00:00",
       "last_good": {
@@ -101387,6 +101493,125 @@
       "source_url": "https://api.github.com/repos/inkeep/open-knowledge/stargazers/history",
       "status": "ok"
     },
+    "inpoint-cloud/openbarcode": {
+      "checked_at": "2026-10-20T02:46:37.535740+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791072000,
+          "repository_created_at": "2026-10-10T20:24:06+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-20T02:46:37.535740+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "6b0b726abdab38f06122dc97f5a1f8c7bf872e2c",
+        "source_urls": [
+          "https://api.github.com/repos/inpoint-cloud/openbarcode/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791072000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenBarcode",
+      "readme_url": "https://github.com/inpoint-cloud/openbarcode",
+      "repo": "inpoint-cloud/openbarcode",
+      "source_sha": "6b0b726abdab38f06122dc97f5a1f8c7bf872e2c",
+      "source_url": "https://api.github.com/repos/inpoint-cloud/openbarcode/stargazers/history",
+      "status": "ok"
+    },
     "internetarchive/openlibrary": {
       "checked_at": "2026-10-15T23:34:55.975088+00:00",
       "last_good": {
@@ -103028,6 +103253,112 @@
       "repo": "internetarchive/openlibrary",
       "source_sha": "6f5d5aca5f8a01abe08e4baf277cd0aa4d1f6134",
       "source_url": "https://api.github.com/repos/internetarchive/openlibrary/stargazers/history",
+      "status": "ok"
+    },
+    "iranimij/openimport": {
+      "checked_at": "2026-10-20T02:46:37.535740+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791676800,
+          "repository_created_at": "2026-10-13T11:36:55+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-20T02:46:37.535740+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "6b0b726abdab38f06122dc97f5a1f8c7bf872e2c",
+        "source_urls": [
+          "https://api.github.com/repos/iranimij/openimport/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791676800
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenImport",
+      "readme_url": "https://github.com/iranimij/openimport",
+      "repo": "iranimij/openimport",
+      "source_sha": "6b0b726abdab38f06122dc97f5a1f8c7bf872e2c",
+      "source_url": "https://api.github.com/repos/iranimij/openimport/stargazers/history",
       "status": "ok"
     },
     "isl-org/open3d": {
@@ -506680,6 +507011,307 @@
       "source_url": "https://api.github.com/repos/vhdani04/openlayout/stargazers/history",
       "status": "ok"
     },
+    "virtastic/openmw-web": {
+      "checked_at": "2026-10-20T02:46:37.535740+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1782604800,
+          "repository_created_at": "2026-07-02T13:33:08+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-20T02:46:37.535740+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          71,
+          20,
+          10
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "6b0b726abdab38f06122dc97f5a1f8c7bf872e2c",
+        "source_urls": [
+          "https://api.github.com/repos/virtastic/openmw-web/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              15,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 15,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              2,
+              0,
+              2,
+              0,
+              0,
+              1
+            ],
+            "total": 5,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 3,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              3,
+              0,
+              1,
+              0
+            ],
+            "total": 4,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 2,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              2,
+              0
+            ],
+            "total": 3,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "total": 1,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              3,
+              3,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 6,
+            "week": 1787443200
+          },
+          {
+            "days": [
+              0,
+              2,
+              0,
+              0,
+              2,
+              0,
+              0
+            ],
+            "total": 4,
+            "week": 1786838400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1786233600
+          },
+          {
+            "days": [
+              1,
+              2,
+              1,
+              2,
+              1,
+              0,
+              0
+            ],
+            "total": 7,
+            "week": 1785628800
+          },
+          {
+            "days": [
+              5,
+              11,
+              12,
+              9,
+              7,
+              6,
+              2
+            ],
+            "total": 52,
+            "week": 1785024000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              12,
+              9
+            ],
+            "total": 21,
+            "week": 1784419200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1783814400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1783209600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1782604800
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "openmw-web",
+      "readme_url": "https://github.com/virtastic/openmw-web",
+      "repo": "virtastic/openmw-web",
+      "source_sha": "6b0b726abdab38f06122dc97f5a1f8c7bf872e2c",
+      "source_url": "https://api.github.com/repos/virtastic/openmw-web/stargazers/history",
+      "status": "ok"
+    },
     "vittorioromeo/ssvopenhexagon": {
       "checked_at": "2026-10-17T05:59:30.671752+00:00",
       "last_good": {
@@ -519330,12 +519962,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
+    "attempted_repositories": 4,
     "due_repositories": 23,
     "eligible_repositories": 476,
-    "unattempted_repositories": 22
+    "unattempted_repositories": 18
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "80fa9024ae26f65a154341c9ab487b7353c4ea68",
-  "updated_at": "2026-10-19T21:55:30.812021+00:00"
+  "source_sha": "6b0b726abdab38f06122dc97f5a1f8c7bf872e2c",
+  "updated_at": "2026-10-20T02:46:37.535740+00:00"
 }
