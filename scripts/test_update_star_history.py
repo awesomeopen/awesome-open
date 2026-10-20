@@ -28,6 +28,12 @@ OPENNEX = {'name': 'OpenNex', 'repo': 'sophontrace/opennex',
            'readme_url': 'https://github.com/sophontrace/opennex'}
 OPENMIJIA = {'name': 'OpenMijia', 'repo': 'hzdavy/openmijia',
              'readme_url': 'https://github.com/hzdavy/openmijia'}
+OCT20_RENAMES = (
+    ({'name': 'Open Whisper', 'repo': 'twilightduck/openwhisper',
+      'readme_url': 'https://github.com/twilightduck/openwhisper'}, 'twilightduck/openquill'),
+    ({'name': 'OpenSkitch', 'repo': 'shoemoney/openskitch',
+      'readme_url': 'https://github.com/shoemoney/openskitch'}, 'shoemoney/opensnap'),
+)
 
 def weekly_series(count=108, offset=0):
     newest = int(datetime(2026, 10, 11, tzinfo=timezone.utc).timestamp()) + offset
@@ -371,6 +377,78 @@ class CollectorTests(unittest.TestCase):
                               source_url=stars.API + 'hzdavy/openmijia/stargazers/history')
             with self.subTest(mutation=mutation), self.assertRaises(ValueError):
                 stars.validate_cache(bad)
+
+    def test_oct20_reviewed_renames_only_change_history_endpoints(self):
+        for project, target in OCT20_RENAMES:
+            with self.subTest(repo=project['repo']):
+                calls = []
+                cache = stars.refresh([project], now=NOW, source_sha=SHA,
+                                      getter=pager(weekly_series(), calls))
+                self.assertEqual(set(cache['repositories']), {project['repo']})
+                record = cache['repositories'][project['repo']]
+                for key, value in project.items():
+                    self.assertEqual(record[key], value)
+                expected = stars.API + target + '/stargazers/history'
+                self.assertEqual(record['source_url'], expected)
+                self.assertEqual(record['last_good']['source_urls'], calls)
+                self.assertEqual(calls, [expected + f'?per_page=30&page={page}' for page in range(1, 5)])
+                self.assertEqual(stars.history_source_url(project['repo'].upper()), expected)
+                source = f"| [{project['name']}]({project['readme_url']}) | Application. |\n"
+                self.assertEqual(stars.load_projects({'schema_version': 2, 'scope': 'catalog_github'}, source), [project])
+
+    def test_oct20_renames_preserve_old_evidence_and_archive_keys(self):
+        import chart_observations as observations
+        for project, target in OCT20_RENAMES:
+            with self.subTest(repo=project['repo']):
+                with patch.dict(stars.REVIEWED_REPOSITORY_RENAMES, {}, clear=True):
+                    original = stars.refresh([project], now=NOW, source_sha=SHA, getter=pager(weekly_series()))
+                before = deepcopy(original)
+                archive = observations.add_stars(observations.empty(), original)
+                prior_archive = deepcopy(archive)
+                def unavailable(url):
+                    raise stars.HistoryError('GitHub history HTTP 503', 'unavailable')
+                failed = stars.refresh([project], existing=original, now=NOW + timedelta(days=1),
+                                       source_sha=SHA, getter=unavailable, force=True)
+                old = original['repositories'][project['repo']]
+                retained = failed['repositories'][project['repo']]
+                self.assertEqual(retained['last_good'], old['last_good'])
+                self.assertEqual(retained['source_url'], old['source_url'])
+                observations.add_stars(archive, failed)
+                self.assertEqual(archive, prior_archive)
+                current = stars.refresh([project], existing=failed, now=NOW + timedelta(days=2),
+                                        source_sha=SHA, getter=pager(weekly_series()), force=True)
+                self.assertEqual(set(current['repositories']), {project['repo']})
+                self.assertEqual(current['repositories'][project['repo']]['source_url'],
+                                 stars.API + target + '/stargazers/history')
+                observations.add_stars(archive, current)
+                observations.validate(archive)
+                self.assertEqual(len(archive['observations']), 2)
+                self.assertEqual({item['identity'] for item in archive['observations'].values()}, {project['repo']})
+                for section in ('observations', 'objects'):
+                    for key, value in prior_archive[section].items():
+                        self.assertEqual(archive[section][key], value)
+                self.assertEqual(original, before)
+
+    def test_oct20_renames_reject_unreviewed_mixed_and_reverse_identities(self):
+        for project, target in OCT20_RENAMES:
+            cache = stars.refresh([project], now=NOW, getter=pager(weekly_series()))
+            old_url = stars.API + project['repo'] + '/stargazers/history'
+            for mutation in ('unreviewed', 'mixed_pages', 'mismatched_source', 'reverse'):
+                with self.subTest(repo=project['repo'], mutation=mutation):
+                    bad = deepcopy(cache)
+                    record = bad['repositories'][project['repo']]
+                    if mutation == 'unreviewed':
+                        record['source_url'] = stars.API + 'unknown/renamed/stargazers/history'
+                    elif mutation == 'mixed_pages':
+                        record['last_good']['source_urls'][1] = old_url + '?per_page=30&page=2'
+                    elif mutation == 'mismatched_source':
+                        record['source_url'] = old_url
+                    else:
+                        bad['repositories'] = {target: record}
+                        record.update(repo=target, readme_url='https://github.com/' + target,
+                                      source_url=old_url)
+                    with self.assertRaises(ValueError):
+                        stars.validate_cache(bad)
 
     def test_month_assignment_excludes_current_and_older_month(self):
         rows = [
