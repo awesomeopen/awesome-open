@@ -1562,6 +1562,79 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Reviewed each capability against the official source. This is a source review, not installation or runtime testing; approval is for proposed build inclusion only."
+    },
+    "19fce0b353bf9ddfda29f9b71c9bd9ee34eaacfacbe1421e73ae48b5b732df20": {
+      "project_url": "https://github.com/opendune/opendune",
+      "text": "OpenDUNE recreates Dune II as a locally installed game for systems including Windows, Linux and macOS. Players supply the original version 1.07 game data rather than receiving those assets with the engine. Configuration options cover display scaling, fullscreen mode, language, sound and save directories. An in-game setting switches between original behavior and enhancements.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenDUNE/OpenDUNE/blob/ebea79aeba025be2fe9004570e9255044aacc0be/README",
+          "title": "OpenDUNE README",
+          "revision": "ebea79aeba025be2fe9004570e9255044aacc0be"
+        }
+      ],
+      "checked_at": "2026-10-20",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review."
+    },
+    "1ab5b29760fa788008de81095e9b2b059da0cb6434ac62ebaca1ce969d56f9d0": {
+      "project_url": "https://github.com/gitpod-io/openvscode-server",
+      "text": "OpenVSCode Server runs a version of Visual Studio Code on a remote machine and makes the development environment available through a web browser. It can be deployed from a Linux release or a Docker image, with project files mounted into the workspace. Administrators can customize container dependencies, preinstall extensions and configure a connection token for access.",
+      "sources": [
+        {
+          "url": "https://github.com/gitpod-io/openvscode-server/blob/2bfb814c5215c51a10e80c2cb1b58ed91068ad8b/README.md",
+          "title": "OpenVSCode Server README",
+          "revision": "2bfb814c5215c51a10e80c2cb1b58ed91068ad8b"
+        }
+      ],
+      "checked_at": "2026-10-20",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review."
+    },
+    "1ae4d5a6012b3c9b16169adab68e38577afe31647296ee19b55805b8c4573463": {
+      "project_url": "https://github.com/openclonk/openclonk",
+      "text": "OpenClonk is a multiplayer action game combining mining, settlement building and close combat. Players control small characters called clonks as they explore and interact with the game world. The desktop game is available for Windows, Linux and macOS. Its underlying two-dimensional game engine also supports creating custom game content through mods and scripting.",
+      "sources": [
+        {
+          "url": "https://www.openclonk.org/",
+          "title": "OpenClonk official homepage"
+        }
+      ],
+      "checked_at": "2026-10-20",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review."
+    },
+    "1b60fc9ebe21bffaf374af656fe840de40c1cbff38c738d3331ba859059b6a3b": {
+      "project_url": "https://openrgb.org",
+      "text": "OpenRGB controls supported RGB lighting devices from different manufacturers through one desktop application for Windows, Linux and macOS. A network-based SDK lets other programs drive lighting for uses such as game integrations, music visualization and ambient effects. It can synchronize lighting across multiple computers, while plugins extend the application with additional effects and device-layout tools.",
+      "sources": [
+        {
+          "url": "https://openrgb.org/",
+          "title": "OpenRGB official homepage"
+        }
+      ],
+      "checked_at": "2026-10-20",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review."
+    },
+    "1ba4d549fd772a123319ac220323cce707637d448b55e0c32ae037861868d374": {
+      "project_url": "https://github.com/openscap/openscap",
+      "text": "OpenSCAP provides the oscap command-line tool for working with Security Content Automation Protocol documents. Administrators can validate data streams, evaluate OVAL definitions and run selected XCCDF profiles against a system. The tool writes scan results to files and generates guides or reports from XCCDF content, supporting scripted assessment workflows using supplied checks and benchmarks.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenSCAP/openscap/blob/c84c8aa5e961b7ba0340a43faf4555dc383af625/README.md",
+          "title": "OpenSCAP README",
+          "revision": "c84c8aa5e961b7ba0340a43faf4555dc383af625"
+        }
+      ],
+      "checked_at": "2026-10-20",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review."
     }
   }
 }
