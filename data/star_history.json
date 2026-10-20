@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 12,
+    "requests_used": 13,
     "utc_date": "2026-10-20"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -85375,14 +85375,123 @@
       "status": "ok"
     },
     "gptchatly/openbrender": {
-      "checked_at": "2026-10-18T02:18:38.985744+00:00",
-      "error": "GitHub history HTTP 301",
+      "checked_at": "2026-10-20T17:46:03.007571+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791072000,
+          "repository_created_at": "2026-10-07T20:29:28+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-20T17:46:03.007571+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "f447d8deec0299fbb7cc676e5b41549bf1dc4408",
+        "source_urls": [
+          "https://api.github.com/repos/gptchatly/drawplotia/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              1,
+              0,
+              3,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 5,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              12,
+              7,
+              0
+            ],
+            "total": 20,
+            "week": 1791072000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
       "name": "OpenBRender",
       "readme_url": "https://github.com/gptchatly/openbrender",
       "repo": "gptchatly/openbrender",
-      "source_sha": "1df9a2d3c5834bf706ccbfd7ebe7b5ecc5e80e4e",
-      "source_url": "https://api.github.com/repos/gptchatly/openbrender/stargazers/history",
-      "status": "unavailable"
+      "source_sha": "f447d8deec0299fbb7cc676e5b41549bf1dc4408",
+      "source_url": "https://api.github.com/repos/gptchatly/drawplotia/stargazers/history",
+      "status": "ok"
     },
     "greenbone/openvas-scanner": {
       "checked_at": "2026-10-15T23:34:55.975088+00:00",
@@ -521998,12 +522107,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 4,
-    "due_repositories": 5,
+    "attempted_repositories": 1,
+    "due_repositories": 1,
     "eligible_repositories": 476,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "1ebe3ab6f234ac98596f46641158c6bb9774735b",
-  "updated_at": "2026-10-20T17:38:31.638361+00:00"
+  "source_sha": "f447d8deec0299fbb7cc676e5b41549bf1dc4408",
+  "updated_at": "2026-10-20T17:46:03.007571+00:00"
 }
