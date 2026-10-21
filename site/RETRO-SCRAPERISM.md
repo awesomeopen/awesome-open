@@ -438,6 +438,12 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   reviewed alternatives; “In the wild” departure on plain Prussian blue with its
   decorative contours centered around the link (B-PR129-01). The repeating navy
   pattern remains exclusive to the footer.
+  Departure copy is “Explore [name] on [host]” for recognized repository
+  destinations (GitHub, GitLab, Codeberg, Bitbucket, SourceForge), including
+  explicitly reviewed self-hosted repositories. Homepage and unrecognized
+  destinations use “Explore [name]”. `scripts/repository_hosts.py` owns the
+  presentation mapping independently of metrics collection. The canonical
+  catalog URL supplies the destination; domain substrings never supply a label.
 - **Removed captions:** contour/loupe disclaimers, “Under the loupe”, timeline and flow
   qualifiers, the alternatives footnote, “Submissions, not sentiment” and “Omitted facts are
   unknown”. Their meanings stay in the evidence downloads and the foundation evidence contract.
