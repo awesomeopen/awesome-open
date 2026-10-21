@@ -14,7 +14,7 @@ Preserve these project-specific choices:
   drawing skill's warm-white default. Avoid faux aging and paper stains.
 - Vary silhouette, view and structure between tools. Machinery is optional;
   do not repeat branches, shells or insect bodies by habit.
-- Artwork is original Awesome Open interpretation, not an official project logo.
+- Artwork is original Awesome Open interpretation.
   Never substitute a specimen for a software project's identity without labeling it.
 - Preserve accepted assets during focused edits. A change in star ranking does
   not invalidate existing art.
@@ -37,8 +37,7 @@ do not block display; individual images can be redone later when requested.
 Follow the [approval and review contract](../site/SPECIMEN-ART.md#default-display-approval-and-review)
 for blocking issues and truthful reviewer attribution. This does not change
 historical statuses or authorize replacement of existing accepted assets.
-“Approved” in the manifest permits proposed-build inclusion; it is not a
-production merge or a claim of individual human sign-off. Keep draft-PR review
+“Approved” in the manifest permits proposed-build inclusion. Keep draft-PR review
 and separate publication approval.
 
 Review silhouette, anatomy, functional analogy, palette, background, legibility

@@ -20,8 +20,8 @@ illustration, brand rule, sharpening setting or committed image bytes.
   installed and no network is used. Check `magick -version` and
   `magick -list format` before regeneration.
 - The safeguard/recipe tests were validated using ImageMagick **7.1.1-43 Q16**,
-  libwebp **1.5.0**, and Python **3.12**. These are validation versions, not a claim
-  about the unknown original encoding environment. Use a fixed matching toolchain
+  libwebp **1.5.0**, and Python **3.12**. These are validation versions; the original encoding
+  environment is unknown. Use a fixed matching toolchain
   when comparing repeated runs; different versions/builds may encode different
   bytes even with the same recipe. Keep committed derivatives unless a reviewed
   regeneration is intended.

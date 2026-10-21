@@ -45,7 +45,7 @@ class NameRhymeTests(unittest.TestCase):
         self.assertNotIn('open',page.by_id['rhyme-groups'].attrs)
         self.assertEqual(page.by_id['rhyme-count'].text,'4')
         self.assertNotIn('Open<Chat>',html)
-        self.assertIn('not official brand pronunciations',html)
+        self.assertIn('editorial pronunciation assumptions',html)
         self.assertIn('not additive',html)
         self.assertIn('No reviewed rhyming names',obs.rhyming_names_html(obs.rhyming_names([])))
 

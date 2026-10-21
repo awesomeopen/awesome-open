@@ -11,17 +11,21 @@ listed there before editing; do not load every design skill for a small fix.
   are generated. Follow the existing publisher's ownership of metrics and charts.
 - Edit the site generator in `scripts/` and authored files in `site/`; do not fix
   only a built HTML file or the disposable Sites deployment wrapper.
-- Keep factual labels literal. Unknown license is unknown; stars are not quality;
-  HN counts are not sentiment; last push is not a maintenance verdict; alternatives
-  are not ancestry. Follow the evidence contracts in `site/`.
+- Keep factual labels literal: each value keeps the meaning in the
+  [evidence contract](brand/foundation.md#evidence-contract). Follow the evidence
+  contracts in `site/`.
+- In copy, docs, comments and PR text, say what a value, label or rule is and
+  link its method. Do not define it by what it is not, pre-empt conclusions or
+  disclaim claims nobody made; limits that matter go once in the method section
+  or the "(i)" disclosure. See the writing style in `site/RETRO-SCRAPERISM.md`.
 - Explicit user constraints and the current project guide take precedence over
   optional generic design-skill defaults. Preserve the fixed specimen concept,
   white/Prussian system, existing assets and accessible controls unless the task
   explicitly changes them.
 - Icons follow `brand/icons.md` and its twin `site/brand/icons.json`. Add or change
   the row in both before drawing or using an icon. Icons restate evidence labels
-  and never add a verdict; unknown is not negative, and colour never carries
-  state alone.
+  and add no judgment of their own; unknown uses the muted state, and shape or
+  text always carries state alongside colour.
 
 ## Maintenance in the same PR
 

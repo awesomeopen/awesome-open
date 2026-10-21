@@ -31,15 +31,13 @@ those sources and record their role, status and exceptions.
 
 An explicit current user decision governs the requested change. For established
 brand work use the project reference over generic skills or old briefs. Tokens
-and source code establish what is implemented, not whether every implementation
-detail was explicitly approved. If code and documented intent disagree, record
+and source code establish what is implemented. If code and documented intent disagree, record
 the discrepancy and fix it through review rather than quietly choosing a winner.
 
 Status vocabulary:
 
 - **User-directed:** explicit decision captured in the project record.
-- **Implemented:** present in the audited merged source; not a claim of separate
-  sign-off for every line.
+- **Implemented:** present in the audited merged source.
 - **Proposed:** awaits review, including new editorial or workflow policy.
 - **Historical / superseded:** retained to explain evolution; not instructions.
 - **Unresolved:** missing evidence, conflicting sources or a pending decision.

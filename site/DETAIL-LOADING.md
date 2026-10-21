@@ -44,7 +44,7 @@ static record pages and the standalone download remain printable.
 Retain at most three mounted closed dynamic plates; open plates are never evicted.
 Eviction removes the plate and enhancement callbacks, retaining only nested
 native disclosure booleans. Browser HTTP/decoded-resource caches are browser-owned;
-this is a bound on retained DOM, not a promise about total process memory.
+this is a bound on retained DOM.
 
 ## Verification and limits
 

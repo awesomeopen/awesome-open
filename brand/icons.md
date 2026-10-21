@@ -11,20 +11,19 @@ Both must carry the same IDs, shapes, tokens and sizes; change them together.
 
 ## What an icon may say
 
-An icon restates an evidence label. It never replaces the label and never adds a
-judgment the label does not make.
+An icon restates an evidence label. It accompanies the label and adds no judgment
+of its own.
 
-- **State, not quality.** Icons describe what we know about a record and how
-  recently we observed it. “Failed” means our retrieval attempt failed; it says
-  nothing about the project. A Scorecard 3/10 is a value with no state icon.
-- **Unknown is not negative.** `state.unknown` is muted and dashed, never scarlet
+- **State only.** Icons describe what we know about a record and how
+  recently we observed it. “Failed” means our retrieval attempt failed. A Scorecard 3/10 is a value with no state icon.
+- **Unknown is muted.** `state.unknown` is muted and dashed; scarlet stays reserved for attention
   ([guide, Status](../site/RETRO-SCRAPERISM.md)).
 - **Shape carries meaning; colour confirms it.** Every glyph must be
   distinguishable in monochrome and in forced-colours mode. Colour is never the
   only signal ([guide, Color](../site/RETRO-SCRAPERISM.md)).
-- **Aged is a modifier, not a midpoint.** A stale value had a good observation
+- **Aged is a modifier.** A stale value had a good observation
   that is now old or followed by a failed attempt. It gets the `badge.aged`
-  overlay, not a step between current and failed.
+  overlay.
 - **Do not mark everything “cached”.** The whole site is a snapshot. Use the aged
   state only where the code already distinguishes retained values.
 - **Always pair with text.** Decorative icons next to their label get
@@ -163,7 +162,7 @@ Ring base. One glyph serves retrieval checks, repository-metric freshness and Ob
 | `state.partial` | today | Results were returned but not all of them carry a score | “Partial”; “Inconclusive”; “Aggregate inconclusive” | Ring with the left half filled solid | `--rs-blueprint` | s m l | scripts/build_site.py:243 `signal-status`<br>scripts/signals.py:78 `partial`<br>scripts/build_site.py:187 `Aggregate inconclusive`<br>scripts/build_site.py:191 `Inconclusive` |
 | `state.pending` | today | No check has completed yet: not checked, queued or deferred | “Pending”; “Provider pending”; “Not checked”; “Check deferred”; “Release not checked.” | Ring of eight evenly spaced dots, empty centre | `--rs-muted` | s m l | scripts/build_site.py:167 `fetch_status labels`<br>scripts/build_site.py:157 `Release not checked.`<br>scripts/signals.py:67 `pending` |
 | `state.none` | today | The provider was asked and returned no result | “No result returned” | Closed ring with one short horizontal dash | `--rs-muted` | s m l | scripts/build_site.py:168 `not_found` |
-| `state.failed` | today | Our retrieval attempt failed or the source was unavailable; says nothing about the project | “Unavailable”; “GitHub metrics unavailable; no successful observation.” | Diagonal cross inside a closed ring | `--rs-scarlet` | s m l | scripts/build_site.py:170 `error`<br>scripts/signals.py:67 `unavailable`<br>scripts/build_site.py:506 `metrics_freshness unavailable` |
+| `state.failed` | today | Our retrieval attempt failed or the source was unavailable | “Unavailable”; “GitHub metrics unavailable; no successful observation.” | Diagonal cross inside a closed ring | `--rs-scarlet` | s m l | scripts/build_site.py:170 `error`<br>scripts/signals.py:67 `unavailable`<br>scripts/build_site.py:506 `metrics_freshness unavailable` |
 | `state.unknown` | today | The value is not recorded or not detected; unknown, never negative | “Unknown”; “Push date unknown”; “License unknown”; “Not recorded”; “GitHub metrics: Unknown” | Dashed ring with a question mark | `--rs-muted` | s m l | scripts/build_site.py:591 `Detected license Unknown`<br>scripts/build_site.py:502 `GitHub metrics: Unknown`<br>scripts/build_site.py:732 `filter options`<br>scripts/build_site.py:733 `Not recorded`<br>scripts/build_observatory.py:304 `obs-unknown` |
 | `badge.aged` | today | Overlay for retained or old values on any base glyph | “Stale (with the base glyph's own label)” | Small clock face (two hands) in a paper-knockout disc; composited onto another glyph's lower-right quadrant. Not drawn at s: state.aged-s uses a solid 4px dot instead | `--rs-muted` | m l | scripts/signals.py:69 `stale` |
 

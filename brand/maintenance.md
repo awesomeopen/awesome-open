@@ -64,7 +64,7 @@ agent's project instructions through its supported interface):
 > relevant checks. Open a draft PR; do not merge automatically. Use the current
 > checkout and source revision, not a remembered preview.
 
-This is a handoff instruction, not a message sent to Junge. Agents operating only
+This is a handoff instruction. Agents operating only
 through GitHub APIs must explicitly fetch these files; do not assume their runtime
 auto-loads AGENTS.md. A brand rule mentioned only in chat remains at risk of being
 lost until the working agent records it in a PR.

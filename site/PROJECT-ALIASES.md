@@ -10,7 +10,7 @@ label does not rename repositories, move evidence or merge projects.
 `data/project_aliases.json` is optional; existing entries need no backfill.
 Schema 1 has a `projects` list. Each record contains:
 
-- `project_url`: the catalog's canonical URL, not a new identity.
+- `project_url`: the catalog's canonical URL.
 - `aliases`: one to ten objects with `name`, an official HTTPS `source_url`, and
   optional boolean `ambiguous` (for example, OBS also names Open Build Service).
 - `checked_at`: an ISO UTC review date.

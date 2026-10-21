@@ -30,11 +30,8 @@ catalog content remain ordinary text.
 
 The downloaded pixels were inspected: blue/green unfolding anatomy, translucent
 fan-like panels, Prussian lettering, white ground and a restrained red leader
-line. The subtitle is “Catalog of software named Open*”; it does not claim every
-listed project is open source. The complete silhouette and lettering are retained.
-The asset is not an official logo of any listed software project.
+line. The subtitle is “Catalog of software named Open*”. The complete silhouette and lettering are retained.
 
-This placement is user-directed and submitted for review. It does not replace
-the website header mark, specimen assets, hero or footer. The existing README
+This placement is user-directed and submitted for review. The existing README
 publisher preserves the source reference; offline previews copy the same PNG
 bytes beside their Markdown. Generated `README.md` remains publisher-owned.
