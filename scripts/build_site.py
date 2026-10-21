@@ -13,7 +13,7 @@ import re
 import warnings
 from datetime import date
 from pathlib import Path
-from urllib.parse import quote, urlsplit
+from urllib.parse import quote
 import shutil
 
 from build_catalog import build_catalog, load_function_summaries
@@ -27,6 +27,7 @@ import signals
 import star_history
 import deployment
 import qr
+from repository_hosts import repository_host
 from footer_art import discover_footer_art
 from category_art import (
     attach_category_art,
@@ -568,11 +569,8 @@ def specimen_plate(
         sections.append(
             f'<section class="plate-band plate-alternatives" aria-label="Reviewed alternatives"><span class="sheet-label">{next(numerals)} / Reviewed alternatives</span>{alternatives}</section>'
         )
-    host = (
-        "GitHub"
-        if urlsplit(project["url"]).hostname in ("github.com", "www.github.com")
-        else "its official site"
-    )
+    host = repository_host(project["url"])
+    departure_label = f"Explore {name}" + (f" on {host}" if host else "")
     address = escape(project["url"].removeprefix("https://").removeprefix("http://"))
     return (
         f'<div class="specimen-interior specimen-plate{"" if art else " without-art"}" aria-labelledby="name-{pid}">'
@@ -581,7 +579,7 @@ def specimen_plate(
         f'<div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}</div>'
         f"{specimen}{notes}{label}</div>"
         + "".join(sections)
-        + f'<nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">In the wild</span><a href="{url}"><span>Explore {name} on {host}</span>'
+        + f'<nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">In the wild</span><a href="{url}"><span>{departure_label}</span>'
         f'<span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{address}</span></nav></div>'
     )
 

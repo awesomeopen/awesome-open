@@ -442,6 +442,12 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   eight-column box grid replaces these bands, with muted grey grid labels, "Unknown"
   in boxes and details in popups. Not yet implemented; the bands above remain the
   shipped behaviour until the implementation PR.
+  Departure copy is “Explore [name] on [host]” for recognized repository
+  destinations (GitHub, GitLab, Codeberg, Bitbucket, SourceForge), including
+  explicitly reviewed self-hosted repositories. Homepage and unrecognized
+  destinations use “Explore [name]”. `scripts/repository_hosts.py` owns the
+  presentation mapping independently of metrics collection. The canonical
+  catalog URL supplies the destination; domain substrings never supply a label.
 - **Removed captions:** contour/loupe disclaimers, “Under the loupe”, timeline and flow
   qualifiers, the alternatives footnote, “Submissions, not sentiment” and “Omitted facts are
   unknown”. Their meanings stay in the evidence downloads and the foundation evidence contract.

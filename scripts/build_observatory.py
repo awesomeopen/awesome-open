@@ -89,7 +89,7 @@ def histogram(projects, field, as_of, buckets):
 
 
 def project_index(catalog):
-    """Ship the short description only; no reviewed prose, raw Scorecard checks, artwork or complete signal objects."""
+    """Ship the short description only; no reviewed prose, raw Scorecard checks or complete signal objects."""
     rows = []
     seen = set()
     for project in catalog["projects"]:
@@ -128,6 +128,13 @@ def project_index(catalog):
                 release_checked_at=release.get("checked_at"),
             )
         )
+    names = shared_names(rows)
+    paired = {p["id"] for kind in ("identical", "variants") for g in names[kind] for p in g["projects"]}
+    originals = {p["id"]: p for p in catalog["projects"]}
+    for row in rows:
+        art = originals[row["id"]].get("artwork")
+        if row["id"] in paired and art:
+            row["specimen"] = {**art, "path": "../" + art["path"]}
     return dict(
         schema_version=1,
         metrics_as_of=catalog["metrics_as_of"],
@@ -387,13 +394,24 @@ def name_plate_html(group, number, categories):
             f"<dt>Metrics cache</dt><dd>{escape(metrics_cache_label(p))}</dd>"
         )
         label = escape(
-            f"Ledger record for {p['name']} ({re.sub(r'^https?://(github.com/)?', '', p['url'])})",
+            f"Catalog record for {p['name']} ({re.sub(r'^https?://(github.com/)?', '', p['url'])})",
             quote=True,
         )
+        art = p.get("specimen")
+        image = (
+            f'<img class="obs-pair-art" src="{escape(art["path"], quote=True)}" '
+            f'alt="{escape(art["alt"], quote=True)}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async">'
+            if art else ""
+        )
+        facts += (
+            f'<dt>Catalog</dt><dd><a class="obs-record" href="../#project-{escape(p["id"], quote=True)}" '
+            f'aria-label="{label}">OP-{escape(p["id"][:8].upper())}</a></dd>'
+        )
         projects.append(
-            f'<div class="obs-plate-project" data-project-id="{escape(p["id"], quote=True)}"><p class="obs-plate-name">{marked_name(p["name"], names)}</p>'
-            f'{repository_html(p["url"])}<p class="obs-plate-desc">{escape(p.get("description") or "No short description in the catalog.")}</p>'
-            f'<dl class="obs-plate-facts">{facts}</dl><a class="obs-record" href="../#project-{escape(p["id"], quote=True)}" aria-label="{label}">Ledger record</a></div>'
+            f'<div class="obs-plate-project" data-project-id="{escape(p["id"], quote=True)}">'
+            f'<div class="obs-plate-intro">{image}<div class="obs-plate-copy"><p class="obs-plate-name">{marked_name(p["name"], names)}</p>'
+            f'{repository_html(p["url"])}<p class="obs-plate-desc">{escape(p.get("description") or "No short description in the catalog.")}</p></div></div>'
+            f'<dl class="obs-plate-facts">{facts}</dl></div>'
         )
     return (
         f'<article class="shared-name-group" id="{plate_id}" data-name="{escape(group["name"], quote=True)}" aria-labelledby="{plate_id}-heading">'
@@ -877,6 +895,11 @@ def build(catalog, hn, output, root):
     (target / "projects.csv").write_text(csv_text(index), encoding="utf-8", newline="")
     (target / "index.html").write_text(page, encoding="utf-8")
     report = page
+    for project in index["projects"]:
+        art = project.get("specimen")
+        if art:
+            encoded = base64.b64encode((root / "site" / art["path"].removeprefix("../")).read_bytes()).decode("ascii")
+            report = report.replace(art["path"], "data:image/webp;base64," + encoded)
     for source in category_art.values():
         encoded = base64.b64encode((root / "site" / source.removeprefix("../")).read_bytes()).decode("ascii")
         report = report.replace(
