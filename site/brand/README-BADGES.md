@@ -9,8 +9,7 @@ The owner selected this small header set on 2026-10-16:
 - **Publish:** Shields' GitHub Actions workflow-status badge for
   `awesomeopen/awesome-open`, `update-stats.yml`, branch `main`. Use `flat-square`,
   label `Publish` and Prussian label color; retain the service's status colors.
-  Link to the workflow. This indicates publishing status, not catalog quality or
-  the maintenance status of listed software.
+  Link to the workflow. This indicates publishing status.
 - **N specimen:** exact owner-requested wording, including singular `specimen`.
   Count distinct canonical catalog URLs across all categories, including projects
   hosted outside GitHub. Cross-listings count once. Link to the catalog.
@@ -40,4 +39,4 @@ a generated-only commit. Its permitted path is exact; no broader asset-write
 permission, workflow, credential or repository-setting change is needed.
 
 The real Shields status image was checked in a browser on 2026-10-16 and returned
-“Publish: passing”. That is an observation, not a permanently green label.
+“Publish: passing”. That is a dated observation.

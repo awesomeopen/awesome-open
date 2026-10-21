@@ -25,8 +25,7 @@ identified explicitly. No private chat transcript or credentials are included.
 ## Limits and unresolved coverage
 
 This index covers the located project files, two named Library documents, current
-relevant skills, existing asset families and recorded decisions. It does not claim
-to recover every historical chat or unpublished experiment. No separate redesign
+relevant skills, existing asset families and recorded decisions. No separate redesign
 handover file was found in the Library title search. Original artwork is indexed
 by filename and existing provenance; all duplicate imports were not re-downloaded
 and compared. The archive's source checksum records its exact UTF-8 text as read.

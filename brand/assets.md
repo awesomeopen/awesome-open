@@ -3,7 +3,7 @@
 Keep deployable assets in their documented `site/` families. Repeating CSS
 textures live in `site/patterns/`; rotating panoramas live in `site/footer-backgrounds/`. This
 index centralizes discovery. [assets.lock.json](assets.lock.json) records paths,
-byte sizes and SHA-256 hashes; it is an integrity inventory, not approval metadata.
+byte sizes and SHA-256 hashes; it is an integrity inventory.
 
 | Family / use | Durable source | Status and provenance |
 | --- | --- | --- |
@@ -74,8 +74,7 @@ and need no new Python dependency. The hero's responsive sizes cover its fixed C
 heights, 110% hover scale and 300px no-JavaScript fallback. Glass/reflection/lid/sticker/cork and
 CSS underlight use matching candidate resolutions to reuse the same download.
 Print selects original sources; expanded art and the offline edition still use
-original specimen bytes. This is a delivery optimization, not new artwork or a
-change to the accepted visual system.
+original specimen bytes. This is a delivery optimization.
 
 B15 varies the two existing images' display scale, gutter intrusion and CSS
 close-up windows. No new derivative image, redraw or raster edit is made. Full
@@ -137,7 +136,7 @@ OpenAssistant drawings as-is for inclusion. Their manifest entries retain the
 prior visual observations and generation provenance. The full source WebPs are
 unchanged; three display cut-outs were added using the existing recipe. Each new
 cut-out records its actual tool versions without rewriting older derivatives or
-their provenance. This updates asset eligibility, not the drawing rules.
+their provenance. This updates asset eligibility.
 
 The 2026-10-19 jar-fit proposal adds only the missing OpenTaco, Open Moderator
 and Open3D display cut-outs from their existing approved originals. Source bytes,

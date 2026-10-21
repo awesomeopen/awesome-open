@@ -3,8 +3,7 @@
 ## Purpose and scope
 
 Awesome Open* catalogs software whose names begin with Open, including documented
-expanded names. The prefix is a selection rule; it is not evidence of licensing,
-quality, popularity or production readiness. `CONTRIBUTING.md` governs inclusion.
+expanded names. The prefix is a selection rule. `CONTRIBUTING.md` governs inclusion.
 Older descriptions claiming an exclusively vetted, maintained open-source list
 must not override that policy.
 
@@ -12,8 +11,7 @@ The field guide helps readers inspect a project's function, official sources and
 available evidence. Working audience definition: people comparing software and
 following those sources, especially developers and self-hosters, and curious
 browsers exploring the catalog and its specimen world without a specific tool in
-mind. This framing was confirmed by the owner, not established by an audience
-study.
+mind. This framing was confirmed by the owner.
 
 ## Name and metaphor
 
