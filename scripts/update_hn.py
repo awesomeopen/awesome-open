@@ -211,7 +211,9 @@ def catalog_projects(source, reviewed, alias_document=None):
             'domains': [], 'title_aliases': [], 'exact_urls': [] if repo else [url],
             'queries': ['github.com/' + repo if repo else url.removeprefix(parsed.scheme + '://')],
             'identity_sources': [url], 'coverage': 'catalog-url-only',
-            'scope_note': 'Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review.',
+            # Preserve this historical text as part of the cached identity hash.
+            # Reader-facing copy belongs in the presentation layer.
+            'scope_note': 'Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.',
         }
     if len({p['slug'] for p in result.values()}) != len(result):
         raise ValueError('HN asset slug collision')
