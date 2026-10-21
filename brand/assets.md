@@ -25,6 +25,7 @@ byte sizes and SHA-256 hashes; it is an integrity inventory.
 | Specimen display cut-outs | `site/specimens/cutouts/*.webp` | Transparent derivatives of approved specimens (border-connected white ground removed); source/derivative hashes, subject box and recipe in [cut-out manifest](../site/specimens/cutouts.json); regenerate with `scripts/build_specimen_cutouts.py` |
 | Icon draft study | `brand/studies/icon-drafts/*.webp` | 21 generated Retro-Scraperism reference drafts for the interface icons, not deployed; FLUX.2 [klein] 4B (Apache-2.0), seeds, prompts and hashes in [study provenance](studies/icon-drafts/provenance.json) (B-PR130-01) |
 | Label paper studies | `brand/studies/label-papers/*.webp` | Rejected study, not deployed; generator, prompts, seeds, source hashes and keying recipe in [study provenance](studies/label-papers/provenance.json) |
+| Plate evidence grid study | `brand/studies/plate-grid/*.png` | Cropped screenshots of the fixed evidence-grid mock-up, not deployed; regenerated from real catalog data by the study generator, see [study notes](studies/plate-grid/README.md) |
 
 ## Originals outside the repository
 

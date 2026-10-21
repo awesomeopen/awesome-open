@@ -49,8 +49,8 @@ White is paper here. Yellow is a small signal, never the page's atmosphere. Do n
 | `--rs-scarlet-art` | `#D9251D` | Original brief's vivid red, artwork only |
 | `--rs-amber` | `#FFC800` | Small highlight with ink text; focus on dark surfaces |
 | `--rs-emerald` | `#006B4F` | Readable positive status on paper, with words/icon |
-| `--rs-emerald-art` | `#00A86B` | Saturated anatomy, not default text |
-| `--rs-verdigris-art` | `#4A7C72` | Optional material note inside artwork |
+| `--rs-emerald-art` | `#00A86B` | Saturated anatomy, not default text; proposed fill for platform chips with ink text ([B-PR158-01](../brand/decisions/B-PR158-01.md)) |
+| `--rs-verdigris-art` | `#4A7C72` | Optional material note inside artwork; proposed solid fill for reserved empty plate boxes ([B-PR158-01](../brand/decisions/B-PR158-01.md)) |
 
 Start with approximately 80% neutral reading space, 15% blueprint and 5% accents on a reading view. These are composition prompts, not quotas; a cover may be predominantly blueprint. Use one leading accent in a component. Do not make every row a rainbow.
 
@@ -438,6 +438,10 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   reviewed alternatives; “In the wild” departure on plain Prussian blue with its
   decorative contours centered around the link (B-PR129-01). The repeating navy
   pattern remains exclusive to the footer.
+- **Proposed grid ([B-PR158-01](../brand/decisions/B-PR158-01.md)):** a fixed
+  eight-column box grid replaces these bands, with muted grey grid labels, "Unknown"
+  in boxes and details in popups. Not yet implemented; the bands above remain the
+  shipped behaviour until the implementation PR.
   Departure copy is “Explore [name] on [host]” for recognized repository
   destinations (GitHub, GitLab, Codeberg, Bitbucket, SourceForge), including
   explicitly reviewed self-hosted repositories. Homepage and unrecognized

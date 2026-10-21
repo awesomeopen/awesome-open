@@ -116,6 +116,17 @@ centered “In the wild” departure on a Prussian band.
   evidence. See [B-PR139-01](decisions/B-PR139-01.md), [B-PR150-01](decisions/B-PR150-01.md)
   and the [history contract](../site/PROJECT-HISTORY.md). Where it runs: reviewed run/install/platform chips with the setup disclosure.
 
+**Proposed course change ([B-PR158-01](decisions/B-PR158-01.md), not yet implemented):**
+below the function and specimen, the bands become a fixed grid of boxes with fixed
+numbering (II Repository record, III Observations & evidence, IV Release record,
+V Where it runs, VI Reviewed alternatives in thirds) on a mist panel. Boxes keep
+their place and size without data and read "Unknown"; reasons, provider status and
+"past 2y" move into each box's popup. Empty boxes reserved for future sources are
+solid verdigris. Grid section labels turn muted grey; "I / Function" and "In the
+wild" stay scarlet; the function prose name highlight turns scarlet. Until the
+implementation PR, the bullets above describe the shipped plate. Study:
+[plate evidence grid](studies/plate-grid/README.md).
+
 ## Clearer jar glass
 
 Glass uses feathered transparent centers, neutral lifted midtones and retained
