@@ -115,6 +115,7 @@ function sharedGroups(projects) {
 }
 
 async function assertSharedNames(page, projects, label) {
+  const ledgerBase = await page.locator('[data-ledger-base]').first().getAttribute('data-ledger-base') || '../';
   const expected = sharedGroups(projects);
   const countedIDs = Object.values(expected).flat(2).map(project => project.id);
   const summary = clean(await page.locator('#name-group-summary').textContent());
@@ -167,7 +168,7 @@ async function assertSharedNames(page, projects, label) {
         record: column.querySelector('.obs-record').getAttribute('href'),
         metrics: [...column.querySelectorAll('dt')].find(node => node.textContent === 'Metrics cache')?.nextElementSibling.textContent }))));
     const normalize = values => values.map(rows => rows.map(row => JSON.stringify(row)).sort().join('|')).sort();
-    assert.deepEqual(normalize(actual), normalize(groups.map(rows => rows.map(project => ({ id: project.id, url: project.url, record: '../#project-' + project.id,
+    assert.deepEqual(normalize(actual), normalize(groups.map(rows => rows.map(project => ({ id: project.id, url: project.url, record: ledgerBase + '#project-' + project.id,
       metrics: (project.metrics_status || 'unknown') + (project.metrics_last_success_at ? ' · observed ' + project.metrics_last_success_at + ' UTC' : ' · no successful observation') })))), label + ': ' + kind + ' linked identities');
   }
 }
