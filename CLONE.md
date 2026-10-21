@@ -62,12 +62,12 @@ catalog with automated refresh and static publishing. This is a fit judgment,
 not a benchmark or an exhaustive market ranking. Criteria, in order: reusable
 setup/structured source, repeatable enrichment/traceability, submission/review,
 then browsing/outputs. Stars do not determine rank. Claims reflect inspected
-documentation, not installation tests; undocumented features may still exist.
+documentation; undocumented features may still exist.
 
 | Rank / system | Setup and source | Automation and review | Outputs | Compared with Awesome Open\* |
 | --- | --- | --- | --- | --- |
 | 1. [awesome-selfhosted-data](https://github.com/awesome-selfhosted/awesome-selfhosted-data) + [hecat](https://github.com/nodiscc/hecat) | Per-project YAML; separate tags, platforms and licenses; adaptable Python pipeline | GitHub/GitLab enrichment, consistency/dead-link checks and [PR curation](https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/CONTRIBUTING.md) | README and multipage Sphinx HTML; hecat also supports HTML tables | Closest data-to-publication reference; self-hosted-specific schema and presentation need adaptation. Data: CC BY-SA 3.0; hecat: GPL-3.0 |
-| 2. [best-of-generator](https://github.com/best-of-lists/best-of-generator) | YAML projects/categories/labels, CLI, GitHub Action and [setup guide](https://github.com/best-of-lists/best-of/blob/main/create-best-of-list.md) | GitHub/package metrics, scheduled updates, trends and CSV history; maintainer-supplied projects | Ranked Markdown and metadata history | Easier metrics-backed README setup; reviewed narrative evidence and a full interactive site are outside its documented core. Metric rank does not establish suitability. [GPL-3.0](https://github.com/best-of-lists/best-of-generator/blob/main/LICENSE) |
+| 2. [best-of-generator](https://github.com/best-of-lists/best-of-generator) | YAML projects/categories/labels, CLI, GitHub Action and [setup guide](https://github.com/best-of-lists/best-of/blob/main/create-best-of-list.md) | GitHub/package metrics, scheduled updates, trends and CSV history; maintainer-supplied projects | Ranked Markdown and metadata history | Easier metrics-backed README setup; reviewed narrative evidence and a full interactive site are outside its documented core. [GPL-3.0](https://github.com/best-of-lists/best-of-generator/blob/main/LICENSE) |
 | 3. [awesome-list-site](https://github.com/krzemienski/awesome-list-site) | React/Express/PostgreSQL; structured resources, three-level categories and list import | Approval/edit queues, audit trail, link checks, GitHub sync and Claude enrichment | Fuzzy search, bookmarks, learning journeys, admin UI and Markdown export | Broad in-app curation; more infrastructure than a static list. AI enrichment needs Anthropic access; supplied content/branding is video-specific. MIT |
 | 4. [openawesome](https://github.com/chenz24/openawesome) | Next.js/PostgreSQL; projects, lists, alternatives, tags/stacks; seed/migration/Docker setup | Authenticated editing and GitHub-issue suggestions; comparable scheduled evidence enrichment not established by README | Search/filtering, project pages, English/Chinese routes, RSS | Ready-made directory application; database and admin OAuth setup required. Equivalent static evidence/refresh pipeline not documented. AGPL-3.0-or-later |
 | 5. [Minted Directory Astro](https://github.com/masterkram/minted-directory-astro) | GitHub template; Markdown/frontmatter, JSON and CSV; Astro | File-based editing; comparable software-metadata enrichment/review queue not documented | Tags, search, directory components, themes and static output | Simple site-first starting point with less maintenance machinery. README has conflicting content-folder paths and empty Notion/Airtable setup sections; verify integrations. MIT |
@@ -82,7 +82,7 @@ presentation fit and manual adaptation is acceptable.
 [generator-awesome-list](https://github.com/dar5hak/generator-awesome-list) was
 also considered: GitHub marks it archived on 2026-07-01, and its documented scope
 is Markdown/contribution scaffolding. The five ranked repositories showed no
-archive banner when checked; that does not establish maintenance cadence.
+archive banner when checked.
 
 ### Optional convention checks: awesome-lint
 
@@ -90,7 +90,7 @@ archive banner when checked; that does not establish maintenance cadence.
 these systems as an optional Markdown/Awesome-convention linter. It does not
 provide catalog discovery, evidence enrichment or site generation, so it does
 not replace a system in the ranking. Checked upstream `4f870ab`, 2026-10-14;
-source review only, not an installation or compatibility test.
+source review only.
 
 Its [default configuration](https://github.com/sindresorhus/awesome-lint/blob/4f870abda373cfa18c67822c39ee29c451ae8a70/config.js)
 enables GFM tables and checks table formatting. Our two-column catalog is not
@@ -128,7 +128,7 @@ workflow or required status check is added by this proposal.
 ### A Closed\* trial catalog
 
 Use software whose own name begins with **Closed**, ignoring case, spaces and
-punctuation, as the trial rule. This tests that a naming rule says nothing about
+punctuation, as the trial rule. This tests a naming rule that is independent of
 license or source availability. Verify each identity independently; similar
 names do not establish a relationship.
 
@@ -156,7 +156,7 @@ pipelines and automation. **Close** does not begin with **Closed**. Exclude it
 from the strict trial or document a deliberate exception; do not silently widen
 the naming rule.
 
-This is a candidate set, not a new catalog or an endorsement. Preserve the
+This is a candidate set. Preserve the
 projects' own spellings and factual functions. Do not infer that a project mocks
 another product from its name, or call an old repository abandoned from a date.
 
