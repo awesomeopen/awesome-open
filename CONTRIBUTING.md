@@ -375,11 +375,20 @@ The star-history collector queries its separate history endpoint and does not tu
 
 ### One-time fast star-history backfill
 
-The publisher's manual `history_backfill` input is an opt-in, bounded chunk,
-not a recurring GitHub schedule. The separately hosted [hourly coordinator](automation/README.md#backfill-github-star-history)
-checks whether another finite chunk can run. Verify the reviewed implementation
-and its checks on `main` before dispatching it there. Keep the default input false
-for ordinary publication; the normal 16-attempt daily history budget is unchanged.
+The initial catalog-wide backfill completed on 2026-10-21 with 475 of the then
+476 eligible repositories covered for October 2024–September 2026 and the old
+`Script-k1tty/OpenDisplay` endpoint documented unavailable. The external hourly
+coordinator is retired and disabled. See the [completion record and evidence](automation/README.md#completion-and-retirement)
+for the final publisher/deployed revision and the historical denominator.
+
+The publisher's manual `history_backfill` input and `scripts/backfill_star_history.py`
+remain available for deliberately authorized missing-history repairs or large
+imports. A chunk is opt-in, not a recurring GitHub schedule or a reason to resume
+the retired coordinator. It skips already valid current-window histories; it is
+not a general force-refresh mode. Verify the current scope, reviewed implementation,
+checks, existing runs and quota on `main` before dispatching. Keep the default input
+false for ordinary publication; normal collection of new entries and due refreshes
+continues with the unchanged 16-attempt daily history budget.
 
 Fast mode uses only the existing `GITHUB_TOKEN`, requests aggregate history
 sequentially, and skips repositories already carrying a validated window for the
