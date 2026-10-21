@@ -86,6 +86,15 @@ artwork under [the specimen contract](../site/SPECIMEN-ART.md) and summaries und
 draft PR; summaries use a summary-data-only draft PR. Neither shares the direct
 catalog commit, and unavailable enrichment does not block discovery.
 
+**Artwork file-scope mismatch:** The repository's specimen handoff requires
+matching cut-outs and `site/specimens/cutouts.json` in the artwork PR. The hosted
+discovery task explicitly lists required specimen images, `data/specimen_art.json`
+and incremental checksum entries, but does not name the cut-out manifest. This
+is an unresolved difference between that task's explicit scope and the repository
+handoff. This inventory does not alter the task's authorization or resolve the
+mismatch by treating the build fallback as permission to omit required files.
+The separate artwork-backfill task follows the merged handoff as described below.
+
 The same daily task gradually backfills missing Function summaries: consider at
 most **10 distinct existing projects** and propose at most **five missing
 summaries per run**. Skip every existing review status, open proposals and owner
@@ -143,16 +152,20 @@ star order. Keep at most **one backfill batch awaiting user review**. Skip artwo
 of every existing review status, overlapping proposals and owner edits; never
 regenerate existing images without a separate request.
 
-**Output and review:** Required specimen images under `site/specimens/`, exact
-records in `data/specimen_art.json` and only their incremental
-`brand/assets.lock.json` checksum entries, in one separate scoped draft PR.
+**Output and review:** The backfill task delegates to the merged specimen
+contract and current approved art scope. Submit new originals under
+`site/specimens/`, matching cut-outs under `site/specimens/cutouts/`, corresponding
+records in both `data/specimen_art.json` and `site/specimens/cutouts.json`, and
+incremental `brand/assets.lock.json` checksum entries together in one separate
+scoped draft PR. Preserve unrelated images and records.
 Use full catalog IDs, actual pixel review and truthful generation/source/reviewer
 provenance. Independently derive subjects from each tool's function; do not use
 exemplar images, style anchors or contact sheets as generation references.
 New images are display-approved after required technical, provenance and safety
 checks; stylistic reservations remain nonblocking notes. Merge approval stays
-separate. Follow the guide's original-image fallback if derived cut-outs are
-missing; do not broaden the task's file scope merely to update a derivative.
+separate. The guide's original-image fallback handles missing/stale derivatives
+at build time; it does not replace the requirement to include matching cut-outs
+and their manifest records in the backfill PR.
 
 **Stop/pause:** Wait while a backfill draft is pending. Preserve useful work and
 report unavailable skills/tools or generation limits; do not buy credits or use
