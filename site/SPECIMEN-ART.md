@@ -4,7 +4,7 @@ Read [the current brand reference](../brand/README.md) and use the pinned skills
 
 > Use **@Speculative FOSSoligy** and **@Retro-Scraperism** to generate one original specimen illustration from the project's repository and documentation. Read the repository first. Derive one coherent visual analogy from the tool's actual function. Use hand-drawn ink/pencil, a distinct silhouette, selective color, a square white background and no lettering. Avoid repeated anatomy and obligatory gears. Do not regenerate an existing accepted illustration unless asked.
 >
-> Save an optimized WebP as `site/specimens/<project-id>.webp`. Add its record to `data/specimen_art.json`. Generate the matching display cut-outs with `python3 scripts/build_specimen_cutouts.py` (needs Pillow, NumPy and SciPy), update `site/specimens/cutouts.json`, and refresh the corresponding checksums with `python3 scripts/check_brand.py --refresh`. Submit originals, matching cut-outs, both manifests and their checksum changes together in a separate scoped artwork draft PR, never in the direct catalog commit or summary PR. Preserve unrelated images and manifest/checksum entries; see the task-scope distinction below. Inspect the actual image pixels and record review findings. New images are display-approved by default under the owner's standing direction: use `approved` once technical, provenance and safety checks pass, even when stylistic reservations remain. Record those reservations as nonblocking notes; do not wait for individual owner image sign-off. Leave work `pending` if the required inspection or checks are incomplete. If image generation is unavailable or fails, continue discovery without an illustration. No placeholder is needed.
+> Save an optimized WebP as `site/specimens/<project-id>.webp`. Add its record to `data/specimen_art.json`. Generate the matching display cut-outs with `python3 scripts/build_specimen_cutouts.py` (needs Pillow, NumPy and SciPy), update `site/specimens/cutouts.json`, and refresh the corresponding checksums with `python3 scripts/check_brand.py --refresh`. Submit originals, matching cut-outs, both manifests and their checksum changes together in a separate scoped artwork draft PR, never in the direct catalog commit or summary PR. Preserve unrelated images and manifest/checksum entries; see the task scopes below. Inspect the actual image pixels and record review findings. New images are display-approved by default under the owner's standing direction: use `approved` once technical, provenance and safety checks pass, even when stylistic reservations remain. Record those reservations as nonblocking notes; do not wait for individual owner image sign-off. Leave work `pending` if the required inspection or checks are incomplete. If image generation is unavailable or fails, continue discovery without an illustration. No placeholder is needed.
 
 Skills are instructions, not APIs or image-generation services. Junge must have access to the two skills and an image-generation tool. Where skill mentions are unavailable, provide the skill files in its environment and instruct it to read them. Do not claim to invoke a skill by running an invented command.
 
@@ -103,11 +103,13 @@ Keep those files together in the artwork PR; preserve all unrelated assets and
 records. The renderer's fallback below handles absent or stale derivatives; it
 does not replace the same-PR cut-out authoring requirement.
 
-The discovery task has a narrower explicit file list that does not name the
-cut-out manifest. That unresolved task/guide difference is recorded in the
-[automation inventory](../automation/README.md#discover-open-software); this guide
-does not change the hosted task's authorization. It does not apply that narrower
-list to the separate backfill task.
+The discovery task's owner-authorized scope was aligned with this handoff on
+2026-10-21: new originals, matching new cut-outs, corresponding metadata and
+incremental cut-out manifest/checksum entries belong together in its separate
+artwork draft PR. It attempts artwork after catalog acceptance on main. See the
+[automation inventory](../automation/README.md#discover-open-software) for the
+verified scope. Both artwork tasks preserve unrelated assets and records and
+retain their existing review gates.
 
 The expanded record shows `site/specimens/cutouts/<project-id>.webp`, a transparent derivative
 with only the border-connected white ground removed, so the decorative contour floor passes

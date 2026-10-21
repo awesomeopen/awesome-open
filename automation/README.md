@@ -87,14 +87,17 @@ artwork under [the specimen contract](../site/SPECIMEN-ART.md) and summaries und
 draft PR; summaries use a summary-data-only draft PR. Neither shares the direct
 catalog commit, and unavailable enrichment does not block discovery.
 
-**Artwork file-scope mismatch:** The repository's specimen handoff requires
-matching cut-outs and `site/specimens/cutouts.json` in the artwork PR. The hosted
-discovery task explicitly lists required specimen images, `data/specimen_art.json`
-and incremental checksum entries, but does not name the cut-out manifest. This
-is an unresolved difference between that task's explicit scope and the repository
-handoff. This inventory does not alter the task's authorization or resolve the
-mismatch by treating the build fallback as permission to omit required files.
-The separate artwork-backfill task follows the merged handoff as described below.
+**Artwork file scope:** Verified against the owner-authorized hosted-task update
+on 2026-10-21 at 09:09 UTC. Discovery artwork PRs include new originals at
+`site/specimens/<project-id>.webp`, matching new cut-outs at
+`site/specimens/cutouts/<project-id>.webp`, `data/specimen_art.json` metadata,
+corresponding incremental `site/specimens/cutouts.json` records and incremental
+`brand/assets.lock.json` checksum entries. Generate and validate the derivatives
+under the merged specimen contract and keep all five parts together in the same
+separate scoped draft PR. Preserve unrelated assets and records. This aligns the
+hosted task with the repository handoff; catalog acceptance, technical review and
+separate merge approval remain required. Other task scopes and schedules are
+unchanged.
 
 The same daily task gradually backfills missing Function summaries: consider at
 most **10 distinct existing projects** and propose at most **five missing
