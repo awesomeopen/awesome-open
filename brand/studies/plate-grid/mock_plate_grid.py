@@ -1,4 +1,4 @@
-"""Mock-up: fixed evidence grid below the specimen plate (B-PR<number>-01 study, not shipped).
+"""Mock-up: fixed evidence grid below the specimen plate (B-PR158-01 study, not shipped).
 
 Reads generated records from a built site (default tmp/site), keeps everything
 above the first plate band, and replaces the bands with a stable 8-column box
