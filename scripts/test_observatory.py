@@ -461,8 +461,9 @@ class ObservatoryBuildTests(unittest.TestCase):
         logo=build_site.ROOT/'site/brand/botanical-128.png'
         for name in ['index.html', 'report.html']:
             page=Page((self.output/'observatory'/name).read_text())
-            self.assertEqual(len(page.images), 1)
-            image=page.images[0]
+            logos=[image for image in page.images if image.get('class') == 'obs-logo']
+            self.assertEqual(len(logos), 1)
+            image=logos[0]
             self.assertEqual(image['class'], 'obs-logo')
             self.assertEqual((image['width'], image['height']), ('128', '128'))
             self.assertEqual(image['alt'], 'Awesome Open* botanical logo')
@@ -496,7 +497,26 @@ class ObservatoryBuildTests(unittest.TestCase):
             path=node.attrs.get('src') or node.attrs.get('href')
             if path and not path.startswith(('https:','http:','data:','#')):
                 self.assertTrue((self.output/'observatory'/path.split('?')[0]).is_file(),path)
-        self.assertLessEqual(len(self.page.images),1)
+        specimens=[image for image in self.page.images if image.get('class') == 'obs-pair-art']
+        expected={p['id']:p['specimen'] for p in data['projects'] if p.get('specimen')}
+        self.assertEqual(len(specimens),len(expected))
+        report=Page((self.output/'observatory/report.html').read_text())
+        report_data=json.loads(report.by_id['observatory-data'].text)
+        for p in report_data['projects']:
+            if p.get('specimen'):
+                self.assertTrue(p['specimen']['path'].startswith('data:image/webp;base64,'))
+        for plate in self.page.elements:
+            if not plate.has_class('obs-plate-project'):
+                continue
+            pid=plate.attrs['data-project-id']
+            art=plate.descendants('img')
+            self.assertEqual(len(art), int(pid in expected))
+            if art:
+                self.assertEqual(art[0].attrs['src'],expected[pid]['path'])
+                self.assertEqual(art[0].attrs['alt'],expected[pid]['alt'])
+            facts=plate.descendants('dl')[0]
+            self.assertEqual(facts.children[-2].text,'Catalog')
+            self.assertEqual(facts.children[-1].text,'OP-'+pid[:8].upper())
 
     def test_standalone_embeds_runtime_and_downloads(self):
         text=(self.output/'observatory/report.html').read_text();page=Page(text)
