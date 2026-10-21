@@ -138,7 +138,7 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Submit a project by pull request - Propose a qualifying tool with its official source through the linked contribution guide.
 - Small corrections welcome - Suggest description, category, link or evidence fixes without needing a large contribution.
 - No popularity threshold - Propose lesser-known or new Open-named projects without a minimum star count or release age.
-- Daily discovery work - Receive reviewed proposals for newly found Open-named software; discovery does not automatically approve or publish additions.
+- Daily discovery work - Add Open-named software verified against official sources through the authorized source-only discovery task; publication follows successful repository checks and the publisher. Artwork, summaries and alternative mappings remain separate draft-PR proposals. See the [automation inventory](automation/README.md).
 - Reviewable evidence updates - Examine proposed summaries, comparisons, setup facts and artwork before they enter the published collection.
 - Downloadable pull-request previews - Inspect proposed README and field-guide output before a change is merged.
 - Public source and change history - Inspect how the catalog is built and follow proposed or accepted changes on GitHub.

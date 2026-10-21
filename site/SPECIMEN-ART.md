@@ -1,10 +1,10 @@
 # Specimen illustration handoff
 
-Read [the current brand reference](../brand/README.md) and use the pinned skills under `.agents/skills/`. Add this instruction to Junge's discovery workflow after a project is accepted:
+Read [the current brand reference](../brand/README.md) and use the pinned skills under `.agents/skills/`. The current discovery task attempts artwork after a project is accepted on main, independently of catalog publication. A separate daily task backfills missing artwork; see the [automation inventory](../automation/README.md#backfill-specimen-artwork) for its cadence and scope.
 
 > Use **@Speculative FOSSoligy** and **@Retro-Scraperism** to generate one original specimen illustration from the project's repository and documentation. Read the repository first. Derive one coherent visual analogy from the tool's actual function. Use hand-drawn ink/pencil, a distinct silhouette, selective color, a square white background and no lettering. Avoid repeated anatomy and obligatory gears. Do not regenerate an existing accepted illustration unless asked.
 >
-> Save an optimized WebP as `site/specimens/<project-id>.webp`. Add its record to `data/specimen_art.json`. Regenerate the display cut-outs with `python3 scripts/build_specimen_cutouts.py` (needs Pillow, NumPy and SciPy) and refresh checksums with `python3 scripts/check_brand.py --refresh`. Submit all of it in the same PR. Inspect the actual image pixels and record review findings. New images are display-approved by default under the owner's standing direction: use `approved` once technical, provenance and safety checks pass, even when stylistic reservations remain. Record those reservations as nonblocking notes; do not wait for individual owner image sign-off. Leave work `pending` if the required inspection or checks are incomplete. If image generation is unavailable or fails, continue discovery without an illustration. No placeholder is needed.
+> Save an optimized WebP as `site/specimens/<project-id>.webp`. Add its record to `data/specimen_art.json`. Refresh the corresponding checksums with `python3 scripts/check_brand.py --refresh`, retaining only authorized incremental entries. Submit the required images, manifest records and checksums in a separate scoped artwork draft PR, never in the direct catalog commit or summary PR. Derived display cut-outs have a separate file scope; see below. Inspect the actual image pixels and record review findings. New images are display-approved by default under the owner's standing direction: use `approved` once technical, provenance and safety checks pass, even when stylistic reservations remain. Record those reservations as nonblocking notes; do not wait for individual owner image sign-off. Leave work `pending` if the required inspection or checks are incomplete. If image generation is unavailable or fails, continue discovery without an illustration. No placeholder is needed.
 
 Skills are instructions, not APIs or image-generation services. Junge must have access to the two skills and an image-generation tool. Where skill mentions are unavailable, provide the skill files in its environment and instruct it to read them. Do not claim to invoke a skill by running an invented command.
 
@@ -85,9 +85,23 @@ artwork.
 
 Only approved records with existing files render. Missing files warn and are omitted; pending/rejected records are omitted. Missing entries leave no image or empty image box. An invalid approved identity, path, alt text or image format fails the build rather than publishing a mismatched asset. The builder copies active assets into `specimens/` and embeds them in `standalone.html`. Builds never call image generation or fetch remote artwork.
 
-Pilot artwork covers OpenTofu, OpenRefine and OpenSCAD. The remaining top-three repositories can be processed in reviewed batches after this treatment is accepted.
+The initial pilot covered OpenTofu, OpenRefine and OpenSCAD. The current daily
+backfill selects up to 20 distinct canonical projects with missing artwork, in
+descending cached star order, with at most one batch awaiting user review. It
+skips existing records of every review status, overlapping PRs and owner edits.
+No eligible missing projects means report completion and disable only that
+backfill task. See the [inventory](../automation/README.md#backfill-specimen-artwork)
+for generation limits and review gates.
 
 ## Display cut-out
+
+For an authorized derivative update, `python3 scripts/build_specimen_cutouts.py`
+(needs Pillow, NumPy and SciPy) generates cut-outs and `site/specimens/cutouts.json`;
+refresh the corresponding checksums afterwards. The current hosted art tasks
+are scoped to required specimen images, `data/specimen_art.json` and incremental
+`brand/assets.lock.json` entries. Do not expand that scope to regenerate the
+shared derivative manifest or unrelated images without authorization. The
+original-image fallback below keeps a missing derivative nonblocking.
 
 The expanded record shows `site/specimens/cutouts/<project-id>.webp`, a transparent derivative
 with only the border-connected white ground removed, so the decorative contour floor passes
