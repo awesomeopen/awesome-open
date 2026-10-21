@@ -3,9 +3,7 @@
 `data/chart_observations.json` is a versioned, append/deduplicate archive of
 completed HN and aggregate GitHub-star observations. The existing
 `hn_evidence.json` and `star_history.json` caches still supply the same last
-24 completed months to the renderer. The archive does not change charts,
-counts, eligibility, collection budgets, endpoints or schedules. It does not
-add a range selector.
+24 completed months to the renderer.
 
 ## Meaning and dates
 

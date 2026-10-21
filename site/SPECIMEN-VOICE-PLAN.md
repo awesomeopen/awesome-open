@@ -25,7 +25,7 @@ Seek variation in resonance, texture, register, rhythm, articulation and spatial
 character. Do not make every voice low, robotic, breathy or metallic. Maintain
 intelligibility at ordinary listening volume. Do not imitate identifiable people
 or imply a project's endorsement, security, license or governance through its
-voice. These are Awesome Open interpretations, not official project voices.
+voice. These are Awesome Open interpretations.
 
 - Offer a **neutral voice** alongside every character voice, particularly for
   comparing pronunciation in the Observatory's proposed rhyme feature.
@@ -93,7 +93,7 @@ outputs are non-commercial ([LICENSE](https://huggingface.co/BreezeBlue/Breeze-T
 restrictions"), which this repository's CC0 dedication cannot carry.
 A hosted-service license does not automatically license self-hosted output.
 Check the exact release's weights, dependencies and output terms before selecting
-any backend. These observations are not a substitute for release-specific review.
+any backend.
 No paid service, free allowance, continuing free API or local throughput is
 assumed by this plan.
 
@@ -123,8 +123,7 @@ blind when practical, scoring complete name accuracy, extra/omitted speech,
 onset/ending artifacts, intelligibility and repeatable character. Transcription
 is auxiliary: an ASR model can misrecognize a correctly spoken invented name.
 
-Carrier-phrase generation is an experiment, not a promise to “trick” an encoder
-into stable speech. It can affect rhythm and coarticulation as well as voice.
+Carrier-phrase generation is an experiment. It can affect rhythm and coarticulation as well as voice.
 For each carrier output, align the **full known spoken text** to propose word
 boundaries, then listen and adjust both crop boundaries. Never remove a fixed
 1.2 seconds. There may be no silence before the name; speech rate, pauses and
@@ -139,7 +138,7 @@ License eligibility remains a separate gate from perceived audio quality.
 
 ## Pilot runtime (as run)
 
-Recorded 2026-10-18. Measurements, not scores: nothing below says how a clip
+Recorded 2026-10-18. Measurements only; listening decides how a clip
 sounds. Runner and environment live outside this repository
 (`local-ai/tts/maya1_batch.py`, `dotfiles/scripts/m5-install-maya1.sh`).
 
@@ -200,7 +199,7 @@ no reading of its own sections. The batch has four projects, fewer than the 6–
 asked for above, and contains no numerals or internal punctuation.
 
 Owner listening has not been scored yet. Auxiliary whisper (large-v3-turbo)
-transcripts point to where to listen first, not to verdicts:
+transcripts point to where to listen first:
 
 - **OpenRA** came back as "OpenRay", "Open Ray" or "OpenRAW" in 7 of 10 takes,
   across both voices and all conditions. Intended reading, letters (R-A) or a

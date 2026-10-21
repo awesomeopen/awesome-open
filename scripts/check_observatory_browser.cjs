@@ -140,6 +140,24 @@ async function assertSharedNames(page, projects, label) {
       assert.ok(cluster.label.includes(name), label + ': accessible link label includes project');
     }
   }
+  // Assert each project's artwork contract, not a fixed page-wide image count.
+  const embeddedProjects = JSON.parse(await page.locator('#observatory-data').textContent()).projects;
+  const embeddedByID = new Map(embeddedProjects.map(project => [project.id, project]));
+  const columns = page.locator('#name-group-bands .obs-plate-project');
+  const byID = new Map(projects.map(project => [project.id, project]));
+  for (const column of await columns.all()) {
+    const id = await column.getAttribute('data-project-id');
+    const project = byID.get(id);
+    assert.ok(project, label + ': artwork belongs to a selected project');
+    const image = column.locator('.obs-pair-art');
+    assert.equal(await image.count(), project.specimen ? 1 : 0, label + ': artwork presence follows metadata (no placeholder)');
+    if (!project.specimen) continue;
+    const art = project.specimen;
+    assert.equal(await image.getAttribute('alt'), art.alt, label + ': specimen alt text');
+    assert.equal(await image.getAttribute('width'), String(art.width), label + ': specimen intrinsic width');
+    assert.equal(await image.getAttribute('height'), String(art.height), label + ': specimen intrinsic height');
+    assert.equal(await image.getAttribute('src'), embeddedByID.get(id).specimen.path, label + ': specimen source');
+  }
   for (const [kind, prefix] of [['identical', 'identical'], ['variants', 'variant']]) {
     const groups = expected[kind];
     assert.equal(number(await page.locator('#' + prefix + '-name-count').textContent()), groups.flat().length, label + ': ' + kind + ' tool count');
@@ -252,8 +270,21 @@ async function checkObservatory({ browser, url }) {
       await capture('footer-' + (offline ? 'standalone' : 'hosted') + '-' + width);
     }
   };
+  const checkPairArtwork = async (current, label) => {
+    const disclosure = current.locator('#name-groups');
+    const wasOpen = await disclosure.evaluate(node => node.open);
+    await disclosure.evaluate(node => { node.open = true; });
+    for (const image of await current.locator('#name-group-bands .obs-pair-art').all()) {
+      await image.scrollIntoViewIfNeeded();
+      await image.evaluate(node => node.decode());
+      assert.ok(await image.evaluate(node => node.complete && node.naturalWidth > 0 && node.naturalHeight > 0), label + ': specimen loads');
+      assert.equal(await image.evaluate(node => getComputedStyle(node).objectFit), 'contain', label + ': specimen is not cropped');
+    }
+    await disclosure.evaluate((node, open) => { node.open = open; }, wasOpen);
+  };
   const checkClosingMark = async (current, label) => {
-    assert.equal(await current.locator('img').count(), 1, label + ': one image');
+    // Only this component promises one image; other sections may add artwork.
+    assert.equal(await current.locator('.obs-closing-mark img').count(), 1, label + ': one closing-mark image');
     assert.equal(await current.locator('.obs-closing-mark').count(), 1, label + ': one closing mark');
     assert.equal(await current.locator('.obs-hero img, .obs-closing-mark figcaption').count(), 0, label + ': no opening image or caption');
     const mark = current.locator('.obs-closing-mark');
@@ -519,6 +550,7 @@ async function checkObservatory({ browser, url }) {
       await fits(page, name);
       await capture(name);
       await checkClosingMark(page, name);
+      await checkPairArtwork(page, name);
       await page.locator('#shared-names').scrollIntoViewIfNeeded();
       await capture(name + '-shared-names');
       for (const id of ['name-groups', 'name-method', 'rhyme-groups']) {
@@ -747,6 +779,7 @@ async function checkObservatory({ browser, url }) {
     assert.equal(await fallback.locator('#category-chart table').isVisible(), true, 'Native data disclosure without JavaScript');
     await fits(fallback, 'no JavaScript');
     await capture('no-js', fallback);
+    await checkPairArtwork(fallback, 'no JavaScript');
     await checkClosingMark(fallback, 'no-js-mobile');
     await fallback.setViewportSize({ width: 1440, height: 1000 });
     await checkClosingMark(fallback, 'no-js-desktop');
@@ -766,8 +799,15 @@ async function checkObservatory({ browser, url }) {
     track(synthetic);
     const syntheticNames = ['OpenTool', 'OpenTool', 'Open Tool', 'OPEN TOOL',
       'Open  Tool', 'Open\tTool', 'Open\u0085Tool', 'openTool ', 'Open-Tool', 'Open\u200bTool'];
+    // A self-contained fixture keeps positive/missing-art coverage independent
+    // of whether today's catalog happens to have illustrated shared names.
+    const syntheticArt = {
+      path: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="8"><rect width="16" height="8" fill="navy"/></svg>'),
+      alt: 'Synthetic specimen fixture', width: 16, height: 8,
+    };
     const syntheticProjects = data.projects.slice(0, syntheticNames.length)
-      .map((project, i) => ({ ...project, name: syntheticNames[i] }));
+      .map((project, i) => ({ ...project, name: syntheticNames[i],
+        specimen: i % 2 === 0 ? syntheticArt : undefined }));
     await synthetic.route(target.href, async route => {
       const response = await route.fetch();
       const body = (await response.text()).replace(/(<script[^>]+id="observatory-data"[^>]*>)[\s\S]*?(<\/script>)/,
@@ -777,6 +817,7 @@ async function checkObservatory({ browser, url }) {
     await synthetic.goto(target.href);
     await synthetic.waitForFunction(() => document.querySelector('#observatory-filters').dataset.enhanced === 'true');
     await assertSharedNames(synthetic, syntheticProjects, 'synthetic case, separators and Unicode whitespace');
+    await checkPairArtwork(synthetic, 'synthetic artwork and missing-art fallback');
     // Every name but the zero-width-space one shares the key "opentool".
     assert.equal(number(await synthetic.locator('#shared-name-count').textContent()), 9, 'Synthetic single-key count');
     assert.equal(await synthetic.locator('#variant-name-groups .obs-tag').allTextContents().then(tags => tags.join('|')), 'Case|Spacing|Exact duplicates', 'Synthetic variant tags');
@@ -834,6 +875,8 @@ async function checkObservatory({ browser, url }) {
     await enhanced();
     await page.evaluate(() => document.fonts.ready);
     assert.equal(await page.locator('link[rel="stylesheet"], script[src]:not([src^="data:"])').count(), 0, 'Embedded standalone styles and runtime');
+    await checkPairArtwork(page, 'standalone embedded artwork');
+    await page.locator('.obs-logo').evaluate(image => image.decode());
     assert.ok(await page.locator('img').evaluateAll(nodes => nodes.every(image => image.src.startsWith('data:') && image.complete && image.naturalWidth > 0)), 'Embedded standalone artwork');
     await checkFooter(true);
     assert.deepEqual(offlineRequests, [], 'Standalone fetches no neighboring assets');

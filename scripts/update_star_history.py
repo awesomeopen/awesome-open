@@ -37,8 +37,7 @@ DEFAULT_REQUEST_BUDGET, DEFAULT_MAX_REPOSITORIES, REFRESH_DAYS = 16, 4, 14
 BOUNDARY_NOTE = ('Monthly buckets assign each source daily bin by its week timestamp plus day offset; '
                  'GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.')
 METRIC = ('Stars retained on the repository at fetch time, grouped by the month their stars were created. '
-          'This is not historical total stars, net star growth, or all stars ever received; '
-          'removed stars are absent and past buckets can change.')
+          'Removed stars are absent and past buckets can change.')
 REPOSITORY = re.compile(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+')
 SHA = re.compile(r'[0-9a-f]{40}')
 # Reviewed 2026-10-16: the old GitHub API path redirects to repository ID

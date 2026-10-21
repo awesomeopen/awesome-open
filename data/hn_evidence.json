@@ -29,7 +29,7 @@
     "2026-09"
   ],
   "refreshed_utc_date": "2026-10-21",
-  "metric": "Deduplicated HN story submissions per UTC month, regardless of points, comments or sentiment. Search coverage is best-effort and depends on the HN Algolia index; absence is not proof of no discussion.",
+  "metric": "Deduplicated HN story submissions per UTC month, regardless of points, comments or sentiment. Search coverage is best-effort and depends on the HN Algolia index.",
   "eligibility": {
     "minimum_stories": 6,
     "minimum_active_months": 3

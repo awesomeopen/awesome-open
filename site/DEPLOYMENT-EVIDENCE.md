@@ -1,6 +1,6 @@
 # Reviewed deployment and installation evidence
 
-The optional `data/deployment_evidence.json` input supplements expanded project records and two website filters. It does not change README descriptions, Function prose, ranking, release/Scorecard providers, or the publisher's collection schedule. All builds remain offline. No candidate software is installed or probed.
+The optional `data/deployment_evidence.json` input supplements expanded project records and two website filters. All builds remain offline. No candidate software is installed or probed.
 
 ## Identity and review
 
@@ -17,15 +17,15 @@ All six fact lists are optional. Omit an unknown field rather than use an empty 
 - `run_modes`: `value` is `cli`, `desktop`, `local_web`, `server`, `library`, or `firmware`.
 - `install_methods`: `value` is `binary`, `installer`, `container`, `package_manager`, `source`, or `firmware_image`. A binary can be a downloadable archive. Describe concrete tools, language-package installs, Compose/Helm, and exceptions in scope. More than one mode and method may apply.
 - `platforms`: `value` is the explicitly documented OS/architecture description. Scope it to the release, package, runtime, or deployment path. A Dockerfile does not establish host/architecture support.
-- `external_services`: `name` plus `requirement`: `required`, `optional`, or `configuration-dependent`. Distinguish an application from a separate model backend or resource provider. No entry does not mean no external service is needed.
-- `packages`: exact `ecosystem`, `coordinate`, `channel`, `status`, and `upstream_relationship`. Status is a source observation: `documented`, `disabled`, `deprecated`, or `discontinued`. It is not a current installability guarantee. Relationship is `upstream`, `community`, `distribution`, `third-party`, or `unknown`. Upstream documentation of a community package does not prove upstream maintenance. Explain that distinction in scope. Never substitute universal availability booleans or infer package identity from a similar name.
+- `external_services`: `name` plus `requirement`: `required`, `optional`, or `configuration-dependent`. Distinguish an application from a separate model backend or resource provider. An absent entry means not recorded.
+- `packages`: exact `ecosystem`, `coordinate`, `channel`, `status`, and `upstream_relationship`. Status is a source observation: `documented`, `disabled`, `deprecated`, or `discontinued`. Relationship is `upstream`, `community`, `distribution`, `third-party`, or `unknown`. Upstream documentation of a community package does not prove upstream maintenance. Explain that distinction in scope. Never substitute universal availability booleans or infer package identity from a similar name.
 - `requirements`: `kind` (`minimum`, `recommended`, `default`, `constraint`) and a sourced `note`. Include units and workload/version/deployment qualification in the note/scope. Keep application and model/cluster requirements separate. Do not turn defaults into minima or publish a benchmark, universal footprint, security, health, or deployment-ease score.
 
-The initial eight records are a coverage pilot, not exhaustive package or platform inventories. The OpenSCAD stable Homebrew disabled state is intentionally represented separately from the snapshot cask. OpenWrt requires device-specific compatibility review, not one universal RAM threshold.
+The initial eight records are a coverage pilot. The OpenSCAD stable Homebrew disabled state is intentionally represented separately from the snapshot cask. OpenWrt requires device-specific compatibility review, not one universal RAM threshold.
 
 ## Filters and missing data
 
-“Reviewed run mode” and “Reviewed install method” each select one documented value; the record itself can contain several. Combining the two filters intersects matches. “Any / not reviewed” keeps all records. “Not recorded” selects absence of that fact in approved evidence; it does not mean unsupported. Search and ranking retain their existing meanings. URL parameters `run_mode` and `install_method` restore with reload/Back/Forward and reset with other filters. Without JavaScript, all records and source links remain in native disclosures.
+“Reviewed run mode” and “Reviewed install method” each select one documented value; the record itself can contain several. Combining the two filters intersects matches. “Any / not reviewed” keeps all records. “Not recorded” selects absence of that fact in approved evidence. Search and ranking retain their existing meanings. URL parameters `run_mode` and `install_method` restore with reload/Back/Forward and reset with other filters. Without JavaScript, all records and source links remain in native disclosures.
 
 ## Review workflow
 

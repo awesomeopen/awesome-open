@@ -57,7 +57,6 @@
 | [open-cot](https://github.com/minimAluminiumalism/open-CoT) | Research scripts for eliciting and evaluating reasoning text from language-model APIs. |
 | [OpenCV](https://github.com/opencv/opencv) | Computer vision library. |
 | [Open Deep Research](https://github.com/langchain-ai/open_deep_research) | Configurable research agent supporting multiple model providers, search tools, and MCP servers. |
-| [OpenDisplay](https://github.com/Script-k1tty/OpenDisplay) | Experimental AI assistant for Ray-Ban Display glasses with lens cards, captions, translation, and a teleprompter. |
 | [Open Dot](https://github.com/composio-community/open-dot) | Mac application for persistent personal AI agents with browsers, app integrations, and scheduled tasks. |
 | [OpenDots](https://github.com/CopilotKit/OpenDots) | Self-hostable template for persistent AI agents with individual computers, document workspaces, text, calls, and Slack. |
 | [OpenFace](https://github.com/cmusatyalab/openface) | Face recognition with deep neural networks. |
@@ -622,6 +621,7 @@
 | [OpenBMC](https://github.com/openbmc/openbmc) | Linux distribution for hardware management controllers. |
 | [OpenBSD](https://www.openbsd.org) | Unix-like operating system emphasizing portability, correctness, and security. |
 | [OpenCore](https://github.com/acidanthera/OpenCorePkg) | Bootloader and UEFI support libraries. |
+| [OpenDisplay](https://github.com/OpenDisplay/Firmware) | Firmware and tools for Bluetooth Low Energy e-paper displays using nRF52840 and ESP32 boards. |
 | [OpenELEC](https://github.com/OpenELEC/OpenELEC.tv) | Embedded Linux distribution for Kodi media centers. |
 | [openEuler](https://www.openeuler.org/en) | Operating system for digital infrastructure. |
 | [OpenIndiana](https://www.openindiana.org) | Community-driven illumos distribution. |
@@ -688,11 +688,11 @@
 
 ## Legend
 
-“Alternative to” links point to official comparison or migration evidence for a relevant use case, not a promise of feature parity or drop-in compatibility. Only reviewed pairings are shown; entries without a line may simply be unresearched. [Sources and contribution guidance](CONTRIBUTING.md#alternatives).
+“Alternative to” links point to official comparison or migration evidence for a relevant use case. Only reviewed pairings are shown; entries without a line may simply be unresearched. [Sources and contribution guidance](CONTRIBUTING.md#alternatives).
 
 Entry format: Open*, open*, OPEN*, spaces, hyphens etc. Open-source and proprietary software. Projects may appear in more than one category. Repository metadata is refreshed daily. Dates show GitHub repository creation followed by the last push (UTC), then a known SPDX license and star count. A bold last-push date is at least 12 calendar months old. Non-GH projects omit these statistics.
 
-**Bold names** mark the top three GitHub repositories by stars within each category; entries remain alphabetical. Small bars show monthly Hacker News story submissions mentioning the project over 24 completed months, oldest at left, on one shared square-root scale. Click a chart to browse HN. Attention includes praise, criticism, and controversy; it is not endorsement. Charts cover a researched subset with meaningful history. [Method, coverage, and sources](CONTRIBUTING.md#hacker-news-attention-sparklines).
+**Bold names** mark the top three GitHub repositories by stars within each category; entries remain alphabetical. Small bars show monthly Hacker News story submissions mentioning the project over 24 completed months, oldest at left, on one shared square-root scale. Click a chart to browse HN. Attention includes praise, criticism, and controversy. Charts cover a researched subset with meaningful history. [Method, coverage, and sources](CONTRIBUTING.md#hacker-news-attention-sparklines).
 
 ## Contributing, license
 

@@ -5,7 +5,7 @@
 This is a short product record for design work. It summarizes and links to the
 authoritative sources; when they disagree, [brand/foundation.md](brand/foundation.md),
 [CONTRIBUTING.md](CONTRIBUTING.md) and the evidence contracts in `site/` win.
-It is not a visual specification; see [brand/README.md](brand/README.md).
+The visual specification is in [brand/README.md](brand/README.md).
 
 ## Platform
 
@@ -20,14 +20,13 @@ web
   without a specific tool in mind.
 
 Both are a working definition confirmed by the owner on 2026-10-19
-([B-PR123-01](brand/decisions/B-PR123-01.md)), not the result of an audience study.
+([B-PR123-01](brand/decisions/B-PR123-01.md)).
 
 ## Product Purpose
 
 Awesome Open* catalogs software whose names begin with Open, as a generated README
 and a static field-guide website built from one curated source
-(`README.source.md`). Inclusion is a naming rule only; it is not evidence of
-licensing, quality, popularity or production readiness
+(`README.source.md`). Inclusion is a naming rule only
 ([scope](CONTRIBUTING.md#scope)).
 
 Current success, set by the owner:
@@ -60,9 +59,9 @@ meaning. The strangeness lives in artwork and organization, never in the facts.
   CSS/JS in `site/`. Fix the generator or authored files, never built HTML.
 - Search and filters work from an embedded index; detail records load lazily with
   a no-JavaScript full-record fallback ([detail loading](site/DETAIL-LOADING.md)).
-- Evidence contracts are binding: unknown stays unknown, stars are not quality,
-  HN counts are not sentiment, last push is not a maintenance verdict,
-  alternatives are not ancestry ([evidence contract](brand/foundation.md#evidence-contract)).
+- Evidence contracts are binding: each label keeps the meaning recorded in the
+  [evidence contract](brand/foundation.md#evidence-contract), and copy states
+  that meaning directly.
 - Brand, artwork, icon and skill changes follow [AGENTS.md](AGENTS.md) and
   [brand/maintenance.md](brand/maintenance.md), with decision records per PR.
 - Open, not started: specimen audio, ex-Open* frozen page, illustrations
@@ -90,9 +89,9 @@ testimonials, user counts, endorsements or audience research; do not invent them
 1. Facts stay literal; design never erases uncertainty or provenance.
 2. Inspection first: the evidence a comparer needs is never more than one
    predictable step away.
-3. Wonder lives in the artwork and organization, not in claims.
+3. Wonder lives in the artwork and organization.
 4. One curated source, one publisher; every view is generated from it.
-5. Missing work is omitted, not faked with placeholders.
+5. Missing work is omitted.
 
 ## Accessibility & Inclusion
 

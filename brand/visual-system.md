@@ -26,7 +26,7 @@ the full application. Historical demo routes do not establish current behavior.
 The seven-jar photographic hero was promoted to production in PR #26. Preserve
 its glass/photo layers, original drawn contents, shallow depth, selection light,
 brief vapor, pause and reduced-motion behavior. Photographic glass is a deliberate
-container treatment; it does not change FOSSoligy's drawing rule for specimens.
+container treatment; specimens keep FOSSoligy's drawing rule.
 Colored jar lighting is decorative, not a status classification. This specific
 approved component takes precedence over generic “no glow” guidance.
 
@@ -56,7 +56,7 @@ identity. See [B-PR104-01](decisions/B-PR104-01.md).
 The footer uses one transparent valley/abyssal image per load over Prussian blue,
 with a static masked upper fade and clear reading space. Panoramas keep their native pixel dimensions, centered horizontally and bottom aligned at every viewport width; clip overflow rather than resize. Excess bottom padding is cropped before lossless WebP conversion, with the original source revision/hash, crop rectangle, output dimensions and checksum recorded in footer provenance. Its data notes default
 open; the coffee support link has its own paragraph. Black footer metadata
-backings are a specific implemented choice, not a new global surface token.
+backings are a specific implemented choice.
 
 The standalone download is a motion-free ledger with embedded dependencies. It
 need not recreate the interactive photographic hero. Verify copy and evidence
@@ -72,7 +72,7 @@ Do not mark a reference “approved” merely because a build succeeds.
 ## Icons (B-PR101-01, proposed)
 
 Status, link, control and setup icons follow the [icon map](icons.md). Icons
-restate a visible evidence label; they never replace it or add a verdict. No
+restate a visible evidence label and add no judgment of their own. No
 icon artwork is implemented yet. Icons are hand-written SVG, not
 Speculative FOSSoligy drawings ([B-PR102-01](decisions/B-PR102-01.md)).
 
@@ -184,7 +184,7 @@ to windows by reviewed body fit, with complete-subject fallback. Protrusions may
 clip at photo-traced inner glass walls while original illustrations remain whole. The static `/spotlight/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
 with a specimen tray per edition (B44). See [calendar, evidence and fallback
 rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
-fallback; it is not retroactively labeled a random draw.
+fallback.
 
 ## Crisp jar motion (B40)
 

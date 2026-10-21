@@ -1,8 +1,7 @@
 # Reviewed name-change history
 
 `data/project_history.json` is an optional, curated event ledger. It adds sourced
-history to the shared specimen record, not a collector, a complete historical
-census, new aliases, changed catalog identities or Observatory charts. The full
+history to the shared specimen record. The full
 catalog JSON retains each event for later reuse. Missing records mean unreviewed,
 not that a project has never changed its name.
 
@@ -39,8 +38,7 @@ can be rewritten. Preserve the distinction between software names and paths.
 The first two records are OpenTF → OpenTofu's public naming announcement on
 2023-09-20, and OpenDevin → OpenHands' project-wide name change merged into main
 on 2024-08-19. The latter changed the README and code, and was included in the
-2024-08-23 release. It does not claim the exact announcement or repository move
-happened on August 19. The release is supporting evidence, not another event.
+2024-08-23 release. The release is supporting evidence.
 
 ## Display and future counting
 
@@ -71,8 +69,7 @@ a native disclosure and works without JavaScript.
 Future Observatory use must count event IDs once, retain event kinds and date
 bases, and state coverage. A release corroborating an implementation is not a
 second rename. Category memberships can overlap. A current-catalog-only backfill
-misses projects that renamed away from Open; dated examples do not establish a
-complete historical rate. Ex-Open archival eligibility remains a separate
+misses projects that renamed away from Open. Ex-Open archival eligibility remains a separate
 curated decision; the proposed frozen archive is not implemented here.
 
 ## Checks
