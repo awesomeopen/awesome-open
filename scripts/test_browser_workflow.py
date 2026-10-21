@@ -17,12 +17,13 @@ class BrowserWorkflowTests(unittest.TestCase):
     def test_browser_uses_this_checkout_and_cleans_up_loopback_server(self):
         text = self.workflow
         build = text.index('scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA"')
-        browser = text.index('node scripts/check_site_browser.cjs')
+        browser = text.index('python3 scripts/run_browser_checks.py')
         self.assertLess(build, browser)
         for required in ['SITE_URL: http://127.0.0.1:8000', 'SITE_SOURCE_SHA: ${{ github.sha }}',
                          '--bind 127.0.0.1 --directory tmp/site', 'response.status == 200',
-                         'trap \'kill "$server_pid"', 'set -euo pipefail', 'timeout 180s node',
-                         'tee tmp/site-qa/browser.log']:
+                         'trap \'kill "$server_pid"', 'set -euo pipefail',
+                         'python3 scripts/run_browser_checks.py',
+                         'fromJSON(steps.browser-plan.outputs.timeout_minutes)' ]:
             self.assertIn(required, text)
 
     def test_screenshots_are_kept_after_failure_with_bounded_retention(self):

@@ -1,4 +1,4 @@
-/* Runs inside the existing serial field-guide browser check. */
+/* Typography coverage, run independently by the browser-suite runner. */
 const assert = require('node:assert/strict');
 const path = require('node:path');
 const fs = require('node:fs');
@@ -92,3 +92,31 @@ module.exports = async ({ browser, url, data, output }) => {
     console.log('Settled typography: real bold, obsolete URLs, two font requests, no selector/runtime, mobile routes, offline/no-JS and failure fallback passed');
   } finally { await context.close(); }
 };
+
+if (require.main === module) {
+  (async () => {
+    const { chromium } = require('playwright');
+    const output = path.resolve(__dirname, '../tmp/site-qa');
+    fs.mkdirSync(output, { recursive: true });
+    const report = { status: 'running', prHeadSha: process.env.PR_HEAD_SHA || null };
+    const write = () => fs.writeFileSync(path.join(output, 'fonts.json'), JSON.stringify(report, null, 2) + '\n');
+    write();
+    let browser;
+    try {
+      browser = await chromium.launch({ headless: true,
+        ...(process.env.CHROMIUM_NO_SANDBOX === '1' ? { args: ['--no-sandbox'] } : {}),
+        ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}) });
+      const url = process.env.SITE_URL || 'http://127.0.0.1:8000';
+      const response = await browser.newContext().then(context => context.request.get(new URL('catalog.json', url + '/').href));
+      assert.ok(response.ok(), 'Full catalog download is available');
+      const data = await response.json(); report.sourceSha = data.source_sha; write();
+      if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA);
+      await module.exports({ browser, url, data, output });
+      report.status = 'passed';
+    } catch (error) { report.status = 'failed'; report.error = error.message; throw error; }
+    finally {
+      write();
+      if (browser) await browser.close();
+    }
+  })().catch(error => { console.error(error); process.exitCode = 1; });
+}

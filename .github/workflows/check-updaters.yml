@@ -11,7 +11,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
@@ -77,8 +77,11 @@ jobs:
         run: npm ci --ignore-scripts
       - name: Install Playwright Chromium and system dependencies
         run: npx --no-install playwright install --with-deps chromium
+      - name: Plan bounded browser suites
+        id: browser-plan
+        run: python3 scripts/run_browser_checks.py --plan
       - name: Check the generated field guide in Chromium
-        timeout-minutes: 5
+        timeout-minutes: ${{ fromJSON(steps.browser-plan.outputs.timeout_minutes) }}
         env:
           SITE_URL: http://127.0.0.1:8000
           SITE_SOURCE_SHA: ${{ github.sha }}
@@ -106,9 +109,7 @@ jobs:
           else:
               raise SystemExit('The local field-guide preview did not become ready')
           PY
-          timeout 180s node scripts/check_site_browser.cjs 2>&1 | tee tmp/site-qa/browser.log
-          timeout 90s node scripts/check_exhibition_browser.cjs 2>&1 | tee tmp/site-qa/exhibition.log
-          JAR_PAGE=index.html timeout 90s node scripts/check_jar_browser.cjs 2>&1 | tee tmp/site-qa/jars.log
+          python3 scripts/run_browser_checks.py
       - name: Upload desktop and mobile browser screenshots
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
