@@ -8,7 +8,7 @@ Add this step after accepting a project, alongside the specimen-art handoff:
 
 > Read `site/FUNCTION-SUMMARIES.md`. Read the project's official README or documentation and draft a 40–80-word Function summary describing concrete capabilities, intended use and deployment model where the source establishes them. Add it to `data/function_summaries.json` under the existing full catalog ID. Preserve the short description in `README.source.md`. Cite one to three official source URLs and titles, the actual UTC review date, and a full source commit SHA where available. Review every claim against those sources before marking the entry approved. Submit the summary and any discovery edits in the same review-only PR. Do not merge. If sources cannot be verified, omit the summary and continue discovery.
 
-This is an instruction for the existing agent, not a new scheduled collector. No extra credentials or scheduled GitHub workflow are required. A maintainer must add this instruction to Junge's actual task prompt; editing this file alone does not change that external task. Adopt the contract after the implementation PR merges. The existing publisher reads approved records during its ordinary offline website build.
+This is an instruction for the existing agent. No extra credentials or scheduled GitHub workflow are required. A maintainer must add this instruction to Junge's actual task prompt; editing this file alone does not change that external task. Adopt the contract after the implementation PR merges. The existing publisher reads approved records during its ordinary offline website build.
 
 ## Identity and record
 
@@ -24,7 +24,7 @@ Each entry contains:
 - `reviewed_by`: the person or agent that verified the claims.
 - `review_note`: short explanation of the check or remaining uncertainty.
 
-An agent may conduct this content review; approved means eligible for the proposed build, not authorized for a production merge. Pending and rejected records are omitted. Missing records fall back to the short description. Invalid approved identity, provenance or length fails the build.
+An agent may conduct this content review; approved means eligible for the proposed build; a production merge needs separate approval. Pending and rejected records are omitted. Missing records fall back to the short description. Invalid approved identity, provenance or length fails the build.
 
 ## Writing and review
 
@@ -46,7 +46,7 @@ python3 -m unittest discover -s scripts -p 'test_function_summaries.py'
 python3 scripts/build_site.py --output tmp/summary-site
 ```
 
-Inspect the expanded record and the unchanged folded description. Sources and review date must appear beneath the longer prose. Search remains based on names, short descriptions and reviewed alternatives; this extension does not change ranking or filters. The downloadable standalone HTML includes the summary and source links through the same renderer.
+Inspect the expanded record and the unchanged folded description. Sources and review date must appear beneath the longer prose. Search remains based on names, short descriptions and reviewed alternatives. The downloadable standalone HTML includes the summary and source links through the same renderer.
 
 ## Optional feature notes
 

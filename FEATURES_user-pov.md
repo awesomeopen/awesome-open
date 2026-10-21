@@ -39,17 +39,17 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Direct record links - Share a project's catalog position or open its full record on a separate page.
 - Scannable project links - Open a project permalink on another device by scanning the QR code on its record.
 - Hidden-project notice - Know when a directly linked project is hidden by your current filters and how to reveal it.
-- Stable project identity - Keep distinct projects separate even when they share a name; changing a display name alone does not change its catalog link.
+- Stable project identity - Keep distinct projects separate even when they share a name; a display-name change keeps its catalog link.
 - Official-source links - Go directly to the project's official repository or website to investigate further.
 - Reviewed Function summaries - Read a fuller explanation of capabilities and intended use where a source-reviewed summary is available.
 - Sourced feature notes - Discover an additional concrete capability on illustrated records that have reviewed feature notes.
 - Repository timeline - Compare repository creation, latest recorded release and last push on one dated timeline; creation is not presented as the project's founding date.
-- Repository dates - Read the actual recorded creation and push dates instead of an inferred maintenance verdict.
+- Repository dates - Read the actual recorded creation and push dates.
 - GitHub archive flag - See when a repository owner has marked it archived, without treating that flag as a safety or quality verdict.
 - GitHub stars - See the observed count without treating popularity as proof of quality or suitability.
 - Detected license - See the reported license or an explicit Unknown, then check the project's current terms yourself.
 - Latest recorded release - Follow the release tag and publication date when release evidence is available.
-- Reviewed alternatives - Read the specific comparison, its source and its review date rather than assuming two tools are interchangeable.
+- Reviewed alternatives - Read the specific comparison, its source and its review date.
 - Setup overview - Check reviewed ways to run and install a project before leaving the catalog; coverage is currently a small pilot.
 - Platform details - Read supported operating systems or architectures with the qualifications recorded by the source.
 - External-service requirements - See whether a recorded service is required, optional or dependent on configuration.
@@ -68,12 +68,12 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Separate attention signals - Inspect stars and HN activity independently; neither is labeled adoption, sentiment or quality.
 - Source and review dates - See where reviewed summaries, comparisons and setup facts came from and when they were checked.
 - Retrieval history - Inspect available provider sources, successful-fetch dates and later collection attempts.
-- Stale-data labels - Recognize retained older observations after an unsuccessful update instead of mistaking them for fresh measurements.
+- Stale-data labels - Recognize retained older observations after an unsuccessful update.
 - Explicit unknowns - Distinguish unavailable or unchecked information from a real zero or a negative finding.
 - Background data refreshes - Receive updated repository facts and due optional evidence through the existing publisher, without refreshing each project yourself.
 - Snapshot date and source revision - Identify which edition of the collection you are reading.
-- Downloadable evidence - Inspect the underlying catalog, comparison and chart evidence rather than relying only on the display.
-- Retained chart observations - Consult the [repository archive](data/chart_observations.json) for saved chart evidence from earlier collections; this is separate from the website charts and offline downloads.
+- Downloadable evidence - Inspect the underlying catalog, comparison and chart evidence.
+- Retained chart observations - Consult the [repository archive](data/chart_observations.json) for saved chart evidence from earlier collections.
 
 ## Available: explore the specimen world
 
@@ -109,7 +109,7 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Observatory filters - Restrict charts, project rows and name groups by category and license.
 - Shareable Observatory selections - Preserve a selection in the URL and revisit it with Back and Forward.
 - Chart data tables - Read the exact values behind each visual chart in a foldout table.
-- Full project data table - Inspect the selected records behind the summary instead of relying only on aggregates.
+- Full project data table - Inspect the selected records behind the summary.
 - Evidence-coverage overview - See where the whole collection has usable, partial, stale or missing supporting data.
 - Selection CSV export - Download the currently selected Observatory rows for further analysis, with source and snapshot information.
 - Observatory snapshot download - Retrieve the collection's structured snapshot and aggregates.
@@ -122,7 +122,7 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Skip-to-content navigation - Bypass repeated navigation and reach the main content directly.
 - Reduced-motion support - Use the site with a reduced-motion preference without losing the underlying project information.
 - Labeled controls and status updates - Use accessible control names and announced result counts when navigating with assistive technology.
-- Text equivalents for charts - Read chart labels, descriptions or data tables instead of depending only on visual marks.
+- Text equivalents for charts - Read chart labels, descriptions or data tables.
 - No-JavaScript reading - Browse all projects and follow full-record links even when interactive search and filtering are unavailable.
 - Offline catalog download - Keep one self-contained HTML file with records, artwork, fonts, charts and embedded evidence; external project links still need a connection.
 - Catalog JSON export - Reuse structured project records and evidence in your own analysis or tools.
@@ -153,8 +153,7 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Illustrations-only gallery - A [proposed gallery](TODO.md) would make the artwork browsable together on one page.
 - Optional Open-prefix search exclusion - A [proposed search option](TODO.md) would help search the rest of a name without matching every project's Open prefix.
 
-This inventory describes existing behavior rather than changing product or brand
-rules. Scope and evidence qualifications remain in [CONTRIBUTING.md](CONTRIBUTING.md),
+This inventory describes existing behavior. Scope and evidence qualifications remain in [CONTRIBUTING.md](CONTRIBUTING.md),
 [PRODUCT.md](PRODUCT.md) and the linked [feature contracts](site/).
 
 Contribution by Junge (AI)
