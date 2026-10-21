@@ -446,8 +446,9 @@ headers and raw transport exceptions are never included. For partial work, wait 
 another chunk; successful
 remote checkpoints are skipped automatically. Do not repeatedly dispatch a blocked
 run without reviewing its reason. There is no self-dispatch loop, paid idle quota
-wait, or permanent schedule to remove. The parent/requester coordinates the finite
-continuations and stops when all eligible histories are complete or remaining
+wait or permanent GitHub backfill schedule. The initial external coordinator is
+retired. For separately authorized manual work, the operator coordinates finite
+continuations and stops at the agreed completion condition or when remaining
 repositories need review. The normal publisher keeps its existing fail-closed safety checks.
 
 An `always()` artifact step retains the per-repository checkpoint for 14 days,
