@@ -184,11 +184,16 @@ lives elsewhere. Author portable, user-owned task instructions from the public
 catalog policy. Do not export an assistant's private configuration, conversation
 history, credentials or internal instructions.
 
-Suggested future layout, **not created or executed by this document**:
+The current [automation inventory](automation/README.md) records the five hosted
+tasks, their nominal cadences, public operating contracts and review boundaries.
+It also distinguishes the GitHub publisher. It is documentation only: no runner,
+scheduler registration or portable executable tooling is included.
+
+The remaining portable layout is **future work**:
 
 ```text
 automation/
-  README.md                 # operator setup, ownership and review boundary
+  README.md                 # present: dated operating inventory and ownership
   discovery.md              # inclusion, deduplication and candidate contract
   alternatives.md           # official comparison evidence contract
   accuracy.md               # identity, description and evidence recheck
@@ -206,7 +211,7 @@ Each task specification should record:
 | Inputs | Repository/ref, naming policy, existing records and evidence contracts |
 | Method | Search guidance, canonical-URL deduplication, official-source verification, ambiguity handling |
 | Output | Candidate or correction, source URLs, checked UTC date, evidence excerpt/summary, affected paths, unresolved questions |
-| Review | Draft PR, factual checks, exact tested revision, named maintainer approval; no automatic merge |
+| Review | Explicit write authorization, factual checks and exact tested revision; draft PR/maintainer approval by default, no automatic merge. The current discovery-only direct-source exception is recorded in the inventory and is not inherited by clones |
 | Schedule | Proposed timezone/cadence and manual trigger; operator explicitly installs/enables it |
 | Failure | Rate limits, stale/unknown data, last-good preservation, retry budget and visible failure report |
 | Run record | Start/end time, input revision, task-spec version, changed files, checks and PR URL |
@@ -218,9 +223,9 @@ candidates with URLs and checked dates. Propose curated edits in a draft PR;
 leave generated outputs to the publisher.” This defines work another operator
 can run without inheriting anyone else's account access.
 
-Commit approved task specifications and examples first. Add a thin CLI or GitHub
-Actions adapter later, with dry-run output, schema validation, bounded retries,
-tests and draft-PR creation. A scheduler, runner and model provider can change
+Extend the inventory into approved portable task specifications and examples
+before adding a thin CLI or GitHub Actions adapter with dry-run output, schema
+validation, bounded retries, tests and draft-PR creation. A scheduler, runner and model provider can change
 without changing the evidence/review contract.
 
 Keep accounts, repository grants, service connections, model-provider billing,

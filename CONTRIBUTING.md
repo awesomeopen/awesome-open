@@ -1,5 +1,9 @@
 # Contributing
 
+For the current assistant-hosted tasks, nominal schedules, file scopes, review
+gates and stopping conditions, see the [automation inventory](automation/README.md).
+The inventory also distinguishes those tasks from the repository-owned publisher.
+
 ## Brand and design changes
 
 Start with [the brand reference](brand/README.md), [agent instructions](AGENTS.md), and [maintenance procedure](brand/maintenance.md). Update affected rules, decisions and asset/skill provenance in the same PR; explain when a fix has no brand impact. Run `python3 scripts/check_brand.py` alongside the checks relevant to the change. Routine catalog/evidence refreshes keep their existing workflow.
@@ -71,7 +75,7 @@ Open the generated Markdown with a Markdown viewer; the adjacent `assets/hn` dir
 
 The publisher performs its own verification before committing; it does not depend on a `GITHUB_TOKEN` push triggering another workflow. The collection/build job uses the existing `GITHUB_TOKEN` repository-content write permission. Only the separate `github-pages` deployment job has `pages: write` and `id-token: write`; it has no checkout or content-write permission. No personal token or new secret is required. Review any repository branch rules separately if they prevent bot pushes. Core collection fails closed on authentication, rate-limit, transport/server errors, invalid local or fetched data, and an all-repository HTTP 404 batch. An isolated repository HTTP 404 does not block healthy repositories: the collector reports each failure and keeps that repository’s last successful metrics and original observation date, marked stale. With no successful cache, its values remain unknown, marked unavailable; unknown stars are never zero. A 404 can mean a deleted, private, renamed or token-inaccessible repository. Both cases record the attempted UTC check, HTTP status, and neutral reason. README and website views expose stale/unavailable status; aggregates may include explicitly dated cached values and exclude unknown counts. No repository is removed. All records are validated before one atomic snapshot replacement; source or cache changes detected before replacement abort publication. The existing publisher remains the serialized writer; collection uses a private temporary file and does not lock out external editors. Ordinary upstream failures for optional website signals preserve their last-good evidence and do not prevent core README publication; corrupt local snapshots, invalid schemas, and identity mismatches still fail visibly.
 
-Content-only contributions must never commit generated README updates. Renderer/schema migrations may establish or update generated output together with their implementation, as this initial migration does. External curation jobs must switch to the source only after this migration is merged: daily discovery reads/deduplicates and edits `README.source.md`; alternatives discovery and accuracy review edit the source plus `data/alternatives.json` in their reviewed draft PRs. All three use the offline preview above and leave generated paths to the publisher.
+Content-only contributions must never commit generated README updates. Renderer/schema migrations may establish or update generated output together with their implementation, as this initial migration does. The current external discovery task reads, deduplicates and commits verified additions to `README.source.md` only; it uses a draft PR if branch rules prevent the authorized direct commit. Alternatives discovery and existing-mapping review propose source plus `data/alternatives.json` changes in draft PRs. Artwork and Function summaries use their own separate draft PRs after catalog acceptance. All tasks use the offline preview above and leave generated paths to the publisher. See the [automation inventory](automation/README.md) for the bounded work and review gates; this authorization does not apply to every contributor or to clones.
 
 ## Filterable website preview
 
@@ -264,7 +268,7 @@ The publisher never force-pushes. If another contributor or automation updates m
 
 ## Reviewed Function summaries
 
-After discovery accepts a project, follow [the Function summary handoff](site/FUNCTION-SUMMARIES.md) to add a sourced 40–80-word explanation to `data/function_summaries.json` in the same review-only PR. Keep the short description in `README.source.md`. Only approved summaries render; missing or unverified entries use the short-description fallback. The existing website build consumes this curated file offline. Do not scrape or generate prose during publishing.
+After discovery accepts a project on main, follow [the Function summary handoff](site/FUNCTION-SUMMARIES.md) to propose a sourced 40–80-word explanation in a separate `data/function_summaries.json`-only draft PR, not in the direct catalog commit or artwork PR. The same daily task considers at most 10 existing projects and proposes at most five missing summaries per run, with one backfill draft awaiting review at a time; see the [inventory](automation/README.md#discover-open-software). Keep the short description in `README.source.md`. Only approved summaries render; missing or unverified entries use the short-description fallback. The existing website build consumes this curated file offline. Do not scrape or generate prose during publishing.
 
 ## Cached GitHub star history
 
@@ -366,8 +370,9 @@ The star-history collector queries its separate history endpoint and does not tu
 ### One-time fast star-history backfill
 
 The publisher's manual `history_backfill` input is an opt-in, bounded chunk,
-not a recurring schedule. Merge its dependency (PR #67, catalog-wide eligibility)
-and this change before dispatching it on `main`. Keep the default input false
+not a recurring GitHub schedule. The separately hosted [hourly coordinator](automation/README.md#backfill-github-star-history)
+checks whether another finite chunk can run. Verify the reviewed implementation
+and its checks on `main` before dispatching it there. Keep the default input false
 for ordinary publication; the normal 16-attempt daily history budget is unchanged.
 
 Fast mode uses only the existing `GITHUB_TOKEN`, requests aggregate history
