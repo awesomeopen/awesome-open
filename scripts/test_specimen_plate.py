@@ -72,6 +72,34 @@ class PlateTests(unittest.TestCase):
         labels = re.findall(r'<span class="sheet-label">([^<]+)</span>', html)
         self.assertEqual(labels, ['I / Function', 'II / Repository record', 'In the wild'])
 
+    def test_departure_names_only_recognized_repository_destinations(self):
+        cases = [
+            ('https://github.com/example/tool', 'GitHub'),
+            ('https://WWW.GITHUB.COM/example/tool/', 'GitHub'),
+            ('https://gitlab.com/group/subgroup/tool', 'GitLab'),
+            ('https://gitlab.opengeosys.org/ogs/ogs', 'GitLab'),
+            ('https://codeberg.org/example/tool', 'Codeberg'),
+            ('https://bitbucket.org/example/tool', 'Bitbucket'),
+            ('https://sourceforge.net/projects/tool/', 'SourceForge'),
+            ('https://opentaxsolver.sourceforge.net', None),
+            ('https://www.opengeosys.org', None),
+            ('https://example.github.io/tool', None),
+            ('https://gitlab.example.org/group/tool', None),
+            ('https://github.com.example.org/group/tool', None),
+            ('https://github.com/example', None),
+            ('https://codeberg.org', None),
+            ('https://gitlab.opengeosys.org', None),
+            ('https://unknown.example/group/tool', None),
+        ]
+        for url, host in cases:
+            with self.subTest(url=url):
+                project = copy.deepcopy(PROJECT)
+                project.update(url=url, github=None, name='Open & Example')
+                html = render(project)
+                label = 'Explore Open &amp; Example' + (f' on {host}' if host else '')
+                self.assertIn(f'<a href="{url}"><span>{label}</span>', html)
+                self.assertNotIn('its official site', html)
+
     def test_unknown_license_is_labelled_unknown(self):
         html = render(copy.deepcopy(PROJECT))
         self.assertIn('<dt>Detected license</dt><dd>Unknown</dd>', html)

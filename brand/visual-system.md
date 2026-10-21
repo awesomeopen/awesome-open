@@ -43,8 +43,8 @@ static record pages reuse the B42 route shell. The standalone remains complete.
 See [B-PR111-01](decisions/B-PR111-01.md) and the
 [loading contract](../site/DETAIL-LOADING.md). Missing
 artwork leaves no placeholder. Reviewed alternatives follow the evidence as their
-own band. HN and stars summaries use “past 2y”. GitHub official
-source links name GitHub. ID tooltips name the identifier type: “Registry ID” and
+own band. HN and stars summaries use “past 2y”. Repository departure
+links name recognized hosts; homepage and unrecognized destinations use “Explore [name]”. ID tooltips name the identifier type: “Registry ID” and
 “Folio number”. These four refinements were initially present only in the private
 Sites output; this PR restores them to the generator.
 
