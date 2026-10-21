@@ -1,6 +1,6 @@
 /* Observatory browser contract. Run against a locally generated checkout only:
  * SITE_URL=http://127.0.0.1:8000 node scripts/check_observatory_browser.cjs
- * Also invoked by check_site_browser.cjs in the existing PR browser check.
+ * Invoked independently by the browser-suite runner.
  * CHROMIUM_PATH / CHROMIUM_NO_SANDBOX have the same meaning as that check.
  */
 const assert = require('node:assert/strict');

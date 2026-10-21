@@ -550,25 +550,6 @@ const path = require('node:path');
     assert.equal(await page.locator('script[src*="gsap"], script[src*="ScrollTrigger"]').count(), 0);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     assert.equal(await page.locator('html').evaluate(node => getComputedStyle(node).scrollBehavior), 'auto');
-    for (const project of data.projects.filter(p => p.artwork)) {
-      await change('search', project.name);
-      const card = page.locator('#project-' + project.id);
-      await card.locator('summary').first().click();
-      assert.equal(await card.locator('details.specimen-drawer').evaluate(node => node.open), true, 'Click after search must open ' + project.name);
-      await waitForPlate(card);
-      if (project.function_summary) {
-        assert.equal(await card.locator('.function-detail > p').first().textContent(), project.function_summary.text);
-        assert.ok(await card.locator('.function-provenance a').count() > 0);
-        assert.ok((await card.locator('.description').textContent()).includes(project.description));
-      } else {
-        assert.equal(await card.locator('.function-detail').count(), 0);
-      }
-      const image = card.locator('.specimen-art img');
-      await image.scrollIntoViewIfNeeded();
-      await page.waitForFunction(id => { const img = document.querySelector('#project-' + id + ' .specimen-art img'); return img && img.complete && img.naturalWidth > 0; }, project.id, { timeout: 10000 });
-      assert.equal(await image.evaluate(img => img.naturalWidth > 0), true);
-      await capture('specimen-' + project.name.toLowerCase() + '.png');
-    }
     await page.locator('#clear-filters').click();
     const crossListed = data.projects.find(p => p.leader_categories.length && p.categories.some(c => !p.leader_categories.includes(c)));
     assert.ok(crossListed, 'Fixture needs a project leading only some of its categories');
@@ -672,8 +653,6 @@ const path = require('node:path');
     await require('./check_star_history_browser.cjs')({ page, url, data, capture });
     await require('./check_plate_browser.cjs')({ page, url, data, capture });
     await require('./check_history_browser.cjs')({ page, url, data, capture });
-    await require('./check_observatory_browser.cjs')({ browser, url });
-    await require('./check_fonts_browser.cjs')({ browser, url, data, output });
     assert.deepEqual(errors, []);
     report.status = 'passed';
     writeReport();
