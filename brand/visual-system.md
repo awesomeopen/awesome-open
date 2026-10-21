@@ -262,3 +262,11 @@ Półtawski supports genuine bold 700 when explicitly requested with `font-weigh
 Jar function text (`.label-ink`) has a `#ffc800` backing; `.jar-metrics span` uses `#D9EEF8`. These are local callout treatments rather than a page palette change. The link reads “Inspect”, with no visible resting border and a 3px solid border on hover or keyboard focus. Reserve transparent border space to avoid layout shift. The third-activation accessible label also reads Inspect. See [B-PR141-01](decisions/B-PR141-01.md).
 
 Body-led wall clipping is proposed in [B-PR143-01](decisions/B-PR143-01.md).
+
+## Observatory shared-name comparisons
+
+Shared-name plates reuse approved project illustrations at the outer edges of
+paired introductions, with centered headings and project names. Images retain
+their full proportions; missing art adds no placeholder. Catalog links appear
+as linked Registry IDs in the regular facts list. Narrow screens stack records.
+See the [Observatory contract](../site/OBSERVATORY.md#shared-name-illustrations).

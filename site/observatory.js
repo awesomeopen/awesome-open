@@ -332,10 +332,27 @@
         ['Metrics cache', metricsCacheLabel(project)]].forEach(function (fact) {
         facts.append(element(doc, 'dt', null, fact[0]), element(doc, 'dd', fact[1] === null ? 'obs-unknown' : null, fact[1] === null ? 'Unknown' : fact[1]));
       });
-      var record = element(doc, 'a', 'obs-record', 'Ledger record');
-      record.href = '../#project-' + project.id;
-      record.setAttribute('aria-label', 'Ledger record for ' + project.name + ' (' + project.url.replace(/^https?:\/\/(github\.com\/)?/, '') + ')');
-      column.append(name, repositoryLink(doc, project.url), element(doc, 'p', 'obs-plate-desc', project.description || 'No short description in the catalog.'), facts, record);
+      var record = element(doc, 'a', 'obs-record', 'OP-' + project.id.slice(0, 8).toUpperCase());
+      record.href = (doc.querySelector('[data-ledger-base]')?.dataset.ledgerBase || '../') + '#project-' + project.id;
+      record.setAttribute('aria-label', 'Catalog record for ' + project.name + ' (' + project.url.replace(/^https?:\/\/(github\.com\/)?/, '') + ')');
+      var value = element(doc, 'dd');
+      value.appendChild(record);
+      facts.append(element(doc, 'dt', null, 'Catalog'), value);
+      var intro = element(doc, 'div', 'obs-plate-intro');
+      if (project.specimen) {
+        var art = project.specimen, image = element(doc, 'img', 'obs-pair-art');
+        image.src = art.path;
+        image.alt = art.alt;
+        image.width = art.width;
+        image.height = art.height;
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        intro.appendChild(image);
+      }
+      var copy = element(doc, 'div', 'obs-plate-copy');
+      copy.append(name, repositoryLink(doc, project.url), element(doc, 'p', 'obs-plate-desc', project.description || 'No short description in the catalog.'));
+      intro.appendChild(copy);
+      column.append(intro, facts);
       grid.appendChild(column);
     });
     plate.append(head, grid);

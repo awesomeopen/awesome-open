@@ -145,3 +145,15 @@ unclassified in this initial subset. The initial validator deliberately accepts
 single-syllable ARPABET remainders only; broadening coverage or languages requires
 reviewing that contract rather than guessing. No catalog identity, HN attribution,
 workflow, collection budget, credential, dependency or hosting change is involved.
+
+## Shared-name illustrations
+
+Shared-name plates center the group heading and each project name. Reuse each
+project's approved specimen illustration beside its source and description,
+at the outer edge of paired columns, contained without cropping or distortion.
+Missing artwork leaves no placeholder. Keep the facts aligned across the pair;
+Catalog is a regular definition-list row whose linked value is the Registry ID.
+Stack columns on narrow screens. Preserve this presentation after filtering,
+without JavaScript, and in the offline report (embedded image bytes).
+The visual comparison invites inspection; similarity of names or illustrations
+does not establish a relationship between projects.
