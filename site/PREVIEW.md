@@ -1,6 +1,6 @@
 # Disposable design previews
 
-Use a focused branch from current main for each design change; dot remains repository administrator and merge coordinator. Read [the brand reference](../brand/README.md) and [maintenance procedure](../brand/maintenance.md). The named preview branches below are historical checkpoints, not current branch assignments. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
+Use a focused branch from current main for each design change; dot remains repository administrator and merge coordinator. Read [the brand reference](../brand/README.md) and [maintenance procedure](../brand/maintenance.md). The named preview branches below are historical checkpoints. Keep catalog/source updates with their existing workflow. Each design proposal is reviewed in a draft PR before a production merge.
 
 ## Build a reviewable revision
 
@@ -23,7 +23,7 @@ The command requires a clean tracked working tree and no untracked source files.
 5. New revisions replace the disposable preview. Update the PR's preview SHA before asking for approval. A URL by itself does not identify a revision.
 6. After approval, dot merges through the repository's normal process; the existing main-only publisher remains the production path. The preview can then be reused for the next design branch.
 
-This is an operator-driven publishing workflow, not an automatic GitHub-to-Sites integration. Existing CI still uploads its offline `field-guide-preview` artifact. No Sites credentials belong in this public repository or its artifacts. A preview host may be reused, so check its displayed SHA before approving a PR. Do not publish the private preview to GitHub Pages or change its sharing to make review easier.
+This is an operator-driven publishing workflow. Existing CI still uploads its offline `field-guide-preview` artifact. No Sites credentials belong in this public repository or its artifacts. A preview host may be reused, so check its displayed SHA before approving a PR. Do not publish the private preview to GitHub Pages or change its sharing to make review easier.
 
 ## Historical studies
 
