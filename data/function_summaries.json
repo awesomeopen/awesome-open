@@ -1635,6 +1635,86 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review."
+    },
+    "1ba6d19f7e65bd5a2f31a59ac9e7e4d368b9c3fbb31b560691e36b9e2655e145": {
+      "project_url": "https://github.com/openemr/openemr",
+      "text": "OpenEMR combines electronic health records with medical practice administration, including appointment scheduling and electronic billing. Its internationalization support serves practices working in different languages. The application runs on Windows, Linux and macOS, and the project supplies Docker deployment examples alongside separate container configurations for development and testing.",
+      "sources": [
+        {
+          "url": "https://github.com/openemr/openemr/blob/fd53b1395a819d181e9df7a3590602b5a4a8cd85/README.md",
+          "title": "OpenEMR: official README",
+          "revision": "fd53b1395a819d181e9df7a3590602b5a4a8cd85"
+        },
+        {
+          "url": "https://github.com/openemr/openemr/blob/fd53b1395a819d181e9df7a3590602b5a4a8cd85/DOCKER_README.md",
+          "title": "OpenEMR: Docker documentation",
+          "revision": "fd53b1395a819d181e9df7a3590602b5a4a8cd85"
+        }
+      ],
+      "checked_at": "2026-10-21",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+    },
+    "1cf88cc37865ad15c1c2f99bef9fee63cc156d65a564777b1e8f90185dbe2ab0": {
+      "project_url": "https://github.com/simonoppowa/opennutritracker",
+      "text": "OpenNutriTracker is an Android and iOS food diary for recording meals, drinks, activity and weight. Food searches and barcode scans draw on nutritional databases, while custom meals and recipes support repeated entries. Daily records and trend views compare calories, macronutrients and water with targets. Users can export their records as JSON or CSV.",
+      "sources": [
+        {
+          "url": "https://github.com/simonoppowa/opennutritracker/blob/8d2420f0305c96a4f798f3a111509827260f6df7/README.md",
+          "title": "OpenNutriTracker: official README",
+          "revision": "8d2420f0305c96a4f798f3a111509827260f6df7"
+        }
+      ],
+      "checked_at": "2026-10-21",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+    },
+    "1d2c629a7a134d737d2875c70ad08267d95baad1234ab43f104d631eae3f2944": {
+      "project_url": "https://github.com/lowcarbcheck/openplate",
+      "text": "openplate is a self-hosted food diary that stores entries in the browser by default. It can estimate meal nutrients from photographs using a chosen AI provider or a separately deployed inference service. Docker configurations range from a single-container tracker to managed accounts and device synchronization, with administrators allocating shared AI usage to invited users.",
+      "sources": [
+        {
+          "url": "https://github.com/lowcarbcheck/openplate/blob/b80920e5b8b169281a4586597012838c63f262d4/README.md",
+          "title": "openplate: official README",
+          "revision": "b80920e5b8b169281a4586597012838c63f262d4"
+        }
+      ],
+      "checked_at": "2026-10-21",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+    },
+    "1d2cb00a6bd1b27c76b236dddc9926c1124700c41ea705960c8975ad7a58a6c6": {
+      "project_url": "https://github.com/opencost/opencost",
+      "text": "OpenCost measures Kubernetes resource allocation and cloud spending, attributing costs to clusters, namespaces, services and pods. It combines infrastructure usage with provider billing integrations or custom pricing for on-premises clusters. Teams can query cost data through APIs, inspect it in a web interface and export metrics to Prometheus. Deployment uses the official Helm chart.",
+      "sources": [
+        {
+          "url": "https://github.com/opencost/opencost/blob/788010c8d9a37714972c565394228cce71c01c4b/README.md",
+          "title": "OpenCost: official README",
+          "revision": "788010c8d9a37714972c565394228cce71c01c4b"
+        }
+      ],
+      "checked_at": "2026-10-21",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+    },
+    "2010382b7e67221b211756dabd4e1cbc9f53657dae1bbb0d238ddca211aaf194": {
+      "project_url": "https://github.com/fesens/opentpu",
+      "text": "openTPU combines an AI accelerator hardware design with the software needed to compile and run inference workloads. Its repository includes SystemVerilog hardware, an instruction set, a simulator, a kernel language and compiler, and host tools for a PCIe FPGA card. Developers can study the path from Python matrix operations to hardware execution or experiment in simulation.",
+      "sources": [
+        {
+          "url": "https://github.com/fesens/opentpu/blob/506e81b1d297e22739dab5ecaeee684493d5c720/README.md",
+          "title": "openTPU: official README",
+          "revision": "506e81b1d297e22739dab5ecaeee684493d5c720"
+        }
+      ],
+      "checked_at": "2026-10-21",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
     }
   }
 }
