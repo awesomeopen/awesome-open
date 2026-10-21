@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-21T04:25:21Z",
+  "collected_at": "2026-10-21T05:31:54Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -12250,6 +12250,47 @@
         "status": "unavailable"
       }
     },
+    "opendisplay/firmware": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-21T05:31:54Z",
+        "error": null,
+        "etag": "\"538607b7a4a060f9a66afea78f449e635741121ac8e7c35541355ff5592a26f5\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-21T05:31:54Z",
+          "observed_at": "2026-10-13T15:49:54Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/OpenDisplay/Firmware/releases/tag/2.27.0",
+            "published_at": "2026-10-13T15:49:54Z",
+            "release_id": 411850940,
+            "tag_name": "2.27.0"
+          }
+        },
+        "last_success_at": "2026-10-21T05:31:54Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/opendisplay/firmware/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-21T05:31:54Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/opendisplay/firmware",
+        "status": "unavailable"
+      }
+    },
     "opendocman/opendocman": {
       "release": {
         "check_time_precision": "second",
@@ -22865,34 +22906,6 @@
         "status": "unavailable"
       }
     },
-    "script-k1tty/opendisplay": {
-      "release": {
-        "check_time_precision": "second",
-        "checked_at": "2026-10-20T17:45:31Z",
-        "error": "not_found",
-        "etag": null,
-        "fetch_status": "not_found",
-        "http_status": 404,
-        "last_good": null,
-        "last_success_at": null,
-        "retry_after": null,
-        "source_url": "https://api.github.com/repos/script-k1tty/opendisplay/releases/latest",
-        "status": "unavailable"
-      },
-      "scorecard": {
-        "check_time_precision": "second",
-        "checked_at": "2026-10-12T05:48:29Z",
-        "error": "not_found",
-        "etag": null,
-        "fetch_status": "not_found",
-        "http_status": 404,
-        "last_good": null,
-        "last_success_at": null,
-        "retry_after": null,
-        "source_url": "https://api.scorecard.dev/projects/github.com/script-k1tty/opendisplay",
-        "status": "unavailable"
-      }
-    },
     "securiteru/openlaunch": {
       "release": {
         "check_time_precision": "second",
@@ -24796,5 +24809,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "60c53d9a6607fb2db03125e9b1d8680a46df82cc"
+  "source_sha": "886ed7469b40ab1ad6133133fdbb64a8285b1fe9"
 }
