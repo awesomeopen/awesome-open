@@ -350,6 +350,7 @@
 | [OpenMetadata](https://github.com/open-metadata/OpenMetadata) | Data catalog and metadata platform for discovery and governance. |
 | [Open Notebook](https://github.com/lfnovo/open-notebook) | NotebookLM-style research notebook with flexible model support.<br>Alternative to: [NotebookLM](https://github.com/lfnovo/open-notebook#open-notebook) |
 | [OpenOlat](https://github.com/OpenOLAT/OpenOLAT) | Learning management system. |
+| [Open Ontologies](https://github.com/fabio-rovai/open-ontologies) | Command-line and MCP tools for ontology reasoning, validation, change planning, and rollback. |
 | [Open Semantic Search](https://github.com/opensemanticsearch/open-semantic-search) | Search, text mining, and knowledge graphs for large document collections. |
 | [Opensidian](https://github.com/markusbegerow/opensidian) | Desktop Markdown notes app with wikilinks, backlinks, graph visualization, and configurable AI chat. |
 | [OpenStudy](https://github.com/OpenStudy-dev/OpenStudy) | Self-hosted study dashboard with an MCP server for AI assistants. |
