@@ -31,7 +31,7 @@ seven remain until the first recorded draw reaches its display week.
 Algorithm `sha256-week-project-v1` orders candidate IDs by the SHA-256 digest of
 `seed + "\n" + project_id`, breaking ties by project ID, and takes seven. The seed
 is `awesome-open/weekly-draw/v1/YYYY-MM-DD`, where the date is draw-week Monday.
-This is a reproducible pseudo-random draw, not a security lottery. Names, stars,
+This is a reproducible pseudo-random draw. Names, stars,
 repository order and image aspect ratio do not affect selection probability.
 
 Initial cooldown: four complete subsequent scheduled display weeks. Exclude any
@@ -83,8 +83,7 @@ Before the first scheduled edition activated on October 19, OpenObserve used the
 commissioning layout's fixed 300% zoom and horizontal clipping, about 154px tall
 at the enhanced footprint. Whole-silhouette fitting reduced it first to about
 83px and then 64px. Body-led placement restores approximately that original scale
-inside the more accurate glass contour; it does not claim every shape can fill
-both dimensions. No browser pixel analysis is introduced. Visual review includes
+inside the more accurate glass contour. No browser pixel analysis is introduced. Visual review includes
 matched before/after pixels, current occupants, extreme tall/wide approved art,
 mobile, active motion and reduced motion. Tests alone do not establish aesthetic
 acceptance.

@@ -9,7 +9,7 @@ forecast model. The main-only publisher includes the route automatically.
 ## Accounting
 
 - Totals count canonical project IDs once. Cross-listed category memberships may
-  overlap, so their sum is not a unique-project count and they are not a pie.
+  overlap, so their sum can exceed the unique-project count; do not draw them as a pie.
 - Shared names use one matching key per displayed name: lowercase (`str.lower`
   in Python, `toLowerCase` in JavaScript), then remove Unicode `White_Space`,
   hyphen and underscore. The explicit White_Space set is U+0009–000D, U+0020,
@@ -32,7 +32,7 @@ forecast model. The main-only publisher includes the route automatically.
 - Age and recency use UTC calendar-date differences against `metrics_as_of`.
   Timestamp offsets convert to UTC before taking the date. Same-day timestamps
   count as zero days. Invalid/future dates are Unknown.
-  Repository creation is not a founding date. Release uses the cached latest full
+  Release uses the cached latest full
   GitHub release's `published_at`, not tag creation, last push or fetch date.
   Release cache status and checked time remain explicit in the underlying table.
 - Coverage is whole-collection, labeled “Whole collection” and unaffected by filters. Optional
@@ -42,7 +42,7 @@ forecast model. The main-only publisher includes the route automatically.
   deduplicate within a project and globally; project–story matches can exceed
   globally distinct stories. This hand-mapped subset is not representative.
 - Star-history coverage is separate from present stars. It means monthly stars
-  still retained at a successful fetch, not historical totals or net growth.
+  still retained at a successful fetch.
   Aligned-chart coverage stays separate from cached results.
 
 ## Presentation and data
@@ -74,7 +74,7 @@ never changes a measured mark.
 exports the selection, including snapshot/revision provenance; formula-like cells
 are escaped. `observatory/report.html` embeds runtime dependencies and downloads
 for offline use. Optional external source links still need a network. The report
-is generated from the same revision and is not a separately refreshed publication.
+is generated from the same revision.
 
 The chart/table selection, shared-name groups and four headline metrics change together. The top
 collection finding and coverage explicitly retain whole-collection scope.
@@ -115,8 +115,7 @@ workflow, permissions, dependencies or public preview host is needed.
 The “Show names that rhyme” disclosure sits directly below “Show duplicate
 names” as a sibling native disclosure in Shared names. Its tool count remains
 secondary summary metadata. This separate measure is a bounded
-editorial measure, not another shared-name category. It does not increase the
-shared-name headline. A project can occur in both measures; totals are not additive.
+editorial measure and leaves the shared-name headline unchanged. A project can occur in both measures; totals are not additive.
 Native HTML shows the reviewed groups without JavaScript. Category/license
 filters recalculate both participation and reviewed-reading coverage.
 
@@ -125,12 +124,12 @@ current displayed name to its canonical project URL, resolved to the existing
 project ID. Build validation rejects unknown URLs, duplicate IDs, name drift,
 invalid phonemes and inconsistent onset/ending decomposition. The index and
 snapshot preserve review date, reviewer, source URL and explicit assumption basis.
-Missing records mean unclassified, never a claim that the name cannot rhyme.
+Missing records mean unclassified.
 
 The initial seven project readings form two groups: OpenChat (two separate
 projects), OpenCat and OpenVat; OpenShell, OpenSpell and Openbell. They use ordinary
 American English readings of the single-syllable remainder after Open. Official
-source links establish names, not officially approved pronunciation. The display
+source links establish names; pronunciations are editorial. The display
 states this limitation. A key consists of the final stressed vowel and subsequent
 sounds in ARPABET; `1` marks primary stress. A group needs at least two different
 normalized display names and two different preceding consonant onsets. Identical

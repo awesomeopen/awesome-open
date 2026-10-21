@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "policy": "Manually reviewed alternatives only. Official sources establish a relevant use case, not feature parity or drop-in compatibility. Discovery and accuracy checks propose changes for review; they never populate this file or the README automatically.",
+  "policy": "Manually reviewed alternatives only. Official sources establish a relevant use case. Discovery and accuracy checks propose changes for review; they never populate this file or the README automatically.",
   "projects": [
     {
       "readme_url": "https://github.com/opf/openproject",
@@ -45,7 +45,7 @@
           "checked_utc_date": "2026-10-04",
           "claimant": "Vellum",
           "source_quote": "Vellum delivers on the same core promise",
-          "scope": "Personal AI assistants with persistent memory and task execution. User-requested mapping supported by Vellum’s official comparison, which positions Vellum as an alternative to OpenHuman; this is not an OpenHuman-authored claim or a claim of feature parity."
+          "scope": "Personal AI assistants with persistent memory and task execution. User-requested mapping supported by Vellum’s official comparison, which positions Vellum as an alternative to OpenHuman."
         },
         {
           "name": "Hermes Agent",
@@ -54,7 +54,7 @@
           "checked_utc_date": "2026-10-12",
           "claimant": "OpenHuman",
           "source_quote": "OpenHuman does that too",
-          "scope": "Personal AI agent harnesses. In its How it compares section, OpenHuman positions itself for the same single-user agent work as Hermes Agent and directly compares their core capabilities. Hermes Agent is the NousResearch agent application, not a Hermes language model. OpenHuman is early beta; no feature parity, benchmark advantage, or drop-in compatibility is established.",
+          "scope": "Personal AI agent harnesses. In its How it compares section, OpenHuman positions itself for the same single-user agent work as Hermes Agent and directly compares their core capabilities. Hermes Agent is the NousResearch agent application, not a Hermes language model. OpenHuman is early beta.",
           "confidence": "high"
         },
         {
@@ -64,7 +64,7 @@
           "checked_utc_date": "2026-10-12",
           "claimant": "OpenHuman",
           "source_quote": "OpenHuman does that too",
-          "scope": "Personal AI agent harnesses. In its How it compares section, OpenHuman positions itself for the same single-user agent work as OpenClaw and directly compares their core capabilities. OpenHuman is early beta; no feature parity, benchmark advantage, or drop-in compatibility is established.",
+          "scope": "Personal AI agent harnesses. In its How it compares section, OpenHuman positions itself for the same single-user agent work as OpenClaw and directly compares their core capabilities. OpenHuman is early beta.",
           "confidence": "high"
         }
       ]
@@ -86,7 +86,7 @@
           "source_url": "https://github.com/different-ai/openwork#readme",
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenWork",
-          "scope": "Desktop AI-agent work on the user's files; no claim of complete Codex product-family parity.",
+          "scope": "Desktop AI-agent work on the user's files.",
           "confidence": "high"
         }
       ]
@@ -100,7 +100,7 @@
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenScreen",
           "source_quote": "OpenScreen is a free, MIT-licensed Screen Studio alternative",
-          "scope": "Screen recording and editing product demos with zooms, cursor effects, captions, and local video export. The official comparison distinguishes Screen Studio's hosted sharing and mobile-device capture; it does not establish feature parity.",
+          "scope": "Screen recording and editing product demos with zooms, cursor effects, captions, and local video export. The official comparison distinguishes Screen Studio's hosted sharing and mobile-device capture.",
           "confidence": "high"
         },
         {
@@ -150,7 +150,7 @@
           "source_url": "https://opencloud.eu/en/press/opencloud-now-available-new-open-source-alternative-microsoft-sharepoint",
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenCloud",
-          "scope": "File management, file sharing, and content collaboration; not all SharePoint intranet/application capabilities. The official statement was published on 2025-02-25 and rechecked on the date recorded here; this is not a new announcement or a whole-suite replacement claim.",
+          "scope": "File management, file sharing, and content collaboration. The official statement was published on 2025-02-25 and rechecked on the date recorded here.",
           "confidence": "high",
           "source_quote": "alternative to proprietary solutions such as Microsoft SharePoint, Google Drive or Dropbox."
         },
@@ -159,7 +159,7 @@
           "source_url": "https://opencloud.eu/en/press/opencloud-now-available-new-open-source-alternative-microsoft-sharepoint",
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenCloud",
-          "scope": "File management, file sharing, and content collaboration; not all Google Workspace. The official statement was published on 2025-02-25 and rechecked on the date recorded here; this is not a new announcement or a whole-suite replacement claim.",
+          "scope": "File management, file sharing, and content collaboration. The official statement was published on 2025-02-25 and rechecked on the date recorded here.",
           "confidence": "high"
         },
         {
@@ -167,7 +167,7 @@
           "source_url": "https://opencloud.eu/en/press/opencloud-now-available-new-open-source-alternative-microsoft-sharepoint",
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenCloud",
-          "scope": "File management, file sharing, and content collaboration. The official statement was published on 2025-02-25 and rechecked on the date recorded here; this is not a new announcement or a whole-suite replacement claim.",
+          "scope": "File management, file sharing, and content collaboration. The official statement was published on 2025-02-25 and rechecked on the date recorded here.",
           "confidence": "high"
         }
       ]
@@ -181,7 +181,7 @@
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenCut",
           "source_quote": "The open-source CapCut alternative",
-          "scope": "Video editing. The official repository's About statement explicitly positions OpenCut as a CapCut alternative. Its current README says a rewrite is underway and directs users to the classic version; this does not establish current feature parity or readiness of the rewrite.",
+          "scope": "Video editing. The official repository's About statement explicitly positions OpenCut as a CapCut alternative. Its current README says a rewrite is underway and directs users to the classic version.",
           "confidence": "high"
         }
       ]
@@ -195,7 +195,7 @@
           "checked_utc_date": "2026-10-05",
           "claimant": "Open Interpreter",
           "source_quote": "If you previously used Codex, inspect both homes during migration:",
-          "scope": "Terminal coding-agent workflows. The official guide describes moving Codex setup into Open Interpreter and reviewing configuration, hooks, permissions, and sessions. This concerns the current Rust CLI, not the legacy Python Code Interpreter project, and does not promise all configuration or session compatibility.",
+          "scope": "Terminal coding-agent workflows. The official guide describes moving Codex setup into Open Interpreter and reviewing configuration, hooks, permissions, and sessions. This concerns the current Rust CLI, not the legacy Python Code Interpreter project.",
           "confidence": "high"
         }
       ]
@@ -222,7 +222,7 @@
           "source_url": "https://github.com/openobserve/openobserve#readme",
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenObserve",
-          "scope": "Observability for logs, metrics, traces, and frontend monitoring. Alternative claim, not an assertion of complete Datadog feature parity.",
+          "scope": "Observability for logs, metrics, traces, and frontend monitoring.",
           "confidence": "high",
           "source_quote": "alternative to Datadog, Splunk, and Elasticsearch"
         },
@@ -239,7 +239,7 @@
           "source_url": "https://github.com/openobserve/openobserve#readme",
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenObserve",
-          "scope": "Observability/log analytics workloads, rather than every Elasticsearch search use case. README frames the claim around observability.",
+          "scope": "Observability/log analytics workloads. README frames the claim around observability.",
           "confidence": "high"
         }
       ]
@@ -307,7 +307,7 @@
           "source_url": "https://github.com/OpenSignLabs/OpenSign#readme",
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenSign",
-          "scope": "Document e-signing only, not the entire document automation suite.",
+          "scope": "Document e-signing only.",
           "confidence": "high"
         },
         {
@@ -337,7 +337,7 @@
           "source_url": "https://www.openstatus.dev/compare/betterstack",
           "checked_utc_date": "2026-10-05",
           "claimant": "openstatus",
-          "scope": "Uptime monitoring and status pages. Not a replacement claim for Better Stack's log management or full incident-escalation product suite.",
+          "scope": "Uptime monitoring and status pages.",
           "confidence": "high",
           "source_quote": "openstatus is the BetterStack alternative to consider."
         },
@@ -391,7 +391,7 @@
           "source_url": "https://www.opentypeless.com/en/typeless-alternative",
           "checked_utc_date": "2026-10-05",
           "claimant": "OpenTypeless",
-          "scope": "Desktop voice typing only; not a replacement for Typeless mobile keyboard.",
+          "scope": "Desktop voice typing only; Typeless also offers a mobile keyboard.",
           "confidence": "high",
           "source_quote": "A Practical Typeless Alternative: OpenTypeless"
         }
@@ -443,7 +443,7 @@
           "checked_utc_date": "2026-10-12",
           "claimant": "openheard",
           "source_quote": "open source canny / featurebase alternative",
-          "scope": "Customer feedback boards, roadmaps, and changelogs. The maintainer-controlled repository About description explicitly names both targets. This does not establish feature parity or replacement of every support capability in either broader platform.",
+          "scope": "Customer feedback boards, roadmaps, and changelogs. The maintainer-controlled repository About description explicitly names both targets.",
           "confidence": "high"
         },
         {
@@ -452,7 +452,7 @@
           "checked_utc_date": "2026-10-12",
           "claimant": "openheard",
           "source_quote": "open source canny / featurebase alternative",
-          "scope": "Customer feedback boards, roadmaps, and changelogs. The maintainer-controlled repository About description explicitly names both targets. This does not establish feature parity or replacement of every support capability in either broader platform.",
+          "scope": "Customer feedback boards, roadmaps, and changelogs. The maintainer-controlled repository About description explicitly names both targets.",
           "confidence": "high"
         }
       ]
@@ -489,7 +489,7 @@
           "checked_utc_date": "2026-10-12",
           "claimant": "Opensend",
           "source_quote": "The self-hosted Resend alternative.",
-          "scope": "Self-hosted email API and related dashboard workflows, using AWS SES as delivery infrastructure. Official homepage explicitly names Resend, independently of API compatibility. Current README says some dashboard features still use a demo store while backend milestones are implemented; this is positioning, not a readiness or full-parity assessment.",
+          "scope": "Self-hosted email API and related dashboard workflows, using AWS SES as delivery infrastructure. Official homepage explicitly names Resend, independently of API compatibility. Current README says some dashboard features still use a demo store while backend milestones are implemented.",
           "confidence": "high"
         }
       ]
@@ -526,7 +526,7 @@
           "checked_utc_date": "2026-10-12",
           "claimant": "OpenCRM",
           "source_quote": "A HubSpot UK alternative like OpenCRM",
-          "scope": "Customer relationship management for UK businesses, including contact records and sales workflows. The official page explicitly positions OpenCRM as a HubSpot alternative. This does not establish replacement of every HubSpot hub, pricing equivalence, legal compliance, or feature parity.",
+          "scope": "Customer relationship management for UK businesses, including contact records and sales workflows. The official page explicitly positions OpenCRM as a HubSpot alternative.",
           "confidence": "high"
         }
       ]
@@ -540,7 +540,7 @@
           "checked_utc_date": "2026-10-12",
           "claimant": "OpenTalk",
           "source_quote": "alternative to Zoom, Teams and Webex",
-          "scope": "Video conferencing and meetings. The official 2023-06-28 announcement explicitly positions the hosted OpenTalk service as an alternative. Rechecked on the recorded date; not a new announcement, a comparison of all deployment editions, or a claim of compliance, security superiority, or complete collaboration-suite parity.",
+          "scope": "Video conferencing and meetings. The official 2023-06-28 announcement explicitly positions the hosted OpenTalk service as an alternative. Rechecked on the recorded date.",
           "confidence": "high"
         },
         {
@@ -549,7 +549,7 @@
           "checked_utc_date": "2026-10-12",
           "claimant": "OpenTalk",
           "source_quote": "alternative to Zoom, Teams and Webex",
-          "scope": "Video conferencing and meetings. The official 2023-06-28 announcement explicitly positions the hosted OpenTalk service as an alternative. Rechecked on the recorded date; not a new announcement, a comparison of all deployment editions, or a claim of compliance, security superiority, or complete collaboration-suite parity.",
+          "scope": "Video conferencing and meetings. The official 2023-06-28 announcement explicitly positions the hosted OpenTalk service as an alternative. Rechecked on the recorded date.",
           "confidence": "high"
         },
         {
@@ -558,7 +558,7 @@
           "checked_utc_date": "2026-10-12",
           "claimant": "OpenTalk",
           "source_quote": "alternative to Zoom, Teams and Webex",
-          "scope": "Video conferencing and meetings. The official 2023-06-28 announcement explicitly positions the hosted OpenTalk service as an alternative. Rechecked on the recorded date; not a new announcement, a comparison of all deployment editions, or a claim of compliance, security superiority, or complete collaboration-suite parity.",
+          "scope": "Video conferencing and meetings. The official 2023-06-28 announcement explicitly positions the hosted OpenTalk service as an alternative. Rechecked on the recorded date.",
           "confidence": "high"
         }
       ]

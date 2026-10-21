@@ -9,7 +9,7 @@ description: Apply and maintain Awesome Open* brand decisions, design documentat
 
 Use the `awesomeopen/awesome-open` repository. Read its root `AGENTS.md`, `brand/README.md`, `brand/DECISION-GUIDE.md`, relevant individual records in `brand/decisions/`, the legacy `brand/decisions.md`, and the relevant references from that index. Check the current branch and working tree before editing. Use a focused branch from the current base and preserve other work.
 
-This installed skill is a routing workflow, not a copy of the brand rules. In a repository checkout, prefer the matching `.agents/skills/awesome-open-brand/SKILL.md`. If the brand reference is absent on the selected revision, check whether the consolidation PR is still pending; do not pretend its contents are merged. Resolve the intended branch or report the limitation. Do not guess current colors, approval status, asset selections or branch names from chat memory.
+This installed skill is a routing workflow; the brand rules live in the repository. In a repository checkout, prefer the matching `.agents/skills/awesome-open-brand/SKILL.md`. If the brand reference is absent on the selected revision, check whether the consolidation PR is still pending; do not pretend its contents are merged. Resolve the intended branch or report the limitation. Do not guess current colors, approval status, asset selections or branch names from chat memory.
 
 ## Apply the project contract
 

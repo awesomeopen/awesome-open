@@ -13,13 +13,13 @@ Actual Python RNG, seed 304 (the 304-character request), selected:
 - Carousel, infinite typographic marquee, horizontal accordions.
 - Scroll pinning and specimen-sheet stacking.
 
-The specific field-guide concept overrides generic SaaS conventions: no testimonials, stock photography, rounded cards, or invented classifications. The generic component choices yield to the user’s specific ledger request: evidence-backed specimen sheets, a finite typographic prefix study, and diagnostic drawers. There are no fictitious testimonials or automatically moving marquee. Decorative anatomy is explicitly schematic, never a claimed genealogy. Motion is enhancement only.
+The specific field-guide concept overrides generic SaaS conventions: no testimonials, stock photography, rounded cards, or invented classifications. The generic component choices yield to the user’s specific ledger request: evidence-backed specimen sheets, a finite typographic prefix study, and diagnostic drawers. There are no fictitious testimonials or automatically moving marquee. Decorative anatomy is explicitly schematic. Motion is enhancement only.
 
 Page sequence: split navigation; full-width Open* cover; observation sheets; searchable specimen ledger; oversized contribution colophon. AIDA is translated as attention, inspection, evidence, contribution. The ledger uses full-width ruled rows, so no bento grid or empty grid cells exist. The hero has a single non-wrapping word with fluid type and a full-width container; actual viewport checks, rather than container classes, determine overflow. Controls use ink/paper contrast and visible keyboard focus.
 
 ## Evidence boundaries
 
-License unknown means unknown. Last push is a UTC repository timestamp, not a maintenance verdict. Repository creation is not project birth or collection date. Registry IDs come from existing URL hashes; sequential folio numbers are presentation positions only. Reviewed alternatives are use-case comparisons, not ancestry. HN charts show matched submissions, not sentiment or drama. No invented motive/clade classification or legal-compliance claims.
+Labels keep the meanings in the [evidence contract](../brand/foundation.md#evidence-contract): an undetected license reads “Unknown”, last push is a UTC repository timestamp, registry IDs come from existing URL hashes, folio numbers are presentation positions, reviewed alternatives are use-case comparisons and HN charts count matched submissions. No invented motive/clade classification or legal-compliance claims.
 
 ## Review scope
 

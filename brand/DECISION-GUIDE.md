@@ -28,7 +28,7 @@ edits to the same substantive guide can still require reconciliation.
 
 Use UTF-8 Markdown with the following JSON front matter between `---` lines.
 JSON is a YAML-compatible subset with unambiguous types; no YAML dependency is
-needed. The example is a template, not an allocated record.
+needed. The example is a template.
 
 ```markdown
 ---

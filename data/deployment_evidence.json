@@ -6,7 +6,7 @@
       "review_status": "approved",
       "checked_at": "2026-10-13",
       "reviewed_by": "AI evidence review",
-      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. The detailed container instructions qualify the broader overview: direct-use official images are no longer supported starting with OpenTofu 1.10. No universal memory requirement was established.",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval means evidence eligibility. No software was installed or executed. The detailed container instructions qualify the broader overview: direct-use official images are no longer supported starting with OpenTofu 1.10. No universal memory requirement was established.",
       "sources": {
         "install": {
           "url": "https://opentofu.org/docs/intro/install/",
@@ -59,7 +59,7 @@
       "platforms": [
         {
           "value": "Linux / macOS / Windows / FreeBSD",
-          "scope": "Standalone installation paths; this does not assert every architecture.",
+          "scope": "Standalone installation paths.",
           "source_ids": [
             "install"
           ]
@@ -106,7 +106,7 @@
       "review_status": "approved",
       "checked_at": "2026-10-13",
       "reviewed_by": "AI evidence review",
-      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. Basic functions can run offline. Java requirements vary by OpenRefine version and distribution; the source contains version-specific guidance, so no universal Java version is asserted.",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval means evidence eligibility. No software was installed or executed. Basic functions can run offline. Java requirements vary by OpenRefine version and distribution; the source contains version-specific guidance, so no universal Java version is asserted.",
       "sources": {
         "install": {
           "url": "https://openrefine.org/docs/manual/installing",
@@ -208,7 +208,7 @@
       "review_status": "approved",
       "checked_at": "2026-10-13",
       "reviewed_by": "AI evidence review",
-      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. Stable and snapshot channels are separate. Registry presence does not imply installability: the stable Homebrew cask is disabled. Platform requirements below are channel-specific, and no universal RAM minimum is asserted.",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval means evidence eligibility. No software was installed or executed. Stable and snapshot channels are separate. The stable Homebrew cask is listed but disabled. Platform requirements below are channel-specific, and no universal RAM minimum is asserted.",
       "sources": {
         "downloads": {
           "url": "https://openscad.org/downloads.html",
@@ -329,7 +329,7 @@
       "review_status": "approved",
       "checked_at": "2026-10-13",
       "reviewed_by": "AI evidence review",
-      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. Only a small subset of documented deployment paths is captured. Model-serving requirements are separate from this application. No universal RAM, disk or GPU minimum is asserted.",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval means evidence eligibility. No software was installed or executed. Only a small subset of documented deployment paths is captured. Model-serving requirements are separate from this application. No universal RAM, disk or GPU minimum is asserted.",
       "sources": {
         "quickstart": {
           "url": "https://docs.openwebui.com/getting-started/quick-start/",
@@ -411,7 +411,7 @@
       "review_status": "approved",
       "checked_at": "2026-10-13",
       "reviewed_by": "AI evidence review",
-      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. The resource note is scoped to Docker Desktop. It is not a production sizing estimate or a minimum for every OpenSearch deployment.",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval means evidence eligibility. No software was installed or executed. The resource note is scoped to Docker Desktop.",
       "sources": {
         "install": {
           "url": "https://docs.opensearch.org/latest/install-and-configure/install-opensearch/index/",
@@ -463,7 +463,7 @@
           "channel": "3.x image tag",
           "status": "documented",
           "upstream_relationship": "upstream",
-          "scope": "Official image namespace and tag used in the installation documentation; this observation is not a live pull test.",
+          "scope": "Official image namespace and tag used in the installation documentation.",
           "source_ids": [
             "docker"
           ]
@@ -473,7 +473,7 @@
         {
           "kind": "minimum",
           "note": "Allocate at least 4 GB to Docker Desktop.",
-          "scope": "Docker Desktop host-memory allocation in the container installation guide; not a universal per-node minimum.",
+          "scope": "Docker Desktop host-memory allocation in the container installation guide.",
           "source_ids": [
             "docker"
           ]
@@ -493,7 +493,7 @@
       "review_status": "approved",
       "checked_at": "2026-10-13",
       "reviewed_by": "AI evidence review",
-      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. This record describes library installation. Language bindings and source-build choices have different dependencies; no standalone service or universal resource requirement is implied.",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval means evidence eligibility. No software was installed or executed. This record describes library installation. Language bindings and source-build choices have different dependencies; no standalone service or universal resource requirement is implied.",
       "sources": {
         "started": {
           "url": "https://opencv.org/get-started/",
@@ -554,7 +554,7 @@
       "review_status": "approved",
       "checked_at": "2026-10-13",
       "reviewed_by": "AI evidence review",
-      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. The Java requirement is for the current reviewed installation documentation. Recommended appliance hardware is not a universal minimum. The apt route uses an upstream repository, not proof of inclusion in Debian's official archive.",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval means evidence eligibility. No software was installed or executed. The Java requirement is for the current reviewed installation documentation. The apt route uses openHAB's upstream repository.",
       "sources": {
         "install": {
           "url": "https://www.openhab.org/docs/installation/",
@@ -614,7 +614,7 @@
           "channel": "stable main",
           "status": "documented",
           "upstream_relationship": "upstream",
-          "scope": "Package openhab from the upstream apt repository https://openhab.jfrog.io/artifactory/openhab-linuxpkg, suite stable, component main; not a claim of inclusion in the Debian archive.",
+          "scope": "Package openhab from the upstream apt repository https://openhab.jfrog.io/artifactory/openhab-linuxpkg, suite stable, component main.",
           "source_ids": [
             "linux"
           ]
@@ -632,7 +632,7 @@
         {
           "kind": "recommended",
           "note": "A Raspberry Pi 4 with 2 GB RAM and a 16 GB SD card is suggested when no platform preference exists.",
-          "scope": "Introductory openHABian hardware recommendation; not minimum resource consumption.",
+          "scope": "Introductory openHABian hardware recommendation.",
           "source_ids": [
             "intro"
           ]
@@ -644,7 +644,7 @@
       "review_status": "approved",
       "checked_at": "2026-10-13",
       "reviewed_by": "AI evidence review",
-      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval is evidence eligibility, not human approval or deployment authorization. No software was installed or executed. Device and firmware-version compatibility are essential. No generic package-manager coordinate or numeric RAM minimum is asserted. The supported-devices page was reviewed through indexed upstream content; its direct recheck presented a bot-check page.",
+      "review_note": "AI-reviewed primary-source facts prepared for owner review; approval means evidence eligibility. No software was installed or executed. Device and firmware-version compatibility are essential. No generic package-manager coordinate or numeric RAM minimum is asserted. The supported-devices page was reviewed through indexed upstream content; its direct recheck presented a bot-check page.",
       "sources": {
         "devices": {
           "url": "https://openwrt.org/supported_devices",
@@ -685,7 +685,7 @@
       "platforms": [
         {
           "value": "Device-specific supported hardware",
-          "scope": "Use the hardware table and exact device page; architecture alone does not establish compatibility.",
+          "scope": "Check compatibility in the hardware table and on the exact device page.",
           "source_ids": [
             "devices",
             "upgrade"
