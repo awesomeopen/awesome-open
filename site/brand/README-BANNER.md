@@ -32,7 +32,6 @@ The downloaded pixels were inspected: blue/green unfolding anatomy, translucent
 fan-like panels, Prussian lettering, white ground and a restrained red leader
 line. The subtitle is “Catalog of software named Open*”; it does not claim every
 listed project is open source. The complete silhouette and lettering are retained.
-The asset is not an official logo of any listed software project.
 
 This placement is user-directed and submitted for review. It does not replace
 the website header mark, specimen assets, hero or footer. The existing README
