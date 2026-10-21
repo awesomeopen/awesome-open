@@ -86,7 +86,7 @@ artwork.
 Only approved records with existing files render. Missing files warn and are omitted; pending/rejected records are omitted. Missing entries leave no image or empty image box. An invalid approved identity, path, alt text or image format fails the build rather than publishing a mismatched asset. The builder copies active assets into `specimens/` and embeds them in `standalone.html`. Builds never call image generation or fetch remote artwork.
 
 The initial pilot covered OpenTofu, OpenRefine and OpenSCAD. The current daily
-backfill selects up to 20 distinct canonical projects with missing artwork, in
+backfill selects up to 40 distinct canonical projects with missing artwork, in
 descending cached star order, with at most one batch awaiting user review. It
 skips existing records of every review status, overlapping PRs and owner edits.
 No eligible missing projects means report completion and disable only that

@@ -148,7 +148,7 @@ change or an unchanged pending proposal requires no new PR or routine report.
 **Inputs and scope:** Fresh catalog identities, `data/specimen_art.json`, open art
 PRs, official project documentation and the [specimen/brand guides](../site/SPECIMEN-ART.md).
 Use actual image generation with Speculative FOSSoligy and Retro-Scraperism.
-Select at most **20 distinct canonical projects per batch**, in descending cached
+Select at most **40 distinct canonical projects per batch**, in descending cached
 star order. Keep at most **one backfill batch awaiting user review**. Skip artwork
 of every existing review status, overlapping proposals and owner edits; never
 regenerate existing images without a separate request.
