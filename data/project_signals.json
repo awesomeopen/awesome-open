@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-20T21:40:45Z",
+  "collected_at": "2026-10-21T01:21:38Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -24260,25 +24260,25 @@
     "virtastic/openmw-web": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-19T21:45:51Z",
+        "checked_at": "2026-10-21T01:21:38Z",
         "error": null,
-        "etag": "\"17bd96ef8676c38bfc1dea47e1d80a0cc071d49b98e1384f71c891384a745257\"",
+        "etag": "\"d47cae32d68c8a188425ca13d9e45da33264a5c4ad8eaf801c221338aa2b2cd4\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-19T21:45:51Z",
-          "observed_at": "2026-10-19T19:37:07Z",
+          "fetched_at": "2026-10-21T01:21:38Z",
+          "observed_at": "2026-10-20T13:33:29Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "html_url": "https://github.com/Virtastic/openmw-web/releases/tag/v1.6.2",
-            "published_at": "2026-10-19T19:37:07Z",
-            "release_id": 417671041,
-            "tag_name": "v1.6.2"
+            "html_url": "https://github.com/Virtastic/openmw-web/releases/tag/v1.6.4",
+            "published_at": "2026-10-20T13:33:29Z",
+            "release_id": 418438205,
+            "tag_name": "v1.6.4"
           }
         },
-        "last_success_at": "2026-10-19T21:45:51Z",
+        "last_success_at": "2026-10-21T01:21:38Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/virtastic/openmw-web/releases/latest",
         "status": "available",
@@ -24796,5 +24796,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "556d0e48ba60206fe362bb23b6a420b57f0d6d95"
+  "source_sha": "8e97f562b1d2fe15d9c7a9528a71e7c17c2c5275"
 }

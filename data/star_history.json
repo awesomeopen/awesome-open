@@ -2,8 +2,8 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 13,
-    "utc_date": "2026-10-20"
+    "requests_used": 3,
+    "utc_date": "2026-10-21"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
   "metric": "Stars retained on the repository at fetch time, grouped by the month their stars were created. This is not historical total stars, net star growth, or all stars ever received; removed stars are absent and past buckets can change.",
@@ -477739,12 +477739,12 @@
       "status": "ok"
     },
     "script-k1tty/opendisplay": {
-      "checked_at": "2026-10-20T17:38:31.638361+00:00",
+      "checked_at": "2026-10-21T01:21:43.656161+00:00",
       "error": "GitHub history HTTP 404",
       "name": "OpenDisplay",
       "readme_url": "https://github.com/script-k1tty/opendisplay",
       "repo": "script-k1tty/opendisplay",
-      "source_sha": "1ebe3ab6f234ac98596f46641158c6bb9774735b",
+      "source_sha": "8e97f562b1d2fe15d9c7a9528a71e7c17c2c5275",
       "source_url": "https://api.github.com/repos/script-k1tty/opendisplay/stargazers/history",
       "status": "unavailable"
     },
@@ -483346,14 +483346,123 @@
       "status": "ok"
     },
     "shoemoney/openskitch": {
-      "checked_at": "2026-10-20T17:38:31.638361+00:00",
-      "error": "GitHub history HTTP 301",
+      "checked_at": "2026-10-21T01:21:43.656161+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791072000,
+          "repository_created_at": "2026-10-08T00:26:37+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-21T01:21:43.656161+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "8e97f562b1d2fe15d9c7a9528a71e7c17c2c5275",
+        "source_urls": [
+          "https://api.github.com/repos/shoemoney/opensnap/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791072000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
       "name": "OpenSkitch",
       "readme_url": "https://github.com/shoemoney/openskitch",
       "repo": "shoemoney/openskitch",
-      "source_sha": "1ebe3ab6f234ac98596f46641158c6bb9774735b",
-      "source_url": "https://api.github.com/repos/shoemoney/openskitch/stargazers/history",
-      "status": "unavailable"
+      "source_sha": "8e97f562b1d2fe15d9c7a9528a71e7c17c2c5275",
+      "source_url": "https://api.github.com/repos/shoemoney/opensnap/stargazers/history",
+      "status": "ok"
     },
     "simonliu-ai-product/open-dashboard": {
       "checked_at": "2026-10-18T00:03:36.737302+00:00",
@@ -503835,14 +503944,123 @@
       "status": "ok"
     },
     "twilightduck/openwhisper": {
-      "checked_at": "2026-10-20T17:38:31.638361+00:00",
-      "error": "GitHub history HTTP 301",
+      "checked_at": "2026-10-21T01:21:43.656161+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1791072000,
+          "repository_created_at": "2026-10-10T16:07:55+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-21T01:21:43.656161+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "8e97f562b1d2fe15d9c7a9528a71e7c17c2c5275",
+        "source_urls": [
+          "https://api.github.com/repos/twilightduck/openquill/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791072000
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
       "name": "Open Whisper",
       "readme_url": "https://github.com/twilightduck/openwhisper",
       "repo": "twilightduck/openwhisper",
-      "source_sha": "1ebe3ab6f234ac98596f46641158c6bb9774735b",
-      "source_url": "https://api.github.com/repos/twilightduck/openwhisper/stargazers/history",
-      "status": "unavailable"
+      "source_sha": "8e97f562b1d2fe15d9c7a9528a71e7c17c2c5275",
+      "source_url": "https://api.github.com/repos/twilightduck/openquill/stargazers/history",
+      "status": "ok"
     },
     "tylerebowers/openvat": {
       "checked_at": "2026-10-19T15:34:35.736227+00:00",
@@ -522107,12 +522325,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
-    "due_repositories": 0,
+    "attempted_repositories": 3,
+    "due_repositories": 3,
     "eligible_repositories": 476,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "556d0e48ba60206fe362bb23b6a420b57f0d6d95",
-  "updated_at": "2026-10-20T21:40:48.846814+00:00"
+  "source_sha": "8e97f562b1d2fe15d9c7a9528a71e7c17c2c5275",
+  "updated_at": "2026-10-21T01:21:43.656161+00:00"
 }
