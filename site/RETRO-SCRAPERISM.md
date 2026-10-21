@@ -128,7 +128,7 @@ Apply Speculative FOSSoligy through disciplined observation and invention. Start
 
 Pure biology is welcome. Machinery is optional. Do not attach a brass gear to every animal or render every tool as a bio-steampunk insect. Vary function, family, pose, materials and scale across a series. Jewel green, cyan, red or violet may be concentrated in the specimen while the interface stays restrained. Choose white, cold mist, blueprint or transparent backgrounds, explicitly overriding the illustration skill's warm-paper default.
 
-For software symbols, infer a visual analogy from the tool's actual function, not its popularity or an unsupported personality. Preserve established logos/favicon unless replacement is explicitly in scope. Label conceptual diagrams as schematic; decorative anatomy is not technical architecture or genealogy.
+For software symbols, infer a visual analogy from the tool's actual function, not its popularity or an unsupported personality. Preserve established logos/favicon unless replacement is explicitly in scope. Label conceptual diagrams as schematic.
 
 **Prompt scaffold:** “An original hand-drawn [subject/function analogy], [clear silhouette], whose single impossible principle is [coherent transformation]. Observed structure, intentional ink and pencil lines, selective [one/two colors], [white/transparent] ground. Strange but immediately legible; flat study, no photoreal desk, aged paper, obligatory brass gears, fantasy glow, text or watermark. Leave [placement] quiet for live HTML text.”
 
@@ -170,7 +170,7 @@ The specimen concept governs visual organization and artwork; it does not author
 
 ## 8. Implementation and skill precedence
 
-Ship fonts and artwork as repository assets with relative paths that work under `/awesome-open/` as well as at a preview root. Preserve font licenses and asset provenance. Do not depend on chat attachment URLs, temporary generated-image URLs or a developer's local filesystem. Test the built deployment and standalone export separately; an offline document needs embedded or packaged dependencies, not just a working hosted page.
+Ship fonts and artwork as repository assets with relative paths that work under `/awesome-open/` as well as at a preview root. Preserve font licenses and asset provenance. Do not depend on chat attachment URLs, temporary generated-image URLs or a developer's local filesystem. Test the built deployment and standalone export separately; an offline document needs embedded or packaged dependencies.
 
 Use `design/tokens.css` as the versioned reference. The ledger-first build loads these tokens before its component CSS. Update the shared tokens and reference together.
 
@@ -178,7 +178,7 @@ For this project, explicit user decisions and this system override generic skill
 
 ## 9. Extension and review
 
-Use a focused design branch from current main. `design/exhibition-preview-1` was the initial prototype branch; it is not a permanent active branch. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
+Use a focused design branch from current main. `design/exhibition-preview-1` was the initial prototype branch. The user's dot agent remains the repository administrator. Changes travel through a draft PR and a private clickable preview before merge; see [PREVIEW.md](PREVIEW.md). No direct design pushes to main.
 
 For each extension, add the rule, token/component example, reason, accessibility implications and a decision-log entry in the same PR. Distinguish a proposal from an approved direction. Update the portable skill's reference snapshot when an approved system change should apply outside this repo. Do not let independent snapshots silently override the project guide.
 
