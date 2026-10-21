@@ -2,7 +2,7 @@
   "name": "awesome-open-browser-check",
   "private": true,
   "scripts": {
-    "test:browser": "node scripts/check_site_browser.cjs"
+    "test:browser": "python3 scripts/run_browser_checks.py"
   },
   "devDependencies": {
     "playwright": "1.64.0"
