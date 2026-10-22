@@ -3,8 +3,8 @@
 - **Date:** 2026-10-22
 - **Status:** Accepted by the owner; implementation not started
 - **Owner:** Project owner
-- **Decision:** [TODO.md entry 261022](../TODO.md) and the brand decision record
-  added with this PRD
+- **Decision:** [TODO.md entry 261022](../TODO.md),
+  [B-PR176-01](../brand/decisions/B-PR176-01.md)
 - **Related:** [Performance tuning](2026-10-22_Performance-tuning.md), phase 2
 
 ## Decision
