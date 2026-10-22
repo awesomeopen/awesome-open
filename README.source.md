@@ -120,6 +120,7 @@
 | [OpenCLI](https://github.com/jackwener/OpenCLI) | Turn websites into command-line tools using an authenticated browser. |
 | [OpenCode](https://github.com/anomalyco/opencode) | AI coding agent for the terminal. |
 | [Open Codex](https://github.com/codingmoh/open-codex) | Terminal AI assistant that generates shell commands from natural-language requests using local models and Ollama. |
+| [OpenCompare](https://github.com/chaxiu/OpenCompare) | Desktop tool for directory and structured-data comparison, file synchronization, and three-way code merging. |
 | [Open Components](https://github.com/uxfront-com/open-components) | MCP server and reference implementations for building and reviewing UI components against documented rules and contracts. |
 | [OpenContextEngine](https://github.com/AnnaSuSu/OpenContextEngine) | Self-hostable code-search engine that supplies AI agents with source snippets through MCP using semantic, keyword, and code-relationship search. |
 | [OpenCover](https://github.com/OpenCover/opencover) | Code coverage tool for .NET on Windows. |
@@ -139,6 +140,7 @@
 | [OpenLens](https://github.com/MuhammedKalkan/OpenLens) | Desktop Kubernetes IDE built from the Lens source code. |
 | [Open Liberty](https://github.com/OpenLiberty/open-liberty) | Composable application-server runtime. |
 | [Open Lovable](https://github.com/firecrawl/open-lovable) | AI chat application for building and editing React apps. |
+| [OpenMagic](https://github.com/Kalmuraee/OpenMagic) | Browser toolbar for selecting web-app elements, previewing AI-proposed source changes, and applying approved edits through a local proxy. |
 | [OpenMemory](https://github.com/mem0ai/openmemory) | CLI and terminal interface for transferring coding sessions between Claude Code, Codex, and OpenCode. |
 | [OpenNavo](https://github.com/opennavo/OpenNavo) | Web catalog and macOS application for discovering, installing, updating, and removing Homebrew Cask applications. |
 | [OpenQodex](https://github.com/openqodex/openqodex) | Local code-review tool combining static scanners with an independent Claude Code or Codex reviewer and optional pre-push checks. |
@@ -152,6 +154,7 @@
 | [OpenSilver](https://github.com/OpenSilver/OpenSilver) | Framework for cross-platform applications using C#, VB.NET, or F# with XAML and WebAssembly or native .NET.<br>Alternative to: [Silverlight](https://doc.opensilver.net/documentation/migrate-from-silverlight/overview.html) |
 | [OpenSpec](https://github.com/Fission-AI/OpenSpec) | Specification-driven development tools for AI coding assistants. |
 | [OpenStore](https://github.com/dev-krish-xyz/OpenStore) | Searchable software directory with curated project listings, comparison filters, and community submissions. |
+| [OpenSwoole](https://github.com/openswoole/openswoole) | PHP application platform with asynchronous I/O, coroutines, and components for HTTP and gRPC services. |
 | [Open Terminal](https://github.com/open-webui/open-terminal) | Self-hosted terminal and file-management API for AI agents and automation. |
 | [OpenTest](https://github.com/mcdcorp/opentest) | Test automation for web applications, mobile apps, and APIs. |
 | [OpenTUI](https://github.com/anomalyco/opentui) | Library for building terminal user interfaces. |
