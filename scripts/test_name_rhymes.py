@@ -45,8 +45,12 @@ class NameRhymeTests(unittest.TestCase):
         self.assertNotIn('open',page.by_id['rhyme-groups'].attrs)
         self.assertEqual(page.by_id['rhyme-count'].text,'4')
         self.assertNotIn('Open<Chat>',html)
-        self.assertIn('editorial pronunciation assumptions',html)
-        self.assertIn('not additive',html)
+        self.assertEqual(page.by_id['rhyme-group-summary'].text,'1 groups · 4 reviewed readings')
+        self.assertIn('Open&lt;Chat&gt;',html)
+        self.assertIn('Pronunciations use ARPABET; 1 marks primary stress.',html)
+        for removed in ('Reviewed American English readings', 'editorial pronunciation assumptions',
+                        'A small reviewed subset.', 'not additive', 'No project relationship is implied.'):
+            self.assertNotIn(removed,html)
         self.assertIn('No reviewed rhyming names',obs.rhyming_names_html(obs.rhyming_names([])))
 
     def test_python_browser_group_parity(self):
