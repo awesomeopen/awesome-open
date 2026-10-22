@@ -1,0 +1,48 @@
+# Style atlas
+
+Use this file for visual direction, structural vocabulary, and few-shot examples. Treat these rules as a unified taxonomic synthesis: *discoverable, dream-logic operation inside estranged, non-earthly form, drawn with clinical drypoint precision and selective mineral intensity*.
+
+## Translate the influences
+
+| Reference family | Extract | Transform for Speculative FOSSoligy | Leave behind |
+| :--- | :--- | :--- | :--- |
+| **Untranslated encyclopedia plates** | Isolated specimens, incisive hand-drawn contours, serial morphological variation, impossible material grafts | Give the subject an eerie, self-contained local operation; make a single specimen plate work without surrounding text | Copied historical inventions, faux-script gibberish, simulated book spreads |
+| **Estranged natural history** | Un-earthly posture, load-bearing anatomy, blind or unfamiliar sensory structures, parasitic or symbiotic continuity | Make every structural oddity serve an unsettling behavior; extend that biological logic to tools, vessels, and shelters | Realistic evolutionary claims, cute animal proportions, familiar vertebrate faces |
+| **Esoteric mineral & botanical printmaking** | Stark chromatic boundaries, repeated pleated or cellular rhythms, dry chalky pigment beside dense stippled depth | Concentrate high-chroma intensity strictly at active apertures, membranes, or reaction zones | Poster compositions, bubbly 1970s curves, smooth vector fills, all-over decorative pattern |
+| **Pre-modern hybrid grotesques** | Matter-of-fact physical actions, seamless junctions between horn, stone, membrane, and hollow shell | Join incompatible kingdoms of matter (mineral, botanical, zoological, alchemical) through continuous tissue or mortised bone | Religious allegory, crowded tableaux, viscera/gore, theatrical monsters, scenic landscapes |
+
+Do not average all influences equally in every drawing. Retain nervous observational linework and continuous, non-modern construction as the core; vary chromatic intensity, surface encrustation, and biological-versus-apparatus emphasis by subject.
+
+## Morphological and material lexicon
+
+Distill visual structure from these core specimen behaviors rather than modern industrial or domestic design:
+
+- **Calcified & botanical mechanisms:** Use hollow chitinous tubes, wheel-like seed pods, ossified ratchets, and tensioned gut or sinew rather than machined metal shafts or modern gears.
+- **Pleated & chambered acoustics:** Build volume through accordion-like gill bellows, stretched tympanic membranes, and ribbed resonating cavities that suggest breathing, filtering, or sounding.
+- **Stratified mineral housings:** When an object encloses a process, house it in cleaved slate, porous tufa, horn plates, or unglazed refractory clay with brittle, chipped, or laminated edges - never smooth plastic casings or filleted metal boxes.
+- **Grafted anatomical transitions:** Where two parts meet, join them via scarred botanical grafts, encrusted collars, sutured parchment-like skin, or socketed bone rather than screws, welds, or neat geometric seams.
+- **Serial taxonomic arrays:** Use repeated surface units - overlapping scales, graduated slits, crystalline facets, or rowed bristles - that vary slightly in size and angle by hand, avoiding computer-arrayed perfection.
+- **Traceable state changes:** Show tension, weight, or secretion through physical deformation (a sagging bladder, a pinched valve, a tilted counterweight, a stained rim) rather than glowing effects or motion lines.
+
+## Original concept examples
+
+Use these to internalize the structural grammar and tone; do not repeatedly reproduce them as a fixed motif library.
+
+- *Animal:* A blind, stilted shore organism presses a pleated ventral suction-bellows against encrusted rock to leach mineral salts. Repeat the bellows' dry ribbing along its dorsal carapace, with a poisonous vermilion tint strictly along the wet sealing lip. No eyes, mammal traits, or metal parts.
+- *Plant:* A calcified, low-slung growth traps condensation in asymmetric, bladder-like husks that tip on brittle torsion stems when engorged, draining fluid into a porous root-crown. Show oneEngorged husk mid-tilt and the twisted fibrous hinge, isolated on pale ground.
+- *Tool:* An un-ergonomic caliper of split horn and oxidized brass tightens through an overlapping fan of brittle mica leaves. Show the tensioned gut-string path and serrated contact jaws shaped for a non-human grip. No ruler-straight shafts, chamfered handles, or modern workshop parts.
+- *Machine:* A three-legged alchemical separator rocks on an asymmetric stone counterweight; each tilt channels crushed ore through a cascade of slotted bone baffles into a pleated receiving bladder. Expose the internal baffles through a cutaway husk. No cogs, hoses, or neat rectangular frames.
+- *Object or instrument:* An inscrutable pendulum apparatus suspends a hollow, perforated seed-ossicle inside a forked frame of blackened wood and taut membrane, designed to register subtle drafts by rattling internal mineral beads. No faces, playful toy proportions, or smooth spheres.
+- *Dwelling:* A solitary, kiln-like carapace built from layered mud-shale and overlapping chitinous plates that iris open via counterweighted stone ribs. Show the narrow, defensive threshold and stilted mineral footings; no human doors, windows, inhabitants, or horizon.
+- *Faithful redraw:* Render an ordinary photographed object with nervous dip-pen contours, dense directional crosshatching, dry chalk grain, muted verdigris body wash, and an acidic ochre rim accent - preserving its exact silhouette and proportions while stripping away all glossy digital smoothness.
+
+## Drift corrections
+
+- *Bubbly or soft-biomorphic:* Replace inflated, rounded, balloon-like volumes with pinched waists, calcified ridges, brittle overhangs, pleated membranes, and angular mineral cleavage.
+- *Modern industrial or ergonomic:* Remove ruler-straight rails, chamfered/filleted corners, human-friendly handles, and CNC-like symmetry; replace with hand-formed, grown, or excavated irregularity.
+- *Domestic or playground familiarity:* Never assemble objects from recognizable household, office, or playground parts; use refractory, botanical, mineral, or pre-industrial anatomical components.
+- *Generic fantasy:* Replace glowing runes or magical decoration with a cold, specific physical operation and visible structural consequence.
+- *Random collage:* Reduce to one governing estrangement; fuse disparate materials through continuous grafts, sockets, or sutures.
+- *Too polished:* Replace smooth gradients, vector curves, and specular highlights with scratchy drypoint linework, stippled pores, and uneven matte mineral washes on raw pale ground.
+- *Too vintage:* Remove fake coffee stains, yellowed parchment filters, and torn deckled edges; keep the paper ground bone-dry and clean so the drawing's linework carries the age.
+- *Too cute, menacing, or visceral:* Remove faces, eyes, theatrical aggression, and wet gore/viscera; present the specimen with deadpan, clinical detachment.

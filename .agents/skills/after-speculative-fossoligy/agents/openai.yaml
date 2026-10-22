@@ -1,0 +1,14 @@
+interface:
+  display_name: After Speculative FOSSoligy
+  short_description: Draw unfamiliar life & objects with observed logic
+  default_prompt: Use $after-speculative-fossoligy to redraw this image or illustrate my
+    description.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - dots
+  allow_implicit_invocation: true
