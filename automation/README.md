@@ -99,8 +99,8 @@ hosted task with the repository handoff; catalog acceptance, technical review an
 separate merge approval remain required. Other task scopes and schedules are
 unchanged.
 
-The same daily task gradually backfills missing Function summaries: consider at
-most **10 distinct existing projects** and propose at most **five missing
+Until the conditional handover below, the daily discovery task gradually
+backfills missing Function summaries: consider at most **10 distinct existing projects** and propose at most **five missing
 summaries per run**. Skip every existing review status, open proposals and owner
 edits. Keep at most one backfill draft awaiting review; while it is pending,
 continue discovery and deduplicated new-project summaries. Rotate sorted canonical
@@ -111,6 +111,52 @@ a repository cursor file, refresh review dates or overwrite reviewed prose.
 **Stop/pause:** This discovery task recurs until changed or canceled. No qualified
 candidate means no catalog write. Missing sources or unavailable art/summary
 tools defer only that enrichment; validation/publication failures are reported.
+
+## Enrichment job rollout
+
+Owner-requested on 2026-10-22: separate existing-project enrichment into three
+hosted jobs with independent draft-batch review gates. Hosted registrations and
+the conditional discovery prompt were verified on **2026-10-22 at 04:45 UTC**.
+All three registrations are enabled but data work remains gated on each reviewed
+contract merging into main. The registered pilot is
+**three flexible runs per day per job**, nominally 08:00, 15:00 and 19:00
+`America/New_York`, each researching at most **10 distinct
+canonical projects** and proposing at most **10 records**. Ten is an editorial
+review and runtime bound, not an API-imposed maximum. A pending batch pauses its
+own job; three scheduled runs do not guarantee 30 proposals per day.
+
+| Job | Repository contract | Proposed data scope | Activation state |
+| --- | --- | --- | --- |
+| Backfill Function summaries | [Summary job](backfill-function-summaries.md), [PR #170](https://github.com/awesomeopen/awesome-open/pull/170) | Missing records in `data/function_summaries.json` | Registered; waiting for reviewed contract on main; conditional discovery handover verified |
+| Backfill project aliases | [Job proposal #168](https://github.com/awesomeopen/awesome-open/pull/168); [alias contract](../site/PROJECT-ALIASES.md) | Reviewed official names in `data/project_aliases.json` | Registered; waiting for reviewed job contract on main |
+| Backfill feature notes | [Job proposal #169](https://github.com/awesomeopen/awesome-open/pull/169); [feature contract](../site/FUNCTION-SUMMARIES.md#optional-feature-notes) | Missing feature notes in existing approved summaries | Registered; waiting for reviewed job contract on main |
+
+These registrations have timers, while their unmerged contracts keep data writes
+blocked. Each runner reads its own reviewed, merged job specification before
+doing work. Merging a documentation PR releases that job's repository gate; it
+does not create a timer or itself execute a batch. Check actual registration and
+main again on every run.
+
+For summaries, verify the gated hosted registration and a conditional ownership
+rule in discovery before merging the job specification. Discovery continues its
+legacy existing-project step while the approved specification is absent from
+main; once present, it skips only that step. The dedicated runner reads the same
+merged specification and becomes its sole owner. This keeps the handover tied to
+one repository event without an extra data schema or unpublished activation flag.
+The operator must verify the registered prompts and record the actual activation;
+if registration fails, keep the specification unmerged and report the blocker.
+Retain discovery's new-project summaries and artwork, normal publishing,
+alternatives and all other schedules unchanged.
+
+Flexible windows may overlap. Every job checks for an already-running attempt
+and open proposals before beginning and again before publication. Do not rely on
+staggered clock times to prevent duplicates.
+
+Summary and feature jobs share a file, so they deduplicate **project IDs**, not
+only filenames. Each checks open PR diffs from both jobs and skips projects
+already proposed. Before publishing, re-fetch main and reconcile selected-record
+changes without replacing another job's records or owner edits. No job changes
+schema, renderer or review policy during a data batch.
 
 ## Find project alternatives
 
