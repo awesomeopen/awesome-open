@@ -76,6 +76,7 @@
 | [OpenLLM](https://github.com/bentoml/OpenLLM) | Serve language models through OpenAI-compatible API endpoints. |
 | [Open-LLM-VTuber](https://github.com/Open-LLM-VTuber/Open-LLM-VTuber) | AI companion with voice conversations, visual input, and Live2D avatars, supporting local and hosted language and speech models. |
 | [OpenLumara](https://github.com/Rose22/openlumara) | Local-first Python AI agent framework with modular tools, memory, scheduling, and browser, terminal, and messaging interfaces. |
+| [Open Machine](https://github.com/OpenMachineLabs/openmachine) | Local-first MCP runtime connecting AI agents to workspace files, native commands, persistent tasks, and remote Linux machines over SSH. |
 | [OpenManus](https://github.com/FoundationAgents/OpenManus) | General-purpose AI agent with browser automation and tool support. |
 | [openmoss-ggml](https://github.com/pwilkin/openmoss) | C++ and GGML runtime for MOSS speech and sound-effect models, with command-line synthesis, an HTTP server, and a web interface. |
 | [OpenMuse](https://github.com/CopilotKit/openmuse) | Personal-agent application with a persistent browser, terminal, files, and background tasks. |
