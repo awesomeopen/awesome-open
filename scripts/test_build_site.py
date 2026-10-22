@@ -393,7 +393,7 @@ for (const input of inputs) {
         for image in page.images:
             prefix, encoded = image['src'].split(',', 1)
             decoded = base64.b64decode(encoded, validate=True)
-            if image['alt'] in {'HN discussions / 2y', 'Monthly stars retained at fetch / 2y'}:
+            if image['alt'] == 'HN discussions / 2y' or image['alt'].startswith(('HN stories per month', 'Monthly stars retained at fetch')):
                 self.assertEqual(prefix, 'data:image/svg+xml;base64')
                 self.assertIn(b'<svg', decoded)
             elif prefix == 'data:image/svg+xml;base64':

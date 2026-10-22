@@ -9,6 +9,9 @@
  .record-page details::details-content {content-visibility:visible;}
  .record-page .specimen-drawer>.specimen-plate {display:block!important;}
  .record-page .plate-art,.record-page .plate-leaders,.record-page .plate-terrain path {animation:none!important;opacity:1!important;transform:none!important;}
+ .record-page .pg-info>summary {display:none;}
+ .record-page .pg-pop {position:static;width:auto;max-height:none;margin-top:8px;padding:8px 0 0;border:0;border-top:1px dashed var(--rule);box-shadow:none;}
+ .record-page .plate-grid {background:none;padding:0;}
 }
 .deployment-evidence {margin-top:24px;padding-top:20px;border-top:1px solid var(--rule);overflow-wrap:anywhere;}
 .deployment-evidence>h4 {font:14px/1.5 var(--mono);}
@@ -1104,10 +1107,12 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .specimen-plate .specimen-label {grid-area:label;}
 
 .specimen-plate .record-description {font-size:clamp(34px,4.2vw,58px);line-height:1.06;letter-spacing:-.01em;margin:0 0 24px;text-wrap:pretty;}
+/* Long statements step down so the study stays near one desktop screen (B-PR158-01). */
+.specimen-plate .record-description.is-long {font-size:clamp(24px,2.1vw,30px);line-height:1.18;}
 .specimen-plate .function-detail {border-left:1.5px solid var(--rs-scarlet);padding:2px 0 2px 16px;margin:0 0 32px;}
 .specimen-plate .function-detail>p:first-child {font-size:15px;line-height:1.75;margin:0 0 12px;}
 .specimen-plate .function-provenance {font-size:12px;color:var(--muted);margin:0;}
-.tool-name {background:var(--rs-blueprint);color:white;padding:0 .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+.tool-name {background:var(--rs-scarlet);color:white;padding:0 .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
 
 /* The field: the specimen stands on its own decorative ground; no frame. */
 .plate-field {position:relative;margin:0 calc(-1 * clamp(16px,2.5vw,32px));touch-action:manipulation;cursor:zoom-in;}
@@ -1156,11 +1161,6 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .label-status {font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--rs-scarlet);}
 .label-name {font-weight:700;font-size:18px;line-height:1.2;}
 
-/* Bands: hierarchy comes from labels and spacing; no horizontal rules. */
-.plate-band {margin-top:64px;}
-.specimen-plate .vitals {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding:0;margin:0 0 32px;border:0;}
-.specimen-plate .vitals dt {font-size:12px;color:var(--muted);}
-.specimen-plate .vitals dd {margin:4px 0 0;font:var(--rs-display-weight, 400) 30px/1.1 var(--rs-display);font-variation-settings:var(--rs-display-axes, normal);color:var(--rs-blueprint);font-variant-numeric:tabular-nums;}
 .timeline {position:relative;height:92px;margin:0 6px;}
 .timeline-axis {position:absolute;left:0;right:0;top:46px;border-top:1px solid var(--rs-blueprint);}
 .timeline-span {position:absolute;top:44px;height:5px;background:var(--rs-trace);border:1px solid #a9c8da;}
@@ -1172,35 +1172,76 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .timeline-label.up {bottom:58px;}
 .timeline-label.down {top:70px;}
 
-.plate-kit {display:grid;gap:12px;margin:0 0 16px;}
-.plate-kit dt {font-size:12px;color:var(--muted);}
-.plate-kit dd {margin:2px 0 0;}
-.plate-chips {display:flex;flex-wrap:wrap;gap:6px;}
-.plate-chips span {border:1px solid #b7c3cd;padding:1px 8px;font:12px/1.6 var(--mono);color:var(--rs-ink);}
-.specimen-plate .plate-runs .deployment-evidence {border:0;padding:0;margin:0;background:transparent;}
-.plate-runs .deployment-evidence>p:first-child {font-size:12px;color:var(--muted);}
-
-.plate-evidence .evidence-notes {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 24px;}
-.plate-evidence .optional-signals {display:contents;}
-.specimen-plate .evidence-note,.specimen-plate .signal.evidence-note {padding:0;border:0;background:transparent;box-shadow:none;margin:0;}
-.specimen-plate .diagnostics .evidence-note h4 {font:var(--rs-display-weight, 400) 26px/1.2 var(--rs-display);font-variation-settings:var(--rs-display-axes, normal);color:var(--rs-blueprint);display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 12px;}
-.specimen-plate .hn-chart {display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
-.specimen-plate .evidence-note .hn-chart img,.specimen-plate .evidence-note .star-chart img {width:100%;max-width:480px;height:auto;aspect-ratio:5;}
-.specimen-plate .evidence-note .hn-chart {margin-bottom:12px;}
-.specimen-plate .note-value {display:block;font:var(--rs-display-weight, 400) 40px/1 var(--rs-display);font-variation-settings:var(--rs-display-axes, normal);color:var(--rs-blueprint);margin-bottom:6px;}
-.specimen-plate :is(.note-provenance,.signal-checks,.deployment-evidence details) {margin-top:12px;padding-top:0;border:0;}
-.plate-alternatives .comparison ul {list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px 48px;}
-.plate-alternatives .comparison li>a {font:var(--rs-display-weight, 400) 26px/1.2 var(--rs-display);font-variation-settings:var(--rs-display-axes, normal);}
-.plate-alternatives .comparison li>p {max-width:72ch;margin-top:6px;}
-.plate-alternatives .evidence-date {display:block;font-size:12px;}
+/* Evidence grid (B-PR158-01): fixed boxes on a mist panel. Every box keeps its
+   place and size without evidence; only reviewed alternatives may be absent. */
+.plate-grid {--pg-gap:12px;--pg-lane:30px;margin:48px 0 0;padding:2px 32px 32px;background:var(--rs-mist);border-radius:var(--rs-radius);}
+.pg-row {display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:var(--pg-gap);padding-top:var(--pg-lane);align-items:stretch;}
+.pg-row.pg-tight {padding-top:0;margin-top:var(--pg-gap);}
+.pg-box {position:relative;grid-column:span 2;display:flex;flex-direction:column;min-width:0;padding:10px 14px;background:var(--rs-paper);border:1px solid var(--rs-blueprint);border-radius:var(--rs-radius);}
+.specimen-plate .pg-box>.sheet-label {position:absolute;left:-1px;top:calc(-1 * var(--pg-lane) + 6px);margin:0;white-space:nowrap;background:var(--rs-muted);color:var(--rs-mist);}
+.pg-title {margin:0 0 4px;font:12px/1.4 var(--mono);color:var(--muted);}
+.pg-value {margin:0;font:var(--rs-display-weight, 400) 33px/1.1 var(--rs-display);font-variation-settings:var(--rs-display-axes, normal);color:var(--rs-blueprint);font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
+.pg-value.is-unknown {font-size:28px;color:var(--muted);}
+.pg-value a {color:inherit;text-decoration-thickness:1px;text-underline-offset:4px;}
+.pg-sub {margin:6px 0 0;font:12px/1.5 var(--mono);color:var(--rs-ink);}
+.pg-nowrap {white-space:nowrap;}
+.pg-release .pg-value:not(.is-unknown) {margin:10px 0;text-align:center;}
+.pg-repository .pg-box {min-height:84px;}
+.pg-evidence>*,.pg-release-runs>* {min-height:132px;}
+/* Sparklines share a baseline: each chart sits on its count and window line. */
+.pg-spark-link {display:block;margin-top:auto;}
+.pg-spark {display:block;width:100%;height:auto;aspect-ratio:5;}
+.pg-spark-empty {aspect-ratio:5;margin-top:auto;border-bottom:1px solid var(--rule);background:repeating-linear-gradient(90deg,transparent 0 calc(100% / 24 - 1px),#e3e9ee calc(100% / 24 - 1px) calc(100% / 24));}
+.pg-foot {margin:6px 0 0;font:12px/1.5 var(--mono);color:var(--rs-ink);}
+.pg-foot.is-unknown {color:var(--muted);}
+.pg-foot {padding-right:36px;}
+/* Reserved for future evidence sources; decorative. */
+.pg-reserved {grid-column:span 2;background:var(--rs-verdigris-art);border-radius:var(--rs-radius);}
+.pg-reserved.pg-wide,.pg-runs {grid-column:span 3;}
+/* Timeline: full height when there is something to draw, one line otherwise. */
+.pg-timeline {grid-column:1 / -1;padding:16px 20px 24px;}
+.pg-timeline.is-empty {padding:6px 14px;}
+.pg-line {margin:0;font:12px/1.5 var(--mono);color:var(--muted);}
+.pg-timeline .history-evidence {margin-top:8px;}
+/* Where it runs: one line per kind; fills tell kinds apart, chip text names them. */
+.pg-kit {display:grid;gap:5px;margin:0;padding-right:32px;}
+.pg-kit dd {display:flex;flex-wrap:wrap;gap:4px 5px;margin:0;}
+.pg-kit span,.pg-key span {padding:0 6px;font:12px/1.6 var(--mono);color:var(--rs-ink);border:1px solid transparent;border-radius:var(--rs-radius);}
+.pg-run span,.pg-key .pg-run {background:var(--rs-amber);}
+.pg-install span,.pg-key .pg-install {background:var(--rs-trace);border-color:#a9c8da;}
+.pg-platform span,.pg-key .pg-platform {background:var(--rs-emerald-art);}
+/* Reviewed alternatives fill the row in thirds. */
+.pg-alts {grid-template-columns:repeat(3,minmax(0,1fr));}
+.pg-alt {grid-column:span 1;}
+.pg-alt .pg-value {align-self:flex-start;font-size:24px;}
+.pg-scope {margin:6px 0 0;font:12px/1.55 var(--mono);color:var(--rs-ink);}
+/* Box details: a bare "i" (control.info) opening a popup; native disclosure. */
+.pg-info>summary {position:absolute;right:0;bottom:0;display:grid;place-items:center;width:44px;height:44px;list-style:none;cursor:pointer;font:700 16px/1 var(--rs-display);color:var(--rs-blueprint);}
+.pg-info>summary::-webkit-details-marker {display:none;}
+.pg-info>summary:focus-visible {outline:2px solid var(--rs-blueprint);outline-offset:-4px;}
+.pg-info[open]>summary {background:var(--rs-blueprint);color:var(--rs-paper);}
+/* Popups open upward from the box edge nearest the plate's centre. */
+.pg-pop {position:absolute;z-index:20;left:-1px;bottom:44px;width:min(420px,calc(100vw - 64px));max-height:min(420px,70vh);overflow:auto;padding:12px 14px;background:var(--rs-paper);border:1px solid var(--rs-blueprint);box-shadow:var(--rs-shadow);font:12px/1.55 var(--mono);color:var(--rs-ink);text-align:left;overflow-wrap:anywhere;}
+.is-end .pg-pop {left:auto;right:-1px;}
+.pg-runs .pg-pop {max-width:calc(100% + 2px);}
+.pg-pop p {margin:0 0 8px;}
+.pg-pop>:last-child {margin-bottom:0;}
+.pg-pop ul {margin:0 0 8px;padding:0;list-style:none;}
+.pg-pop li {margin-bottom:8px;}
+.pg-pop li p,.pg-pop .deployment-group p {margin:0;}
+.pg-pop :is(p,li,strong,h5,.fine-print) {font-size:12px;line-height:1.55;}
+.pg-pop .deployment-group {margin:12px 0 0;}
+.pg-pop .deployment-group h5 {margin:0 0 4px;font:700 12px/1.5 var(--mono);}
+.pg-state {display:inline-block;margin-bottom:8px;padding:0 5px;border:1px dashed var(--rule);color:var(--muted);}
+.pg-key {display:flex;flex-wrap:wrap;gap:4px;}
 
 /* In the wild: the ground continues out into the departure band. */
-.plate-departure {position:relative;overflow:hidden;margin:64px calc(-1 * clamp(16px,2.5vw,32px)) 0;padding:64px 32px;background:var(--rs-blueprint);color:white;text-align:center;}
+.plate-departure {position:relative;overflow:hidden;margin:40px 0 0;border-radius:var(--rs-radius);padding:36px 32px 32px;background:var(--rs-blueprint);color:white;text-align:center;}
 .plate-wild-terrain {position:absolute;inset:0;width:100%;height:100%;}
 .plate-wild-terrain path {fill:none;stroke:rgba(217,238,248,.16);stroke-width:1;vector-effect:non-scaling-stroke;}
 .plate-wild-terrain path.is-index {stroke:rgba(217,238,248,.3);}
 .plate-departure>*:not(svg) {position:relative;}
-.plate-departure .sheet-label {margin-bottom:24px;}
+.plate-departure .sheet-label {margin-bottom:12px;}
 .plate-departure>a {display:flex;justify-content:center;align-items:baseline;gap:14px;text-decoration-color:rgba(255,255,255,.4);text-underline-offset:6px;font:var(--rs-display-weight, 400) clamp(30px,4vw,52px)/1.15 var(--rs-display);font-variation-settings:var(--rs-display-axes, normal);color:white;}
 .plate-departure>a:is(:hover,:focus-visible) {text-decoration-color:white;}
 .departure-arrow {font:300 .8em/1 var(--mono);color:var(--rs-scarlet-art);}
@@ -1214,7 +1255,12 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 @keyframes plate-emerge {from {opacity:0;transform:translateY(14px);} to {opacity:1;transform:none;}}
 
 @media(max-width:1100px) {
- .plate-evidence .evidence-notes {grid-template-columns:repeat(2,minmax(0,1fr));}
+ .plate-grid {padding:2px 24px 24px;}
+ .pg-row {grid-template-columns:repeat(4,minmax(0,1fr));}
+ .pg-reserved.pg-wide,.pg-runs {grid-column:span 2;}
+ .pg-alts {grid-template-columns:repeat(2,minmax(0,1fr));}
+ /* Where it runs wraps to its own line and needs room for its label. */
+ .pg-runs {margin-top:calc(var(--pg-lane) - var(--pg-gap));}
 }
 @media(max-width:900px) {
  .plate-study,.without-art .plate-study {grid-template-columns:1fr;grid-template-areas:"fn" "field" "notes";grid-template-rows:none;row-gap:24px;}
@@ -1226,17 +1272,24 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
  .plate-field {margin:0 -12px;}
  .plate-lens {width:140px;height:140px;}
  .specimen-plate .record-description {font-size:34px;}
- .specimen-plate .vitals {grid-template-columns:1fr 1fr;gap:16px;}
- .specimen-plate .vitals dd {font-size:24px;}
  .timeline-label.repeats-vitals {display:none;}
- .plate-band {margin-top:48px;}
- .plate-evidence .evidence-notes {grid-template-columns:1fr;}
+ .plate-grid {margin-top:40px;padding:4px 16px 16px;}
+ .pg-row,.pg-alts {grid-template-columns:minmax(0,1fr);padding-top:var(--pg-lane);}
+ .pg-box,.pg-reserved.pg-wide,.pg-runs,.pg-alt {grid-column:1 / -1;}
+ .pg-reserved {display:none;}
+ .pg-pop,.is-end .pg-pop {left:-1px;right:-1px;width:auto;}
+ .specimen-plate .pg-box>.sheet-label {max-width:calc(100% + 2px);letter-spacing:.04em;white-space:normal;}
+ .pg-box:has(>.sheet-label):not(:first-child) {margin-top:calc(var(--pg-lane) - var(--pg-gap));}
+ .pg-row>*,.pg-repository .pg-box {min-height:0;}
+ .pg-spark-link,.pg-spark-empty {margin-top:4px;}
+ .pg-value {font-size:28px;}
+ .pg-value.is-unknown {font-size:24px;}
  .plate-crop {width:88px;height:88px;}
  .plate-crop.is-tiny {width:52px;height:52px;}
  .specimen-plate .specimen-label {gap:2px 12px;font-size:11px;}
  .label-qr {width:76px;height:76px;}
  .label-name {font-size:15px;}
- .plate-departure {margin:48px -12px 0;padding:48px 16px;}
+ .plate-departure {margin:32px 0 0;padding:32px 16px;}
 }
 @media(prefers-reduced-motion:reduce) {
  .is-opening .plate-terrain path,.is-opening .plate-art,.is-opening .plate-leaders {animation:none;stroke-dashoffset:0;}

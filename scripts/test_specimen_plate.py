@@ -70,7 +70,9 @@ class PlateTests(unittest.TestCase):
         self.assertIn('Awesome Open* · Field record', html)
         self.assertIn('Explore OpenExample on GitHub', html)
         labels = re.findall(r'<span class="sheet-label">([^<]+)</span>', html)
-        self.assertEqual(labels, ['I / Function', 'II / Repository record', 'In the wild'])
+        # The evidence grid is fixed: every section is present without evidence (B-PR158-01).
+        self.assertEqual(labels, ['I / Function', 'II / Repository record', 'III / Observations &amp; evidence',
+                                  'IV / Release record', 'V / Where it runs', 'In the wild'])
 
     def test_departure_names_only_recognized_repository_destinations(self):
         cases = [
@@ -102,7 +104,8 @@ class PlateTests(unittest.TestCase):
 
     def test_unknown_license_is_labelled_unknown(self):
         html = render(copy.deepcopy(PROJECT))
-        self.assertIn('<dt>Detected license</dt><dd>Unknown</dd>', html)
+        self.assertIn('<h4 class="pg-title">Detected license</h4><p class="pg-value is-unknown">Unknown</p>', html)
+        self.assertIn('<p>Verify against official terms.</p>', html)
         # The compact ledger row keeps an unknown license blank; the open record names it.
         self.assertIn('<span class="license-readout"></span>', html)
 

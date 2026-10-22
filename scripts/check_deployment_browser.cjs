@@ -53,25 +53,25 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   await page.goto(url + '#project-' + sample.id);
   const card = page.locator('#project-' + sample.id);
   await card.locator('.specimen-plate').waitFor({ state: 'visible' });
-  const evidence = card.locator('.deployment-evidence');
+  const evidence = card.locator('.pg-runs');
   assert.equal(await card.locator('.function-detail').isVisible(), true, 'Function section remains visible');
-  await evidence.locator('details > summary').focus();
+  await evidence.locator('.pg-info > summary').focus();
   await page.keyboard.press('Enter');
-  assert.equal(await evidence.locator('details').evaluate(n => n.open), true);
+  assert.equal(await evidence.locator('.pg-info').evaluate(n => n.open), true);
   assert.ok(await evidence.locator('a').count() > 0);
   await evidence.scrollIntoViewIfNeeded();
   await capture('deployment-desktop.png');
   await page.keyboard.press('Enter');
-  assert.equal(await evidence.locator('details').evaluate(n => n.open), false);
+  assert.equal(await evidence.locator('.pg-info').evaluate(n => n.open), false);
   for (const width of [390, 320]) {
     await page.setViewportSize({ width, height: 844 });
-    await evidence.locator('details > summary').click();
+    await evidence.locator('.pg-info > summary').click();
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
-    const bad = await evidence.evaluate(n => { const r = n.getBoundingClientRect(); return r.left < -1 || r.right > innerWidth + 1; });
+    const bad = await evidence.locator('.pg-pop').evaluate(n => { const r = n.getBoundingClientRect(); return r.left < -1 || r.right > innerWidth + 1; });
     assert.equal(bad, false, 'Setup evidence fits narrow screen');
     await evidence.scrollIntoViewIfNeeded();
     if (width === 390) await capture('deployment-mobile.png');
-    await evidence.locator('details > summary').click();
+    await evidence.locator('.pg-info > summary').click();
   }
   const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const fallback = await noJS.newPage();
@@ -79,7 +79,7 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   const fallbackCard = fallback.locator('#project-' + sample.id);
   await fallbackCard.locator('.specimen-drawer > summary').click();
   await fallbackCard.locator('.detail-fallback a').click();
-  await fallback.locator('.deployment-evidence details > summary').click();
+  await fallback.locator('.pg-runs .pg-info > summary').click();
   assert.equal(await fallback.locator('.deployment-group').first().isVisible(), true);
   await noJS.close();
   await page.goto(new URL('standalone.html', url).href);
@@ -87,6 +87,6 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   await page.getByLabel('Reviewed run mode', { exact: true }).selectOption('cli');
   assert.equal(await visible(), cli.length);
   await page.locator('#clear-filters').click();
-  assert.equal(await page.locator('.deployment-evidence').count(), reviewed.length);
+  assert.equal(await page.locator('.pg-runs:has(.deployment-group)').count(), reviewed.length);
   await page.setViewportSize({ width: 1440, height: 1000 });
 };

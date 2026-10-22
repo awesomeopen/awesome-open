@@ -31,12 +31,12 @@ def sources(event):
 
 
 def details(event):
-    """The full evidence behind one plotted event, opened from its timeline label."""
-    occurred = event['occurred']
-    observed = f" · First observed {event['first_observed_at']}" if 'first_observed_at' in event else ''
-    return (f'<p>{escape(event_title(event))}. {escape(BASES[occurred["basis"]].capitalize())} {occurred["value"]}.</p>'
-            f'<p>{escape(event["note"])}</p><p>Sources: {sources(event)}</p>'
-            f'<p>Reviewed {event["checked_at"]} · {escape(event["reviewed_by"])}{escape(observed)}</p>')
+    """The sources behind one plotted event, opened from its timeline label.
+
+    The label already carries the names and date; kind, basis, note and review
+    provenance stay in the history data and its contract (B-PR158-01).
+    """
+    return f'<p>Sources: {sources(event)}</p>'
 
 
 def timeline_events(events):

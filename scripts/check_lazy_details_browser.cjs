@@ -213,8 +213,8 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     await ready();
     await setOpen(sample, true);
     await loaded(sample);
-    await plate(sample).locator('.deployment-evidence details > summary').click();
-    assert.equal(await plate(sample).locator('.deployment-evidence details').evaluate(node => node.open), true);
+    await plate(sample).locator('.pg-runs .pg-info > summary').click();
+    assert.equal(await plate(sample).locator('.pg-runs .pg-info').evaluate(node => node.open), true);
     await setOpen(sample, false);
     const others = data.projects.filter(project => project.id !== sample.id).slice(0, 6);
     const pinned = others[0];
@@ -234,7 +234,7 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     assert.equal(await plate(pinned).getAttribute('data-lifecycle-marker'), 'open', 'An open plate is never evicted');
     await setOpen(sample, true);
     await loaded(sample);
-    assert.equal(await plate(sample).locator('.deployment-evidence details').evaluate(node => node.open), true,
+    assert.equal(await plate(sample).locator('.pg-runs .pg-info').evaluate(node => node.open), true,
       'Nested disclosure state survives eviction and remount');
     report.afterRetention = await counts();
     report.checks.push('bounded closed-plate LRU, open-plate retention, nested disclosure restoration');

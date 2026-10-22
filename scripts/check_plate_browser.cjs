@@ -21,9 +21,15 @@ module.exports=async({page,url,data,capture})=>{
    assert.equal(await qr.getAttribute('href'),'https://awesomeopen.github.io/awesome-open/#project-'+p.id);
    assert.ok(await qr.locator('img').evaluate(img=>img.complete&&img.naturalWidth>0),'QR code loads');
    assert.equal(await plate.locator('.specimen-label .tag').count(),p.categories.length,'Label lists every domain');
-   const evidence=await plate.locator('.evidence-notes').evaluate(n=>({columns:getComputedStyle(n).gridTemplateColumns.split(' ').map(Number.parseFloat)}));
-   assert.equal(evidence.columns.length,width>1100?4:width>720?2:1,'Evidence wraps at narrow widths');
+   // The evidence grid is fixed (B-PR158-01): same boxes for every record, Unknown when absent.
+   const evidence=await plate.locator('.pg-evidence').evaluate(n=>({columns:getComputedStyle(n).gridTemplateColumns.split(' ').map(Number.parseFloat)}));
+   assert.equal(evidence.columns.length,width>1100?8:width>720?4:1,'Evidence grid wraps at narrow widths');
    assert.ok(evidence.columns.every(w=>Math.abs(w-evidence.columns[0])<1),'Evidence columns have equal width');
+   assert.equal(await plate.locator('.pg-row:not(.pg-alts)>.pg-box').count(),10,'Every record keeps all evidence boxes');
+   assert.equal(await plate.locator('.pg-alt').count(),p.alternatives.length,'Alternatives are the only variable row');
+   assert.equal(await plate.locator('.pg-reserved:visible').count(),width>720?2:0,'Reserved boxes hide on one column');
+   const sparks=await plate.locator('.pg-evidence .pg-spark-link,.pg-evidence .pg-spark-empty').evaluateAll(ns=>ns.map(n=>n.getBoundingClientRect().bottom));
+   if(width>720)assert.ok(Math.abs(sparks[0]-sparks[1])<1,'Sparklines share a baseline');
    assert.equal(await qr.evaluate(n=>getComputedStyle(n).borderTopWidth),'2px');
    if(!p.artwork)assert.ok(await plate.locator('.specimen-label').evaluate(n=>n.getBoundingClientRect().top>=n.closest('.specimen-plate').getBoundingClientRect().top),'Unillustrated label stays inside plate');
    if(p.artwork){
@@ -48,12 +54,24 @@ module.exports=async({page,url,data,capture})=>{
     assert.ok((await plate.locator('.plate-leaders path').getAttribute('d')).startsWith('M'),'Leader lines join the drawing to its details');
    }
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
-   const clipped=await plate.locator('.plate-function,.specimen-label,.plate-register,.evidence-note,.plate-departure').evaluateAll(ns=>ns.filter(n=>{const r=n.getBoundingClientRect();return r.left<-1||r.right>innerWidth+1}).map(n=>n.className));
+   const clipped=await plate.locator('.plate-function,.specimen-label,.pg-box,.plate-departure').evaluateAll(ns=>ns.filter(n=>{const r=n.getBoundingClientRect();return r.left<-1||r.right>innerWidth+1}).map(n=>n.className));
    assert.deepEqual(clipped,[],name+' at '+width);
    await plate.evaluate(n=>n.scrollIntoView({block:'start'}));
    await capture('plate-'+name.toLowerCase().replaceAll(' ','-')+'-'+width+'.png');
    await plate.locator('.plate-departure>a').focus();
    assert.equal(await plate.locator('.plate-departure>a').evaluate(n=>n===document.activeElement),true);
+   // Box details open from the keyboard, fit the viewport, and close with Escape.
+   for(const selector of ['[data-signal="scorecard"]','.pg-runs']){
+    const summary=plate.locator(selector+' .pg-info>summary');
+    await summary.focus();await page.keyboard.press('Enter');
+    const pop=plate.locator(selector+' .pg-pop');
+    assert.equal(await pop.isVisible(),true,selector+' popup opens');
+    const r=await pop.boundingBox();
+    assert.ok(r.x>=-1&&r.x+r.width<=width+1,selector+' popup fits at '+width);
+    await page.keyboard.press('Escape');
+    assert.equal(await plate.locator('.pg-info[open]').count(),0,'Escape closes the popup');
+    assert.equal(await summary.evaluate(n=>n===document.activeElement),true,'Focus returns to the trigger');
+   }
   }
  }
  // The loupe follows a mouse over the drawing and leaves no object behind.

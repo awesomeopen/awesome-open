@@ -54,6 +54,17 @@ def build(base, site):
         renderer = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(renderer)
         renderer.font_asset_url = comparison_font_asset_url
+        # Plate helpers render with the base renderer's own versions, so a PR
+        # that changes or removes a helper still builds its before records.
+        for name in ('star_history', 'deployment', 'history_view'):
+            if not hasattr(renderer, name):
+                continue
+            helper_path = Path(temporary) / f'base_{name}.py'
+            helper_path.write_text(source(f'scripts/{name}.py'))
+            helper_spec = importlib.util.spec_from_file_location(f'base_{name}', helper_path)
+            helper = importlib.util.module_from_spec(helper_spec)
+            helper_spec.loader.exec_module(helper)
+            setattr(renderer, name, helper)
         catalog = json.loads((site / 'catalog.json').read_text())
         catalog['source_sha'] = revision
         root = Path(__file__).resolve().parents[1]

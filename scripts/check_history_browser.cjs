@@ -17,7 +17,9 @@ module.exports = async ({page, url, data, capture}) => {
     const panel = info.locator('.timeline-info-panel');
     assert.ok(await panel.isVisible(), label + ': (i) opens details from the keyboard');
     assert.ok(await panel.locator(`a[href="${event.occurred.source_url}"]`).count() >= 1, label + ': source link');
-    assert.ok((await panel.innerText()).includes('Reviewed ' + event.checked_at));
+    // Sources only: the label already names the change and its date (B-PR158-01).
+    assert.ok((await panel.innerText()).startsWith('Sources: '), label + ': popup shows sources');
+    assert.ok(!(await panel.innerText()).includes('Reviewed '), label + ': no reviewer line');
     const box = await panel.boundingBox();
     const width = await page.evaluate(() => innerWidth);
     assert.ok(box.x >= 0 && box.x + box.width <= width, label + ': details fit the viewport');

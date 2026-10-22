@@ -49,8 +49,8 @@ White is paper here. Yellow is a small signal, never the page's atmosphere. Do n
 | `--rs-scarlet-art` | `#D9251D` | Original brief's vivid red, artwork only |
 | `--rs-amber` | `#FFC800` | Small highlight with ink text; focus on dark surfaces |
 | `--rs-emerald` | `#006B4F` | Readable positive status on paper, with words/icon |
-| `--rs-emerald-art` | `#00A86B` | Saturated anatomy, not default text; proposed fill for platform chips with ink text ([B-PR158-01](../brand/decisions/B-PR158-01.md)) |
-| `--rs-verdigris-art` | `#4A7C72` | Optional material note inside artwork; proposed solid fill for reserved empty plate boxes ([B-PR158-01](../brand/decisions/B-PR158-01.md)) |
+| `--rs-emerald-art` | `#00A86B` | Saturated anatomy, not default text; fill for platform chips with ink text ([B-PR158-01](../brand/decisions/B-PR158-01.md)) |
+| `--rs-verdigris-art` | `#4A7C72` | Optional material note inside artwork; solid fill for reserved empty plate boxes ([B-PR158-01](../brand/decisions/B-PR158-01.md)) |
 
 Start with approximately 80% neutral reading space, 15% blueprint and 5% accents on a reading view. These are composition prompts, not quotas; a cover may be predominantly blueprint. Use one leading accent in a component. Do not make every row a rainbow.
 
@@ -425,23 +425,41 @@ Every expanded record is a plate. Folded ledger rows are unchanged.
   Use 65% width with a 320px minimum capped at 100% on narrow screens, white
   background, 1px `--rule` border, 2px radius and 0.8 opacity. Links have no underline;
   the QR has a 2px white border. Without art, retain a positive top margin inside
-  the plate. Evidence uses four equal columns above 1100px, two down to 720px,
-  then one column; charts shrink with their columns.
-- **Bands:** scarlet block labels (`--rs-scarlet` ground, `--rs-mist` type), no horizontal
-  rules. Repository record with large values and a creation/release/push timeline.
+  the plate.
+- **Evidence grid ([B-PR158-01](../brand/decisions/B-PR158-01.md)):** a `--rs-mist`
+  panel (32px padding; 24px below 1100px, 16px below 720px) holding white boxes with a
+  1px `--rs-blueprint` border and 2px radius on an eight-column grid (four below
+  1100px, one below 720px), 12px gaps. Rows: II / Repository record (stars, license,
+  created, push, two columns each; full-width timeline), III / Observations & evidence
+  (GitHub stars and HN sparklines at 5:1 on a shared baseline, a reserved box, OpenSSF
+  Scorecard), IV / Release record (two), a reserved box (three), V / Where it runs
+  (three), VI / Reviewed alternatives in thirds, then “In the wild”. Numbers are
+  fixed. Every box keeps its place and size without evidence and reads “Unknown”;
+  only the alternatives row may be absent. Reserved boxes are solid
+  `--rs-verdigris-art`, `aria-hidden`, and hidden below 720px.
+- **Grid content:** box titles in 12px Commit Mono, values in Półtawski 33px (Unknown
+  28px, muted). The release version is centred. Sparklines sit on one unbreakable
+  line, `33 · 2024-10 – 2026-09` (non-breaking spaces, hair spaces around the en
+  dash). Reasons (“Not checked”, “No result returned”, “Not reviewed”), provider
+  status, “past 2y”, scales and sources open from a bare “i” in the box's lower
+  right corner: a 44px native disclosure whose popup opens upward from the box edge
+  nearest the plate's centre; one open at a time, Escape or an outside click closes
+  it, print shows it inline. Where it runs has no title or kind words on screen
+  (kept for screen readers): chips fill per line with `--rs-amber`, `--rs-trace`
+  and `--rs-emerald-art`, ink text; the popup starts with a colour key.
+  Alternatives omit a repeated title and end their scope with “Checked&nbsp;date”.
+- **Labels and timeline:** block labels with `--rs-mist` type, no horizontal rules.
+  “I / Function” and “In the wild” use `--rs-scarlet`; grid labels II–VI use
+  `--rs-muted` (6.9:1). The project name in reviewed prose is highlighted on
+  `--rs-scarlet`. The timeline keeps creation/release/push and collapses to one line,
+  “Repository timeline: Unknown”, without dates.
   A reviewed exact rename date joins that timeline as “Renamed: Old → New (i)”;
-  the “(i)” opens its sources and evidence. Unknown/coarse dates and
+  the “(i)” opens its sources. Unknown/coarse dates and
   first-observed/review dates stay in a folded Name-change evidence block, never
   on the axis ([B-PR139-01](../brand/decisions/B-PR139-01.md),
-  [B-PR150-01](../brand/decisions/B-PR150-01.md)). Where it
-  runs with reviewed chips and the setup disclosure; evidence cards with enlarged charts;
-  reviewed alternatives; “In the wild” departure on plain Prussian blue with its
-  decorative contours centered around the link (B-PR129-01). The repeating navy
-  pattern remains exclusive to the footer.
-- **Proposed grid ([B-PR158-01](../brand/decisions/B-PR158-01.md)):** a fixed
-  eight-column box grid replaces these bands, with muted grey grid labels, "Unknown"
-  in boxes and details in popups. Not yet implemented; the bands above remain the
-  shipped behaviour until the implementation PR.
+  [B-PR150-01](../brand/decisions/B-PR150-01.md)). “In the wild” departure on plain
+  Prussian blue inside the grid panel, with its decorative contours centered around
+  the link (B-PR129-01). The repeating navy pattern remains exclusive to the footer.
   Departure copy is “Explore [name] on [host]” for recognized repository
   destinations (GitHub, GitLab, Codeberg, Bitbucket, SourceForge), including
   explicitly reviewed self-hosted repositories. Homepage and unrecognized
