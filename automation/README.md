@@ -99,8 +99,8 @@ hosted task with the repository handoff; catalog acceptance, technical review an
 separate merge approval remain required. Other task scopes and schedules are
 unchanged.
 
-The same daily task gradually backfills missing Function summaries: consider at
-most **10 distinct existing projects** and propose at most **five missing
+Until the conditional handover below, the daily discovery task gradually
+backfills missing Function summaries: consider at most **10 distinct existing projects** and propose at most **five missing
 summaries per run**. Skip every existing review status, open proposals and owner
 edits. Keep at most one backfill draft awaiting review; while it is pending,
 continue discovery and deduplicated new-project summaries. Rotate sorted canonical
