@@ -108,7 +108,7 @@ def build(base, site):
         html = (jar_output / 'index.html').read_text()
         base_css = source('site/jars.css')
         html = comparison_stylesheet(html, base_css.encode('utf-8'))
-        html = html.replace('src="jars.js"', 'src="jars-before/jars.js"')
+        html = re.sub(r'src="jars\.js(\?[^"<>]*)?"', r'src="jars-before/jars.js\1"', html)
         (jar_output / 'index.html').write_text(html)
         for name in ('jars.css', 'jars.js'):
             (jar_output / name).write_text(source('site/' + name))
