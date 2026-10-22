@@ -1935,6 +1935,155 @@
           "source_url": "https://openswoole.com/docs"
         }
       ]
+    },
+    "20237f789032d8a04653f8fb3967f89e82183cb84a15519fc79e71184d6f9d6e": {
+      "project_url": "https://github.com/firecrawl/open-lovable",
+      "text": "Open Lovable provides a browser-based AI chat interface for creating React applications. Developers run the app locally and configure Firecrawl, an AI provider and a sandbox service through environment variables. The documented setup supports Gemini, Anthropic, OpenAI or Groq for model access, with Vercel or E2B providing the execution sandbox.",
+      "sources": [
+        {
+          "url": "https://github.com/firecrawl/open-lovable/blob/806b8072f28afea11fa2b028cac1449eff74c511/README.md",
+          "title": "Open Lovable official README",
+          "revision": "806b8072f28afea11fa2b028cac1449eff74c511"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+    },
+    "2127fb25a9b8e533c1cf30640061b7c4b52ba804d6b09ea2aa6041bbafe00bef": {
+      "project_url": "https://www.openstack.org/software",
+      "text": "OpenStack lets operators assemble cloud infrastructure from services for compute, storage and networking. APIs, command-line clients and dashboards expose resource provisioning to administrators and users. Its modular deployment model lets organizations select the components they need, with additional services covering orchestration, fault management and service management across datacenter resources.",
+      "sources": [
+        {
+          "url": "https://www.openstack.org/software/",
+          "title": "OpenStack software overview"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the official software overview. AI content review; owner merge review remains separate."
+    },
+    "215b98f79aadf3704ad19f2977c5abde849532c82ea0dd7e156184ff1a952d2b": {
+      "project_url": "https://github.com/opensourcerisk/engine",
+      "text": "Open Source Risk Engine provides pricing, risk analytics and valuation adjustments for financial portfolios. It extends QuantLib with simulation models, instruments and pricing engines, accepting trade data, market data and configuration through APIs or XML. Teams can integrate it into tailored risk applications or use launchers in Excel, LibreOffice, Python and Jupyter for analysis, validation and teaching.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenSourceRisk/Engine/blob/3d75a69087911a7e2cf1e6882da7bc27135c0762/README.md",
+          "title": "Open Source Risk Engine official README",
+          "revision": "3d75a69087911a7e2cf1e6882da7bc27135c0762"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+    },
+    "21cdaf2fdd7b668bc4d0aee33b727b7d01b74d8762e5da78b47f644336b8efee": {
+      "project_url": "https://github.com/nyl/openxterm",
+      "text": "OpenXterm is a Linux desktop application scaffold for remote-session management. The current interface provides menus, a toolbar, quick-connect controls, a session tree, a tabbed workspace and status and function-key bars. Developers build the application locally with CMake. The README identifies SSH and VNC as the planned first-version protocol scope, while describing the implemented work as the widgets-based shell.",
+      "sources": [
+        {
+          "url": "https://github.com/nyl/OpenXterm/blob/bb569c888aca71bd867c794d42fcadc39cbbce3e/README.md",
+          "title": "OpenXterm official README",
+          "revision": "bb569c888aca71bd867c794d42fcadc39cbbce3e"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+    },
+    "23e5cf36bd53e8f6fff5b5bf413c703d30f6b03860ce3206402a2367d3d271de": {
+      "project_url": "https://github.com/optima-cityu/openarchevo",
+      "text": "OpenArchEvo searches neural architecture programs using language-model mutations and population-based evolution. It compares candidates through code, design rationale and behavioral fingerprints, uses a surrogate to screen proposals, and sends selected programs for training. Researchers can adapt the task and program contract; real searches use an LLM endpoint, GPU surrogate service and training machines, while a CPU dry run substitutes offline components.",
+      "sources": [
+        {
+          "url": "https://github.com/Optima-CityU/OpenArchEvo/blob/7f4a6cdbcd440d7ad73510617ed2b3b29ea4ad6a/README.md",
+          "title": "OpenArchEvo official README",
+          "revision": "7f4a6cdbcd440d7ad73510617ed2b3b29ea4ad6a"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+    },
+    "243ca20ff8d9b5075ba922da24804613b921912c790d02d1df7de689f8f03e72": {
+      "project_url": "https://github.com/haguilar91/opencleaner",
+      "text": "OpenCleaner provides native disk-cleanup applications for Linux, macOS, Windows and Android. Users scan for reclaimable space, inspect reported sizes, select items and confirm removal; disk-usage views help locate large files. Cleanup categories vary by platform, including caches, temporary files and package data. The README distinguishes tested builds from newer untested features and describes platform-specific deletion behavior.",
+      "sources": [
+        {
+          "url": "https://github.com/Haguilar91/OpenCleaner/blob/b2e4964dfaa396376b421631fe080a8eb82dfd49/README.md",
+          "title": "OpenCleaner official README",
+          "revision": "b2e4964dfaa396376b421631fe080a8eb82dfd49"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+    },
+    "2471af5f1ed391d415be80bf186aa8cab79eac628a8174be5b1b87cfa49e0c0b": {
+      "project_url": "https://github.com/ganeshmshetty/openclip",
+      "text": "OpenClip adds contextual actions beside selected text in macOS applications. Users can transform text, search, evaluate expressions, run scripts or invoke shortcuts, with a searchable action palette available by hotkey. Extensions use JavaScript, shell scripts, AppleScript or URL schemes. The desktop app also offers optional AI actions through local models or configured providers and requires Accessibility permission to detect selections.",
+      "sources": [
+        {
+          "url": "https://github.com/ganeshmshetty/openclip/blob/a38c956bfda8ce6d97ded037de9f5e30fda9840e/README.md",
+          "title": "OpenClip official README",
+          "revision": "a38c956bfda8ce6d97ded037de9f5e30fda9840e"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+    },
+    "24d8010c73e60d504a17c089d72faf313f4ed4eb9ecf570b79184e414f767d4d": {
+      "project_url": "https://github.com/openfheorg/openfhe-development",
+      "text": "OpenFHE is a C++ library for building applications that calculate on encrypted values. It implements schemes for integer and approximate real-number arithmetic, Boolean circuits and lookup-table evaluation, with scheme switching for mixed operations. Developers can also use threshold encryption, interactive bootstrapping and proxy re-encryption extensions, supported by API examples and installation instructions for Linux, macOS and Windows.",
+      "sources": [
+        {
+          "url": "https://github.com/openfheorg/openfhe-development/blob/b59e1f291965f14fbee5172cd83a20f5b856204f/README.md",
+          "title": "OpenFHE official README",
+          "revision": "b59e1f291965f14fbee5172cd83a20f5b856204f"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+    },
+    "2628bcbac6aa020f610b3047c54682d04f06acba490aa4e886c4e5d1f4de3ae8": {
+      "project_url": "https://github.com/ollm/opencomic",
+      "text": "OpenComic is a desktop comic and manga reader for Windows, macOS and Linux. It opens image collections, compressed comic archives and PDF documents, and can connect to remote file servers or OPDS catalogs. Reading options include manga and webtoon modes, double-page layouts, bookmarks, magnification and image adjustments. Labels organize collections, while gamepad controls, keyboard shortcuts and tap zones support navigation.",
+      "sources": [
+        {
+          "url": "https://github.com/ollm/OpenComic/blob/9781d38516a6b60e3b17675424472267b9afc993/README.md",
+          "title": "OpenComic official README",
+          "revision": "9781d38516a6b60e3b17675424472267b9afc993"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+    },
+    "278c1d724ea06d225d1e20ba2347af20aabbd6d1aa68c8d038a3cc1cbf449b17": {
+      "project_url": "https://github.com/longsurf-ai/openchart",
+      "text": "OpenChart is a desktop workspace for market charts, indicators and alerts. Users write custom market logic in Tea, arrange charts in a grid and create alerts from prices, indicators or drawn zones. Connected AI agents can research selected chart movements and attach source-linked annotations. The project provides a macOS Apple Silicon download and instructions for running the desktop application from source.",
+      "sources": [
+        {
+          "url": "https://github.com/longsurf-ai/openchart/blob/17ad80e04758a420d051523696ed84c944275f4a/README.md",
+          "title": "OpenChart official README",
+          "revision": "17ad80e04758a420d051523696ed84c944275f4a"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
     }
   }
 }
