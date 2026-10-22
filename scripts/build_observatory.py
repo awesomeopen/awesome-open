@@ -214,7 +214,7 @@ def rhyming_names_html(result):
         )
         groups.append(f'<section class="obs-rhyme-group" data-rhyme-key="{escape(group["key"], quote=True)}"><h3 class="obs-label">{escape(group["key"])} · {len(group["projects"])} tools</h3><ul class="obs-rhyme-projects">{items}</ul></section>')
     body = "".join(groups) or '<p class="obs-muted">No reviewed rhyming names in this selection.</p>'
-    return f'''<details id="rhyme-groups" class="obs-disclosure"><summary>Show names that rhyme <span class="obs-muted"><span id="rhyme-count">{result["tool_count"]}</span> tools · <span id="rhyme-group-summary">{len(result["groups"])} groups · {result["reviewed_count"]} reviewed readings</span></span></summary><p>Reviewed American English readings after Open. Same ending from the stressed vowel, different preceding consonants. These are editorial pronunciation assumptions.</p><p>A small reviewed subset. Aliases, abbreviations, identical names alone and homophones alone do not form rhyme groups. Each project counts once here; it may also appear in Shared names. These totals are not additive.</p><div id="rhyme-group-list" data-ledger-base="../">{body}</div><p class="obs-muted">Pronunciations use ARPABET; 1 marks primary stress. No project relationship is implied.</p></details>'''
+    return f'''<details id="rhyme-groups" class="obs-disclosure"><summary>Show names that rhyme <span class="obs-muted"><span id="rhyme-count">{result["tool_count"]}</span> tools · <span id="rhyme-group-summary">{len(result["groups"])} groups · {result["reviewed_count"]} reviewed readings</span></span></summary><div id="rhyme-group-list" data-ledger-base="../">{body}</div><p class="obs-muted">Pronunciations use ARPABET; 1 marks primary stress.</p></details>'''
 
 
 # Unicode White_Space, shared with observatory.js (not Python/JS-specific \s).
@@ -754,7 +754,7 @@ def render(index, counts, covered, category_art=None, root=None):
         + chart(
             "star-chart",
             "GitHub stars",
-            "Top 10 specimen by GitHub stars. Observed counts may include dated stale cache.",
+            "Top 10 specimen by GitHub stars.",
             counts["star_rows"],
             "Stars",
             wide=True,
@@ -777,7 +777,7 @@ def render(index, counts, covered, category_art=None, root=None):
         + chart(
             "release-chart",
             "Latest GitHub release",
-            "Days since last GitHub release (cached, excludes prereleases).",
+            "Days since last GitHub release (cached).",
             counts["releases"],
             maximum=recency,
         )
@@ -867,7 +867,7 @@ def render(index, counts, covered, category_art=None, root=None):
 <section id="charts" class="obs-section" aria-labelledby="charts-heading"><h2 id="charts-heading">Charts</h2>{charts}</section></div>
 <section id="coverage" class="obs-coverage" aria-labelledby="coverage-heading"><div class="obs-shell"><h2 id="coverage-heading">Evidence coverage</h2><p><span class="obs-label">Whole collection</span></p><table class="obs-coverage-table"><caption class="visually-hidden">Evidence coverage</caption><thead><tr><th scope="col">Evidence</th><th scope="col">Projects</th><th scope="col">Scope</th></tr></thead><tbody>{coverage_rows}</tbody></table><div class="obs-coverage-notes"><p>Evidence collection: {esc(covered["signals_collected_at"] or "Not available")}. <br />HN checked: {esc(covered["hn_checked"] or "Not available")}; window {esc(covered["hn_window_start"])} to {esc(covered["hn_window_end_exclusive"])}.</p><p>{evidence_links}</p></div></div></section>
 <div class="obs-shell"><section id="project-records" class="obs-section obs-ledger" aria-labelledby="project-data-heading"><h2 id="project-data-heading">Project data</h2><p>Dates are UTC. Cached measurements may be stale. Per-project observation dates appear below.</p><p class="obs-downloads"><a id="export-csv" href="projects.csv" download="awesome-open-observatory.csv">Download selection CSV</a><a href="snapshot.json" download>Download complete snapshot JSON</a><a href="report.html" download>Download standalone report</a></p><details id="project-data"><summary>Data table <span class="obs-muted"><span id="project-count">{counts["total"]:,}</span> projects in this selection</span></summary><div class="obs-table-scroll" tabindex="0" role="region" aria-label="Project data table"><table id="project-table"><caption>Project records</caption><thead><tr><th scope="col">Project</th><th scope="col">Detected license</th><th scope="col">GitHub stars</th><th scope="col">Repository created</th><th scope="col">Last push</th><th scope="col">Latest full release</th><th scope="col">Metrics cache / observed UTC</th><th scope="col">Release cache / checked UTC</th><th scope="col">Source</th></tr></thead><tbody>{"".join(project_rows)}</tbody></table></div></details></section></div>
-<div class="obs-closing-mark">{art}</div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Observatory</p><ul class="obs-footer-links"><li><a href="../">Return to project ledger</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li><li>Metrics collection date: <time>{index["metrics_as_of"]}</time> UTC</li></ul></div></footer><script id="observatory-data" type="application/json">{json_html(index)}</script></body></html>'''
+<div class="obs-closing-mark">{art}</div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Observatory</p><ul class="obs-footer-links"><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li><li>Metrics collection date: <time>{index["metrics_as_of"]}</time> UTC</li></ul></div></footer><script id="observatory-data" type="application/json">{json_html(index)}</script></body></html>'''
 
 
 def build(catalog, hn, output, root):
