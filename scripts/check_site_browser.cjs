@@ -515,12 +515,25 @@ const path = require('node:path');
       assert.equal(await setup.evaluate(node => node.open), true);
       assert.equal(await setup.locator('.deployment-group').first().isVisible(), true);
       await assertLedgerFits(page, `expanded OpenTofu at ${width}px`);
+      // A row label names its whole row and may run past its first box over the
+      // lane above the row; it is measured against the grid instead of the box.
       const clipped = await card.locator('.specimen-interior, .plate-grid, .function-detail, .pg-box, .pg-pop, .deployment-group')
-        .evaluateAll(nodes => nodes.filter(node => {
-          const rect = node.getBoundingClientRect();
-          return rect.width <= 0 || rect.left < -1 || rect.right > innerWidth + 1 || node.scrollWidth > node.clientWidth + 1;
-        }).map(node => node.className));
+        .evaluateAll(nodes => {
+          const labels = [...document.querySelectorAll('.pg-box > .sheet-label')];
+          labels.forEach(label => { label.style.display = 'none'; });
+          const result = nodes.filter(node => {
+            const rect = node.getBoundingClientRect();
+            return rect.width <= 0 || rect.left < -1 || rect.right > innerWidth + 1 || node.scrollWidth > node.clientWidth + 1;
+          }).map(node => node.className);
+          labels.forEach(label => { label.style.display = ''; });
+          return result;
+        });
       assert.deepEqual(clipped, [], `Expanded sections fit at ${width}px`);
+      const rowLabels = await card.locator('.pg-box > .sheet-label').evaluateAll(labels => labels.filter(label => {
+        const rect = label.getBoundingClientRect(), grid = label.closest('.plate-grid').getBoundingClientRect();
+        return rect.width <= 0 || rect.left < grid.left - 1 || rect.right > grid.right + 1;
+      }).map(label => label.textContent));
+      assert.deepEqual(rowLabels, [], `Row labels stay inside the grid at ${width}px`);
       await diagnostics.scrollIntoViewIfNeeded();
       await capture(`expanded-opentofu-${width}.png`);
       await setup.locator(':scope > summary').click();
