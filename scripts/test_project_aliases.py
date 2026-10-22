@@ -73,6 +73,29 @@ class AliasTests(unittest.TestCase):
         self.assertEqual(len({p['id'] for p in result['projects']}), 2)
         self.assertEqual(result['projects'][0]['aliases'], result['projects'][1]['aliases'])
 
+    def test_additional_reviewed_records_keep_canonical_aliases_and_provenance(self):
+        source = self.source + '| [Open Other](https://github.com/example/other) | Another tool. |\n'
+        document = self.alias_document()
+        document['projects'].append({
+            'project_url': 'https://GitHub.COM/EXAMPLE/Other/',
+            'aliases': [{'name': 'Other Expanded', 'source_url': 'https://example.org/other-name'}],
+            'checked_at': '2026-10-17', 'reviewed_by': 'Another test reviewer'})
+        before = deepcopy(document)
+        records = aliases.validate(document, build_catalog.canonical_url)
+        expected_urls = {'https://github.com/example/open', 'https://github.com/example/other'}
+        self.assertEqual(set(records), expected_urls)
+        baseline = {p['url']: p for p in self.build(source)['projects']}
+        projects = {p['url']: p for p in self.build(source, aliases=document)['projects']}
+        self.assertEqual(set(projects), expected_urls)
+        for url, record in records.items():
+            with self.subTest(url=url):
+                self.assertEqual(projects[url]['id'], baseline[url]['id'])
+                self.assertEqual(projects[url]['name'], baseline[url]['name'])
+                self.assertEqual(projects[url]['aliases'], record['aliases'])
+                self.assertEqual(projects[url]['alias_review'], {
+                    'checked_at': record['checked_at'], 'reviewed_by': record['reviewed_by']})
+        self.assertEqual(document, before)
+
     def test_hn_reuse_is_explicit_and_ambiguous_names_require_context(self):
         record = self.alias_document()['projects'][0]
         self.assertEqual(aliases.hn_rules({}, record), [])
@@ -92,7 +115,8 @@ class AliasTests(unittest.TestCase):
         document = aliases.load_optional(root / aliases.PATH)
         records = aliases.validate(document, build_catalog.canonical_url)
         url = 'https://github.com/obsproject/obs-studio'
-        self.assertEqual(set(records), {url})
+        # The seed contract remains valid as other reviewed projects are added.
+        self.assertIn(url, records)
         self.assertEqual([a['name'] for a in records[url]['aliases']], ['OBS Studio', 'Open Broadcaster Software', 'OBS'])
         self.assertNotIn('Open Broadcast Studio', json.dumps(document))
         self.assertIn('| [OBS Studio](' + url + ') |', (root / 'README.source.md').read_text())
