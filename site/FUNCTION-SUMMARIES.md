@@ -10,20 +10,35 @@ The existing daily discovery task includes this step after catalog acceptance on
 
 The [automation inventory](../automation/README.md#discover-open-software) records the current external task and cadence. This contract and implementation are on main; the publisher reads approved records during its ordinary offline website build. Editing this guide does not modify the hosted task or add a scheduled collector. No extra credentials or GitHub schedule are required.
 
-### Bounded existing-project backfill
+### Existing-project backfill and rollout
 
-The same daily task considers at most 10 distinct canonical existing projects
-and proposes at most five missing summaries per run. New-project and bounded
-backfill summaries may share a summary-data-only draft. Skip existing records
-of any review status, open proposals and overlapping owner edits. Keep at most
-one draft containing a backfill batch awaiting review; while it is pending,
-continue discovery and deduplicated new-project summaries.
+The independent [Function-summary job](../automation/backfill-function-summaries.md)
+is proposed for three flexible runs per day, with at most 10 canonical projects
+researched and at most 10 missing summaries proposed per run. This is a bounded
+editorial pilot, not a GitHub API limit. One summary-backfill draft may await
+review; its pending state pauses this job, independently of the alias and
+feature-note jobs.
 
-Rotate sorted canonical IDs, record the last considered ID and skip reasons in
-the run report, and resume from it when available; otherwise use deterministic
-UTC-day rotation. Advance past unavailable sources. Do not add a repository
-cursor schema, overwrite reviewed prose, reconsider rejected entries or refresh
-review dates as part of this missing-summary task.
+Before this contract lands, discovery retains its existing limit: at most 10
+projects considered and five missing summaries proposed per day. During rollout,
+the operator verifies both the gated new job registration and a conditional
+ownership rule in discovery's hosted prompt. That rule keeps the legacy step
+until the approved summary-job specification exists on main, then skips only
+existing-project backfill. Discovery's new-project summaries and artwork remain.
+The dedicated job reads the same merged specification before operating. See the
+[rollout inventory](../automation/README.md#enrichment-job-rollout).
+
+Both modes skip existing summary records of every review status, open proposals
+for the same canonical project and overlapping owner edits. Rotate sorted
+canonical IDs, record the last considered ID and skip reasons in the run report,
+and resume from it when available; otherwise use deterministic UTC-day rotation.
+Advance past unavailable sources. Do not add a repository cursor schema,
+overwrite reviewed prose, reconsider rejected records or refresh review dates.
+
+Feature notes share the same data file; their proposed job has its own review gate.
+Re-fetch current main and inspect both jobs' open proposals before publishing.
+Merge only the selected records into the latest file; skip a project reserved by
+another proposal, preserve unrelated records and never force-push.
 
 ## Identity and record
 

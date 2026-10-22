@@ -112,6 +112,48 @@ a repository cursor file, refresh review dates or overwrite reviewed prose.
 candidate means no catalog write. Missing sources or unavailable art/summary
 tools defer only that enrichment; validation/publication failures are reported.
 
+## Enrichment job rollout
+
+Owner-requested on 2026-10-22: separate existing-project enrichment into three
+hosted jobs with independent draft-batch review gates. The proposed pilot is
+**three flexible runs per day per job**, nominally 08:00, 15:00 and 19:00
+`America/New_York`, each researching at most **10 distinct
+canonical projects** and proposing at most **10 records**. Ten is an editorial
+review and runtime bound, not an API-imposed maximum. A pending batch pauses its
+own job; three scheduled runs do not guarantee 30 proposals per day.
+
+| Job | Repository contract | Proposed data scope | Activation state |
+| --- | --- | --- | --- |
+| Backfill Function summaries | [Summary job](backfill-function-summaries.md) | Missing records in `data/function_summaries.json` | Gated pending merged contract and verified conditional discovery handover |
+| Backfill project aliases | Separate alias-job proposal; [current alias contract](../site/PROJECT-ALIASES.md) | Reviewed official names in `data/project_aliases.json` | Separate contract and registration must be verified |
+| Backfill feature notes | Separate feature-job proposal; [current feature contract](../site/FUNCTION-SUMMARIES.md#optional-feature-notes) | Missing feature notes in existing approved summaries | Separate contract and registration must be verified |
+
+This section describes the proposed handover, not a claim that the hosted jobs
+are already active. Each hosted runner must read its own merged job specification
+before doing work. Registration and actual cadence are verified separately;
+merging a documentation PR does not create a timer or execute a batch.
+
+For summaries, verify the gated hosted registration and a conditional ownership
+rule in discovery before merging the job specification. Discovery continues its
+legacy existing-project step while the approved specification is absent from
+main; once present, it skips only that step. The dedicated runner reads the same
+merged specification and becomes its sole owner. This keeps the handover tied to
+one repository event without an extra data schema or unpublished activation flag.
+The operator must verify the registered prompts and record the actual activation;
+if registration fails, keep the specification unmerged and report the blocker.
+Retain discovery's new-project summaries and artwork, normal publishing,
+alternatives and all other schedules unchanged.
+
+Flexible windows may overlap. Every job checks for an already-running attempt
+and open proposals before beginning and again before publication. Do not rely on
+staggered clock times to prevent duplicates.
+
+Summary and feature jobs share a file, so they deduplicate **project IDs**, not
+only filenames. Each checks open PR diffs from both jobs and skips projects
+already proposed. Before publishing, re-fetch main and reconcile selected-record
+changes without replacing another job's records or owner edits. No job changes
+schema, renderer or review policy during a data batch.
+
 ## Find project alternatives
 
 **Inputs and scope:** Existing catalog entries without a recorded mapping,
