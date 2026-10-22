@@ -60,6 +60,8 @@ jobs:
           python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA" --production
           python3 scripts/build_exhibition_preview.py --output tmp/site
           python3 scripts/build_jar_preview.py --output tmp/site
+      - name: Check the site size budget
+        run: python3 scripts/check_budget.py tmp/site
       - name: Build specimen comparison records from PR base
         if: github.event_name == 'pull_request'
         env:

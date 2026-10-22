@@ -478,12 +478,25 @@ for (const input of inputs) {
         self.assertEqual(brand.attrs['aria-label'], 'Awesome Open home')
         self.assertEqual(brand.descendants('img')[0].attrs['alt'], '')
 
-    def test_stylesheet_revision_prevents_stale_branding_on_return_visits(self):
-        self.assertIn('href="styles.css?v=' + 'a' * 40 + '"', self.html)
+    def test_stylesheet_content_hash_prevents_stale_branding_on_return_visits(self):
+        expected = 'href="' + font_asset_url('styles.css') + '"'
+        self.assertIn(expected, self.html)
+        # The token follows the stylesheet's bytes, not the source revision.
         local = copy.deepcopy(self.catalog)
         local['source_sha'] = None
-        self.assertIn('href="styles.css?v=preview"', render_html(local))
+        self.assertIn(expected, render_html(local))
         self.assertNotIn('href="styles.css', (self.output / 'standalone.html').read_text())
+
+    def test_every_same_origin_runtime_url_is_content_versioned(self):
+        pages = [self.output / 'index.html', next((self.output / 'records').glob('*.html')),
+                 self.output / 'observatory/index.html', self.output / 'spotlight/index.html']
+        for page in pages:
+            html = page.read_text()
+            urls = re.findall(r'<link rel="stylesheet" href="([^"]+)"|<script src="([^"]+)"', html)
+            urls = [a or b for a, b in urls if not (a or b).startswith(('data:', 'http'))]
+            self.assertTrue(urls, page)
+            for url in urls:
+                self.assertRegex(url, r'\?v=[0-9a-f]{16,64}$', f'{page.name}: {url}')
 
     def test_animation_dependencies_removed_and_reduced_motion_supported(self):
         self.assertNotIn('gsap', self.html)

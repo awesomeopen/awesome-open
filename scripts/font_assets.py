@@ -19,8 +19,14 @@ def standalone_font_css(root: Path) -> str:
     return '/* Bundled font licenses:\n' + licenses + '\n*/\n' + '\n'.join(rules) + '\nhtml {font-synthesis:none;}\n'
 
 
+def content_url(href: str, source: Path) -> str:
+    """Version a runtime URL by its bytes: deploys never mix old and new files,
+    and publishes that leave the file unchanged keep its cached copy."""
+    import hashlib
+    return href + '?v=' + hashlib.sha256(Path(source).read_bytes()).hexdigest()[:16]
+
+
 def font_asset_url(path: str, root: Path | None = None) -> str:
     """Keep shared typography changes paired across cached visits."""
-    import hashlib
     source = (root or Path(__file__).resolve().parents[1]) / 'site' / ('design/tokens.css' if path == 'tokens.css' else path)
-    return path + '?v=' + hashlib.sha256(source.read_bytes()).hexdigest()[:16]
+    return content_url(path, source)

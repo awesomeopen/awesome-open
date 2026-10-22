@@ -6,6 +6,7 @@ const path=require('node:path');
  const browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{})});
  const page=await browser.newPage({viewport:{width:1440,height:1000}});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const JARS_SCRIPT=/\/jars\.js(\?|$)/; // versioned by content hash
  const url=new URL(process.env.JAR_PAGE||'jars.html',process.env.SITE_URL||'http://127.0.0.1:8000/').href;
  const ready=()=>page.waitForSelector('body[data-jars-ready=true]');
  const fits=async width=>assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No overflow at '+width);
@@ -13,7 +14,7 @@ const path=require('node:path');
  // Hold the deferred jar script to inspect the actual pre-initialization paint,
  // on both navigation and reload. Release it only after checking visibility.
  let releaseStartup;
- await page.route('**/jars.js', async route=>{await new Promise(resolve=>{releaseStartup=resolve;});await route.continue();});
+ await page.route(JARS_SCRIPT, async route=>{await new Promise(resolve=>{releaseStartup=resolve;});await route.continue();});
  for(const reload of [false,true]){
    if(reload)await page.reload({waitUntil:'commit'});else await page.goto(url,{waitUntil:'commit'});
    await page.waitForSelector('.jar-annotation',{state:'attached'});
@@ -23,12 +24,12 @@ const path=require('node:path');
    while(!releaseStartup)await new Promise(resolve=>setTimeout(resolve,10));
    releaseStartup();releaseStartup=null;await ready();await page.waitForLoadState('domcontentloaded');
  }
- await page.unroute('**/jars.js');
+ await page.unroute(JARS_SCRIPT);
  // A failed enhancement still exposes ordinary descriptions and record links.
- await page.route('**/jars.js',route=>route.abort());
+ await page.route(JARS_SCRIPT,route=>route.abort());
  await page.reload({waitUntil:'domcontentloaded'});
  assert.equal(await page.locator('.jar-annotation:visible').count(),7);
- await page.unroute('**/jars.js');
+ await page.unroute(JARS_SCRIPT);
  await page.goto(url);await ready();
  assert.equal(await page.locator('.jar-exhibit').count(),7);assert.equal(await page.locator('[data-ground]').count(),0);assert.equal(await page.locator('.jar-review').count(),0);assert.equal(await page.locator('.jar-photo[src*=labelled]').count(),2);
  await page.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));

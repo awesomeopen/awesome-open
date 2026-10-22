@@ -9,6 +9,7 @@ from itertools import permutations
 
 import weekly_draw
 from build_site import attach_specimen_cutouts
+from font_assets import content_url
 import shutil
 from pathlib import Path
 from html import escape
@@ -295,10 +296,12 @@ def build(output, production=False):
     page=(output/'index.html').read_text()
     css = (ROOT / 'site/jars.css').read_bytes()
     stylesheet = jar_stylesheet_href(css)
+    script = content_url('jars.js', ROOT / 'site/jars.js')
     if 'class="jar-page"' not in page:
-        page=page.replace('<body>','<body class="jar-page">').replace('</head>',startup+f'<link rel="stylesheet" href="{stylesheet}"><script src="jars.js" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
+        page=page.replace('<body>','<body class="jar-page">').replace('</head>',startup+f'<link rel="stylesheet" href="{stylesheet}"><script src="{script}" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
     # Recomposition must not retain a previous token while copying newer CSS.
     page = re.sub(r'href="jars\.css(?:\?[^"<>]*)?"', f'href="{stylesheet}"', page)
+    page = re.sub(r'src="jars\.js(?:\?[^"<>]*)?"', f'src="{script}"', page)
     if not production:
         page=page.replace('</head>','<meta name="robots" content="noindex,nofollow"></head>').replace('<title>','<title>Preview / ',1)
     (output/('index.html' if production else 'jars.html')).write_text(page)

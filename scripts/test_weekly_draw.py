@@ -89,7 +89,7 @@ class WeeklyDrawTests(unittest.TestCase):
             self.assertNotIn('id="2026-W43"', (Path(tmp)/'spotlight/index.html').read_text())
             empty = (Path(tmp)/'spotlight/index.html').read_text()
             # B42: the archive uses the Observatory route shell, not bare ledger styles.
-            for marker in ('href="../observatory/observatory.css"', 'class="obs-header"', 'aria-current="page">Spotlight', 'class="obs-closing-mark"', 'class="obs-footer"', 'Source revision:'):
+            for marker in ('href="../observatory/observatory.css?v=', 'class="obs-header"', 'aria-current="page">Spotlight', 'class="obs-closing-mark"', 'class="obs-footer"', 'Source revision:'):
                 self.assertIn(marker, empty)
             doc = draw.advance(doc, cat, date(2026, 10, 19))
             build_archive(cat, doc, tmp, ROOT)

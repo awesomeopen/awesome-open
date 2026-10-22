@@ -2,7 +2,7 @@
 """Build the complete, offline static catalog. No network, dependencies or deployment."""
 
 import argparse
-from font_assets import standalone_font_css, font_asset_url
+from font_assets import content_url, standalone_font_css, font_asset_url
 import base64
 import hashlib
 import html
@@ -635,7 +635,7 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", 
  <link rel="icon" href="brand/favicon.ico" sizes="16x16 32x32 48x48">
  <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
- <link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="styles.css?v={escape(sha or "preview")}">
+ <link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="{font_asset_url('styles.css', root)}">
  <script src="{escape(script_url)}" defer></script>
 </head>
 <body>
@@ -685,7 +685,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <base href="../"><meta name="color-scheme" content="light"><title>{name} · Awesome Open*</title>
 <meta name="description" content="{escape(project['description'])}">
 <link rel="icon" href="brand/favicon.ico"><link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}">
-<link rel="stylesheet" href="styles.css?v={escape(sha or 'preview')}"><link rel="stylesheet" href="observatory/observatory.css">
+<link rel="stylesheet" href="{font_asset_url('styles.css', root)}"><link rel="stylesheet" href="{content_url('observatory/observatory.css', root / 'site/observatory.css')}">
 <script src="{escape(script_url)}" defer></script></head>
 <body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>
 <div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="spotlight/">Weekly draws</a></nav></header></div>
@@ -906,7 +906,7 @@ def build(output, source_sha=None, root=ROOT):
                 f'{attribute}="data:{mime_type};base64,{encoded}"'
             )
     for name in ("vendor/fonts.css", "tokens.css", "styles.css"):
-        href = f"{name}?v={source_sha or 'preview'}" if name == "styles.css" else font_asset_url(name, root)
+        href = font_asset_url(name, root)
         css = (output / name).read_text(encoding="utf-8")
         if name == "vendor/fonts.css":
             css = standalone_font_css(root)

@@ -3,7 +3,7 @@
 The page uses the Observatory route shell (B42): its header, column, section
 labels, closing mark and footer come from ../observatory/observatory.css.
 """
-from font_assets import font_asset_url
+from font_assets import content_url, font_asset_url
 from datetime import date, timedelta
 from html import escape
 import json
@@ -92,7 +92,7 @@ def build(catalog, doc, output, root):
         if revision else 'Local preview; source revision not supplied'
     )
     page = f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Spotlight</title><meta name="description" content="Seven illustrated Awesome Open projects, drawn each week and shown the following week, with every past edition."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="../observatory/observatory.css"><link rel="stylesheet" href="draws.css"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Spotlight</title><meta name="description" content="Seven illustrated Awesome Open projects, drawn each week and shown the following week, with every past edition."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="../{content_url('observatory/observatory.css', root / 'site/observatory.css')}"><link rel="stylesheet" href="{content_url('draws.css', root / 'site/draws.css')}"></head>
 <body class="observatory draws"><a class="skip-link" href="#spotlight">Skip to spotlight</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../#about">About</a><a href="./" aria-current="page">Spotlight</a></nav></header></div>
 <main id="spotlight" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Spotlight</h1></section>
 <nav class="obs-jump draw-jump" aria-label="Sections" hidden><a href="#editions">Editions</a><a href="draws.json" download>Download draw records</a></nav>
