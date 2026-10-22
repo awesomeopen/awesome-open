@@ -2084,6 +2084,155 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+    },
+    "2819f4e2ff31970ebb7a0255bf9692441d13e42fd0d640f214abaffa6fc31351": {
+      "text": "Open Codex turns natural-language requests into suggested shell commands in a terminal. Users can review each suggestion, copy it to the clipboard, execute it after confirmation, or cancel. The command-line application runs on macOS, Linux and Windows, using local language models or a locally running Ollama server for tasks such as finding files and unpacking archives.",
+      "sources": [
+        {
+          "url": "https://github.com/codingmoh/open-codex/blob/d7b179f69e853425ffd3333459352f99ddd716d1/README.md",
+          "title": "Open Codex: official README",
+          "revision": "d7b179f69e853425ffd3333459352f99ddd716d1"
+        }
+      ],
+      "project_url": "https://github.com/codingmoh/open-codex",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "28ac2bcf5454481b3fd62560d79a1f9e7b2665642e89bd8cf940b50379df16f6": {
+      "text": "OpenClash adds a LuCI interface to OpenWrt for managing the Mihomo proxy engine and rule-based traffic routing. It supports multiple subscription feeds, configuration switching and editing, backups, and modular YAML overrides. Installed on an OpenWrt device, it offers transparent-proxy and TUN modes with iptables or nftables, plus access lists and custom firewall rules.",
+      "sources": [
+        {
+          "url": "https://github.com/vernesong/OpenClash/blob/e553e82e01c697aefbe1555261a503f425e00ccd/README.md",
+          "title": "OpenClash: official README",
+          "revision": "e553e82e01c697aefbe1555261a503f425e00ccd"
+        }
+      ],
+      "project_url": "https://github.com/vernesong/openclash",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "2a300b578c3f45a56d20d1fe66c9e7a25d384a5ce08504e8e8112abc57c3d3bf": {
+      "text": "OpenLP is a desktop presentation application for church services on Windows, macOS, Linux and FreeBSD. It organizes songs, Bible passages, images, custom slides and imported presentations, with VLC integration for audio and video. Operators can search content and change slides through a mobile browser, while a separate browser-based stage view provides a local-network monitor.",
+      "sources": [
+        {
+          "url": "https://openlp.org/",
+          "title": "OpenLP: features and supported platforms"
+        }
+      ],
+      "project_url": "https://openlp.org",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "2afab3cbe14d14c2014dfe713d87b115bf0449b064b65726ec4abdb2a8581f58": {
+      "text": "OpenVDB is a C++ library for storing and manipulating sparse volumetric data on three-dimensional grids. Its hierarchical data structure and accompanying tools support volumetric applications such as film production. Developers integrate the library into their own software, with build options for Python bindings, command-line utilities, OpenVDB AX and NanoVDB alongside the core library.",
+      "sources": [
+        {
+          "url": "https://github.com/AcademySoftwareFoundation/openvdb/blob/62798c70fcad6e1e0e5a5df49027cd77c38dd629/README.md",
+          "title": "OpenVDB: official README",
+          "revision": "62798c70fcad6e1e0e5a5df49027cd77c38dd629"
+        }
+      ],
+      "project_url": "https://github.com/academysoftwarefoundation/openvdb",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "2bbd4bea47ab39266f679ea1afcedc6988307eab0abc22225ebeabc262752960": {
+      "text": "OpenCull is a desktop application for selecting photographs after a shoot on macOS, Windows and Linux. It opens RAW and JPEG folders, groups matching pairs, and writes ratings, flags and colour labels to sidecar files for other editors. Local face analysis helps compare expressions and sharpness across bursts, while crop and straightening adjustments can accompany selected images into an editing workflow.",
+      "sources": [
+        {
+          "url": "https://github.com/NatePhotos/OpenCull/blob/e8b1fa79e7098a564e7d3b2fa6b47b34396717c6/README.md",
+          "title": "OpenCull: official README",
+          "revision": "e8b1fa79e7098a564e7d3b2fa6b47b34396717c6"
+        }
+      ],
+      "project_url": "https://github.com/natephotos/opencull",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "2c9eb4694c3d879ec54dde7adb4807b0e6f599c2fd7a57e9c00ff70f6ea16b6c": {
+      "text": "open-cot provides Python research scripts for reproducing published methods that elicit reasoning-like text from language models through API calls. It includes individual sessions, benchmark batches and reasoning-effort comparisons, with reports against problems having programmatically checked answers. Researchers run the scripts with their own API configuration; the documented extracted text is treated as a proxy for internal reasoning.",
+      "sources": [
+        {
+          "url": "https://github.com/minimAluminiumalism/open-CoT/blob/8bc7a02904057e60650481d99479ca1c19b0a926/README.md",
+          "title": "open-cot: official README",
+          "revision": "8bc7a02904057e60650481d99479ca1c19b0a926"
+        }
+      ],
+      "project_url": "https://github.com/minimaluminiumalism/open-cot",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "2ca11dc1a59b37723779d4220426965c24affb501edd8686bcc16c1b22b0aefd": {
+      "text": "OpenTripPlanner builds multimodal journey-planning services combining scheduled public transport with walking, cycling and mobility services. Its Java server constructs a transport network from GTFS and OpenStreetMap data, applies real-time updates and alerts, and exposes GraphQL APIs. Web and mobile clients can request itineraries that reflect service changes, while operators host the server on a Java-capable platform.",
+      "sources": [
+        {
+          "url": "https://github.com/opentripplanner/OpenTripPlanner/blob/9f0f3d529e083737dabda63d1f13da7998be949a/README.md",
+          "title": "OpenTripPlanner: official README",
+          "revision": "9f0f3d529e083737dabda63d1f13da7998be949a"
+        }
+      ],
+      "project_url": "https://github.com/opentripplanner/opentripplanner",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "2eac7899c50f879858c543c4c9f7aa8642a47e94bb7531aafa2cecaa2a333c7b": {
+      "text": "OpenBot is a self-hosted platform for teams of persistent AI bots communicating with people and each other in shared threads. Bots receive messages through inboxes, delegate work, use selectable tools and retain searchable memory. A browser interface and optional desktop application expose conversations and configuration, with HTTP integration for external systems and support for hosted model providers or local Ollama.",
+      "sources": [
+        {
+          "url": "https://github.com/regnull/openbot/blob/11753662edea33cc90fd1f85fd9ec5793a572fc6/README.md",
+          "title": "OpenBot: official README",
+          "revision": "11753662edea33cc90fd1f85fd9ec5793a572fc6"
+        }
+      ],
+      "project_url": "https://github.com/regnull/openbot",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "2f08b72a3b7724256c4016f05058638ae12c6cf8fa16a0bf4704fa605c7f2297": {
+      "text": "open-gps supplies firmware and enclosure designs for a handheld golf-shot tracker built around an ESP32-S3 board and SparkFun Qwiic components. A rotary control selects a club and records a shot's start and landing positions, displaying distance in yards. The device saves rounds to flash and exports GeoJSON or CSV over USB; a host simulation supports firmware testing without the hardware.",
+      "sources": [
+        {
+          "url": "https://github.com/open-flight/open-gps/blob/219757d53059b504b81eeb27e2340db8cbf13426/README.md",
+          "title": "open-gps: official README",
+          "revision": "219757d53059b504b81eeb27e2340db8cbf13426"
+        }
+      ],
+      "project_url": "https://github.com/open-flight/open-gps",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "2f3847bf2fbe1533a1e419da9a440054286ceed23b60306f3cedbf2f80267318": {
+      "text": "OpenManus is a Python framework for running general-purpose AI agents from terminal requests using configured language-model APIs. It connects agents to MCP tools, including browser control through Browser Use, and offers a separate experimental multi-agent execution mode. An optional DataAnalysis agent supports analysis and visualization tasks; users install and configure the framework in their own environment.",
+      "sources": [
+        {
+          "url": "https://github.com/FoundationAgents/OpenManus/blob/3309bf4e416fb1c74b008f3e86494439a31bad53/README.md",
+          "title": "OpenManus: official README",
+          "revision": "3309bf4e416fb1c74b008f3e86494439a31bad53"
+        }
+      ],
+      "project_url": "https://github.com/foundationagents/openmanus",
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
     }
   }
 }
