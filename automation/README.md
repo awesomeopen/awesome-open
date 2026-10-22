@@ -115,7 +115,10 @@ tools defer only that enrichment; validation/publication failures are reported.
 ## Enrichment job rollout
 
 Owner-requested on 2026-10-22: separate existing-project enrichment into three
-hosted jobs with independent draft-batch review gates. The proposed pilot is
+hosted jobs with independent draft-batch review gates. Hosted registrations and
+the conditional discovery prompt were verified on **2026-10-22 at 04:45 UTC**.
+All three registrations are enabled but data work remains gated on each reviewed
+contract merging into main. The registered pilot is
 **three flexible runs per day per job**, nominally 08:00, 15:00 and 19:00
 `America/New_York`, each researching at most **10 distinct
 canonical projects** and proposing at most **10 records**. Ten is an editorial
@@ -124,14 +127,15 @@ own job; three scheduled runs do not guarantee 30 proposals per day.
 
 | Job | Repository contract | Proposed data scope | Activation state |
 | --- | --- | --- | --- |
-| Backfill Function summaries | [Summary job](backfill-function-summaries.md) | Missing records in `data/function_summaries.json` | Gated pending merged contract and verified conditional discovery handover |
-| Backfill project aliases | Separate alias-job proposal; [current alias contract](../site/PROJECT-ALIASES.md) | Reviewed official names in `data/project_aliases.json` | Separate contract and registration must be verified |
-| Backfill feature notes | Separate feature-job proposal; [current feature contract](../site/FUNCTION-SUMMARIES.md#optional-feature-notes) | Missing feature notes in existing approved summaries | Separate contract and registration must be verified |
+| Backfill Function summaries | [Summary job](backfill-function-summaries.md), [PR #170](https://github.com/awesomeopen/awesome-open/pull/170) | Missing records in `data/function_summaries.json` | Registered; waiting for reviewed contract on main; conditional discovery handover verified |
+| Backfill project aliases | [Job proposal #168](https://github.com/awesomeopen/awesome-open/pull/168); [alias contract](../site/PROJECT-ALIASES.md) | Reviewed official names in `data/project_aliases.json` | Registered; waiting for reviewed job contract on main |
+| Backfill feature notes | [Job proposal #169](https://github.com/awesomeopen/awesome-open/pull/169); [feature contract](../site/FUNCTION-SUMMARIES.md#optional-feature-notes) | Missing feature notes in existing approved summaries | Registered; waiting for reviewed job contract on main |
 
-This section describes the proposed handover, not a claim that the hosted jobs
-are already active. Each hosted runner must read its own merged job specification
-before doing work. Registration and actual cadence are verified separately;
-merging a documentation PR does not create a timer or execute a batch.
+These registrations have timers, while their unmerged contracts keep data writes
+blocked. Each runner reads its own reviewed, merged job specification before
+doing work. Merging a documentation PR releases that job's repository gate; it
+does not create a timer or itself execute a batch. Check actual registration and
+main again on every run.
 
 For summaries, verify the gated hosted registration and a conditional ownership
 rule in discovery before merging the job specification. Discovery continues its
