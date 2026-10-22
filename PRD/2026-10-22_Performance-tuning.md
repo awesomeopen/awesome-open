@@ -1,7 +1,7 @@
 # PRD: Performance tuning for the field guide
 
 - **Date:** 2026-10-22
-- **Status:** Proposed. Phase 1 is in review on `perf/build-speed-cache-budget`.
+- **Status:** Proposed. Phase 1 is in review in [#177](https://github.com/awesomeopen/awesome-open/pull/177).
 - **Owner:** Project owner
 - **Related:** [Remove the standalone download](2026-10-22_Remove-standalone-download.md)
   (separate PRD), TODO entry "Responsive hero images and compact catalog index"
@@ -80,8 +80,9 @@ checks and brand references across the repository.
 - **`replace_literals_once`:** this cost belongs to the standalone build and
   disappears with it; see the separate PRD.
 
-Acceptance: production build under 5 s locally; generated site identical to the
-pre-change build apart from versioned asset URLs (W2).
+Acceptance: generated site identical to the pre-change build apart from
+versioned asset URLs (W2). Phase 1 brings the build from about 19 s to about
+10 s; with the standalone removed (Phase 2) it falls under 5 s.
 
 ### W2. Content-hashed asset URLs (Phase 1)
 
@@ -100,8 +101,9 @@ file's token.
 largest files, `index.html` raw and gzip, `catalog.json`, and the largest image.
 Limits live in one table in the script with the reason for each. The script
 prints a Markdown table, appends it to `$GITHUB_STEP_SUMMARY` when present and
-exits non-zero when a limit is exceeded. The PR workflow and the publisher run it
-after building.
+exits non-zero when a limit is exceeded. The PR workflow enforces it after
+building; the publisher runs it with `--warn-only`, so a daily publish is never
+blocked.
 
 Initial limits sit just above the current baseline, so the check catches new
 growth; each later workstream lowers its limit in the same PR.
