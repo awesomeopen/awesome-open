@@ -7,7 +7,8 @@ label does not rename repositories, move evidence or merge projects.
 
 ## Optional curated source
 
-`data/project_aliases.json` is optional; existing entries need no backfill.
+`data/project_aliases.json` is optional; a project can remain without an alias
+record when no alternate name has been verified.
 Schema 1 has a `projects` list. Each record contains:
 
 - `project_url`: the catalog's canonical URL.
@@ -88,3 +89,13 @@ This seed changes display/search only. OBS's existing HN coverage remains
 repository-URL-only, with its valid seven-story collection intact. Neither full
 name nor bare OBS is opted into HN title matching in this change. Broader HN
 coverage would be a separate reviewed identity change and recollection.
+
+## Bounded enrichment job
+
+The [alias-backfill operating contract](../automation/backfill-project-aliases.md)
+defines a separate assistant-hosted queue: at most ten canonical projects per
+run, three flexible runs per day, and one pending alias batch awaiting review.
+Execution uses the merged contract and a separately verified hosted registration.
+It adds only missing, officially evidenced records through data-only draft PRs.
+Existing records and HN attribution remain unchanged. A project without an
+evidenced alternate name is a valid skipped outcome, with no placeholder record.
