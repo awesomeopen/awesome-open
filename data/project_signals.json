@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-22T05:25:48Z",
+  "collected_at": "2026-10-22T08:24:37Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -1846,6 +1846,47 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/cdcseacave/openmvs",
+        "status": "unavailable"
+      }
+    },
+    "chaxiu/opencompare": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-22T08:24:37Z",
+        "error": null,
+        "etag": "\"dc098b2789f6f6f179891d6f8f2790ad9bcb6003faeee7729687f3cac9e9b271\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-22T08:24:37Z",
+          "observed_at": "2026-10-22T02:56:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/chaxiu/OpenCompare/releases/tag/v0.2.5",
+            "published_at": "2026-10-22T02:56:27Z",
+            "release_id": 420241232,
+            "tag_name": "v0.2.5"
+          }
+        },
+        "last_success_at": "2026-10-22T08:24:37Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/chaxiu/opencompare/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-22T08:24:37Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/chaxiu/opencompare",
         "status": "unavailable"
       }
     },
@@ -5987,6 +6028,47 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/josssphzhou/openzine",
+        "status": "unavailable"
+      }
+    },
+    "kalmuraee/openmagic": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-22T08:24:37Z",
+        "error": null,
+        "etag": "\"ddc9a55e5043934b06965885eda41a7b8136c82cbd1efbe26d19150b5d7ea214\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-22T08:24:37Z",
+          "observed_at": "2026-08-27T22:29:04Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/Kalmuraee/OpenMagic/releases/tag/v0.45.0",
+            "published_at": "2026-08-27T22:29:04Z",
+            "release_id": 378159747,
+            "tag_name": "v0.45.0"
+          }
+        },
+        "last_success_at": "2026-10-22T08:24:37Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/kalmuraee/openmagic/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-22T08:24:37Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/kalmuraee/openmagic",
         "status": "unavailable"
       }
     },
@@ -12294,13 +12376,13 @@
     "opendisplay/firmware": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-21T05:31:54Z",
+        "checked_at": "2026-10-22T08:24:37Z",
         "error": null,
-        "etag": "\"538607b7a4a060f9a66afea78f449e635741121ac8e7c35541355ff5592a26f5\"",
+        "etag": "\"628ca17ad9552939bf9b0e28e7377f3912dd178e83ffe3cd62cc35d31267e8bb\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-21T05:31:54Z",
+          "fetched_at": "2026-10-22T08:24:37Z",
           "observed_at": "2026-10-13T15:49:54Z",
           "source_commit": null,
           "tool_commit": null,
@@ -12312,7 +12394,7 @@
             "tag_name": "2.27.0"
           }
         },
-        "last_success_at": "2026-10-21T05:31:54Z",
+        "last_success_at": "2026-10-22T08:24:37Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opendisplay/firmware/releases/latest",
         "status": "available",
@@ -19480,6 +19562,34 @@
         "status": "unavailable"
       }
     },
+    "openswoole/openswoole": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-22T08:24:37Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openswoole/openswoole/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-22T08:24:37Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/openswoole/openswoole",
+        "status": "unavailable"
+      }
+    },
     "opentimestamps/opentimestamps-client": {
       "release": {
         "check_time_precision": "second",
@@ -24891,5 +25001,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "7a62cb5ceb76358c1108876ab64bdf8ecb3167fa"
+  "source_sha": "8e1c93b2d2a884e893c5e3966060775316d5a692"
 }
