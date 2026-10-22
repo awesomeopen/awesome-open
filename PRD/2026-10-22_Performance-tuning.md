@@ -1,0 +1,167 @@
+# PRD: Performance tuning for the field guide
+
+- **Date:** 2026-10-22
+- **Status:** Proposed. Phase 1 is in review on `perf/build-speed-cache-budget`.
+- **Owner:** Project owner
+- **Related:** [Remove the standalone download](2026-10-22_Remove-standalone-download.md)
+  (separate PRD), TODO entry "Responsive hero images and compact catalog index"
+
+## Problem
+
+The catalog ledger keeps growing: more projects, more specimen artwork, more
+automation and more subpages. The GitHub Pages output, the build and CI all grow
+linearly or faster with it. Without a measured budget, regressions arrive
+unnoticed through daily publisher runs and agent PRs.
+
+## Baseline
+
+Measured on 2026-10-22 from main `7da9631` with
+`python3 scripts/build_site.py --production` on a local Linux machine, 525
+projects / 547 category memberships, cached data.
+
+| Output | Size | Composition |
+| --- | --- | --- |
+| Whole site | 256 MB, 2,043 files | |
+| `standalone.html` | 116 MB (61 MB gzip) | Base64: 69 MB artwork, 37 MB JSON, 6.5 MB SVG |
+| `specimens/` | 71 MB | 34 MB originals plus 37 MB cutouts; both are shipped |
+| `catalog.json` | 13 MB | 3.9 MB written compactly; 3.3 MB of it is `star_history.last_good` |
+| `data/` | 15 MB | `star_history.json` 9.9 MB indented, 2.8 MB compact |
+| `observatory/report.html` | 10 MB | Base64 artwork and downloads |
+| `assets/qr/` | 4.2 MB | 525 SVGs at about 8 KB each |
+| `index.html` | 928 KB (136 KB gzip) | 532 articles (680 KB) plus a 236 KB search index |
+
+Build time: about 19 s wall clock (21 s under the profiler).
+
+| Hot spot | Time | Cause |
+| --- | --- | --- |
+| `qr.svg` / `qr.encode` | 9.1 s | 525 encodes; bitwise GF(256) multiply, mask flips and penalty scoring recomputed per code |
+| `replace_literals_once` | 5.0 s | One regex alternation of about 1,300 literals over the full ledger, for `standalone.html` only |
+| `update_star_history.monthly_counts` | 3.0 s | 520,000 `datetime.fromtimestamp().strftime()` calls; the cache is validated twice per build |
+
+Asset URLs use three cache-busting schemes:
+
+- Content hash: `catalog.js`, `tokens.css`, `vendor/fonts.css`, `jars.css`.
+- Source revision: `styles.css?v=<source sha>`, which changes on every daily
+  evidence-only publish.
+- None: `observatory/observatory.css`, `observatory/observatory.js`, `jars.js`,
+  `spotlight/draws.css`.
+
+Specimen artwork growth: about 176 of 525 projects have artwork, and each
+addition ships an original (about 200 KB) plus a cutout (about 250 KB). GitHub
+Pages limits a published site to 1 GB. At the current per-project cost, full
+artwork coverage puts the site near 500 MB, and the catalog reaches the limit
+at roughly 1,000 projects (estimate from the figures above).
+
+## Goals
+
+1. A production build in under 5 s on the baseline machine, with byte-identical
+   output wherever the change is internal.
+2. Every runtime CSS/JS URL is versioned by its content, so a deploy never mixes
+   old and new files and an evidence-only publish reuses cached runtime bytes.
+3. A size budget measured on every build and enforced in CI, with figures in the
+   GitHub step summary.
+4. Site weight that grows with the catalog, not with duplicated copies of it.
+5. CI time spent on the changes a PR actually makes.
+
+Evidence meanings, labels, artwork bytes, identities and permalinks stay as they
+are. Removing `standalone.html` has its own PRD because it touches tests, browser
+checks and brand references across the repository.
+
+## Workstreams
+
+### W1. Build speed (Phase 1)
+
+- **QR encoder:** log/antilog tables for GF(256), a cached Reed–Solomon divisor
+  per degree, cached function patterns and mask flip positions per version, and
+  string-based penalty scoring. Output stays byte-identical; a test compares the
+  SVG for fixed inputs against a recorded digest.
+- **Star-history validation:** memoize the UTC month per day number in
+  `monthly_counts`. Results are identical; the existing validation tests apply.
+- **`replace_literals_once`:** this cost belongs to the standalone build and
+  disappears with it; see the separate PRD.
+
+Acceptance: production build under 5 s locally; generated site identical to the
+pre-change build apart from versioned asset URLs (W2).
+
+### W2. Content-hashed asset URLs (Phase 1)
+
+Version `styles.css`, `observatory/observatory.css`, `observatory/observatory.js`,
+`jars.js` and `spotlight/draws.css` with the same 16-hex-digit SHA-256 content
+hash `font_asset_url` uses. Literal replacements that inline these files into
+offline pages, and browser routes that intercept them, match the versioned URLs.
+
+Acceptance: every same-origin `<link rel="stylesheet">` and `<script src>` in
+generated HTML carries `?v=<content hash>`; a CSS-only change alters only that
+file's token.
+
+### W3. Size budget (Phase 1)
+
+`scripts/check_budget.py` measures a built site: total bytes and files, the
+largest files, `index.html` raw and gzip, `catalog.json`, and the largest image.
+Limits live in one table in the script with the reason for each. The script
+prints a Markdown table, appends it to `$GITHUB_STEP_SUMMARY` when present and
+exits non-zero when a limit is exceeded. The PR workflow and the publisher run it
+after building.
+
+Initial limits sit just above the current baseline, so the check catches new
+growth; each later workstream lowers its limit in the same PR.
+
+### W4. Payload reduction (Phase 3)
+
+- Write site-only JSON (`catalog.json`, the copied `data/*.json`) compactly. The
+  repository copies keep their indented, diffable form.
+- Ship star history once: `catalog.json` refers to `data/star_history.json`
+  instead of embedding `last_good` per project, or the reverse; pick one owner.
+- Add responsive specimen artwork (`srcset` at 512/768/1254 px) to static
+  records and drawers. The plate is at most 627 px wide and `.specimen-art` at
+  most 400 px; phones currently download the 1254 px original. Derived variants
+  follow the `jars/responsive/` pattern and need provenance and a
+  `brand/assets.md` update.
+- Review whether both the original and the cutout need to ship for every project
+  that has a cutout.
+- Review `observatory/report.html` (10 MB) with the owner; it follows the same
+  embed-everything pattern as `standalone.html`.
+
+### W5. CI and automation (Phase 4)
+
+- Path filters on `check-updaters.yml`, so docs-only and brand-record PRs skip
+  the full build and the browser plan (about 17 minutes). `check-brand.yml`
+  still runs for them.
+- Cache the Playwright browser directory (`~/.cache/ms-playwright`) keyed on the
+  locked Playwright version.
+- Cache derived outputs that change only with their inputs (QR SVGs, responsive
+  image variants) with `actions/cache` keyed on input hashes.
+
+### W6. Later, as the catalog grows
+
+- **Ledger DOM:** `content-visibility: auto` with `contain-intrinsic-size` on
+  ledger rows; chunked rendering once the ledger passes about 1,500 rows.
+- **QR SVG size:** draw modules as a single stroked path with relative moves
+  (about 60% smaller). This changes asset bytes, so it needs a visual check.
+- **Repository growth:** the pack is 118 MB, and `data/star_history.json`
+  (9.9 MB) is rewritten on most publishes. Options: Git LFS for
+  `site/specimens/`, or bulky caches on a data branch.
+- **CSS overlap:** record pages load all of `styles.css` and `observatory.css`;
+  measure the unused share before splitting.
+- **Identifiers:** the 64-hex Registry IDs account for about 180 KB of
+  `index.html` attributes. Gzip absorbs most of it, and they are the permalink
+  contract, so they stay.
+
+## Phasing
+
+| Phase | Scope | Brand impact |
+| --- | --- | --- |
+| 1 | W1, W2, W3 | Implementation only |
+| 2 | Remove `standalone.html` ([PRD](2026-10-22_Remove-standalone-download.md)) | Decision record and guide updates |
+| 3 | W4 | Asset provenance for new variants |
+| 4 | W5 | None |
+| Later | W6 | Per item |
+
+## Verification
+
+- `python3 -m unittest discover -s scripts -p 'test_*.py'`
+- `node --test site/test_*.js`
+- `python3 scripts/check_brand.py`
+- A production build diffed against the pre-change build, plus
+  `scripts/check_budget.py`
+- The browser suites through `scripts/run_browser_checks.py` in PR CI
