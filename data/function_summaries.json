@@ -245,7 +245,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://github.com/openlm-research/open_llama/blob/6e7f73eab7e799e2464f38ed977e537bae02873e/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Load pretrained weights",
+          "text": "Load PyTorch checkpoints through Hugging Face Transformers or use the JAX weights with EasyLM.",
+          "source_url": "https://github.com/openlm-research/open_llama/blob/6e7f73eab7e799e2464f38ed977e537bae02873e/README.md"
+        },
+        {
+          "title": "Choose model sizes",
+          "text": "Select released model families with 3B, 7B or 13B parameters, including separately documented v1 and v2 training mixtures.",
+          "source_url": "https://github.com/openlm-research/open_llama/blob/6e7f73eab7e799e2464f38ed977e537bae02873e/README.md"
+        }
+      ]
     },
     "3e6ed417a41919a48f262b9481f0b9196c860281a9d26fd6a241ca8287acc0fb": {
       "project_url": "https://github.com/openrecall/openrecall",
@@ -341,7 +353,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Official capability section supports vector formats, spatial databases, images/services, geometry and attribute editing, analysis, coordinate transforms, styling and SVG export."
+      "review_note": "Official capability section supports vector formats, spatial databases, images/services, geometry and attribute editing, analysis, coordinate transforms, styling and SVG export. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://openjump.org/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Edit map geometry and attributes",
+          "text": "Edit geographic shapes and their associated data, then style the layers in the map display.",
+          "source_url": "https://openjump.org/"
+        },
+        {
+          "title": "Exchange spatial data",
+          "text": "Read and write shapefiles and simple GML, access spatial databases and export the map view as SVG.",
+          "source_url": "https://openjump.org/"
+        }
+      ]
     },
     "9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660": {
       "project_url": "https://github.com/internetarchive/openlibrary",
@@ -879,7 +903,19 @@
       "checked_at": "2026-10-15",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://www.graphics.rwth-aachen.de/software/openmesh/intro/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Traverse mesh neighborhoods",
+          "text": "Use iterators and circulators to visit neighboring vertices, faces and halfedges in a polygonal mesh.",
+          "source_url": "https://www.graphics.rwth-aachen.de/software/openmesh/intro/"
+        },
+        {
+          "title": "Attach mesh properties",
+          "text": "Extend mesh elements with custom attributes and attach additional data at runtime through dynamic properties.",
+          "source_url": "https://www.graphics.rwth-aachen.de/software/openmesh/intro/"
+        }
+      ]
     },
     "d477ecc1ebaf968f0b367d8795597d0ac9cee3704cf254357a35977db77b2de5": {
       "text": "OpenMVG provides libraries and command-line programs for recovering three-dimensional scene structure from photographs. Its components detect and match image features, track observations, model cameras, and estimate geometry. Developers can assemble reconstruction pipelines or reuse individual algorithms, then export reconstructed scenes to multi-view stereo tools for further processing.",
@@ -1605,7 +1641,19 @@
       "checked_at": "2026-10-20",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review."
+      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://www.openclonk.org/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Mining and settlement play",
+          "text": "Control clonks in multiplayer scenarios built around mining, settlement building and close combat.",
+          "source_url": "https://www.openclonk.org/"
+        },
+        {
+          "title": "Scripted game extensions",
+          "text": "Create custom mods using the game's two-dimensional engine and scripting language.",
+          "source_url": "https://www.openclonk.org/"
+        }
+      ]
     },
     "1b60fc9ebe21bffaf374af656fe840de40c1cbff38c738d3331ba859059b6a3b": {
       "project_url": "https://openrgb.org",
@@ -1619,7 +1667,19 @@
       "checked_at": "2026-10-20",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review."
+      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://openrgb.org/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Network lighting control",
+          "text": "Let other programs drive lighting through the network SDK, or synchronize lighting across computers with the built-in SDK client.",
+          "source_url": "https://openrgb.org/"
+        },
+        {
+          "title": "Plugin extensions",
+          "text": "Add effects, receive E1.31 lighting data or arrange devices in a visual layout editor through plugins.",
+          "source_url": "https://openrgb.org/"
+        }
+      ]
     },
     "1ba4d549fd772a123319ac220323cce707637d448b55e0c32ae037861868d374": {
       "project_url": "https://github.com/openscap/openscap",
@@ -1634,7 +1694,19 @@
       "checked_at": "2026-10-20",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review."
+      "review_note": "AI-reviewed against the linked official documentation for capabilities and deployment. This review approves the summary text for display; repository merge remains subject to maintainer review. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://github.com/OpenSCAP/openscap/blob/c84c8aa5e961b7ba0340a43faf4555dc383af625/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Validate SCAP data streams",
+          "text": "Check the components of a source data stream, including XCCDF, OVAL, OCIL and CPE content.",
+          "source_url": "https://github.com/OpenSCAP/openscap/blob/c84c8aa5e961b7ba0340a43faf4555dc383af625/README.md"
+        },
+        {
+          "title": "Generate assessment documents",
+          "text": "Produce guides from XCCDF content and reports from stored XCCDF scan results.",
+          "source_url": "https://github.com/OpenSCAP/openscap/blob/c84c8aa5e961b7ba0340a43faf4555dc383af625/README.md"
+        }
+      ]
     },
     "1ba6d19f7e65bd5a2f31a59ac9e7e4d368b9c3fbb31b560691e36b9e2655e145": {
       "project_url": "https://github.com/openemr/openemr",
@@ -1654,7 +1726,19 @@
       "checked_at": "2026-10-21",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://github.com/openemr/openemr/blob/fd53b1395a819d181e9df7a3590602b5a4a8cd85/README.md and https://github.com/openemr/openemr/blob/fd53b1395a819d181e9df7a3590602b5a4a8cd85/DOCKER_README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Practice scheduling and billing",
+          "text": "Manage appointment scheduling and electronic billing alongside electronic health records.",
+          "source_url": "https://github.com/openemr/openemr/blob/fd53b1395a819d181e9df7a3590602b5a4a8cd85/README.md"
+        },
+        {
+          "title": "Container deployment examples",
+          "text": "Use the documented Docker Compose examples for deployment, with separate container configurations for development and testing.",
+          "source_url": "https://github.com/openemr/openemr/blob/fd53b1395a819d181e9df7a3590602b5a4a8cd85/DOCKER_README.md"
+        }
+      ]
     },
     "1cf88cc37865ad15c1c2f99bef9fee63cc156d65a564777b1e8f90185dbe2ab0": {
       "project_url": "https://github.com/simonoppowa/opennutritracker",
@@ -1669,7 +1753,19 @@
       "checked_at": "2026-10-21",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://github.com/simonoppowa/opennutritracker/blob/8d2420f0305c96a4f798f3a111509827260f6df7/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Reusable meals and recipes",
+          "text": "Save recipes with ingredients, photographs and barcodes for repeated food entries.",
+          "source_url": "https://github.com/simonoppowa/opennutritracker/blob/8d2420f0305c96a4f798f3a111509827260f6df7/README.md"
+        },
+        {
+          "title": "Export recorded data",
+          "text": "Export diary and activity records as CSV, or use JSON for broader records including recipes and weight history.",
+          "source_url": "https://github.com/simonoppowa/opennutritracker/blob/8d2420f0305c96a4f798f3a111509827260f6df7/README.md"
+        }
+      ]
     },
     "1d2c629a7a134d737d2875c70ad08267d95baad1234ab43f104d631eae3f2944": {
       "project_url": "https://github.com/lowcarbcheck/openplate",
@@ -1684,7 +1780,19 @@
       "checked_at": "2026-10-21",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://github.com/lowcarbcheck/openplate/blob/b80920e5b8b169281a4586597012838c63f262d4/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Photo-based nutrient estimates",
+          "text": "Send a plate photograph to a chosen AI provider or a self-hosted inference service to estimate nutrients.",
+          "source_url": "https://github.com/lowcarbcheck/openplate/blob/b80920e5b8b169281a4586597012838c63f262d4/README.md"
+        },
+        {
+          "title": "Managed household accounts",
+          "text": "Invite users to a managed instance and assign daily or weekly AI request allowances from a shared provider configuration.",
+          "source_url": "https://github.com/lowcarbcheck/openplate/blob/b80920e5b8b169281a4586597012838c63f262d4/README.md"
+        }
+      ]
     },
     "1d2cb00a6bd1b27c76b236dddc9926c1124700c41ea705960c8975ad7a58a6c6": {
       "project_url": "https://github.com/opencost/opencost",
@@ -1699,7 +1807,19 @@
       "checked_at": "2026-10-21",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval. Feature-only review 2026-10-22 UTC by Junge (AI): checked only the added capability notes against https://github.com/opencost/opencost/blob/788010c8d9a37714972c565394228cce71c01c4b/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Allocate Kubernetes costs",
+          "text": "Attribute resource costs to clusters, nodes, namespaces, controllers, services or pods.",
+          "source_url": "https://github.com/opencost/opencost/blob/788010c8d9a37714972c565394228cce71c01c4b/README.md"
+        },
+        {
+          "title": "Use custom infrastructure pricing",
+          "text": "Supply CSV prices for on-premises Kubernetes clusters alongside the supported cloud billing integrations.",
+          "source_url": "https://github.com/opencost/opencost/blob/788010c8d9a37714972c565394228cce71c01c4b/README.md"
+        }
+      ]
     },
     "2010382b7e67221b211756dabd4e1cbc9f53657dae1bbb0d238ddca211aaf194": {
       "project_url": "https://github.com/fesens/opentpu",
@@ -1715,6 +1835,106 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+    },
+    "ad3462ed000239464c7428c48136ee860b6b06d2a4b934867ac393695fc10159": {
+      "project_url": "https://github.com/chaxiu/OpenCompare",
+      "text": "OpenCompare compares local folders, source files and structured datasets in a desktop application. It previews incremental or mirrored directory synchronization, resolves three-way code conflicts, aligns CSV rows by selected keys and compares JSON or YAML by parsed structure. Directory snapshots let users compare a local tree with exported metadata from another machine.",
+      "sources": [
+        {
+          "url": "https://github.com/chaxiu/OpenCompare/blob/abc953fc49916dce420d4f82e00fbf7b36495069/README.md",
+          "title": "OpenCompare: official README",
+          "revision": "abc953fc49916dce420d4f82e00fbf7b36495069"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature claims checked against the linked official documentation; source-backed prose reviewed by Junge (AI), with merge approval reserved for the owner.",
+      "features": [
+        {
+          "title": "Preview directory synchronization",
+          "text": "Inspect incremental or mirrored synchronization operations before applying them to local directories.",
+          "source_url": "https://github.com/chaxiu/OpenCompare/blob/abc953fc49916dce420d4f82e00fbf7b36495069/README.md"
+        },
+        {
+          "title": "Align rows by key",
+          "text": "Compare CSV or TSV tables using selected key columns, including reordered rows and differing column layouts.",
+          "source_url": "https://github.com/chaxiu/OpenCompare/blob/abc953fc49916dce420d4f82e00fbf7b36495069/README.md"
+        },
+        {
+          "title": "Resolve three-way conflicts",
+          "text": "Choose changes from base, local and incoming versions block by block, then save the merged file.",
+          "source_url": "https://github.com/chaxiu/OpenCompare/blob/abc953fc49916dce420d4f82e00fbf7b36495069/README.md"
+        }
+      ]
+    },
+    "5ffad73a2b0e379eb2d7925abefdd47e1f79d1be65f3881f82354482e68731a7": {
+      "project_url": "https://github.com/Kalmuraee/OpenMagic",
+      "text": "OpenMagic runs locally as a Node.js reverse proxy that adds an AI editing toolbar to a running web application. Developers select page elements, describe changes and review proposed source patches before applying them. The toolbar also previews CSS, text and attribute edits. It connects to supported model providers using supplied credentials and works alongside the application’s development server.",
+      "sources": [
+        {
+          "url": "https://github.com/Kalmuraee/OpenMagic/blob/add111cc93f82a695180b3998d295c8b925f0012/README.md",
+          "title": "OpenMagic: official README",
+          "revision": "add111cc93f82a695180b3998d295c8b925f0012"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature claims checked against the linked official documentation; source-backed prose reviewed by Junge (AI), with merge approval reserved for the owner.",
+      "features": [
+        {
+          "title": "Select an element for editing",
+          "text": "Capture an element’s DOM, computed styles and surrounding layout as context for a requested source change.",
+          "source_url": "https://github.com/Kalmuraee/OpenMagic/blob/add111cc93f82a695180b3998d295c8b925f0012/README.md"
+        },
+        {
+          "title": "Review source patches",
+          "text": "Inspect proposed changes and approve or reject them before the local server applies edits to project files.",
+          "source_url": "https://github.com/Kalmuraee/OpenMagic/blob/add111cc93f82a695180b3998d295c8b925f0012/README.md"
+        },
+        {
+          "title": "Preview visual edits",
+          "text": "Adjust CSS, text and attributes in the running page before writing those changes back to the source.",
+          "source_url": "https://github.com/Kalmuraee/OpenMagic/blob/add111cc93f82a695180b3998d295c8b925f0012/README.md"
+        }
+      ]
+    },
+    "6abc977287ff51dda5e368085aab79b3d5cd450b6e523cf69cf4bd5f4daaa41e": {
+      "project_url": "https://github.com/openswoole/openswoole",
+      "text": "OpenSwoole extends PHP with event-driven networking, coroutines and asynchronous I/O for services such as HTTP APIs, WebSocket applications and TCP or UDP servers. Installed as a PHP extension, it runs applications through the command line, either directly on a network or behind a reverse proxy. Its APIs include timers, process pools and coroutine-aware clients for network and database operations.",
+      "sources": [
+        {
+          "url": "https://github.com/openswoole/openswoole/blob/515f2533854fcc9415f8acaf4032aef620dc1b7a/README.md",
+          "title": "openswoole: official README",
+          "revision": "515f2533854fcc9415f8acaf4032aef620dc1b7a"
+        },
+        {
+          "url": "https://openswoole.com/docs",
+          "title": "OpenSwoole: official documentation"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature claims checked against the linked official documentation; source-backed prose reviewed by Junge (AI), with merge approval reserved for the owner.",
+      "features": [
+        {
+          "title": "Run persistent network services",
+          "text": "Build HTTP, WebSocket, TCP or UDP services using PHP and the framework’s event-driven server APIs.",
+          "source_url": "https://openswoole.com/docs"
+        },
+        {
+          "title": "Use coroutine-based I/O",
+          "text": "Coordinate asynchronous operations with coroutines, including network requests and supported database clients.",
+          "source_url": "https://openswoole.com/docs"
+        },
+        {
+          "title": "Choose a serving arrangement",
+          "text": "Run a PHP CLI service directly on the network or place Apache or Nginx in front as a reverse proxy.",
+          "source_url": "https://openswoole.com/docs"
+        }
+      ]
     },
     "20237f789032d8a04653f8fb3967f89e82183cb84a15519fc79e71184d6f9d6e": {
       "project_url": "https://github.com/firecrawl/open-lovable",
