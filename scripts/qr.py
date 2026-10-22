@@ -4,7 +4,9 @@ Dependency-free so normal builds need nothing new. Follows ISO/IEC 18004 as summ
 Project Nayuki's reference implementation (MIT); only the subset needed for permalinks is kept.
 """
 
+from functools import lru_cache
 from html import escape
+import re
 
 # (error-correction codewords per block, [(block count, data codewords per block), ...]) at level M
 _EC_M = {
@@ -15,14 +17,23 @@ _EC_M = {
 _ECL_M_BITS = 0  # format bits for level M
 
 
+# GF(256) with polynomial 0x11D: multiply through log/antilog tables.
+_EXP = [0] * 510
+_LOG = [0] * 256
+_value = 1
+for _i in range(255):
+    _EXP[_i] = _EXP[_i + 255] = _value
+    _LOG[_value] = _i
+    _value <<= 1
+    if _value & 0x100:
+        _value ^= 0x11D
+
+
 def _gf_mul(x, y):
-    z = 0
-    for i in reversed(range(8)):
-        z = (z << 1) ^ ((z >> 7) * 0x11D)
-        z ^= ((y >> i) & 1) * x
-    return z
+    return _EXP[_LOG[x] + _LOG[y]] if x and y else 0
 
 
+@lru_cache(maxsize=None)
 def _rs_divisor(degree):
     result = [0] * (degree - 1) + [1]
     root = 1
@@ -32,7 +43,7 @@ def _rs_divisor(degree):
             if j + 1 < degree:
                 result[j] ^= result[j + 1]
         root = _gf_mul(root, 0x02)
-    return result
+    return tuple(result)
 
 
 def _rs_remainder(data, divisor):
@@ -40,9 +51,12 @@ def _rs_remainder(data, divisor):
     for b in data:
         factor = b ^ result.pop(0)
         result.append(0)
-        for i, coef in enumerate(divisor):
-            result[i] ^= _gf_mul(coef, factor)
-    return result
+        if factor:
+            log = _LOG[factor]
+            for i, coef in enumerate(divisor):
+                if coef:
+                    result[i] ^= _EXP[_LOG[coef] + log]
+    return tuple(result)
 
 
 def _alignment_positions(version):
@@ -92,6 +106,21 @@ def _version_bits(version):
     for _ in range(12):
         rem = (rem << 1) ^ ((rem >> 11) * 0x1F25)
     return (version << 12) | rem
+
+
+@lru_cache(maxsize=None)
+def _function_template(version):
+    modules, reserved = _function_patterns(version)
+    return tuple(map(tuple, modules)), tuple(map(tuple, reserved))
+
+
+@lru_cache(maxsize=None)
+def _mask_flips(version, mask):
+    """Data-module positions each mask inverts; identical for every code of a version."""
+    _, reserved = _function_template(version)
+    rule = _MASKS[mask]
+    return tuple((y, x) for y, row in enumerate(reserved) for x, taken in enumerate(row)
+                 if not taken and rule(x, y))
 
 
 def _function_patterns(version):
@@ -163,28 +192,26 @@ _MASKS = [
 ]
 
 
+_RUNS = re.compile(r'0{5,}|1{5,}')
+_FINDERS = re.compile(r'(?=10111010000|00001011101)')  # overlapping matches
+_BITS = bytes.maketrans(b'\x00\x01', b'01')
+
+
 def _penalty(modules):
     size, score = len(modules), 0
-    lines = modules + [list(col) for col in zip(*modules)]
-    finder = ([True, False, True, True, True, False, True, False, False, False, False],
-              [False, False, False, False, True, False, True, True, True, False, True])
-    for line in lines:
-        run, prev = 0, None
-        for value in line + [None]:
-            if value == prev:
-                run += 1
-            else:
-                if run >= 5:
-                    score += run - 2
-                run, prev = 1, value
-        for i in range(size - 10):
-            if line[i:i + 11] in finder:
-                score += 40
-    for y in range(size - 1):
-        for x in range(size - 1):
-            if modules[y][x] == modules[y][x + 1] == modules[y + 1][x] == modules[y + 1][x + 1]:
-                score += 3
-    dark = sum(map(sum, modules))
+    rows = [bytes(row).translate(_BITS).decode('ascii') for row in modules]
+    columns = [''.join(column) for column in zip(*rows)]
+    # One pass over all rows and columns; the separator ends every run and pattern.
+    lines = '2'.join(rows + columns)
+    score += sum(len(run) - 2 for run in _RUNS.findall(lines))
+    score += 40 * len(_FINDERS.findall(lines))
+    # 2x2 same-colour blocks: compare neighbouring columns of two rows as bit masks.
+    width = (1 << (size - 1)) - 1
+    values = [int(row, 2) for row in rows]
+    for upper, lower in zip(values, values[1:]):
+        same = ~(upper ^ lower)
+        score += 3 * (same & (same >> 1) & ~(upper ^ (upper >> 1)) & width).bit_count()
+    dark = sum(row.count('1') for row in rows)
     total = size * size
     score += max(0, (abs(dark * 20 - total * 10) + total - 1) // total - 1) * 10
     return score
@@ -200,7 +227,8 @@ def encode(text):
             break
     else:
         raise ValueError('Text too long for the supported QR versions')
-    base, reserved = _function_patterns(version)
+    template, reserved = _function_template(version)
+    base = [list(row) for row in template]
     size = len(base)
     codewords = _codewords(data, version)
     bits = [(cw >> (7 - i)) & 1 for cw in codewords for i in range(8)]
@@ -219,12 +247,10 @@ def encode(text):
                     index += 1
         right -= 2
     best = None
-    for mask, rule in enumerate(_MASKS):
+    for mask in range(len(_MASKS)):
         candidate = [row[:] for row in base]
-        for y in range(size):
-            for x in range(size):
-                if not reserved[y][x] and rule(x, y):
-                    candidate[y][x] = not candidate[y][x]
+        for y, x in _mask_flips(version, mask):
+            candidate[y][x] = not candidate[y][x]
         _draw_format(candidate, mask)
         score = _penalty(candidate)
         if best is None or score < best[0]:

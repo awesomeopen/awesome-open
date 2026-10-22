@@ -13,6 +13,7 @@ against the persisted daily budget; failed attempts rotate behind other work.
 import argparse
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+from functools import lru_cache
 import json
 import os
 from pathlib import Path
@@ -239,11 +240,17 @@ def validate_weeks(rows, previous=None, now=None):
     return clean
 
 
+@lru_cache(maxsize=None)
+def _utc_month(day_number):
+    return datetime.fromtimestamp(day_number * DAY, timezone.utc).strftime('%Y-%m')
+
+
 def monthly_counts(weeks, months):
     counts = dict.fromkeys(months, 0)
     for row in weeks:
         for day, count in enumerate(row['days']):
-            month = datetime.fromtimestamp(row['week'] + day * DAY, timezone.utc).strftime('%Y-%m')
+            # The UTC month depends only on the UTC day, shared across histories.
+            month = _utc_month((row['week'] + day * DAY) // DAY)
             if month in counts:
                 counts[month] += count
     return list(counts.values())
