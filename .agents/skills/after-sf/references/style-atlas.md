@@ -4,7 +4,7 @@ Use this file for visual direction, structural vocabulary, and few-shot examples
 
 ## Translate the influences
 
-| Reference family | Extract | Transform for Speculative FOSSoligy | Leave behind |
+| Reference family | Extract | Transform for After Speculative FOSSoligy | Leave behind |
 | :--- | :--- | :--- | :--- |
 | **Untranslated encyclopedia plates** | Isolated specimens, incisive hand-drawn contours, serial morphological variation, impossible material grafts | Give the subject an eerie, self-contained local operation; make a single specimen plate work without surrounding text | Copied historical inventions, faux-script gibberish, simulated book spreads |
 | **Estranged natural history** | Un-earthly posture, load-bearing anatomy, blind or unfamiliar sensory structures, parasitic or symbiotic continuity | Make every structural oddity serve an unsettling behavior; extend that biological logic to tools, vessels, and shelters | Realistic evolutionary claims, cute animal proportions, familiar vertebrate faces |
@@ -15,14 +15,14 @@ Do not average all influences equally in every drawing. Retain nervous observati
 
 ## Morphological and material lexicon
 
-Distill visual structure from these core specimen behaviors rather than modern industrial or domestic design:
+Distill visual structure from active, purposeful mechanisms and cross-kingdom anatomy rather than inert geology or modern plastic design:
 
-- **Calcified & botanical mechanisms:** Use hollow chitinous tubes, wheel-like seed pods, ossified ratchets, and tensioned gut or sinew rather than machined metal shafts or modern gears.
-- **Pleated & chambered acoustics:** Build volume through accordion-like gill bellows, stretched tympanic membranes, and ribbed resonating cavities that suggest breathing, filtering, or sounding.
-- **Stratified mineral housings:** When an object encloses a process, house it in cleaved slate, porous tufa, horn plates, or unglazed refractory clay with brittle, chipped, or laminated edges - never smooth plastic casings or filleted metal boxes.
-- **Grafted anatomical transitions:** Where two parts meet, join them via scarred botanical grafts, encrusted collars, sutured parchment-like skin, or socketed bone rather than screws, welds, or neat geometric seams.
-- **Serial taxonomic arrays:** Use repeated surface units - overlapping scales, graduated slits, crystalline facets, or rowed bristles - that vary slightly in size and angle by hand, avoiding computer-arrayed perfection.
-- **Traceable state changes:** Show tension, weight, or secretion through physical deformation (a sagging bladder, a pinched valve, a tilted counterweight, a stained rim) rather than glowing effects or motion lines.
+- **Vitreous, lacquer, and membrane chambers:** Enclose fluids, vapors, or optics inside hand-blown glass ampoules, translucent bladders, porcelain bells, amber capsules, or lacquered seed-shells - avoiding both modern plastic boxes and heavy, inert boulders.
+- **Tensioned & articulated linkages:** Transmit force throughsilk or gut-string pulleys, counterweighted pendulums, flexing horn bows, peristaltic tubes, and ratcheted ivory or oxidized-metal armatures rather than modern gears or static stone pillars.
+- **Acoustic, optical & sensory arrays:** Give specimens active interfaces with their world - flared listening trumpets, faceted crystalline lenses, vibrating reed combs, feathered antennae, or barometric floats that register unseen forces.
+- **Grafted cross-kingdom joints:** Join disparate materials via living botanical cuffs, sutured parchment collars, wax-sealed sockets, or riveted chitin plates rather than welds, screws, or crude rock piles.
+- **Patterned taxonomic surfaces:** Differentiate parts through zebra-like striping, eyed ocelot spots, iridescent scale tessellations, pleated gills, or graduated measurement ticks - drawn with slight hand-irregularity.
+- **Visible operational state:** Show the item mid-function - a chamber half-filled with cobalt distillate, a counterweight swung to one side, a probing filament extended, or a valve pinched shut.
 
 ## Original concept examples
 
@@ -46,3 +46,4 @@ Use these to internalize the structural grammar and tone; do not repeatedly repr
 - *Too polished:* Replace smooth gradients, vector curves, and specular highlights with scratchy drypoint linework, stippled pores, and uneven matte mineral washes on raw pale ground.
 - *Too vintage:* Remove fake coffee stains, yellowed parchment filters, and torn deckled edges; keep the paper ground bone-dry and clean so the drawing's linework carries the age.
 - *Too cute, menacing, or visceral:* Remove faces, eyes, theatrical aggression, and wet gore/viscera; present the specimen with deadpan, clinical detachment.
+- *Inert geology or "brown rock/fossil" drift:* Never reduce a subject to a weathered stone, calcified lump, bone pile, or muddy brown/sulfur palette. Replace passive mineral masses with articulated mechanisms, translucent chambers, tensioned frames, vivid taxonomic pigments (ultramarine, carmine, celadon, amethyst, saffron), and clear shadowless illumination. Every specimen must look functional or alive within a purposeful world, not excavated from dirt.

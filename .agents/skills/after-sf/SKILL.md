@@ -1,11 +1,11 @@
 ---
-name: after-speculative-fossoligy
-description: Create original drawings or redraw supplied images in "After Speculative FOSSoligy", an invented visual language combining observed natural-history detail, coherent impossible anatomy, curious mechanisms, and selective psychedelic color. Use for animals, plants, tools, machinery, toys, objects, and isolated dwellings. Support faithful style transfer, description-based invention, and visually varied batches such as logos for multiple software tools. Exclude humans, humanoid characters, landscapes, and cities as subjects.
+name: after-sf
+description: Create original drawings or redraw supplied images in "After Speculative FOSSoligy" (after-sf), an invented visual language combining observed natural-history detail, coherent impossible anatomy, curious mechanisms, and selective psychedelic color. Use for animals, plants, tools, machinery, toys, objects, and isolated dwellings. Support faithful style transfer, description-based invention, and visually varied batches such as logos for multiple software tools. Exclude humans, humanoid characters, landscapes, and cities as subjects.
 ---
 
 # After Speculative FOSSoligy
 
-Draw unfamiliar things as if they were recovered from an alien taxonomy or an untranslated natural-history encyclopedia - carefully observed, clinically cataloged, and fundamentally estranged from earthly biology or human ergonomics. Make the subject deeply uncanny and dream-like; make the drafting lucid and matter-of-fact. Preserve the user's spelling, **After Speculative FOSSoligy**. Do not assume the name requires fossils, software symbols, open-source mascots, or modern technological subject matter.
+Draw unfamiliar things as if they were recovered from an alien taxonomy or an untranslated natural-history encyclopedia - carefully observed, clinically cataloged, and fundamentally estranged from earthly biology or human ergonomics. Make the subject deeply uncanny and dream-like; make the drafting lucid and matter-of-fact. Preserve the user's spelling, **After Speculative FOSSoligy** or after-fs. Do not assume the name requires fossils, software symbols, open-source mascots, or modern technological subject matter.
 
 Use this as an independent style, not an instruction to imitate one artist. Read `references/style-atlas.md` when developing a new family of subjects, or when resolving visual drift.
 
@@ -19,22 +19,20 @@ Use this as an independent style, not an instruction to imitate one artist. Read
 
 ## The visual grammar
 
-### 1. Stark silhouette without modern geometry
+### 1. Stark, hand-drafted silhouette without modern CAD neatness
 
-Give the subject a distinct outer contour and a clear hierarchy of masses, but reject modern graphic-design neatness. Never use ruler-straight lines, parallel rails, perfect circles, smooth Bezier curves, bubbly inflated volumes, or neatly rounded/chamfered corners. 
+Give the subject a distinct, surprising outer contour and an articulated hierarchy of parts - never a passive lump, boulder, or static monolith. Reject modern graphic-design neatness: never use ruler-straight lines, parallel rails, smooth Bezier curves, bubbly inflated balloons, or neatly filleted plastic corners.
 
-Even when the subject is a tool, machine, or dwelling, its geometry must feel hand-formed, grown, excavated, or cobbled from refractory materials: slightly warped planes, calcified ridges, pinched joints, brittle overhangs, and weathered asymmetries. Every straight edge should carry the slight tremor of unassisted hand drafting.
+Whether the subject is an organism, instrument, machine, or dwelling, its geometry must feel purposefully grown, tensioned, distended, woven, blown, or hand-forged by an unfamiliar intelligence: taut membranes stretched over angular struts, asymmetric counterweights, pinched conduits, segmented carapaces, and delicate cantilevered probes. Every edge should carry the crisp, slight tremor of unassisted hand drafting.
 
-### 2. One governing estrangement
+### 2. Embedded in an unseen world of purpose
 
-For invention, anchor the subject in one unsettling, dream-logic anomaly that blurs kingdoms of matter - mineral, botanical, zoological, and pre-industrial apparatus:
-- A vessel that breathes through pleated gill-bellows to distil colored vapor.
-- A blind, root-bound organism that secretes geometric crystalline tiles along its spine.
-- An instrument of horn and oxidized brass whose levers manipulate a suspended membrane or acoustic cavity for an unknown sense.
+Never invent a passive object or a mere geological curiosity. Every subject must look like an active participant extracted from a dense, self-consistent, non-earthly world of industry, signaling, cultivation, symbiosis, or ceremony. Anchor the design in one governing dream-logic operation and show how it couples to its wider environment:
+- **Physical interfaces to the unseen:** Include specific couplings, mooring hooks, intake funnels, optical lenses, acoustic horns, dosing spouts, or grafting collars that imply the object plugs into a larger apparatus, host organism, or ritual practice outside the frame.
+- **Traces of active operation:** Show functional tension and history - a distended bladder holding pressurized mist, a calibrated scale marked with non-human increments, a polished wear-zone where an unfamiliar appendage grips it, or condensation beading on a cooling coil.
+- **Cross-kingdom synthesis:** Seamlessly fuse incompatible domains - botanical vascularity, blown vitreous chambers, iridescent insectoid plating, taut acoustic membranes, and pre-modern clockwork or hydraulic linkages - into a single coherent anatomy.
 
-Extend that rule into only the supporting details it needs. Connect disparate parts through eerie but seamless anatomical or material transitions: ossified sockets, stretched parchment-like skins, chitinous collars, grafted stems, or stratified stone seats. 
-
-Let the drawing imply a cold, self-contained purpose - locomotion, parasitism, Dormant gestation, signal reception, or alchemical filtration - that feels indifferent to human comfort. Keep the uncanny strictly dry, structural, and taxonomic: never use gore, open wounds, viscera, blood, body horror, or adult/sexualized anatomy.
+Keep the uncanny strictly lucid, structural, and taxonomic: never use gore, open wounds, viscera, blood, or sexualized anatomy.
 
 ### 3. Brittle ink, drypoint etching, and chalky wash
 
@@ -44,14 +42,17 @@ Vary contour weight: incisive and dark in deep crevices and overlaps, thread-thi
 
 Strictly avoid: smooth digital gradients, bubbly 3D shading, vector cleanliness, uniform cartoon outlines, glossy specular highlights, airbrushed softness, and fake coffee-stained parchment filters.
 
-### 4. Alchemical and mineral coloration
+### 4. Surreal taxonomic coloration and shadowless cabinet lighting
 
-Start with a bone-dry warm white or pale stone ground, soot-black or raw-umber ink linework, and three to five muted, slightly unsettling mineral or botanical pigments. Suggested families:
-- Jaundice ochre + verdigris + bruised plum + bone ash
-- Sulfur yellow + abyssal indigo + dried-madder rust + lichen gray
-- Pale celadon + oxidized copper + faded carmine + parchment buff
+**Lighting:** Illuminate the specimen with clear, shadowless encyclopedic studio light (or subtle internal translucency where chambers hold fluids, gases, or bioluminescence). Avoid muddy atmospheric shadows, grimdark vignette lighting, or earthy brown gloom. Volume must come from crosshatching, surface patterning, and translucent pigment washes rather than heavy chiaroscuro.
 
-Introduce one jarring, high-chroma focal passage - acidic chartreuse, electric cobalt, or poisonous vermilion - strictly where the specimen secretes, senses, articulates, or vents. Use banded pigment, speckled encrustations, or translucent membrane tints to separate rigid husk from soft or hollow interior.
+**Color:** Start with a clean warm-white, ivory, or pale stone ground and fine soot-black, indigo, or sepia ink linework. Do not default to earthy brown, moss green, weathered bone, or sulfur yellow. Instead, select a deliberate, high-estrangement palette of three to five pigments that differentiate functional materials (e.g., translucent membrane vs. rigid carapace vs. fluid conduit). Vary palettes across drawings using families such as:
+- **Vitreous & marine:** Ultramarine + coral carmine + milky opal + tarnished silver-gray
+- **Botanical & apothecary:** Amethyst violet + celadon green + saffron gold + pale porcelain
+- **Nocturnal & iridescent:** Prussian blue + magenta-rose + beetle-wing teal + chalk white
+- **Alchemical & dry:** Verdigris + burnt sienna + lavender-ash + cadmium orange
+
+Use crisp chromatic boundaries, striped or spotted biological markings, and translucent washes so the specimen feels vividly alive or newly operational, never dusty or fossilized.
 
 ### 5. Controlled abundance
 
@@ -77,10 +78,10 @@ For follow-up edits, preserve the accepted version and change only the requested
 
 ## Invent workflow
 
-1. Choose the subject category and its ordinary behavior or use.
-2. Write one internal sentence: "This [thing] [does something] by [one unfamiliar mechanism/adaptation]."
-3. Establish a plausible support, locomotion, attachment, growth, or load-bearing structure.
-4. Design the silhouette first. Add only structures that follow the governing rule.
+1. Choose the subject category and define its active role inside a larger unseen world (what does it harvest, measure, transmit, distil, parasitize, or shelter?).
+2. Write one internal sentence: "In its native world, this [thing] [performs specific purposeful action] by [one unfamiliar mechanism or cross-kingdom adaptation]."
+3. Establish an articulated, active architecture - cantilevers, tensioned frames, chambers, limbs, or linkages. **Never default to a rock, boulder, shell-lump, or static mineral mass as the base form.**
+4. Design a dynamic silhouette with clear intakes, working surfaces, and outputs. Add only structures that serve the governing purpose.
 5. Choose a view that exposes the important relationship: profile for locomotion, three-quarter for tools, front view for symmetry, or a restrained section for internal function.
 6. Choose the main drawing plus, only when useful, one detail inset or a two-to-three-state sequence. Keep consistent geometry, scale relationships, and material colors across states. Never turn every request into a labeled scientific plate.
 7. Apply the visual grammar and generate the image.
