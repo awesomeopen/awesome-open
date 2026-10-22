@@ -497,11 +497,11 @@ const path = require('node:path');
       await waitForPlate(card);
       const catalogWidth = await page.locator('#catalog').evaluate(node => node.getBoundingClientRect().width);
       assert.ok(catalogWidth >= width - 100, `Catalog uses available width at ${width}px`);
-      const diagnostics = card.locator('.diagnostics');
+      const diagnostics = card.locator('.plate-grid');
       assert.ok(await diagnostics.evaluate(node => node.getBoundingClientRect().width) >= 200,
         `Readable diagnostics at ${width}px`);
       assert.equal(await card.locator('.function-detail > p').first().textContent(), tofu.function_summary.text);
-      for (const selector of ['.signal:not(.star-history) .hn-chart img', '.star-chart img']) {
+      for (const selector of ['[data-signal="hn"] .pg-spark', '[data-signal="star-history"] .pg-spark']) {
         const chart = card.locator(selector);
         await chart.scrollIntoViewIfNeeded();
         await chart.evaluate(image => image.decode());
@@ -510,12 +510,12 @@ const path = require('node:path');
           image.getBoundingClientRect().width >= 120 && image.getBoundingClientRect().height >= 24),
           `Loaded, non-collapsed ${selector} at ${width}px`);
       }
-      const setup = card.locator('.deployment-evidence details');
+      const setup = card.locator('.pg-runs .pg-info');
       await setup.locator(':scope > summary').click();
       assert.equal(await setup.evaluate(node => node.open), true);
       assert.equal(await setup.locator('.deployment-group').first().isVisible(), true);
       await assertLedgerFits(page, `expanded OpenTofu at ${width}px`);
-      const clipped = await card.locator('.specimen-interior, .diagnostics, .function-detail, .evidence-note, .deployment-evidence, .deployment-group')
+      const clipped = await card.locator('.specimen-interior, .plate-grid, .function-detail, .pg-box, .pg-pop, .deployment-group')
         .evaluateAll(nodes => nodes.filter(node => {
           const rect = node.getBoundingClientRect();
           return rect.width <= 0 || rect.left < -1 || rect.right > innerWidth + 1 || node.scrollWidth > node.clientWidth + 1;
@@ -544,7 +544,7 @@ const path = require('node:path');
     await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = true; });
     await waitForPlate(tracedCard);
     assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
-    assert.ok(await tracedCard.locator('.signal.evidence-note:not(.star-history)').isVisible());
+    assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
     await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
 
     assert.equal(await page.locator('script[src*="gsap"], script[src*="ScrollTrigger"]').count(), 0);

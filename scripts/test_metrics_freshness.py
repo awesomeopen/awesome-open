@@ -71,8 +71,8 @@ class MetricsFreshnessTests(unittest.TestCase):
                 self.assertIn('Stale GitHub metrics; last successful observation: 2026-10-07 UTC', text)
                 self.assertIn('GitHub metrics unavailable; no successful observation.', text)
                 self.assertNotIn('GitHub metrics observed:', text)
-                self.assertIn('<dt>GitHub stars</dt><dd>Unknown</dd>', text)
-                self.assertIn('<dt>GitHub stars</dt><dd>0</dd>', text)
+                self.assertIn('<h4 class="pg-title">GitHub stars</h4><p class="pg-value is-unknown">Unknown</p>', text)
+                self.assertIn('<h4 class="pg-title">GitHub stars</h4><p class="pg-value">0</p>', text)
             for name in ('index.html', 'report.html'):
                 text = (output / 'observatory' / name).read_text()
                 self.assertIn('Last success: 2026-10-07', text)

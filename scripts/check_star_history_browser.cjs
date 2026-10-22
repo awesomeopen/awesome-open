@@ -10,15 +10,15 @@ module.exports = async ({ page, url, data, capture }) => {
     const drawer = card.locator('.specimen-drawer');
     await drawer.evaluate(node => {node.open = true;});
     await card.locator('.specimen-plate').waitFor({ state: 'visible' });
-    const chart = card.locator('.star-chart img');
+    const chart = card.locator('[data-signal="star-history"] .pg-spark');
     await chart.scrollIntoViewIfNeeded();
     assert.equal(await chart.isVisible(),true);
     await chart.evaluate(img => img.decode());
     assert.equal(await chart.evaluate(img=>img.complete && img.naturalWidth===120),true);
-    assert.equal(await card.locator('summary .star-chart').count(),0);
+    assert.equal(await card.locator('summary .pg-spark').count(),0);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     assert.ok(!(await card.innerText()).includes('As of '));
-    const provenance=card.locator('.star-history .note-provenance');
+    const provenance=card.locator('[data-signal="star-history"] .pg-info');
     await provenance.locator('summary').click();
     assert.ok((await provenance.innerText()).includes('not guaranteed UTC'));
     await provenance.locator('summary').click();
@@ -29,7 +29,7 @@ module.exports = async ({ page, url, data, capture }) => {
     assert.equal(await chart.isVisible(),true);
   }
   await page.goto(new URL('standalone.html',url).href);
-  const images=page.locator('.star-chart img');
+  const images=page.locator('[data-signal="star-history"] .pg-spark');
   assert.equal(await images.count(),data.projects.filter(p=>p.star_history?.chart_url).length);
   assert.ok(await images.evaluateAll(nodes=>nodes.every(img=>img.src.startsWith('data:image/svg+xml;base64,'))));
 };

@@ -132,10 +132,13 @@ class DeploymentTests(unittest.TestCase):
             standalone = (output / 'standalone.html').read_text()
             self.assertEqual(page.count('class="deployment-evidence"'), 0)
             records = ''.join(record.read_text() for record in (output / 'records').glob('*.html'))
-            self.assertEqual(records.count('class="deployment-evidence"'), 8)
+            # Setup facts live in the plate's Where it runs box and its popup.
+            self.assertEqual(records.count('<dl class="pg-kit">'), 8)
+            self.assertEqual(records.count('class="deployment-evidence"'), 0)
             self.assertIn('id="run-mode-filter"', page)
             self.assertIn('id="install-method-filter"', standalone)
-            self.assertIn('View setup facts &amp; sources', standalone)
+            self.assertIn('<summary aria-label="Details: Where it runs">i</summary>', standalone)
+            self.assertIn('<h5>Install methods</h5>', standalone)
 
 
 if __name__ == '__main__': unittest.main()

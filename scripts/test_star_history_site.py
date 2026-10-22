@@ -8,6 +8,7 @@ import unittest
 from unittest.mock import patch
 import build_catalog
 import build_site
+import plate_grid
 import star_history
 import update_star_history as collector
 from datetime import datetime, timezone
@@ -51,18 +52,18 @@ class StarSiteTests(unittest.TestCase):
         record.update(status='partial',last_good=None)
         project=next(p for p in self.catalog()['projects'] if p.get('star_history'))
         self.assertIsNone(project['star_history']['chart_url'])
-        self.assertIn('no zero values inferred',star_history.render(project))
+        self.assertIn('no zero values inferred',plate_grid.stars_box(project))
         record['last_good']=self.good
         # A valid previous window is safe to retain but cannot pair with current HN.
         self.hn['months'] = self.hn['months'][1:] + ['2099-01']
         project=next(p for p in self.catalog()['projects'] if p.get('star_history'))
         self.assertIsNone(project['star_history']['chart_url'])
-        self.assertIn('withheld until aligned',star_history.render(project))
+        self.assertIn('withheld until aligned',plate_grid.stars_box(project))
     def test_failed_refresh_retains_last_good_with_stale_label(self):
         self.snapshot['repositories'][self.repo]['status']='unavailable'
         project=next(p for p in self.catalog()['projects'] if p.get('star_history'))
         self.assertIsNotNone(project['star_history']['chart_url'])
-        self.assertIn('Stale cached result',star_history.render(project))
+        self.assertIn('Stale cached result',plate_grid.stars_box(project))
     def test_reviewed_openremote_endpoint_preserves_project_id_and_chart_attachment(self):
         from test_update_star_history import NOW, OPENREMOTE, pager, weekly_series
         baseline = self.catalog()
@@ -72,7 +73,7 @@ class StarSiteTests(unittest.TestCase):
         self.assertEqual(updated['id'], original['id'])
         self.assertEqual(updated['url'], original['url'])
         self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/openremote/core/stargazers/history', star_history.render(updated))
+        self.assertIn('https://api.github.com/repos/openremote/core/stargazers/history', plate_grid.stars_box(updated))
     def test_reviewed_openomsi_endpoint_preserves_project_id_and_chart_attachment(self):
         from test_update_star_history import NOW, OPENOMSI, pager, weekly_series
         baseline = self.catalog()
@@ -82,7 +83,7 @@ class StarSiteTests(unittest.TestCase):
         self.assertEqual(updated['id'], original['id'])
         self.assertEqual(updated['url'], original['url'])
         self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/openomsi-org/openomsi/stargazers/history', star_history.render(updated))
+        self.assertIn('https://api.github.com/repos/openomsi-org/openomsi/stargazers/history', plate_grid.stars_box(updated))
     def test_reviewed_openbrender_endpoint_preserves_project_id_and_chart_attachment(self):
         from test_update_star_history import NOW, OPENBRENDER, pager, weekly_series
         baseline = self.catalog()
@@ -93,7 +94,7 @@ class StarSiteTests(unittest.TestCase):
         self.assertEqual(updated['url'], original['url'])
         self.assertEqual(updated['name'], original['name'])
         self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/gptchatly/drawplotia/stargazers/history', star_history.render(updated))
+        self.assertIn('https://api.github.com/repos/gptchatly/drawplotia/stargazers/history', plate_grid.stars_box(updated))
     def test_reviewed_opennex_endpoint_preserves_project_id_and_chart_attachment(self):
         from test_update_star_history import NOW, OPENNEX, pager, weekly_series
         baseline = self.catalog()
@@ -104,7 +105,7 @@ class StarSiteTests(unittest.TestCase):
         self.assertEqual(updated['url'], original['url'])
         self.assertEqual(updated['name'], original['name'])
         self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/sophontrace/openlnku/stargazers/history', star_history.render(updated))
+        self.assertIn('https://api.github.com/repos/sophontrace/openlnku/stargazers/history', plate_grid.stars_box(updated))
     def test_reviewed_openmijia_endpoint_preserves_project_id_and_chart_attachment(self):
         from test_update_star_history import NOW, OPENMIJIA, pager, weekly_series
         baseline = self.catalog()
@@ -115,7 +116,7 @@ class StarSiteTests(unittest.TestCase):
         self.assertEqual(updated['url'], original['url'])
         self.assertEqual(updated['name'], original['name'])
         self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/hzdavy/openmexia/stargazers/history', star_history.render(updated))
+        self.assertIn('https://api.github.com/repos/hzdavy/openmexia/stargazers/history', plate_grid.stars_box(updated))
     def test_identity_and_invalid_counts_rejected_non_github_omitted(self):
         record=self.snapshot['repositories'][self.repo]
         record['repo']='wrong/repo'
@@ -152,10 +153,12 @@ class StarSiteTests(unittest.TestCase):
             if project['url'] not in expected:
                 continue
             card = build_site.project_html(project,categories,catalog)
-            self.assertEqual('class="signal evidence-note star-history"' in card,
+            # Every plate has a GitHub stars box; an attached history adds its provider source.
+            self.assertEqual(project['star_history']['source_url'] in card,
                              project['url'] in expected)
             if project['url'] in expected & approved:
-                self.assertIn('<div class="deployment-evidence">',card)
+                self.assertIn('<dl class="pg-kit">',card)
+                self.assertIn('class="deployment-group"',card)
                 self.assertNotIn('Deployment and installation',card)
                 self.assertIn('Function',card)
         return expected, combined

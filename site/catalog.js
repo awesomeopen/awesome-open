@@ -631,7 +631,37 @@
     return manager;
   }
 
+  // Evidence-grid popups: native disclosures; keep one open, close on Escape or outside click.
+  function plateInfo(document) {
+    if (!document.addEventListener) return;
+    function openInfos() {
+      return Array.prototype.slice.call(document.querySelectorAll(".pg-info[open]"));
+    }
+    document.addEventListener("toggle", function (event) {
+      var info = event.target;
+      if (!info.classList || !info.classList.contains("pg-info") || !info.open) return;
+      openInfos().forEach(function (other) { if (other !== info) other.open = false; });
+      // Open from the box edge nearest the grid's centre; columns change with width.
+      var box = info.parentElement, grid = info.closest(".plate-grid");
+      if (grid) {
+        var b = box.getBoundingClientRect(), g = grid.getBoundingClientRect();
+        box.classList.toggle("is-end", b.left + b.width / 2 > g.left + g.width / 2 + 1);
+      }
+    }, true);
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") return;
+      openInfos().forEach(function (info) {
+        info.open = false;
+        if (info.contains(document.activeElement)) info.querySelector("summary").focus();
+      });
+    });
+    document.addEventListener("click", function (event) {
+      openInfos().forEach(function (info) { if (!info.contains(event.target)) info.open = false; });
+    });
+  }
+
   function init(document, window) {
+    plateInfo(document);
     var plates = enhancePlates(document, window);
     var footerArt = document.querySelector('[data-footer-background]');
     if (footerArt) {

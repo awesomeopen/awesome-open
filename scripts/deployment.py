@@ -118,8 +118,8 @@ def attach(projects, document, canonical_url):
             project['deployment'] = deepcopy(entry)
 
 
-def render(project, *, embedded=False, overview=True):
-    """Plain factual disclosure; no commands, inferred support badges or ratings."""
+def sections(project):
+    """Sourced setup facts grouped by kind; the body of every setup disclosure."""
     record = project.get('deployment')
     if not record:
         return ''
@@ -143,6 +143,15 @@ def render(project, *, embedded=False, overview=True):
             items.append(f'<li><strong>{esc(label)}</strong><p>{esc(fact["scope"])}</p><p class="fine-print">{links}</p></li>')
         if items:
             sections.append(f'<div class="deployment-group"><h5>{title}</h5><ul>{"".join(items)}</ul></div>')
+    return ''.join(sections)
+
+
+def render(project, *, embedded=False, overview=True):
+    """Plain factual disclosure; no commands, inferred support badges or ratings."""
+    record = project.get('deployment')
+    if not record:
+        return ''
+    esc = lambda value: html.escape(str(value), quote=True)
     summary = []
     for field, label, names in (('run_modes', 'Run', RUN_MODES), ('install_methods', 'Install', INSTALL_METHODS)):
         if overview and record.get(field):
@@ -151,5 +160,5 @@ def render(project, *, embedded=False, overview=True):
                '<section class="deployment-evidence" aria-labelledby="deployment-' + esc(project['id']) + '"><h4 id="deployment-' + esc(project['id']) + '">Deployment and installation</h4>')
     return (opening +
             '<p class="fine-print">Reviewed ' + esc(record['checked_at']) + ' · ' + esc(record['reviewed_by']) + ' · Approved evidence record</p>'
-            + ''.join(summary) + '<details><summary>View setup facts &amp; sources</summary>' + ''.join(sections) +
+            + ''.join(summary) + '<details><summary>View setup facts &amp; sources</summary>' + sections(project) +
             '</details>' + ('</div>' if embedded else '</section>'))

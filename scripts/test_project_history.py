@@ -83,9 +83,12 @@ class HistoryTests(unittest.TestCase):
         self.assertIn('Renamed: OpenTF → OpenTofu <details class="timeline-info">', line)
         self.assertIn('<summary aria-label="Details: Renamed: OpenTF → OpenTofu">(i)</summary>', line)
         panel = line.split('timeline-info-panel">')[1].split('</div>')[0]
-        self.assertIn('Announced 2023-09-20', panel)
+        # The label names the change and date; the popup carries the sources only (B-PR158-01).
+        self.assertTrue(panel.startswith('<p>Sources: '))
         self.assertIn('href="https://www.linuxfoundation.org/press/announcing-opentofu"', panel)
-        self.assertIn('Reviewed 2026-10-19', panel)
+        self.assertIn('(announcement, 2023-09-20)', panel)
+        self.assertNotIn('Reviewed', panel)
+        self.assertNotIn('Junge', panel)
         self.assertNotIn('role="img"', line)
         self.assertEqual(history_view.evidence(self.attach()), '')
 

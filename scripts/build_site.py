@@ -26,6 +26,7 @@ import update_stats as stats
 import signals
 import star_history
 import deployment
+import plate_grid
 import qr
 from repository_hosts import repository_host
 from footer_art import discover_footer_art
@@ -140,116 +141,6 @@ def split_name(name):
     if name[:4].lower() == "open":
         return f'<span class="name-prefix">{escape(name[:4])}</span><span class="name-stem">{escape(name[4:])}</span>'
     return f'<span class="name-stem">{escape(name)}</span>'
-
-
-def signal_time(value, precision="second"):
-    return value[:10] + " (date only)" if precision == "day" else value
-
-
-def optional_signal_html(project, embed_setup=True):
-    """Evidence stays in native drawers; unknown values never become zeroes."""
-    records = project.get("signals")
-    if not records and not (embed_setup and project.get("deployment")):
-        return ""
-    pieces = []
-    for provider, title in (
-        ("release", "GitHub release"),
-        ("scorecard", "OpenSSF Scorecard"),
-    ):
-        if not records or provider not in records:
-            if provider == "release" and embed_setup and project.get("deployment"):
-                pieces.append(
-                    '<section class="optional-signal evidence-note" data-signal="release"><h4>GitHub release</h4><p>Release not checked.</p>'
-                    + deployment.render(project, embedded=True)
-                    + "</section>"
-                )
-            continue
-        record = records[provider]
-        good = record["last_good"]
-        state = record["status"].capitalize()
-        if good is None:
-            label = {
-                "not_checked": "Not checked",
-                "not_found": "No result returned",
-                "pending": "Provider pending",
-                "error": "Unavailable",
-                "deferred": "Check deferred",
-            }.get(record["fetch_status"], "Unavailable")
-            content = f"<p>{escape(label)}</p>"
-        elif provider == "release":
-            value = good["value"]
-            content = (
-                f'<p><a class="note-value" href="{escape(value["html_url"])}">{escape(value["tag_name"])}</a>'
-                f'Published <span class="metric-value">{escape(value["published_at"][:10])}</span></p>'
-            )
-        else:
-            value = good["value"]
-            scored = sum(check["score"] is not None for check in value["checks"])
-            total = len(value["checks"])
-            aggregate = (
-                f"{value['score']:g}/10"
-                if value["score"] is not None
-                else "Aggregate inconclusive"
-            )
-            checks = "".join(
-                f"<li><strong>{escape(c['name'])}</strong> · "
-                + (f"{c['score']:g}/10" if c["score"] is not None else "Inconclusive")
-                + f"<p>{escape(c['reason'])}</p></li>"
-                for c in value["checks"]
-            )
-            commit = good["source_commit"]
-            repo = value["repository"].removeprefix("github.com/")
-            content = (
-                f'<p><span class="note-value">{aggregate}</span>Scanned <span class="metric-value">{escape(good["observed_at"][:10])}</span> · '
-                f"{scored} scored / {total} returned</p>"
-                f'<details class="signal-checks"><summary>Check results and scan provenance</summary><ul>{checks}</ul>'
-                f'<p class="fine-print">Repository commit <a href="https://github.com/{escape(repo)}/commit/{commit}">{commit[:12]}</a>'
-                f" · Scorecard {escape(good['tool_version'])}</p></details>"
-            )
-        provenance = []
-        if record["checked_at"]:
-            provenance.append(
-                "Checked "
-                + signal_time(
-                    record["checked_at"], record.get("check_time_precision", "second")
-                )
-            )
-        if record["last_success_at"]:
-            provenance.append(
-                "Last successful fetch "
-                + signal_time(
-                    record["last_success_at"],
-                    record.get(
-                        "success_time_precision",
-                        record.get("check_time_precision", "second"),
-                    ),
-                )
-            )
-        if good:
-            provenance.append(
-                "Value fetched "
-                + signal_time(
-                    good["fetched_at"], good.get("fetch_time_precision", "second")
-                )
-            )
-        if record["fetch_status"] not in {"ok", "not_modified", "not_checked"}:
-            provenance.append(
-                "Latest attempt: " + record["fetch_status"].replace("_", " ")
-            )
-        provenance.append(
-            f'<a href="{escape(record["source_url"])}">Provider source</a>'
-        )
-        setup = (
-            deployment.render(project, embedded=True)
-            if provider == "release" and embed_setup
-            else ""
-        )
-        pieces.append(
-            f'<section class="optional-signal evidence-note" data-signal="{provider}"><h4>{title} <span class="signal-status">{state}</span></h4>{content}{setup}<details class="note-provenance"><summary>View source &amp; retrieval history</summary><p class="fine-print">'
-            + " · ".join(provenance)
-            + "</p></details></section>"
-        )
-    return '<div class="optional-signals">' + "".join(pieces) + "</div>"
 
 
 def attach_specimen_art(catalog, root):
@@ -462,30 +353,6 @@ def specimen_label(project, tags, number):
     )
 
 
-def where_it_runs(project):
-    record = project.get("deployment")
-    if not record:
-        return ""
-    rows = []
-    for field, label, names in (
-        ("run_modes", "Run", deployment.RUN_MODES),
-        ("install_methods", "Install", deployment.INSTALL_METHODS),
-        ("platforms", "Documented platforms", None),
-    ):
-        facts = record.get(field, [])
-        if facts:
-            chips = "".join(
-                f"<span>{escape(names[f['value']] if names else f['value'])}</span>"
-                for f in facts
-            )
-            rows.append(
-                f'<div><dt>{label}</dt><dd class="plate-chips">{chips}</dd></div>'
-            )
-    return f'<dl class="plate-kit">{"".join(rows)}</dl>' + deployment.render(
-        project, embedded=True, overview=False
-    )
-
-
 def specimen_geometry(art, bbox):
     """Compose from stored bounds, without sampling or cropping image pixels.
 
@@ -511,9 +378,7 @@ def specimen_geometry(art, bbox):
             "fade_end": max(.5, ground - .08)}
 
 
-def specimen_plate(
-    project, number, tags, function_detail, vitals, chart, alternatives, cutout
-):
+def specimen_plate(project, number, tags, function_detail, grid, cutout):
     pid, name, url = (
         escape(project["id"]),
         escape(project["name"]),
@@ -547,28 +412,6 @@ def specimen_plate(
             )
             notes = f'<ol class="plate-notes" aria-label="Feature notes">{items}</ol>'
         label = ""
-    runs = where_it_runs(project)
-    numerals = iter(("II", "III", "IV", "V", "VI"))
-    sections = [
-        f'<section class="plate-band plate-register" aria-label="Repository facts"><span class="sheet-label">{next(numerals)} / Repository record</span>{vitals}</section>'
-    ]
-    if runs:
-        sections.append(
-            f'<section class="plate-band plate-runs" aria-label="Where it runs"><span class="sheet-label">{next(numerals)} / Where it runs</span>{runs}</section>'
-        )
-    evidence = (
-        chart
-        + star_history.render(project)
-        + optional_signal_html(project, embed_setup=False)
-    )
-    if evidence:
-        sections.append(
-            f'<section class="plate-band diagnostics plate-evidence" aria-label="Observations and evidence"><span class="sheet-label">{next(numerals)} / Observations &amp; evidence</span><div class="evidence-notes">{evidence}</div></section>'
-        )
-    if alternatives:
-        sections.append(
-            f'<section class="plate-band plate-alternatives" aria-label="Reviewed alternatives"><span class="sheet-label">{next(numerals)} / Reviewed alternatives</span>{alternatives}</section>'
-        )
     host = repository_host(project["url"])
     departure_label = f"Explore {name}" + (f" on {host}" if host else "")
     address = escape(project["url"].removeprefix("https://").removeprefix("http://"))
@@ -576,11 +419,11 @@ def specimen_plate(
         f'<div class="specimen-interior specimen-plate{"" if art else " without-art"}" aria-labelledby="name-{pid}">'
         f'<div class="plate-heading"><span class="plate-index">Field notes / {number:03d}</span><span class="plate-index">{name}</span></div>'
         f'<div class="plate-study"><svg class="plate-leaders" aria-hidden="true"></svg>'
-        f'<div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description">{escape(project["description"])}</p>{function_detail}</div>'
+        f'<div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description{" is-long" if len(project["description"]) > 90 else ""}">{escape(project["description"])}</p>{function_detail}</div>'
         f"{specimen}{notes}{label}</div>"
-        + "".join(sections)
-        + f'<nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">In the wild</span><a href="{url}"><span>{departure_label}</span>'
-        f'<span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{address}</span></nav></div>'
+        + f'<div class="plate-grid">{grid}'
+        f'<nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">In the wild</span><a href="{url}"><span>{departure_label}</span>'
+        f'<span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{address}</span></nav></div></div>'
     )
 
 
@@ -607,6 +450,17 @@ def metrics_freshness(github, as_of):
     return ""
 
 
+def hn_window(catalog, project):
+    """The shared HN chart window; older catalogs fall back to the paired star window."""
+    if catalog.get("hn_window"):
+        return catalog["hn_window"]
+    paired = project.get("star_history") or {}
+    if paired.get("chart_url"):
+        months = paired["last_good"]["months"]
+        return {"first": months[0], "last": months[-1], "monthly_maximum": paired.get("hn_monthly_maximum")}
+    return None
+
+
 def project_html(project, categories, catalog, number=0, cutouts=None, position=None, deferred=False):
     position = number if position is None else position
     pid = escape(project["id"])
@@ -625,35 +479,10 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>'
         for cid in project["categories"]
     )
-    evidence = "".join(
-        f'<li><a href="{escape(a["source_url"])}">{escape(a["name"])}</a><span class="evidence-date">Checked {escape(a["checked_utc_date"])}</span><p>{escape(a["scope"])}</p></li>'
-        for a in project["alternatives"]
-    )
-    alternatives = (
-        f'<div class="comparison evidence-note"><ul>{evidence}</ul></div>'
-        if evidence
-        else ""
-    )
-    chart = ""
     inline_chart = ""
     if project["hn"]:
         attention = project["hn"]
         inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
-        chart = f'<div class="signal evidence-note"><h4>Hacker News stories</h4><a class="hn-chart" href="{escape(attention["search_url"])}" title="Hacker News stories"><img src="{escape(attention["chart_url"])}" width="120" height="24" alt="HN discussions / 2y" loading="lazy"><span>{attention["total_stories"]} submissions / past 2y</span></a></div>'
-    if chart and project.get("star_history"):
-        paired = project["star_history"]
-        if paired.get("chart_url"):
-            good = paired["last_good"]
-            chart = chart.replace(
-                "</a></div>",
-                '</a><p class="fine-print star-window">'
-                + escape(good["months"][0])
-                + "&nbsp;–&nbsp;"
-                + escape(good["months"][-1])
-                + "<br>Square-root scale: 0–"
-                + escape(paired["hn_monthly_maximum"])
-                + " stories/month (shared across HN charts)</p></div>",
-            )
     summary = project.get("function_summary")
     function_detail = ""
     if summary:
@@ -676,25 +505,19 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         if good_release
         else None
     )
-    vitals = f"""<dl class="vitals"><div><dt>Detected license</dt><dd>{escape(license_text or "Unknown")}</dd></div><div><dt>GitHub stars</dt><dd>{stars}</dd></div><div><dt>Repository created</dt><dd>{escape(created)}</dd></div><div><dt>Repository push</dt><dd>{escape(pushed)}</dd></div></dl>"""
     freshness = metrics_freshness(github, catalog.get("metrics_as_of"))
-    if freshness:
-        vitals += f'<p class="fine-print metrics-freshness">{escape(freshness)}</p>'
     history = project.get("history", [])
     pushed_date = github["pushed_at"][:10] if github and github.get("pushed_at") else None
     events = history_view.timeline_events(history)
-    if github or events:
-        vitals += timeline(created, release, pushed_date, events)
-    vitals += history_view.evidence(history)
-    interior = specimen_plate(
+    grid = plate_grid.render(
         project,
-        number,
-        tags,
-        function_detail,
-        vitals,
-        chart,
-        alternatives,
-        (cutouts or {}).get(project["id"]),
+        timeline_html=timeline(created, release, pushed_date, events) if github or events else "",
+        history_html=history_view.evidence(history),
+        freshness=freshness,
+        hn_window=hn_window(catalog, project),
+    )
+    interior = specimen_plate(
+        project, number, tags, function_detail, grid, (cutouts or {}).get(project["id"])
     )
     if deferred:
         interior = (
@@ -932,6 +755,12 @@ def build(output, source_sha=None, root=ROOT):
         aliases=project_aliases.load_optional(root / project_aliases.PATH),
         history=project_history.load_optional(root / project_history.PATH),
     )
+    if evidence.get("months"):
+        catalog["hn_window"] = {
+            "first": evidence["months"][0],
+            "last": evidence["months"][-1],
+            "monthly_maximum": evidence.get("shared_monthly_maximum"),
+        }
     footer_assets = discover_footer_art(root)
     catalog["footer_backgrounds"] = list(footer_assets)
     catalog["footer_background_sizes"] = [list(size) for size in footer_assets.values()]

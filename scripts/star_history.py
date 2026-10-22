@@ -76,30 +76,3 @@ def svg(project):
         height = math.sqrt(count / maximum) * 20
         bars.append(f'<rect x="{i*5}" y="{22-height:.3f}" width="4" height="{height:.3f}" fill="#64748b"/>')
     return f'<svg xmlns="http://www.w3.org/2000/svg" width="120" height="24" viewBox="0 0 120 24" role="img" aria-labelledby="title desc"><title id="title">{title}</title><desc id="desc">{desc}</desc>' + ''.join(bars) + '</svg>\n'
-
-
-def render(project):
-    record = project.get('star_history')
-    if record is None:
-        return ''
-    esc = lambda value: html.escape(str(value), quote=True)
-    good = record.get('last_good')
-    status = record.get('display_status') or ('Cached' if record.get('status') == 'ok' else 'Stale cached result' if good else 'Unavailable')
-    body = '<p>History unavailable; no zero values inferred.</p>'
-    if record.get('chart_url'):
-        months = good['months']
-        maximum = max(1, *good['monthly_counts'])
-        body = (f'<a class="hn-chart star-chart" href="{esc(record["source_url"])}"><img src="{esc(record["chart_url"])}" width="120" height="24" alt="Monthly stars retained at fetch / 2y" loading="lazy">'
-                f'<span>{sum(good["monthly_counts"]):,} stars / past 2y</span></a>'
-                f'<p class="fine-print star-window">{esc(months[0])}&nbsp;–&nbsp;{esc(months[-1])}<br>Independent square-root scale: 0–{maximum:,} stars/month</p>')
-    elif good:
-        body = '<p>Cached history uses a different month window; chart withheld until aligned.</p>'
-    provenance = f'Latest attempt: {esc(record.get("status", "unknown"))}'
-    if record.get('checked_at'):
-        provenance += ' · Checked ' + esc(record['checked_at'])
-    if good:
-        provenance += ' · Last successful fetch ' + esc(good['fetched_at'])
-    return (f'<section class="signal evidence-note star-history" data-signal="star-history"><h4>GitHub stars <span class="signal-status">{esc(status)}</span></h4>{body}'
-            f'<details class="note-provenance"><summary>View source &amp; retrieval history</summary>'
-            f'<p class="fine-print">{BOUNDARIES} HN stories and GitHub stars are independent measurements with separate scales. {provenance}'
-            f'</p></details></section>')

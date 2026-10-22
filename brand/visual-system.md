@@ -42,8 +42,8 @@ the fallback line is hidden while loading and after success, and returns on fail
 static record pages reuse the B42 route shell. The standalone remains complete.
 See [B-PR111-01](decisions/B-PR111-01.md) and the
 [loading contract](../site/DETAIL-LOADING.md). Missing
-artwork leaves no placeholder. Reviewed alternatives follow the evidence as their
-own band. HN and stars summaries use “past 2y”. Repository departure
+artwork leaves no placeholder. Reviewed alternatives are the evidence grid's last
+row. The HN and stars “past 2y” window is stated in their popups. Repository departure
 links name recognized hosts; homepage and unrecognized destinations use “Explore [name]”. ID tooltips name the identifier type: “Registry ID” and
 “Folio number”. These four refinements were initially present only in the private
 Sites output; this PR restores them to the generator.
@@ -80,9 +80,9 @@ Speculative FOSSoligy drawings ([B-PR102-01](decisions/B-PR102-01.md)).
 
 The expanded record is one plate for all projects; the bounded three-record study
 (B13–B15) and its plain restoration (B24) are superseded. Order: Function statement and reviewed prose, the specimen,
-feature notes, the specimen label, then II / Repository record, III / Where it runs,
-Observations & evidence and Reviewed alternatives (numbered by presence), and the
-centered “In the wild” departure on a Prussian band.
+feature notes, the specimen label, then the fixed evidence grid
+([B-PR158-01](decisions/B-PR158-01.md)) ending with the centered “In the wild”
+departure on a Prussian band.
 
 - The illustration stands on a decorative contour “floor”, seeded by Registry ID and
   confined to the lower half. Contours encode no data. The floor is drawn only behind a
@@ -102,30 +102,35 @@ centered “In the wild” departure on a Prussian band.
   space. It uses 65% width (a 320px minimum capped at available width for legibility),
   white background, 1px rule border, 2px radius and 0.8 opacity. Links have no
   underline; the QR code has a 2px white border. Without artwork, the label stays
-  in normal flow inside the plate. Evidence uses four equal desktop columns, two
-  below 1100px and one below 720px.
+  in normal flow inside the plate.
 - Label contents: a QR code of the permalink, “Awesome Open* · Field
   record” (or “Archived on GitHub” when GitHub reports it), name, Registry ID · Folio,
   “Domain:” with every domain, and the permalink. No paper or object treatment (B28).
-- Section labels are scarlet blocks with mist type (5.86:1). No horizontal rules inside the
-  plate; spacing and labels carry the hierarchy. Chart axes remain.
-- Repository record: large values plus a literal timeline of creation, latest release and
-  last push. A reviewed exact rename date joins the same timeline as a marker and a
-  label such as “Renamed: OpenDevin → OpenHands (i)”; the “(i)” opens its sources and
-  evidence. Unknown/coarse dates and discovery/review dates stay in folded secondary
-  evidence. See [B-PR139-01](decisions/B-PR139-01.md), [B-PR150-01](decisions/B-PR150-01.md)
-  and the [history contract](../site/PROJECT-HISTORY.md). Where it runs: reviewed run/install/platform chips with the setup disclosure.
-
-**Proposed course change ([B-PR158-01](decisions/B-PR158-01.md), not yet implemented):**
-below the function and specimen, the bands become a fixed grid of boxes with fixed
-numbering (II Repository record, III Observations & evidence, IV Release record,
-V Where it runs, VI Reviewed alternatives in thirds) on a mist panel. Boxes keep
-their place and size without data and read "Unknown"; reasons, provider status and
-"past 2y" move into each box's popup. Empty boxes reserved for future sources are
-solid verdigris. Grid section labels turn muted grey; "I / Function" and "In the
-wild" stay scarlet; the function prose name highlight turns scarlet. Until the
-implementation PR, the bullets above describe the shipped plate. Study:
-[plate evidence grid](studies/plate-grid/README.md).
+- Section labels are blocks with mist type and no horizontal rules inside the plate;
+  spacing and labels carry the hierarchy. “I / Function” and “In the wild” are scarlet
+  (5.86:1); grid labels II–VI are muted grey (6.9:1). Chart axes remain.
+- The project name in the reviewed prose is highlighted on scarlet with white type.
+  A Function statement over 90 characters steps down to 24–30px.
+- Evidence grid ([B-PR158-01](decisions/B-PR158-01.md)): eight columns of white
+  boxes (1px Prussian border, 2px radius) on a mist panel, four below 1100px, one
+  below 720px. Fixed rows and numbers: II / Repository record (stars, license,
+  created, push; then the timeline), III / Observations & evidence (GitHub stars and
+  HN sparklines on a shared baseline, a reserved box, OpenSSF Scorecard), IV / Release
+  record, a reserved box, V / Where it runs, VI / Reviewed alternatives in thirds.
+  Every box keeps its place and size without evidence and reads “Unknown”; only
+  the alternatives row may be absent. Reasons, provider status, windows and sources
+  open from a bare “i” in the box corner (native disclosure, one open at a time).
+  Reserved boxes are solid verdigris, decorative and hidden below 720px. Serif values
+  are 33px. Where it runs chips fill per line: amber run modes, trace install
+  methods, emerald platforms, with ink text.
+- Repository timeline: a literal timeline of creation, latest release and last push;
+  one line, “Repository timeline: Unknown”, when no dates are known. A reviewed exact
+  rename date joins it as a marker and a label such as “Renamed: OpenDevin → OpenHands
+  (i)”; the “(i)” opens its sources. Unknown/coarse dates and discovery/review dates
+  stay in folded secondary evidence. See [B-PR139-01](decisions/B-PR139-01.md),
+  [B-PR150-01](decisions/B-PR150-01.md) and the
+  [history contract](../site/PROJECT-HISTORY.md). Study:
+  [plate evidence grid](studies/plate-grid/README.md).
 
 ## Clearer jar glass
 

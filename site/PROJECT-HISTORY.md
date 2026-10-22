@@ -23,9 +23,10 @@ The document contains `schema_version: 1` and an `events` array. Each event has:
   the bases above, or `identity`) and a dated source's ISO `date`, or null.
   A source's publication/merge/release date is not automatically the event date.
 - `checked_at`, `reviewed_by`: actual review provenance.
-- `note`: what the evidence establishes and any real uncertainty. Readers see it
-  behind the timeline's "(i)"; do not add sentences disclaiming claims the
-  record never makes ([B-PR150-01](../brand/decisions/B-PR150-01.md)).
+- `note`: what the evidence establishes and any real uncertainty. It appears in
+  folded Name-change evidence for events off the axis and stays in the published
+  data for plotted ones; do not add sentences disclaiming claims the record never
+  makes ([B-PR150-01](../brand/decisions/B-PR150-01.md)).
 - Optional `first_observed_at`: our first observation date, only when known.
   A new review does not backfill a previously unknown first-observation date.
 
@@ -46,8 +47,9 @@ Only verified day-precision occurrence dates enter the timeline. They join the
 existing Repository record timeline ([B-PR150-01](../brand/decisions/B-PR150-01.md)):
 a true-date marker on the axis and a label above it reading, for example,
 "Renamed: OpenDevin → OpenHands (i)" with the date below. The "(i)" disclosure
-opens the full evidence: kind, date basis and date, note, every source link and
-review provenance. Upper labels whose dates are close climb a row instead of
+opens the sources line only, every source link with its role and date; the label
+already gives the names and date, and the reviewer is not shown
+([B-PR158-01](../brand/decisions/B-PR158-01.md)). Upper labels whose dates are close climb a row instead of
 moving their markers; rename labels sit above the release label. Repository
 creation/release/push retain their literal meanings. The axis spans all
 verified dates, including events before the current repository existed; the
