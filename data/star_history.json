@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 2,
+    "requests_used": 3,
     "utc_date": "2026-10-22"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -292352,6 +292352,138 @@
       "source_url": "https://api.github.com/repos/openlookeng/hetu-core/stargazers/history",
       "status": "ok"
     },
+    "openmachinelabs/openmachine": {
+      "checked_at": "2026-10-22T05:15:10.500169+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1790467200,
+          "repository_created_at": "2026-09-28T11:32:13+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-22T05:15:10.500169+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "b4746a43c9791903abb952e3e075c99807431b2c",
+        "source_urls": [
+          "https://api.github.com/repos/openmachinelabs/openmachine/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              2,
+              1,
+              1,
+              5,
+              0,
+              0,
+              0
+            ],
+            "total": 9,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              18,
+              2
+            ],
+            "total": 20,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1790467200
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "Open Machine",
+      "readme_url": "https://github.com/openmachinelabs/openmachine",
+      "repo": "openmachinelabs/openmachine",
+      "source_sha": "b4746a43c9791903abb952e3e075c99807431b2c",
+      "source_url": "https://api.github.com/repos/openmachinelabs/openmachine/stargazers/history",
+      "status": "ok"
+    },
     "openmage/magento-lts": {
       "checked_at": "2026-10-16T05:36:37.585640+00:00",
       "last_good": {
@@ -523634,12 +523766,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
-    "due_repositories": 0,
-    "eligible_repositories": 477,
+    "attempted_repositories": 1,
+    "due_repositories": 1,
+    "eligible_repositories": 478,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "022fc30144bd688ee895bb766ec8ca67fd5ec7f8",
-  "updated_at": "2026-10-22T04:11:07.763235+00:00"
+  "source_sha": "b4746a43c9791903abb952e3e075c99807431b2c",
+  "updated_at": "2026-10-22T05:15:10.500169+00:00"
 }
