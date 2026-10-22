@@ -12,13 +12,11 @@ Read this file from fresh main on every run, together with `AGENTS.md`,
 code. Run only after this specification has merged. An open PR or a local copy
 cannot activate it.
 
-Before merge, the operator verifies this job's gated registration and updates
-discovery's hosted prompt with a conditional ownership rule: while this approved
-specification is absent from main, retain the legacy existing-project summary
-step; when it is present, skip that step and retain discovery's new-project
-summary and artwork handoffs. The new runner and discovery use the same main
-contract as the ownership boundary. If setup cannot be verified, report the
-blocker and keep this proposal unmerged. See the [inventory](README.md#enrichment-job-rollout).
+Discovery's hosted prompt conditionally delegates existing-project backfill to
+this job when this approved specification is present on main. Discovery retains
+new-project summary and artwork handoffs. Verify that ownership rule and actual
+registration before operating; if either is uncertain, stop dependent writes
+and report rather than duplicate the backlog. See the [inventory](README.md#enrichment-jobs).
 
 This job researches **missing summaries for existing catalog projects**. It
 never overwrites a summary of any review status. Discovery still handles newly
@@ -28,7 +26,7 @@ existing feature notes or perform alias, artwork or catalog discovery work.
 
 ## Cadence and bounded queue
 
-Proposed cadence: three flexible windows daily, nominally 08:00, 15:00 and 19:00
+Cadence: three flexible windows daily, nominally 08:00, 15:00 and 19:00
 `America/New_York`, following daylight saving time. Verify the actual hosted
 schedule separately. Windows may overlap; a time offset is not a lock.
 

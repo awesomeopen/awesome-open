@@ -8,9 +8,11 @@ template asks for impact and validation. A GitHub Actions check validates tracke
 integrity and issues an advisory when design changes lack documentation changes.
 These files do not wake an agent, remember a chat, or make design judgments.
 
-Junge can run this workflow whenever assigned work in this repository. A separate
-recurring audit is optional and is not configured by this PR. The existing data
-collection schedules continue unchanged.
+Junge follows this procedure during assigned work. The separately hosted
+[documentation reconciler](../automation/reconcile-documentation.md) catches
+drift and prunes obsolete guidance through review; it supplements this same-PR
+responsibility. Its registration state is in the [inventory](../automation/README.md).
+Existing collection schedules continue unchanged.
 
 ## Per-change responsibilities
 
@@ -78,9 +80,7 @@ Record the source SHA in `preview.json` for review builds.
 
 When an approved change is discovered only in a built preview, port it back to the
 generator in a reviewable commit. Rebuild from that source before the next preview
-refresh; do not use stale output to overwrite a newer GitHub change. This PR ports
-the four row-detail refinements from the 2026-10-13 private preview and preserves
-the subsequently merged medium-width source fixes. It does not redeploy the Site.
+refresh; do not use stale output to overwrite a newer GitHub change.
 
 ## Implementing an approved prototype
 
