@@ -377,7 +377,7 @@ class ObservatoryBuildTests(unittest.TestCase):
             self.assertIn(page.by_id['project-table'], disclosure.descendants('table'))
             self.assertNotIn(page.by_id['export-csv'], disclosure.descendants('a'))
             for copy in ['Projects by category', 'Top 10 specimen by GitHub stars.', 'Cached GitHub license identifiers.',
-                         'Days since last GitHub release (cached, excludes prereleases).',
+                         'Days since last GitHub release (cached).',
                          'Days since GitHub repository creation.', 'Dates are UTC.', 'License detected']:
                 self.assertIn(copy, text)
             for removed in ['Where the collection gathers', 'Attention is uneven',
