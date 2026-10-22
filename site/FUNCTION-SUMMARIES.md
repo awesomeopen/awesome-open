@@ -75,5 +75,23 @@ capabilities, or descriptions of the specimen illustration.
 The illustrated plate prototypes choose one feature using the canonical ID
 modulo the number of features. This gives varied notes and reproducible offline
 builds without an additional collector or page-load randomness. Missing features
-omit the note; nothing is inferred from artwork. These optional notes are not a
-separately scheduled task; editing this guide does not expand the hosted task.
+omit the note; nothing is inferred from artwork.
+
+### Missing-feature backfill
+
+The separately hosted [feature-note job](../automation/backfill-feature-notes.md)
+researches up to 10 existing approved summaries with absent or empty feature
+lists per run, in three flexible daily windows. It starts data work only after
+its spec is merged and the hosted task is registered. Editing this guide alone
+does not schedule it. A pending feature batch pauses further feature proposals;
+open summary/evidence proposals for the same canonical ID are also skipped.
+
+The job preserves existing summary prose, sources, status, reviewer and review
+date. It uses only the existing reviewed source URLs for new feature claims and
+appends a clearly scoped feature-only review sentence to `review_note`, retaining
+its earlier text verbatim. The appendix gives the actual UTC date, truthful AI
+reviewer and sources checked; the summary's original review remains unchanged.
+It adds no schema fields. Cases requiring new sources or changes to existing
+summary evidence are reported for separate review. Nonempty feature lists and
+pending/rejected summaries are preserved. Feature-data proposals use a separate
+scoped draft PR and the job's concurrency, rotation and validation rules.
