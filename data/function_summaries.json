@@ -1715,6 +1715,106 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+    },
+    "ad3462ed000239464c7428c48136ee860b6b06d2a4b934867ac393695fc10159": {
+      "project_url": "https://github.com/chaxiu/OpenCompare",
+      "text": "OpenCompare compares local folders, source files and structured datasets in a desktop application. It previews incremental or mirrored directory synchronization, resolves three-way code conflicts, aligns CSV rows by selected keys and compares JSON or YAML by parsed structure. Directory snapshots let users compare a local tree with exported metadata from another machine.",
+      "sources": [
+        {
+          "url": "https://github.com/chaxiu/OpenCompare/blob/abc953fc49916dce420d4f82e00fbf7b36495069/README.md",
+          "title": "OpenCompare: official README",
+          "revision": "abc953fc49916dce420d4f82e00fbf7b36495069"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature claims checked against the linked official documentation; source-backed prose reviewed by Junge (AI), with merge approval reserved for the owner.",
+      "features": [
+        {
+          "title": "Preview directory synchronization",
+          "text": "Inspect incremental or mirrored synchronization operations before applying them to local directories.",
+          "source_url": "https://github.com/chaxiu/OpenCompare/blob/abc953fc49916dce420d4f82e00fbf7b36495069/README.md"
+        },
+        {
+          "title": "Align rows by key",
+          "text": "Compare CSV or TSV tables using selected key columns, including reordered rows and differing column layouts.",
+          "source_url": "https://github.com/chaxiu/OpenCompare/blob/abc953fc49916dce420d4f82e00fbf7b36495069/README.md"
+        },
+        {
+          "title": "Resolve three-way conflicts",
+          "text": "Choose changes from base, local and incoming versions block by block, then save the merged file.",
+          "source_url": "https://github.com/chaxiu/OpenCompare/blob/abc953fc49916dce420d4f82e00fbf7b36495069/README.md"
+        }
+      ]
+    },
+    "5ffad73a2b0e379eb2d7925abefdd47e1f79d1be65f3881f82354482e68731a7": {
+      "project_url": "https://github.com/Kalmuraee/OpenMagic",
+      "text": "OpenMagic runs locally as a Node.js reverse proxy that adds an AI editing toolbar to a running web application. Developers select page elements, describe changes and review proposed source patches before applying them. The toolbar also previews CSS, text and attribute edits. It connects to supported model providers using supplied credentials and works alongside the application’s development server.",
+      "sources": [
+        {
+          "url": "https://github.com/Kalmuraee/OpenMagic/blob/add111cc93f82a695180b3998d295c8b925f0012/README.md",
+          "title": "OpenMagic: official README",
+          "revision": "add111cc93f82a695180b3998d295c8b925f0012"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature claims checked against the linked official documentation; source-backed prose reviewed by Junge (AI), with merge approval reserved for the owner.",
+      "features": [
+        {
+          "title": "Select an element for editing",
+          "text": "Capture an element’s DOM, computed styles and surrounding layout as context for a requested source change.",
+          "source_url": "https://github.com/Kalmuraee/OpenMagic/blob/add111cc93f82a695180b3998d295c8b925f0012/README.md"
+        },
+        {
+          "title": "Review source patches",
+          "text": "Inspect proposed changes and approve or reject them before the local server applies edits to project files.",
+          "source_url": "https://github.com/Kalmuraee/OpenMagic/blob/add111cc93f82a695180b3998d295c8b925f0012/README.md"
+        },
+        {
+          "title": "Preview visual edits",
+          "text": "Adjust CSS, text and attributes in the running page before writing those changes back to the source.",
+          "source_url": "https://github.com/Kalmuraee/OpenMagic/blob/add111cc93f82a695180b3998d295c8b925f0012/README.md"
+        }
+      ]
+    },
+    "6abc977287ff51dda5e368085aab79b3d5cd450b6e523cf69cf4bd5f4daaa41e": {
+      "project_url": "https://github.com/openswoole/openswoole",
+      "text": "OpenSwoole extends PHP with event-driven networking, coroutines and asynchronous I/O for services such as HTTP APIs, WebSocket applications and TCP or UDP servers. Installed as a PHP extension, it runs applications through the command line, either directly on a network or behind a reverse proxy. Its APIs include timers, process pools and coroutine-aware clients for network and database operations.",
+      "sources": [
+        {
+          "url": "https://github.com/openswoole/openswoole/blob/515f2533854fcc9415f8acaf4032aef620dc1b7a/README.md",
+          "title": "openswoole: official README",
+          "revision": "515f2533854fcc9415f8acaf4032aef620dc1b7a"
+        },
+        {
+          "url": "https://openswoole.com/docs",
+          "title": "OpenSwoole: official documentation"
+        }
+      ],
+      "checked_at": "2026-10-22",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature claims checked against the linked official documentation; source-backed prose reviewed by Junge (AI), with merge approval reserved for the owner.",
+      "features": [
+        {
+          "title": "Run persistent network services",
+          "text": "Build HTTP, WebSocket, TCP or UDP services using PHP and the framework’s event-driven server APIs.",
+          "source_url": "https://openswoole.com/docs"
+        },
+        {
+          "title": "Use coroutine-based I/O",
+          "text": "Coordinate asynchronous operations with coroutines, including network requests and supported database clients.",
+          "source_url": "https://openswoole.com/docs"
+        },
+        {
+          "title": "Choose a serving arrangement",
+          "text": "Run a PHP CLI service directly on the network or place Apache or Nginx in front as a reverse proxy.",
+          "source_url": "https://openswoole.com/docs"
+        }
+      ]
     }
   }
 }
