@@ -87,6 +87,9 @@ jobs:
         run: python3 scripts/build_published_site.py --source-sha "$PUBLISHED_SHA" --output tmp/site
         env:
           PUBLISHED_SHA: ${{ steps.publish.outputs.published_sha }}
+      # Report only: PR CI enforces the budget, and a daily publish must not stall.
+      - name: Report the site size budget
+        run: python3 scripts/check_budget.py tmp/site --warn-only
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
