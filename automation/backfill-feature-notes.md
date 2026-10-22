@@ -81,10 +81,18 @@ on it. Approval for proposed build inclusion remains separate from PR merge.
 
 Sort eligible canonical IDs. Resume after the last considered ID in the previous
 accessible feature-job report, wrapping once; otherwise choose a deterministic
-UTC-day starting point in that sorted list. Record the chosen offset/method.
+UTC-day and scheduled-slot starting point in that sorted list. Use
+`((UTC day ordinal * 3 + slot index) * 10) % eligible count`, where slot indices
+0, 1 and 2 identify the nominal 08:00, 15:00 and 19:00 New York runs. Record the
+slot, chosen offset and fallback reason so three runs do not all restart at the
+same ten IDs. With no eligible IDs, no offset is needed.
 Advance after every considered project, including unavailable evidence and PR
 conflicts. Stop after 10 distinct IDs or one traversal. Reports retain the cursor,
-coverage, skip reasons and UTC date; no catalog cursor schema is added.
+coverage, skip reasons and UTC date; no catalog cursor schema is added. Reuse
+accessible skip evidence during the same sweep: do not repeatedly research an
+unchanged source-limited record before advancing past the remaining candidates.
+A later sweep may recheck it after a documented source change or access recovery;
+report unresolved gaps without inventing a feature to clear the queue.
 
 Before committing, fetch current `main` and the data file's current blob SHA,
 recheck all selected IDs and relevant open PRs, and apply only the selected
