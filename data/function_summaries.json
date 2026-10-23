@@ -864,7 +864,19 @@
       "checked_at": "2026-10-15",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://github.com/AniChikage/open-typora/blob/045bc718bcded023f6e440b3b0a039e86f02503a/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Rendered Markdown editing",
+          "text": "Edit headings, tables, tasks and formulas in the document, with a source view available for direct Markdown editing.",
+          "source_url": "https://github.com/AniChikage/open-typora/blob/045bc718bcded023f6e440b3b0a039e86f02503a/README.md"
+        },
+        {
+          "title": "Document export",
+          "text": "Export HTML and PDF directly; use an optional Pandoc installation for formats such as DOCX, ODT, RTF and EPUB.",
+          "source_url": "https://github.com/AniChikage/open-typora/blob/045bc718bcded023f6e440b3b0a039e86f02503a/README.md"
+        }
+      ]
     },
     "2b4473c7cde9083b5e771b1a008a09389bbdf9deb45f21ef8c047860bf04fe7c": {
       "project_url": "https://github.com/iranimij/openimport",
@@ -879,7 +891,19 @@
       "checked_at": "2026-10-15",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://github.com/iranimij/openimport/blob/8fdc34c67e79f57fcdc858f9b49461dfe3d5319c/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Field-level dry runs",
+          "text": "Preview created, changed and deleted records before applying an import, with field-level differences and input-line error reporting.",
+          "source_url": "https://github.com/iranimij/openimport/blob/8fdc34c67e79f57fcdc858f9b49461dfe3d5319c/README.md"
+        },
+        {
+          "title": "Reusable transfer profiles",
+          "text": "Save mapping and transformation settings in import or export profiles, then duplicate them or move them between installations as JSON.",
+          "source_url": "https://github.com/iranimij/openimport/blob/8fdc34c67e79f57fcdc858f9b49461dfe3d5319c/README.md"
+        }
+      ]
     },
     "2f56cf3f22e121c02757e83abb089378c7a9418353f78b72f9b2e5eb9a61a8f9": {
       "project_url": "https://github.com/adamsilverstein/open-ancestry",
@@ -2168,7 +2192,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://github.com/openfheorg/openfhe-development/blob/b59e1f291965f14fbee5172cd83a20f5b856204f/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Encrypted arithmetic",
+          "text": "Calculate with encrypted integers using BFV or BGV, or approximate real numbers using CKKS.",
+          "source_url": "https://github.com/openfheorg/openfhe-development/blob/b59e1f291965f14fbee5172cd83a20f5b856204f/README.md"
+        },
+        {
+          "title": "Scheme switching",
+          "text": "Combine CKKS with FHEW/TFHE operations to evaluate functions such as comparisons.",
+          "source_url": "https://github.com/openfheorg/openfhe-development/blob/b59e1f291965f14fbee5172cd83a20f5b856204f/README.md"
+        }
+      ]
     },
     "2628bcbac6aa020f610b3047c54682d04f06acba490aa4e886c4e5d1f4de3ae8": {
       "project_url": "https://github.com/ollm/opencomic",
@@ -2183,7 +2219,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://github.com/ollm/OpenComic/blob/9781d38516a6b60e3b17675424472267b9afc993/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Reading layouts",
+          "text": "Switch between manga, webtoon, double-page, scrolling and slide-based reading layouts.",
+          "source_url": "https://github.com/ollm/OpenComic/blob/9781d38516a6b60e3b17675424472267b9afc993/README.md"
+        },
+        {
+          "title": "Remote libraries",
+          "text": "Connect to OPDS catalogs and file servers using protocols including SFTP, SMB and WebDAV.",
+          "source_url": "https://github.com/ollm/OpenComic/blob/9781d38516a6b60e3b17675424472267b9afc993/README.md"
+        }
+      ]
     },
     "278c1d724ea06d225d1e20ba2347af20aabbd6d1aa68c8d038a3cc1cbf449b17": {
       "project_url": "https://github.com/longsurf-ai/openchart",
@@ -2198,7 +2246,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://github.com/longsurf-ai/openchart/blob/17ad80e04758a420d051523696ed84c944275f4a/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Custom market logic",
+          "text": "Use Tea functions, loops, state and collections to define indicators and conditions evaluated against incoming data.",
+          "source_url": "https://github.com/longsurf-ai/openchart/blob/17ad80e04758a420d051523696ed84c944275f4a/README.md"
+        },
+        {
+          "title": "Drawing-based alerts",
+          "text": "Turn a line or zone drawn on a chart into an alert that can trigger agent research when the price crosses it.",
+          "source_url": "https://github.com/longsurf-ai/openchart/blob/17ad80e04758a420d051523696ed84c944275f4a/README.md"
+        }
+      ]
     },
     "2819f4e2ff31970ebb7a0255bf9692441d13e42fd0d640f214abaffa6fc31351": {
       "text": "Open Codex turns natural-language requests into suggested shell commands in a terminal. Users can review each suggestion, copy it to the clipboard, execute it after confirmation, or cancel. The command-line application runs on macOS, Linux and Windows, using local language models or a locally running Ollama server for tasks such as finding files and unpacking archives.",
@@ -2213,7 +2273,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://github.com/codingmoh/open-codex/blob/d7b179f69e853425ffd3333459352f99ddd716d1/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Reviewable command suggestions",
+          "text": "Translate a natural-language request into a shell command, then choose to execute it, copy it or cancel.",
+          "source_url": "https://github.com/codingmoh/open-codex/blob/d7b179f69e853425ffd3333459352f99ddd716d1/README.md"
+        },
+        {
+          "title": "Ollama model selection",
+          "text": "Send requests to a locally running Ollama server and select the model through command-line options.",
+          "source_url": "https://github.com/codingmoh/open-codex/blob/d7b179f69e853425ffd3333459352f99ddd716d1/README.md"
+        }
+      ]
     },
     "28ac2bcf5454481b3fd62560d79a1f9e7b2665642e89bd8cf940b50379df16f6": {
       "text": "OpenClash adds a LuCI interface to OpenWrt for managing the Mihomo proxy engine and rule-based traffic routing. It supports multiple subscription feeds, configuration switching and editing, backups, and modular YAML overrides. Installed on an OpenWrt device, it offers transparent-proxy and TUN modes with iptables or nftables, plus access lists and custom firewall rules.",
@@ -2228,7 +2300,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://github.com/vernesong/OpenClash/blob/e553e82e01c697aefbe1555261a503f425e00ccd/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Configuration profiles",
+          "text": "Switch among configuration files, edit them through the interface, and back up or restore configurations.",
+          "source_url": "https://github.com/vernesong/OpenClash/blob/e553e82e01c697aefbe1555261a503f425e00ccd/README.md"
+        },
+        {
+          "title": "Subscription management",
+          "text": "Manage multiple subscription feeds with online conversion and custom request headers.",
+          "source_url": "https://github.com/vernesong/OpenClash/blob/e553e82e01c697aefbe1555261a503f425e00ccd/README.md"
+        }
+      ]
     },
     "2a300b578c3f45a56d20d1fe66c9e7a25d384a5ce08504e8e8112abc57c3d3bf": {
       "text": "OpenLP is a desktop presentation application for church services on Windows, macOS, Linux and FreeBSD. It organizes songs, Bible passages, images, custom slides and imported presentations, with VLC integration for audio and video. Operators can search content and change slides through a mobile browser, while a separate browser-based stage view provides a local-network monitor.",
@@ -2242,7 +2326,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://openlp.org/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Browser remote control",
+          "text": "Search service content, change slides and select what is presented from a phone or other browser-equipped device.",
+          "source_url": "https://openlp.org/"
+        },
+        {
+          "title": "Stage monitor view",
+          "text": "Display the built-in stage view in a browser on a device connected to the local network.",
+          "source_url": "https://openlp.org/"
+        }
+      ]
     },
     "2afab3cbe14d14c2014dfe713d87b115bf0449b064b65726ec4abdb2a8581f58": {
       "text": "OpenVDB is a C++ library for storing and manipulating sparse volumetric data on three-dimensional grids. Its hierarchical data structure and accompanying tools support volumetric applications such as film production. Developers integrate the library into their own software, with build options for Python bindings, command-line utilities, OpenVDB AX and NanoVDB alongside the core library.",
@@ -2257,7 +2353,14 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://github.com/AcademySoftwareFoundation/openvdb/blob/62798c70fcad6e1e0e5a5df49027cd77c38dd629/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Sparse volume grids",
+          "text": "Store and manipulate sparse three-dimensional volumetric grids through the C++ library and its hierarchical data structure.",
+          "source_url": "https://github.com/AcademySoftwareFoundation/openvdb/blob/62798c70fcad6e1e0e5a5df49027cd77c38dd629/README.md"
+        }
+      ]
     },
     "2bbd4bea47ab39266f679ea1afcedc6988307eab0abc22225ebeabc262752960": {
       "text": "OpenCull is a desktop application for selecting photographs after a shoot on macOS, Windows and Linux. It opens RAW and JPEG folders, groups matching pairs, and writes ratings, flags and colour labels to sidecar files for other editors. Local face analysis helps compare expressions and sharpness across bursts, while crop and straightening adjustments can accompany selected images into an editing workflow.",
@@ -2272,7 +2375,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-23 UTC by Junge (AI): checked the added capability notes against https://github.com/NatePhotos/OpenCull/blob/e8b1fa79e7098a564e7d3b2fa6b47b34396717c6/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Portable photo selections",
+          "text": "Write ratings, flags and colour labels to sidecar files for use in other photo editors.",
+          "source_url": "https://github.com/NatePhotos/OpenCull/blob/e8b1fa79e7098a564e7d3b2fa6b47b34396717c6/README.md"
+        },
+        {
+          "title": "Crop handoff",
+          "text": "Save crop and straightening adjustments alongside a photograph so compatible editors can load and adjust them.",
+          "source_url": "https://github.com/NatePhotos/OpenCull/blob/e8b1fa79e7098a564e7d3b2fa6b47b34396717c6/README.md"
+        }
+      ]
     },
     "2c9eb4694c3d879ec54dde7adb4807b0e6f599c2fd7a57e9c00ff70f6ea16b6c": {
       "text": "open-cot provides Python research scripts for reproducing published methods that elicit reasoning-like text from language models through API calls. It includes individual sessions, benchmark batches and reasoning-effort comparisons, with reports against problems having programmatically checked answers. Researchers run the scripts with their own API configuration; the documented extracted text is treated as a proxy for internal reasoning.",
@@ -2348,6 +2463,51 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "e93d8855c21779fa7cfcd729c8dafb766c19f67b96ec6fa28dcdfd6d6882dcc6": {
+      "project_url": "https://github.com/open-industry-project/open-industry-project",
+      "text": "Open Industry Project models manufacturing and warehouse equipment in an interactive simulation. Users assemble conveyors, sensors, robots and other components, then control them with built-in Structured Text or Ladder Diagram logic. The browser version supports experimentation without external PLC hardware. Desktop versions connect simulations to industrial controllers through protocols including Modbus TCP, OPC UA and EtherNet/IP.",
+      "sources": [
+        {
+          "url": "https://github.com/open-industry-project/open-industry-project/blob/f3bc6826cf637addf64f002601038a84c6fe3685/README.md",
+          "title": "Open Industry Project official README",
+          "revision": "f3bc6826cf637addf64f002601038a84c6fe3685"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
+    },
+    "8937d9c6b61e13570672d8c99470e4380e88a950f2af7716d503748bd5101ba9": {
+      "project_url": "https://github.com/theanam/openlaser.app",
+      "text": "openlaser is a browser-based workspace for designing, previewing and running laser cutting and engraving jobs. It imports vector drawings and images, assigns layer-specific processing settings, and previews burn and travel paths. Compatible desktop browsers can control GRBL machines through Web Serial. Projects can also be saved or exported, and the static application can be hosted without a backend.",
+      "sources": [
+        {
+          "url": "https://github.com/theanam/openlaser.app/blob/e128495e5be167f5614b75c2663db29fb98d0585/README.md",
+          "title": "openlaser official README",
+          "revision": "e128495e5be167f5614b75c2663db29fb98d0585"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
+    },
+    "b120ebd626696256ad76c7d15c2efd05162f9a8afdcd6811995f12f488359dd2": {
+      "project_url": "https://github.com/andrewyng/openworker",
+      "text": "OpenWorker combines a desktop interface with a local agent server for tasks involving files, code, documents and connected services. Users choose hosted model providers or local models through Ollama, then connect applications or MCP tools. It can produce files, run recurring tasks and respond to Slack mentions, with approval controls and transcripts for reviewing tool activity.",
+      "sources": [
+        {
+          "url": "https://github.com/andrewyng/openworker/blob/7bac273885d77f5794416ba7da5ad4ab4ceafd5f/README.md",
+          "title": "OpenWorker official README",
+          "revision": "7bac273885d77f5794416ba7da5ad4ab4ceafd5f"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
     }
   }
 }

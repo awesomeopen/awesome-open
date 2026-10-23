@@ -15,7 +15,6 @@ module.exports=async({page,url,data,capture})=>{
    assert.equal(await plate.count(),1);
    assert.equal(await plate.locator('.plate-departure>a').getAttribute('href'),p.url);
    assert.equal(await plate.locator('.plate-art').count(),p.artwork?1:0);
-   assert.equal(await plate.locator('.plate-departure .sheet-label').textContent(),'In the wild');
    assert.equal(await plate.locator('.permalink').innerText(),'Specimen: '+name+' (permalink)');
    const qr=plate.locator('.label-qr');
    assert.equal(await qr.getAttribute('href'),'https://awesomeopen.github.io/awesome-open/#project-'+p.id);

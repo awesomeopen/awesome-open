@@ -42,8 +42,11 @@ class StarSiteTests(unittest.TestCase):
         svg=star_history.svg(project)
         self.assertEqual(svg.count('<rect '),24)
         self.assertIn('Monthly stars retained at fetch',page)
-        self.assertIn('Independent square-root scale: 0–31',page)
-        self.assertIn('not guaranteed UTC',page)
+        self.assertIn('Stars created in each month that remained at the last successful fetch. Independent square-root scale: 0–31 stars/month.</p>',page)
+        self.assertNotIn('Not historical totals',page)
+        self.assertNotIn('not guaranteed UTC',page)
+        self.assertNotIn('HN stories and GitHub stars are independent measurements',page)
+        self.assertIn('not guaranteed UTC',svg)
         self.assertNotIn('<script src="https://',page)
         card=page.split('id="project-'+project['id']+'"')[1].split('</article>')[0]
         self.assertGreater(card.index('star-history'),card.index('<div class="specimen-interior'))
