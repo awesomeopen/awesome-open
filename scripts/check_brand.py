@@ -107,9 +107,9 @@ def main():
     assets_path = ROOT / 'brand/assets.lock.json'
     skills_path = ROOT / 'brand/skills.lock.json'
     skills = json.loads(skills_path.read_text())
-    if skills.get('schema_version') != 1 or len(skills.get('skills', [])) != 2:
-        raise ValueError('Expected the two documented pinned reusable skills (schema 1)')
-    if {s['name'] for s in skills['skills']} != {'retro-scraperism', 'speculative-fossoligy'}:
+    if skills.get('schema_version') != 1 or len(skills.get('skills', [])) != 3:
+        raise ValueError('Expected the three documented pinned skills (schema 1)')
+    if {s['name'] for s in skills['skills']} != {'retro-scraperism', 'speculative-fossoligy', 'curb-your-verbosiasm'}:
         raise ValueError('Unexpected or duplicate pinned skill names')
     actual_assets = asset_inventory()
     actual_skills = [skill_inventory(entry) for entry in skills['skills']]

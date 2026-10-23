@@ -55,6 +55,32 @@
           "sha256": "3c0eb9bad7e67517f678da8ec2f9f0d8add14415cfdce94cf294ac11ec4ebbf0"
         }
       }
+    },
+    {
+      "name": "curb-your-verbosiasm",
+      "path": ".agents/skills/curb-your-verbosiasm",
+      "authority": "Owner-maintained Skills workspace; Awesome Open documentation workflow",
+      "source_skill": "curb-your-verbosiasm",
+      "source_revision": "f5c5059571051683e2b45dfd4dcc7c3e8e451464",
+      "captured_at": "2026-10-23",
+      "files": {
+        ".agents/skills/curb-your-verbosiasm/SKILL.md": {
+          "bytes": 7313,
+          "sha256": "964bacd180ee589c1e7aabb878c578d33db6489def93f72ac7f964a0d7070717"
+        },
+        ".agents/skills/curb-your-verbosiasm/agents/openai.yaml": {
+          "bytes": 248,
+          "sha256": "e5661ea14be2bcca1e5bfb1cf1d01847613aee03281218eed85e40b6333612d9"
+        },
+        ".agents/skills/curb-your-verbosiasm/references/examples.md": {
+          "bytes": 3291,
+          "sha256": "d7d080111fb3fb0733c8c168bcfd2ec7f611c2a4e7f2853bd70ec23214c358cb"
+        },
+        ".agents/skills/curb-your-verbosiasm/references/repository.md": {
+          "bytes": 4324,
+          "sha256": "62496a7d16fdad3ea75add0e5b5610f4f3f8eaa0665b6edfaec5eac429809383"
+        }
+      }
     }
   ]
 }
