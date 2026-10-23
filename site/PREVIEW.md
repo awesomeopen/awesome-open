@@ -57,7 +57,6 @@ Active branch: `design/jar-depth-motion`. Review `/jars-05/jars.html`. Hover/foc
 
 ## Production promotion
 The production publisher runs build_site.py --production, composing the reviewed seven-jar hero into index.html with the current catalog and all evidence cards. Production has no preview title or noindex directive. PR Chromium checks exercise index.html, including jar interactions. The private Site root mirrors this build for review; historical preview subdirectories remain available.
-The self-contained download remains a motion-free ledger with embedded artwork, fonts and evidence.
 
 <a id="opt-in-serif-comparison"></a>
 
