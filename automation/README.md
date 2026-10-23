@@ -1,23 +1,25 @@
 # Automation inventory
 
-Verified 2026-10-21 at 03:15 UTC against the user-requested ChatGPT tasks and
-repository workflows: four hosted tasks enabled, the completed history-backfill
-coordinator disabled. This is a dated operating inventory. 
-Editing or cloning these files does not register, enable or alter
-a task. Check the actual task and current repository contract before a run.
+This inventory describes the assistant-hosted tasks and repository publisher.
+Editing or cloning these files does not register, enable or alter a task.
+Check actual registration and the current repository contract before a run.
 
 ## Hosting and cadence
 
-| Task | Runner | Configured cadence | State at verification |
+| Task | Runner | Configured cadence | Operating state |
 | --- | --- | --- | --- |
 | [Discover Open software](#discover-open-software) | ChatGPT-hosted assistant | Daily, nominal 08:00 UTC (`Etc/UTC`), flexible | Enabled, recurring |
 | [Find project alternatives](#find-project-alternatives) | ChatGPT-hosted assistant | Monday, nominal 08:00 UTC (`Etc/UTC`), flexible | Enabled, recurring |
 | [Review existing alternatives](#review-existing-alternatives) | ChatGPT-hosted assistant | Monday, nominal 09:00 UTC (`Etc/UTC`), flexible | Enabled, recurring |
 | [Backfill specimen artwork](#backfill-specimen-artwork) | ChatGPT-hosted assistant | Daily, nominal 08:00 `America/New_York`, flexible | Enabled, finite backlog |
+| [Backfill project aliases](backfill-project-aliases.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
+| [Backfill Function summaries](backfill-function-summaries.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
+| [Backfill feature notes](backfill-feature-notes.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
+| [Reconcile documentation](reconcile-documentation.md) | ChatGPT-hosted assistant | Daily, 04:00 `America/New_York`, exact | Setup; register after reviewed contract merges |
 | [Backfill GitHub star history](#backfill-github-star-history) | Retired ChatGPT-hosted coordinator; manual collection capability remains in GitHub Actions | Formerly hourly; scheduler timezone `America/Los_Angeles` | Disabled 2026-10-21; initial backfill complete with one documented unavailable repository |
 
-Flexible times are nominal. The artwork task
-follows New York local time, including daylight saving changes. The retired
+Flexible times are nominal. New York schedules follow local time, including
+daylight saving changes. The retired
 history coordinator checked hourly; it did not dispatch every hour. Prerequisites,
 an existing run, quota reset and `resume_after` could defer work.
 
@@ -48,7 +50,7 @@ The manual `history_backfill` input defaults to false and adds no GitHub cron.
   software. Do not invent missing metrics, sources, artwork or review claims.
 - Among curated-source writes, only discovery's source-only catalog additions
   have direct-main authorization.
-  Alternatives, artwork and summaries use separate scoped **draft PRs**. A build's
+  All other authored-source and enrichment proposals use separate scoped **draft PRs**. A build's
   `approved` record status does not authorize a merge. No task merges, marks a
   draft ready, enables auto-merge or changes repository protections.
 - Use each contract's validation, offline tests and previews. For artwork and
@@ -87,76 +89,43 @@ artwork under [the specimen contract](../site/SPECIMEN-ART.md) and summaries und
 draft PR; summaries use a summary-data-only draft PR. Neither shares the direct
 catalog commit, and unavailable enrichment does not block discovery.
 
-**Artwork file scope:** Verified against the owner-authorized hosted-task update
-on 2026-10-21 at 09:09 UTC. Discovery artwork PRs include new originals at
+**Artwork file scope:** Discovery artwork PRs include new originals at
 `site/specimens/<project-id>.webp`, matching new cut-outs at
 `site/specimens/cutouts/<project-id>.webp`, `data/specimen_art.json` metadata,
 corresponding incremental `site/specimens/cutouts.json` records and incremental
 `brand/assets.lock.json` checksum entries. Generate and validate the derivatives
 under the merged specimen contract and keep all five parts together in the same
-separate scoped draft PR. Preserve unrelated assets and records. This aligns the
-hosted task with the repository handoff; catalog acceptance, technical review and
-separate merge approval remain required. Other task scopes and schedules are
-unchanged.
+separate scoped draft PR. Preserve unrelated assets and records. Catalog acceptance, technical review and separate merge approval remain required.
 
-Until the conditional handover below, the daily discovery task gradually
-backfills missing Function summaries: consider at most **10 distinct existing projects** and propose at most **five missing
-summaries per run**. Skip every existing review status, open proposals and owner
-edits. Keep at most one backfill draft awaiting review; while it is pending,
-continue discovery and deduplicated new-project summaries. Rotate sorted canonical
-IDs, recording the last considered ID and skip reasons in the run report; use
-deterministic UTC-day rotation if the previous report is unavailable. Do not add
-a repository cursor file, refresh review dates or overwrite reviewed prose.
+The dedicated [summary job](backfill-function-summaries.md) owns missing
+existing-project summaries. Discovery's conditional hosted instruction delegates
+that backlog when the approved job specification is present on main; discovery
+retains new-project summaries and artwork. Check both jobs' open proposals by
+canonical ID.
 
 **Stop/pause:** This discovery task recurs until changed or canceled. No qualified
 candidate means no catalog write. Missing sources or unavailable art/summary
 tools defer only that enrichment; validation/publication failures are reported.
 
-## Enrichment job rollout
+## Enrichment jobs
 
-Owner-requested on 2026-10-22: separate existing-project enrichment into three
-hosted jobs with independent draft-batch review gates. Hosted registrations and
-the conditional discovery prompt were verified on **2026-10-22 at 04:45 UTC**.
-All three registrations are enabled but data work remains gated on each reviewed
-contract merging into main. The registered pilot is
-**three flexible runs per day per job**, nominally 08:00, 15:00 and 19:00
-`America/New_York`, each researching at most **10 distinct
-canonical projects** and proposing at most **10 records**. Ten is an editorial
-review and runtime bound, not an API-imposed maximum. A pending batch pauses its
-own job; three scheduled runs do not guarantee 30 proposals per day.
+The alias, Function-summary and feature-note jobs are registered and enabled;
+their reviewed contracts are merged. Each has an independent one-pending-draft
+review gate, with at most **10 canonical projects** researched and **10 records**
+proposed per run. Ten is an editorial/runtime bound, not an API maximum or a
+promise of 30 daily additions. Their linked contracts own selection, evidence,
+rotation and validation details.
 
-| Job | Repository contract | Proposed data scope | Activation state |
-| --- | --- | --- | --- |
-| Backfill Function summaries | [Summary job](backfill-function-summaries.md), [PR #170](https://github.com/awesomeopen/awesome-open/pull/170) | Missing records in `data/function_summaries.json` | Registered; waiting for reviewed contract on main; conditional discovery handover verified |
-| Backfill project aliases | [Job proposal #168](https://github.com/awesomeopen/awesome-open/pull/168); [alias contract](../site/PROJECT-ALIASES.md) | Reviewed official names in `data/project_aliases.json` | Registered; waiting for reviewed job contract on main |
-| Backfill feature notes | [Job proposal #169](https://github.com/awesomeopen/awesome-open/pull/169); [feature contract](../site/FUNCTION-SUMMARIES.md#optional-feature-notes) | Missing feature notes in existing approved summaries | Registered; waiting for reviewed job contract on main |
+| Job | Data scope |
+| --- | --- |
+| [Backfill Function summaries](backfill-function-summaries.md) | Missing records in `data/function_summaries.json` |
+| [Backfill project aliases](backfill-project-aliases.md) | Official alternate names in `data/project_aliases.json` |
+| [Backfill feature notes](backfill-feature-notes.md) | Missing notes on existing approved summaries |
 
-These registrations have timers, while their unmerged contracts keep data writes
-blocked. Each runner reads its own reviewed, merged job specification before
-doing work. Merging a documentation PR releases that job's repository gate; it
-does not create a timer or itself execute a batch. Check actual registration and
-main again on every run.
-
-For summaries, verify the gated hosted registration and a conditional ownership
-rule in discovery before merging the job specification. Discovery continues its
-legacy existing-project step while the approved specification is absent from
-main; once present, it skips only that step. The dedicated runner reads the same
-merged specification and becomes its sole owner. This keeps the handover tied to
-one repository event without an extra data schema or unpublished activation flag.
-The operator must verify the registered prompts and record the actual activation;
-if registration fails, keep the specification unmerged and report the blocker.
-Retain discovery's new-project summaries and artwork, normal publishing,
-alternatives and all other schedules unchanged.
-
-Flexible windows may overlap. Every job checks for an already-running attempt
-and open proposals before beginning and again before publication. Do not rely on
-staggered clock times to prevent duplicates.
-
-Summary and feature jobs share a file, so they deduplicate **project IDs**, not
-only filenames. Each checks open PR diffs from both jobs and skips projects
-already proposed. Before publishing, re-fetch main and reconcile selected-record
-changes without replacing another job's records or owner edits. No job changes
-schema, renderer or review policy during a data batch.
+Flexible windows can overlap. Check active attempts and relevant open PRs before
+research and publication; clock separation is not a lock. Summary and feature
+jobs share a file and deduplicate by canonical ID. Re-fetch main and apply only
+selected-record additions, preserving other proposals and owner edits.
 
 ## Find project alternatives
 
@@ -284,12 +253,22 @@ Do not redispatch solely to repeat a reviewed unavailable result. Report actual
 coverage/failures and stop; the retired coordinator stays disabled. Leave normal
 publisher and discovery schedules unchanged.
 
+## Reconcile documentation
+
+The [job contract](reconcile-documentation.md) defines a daily incremental check
+and Sunday rotating audit, proposing up to five related corrections in one
+docs-only draft. It compares approved intent, implementation and registered
+runtime state, and shortens duplicate or obsolete guidance. Same-PR maintenance
+remains the first defense. Setup awaits owner merge and verified registration;
+the contract alone creates no schedule.
+
 ## Keeping this inventory current
 
 When an owner-authorized task change is made, verify the actual registration and
-update this inventory's date, cadence, scope, limits and stopping conditions in a
+update affected cadence, scope, limits and stopping conditions in a
 reviewed documentation change. Reconcile the linked handoffs in the same change.
-Keep credentials, connection details, raw task prompts and private run context
+Use PR history for verification evidence; clean checks need no dated inventory
+entry. Keep credentials, connection details, raw task prompts and private run context
 outside Git. Publish only the task's public operating contract.
 
 For a clone, choose an operator/runner, review permissions, and explicitly register
