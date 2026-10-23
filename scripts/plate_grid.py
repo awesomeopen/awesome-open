@@ -7,7 +7,6 @@ alternatives row disappears when there is nothing to show.
 from html import escape as _escape
 
 import deployment
-import star_history
 
 UNKNOWN = "Unknown"
 NO_GITHUB = "No GitHub repository mapped."
@@ -134,16 +133,15 @@ def stars_box(project):
         trail += " · Checked " + esc(record["checked_at"])
     if good:
         trail += " · Last successful fetch " + esc(good["fetched_at"])
-    sources = (f'<p class="fine-print">{star_history.BOUNDARIES} HN stories and GitHub stars are independent '
-               f'measurements with separate scales. {trail} · <a href="{esc(record["source_url"])}">Provider source</a></p>')
+    sources = (f'<p class="fine-print">{trail} · <a href="{esc(record["source_url"])}">Provider source</a></p>')
     if record.get("chart_url"):
         months, counts = good["months"], good["monthly_counts"]
         total = sum(counts)
         body = (f'<a class="pg-spark-link" href="{esc(record["source_url"])}"><img class="pg-spark" src="{esc(record["chart_url"])}" '
                 f'width="120" height="24" alt="Monthly stars retained at fetch, {esc(months[0])} to {esc(months[-1])}" loading="lazy"></a>'
                 + foot(f"{total:,}", months[0], months[-1]))
-        popup = (state(status) + f"<p>{total:,} stars / past 2y: {star_history.MEANING}</p>"
-                 f"<p>Independent square-root scale: 0–{max(1, *counts):,} stars/month.</p>" + sources)
+        popup = (state(status) + f"<p>{total:,} stars / past 2y: Stars created in each month that remained at the last successful fetch. "
+                 f"Independent square-root scale: 0–{max(1, *counts):,} stars/month.</p>" + sources)
     else:
         body = empty_chart()
         withheld = ("Cached history uses a different month window; chart withheld until aligned."
