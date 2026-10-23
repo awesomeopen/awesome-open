@@ -305,6 +305,7 @@
 | [Open Whisper](https://github.com/TwilightDuck/OpenWhisper) | Mac dictation application with local speech recognition, personal vocabulary corrections, transcript history, and usage statistics. |
 | [OpenWhispr](https://github.com/OpenWhispr/openwhispr) | Voice dictation application with local and hosted speech models, meeting transcription, and notes.<br>Alternative to: [Wispr Flow](https://github.com/OpenWhispr/openwhispr/blob/main/README.md), [Granola](https://github.com/OpenWhispr/openwhispr/blob/main/README.md) |
 | [OpenWork](https://github.com/different-ai/openwork) | Desktop workspace where AI agents work on local files.<br>Alternative to: [Claude Cowork](https://github.com/different-ai/openwork#readme), [Codex](https://github.com/different-ai/openwork#readme) |
+| [OpenWorker](https://github.com/andrewyng/openworker) | Desktop AI assistant for documents, code review, connected applications, and scheduled tasks using hosted or local models. |
 
 ## Business & Commerce
 
@@ -503,7 +504,9 @@
 | [open-gps](https://github.com/open-flight/open-gps) | ESP32-S3 firmware for a handheld golf shot tracker with GPS distance measurement and shot export. |
 | [OpenHaystack](https://github.com/seemoo-lab/openhaystack) | Track personal Bluetooth devices through Apple's Find My network. |
 | [OpenIK](https://github.com/WouterApts/openik-unity) | Unity components for inverse kinematics with FABRIK, CCD, and Jacobian solvers and joint constraints. |
+| [Open Industry Project](https://github.com/Open-Industry-Project/Open-Industry-Project) | Browser-based warehouse and manufacturing simulator with industrial equipment, a built-in PLC, and desktop connections to external controllers. |
 | [OpenIPC](https://github.com/OpenIPC/firmware) | Alternative firmware for IP cameras. |
+| [openlaser](https://github.com/theanam/openlaser.app) | Browser-based design, toolpath preview, and job control for laser engravers and cutters. |
 | [OpenMV](https://github.com/openmv/openmv) | Python-programmable camera firmware with embedded machine vision. |
 | [OpenNollie](https://github.com/AbdulWasayWk/OpenNollie) | Linux application for Nollie 16CH RGB controllers, with per-port colors, custom lighting effects, and on-device animation storage. |
 | [OpenOCD](https://github.com/openocd-org/openocd) | On-chip programming, debugging, and boundary-scan tools. |
