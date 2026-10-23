@@ -538,19 +538,6 @@
     var summary = doc.getElementById('selection-summary');
     var download = doc.getElementById('export-csv');
     var objectURL = null;
-    var projectRows = Array.from(doc.querySelectorAll('#project-table tbody tr[data-id]'));
-    var projectBody = doc.querySelector('#project-table tbody');
-    var emptyRow = doc.getElementById('project-table-empty');
-    if (projectBody && !emptyRow) {
-      emptyRow = doc.createElement('tr');
-      emptyRow.id = 'project-table-empty';
-      emptyRow.hidden = true;
-      var emptyCell = doc.createElement('td');
-      emptyCell.colSpan = doc.querySelectorAll('#project-table thead th').length || 8;
-      emptyCell.textContent = 'No projects match these filters.';
-      emptyRow.appendChild(emptyCell);
-      projectBody.appendChild(emptyRow);
-    }
 
     function setLocation(filters, replace) {
       var target = win.location.pathname + filterSearch(filters, win.location.search) + win.location.hash;
@@ -579,8 +566,6 @@
         node.style.width = barWidth(result.metrics[node.getAttribute('data-ratio')], result.metrics.total);
       });
       if (summary) summary.textContent = formatNumber(result.metrics.total) + '/' + formatNumber(data.projects.length) + ' selected.';
-      var projectCount = doc.getElementById('project-count');
-      if (projectCount) projectCount.textContent = formatNumber(result.metrics.total);
       if (reset) reset.disabled = result.filters.category === 'all' && result.filters.license === 'all';
       renderSharedNames(doc, result.sharedNames, categoryMap);
       renderRhymingNames(doc, result.rhymingNames);
@@ -590,10 +575,6 @@
       renderChart(doc, doc.getElementById('age-chart'), result.age);
       renderChart(doc, doc.getElementById('push-chart'), result.push, 'projects', result.recencyMaximum);
       renderChart(doc, doc.getElementById('release-chart'), result.release, 'projects', result.recencyMaximum);
-      var visible = new Set(result.projects.map(function (project) { return project.id; }));
-      projectRows.forEach(function (row) { row.hidden = !visible.has(row.getAttribute('data-id')); });
-      var empty = doc.getElementById('project-table-empty');
-      if (empty) empty.hidden = result.projects.length !== 0;
       if (download) {
         var csv = exportCSV(data, result.projects);
         if (win.Blob && win.URL && win.URL.createObjectURL) {

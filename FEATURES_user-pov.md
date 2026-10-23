@@ -106,14 +106,12 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Duplicate and variant names - Find separate projects with identical names or reviewed grouping rules for case, spacing, hyphen and underscore variants.
 - Name-difference highlights - See which letters, spaces or separators differ within Observatory name groups.
 - Reviewed rhyming names - Explore a small set of names that rhyme under the stated pronunciation assumptions; unreviewed names remain unclassified.
-- Observatory filters - Restrict charts, project rows and name groups by category and license.
+- Observatory filters - Restrict charts, metrics, name groups and the CSV export by category and license.
 - Shareable Observatory selections - Preserve a selection in the URL and revisit it with Back and Forward.
 - Chart data tables - Read the exact values behind each visual chart in a foldout table.
-- Full project data table - Inspect the selected records behind the summary.
 - Evidence-coverage overview - See where the whole collection has usable, partial, stale or missing supporting data.
 - Selection CSV export - Download the currently selected Observatory rows for further analysis, with source and snapshot information.
 - Observatory snapshot download - Retrieve the collection's structured snapshot and aggregates.
-- Offline Observatory report - Download a self-contained report for reading and filtering without a connection; external sources still need the internet.
 
 ## Available: read, navigate and reuse
 
@@ -124,11 +122,10 @@ planned are listed separately. Evidence and artwork coverage vary by project.
 - Labeled controls and status updates - Use accessible control names and announced result counts when navigating with assistive technology.
 - Text equivalents for charts - Read chart labels, descriptions or data tables.
 - No-JavaScript reading - Browse all projects and follow full-record links even when interactive search and filtering are unavailable.
-- Offline catalog download - Keep one self-contained HTML file with records, artwork, fonts, charts and embedded evidence; external project links still need a connection.
 - Catalog JSON export - Reuse structured project records and evidence in your own analysis or tools.
 - Local search and filters - Change your selection within the downloaded catalog index without a server round trip for each query.
 - On-demand record loading - Start with the list and load full evidence when opening a record.
-- Locally bundled fonts and assets - Read the exported guide without relying on an external font service.
+- Locally bundled fonts and assets - Read the guide without relying on an external font service.
 - Catalog, About and Observatory navigation - Move between browsing, the collection's explanation and its statistics.
 - Return-to-top link - Get back to the catalog from the footer without scrolling through the entire collection.
 - Reusable catalog content - Reuse the list under CC0-1.0 while respecting the separate licenses of listed software, fonts and artwork.

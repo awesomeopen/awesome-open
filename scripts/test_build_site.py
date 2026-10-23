@@ -1,7 +1,6 @@
 """Offline site checks also run in the existing unittest workflow."""
 
 import copy
-import base64
 from html.parser import HTMLParser
 import json
 from font_assets import font_asset_url
@@ -106,7 +105,7 @@ class SiteTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.output, cls.catalog = baseline_site(source_sha='a' * 40)
-        # The complete renderer is retained for standalone and static records.
+        # The complete renderer is retained for static records.
         # LazyDetailSiteTests below exercise the actual slim initial entry point.
         cls.html = render_html(cls.catalog, attach_specimen_cutouts(cls.catalog, ROOT))
         cls.page = Page(cls.html)
@@ -115,8 +114,14 @@ class SiteTests(unittest.TestCase):
         from build_jar_preview import build as build_hero
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp)
+            # A rebuild over an older output removes the retired downloads.
+            (output / 'observatory').mkdir()
+            for retired in ('standalone.html', 'observatory/report.html'):
+                (output / retired).write_text('old', encoding='utf-8')
             build(output, 'a' * 40)
             build_hero(output, production=True)
+            self.assertFalse((output / 'standalone.html').exists())
+            self.assertFalse((output / 'observatory/report.html').exists())
             page = (output / 'index.html').read_text()
             self.assertEqual(page.count('class="jar-hall"'), 1)
             self.assertIn('class="jar-page"', page)
@@ -188,11 +193,9 @@ class SiteTests(unittest.TestCase):
         self.assertIn('href="#about">About</a>', self.html)
         self.assertEqual(self.page.by_id['about'].tag, 'footer')
         self.assertIn('href="spotlight/">Spotlight</a>', self.html)
-        standalone = (self.output / 'standalone.html').read_text()
-        self.assertIn('href="https://awesomeopen.github.io/awesome-open/spotlight/"', standalone)
         record = next((self.output / 'records').glob('*.html')).read_text()
         self.assertIn('href="spotlight/"', record)
-        for document in (self.html, standalone, record):
+        for document in (self.html, record):
             self.assertNotIn('href="draws/"', document)
             self.assertNotIn('awesome-open/draws/', document)
         self.assertTrue((self.output / 'spotlight/index.html').is_file())
@@ -202,13 +205,12 @@ class SiteTests(unittest.TestCase):
         self.assertIn('shared square-root scale</li><li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>', self.html)
 
     def test_ledger_starts_without_cover_and_retains_plain_controls(self):
-        for document in (self.html, (self.output / 'standalone.html').read_text()):
-            page = Page(document)
-            self.assertFalse(any(node.has_class(c) for node in page.elements for c in ('hero', 'reading-room', 'collection-band')))
-            self.assertEqual(page.by_id['page-title'].tag, 'h1')
-            self.assertIn('Projects', page.by_id['page-title'].text)
-            self.assertEqual(page.by_id['method'].tag, 'details')
-            self.assertEqual(page.by_id['clear-filters'].text.strip(), 'Reset filters ↺')
+        page = Page((self.output / 'index.html').read_text())
+        self.assertFalse(any(node.has_class(c) for node in page.elements for c in ('hero', 'reading-room', 'collection-band')))
+        self.assertEqual(page.by_id['page-title'].tag, 'h1')
+        self.assertIn('Projects', page.by_id['page-title'].text)
+        self.assertEqual(page.by_id['method'].tag, 'details')
+        self.assertEqual(page.by_id['clear-filters'].text.strip(), 'Reset filters ↺')
 
     def test_form_labels_status_and_native_disclosures_are_accessible(self):
         self.assertEqual(len(self.page.nodes('h1')), 1)
@@ -373,70 +375,20 @@ for (const input of inputs) {
         self.assertTrue((self.output / 'vendor/FONT-LICENSE.txt').is_file())
         self.assertTrue((self.output / 'vendor/FONT-PROVENANCE.json').is_file())
 
-    def test_standalone_preserves_every_record_and_embeds_all_runtime_resources(self):
-        page = Page((self.output / 'standalone.html').read_text())
-        self.assertEqual(page.cards, self.page.cards)
-        self.assertEqual(json.loads(page.by_id['catalog-data'].text), search_index(self.catalog))
-        self.assertEqual(len(page.nodes('script')), 2)
-        self.assertEqual(len(page.nodes('link')), 3)
-        for link, name in zip(page.nodes('link'), ('favicon.ico', 'fruit-16.png', 'fruit-32.png')):
-            self.assertEqual(link.attrs['rel'], 'icon')
-            prefix, encoded = link.attrs['href'].split(',', 1)
-            self.assertEqual(prefix, f'data:{BRAND_ASSETS[name]};base64')
-            self.assertEqual(base64.b64decode(encoded, validate=True), (self.output / 'brand' / name).read_bytes())
-        for name, script in zip(('catalog.js',), page.nodes('script')[:-1]):
-            self.assertIn('defer', script.attrs)
-            self.assertEqual(script.text, '')
-            prefix, encoded = script.attrs['src'].split(',', 1)
-            self.assertEqual(prefix, 'data:text/javascript;base64')
-            self.assertEqual(base64.b64decode(encoded, validate=True), (self.output / name).read_bytes())
-        for image in page.images:
-            prefix, encoded = image['src'].split(',', 1)
-            decoded = base64.b64decode(encoded, validate=True)
-            if image['alt'] == 'HN discussions / 2y' or image['alt'].startswith(('HN stories per month', 'Monthly stars retained at fetch')):
-                self.assertEqual(prefix, 'data:image/svg+xml;base64')
-                self.assertIn(b'<svg', decoded)
-            elif prefix == 'data:image/svg+xml;base64':
-                self.assertIn(b'aria-label="QR code: permalink to ', decoded)
-            elif prefix == 'data:image/webp;base64':
-                self.assertEqual(decoded[:4], b'RIFF')
-                self.assertEqual(decoded[8:12], b'WEBP')
-            else:
-                self.assertEqual(prefix, 'data:image/png;base64')
-                name = ('search-loupe.png' if image.get('class') == 'search-icon' else
-                        'botanical-128.png' if image.get('class') == 'brand-mark' else
-                        'fruit-96.png' if image['alt'] == '' else 'awesome-open-logo.png')
-                self.assertEqual(decoded, (self.output / 'brand' / name).read_bytes())
+    def test_build_writes_no_standalone_download_and_links_to_none(self):
+        self.assertFalse((self.output / 'standalone.html').exists())
+        self.assertFalse((self.output / 'observatory/report.html').exists())
+        pages = [self.output / 'index.html', *(self.output / 'records').glob('*.html'),
+                 self.output / 'observatory/index.html', self.output / 'spotlight/index.html']
+        for page in pages:
+            html = page.read_text()
+            self.assertNotIn('standalone.html', html, page)
+            self.assertNotIn('report.html', html, page)
+        footer = Page(self.html).by_id['about']
+        self.assertEqual([link.attrs['href'] for link in footer.descendants('a') if link.attrs.get('href') in ('catalog.json', 'data/hn_evidence.json')],
+                         ['data/hn_evidence.json', 'catalog.json'])
 
-        expected_downloads = {'catalog.json': self.catalog,
-                              'hn_evidence.json': json.loads((ROOT / 'data/hn_evidence.json').read_text()),
-                              'alternatives.json': json.loads((ROOT / 'data/alternatives.json').read_text())}
-        if (ROOT / 'data/project_signals.json').exists():
-            expected_downloads['project_signals.json'] = json.loads((ROOT / 'data/project_signals.json').read_text())
-        if (ROOT / 'data/star_history.json').exists():
-            expected_downloads['star_history.json'] = json.loads((ROOT / 'data/star_history.json').read_text())
-        actual_downloads = {}
-        for link in page.nodes('a'):
-            href = link.attrs['href']
-            if href.startswith('data:'):
-                prefix, encoded = href.split(',', 1)
-                self.assertEqual(prefix, 'data:application/json;base64')
-                actual_downloads[link.attrs['download']] = json.loads(base64.b64decode(encoded, validate=True))
-            elif href.startswith('#'):
-                self.assertIn(href[1:], page.ids)
-            else:
-                self.assertTrue(href.startswith(('https://', 'http://')), href)
-        self.assertEqual(actual_downloads, expected_downloads)
-        for style in page.nodes('style'):
-            self.assertNotRegex(style.text, r'@import\b')
-            # Consume the complete quoted URL. The paper-grain data SVG contains
-            # an inner url(%23n) filter reference, not a second CSS dependency.
-            tokens = re.findall(r'''url\(\s*(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'|([^\s)'"]+))\s*\)''', style.text)
-            for token in tokens:
-                resource = next(value for value in token if value)
-                self.assertTrue(resource.startswith('data:'), resource[:100])
-
-    def test_footer_pattern_is_copied_embedded_and_not_rotating_art(self):
+    def test_footer_pattern_is_copied_and_not_rotating_art(self):
         pattern = 'patterns/navypattern2.png'
         original = (ROOT / 'site' / pattern).read_bytes()
         self.assertEqual((self.output / pattern).read_bytes(), original)
@@ -450,18 +402,6 @@ for (const input of inputs) {
         footer = next(image for image in self.page.images if 'data-footer-background' in image)
         self.assertEqual(json.loads(footer['data-backgrounds']), self.catalog['footer_backgrounds'])
         self.assertNotEqual(footer['src'], pattern)
-        standalone = Page((self.output / 'standalone.html').read_text())
-        styles = '\n'.join(node.text for node in standalone.nodes('style'))
-        encoded = re.search(r'background-image: url\(data:image/png;base64,([^)]*)\)', styles)
-        self.assertIsNotNone(encoded)
-        self.assertEqual(base64.b64decode(encoded.group(1), validate=True), original)
-        self.assertNotIn(pattern, styles)
-        offline_footer = next(image for image in standalone.images if 'data-footer-background' in image)
-        choices = json.loads(offline_footer['data-backgrounds'])
-        self.assertEqual(len(choices), len(self.catalog['footer_backgrounds']))
-        for choice, asset in zip(choices, self.catalog['footer_backgrounds']):
-            self.assertEqual(base64.b64decode(choice.split(',', 1)[1], validate=True),
-                             (ROOT / 'site' / asset).read_bytes())
 
     def test_supplied_brand_assets_are_sized_transparent_and_copied_unchanged(self):
         for name in BRAND_ASSETS:
@@ -485,7 +425,6 @@ for (const input of inputs) {
         local = copy.deepcopy(self.catalog)
         local['source_sha'] = None
         self.assertIn(expected, render_html(local))
-        self.assertNotIn('href="styles.css', (self.output / 'standalone.html').read_text())
 
     def test_every_same_origin_runtime_url_is_content_versioned(self):
         pages = [self.output / 'index.html', next((self.output / 'records').glob('*.html')),

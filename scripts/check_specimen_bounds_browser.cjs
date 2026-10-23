@@ -132,13 +132,6 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
       }
       fs.writeFileSync(path.join(output, 'bounds-before-source.json'), JSON.stringify(baseline, null, 2));
     }
-    await page.goto(new URL('standalone.html', url).href);
-    const selector = `#project-${cases[0].id} .specimen-plate`;
-    await page.locator(`#project-${cases[0].id} > details`).evaluate(node => { node.open = true; });
-    await page.locator(selector + ' .plate-art img').evaluate(image => image.decode());
-    assert.ok((await page.locator(selector + ' .plate-art img').getAttribute('src')).startsWith('data:image/'),
-      'Standalone keeps embedded original-resolution artwork');
-    assertGeometry(await measure(page, selector), 'Standalone specimen');
   } finally { await page.close(); }
   const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   try {
@@ -159,5 +152,5 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
     await touchPage.locator('.plate-stage').tap();
     assert.equal(await touchPage.locator('.plate-lens').evaluate(n => n.classList.contains('is-on')), false, 'Second tap closes loupe');
   } finally { await touch.close(); }
-  return { cases: results, screenshots, noJS: true, print: true, touch: true, standalone: true };
+  return { cases: results, screenshots, noJS: true, print: true, touch: true };
 };

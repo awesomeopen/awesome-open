@@ -2,7 +2,7 @@
 """Regenerate tracked hero-only WebP derivatives (Pillow 12.3.0/libwebp 1.6.0).
 
 Normal site builds copy these files and do not require Pillow. Originals and
-expanded/standalone artwork remain untouched. Run explicitly after changing a
+expanded-record artwork remain untouched. Run explicitly after changing a
 hero source, review at display size, then refresh the brand checksum inventory.
 """
 import hashlib

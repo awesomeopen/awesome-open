@@ -192,7 +192,7 @@ No container; direction or object only.
 | `link.external` | today | Leaves the site for an external source | “Explore {name} on {host}”; “Feature source ↗”; “Provider source”; “Hacker News stories”; “{tag_name}”; “{summary source title}”; “{alternative name}” | Arrow leaving the top-right corner of an open square | `--rs-ink` | s m l | scripts/build_site.py:496 `departure-arrow`<br>scripts/build_site.py:455 `feature-source`<br>scripts/build_site.py:235 `Provider source`<br>scripts/build_site.py:554 `hn-chart`<br>scripts/build_site.py:177 `note-value`<br>scripts/build_site.py:576 `summary sources`<br>scripts/build_site.py:541 `alternative links` |
 | `link.permalink` | today | Stable link to this specimen record | “Specimen: {name} (permalink)”; “QR code: permalink to {name}” | Two interlocking chain links | `--rs-ink` | s m l | scripts/build_site.py:406 `permalink`<br>scripts/build_site.py:401 `label-qr` |
 | `link.commit` | today | Links to the exact repository commit a result came from | “Repository commit {sha}” | Short horizontal line through a small open circle | `--rs-ink` | s m | scripts/build_site.py:201 `Scorecard commit` |
-| `link.download` | today | Downloads a file | “Download”; “Download selection CSV”; “Download standalone report” | Down arrow onto a short baseline | `--rs-ink` | s m l | scripts/build_site.py:744 `standalone.html`<br>scripts/build_observatory.py:775 `export-csv`<br>scripts/build_observatory.py:847 `report` |
+| `link.download` | today | Downloads a file | “Download selection CSV” | Down arrow onto a short baseline | `--rs-ink` | s m l | scripts/build_observatory.py:775 `export-csv` |
 | `link.data` | today | Opens raw evidence or catalog data | “HN evidence”; “Comparison evidence”; “Catalog JSON”; “GitHub metric snapshot”; “Release and Scorecard evidence”; “Star-history evidence” | Curly braces { } on a page with a folded corner | `--rs-ink` | s m | scripts/build_site.py:744 `About the data links`<br>scripts/build_observatory.py:757 `evidence_links` |
 | `link.copy` | planned | Copies a link or value to the clipboard | “Copy link” | Two offset overlapping rectangles | `--rs-ink` | s m | — |
 
@@ -219,7 +219,7 @@ Scope and view markers.
 | `scope.collection` | today | Figure covers the whole collection and ignores filters | “Whole collection” | 3×3 grid of filled squares | `--rs-blueprint` | m l | scripts/build_observatory.py:774 `obs-label` |
 | `scope.filtered` | planned | Figure covers only the current filter selection | “Selection” | 3×3 grid with four filled and five outlined squares | `--rs-blueprint` | m l | scripts/build_observatory.py:771 `observatory-filters` |
 | `view.chart` | today | Chart view or chart data | “Chart data” | Three horizontal bars from a shared left axis | `--rs-blueprint` | s m | scripts/build_observatory.py:562 `obs-chart-data` |
-| `view.table` | today | Tabular view of the records | “Data table” | Ruled grid of three rows and two columns | `--rs-blueprint` | s m | scripts/build_observatory.py:775 `project-records` |
+| `view.table` | today | Tabular view of the records | — | Ruled grid of three rows and two columns | `--rs-blueprint` | s m | — (Observatory data table removed, [B-PR184-01](decisions/B-PR184-01.md)) |
 
 ### G. Setup facts and package channels
 

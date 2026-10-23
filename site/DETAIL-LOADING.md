@@ -12,9 +12,7 @@ same-origin record request; no framework runtime or remote data service is used.
 - Each ledger drawer retains a clearly labeled full-record link for no-JavaScript,
   unavailable fetch, file browsing, error recovery and printing. Search and
   filtering still use the embedded index without a request.
-- `standalone.html` keeps the complete inlined ledger, artwork, fonts, charts and
-  evidence downloads. It never needs record fetches. The exhibition preview also
-  retains its complete static records.
+- The exhibition preview retains its complete static records.
 - Registry IDs, hash permalinks, QR destinations, alphabetical detail folios,
   current visible row numbering and filter/sort history retain their meanings.
 
@@ -22,8 +20,7 @@ same-origin record request; no framework runtime or remote data service is used.
 
 Generated ledger, record and exhibition pages use the same content-hashed
 `catalog.js` URL. A fresh lazy ledger must not reuse a cached pre-loader script;
-evidence-only publishes can reuse unchanged runtime bytes. The standalone embeds
-those bytes directly. This prevents mixed-version cache failures; it does not
+evidence-only publishes can reuse unchanged runtime bytes. This prevents mixed-version cache failures; it does not
 establish the cause of every device-specific loading report.
 
 Fetch only a same-origin generated record URL for the expected stable ID, reject
@@ -39,7 +36,7 @@ and on failure. Hide the fallback line as soon as a record starts loading, and
 keep it hidden after success, using the native hidden attribute. The live loading
 status remains visible while the response is pending. Return focus to the
 summary first if that link held keyboard focus. Eviction restores the fallback;
-static record pages and the standalone download remain printable.
+static record pages remain printable.
 
 Retain at most three mounted closed dynamic plates; open plates are never evicted.
 Eviction removes the plate and enhancement callbacks, retaining only nested
@@ -48,10 +45,11 @@ this is a bound on retained DOM.
 
 ## Verification and limits
 
-Compare initial element counts, record-request counts and matched viewport
-screenshots. Exercise failures, retries, interrupted opens, duplicate toggles,
+Keep the initial ledger within its DOM budget of 24 elements per row (see
+`scripts/check_site_browser.cjs`) and compare record-request counts and matched
+viewport screenshots. Exercise failures, retries, interrupted opens, duplicate toggles,
 eviction/reopen, hash links, filters, Back/Forward, keyboard, narrow layout,
-no-JavaScript and standalone paths. Existing PR CI uploads browser screenshots.
+no-JavaScript and static record paths. Existing PR CI uploads browser screenshots.
 
 HTML/transfer bytes, decoded image pixels, JS heap, DOM storage and GPU surfaces
 are different measurements. A smaller DOM does not establish a particular RAM

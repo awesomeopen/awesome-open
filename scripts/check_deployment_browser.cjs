@@ -82,11 +82,5 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   await fallback.locator('.pg-runs .pg-info > summary').click();
   assert.equal(await fallback.locator('.deployment-group').first().isVisible(), true);
   await noJS.close();
-  await page.goto(new URL('standalone.html', url).href);
-  await openFilters();
-  await page.getByLabel('Reviewed run mode', { exact: true }).selectOption('cli');
-  assert.equal(await visible(), cli.length);
-  await page.locator('#clear-filters').click();
-  assert.equal(await page.locator('.pg-runs:has(.deployment-group)').count(), reviewed.length);
   await page.setViewportSize({ width: 1440, height: 1000 });
 };

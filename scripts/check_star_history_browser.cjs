@@ -1,4 +1,4 @@
-/* Additional cached-chart disclosure and offline export checks. */
+/* Additional cached-chart disclosure and static record checks. */
 const assert = require('node:assert/strict');
 module.exports = async ({ page, url, data, capture }) => {
   const project = data.projects.find(p => p.hn && p.star_history?.chart_url);
@@ -28,8 +28,8 @@ module.exports = async ({ page, url, data, capture }) => {
     await drawer.locator(':scope > summary').click();
     assert.equal(await chart.isVisible(),true);
   }
-  await page.goto(new URL('standalone.html',url).href);
-  const images=page.locator('[data-signal="star-history"] .pg-spark');
-  assert.equal(await images.count(),data.projects.filter(p=>p.star_history?.chart_url).length);
-  assert.ok(await images.evaluateAll(nodes=>nodes.every(img=>img.src.startsWith('data:image/svg+xml;base64,'))));
+  await page.goto(new URL('records/'+project.id+'.html',url).href);
+  const chart=page.locator('[data-signal="star-history"] .pg-spark');
+  await chart.evaluate(img=>img.decode());
+  assert.equal(await chart.evaluate(img=>img.complete && img.naturalWidth===120),true);
 };

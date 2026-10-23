@@ -73,8 +73,8 @@ Font CSS and tokens are content-versioned. Failed fonts leave readable system
 fallbacks. No JavaScript is required for typography. Półtawski remains 124,040 bytes;
 Commit Mono remains 86,748 bytes. No font outlines or character sets changed.
 
-Standalone catalog and Observatory reports embed both fonts and complete licenses.
-The maintained historical Observatory mock now rebuilds with current typography;
+The maintained historical Observatory mock embeds both fonts and complete licenses
+and rebuilds with current typography;
 its original design remains documented in the historical source. See
 [base provenance](vendor/FONT-PROVENANCE.json) and
 [Półtawski provenance](vendor/serif-preview/provenance.json).

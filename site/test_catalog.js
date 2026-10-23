@@ -1334,9 +1334,9 @@ test('without AbortController stale protection still works; detached hosts ignor
   assert.equal(ui.parseCount, 0);
 });
 
-test('legacy fully rendered standalone and single-record pages enhance without fetching or catalog controls', () => {
+test('fully rendered ledgers and single-record pages enhance without fetching or catalog controls', () => {
   for (const single of [false, true]) {
-    const ui = detailFixture({ url: 'file:///tmp/site/standalone.html' });
+    const ui = detailFixture({ url: single ? 'file:///tmp/site/records/example.html' : 'file:///tmp/site/index.html' });
     for (const record of ui.records) {
       record.host.remove();
       const html = ui.createRecord({ projectId: record.project.id });

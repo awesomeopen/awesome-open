@@ -126,7 +126,7 @@ python3 scripts/build_site.py --output tmp/feature-site
 Compare each changed record with the fetched baseline: only the missing feature
 list and permitted review-note appendix may differ. Confirm all unrelated data
 is unchanged. Inspect expanded Function/feature output, folded descriptions,
-links and the unchanged summary date in the normal and standalone builds. Run
+links and the unchanged summary date in the ledger and static records. Run
 relevant browser checks and inspect their previews. A local browser limitation
 must be reported; verify CI's browser result rather than counting skipped work
 as passed. Verify remote diff, exact head and draft state, and follow exact-head

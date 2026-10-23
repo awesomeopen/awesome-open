@@ -1,5 +1,4 @@
 """Footer discovery contract and end-to-end delivery, using synthetic artwork."""
-import base64
 import json
 from pathlib import Path
 import shutil
@@ -94,9 +93,4 @@ class FooterArtTests(unittest.TestCase):
         self.assertEqual((normal['width'], normal['height']), ('1200', '400'))
         self.assertEqual(json.loads(normal['data-background-sizes'])[0], [1200, 400])
         self.assertEqual(json.loads(normal['data-backgrounds']), [quote(path, safe='/') for path in choices])
-        offline = next(i for i in Page((output / 'standalone.html').read_text()).images if 'data-footer-background' in i)
-        embedded = json.loads(offline['data-backgrounds'])
-        self.assertEqual(offline['src'], embedded[0])
-        for choice, encoded in zip(choices, embedded):
-            self.assertEqual(base64.b64decode(encoded.split(',', 1)[1]), (output / choice).read_bytes())
         self.assertFalse(any('navypattern' in choice for choice in choices))

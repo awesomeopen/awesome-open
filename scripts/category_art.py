@@ -1,5 +1,4 @@
 """Validated, local category illustrations; ordinary builds need no image library."""
-import base64
 import hashlib
 from html import escape
 import json
@@ -72,7 +71,7 @@ def attach_category_art(catalog, root):
         categories[cid]['artwork'] = {'alt': record['alt'], 'variants': variants}
 
 
-def category_image(category, offline=False, root=None):
+def category_image(category):
     artwork = category.get('artwork')
     if not artwork:
         return ''
@@ -80,15 +79,9 @@ def category_image(category, offline=False, root=None):
     source = small['path']
     medium = artwork['variants']['m']
     end_source = medium['path']
-    responsive = ''
-    if offline:
-        encoded = base64.b64encode((Path(root) / 'site' / source).read_bytes()).decode('ascii')
-        source = 'data:image/webp;base64,' + encoded
-        end_source = 'data:image/webp;base64,' + base64.b64encode((Path(root) / 'site' / end_source).read_bytes()).decode('ascii')
-    else:
-        candidates = ', '.join(f'{artwork["variants"][size]["path"]} {artwork["variants"][size]["width"]}w'
-                               for size in VARIANTS)
-        responsive = f' srcset="{escape(candidates, quote=True)}" sizes="{DISPLAY_SIZE}px"'
+    candidates = ', '.join(f'{artwork["variants"][size]["path"]} {artwork["variants"][size]["width"]}w'
+                           for size in VARIANTS)
+    responsive = f' srcset="{escape(candidates, quote=True)}" sizes="{DISPLAY_SIZE}px"'
     # The adjacent category name supplies the link's accessible name. The image
     # is decorative here; its standalone description remains in provenance.
     return (f'<img class="category-art" src="{escape(source, quote=True)}"{responsive}'

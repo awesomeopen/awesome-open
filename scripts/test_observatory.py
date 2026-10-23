@@ -1,6 +1,5 @@
 """Deterministic snapshot accounting, static fallback and thin route payload."""
 from copy import deepcopy
-import base64
 import csv
 import io
 import json
@@ -308,9 +307,6 @@ class ObservatoryBuildTests(unittest.TestCase):
         self.assertEqual(index['source_sha'],self.catalog['source_sha'])
         self.assertEqual(index['metrics_as_of'],self.catalog['metrics_as_of'])
         self.assertEqual([p['id'] for p in index['projects']],[p['id'] for p in self.catalog['projects']])
-        rows=self.page.by_id['project-table'].descendants('tbody')[0].children
-        self.assertEqual([r.attrs['data-id'] for r in rows],[p['id'] for p in index['projects']])
-        self.assertFalse(any('hidden' in r.attrs for r in rows))
         self.assertIn('hidden',self.page.by_id['observatory-filters'].attrs)
         self.assertEqual(len(self.page.ids),len(set(self.page.ids)))
         for chart in ['category','license','star','age','push','release']:
@@ -331,120 +327,106 @@ class ObservatoryBuildTests(unittest.TestCase):
         self.assertIn('href="observatory/"',(self.output/'index.html').read_text())
         self.assertNotIn('observatory.js',(self.output/'index.html').read_text())
 
-    def test_header_uses_ledger_links_in_both_outputs(self):
-        live='https://awesomeopen.github.io/awesome-open/'
-        for name,hrefs in [('index.html',['../#catalog','../#about','./']),
-                           ('report.html',[live+'#catalog',live+'#about',live+'observatory/'])]:
-            with self.subTest(name=name):
-                nav=next(n for n in Page((self.output/'observatory'/name).read_text()).elements if n.has_class('obs-nav'))
-                links=nav.descendants('a')
-                self.assertEqual(len(links),3)
-                self.assertEqual([a.attrs['href'] for a in links],hrefs)
-                self.assertEqual([a.attrs.get('aria-current') for a in links],[None,None,'page'])
+    def test_header_uses_ledger_links(self):
+        nav=next(n for n in self.page.elements if n.has_class('obs-nav'))
+        links=nav.descendants('a')
+        self.assertEqual(len(links),3)
+        self.assertEqual([a.attrs['href'] for a in links],['../#catalog','../#about','./'])
+        self.assertEqual([a.attrs.get('aria-current') for a in links],[None,None,'page'])
 
     def test_metric_art_sources_and_label_backings(self):
         expected={c['id']:c['artwork']['variants']['s']['path']
                   for c in self.catalog['categories'] if c.get('artwork')}
         self.assertTrue(expected)
-        for name in ['index.html','report.html']:
-            page=Page((self.output/'observatory'/name).read_text())
-            options=page.by_id['category-filter'].descendants('option')
-            self.assertNotIn('data-metric-art', options[0].attrs)
-            for option in options[1:]:
-                source=option.attrs.get('data-metric-art','')
-                path=expected.get(option.attrs['value'])
-                if not path:
-                    self.assertEqual(source,'')
-                elif name=='index.html':
-                    self.assertEqual(source,'../'+path)
-                    self.assertTrue((self.output/path).is_file())
-                else:
-                    self.assertEqual(base64.b64decode(source.removeprefix('data:image/webp;base64,')),
-                                     (self.output/path).read_bytes())
-            for metric in page.by_id['metrics'].children:
-                self.assertEqual(len(metric.descendants('dt')[0].children),1)
-                self.assertEqual(metric.descendants('dt')[0].children[0].tag,'span')
+        page=self.page
+        options=page.by_id['category-filter'].descendants('option')
+        self.assertNotIn('data-metric-art', options[0].attrs)
+        for option in options[1:]:
+            source=option.attrs.get('data-metric-art','')
+            path=expected.get(option.attrs['value'])
+            if not path:
+                self.assertEqual(source,'')
+            else:
+                self.assertEqual(source,'../'+path)
+                self.assertTrue((self.output/path).is_file())
+        for metric in page.by_id['metrics'].children:
+            self.assertEqual(len(metric.descendants('dt')[0].children),1)
+            self.assertEqual(metric.descendants('dt')[0].children[0].tag,'span')
 
-    def test_project_data_disclosure_and_copy_in_both_outputs(self):
-        for name in ['index.html', 'report.html']:
-            text=(self.output/'observatory'/name).read_text(); page=Page(text)
-            disclosure=page.by_id['project-data']
-            self.assertEqual(disclosure.tag, 'details')
-            self.assertNotIn('open', disclosure.attrs)
-            self.assertEqual(disclosure.children[0].tag, 'summary')
-            self.assertTrue(disclosure.children[0].text.startswith('Data table'))
-            self.assertEqual(page.by_id['project-count'].text, f"{len(self.snapshot['projects']):,}")
-            self.assertIn(page.by_id['project-table'], disclosure.descendants('table'))
-            self.assertNotIn(page.by_id['export-csv'], disclosure.descendants('a'))
-            for copy in ['Projects by category', 'Top 10 specimen by GitHub stars.', 'Cached GitHub license identifiers.',
-                         'Days since last GitHub release (cached).',
-                         'Days since GitHub repository creation.', 'Dates are UTC.', 'License detected']:
-                self.assertIn(copy, text)
-            for removed in ['Where the collection gathers', 'Attention is uneven',
-                            'Read the distribution', 'Inspect or take the data',
-                            'What is actually covered?', 'not the project founding date',
-                            'obs-kicker', 'Detected license available', 'Unaffected by filters',
-                            'Sorted by count', 'Variant groups with']:
-                self.assertNotIn(removed, text)
+    def test_project_data_downloads_and_copy(self):
+        text=self.html; page=self.page
+        section=page.by_id['project-records']
+        self.assertEqual([(a.attrs['href'], a.text) for a in section.descendants('a')],
+                         [('projects.csv', 'Download selection CSV'), ('snapshot.json', 'Download complete snapshot JSON')])
+        self.assertEqual(section.descendants('table'), [])
+        self.assertEqual(section.descendants('details'), [])
+        for retired in ['project-data', 'project-table', 'project-count']:
+            self.assertNotIn(retired, page.ids)
+        for copy in ['Projects by category', 'Top 10 specimen by GitHub stars.', 'Cached GitHub license identifiers.',
+                     'Days since last GitHub release (cached).',
+                     'Days since GitHub repository creation.', 'Dates are UTC.', 'License detected']:
+            self.assertIn(copy, text)
+        for removed in ['Where the collection gathers', 'Attention is uneven',
+                        'Read the distribution', 'Inspect or take the data',
+                        'What is actually covered?', 'not the project founding date',
+                        'obs-kicker', 'Detected license available', 'Unaffected by filters',
+                        'Sorted by count', 'Variant groups with', 'Data table', 'standalone report']:
+            self.assertNotIn(removed, text)
 
-    def test_top_ten_share_is_computed_and_displayed_in_both_outputs(self):
+    def test_top_ten_share_is_computed_and_displayed(self):
         # Derive the value from project observations, not the renderer's aggregate.
         stars=sorted((p['stars'] for p in self.snapshot['projects']
                       if p['github'] and p['stars'] is not None),reverse=True)
         expected=round(100 * sum(stars[:10]) / sum(stars),1)
         self.assertGreater(len(stars),10)
         self.assertEqual(self.snapshot['aggregate']['concentration'],expected)
-        for name in ['index.html','report.html']:
-            with self.subTest(name=name):
-                page=Page((self.output/'observatory'/name).read_text())
-                finding=page.by_id['obs-finding-text']
-                aside=next(n for n in page.elements if n.has_class('obs-finding'))
-                leaders=[n for n in page.elements if n.has_class('obs-strip-leader')]
-                tail=[n for n in page.elements if n.has_class('obs-strip-tail')]
-                ranked=sorted((p for p in self.snapshot['projects'] if p['github'] and p['stars'] is not None),key=lambda p:(-p['stars'],p['name'],p['id']))
-                self.assertEqual(len(leaders),min(10,len(ranked)))
-                total=sum(p['stars'] for p in ranked)
-                for node,project in zip(leaders,ranked):
-                    self.assertEqual(node.attrs['aria-label'],f"{project['name']} · {project['stars']:,} stars")
-                    self.assertEqual(node.attrs['style'],f"width: {obs.bar_width(project['stars'],total)}")
-                self.assertEqual(sum(int(n.attrs['data-stars']) for n in leaders+tail),total)
-                self.assertEqual(aside.tag,'aside')
-                self.assertEqual(aside.attrs['aria-labelledby'],'obs-finding-text')
-                self.assertIn(finding,aside.descendants('p'))
-                self.assertEqual(re.findall(r'(\d+(?:\.\d+)?)%',finding.text),[f'{expected:.1f}'])
-                # Keep the subject, unit and top-ten scope, without fixing a sentence.
-                for meaning in [r'\b10\b',r'\bprojects\b',r'\bstars\b']:
-                    self.assertRegex(finding.text,meaning)
+        page=self.page
+        finding=page.by_id['obs-finding-text']
+        aside=next(n for n in page.elements if n.has_class('obs-finding'))
+        leaders=[n for n in page.elements if n.has_class('obs-strip-leader')]
+        tail=[n for n in page.elements if n.has_class('obs-strip-tail')]
+        ranked=sorted((p for p in self.snapshot['projects'] if p['github'] and p['stars'] is not None),key=lambda p:(-p['stars'],p['name'],p['id']))
+        self.assertEqual(len(leaders),min(10,len(ranked)))
+        total=sum(p['stars'] for p in ranked)
+        for node,project in zip(leaders,ranked):
+            self.assertEqual(node.attrs['aria-label'],f"{project['name']} · {project['stars']:,} stars")
+            self.assertEqual(node.attrs['style'],f"width: {obs.bar_width(project['stars'],total)}")
+        self.assertEqual(sum(int(n.attrs['data-stars']) for n in leaders+tail),total)
+        self.assertEqual(aside.tag,'aside')
+        self.assertEqual(aside.attrs['aria-labelledby'],'obs-finding-text')
+        self.assertIn(finding,aside.descendants('p'))
+        self.assertEqual(re.findall(r'(\d+(?:\.\d+)?)%',finding.text),[f'{expected:.1f}'])
+        # Keep the subject, unit and top-ten scope, without fixing a sentence.
+        for meaning in [r'\b10\b',r'\bprojects\b',r'\bstars\b']:
+            self.assertRegex(finding.text,meaning)
 
-    def test_shared_names_static_and_standalone_match_snapshot(self):
+    def test_shared_names_static_match_snapshot(self):
         expected=obs.shared_names(self.snapshot['projects'])
-        for name in ['index.html','report.html']:
-            with self.subTest(name=name):
-                page=Page((self.output/'observatory'/name).read_text())
-                self.assertEqual(page.by_id['shared-name-count'].text,str(expected['tool_count']))
-                self.assertEqual(page.by_id['identical-name-count'].text,str(expected['identical_tool_count']))
-                self.assertEqual(page.by_id['variant-name-count'].text,str(expected['variant_tool_count']))
-                self.assertEqual(len(page.ids),len(set(page.ids)))
-                disclosure=page.by_id['name-groups']
-                self.assertEqual(disclosure.tag,'details');self.assertNotIn('open',disclosure.attrs)
-                marks=[n for n in page.by_id['name-tally'].descendants('span') if n.has_class('obs-mark')]
-                self.assertEqual(len(marks),expected['tool_count'])
-                self.assertEqual(sum(n.has_class('obs-mark-identical') for n in marks),expected['identical_tool_count'])
-                number=0
-                for container,key in [('identical-name-groups','identical'),('variant-name-groups','variants')]:
-                    plates=page.by_id[container].descendants('article')
-                    self.assertEqual(len(plates),len(expected[key]))
-                    for plate,wanted in zip(plates,expected[key]):
-                        number+=1
-                        self.assertEqual(plate.attrs['id'],f'name-group-{number}')
-                        self.assertEqual(plate.attrs['data-name'],wanted['name'])
-                        self.assertEqual([t.text for t in plate.descendants('span') if t.has_class('obs-tag')],wanted['tags'])
-                        columns=[n for n in plate.descendants('div') if n.has_class('obs-plate-project')]
-                        self.assertEqual([c.attrs['data-project-id'] for c in columns],[p['id'] for p in wanted['projects']])
-                        for column,project in zip(columns,wanted['projects']):
-                            repo=[n for n in column.descendants('a') if n.has_class('obs-repo')][0]
-                            self.assertEqual(repo.attrs['href'],project['url'])
-                            self.assertEqual([n.text for n in column.descendants('p') if n.has_class('obs-plate-desc')],[project['description']])
+        page=self.page
+        self.assertEqual(page.by_id['shared-name-count'].text,str(expected['tool_count']))
+        self.assertEqual(page.by_id['identical-name-count'].text,str(expected['identical_tool_count']))
+        self.assertEqual(page.by_id['variant-name-count'].text,str(expected['variant_tool_count']))
+        self.assertEqual(len(page.ids),len(set(page.ids)))
+        disclosure=page.by_id['name-groups']
+        self.assertEqual(disclosure.tag,'details');self.assertNotIn('open',disclosure.attrs)
+        marks=[n for n in page.by_id['name-tally'].descendants('span') if n.has_class('obs-mark')]
+        self.assertEqual(len(marks),expected['tool_count'])
+        self.assertEqual(sum(n.has_class('obs-mark-identical') for n in marks),expected['identical_tool_count'])
+        number=0
+        for container,key in [('identical-name-groups','identical'),('variant-name-groups','variants')]:
+            plates=page.by_id[container].descendants('article')
+            self.assertEqual(len(plates),len(expected[key]))
+            for plate,wanted in zip(plates,expected[key]):
+                number+=1
+                self.assertEqual(plate.attrs['id'],f'name-group-{number}')
+                self.assertEqual(plate.attrs['data-name'],wanted['name'])
+                self.assertEqual([t.text for t in plate.descendants('span') if t.has_class('obs-tag')],wanted['tags'])
+                columns=[n for n in plate.descendants('div') if n.has_class('obs-plate-project')]
+                self.assertEqual([c.attrs['data-project-id'] for c in columns],[p['id'] for p in wanted['projects']])
+                for column,project in zip(columns,wanted['projects']):
+                    repo=[n for n in column.descendants('a') if n.has_class('obs-repo')][0]
+                    self.assertEqual(repo.attrs['href'],project['url'])
+                    self.assertEqual([n.text for n in column.descendants('p') if n.has_class('obs-plate-desc')],[project['description']])
 
     def test_csv_covers_displayed_project_fields(self):
         rows=list(csv.DictReader(io.StringIO((self.output/'observatory/projects.csv').read_text())))
@@ -456,33 +438,29 @@ class ObservatoryBuildTests(unittest.TestCase):
             self.assertEqual(row['categories'], '; '.join(project['categories']))
             self.assertEqual(row['source_sha'], self.snapshot['source_sha'])
 
-    def test_prefooter_logo_and_standalone_embedding(self):
-        import base64
+    def test_prefooter_logo(self):
         logo=build_site.ROOT/'site/brand/botanical-128.png'
-        for name in ['index.html', 'report.html']:
-            page=Page((self.output/'observatory'/name).read_text())
-            logos=[image for image in page.images if image.get('class') == 'obs-logo']
-            self.assertEqual(len(logos), 1)
-            image=logos[0]
-            self.assertEqual(image['class'], 'obs-logo')
-            self.assertEqual((image['width'], image['height']), ('128', '128'))
-            self.assertEqual(image['alt'], 'Awesome Open* botanical logo')
-            self.assertEqual([n for n in page.nodes('figcaption') if any(n in c.descendants('figcaption') for c in page.elements if c.has_class('obs-closing-mark'))], [])
-            expected=('../brand/botanical-128.png' if name == 'index.html' else
-                      'data:image/png;base64,'+base64.b64encode(logo.read_bytes()).decode('ascii'))
-            self.assertEqual(image['src'], expected)
-            main=page.by_id['observatory-main']
-            closing=[node for node in page.elements if node.has_class('obs-closing-mark')]
-            self.assertEqual(len(closing), 1)
-            self.assertIs(main.children[-1], closing[0])
-            self.assertEqual(closing[0].tag, 'div')
-            self.assertEqual([node.tag for node in closing[0].children], ['img'])
-            self.assertEqual(closing[0].text.strip(), '')
-            self.assertEqual(closing[0].children[0].attrs, image)
-            hero=next(node for node in page.elements if node.has_class('obs-hero'))
-            self.assertEqual(hero.descendants('img'), [])
-            parent=next(node for node in page.elements if main in node.children)
-            self.assertTrue(parent.children[parent.children.index(main)+1].has_class('obs-footer'))
+        page=self.page
+        logos=[image for image in page.images if image.get('class') == 'obs-logo']
+        self.assertEqual(len(logos), 1)
+        image=logos[0]
+        self.assertEqual(image['class'], 'obs-logo')
+        self.assertEqual((image['width'], image['height']), ('128', '128'))
+        self.assertEqual(image['alt'], 'Awesome Open* botanical logo')
+        self.assertEqual([n for n in page.nodes('figcaption') if any(n in c.descendants('figcaption') for c in page.elements if c.has_class('obs-closing-mark'))], [])
+        self.assertEqual(image['src'], '../brand/botanical-128.png')
+        main=page.by_id['observatory-main']
+        closing=[node for node in page.elements if node.has_class('obs-closing-mark')]
+        self.assertEqual(len(closing), 1)
+        self.assertIs(main.children[-1], closing[0])
+        self.assertEqual(closing[0].tag, 'div')
+        self.assertEqual([node.tag for node in closing[0].children], ['img'])
+        self.assertEqual(closing[0].text.strip(), '')
+        self.assertEqual(closing[0].children[0].attrs, image)
+        hero=next(node for node in page.elements if node.has_class('obs-hero'))
+        self.assertEqual(hero.descendants('img'), [])
+        parent=next(node for node in page.elements if main in node.children)
+        self.assertTrue(parent.children[parent.children.index(main)+1].has_class('obs-footer'))
         self.assertEqual((self.output/'brand/botanical-128.png').read_bytes(), logo.read_bytes())
 
     def test_thin_index_and_no_runtime_remote_dependencies(self):
@@ -500,11 +478,6 @@ class ObservatoryBuildTests(unittest.TestCase):
         specimens=[image for image in self.page.images if image.get('class') == 'obs-pair-art']
         expected={p['id']:p['specimen'] for p in data['projects'] if p.get('specimen')}
         self.assertEqual(len(specimens),len(expected))
-        report=Page((self.output/'observatory/report.html').read_text())
-        report_data=json.loads(report.by_id['observatory-data'].text)
-        for p in report_data['projects']:
-            if p.get('specimen'):
-                self.assertTrue(p['specimen']['path'].startswith('data:image/webp;base64,'))
         for plate in self.page.elements:
             if not plate.has_class('obs-plate-project'):
                 continue
@@ -518,37 +491,13 @@ class ObservatoryBuildTests(unittest.TestCase):
             self.assertEqual(facts.children[-2].text,'Catalog')
             self.assertEqual(facts.children[-1].text,'OP-'+pid[:8].upper())
 
-    def test_standalone_embeds_runtime_and_downloads(self):
-        text=(self.output/'observatory/report.html').read_text();page=Page(text)
-        for node in page.nodes('script')+page.nodes('img')+page.nodes('link'):
-            url=node.attrs.get('src') or node.attrs.get('href')
-            if url:self.assertTrue(url.startswith('data:'),url)
-        self.assertIn('data:application/json;base64,',text)
-        self.assertIn('data:text/csv;base64,',text)
-        self.assertNotIn('href="report.html"',text)
-        self.assertIn('SIL OPEN FONT LICENSE',text)
-        for style in page.nodes('style'):
-            self.assertNotRegex(style.text, r'@import\b')
-            # Consume the complete quoted URL. The paper-grain data SVG contains
-            # an inner url(%23n) filter reference, not a second CSS dependency.
-            tokens = re.findall(r'''url\(\s*(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'|([^\s)'"]+))\s*\)''', style.text)
-            for token in tokens:
-                resource = next(value for value in token if value)
-                self.assertTrue(resource.startswith('data:'), resource[:100])
-
-    def test_footer_pattern_resolves_and_embeds_exact_source_bytes(self):
-        import base64
+    def test_footer_pattern_resolves_to_exact_source_bytes(self):
         pattern = 'patterns/navypattern2.png'
         source = (build_site.ROOT / 'site' / pattern).read_bytes()
         css = (self.output / 'observatory/observatory.css').read_text()
         self.assertIn(f'url(../{pattern})', css)
         self.assertNotIn('/awesome-open/', css)
         self.assertEqual((self.output / 'observatory' / '..' / pattern).read_bytes(), source)
-        report = (self.output / 'observatory/report.html').read_text()
-        footer = re.search(r'\.obs-footer \{([^}]+)\}', report)[1]
-        encoded = re.search(r'url\(data:image/png;base64,([A-Za-z0-9+/=]+)\)', footer)[1]
-        self.assertEqual(base64.b64decode(encoded, validate=True), source)
-        self.assertNotIn(f'url(../{pattern})', report)
 
     def test_repeat_build_is_deterministic(self):
         with tempfile.TemporaryDirectory() as temp:

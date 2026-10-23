@@ -99,7 +99,6 @@ are omitted from the archive listing/download until their display week. Snapshot
 copy stays frozen; illustration files retain their existing source identity and
 may change under the ordinary artwork review process (not a byte-frozen image
 archive). Links to removed catalog records use their saved official source URL.
-The standalone ledger links to the hosted archive; no jar animation is embedded.
 
 The page uses the Observatory route shell (B42, B44): shared header and nav,
 display heading, four literal metrics (current edition, editions shown, distinct

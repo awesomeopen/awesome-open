@@ -1,7 +1,9 @@
 # PRD: Performance tuning for the field guide
 
 - **Date:** 2026-10-22
-- **Status:** Proposed. Phase 1 is in review in [#177](https://github.com/awesomeopen/awesome-open/pull/177).
+- **Status:** In progress. Phase 1 merged in [#176](https://github.com/awesomeopen/awesome-open/pull/176)
+  and [#177](https://github.com/awesomeopen/awesome-open/pull/177); phase 2 is in
+  [#184](https://github.com/awesomeopen/awesome-open/pull/184).
 - **Owner:** Project owner
 - **Related:** [Remove the standalone download](2026-10-22_Remove-standalone-download.md)
   (separate PRD), TODO entry "Responsive hero images and compact catalog index"
@@ -121,8 +123,12 @@ growth; each later workstream lowers its limit in the same PR.
   `brand/assets.md` update.
 - Review whether both the original and the cutout need to ship for every project
   that has a cutout.
-- Review `observatory/report.html` (10 MB) with the owner; it follows the same
-  embed-everything pattern as `standalone.html`.
+- New image files (the responsive variants, and any change to which of original
+  and cutout ships) go into a PR of their own with its own review, separate from
+  the JSON changes ([B-PR184-02](../brand/decisions/B-PR184-02.md)).
+- `observatory/report.html` (10 MB): decided on 2026-10-22. The owner removed it
+  together with the Observatory's project data table in phase 2
+  ([B-PR184-01](../brand/decisions/B-PR184-01.md)).
 
 ### W5. CI and automation (Phase 4)
 
@@ -154,8 +160,9 @@ growth; each later workstream lowers its limit in the same PR.
 | Phase | Scope | Brand impact |
 | --- | --- | --- |
 | 1 | W1, W2, W3 | Implementation only |
-| 2 | Remove `standalone.html` ([PRD](2026-10-22_Remove-standalone-download.md)) | Decision record and guide updates |
-| 3 | W4 | Asset provenance for new variants |
+| 2 | Remove `standalone.html` ([PRD](2026-10-22_Remove-standalone-download.md)) and `observatory/report.html` | Decision records and guide updates |
+| 3a | W4 data: compact site JSON, one owner for star history | None |
+| 3b | W4 images: responsive specimen variants, original/cutout review; own PR and review | Asset provenance for new variants |
 | 4 | W5 | None |
 | Later | W6 | Per item |
 

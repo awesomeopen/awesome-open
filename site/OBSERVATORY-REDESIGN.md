@@ -30,7 +30,7 @@ then work through each block in this order:
    collection versus selection), Unknown values and literal labels do not change
    in a visual pass. Write down any contract change explicitly (see below).
 3. **Unfold graph-driven blocks; fold listings.** Charts, metrics and tallies
-   stay open. Listings of projects (name-group plates, the data table) sit behind
+   stay open. Listings of projects (name-group plates) sit behind
    a native disclosure whose summary states what it holds.
 4. **Mark only true differences.** Emphasis (bold owner, scarlet underline)
    points at the one fact that distinguishes items. It never implies a relation,
@@ -118,7 +118,7 @@ would join OpenPilot and openpilot in one group of three (Case, Spacing).
   finding and coverage keep whole-collection scope.
 - “GitHub stars”, UTC dates, “Unknown” for missing licenses and dates.
 - White/Prussian palette, Fraunces and Commit Mono, 4px spacing, native
-  disclosures, closing mark, standalone report, downloads.
+  disclosures, closing mark, downloads.
 
 ## Contract changes (applied in the implementation)
 
@@ -141,7 +141,7 @@ would join OpenPilot and openpilot in one group of three (Case, Spacing).
 
 - `scripts/build_observatory.py`: render the selection bar, metrics, finding
   strip, bar lists, tally and plates, coverage rows and the folded listing
-  server-side, so the no-JS page and `report.html` stay complete.
+  server-side, so the no-JS page stays complete.
 - `site/observatory.js`: re-render the same markup on filter change. Keep URL
   state for category and license, Back/Forward support and selection CSV export.
 - `site/observatory.css`: replace the chart, shared-names and coverage blocks.

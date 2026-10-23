@@ -74,7 +74,6 @@ class HeroImageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)
             catalog = build(output)
-            standalone = (output / 'standalone.html').read_bytes()
             original_page = (output / 'index.html').read_text()
             build_hero(output)
             self.assertIn('href="' + jar_stylesheet_href((output / 'jars.css').read_bytes()) + '"',
@@ -125,11 +124,6 @@ class HeroImageTests(unittest.TestCase):
                     record = (output / 'records' / (project['id'] + '.html')).read_text()
                     self.assertTrue(f'src="{cutout}"' in record or f'src="{project["artwork"]["path"]}"' in record)
                 self.assertIn(f'data-detail-url="records/{project["id"]}.html"', html)
-            self.assertEqual((output / 'standalone.html').read_bytes(), standalone)
-            self.assertNotIn(b'jars/responsive/', standalone)
-            self.assertNotIn(b'jars.css', standalone)
-            self.assertNotIn(b'jars.js', standalone)
-            self.assertNotIn(b'class="jar-hall"', standalone)
             # Simulate a CSS-only rebuild without touching approved source files.
             css_path = ROOT / 'site/jars.css'
             changed_css = css_path.read_bytes() + b'\n/* cache regression */\n'

@@ -88,7 +88,7 @@ python3 scripts/build_site.py --output tmp/site
 python3 -m http.server 8000 --directory tmp/site
 ```
 
-Open `http://localhost:8000` in your browser. You can also open `tmp/site/index.html` directly; search and filters use a compact embedded index and do not fetch JSON. The normal ledger fetches a static full record only when its drawer opens. Each drawer keeps a full-record link for no-JavaScript access, file browsing, failures and printing; the fallback line is hidden after a successful JavaScript load. Full evidence also remains in downloadable `catalog.json` and the self-contained standalone page. See [the detail-loading contract](site/DETAIL-LOADING.md). Keep generated files under the ignored `tmp/` directory; do not commit site output. To generate only the data, run `python3 scripts/build_catalog.py --output tmp/site/catalog.json`.
+Open `http://localhost:8000` in your browser. You can also open `tmp/site/index.html` directly; search and filters use a compact embedded index and do not fetch JSON. The normal ledger fetches a static full record only when its drawer opens. Each drawer keeps a full-record link for no-JavaScript access, file browsing, failures and printing; the fallback line is hidden after a successful JavaScript load. Full evidence also remains in downloadable `catalog.json` and the evidence files linked from the footer. See [the detail-loading contract](site/DETAIL-LOADING.md). Keep generated files under the ignored `tmp/` directory; do not commit site output. To generate only the data, run `python3 scripts/build_catalog.py --output tmp/site/catalog.json`.
 
 The initial page contains every distinct project, sorted by cached GitHub stars descending (unknown counts last), even with JavaScript disabled. Category links open the source sections without JavaScript. With JavaScript they filter the directory in place. Search covers names, descriptions, reviewed alternative names, and optional reviewed aliases. Alias matches use word boundaries; exact short reviewed names also use boundaries in ordinary fields to avoid incidental acronym matches. See the [alias contract](site/PROJECT-ALIASES.md). Category, detected SPDX license (including known/unknown), minimum stars, and an inclusive last-push UTC date can be combined. Results default to raw star count descending, with name and stable ID tie-breaks. Explicit `sort=name` and `sort=pushed` URL choices remain supported, and reset returns to stars. Results can sort by name, raw star count, or last push; unknown numeric/date values sort last and do not satisfy a numeric/date threshold. Filter changes are encoded in URL query parameters and restore with Back/Forward. A project’s `#project-…` permalink is based on its canonical URL, so the anchor survives a name change.
 
@@ -114,17 +114,10 @@ than 2 years” means strictly before the two-calendar-year anniversary, with
 February 29 clamped to February 28. These controls may be combined with the
 existing inclusive date threshold. Unknown dates do not match either window.
 
-Every build also emits `tmp/site/standalone.html`. It embeds CSS, the full
-catalog, scripts, licensed Półtawski Nowy and Commit Mono fonts, HN charts, and downloadable evidence.
-Open that single file in a browser for an offline preview without extracting
-adjacent assets. External project and source links naturally require a network.
-Some messaging-app attachment viewers disable JavaScript; download the file and
-open it in a browser when that happens.
-
 Półtawski Nowy and Commit Mono are included under SIL OFL 1.1; see `site/vendor/` for exact provenance.
 The current ledger no longer ships GSAP or ScrollTrigger. The photographic hero
-uses bounded local motion with pause and reduced-motion support; the standalone
-export is a motion-free ledger. No runtime CDN or font requests are needed.
+uses bounded local motion with pause and reduced-motion support. No runtime CDN
+or font requests are needed.
 See [the brand reference](brand/README.md) for current design decisions;
 `site/DESIGN.md` retains historical one-shot rationale.
 
@@ -274,7 +267,7 @@ After discovery accepts a project on main, follow [the Function summary handoff]
 
 Expanded website cards can pair GitHub stars with existing HN charts. The README and its HN sparklines are unchanged. `data/star_history_projects.json` schema 2 selects `catalog_github`: every exact canonical GitHub repository in `README.source.md`, deduplicated across categories. New source entries join automatically; removals leave the cache on the next refresh. Schema 1 explicit lists remain readable for fixtures or scoped manual runs. Website-only URLs are not guessed into repository mappings. Non-GitHub entries and uncollected histories are omitted.
 
-`python3 scripts/update_star_history.py --source-sha <full-sha>` uses GitHub's [privacy-safe aggregate history endpoint](https://docs.github.com/en/rest/activity/starring#get-repository-star-history), never lists individual stargazers. Its generated `data/star_history.json` belongs to the existing main publisher, alongside other snapshots. Do not hand-edit or fabricate production evidence. Site builds consume the cache without network access and generate local SVG assets; the downloadable standalone page embeds both SVG and evidence JSON.
+`python3 scripts/update_star_history.py --source-sha <full-sha>` uses GitHub's [privacy-safe aggregate history endpoint](https://docs.github.com/en/rest/activity/starring#get-repository-star-history), never lists individual stargazers. Its generated `data/star_history.json` belongs to the existing main publisher, alongside other snapshots. Do not hand-edit or fabricate production evidence. Site builds consume the cache without network access and generate local SVG assets; the footer links the evidence JSON.
 
 The 24 completed calendar-month positions reuse the HN window. GitHub supplies daily bins whose boundaries are not guaranteed UTC, so attribution near a month edge is approximate. The measurement is stars created in each month that remain at the last successful fetch. Charts use the same 120×24 bar geometry as HN, with independent square-root count scales explicitly labeled. HN remains in story units; GitHub stays in star units.
 
@@ -363,7 +356,7 @@ source revision. See [the observatory contract](site/OBSERVATORY.md) for countin
 coverage, date boundaries and export semantics. Do not add collectors, inferred
 quality scores or history by changing this presentation layer. The route's compact
 runtime index deliberately excludes full prose, artwork payloads and raw provider
-checks. Its standalone report and CSV are generated artifacts.
+checks. Its CSV and snapshot JSON are generated artifacts.
 
 The star-history collector queries its separate history endpoint and does not turn cached star totals into new observations. It uses repository creation metadata only to bound historical coverage; unavailable creation dates remain unknown. Repository metadata collection does not write history snapshots or manufacture fresh history points.
 

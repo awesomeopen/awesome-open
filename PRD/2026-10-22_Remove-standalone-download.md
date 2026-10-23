@@ -1,10 +1,11 @@
 # PRD: Remove the standalone download
 
 - **Date:** 2026-10-22
-- **Status:** Accepted by the owner; implementation not started
+- **Status:** Implemented in [#184](https://github.com/awesomeopen/awesome-open/pull/184)
 - **Owner:** Project owner
 - **Decision:** [TODO.md entry 261022](../TODO.md),
-  [B-PR176-01](../brand/decisions/B-PR176-01.md)
+  [B-PR176-01](../brand/decisions/B-PR176-01.md),
+  [B-PR184-01](../brand/decisions/B-PR184-01.md) (Observatory report)
 - **Related:** [Performance tuning](2026-10-22_Performance-tuning.md), phase 2
 
 ## Decision
@@ -30,10 +31,14 @@ downloads.
 In scope: `standalone.html`, its "Download" links, and the code, tests, checks
 and documents that exist only for it.
 
-Out of scope: `observatory/report.html` (the Observatory's standalone report),
-which the [performance PRD](2026-10-22_Performance-tuning.md#w4-payload-reduction-phase-3)
-lists for a separate review; `catalog.json`; the evidence downloads; static
-record pages; the exhibition preview.
+Added on 2026-10-22: `observatory/report.html` (the Observatory's standalone
+report) and the Observatory's project data table. The owner decided to remove
+both when reviewing the
+[performance PRD](2026-10-22_Performance-tuning.md#w4-payload-reduction-phase-3);
+see [B-PR184-01](../brand/decisions/B-PR184-01.md).
+
+Out of scope: `catalog.json`; the evidence downloads; the Observatory CSV and
+snapshot JSON; static record pages; the exhibition preview.
 
 ## Inventory
 
@@ -50,8 +55,8 @@ record pages; the exhibition preview.
 - `render_html(deferred=False)` remains the test fixture for the full ledger in
   several test modules. Keep it if those tests still need it; otherwise make
   `deferred=True` the only mode in a follow-up.
-- `scripts/font_assets.standalone_font_css` stays: `build_observatory.py`
-  (report) and `site/design/observatory-redesign/build.py` use it.
+- `scripts/font_assets.standalone_font_css` stays:
+  `site/design/observatory-redesign/build.py` uses it.
 - `site/catalog.js` handles "legacy fully rendered standalone and single-record
   pages" (`site/test_catalog.js:1337`). Record pages still need the fully
   rendered path; only the standalone wording and fixture change.
@@ -73,7 +78,7 @@ records) and drop the standalone branch.
 | `check_site_browser.cjs` (about lines 625–663) | Offline route; DOM-size control for the deferred ledger | Drop the offline route; compare the deferred ledger with a static record or a fixed element budget |
 | `check_specimen_bounds_browser.cjs` | Original-resolution embedded artwork | Drop |
 | `check_plate_browser.cjs`, `check_history_browser.cjs`, `check_star_history_browser.cjs`, `check_deployment_browser.cjs` | Second route for the same assertions | Keep the record route |
-| `check_fonts_browser.cjs` | Embedded fonts route | Keep `observatory/report.html` |
+| `check_fonts_browser.cjs` | Embedded fonts route | No-JS record page and `/observatory/` (the report is removed too) |
 
 ### Documents
 
@@ -108,9 +113,11 @@ records) and drop the standalone branch.
 
 ## Verification
 
-- Offline Python and Node tests pass; no test refers to `standalone.html`.
+- Offline Python and Node tests pass; tests refer to `standalone.html` only to
+  assert that it is absent.
 - `python3 scripts/check_brand.py` passes.
 - PR CI browser suites pass; screenshots show the ledger footer without the
   "Download" link.
 - `scripts/check_budget.py` reports the new total, about 140 MB at the
-  2026-10-22 catalog size.
+  2026-10-22 catalog size (measured: 128.0 MiB with the Observatory report
+  removed too).

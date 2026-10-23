@@ -47,7 +47,8 @@ meaning. The strangeness lives in artwork and organization, never in the facts.
 
 - Routes: the main catalog ledger with search, category filters and detail
   drawers; `/observatory/` snapshot statistics; `/spotlight/` weekly draw archive;
-  the jar hero; a self-contained standalone page and downloadable `catalog.json`.
+  the jar hero; static record pages (`records/<id>.html`) and downloadable
+  `catalog.json` and evidence files.
 - A single serialized publisher workflow collects metrics and evidence, renders
   README and site, and deploys to GitHub Pages. Contributors edit only the
   curated source and reviewed evidence.

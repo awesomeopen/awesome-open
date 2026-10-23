@@ -60,7 +60,7 @@ python3 -m unittest discover -s scripts -p 'test_function_summaries.py'
 python3 scripts/build_site.py --output tmp/summary-site
 ```
 
-Inspect the expanded record and the unchanged folded description. Sources and review date must appear beneath the longer prose. Search remains based on names, short descriptions and reviewed alternatives. The downloadable standalone HTML includes the summary and source links through the same renderer.
+Inspect the expanded record and the unchanged folded description. Sources and review date must appear beneath the longer prose. Search remains based on names, short descriptions and reviewed alternatives. Static record pages show the summary and source links through the same renderer.
 
 ## Optional feature notes
 

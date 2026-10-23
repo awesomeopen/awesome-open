@@ -25,8 +25,8 @@ they remain separate identities. An alias may repeat the display name when its
 source also supports explicit reuse elsewhere.
 
 The full catalog JSON preserves aliases and their review evidence. The compact
-embedded search index keeps alias names only. Both the normal site and its
-standalone download use the same index and matching code. No live fetch occurs.
+embedded search index keeps alias names only, and the ledger matches against
+it without a live fetch.
 
 ## Search behavior
 

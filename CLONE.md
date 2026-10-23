@@ -20,7 +20,7 @@ is introduced by this document. Source audit: `32eba2f`, 2026-10-14.
 - Categories come from Markdown headings. Canonical URLs establish record
   identities; cross-listed entries keep their category memberships.
 - Cached GitHub/HN data, reviewed evidence and source content feed deterministic
-  README, catalog JSON, website and standalone outputs.
+  README, catalog JSON, website and static record outputs.
 - The site includes search, combined filters, permalinks, evidence drawers,
   accessible fallbacks and an aggregate Observatory.
 - Offline tests, browser checks, preview artifacts, brand integrity and a
@@ -71,7 +71,7 @@ documentation; undocumented features may still exist.
 | 3. [awesome-list-site](https://github.com/krzemienski/awesome-list-site) | React/Express/PostgreSQL; structured resources, three-level categories and list import | Approval/edit queues, audit trail, link checks, GitHub sync and Claude enrichment | Fuzzy search, bookmarks, learning journeys, admin UI and Markdown export | Broad in-app curation; more infrastructure than a static list. AI enrichment needs Anthropic access; supplied content/branding is video-specific. MIT |
 | 4. [openawesome](https://github.com/chenz24/openawesome) | Next.js/PostgreSQL; projects, lists, alternatives, tags/stacks; seed/migration/Docker setup | Authenticated editing and GitHub-issue suggestions; comparable scheduled evidence enrichment not established by README | Search/filtering, project pages, English/Chinese routes, RSS | Ready-made directory application; database and admin OAuth setup required. Equivalent static evidence/refresh pipeline not documented. AGPL-3.0-or-later |
 | 5. [Minted Directory Astro](https://github.com/masterkram/minted-directory-astro) | GitHub template; Markdown/frontmatter, JSON and CSV; Astro | File-based editing; comparable software-metadata enrichment/review queue not documented | Tags, search, directory components, themes and static output | Simple site-first starting point with less maintenance machinery. README has conflicting content-folder paths and empty Notion/Airtable setup sections; verify integrations. MIT |
-| Baseline: Awesome Open\* | Markdown source, canonical-URL identities; manual theme/category/fixture adaptation | Daily GitHub refresh, bounded star history, reviewed-identity HN data, evidence records and PR browser QA | README, searchable site, Observatory, standalone page and data exports | Evidence-rich static workflow; not yet a turnkey template. External curation and assistant-operated jobs are not inherited by cloning |
+| Baseline: Awesome Open\* | Markdown source, canonical-URL identities; manual theme/category/fixture adaptation | Daily GitHub refresh, bounded star history, reviewed-identity HN data, evidence records and PR browser QA | README, searchable site, Observatory, static record pages and data exports | Evidence-rich static workflow; not yet a turnkey template. External curation and assistant-operated jobs are not inherited by cloning |
 
 Use awesome-selfhosted-data/hecat as the maintenance-pipeline reference,
 best-of-generator for a metrics-backed README, and Minted for a small static
@@ -357,7 +357,7 @@ In another terminal, run `SITE_URL=http://127.0.0.1:8000 npm run test:browser`
 and the exhibition/jar checks documented in
 [the PR workflow](.github/workflows/check-updaters.yml). Inspect desktop/mobile,
 filters/history, keyboard/no-JavaScript behavior, Observatory exports and
-`standalone.html`. Update catalog-specific test expectations; keep previews in
+static record pages. Update catalog-specific test expectations; keep previews in
 ignored `tmp/`. Dependency installation needs network access.
 
 ### 7. Configure publication

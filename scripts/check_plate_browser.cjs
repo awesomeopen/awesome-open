@@ -1,4 +1,4 @@
-/* Specimen plates for every record: geometry, label, QR code, decoration, keyboard and offline assets. */
+/* Specimen plates for every record: geometry, label, QR code, decoration, keyboard and static record assets. */
 const assert=require('node:assert/strict');
 module.exports=async({page,url,data,capture})=>{
  const names=['OpenTofu','OpenRefine','Open WebUI',data.projects.find(p=>!p.artwork).name];
@@ -97,8 +97,10 @@ module.exports=async({page,url,data,capture})=>{
  assert.equal(await study.locator('.function-detail').isVisible(),true);
  assert.equal(await study.locator('.plate-art').evaluate(n=>getComputedStyle(n).animationIterationCount),'1');
  await page.emulateMedia({reducedMotion:'reduce'});
- await page.goto(new URL('standalone.html',url).href);
- const row=page.locator('#project-'+tofu.id);await row.locator('> details').evaluate(n=>n.open=true);
- assert.ok(await row.locator('.plate-art img').getAttribute('src').then(s=>s.startsWith('data:image/')));
- assert.ok(await row.locator('.label-qr img').getAttribute('src').then(s=>s.startsWith('data:image/svg+xml')));
+ await page.goto(new URL('records/'+tofu.id+'.html',url).href);
+ const row=page.locator('#project-'+tofu.id);
+ for(const image of [row.locator('.plate-art img'),row.locator('.label-qr img')]){
+  await image.evaluate(n=>n.decode());
+  assert.ok(await image.evaluate(n=>n.complete&&n.naturalWidth>0),'Static record image loads');
+ }
 };

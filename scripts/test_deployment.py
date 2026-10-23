@@ -129,16 +129,15 @@ class DeploymentTests(unittest.TestCase):
                 for key in ('name', 'url', 'description', 'categories', 'github', 'alternatives', 'hn'):
                     self.assertEqual(project[key], by_id[project['id']][key])
             page = (output / 'index.html').read_text()
-            standalone = (output / 'standalone.html').read_text()
             self.assertEqual(page.count('class="deployment-evidence"'), 0)
             records = ''.join(record.read_text() for record in (output / 'records').glob('*.html'))
             # Setup facts live in the plate's Where it runs box and its popup.
             self.assertEqual(records.count('<dl class="pg-kit">'), 8)
             self.assertEqual(records.count('class="deployment-evidence"'), 0)
             self.assertIn('id="run-mode-filter"', page)
-            self.assertIn('id="install-method-filter"', standalone)
-            self.assertIn('<summary aria-label="Details: Where it runs">i</summary>', standalone)
-            self.assertIn('<h5>Install methods</h5>', standalone)
+            self.assertIn('id="install-method-filter"', page)
+            self.assertIn('<summary aria-label="Details: Where it runs">i</summary>', records)
+            self.assertIn('<h5>Install methods</h5>', records)
 
 
 if __name__ == '__main__': unittest.main()

@@ -39,8 +39,8 @@ Expanded records use the specimen plate below. The normal ledger loads a plate
 on demand and retains a full-record fallback for no-JavaScript access and printing;
 the fallback line is hidden while loading and after success, and returns on failure
 ([B-PR126-01](decisions/B-PR126-01.md));
-static record pages reuse the B42 route shell. The standalone remains complete.
-See [B-PR111-01](decisions/B-PR111-01.md) and the
+static record pages reuse the B42 route shell and are the complete printable
+record. See [B-PR111-01](decisions/B-PR111-01.md) and the
 [loading contract](../site/DETAIL-LOADING.md). Missing
 artwork leaves no placeholder. Reviewed alternatives are the evidence grid's last
 row. The HN and stars “past 2y” window is stated in their popups. Repository departure
@@ -58,9 +58,9 @@ with a static masked upper fade and clear reading space. Panoramas keep their na
 open; the coffee support link has its own paragraph. Black footer metadata
 backings are a specific implemented choice.
 
-The standalone download is a motion-free ledger with embedded dependencies. It
-need not recreate the interactive photographic hero. Verify copy and evidence
-changes in both generated outputs.
+The site publishes no single-file download of the ledger or the Observatory
+([B-PR176-01](decisions/B-PR176-01.md), [B-PR184-01](decisions/B-PR184-01.md)).
+Verify copy and evidence changes in the ledger and the static record pages.
 
 ## Review
 
@@ -180,8 +180,7 @@ keyboard selection, current-category marking, narrow layouts and text-only
 fallbacks when a category has no artwork. The All link has no artwork placeholder.
 Use four columns on desktop, two at medium widths and one on mobile. On hover
 or keyboard focus, enlarge the icon to its native 104px canvas, clipped by its
-row without changing layout. Use local responsive derivatives and lazy loading;
-embed small navigation and medium closing-mark sources in the standalone edition.
+row without changing layout. Use local responsive derivatives and lazy loading.
 The ledger closing mark shows the selected category’s medium (207px) image; All
 or a category without artwork restores the 96px fruit. Keep the desktop name
 column capped at 240px (200px at medium widths), leaving descriptions the remaining
