@@ -1,7 +1,9 @@
 # PRD: Remove the standalone download
 
 - **Date:** 2026-10-22
-- **Status:** Implemented in [#184](https://github.com/awesomeopen/awesome-open/pull/184)
+- **Status:** Implemented in [#184](https://github.com/awesomeopen/awesome-open/pull/184);
+  size budget in [#186](https://github.com/awesomeopen/awesome-open/pull/186), deferred-only
+  ledger in [#194](https://github.com/awesomeopen/awesome-open/pull/194)
 - **Owner:** Project owner
 - **Decision:** [TODO.md entry 261022](../TODO.md),
   [B-PR176-01](../brand/decisions/B-PR176-01.md),
@@ -52,9 +54,10 @@ snapshot JSON; static record pages; the exhibition preview.
   - Ledger footer link `<a href="standalone.html" download>Download</a>`
     (`render_html`, footer actions).
   - Record footer link "Download complete catalog" (`render_record`).
-- `render_html(deferred=False)` remains the test fixture for the full ledger in
-  several test modules. Keep it if those tests still need it; otherwise make
-  `deferred=True` the only mode in a follow-up.
+- `render_html(deferred=False)` remained the test fixture for the full ledger in
+  several test modules. [#194](https://github.com/awesomeopen/awesome-open/pull/194)
+  makes the deferred ledger its only mode; those tests read plates from the
+  static records.
 - `scripts/font_assets.standalone_font_css` stays:
   `site/design/observatory-redesign/build.py` uses it.
 - `site/catalog.js` handles "legacy fully rendered standalone and single-record
@@ -120,4 +123,5 @@ records) and drop the standalone branch.
   "Download" link.
 - `scripts/check_budget.py` reports the new total, about 140 MB at the
   2026-10-22 catalog size (measured: 128.0 MiB with the Observatory report
-  removed too).
+  removed too). [#186](https://github.com/awesomeopen/awesome-open/pull/186)
+  scales its limits with the number of static records.

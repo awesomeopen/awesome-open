@@ -460,28 +460,16 @@ def hn_window(catalog, project):
     return None
 
 
-def project_html(project, categories, catalog, number=0, cutouts=None, position=None, deferred=False):
-    position = number if position is None else position
-    pid = escape(project["id"])
+def plate_html(project, categories, catalog, number, cutouts):
     github = project["github"]
-    license_text = (github["license"] if github else None) or ""
     pushed = github["pushed_at"][:10] if github and github["pushed_at"] else "Unknown"
     created = (
         github["created_at"][:10] if github and github.get("created_at") else "Unknown"
-    )
-    stars = (
-        f"{github['stars']:,}"
-        if github and github.get("stars") is not None
-        else "Unknown"
     )
     tags = " / ".join(
         f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>'
         for cid in project["categories"]
     )
-    inline_chart = ""
-    if project["hn"]:
-        attention = project["hn"]
-        inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
     summary = project.get("function_summary")
     function_detail = ""
     if summary:
@@ -490,12 +478,6 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
             for item in summary["sources"]
         )
         function_detail = f'<div class="function-detail"><p>{highlight_name(summary["text"], project["name"])}</p><p class="function-provenance">{sources} · Reviewed <span class="metric-value">{escape(summary["checked_at"])}</span></p></div>'
-    leader_categories = project.get("leader_categories", [])
-    leader_label = (
-        " / ".join(categories[c] for c in leader_categories)
-        if leader_categories
-        else ""
-    )
     good_release = (
         ((project.get("signals") or {}).get("release") or {}).get("last_good") or {}
     ).get("value")
@@ -515,14 +497,34 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         freshness=freshness,
         hn_window=hn_window(catalog, project),
     )
-    interior = specimen_plate(
+    return specimen_plate(
         project, number, tags, function_detail, grid, (cutouts or {}).get(project["id"])
+    )
+
+
+def project_html(project, categories, catalog, number=0, cutouts=None, position=None, deferred=False):
+    """A ledger row; deferred rows link the static record instead of holding the plate."""
+    position = number if position is None else position
+    pid = escape(project["id"])
+    github = project["github"]
+    license_text = (github["license"] if github else None) or ""
+    inline_chart = ""
+    if project["hn"]:
+        attention = project["hn"]
+        inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
+    leader_categories = project.get("leader_categories", [])
+    leader_label = (
+        " / ".join(categories[c] for c in leader_categories)
+        if leader_categories
+        else ""
     )
     if deferred:
         interior = (
             f'<div class="specimen-detail-host" data-detail-url="records/{pid}.html" data-project-id="{pid}">'
             f'<p class="detail-fallback"><a href="records/{pid}.html">Read or print the full record for {escape(project["name"])}</a></p></div>'
         )
+    else:
+        interior = plate_html(project, categories, catalog, number, cutouts)
     return f'''<article class="project-card" data-leader="{"true" if leader_categories else "false"}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
   <summary><span class="folio" title="Position in current results" aria-hidden="true">{position:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}<span class="leader-label"{"" if leader_categories else " hidden"}>{escape(leader_label)}</span></span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
@@ -536,7 +538,7 @@ def catalog_script_url(code):
     return "catalog.js?v=" + hashlib.sha256(code.encode("utf-8")).hexdigest()
 
 
-def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", root=ROOT):
+def render_html(catalog, script_url="catalog.js", root=ROOT):
     categories = {c["id"]: c["name"] for c in catalog["categories"]}
     count = len(catalog["projects"])
     nav = "".join(
@@ -593,7 +595,7 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", 
                        if not "\u0300" <= c <= "\u036f").lower()
         return (not known, -stars if known else 0, name, project["id"])
     projects = "\n".join(
-        project_html(p, categories, catalog, folios[p["id"]], cutouts, position, deferred=deferred)
+        project_html(p, categories, catalog, folios[p["id"]], position=position, deferred=True)
         for position, p in enumerate(sorted(catalog["projects"], key=star_order), 1)
     )
     signal_projects = [p for p in catalog["projects"] if p.get("signals")]
@@ -653,7 +655,7 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", 
    <details class="more-filters"><summary>More filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="run-mode-filter">Reviewed run mode</label><select id="run-mode-filter" name="run_mode"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["run_modes"]}</select></div><div class="filter-field"><label for="install-method-filter">Reviewed install method</label><select id="install-method-filter" name="install_method"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["install_methods"]}</select></div><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
    </div></details><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
   </form></div>
-  <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. {"Follow its full-record link for evidence and printing. " if deferred else ""}Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
+  <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Follow its full-record link for evidence and printing. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
   <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="name">Name A–Z</option><option value="stars" selected>Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
   <p id="project-link-notice" class="link-notice" role="status" hidden></p><p id="empty-state" class="empty-state" hidden>No projects match these filters. Try a broader search or reset filters.</p>
   <div id="project-list" class="project-list">{projects}</div>
@@ -760,7 +762,7 @@ def build(output, source_sha=None, root=ROOT):
     # Hash content, not snapshots: evidence-only publishes can reuse the script.
     runtime = (root / "site/catalog.js").read_text(encoding="utf-8")
     script_url = catalog_script_url(runtime)
-    ledger = render_html(catalog, cutouts, deferred=True, script_url=script_url, root=root)
+    ledger = render_html(catalog, script_url=script_url, root=root)
     # Validate charts before touching generated files. The renderer is shared with README.
     charts = {
         p["slug"]: hn.svg(p, evidence) for p in display_hn_evidence(source, evidence)["projects"] if p["eligible"]
