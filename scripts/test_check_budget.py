@@ -16,6 +16,9 @@ class CheckBudgetTests(unittest.TestCase):
         (site / 'index.html').write_bytes(b'<!doctype html>' + b'a' * index_bytes)
         (site / 'catalog.json').write_text('{}')
         (site / 'specimens/cutouts').mkdir()
+        (site / 'records').mkdir()
+        for record in ('a', 'b'):
+            (site / f'records/{record}.html').write_text('<!doctype html>')
         (site / 'specimens/one.webp').write_bytes(b'w' * 2048)
         (site / 'specimens/cutouts/one.webp').write_bytes(b'c' * 1024)
         (site / 'specimens/two.webp').write_bytes(b'w' * 3072)
@@ -40,6 +43,17 @@ class CheckBudgetTests(unittest.TestCase):
             values, _ = check_budget.measure(self.site(directory))
         self.assertEqual(values['specimen_average'], 3072)
         self.assertEqual(values['other_bytes'], values['total_bytes'] - 6144)
+
+    def test_per_record_limits_grow_with_the_static_records(self):
+        budget = [('catalog.json', 'catalog_bytes', check_budget.per_record(0, 1), 'reason')]
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(check_budget, 'BUDGET', budget):
+            site = self.site(directory)
+            self.assertEqual(self.run_check(site)[0], 0)
+            (site / 'records/b.html').unlink()
+            code, text = self.run_check(site)
+        self.assertEqual(code, 1)
+        self.assertIn('Static records: 1', text)
+        self.assertIn('| catalog.json | 2 B | 1 B | Over |', text)
 
     def test_exceeded_limit_fails_unless_warn_only(self):
         budget = [(label, key, 100 if key == 'index_bytes' else limit, reason)
