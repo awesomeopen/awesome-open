@@ -144,7 +144,7 @@ The specimen concept governs visual organization and artwork; it does not author
 
 ## 8. Implementation and skill precedence
 
-Ship fonts and artwork as repository assets with relative paths that work under `/awesome-open/` as well as at a preview root. Preserve font licenses and asset provenance. Do not depend on chat attachment URLs, temporary generated-image URLs or a developer's local filesystem. Test the built deployment and standalone export separately; an offline document needs embedded or packaged dependencies, not just a working hosted page.
+Ship fonts and artwork as repository assets with relative paths that work under `/awesome-open/` as well as at a preview root. Preserve font licenses and asset provenance. Do not depend on chat attachment URLs, temporary generated-image URLs or a developer's local filesystem.
 
 Use `design/tokens.css` as the versioned reference. It is deliberately not imported into the current production CSS until a component migration is reviewed. Do not change all production variables as an incidental docs update.
 

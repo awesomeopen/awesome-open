@@ -23,13 +23,16 @@ Use this as an independent style, not an instruction to imitate one artist. Read
 
 Give the subject a distinct, surprising outer contour and an articulated hierarchy of parts - never a passive lump, boulder, or static monolith. Reject modern graphic-design neatness: never use ruler-straight lines, parallel rails, smooth Bezier curves, bubbly inflated balloons, or neatly filleted plastic corners.
 
-Whether the subject is an organism, instrument, machine, or dwelling, its geometry must feel purposefully grown, tensioned, distended, woven, blown, or hand-forged by an unfamiliar intelligence: taut membranes stretched over angular struts, asymmetric counterweights, pinched conduits, segmented carapaces, and delicate cantilevered probes. Every edge should carry the crisp, slight tremor of unassisted hand drafting.
+Whether the subject is an organism, instrument, machine, or dwelling, its geometry must feel purposefully grown, tensioned, woven, blown, or hand-forged by an unfamiliar intelligence. Vary how specimens occupy space so they do not default to standing on legs, bird-feet, or tripod talons:
+- **Ground contact & posture:** Rest objects on weighted hemispherical rockers, broad gastropod-like muscular soles, coiled sled-runners, braided fiber ring-cushions, terraced ceramic plinths, or buoyant gas-bladders - or show them suspended from silk plumb-lines or cantilevered wall brackets.
+- **Working ends & effectors:** Interact with the world through flared acoustic bells, capillary glass pipettes, iris apertures, combing bristles, osmotic sponges, or counterweighted pendulums - do not default to pincers, claws, or serrated jaws.
+Every edge should carry the crisp, slight tremor of unassisted hand drafting.
 
 ### 2. Embedded in an unseen world of purpose
 
 Never invent a passive object or a mere geological curiosity. Every subject must look like an active participant extracted from a dense, self-consistent, non-earthly world of industry, signaling, cultivation, symbiosis, or ceremony. Anchor the design in one governing dream-logic operation and show how it couples to its wider environment:
-- **Physical interfaces to the unseen:** Include specific couplings, mooring hooks, intake funnels, optical lenses, acoustic horns, dosing spouts, or grafting collars that imply the object plugs into a larger apparatus, host organism, or ritual practice outside the frame.
-- **Traces of active operation:** Show functional tension and history - a distended bladder holding pressurized mist, a calibrated scale marked with non-human increments, a polished wear-zone where an unfamiliar appendage grips it, or condensation beading on a cooling coil.
+- **Physical interfaces to the unseen:** Include specific couplings - ground-glass stopcocks, bayonet sockets, intake funnels, optical lenses, acoustic horns, dosing spouts, or grafting collars - that imply the object plugs into a larger apparatus, vessel, or ritual practice outside the frame.
+- **Traces of active operation:** Show functional tension and history - a distended bladder holding pressurized mist, a calibrated ivory arc marked with non-human increments, a counterweight swung off-center, or condensation beading on a cooling coil.
 - **Cross-kingdom synthesis:** Seamlessly fuse incompatible domains - botanical vascularity, blown vitreous chambers, iridescent insectoid plating, taut acoustic membranes, and pre-modern clockwork or hydraulic linkages - into a single coherent anatomy.
 
 Keep the uncanny strictly lucid, structural, and taxonomic: never use gore, open wounds, viscera, blood, or sexualized anatomy.
@@ -105,12 +108,12 @@ Generate one separate image per requested item unless the user asks for a combin
 
 | Subject | Develop | Avoid |
 |---|---|---|
-| Animal | Weight-bearing limbs, feeding or sensory adaptation, surfaces that follow anatomy | Random limb counts, obligatory machinery, mascot expressions |
-| Plant | Root/stem/leaf continuity, growth rhythm, storage or dispersal strategy | Generic alien flower plus unrelated eyeballs |
-| Tool | Grip, working end, joint, and a visible force path. Do not rely solely on modern industrial design. Consider equally: hostile or indifferent affordances - tools built for non-human appendages or unknown senses. | Decorative cogs without a function, human-friendly curves |
-| Machine | Input, transformation, output; selectively exposed connections | Tangled tubes that go nowhere, steampunk by default |
-| Toy or object | Handling, balance, movement, tactile affordance | Human hands demonstrating use, face on every object |
-| Dwelling | One self-contained shelter, clear entrance and support, material logic | Streets, settlement views, scenic horizons, human occupants |
+| Animal | Weight-bearing limbs, feeding or sensory adaptation, surfaces that follow anatomy. Blind or unfamiliar sensory organs, segmented carapaces, radial or bilateral asymmetry, hydrostatic cushions, ciliary fringes, or undulating fins. | Random limb counts, obligatory machinery, mascot expressions. Avian bird-feet, raptorial talons, crab pincers, mammal mascot faces, glossy wet gore. |
+| Plant | Root/stem/leaf continuity, growth rhythm, storage or dispersal strategy. Chambered seed-pods, hollow acoustic stems, turgor-driven bladders, grafted or parasitic junctions, geometric spore-caps. | Root-claws that look like hands/feet, generic alien flowers, unrelated eyeballs. |
+| Tool | Grip, working end, joint, and a visible force path. Do not rely solely on modern industrial design. Consider equally: hostile or indifferent affordances - tools built for non-human appendages or unknown senses. Optical, acoustic, orfluidic instruments; horn/glass/ceramic construction; mechanisms that siphon, refract, sift, sound, or weigh. | Decorative cogs without a function, human-friendly curves. Pincers, pliers, serrated jaws, claw-like hooks, modern workshop handles, ruler-straight shafts. |
+| Machine | Input, transformation, output; selectively exposed connections. Alchemical retorts, bellows, pendulum escapements, gut-string tensions, nested vitreous chambers, rocker or plinth bases. | Tripod bird-legs, mechanical claws, steampunk cogs, CNC-milled housings. |
+| Toy or object | Handling, balance, movement, tactile affordance. Ritual or inscrutable balance objects, nested husks, dry rattling chambers, gyroscopic rings, taut string-bridges. | Human hands demonstrating use, face on every object. Articulated claw limbs, plush/bubbly shapes, modern plastic seams, faces. |
+| Dwelling | One self-contained shelter, clear entrance and support, material logic. Kiln-like ceramic shells, woven basketry domes, cantilevered cliff-pods, buoyant tether-spheres, terraced masonry | Streets, settlement views, scenic horizons, human occupants. Baba-Yaga bird legs, claw-like footings, cozy cottages, architectural CAD lines. |
 
 ## Prompt construction
 
