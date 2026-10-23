@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-23T08:30:14Z",
+  "collected_at": "2026-10-23T14:09:06Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -4175,38 +4175,38 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-16T08:36:44Z",
+        "checked_at": "2026-10-23T14:09:06Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-16T08:36:44Z",
-          "observed_at": "2026-10-12T00:00:00Z",
+          "fetched_at": "2026-10-23T14:09:06Z",
+          "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "5da350b69c6d0d4aed67a063498ee89c7448400a",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no dangerous workflow patterns detected",
+                "name": "Maintained",
+                "reason": "30 commit(s) and 14 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
-                "score": null
-              },
-              {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 14 issue activity found in the last 90 days -- score normalized to 10",
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
                 "score": 10
               },
               {
                 "name": "Code-Review",
                 "reason": "Found 0/28 approved changesets -- score normalized to 0",
                 "score": 0
+              },
+              {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
               },
               {
                 "name": "Token-Permissions",
@@ -4244,6 +4244,11 @@
                 "score": 10
               },
               {
+                "name": "Branch-Protection",
+                "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
+                "score": null
+              },
+              {
                 "name": "Signed-Releases",
                 "reason": "Project has not signed or included provenance with any releases.",
                 "score": 0
@@ -4252,18 +4257,13 @@
                 "name": "SAST",
                 "reason": "SAST tool is not run on all commits -- score normalized to 0",
                 "score": 0
-              },
-              {
-                "name": "Branch-Protection",
-                "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
-                "score": null
               }
             ],
             "repository": "github.com/ganeshrvel/openmtp",
             "score": 2.8
           }
         },
-        "last_success_at": "2026-10-16T08:36:44Z",
+        "last_success_at": "2026-10-23T14:09:06Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/ganeshrvel/openmtp",
         "status": "partial",
@@ -25098,5 +25098,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "27ffb4a4dc3e813b5c8bd05324e9f84604c58dcb"
+  "source_sha": "7be28645bfa6d72d350c978a1868f1e2fd14e64b"
 }
