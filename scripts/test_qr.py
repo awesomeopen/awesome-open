@@ -1,5 +1,7 @@
 import hashlib
+from pathlib import Path
 import random
+import tempfile
 import unittest
 
 import qr
@@ -56,6 +58,25 @@ class QRTests(unittest.TestCase):
         first = qr.encode('https://example.org/a')
         qr.encode('https://example.org/b')
         self.assertEqual(qr.encode('https://example.org/a'), first)
+
+
+class QRCacheTests(unittest.TestCase):
+    PROJECTS = [{'id': c * 64, 'name': 'Project ' + c} for c in 'ab']
+
+    def test_cache_returns_the_encoded_svgs_and_drops_unused_entries(self):
+        from build_site import qr_codes
+        expected = qr_codes(self.PROJECTS)
+        with tempfile.TemporaryDirectory() as cache:
+            stale = Path(cache) / ('0' * 64 + '.svg')
+            stale.write_text('obsolete')
+            self.assertEqual(qr_codes(self.PROJECTS, cache), expected)
+            self.assertFalse(stale.exists())
+            self.assertEqual(len(list(Path(cache).glob('*.svg'))), 2)
+            for entry in Path(cache).glob('*.svg'):
+                entry.write_text('cached')
+            self.assertEqual(set(qr_codes(self.PROJECTS, cache).values()), {'cached'})
+            self.assertEqual(qr_codes(self.PROJECTS[:1], cache), {k: 'cached' for k in list(expected)[:1]})
+            self.assertEqual(len(list(Path(cache).glob('*.svg'))), 1)
 
 
 if __name__ == '__main__':

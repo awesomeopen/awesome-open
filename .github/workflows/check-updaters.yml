@@ -2,6 +2,14 @@ name: Check README source and preview
 
 on:
   pull_request:
+    # Documentation and brand-record changes skip the build and browser plan;
+    # check-brand.yml still runs for them. README.source.md is the catalog.
+    paths:
+      - '**'
+      - '!**.md'
+      - '!brand/decisions/**'
+      - '!brand/studies/**'
+      - 'README.source.md'
   push:
     branches: [main]
 
@@ -55,9 +63,16 @@ jobs:
           name: readme-preview
           path: tmp/readme-preview/
           if-no-files-found: error
+      # QR SVGs are keyed by encoder source and text; the build drops unused entries.
+      - name: Restore permalink QR codes
+        uses: actions/cache@v4
+        with:
+          path: tmp/qr-cache
+          key: qr-${{ hashFiles('scripts/qr.py') }}-${{ hashFiles('README.source.md') }}
+          restore-keys: qr-${{ hashFiles('scripts/qr.py') }}-
       - name: Build offline field-guide preview
         run: |
-          python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA" --production
+          python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA" --production --qr-cache tmp/qr-cache
           python3 scripts/build_exhibition_preview.py --output tmp/site
           python3 scripts/build_jar_preview.py --output tmp/site
       - name: Check the site size budget
@@ -77,8 +92,21 @@ jobs:
           if-no-files-found: error
       - name: Install browser-check dependencies
         run: npm ci --ignore-scripts
+      - name: Read the locked Playwright version
+        id: playwright
+        run: echo "version=$(node -p "require('./package-lock.json').packages['node_modules/playwright'].version")" >> "$GITHUB_OUTPUT"
+      - name: Restore the Playwright browser
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}-chromium
       - name: Install Playwright Chromium and system dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx --no-install playwright install --with-deps chromium
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx --no-install playwright install-deps chromium
       - name: Plan bounded browser suites
         id: browser-plan
         run: python3 scripts/run_browser_checks.py --plan
