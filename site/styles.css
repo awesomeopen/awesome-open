@@ -471,7 +471,6 @@ h1>span {
   display:grid;
   grid-template-columns:minmax(180px,.8fr) minmax(0,1.7fr);
   gap:32px;
-  padding:24px 16px 32px;
   border-top:1px solid var(--rule);
   background:white;
 }
@@ -926,7 +925,6 @@ h1 { font-size:28px; margin:0; }
 .specimen-interior {
   grid-template-columns:minmax(220px,.85fr) minmax(0,1.65fr);
   gap:clamp(28px,4vw,64px);
-  padding:40px clamp(16px,3vw,44px) 48px;
   align-items:start;
 }
 .specimen-art {max-width:400px;margin:0 auto 24px;}
@@ -1093,13 +1091,13 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 }
 
 /* Specimen plate: the expanded record for every project (B22). Folded ledger rows are unchanged. */
-.specimen-interior.specimen-plate {display:block;padding:32px clamp(16px,2.5vw,32px) 0;color:var(--rs-blueprint);border-top:3px double var(--rs-blueprint);isolation:isolate;}
-.plate-heading {display:flex;justify-content:space-between;gap:16px;padding-bottom:12px;}
+.specimen-interior.specimen-plate {display:block;color:var(--rs-blueprint);border-top:3px double var(--rs-blueprint);isolation:isolate;}
+.plate-heading {display:flex;gap:16px;}
 .plate-index {font:11px/1.5 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--rs-scarlet);}
 .plate-heading .plate-index:last-child {color:var(--muted);text-align:right;}
 .specimen-plate .sheet-label {display:inline-block;background:var(--rs-scarlet);color:var(--rs-mist);padding:1px 8px;margin:0 0 16px;font:700 11px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;}
 
-.plate-study {position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);grid-template-areas:"field fn" "field notes";grid-template-rows:auto 1fr;column-gap:48px;align-items:start;margin-top:16px;}
+.plate-study {position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);grid-template-areas:"field fn" "field notes";grid-template-rows:auto 1fr;column-gap:48px;align-items:start;margin-top:2px;}
 .without-art .plate-study {grid-template-areas:"label fn" ". notes";grid-template-rows:auto 1fr;}
 .plate-function {grid-area:fn;min-width:0;padding-top:16px;}
 .plate-specimen {grid-area:field;min-width:0;}
@@ -1174,14 +1172,14 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 
 /* Evidence grid (B-PR158-01): fixed boxes on a mist panel. Every box keeps its
    place and size without evidence; only reviewed alternatives may be absent. */
-.plate-grid {--pg-gap:12px;--pg-lane:30px;margin:48px 0 0;padding:2px 32px 32px;background:var(--rs-mist);border-radius:var(--rs-radius);}
+.plate-grid {--pg-gap:12px;--pg-lane:30px;margin:24px 0;padding:2px 32px 32px;background:var(--rs-mist);border-radius:var(--rs-radius);}
 .pg-row {display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:var(--pg-gap);padding-top:var(--pg-lane);align-items:stretch;}
 .pg-row.pg-tight {padding-top:0;margin-top:var(--pg-gap);}
 .pg-box {position:relative;grid-column:span 2;display:flex;flex-direction:column;min-width:0;padding:10px 14px;background:var(--rs-paper);border:1px solid var(--rs-blueprint);border-radius:var(--rs-radius);}
 .specimen-plate .pg-box>.sheet-label {position:absolute;left:-1px;top:calc(-1 * var(--pg-lane) + 6px);margin:0;white-space:nowrap;background:var(--rs-muted);color:var(--rs-mist);}
 .pg-title {margin:0 0 4px;font:12px/1.4 var(--mono);color:var(--muted);}
 .pg-value {margin:0;font:var(--rs-display-weight, 400) 33px/1.1 var(--rs-display);font-variation-settings:var(--rs-display-axes, normal);color:var(--rs-blueprint);font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
-.pg-value.is-unknown {font-size:28px;color:var(--muted);}
+.pg-value.is-unknown {font-size:28px;color:var(--rule);}
 .pg-value a {color:inherit;text-decoration-thickness:1px;text-underline-offset:4px;}
 .pg-sub {margin:6px 0 0;font:12px/1.5 var(--mono);color:var(--rs-ink);}
 .pg-nowrap {white-space:nowrap;}
@@ -1196,7 +1194,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .pg-foot.is-unknown {color:var(--muted);}
 .pg-foot {padding-right:36px;}
 /* Reserved for future evidence sources; decorative. */
-.pg-reserved {grid-column:span 2;background:var(--rs-verdigris-art);border-radius:var(--rs-radius);}
+.pg-reserved {grid-column:span 2;background:var(--rs-verdigris-art);border-radius:var(--rs-radius);opacity:.5}
 .pg-reserved.pg-wide,.pg-runs {grid-column:span 3;}
 /* Timeline: full height when there is something to draw, one line otherwise. */
 .pg-timeline {grid-column:1 / -1;padding:16px 20px 24px;}
@@ -1219,7 +1217,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .pg-info>summary {position:absolute;right:0;bottom:0;display:grid;place-items:center;width:44px;height:44px;list-style:none;cursor:pointer;font:700 16px/1 var(--rs-display);color:var(--rs-blueprint);}
 .pg-info>summary::-webkit-details-marker {display:none;}
 .pg-info>summary:focus-visible {outline:2px solid var(--rs-blueprint);outline-offset:-4px;}
-.pg-info[open]>summary {background:var(--rs-blueprint);color:var(--rs-paper);}
+.pg-info[open]>summary {background:var(--rs-shadow);color:var(--rs-paper);}
 /* Popups open upward from the box edge nearest the plate's centre. */
 .pg-pop {position:absolute;z-index:20;left:-1px;bottom:44px;width:min(420px,calc(100vw - 64px));max-height:min(420px,70vh);overflow:auto;padding:12px 14px;background:var(--rs-paper);border:1px solid var(--rs-blueprint);box-shadow:var(--rs-shadow);font:12px/1.55 var(--mono);color:var(--rs-ink);text-align:left;overflow-wrap:anywhere;}
 .is-end .pg-pop {left:auto;right:-1px;}
