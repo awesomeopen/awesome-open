@@ -32,7 +32,7 @@ const path = require('node:path');
     report.screenshots.push({ file: name, ...dimensions, bytes: png.length });
     writeReport();
   };
-  const checkFooter = async (offline = false) => {
+  const checkFooter = async () => {
     for (const width of [2560, 1440, 390]) {
       await page.setViewportSize({ width, height: 1000 });
       await page.locator('.site-footer').scrollIntoViewIfNeeded();
@@ -63,10 +63,9 @@ const path = require('node:path');
       assert.ok(footer.choices.length > 0);
       assert.equal(footer.choices.length, footer.sizes.length);
       assert.equal(footer.border, 'double');
-      assert.equal(footer.background.startsWith('data:image/png;base64,'), offline);
-      if (!offline) assert.ok(footer.background.endsWith('/patterns/navypattern2.png'));
+      assert.ok(footer.background.endsWith('/patterns/navypattern2.png'));
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
-      await capture(`footer-${offline ? 'standalone' : 'production'}-${width}.png`);
+      await capture(`footer-production-${width}.png`);
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
   };
@@ -304,7 +303,7 @@ const path = require('node:path');
     assert.equal(await page.locator('#search').evaluate(n => getComputedStyle(n).borderBottomStyle), 'dashed');
     assert.equal(await page.locator('.ledger-columns, .ledger-heading').count(), 0);
     assert.deepEqual(await page.locator('.header-links a').allTextContents(), ['Catalog', 'About', 'Observatory']);
-    assert.deepEqual(await page.locator('.footer-actions a').allTextContents(), ['Submit a project', 'Download', 'Spotlight', 'GitHub', 'Top']);
+    assert.deepEqual(await page.locator('.footer-actions a').allTextContents(), ['Submit a project', 'Spotlight', 'GitHub', 'Top']);
     assert.ok(await page.locator('.footer-baseline').textContent().then(t => t.includes(data.projects.length + ' Projects')));
     const absentLicense = data.projects.find(p => !p.github || !p.github.license);
     if (absentLicense) assert.equal(await page.locator('#project-' + absentLicense.id + ' .license-readout').textContent(), '');
@@ -621,46 +620,14 @@ const path = require('node:path');
     assert.equal(await fallback.locator('.plate-departure > a').getAttribute('href'), data.projects.find(project => project.id === staticRecordId).url);
     await noJS.close();
 
-    // The downloadable HTML must load without any neighboring runtime assets.
-    const standaloneURL = new URL('standalone.html', page.url());
-    const offlineRequests = [];
-    const blockOfflineResources = route => {
-      if (route.request().isNavigationRequest() && route.request().url() === standaloneURL.href) return route.continue();
-      offlineRequests.push(route.request().url());
-      return route.abort();
-    };
-    await page.route('**/*', blockOfflineResources);
-    await page.goto(standaloneURL.href);
-    await waitForState();
-    report.detailLoading.standaloneDomControl = await page.evaluate(() => ({
-      elements: document.querySelectorAll('*').length, summaries: document.querySelectorAll('.specimen-drawer > summary').length,
-      plates: document.querySelectorAll('.specimen-plate').length, hosts: document.querySelectorAll('.specimen-detail-host').length,
-    }));
-    assert.equal(report.detailLoading.standaloneDomControl.plates, data.projects.length);
-    assert.equal(report.detailLoading.standaloneDomControl.hosts, 0);
-    assert.ok(report.detailLoading.cold.elements < report.detailLoading.standaloneDomControl.elements, 'Deferred index has fewer DOM elements than the fully inlined export');
-    report.detailLoading.controlLimit = 'Same Chromium, viewport and catalog; structural DOM comparison only. Standalone embeds assets and omits the hero. It is not an equivalent transfer, startup-time, JS-heap or process-memory baseline.';
+    // Fixed structural budget for the deferred ledger: summaries only, no plates.
+    // A fully rendered ledger measured about 146 elements per row on 2026-10-22.
+    const rows = report.detailLoading.cold.summaries;
+    report.detailLoading.domBudget = { elementsPerRow: 24, limit: 24 * rows, elements: report.detailLoading.cold.elements };
+    assert.ok(report.detailLoading.cold.elements <= report.detailLoading.domBudget.limit,
+      `Deferred ledger has ${report.detailLoading.cold.elements} DOM elements; budget is 24 per row (${report.detailLoading.domBudget.limit})`);
+    report.detailLoading.controlLimit = 'Same Chromium and viewport; structural DOM count only, not a transfer, startup-time, JS-heap or process-memory measure.';
     writeReport();
-    await checkFooter(true);
-    assert.deepEqual(offlineRequests, [], 'Standalone requested neighboring or remote resources');
-    await page.unroute('**/*', blockOfflineResources);
-    assert.equal(await visible(), data.projects.length);
-    assert.equal(await page.locator('script[src^="data:text/javascript;base64,"]').count(), 1);
-    const expectedDownloads = ['catalog.json', 'hn_evidence.json', 'alternatives.json'];
-    if (fs.existsSync(path.resolve(__dirname, '../data/project_signals.json'))) expectedDownloads.push('project_signals.json');
-    if (data.projects.some(p => p.star_history)) expectedDownloads.push('star_history.json');
-    const downloads = await page.locator('a[download]').evaluateAll(nodes => nodes.map(node => ({
-      name: node.getAttribute('download'), href: node.getAttribute('href'),
-    })));
-    assert.deepEqual(downloads.map(item => item.name).sort(), expectedDownloads.sort());
-    assert.ok(downloads.every(item => item.href.startsWith('data:application/json;base64,')));
-    await assertVisiblePositions(page, 'standalone default');
-    await assertRecordIdentities(page, data, 'standalone default');
-    await checkReviewedAliases('standalone', data);
-    await change('search', 'OpenTofu');
-    assert.ok(await visible() > 0);
-    await assertVisiblePositions(page, 'standalone filtered');
-    await assertRecordIdentities(page, data, 'standalone filtered');
     await require('./check_deployment_browser.cjs')({ page, browser, url, data, capture });
     assert.deepEqual(errors, []);
     await require('./check_star_history_browser.cjs')({ page, url, data, capture });
@@ -678,7 +645,7 @@ const path = require('node:path');
         'screenshots.json, and browser/server logs.\n');
     }
     console.log(JSON.stringify({ status: 'passed', projects: data.projects.length, screenshots: output,
-      checks: ['visible result positions and stable alphabetical folios/Registry IDs/permalinks', 'search', 'reviewed aliases and stable OBS identity', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'cold summary-only DOM', 'fetch-on-open detail lifecycle', 'failure/retry and stale-response guards', 'bounded closed-plate retention', 'no-JS static records and print route', 'standalone DOM control (not RAM benchmark)', 'standalone', 'no page errors'] }, null, 2));
+      checks: ['visible result positions and stable alphabetical folios/Registry IDs/permalinks', 'search', 'reviewed aliases and stable OBS identity', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'cold summary-only DOM', 'fetch-on-open detail lifecycle', 'failure/retry and stale-response guards', 'bounded closed-plate retention', 'no-JS static records and print route', 'deferred ledger DOM budget', 'no page errors'] }, null, 2));
   } catch (error) {
     report.status = 'failed';
     report.error = error.message;

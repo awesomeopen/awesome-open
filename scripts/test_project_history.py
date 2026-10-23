@@ -133,12 +133,10 @@ class HistoryOutputTests(unittest.TestCase):
         output, catalog = baseline_site()
         projects = [p for p in catalog['projects'] if p.get('history')]
         self.assertEqual(len(projects), 2)
-        standalone = (output / 'standalone.html').read_text()
         for project in projects:
             pid = project['id']
             record = (output / 'records' / (pid + '.html')).read_text()
             self.assertIn(history_view.timeline_title(project['history'][0]), record)
-            self.assertIn(history_view.timeline_title(project['history'][0]), standalone)
         self.assertTrue((output / history.PATH).exists())
         exported = json.loads((output / 'catalog.json').read_text())
         self.assertEqual(sum(len(p.get('history', [])) for p in exported['projects']), 2)

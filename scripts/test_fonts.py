@@ -13,8 +13,6 @@ class FontTests(unittest.TestCase):
         for path in ['index.html', 'observatory/index.html', 'spotlight/index.html',
                      'records/' + catalog['projects'][0]['id'] + '.html']:
             self.assertNotIn('serif-preview.js', (output / path).read_text())
-        for path in ['standalone.html', 'observatory/report.html']:
-            self.assertNotIn('serif-preview.js', (output / path).read_text())
         for choice in ['poltawski']:
             self.assertTrue((output / 'vendor/serif-preview' / (choice + '.woff2')).is_file())
 
@@ -46,11 +44,6 @@ class FontTests(unittest.TestCase):
         self.assertNotIn("font-family:'Instrument Serif'", embedded)
         self.assertEqual(embedded.count('data:font/woff2;base64,'), 2)
         self.assertIn('SIL OPEN FONT LICENSE', embedded)
-        output, _ = baseline_site()
-        for path in ['standalone.html', 'observatory/report.html']:
-            page = (output / path).read_text()
-            self.assertIn(embedded, page)
-            self.assertNotIn('src:url(serif-preview/', page)
         self.assertFalse((ROOT / 'site/serif-preview.js').exists())
         self.assertFalse((ROOT / 'site/serif-preview.css').exists())
         self.assertFalse((ROOT / 'site/vendor/fraunces.woff2').exists())

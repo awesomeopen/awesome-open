@@ -107,14 +107,6 @@ class LazyDetailSiteTests(unittest.TestCase):
                 if '/specimens/' in '/' + image['src'] or '/cutouts/' in '/' + image['src']:
                     self.assertEqual(image.get('loading'), 'lazy')
 
-    def test_standalone_has_full_details_and_no_fetch_hosts(self):
-        text = (self.output / 'standalone.html').read_text()
-        self.assertEqual(text.count('class="specimen-interior specimen-plate'), len(self.catalog['projects']))
-        self.assertNotIn('data-detail-url=', text)
-        self.assertNotIn('class="detail-fallback"', text)
-        self.assertNotIn('<base', text)
-        self.assertIn('data:image/webp;base64,', text)
-
     def test_rebuild_discards_stale_record_files(self):
         with tempfile.TemporaryDirectory() as directory:
             output = copy_site_fixture(self.output, Path(directory) / 'site')

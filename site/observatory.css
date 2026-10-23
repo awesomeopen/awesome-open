@@ -179,15 +179,6 @@ noscript p { margin-block: 8px 0; font-size: 12px; color: var(--rs-muted, #46566
 .obs-downloads { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .obs-downloads a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: 1px solid var(--rs-blueprint, #0b2546); font-size: 13px; text-decoration: none; }
 .obs-downloads a:hover { background: var(--rs-mist, #f0f5f8); color: var(--rs-ink, #111820); }
-#project-data { margin-top: 24px; border-block: 1px solid var(--rs-ink, #111820); }
-#project-data > summary { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; min-height: 56px; font-size: 14px; }
-#project-data > summary .obs-muted { font-size: 12px; }
-.obs-table-scroll { overflow-x: auto; max-width: 100%; margin-bottom: 24px; }
-#project-table { width: 100%; min-width: 980px; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
-#project-table caption { text-align: left; padding-bottom: 8px; color: var(--rs-muted, #465665); }
-#project-table th, #project-table td { padding: 8px 16px 8px 0; border-top: 1px solid var(--rs-mist, #f0f5f8); font-weight: 400; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
-#project-table thead th { position: sticky; top: 0; background: var(--rs-paper, #fff); color: var(--rs-muted, #465665); border-top: 0; border-bottom: 1px solid var(--rs-ink, #111820); }
-#project-table-empty td { padding-block: 24px; color: var(--rs-muted, #465665); }
 
 /* Closing mark and footer */
 .obs-closing-mark { display: flex; justify-content: center; padding: 128px 24px; }
@@ -242,14 +233,11 @@ noscript p { margin-block: 8px 0; font-size: 12px; color: var(--rs-muted, #46566
 @media print {
   body { font-size: 10px; }
   .obs-shell { width: 100%; padding-inline: 0; }
-  #observatory-filters, .obs-downloads, .obs-nav { display: none; }
+  #observatory-filters, #project-records, .obs-nav { display: none; }
   .obs-chart, .shared-name-group { break-inside: avoid; }
   .obs-chart-pair { display: block; }
   .obs-chart-pair > .obs-chart + .obs-chart { margin-top: 24px; }
   .obs-coverage { background: #fff; }
-  .obs-table-scroll { overflow: visible; }
-  #project-table { min-width: 0; }
-  #project-table th, #project-table td { padding: 6px; font-size: 8px; }
   .obs-footer { background: #fff; color: #111820; border-top: 1px solid #111820; }
   .obs-footer a { color: #111820; }
 }

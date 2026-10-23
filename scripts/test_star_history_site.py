@@ -210,7 +210,7 @@ class StarSiteTests(unittest.TestCase):
         self.assert_history_coverage(self.integrated_catalog(dict(schema_version=1,repositories={}),deployment),
                                      dict(schema_version=1,repositories={}),deployment)
 
-    def test_assets_evidence_standalone_and_removal(self):
+    def test_assets_evidence_and_removal(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)/'root'; output=Path(directory)/'preview';root.mkdir()
             shutil.copyfile(self.root/'README.source.md',root/'README.source.md')
@@ -218,9 +218,6 @@ class StarSiteTests(unittest.TestCase):
             (root/'data/star_history.json').write_text(json.dumps(self.snapshot))
             build_site.build(output,root=root)
             self.assertEqual(len(list((output/'assets/stars').glob('*.svg'))),1)
-            standalone=(output/'standalone.html').read_text()
-            self.assertNotIn('src="assets/stars/',standalone)
-            self.assertIn('download="star_history.json" href="data:application/json;base64,',standalone)
             (root/'data/star_history.json').unlink()
             build_site.build(output,root=root)
             self.assertFalse(list((output/'assets/stars').glob('*.svg')))

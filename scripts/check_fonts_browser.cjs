@@ -82,14 +82,14 @@ module.exports = async ({ browser, url, data, output }) => {
     await failedContext.close();
     const nojs = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     const staticPage = await nojs.newPage();
-    for (const route of ['/?serif=instrument', '/standalone.html', '/observatory/report.html']) {
+    for (const route of ['/?serif=instrument', '/records/' + data.projects[0].id + '.html', '/observatory/']) {
       await staticPage.goto(url + route); await staticPage.evaluate(() => document.fonts.ready);
       assert.match(await staticPage.locator('h1').first().evaluate(node => getComputedStyle(node).fontFamily), /Poltawski Nowy/);
       assert.ok(await staticPage.evaluate(() => Array.from(document.fonts).some(face => face.family.replace(/["']/g, '') === 'Poltawski Nowy' && face.status === 'loaded')));
       assert.ok(await staticPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
     }
     await nojs.close(); assert.deepEqual(errors, []);
-    console.log('Settled typography: real bold, obsolete URLs, two font requests, no selector/runtime, mobile routes, offline/no-JS and failure fallback passed');
+    console.log('Settled typography: real bold, obsolete URLs, two font requests, no selector/runtime, mobile routes, no-JS and failure fallback passed');
   } finally { await context.close(); }
 };
 

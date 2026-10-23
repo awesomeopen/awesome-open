@@ -51,7 +51,7 @@ class MetricsFreshnessTests(unittest.TestCase):
         self.assertIn('<dt>Metrics cache</dt><dd>stale · observed 2026-10-07 UTC</dd>', html)
         self.assertIn('<dt>GitHub stars</dt><dd>0</dd>', html)
 
-    def test_mixed_cache_normal_standalone_and_observatory_outputs(self):
+    def test_mixed_cache_record_and_observatory_outputs(self):
         # Use real catalog shape/assets while replacing only repository measurements.
         with tempfile.TemporaryDirectory() as temp:
             _, original = baseline_site()
@@ -67,20 +67,18 @@ class MetricsFreshnessTests(unittest.TestCase):
             with patch.object(build_site, 'build_catalog', return_value=catalog):
                 build_site.build(output)
             records = ''.join(path.read_text() for path in (output / 'records').glob('*.html'))
-            for text in (records, (output / 'standalone.html').read_text()):
-                self.assertIn('Stale GitHub metrics; last successful observation: 2026-10-07 UTC', text)
-                self.assertIn('GitHub metrics unavailable; no successful observation.', text)
-                self.assertNotIn('GitHub metrics observed:', text)
-                self.assertIn('<h4 class="pg-title">GitHub stars</h4><p class="pg-value is-unknown">Unknown</p>', text)
-                self.assertIn('<h4 class="pg-title">GitHub stars</h4><p class="pg-value">0</p>', text)
-            for name in ('index.html', 'report.html'):
-                text = (output / 'observatory' / name).read_text()
-                self.assertIn('Last success: 2026-10-07', text)
-                self.assertIn('unavailable<br>Last success: Unknown', text)
-                self.assertIn('Cached measurements may be stale', text)
-                self.assertIn('Top 10 specimen by GitHub stars.', text)
-                self.assertNotIn('Observed counts may include dated stale cache.', text)
-                self.assertIn('unavailable · HTTP 404 · repository_unavailable', text)
+            self.assertIn('Stale GitHub metrics; last successful observation: 2026-10-07 UTC', records)
+            self.assertIn('GitHub metrics unavailable; no successful observation.', records)
+            self.assertNotIn('GitHub metrics observed:', records)
+            self.assertIn('<h4 class="pg-title">GitHub stars</h4><p class="pg-value is-unknown">Unknown</p>', records)
+            self.assertIn('<h4 class="pg-title">GitHub stars</h4><p class="pg-value">0</p>', records)
+            text = (output / 'observatory/index.html').read_text()
+            self.assertIn('Cached measurements may be stale', text)
+            self.assertIn('Top 10 specimen by GitHub stars.', text)
+            self.assertNotIn('Observed counts may include dated stale cache.', text)
+            exported = (output / 'observatory/projects.csv').read_text()
+            self.assertIn('2026-10-07', exported)
+            self.assertIn('repository_unavailable', exported)
             index = obs.project_index(catalog)
             row = next(p for p in index['projects'] if p['id'] == stale['id'])
             self.assertEqual(row['metrics_attempt_http_status'], 404)

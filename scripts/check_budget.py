@@ -3,8 +3,8 @@
 
 Prints a Markdown table, appends it to $GITHUB_STEP_SUMMARY when set and exits
 non-zero when a limit is exceeded (unless --warn-only). Limits sit just above the
-2026-10-22 baseline; a PR that intentionally grows or shrinks an output changes
-its limit here, with the reason. See PRD/2026-10-22_Performance-tuning.md (W3).
+measured sizes; a PR that intentionally grows or shrinks an output changes its
+limit here, with the reason. See PRD/2026-10-22_Performance-tuning.md (W3).
 """
 
 import argparse
@@ -19,18 +19,16 @@ IMAGES = {'.webp', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.avif'}
 
 # (label, measure, limit, reason). Measures are defined in measure().
 BUDGET = [
-    ('Site total', 'total_bytes', 400 * MIB,
-     'GitHub Pages publishes at most 1 GB; baseline 253 MiB'),
+    ('Site total', 'total_bytes', 160 * MIB,
+     'GitHub Pages publishes at most 1 GB; 128 MiB after the standalone downloads were removed'),
     ('Files', 'files', 4000, 'Pages artifact upload time; baseline 2,055'),
     ('index.html', 'index_bytes', 1536 * KIB,
      'Initial ledger HTML parsed on every visit; baseline 932 KiB'),
     ('index.html (gzip)', 'index_gzip', 256 * KIB,
      'Initial ledger transfer; baseline 133 KiB'),
     ('catalog.json', 'catalog_bytes', 16 * MIB, 'Download size; baseline 12.2 MiB'),
-    ('standalone.html', 'standalone_bytes', 160 * MIB,
-     'Removal accepted in B-PR176-01; baseline 116 MiB'),
     ('Largest other file', 'largest_other', 12 * MIB,
-     'Any single file outside the rows above; baseline 9.8 MiB (observatory/report.html)'),
+     'Any single file outside the rows above; baseline 9.5 MiB (data/star_history.json)'),
     ('Largest image', 'largest_image', 2560 * KIB,
      'Footer panoramas and pattern; baseline 2.0 MiB'),
     ('Largest specimen artwork', 'largest_specimen', 640 * KIB,
@@ -41,7 +39,7 @@ BUDGET = [
 def measure(site):
     files = [path for path in site.rglob('*') if path.is_file()]
     sizes = {path.relative_to(site).as_posix(): path.stat().st_size for path in files}
-    named = {'index.html', 'catalog.json', 'standalone.html'}
+    named = {'index.html', 'catalog.json'}
     index = site / 'index.html'
     values = {
         'total_bytes': sum(sizes.values()),
@@ -49,7 +47,6 @@ def measure(site):
         'index_bytes': sizes.get('index.html', 0),
         'index_gzip': len(gzip.compress(index.read_bytes(), 6)) if index.is_file() else 0,
         'catalog_bytes': sizes.get('catalog.json', 0),
-        'standalone_bytes': sizes.get('standalone.html', 0),
         'largest_other': max((size for name, size in sizes.items() if name not in named), default=0),
         'largest_image': max((size for name, size in sizes.items()
                               if Path(name).suffix.lower() in IMAGES), default=0),

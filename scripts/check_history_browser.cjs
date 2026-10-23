@@ -40,12 +40,9 @@ module.exports = async ({page, url, data, capture}) => {
       const plate=row.locator('.specimen-plate'); await plate.waitFor({state:'visible'});
       await check(plate,p,'drawer '+width);
     }
-    for (const route of ['records/'+p.id+'.html','standalone.html']) {
-      await page.goto(new URL(route,url).href);
-      const row=page.locator('#project-'+p.id);
-      await row.locator('>details').evaluate(n=>n.open=true);
-      const plate=row.locator('.specimen-plate');
-      await check(plate,p,(route==='standalone.html'?'offline':'record')+' 320');
-    }
+    await page.goto(new URL('records/'+p.id+'.html',url).href);
+    const row=page.locator('#project-'+p.id);
+    await row.locator('>details').evaluate(n=>n.open=true);
+    await check(row.locator('.specimen-plate'),p,'record 320');
   }
 };

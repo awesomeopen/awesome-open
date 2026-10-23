@@ -1,5 +1,4 @@
 """Category artwork identity, responsive delivery and offline integrity."""
-import base64
 import copy
 import hashlib
 from html.parser import HTMLParser
@@ -79,18 +78,6 @@ class CategoryArtTests(unittest.TestCase):
                              ['104w', '207w', '414w'])
         self.assertLess(sum(c['artwork']['variants']['s']['bytes'] for c in self.catalog['categories']), 160_000)
         self.assertTrue(all('artwork' not in c for c in search_index(self.catalog)['categories']))
-
-    def test_standalone_embeds_small_bytes_without_external_candidates(self):
-        images = Images((self.output / 'standalone.html').read_text()).images
-        self.assertEqual(len(images), 21)
-        for category, image in zip(self.catalog['categories'], images):
-            self.assertEqual(base64.b64decode(image['data-end-src'].split(',', 1)[1]),
-                             (ROOT / 'site' / category['artwork']['variants']['m']['path']).read_bytes())
-            self.assertNotIn('srcset', image)
-            self.assertNotIn('sizes', image)
-            self.assertTrue(image['src'].startswith('data:image/webp;base64,'))
-            self.assertEqual(base64.b64decode(image['src'].split(',', 1)[1]),
-                             (ROOT / 'site' / category['artwork']['variants']['s']['path']).read_bytes())
 
     def test_unknown_missing_and_corrupt_art_records(self):
         with tempfile.TemporaryDirectory() as directory:

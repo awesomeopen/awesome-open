@@ -6,8 +6,7 @@ thin projection drives server-rendered tables and progressive browser filtering.
 
 from collections import Counter
 from datetime import date, datetime, timezone
-from font_assets import content_url, standalone_font_css, font_asset_url
-import base64
+from font_assets import content_url, font_asset_url
 import csv
 from html import escape
 import io
@@ -784,16 +783,6 @@ def render(index, counts, covered, category_art=None, root=None):
         )
         + "</div>"
     )
-    project_rows = []
-    for p in index["projects"]:
-        project_rows.append(
-            f'<tr data-id="{p["id"]}"><th scope="row"><a href="../#project-{p["id"]}">{esc(p["name"])}</a></th><td>{esc(p["license"] or "Unknown")}</td><td>{p["stars"] if p["stars"] is not None else "Unknown"}</td>'
-            + "".join(
-                f"<td>{esc(p[k][:10] if p[k] else 'Unknown')}</td>"
-                for k in ["created_at", "pushed_at", "release_at"]
-            )
-            + f'<td>{esc(p.get("metrics_status", "unknown"))}<br>Last success: {esc(p.get("metrics_last_success_at") or "Unknown")}<br>Last attempt: {esc(p.get("metrics_attempt_at") or "Not recorded")}<br>{esc(p.get("metrics_attempt_status") or "Unknown")}{(" · HTTP " + esc(p["metrics_attempt_http_status"])) if p.get("metrics_attempt_http_status") else ""}{(" · " + esc(p["metrics_attempt_reason"])) if p.get("metrics_attempt_reason") else ""}</td><td>{esc(p["release_status"])}<br>{esc(p["release_checked_at"] or "Not checked")}</td><td><a href="{esc(p["url"])}">Official source</a></td></tr>'
-        )
     status = lambda name: "; ".join(
         f"{v:,} {k}" for k, v in covered[name]["states"].items()
     )
@@ -867,7 +856,7 @@ def render(index, counts, covered, category_art=None, root=None):
 <noscript><p>Filters and filtered CSV export require JavaScript.</p></noscript>{metrics_html(counts)}{finding_html(aggregate(index))}{names}
 <section id="charts" class="obs-section" aria-labelledby="charts-heading"><h2 id="charts-heading">Charts</h2>{charts}</section></div>
 <section id="coverage" class="obs-coverage" aria-labelledby="coverage-heading"><div class="obs-shell"><h2 id="coverage-heading">Evidence coverage</h2><p><span class="obs-label">Whole collection</span></p><table class="obs-coverage-table"><caption class="visually-hidden">Evidence coverage</caption><thead><tr><th scope="col">Evidence</th><th scope="col">Projects</th><th scope="col">Scope</th></tr></thead><tbody>{coverage_rows}</tbody></table><div class="obs-coverage-notes"><p>Evidence collection: {esc(covered["signals_collected_at"] or "Not available")}. <br />HN checked: {esc(covered["hn_checked"] or "Not available")}; window {esc(covered["hn_window_start"])} to {esc(covered["hn_window_end_exclusive"])}.</p><p>{evidence_links}</p></div></div></section>
-<div class="obs-shell"><section id="project-records" class="obs-section obs-ledger" aria-labelledby="project-data-heading"><h2 id="project-data-heading">Project data</h2><p>Dates are UTC. Cached measurements may be stale. Per-project observation dates appear below.</p><p class="obs-downloads"><a id="export-csv" href="projects.csv" download="awesome-open-observatory.csv">Download selection CSV</a><a href="snapshot.json" download>Download complete snapshot JSON</a><a href="report.html" download>Download standalone report</a></p><details id="project-data"><summary>Data table <span class="obs-muted"><span id="project-count">{counts["total"]:,}</span> projects in this selection</span></summary><div class="obs-table-scroll" tabindex="0" role="region" aria-label="Project data table"><table id="project-table"><caption>Project records</caption><thead><tr><th scope="col">Project</th><th scope="col">Detected license</th><th scope="col">GitHub stars</th><th scope="col">Repository created</th><th scope="col">Last push</th><th scope="col">Latest full release</th><th scope="col">Metrics cache / observed UTC</th><th scope="col">Release cache / checked UTC</th><th scope="col">Source</th></tr></thead><tbody>{"".join(project_rows)}</tbody></table></div></details></section></div>
+<div class="obs-shell"><section id="project-records" class="obs-section obs-ledger" aria-labelledby="project-data-heading"><h2 id="project-data-heading">Project data</h2><p>Dates are UTC. Cached measurements may be stale. The CSV lists the observation dates for each project.</p><p class="obs-downloads"><a id="export-csv" href="projects.csv" download="awesome-open-observatory.csv">Download selection CSV</a><a href="snapshot.json" download>Download complete snapshot JSON</a></p></section></div>
 <div class="obs-closing-mark">{art}</div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Observatory</p><ul class="obs-footer-links"><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li><li>Metrics collection date: <time>{index["metrics_as_of"]}</time> UTC</li></ul></div></footer><script id="observatory-data" type="application/json">{json_html(index)}</script></body></html>'''
 
 
@@ -895,80 +884,5 @@ def build(catalog, hn, output, root):
     )
     (target / "projects.csv").write_text(csv_text(index), encoding="utf-8", newline="")
     (target / "index.html").write_text(page, encoding="utf-8")
-    report = page
-    for project in index["projects"]:
-        art = project.get("specimen")
-        if art:
-            encoded = base64.b64encode((root / "site" / art["path"].removeprefix("../")).read_bytes()).decode("ascii")
-            report = report.replace(art["path"], "data:image/webp;base64," + encoded)
-    for source in category_art.values():
-        encoded = base64.b64encode((root / "site" / source.removeprefix("../")).read_bytes()).decode("ascii")
-        report = report.replace(
-            f'data-metric-art="{escape(source, quote=True)}"',
-            f'data-metric-art="data:image/webp;base64,{encoded}"',
-        )
-    for href, path in [
-        ("../vendor/fonts.css", root / "site/vendor/fonts.css"),
-        ("../tokens.css", root / "site/design/tokens.css"),
-        ("observatory.css", root / "site/observatory.css"),
-    ]:
-        css = path.read_text(encoding="utf-8")
-        if href == "../vendor/fonts.css":
-            css = standalone_font_css(root)
-        if href == "observatory.css":
-            pattern = "patterns/navypattern2.png"
-            encoded = base64.b64encode((root / "site" / pattern).read_bytes()).decode("ascii")
-            css = css.replace(f"url(../{pattern})", f"url(data:image/png;base64,{encoded})")
-        report = report.replace(
-            f'<link rel="stylesheet" href="{"../" + font_asset_url(href.removeprefix("../"), root) if href.startswith("../") else content_url(href, path)}">',
-            "<style>" + css + "</style>",
-        )
-    encoded = base64.b64encode((root / "site/observatory.js").read_bytes()).decode(
-        "ascii"
-    )
-    report = report.replace(
-        f'src="{content_url("observatory.js", root / "site/observatory.js")}"',
-        f'src="data:text/javascript;base64,{encoded}"'
-    )
-    for name, mime in [
-        ("snapshot.json", "application/json"),
-        ("projects.csv", "text/csv"),
-    ]:
-        encoded = base64.b64encode((target / name).read_bytes()).decode("ascii")
-        report = report.replace(
-            f'href="{name}"', f'href="data:{mime};base64,{encoded}"'
-        )
-    encoded = base64.b64encode(
-        (root / "site/brand/botanical-128.png").read_bytes()
-    ).decode("ascii")
-    report = report.replace(
-        'src="../brand/botanical-128.png"', f'src="data:image/png;base64,{encoded}"'
-    )
-    icon = base64.b64encode((root / "site/brand/favicon.ico").read_bytes()).decode(
-        "ascii"
-    )
-    report = report.replace(
-        'href="../brand/favicon.ico"', f'href="data:image/x-icon;base64,{icon}"'
-    )
-    report = report.replace(
-        '<a href="report.html" download>Download standalone report</a>', ""
-    )
-    # Offline report keeps provenance on a pinned source revision. Runtime
-    # dependencies and downloads are embedded; optional source links are online.
-    for name in ["project_signals.json", "hn_evidence.json", "star_history.json"]:
-        report = report.replace(
-            f'href="../data/{name}"',
-            f'href="{REPOSITORY}/blob/{index["source_sha"] or "main"}/data/{name}"',
-        )
-    report = report.replace(
-        'href="../#', 'href="https://awesomeopen.github.io/awesome-open/#'
-    )
-    report = report.replace(
-        'href="./"', 'href="https://awesomeopen.github.io/awesome-open/observatory/"'
-    )
-    report = report.replace(
-        'href="../"', 'href="https://awesomeopen.github.io/awesome-open/"'
-    )
-    report = report.replace('data-ledger-base="../"', 'data-ledger-base="https://awesomeopen.github.io/awesome-open/"')
-    (target / "report.html").write_text(report, encoding="utf-8")
+    (target / "report.html").unlink(missing_ok=True)
     return snapshot

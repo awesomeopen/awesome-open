@@ -245,7 +245,7 @@ async function checkObservatory({ browser, url }) {
     report.screenshots.push({ file: filename, ...dimensions, bytes: png.length, sha256: sha256(png), sourceSha: report.sourceSha });
     writeReport();
   };
-  const checkFooter = async (offline) => {
+  const checkFooter = async () => {
     for (const width of [1440, 390]) {
       await page.setViewportSize({ width, height: 1000 });
       await page.locator('.obs-footer').scrollIntoViewIfNeeded();
@@ -261,14 +261,8 @@ async function checkObservatory({ browser, url }) {
       assert.equal(footer.width, 1254);
       assert.equal(footer.repeat, 'repeat');
       assert.equal(footer.border, 'double');
-      if (offline) {
-        assert.ok(footer.background.startsWith('data:image/png;base64,'));
-        assert.deepEqual(Buffer.from(footer.background.split(',')[1], 'base64'),
-          fs.readFileSync(path.join(ROOT, 'site/patterns/navypattern2.png')));
-      } else {
-        assert.equal(footer.background, new URL('../patterns/navypattern2.png', target).href);
-      }
-      await capture('footer-' + (offline ? 'standalone' : 'hosted') + '-' + width);
+      assert.equal(footer.background, new URL('../patterns/navypattern2.png', target).href);
+      await capture('footer-hosted-' + width);
     }
   };
   const checkPairArtwork = async (current, label) => {
@@ -320,31 +314,21 @@ async function checkObservatory({ browser, url }) {
     await fits(current, label + ' closing mark');
     await capture(label + '-closing-mark', current);
   };
-  const checkProjectDisclosure = async (current, label) => {
-    const details = current.locator('#project-data');
-    const summary = details.locator(':scope > summary');
-    assert.equal(await details.evaluate(node => node.open), false, label + ': collapsed initially');
-    assert.ok((await summary.textContent()).startsWith('Data table'), label + ': summary names the table');
-    assert.equal(await current.locator('#project-table').isVisible(), false, label + ': table hidden');
+  const checkProjectData = async (current, label) => {
+    const section = current.locator('#project-records');
+    assert.equal(await current.locator('#project-data, #project-table, #project-count').count(), 0, label + ': no project data table');
+    assert.equal(await section.locator('table, details').count(), 0, label + ': downloads only');
+    assert.deepEqual(await section.locator('a').allTextContents(),
+      ['Download selection CSV', 'Download complete snapshot JSON'], label + ': CSV and JSON downloads');
     assert.equal(await current.locator('#export-csv').isVisible(), true, label + ': export stays visible');
-    await summary.focus();
-    for (const key of ['Enter', 'Space', 'Space', 'Enter']) {
-      const wasOpen = await details.evaluate(node => node.open);
-      await current.keyboard.press(key);
-      assert.equal(await details.evaluate(node => node.open), !wasOpen, label + ': native keyboard toggle');
-      assert.equal(await current.locator('#project-table').isVisible(), !wasOpen, label + ': table visibility');
-      assert.equal(await summary.evaluate(node => node === document.activeElement), true, label + ': focus retained');
-    }
   };
   const enhanced = () => page.waitForFunction(() => {
     const form = document.querySelector('#observatory-filters');
     return form && !form.hidden && form.dataset.enhanced === 'true';
   });
-  const visibleIDs = current => current.locator('#project-table tbody tr[data-id]:not([hidden])')
-    .evaluateAll(nodes => nodes.map(node => node.dataset.id));
   const fits = async (current, label) => {
     assert.ok(await current.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Page fits: ' + label);
-    const clipped = await current.locator('#observatory-filters select, #observatory-filters button, [data-metric], .obs-bars, .obs-table-scroll, .shared-name-group, .obs-rhyme-group')
+    const clipped = await current.locator('#observatory-filters select, #observatory-filters button, [data-metric], .obs-bars, .shared-name-group, .obs-rhyme-group')
       .evaluateAll(nodes => nodes.filter(node => {
         const box = node.getBoundingClientRect();
         return box.width > 0 && (box.left < -1 || box.right > innerWidth + 1);
@@ -444,7 +428,7 @@ async function checkObservatory({ browser, url }) {
         assert.equal(segments[i].label,ranked[i].name + ' · ' + ranked[i].stars.toLocaleString('en-US') + ' stars');
       }
       // Do not disturb the filter-focus lifecycle assertions on later selections.
-      if (['initial', 'standalone initial', 'no JavaScript'].includes(label)) {
+      if (['initial', 'no JavaScript'].includes(label)) {
         const first=leaders.first();
         await first.hover();
         assert.equal(await first.locator('.obs-strip-tooltip').isVisible(),true,label + ': hover label');
@@ -454,7 +438,6 @@ async function checkObservatory({ browser, url }) {
         await first.evaluate(node => node.blur());
       }
     }
-    assert.deepEqual(await visibleIDs(current), selected.map(project => project.id), 'Underlying project selection: ' + label);
     const expected = { total: selected.length, mapped: selected.filter(project => project.github).length,
       stars: selected.filter(project => project.github && Number.isFinite(project.stars)).reduce((sum, project) => sum + project.stars, 0),
       'known-license': selected.filter(hasLicense).length };
@@ -507,7 +490,7 @@ async function checkObservatory({ browser, url }) {
     const data = JSON.parse(await page.locator('#observatory-data').textContent());
     report.sourceSha = data.source_sha;
     report.metricsAsOf = data.metrics_as_of;
-    await checkFooter(false);
+    await checkFooter();
     assert.ok(data.source_sha, 'Embedded data records the source revision');
     if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Exact generated revision');
     const catalogResponse = await context.request.get(new URL('../catalog.json', target).href);
@@ -577,12 +560,9 @@ async function checkObservatory({ browser, url }) {
       }
       await page.locator('#category-chart').scrollIntoViewIfNeeded();
       await capture(name + '-charts');
-      await checkProjectDisclosure(page, name);
+      await checkProjectData(page, name);
       await page.locator('#project-records').scrollIntoViewIfNeeded();
-      await capture(name + '-data-closed');
-      await page.locator('#project-data > summary').click();
-      await capture(name + '-data-open');
-      await page.locator('#project-data > summary').click();
+      await capture(name + '-data');
     }
     await page.setViewportSize(contextOptions.viewport);
 
@@ -604,28 +584,6 @@ async function checkObservatory({ browser, url }) {
     report.checks.push('local assets and source revision');
 
     await assertSelection(page, data, data.projects, 'initial');
-    const projectTable = await page.locator('#project-table tbody tr[data-id]').evaluateAll(rows => rows.map(row => ({
-      id: row.dataset.id, name: row.querySelector('th a').textContent.trim(),
-      link: row.querySelector('th a').getAttribute('href'),
-      cells: [...row.querySelectorAll('td')].map(cell => cell.textContent.trim()),
-      source: row.querySelector('td:last-child a').getAttribute('href'),
-    })));
-    for (let index = 0; index < projectTable.length; index++) {
-      const row = projectTable[index], project = data.projects[index];
-      assert.equal(row.name, project.name, 'Underlying table name');
-      assert.equal(row.link, '../#project-' + project.id, 'Underlying record permalink');
-      assert.equal(row.source, project.url, 'Underlying official source');
-      assert.deepEqual(row.cells.slice(0, 5), [project.license || 'Unknown',
-        project.stars === null ? 'Unknown' : String(project.stars),
-        ...['created_at', 'pushed_at', 'release_at'].map(key => project[key] ? project[key].slice(0, 10) : 'Unknown')], 'Underlying table values: ' + project.id);
-      assert.ok(row.cells[5].includes(project.metrics_status), 'Underlying metrics cache status');
-      assert.ok(row.cells[5].includes(project.metrics_last_success_at || 'Unknown'), 'Underlying metrics observation time');
-      assert.ok(row.cells[5].includes(project.metrics_attempt_at || 'Not recorded'), 'Underlying metrics attempt time');
-      if (project.metrics_attempt_http_status) assert.ok(row.cells[5].includes('HTTP ' + project.metrics_attempt_http_status), 'Underlying metrics HTTP status');
-      if (project.metrics_attempt_reason) assert.ok(row.cells[5].includes(project.metrics_attempt_reason), 'Underlying metrics attempt reason');
-      assert.ok(row.cells[6].includes(project.release_status), 'Underlying release cache status');
-      assert.ok(row.cells[6].includes(project.release_checked_at || 'Not checked'), 'Underlying release check time');
-    }
     const coverage = await page.locator('#coverage').innerText();
     assert.equal(await page.locator('#selection-summary').getAttribute('role'), 'status');
     assert.equal(await page.locator('#selection-summary').getAttribute('aria-live'), 'polite');
@@ -657,7 +615,7 @@ async function checkObservatory({ browser, url }) {
     }
     await page.setViewportSize(metricViewport);
 
-    await checkProjectDisclosure(page, 'filtered category');
+    await checkProjectData(page, 'filtered category');
     const categoryURL = page.url();
     assert.equal(new URL(categoryURL).searchParams.get('category'), first.id, 'Category is shareable');
     await select('license-filter', 'unknown');
@@ -767,7 +725,7 @@ async function checkObservatory({ browser, url }) {
     assert.equal(await fallback.locator('#observatory-filters').isVisible(), false, 'No inactive controls without JavaScript');
     assert.equal(await fallback.locator('noscript').isVisible(), true, 'No-JavaScript explanation');
     await assertSelection(fallback, data, data.projects, 'no JavaScript');
-    await checkProjectDisclosure(fallback, 'no JavaScript');
+    await checkProjectData(fallback, 'no JavaScript');
     await fallback.locator('#rhyme-groups > summary').click();
     assert.equal(await fallback.locator('#rhyme-groups').evaluate(node => node.open), true, 'Rhyming names expand without JavaScript');
     await fallback.locator('#rhyme-groups').scrollIntoViewIfNeeded();
@@ -863,45 +821,9 @@ async function checkObservatory({ browser, url }) {
     await synthetic.close();
     report.checks.push('single-key grouping, tags and difference marks with synthetic case/separator/Unicode names; reviewed rhyme counts, empty survivors, reset and history');
 
-    // Block every neighboring runtime file. A standalone report must render and
-    // filter from embedded assets even when none of its sibling files exist.
-    const standalone = new URL('report.html', target).href;
-    const offlineRequests = [];
-    await page.route('**/*', route => {
-      if (route.request().url() === standalone && route.request().isNavigationRequest()) return route.continue();
-      offlineRequests.push(route.request().url());
-      return route.abort('blockedbyclient');
-    });
-    await page.goto(standalone);
-    await enhanced();
-    await page.evaluate(() => document.fonts.ready);
-    assert.equal(await page.locator('link[rel="stylesheet"], script[src]:not([src^="data:"])').count(), 0, 'Embedded standalone styles and runtime');
-    await checkPairArtwork(page, 'standalone embedded artwork');
-    await page.locator('.obs-logo').evaluate(image => image.decode());
-    assert.ok(await page.locator('img').evaluateAll(nodes => nodes.every(image => image.src.startsWith('data:') && image.complete && image.naturalWidth > 0)), 'Embedded standalone artwork');
-    await checkFooter(true);
-    assert.deepEqual(offlineRequests, [], 'Standalone fetches no neighboring assets');
-    assert.ok((await page.locator('.obs-logo').getAttribute('src')).startsWith('data:image/png;base64,'));
-    await page.setViewportSize({ width: 1440, height: 1000 });
-    await checkClosingMark(page, 'standalone-desktop');
-    await page.setViewportSize({ width: 390, height: 844 });
-    await checkClosingMark(page, 'standalone-mobile');
-    await assertSelection(page, data, data.projects, 'standalone initial');
-    await checkProjectDisclosure(page, 'standalone');
-    await select('category-filter', first.id);
-    await select('license-filter', 'known');
-    await assertSelection(page, data, records(data, first.id, 'known'), 'standalone filtered');
-    await downloadCSV(page, data, records(data, first.id, 'known'), 'standalone filtered export');
-    assert.deepEqual(offlineRequests, [], 'Standalone category art makes no requests');
-    await page.evaluate(() => scrollTo(0, 0));
-    await capture('standalone-category-metrics');
-    await page.locator('#reset-filters').click();
-    await assertSelection(page, data, data.projects, 'standalone reset');
-    await page.evaluate(() => scrollTo(0, 0));
-    await capture('standalone-mobile');
     assert.deepEqual(failures, [], 'No JavaScript, console, network or HTTP errors');
-    report.checks.push('centered prefooter logo at intrinsic size, full-width opening, generous whitespace and closing-mark screenshots across desktop/mobile/no-JavaScript/standalone');
-    report.checks.push('standalone embedded assets, filters and CSV; no page/console/network errors');
+    report.checks.push('centered prefooter logo at intrinsic size, full-width opening, generous whitespace and closing-mark screenshots across desktop/mobile/no-JavaScript');
+    report.checks.push('no page/console/network errors');
     report.status = 'passed';
     writeReport();
     console.log(JSON.stringify(report, null, 2));

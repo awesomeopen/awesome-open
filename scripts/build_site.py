@@ -2,8 +2,7 @@
 """Build the complete, offline static catalog. No network, dependencies or deployment."""
 
 import argparse
-from font_assets import content_url, standalone_font_css, font_asset_url
-import base64
+from font_assets import content_url, font_asset_url
 import hashlib
 import html
 import unicodedata
@@ -662,7 +661,7 @@ def render_html(catalog, cutouts=None, deferred=False, script_url="catalog.js", 
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="standalone.html" download>Download</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
 <script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
@@ -693,20 +692,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <aside class="obs-finding"><p>Full catalog record, evidence and sources. <a href="#project-{pid}">Return to this project in the ledger</a>. Use your browser’s Print command to print this record.</p></aside>
 {card}
 <div class="obs-closing-mark"><img class="obs-logo" src="brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo"></div></main>
-<footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Project record</p><ul class="obs-footer-links"><li><a href="./">Return to project ledger</a></li><li><a href="standalone.html" download>Download complete catalog</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {revision}</li></ul></div></footer></body></html>'''
-
-
-def replace_literals_once(text, replacements):
-    """Replace exact source literals without scanning newly embedded payloads.
-
-    Insertion order gives a more specific literal priority over its prefix
-    (for example, an evidence link before the generic downloadable href).
-    A callable replacement preserves backslashes and other payload bytes.
-    """
-    if not replacements:
-        return text
-    pattern = re.compile("|".join(re.escape(literal) for literal in replacements))
-    return pattern.sub(lambda match: replacements[match.group()], text)
+<footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Project record</p><ul class="obs-footer-links"><li><a href="./">Return to project ledger</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {revision}</li></ul></div></footer></body></html>'''
 
 
 def build(output, source_sha=None, root=ROOT):
@@ -774,7 +760,6 @@ def build(output, source_sha=None, root=ROOT):
     # Hash content, not snapshots: evidence-only publishes can reuse the script.
     runtime = (root / "site/catalog.js").read_text(encoding="utf-8")
     script_url = catalog_script_url(runtime)
-    page = render_html(catalog, cutouts, script_url=script_url, root=root)
     ledger = render_html(catalog, cutouts, deferred=True, script_url=script_url, root=root)
     # Validate charts before touching generated files. The renderer is shared with README.
     charts = {
@@ -851,6 +836,7 @@ def build(output, source_sha=None, root=ROOT):
         "vendor/gsap.min.js",
         "vendor/ScrollTrigger.min.js",
         "vendor/GSAP-PROVENANCE.txt",
+        "standalone.html",
     ):
         (output / old).unlink(missing_ok=True)
     shutil.rmtree(output / "specimens", ignore_errors=True)
@@ -871,89 +857,6 @@ def build(output, source_sha=None, root=ROOT):
         shutil.copyfile(root / "site/brand" / name, output / "brand" / name)
     copy_category_art(catalog, root, output)
     (output / ".nojekyll").write_text("", encoding="utf-8")
-    # A phone/download-friendly edition: every runtime asset and evidence download
-    # is embedded, so opening one HTML file never depends on adjacent files.
-    # Collect substitutions against the original page, then expand it once.
-    # Repeated replacements used to rescan the growing base64-heavy document.
-    replacements = {
-        'href="data/hn_evidence.json">View evidence':
-        'href="#hn-evidence">View evidence',
-    }
-    for category in catalog["categories"]:
-        if category.get("artwork"):
-            replacements[category_image(category)] = category_image(
-                category, offline=True, root=root
-            )
-    footer_urls = [quote(path, safe="/") for path in catalog["footer_backgrounds"]]
-    embedded_backgrounds = []
-    for asset in catalog["footer_backgrounds"]:
-        mime_type = "image/png" if asset.lower().endswith(".png") else "image/webp"
-        encoded = base64.b64encode((output / asset).read_bytes()).decode("ascii")
-        embedded_backgrounds.append(f"data:{mime_type};base64,{encoded}")
-    replacements[f'data-backgrounds="{escape(json.dumps(footer_urls))}"'] = (
-        f'data-backgrounds="{escape(json.dumps(embedded_backgrounds))}"'
-    )
-    if embedded_backgrounds:
-        replacements[f'src="{escape(footer_urls[0])}"'] = (
-            f'src="{embedded_backgrounds[0]}"'
-        )
-    for name, mime_type in BRAND_ASSETS.items():
-        encoded = base64.b64encode((output / "brand" / name).read_bytes()).decode(
-            "ascii"
-        )
-        for attribute in ("src", "href"):
-            replacements[f'{attribute}="brand/{name}"'] = (
-                f'{attribute}="data:{mime_type};base64,{encoded}"'
-            )
-    for name in ("vendor/fonts.css", "tokens.css", "styles.css"):
-        href = font_asset_url(name, root)
-        css = (output / name).read_text(encoding="utf-8")
-        if name == "vendor/fonts.css":
-            css = standalone_font_css(root)
-        if name == "styles.css":
-            encoded = base64.b64encode((output / FOOTER_PATTERN).read_bytes()).decode("ascii")
-            css = css.replace(f"url({FOOTER_PATTERN})", f"url(data:image/png;base64,{encoded})")
-        replacements[f'<link rel="stylesheet" href="{href}">'] = (
-            "<style>" + css + "</style>"
-        )
-    for name in ("catalog.js",):
-        # Keep parser ordering identical to deferred scripts: initialize after DOM.
-        code = (output / name).read_text(encoding="utf-8")
-        encoded = base64.b64encode(code.encode("utf-8")).decode("ascii")
-        replacements[f'src="{script_url}"'] = f'src="data:text/javascript;base64,{encoded}"'
-    for project in catalog["projects"]:
-        if "artwork" in project:
-            asset = (
-                cutouts[project["id"]]["path"]
-                if project["id"] in cutouts
-                else project["artwork"]["path"]
-            )
-            encoded = base64.b64encode((output / asset).read_bytes()).decode("ascii")
-            replacements[f'src="{asset}"'] = f'src="data:image/webp;base64,{encoded}"'
-    for path, code in qr_codes.items():
-        encoded = base64.b64encode(code.encode("utf-8")).decode("ascii")
-        replacements[f'src="{path}"'] = f'src="data:image/svg+xml;base64,{encoded}"'
-    replacements['<a href="standalone.html" download>Download</a>'] = ""
-    for slug, chart in charts.items():
-        encoded = base64.b64encode(chart.encode("utf-8")).decode("ascii")
-        replacements[f'src="assets/hn/{slug}.svg"'] = (
-            f'src="data:image/svg+xml;base64,{encoded}"'
-        )
-    for path, chart in star_charts.items():
-        encoded = base64.b64encode(chart.encode("utf-8")).decode("ascii")
-        replacements[f'src="{path}"'] = f'src="data:image/svg+xml;base64,{encoded}"'
-    for name in ["catalog.json", *("data/" + item for item in evidence_files)]:
-        encoded = base64.b64encode((output / name).read_bytes()).decode("ascii")
-        replacements[f'href="{name}"'] = (
-            f'download="{Path(name).name}" href="data:application/json;base64,{encoded}"'
-        )
-    replacements['href="./"'] = 'href="#page-title"'
-    replacements['href="observatory/"'] = (
-        'href="https://awesomeopen.github.io/awesome-open/observatory/"'
-    )
-    replacements['href="spotlight/"'] = 'href="https://awesomeopen.github.io/awesome-open/spotlight/"'
-    standalone = replace_literals_once(page, replacements)
-    (output / "standalone.html").write_text(standalone, encoding="utf-8")
     from build_observatory import build as build_observatory
 
     build_observatory(catalog, evidence, output, root)
