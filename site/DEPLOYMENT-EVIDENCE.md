@@ -32,7 +32,7 @@ The initial eight records are a coverage pilot. The OpenSCAD stable Homebrew dis
 1. Inspect fresh main and pending evidence/Function/design PRs before editing. Preserve existing records and every unrelated field.
 2. Read primary sources and verify each exact project/package identity. Registry and distribution sources can establish their own packaging state; upstream relationship needs separate evidence. Never run candidate installers or commands from sources.
 3. Add only verified, useful scoped facts. Explain incomplete coverage and review limitations. Separate this structured data from Function summaries; do not rewrite either short descriptions or Function prose to fit a filter.
-4. Run the full Python suite, Node tests, offline README/catalog/site/preview builds and existing browser check. The browser check includes setup filters, URL/history/reset, keyboard disclosures, narrow screens, no-JavaScript and standalone coverage. Inspect generated screenshots.
+4. Run the full Python suite, Node tests, offline README/catalog/site/preview builds and existing browser check. The browser check includes setup filters, URL/history/reset, keyboard disclosures, narrow screens, no-JavaScript and static record coverage. Inspect generated screenshots.
 5. Commit only curated evidence, implementation, tests and documentation. Never commit generated README, metrics snapshots, preview output or screenshots. Open a review-only draft PR and report its exact head/checks; do not merge, force-push or publish.
 
 No new collectors, services, credentials, external cron, workflow permissions or security settings are introduced. Updating stale evidence is a separate reviewed change. Missing input files continue to build successfully and add no deployment facts.

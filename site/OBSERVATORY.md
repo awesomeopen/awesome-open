@@ -57,11 +57,11 @@ chart is the accessible equivalent. Categories are sorted by count (ties keep
 catalog order, Unknown last). Last push and latest release share one maximum,
 marked “shared scale”. Route-only JavaScript
 progressively filters a thin embedded projection, with category/license URL state
-and Back/Forward support. Native HTML tables, exact values, source revision,
-snapshot date and every project row remain available without JavaScript. The
-project data table is collapsed by default in a native `details` disclosure whose
-summary starts “Data table” and states the selected row count; exports remain
-visible. Name-group plates are folded the same way (“Show name groups”), with
+and Back/Forward support. Native HTML chart tables, exact values, source revision
+and snapshot date remain available without JavaScript. The Project data section
+holds the CSV and snapshot JSON downloads; per-project rows are in those files
+([B-PR184-01](../brand/decisions/B-PR184-01.md)). Name-group plates are folded in a
+native disclosure (“Show name groups”), with
 “How groups are formed” as a nested disclosure; the unit tally above them stays
 open, one equal-weight mark per tool, square for identical names and circle for
 spelling variants. The CSV includes every displayed data field
@@ -72,9 +72,7 @@ never changes a measured mark.
 `observatory/snapshot.json` contains the thin rows, derived aggregates and coverage.
 `observatory/projects.csv` is the complete projection. The browser's CSV link
 exports the selection, including snapshot/revision provenance; formula-like cells
-are escaped. `observatory/report.html` embeds runtime dependencies and downloads
-for offline use. Optional external source links still need a network. The report
-is generated from the same revision.
+are escaped.
 
 The chart/table selection, shared-name groups and four headline metrics change together. The top
 collection finding and coverage explicitly retain whole-collection scope.
@@ -86,13 +84,12 @@ manufacture percentages, missing values or a zero-star observation.
 - Instrument: white/cool-mist reading ground, Prussian rules, the existing Półtawski Nowy
   and Commit Mono pair, linear charts and explicit evidence labels. The header
   repeats the ledger's links (Ledger, About, Observatory, GitHub), with Observatory
-  marked as the current page; the standalone report points them at the live site. One sticky
+  marked as the current page. One sticky
   selection bar without visible labels (each select has an accessible name) and
   bold section jumps; no kickers; “N/N selected.” ends the Shared names paragraph.
 - Closing mark: the existing 128px botanical logo is centered before the footer,
   with 128px of vertical space above and below (96px on narrow screens) and no
-  visible caption. Its size stays within the source resolution; the standalone
-  report embeds it. The opening is text-only, unruled and uses its full available
+  visible caption. Its size stays within the source resolution. The opening is text-only, unruled and uses its full available
   width; the snapshot date and source revision sit in the footer link list.
   Chart geometry and project specimen artwork remain unchanged.
 - Editorial hand: a bounded whole-collection finding with a to-scale share strip,
@@ -154,6 +151,6 @@ at the outer edge of paired columns, contained without cropping or distortion.
 Missing artwork leaves no placeholder. Keep the facts aligned across the pair;
 Catalog is a regular definition-list row whose linked value is the Registry ID.
 Stack columns on narrow screens. Preserve this presentation after filtering,
-without JavaScript, and in the offline report (embedded image bytes).
+and without JavaScript.
 The visual comparison invites inspection; similarity of names or illustrations
 does not establish a relationship between projects.

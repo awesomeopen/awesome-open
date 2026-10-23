@@ -64,8 +64,7 @@ software claims come from reviewed Function sources, not from these crops.
 
 The seven hero jars and seven composited specimens have display-only 256/512/768px
 wide WebP derivatives under `site/jars/responsive/`. Their original files, prompts,
-review status and use in expanded artwork, the standalone download and print stay
-unchanged. `site/jars/responsive.json` records original hashes, derivative hashes,
+review status and use in expanded artwork and print stay unchanged. `site/jars/responsive.json` records original hashes, derivative hashes,
 dimensions and the encoding recipe; `brand/assets.lock.json` inventories the bytes.
 
 Regenerate deliberately with `python3 scripts/build_hero_images.py` using Pillow
@@ -92,7 +91,7 @@ The square bottle also reuses its original brown cork as a clipped overlay.
 
 The Observatory opening uses `site/brand/botanical-128.png`, the existing 128 × 128
 botanical logo, without a visible caption. Display it at no more than its intrinsic
-width; retain descriptive alt text. The standalone report embeds the same PNG.
+width; retain descriptive alt text.
 The previous Open Doc specimen remains unchanged in the catalog; its Observatory
 placement is superseded by the user-directed logo replacement (B23). No asset
 bytes or source provenance changed.
@@ -105,11 +104,10 @@ commit `7045703d7b8fa09135fee41dd4a72da42476c6f3`. The variants are 104, 207 and
 uses 48 CSS px decorative images beside the existing category names and counts.
 Responsive candidates choose the small source at 1×/2×; native lazy loading
 defers the closed disclosure's images. The full small set is 150,040 bytes.
-The standalone edition embeds only that set (about 200 KB after base64 encoding).
 No category art is added to the hero, project identities or Observatory charts.
 The Observatory reuses the small source as a decorative background in each
 summary metric when its category is selected; All/reset has no background.
-The standalone report embeds these same small sources. Asset bytes are unchanged.
+Asset bytes are unchanged.
 
 Original PNGs stay in the owner's archive. The public provenance records their
 descriptive filenames and the known resize recipe, but original hashes, original

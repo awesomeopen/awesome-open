@@ -97,7 +97,7 @@ Do not add empty PRs or repeatedly bump an unchanged pending batch.
 
 Use the current contract's commands and applicable full offline suite. At
 minimum, validate Function records, build the canonical catalog, render the
-README preview and build site/standalone output. Run brand integrity and relevant
+README preview and build the site. Run brand integrity and relevant
 browser checks. Inspect expanded Function text, unchanged folded descriptions,
 source links and review dates. Do not edit unrelated tests to obtain green CI.
 

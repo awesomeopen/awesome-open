@@ -372,14 +372,10 @@
       ],
       "meaning": "Downloads a file",
       "labels": [
-        "Download",
-        "Download selection CSV",
-        "Download standalone report"
+        "Download selection CSV"
       ],
       "used_in": [
-        "scripts/build_site.py:744 `standalone.html`",
-        "scripts/build_observatory.py:775 `export-csv`",
-        "scripts/build_observatory.py:847 `report`"
+        "scripts/build_observatory.py:775 `export-csv`"
       ]
     },
     {
@@ -649,12 +645,8 @@
         "m"
       ],
       "meaning": "Tabular view of the records",
-      "labels": [
-        "Data table"
-      ],
-      "used_in": [
-        "scripts/build_observatory.py:775 `project-records`"
-      ]
+      "labels": [],
+      "used_in": []
     },
     {
       "id": "run.cli",

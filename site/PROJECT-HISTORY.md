@@ -63,9 +63,8 @@ stay in the folded, secondary **Name-change evidence** block. An announcement
 about a future change needs that distinction in its evidence; do not mark a
 proposal as an accomplished rename.
 
-The same renderer serves fetched drawers, full record pages, exhibition and
-offline output. The standalone includes its evidence in the catalog JSON.
-Source links need a network; no runtime collection is introduced. The "(i)" is
+The same renderer serves fetched drawers, full record pages and the exhibition
+preview. The catalog JSON includes the evidence. Source links need a network; no runtime collection is introduced. The "(i)" is
 a native disclosure and works without JavaScript.
 
 Future Observatory use must count event IDs once, retain event kinds and date
@@ -81,5 +80,5 @@ output, and run the existing browser suite. History regressions cover invalid
 schema/identity/dates, unknown and coarse dates, source roles, duplicate events,
 the rename label and its details, stacked close labels, pre-repository events and
 absent repository dates. Browser checks exercise the seeded records at 320px and
-desktop in drawers, full records and standalone output: label text, keyboard
+desktop in drawers and full records: label text, keyboard
 opening of "(i)", the source link and details fitting the viewport.

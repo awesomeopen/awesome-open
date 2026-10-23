@@ -106,7 +106,7 @@ python3 scripts/build_site.py --output tmp/site
 ```
 
 The catalog build validates the alias schema and canonical project references.
-Inspect catalog JSON, rendered source links and both normal/standalone search:
+Inspect catalog JSON, rendered source links and ledger search:
 alias matches, short-name boundaries, ambiguity, existing filters and unchanged
 display names. Run the relevant browser checks using the current
 [preview instructions](../CONTRIBUTING.md#filterable-website-preview).

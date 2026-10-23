@@ -75,7 +75,7 @@ ledger, evidence, controls and reading text. The owner settled on Półtawski on
 - Keep 48px minimum row targets, measured column gaps and consistent 16/24/32px
   detail spacing. Reduce arbitrary gaps, not legibility. Keep narrow details stacked.
 - Both families use SIL OFL 1.1. Complete font data is self-hosted and license notices accompany
-  `site/vendor/fonts.css`; the standalone edition embeds both fonts and notices. Exact source revisions,
+  `site/vendor/fonts.css`. Exact source revisions,
   axes and hashes live in `FONT-PROVENANCE.json`. No live Google Fonts dependency.
 
 The portable skill snapshot still describes the older font choice; its instruction
@@ -119,8 +119,7 @@ without a placeholder. Local 104/207/414px WebPs provide responsive candidates;
 native lazy loading defers closed-menu artwork. The menu has four desktop columns, two at medium widths and one on mobile.
 Hover/focus enlarges an icon to its native 104px canvas inside its clipped row.
 The selected category’s medium image replaces the ledger-end fruit at 207px;
-All restores the fruit. The standalone edition embeds small menu and medium
-closing-mark variants. See [category provenance](domains/provenance.json).
+All restores the fruit. See [category provenance](domains/provenance.json).
 
 ## 6. Artwork: strange, obscure, direct
 
@@ -170,7 +169,7 @@ The specimen concept governs visual organization and artwork; it does not author
 
 ## 8. Implementation and skill precedence
 
-Ship fonts and artwork as repository assets with relative paths that work under `/awesome-open/` as well as at a preview root. Preserve font licenses and asset provenance. Do not depend on chat attachment URLs, temporary generated-image URLs or a developer's local filesystem. Test the built deployment and standalone export separately; an offline document needs embedded or packaged dependencies.
+Ship fonts and artwork as repository assets with relative paths that work under `/awesome-open/` as well as at a preview root. Preserve font licenses and asset provenance. Do not depend on chat attachment URLs, temporary generated-image URLs or a developer's local filesystem. Test the built deployment and its static record pages.
 
 Use `design/tokens.css` as the versioned reference. The ledger-first build loads these tokens before its component CSS. Update the shared tokens and reference together.
 
@@ -294,7 +293,7 @@ Before conversion, record the original SHA-256, dimensions and source Git revisi
 
 Add the matching filename, actual width/height, truthful source and processing record to `site/footer-backgrounds/provenance.json`. Missing or inconsistent provenance fails the build. Update `brand/assets.md` if the role changes, then run `python3 scripts/check_brand.py --refresh` and `python3 scripts/check_brand.py`. Adding a file alone intentionally still fails CI: automatic discovery does not waive provenance or the checksum inventory. Never invent generation or rights details.
 
-Repeating CSS textures belong in `site/patterns/`, with their own provenance; they never enter panorama rotation. `navypattern2.png` is the existing owner-committed texture, moved unchanged from the footer directory. Ledger and Observatory CSS use the same texture; both standalone outputs embed its original PNG bytes. The standalone download embeds the complete pool and uses the same selection logic. The same native-size, centered, bottom-aligned clipping applies on narrow screens and in the standalone edition.
+Repeating CSS textures belong in `site/patterns/`, with their own provenance; they never enter panorama rotation. `navypattern2.png` is the existing owner-committed texture, moved unchanged from the footer directory. Ledger and Observatory CSS use the same texture. The same native-size, centered, bottom-aligned clipping applies on narrow screens.
 
 ### Specimen plates — three-record study, 2026-10-13
 
@@ -513,8 +512,8 @@ links) without visible labels. A four-metric row follows, with ratio bars where 
 denominator exists; only Unique projects carries the selected category's small
 illustration. Findings sit on mist bands with explicit scope. Charts are HTML/CSS
 bar lists drawn linearly from zero with printed values; the Shared names tally
-uses shape only (square identical, circle variant). Project listings and the
-data table are folded native disclosures; downloads stay visible. Whole-collection
+uses shape only (square identical, circle variant). Project listings are folded
+native disclosures; the CSV and JSON downloads stay visible. Whole-collection
 coverage is a mist band. The botanical mark closes the page above the Prussian
 patterned footer with source revision and collection date. Data meaning and the
 method are in [the Observatory contract](OBSERVATORY.md) and

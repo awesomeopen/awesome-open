@@ -47,8 +47,8 @@ A future implementation should provide play/stop, explicit neutral/character
 selection, keyboard-operable labeled controls, no autoplay and one active clip at
 a time. Fetch audio only after interaction; do not preload hundreds of recordings
 or add audio processing to catalog startup. Define behavior for closing a drawer,
-changing voice, navigating away and missing/failed files. Keep the full record and
-standalone output useful without JavaScript or audio. Use the existing specimen
+changing voice, navigating away and missing/failed files. Keep the full record
+useful without JavaScript or audio. Use the existing specimen
 plate and route conventions; this proposal does not introduce a new page shell.
 
 For the first audition, exchange a versioned batch of prompts/settings and return
@@ -317,5 +317,5 @@ then project catalog-scale cost; do not infer affordability from a chat subscrip
 
 A subsequent scoped PR can define schema, validation, asset handling and accessible
 playback. Review missing audio, failed loads, repeated play/stop, voice switching,
-drawer closure, mobile layouts and standalone behavior. No catalog-wide generation,
+drawer closure, mobile layouts and static record behavior. No catalog-wide generation,
 service subscription or live backend is part of this documentation proposal.
