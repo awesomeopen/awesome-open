@@ -22,6 +22,8 @@ to the notices in [assets.md](assets.md).
 
 ## Recorded Retro-Scraperism adjustment
 
+See [B-PR198-01](decisions/B-PR198-01.md) for this proposed reconciliation.
+
 The bundled style guide retains the standalone-testing removal made in
 [0b64e01](https://github.com/awesomeopen/awesome-open/commit/0b64e0187249f8d043bcba8c5de3f35bccf5c3af).
 That edit follows the [implemented standalone removal](../PRD/2026-10-22_Remove-standalone-download.md).
