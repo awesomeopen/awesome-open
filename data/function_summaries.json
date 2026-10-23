@@ -185,7 +185,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://github.com/rehan-remade/open-annie/blob/1a3aebfe32343b119263c8b7eba3b7cb1d4e4507/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Transcript-driven animation",
+          "text": "A separate model chooses facial expressions and gestures from conversation text while speech travels to the browser over WebRTC.",
+          "source_url": "https://github.com/rehan-remade/open-annie/blob/1a3aebfe32343b119263c8b7eba3b7cb1d4e4507/README.md"
+        },
+        {
+          "title": "Scripted preview and replay",
+          "text": "Browse a scripted character preview or replay a recorded conversation with its stored animation decisions.",
+          "source_url": "https://github.com/rehan-remade/open-annie/blob/1a3aebfe32343b119263c8b7eba3b7cb1d4e4507/README.md"
+        }
+      ]
     },
     "10d69f0daa625d430823f0f96fe4a54501756699271de233b676a41c1fdc2576": {
       "project_url": "https://github.com/simonliu-ai-product/open-doc",
@@ -339,7 +351,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Creator page establishes controls, survival mechanics and Lua customization; pinned README and developer-published Steam page establish leaderboards, with Steam specifying focus behavior. No free-to-play or performance claim."
+      "review_note": "Creator page establishes controls, survival mechanics and Lua customization; pinned README and developer-published Steam page establish leaderboards, with Steam specifying focus behavior. No free-to-play or performance claim. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://store.steampowered.com/app/1358090/Open_Hexagon/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Custom level scripting",
+          "text": "Create levels and game mechanics with Lua, including variations on the game's survival challenges.",
+          "source_url": "https://store.steampowered.com/app/1358090/Open_Hexagon/"
+        },
+        {
+          "title": "Movement controls",
+          "text": "Rotate in either direction, swap position by 180 degrees or slow movement with the focus action.",
+          "source_url": "https://store.steampowered.com/app/1358090/Open_Hexagon/"
+        }
+      ]
     },
     "1e59457b7413d807112e3f60186dcbea5427521288abc92abc37ff9cac7f089b": {
       "project_url": "https://openjump.org",
@@ -1834,7 +1858,19 @@
       "checked_at": "2026-10-21",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval."
+      "review_note": "Claims checked against the linked official documentation; original summary reviewed by AI for proposed build inclusion, not owner merge approval. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://github.com/fesens/opentpu/blob/506e81b1d297e22739dab5ecaeee684493d5c720/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Accelerator simulation",
+          "text": "Run model inference through the instruction-set simulator and compare its outputs with the RTL or FPGA implementation.",
+          "source_url": "https://github.com/fesens/opentpu/blob/506e81b1d297e22739dab5ecaeee684493d5c720/README.md"
+        },
+        {
+          "title": "Execution profiling",
+          "text": "Record accelerator runs and inspect a browser-based timeline, roofline view and per-instruction tables.",
+          "source_url": "https://github.com/fesens/opentpu/blob/506e81b1d297e22739dab5ecaeee684493d5c720/README.md"
+        }
+      ]
     },
     "ad3462ed000239464c7428c48136ee860b6b06d2a4b934867ac393695fc10159": {
       "project_url": "https://github.com/chaxiu/OpenCompare",
@@ -1949,7 +1985,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://github.com/firecrawl/open-lovable/blob/806b8072f28afea11fa2b028cac1449eff74c511/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Chat-driven React apps",
+          "text": "Use an AI chat interface to create React applications while running the app locally.",
+          "source_url": "https://github.com/firecrawl/open-lovable/blob/806b8072f28afea11fa2b028cac1449eff74c511/README.md"
+        },
+        {
+          "title": "Configurable providers",
+          "text": "Configure Gemini, Anthropic, OpenAI or Groq for model access and select Vercel or E2B as the sandbox provider.",
+          "source_url": "https://github.com/firecrawl/open-lovable/blob/806b8072f28afea11fa2b028cac1449eff74c511/README.md"
+        }
+      ]
     },
     "2127fb25a9b8e533c1cf30640061b7c4b52ba804d6b09ea2aa6041bbafe00bef": {
       "project_url": "https://www.openstack.org/software",
@@ -1963,7 +2011,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the official software overview. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the official software overview. AI content review; owner merge review remains separate. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://www.openstack.org/software/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Cloud resource provisioning",
+          "text": "Provision compute, storage and networking resources through APIs, command-line tools and web dashboards.",
+          "source_url": "https://www.openstack.org/software/"
+        },
+        {
+          "title": "Composable services",
+          "text": "Choose deployment components for infrastructure functions such as orchestration, fault management and service management.",
+          "source_url": "https://www.openstack.org/software/"
+        }
+      ]
     },
     "215b98f79aadf3704ad19f2977c5abde849532c82ea0dd7e156184ff1a952d2b": {
       "project_url": "https://github.com/opensourcerisk/engine",
@@ -1978,7 +2038,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://github.com/OpenSourceRisk/Engine/blob/3d75a69087911a7e2cf1e6882da7bc27135c0762/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Risk analytics",
+          "text": "Calculate portfolio risk analytics and valuation adjustments using simulation models, instruments and pricing engines that extend QuantLib.",
+          "source_url": "https://github.com/OpenSourceRisk/Engine/blob/3d75a69087911a7e2cf1e6882da7bc27135c0762/README.md"
+        },
+        {
+          "title": "Data and application interfaces",
+          "text": "Supply trade data, market data and configuration through APIs or XML, with launchers for Excel, LibreOffice, Python and Jupyter.",
+          "source_url": "https://github.com/OpenSourceRisk/Engine/blob/3d75a69087911a7e2cf1e6882da7bc27135c0762/README.md"
+        }
+      ]
     },
     "21cdaf2fdd7b668bc4d0aee33b727b7d01b74d8762e5da78b47f644336b8efee": {
       "project_url": "https://github.com/nyl/openxterm",
@@ -1993,7 +2065,14 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://github.com/nyl/OpenXterm/blob/bb569c888aca71bd867c794d42fcadc39cbbce3e/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Session workspace scaffold",
+          "text": "Explore an implemented desktop shell with a session tree, tabbed workspace, quick-connect area, menus and status bars. SSH and VNC are the documented version-one protocol scope.",
+          "source_url": "https://github.com/nyl/OpenXterm/blob/bb569c888aca71bd867c794d42fcadc39cbbce3e/README.md"
+        }
+      ]
     },
     "23e5cf36bd53e8f6fff5b5bf413c703d30f6b03860ce3206402a2367d3d271de": {
       "project_url": "https://github.com/optima-cityu/openarchevo",
@@ -2008,7 +2087,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://github.com/Optima-CityU/OpenArchEvo/blob/7f4a6cdbcd440d7ad73510617ed2b3b29ea4ad6a/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Program evolution",
+          "text": "Generate architecture-program mutations with a language model, then select candidates using predicted fitness and novelty across island populations.",
+          "source_url": "https://github.com/Optima-CityU/OpenArchEvo/blob/7f4a6cdbcd440d7ad73510617ed2b3b29ea4ad6a/README.md"
+        },
+        {
+          "title": "Pre-training comparison",
+          "text": "Compare candidate code, design rationale and behavioral fingerprints to screen duplicates and guide surrogate predictions before training.",
+          "source_url": "https://github.com/Optima-CityU/OpenArchEvo/blob/7f4a6cdbcd440d7ad73510617ed2b3b29ea4ad6a/README.md"
+        }
+      ]
     },
     "243ca20ff8d9b5075ba922da24804613b921912c790d02d1df7de689f8f03e72": {
       "project_url": "https://github.com/haguilar91/opencleaner",
@@ -2023,7 +2114,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://github.com/Haguilar91/OpenCleaner/blob/b2e4964dfaa396376b421631fe080a8eb82dfd49/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Reviewed cleanup selection",
+          "text": "Scan for reclaimable space, inspect reported sizes, then select items and confirm cleanup. Categories vary with the platform.",
+          "source_url": "https://github.com/Haguilar91/OpenCleaner/blob/b2e4964dfaa396376b421631fe080a8eb82dfd49/README.md"
+        },
+        {
+          "title": "Disk-usage browsing",
+          "text": "Inspect disk usage to locate large files and folders before choosing what to remove.",
+          "source_url": "https://github.com/Haguilar91/OpenCleaner/blob/b2e4964dfaa396376b421631fe080a8eb82dfd49/README.md"
+        }
+      ]
     },
     "2471af5f1ed391d415be80bf186aa8cab79eac628a8174be5b1b87cfa49e0c0b": {
       "project_url": "https://github.com/ganeshmshetty/openclip",
@@ -2038,7 +2141,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate."
+      "review_note": "Checked capabilities, intended use and deployment against the linked official documentation. GitHub source revisions were verified as commits. AI content review; owner merge review remains separate. Feature-only review 2026-10-22 UTC by Junge (AI): checked the added capability notes against https://github.com/ganeshmshetty/openclip/blob/a38c956bfda8ce6d97ded037de9f5e30fda9840e/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Selection actions",
+          "text": "Invoke text transformations, searches, expression evaluation and custom actions from a bar beside selected text.",
+          "source_url": "https://github.com/ganeshmshetty/openclip/blob/a38c956bfda8ce6d97ded037de9f5e30fda9840e/README.md"
+        },
+        {
+          "title": "Extensible action palette",
+          "text": "Search the action catalog by hotkey and add extensions written with JavaScript, shell scripts, AppleScript or URL schemes.",
+          "source_url": "https://github.com/ganeshmshetty/openclip/blob/a38c956bfda8ce6d97ded037de9f5e30fda9840e/README.md"
+        }
+      ]
     },
     "24d8010c73e60d504a17c089d72faf313f4ed4eb9ecf570b79184e414f767d4d": {
       "project_url": "https://github.com/openfheorg/openfhe-development",
