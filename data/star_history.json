@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 0,
+    "requests_used": 3,
     "utc_date": "2026-10-23"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -21640,6 +21640,268 @@
       "repo": "andremichelle/opendaw",
       "source_sha": "57b7923b08f46d3b18a0ff49a275a85f6b3d5d2d",
       "source_url": "https://api.github.com/repos/andremichelle/opendaw/stargazers/history",
+      "status": "ok"
+    },
+    "andrewyng/openworker": {
+      "checked_at": "2026-10-23T08:30:37.217253+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1784419200,
+          "repository_created_at": "2026-07-20T01:52:32+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-23T08:30:37.217253+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11195,
+          5808,
+          1311
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "27ffb4a4dc3e813b5c8bd05324e9f84604c58dcb",
+        "source_urls": [
+          "https://api.github.com/repos/andrewyng/openworker/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              18,
+              54,
+              25,
+              10,
+              12,
+              0,
+              0
+            ],
+            "total": 119,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              8,
+              18,
+              14,
+              10,
+              11,
+              11,
+              16
+            ],
+            "total": 88,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              17,
+              19,
+              15,
+              19,
+              13,
+              7,
+              11
+            ],
+            "total": 101,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              25,
+              39,
+              19,
+              11,
+              15,
+              17,
+              14
+            ],
+            "total": 140,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              29,
+              38,
+              40,
+              65,
+              41,
+              22,
+              19
+            ],
+            "total": 254,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              42,
+              73,
+              165,
+              76,
+              40,
+              31,
+              25
+            ],
+            "total": 452,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              33,
+              34,
+              31,
+              42,
+              40,
+              38,
+              37
+            ],
+            "total": 255,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              113,
+              62,
+              65,
+              63,
+              64,
+              36,
+              28
+            ],
+            "total": 431,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              34,
+              52,
+              810,
+              513,
+              293,
+              221,
+              117
+            ],
+            "total": 2040,
+            "week": 1787443200
+          },
+          {
+            "days": [
+              108,
+              78,
+              48,
+              64,
+              43,
+              32,
+              20
+            ],
+            "total": 393,
+            "week": 1786838400
+          },
+          {
+            "days": [
+              165,
+              118,
+              126,
+              105,
+              110,
+              76,
+              52
+            ],
+            "total": 752,
+            "week": 1786233600
+          },
+          {
+            "days": [
+              493,
+              369,
+              318,
+              299,
+              161,
+              308,
+              200
+            ],
+            "total": 2148,
+            "week": 1785628800
+          },
+          {
+            "days": [
+              1809,
+              1947,
+              918,
+              533,
+              358,
+              298,
+              300
+            ],
+            "total": 6163,
+            "week": 1785024000
+          },
+          {
+            "days": [
+              0,
+              0,
+              8,
+              3,
+              2012,
+              1587,
+              1722
+            ],
+            "total": 5332,
+            "week": 1784419200
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "OpenWorker",
+      "readme_url": "https://github.com/andrewyng/openworker",
+      "repo": "andrewyng/openworker",
+      "source_sha": "27ffb4a4dc3e813b5c8bd05324e9f84604c58dcb",
+      "source_url": "https://api.github.com/repos/andrewyng/openworker/stargazers/history",
       "status": "ok"
     },
     "andykr1k/opencomputer": {
@@ -156859,6 +157121,99 @@
       "repo": "open-flight/open-gps",
       "source_sha": "d7c3abdf0e735f0cf2f45f865bdaa30d7bf7ddad",
       "source_url": "https://api.github.com/repos/open-flight/open-gps/stargazers/history",
+      "status": "ok"
+    },
+    "open-industry-project/open-industry-project": {
+      "checked_at": "2026-10-23T08:30:37.217253+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1792281600,
+          "repository_created_at": "2026-10-19T12:55:52+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-23T08:30:37.217253+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "27ffb4a4dc3e813b5c8bd05324e9f84604c58dcb",
+        "source_urls": [
+          "https://api.github.com/repos/open-industry-project/open-industry-project/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              7,
+              31,
+              17,
+              1,
+              0
+            ],
+            "total": 56,
+            "week": 1792281600
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "Open Industry Project",
+      "readme_url": "https://github.com/open-industry-project/open-industry-project",
+      "repo": "open-industry-project/open-industry-project",
+      "source_sha": "27ffb4a4dc3e813b5c8bd05324e9f84604c58dcb",
+      "source_url": "https://api.github.com/repos/open-industry-project/open-industry-project/stargazers/history",
       "status": "ok"
     },
     "open-jarvis/openjarvis": {
@@ -494253,6 +494608,99 @@
       "source_url": "https://api.github.com/repos/techjiang/openblog/stargazers/history",
       "status": "ok"
     },
+    "theanam/openlaser.app": {
+      "checked_at": "2026-10-23T08:30:37.217253+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1792281600,
+          "oldest_week": 1792281600,
+          "repository_created_at": "2026-10-19T19:36:53+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-10-23T08:30:37.217253+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "27ffb4a4dc3e813b5c8bd05324e9f84604c58dcb",
+        "source_urls": [
+          "https://api.github.com/repos/theanam/openlaser.app/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              41,
+              86,
+              0,
+              0
+            ],
+            "total": 127,
+            "week": 1792281600
+          }
+        ],
+        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
+        "window_start": "2024-10-01T00:00:00+00:00"
+      },
+      "name": "openlaser",
+      "readme_url": "https://github.com/theanam/openlaser.app",
+      "repo": "theanam/openlaser.app",
+      "source_sha": "27ffb4a4dc3e813b5c8bd05324e9f84604c58dcb",
+      "source_url": "https://api.github.com/repos/theanam/openlaser.app/stargazers/history",
+      "status": "ok"
+    },
     "theaxelander/openbudgeteer": {
       "checked_at": "2026-10-16T05:36:37.585640+00:00",
       "last_good": {
@@ -525999,12 +526447,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
-    "due_repositories": 0,
-    "eligible_repositories": 481,
+    "attempted_repositories": 3,
+    "due_repositories": 3,
+    "eligible_repositories": 484,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "c7218c060609a6399967d07b36b9c3b0b24adb45",
-  "updated_at": "2026-10-23T02:40:22.576234+00:00"
+  "source_sha": "27ffb4a4dc3e813b5c8bd05324e9f84604c58dcb",
+  "updated_at": "2026-10-23T08:30:37.217253+00:00"
 }
