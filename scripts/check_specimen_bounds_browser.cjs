@@ -92,6 +92,11 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
         await page.setViewportSize({ width, height: 1000 });
         const m = await measure(page);
         assertGeometry(m, `${project.name} at ${width}px`);
+        // srcset sizes "(max-width: 660px) 100vw, 627px" must not undercount the drawing.
+        if (await page.locator('.plate-art img[srcset]').count()) {
+          assert.ok(m.image.width <= (width <= 660 ? width : 627) + 1,
+            `${project.name} at ${width}px: ${m.image.width}px exceeds the sizes slot`);
+        }
         results.push({ name: project.name, viewport: width, imageWidth: m.image.width, fieldHeight: m.field.height });
         if ([1440, 390].includes(width)) {
           await page.evaluate(() => document.fonts.ready);
@@ -108,12 +113,27 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
       const y = m.image.top + m.image.height * (m.bbox[1] + m.bbox[3]) / 2;
       await page.mouse.move(x, y);
       const lens = await page.locator('.plate-lens').evaluate(node => ({
-        on: node.classList.contains('is-on'), left: parseFloat(node.style.left), top: parseFloat(node.style.top)
+        on: node.classList.contains('is-on'), left: parseFloat(node.style.left), top: parseFloat(node.style.top),
+        image: node.style.backgroundImage
       }));
       assert.ok(lens.on, 'Loupe activates over compacted subject');
+      assert.ok(!lens.image.includes('/specimens/responsive/'), 'Loupe magnifies the full-size source');
       near(lens.left, x - m.field.left, 'Loupe pointer x');
       near(lens.top, y - m.field.top, 'Loupe pointer y');
     }
+    // A phone at 1x loads the 512px variant rather than the full-size source.
+    const phone = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
+    try {
+      const sample = cases.find(project => project.artwork);
+      await phone.goto(new URL(`records/${sample.id}.html`, url).href);
+      const image = phone.locator('.plate-art img');
+      if (await image.getAttribute('srcset')) {
+        await image.scrollIntoViewIfNeeded();
+        await image.evaluate(node => node.decode());
+        const current = await image.evaluate(node => new URL(node.currentSrc).pathname);
+        assert.match(current, /\/specimens\/responsive\/[a-f0-9]{64}(-cutout)?-512\.webp$/, 'Phone loads the 512px variant');
+      }
+    } finally { await phone.close(); }
     // A real PR-base renderer/CSS/JS control, using identical catalog and art.
     const baseResponse = await context.request.get(new URL('bounds-before/source.json', url).href);
     let baseline = null;
