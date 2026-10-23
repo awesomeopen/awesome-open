@@ -2348,6 +2348,51 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+    },
+    "e93d8855c21779fa7cfcd729c8dafb766c19f67b96ec6fa28dcdfd6d6882dcc6": {
+      "project_url": "https://github.com/open-industry-project/open-industry-project",
+      "text": "Open Industry Project models manufacturing and warehouse equipment in an interactive simulation. Users assemble conveyors, sensors, robots and other components, then control them with built-in Structured Text or Ladder Diagram logic. The browser version supports experimentation without external PLC hardware. Desktop versions connect simulations to industrial controllers through protocols including Modbus TCP, OPC UA and EtherNet/IP.",
+      "sources": [
+        {
+          "url": "https://github.com/open-industry-project/open-industry-project/blob/f3bc6826cf637addf64f002601038a84c6fe3685/README.md",
+          "title": "Open Industry Project official README",
+          "revision": "f3bc6826cf637addf64f002601038a84c6fe3685"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
+    },
+    "8937d9c6b61e13570672d8c99470e4380e88a950f2af7716d503748bd5101ba9": {
+      "project_url": "https://github.com/theanam/openlaser.app",
+      "text": "openlaser is a browser-based workspace for designing, previewing and running laser cutting and engraving jobs. It imports vector drawings and images, assigns layer-specific processing settings, and previews burn and travel paths. Compatible desktop browsers can control GRBL machines through Web Serial. Projects can also be saved or exported, and the static application can be hosted without a backend.",
+      "sources": [
+        {
+          "url": "https://github.com/theanam/openlaser.app/blob/e128495e5be167f5614b75c2663db29fb98d0585/README.md",
+          "title": "openlaser official README",
+          "revision": "e128495e5be167f5614b75c2663db29fb98d0585"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
+    },
+    "b120ebd626696256ad76c7d15c2efd05162f9a8afdcd6811995f12f488359dd2": {
+      "project_url": "https://github.com/andrewyng/openworker",
+      "text": "OpenWorker combines a desktop interface with a local agent server for tasks involving files, code, documents and connected services. Users choose hosted model providers or local models through Ollama, then connect applications or MCP tools. It can produce files, run recurring tasks and respond to Slack mentions, with approval controls and transcripts for reviewing tool activity.",
+      "sources": [
+        {
+          "url": "https://github.com/andrewyng/openworker/blob/7bac273885d77f5794416ba7da5ad4ab4ceafd5f/README.md",
+          "title": "OpenWorker official README",
+          "revision": "7bac273885d77f5794416ba7da5ad4ab4ceafd5f"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
     }
   }
 }
