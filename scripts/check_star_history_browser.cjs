@@ -20,7 +20,15 @@ module.exports = async ({ page, url, data, capture }) => {
     assert.ok(!(await card.innerText()).includes('As of '));
     const provenance=card.locator('[data-signal="star-history"] .pg-info');
     await provenance.locator('summary').click();
-    assert.ok((await provenance.innerText()).includes('not guaranteed UTC'));
+    const maximum = Math.max(1, ...project.star_history.last_good.monthly_counts).toLocaleString('en-US');
+    const explanation = 'Stars created in each month that remained at the last successful fetch. ' +
+      `Independent square-root scale: 0–${maximum} stars/month.`;
+    assert.ok((await provenance.locator('.pg-pop > p:not(.fine-print)').innerText()).includes(explanation));
+    const popupText = await provenance.innerText();
+    for (const removed of ['Not historical totals', 'not guaranteed UTC', 'HN stories and GitHub stars are independent measurements']) {
+      assert.ok(!popupText.includes(removed));
+    }
+    assert.equal(await provenance.getByRole('link', { name: 'Provider source' }).getAttribute('href'), project.star_history.source_url);
     await provenance.locator('summary').click();
     await capture(name);
     await drawer.locator(':scope > summary').click();
