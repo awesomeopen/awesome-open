@@ -626,7 +626,7 @@ const path = require('node:path');
     report.detailLoading.domBudget = { elementsPerRow: 24, limit: 24 * rows, elements: report.detailLoading.cold.elements };
     assert.ok(report.detailLoading.cold.elements <= report.detailLoading.domBudget.limit,
       `Deferred ledger has ${report.detailLoading.cold.elements} DOM elements; budget is 24 per row (${report.detailLoading.domBudget.limit})`);
-    report.detailLoading.controlLimit = 'Same Chromium and viewport; structural DOM count only, not a transfer, startup-time, JS-heap or process-memory measure.';
+    report.detailLoading.domBudget.measure = 'Element count of the cold ledger in Chromium at the check viewport';
     writeReport();
     await require('./check_deployment_browser.cjs')({ page, browser, url, data, capture });
     assert.deepEqual(errors, []);
