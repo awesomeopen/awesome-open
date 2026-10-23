@@ -19,8 +19,12 @@ IMAGES = {'.webp', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.avif'}
 
 # (label, measure, limit, reason). Measures are defined in measure().
 BUDGET = [
-    ('Site total', 'total_bytes', 160 * MIB,
-     'GitHub Pages publishes at most 1 GB; 128 MiB after the standalone downloads were removed'),
+    ('Site total', 'total_bytes', 512 * MIB,
+     'GitHub Pages publishes at most 1 GB; baseline 128 MiB, about 270 MiB with artwork for every project'),
+    ('Site without specimen artwork', 'other_bytes', 64 * MIB,
+     'Everything outside specimens/; baseline 57 MiB'),
+    ('Specimen artwork per illustrated project', 'specimen_average', 512 * KIB,
+     'Original plus cutout, averaged over projects with artwork; baseline 408 KiB'),
     ('Files', 'files', 4000, 'Pages artifact upload time; baseline 2,055'),
     ('index.html', 'index_bytes', 1536 * KIB,
      'Initial ledger HTML parsed on every visit; baseline 932 KiB'),
@@ -41,8 +45,13 @@ def measure(site):
     sizes = {path.relative_to(site).as_posix(): path.stat().st_size for path in files}
     named = {'index.html', 'catalog.json'}
     index = site / 'index.html'
+    specimen_bytes = sum(size for name, size in sizes.items() if name.startswith('specimens/'))
+    # Each illustrated project has one original at the top of specimens/.
+    illustrated = sum(1 for name in sizes if name.startswith('specimens/') and name.count('/') == 1)
     values = {
         'total_bytes': sum(sizes.values()),
+        'other_bytes': sum(sizes.values()) - specimen_bytes,
+        'specimen_average': specimen_bytes // illustrated if illustrated else 0,
         'files': len(sizes),
         'index_bytes': sizes.get('index.html', 0),
         'index_gzip': len(gzip.compress(index.read_bytes(), 6)) if index.is_file() else 0,

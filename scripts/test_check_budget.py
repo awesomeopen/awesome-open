@@ -15,7 +15,10 @@ class CheckBudgetTests(unittest.TestCase):
         (site / 'specimens').mkdir()
         (site / 'index.html').write_bytes(b'<!doctype html>' + b'a' * index_bytes)
         (site / 'catalog.json').write_text('{}')
+        (site / 'specimens/cutouts').mkdir()
         (site / 'specimens/one.webp').write_bytes(b'w' * 2048)
+        (site / 'specimens/cutouts/one.webp').write_bytes(b'c' * 1024)
+        (site / 'specimens/two.webp').write_bytes(b'w' * 3072)
         return site
 
     def run_check(self, *args):
@@ -30,7 +33,13 @@ class CheckBudgetTests(unittest.TestCase):
         self.assertEqual(code, 0)
         for label, *_ in check_budget.BUDGET:
             self.assertIn(f'| {label} |', text)
-        self.assertIn('Largest specimen artwork | 2.0 KiB', text)
+        self.assertIn('Largest specimen artwork | 3.0 KiB', text)
+
+    def test_artwork_counts_per_illustrated_project_and_leaves_the_rest(self):
+        with tempfile.TemporaryDirectory() as directory:
+            values, _ = check_budget.measure(self.site(directory))
+        self.assertEqual(values['specimen_average'], 3072)
+        self.assertEqual(values['other_bytes'], values['total_bytes'] - 6144)
 
     def test_exceeded_limit_fails_unless_warn_only(self):
         budget = [(label, key, 100 if key == 'index_bytes' else limit, reason)

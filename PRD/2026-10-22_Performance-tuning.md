@@ -110,6 +110,12 @@ blocked.
 Initial limits sit just above the current baseline, so the check catches new
 growth; each later workstream lowers its limit in the same PR.
 
+Specimen artwork grows by design, in batches of up to 40 projects (about
+16 MiB each). It has its own limit, the average bytes per illustrated project
+(original plus cutout). The site without `specimens/` keeps a limit just above
+its baseline. The site total limit is set at half the 1 GB Pages limit, above
+the projected size with artwork for every project (about 270 MiB).
+
 ### W4. Payload reduction (Phase 3)
 
 - Write site-only JSON (`catalog.json`, the copied `data/*.json`) compactly. The
