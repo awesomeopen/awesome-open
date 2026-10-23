@@ -5,6 +5,7 @@
 | `awesome-open-brand` | Read/update the current project contract | This repository | `.agents/skills/awesome-open-brand/`; installed routing mirror for cross-chat use |
 | `retro-scraperism` | Reusable interface/graphic language | Owner's reusable Skills workspace | Exact pinned snapshot including references and UI assets |
 | `speculative-fossoligy` | Reusable drawing language | Owner's reusable Skills workspace | Exact pinned snapshot including style atlas and UI assets |
+| `curb-your-verbosiasm` | Reader-focused documentation and explanatory copy for Awesome Open* | Owner's Skills workspace; current project rules govern facts and voice | Exact pinned snapshot including editing examples and repository checks |
 | `gpt-taste` | Optional composition/refinement aid | Upstream/installed skill | Not a project dependency; no automatic theme/font/motion substitution |
 | `imagegen-frontend-web` | Optional section reference-image workflow | Owner's installed skill | Not a project dependency; one image per requested section when invoked |
 | `redesign-existing-projects` | Optional audit aid | Upstream/installed skill | Installed separately from taste-skill; no automatic project-wide redesign |
@@ -28,9 +29,14 @@ to the notices in [assets.md](assets.md).
 4. Review and merge using the normal process. Until then the old pin remains the
    project's baseline. A newer installed skill never silently changes the project.
 
-For Awesome Open-specific changes, edit project rules rather than changing the
-portable skill just to create an exception. The portable Retro-Scraperism snapshot
-already delegates to the current project guide.
+For Awesome Open-specific changes to a portable skill's defaults, edit project
+rules rather than creating a portable-skill exception. The Retro-Scraperism
+snapshot already delegates to the current project guide. `curb-your-verbosiasm`
+is tailored to Awesome Open*: maintain its editing workflow in the owner's
+Skills workspace and import a reviewed pin here. Keep factual project policy
+in the repository references it reads. The installed version is available for
+explicit use while a repository pin is under review; merged repository pins
+govern repository work.
 
 ## Update the project router
 

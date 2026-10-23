@@ -159,6 +159,12 @@ Apply these rules to all writing: interface copy, headings, annotations, documen
 - **Positive statements:** Say what a value, label or rule is and link its method. Do not define it by what it is not (“X, not Y”, “X is not a verdict”), pre-empt conclusions (“does not establish”, “says nothing about”) or disclaim claims nobody made. A limit that matters is stated once, positively, in the method section or the “(i)” disclosure. Instructions and constraints (“Do not…”, “Never invent…”) are fine.
 - **Direct structure:** Omit filler transitions. Use precise verbs and literal headings. Include explanation only when it supports the requested operational answer; do not turn a technical observation into a broader life lesson.
 
+For documentation, knowledgebase articles and explanatory interface copy, use
+[Curb your verbosiasm](../.agents/skills/curb-your-verbosiasm/SKILL.md). Start with
+the reader's question and the useful answer. Remove repetition and put supporting
+mechanics at the depth the task needs. Use a short example when it saves
+explanation. Preserve evidence meaning, dates and necessary qualifications.
+
 The specimen concept governs visual organization and artwork; it does not authorize elevated prose or commentary about the reader.
 
 | Avoid | Use |

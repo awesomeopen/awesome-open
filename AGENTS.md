@@ -5,6 +5,10 @@ interface or design-system changes, start with `brand/README.md` and
 `.agents/skills/awesome-open-brand/SKILL.md`. Read the relevant detailed sources
 listed there before editing; do not load every design skill for a small fix.
 
+For reader-facing documentation, knowledgebase content and explanatory copy,
+use `.agents/skills/curb-your-verbosiasm/SKILL.md`: identify the reader's question,
+lead with the answer, and keep the detail needed to understand or act on it.
+
 ## Source and meaning
 
 - `README.source.md` is the curated catalog. `README.md` and published site output
