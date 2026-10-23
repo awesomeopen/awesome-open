@@ -2508,6 +2508,156 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
+    },
+    "30d76d1fe3350d3f2e5fba5bb8abce32de74f41bcaa91f4eed715d1361efc873": {
+      "project_url": "https://github.com/scoheart/openrar",
+      "text": "OpenRAR turns demonstrated macOS workflows into reusable skills for Pi and Qoder clients. Its local Swift recorder captures input events and accessibility information, while a Node.js MCP service lets an agent read the recording and define variable inputs, steps and verification conditions. Later runs use connected tools or computer interaction to perform the workflow against the current interface.",
+      "sources": [
+        {
+          "url": "https://github.com/scoheart/openrar/blob/732b89b50f597def488391697aaa7d9bb5185f7d/README.md",
+          "title": "OpenRAR official README",
+          "revision": "732b89b50f597def488391697aaa7d9bb5185f7d"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "310e3f5791dddad90a4cdf026ebe32660d96dbba66446a081e661f05c91f449f": {
+      "project_url": "https://github.com/chrisglaske/opendeck",
+      "text": "OpenDeck builds presentations in a browser using editable slide templates, drag-and-drop ordering, folders and tags. Decks are stored in browser local storage and can be transferred through its JSON-based project format. Users can open the application locally or use its hosted site, then export a presentation as a self-contained interactive HTML file.",
+      "sources": [
+        {
+          "url": "https://github.com/chrisglaske/opendeck/blob/2314a808d4eeedb1d58b068d64d1ff0e57fba473/README.md",
+          "title": "OpenDeck official README",
+          "revision": "2314a808d4eeedb1d58b068d64d1ff0e57fba473"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f": {
+      "project_url": "https://github.com/devhyper/open-video-editor",
+      "text": "Open Video Editor is an Android application for making basic changes to video clips. Its editing controls cover trimming, grayscale conversion, resolution adjustment, scaling and rotation. Users can obtain the app through the project's GitHub releases or its linked Android distribution channels, including Google Play, F-Droid and IzzyOnDroid.",
+      "sources": [
+        {
+          "url": "https://github.com/devhyper/open-video-editor/blob/2f3b1534cdf4ea8d96fca027916857500e80a423/README.md",
+          "title": "Open Video Editor official README",
+          "revision": "2f3b1534cdf4ea8d96fca027916857500e80a423"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "34721a88a36c660b2a588deed2daa3fb287ae7e3a44fa24ff8e0e6de417acea9": {
+      "project_url": "https://github.com/fabio-rovai/open-ontologies",
+      "text": "Open Ontologies provides a command-line and MCP interface for planning, applying and rolling back ontology changes. It reports affected data and changed inferences, reasons over OWL and RDFS, and validates RDF against SHACL shapes. The Rust application ships as a binary, with container deployment also documented; derivation certificates can be checked separately using the project's Lean checker.",
+      "sources": [
+        {
+          "url": "https://github.com/fabio-rovai/open-ontologies/blob/93295305201c7374988217fd6fa609de0fd643ee/README.md",
+          "title": "Open Ontologies official README",
+          "revision": "93295305201c7374988217fd6fa609de0fd643ee"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "3479839df741f43cd40223b6466b6a95ee79cee895b1f7f494b17a1e44dac14d": {
+      "project_url": "https://github.com/openstreetmap/openstreetmap-website",
+      "text": "The OpenStreetMap website application provides user accounts, diaries, messaging and pages for browsing map data. It also implements XML and JSON editing APIs and GPX upload and browsing services. Deployments use Ruby on Rails with PostgreSQL and depend on separate map-tile and geocoding services; the default setup connects to public services for development and testing.",
+      "sources": [
+        {
+          "url": "https://github.com/openstreetmap/openstreetmap-website/blob/9da20921c0a257d4d7ddd52de36bd3b75f3c8372/README.md",
+          "title": "OpenStreetMap website official README",
+          "revision": "9da20921c0a257d4d7ddd52de36bd3b75f3c8372"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "349d687dce9f4e18a768e8097d67ac572aacd6ad9bc51372878f927ae9309852": {
+      "project_url": "https://github.com/jackwener/opencli",
+      "text": "OpenCLI exposes browser navigation, form filling, clicking, extraction and screenshots as command-line operations for people and agents. Site adapters package recurring interactions into reusable commands with structured output. It connects to Chrome or Chromium through an extension and local daemon, with a desktop application or Node.js package providing the runtime and tooling for creating additional adapters.",
+      "sources": [
+        {
+          "url": "https://github.com/jackwener/opencli/blob/aeaff2b796efabb7fd46654112418ab61fcae917/README.md",
+          "title": "OpenCLI official README",
+          "revision": "aeaff2b796efabb7fd46654112418ab61fcae917"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "3503bcab4b8f5c6e176bbfa9f132a690187396592017d86d1df1dcf896fa3e1b": {
+      "project_url": "https://github.com/openfilm/openfilm",
+      "text": "OpenFilm lets coding agents compose videos from HTML pages, footage, images and audio, then exposes those files in a local browser-based editor. Users can adjust elements and timeline clips, save versions and export video, sound, subtitles or editing timelines. A command-line runtime and desktop application support the workflow, with optional external providers for generated media.",
+      "sources": [
+        {
+          "url": "https://github.com/openfilm/openfilm/blob/619c163d2632e6e87e989049fec04dfc22188cd1/README.md",
+          "title": "OpenFilm official README",
+          "revision": "619c163d2632e6e87e989049fec04dfc22188cd1"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "351e373a9972ee26ef22e058558411d6e3ccf0a2a9a4d1ba11404177e5b12a6e": {
+      "project_url": "https://github.com/openrailwaymap/openrailwaymap",
+      "text": "OpenRailwayMap presents railway infrastructure using OpenStreetMap data. The project includes a public mapping website, rendering styles, JOSM tagging presets and validation rules to support viewing and editing railway information. Its website code can be installed separately, while the tile-server CartoCSS style and API backend are maintained in companion repositories.",
+      "sources": [
+        {
+          "url": "https://github.com/openrailwaymap/openrailwaymap/blob/3d36317b80cf4bd909090fd106b9a0903dab1150/README.md",
+          "title": "OpenRailwayMap official README",
+          "revision": "3d36317b80cf4bd909090fd106b9a0903dab1150"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "3654b8b6dc8bccc617ea87f2615d68e7b25f7b9830e984a58dc6039273b34994": {
+      "project_url": "https://github.com/pixaranimationstudios/opensubdiv",
+      "text": "OpenSubdiv supplies C++ libraries for evaluating subdivision surfaces on CPU and GPU hardware, including deforming meshes with fixed topology. Developers can embed its core libraries using the C++ standard library, then enable optional evaluation and display components for graphics APIs. CMake build options control those integrations and the accompanying interactive example viewers.",
+      "sources": [
+        {
+          "url": "https://github.com/pixaranimationstudios/opensubdiv/blob/ffffe6fb821dd59eabd8ed630720115ab74f76a3/README.md",
+          "title": "OpenSubdiv official README",
+          "revision": "ffffe6fb821dd59eabd8ed630720115ab74f76a3"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "36f9dcf37e722ae88c534dc0b95483133073d5199ad94c8315e51b3723b1a5c6": {
+      "project_url": "https://github.com/feimacode/open-design-agent-kit",
+      "text": "Open Design Agent Kit provides design skills, templates, brand systems and example artifacts to coding agents through editor integrations, plugins and an MCP server. An agent uses that material with its existing model and file tools to create decks, pages and prototypes in a project workspace. The toolkit also supports previewing, commenting on and adapting generated artifacts into application components.",
+      "sources": [
+        {
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/3fcb7533a5297680753a1281a036e387a2bd5a46/README.md",
+          "title": "Open Design Agent Kit official README",
+          "revision": "3fcb7533a5297680753a1281a036e387a2bd5a46"
+        }
+      ],
+      "checked_at": "2026-10-23",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
     }
   }
 }
