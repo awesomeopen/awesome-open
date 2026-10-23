@@ -15,7 +15,7 @@ Check actual registration and the current repository contract before a run.
 | [Backfill project aliases](backfill-project-aliases.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
 | [Backfill Function summaries](backfill-function-summaries.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
 | [Backfill feature notes](backfill-feature-notes.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
-| [Reconcile documentation](reconcile-documentation.md) | ChatGPT-hosted assistant | Daily, 04:00 `America/New_York`, exact | Setup; register after reviewed contract merges |
+| [Reconcile documentation](reconcile-documentation.md) | ChatGPT-hosted assistant | Daily, 04:00 `America/New_York`, exact | Enabled, recurring |
 | [Backfill GitHub star history](#backfill-github-star-history) | Retired ChatGPT-hosted coordinator; manual collection capability remains in GitHub Actions | Formerly hourly; scheduler timezone `America/Los_Angeles` | Disabled 2026-10-21; initial backfill complete with one documented unavailable repository |
 
 Flexible times are nominal. New York schedules follow local time, including
@@ -259,8 +259,8 @@ The [job contract](reconcile-documentation.md) defines a daily incremental check
 and Sunday rotating audit, proposing up to five related corrections in one
 docs-only draft. It compares approved intent, implementation and registered
 runtime state, and shortens duplicate or obsolete guidance. Same-PR maintenance
-remains the first defense. Setup awaits owner merge and verified registration;
-the contract alone creates no schedule.
+remains the first defense. The job is registered and enabled; editing the
+contract alone creates no schedule.
 
 ## Keeping this inventory current
 
