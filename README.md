@@ -117,7 +117,7 @@
 | [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) | Generate client libraries, server stubs, and documentation from OpenAPI specifications. <!-- STATS:START --><br><sub>2018-05-12 -- 2026-10-23 / Apache-2.0 / 26.8k</sub><!-- STATS:END --> |
 | [OpenAPI TypeScript](https://github.com/openapi-ts/openapi-typescript) | Generate TypeScript types from OpenAPI 3 specifications. <!-- STATS:START --><br><sub>2018-12-13 -- 2026-09-25 / MIT / 8.4k</sub><!-- STATS:END --> |
 | [OpenBarcode](https://github.com/InPoint-Cloud/OpenBarcode) | .NET library and command-line tool for reading barcodes from images and PDFs using managed code. <!-- STATS:START --><br><sub>2026-10-10 -- 2026-10-11 / Apache-2.0 / 0</sub><!-- STATS:END --> |
-| [open-bridge](https://github.com/bks-lab/open-bridge) | Git-backed workspace of context, tasks, and skills used by coding-agent command-line tools. <!-- STATS:START --><br><sub>2026-06-20 -- 2026-10-21 / MIT / 13</sub><!-- STATS:END --> |
+| [open-bridge](https://github.com/bks-lab/open-bridge) | Git-backed workspace of context, tasks, and skills used by coding-agent command-line tools. <!-- STATS:START --><br><sub>2026-06-20 -- 2026-10-23 / MIT / 13</sub><!-- STATS:END --> |
 | [OpenChamber](https://github.com/openchamber/openchamber) | Desktop, web, mobile, and VS Code workspace for running and reviewing AI coding sessions powered by OpenCode. <!-- STATS:START --><br><sub>2025-09-11 -- 2026-10-23 / MIT / 12.1k</sub><!-- STATS:END --> |
 | [OpenCLI](https://github.com/jackwener/OpenCLI) | Turn websites into command-line tools using an authenticated browser. <!-- STATS:START --><br><sub>2026-03-14 -- 2026-10-23 / Apache-2.0 / 30.6k</sub><!-- STATS:END --> |
 | **[OpenCode](https://github.com/anomalyco/opencode)**<br><!-- HN:START -->[![HN discussions / 2y](assets/hn/opencode.svg "HN discussions / 2y")](https://hn.algolia.com/?q=OpenCode&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate)<!-- HN:END --> | AI coding agent for the terminal. <!-- STATS:START --><br><sub>2025-04-30 -- 2026-10-23 / MIT / 220.5k</sub><!-- STATS:END --> |
@@ -443,7 +443,7 @@
 | [OPEN VIDEO EDIT](https://github.com/kevinbadi/open-edits) | Python tools and Claude Code skills for editing videos with animated graphics, captions, and local rendering. <!-- STATS:START --><br><sub>2026-10-02 -- 2026-10-02 / MIT / 43</sub><!-- STATS:END --> |
 | [Open Video Editor](https://github.com/devhyper/open-video-editor) | Android video editor for trimming, scaling, rotating, and applying filters. <!-- STATS:START --><br><sub>2023-10-21 -- 2026-08-26 / GPL-3.0 / 734</sub><!-- STATS:END --> |
 | [OpenVids](https://github.com/bazodev/open-vids) | Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks. <!-- STATS:START --><br><sub>2026-09-28 -- 2026-10-09 / Apache-2.0 / 38</sub><!-- STATS:END --> |
-| [OpenZine](https://github.com/JosssphZhou/openzine) | Agent skill and command-line tool for converting PDFs or page images into interactive 3D HTML booklets. <!-- STATS:START --><br><sub>2026-10-08 -- 2026-10-10 / 31</sub><!-- STATS:END --> |
+| [OpenZine](https://github.com/JosssphZhou/openzine) | Agent skill and command-line tool for converting PDFs or page images into interactive 3D HTML booklets. <!-- STATS:START --><br><sub>2026-10-08 -- 2026-10-10 / 32</sub><!-- STATS:END --> |
 
 ## Games & Emulation
 
