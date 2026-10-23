@@ -23,6 +23,11 @@ class FunctionSummaryTests(unittest.TestCase):
         return catalog.build_catalog(self.source, self.snapshot, self.empty, self.empty,
                                      function_summaries=document)
 
+    def plate(self, result):
+        """The project's card as its static record writes it, plate included."""
+        categories = {c['id']: c['name'] for c in result['categories']}
+        return build_site.project_html(result['projects'][0], categories, result)
+
     def test_approved_is_additive_immutable_and_offline(self):
         before = deepcopy(self.document)
         with patch('urllib.request.urlopen', side_effect=AssertionError('No fetch')):
@@ -33,7 +38,7 @@ class FunctionSummaryTests(unittest.TestCase):
         self.assertEqual(p['function_summary']['text'], self.entry['text'])
         self.assertEqual(self.document, before)
         self.assertEqual(result, self.build(self.document))
-        rendered = build_site.render_html(result)
+        rendered = self.plate(result)
         self.assertIn('class="function-detail"', rendered)
         self.assertIn('href="https://example.org/docs"', rendered)
         self.assertIn('Reviewed <span class="metric-value">2026-10-13', rendered)
@@ -45,7 +50,7 @@ class FunctionSummaryTests(unittest.TestCase):
                 doc['summaries'][self.pid]['review_status'] = state
             result = self.build(doc)
             self.assertNotIn('function_summary', result['projects'][0])
-            self.assertNotIn('class="function-detail"', build_site.render_html(result))
+            self.assertNotIn('class="function-detail"', self.plate(result))
             self.assertIn('Short description.', build_site.render_html(result))
 
     def test_invalid_approved_evidence_fails(self):
@@ -72,7 +77,7 @@ class FunctionSummaryTests(unittest.TestCase):
 
     def test_plain_text_is_escaped(self):
         self.entry['text'] += ' <script>alert(1)</script>'
-        rendered = build_site.render_html(self.build(self.document))
+        rendered = self.plate(self.build(self.document))
         self.assertNotIn('<script>alert(1)</script>', rendered)
         self.assertIn('&lt;script&gt;alert(1)&lt;/script&gt;', rendered)
 

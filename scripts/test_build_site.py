@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 import unittest
 
-from build_site import BRAND_ASSETS, ROOT, attach_specimen_cutouts, build, json_for_html, render_html, search_index
+from build_site import BRAND_ASSETS, ROOT, build, json_for_html, render_html, search_index
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
@@ -92,8 +92,8 @@ class SiteTests(unittest.TestCase):
         self.assertIn('Folio numbers show alphabetical position', self.html)
         folios = {p['id']: i + 1 for i, p in enumerate(self.catalog['projects'])}
         for position, pid in enumerate(self.page.cards, 1):
-            card = self.page.by_id['project-' + pid]
-            row = next(node for node in card.descendants() if node.has_class('folio'))
+            row = next(node for node in self.page.by_id['project-' + pid].descendants() if node.has_class('folio'))
+            card = self.records[pid].by_id['project-' + pid]
             detail = next(node for node in card.descendants() if node.has_class('sheet-folio'))
             registry = next(node for node in card.descendants() if node.has_class('registry'))
             self.assertEqual(row.text, f'{position:03d}')
@@ -105,10 +105,11 @@ class SiteTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.output, cls.catalog = baseline_site(source_sha='a' * 40)
-        # The complete renderer is retained for static records.
-        # LazyDetailSiteTests below exercise the actual slim initial entry point.
-        cls.html = render_html(cls.catalog, attach_specimen_cutouts(cls.catalog, ROOT))
+        cls.html = render_html(cls.catalog)
         cls.page = Page(cls.html)
+        # Plates are written only to the static records the ledger links.
+        cls.records = {p['id']: Page((cls.output / 'records' / (p['id'] + '.html')).read_text(encoding='utf-8'))
+                       for p in cls.catalog['projects']}
 
     def test_production_entry_contains_hero_without_preview_metadata(self):
         from build_jar_preview import build as build_hero
@@ -138,8 +139,9 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(set(self.page.cards), {p['id'] for p in self.catalog['projects']})
         self.assertEqual(len(self.page.ids), len(set(self.page.ids)))
         for p in self.catalog['projects']:
-            self.assertIn(p['url'], self.page.links)
-            self.assertIn('#project-' + p['id'], self.page.links)
+            self.assertIn(f'records/{p["id"]}.html', self.page.links)
+            self.assertIn(p['url'], self.records[p['id']].links)
+            self.assertIn('#project-' + p['id'], self.records[p['id']].links)
         self.assertIn('<noscript>', self.html)
         self.assertIn('id="filters" class="catalog-toolbar" hidden', self.html)
 
@@ -159,6 +161,7 @@ class SiteTests(unittest.TestCase):
                 name = [node for node in summary.descendants() if node.has_class('specimen-name')]
                 self.assertEqual([node.text for node in name], [project['name']])
                 self.assertIn(project['description'], summary.text)
+                card = self.records[project['id']].by_id['project-' + project['id']]
                 self.assertEqual(len(card.descendants('h3')), 0)
                 links = card.descendants('a')
                 departures = [n for n in card.descendants() if n.has_class('plate-departure')]
@@ -456,7 +459,7 @@ for (const input of inputs) {
         self.assertTrue({'OpenTofu', 'OpenRefine', 'OpenSCAD', 'OpenObserve', 'OpenResty', 'OpenSSL', 'OpenSearch'}
                         <= {p['name'] for p in illustrated})
         for project in self.catalog['projects']:
-            card = self.page.by_id['project-' + project['id']]
+            card = self.records[project['id']].by_id['project-' + project['id']]
             figures = [n for n in card.descendants('figure') if n.has_class('specimen-art')]
             self.assertEqual(len(figures), 1 if project.get('artwork') else 0)
             if figures:

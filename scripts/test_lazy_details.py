@@ -32,7 +32,7 @@ class LazyDetailSiteTests(unittest.TestCase):
         # callers remain compatible with historical preview tooling.
         for revision in ('b' * 40, 'c' * 40):
             catalog = {**self.catalog, 'source_sha': revision}
-            page = Page(render_html(catalog, deferred=True, script_url=expected))
+            page = Page(render_html(catalog, script_url=expected))
             self.assertEqual(page.nodes('script')[0].attrs['src'], expected)
         self.assertEqual(Page(render_html(self.catalog)).nodes('script')[0].attrs['src'], 'catalog.js')
 
@@ -62,10 +62,8 @@ class LazyDetailSiteTests(unittest.TestCase):
             self.assertEqual(host.attrs['data-detail-url'], path)
             self.assertEqual([a.attrs['href'] for a in host.descendants('a')], [path])
             self.assertTrue((self.output / path).is_file())
-        # Structural regression budget, not an assertion about process RAM.
-        full = Page(render_html(self.catalog, attach_specimen_cutouts(self.catalog, ROOT)))
-        self.assertLess(len(self.page.elements), len(full.elements) * .25)
-        self.assertLess(len(self.initial), len(render_html(self.catalog)) * .4)
+        # The DOM budget of check_site_browser.cjs: 24 elements per ledger row.
+        self.assertLessEqual(len(self.page.elements), 24 * len(ids))
 
     def test_static_records_preserve_every_plate_identity_evidence_and_local_asset(self):
         categories = {c['id']: c['name'] for c in self.catalog['categories']}

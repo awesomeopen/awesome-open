@@ -33,11 +33,14 @@ class StarSiteTests(unittest.TestCase):
         before=deepcopy(self.snapshot)
         with patch('urllib.request.urlopen',side_effect=AssertionError('offline')):
             catalog=self.catalog()
-            page=build_site.render_html(catalog)
+            ledger=build_site.render_html(catalog)
         self.assertEqual(before,self.snapshot)
         matches=[p for p in catalog['projects'] if p.get('star_history')]
         self.assertEqual(len(matches),1)
         project=matches[0]
+        # The plate is written to the project's static record; the ledger links it.
+        card=build_site.project_html(project,{c['id']:c['name'] for c in catalog['categories']},catalog)
+        page=ledger+card
         self.assertTrue(project['star_history']['chart_url'].startswith('assets/stars/'))
         svg=star_history.svg(project)
         self.assertEqual(svg.count('<rect '),24)
@@ -48,7 +51,6 @@ class StarSiteTests(unittest.TestCase):
         self.assertNotIn('HN stories and GitHub stars are independent measurements',page)
         self.assertIn('not guaranteed UTC',svg)
         self.assertNotIn('<script src="https://',page)
-        card=page.split('id="project-'+project['id']+'"')[1].split('</article>')[0]
         self.assertGreater(card.index('star-history'),card.index('<div class="specimen-interior'))
     def test_unavailable_partial_and_window_mismatch_never_zero(self):
         record=self.snapshot['repositories'][self.repo]

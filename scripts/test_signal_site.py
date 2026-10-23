@@ -17,6 +17,13 @@ import update_signals
 from test_build_site import Page
 
 
+def site_html(catalog):
+    """The ledger, then each project's card as its static record writes it."""
+    categories={c['id']:c['name'] for c in catalog['categories']}
+    return build_site.render_html(catalog)+'\n'.join(
+        build_site.project_html(p,categories,catalog) for p in catalog['projects'])
+
+
 class SignalSiteTests(unittest.TestCase):
     def setUp(self):
         self.root = build_site.ROOT
@@ -64,7 +71,7 @@ class SignalSiteTests(unittest.TestCase):
 
     def test_drawer_technical_labels_coverage_dates_and_html_escaping(self):
         catalog=self.catalog(self.optional)
-        html=build_site.render_html(catalog)
+        html=site_html(catalog)
         page=Page(html)
         project=next(p for p in catalog['projects'] if p['signals'])
         card=page.by_id['project-'+project['id']]
@@ -85,13 +92,13 @@ class SignalSiteTests(unittest.TestCase):
         records=self.optional['repositories'][self.repo]
         records['release'].update(fetch_status='not_found',status='stale',http_status=404)
         records['scorecard']=signals.empty_signal(self.repo,'scorecard')
-        html=build_site.render_html(self.catalog(self.optional))
+        html=site_html(self.catalog(self.optional))
         self.assertIn('Stale',html)
         self.assertTrue(any('Published 2020-01-01' in card.text for card in Page(html).elements if card.has_class('project-card')))
         self.assertIn('Not checked',html)
         self.assertIn('Latest attempt: not found',html)
         records['scorecard'].update(fetch_status='not_found',status='unavailable',http_status=404,checked_at=self.at,error='not_found')
-        html=build_site.render_html(self.catalog(self.optional))
+        html=site_html(self.catalog(self.optional))
         self.assertIn('No result returned',html)
         self.assertNotIn('0/10',html)
 
