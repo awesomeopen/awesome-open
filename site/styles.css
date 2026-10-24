@@ -1217,7 +1217,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .pg-info>summary {position:absolute;right:0;bottom:0;display:grid;place-items:center;width:44px;height:44px;list-style:none;cursor:pointer;font:700 16px/1 var(--rs-display);color:var(--rs-blueprint);}
 .pg-info>summary::-webkit-details-marker {display:none;}
 .pg-info>summary:focus-visible {outline:2px solid var(--rs-blueprint);outline-offset:-4px;}
-.pg-info[open]>summary {background:var(--rs-shadow);color:var(--rs-paper);}
+.pg-info[open]>summary {background:#111820;color:var(--rs-paper);}
 /* Popups open upward from the box edge nearest the plate's centre. */
 .pg-pop {position:absolute;z-index:20;left:-1px;bottom:44px;width:min(420px,calc(100vw - 64px));max-height:min(420px,70vh);overflow:auto;padding:12px 14px;background:var(--rs-paper);border:1px solid var(--rs-blueprint);box-shadow:var(--rs-shadow);font:12px/1.55 var(--mono);color:var(--rs-ink);text-align:left;overflow-wrap:anywhere;}
 .is-end .pg-pop {left:auto;right:-1px;}
