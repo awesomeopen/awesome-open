@@ -103,6 +103,6 @@ def build(catalog, doc, output, root):
 <footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Spotlight</p><ul class="obs-footer-links"><li><a href="draws.json" download>Download draw records</a> · <a href="{REPOSITORY}/blob/main/site/WEEKLY-DRAWS.md">Draw contract</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li></ul></div></footer></body></html>'''
     (target / 'index.html').write_text(page)
     # Pending draws are retained in the repository but not presented as past displays.
-    (target / 'draws.json').write_text(json.dumps({**doc, 'editions': editions}, indent=2, ensure_ascii=False) + '\n')
+    (target / 'draws.json').write_text(json.dumps({**doc, 'editions': editions}, ensure_ascii=False, separators=(',', ':')) + '\n')
     shutil.copyfile(root / 'site/draws.css', target / 'draws.css')
 

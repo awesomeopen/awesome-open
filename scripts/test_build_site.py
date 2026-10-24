@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 import unittest
 
-from build_site import BRAND_ASSETS, ROOT, build, json_for_html, render_html, search_index
+from build_site import BRAND_ASSETS, ROOT, build, json_for_html, load_site_catalog, render_html, search_index
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
@@ -358,9 +358,14 @@ for (const input of inputs) {
         self.assertTrue((self.output / 'styles.css').is_file())
         self.assertTrue((self.output / 'catalog.js').is_file())
         self.assertTrue((self.output / '.nojekyll').is_file())
-        self.assertEqual(json.loads((self.output / 'catalog.json').read_text()), self.catalog)
-        for name in ('hn_evidence.json', 'alternatives.json'):
-            self.assertEqual((self.output / 'data' / name).read_bytes(), (ROOT / 'data' / name).read_bytes())
+        published = (self.output / 'catalog.json').read_text()
+        self.assertEqual(published.count('\n'), 1, 'catalog.json is written without indentation')
+        self.assertFalse(any('last_good' in (p.get('star_history') or {}) for p in json.loads(published)['projects']))
+        self.assertEqual(load_site_catalog(self.output), self.catalog)
+        for name in ('hn_evidence.json', 'alternatives.json', 'star_history.json'):
+            copy = (self.output / 'data' / name).read_text()
+            self.assertEqual(copy.count('\n'), 1, name + ' is written without indentation')
+            self.assertEqual(json.loads(copy), json.loads((ROOT / 'data' / name).read_text()))
         for image in self.page.images:
             self.assertIsInstance(image['alt'], str)
             self.assertFalse(image['src'].startswith('/'))

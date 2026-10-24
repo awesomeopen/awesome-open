@@ -14,6 +14,7 @@ import sys
 import tempfile
 
 from build_jar_preview import jar_stylesheet_href
+from build_site import load_site_catalog
 import build_jar_preview as current_jars
 from font_assets import font_asset_url
 
@@ -65,7 +66,8 @@ def build(base, site):
             helper = importlib.util.module_from_spec(helper_spec)
             helper_spec.loader.exec_module(helper)
             setattr(renderer, name, helper)
-        catalog = json.loads((site / 'catalog.json').read_text())
+        # Base renderers read star counts from the catalog; restore them from data/.
+        catalog = load_site_catalog(site)
         catalog['source_sha'] = revision
         root = Path(__file__).resolve().parents[1]
         cutouts = renderer.attach_specimen_cutouts(catalog, root)
