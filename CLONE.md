@@ -239,7 +239,7 @@ the new owner's account. A copied schedule file does not activate a job, and
 | Workflow | Current behavior |
 | --- | --- |
 | [Brand integrity](.github/workflows/check-brand.yml) | Validates assets, pinned skills and reference files; flags design changes lacking documentation |
-| [Source and preview checks](.github/workflows/check-updaters.yml) | Runs offline tests, renders README/site previews, checks Chromium behavior and uploads review artifacts |
+| [Source and preview checks](.github/workflows/check-updaters.yml) | Runs offline tests, renders README/site previews, checks Chromium behavior and uploads review artifacts; pull requests that change only documentation or brand records skip it |
 | [Publisher](.github/workflows/update-stats.yml) | On relevant `main` changes, daily at 00:00 UTC, or manual dispatch: fetches current `main`, refreshes metrics/HN/due optional signals and star history, validates, commits generated paths, builds the accepted revision and deploys Pages |
 
 The publisher serializes runs and retries against fresh `main` when another
