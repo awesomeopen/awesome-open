@@ -915,6 +915,7 @@ function detailFixture(options = {}) {
     field.dataset.seed = spec.projectId.slice(0, 16);
     const img = new Element('img');
     img.setAttribute('src', spec.imageURL || 'specimens/drawing.webp');
+    if (spec.srcset) img.setAttribute('srcset', spec.srcset);
     img.complete = false;
     field.appendChild(img);
     plate.appendChild(field);
@@ -1141,6 +1142,20 @@ test('failure exposes a retry and static fallback; repeated retry starts only on
   assert.ok(ui.plate(0));
 });
 
+test('responsive plate images keep same-origin candidates, rebased; the loupe uses the widest', async () => {
+  const ui = detailFixture();
+  catalog.init(ui.document, ui.window);
+  ui.toggle(0, true);
+  ui.respond(0, { srcset: 'specimens/responsive/a-512.webp 512w, specimens/responsive/a-768.webp 768w,specimens/a.webp 1254w' });
+  await ui.settle();
+  const plate = ui.plate(0), img = plate.querySelector('img');
+  assert.equal(img.getAttribute('srcset'), 'https://example.org/catalog/specimens/responsive/a-512.webp 512w, ' +
+    'https://example.org/catalog/specimens/responsive/a-768.webp 768w, https://example.org/catalog/specimens/a.webp 1254w');
+  const field = plate.querySelector('.plate-field'), lens = plate.querySelector('.plate-lens');
+  field.fire('pointermove', { pointerType: 'mouse', clientX: 0, clientY: 0 });
+  assert.equal(lens.style.backgroundImage, 'url("https://example.org/catalog/specimens/a.webp")');
+});
+
 test('bad responses, identity mismatches and active or cross-origin payloads leave the fallback intact', async () => {
   const cases = [
     [{}, { ok: false }],
@@ -1153,6 +1168,10 @@ test('bad responses, identity mismatches and active or cross-origin payloads lea
     [{ base: 'https://elsewhere.example/' }],
     [{ imageURL: 'https://elsewhere.example/drawing.webp' }],
     [{ imageURL: 'javascript:alert(1)' }],
+    [{ srcset: 'specimens/a-512.webp 512w, https://elsewhere.example/a.webp 1254w' }],
+    [{ srcset: 'javascript:alert(1) 512w' }],
+    [{ srcset: 'specimens/a-512.webp 2x' }],
+    [{ srcset: 'specimens/a-512.webp' }],
     [{ activeTag: 'script' }], [{ activeTag: 'iframe' }], [{ activeTag: 'foreignObject' }],
     [{ attribute: ['onclick', 'alert(1)'] }],
     [{ attribute: ['style', 'background:url(https://elsewhere.example/image)'] }],

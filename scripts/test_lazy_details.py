@@ -7,7 +7,7 @@ import hashlib
 import tempfile
 import unittest
 
-from build_site import ROOT, attach_specimen_cutouts, build, catalog_script_url, render_html
+from build_site import ROOT, attach_specimen_cutouts, attach_specimen_variants, build, catalog_script_url, render_html
 from site_test_fixtures import baseline_site, copy_site_fixture
 from test_build_site import Page
 
@@ -69,6 +69,7 @@ class LazyDetailSiteTests(unittest.TestCase):
         categories = {c['id']: c['name'] for c in self.catalog['categories']}
         from build_site import project_html
         cutouts = attach_specimen_cutouts(self.catalog, ROOT)
+        variants = attach_specimen_variants(ROOT)
         for folio, project in enumerate(self.catalog['projects'], 1):
             pid = project['id']
             text = (self.output / 'records' / f'{pid}.html').read_text()
@@ -84,7 +85,7 @@ class LazyDetailSiteTests(unittest.TestCase):
             self.assertIn('name-' + pid, page.by_id)
             drawer = next(n for n in page.nodes('details') if n.has_class('specimen-drawer'))
             self.assertIn('open', drawer.attrs)
-            expected = project_html(project, categories, self.catalog, folio, cutouts, position=1)
+            expected = project_html(project, categories, self.catalog, folio, cutouts, position=1, variants=variants)
             expected = expected.replace('<details class="specimen-drawer">', '<details class="specimen-drawer" open>', 1)
             self.assertIn(expected, text)
             self.assertIn(project['url'], page.links)
@@ -98,6 +99,8 @@ class LazyDetailSiteTests(unittest.TestCase):
                     relative = urlsplit(value).path
                     target = self.output / relative
                     self.assertTrue(target.is_file() or target.is_dir(), (pid, value))
+                for candidate in filter(None, node.attrs.get('srcset', '').split(',')):
+                    self.assertTrue((self.output / candidate.split()[0]).is_file(), (pid, candidate))
                 for attr in ('aria-labelledby', 'aria-describedby'):
                     for reference in node.attrs.get(attr, '').split():
                         self.assertIn(reference, page.ids)

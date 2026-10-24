@@ -9,7 +9,7 @@ import unittest
 import warnings
 
 import qr
-from build_site import PERMALINK_BASE, attach_specimen_cutouts, project_html, qr_path, timeline, specimen_geometry
+from build_site import PERMALINK_BASE, attach_specimen_cutouts, attach_specimen_variants, project_html, qr_path, timeline, specimen_geometry
 from render_readme import validate_snapshot
 
 PID = 'b' * 64
@@ -247,6 +247,62 @@ class CutoutTests(unittest.TestCase):
             with self.subTest(pid=pid):
                 self.assertEqual(hashlib.sha256((root / 'site' / entry['source']).read_bytes()).hexdigest(), entry['source_sha256'])
                 self.assertEqual(hashlib.sha256((root / 'site' / entry['path']).read_bytes()).hexdigest(), entry['sha256'])
+
+
+class VariantTests(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        self.root = Path(self.directory.name)
+        (self.root / 'site/specimens/responsive').mkdir(parents=True)
+        self.source = f'specimens/{PID}.webp'
+        (self.root / 'site' / self.source).write_bytes(b'RIFF0000WEBPsource')
+        self.variants = []
+        for width in (512, 768):
+            path = f'specimens/responsive/{PID}-{width}.webp'
+            (self.root / 'site' / path).write_bytes(b'RIFF0000WEBP%d' % width)
+            self.variants.append({'path': path, 'width': width, 'height': width,
+                                  'sha256': hashlib.sha256((self.root / 'site' / path).read_bytes()).hexdigest()})
+        self.entry = {'sha256': hashlib.sha256((self.root / 'site' / self.source).read_bytes()).hexdigest(),
+                      'width': 1254, 'height': 1254, 'variants': self.variants}
+        self.project = copy.deepcopy(PROJECT)
+        self.project['artwork'] = {'path': self.source, 'alt': 'A tool.', 'width': 1254, 'height': 1254}
+
+    def tearDown(self):
+        self.directory.cleanup()
+
+    def attach(self, entry):
+        (self.root / 'site/specimens/responsive.json').write_text(
+            json.dumps({'schema_version': 1, 'sources': {self.source: entry}}))
+        return attach_specimen_variants(self.root)
+
+    def test_matching_variants_become_srcset_ending_with_the_source(self):
+        variants = self.attach(self.entry)
+        html = project_html(self.project, {'tools': 'Developer Tools'}, CATALOG, 150, None, variants=variants)
+        self.assertIn(f'srcset="specimens/responsive/{PID}-512.webp 512w, specimens/responsive/{PID}-768.webp 768w, '
+                      f'specimens/{PID}.webp 1254w" sizes="(max-width: 660px) 100vw, 627px"', html)
+        self.assertIn(f'<img src="specimens/{PID}.webp"', html)
+
+    def test_without_variants_the_plate_keeps_one_source(self):
+        self.assertNotIn('srcset', render(self.project))
+
+    def test_stale_source_falls_back_and_changed_variant_is_rejected(self):
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter('always')
+            self.assertEqual(self.attach(dict(self.entry, sha256='0' * 64)), {})
+        self.assertIn('older than their source', str(caught[0].message))
+        changed = dict(self.entry, variants=[dict(self.variants[0], sha256='0' * 64)])
+        with self.assertRaises(ValueError):
+            self.attach(changed)
+
+    def test_committed_variants_match_their_sources(self):
+        root = Path(__file__).resolve().parents[1]
+        document = json.loads((root / 'site/specimens/responsive.json').read_text())
+        for source, entry in document['sources'].items():
+            with self.subTest(source=source):
+                self.assertEqual(hashlib.sha256((root / 'site' / source).read_bytes()).hexdigest(), entry['sha256'])
+                self.assertEqual([v['width'] for v in entry['variants']], [w for w in (512, 768) if w < entry['width']])
+                for variant in entry['variants']:
+                    self.assertEqual(hashlib.sha256((root / 'site' / variant['path']).read_bytes()).hexdigest(), variant['sha256'])
 
 
 if __name__ == '__main__':

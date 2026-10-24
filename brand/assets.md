@@ -23,6 +23,7 @@ byte sizes and SHA-256 hashes; it is an integrity inventory.
 | Półtawski Nowy | `site/vendor/serif-preview/` | Settled serif at regular 400, with genuine bold 700 in the same variable file. [Pinned source provenance](../site/vendor/serif-preview/provenance.json) and adjacent OFL notices. Offline editions embed Półtawski + Commit Mono only. |
 | Tokens | `site/design/tokens.css` | Exact color/type/spacing values; editable implementation source, not raster artwork |
 | Specimen display cut-outs | `site/specimens/cutouts/*.webp` | Transparent derivatives of approved specimens (border-connected white ground removed); source/derivative hashes, subject box and recipe in [cut-out manifest](../site/specimens/cutouts.json); regenerate with `scripts/build_specimen_cutouts.py` |
+| Specimen plate variants | `site/specimens/responsive/*.webp` | 512/768 px display copies of each plate's shown source (cut-out or original), for `srcset`; source/variant hashes and recipe in [variant manifest](../site/specimens/responsive.json); regenerate with `scripts/build_specimen_variants.py` (B-PR196-01) |
 | Icon draft study | `brand/studies/icon-drafts/*.webp` | 21 generated Retro-Scraperism reference drafts for the interface icons, not deployed; FLUX.2 [klein] 4B (Apache-2.0), seeds, prompts and hashes in [study provenance](studies/icon-drafts/provenance.json) (B-PR130-01) |
 | Label paper studies | `brand/studies/label-papers/*.webp` | Rejected study, not deployed; generator, prompts, seeds, source hashes and keying recipe in [study provenance](studies/label-papers/provenance.json) |
 | Plate evidence grid study | `brand/studies/plate-grid/*.png` | Cropped screenshots of the fixed evidence-grid mock-up, not deployed; regenerated from real catalog data by the study generator, see [study notes](studies/plate-grid/README.md) |
@@ -148,6 +149,13 @@ with the existing Lanczos/WebP q85 recipe, under distinct `-cutout-` filenames.
 Per-source recipes and hashes live in `site/jars/responsive.json`; no existing
 hero derivative is replaced. These reduce their screen payload; original cut-outs
 remain the high-density and print candidates.
+
+The plate's image also offers 512 and 768 px wide WebP variants of its shown
+source through `srcset` (B-PR196-01), written by `scripts/build_specimen_variants.py`
+with the hero's Lanczos/WebP q85 recipe under `site/specimens/responsive/`. The
+source stays the widest candidate and the loupe's image. Source bytes, alt text
+and approval status are unchanged. See
+[display variants](../site/SPECIMEN-ART.md#display-variants).
 
 ## Jar body composition
 

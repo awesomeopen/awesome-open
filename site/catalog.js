@@ -295,6 +295,17 @@
     return svg;
   }
 
+  // The loupe doubles the drawing, so it uses the widest candidate rather than
+  // the one the browser chose for the plate's display size.
+  function largestSource(image) {
+    var best = null, width = 0;
+    (image.getAttribute("srcset") || "").split(",").forEach(function (candidate) {
+      var parts = candidate.trim().split(/\s+/), w = parseInt(parts[1], 10);
+      if (parts[0] && w > width) { best = parts[0]; width = w; }
+    });
+    return best || image.currentSrc || image.src;
+  }
+
   function enhancePlate(plate, document, window) {
     if (plate.dataset.enhanced === "true") return;
     plate.dataset.enhanced = "true";
@@ -321,7 +332,7 @@
     field.appendChild(lens);
     function place(fx, fy) {
       var outer = field.getBoundingClientRect(), art = image.getBoundingClientRect(), size = lens.offsetWidth;
-      var src = image.currentSrc || image.src, scale = art.width * 2, scaleY = art.height * 2;
+      var src = largestSource(image), scale = art.width * 2, scaleY = art.height * 2;
       lens.style.left = (art.left - outer.left + fx * art.width) + "px";
       lens.style.top = (art.top - outer.top + fy * art.height) + "px";
       lens.style.backgroundImage = 'url("' + src + '")';
@@ -420,9 +431,22 @@
       }
       Array.from(node.attributes).forEach(function (attribute) {
         var name = attribute.name.toLowerCase(), value = attribute.value.trim();
-        if (/^on/.test(name) || name === "srcdoc" || name === "srcset" ||
+        if (/^on/.test(name) || name === "srcdoc" ||
+            (name === "srcset" && node.tagName.toLowerCase() !== "img") ||
             (name === "style" && /url\s*\(|@import|expression\s*\(/i.test(value))) {
           throw new Error("Unexpected active record attribute");
+        }
+        if (name === "srcset") {
+          node.setAttribute(attribute.name, value.split(",").map(function (candidate) {
+            var parts = candidate.trim().split(/\s+/);
+            if (parts.length !== 2 || !/^[1-9][0-9]*w$/.test(parts[1])) throw new Error("Invalid record srcset");
+            var resolved = new URL(parts[0], assetBase);
+            if (!/^https?:$/.test(resolved.protocol) || resolved.origin !== url.origin) {
+              throw new Error("Invalid record resource URL");
+            }
+            return resolved.href + " " + parts[1];
+          }).join(", "));
+          return;
         }
         if (["src", "href", "xlink:href"].indexOf(name) === -1 || value.charAt(0) === "#") return;
         // Generated history markers point within this plate. Static record pages
