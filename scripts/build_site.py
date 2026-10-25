@@ -84,6 +84,41 @@ def json_for_html(value):
     )
 
 
+def compact_json(value):
+    """Site JSON downloads carry no indentation; repository copies stay indented for review."""
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":")) + "\n"
+
+
+def published_catalog(catalog):
+    """catalog.json as published: star counts live once, in data/star_history.json.
+
+    Each project's `star_history` keeps its status and chart link; its `repo` keys
+    the counts in that file's `repositories`, as `hn.slug` does for HN evidence.
+    """
+    projects = []
+    for project in catalog["projects"]:
+        record = project.get("star_history")
+        if record and "last_good" in record:
+            record = {key: value for key, value in record.items() if key != "last_good"}
+            project = {**project, "star_history": record}
+        projects.append(project)
+    return {**catalog, "projects": projects}
+
+
+def load_site_catalog(site):
+    """Read a built catalog.json with star counts restored from the built star-history file."""
+    catalog = json.loads((Path(site) / "catalog.json").read_text(encoding="utf-8"))
+    path = Path(site) / "data/star_history.json"
+    if not path.exists():
+        return catalog
+    repositories = json.loads(path.read_text(encoding="utf-8"))["repositories"]
+    for project in catalog["projects"]:
+        record = project.get("star_history")
+        if record and "last_good" in repositories.get(record["repo"], {}):
+            record["last_good"] = repositories[record["repo"]]["last_good"]
+    return catalog
+
+
 def search_index(catalog):
     """Project runtime fields and cache provenance; keep full evidence in HTML/downloads.
 
@@ -794,9 +829,7 @@ def build(output, source_sha=None, root=ROOT):
         (records / (project["id"] + ".html")).write_text(
             render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root), encoding="utf-8"
         )
-    (output / "catalog.json").write_text(
-        json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
+    (output / "catalog.json").write_text(compact_json(published_catalog(catalog)), encoding="utf-8")
     for name, content in assets.items():
         (output / name).write_text(content, encoding="utf-8")
     (output / "assets/hn").mkdir(parents=True, exist_ok=True)
@@ -825,7 +858,8 @@ def build(output, source_sha=None, root=ROOT):
     else:
         (output / "data/project_signals.json").unlink(missing_ok=True)
     for name in evidence_files:
-        shutil.copyfile(root / "data" / name, output / "data" / name)
+        document = json.loads((root / "data" / name).read_text(encoding="utf-8"))
+        (output / "data" / name).write_text(compact_json(document), encoding="utf-8")
     (output / "vendor").mkdir(exist_ok=True)
     for name in ("fonts.css", "FONT-LICENSE.txt", "FONT-PROVENANCE.json", "commit-mono.woff2"):
         shutil.copyfile(root / "site/vendor" / name, output / "vendor" / name)
