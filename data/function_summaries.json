@@ -701,7 +701,19 @@
       "checked_at": "2026-10-14",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/richardr1126/openreader/blob/fc96d6c43504e6dbd62e255ddfba3c5ab4dfaca0/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Progressive listening",
+          "text": "Start playback when the first audio segment is ready while background generation continues ahead.",
+          "source_url": "https://github.com/richardr1126/openreader/blob/fc96d6c43504e6dbd62e255ddfba3c5ab4dfaca0/README.md"
+        },
+        {
+          "title": "Audiobook export",
+          "text": "Export M4B or MP3 audiobooks assembled from the same cached audio used for read-along playback.",
+          "source_url": "https://github.com/richardr1126/openreader/blob/fc96d6c43504e6dbd62e255ddfba3c5ab4dfaca0/README.md"
+        }
+      ]
     },
     "73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf": {
       "project_url": "https://github.com/diggerhq/digger",
@@ -918,7 +930,19 @@
       "checked_at": "2026-10-15",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/adamsilverstein/open-ancestry/blob/db5d4bab70ff0f4e7cca59740970be69a1577109/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Family-tree imports",
+          "text": "Import GEDCOM or GEDZIP files through the browser interface or command line, with an import report of counts and warnings.",
+          "source_url": "https://github.com/adamsilverstein/open-ancestry/blob/db5d4bab70ff0f4e7cca59740970be69a1577109/README.md"
+        },
+        {
+          "title": "Tree library",
+          "text": "Keep trees in separate local folders and switch, create, rename or delete them from the tree menu.",
+          "source_url": "https://github.com/adamsilverstein/open-ancestry/blob/db5d4bab70ff0f4e7cca59740970be69a1577109/README.md"
+        }
+      ]
     },
     "eb4480351153f771c975926274ffd59606fd7bc1204e924cfac522660f61fb7a": {
       "project_url": "https://github.com/mathiasbk/openesl",
@@ -2402,7 +2426,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/minimAluminiumalism/open-CoT/blob/8bc7a02904057e60650481d99479ca1c19b0a926/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Benchmark batches",
+          "text": "Run a matrix of forced and control API sessions against problems with programmatically verified answers.",
+          "source_url": "https://github.com/minimAluminiumalism/open-CoT/blob/8bc7a02904057e60650481d99479ca1c19b0a926/README.md"
+        },
+        {
+          "title": "Reasoning-effort comparisons",
+          "text": "Compare configured reasoning-effort levels and an acknowledgement variant using the supplied experiment scripts.",
+          "source_url": "https://github.com/minimAluminiumalism/open-CoT/blob/8bc7a02904057e60650481d99479ca1c19b0a926/README.md"
+        }
+      ]
     },
     "2ca11dc1a59b37723779d4220426965c24affb501edd8686bcc16c1b22b0aefd": {
       "text": "OpenTripPlanner builds multimodal journey-planning services combining scheduled public transport with walking, cycling and mobility services. Its Java server constructs a transport network from GTFS and OpenStreetMap data, applies real-time updates and alerts, and exposes GraphQL APIs. Web and mobile clients can request itineraries that reflect service changes, while operators host the server on a Java-capable platform.",
@@ -2417,7 +2453,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/opentripplanner/OpenTripPlanner/blob/9f0f3d529e083737dabda63d1f13da7998be949a/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Multimodal itineraries",
+          "text": "Combine scheduled public transport with walking, cycling, bike sharing and ride-hailing services in journey plans.",
+          "source_url": "https://github.com/opentripplanner/OpenTripPlanner/blob/9f0f3d529e083737dabda63d1f13da7998be949a/README.md"
+        },
+        {
+          "title": "Real-time service changes",
+          "text": "Apply transport updates and alerts so clients can request itineraries that account for disruptions.",
+          "source_url": "https://github.com/opentripplanner/OpenTripPlanner/blob/9f0f3d529e083737dabda63d1f13da7998be949a/README.md"
+        }
+      ]
     },
     "2eac7899c50f879858c543c4c9f7aa8642a47e94bb7531aafa2cecaa2a333c7b": {
       "text": "OpenBot is a self-hosted platform for teams of persistent AI bots communicating with people and each other in shared threads. Bots receive messages through inboxes, delegate work, use selectable tools and retain searchable memory. A browser interface and optional desktop application expose conversations and configuration, with HTTP integration for external systems and support for hosted model providers or local Ollama.",
@@ -2432,7 +2480,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/regnull/openbot/blob/11753662edea33cc90fd1f85fd9ec5793a572fc6/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Bot hand-offs",
+          "text": "Delegate a thread to another bot with an @mention, using a hop limit to bound bot-to-bot chains.",
+          "source_url": "https://github.com/regnull/openbot/blob/11753662edea33cc90fd1f85fd9ec5793a572fc6/README.md"
+        },
+        {
+          "title": "Human approval pauses",
+          "text": "Pause a bot run for a human answer through an approval tool or a per-tool approval setting.",
+          "source_url": "https://github.com/regnull/openbot/blob/11753662edea33cc90fd1f85fd9ec5793a572fc6/README.md"
+        }
+      ]
     },
     "2f08b72a3b7724256c4016f05058638ae12c6cf8fa16a0bf4704fa605c7f2297": {
       "text": "open-gps supplies firmware and enclosure designs for a handheld golf-shot tracker built around an ESP32-S3 board and SparkFun Qwiic components. A rotary control selects a club and records a shot's start and landing positions, displaying distance in yards. The device saves rounds to flash and exports GeoJSON or CSV over USB; a host simulation supports firmware testing without the hardware.",
@@ -2447,7 +2507,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/open-flight/open-gps/blob/219757d53059b504b81eeb27e2340db8cbf13426/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Shot distance tracking",
+          "text": "Select a club, mark the ball's start and landing positions, and display the shot distance in yards.",
+          "source_url": "https://github.com/open-flight/open-gps/blob/219757d53059b504b81eeb27e2340db8cbf13426/README.md"
+        },
+        {
+          "title": "Round export",
+          "text": "Export saved rounds over USB as GeoJSON or CSV, retaining each shot's start and landing coordinates.",
+          "source_url": "https://github.com/open-flight/open-gps/blob/219757d53059b504b81eeb27e2340db8cbf13426/README.md"
+        }
+      ]
     },
     "2f3847bf2fbe1533a1e419da9a440054286ceed23b60306f3cedbf2f80267318": {
       "text": "OpenManus is a Python framework for running general-purpose AI agents from terminal requests using configured language-model APIs. It connects agents to MCP tools, including browser control through Browser Use, and offers a separate experimental multi-agent execution mode. An optional DataAnalysis agent supports analysis and visualization tasks; users install and configure the framework in their own environment.",
@@ -2462,7 +2534,19 @@
       "checked_at": "2026-10-22",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate."
+      "review_note": "Junge (AI) checked the described capabilities, intended use and deployment against the cited official source on 2026-10-22. Approved for proposed display; owner merge review remains separate. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/FoundationAgents/OpenManus/blob/3309bf4e416fb1c74b008f3e86494439a31bad53/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Browser tools through MCP",
+          "text": "Connect the agent to Browser Use tools for browser execution and screenshots.",
+          "source_url": "https://github.com/FoundationAgents/OpenManus/blob/3309bf4e416fb1c74b008f3e86494439a31bad53/README.md"
+        },
+        {
+          "title": "Optional analysis agent",
+          "text": "Enable the DataAnalysis agent in the experimental multi-agent flow for analysis and visualization tasks.",
+          "source_url": "https://github.com/FoundationAgents/OpenManus/blob/3309bf4e416fb1c74b008f3e86494439a31bad53/README.md"
+        }
+      ]
     },
     "e93d8855c21779fa7cfcd729c8dafb766c19f67b96ec6fa28dcdfd6d6882dcc6": {
       "project_url": "https://github.com/open-industry-project/open-industry-project",
@@ -2522,7 +2606,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/scoheart/openrar/blob/732b89b50f597def488391697aaa7d9bb5185f7d/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Workflow recording",
+          "text": "Capture macOS input events and accessibility information for an agent to read as a demonstrated workflow.",
+          "source_url": "https://github.com/scoheart/openrar/blob/732b89b50f597def488391697aaa7d9bb5185f7d/README.md"
+        },
+        {
+          "title": "Reusable skill definitions",
+          "text": "Turn the recorded workflow into a Pi or Qoder skill with variable inputs, steps and verification conditions.",
+          "source_url": "https://github.com/scoheart/openrar/blob/732b89b50f597def488391697aaa7d9bb5185f7d/README.md"
+        }
+      ]
     },
     "310e3f5791dddad90a4cdf026ebe32660d96dbba66446a081e661f05c91f449f": {
       "project_url": "https://github.com/chrisglaske/opendeck",
@@ -2537,7 +2633,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/chrisglaske/opendeck/blob/2314a808d4eeedb1d58b068d64d1ff0e57fba473/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Inline slide editing",
+          "text": "Edit slide text directly in the preview while the inspector stays synchronized, and drag slides to reorder the deck.",
+          "source_url": "https://github.com/chrisglaske/opendeck/blob/2314a808d4eeedb1d58b068d64d1ff0e57fba473/README.md"
+        },
+        {
+          "title": "Interactive HTML export",
+          "text": "Export a presentation as a single interactive HTML file for viewing independently of the editor.",
+          "source_url": "https://github.com/chrisglaske/opendeck/blob/2314a808d4eeedb1d58b068d64d1ff0e57fba473/README.md"
+        }
+      ]
     },
     "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f": {
       "project_url": "https://github.com/devhyper/open-video-editor",
@@ -2552,7 +2660,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-26 UTC by Junge (AI): checked only the added capability notes against https://github.com/devhyper/open-video-editor/blob/2f3b1534cdf4ea8d96fca027916857500e80a423/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Clip trimming",
+          "text": "Trim video clips in the Android editor.",
+          "source_url": "https://github.com/devhyper/open-video-editor/blob/2f3b1534cdf4ea8d96fca027916857500e80a423/README.md"
+        },
+        {
+          "title": "Video transforms",
+          "text": "Apply grayscale, adjust resolution and scale, or rotate a video.",
+          "source_url": "https://github.com/devhyper/open-video-editor/blob/2f3b1534cdf4ea8d96fca027916857500e80a423/README.md"
+        }
+      ]
     },
     "34721a88a36c660b2a588deed2daa3fb287ae7e3a44fa24ff8e0e6de417acea9": {
       "project_url": "https://github.com/fabio-rovai/open-ontologies",
