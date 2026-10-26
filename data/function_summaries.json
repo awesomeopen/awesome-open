@@ -2658,6 +2658,167 @@
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
       "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+    },
+    "370cc7a9eb73a9588edbbbc119e6eba8b60616daef2192a2ca5b95f97c9664af": {
+      "project_url": "https://github.com/annasusu/opencontextengine",
+      "text": "OpenContextEngine indexes a working directory so AI coding agents can locate implementations and related code through MCP. Natural-language queries combine semantic search, keywords, code relationships and reranking to return source snippets with paths and line numbers. The self-hosted service follows saved changes and reuses indexes across requests; deployment requires configured embedding and reranking services.",
+      "sources": [
+        {
+          "url": "https://github.com/annasusu/opencontextengine/blob/8033e3f8121b103327cae37a6681e9962f6418d5/README.md",
+          "title": "OpenContextEngine: official README",
+          "revision": "8033e3f8121b103327cae37a6681e9962f6418d5"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+    },
+    "37642a1edc39f61f64673f2c0356a1a54ef2176cf2512f2d6cfe2fe060d542a1": {
+      "project_url": "https://github.com/open-rmf/rmf",
+      "text": "Open-RMF coordinates robot fleets from different vendors and their use of shared building resources, including doors, lifts and corridors. Its libraries and adapters connect fleet managers with infrastructure and help resolve traffic and resource conflicts. Developers install the framework alongside ROS 2, use supplied simulation demonstrations, and integrate robots or building systems through their respective adapters.",
+      "sources": [
+        {
+          "url": "https://github.com/open-rmf/rmf/blob/146c053b61bc6d8db77ed37f6bb6a4a7d448f12f/README.md",
+          "title": "Open-RMF: official README",
+          "revision": "146c053b61bc6d8db77ed37f6bb6a4a7d448f12f"
+        },
+        {
+          "url": "https://osrf.github.io/ros2multirobotbook/intro.html",
+          "title": "Open-RMF: Programming Multiple Robots with ROS 2 introduction"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+    },
+    "37e8bdca242b1c54bec1b5d9d0ee9ece62c40cd1371630c0c210b6dd43ada5f4": {
+      "project_url": "https://github.com/theaxelander/openbudgeteer",
+      "text": "OpenBudgeteer helps households allocate available money to expense and savings buckets before spending it. Users create accounts, import bank transactions from CSV, divide transactions among buckets, and set targets for monthly bills, recurring expenses or dated savings goals. The web application records bucket history and can be self-hosted using the documented Docker deployment with MariaDB.",
+      "sources": [
+        {
+          "url": "https://github.com/theaxelander/openbudgeteer/blob/314117c20cde9b21998f22d9fdfe83d9eca00372/README.md",
+          "title": "OpenBudgeteer: official README",
+          "revision": "314117c20cde9b21998f22d9fdfe83d9eca00372"
+        },
+        {
+          "url": "https://axelander.dev/latest/how-to/",
+          "title": "OpenBudgeteer: How to use"
+        },
+        {
+          "url": "https://axelander.dev/latest/quick-start/",
+          "title": "OpenBudgeteer: Quick Start"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+    },
+    "381b3c7b46757c2fb150babdeeb54131056b689f041e8374a8002960278ef638": {
+      "project_url": "https://github.com/openfast/openfast",
+      "text": "OpenFAST simulates the coupled aerodynamic, hydrodynamic, control-system and structural response of wind turbines. Engineers can study land-based, fixed-bottom offshore and floating configurations, calculate loads, and linearize models to examine operating-point behavior. The companion FAST.Farm extends these simulations to interacting turbines across a wind farm. The software can be compiled and run on Unix-based or Windows systems.",
+      "sources": [
+        {
+          "url": "https://github.com/openfast/openfast/blob/2895884d2be01862173c88d70f86b358d2f1a50a/README.rst",
+          "title": "OpenFAST: official README",
+          "revision": "2895884d2be01862173c88d70f86b358d2f1a50a"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+    },
+    "3858d712cc68982beda266d15457403365e1ceea971f39e5f3e4e7c0b793d485": {
+      "project_url": "https://github.com/heilonng23/openheard",
+      "text": "openheard collects product feedback through searchable boards with votes, comments and status updates. Teams can triage requests, merge posts, maintain a roadmap and publish a changelog with email notifications. An API, MCP server and embeddable widget connect that workflow to other tools. Use the hosted service or deploy the application to Cloudflare Workers with D1 and image storage in R2.",
+      "sources": [
+        {
+          "url": "https://github.com/heilonng23/openheard/blob/43768281ebf2b27c44fb91f950f9498e69f3c827/README.md",
+          "title": "openheard: official README",
+          "revision": "43768281ebf2b27c44fb91f950f9498e69f3c827"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+    },
+    "389b8d780d9a0873e27cb35c2b6d0390fa7594d52c30d407f1a700d2a2b63b03": {
+      "project_url": "https://github.com/openemu/openemu",
+      "text": "OpenEmu brings multiple game-emulation engines into one native macOS application. Its modular plugin architecture provides a shared front end for systems including Nintendo, Sega, Atari, PlayStation and handheld consoles, while separate engines handle each platform. The application uses macOS technologies for its interface and rendering; the repository also documents requirements for building it with Xcode.",
+      "sources": [
+        {
+          "url": "https://github.com/openemu/openemu/blob/1d205104640d8410659d321809889cbfd06b99a9/README.md",
+          "title": "OpenEmu: official README",
+          "revision": "1d205104640d8410659d321809889cbfd06b99a9"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+    },
+    "39070fe4ef7e16ddec476ad6b1a177b07be9f767be7896e0237d8887dea68598": {
+      "project_url": "https://github.com/ui5/openui5",
+      "text": "OpenUI5 provides JavaScript controls and client-side HTML5 rendering for building responsive web applications. Developers bind interfaces to JSON, XML or OData models and use the SDK, API reference and example applications when assembling screens. The runtime can be downloaded, while UI5 CLI manages framework dependencies and creates optimized application, component and library packages.",
+      "sources": [
+        {
+          "url": "https://github.com/ui5/openui5/blob/4948e8cb96fd6398ac8c3c8f5b45102f7f103fd1/README.md",
+          "title": "OpenUI5: official README",
+          "revision": "4948e8cb96fd6398ac8c3c8f5b45102f7f103fd1"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+    },
+    "39c17a02580998402e65525f65086d6dad6407abbdffac0daf9112f7c16b902c": {
+      "project_url": "https://github.com/becoolme/openuptime",
+      "text": "OpenUptime checks HTTP services, network ports, DNS, heartbeats and selected databases, then records incidents and sends alerts through messaging services, webhooks or email. Teams can publish status pages, schedule maintenance and manage monitors through an API or MCP server. The same core application runs as a hosted service, on Cloudflare Workers with Postgres, or in a Docker deployment.",
+      "sources": [
+        {
+          "url": "https://github.com/becoolme/openuptime/blob/8783cfb5a380d8d76f40cba9292b4a20586a1a17/README.md",
+          "title": "OpenUptime: official README",
+          "revision": "8783cfb5a380d8d76f40cba9292b4a20586a1a17"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+    },
+    "3a281e846d1c38885bded5093c5549fcf111835336745cc7f2f5be3dc27b5f48": {
+      "project_url": "https://github.com/andykr1k/opencomputer",
+      "text": "OpenComputer is an experimental desktop agent that interprets screenshots and operates applications with mouse and keyboard actions. Its Electron interface connects to a local vision-language model or a compatible hosted API, offers per-action approval and cancellation, and checks the screen after actions. Linux, Windows and macOS are supported at different maturity levels; automation currently uses the primary display only.",
+      "sources": [
+        {
+          "url": "https://github.com/andykr1k/opencomputer/blob/db98cee448fd164a3511caa71c0b46321e8983a1/README.md",
+          "title": "OpenComputer: official README",
+          "revision": "db98cee448fd164a3511caa71c0b46321e8983a1"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+    },
+    "3b058c114e4fd6646a3ec886e74cd666501038e8e3d5c1b20adb0caee7064b5b": {
+      "project_url": "https://openrouter.ai/docs/quickstart",
+      "text": "OpenRouter gives applications a hosted API for calling models from multiple providers through one endpoint. Developers select a model in chat-completion requests and can receive streamed responses using HTTP, OpenRouter client libraries or an OpenAI-compatible SDK configuration. Its agent SDK adds tools and multi-turn execution loops, while the service handles routing and model fallback behavior.",
+      "sources": [
+        {
+          "url": "https://openrouter.ai/docs/quickstart",
+          "title": "OpenRouter: Quickstart"
+        }
+      ],
+      "checked_at": "2026-10-26",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official Quickstart for API access, integrations, streaming and agent SDK capabilities. The documentation page is unversioned. Content review by Junge (AI); API execution was not tested."
     }
   }
 }
