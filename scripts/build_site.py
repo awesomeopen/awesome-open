@@ -259,6 +259,39 @@ def attach_specimen_cutouts(catalog, root):
     return result
 
 
+def attach_specimen_variants(root):
+    """Responsive candidates per plate source, used only while the source still matches.
+
+    Returns {source path: [(path, width), ...]} ending with the source itself, the
+    widest candidate. See scripts/build_specimen_variants.py.
+    """
+    path = root / "site/specimens/responsive.json"
+    if not path.exists():
+        return {}
+    document = json.loads(path.read_text(encoding="utf-8"))
+    if document.get("schema_version") != 1 or not isinstance(document.get("sources"), dict):
+        raise ValueError("Invalid specimen variant manifest")
+    result = {}
+    for source, entry in document["sources"].items():
+        if not (root / "site" / source).is_file():
+            continue
+        if hashlib.sha256((root / "site" / source).read_bytes()).hexdigest() != entry["sha256"]:
+            warnings.warn("Specimen variants are older than their source; run build_specimen_variants.py: " + source)
+            continue
+        candidates = []
+        for variant in entry["variants"]:
+            if not variant["path"].startswith("specimens/responsive/"):
+                raise ValueError("Specimen variant outside specimens/responsive/: " + variant["path"])
+            if hashlib.sha256((root / "site" / variant["path"]).read_bytes()).hexdigest() != variant["sha256"]:
+                raise ValueError("Specimen variant bytes do not match the manifest: " + variant["path"])
+            candidates.append((variant["path"], variant["width"]))
+        result[source] = candidates + [(source, entry["width"])]
+    return result
+
+
+# The plate stage is at most 627 px wide and spans the phone viewport.
+PLATE_SIZES = "(max-width: 660px) 100vw, 627px"
+
 PERMALINK_BASE = "https://awesomeopen.github.io/awesome-open/#project-"
 
 
@@ -412,7 +445,7 @@ def specimen_geometry(art, bbox):
             "fade_end": max(.5, ground - .08)}
 
 
-def specimen_plate(project, number, tags, function_detail, grid, cutout):
+def specimen_plate(project, number, tags, function_detail, grid, cutout, variants=None):
     pid, name, url = (
         escape(project["id"]),
         escape(project["name"]),
@@ -423,6 +456,11 @@ def specimen_plate(project, number, tags, function_detail, grid, cutout):
     label = specimen_label(project, tags, number)
     if art:
         src = cutout["path"] if cutout else art["path"]
+        candidates = (variants or {}).get(src)
+        responsive = (
+            f' srcset="{escape(", ".join(f"{path} {width}w" for path, width in candidates))}" sizes="{PLATE_SIZES}"'
+            if candidates else ""
+        )
         geometry = specimen_geometry(art, cutout.get("bbox") if cutout else None)
         bbox = " ".join(str(v) for v in geometry["bbox"])
         stage_style = (
@@ -435,7 +473,7 @@ def specimen_plate(project, number, tags, function_detail, grid, cutout):
         specimen = (
             f'<div class="plate-specimen"><div class="plate-field" data-seed="{pid[:16]}" data-cutout="{"true" if cutout else "false"}" data-bbox="{bbox}">'
             f'<div class="plate-stage" style="{stage_style}" data-height="{geometry["height"]:.6f}" data-ground="{geometry["ground"]:.6f}">'
-            f'<figure class="specimen-art plate-art"><img src="{escape(src)}" alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure></div></div>{label}</div>'
+            f'<figure class="specimen-art plate-art"><img src="{escape(src)}"{responsive} alt="{escape(art["alt"])}" width="{art["width"]}" height="{art["height"]}" loading="lazy" decoding="async"></figure></div></div>{label}</div>'
         )
         features = project.get("function_summary", {}).get("features", [])[:2]
         if features:
@@ -495,7 +533,7 @@ def hn_window(catalog, project):
     return None
 
 
-def plate_html(project, categories, catalog, number, cutouts):
+def plate_html(project, categories, catalog, number, cutouts, variants=None):
     github = project["github"]
     pushed = github["pushed_at"][:10] if github and github["pushed_at"] else "Unknown"
     created = (
@@ -533,11 +571,11 @@ def plate_html(project, categories, catalog, number, cutouts):
         hn_window=hn_window(catalog, project),
     )
     return specimen_plate(
-        project, number, tags, function_detail, grid, (cutouts or {}).get(project["id"])
+        project, number, tags, function_detail, grid, (cutouts or {}).get(project["id"]), variants
     )
 
 
-def project_html(project, categories, catalog, number=0, cutouts=None, position=None, deferred=False):
+def project_html(project, categories, catalog, number=0, cutouts=None, position=None, deferred=False, variants=None):
     """A ledger row; deferred rows link the static record instead of holding the plate."""
     position = number if position is None else position
     pid = escape(project["id"])
@@ -559,7 +597,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
             f'<p class="detail-fallback"><a href="records/{pid}.html">Read or print the full record for {escape(project["name"])}</a></p></div>'
         )
     else:
-        interior = plate_html(project, categories, catalog, number, cutouts)
+        interior = plate_html(project, categories, catalog, number, cutouts, variants)
     return f'''<article class="project-card" data-leader="{"true" if leader_categories else "false"}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
   <summary><span class="folio" title="Position in current results" aria-hidden="true">{position:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}<span class="leader-label"{"" if leader_categories else " hidden"}>{escape(leader_label)}</span></span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
@@ -704,7 +742,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
 '''
 
 
-def render_record(project, categories, catalog, number, cutouts=None, script_url="catalog.js", root=ROOT):
+def render_record(project, categories, catalog, number, cutouts=None, script_url="catalog.js", root=ROOT, variants=None):
     """A native no-JS record is also the same-origin fetch-on-open source.
 
     Keep asset paths identical to the ledger via the explicit base. The loader
@@ -712,7 +750,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
     """
     pid = escape(project["id"])
     name = escape(project["name"])
-    card = project_html(project, categories, catalog, number, cutouts, position=1)
+    card = project_html(project, categories, catalog, number, cutouts, position=1, variants=variants)
     card = card.replace('<details class="specimen-drawer">', '<details class="specimen-drawer" open>', 1)
     sha = catalog.get("source_sha")
     revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else "Local preview (revision not supplied)"
@@ -790,6 +828,7 @@ def build(output, source_sha=None, root=ROOT):
     attach_specimen_art(catalog, root)
     attach_category_art(catalog, root)
     cutouts = attach_specimen_cutouts(catalog, root)
+    variants = attach_specimen_variants(root)
     import weekly_draw
     draws = weekly_draw.load(root / weekly_draw.PATH)
     catalog["weekly_draws"] = draws
@@ -827,7 +866,7 @@ def build(output, source_sha=None, root=ROOT):
     categories = {c["id"]: c["name"] for c in catalog["categories"]}
     for number, project in enumerate(catalog["projects"], 1):
         (records / (project["id"] + ".html")).write_text(
-            render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root), encoding="utf-8"
+            render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root, variants=variants), encoding="utf-8"
         )
     (output / "catalog.json").write_text(compact_json(published_catalog(catalog)), encoding="utf-8")
     for name, content in assets.items():
@@ -884,6 +923,12 @@ def build(output, source_sha=None, root=ROOT):
     for cutout in cutouts.values():
         (output / cutout["path"]).parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(root / "site" / cutout["path"], output / cutout["path"])
+    shown = {cutouts[p["id"]]["path"] if p["id"] in cutouts else p["artwork"]["path"]
+             for p in catalog["projects"] if "artwork" in p}
+    for source in shown & variants.keys():
+        for path, _ in variants[source][:-1]:
+            (output / path).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(root / "site" / path, output / path)
     shutil.rmtree(output / "footer-backgrounds", ignore_errors=True)
     for asset in (*catalog["footer_backgrounds"], FOOTER_PATTERN):
         (output / asset).parent.mkdir(exist_ok=True)

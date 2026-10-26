@@ -29,15 +29,16 @@ def per_record(base, each):
 # budget up to the planned catalog of about 1,000 records. Baselines: 532 records.
 BUDGET = [
     ('Site total', 'total_bytes', 640 * MIB,
-     'GitHub Pages publishes at most 1 GB; baseline 112 MiB, '
-     'about 455 MiB projected at 1,000 records with artwork for each'),
+     'GitHub Pages publishes at most 1 GB; baseline 138 MiB, '
+     'about 596 MiB projected at 1,000 records with artwork and plate variants for each'),
     ('Site without specimen artwork', 'other_bytes', per_record(20 * MIB, 56 * KIB),
      'Everything outside specimens/: 20 MiB + 56 KiB per record; baseline 16 MiB + 42 KiB per record'),
-    ('Specimen artwork per illustrated project', 'specimen_average', 512 * KIB,
-     'Original plus cutout, averaged over projects with artwork; baseline 408 KiB'),
-    ('Files', 'files', per_record(256, 6),
-     'Pages artifact upload time: 256 + 6 per record; baseline 2,057, '
-     'about 4.8 per record with artwork for each'),
+    ('Specimen artwork per illustrated project', 'specimen_average', 640 * KIB,
+     'Original, cutout and the 512/768 px plate variants, averaged over projects with artwork; '
+     'baseline 552 KiB'),
+    ('Files', 'files', per_record(256, 8),
+     'Pages artifact upload time: 256 + 8 per record; baseline 2,442, '
+     'about 6.8 per record with artwork and plate variants for each'),
     ('index.html', 'index_bytes', per_record(64 * KIB, 2560),
      'Initial ledger HTML parsed on every visit: 64 KiB + 2.5 KiB per record; baseline 932 KiB'),
     ('index.html (gzip)', 'index_gzip', per_record(16 * KIB, 384),

@@ -121,3 +121,17 @@ retaining the entire image and its faint marks. No browser pixel scan is needed;
 layout metadata is emitted at build time. Missing or malformed bounds retain the
 full canvas. A missing or stale cut-out
 never blocks a build: the original is shown without the floor and the build warns.
+
+## Display variants
+
+The plate's image carries a `srcset` of 512 and 768 px wide WebP variants plus its
+source, the cut-out or, without one, the original. `sizes` is
+`(max-width: 660px) 100vw, 627px`, the plate stage's widest extent. The loupe
+magnifies the source. `python3 scripts/build_specimen_variants.py` (Pillow 12.3.0,
+libwebp 1.6.0; Lanczos, WebP q85, method 4) writes
+`site/specimens/responsive/<source stem>[-cutout]-<width>.webp` and records source
+and variant hashes in `site/specimens/responsive.json`. It rewrites only entries
+whose source changed; `--force` regenerates all. Refresh `brand/assets.lock.json`
+afterwards. A source without current variants is shown alone and the build warns;
+a variant whose bytes differ from the manifest stops the build. Artwork PRs may
+include the variants for their new sources; otherwise a later run adds them.

@@ -135,6 +135,9 @@ projected 490 MiB at 1,000 records with artwork for each.
   most 400 px; phones currently download the 1254 px original. Derived variants
   follow the `jars/responsive/` pattern and need provenance and a
   `brand/assets.md` update.
+  Proposed in [#196](https://github.com/awesomeopen/awesome-open/pull/196)
+  ([B-PR196-01](../brand/decisions/B-PR196-01.md)) at 512/768 px plus the
+  source; the loupe keeps the source.
 - Review whether both the original and the cutout need to ship for every project
   that has a cutout.
 - New image files (the responsive variants, and any change to which of original
