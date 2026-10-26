@@ -22,14 +22,23 @@
           "sha256": "49315dda7125ec5fc77ef5f2b96126d8b2121c6e72944b4702972e90f321d3ee"
         },
         ".agents/skills/retro-scraperism/references/style-guide.md": {
-          "bytes": 18130,
-          "sha256": "644150a6e86175f65b669e2575357067ef87a3713e286e43e0f88453d8a631bf"
+          "bytes": 17977,
+          "sha256": "226c894740d45e34ef369190af62969bed691ff4c2b747e6ed397d7f3f63c7f6"
         },
         ".agents/skills/retro-scraperism/references/tokens.css": {
           "bytes": 784,
           "sha256": "4f7d1d643e0436b56e5a3c156f473741c1ceb09f235b818188a83ff6526c0ccd"
         }
-      }
+      },
+      "repository_adjustments": [
+        {
+          "repository": "awesomeopen/awesome-open",
+          "revision": "0b64e0187249f8d043bcba8c5de3f35bccf5c3af",
+          "path": ".agents/skills/retro-scraperism/references/style-guide.md",
+          "reason": "Remove obsolete standalone-export testing guidance following the implemented standalone removal."
+        }
+      ],
+      "reconciled_at": "2026-10-23"
     },
     {
       "name": "speculative-fossoligy",
