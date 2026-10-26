@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Add preview #1 to an existing offline site bundle. Never called by production."""
 import argparse
-import json
 import shutil
 from pathlib import Path
-from build_site import catalog_script_url, escape, json_for_html, project_html
+from build_site import catalog_script_url, escape, json_for_html, load_site_catalog, project_html
 
 ROOT = Path(__file__).resolve().parents[1]
 CATEGORY = 'infrastructure--devops'
@@ -16,7 +15,7 @@ NOTES = {
 
 def build(output):
     output = Path(output)
-    catalog = json.loads((output / 'catalog.json').read_text())
+    catalog = load_site_catalog(output)
     script_url = catalog_script_url((output / "catalog.js").read_text(encoding="utf-8"))
     category = next(c for c in catalog['categories'] if c['id'] == CATEGORY)
     projects = [{**p, 'leader_categories': [c for c in p.get('leader_categories', []) if c == CATEGORY]} for p in catalog['projects'] if CATEGORY in p['categories']]

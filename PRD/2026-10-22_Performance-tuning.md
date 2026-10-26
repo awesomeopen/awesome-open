@@ -2,8 +2,10 @@
 
 - **Date:** 2026-10-22
 - **Status:** In progress. Phase 1 merged in [#176](https://github.com/awesomeopen/awesome-open/pull/176)
-  and [#177](https://github.com/awesomeopen/awesome-open/pull/177); phase 2 is in
-  [#184](https://github.com/awesomeopen/awesome-open/pull/184).
+  and [#177](https://github.com/awesomeopen/awesome-open/pull/177); phase 2 merged in
+  [#184](https://github.com/awesomeopen/awesome-open/pull/184) and
+  [#194](https://github.com/awesomeopen/awesome-open/pull/194); phase 3a is in
+  [#195](https://github.com/awesomeopen/awesome-open/pull/195).
 - **Owner:** Project owner
 - **Related:** [Remove the standalone download](2026-10-22_Remove-standalone-download.md)
   (separate PRD), TODO entry "Responsive hero images and compact catalog index"
@@ -124,6 +126,10 @@ projected 490 MiB at 1,000 records with artwork for each.
   repository copies keep their indented, diffable form.
 - Ship star history once: `catalog.json` refers to `data/star_history.json`
   instead of embedding `last_good` per project, or the reverse; pick one owner.
+  Chosen in [#195](https://github.com/awesomeopen/awesome-open/pull/195):
+  `data/star_history.json` owns the counts, keyed by `star_history.repo`.
+  `catalog.json` falls from 12.2 MiB to 1.3 MiB and `data/` from 14.6 MiB to
+  6.2 MiB.
 - Add responsive specimen artwork (`srcset` at 512/768/1254 px) to static
   records and drawers. The plate is at most 627 px wide and `.specimen-art` at
   most 400 px; phones currently download the 1254 px original. Derived variants
