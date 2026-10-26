@@ -3,7 +3,7 @@
 | Skill | Role | Editing authority | Repository treatment |
 | --- | --- | --- | --- |
 | `awesome-open-brand` | Read/update the current project contract | This repository | `.agents/skills/awesome-open-brand/`; installed routing mirror for cross-chat use |
-| `retro-scraperism` | Reusable interface/graphic language | Owner's reusable Skills workspace | Exact pinned snapshot including references and UI assets |
+| `retro-scraperism` | Reusable interface/graphic language | Owner's reusable Skills workspace | Pinned snapshot with the recorded repository adjustment below |
 | `speculative-fossoligy` | Reusable drawing language | Owner's reusable Skills workspace | Exact pinned snapshot including style atlas and UI assets |
 | `curb-your-verbosiasm` | Reader-focused documentation and explanatory copy for Awesome Open* | Owner's Skills workspace; current project rules govern facts and voice | Exact pinned snapshot including editing examples and repository checks |
 | `gpt-taste` | Optional composition/refinement aid | Upstream/installed skill | Not a project dependency; no automatic theme/font/motion substitution |
@@ -12,11 +12,27 @@
 | `brandkit` | Optional future visual summary | Upstream if adopted | Evaluated, not installed; no dependency or new identity implied |
 
 [skills.lock.json](skills.lock.json) pins every bundled reusable-skill file by
-SHA-256, along with its source name and captured Skills commit. The originals are
+SHA-256, along with its source name and captured Skills commit. `source_revision`
+identifies that upstream capture; `files` records the actual bundled bytes.
+Retro-Scraperism also records its repository adjustment below. The originals are
 owner-maintained project-authored instructions, not copied third-party images.
 Their reference files contain external links; those links grant no rights to
 reproduce the referenced artwork. Existing repository licensing applies subject
 to the notices in [assets.md](assets.md).
+
+## Recorded Retro-Scraperism adjustment
+
+See [B-PR198-01](decisions/B-PR198-01.md) for this proposed reconciliation.
+
+The bundled style guide retains the standalone-testing removal made in
+[0b64e01](https://github.com/awesomeopen/awesome-open/commit/0b64e0187249f8d043bcba8c5de3f35bccf5c3af).
+That edit follows the [implemented standalone removal](../PRD/2026-10-22_Remove-standalone-download.md).
+The lock retains the original Skills capture and records this repository commit,
+affected path and rationale under `repository_adjustments`. Its refreshed hash
+covers the adjusted file. The installed skill remains unchanged.
+
+This reconciles one existing edit; future reusable-skill updates follow the
+upstream-first procedure below.
 
 ## Update a reusable skill
 

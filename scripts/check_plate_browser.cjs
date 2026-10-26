@@ -65,6 +65,11 @@ module.exports=async({page,url,data,capture})=>{
     await summary.focus();await page.keyboard.press('Enter');
     const pop=plate.locator(selector+' .pg-pop');
     assert.equal(await pop.isVisible(),true,selector+' popup opens');
+    const colors=await summary.evaluate(n=>({background:getComputedStyle(n).backgroundColor,foreground:getComputedStyle(n).color}));
+    assert.equal(colors.background,'rgb(17, 24, 32)','Open info control uses the current ink shadow colour');
+    assert.equal(colors.foreground,'rgb(255, 255, 255)','Open info icon stays white');
+    if(name===names[0]&&selector==='[data-signal="scorecard"]'&&[1440,390].includes(width))
+     await capture('plate-info-open-'+width+'.png');
     const r=await pop.boundingBox();
     assert.ok(r.x>=-1&&r.x+r.width<=width+1,selector+' popup fits at '+width);
     await page.keyboard.press('Escape');
