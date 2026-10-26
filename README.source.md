@@ -92,6 +92,7 @@
 | [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) | Real-time detection of body, face, hand, and foot keypoints. |
 | [Open R1](https://github.com/huggingface/open-r1) | Training, evaluation, and synthetic-data generation scripts for reproducing DeepSeek-R1-style reasoning models. |
 | [Open-RAG](https://github.com/ShayekhBinIslam/openrag) | Training and inference code for retrieval-augmented language models with multi-hop question answering. |
+| [OpenRig](https://github.com/mvschwarz/openrig) | Local system for coordinating AI coding agents in persistent teams with shared context, messaging, and terminal-based management. |
 | [OpenRLHF](https://github.com/OpenRLHF/OpenRLHF) | Scalable framework for reinforcement learning with language models. |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
 | [OpenSandbox](https://github.com/opensandbox-group/OpenSandbox) | Sandbox runtime for AI agents. |
@@ -147,6 +148,7 @@
 | [OpenRAR](https://github.com/Scoheart/OpenRAR) | macOS workflow recorder that turns demonstrated actions into reusable skills for Pi and Qoder. |
 | [OpenReplay](https://github.com/openreplay/openreplay) | Self-hostable session replay, product analytics, and live co-browsing for debugging applications and understanding user behavior.<br>Alternative to: [FullStory](https://openreplay.com/compare/openreplay-vs-fullstory/), [LogRocket](https://openreplay.com/compare/openreplay-vs-logrocket/) |
 | [OpenRewrite](https://github.com/openrewrite/rewrite) | Automated refactoring of source code. |
+| [OpenRig](https://github.com/mvschwarz/openrig) | Local system for coordinating AI coding agents in persistent teams with shared context, messaging, and terminal-based management. |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
 | [OpenRPC Generator](https://github.com/open-rpc/generator) | Generate components and language bindings from OpenRPC documents. |
 | [OpenSaaS](https://github.com/wasp-lang/open-saas) | Full-stack SaaS starter with authentication, payments, email, and file uploads. |
