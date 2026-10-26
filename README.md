@@ -574,7 +574,7 @@
 
 | Project | Description |
 | --- | --- |
-| [open-apuracao-brazil](https://github.com/bpinheiroms/open-apuracao-brazil) | Interactive map and dashboard for simulated Brazilian election counts by state, municipality, and electoral zone. <!-- STATS:START --><br><sub>2026-10-05 -- 2026-10-05 / MIT / 66</sub><!-- STATS:END --> |
+| [open-apuracao-brazil](https://github.com/bpinheiroms/open-apuracao-brazil) | Interactive map and dashboard for simulated Brazilian election counts by state, municipality, and electoral zone. <!-- STATS:START --><br><sub>2026-10-05 -- 2026-10-05 / MIT / 67</sub><!-- STATS:END --> |
 | [OpenCage Geocoding API](https://opencagedata.com/) | Hosted API for converting addresses and place names to coordinates and coordinates to place descriptions. |
 | [OpenCPN](https://github.com/OpenCPN/OpenCPN) | Marine chart plotting and navigation. <!-- STATS:START --><br><sub>2010-02-02 -- 2026-10-15 / GPL-2.0 / 1.5k</sub><!-- STATS:END --> |
 | [Open Data Cube](https://github.com/opendatacube/datacube-core) | Analyze continental-scale Earth observation data over time. <!-- STATS:START --><br><sub>2015-05-13 -- 2026-10-26 / Apache-2.0 / 593</sub><!-- STATS:END --> |
