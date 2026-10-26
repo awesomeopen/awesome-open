@@ -299,6 +299,35 @@ def qr_path(project):
     return f"assets/qr/{project['id'][:16]}.svg"
 
 
+def qr_codes(projects, cache=None):
+    """Permalink QR SVGs by output path; `cache` is an optional directory reused across builds.
+
+    Entries are keyed by the encoder's source and the encoded text and label, so an
+    encoder change misses every entry. Entries this build does not use are removed.
+    """
+    encoder = Path(qr.__file__).read_bytes()
+    codes, used = {}, set()
+    for p in projects:
+        text, label = PERMALINK_BASE + p["id"], "QR code: permalink to " + p["name"]
+        if cache is None:
+            codes[qr_path(p)] = qr.svg(text, label)
+            continue
+        key = hashlib.sha256(encoder + b"\0" + text.encode() + b"\0" + label.encode()).hexdigest()
+        entry = Path(cache) / (key + ".svg")
+        used.add(entry.name)
+        if entry.is_file():
+            codes[qr_path(p)] = entry.read_text(encoding="utf-8")
+        else:
+            codes[qr_path(p)] = qr.svg(text, label)
+            entry.parent.mkdir(parents=True, exist_ok=True)
+            entry.write_text(codes[qr_path(p)], encoding="utf-8")
+    if cache is not None:
+        for stale in Path(cache).glob("*.svg"):
+            if stale.name not in used:
+                stale.unlink()
+    return codes
+
+
 def timeline(created, release, pushed, events=()):
     """Repository timestamps on one axis; positions are literal dates, labels repeat them.
 
@@ -770,7 +799,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Project record</p><ul class="obs-footer-links"><li><a href="./">Return to project ledger</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {revision}</li></ul></div></footer></body></html>'''
 
 
-def build(output, source_sha=None, root=ROOT):
+def build(output, source_sha=None, root=ROOT, qr_cache=None):
     root = Path(root)
     output = Path(output).resolve()
     # Protect source directories from accidental --output . or --output site.
@@ -846,12 +875,7 @@ def build(output, source_sha=None, root=ROOT):
         for p in catalog["projects"]
         if p.get("star_history", {}).get("chart_url")
     }
-    qr_codes = {
-        qr_path(p): qr.svg(
-            PERMALINK_BASE + p["id"], "QR code: permalink to " + p["name"]
-        )
-        for p in catalog["projects"]
-    }
+    codes = qr_codes(catalog["projects"], qr_cache)
     assets = {
         "styles.css": (root / "site/styles.css").read_text(encoding="utf-8"),
         "catalog.js": runtime,
@@ -880,7 +904,7 @@ def build(output, source_sha=None, root=ROOT):
         (output / path).write_text(chart, encoding="utf-8")
     shutil.rmtree(output / "assets/qr", ignore_errors=True)
     (output / "assets/qr").mkdir(parents=True, exist_ok=True)
-    for path, code in qr_codes.items():
+    for path, code in codes.items():
         (output / path).write_text(code, encoding="utf-8")
     (output / "data").mkdir(exist_ok=True)
     evidence_files = ["alternatives.json", "hn_evidence.json"]
@@ -958,8 +982,13 @@ def main():
         action="store_true",
         help="Use the reviewed specimen hero on the main entry point",
     )
+    parser.add_argument(
+        "--qr-cache",
+        type=Path,
+        help="Directory of permalink QR SVGs reused between builds (CI caches it)",
+    )
     args = parser.parse_args()
-    catalog = build(args.output, args.source_sha)
+    catalog = build(args.output, args.source_sha, qr_cache=args.qr_cache)
     if args.production:
         from build_jar_preview import build as build_hero
 

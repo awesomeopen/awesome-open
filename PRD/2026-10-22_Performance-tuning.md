@@ -157,6 +157,10 @@ projected 490 MiB at 1,000 records with artwork for each.
 - Cache derived outputs that change only with their inputs (QR SVGs, responsive
   image variants) with `actions/cache` keyed on input hashes.
 
+Proposed in [#197](https://github.com/awesomeopen/awesome-open/pull/197). The
+build generates no image variants (they are committed and copied), so only QR
+SVGs are cached: `build_site.py --qr-cache`, 4.0 s to 1.7 s per build.
+
 ### W6. Later, as the catalog grows
 
 - **Ledger DOM:** `content-visibility: auto` with `contain-intrinsic-size` on
