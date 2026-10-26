@@ -26,13 +26,13 @@ def per_record(base, each):
 
 # (label, measure, limit, reason). Measures are defined in measure(). Outputs that
 # grow with the catalog take a per_record() limit, so adding projects stays within
-# budget up to the planned catalog of about 1,000 records. Baselines: 529 records.
+# budget up to the planned catalog of about 1,000 records. Baselines: 532 records.
 BUDGET = [
     ('Site total', 'total_bytes', 640 * MIB,
-     'GitHub Pages publishes at most 1 GB; baseline 128 MiB, '
-     'about 490 MiB projected at 1,000 records with artwork for each'),
-    ('Site without specimen artwork', 'other_bytes', per_record(20 * MIB, 96 * KIB),
-     'Everything outside specimens/: 20 MiB + 96 KiB per record; baseline 16 MiB + 79 KiB per record'),
+     'GitHub Pages publishes at most 1 GB; baseline 112 MiB, '
+     'about 455 MiB projected at 1,000 records with artwork for each'),
+    ('Site without specimen artwork', 'other_bytes', per_record(20 * MIB, 56 * KIB),
+     'Everything outside specimens/: 20 MiB + 56 KiB per record; baseline 16 MiB + 42 KiB per record'),
     ('Specimen artwork per illustrated project', 'specimen_average', 512 * KIB,
      'Original plus cutout, averaged over projects with artwork; baseline 408 KiB'),
     ('Files', 'files', per_record(256, 6),
@@ -42,11 +42,12 @@ BUDGET = [
      'Initial ledger HTML parsed on every visit: 64 KiB + 2.5 KiB per record; baseline 932 KiB'),
     ('index.html (gzip)', 'index_gzip', per_record(16 * KIB, 384),
      'Initial ledger transfer: 16 KiB + 384 B per record; baseline 133 KiB'),
-    ('catalog.json', 'catalog_bytes', per_record(0, 32 * KIB),
-     'Download size: 32 KiB per record; baseline 12.2 MiB'),
-    ('Largest other file', 'largest_other', per_record(0, 24 * KIB),
-     'Any single file outside the rows above: 24 KiB per record; '
-     'baseline 9.5 MiB (data/star_history.json)'),
+    ('catalog.json', 'catalog_bytes', per_record(0, 4 * KIB),
+     'Download size, written compactly with star counts in data/star_history.json: '
+     '4 KiB per record; baseline 1.3 MiB'),
+    ('Largest other file', 'largest_other', per_record(0, 8 * KIB),
+     'Any single file outside the rows above: 8 KiB per record; '
+     'baseline 3.0 MiB (data/hn_evidence.json)'),
     ('Largest image', 'largest_image', 2560 * KIB,
      'Footer panoramas and pattern; baseline 2.0 MiB'),
     ('Largest specimen artwork', 'largest_specimen', 640 * KIB,
