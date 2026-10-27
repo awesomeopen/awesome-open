@@ -16380,6 +16380,71 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2FCopilotKit%2FOpenDots&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenEnv",
+      "slug": "catalog-14068f25332d79cc",
+      "readme_url": "https://github.com/openenv/OpenEnv",
+      "repositories": [
+        "openenv/OpenEnv"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/openenv/OpenEnv"
+      ],
+      "identity_sources": [
+        "https://github.com/openenv/OpenEnv"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [
+        {
+          "id": "45683252",
+          "title": "PyTorch OpenEnv",
+          "url": "https://github.com/meta-pytorch/OpenEnv",
+          "created_at": "2025-10-23T15:49:13+00:00",
+          "month": "2025-10",
+          "hn_url": "https://news.ycombinator.com/item?id=45683252",
+          "source_url": "https://hn.algolia.com/api/v1/items/45683252",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+        }
+      ],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fopenenv%2FOpenEnv&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2Fopenenv%2FOpenEnv&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenFace",
       "slug": "catalog-bbf06f292bc52c53",
       "readme_url": "https://github.com/cmusatyalab/openface",
@@ -18536,6 +18601,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FShayekhBinIslam%2Fopenrag&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2FShayekhBinIslam%2Fopenrag&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "Open Responses",
+      "slug": "catalog-8b4b70badba773be",
+      "readme_url": "https://github.com/openresponses/openresponses",
+      "repositories": [
+        "openresponses/openresponses"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/openresponses/openresponses"
+      ],
+      "identity_sources": [
+        "https://github.com/openresponses/openresponses"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fopenresponses%2Fopenresponses&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2Fopenresponses%2Fopenresponses&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenRLHF",
@@ -139492,17 +139611,269 @@
         "collected_at": "2026-10-27T08:17:17.626979+00:00"
       },
       "status": "ok"
+    },
+    "https://github.com/openenv/openenv": {
+      "pending": {},
+      "pending_identity_key": "929ff15acc99fa8164c868e31171440e65aae51e9e748adf213202a76b661808",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T12:07:08.188481+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "929ff15acc99fa8164c868e31171440e65aae51e9e748adf213202a76b661808",
+        "project": {
+          "name": "OpenEnv",
+          "slug": "catalog-14068f25332d79cc",
+          "readme_url": "https://github.com/openenv/OpenEnv",
+          "repositories": [
+            "openenv/OpenEnv"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/openenv/OpenEnv"
+          ],
+          "identity_sources": [
+            "https://github.com/openenv/OpenEnv"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [
+            {
+              "id": "45683252",
+              "title": "PyTorch OpenEnv",
+              "url": "https://github.com/meta-pytorch/OpenEnv",
+              "created_at": "2025-10-23T15:49:13+00:00",
+              "month": "2025-10",
+              "hn_url": "https://news.ycombinator.com/item?id=45683252",
+              "source_url": "https://hn.algolia.com/api/v1/items/45683252",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+            }
+          ],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fopenenv%2FOpenEnv&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2Fopenenv%2FOpenEnv&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T12:07:08.188481+00:00"
+      },
+      "status": "ok"
+    },
+    "https://github.com/openresponses/openresponses": {
+      "pending": {},
+      "pending_identity_key": "4934130630bd7ff5767eae97efe7de0c42bd0266c3ff3f169be4c0e789bbbe38",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T12:07:08.188481+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "4934130630bd7ff5767eae97efe7de0c42bd0266c3ff3f169be4c0e789bbbe38",
+        "project": {
+          "name": "Open Responses",
+          "slug": "catalog-8b4b70badba773be",
+          "readme_url": "https://github.com/openresponses/openresponses",
+          "repositories": [
+            "openresponses/openresponses"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/openresponses/openresponses"
+          ],
+          "identity_sources": [
+            "https://github.com/openresponses/openresponses"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fopenresponses%2Fopenresponses&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2Fopenresponses%2Fopenresponses&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T12:07:08.188481+00:00"
+      },
+      "status": "ok"
     }
   },
   "budget": {
     "utc_date": "2026-10-27",
-    "requests_used": 27,
+    "requests_used": 29,
     "limit": 160,
     "paused": false,
-    "projects_used": 27,
+    "projects_used": 29,
     "project_limit": 50,
     "attempted_urls": [
+      "https://developers.reddit.com/apps/open-mod",
+      "https://github.com/akariasai/openscholar",
+      "https://github.com/assimp/assimp",
+      "https://github.com/evanzhang008/open-walnut",
+      "https://github.com/hakanseven12/opencadstudio",
       "https://github.com/mvschwarz/openrig",
+      "https://github.com/openaec-foundation/open-pdf-studio",
+      "https://github.com/opentodoapp/opentodo",
+      "https://github.com/openvolumemesh/openvolumemesh",
+      "https://www.graphics.rwth-aachen.de/software/openflipper/",
       "https://www.infradead.org/openconnect",
       "https://www.openbox.ai",
       "https://www.openconcerto.org",
@@ -139520,32 +139891,25 @@
       "https://www.opensuse.org",
       "https://www.opentext.com/products/content-manager",
       "https://www.redhat.com/en/technologies/cloud-computing/openshift",
-      "https://github.com/assimp/assimp",
-      "https://github.com/hakanseven12/opencadstudio",
-      "https://github.com/akariasai/openscholar",
-      "https://github.com/openaec-foundation/open-pdf-studio",
-      "https://github.com/opentodoapp/opentodo",
-      "https://github.com/evanzhang008/open-walnut",
-      "https://github.com/openvolumemesh/openvolumemesh",
-      "https://developers.reddit.com/apps/open-mod",
-      "https://www.graphics.rwth-aachen.de/software/openflipper/"
+      "https://github.com/openenv/openenv",
+      "https://github.com/openresponses/openresponses"
     ],
     "lane_projects": {
-      "new": 27,
+      "new": 29,
       "refresh": 0,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 27,
+      "new": 29,
       "refresh": 0,
       "continuation": 0
     }
   },
   "selection_report": {
-    "catalog_projects": 542,
-    "due_projects": 27,
-    "attempted_projects": 9,
-    "current_window_projects": 524,
+    "catalog_projects": 544,
+    "due_projects": 20,
+    "attempted_projects": 2,
+    "current_window_projects": 526,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
