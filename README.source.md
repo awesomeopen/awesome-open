@@ -12,7 +12,7 @@
 
 ---  
 
-- <b>Awesome Open*</b> - [Browse catalog](https://awesomeopen.github.io/awesome-open/)
+- <b>Awesome Open*</b> - [Visit the catalog homepage](https://awesomeopen.github.io/awesome-open/)
 - Best open alternatives to proprietary SaaS
 - Open developer tools & local workflows
 - Self-hosted AI infrastructure & automation
