@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-27T12:07:11Z",
+  "collected_at": "2026-10-27T12:16:09Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -3267,6 +3267,47 @@
         "source_url": "https://api.scorecard.dev/projects/github.com/diggerhq/digger",
         "status": "available",
         "success_time_precision": "second"
+      }
+    },
+    "diggerhq/opencomputer": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-27T12:16:09Z",
+        "error": null,
+        "etag": "\"a67bd9f99cbbf77e82d8fd1ee5aefa7e0f8bcff1ee27aeb4bf6d16bd114b513e\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-27T12:16:09Z",
+          "observed_at": "2026-09-28T05:26:07Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/diggerhq/opencomputer/releases/tag/v0.6.0.49",
+            "published_at": "2026-09-28T05:26:07Z",
+            "release_id": 397972079,
+            "tag_name": "v0.6.0.49"
+          }
+        },
+        "last_success_at": "2026-10-27T12:16:09Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/diggerhq/opencomputer/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-27T12:16:09Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/diggerhq/opencomputer",
+        "status": "unavailable"
       }
     },
     "digi-uw/openelis-global-2": {
@@ -25648,5 +25689,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "d8bf51a0a8067bb2396ebe73507e92f514218275"
+  "source_sha": "02b6a88d7f3bbdd9987b979bcb31cb5ea0e33b2f"
 }

@@ -139854,23 +139854,31 @@
         "collected_at": "2026-10-27T12:07:08.188481+00:00"
       },
       "status": "ok"
+    },
+    "https://github.com/diggerhq/opencomputer": {
+      "checked_at": "2026-10-27T12:16:08.451924+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     }
   },
   "budget": {
     "utc_date": "2026-10-27",
-    "requests_used": 29,
+    "requests_used": 30,
     "limit": 160,
     "paused": false,
-    "projects_used": 29,
+    "projects_used": 30,
     "project_limit": 50,
     "attempted_urls": [
       "https://developers.reddit.com/apps/open-mod",
       "https://github.com/akariasai/openscholar",
       "https://github.com/assimp/assimp",
+      "https://github.com/diggerhq/opencomputer",
       "https://github.com/evanzhang008/open-walnut",
       "https://github.com/hakanseven12/opencadstudio",
       "https://github.com/mvschwarz/openrig",
       "https://github.com/openaec-foundation/open-pdf-studio",
+      "https://github.com/openenv/openenv",
+      "https://github.com/openresponses/openresponses",
       "https://github.com/opentodoapp/opentodo",
       "https://github.com/openvolumemesh/openvolumemesh",
       "https://www.graphics.rwth-aachen.de/software/openflipper/",
@@ -139890,25 +139898,23 @@
       "https://www.openstack.org/software",
       "https://www.opensuse.org",
       "https://www.opentext.com/products/content-manager",
-      "https://www.redhat.com/en/technologies/cloud-computing/openshift",
-      "https://github.com/openenv/openenv",
-      "https://github.com/openresponses/openresponses"
+      "https://www.redhat.com/en/technologies/cloud-computing/openshift"
     ],
     "lane_projects": {
-      "new": 29,
+      "new": 30,
       "refresh": 0,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 29,
+      "new": 30,
       "refresh": 0,
       "continuation": 0
     }
   },
   "selection_report": {
-    "catalog_projects": 544,
-    "due_projects": 20,
-    "attempted_projects": 2,
+    "catalog_projects": 545,
+    "due_projects": 19,
+    "attempted_projects": 0,
     "current_window_projects": 526,
     "never_attempted_projects": 0
   },
