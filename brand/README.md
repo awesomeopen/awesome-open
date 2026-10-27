@@ -4,8 +4,7 @@ Version 0.1 · consolidated 2026-10-13 · review baseline
 
 This is the entry point for brand work in this repository. It joins existing
 rules, implementation and provenance; it does not restart the identity or make
-every historical proposal binding. The new organization and maintenance process
-are proposed by this PR. Existing merged behavior is identified separately.
+every historical proposal binding. Existing merged behavior is identified separately.
 
 ## Read by task
 
