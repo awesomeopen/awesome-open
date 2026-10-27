@@ -44,6 +44,12 @@ module.exports = async ({ context, url, data, capture }) => {
       await row.locator('details.specimen-drawer').evaluate(node => { node.open = true; });
       await row.locator('.plate-aliases').waitFor({ state: 'visible' });
       assert.deepEqual(await row.locator('.plate-aliases a').allTextContents(), aliases(multiple).map(alias => alias.name));
+      assert.ok(await row.locator('.specimen-plate').evaluate(plate => {
+        const heading = plate.querySelector('.plate-heading');
+        const list = plate.querySelector('.plate-aliases');
+        return heading.nextElementSibling === list && list.getBoundingClientRect().top >= heading.getBoundingClientRect().bottom
+          && document.documentElement.scrollWidth <= innerWidth;
+      }), 'Drawer aliases follow the heading and fit at ' + width);
       await row.locator('.plate-heading').scrollIntoViewIfNeeded();
       await capture(`aliases-drawer-multiple-${width}.png`, page);
     }
