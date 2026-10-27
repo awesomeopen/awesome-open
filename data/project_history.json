@@ -66,6 +66,42 @@
       "checked_at": "2026-10-19",
       "reviewed_by": "Junge (AI)",
       "note": "The date records the project-wide name change merged into main, including the README. Release 0.9.0 followed on August 23."
+    },
+    {
+      "id": "diggerhq-opensandbox-to-opencomputer",
+      "project_url": "https://github.com/diggerhq/opencomputer",
+      "kind": "software_rename",
+      "old_name": "OpenSandbox",
+      "new_name": "OpenComputer",
+      "occurred": {
+        "value": "2026-02-28",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/diggerhq/opencomputer/commit/4d7597db439f2f339d6d6186e109b638c6bacc7f"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/diggerhq/opencomputer/commit/4d7597db439f2f339d6d6186e109b638c6bacc7f",
+          "title": "Rename project to OpenComputer and update README",
+          "role": "implementation",
+          "date": "2026-02-28"
+        },
+        {
+          "url": "https://github.com/diggerhq/opencomputer/blob/ad2cac7630ea2c45d22376dc11a8e99004b01991/README.md",
+          "title": "OpenSandbox README immediately before the rename",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://github.com/diggerhq/opencomputer/blob/4d7597db439f2f339d6d6186e109b638c6bacc7f/README.md",
+          "title": "OpenComputer README at the rename revision",
+          "role": "identity",
+          "date": "2026-02-28"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "reviewed_by": "Junge (AI)",
+      "note": "The date records the commit changing the README title from OpenSandbox to OpenComputer. The former diggerhq/opensandbox URL redirects to the same GitHub repository."
     }
   ]
 }
