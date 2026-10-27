@@ -134,7 +134,7 @@ def _hn_evidence(document):
         if type(project.get("eligible")) is not bool:
             raise ValueError("Expected boolean HN eligibility")
         by_url[url] = None
-        if project["eligible"]:
+        if readme.hn.chart_displayable(project):
             count = project.get("story_count")
             if type(count) is not int or count < 0:
                 raise ValueError("Expected a nonnegative HN story count")
@@ -338,7 +338,7 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, opt
     project_history.attach(projects, history, canonical_url)
     project_aliases.attach(projects, aliases, canonical_url)
     attach_function_summaries(projects, function_summaries)
-    star_history.attach(projects, star_evidence, evidence)
+    star_history.attach(projects, star_evidence, readme.hn.display_evidence(evidence) if star_evidence is not None else evidence)
     deployment.attach(projects, deployment_evidence, canonical_url)
     unused = sorted(by_alternative.keys() - projects.keys())
     if unused:

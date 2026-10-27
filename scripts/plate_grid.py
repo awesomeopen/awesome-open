@@ -163,7 +163,7 @@ def hn_box(project, hn_window):
             + foot(hn["total_stories"], first, last))
     scale = (f"<p>Square-root scale: 0–{esc(maximum)} stories/month, shared across HN charts.</p>"
              if maximum is not None else "")
-    popup = (f'<p>{hn["total_stories"]} submissions / past 2y.</p>{scale}'
+    popup = (f'<p>{hn["total_stories"]} {"submission" if hn["total_stories"] == 1 else "submissions"} / past 2y.</p>{scale}'
              f'<p class="fine-print"><a href="{esc(hn["search_url"])}">HN search</a></p>')
     return box(title, body, popup=popup, signal="hn")
 

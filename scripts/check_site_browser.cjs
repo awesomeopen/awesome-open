@@ -543,6 +543,36 @@ const path = require('node:path');
       assert.equal(await diagnostics.isVisible(), true);
     }
 
+    // Sparse verified histories use the same search link as larger histories.
+    const singleton = data.projects.find(p => p.hn?.total_stories === 1);
+    const multiple = data.projects.find(p => p.hn?.total_stories > 1);
+    // Collection windows may legitimately contain no singleton; offline fixtures
+    // cover the policy independently of current public evidence.
+    if (singleton && multiple) for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 1000 });
+      const sparseURL = new URL(url);
+      sparseURL.hash = '#project-' + singleton.id;
+      await page.goto(sparseURL.href);
+      await waitForState();
+      const sparseCard = page.locator('#project-' + singleton.id);
+      await waitForPlate(sparseCard);
+      const sparseBox = sparseCard.locator('[data-signal="hn"]');
+      const image = sparseBox.locator('.pg-spark');
+      await image.scrollIntoViewIfNeeded();
+      await image.evaluate(node => node.decode());
+      assert.ok(await image.isVisible());
+      assert.equal(await sparseBox.locator('.pg-spark-link').getAttribute('href'), singleton.hn.search_url);
+      assert.equal(new URL(singleton.hn.search_url).hostname, 'hn.algolia.com');
+      assert.match(await sparseBox.textContent(), /1 submission \/ past 2y/);
+      await capture(`hn-single-story-${width}.png`);
+      await page.goto(new URL('records/' + multiple.id + '.html', url + '/').href);
+      const multipleBox = page.locator('[data-signal="hn"]');
+      await multipleBox.locator('.pg-spark').scrollIntoViewIfNeeded();
+      await multipleBox.locator('.pg-spark').evaluate(node => node.decode());
+      assert.ok(await multipleBox.locator('.pg-spark').isVisible());
+      assert.equal(await multipleBox.locator('.pg-spark-link').getAttribute('href'), multiple.hn.search_url);
+    }
+
     // Ledger-first layout and optional art work without animation dependencies.
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(url);

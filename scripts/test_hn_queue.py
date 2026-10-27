@@ -63,7 +63,7 @@ class QueueTests(unittest.TestCase):
         for i, p in enumerate(items):
             for j, url in enumerate(urls):
                 self.assertEqual(bool(hn.identity_reason({'url': url}, p)), i == j)
-        evidence = {'projects': [dict(items[0], eligible=True, search_url='https://hn.algolia.com/?q=Open')]}
+        evidence = {'projects': [dict(items[0], eligible=True, story_count=1, search_url='https://hn.algolia.com/?q=Open')]}
         rendered = hn.decorate_readme('\n'.join('| [Open](%s) | Tool. |' % url for url in urls), evidence)
         self.assertEqual(rendered.count('HN:START'), 1)
 

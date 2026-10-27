@@ -19,7 +19,7 @@ class AlternativesTests(unittest.TestCase):
         self.record = dict(created_at="2020-01-01", pushed_at="2024-01-01",
                            license={"spdx_id": "MIT"}, stargazers_count=100)
         self.project = dict(readme_url="https://github.com/example/open",
-                            slug="open", eligible=True, search_url="https://hn.algolia.com/?q=Open")
+                            slug="open", eligible=True, story_count=1, search_url="https://hn.algolia.com/?q=Open")
 
     def row(self, count):
         alternative = "<br>Alternative to: " + ", ".join(

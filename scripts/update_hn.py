@@ -31,6 +31,8 @@ REQUEST_SHARES = {'new': 64, 'refresh': 80, 'continuation': 16}
 PROJECT_REQUESTS = 24
 REFRESH_DAYS = 30
 API = 'https://hn.algolia.com/api/v1/search_by_date'
+# Historical collection qualification, retained for cache/archive validation.
+# Current chart visibility is derived by chart_displayable(), independently.
 MIN_STORIES, MIN_MONTHS = 6, 3
 COLLECTED_KEYS = {'monthly_counts', 'eligible', 'story_count', 'active_months',
                   'stories', 'excluded_candidates', 'query_sources', 'search_url'}
@@ -654,6 +656,32 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
 
 
 
+def chart_displayable(project):
+    """Display any completed current-window collection with a verified story.
+
+    Callers use the collector's current projects view, never partial queue pages.
+    The stored eligible flag retains its original historical meaning.
+    """
+    count = project.get('story_count')
+    if type(count) is not int or count < 0:
+        raise ValueError('Expected a nonnegative HN story count')
+    return count > 0
+
+
+def display_evidence(evidence):
+    """Derive the shared scale without rewriting collected evidence."""
+    maximum = 1
+    for project in evidence['projects']:
+        if chart_displayable(project):
+            counts = project.get('monthly_counts')
+            if (not isinstance(counts, list) or len(counts) != 24
+                    or any(type(n) is not int or n < 0 for n in counts)
+                    or sum(counts) != project['story_count']):
+                raise ValueError('Expected 24 monthly counts matching HN story count')
+            maximum = max(maximum, max(counts))
+    return {**evidence, 'shared_monthly_maximum': maximum}
+
+
 def svg(project, evidence):
     counts = project['monthly_counts']
     if len(counts) != 24 or any(not isinstance(n, int) or n < 0 for n in counts):
@@ -671,7 +699,7 @@ def svg(project, evidence):
 def decorate_readme(text, evidence=None):
     evidence = evidence if evidence is not None else json.loads(EVIDENCE_PATH.read_text())
     text = MARKER.sub('', text)
-    by_url = {canonical_url(p['readme_url']): p for p in evidence['projects'] if p['eligible']}
+    by_url = {canonical_url(p['readme_url']): p for p in evidence['projects'] if chart_displayable(p)}
     pattern = re.compile(r'^(\| (?:\*\*)?\[[^\]]+\]\(([^)]+)\)(?:\*\*)?)(?=\s*\|)', re.M)
     def decorate(match):
         project = by_url.get(canonical_url(match.group(2)))
@@ -683,11 +711,12 @@ def decorate_readme(text, evidence=None):
 
 
 def render(evidence, directory=None):
+    evidence = display_evidence(evidence)
     directory = directory if directory is not None else ROOT / 'assets/hn'
     directory.mkdir(parents=True, exist_ok=True)
     keep = set()
     for project in evidence['projects']:
-        if project['eligible']:
+        if chart_displayable(project):
             path = directory / (project['slug'] + '.svg')
             path.write_text(svg(project, evidence))
             keep.add(path)
@@ -716,7 +745,7 @@ def main():
                        checkpoint=lambda document: write_evidence(EVIDENCE_PATH, document))
     write_evidence(EVIDENCE_PATH, evidence)
     report = evidence['selection_report']
-    print(f"HN history: {sum(p['eligible'] for p in evidence['projects'])} eligible charts; "
+    print(f"HN history: {sum(chart_displayable(p) for p in evidence['projects'])} displayable charts; "
           f"{len(evidence['projects'])}/{report['catalog_projects']} current-window collections; "
           f"{report['attempted_projects']} attempted; {evidence['budget']['requests_used']} requests today")
 

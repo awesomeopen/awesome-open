@@ -183,12 +183,15 @@ class CatalogTests(unittest.TestCase):
             with self.subTest(key=key), self.assertRaises(ValueError):
                 self.build()
 
-    def test_hn_matches_exact_canonical_url_and_only_eligible(self):
+    def test_hn_matches_exact_canonical_url_and_displays_sparse_history(self):
         self.add_hn("https://GITHUB.com/EXAMPLE/Open/")
         project = self.build()["projects"][0]
         self.assertEqual(project["hn"], {"slug": "open", "chart_url": "assets/hn/open.svg",
                                          "search_url": "https://hn.algolia.com/?q=Open&type=story", "total_stories": 8})
         self.hn["projects"][0]["eligible"] = False
+        self.hn["projects"][0]["story_count"] = 1
+        self.assertEqual(self.build()["projects"][0]["hn"]["total_stories"], 1)
+        self.hn["projects"][0]["story_count"] = 0
         self.assertIsNone(self.build()["projects"][0]["hn"])
 
     def test_hn_does_not_attach_by_name_or_lowercase_non_github_path(self):
@@ -303,7 +306,7 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual({p['url'] for p in result['projects'] if p['alternatives']},
                          {catalog.canonical_url(p['readme_url']) for p in alternatives['projects']} & urls)
         self.assertEqual({p['url'] for p in result['projects'] if p['hn']},
-                         {catalog.canonical_url(p['readme_url']) for p in evidence['projects'] if p['eligible']} & urls)
+                         {catalog.canonical_url(p['readme_url']) for p in evidence['projects'] if p['story_count'] > 0} & urls)
         by_url = {item["url"]: item for item in result["projects"]}
         for row in source.splitlines():
             match = catalog.readme.ENTRY.fullmatch(row)

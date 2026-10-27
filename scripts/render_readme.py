@@ -107,7 +107,8 @@ def render_text(source, snapshot, evidence):
 
 
 def display_hn_evidence(source, evidence):
-    """Current chart labels only; original evidence and provenance stay intact."""
+    """Current labels and display scale; original evidence stays intact."""
+    evidence = hn.display_evidence(evidence)
     names = {hn.canonical_url(match[2]): match[1] for line in source.splitlines()
              if (match := ENTRY.fullmatch(line))}
     return {**evidence, 'projects': [dict(project, name=names.get(hn.canonical_url(project['readme_url']), project['name']))
@@ -135,12 +136,13 @@ def main():
     for relative in artwork:
         if not (ROOT / relative).is_file():
             raise ValueError("Missing README artwork: " + relative)
+    display = display_hn_evidence(source, evidence)
     # Validate all SVGs and filenames before writing any output.
-    for project in evidence["projects"]:
+    for project in display["projects"]:
         if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", project["slug"]):
             raise ValueError("Invalid HN asset slug")
-        if project["eligible"]:
-            hn.svg(project, evidence)
+        if hn.chart_displayable(project):
+            hn.svg(project, display)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     badge_path = args.output.parent / badges.COUNT_PATH
     badge_path.parent.mkdir(parents=True, exist_ok=True)
@@ -151,7 +153,7 @@ def main():
         if destination.resolve() != original.resolve():
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(original, destination)
-    hn.render(display_hn_evidence(source, evidence), args.output.parent / "assets/hn")
+    hn.render(display, args.output.parent / "assets/hn")
     args.output.write_text(rendered, encoding="utf-8")
     print(f"Rendered {args.output} offline; GitHub metrics as of {snapshot['as_of']}.")
     if missing:
