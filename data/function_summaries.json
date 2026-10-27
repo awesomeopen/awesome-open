@@ -2940,6 +2940,280 @@
       "reviewed_by": "Junge (AI)",
       "review_note": "Reviewed the official Quickstart for API access, integrations, streaming and agent SDK capabilities. The documentation page is unversioned. Content review by Junge (AI); API execution was not tested."
     },
+    "52d3461c43c42b1ad880b016b61665c3f709aedd2cfc7f401231e18ba0e9161a": {
+      "project_url": "https://github.com/assimp/assimp",
+      "text": "Open Asset Import Library lets applications read different 3D asset formats into a common in-memory scene representation and export selected formats. Developers integrate its C or C++ API into their own programs. Mesh post-processing can generate normals, triangulate geometry, remove duplicate vertices and prepare imported assets for subsequent processing or rendering.",
+      "sources": [
+        {
+          "url": "https://github.com/assimp/assimp/blob/2ee1888d74e2f2be44f1639a91c13a984b43fbd1/Readme.md",
+          "title": "Open Asset Import Library README",
+          "revision": "2ee1888d74e2f2be44f1639a91c13a984b43fbd1"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the summary and feature claims against the listed official documentation on 2026-10-27; paraphrased for this proposed catalog record. No candidate software was executed. The pinned README revision was verified as a Git commit.",
+      "features": [
+        {
+          "title": "Shared scene representation",
+          "text": "Import different 3D file formats into one in-memory representation instead of handling each format separately.",
+          "source_url": "https://github.com/assimp/assimp/blob/2ee1888d74e2f2be44f1639a91c13a984b43fbd1/Readme.md"
+        },
+        {
+          "title": "Mesh preparation",
+          "text": "Apply triangulation, normal and tangent generation, duplicate-vertex removal and other post-processing steps to imported geometry.",
+          "source_url": "https://github.com/assimp/assimp/blob/2ee1888d74e2f2be44f1639a91c13a984b43fbd1/Readme.md"
+        }
+      ]
+    },
+    "c60f3015db7e7e3a5f221d80f05c267b60898ee44b8fac7a4e094da81530e3eb": {
+      "project_url": "https://github.com/hakanseven12/opencadstudio",
+      "text": "Open CAD Studio provides technical drawing and solid-modeling tools in a desktop application and a browser app. Users edit DWG and DXF drawings with layers, blocks, dimensions and object snaps, or build solids with extrusion, sweeps and Boolean operations. Desktop builds also support printing, PDF output, plugins and headless automation; browser drawings save as local downloads.",
+      "sources": [
+        {
+          "url": "https://github.com/hakanseven12/opencadstudio/blob/b19d4aae27f7d5c7167527cb97790194a0241e97/README.md",
+          "title": "Open CAD Studio README",
+          "revision": "b19d4aae27f7d5c7167527cb97790194a0241e97"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the summary and feature claims against the listed official documentation on 2026-10-27; paraphrased for this proposed catalog record. No candidate software was executed. The pinned README revision was verified as a Git commit.",
+      "features": [
+        {
+          "title": "Drawing exchange",
+          "text": "Open and save DWG and DXF files, including versioned save targets from R14 through 2018.",
+          "source_url": "https://github.com/hakanseven12/opencadstudio/blob/b19d4aae27f7d5c7167527cb97790194a0241e97/README.md"
+        },
+        {
+          "title": "Solid modeling",
+          "text": "Create solids using primitives, extrusion, revolution, sweep, loft and Boolean operations.",
+          "source_url": "https://github.com/hakanseven12/opencadstudio/blob/b19d4aae27f7d5c7167527cb97790194a0241e97/README.md"
+        },
+        {
+          "title": "Desktop automation",
+          "text": "Use command scripts and a line-based JSON automation API for desktop workflows, including headless conversion.",
+          "source_url": "https://github.com/hakanseven12/opencadstudio/blob/b19d4aae27f7d5c7167527cb97790194a0241e97/README.md"
+        }
+      ]
+    },
+    "f53302059daf4de6d0685801e855a4f8f084730867652482595f7b325df42e4c": {
+      "project_url": "https://developers.reddit.com/apps/open-mod",
+      "text": "Open Mod publishes selected moderation-log events from one Reddit community into a separate destination subreddit. Moderators install the app in both communities and choose which actions, moderators and users appear in the public extracts. Settings can include cached submission content. The documented setup pairs one origin with one destination and does not publish back into the origin.",
+      "sources": [
+        {
+          "url": "https://developers.reddit.com/apps/open-mod",
+          "title": "Open Mod documentation"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the summary and feature claims against the listed official documentation on 2026-10-27; paraphrased for this proposed catalog record. No candidate software was executed. The official page describes maintenance-only development and a paired-subreddit setup.",
+      "features": [
+        {
+          "title": "Selective public logs",
+          "text": "Choose moderation action types and exclude specified moderators or users from the public extracts.",
+          "source_url": "https://developers.reddit.com/apps/open-mod"
+        },
+        {
+          "title": "Paired community configuration",
+          "text": "Install the app in both origin and destination subreddits; settings synchronize between the paired installations.",
+          "source_url": "https://developers.reddit.com/apps/open-mod"
+        }
+      ]
+    },
+    "ad8397b3aa45e758ce3f5a459b51201db2e3654149bef8eb655e7e972e67b79a": {
+      "project_url": "https://github.com/openaec-foundation/open-pdf-studio",
+      "text": "Open PDF Studio is an installed PDF editing application for reviewing documents and technical drawings. Users add annotations, measure scaled geometry, import CAD drawings and rearrange or merge pages. Desktop editions can add searchable text to scanned documents through OCR. The project provides Windows, macOS, Linux and Android builds, with OCR excluded from Android.",
+      "sources": [
+        {
+          "url": "https://github.com/openaec-foundation/open-pdf-studio/blob/3d30696544250a6284daa1c8bd69c026e87edb3e/README.md",
+          "title": "Open PDF Studio README",
+          "revision": "3d30696544250a6284daa1c8bd69c026e87edb3e"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the summary and feature claims against the listed official documentation on 2026-10-27; paraphrased for this proposed catalog record. No candidate software was executed. The pinned README revision was verified as a Git commit.",
+      "features": [
+        {
+          "title": "Scaled measurements",
+          "text": "Measure distance, area and perimeter using calibrated document scales or individual dimension-line overrides.",
+          "source_url": "https://github.com/openaec-foundation/open-pdf-studio/blob/3d30696544250a6284daa1c8bd69c026e87edb3e/README.md"
+        },
+        {
+          "title": "Searchable scans",
+          "text": "Desktop OCR adds an invisible text layer to scanned pages so their contents can be searched and selected; Android excludes this feature.",
+          "source_url": "https://github.com/openaec-foundation/open-pdf-studio/blob/3d30696544250a6284daa1c8bd69c026e87edb3e/README.md"
+        },
+        {
+          "title": "Page assembly",
+          "text": "Merge PDFs, insert or replace pages, extract selections and reorder pages through thumbnails.",
+          "source_url": "https://github.com/openaec-foundation/open-pdf-studio/blob/3d30696544250a6284daa1c8bd69c026e87edb3e/README.md"
+        }
+      ]
+    },
+    "dc5a991b611e1a5dcc82d46a7d4e1c849e5abf848098a83f71f1ab0c6acbc537": {
+      "project_url": "https://github.com/evanzhang008/open-walnut",
+      "text": "Open Walnut is a self-hosted web workspace for running Claude Code sessions on a local computer and configured SSH hosts. A daemon on each host keeps sessions running across connection interruptions. Users inspect per-session file diffs, send line comments back to a session, and organize related tasks, Markdown notes and memory alongside the coding work.",
+      "sources": [
+        {
+          "url": "https://github.com/evanzhang008/open-walnut/blob/db80478d54f641401202def2c25782107ca29136/README.md",
+          "title": "Open Walnut README",
+          "revision": "db80478d54f641401202def2c25782107ca29136"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the summary and feature claims against the listed official documentation on 2026-10-27; paraphrased for this proposed catalog record. No candidate software was executed. The pinned README revision was verified as a Git commit.",
+      "features": [
+        {
+          "title": "Remote session continuity",
+          "text": "Host daemons own Claude Code processes so sessions continue when a browser disconnects or an SSH connection drops.",
+          "source_url": "https://github.com/evanzhang008/open-walnut/blob/db80478d54f641401202def2c25782107ca29136/README.md"
+        },
+        {
+          "title": "Session-specific review",
+          "text": "Inspect the files changed by one session, comment on individual diff lines and return the review to that session.",
+          "source_url": "https://github.com/evanzhang008/open-walnut/blob/db80478d54f641401202def2c25782107ca29136/README.md"
+        },
+        {
+          "title": "Connected work context",
+          "text": "Organize projects, tasks and subtasks alongside searchable Markdown notes, session history and memory.",
+          "source_url": "https://github.com/evanzhang008/open-walnut/blob/db80478d54f641401202def2c25782107ca29136/README.md"
+        }
+      ]
+    },
+    "0c8ff7ef8e8c556445726f7aaf8b4143d4ff6830c270a14862e9351720072ee7": {
+      "project_url": "https://www.graphics.rwth-aachen.de/software/openflipper/",
+      "text": "OpenFlipper provides a graphical environment for geometry modeling and processing, organized around a small core and extensible plugins. Developers add data types, processing operations and interface controls through plugin interfaces. Users inspect geometry in configurable viewports or run scripts in a command-line batch mode, where only plugins supporting operation without a graphical interface are loaded.",
+      "sources": [
+        {
+          "url": "https://www.graphics.rwth-aachen.de/media/openflipper_static/Documentation/latest/index.html",
+          "title": "OpenFlipper documentation"
+        },
+        {
+          "url": "https://www.graphics.rwth-aachen.de/media/openflipper_static/Documentation/latest/uiconcept.html",
+          "title": "OpenFlipper user interface concepts"
+        },
+        {
+          "url": "https://www.graphics.rwth-aachen.de/media/openflipper_static/Documentation/latest/scripting.html",
+          "title": "OpenFlipper scripting and batch mode"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the summary and feature claims against the listed official documentation on 2026-10-27; paraphrased for this proposed catalog record. No candidate software was executed. The unversioned documentation pages identify a 2019 generation date; no Git revision is asserted.",
+      "features": [
+        {
+          "title": "Plugin-defined geometry tools",
+          "text": "Extend the core with new data types, processing functions and user-interface elements through plugins.",
+          "source_url": "https://www.graphics.rwth-aachen.de/media/openflipper_static/Documentation/latest/index.html"
+        },
+        {
+          "title": "Scripted batch processing",
+          "text": "Run OpenFlipper scripts without a graphical interface using batch-compatible plugins; graphical-only plugins are excluded.",
+          "source_url": "https://www.graphics.rwth-aachen.de/media/openflipper_static/Documentation/latest/scripting.html"
+        }
+      ]
+    },
+    "f4a3ac1bbad0e9d8cfb08a3f5b1f41e6878927761fbf1f1376c0af5b373e069a": {
+      "project_url": "https://github.com/akariasai/openscholar",
+      "text": "OpenScholar helps researchers answer questions using scientific literature by retrieving relevant papers and generating responses grounded in those sources. Its Python pipeline supports local language-model inference, retrieval and reranking, with additional retrieval through Semantic Scholar and optional web search APIs. The repository also provides training code and tools for offline retrieval or hosted retrieval servers.",
+      "sources": [
+        {
+          "url": "https://github.com/akariasai/openscholar/blob/0e9b8fb912273d3dae39e593da86e4f6d3bf8de1/README.md",
+          "title": "OpenScholar README",
+          "revision": "0e9b8fb912273d3dae39e593da86e4f6d3bf8de1"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the summary and feature claims against the listed official documentation on 2026-10-27; paraphrased for this proposed catalog record. No candidate software was executed. The pinned README revision was verified as a Git commit.",
+      "features": [
+        {
+          "title": "Literature-grounded answers",
+          "text": "Retrieve relevant scientific papers before generating a response using their contents as context.",
+          "source_url": "https://github.com/akariasai/openscholar/blob/0e9b8fb912273d3dae39e593da86e4f6d3bf8de1/README.md"
+        },
+        {
+          "title": "Retrieval and reranking",
+          "text": "Run a retrieval-plus-reranker pipeline with a local OpenScholar language model.",
+          "source_url": "https://github.com/akariasai/openscholar/blob/0e9b8fb912273d3dae39e593da86e4f6d3bf8de1/README.md"
+        },
+        {
+          "title": "Retrieval deployment",
+          "text": "Use the provided retrieval code offline or host retrieval servers for online queries.",
+          "source_url": "https://github.com/akariasai/openscholar/blob/0e9b8fb912273d3dae39e593da86e4f6d3bf8de1/README.md"
+        }
+      ]
+    },
+    "482c1631f35cd2f633c6b37d3c2748ef600c2af7f4e2978c10c26d7fccacb9a3": {
+      "project_url": "https://github.com/opentodoapp/opentodo",
+      "text": "OpenTodo runs on a personal server and provides task management through a web application on phones and computers. Users organize projects with sections or boards, set recurring tasks and reminders, and share projects with comments. Each device retains a local data copy for offline work and synchronizes with the server when connected. Deployment uses a container or standalone binary.",
+      "sources": [
+        {
+          "url": "https://github.com/opentodoapp/opentodo/blob/7aa8f6af421ac587248a3823da2d2cf18640882d/README.md",
+          "title": "OpenTodo README",
+          "revision": "7aa8f6af421ac587248a3823da2d2cf18640882d"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the summary and feature claims against the listed official documentation on 2026-10-27; paraphrased for this proposed catalog record. No candidate software was executed. The pinned README revision was verified as a Git commit.",
+      "features": [
+        {
+          "title": "Offline task editing",
+          "text": "Keep a local copy of task data on each device and synchronize changes with the server after reconnecting.",
+          "source_url": "https://github.com/opentodoapp/opentodo/blob/7aa8f6af421ac587248a3823da2d2cf18640882d/README.md"
+        },
+        {
+          "title": "Shared project organization",
+          "text": "Arrange tasks in projects with sections or boards and collaborate through shared projects and comments.",
+          "source_url": "https://github.com/opentodoapp/opentodo/blob/7aa8f6af421ac587248a3823da2d2cf18640882d/README.md"
+        },
+        {
+          "title": "Portable task data",
+          "text": "Export tasks to JSON and import JSON, CSV or supported application exports into an instance.",
+          "source_url": "https://github.com/opentodoapp/opentodo/blob/7aa8f6af421ac587248a3823da2d2cf18640882d/README.md"
+        }
+      ]
+    },
+    "4b4cc559a255bc6bbcb8c0e34cfaa37aff79b37d5e41210fe41f4a8347893685": {
+      "project_url": "https://github.com/openvolumemesh/openvolumemesh",
+      "text": "OpenVolumeMesh supplies C++ applications with data structures for polyhedral meshes, including tetrahedral and hexahedral specializations. Directed half-faces represent face orientation, while adjacency relations support traversal through iterators and circulators. Developers can attach custom properties to mesh entities and link the implementation into their applications as a static or shared library, with CMake integration available.",
+      "sources": [
+        {
+          "url": "https://github.com/openvolumemesh/openvolumemesh/blob/9cd4e3a3662f4e52daa9bae565b21ff3782f2217/README.md",
+          "title": "OpenVolumeMesh README",
+          "revision": "9cd4e3a3662f4e52daa9bae565b21ff3782f2217"
+        }
+      ],
+      "checked_at": "2026-10-27",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) checked the summary and feature claims against the listed official documentation on 2026-10-27; paraphrased for this proposed catalog record. No candidate software was executed. The pinned README revision was verified as a Git commit.",
+      "features": [
+        {
+          "title": "Volumetric mesh traversal",
+          "text": "Use top-down and explicitly computed bottom-up adjacency relations through iterators and circulators.",
+          "source_url": "https://github.com/openvolumemesh/openvolumemesh/blob/9cd4e3a3662f4e52daa9bae565b21ff3782f2217/README.md"
+        },
+        {
+          "title": "Per-entity properties",
+          "text": "Attach custom properties to mesh entities through the generic property system.",
+          "source_url": "https://github.com/openvolumemesh/openvolumemesh/blob/9cd4e3a3662f4e52daa9bae565b21ff3782f2217/README.md"
+        }
+      ]
+    },
     "3bcfdb2e7c940ecf1f6360e3fb375125cb1a3728fe9228ae61527fc0fdc8097c": {
       "project_url": "https://github.com/seemoo-lab/openhaystack",
       "text": "OpenHaystack pairs a macOS application with Bluetooth-device firmware to locate personal accessories through Apple's Find My network. Users create accessory identities, deploy supported firmware and inspect the latest reported locations on a map. The documented desktop setup requires an Apple Mail plugin; the mobile implementation instead retrieves reports through a proxy running on Mac hardware.",
