@@ -6,7 +6,7 @@ The short description in `README.source.md` remains the folded ledger descriptio
 
 The existing daily discovery task includes this step after catalog acceptance on main, alongside the separate specimen-art handoff:
 
-> Read `site/FUNCTION-SUMMARIES.md`. Read the project's official README or documentation and draft a 40–80-word Function summary describing concrete capabilities, intended use and deployment model where the source establishes them. Add it to `data/function_summaries.json` under the existing full catalog ID. Preserve the short description in `README.source.md`. Cite one to three official source URLs and titles, the actual UTC review date, and a full source commit SHA where available. Review every claim against those sources before marking the entry approved. Submit summaries in a separate summary-data-only draft PR, never in the direct catalog source commit or artwork PR. Do not merge. If sources cannot be verified, omit the summary and continue discovery.
+> Read `site/FUNCTION-SUMMARIES.md`. Read the project's official README or documentation and draft a 40–80-word Function summary describing concrete capabilities, intended use and deployment model where the source establishes them. Add it to `data/function_summaries.json` under the existing full catalog ID. Preserve the short description in `README.source.md`. Cite one to three official source URLs and titles, the actual UTC review date, and a full source commit SHA where available. Capture one to five supported feature notes from those same sources while writing the summary; if none are supported, retain the summary and report that limitation. Review every summary and feature claim before marking the entry approved. Submit summaries in a separate summary-data-only draft PR, never in the direct catalog source commit or artwork PR. Do not merge. If sources cannot be verified, omit the summary and continue discovery.
 
 The [automation inventory](../automation/README.md#discover-open-software) records the current external task and cadence. This contract and implementation are on main; the publisher reads approved records during its ordinary offline website build. Editing this guide does not modify the hosted task or add a scheduled collector. No extra credentials or GitHub schedule are required.
 
@@ -64,8 +64,10 @@ Inspect the expanded record and the unchanged folded description. Sources and re
 
 ## Optional feature notes
 
-While reviewing the official page for the long summary, capture one to five
-concrete capabilities as an optional `features` list. Each item has `title`
+For each new summary, review feature notes in the same source pass and capture
+one to five supported capabilities in `features`. The field remains optional:
+when sources support no feature note, keep the evidenced summary and record the
+limitation in the batch report. Each item has `title`
 (up to 80 characters), `text` (up to 400 characters of original plain prose),
 and `source_url` matching one of the entry's reviewed `sources`. Review those
 claims with the summary before marking the parent approved. No HTML, invented
@@ -79,9 +81,13 @@ omit the note; nothing is inferred from artwork.
 ### Missing-feature backfill
 
 The separately hosted [feature-note job](../automation/backfill-feature-notes.md)
-researches up to 10 existing approved summaries with absent or empty feature
-lists per run, in three flexible daily windows. It starts data work only after
-its spec is merged and the hosted task is registered. Editing this guide alone
+researches up to 40 existing approved summaries with absent or empty feature
+lists per run under its merged version 2 contract, in the same three flexible
+daily windows. The shared [batch procedure](../automation/enrichment-batches.md)
+prioritizes illustrated projects, retains fair rotation and divides research
+among disjoint workers before one integrator submits the batch. It starts data
+work only after its spec is merged and the hosted task is registered. Editing
+this guide alone
 does not schedule it. A pending feature batch pauses further feature proposals;
 open summary/evidence proposals for the same canonical ID are also skipped.
 

@@ -1,16 +1,18 @@
 # Backfill feature notes
 
+Job contract version 2.
+
 ## Runner and activation
 
 This is the repository contract for the separately hosted **Backfill feature
 notes** job. Register three flexible daily windows around **08:00, 15:00 and
-19:00 America/New_York**. The batch bound is a conservative research/review
-pilot, not an API limit. A scheduled wake may produce no proposal while review
-or evidence is pending.
+19:00 America/New_York**. The batch bound is a research/review maximum. A
+scheduled wake may produce no proposal while review or evidence is pending.
 
 Before each run, fetch this file and its linked contracts from fresh `main`.
-Until this spec is merged, the job stays quiet and makes no data changes. Editing
-or cloning the file does not register a task; verify the hosted task separately.
+Use version 2 only when this spec, the shared [batch procedure](enrichment-batches.md)
+and its selector are present on main. An unmerged proposal cannot activate it.
+Editing or cloning the file does not register a task; verify the hosted task separately.
 This job has its own review gate and does not change discovery, summary,
 illustration, alternatives, metrics or history schedules.
 
@@ -23,8 +25,8 @@ Use the existing schema and full URL-derived catalog IDs. Build the catalog with
 `python3 scripts/build_catalog.py --output tmp/catalog.json`; cross-listed
 projects count once.
 
-Consider at most **10 distinct canonical projects per run** and propose additions
-for at most those 10. Select only existing `approved` Function-summary records
+Consider at most **40 distinct canonical projects per run** and propose additions
+for at most those 40. Select only existing `approved` Function-summary records
 whose `features` key is absent or an empty list. Leave missing summaries to the
 summary job. Skip pending/rejected summaries, any nonempty feature list, malformed
 records and overlapping owner edits. Existing features of any quality remain
@@ -79,20 +81,18 @@ on it. Approval for proposed build inclusion remains separate from PR merge.
 
 ## Rotation and concurrency
 
-Sort eligible canonical IDs. Resume after the last considered ID in the previous
-accessible feature-job report, wrapping once; otherwise choose a deterministic
-UTC-day and scheduled-slot starting point in that sorted list. Use
-`((UTC day ordinal * 3 + slot index) * 10) % eligible count`, where slot indices
-0, 1 and 2 identify the nominal 08:00, 15:00 and 19:00 New York runs. Record the
-slot, chosen offset and fallback reason so three runs do not all restart at the
-same ten IDs. With no eligible IDs, no offset is needed.
-Advance after every considered project, including unavailable evidence and PR
-conflicts. Stop after 10 distinct IDs or one traversal. Reports retain the cursor,
-coverage, skip reasons and UTC date; no catalog cursor schema is added. Reuse
-accessible skip evidence during the same sweep: do not repeatedly research an
-unchanged source-limited record before advancing past the remaining candidates.
-A later sweep may recheck it after a documented source change or access recovery;
-report unresolved gaps without inventing a feature to clear the queue.
+Use the shared [batch procedure](enrichment-batches.md) and offline selector in
+`features` mode. Approved illustrated projects have priority, with reserved
+progress for unillustrated projects. Supply active/open-PR reservations and the
+previous run's per-tier cursors (or legacy cursor). Keep actual considered IDs,
+skips, coverage and continuation in the run report; advance past unavailable
+sources. The aggregate limit is 40 distinct IDs across all researchers.
+
+Use up to four researchers with disjoint assignments of at most ten IDs each.
+One integrator reviews the evidence, verifies preservation of every original
+field and submits one batch PR. Workers return proposals and source evidence;
+they do not publish independently. Reuse saved work and skip evidence before
+researching the same IDs again. See the shared procedure for interrupted runs.
 
 Before committing, fetch current `main` and the data file's current blob SHA,
 recheck all selected IDs and relevant open PRs, and apply only the selected

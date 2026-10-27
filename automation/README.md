@@ -86,7 +86,8 @@ including the source commit and inspect its output before claiming publication.
 **Separate enrichment:** After acceptance on main, attempt nonblocking new-project
 artwork under [the specimen contract](../site/SPECIMEN-ART.md) and summaries under
 [the Function contract](../site/FUNCTION-SUMMARIES.md). Artwork uses its own scoped
-draft PR; summaries use a summary-data-only draft PR. Neither shares the direct
+draft PR; summaries capture supported feature notes in the same source review
+and use a summary-data-only draft PR. Neither shares the direct
 catalog commit, and unavailable enrichment does not block discovery.
 
 **Artwork file scope:** Discovery artwork PRs include new originals at
@@ -110,11 +111,15 @@ tools defer only that enrichment; validation/publication failures are reported.
 ## Enrichment jobs
 
 The alias, Function-summary and feature-note jobs are registered and enabled;
-their reviewed contracts are merged. Each has an independent one-pending-draft
-review gate, with at most **10 canonical projects** researched and **10 records**
-proposed per run. Ten is an editorial/runtime bound, not an API maximum or a
-promise of 30 daily additions. Their linked contracts own selection, evidence,
-rotation and validation details.
+their reviewed contracts govern each run. Each keeps an independent
+one-pending-draft review gate. Aliases retain a **10-project** limit. Summary and
+feature-note version 2 contracts allow **40 projects** per run, using the shared
+[batch procedure](enrichment-batches.md): illustrated-first fair rotation,
+parallel source research and one integrating publisher. New summaries capture
+supported features in the same source pass. The three daily windows and full
+validation remain unchanged. Hosted prompts activate version 2 only after its
+contracts and implementation are merged; repository edits alone do not change
+registered tasks.
 
 | Job | Data scope |
 | --- | --- |
