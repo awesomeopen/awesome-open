@@ -53,6 +53,7 @@
 | [OpenCode](https://github.com/anomalyco/opencode) | AI coding agent for the terminal. |
 | [OpenCompass](https://github.com/open-compass/opencompass) | Language-model evaluation across knowledge, reasoning, coding, and other tasks. |
 | [OpenComputer](https://github.com/andykr1k/OpenComputer) | Desktop AI agent that uses screenshots and local or hosted vision-language models to control applications. |
+| [OpenComputer](https://github.com/diggerhq/opencomputer) | Platform for building and deploying cloud-hosted agents as code, with versioned deployments, sessions, schedules, and webhooks. |
 | [OpenComputerUse](https://github.com/IAmJSD/OpenComputerUse) | MCP server for background desktop-app automation with screenshots, accessibility tools, and managed sessions. |
 | [open-cot](https://github.com/minimAluminiumalism/open-CoT) | Research scripts for eliciting and evaluating reasoning text from language-model APIs. |
 | [OpenCV](https://github.com/opencv/opencv) | Computer vision library. |
