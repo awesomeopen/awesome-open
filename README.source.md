@@ -96,6 +96,7 @@
 | [OpenRLHF](https://github.com/OpenRLHF/OpenRLHF) | Scalable framework for reinforcement learning with language models. |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
 | [OpenSandbox](https://github.com/opensandbox-group/OpenSandbox) | Sandbox runtime for AI agents. |
+| [OpenScholar](https://github.com/AkariAsai/OpenScholar) | Retrieval-augmented language-model pipeline that searches scientific papers and synthesizes source-grounded answers. |
 | [OpenSLA](https://github.com/yang-ai-lab/OpenSLA) | Sensor-language-action models that predict structured actions and describe sensor states from signals and text. |
 | [Open-Sora](https://github.com/hpcaitech/Open-Sora) | Models and tooling for video generation. |
 | [OpenSpiel](https://github.com/google-deepmind/open_spiel) | Game environments and algorithms for reinforcement-learning, search, and multi-agent research. |
@@ -163,6 +164,7 @@
 | [OpenUI](https://github.com/thesysdev/openui) | Framework for streaming model-generated interfaces using component libraries and runtimes for React, Vue, Svelte, and Angular. |
 | [OpenUI5](https://github.com/UI5/openui5) | JavaScript UI framework for responsive web applications with reusable controls and JSON, XML, and OData data binding. |
 | [OpenVSCode Server](https://github.com/gitpod-io/openvscode-server) | Run VS Code remotely and access it through a web browser. |
+| [Open Walnut](https://github.com/EvanZhang008/open-walnut) | Self-hosted web workspace for local and remote Claude Code sessions, change review, tasks, notes, and memory. |
 | [OpenWhisk](https://github.com/apache/openwhisk) | Serverless cloud platform for event-driven functions. |
 
 ## Infrastructure & DevOps
@@ -289,6 +291,7 @@
 | [OpenOPen](https://github.com/TayMcQuaya/OpenOPen) | Desktop text editor with formatting controls and DOCX/PDF export. |
 | [OpenPaste](https://github.com/SwallOwDili/OpenPaste) | macOS clipboard manager with searchable history, favorites, paste queues, image-text extraction, and optional translation. |
 | [openPDF](https://github.com/ej3mpl0/openPDF) | Native Linux PDF application and command-line tools for viewing, organizing, converting, and signing documents. |
+| [Open PDF Studio](https://github.com/OpenAEC-Foundation/open-pdf-studio) | PDF editor and annotator with markup, measurement, OCR, and page-management tools. |
 | [OpenProject](https://github.com/opf/openproject) | Project and portfolio management with Gantt charts, issue tracking, and agile planning.<br>Alternative to: [Jira](https://www.openproject.org/project-management-software-alternatives/best-jira-alternative/) |
 | [OpenReader](https://github.com/richardr1126/openreader) | Read-along document reader with text-to-speech, synchronized highlighting, and audiobook export. |
 | [OpenRecall](https://github.com/openrecall/openrecall) | Captures periodic desktop screenshots and makes activity history searchable with local OCR and semantic search.<br>Alternative to: [Windows Recall](https://github.com/openrecall/openrecall/blob/main/README.md), [Rewind.ai](https://github.com/openrecall/openrecall/blob/main/README.md) |
@@ -301,6 +304,7 @@
 | [OpenStats](https://github.com/gentpan/OpenStats) | macOS menu-bar system monitor with fan control, keep-awake, and cleanup tools. |
 | [Open Sunsama](https://github.com/ShadowWalker2014/open-sunsama) | Daily planner with Kanban, time blocking, and focus mode.<br>Alternative to: [Sunsama](https://github.com/ShadowWalker2014/open-sunsama#readme) |
 | [OpenTask](https://github.com/AristideDongo/opentask) | Self-hosted teamwork application with accounts, workspaces, member roles, and invitations; task management is planned. |
+| [OpenTodo](https://github.com/OpenTodoApp/OpenTodo) | Self-hosted task manager with shared lists, reminders, and offline access. |
 | [OpenTodoList](https://opentodolist.rpdev.net) | Tasks, notes, images, and recipes with local storage and optional synchronization. |
 | [OpenTypeless](https://github.com/tover0314-w/opentypeless) | AI voice typing for macOS, Windows, and Linux.<br>Alternative to: [Wispr Flow](https://github.com/tover0314-w/opentypeless#readme), [Superwhisper](https://github.com/tover0314-w/opentypeless#readme), [Typeless](https://www.opentypeless.com/en/typeless-alternative) |
 | [Open Typora](https://github.com/AniChikage/open-typora) | macOS Markdown editor with inline editing, local files, formulas, diagrams, and HTML or PDF export. |
@@ -374,6 +378,7 @@
 | [Open Grind](https://git.opengrind.org/open-grind/open-grind) | Cross-platform unofficial client for Grindr. |
 | [OpenIM](https://github.com/openimsdk/open-im-server) | Instant messaging server and infrastructure for chat applications. |
 | [OpenMeetings](https://openmeetings.apache.org) | Video conferencing, instant messaging, shared whiteboards, and document collaboration. |
+| [Open Mod](https://developers.reddit.com/apps/open-mod) | Reddit application that publishes configurable moderation-log extracts to another subreddit. |
 | [Open Moderator](https://developers.reddit.com/apps/open-moderator) | Reddit moderation application with removal explanations, consistency alerts, comment monitoring, and rule-improvement suggestions. |
 | [Opensend](https://github.com/PanaraStudios/opensend.cc) | Self-hosted email application with Amazon SES setup, domain management, and team authentication.<br>Alternative to: [Resend](https://opensend.cc/) |
 | [OpenSIPS](https://github.com/OpenSIPS/opensips) | SIP server for voice and real-time communications. |
@@ -390,6 +395,7 @@
 | --- | --- |
 | [OBS Studio](https://github.com/obsproject/obs-studio) | Live streaming and screen recording. |
 | [OpenAL Soft](https://github.com/kcat/openal-soft) | Cross-platform implementation of the OpenAL 3D audio API. |
+| [Open Asset Import Library](https://github.com/assimp/assimp) | C and C++ library for importing, exporting, and post-processing 3D models through a shared scene representation. |
 | [OpenAudible](https://openaudible.org) | Desktop audiobook manager for downloading, organizing, playing, and converting Audible libraries. |
 | [OpenBRender](https://github.com/GPTchatly/OpenBRender) | Browser-based scientific figure editor with vector artwork, editable charts, statistical comparisons, portable projects, and image and PDF export. |
 | [Open Brush](https://github.com/icosa-foundation/open-brush) | Virtual reality painting application descended from Tilt Brush. |
@@ -530,6 +536,7 @@
 | [Open3D](https://github.com/isl-org/Open3D) | C++ and Python library for processing, reconstructing, and visualizing 3D data. |
 | [Open Babel](https://github.com/openbabel/openbabel) | Convert, search, and analyze chemical data. |
 | [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS) | Optimized Basic Linear Algebra Subprograms library. |
+| [Open CAD Studio](https://github.com/HakanSeven12/OpenCADStudio) | Desktop and browser application for 2D drafting and 3D modeling with DWG and DXF support. |
 | [OpenCalque](https://github.com/laurent512/opencalque) | Desktop and web editor for 2D architectural floor plans, with a command-line interface and JSON documents. |
 | [Open CASCADE Technology](https://github.com/Open-Cascade-SAS/OCCT) | Libraries for 3D modeling, CAD data exchange, and visualization. |
 | [Open Chemistry](https://github.com/OpenChemistry/openchemistry) | Libraries and applications for exploring and generating chemical data. |
@@ -539,6 +546,7 @@
 | [OpenDSS](https://opendss.epri.com) | Simulate electric utility distribution systems, including power flow, harmonics, dynamics, and fault studies. |
 | [OpenFAST](https://github.com/OpenFAST/openfast) | Wind turbine and wind farm simulation tools. |
 | [OpenFermion](https://github.com/quantumlib/OpenFermion) | Compile and analyze quantum algorithms for fermionic systems. |
+| [OpenFlipper](https://www.graphics.rwth-aachen.de/software/openflipper/) | Geometry modeling and processing application with an extensible plugin framework. |
 | [OpenFOAM](https://github.com/OpenFOAM/OpenFOAM-dev) | Computational fluid dynamics software. |
 | [OpenGeoSys](https://gitlab.opengeosys.org/ogs/ogs) | Finite-element framework for simulating coupled thermal, hydraulic, mechanical, and chemical processes in porous and fractured media. |
 | [OpenIPSL](https://github.com/OpenIPSL/OpenIPSL) | Modelica component library for power-system dynamic analysis. |
@@ -566,6 +574,7 @@
 | [OpenTURNS](https://github.com/openturns/openturns) | C++ and Python library for uncertainty quantification. |
 | [OpenVat](https://github.com/tylerebowers/OpenVat) | Resin 3D-printing slicer with model editing, support generation, printer profiles, and Anycubic file export. |
 | [OpenVnmrJ](https://github.com/OpenVnmrJ/OpenVnmrJ) | NMR spectrometer operation and data analysis. |
+| [OpenVolumeMesh](https://github.com/OpenVolumeMesh/OpenVolumeMesh) | C++ library for representing and traversing polyhedral, tetrahedral, and hexahedral meshes. |
 | [OpenVSP](https://github.com/OpenVSP/OpenVSP) | Parametric aircraft geometry modeling. |
 
 ## Maps & Geospatial
@@ -601,6 +610,7 @@
 | [OpenOlat](https://github.com/OpenOLAT/OpenOLAT) | Learning management system. |
 | [Open Preprint Systems](https://github.com/pkp/ops) | Manage and publish preprints. |
 | [OpenRefine](https://github.com/OpenRefine/OpenRefine) | Clean, transform, and improve messy data. |
+| [OpenScholar](https://github.com/AkariAsai/OpenScholar) | Retrieval-augmented language-model pipeline that searches scientific papers and synthesizes source-grounded answers. |
 | [OpenSesame](https://osdoc.cogsci.nl) | Build psychology, neuroscience, and experimental-economics experiments with a graphical interface and Python or JavaScript scripting. |
 | [openSIS](https://github.com/OS4ED/openSIS-Classic) | Student information and school administration system. |
 
