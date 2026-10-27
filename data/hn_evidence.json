@@ -28,7 +28,7 @@
     "2026-08",
     "2026-09"
   ],
-  "refreshed_utc_date": "2026-10-26",
+  "refreshed_utc_date": "2026-10-27",
   "metric": "Deduplicated HN story submissions per UTC month, regardless of points, comments or sentiment. Search coverage is best-effort and depends on the HN Algolia index.",
   "eligibility": {
     "minimum_stories": 6,
@@ -137850,75 +137850,133 @@
         "collected_at": "2026-10-26T02:26:26.655817+00:00"
       },
       "status": "ok"
+    },
+    "https://github.com/mvschwarz/openrig": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.infradead.org/openconnect": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openbox.ai": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openconcerto.org": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.opendental.com": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.opendocrouter.ai": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openeuler.org/en": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openhab.org": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openimis.org": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openindiana.org": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openldap.org/software": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openmandriva.org": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openoffice.org": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openpli.org": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.openstack.org/software": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.opensuse.org": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.opentext.com/products/content-manager": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://www.redhat.com/en/technologies/cloud-computing/openshift": {
+      "checked_at": "2026-10-27T00:18:10.442484+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     }
   },
   "budget": {
-    "utc_date": "2026-10-26",
-    "requests_used": 50,
+    "utc_date": "2026-10-27",
+    "requests_used": 18,
     "limit": 160,
     "paused": false,
-    "projects_used": 50,
+    "projects_used": 18,
     "project_limit": 50,
     "attempted_urls": [
-      "https://github.com/bsamud/openfoundry-agentic-framework",
-      "https://github.com/chaxiu/opencompare",
-      "https://github.com/dexterlabs1/openpatch",
-      "https://github.com/feimacode/open-design-agent-kit",
-      "https://github.com/hkumarsaikia/opendictate",
-      "https://github.com/hypersniper05/open-omnivoice-tts",
-      "https://github.com/hyunwoo137/openattention",
-      "https://github.com/iursevla/open-receipt-ocr",
-      "https://github.com/kalmuraee/openmagic",
-      "https://github.com/l-at-nnes/openscissors",
-      "https://github.com/lawlaw09/opendam",
-      "https://github.com/lguerberg/open-sequence",
-      "https://github.com/lvanbei/openspell",
-      "https://github.com/markusbegerow/opensidian",
-      "https://github.com/multi-applications/opentunes",
-      "https://github.com/mymemoai/openmymemo",
-      "https://github.com/natephotos/opencull",
-      "https://github.com/nullmagic2/open-volar-s",
-      "https://github.com/open-flight/open-gps",
-      "https://github.com/openmachinelabs/openmachine",
-      "https://github.com/programagrueso/opencineagent",
-      "https://github.com/sophontrace/opennex",
-      "https://github.com/swallowdili/openpaste",
-      "https://github.com/theopen-institute/opendesk",
-      "https://github.com/xlennart/openofficetab",
-      "https://openaudible.org",
-      "https://opencagedata.com",
-      "https://opencal.link",
-      "https://opencamera.org.uk",
-      "https://opencrm.co.uk",
-      "https://opendss.epri.com",
-      "https://openeng.app",
-      "https://openjump.org",
-      "https://openloc.com",
-      "https://openlp.org",
-      "https://openmeetings.apache.org",
-      "https://openmpt.org",
-      "https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/4816906",
-      "https://openrgb.org",
-      "https://openrouter.ai/docs/quickstart",
-      "https://opensong.org",
-      "https://openspades.yvt.jp",
-      "https://openstagecontrol.ammd.net",
-      "https://opentalk.eu/en",
-      "https://opentaxsolver.sourceforge.net",
-      "https://opentodolist.rpdev.net",
-      "https://openwants.com",
-      "https://osdoc.cogsci.nl",
-      "https://www.bentley.com/products/openroads-designer/",
-      "https://www.graphics.rwth-aachen.de/software/openmesh/"
+      "https://github.com/mvschwarz/openrig",
+      "https://www.infradead.org/openconnect",
+      "https://www.openbox.ai",
+      "https://www.openconcerto.org",
+      "https://www.opendental.com",
+      "https://www.opendocrouter.ai",
+      "https://www.openeuler.org/en",
+      "https://www.openhab.org",
+      "https://www.openimis.org",
+      "https://www.openindiana.org",
+      "https://www.openldap.org/software",
+      "https://www.openmandriva.org",
+      "https://www.openoffice.org",
+      "https://www.openpli.org",
+      "https://www.openstack.org/software",
+      "https://www.opensuse.org",
+      "https://www.opentext.com/products/content-manager",
+      "https://www.redhat.com/en/technologies/cloud-computing/openshift"
     ],
     "lane_projects": {
-      "new": 25,
-      "refresh": 25,
+      "new": 18,
+      "refresh": 0,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 25,
-      "refresh": 25,
+      "new": 18,
+      "refresh": 0,
       "continuation": 0
     }
   },
@@ -137927,7 +137985,7 @@
     "due_projects": 18,
     "attempted_projects": 0,
     "current_window_projects": 515,
-    "never_attempted_projects": 18
+    "never_attempted_projects": 0
   },
   "refresh_policy": {
     "successful_refresh_days": 30,
