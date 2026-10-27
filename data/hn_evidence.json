@@ -18700,6 +18700,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2Fopensandbox-group%2FOpenSandbox&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenScholar",
+      "slug": "catalog-f4a3ac1bbad0e9d8",
+      "readme_url": "https://github.com/AkariAsai/OpenScholar",
+      "repositories": [
+        "AkariAsai/OpenScholar"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/AkariAsai/OpenScholar"
+      ],
+      "identity_sources": [
+        "https://github.com/AkariAsai/OpenScholar"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FAkariAsai%2FOpenScholar&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FAkariAsai%2FOpenScholar&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenSLA",
       "slug": "catalog-835560e4f656dd48",
       "readme_url": "https://github.com/yang-ai-lab/OpenSLA",
@@ -22423,6 +22477,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fgitpod-io%2Fopenvscode-server&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2Fgitpod-io%2Fopenvscode-server&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "Open Walnut",
+      "slug": "catalog-dc5a991b611e1a5d",
+      "readme_url": "https://github.com/EvanZhang008/open-walnut",
+      "repositories": [
+        "EvanZhang008/open-walnut"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/EvanZhang008/open-walnut"
+      ],
+      "identity_sources": [
+        "https://github.com/EvanZhang008/open-walnut"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FEvanZhang008%2Fopen-walnut&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FEvanZhang008%2Fopen-walnut&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenWhisk",
@@ -33297,6 +33405,71 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2Fej3mpl0%2FopenPDF&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "Open PDF Studio",
+      "slug": "catalog-ad8397b3aa45e758",
+      "readme_url": "https://github.com/OpenAEC-Foundation/open-pdf-studio",
+      "repositories": [
+        "OpenAEC-Foundation/open-pdf-studio"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/OpenAEC-Foundation/open-pdf-studio"
+      ],
+      "identity_sources": [
+        "https://github.com/OpenAEC-Foundation/open-pdf-studio"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 1,
+      "active_months": 1,
+      "stories": [
+        {
+          "id": "47200383",
+          "title": "Open PDF Studio: A free, open-source PDF editor and annotator",
+          "url": "https://github.com/OpenAEC-Foundation/open-pdf-studio",
+          "created_at": "2026-02-28T21:20:40+00:00",
+          "month": "2026-02",
+          "hn_url": "https://news.ycombinator.com/item?id=47200383",
+          "source_url": "https://hn.algolia.com/api/v1/items/47200383",
+          "reason": "repository: OpenAEC-Foundation/open-pdf-studio"
+        }
+      ],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenAEC-Foundation%2Fopen-pdf-studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FOpenAEC-Foundation%2Fopen-pdf-studio&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenProject",
       "slug": "catalog-679f7bb50af52541",
       "readme_url": "https://github.com/opf/openproject",
@@ -33954,6 +34127,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FAristideDongo%2Fopentask&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2FAristideDongo%2Fopentask&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenTodo",
+      "slug": "catalog-482c1631f35cd2f6",
+      "readme_url": "https://github.com/OpenTodoApp/OpenTodo",
+      "repositories": [
+        "OpenTodoApp/OpenTodo"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/OpenTodoApp/OpenTodo"
+      ],
+      "identity_sources": [
+        "https://github.com/OpenTodoApp/OpenTodo"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenTodoApp%2FOpenTodo&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FOpenTodoApp%2FOpenTodo&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenTodoList",
@@ -36711,6 +36938,60 @@
       "search_url": "https://hn.algolia.com/?q=openmeetings.apache.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "Open Mod",
+      "slug": "catalog-f53302059daf4de6",
+      "readme_url": "https://developers.reddit.com/apps/open-mod",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://developers.reddit.com/apps/open-mod"
+      ],
+      "queries": [
+        "developers.reddit.com/apps/open-mod"
+      ],
+      "identity_sources": [
+        "https://developers.reddit.com/apps/open-mod"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=developers.reddit.com%2Fapps%2Fopen-mod&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=developers.reddit.com%2Fapps%2Fopen-mod&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "Open Moderator",
       "slug": "catalog-79c63bf03f65fab3",
       "readme_url": "https://developers.reddit.com/apps/open-moderator",
@@ -37352,6 +37633,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fkcat%2Fopenal-soft&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2Fkcat%2Fopenal-soft&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "Open Asset Import Library",
+      "slug": "catalog-52d3461c43c42b1a",
+      "readme_url": "https://github.com/assimp/assimp",
+      "repositories": [
+        "assimp/assimp"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/assimp/assimp"
+      ],
+      "identity_sources": [
+        "https://github.com/assimp/assimp"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fassimp%2Fassimp&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2Fassimp%2Fassimp&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenAudible",
@@ -44897,6 +45232,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2FOpenMathLib%2FOpenBLAS&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "Open CAD Studio",
+      "slug": "catalog-c60f3015db7e7e3a",
+      "readme_url": "https://github.com/HakanSeven12/OpenCADStudio",
+      "repositories": [
+        "HakanSeven12/OpenCADStudio"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/HakanSeven12/OpenCADStudio"
+      ],
+      "identity_sources": [
+        "https://github.com/HakanSeven12/OpenCADStudio"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FHakanSeven12%2FOpenCADStudio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FHakanSeven12%2FOpenCADStudio&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenCalque",
       "slug": "catalog-b2a1c4f971db2f4c",
       "readme_url": "https://github.com/laurent512/opencalque",
@@ -45381,6 +45770,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fquantumlib%2FOpenFermion&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2Fquantumlib%2FOpenFermion&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenFlipper",
+      "slug": "catalog-0c8ff7ef8e8c5564",
+      "readme_url": "https://www.graphics.rwth-aachen.de/software/openflipper/",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.graphics.rwth-aachen.de/software/openflipper/"
+      ],
+      "queries": [
+        "www.graphics.rwth-aachen.de/software/openflipper/"
+      ],
+      "identity_sources": [
+        "https://www.graphics.rwth-aachen.de/software/openflipper/"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.graphics.rwth-aachen.de%2Fsoftware%2Fopenflipper%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.graphics.rwth-aachen.de%2Fsoftware%2Fopenflipper%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenFOAM",
@@ -47130,6 +47573,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenVnmrJ%2FOpenVnmrJ&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2FOpenVnmrJ%2FOpenVnmrJ&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenVolumeMesh",
+      "slug": "catalog-4b4cc559a255bc6b",
+      "readme_url": "https://github.com/OpenVolumeMesh/OpenVolumeMesh",
+      "repositories": [
+        "OpenVolumeMesh/OpenVolumeMesh"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/OpenVolumeMesh/OpenVolumeMesh"
+      ],
+      "identity_sources": [
+        "https://github.com/OpenVolumeMesh/OpenVolumeMesh"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenVolumeMesh%2FOpenVolumeMesh&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FOpenVolumeMesh%2FOpenVolumeMesh&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenVSP",
@@ -137940,14 +138437,1069 @@
       "checked_at": "2026-10-27T00:18:10.442484+00:00",
       "status": "unavailable",
       "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+    },
+    "https://github.com/assimp/assimp": {
+      "pending": {},
+      "pending_identity_key": "210f8a22c695550b7924066e950fd377581f9bd08e0a23901231d3aadccb24b3",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T08:17:17.626979+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "210f8a22c695550b7924066e950fd377581f9bd08e0a23901231d3aadccb24b3",
+        "project": {
+          "name": "Open Asset Import Library",
+          "slug": "catalog-52d3461c43c42b1a",
+          "readme_url": "https://github.com/assimp/assimp",
+          "repositories": [
+            "assimp/assimp"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/assimp/assimp"
+          ],
+          "identity_sources": [
+            "https://github.com/assimp/assimp"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fassimp%2Fassimp&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2Fassimp%2Fassimp&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T08:17:17.626979+00:00"
+      },
+      "status": "ok"
+    },
+    "https://github.com/hakanseven12/opencadstudio": {
+      "pending": {},
+      "pending_identity_key": "5bd29a1edb3540c8fb87b0500290ef4e10462dbcec02bbd40756cbee6bca947b",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T08:17:17.626979+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "5bd29a1edb3540c8fb87b0500290ef4e10462dbcec02bbd40756cbee6bca947b",
+        "project": {
+          "name": "Open CAD Studio",
+          "slug": "catalog-c60f3015db7e7e3a",
+          "readme_url": "https://github.com/HakanSeven12/OpenCADStudio",
+          "repositories": [
+            "HakanSeven12/OpenCADStudio"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/HakanSeven12/OpenCADStudio"
+          ],
+          "identity_sources": [
+            "https://github.com/HakanSeven12/OpenCADStudio"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FHakanSeven12%2FOpenCADStudio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FHakanSeven12%2FOpenCADStudio&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T08:17:17.626979+00:00"
+      },
+      "status": "ok"
+    },
+    "https://github.com/akariasai/openscholar": {
+      "pending": {},
+      "pending_identity_key": "cbc272e2d5ddfccf6ed823f7750523ee082dd1b1aba68090b728957c6e89fba1",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T08:17:17.626979+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "cbc272e2d5ddfccf6ed823f7750523ee082dd1b1aba68090b728957c6e89fba1",
+        "project": {
+          "name": "OpenScholar",
+          "slug": "catalog-f4a3ac1bbad0e9d8",
+          "readme_url": "https://github.com/AkariAsai/OpenScholar",
+          "repositories": [
+            "AkariAsai/OpenScholar"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/AkariAsai/OpenScholar"
+          ],
+          "identity_sources": [
+            "https://github.com/AkariAsai/OpenScholar"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FAkariAsai%2FOpenScholar&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FAkariAsai%2FOpenScholar&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T08:17:17.626979+00:00"
+      },
+      "status": "ok"
+    },
+    "https://github.com/openaec-foundation/open-pdf-studio": {
+      "pending": {},
+      "pending_identity_key": "fe9ccc4b9d59588fca99275a79d343996287f1473a484f6e8ab334bfd9279e81",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T08:17:17.626979+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "fe9ccc4b9d59588fca99275a79d343996287f1473a484f6e8ab334bfd9279e81",
+        "project": {
+          "name": "Open PDF Studio",
+          "slug": "catalog-ad8397b3aa45e758",
+          "readme_url": "https://github.com/OpenAEC-Foundation/open-pdf-studio",
+          "repositories": [
+            "OpenAEC-Foundation/open-pdf-studio"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/OpenAEC-Foundation/open-pdf-studio"
+          ],
+          "identity_sources": [
+            "https://github.com/OpenAEC-Foundation/open-pdf-studio"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 1,
+          "active_months": 1,
+          "stories": [
+            {
+              "id": "47200383",
+              "title": "Open PDF Studio: A free, open-source PDF editor and annotator",
+              "url": "https://github.com/OpenAEC-Foundation/open-pdf-studio",
+              "created_at": "2026-02-28T21:20:40+00:00",
+              "month": "2026-02",
+              "hn_url": "https://news.ycombinator.com/item?id=47200383",
+              "source_url": "https://hn.algolia.com/api/v1/items/47200383",
+              "reason": "repository: OpenAEC-Foundation/open-pdf-studio"
+            }
+          ],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenAEC-Foundation%2Fopen-pdf-studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FOpenAEC-Foundation%2Fopen-pdf-studio&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T08:17:17.626979+00:00"
+      },
+      "status": "ok"
+    },
+    "https://github.com/opentodoapp/opentodo": {
+      "pending": {},
+      "pending_identity_key": "71c3981ed9c59fdd660284b230ff99377a7cf71ec6b1050f817b74c03ce592f6",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T08:17:17.626979+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "71c3981ed9c59fdd660284b230ff99377a7cf71ec6b1050f817b74c03ce592f6",
+        "project": {
+          "name": "OpenTodo",
+          "slug": "catalog-482c1631f35cd2f6",
+          "readme_url": "https://github.com/OpenTodoApp/OpenTodo",
+          "repositories": [
+            "OpenTodoApp/OpenTodo"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/OpenTodoApp/OpenTodo"
+          ],
+          "identity_sources": [
+            "https://github.com/OpenTodoApp/OpenTodo"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenTodoApp%2FOpenTodo&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FOpenTodoApp%2FOpenTodo&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T08:17:17.626979+00:00"
+      },
+      "status": "ok"
+    },
+    "https://github.com/evanzhang008/open-walnut": {
+      "pending": {},
+      "pending_identity_key": "15365ecf245cbe23b64786ab95be65a15a9ce3b2962bf23a11937470d3b5d183",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T08:17:17.626979+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "15365ecf245cbe23b64786ab95be65a15a9ce3b2962bf23a11937470d3b5d183",
+        "project": {
+          "name": "Open Walnut",
+          "slug": "catalog-dc5a991b611e1a5d",
+          "readme_url": "https://github.com/EvanZhang008/open-walnut",
+          "repositories": [
+            "EvanZhang008/open-walnut"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/EvanZhang008/open-walnut"
+          ],
+          "identity_sources": [
+            "https://github.com/EvanZhang008/open-walnut"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FEvanZhang008%2Fopen-walnut&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FEvanZhang008%2Fopen-walnut&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T08:17:17.626979+00:00"
+      },
+      "status": "ok"
+    },
+    "https://github.com/openvolumemesh/openvolumemesh": {
+      "pending": {},
+      "pending_identity_key": "0e5e4be22280c3707d61d36f98f6446d333baebb4722c6f2df322f903639713d",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T08:17:17.626979+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "0e5e4be22280c3707d61d36f98f6446d333baebb4722c6f2df322f903639713d",
+        "project": {
+          "name": "OpenVolumeMesh",
+          "slug": "catalog-4b4cc559a255bc6b",
+          "readme_url": "https://github.com/OpenVolumeMesh/OpenVolumeMesh",
+          "repositories": [
+            "OpenVolumeMesh/OpenVolumeMesh"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/OpenVolumeMesh/OpenVolumeMesh"
+          ],
+          "identity_sources": [
+            "https://github.com/OpenVolumeMesh/OpenVolumeMesh"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenVolumeMesh%2FOpenVolumeMesh&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FOpenVolumeMesh%2FOpenVolumeMesh&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T08:17:17.626979+00:00"
+      },
+      "status": "ok"
+    },
+    "https://developers.reddit.com/apps/open-mod": {
+      "pending": {},
+      "pending_identity_key": "4165b56bca5fe42dfcc2264f7613b6bcb54446dd0984e89a7785e44bb51e89fb",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T08:17:17.626979+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "4165b56bca5fe42dfcc2264f7613b6bcb54446dd0984e89a7785e44bb51e89fb",
+        "project": {
+          "name": "Open Mod",
+          "slug": "catalog-f53302059daf4de6",
+          "readme_url": "https://developers.reddit.com/apps/open-mod",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://developers.reddit.com/apps/open-mod"
+          ],
+          "queries": [
+            "developers.reddit.com/apps/open-mod"
+          ],
+          "identity_sources": [
+            "https://developers.reddit.com/apps/open-mod"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=developers.reddit.com%2Fapps%2Fopen-mod&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=developers.reddit.com%2Fapps%2Fopen-mod&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T08:17:17.626979+00:00"
+      },
+      "status": "ok"
+    },
+    "https://www.graphics.rwth-aachen.de/software/openflipper/": {
+      "pending": {},
+      "pending_identity_key": "51ff7859d2874b41eef15a093a6ea21e891c729e6de14d2ae52cccee2098e487",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-27T08:17:17.626979+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "51ff7859d2874b41eef15a093a6ea21e891c729e6de14d2ae52cccee2098e487",
+        "project": {
+          "name": "OpenFlipper",
+          "slug": "catalog-0c8ff7ef8e8c5564",
+          "readme_url": "https://www.graphics.rwth-aachen.de/software/openflipper/",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.graphics.rwth-aachen.de/software/openflipper/"
+          ],
+          "queries": [
+            "www.graphics.rwth-aachen.de/software/openflipper/"
+          ],
+          "identity_sources": [
+            "https://www.graphics.rwth-aachen.de/software/openflipper/"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.graphics.rwth-aachen.de%2Fsoftware%2Fopenflipper%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.graphics.rwth-aachen.de%2Fsoftware%2Fopenflipper%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-27T08:17:17.626979+00:00"
+      },
+      "status": "ok"
     }
   },
   "budget": {
     "utc_date": "2026-10-27",
-    "requests_used": 18,
+    "requests_used": 27,
     "limit": 160,
     "paused": false,
-    "projects_used": 18,
+    "projects_used": 27,
     "project_limit": 50,
     "attempted_urls": [
       "https://github.com/mvschwarz/openrig",
@@ -137967,24 +139519,33 @@
       "https://www.openstack.org/software",
       "https://www.opensuse.org",
       "https://www.opentext.com/products/content-manager",
-      "https://www.redhat.com/en/technologies/cloud-computing/openshift"
+      "https://www.redhat.com/en/technologies/cloud-computing/openshift",
+      "https://github.com/assimp/assimp",
+      "https://github.com/hakanseven12/opencadstudio",
+      "https://github.com/akariasai/openscholar",
+      "https://github.com/openaec-foundation/open-pdf-studio",
+      "https://github.com/opentodoapp/opentodo",
+      "https://github.com/evanzhang008/open-walnut",
+      "https://github.com/openvolumemesh/openvolumemesh",
+      "https://developers.reddit.com/apps/open-mod",
+      "https://www.graphics.rwth-aachen.de/software/openflipper/"
     ],
     "lane_projects": {
-      "new": 18,
+      "new": 27,
       "refresh": 0,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 18,
+      "new": 27,
       "refresh": 0,
       "continuation": 0
     }
   },
   "selection_report": {
-    "catalog_projects": 533,
-    "due_projects": 18,
-    "attempted_projects": 0,
-    "current_window_projects": 515,
+    "catalog_projects": 542,
+    "due_projects": 27,
+    "attempted_projects": 9,
+    "current_window_projects": 524,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
