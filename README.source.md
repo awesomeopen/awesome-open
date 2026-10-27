@@ -59,6 +59,7 @@
 | [Open Deep Research](https://github.com/langchain-ai/open_deep_research) | Configurable research agent supporting multiple model providers, search tools, and MCP servers. |
 | [Open Dot](https://github.com/composio-community/open-dot) | Mac application for persistent personal AI agents with browsers, app integrations, and scheduled tasks. |
 | [OpenDots](https://github.com/CopilotKit/OpenDots) | Self-hostable template for persistent AI agents with individual computers, document workspaces, text, calls, and Slack. |
+| [OpenEnv](https://github.com/openenv/OpenEnv) | Framework for creating and deploying execution environments for agentic reinforcement learning through a Gymnasium-style API. |
 | [OpenFace](https://github.com/cmusatyalab/openface) | Face recognition with deep neural networks. |
 | [OpenFang](https://github.com/RightNow-AI/openfang) | Rust runtime for autonomous AI agents with scheduled tasks, persistent memory, messaging integrations, and a web dashboard. |
 | [OpenFeed](https://github.com/noemauser/OpenFeed) | Python library and command-line tools for exchanging searchable knowledge packs and messages among AI agents. |
@@ -92,6 +93,7 @@
 | [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) | Real-time detection of body, face, hand, and foot keypoints. |
 | [Open R1](https://github.com/huggingface/open-r1) | Training, evaluation, and synthetic-data generation scripts for reproducing DeepSeek-R1-style reasoning models. |
 | [Open-RAG](https://github.com/ShayekhBinIslam/openrag) | Training and inference code for retrieval-augmented language models with multi-hop question answering. |
+| [Open Responses](https://github.com/openresponses/openresponses) | Specification and compliance-testing tools for interoperable language-model APIs, including streaming responses and tool calls. |
 | [OpenRig](https://github.com/mvschwarz/openrig) | Local system for coordinating AI coding agents in persistent teams with shared context, messaging, and terminal-based management. |
 | [OpenRLHF](https://github.com/OpenRLHF/OpenRLHF) | Scalable framework for reinforcement learning with language models. |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
@@ -148,6 +150,7 @@
 | [OpenQodex](https://github.com/openqodex/openqodex) | Local code-review tool combining static scanners with an independent Claude Code or Codex reviewer and optional pre-push checks. |
 | [OpenRAR](https://github.com/Scoheart/OpenRAR) | macOS workflow recorder that turns demonstrated actions into reusable skills for Pi and Qoder. |
 | [OpenReplay](https://github.com/openreplay/openreplay) | Self-hostable session replay, product analytics, and live co-browsing for debugging applications and understanding user behavior.<br>Alternative to: [FullStory](https://openreplay.com/compare/openreplay-vs-fullstory/), [LogRocket](https://openreplay.com/compare/openreplay-vs-logrocket/) |
+| [Open Responses](https://github.com/openresponses/openresponses) | Specification and compliance-testing tools for interoperable language-model APIs, including streaming responses and tool calls. |
 | [OpenRewrite](https://github.com/openrewrite/rewrite) | Automated refactoring of source code. |
 | [OpenRig](https://github.com/mvschwarz/openrig) | Local system for coordinating AI coding agents in persistent teams with shared context, messaging, and terminal-based management. |
 | [OpenRouter](https://openrouter.ai/docs/quickstart) | Unified API for accessing language models from multiple providers. |
