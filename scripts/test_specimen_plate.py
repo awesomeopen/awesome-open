@@ -74,6 +74,36 @@ class PlateTests(unittest.TestCase):
         self.assertEqual(labels, ['I / Function', 'II / Repository record', 'III / Observations &amp; evidence',
                                   'IV / Release record', 'V / Where it runs', 'In the wild'])
 
+    def test_aliases_are_directly_below_heading_in_source_order(self):
+        project = copy.deepcopy(PROJECT)
+        project['aliases'] = [
+            {'name': 'Example Tool', 'source_url': 'https://example.org/names'},
+            {'name': 'ET', 'source_url': 'https://example.org/docs'},
+        ]
+        html = render(project)
+        self.assertIn('</span></div><ul class="plate-aliases" aria-label="Also known as">'
+                      '<li>Also known as: <a href="https://example.org/names">Example Tool</a></li>'
+                      '<li><a href="https://example.org/docs">ET</a></li></ul>'
+                      '<div class="plate-study">', html)
+        self.assertIn('Field notes / 150</span><span class="plate-index">OpenExample', html)
+
+    def test_aliases_omit_empty_and_display_name_only_lists(self):
+        for aliases in [None, [], [{'name': 'OPENEXAMPLE', 'source_url': 'https://example.org/'}]]:
+            project = copy.deepcopy(PROJECT)
+            if aliases is not None:
+                project['aliases'] = aliases
+            self.assertNotIn('plate-aliases', render(project))
+
+    def test_single_alias_escapes_text_and_source(self):
+        project = copy.deepcopy(PROJECT)
+        project['aliases'] = [
+            {'name': 'OpenExample', 'source_url': 'https://example.org/'},
+            {'name': 'Example & "Tool"', 'source_url': 'https://example.org/?a=1&b="two"'},
+        ]
+        html = render(project)
+        self.assertIn('Also known as: <a href="https://example.org/?a=1&amp;b=&quot;two&quot;">'
+                      'Example &amp; &quot;Tool&quot;</a></li></ul>', html)
+
     def test_departure_names_only_recognized_repository_destinations(self):
         cases = [
             ('https://github.com/example/tool', 'GitHub'),

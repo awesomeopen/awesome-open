@@ -78,6 +78,10 @@ Speculative FOSSoligy drawings ([B-PR102-01](decisions/B-PR102-01.md)).
 
 ## Specimen plate for every record (B29)
 
+Reviewed aliases sit directly below the Field notes heading, one name per line,
+with “Also known as:” on the first line and official source links on the names.
+Omit the block when only the canonical display name or no aliases are present.
+
 The expanded record is one plate for all projects; the bounded three-record study
 (B13–B15) and its plain restoration (B24) are superseded. Order: Function statement and reviewed prose, the specimen,
 feature notes, the specimen label, then the fixed evidence grid
