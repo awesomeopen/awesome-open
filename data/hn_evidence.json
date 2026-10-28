@@ -28,7 +28,7 @@
     "2026-08",
     "2026-09"
   ],
-  "refreshed_utc_date": "2026-10-27",
+  "refreshed_utc_date": "2026-10-28",
   "metric": "Deduplicated HN story submissions per UTC month, regardless of points, comments or sentiment. Search coverage is best-effort and depends on the HN Algolia index.",
   "eligibility": {
     "minimum_stories": 6,
@@ -16023,6 +16023,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2Fandykr1k%2FOpenComputer&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenComputer",
+      "slug": "catalog-e54c27197d1f9855",
+      "readme_url": "https://github.com/diggerhq/opencomputer",
+      "repositories": [
+        "diggerhq/opencomputer"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/diggerhq/opencomputer"
+      ],
+      "identity_sources": [
+        "https://github.com/diggerhq/opencomputer"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fdiggerhq%2Fopencomputer&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2Fdiggerhq%2Fopencomputer&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenComputerUse",
       "slug": "catalog-a1d9fde9dd9fcd7c",
       "readme_url": "https://github.com/IAmJSD/OpenComputerUse",
@@ -18657,6 +18711,81 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2Fopenresponses%2Fopenresponses&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenRig",
+      "slug": "catalog-a5babe6eb0c3a37f",
+      "readme_url": "https://github.com/mvschwarz/openrig",
+      "repositories": [
+        "mvschwarz/openrig"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/mvschwarz/openrig"
+      ],
+      "identity_sources": [
+        "https://github.com/mvschwarz/openrig"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "eligible": false,
+      "story_count": 2,
+      "active_months": 2,
+      "stories": [
+        {
+          "id": "47772935",
+          "title": "Show HN: OpenRig – agent harness that runs Claude Code and Codex as one system",
+          "url": "https://github.com/mvschwarz/openrig",
+          "created_at": "2026-04-14T23:46:40+00:00",
+          "month": "2026-04",
+          "hn_url": "https://news.ycombinator.com/item?id=47772935",
+          "source_url": "https://hn.algolia.com/api/v1/items/47772935",
+          "reason": "repository: mvschwarz/openrig"
+        },
+        {
+          "id": "49872623",
+          "title": "OpenRig: Multi-Agent Harness",
+          "url": "https://github.com/mvschwarz/openrig",
+          "created_at": "2026-09-28T01:48:09+00:00",
+          "month": "2026-09",
+          "hn_url": "https://news.ycombinator.com/item?id=49872623",
+          "source_url": "https://hn.algolia.com/api/v1/items/49872623",
+          "reason": "repository: mvschwarz/openrig"
+        }
+      ],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fmvschwarz%2Fopenrig&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2Fmvschwarz%2Fopenrig&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenRLHF",
       "slug": "catalog-943219a4977c51c8",
       "readme_url": "https://github.com/OpenRLHF/OpenRLHF",
@@ -20682,6 +20811,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fdogmastr%2FOpenDex&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2Fdogmastr%2FOpenDex&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenDocRouter",
+      "slug": "catalog-99fe2bac5e212ca3",
+      "readme_url": "https://www.opendocrouter.ai/",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.opendocrouter.ai/"
+      ],
+      "queries": [
+        "www.opendocrouter.ai/"
+      ],
+      "identity_sources": [
+        "https://www.opendocrouter.ai/"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.opendocrouter.ai%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.opendocrouter.ai%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenEng",
@@ -24057,6 +24240,114 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fopensearch-project%2FOpenSearch&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2Fopensearch-project%2FOpenSearch&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenShift",
+      "slug": "catalog-d363765f682ab8f8",
+      "readme_url": "https://www.redhat.com/en/technologies/cloud-computing/openshift",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.redhat.com/en/technologies/cloud-computing/openshift"
+      ],
+      "queries": [
+        "www.redhat.com/en/technologies/cloud-computing/openshift"
+      ],
+      "identity_sources": [
+        "https://www.redhat.com/en/technologies/cloud-computing/openshift"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.redhat.com%2Fen%2Ftechnologies%2Fcloud-computing%2Fopenshift&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.redhat.com%2Fen%2Ftechnologies%2Fcloud-computing%2Fopenshift&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenStack",
+      "slug": "catalog-2127fb25a9b8e533",
+      "readme_url": "https://www.openstack.org/software",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openstack.org/software"
+      ],
+      "queries": [
+        "www.openstack.org/software"
+      ],
+      "identity_sources": [
+        "https://www.openstack.org/software"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openstack.org%2Fsoftware&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openstack.org%2Fsoftware&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "openstatus",
@@ -28259,6 +28550,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2FOpenTSDB%2Fopentsdb&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenBox",
+      "slug": "catalog-9b026d08983e34a2",
+      "readme_url": "https://www.openbox.ai/",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openbox.ai/"
+      ],
+      "queries": [
+        "www.openbox.ai/"
+      ],
+      "identity_sources": [
+        "https://www.openbox.ai/"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openbox.ai%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openbox.ai%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenCanary",
       "slug": "catalog-b6ef8a986494080e",
       "readme_url": "https://github.com/thinkst/opencanary",
@@ -28311,6 +28656,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fthinkst%2Fopencanary&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2Fthinkst%2Fopencanary&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenConnect",
+      "slug": "catalog-cec9693d2ebe82f4",
+      "readme_url": "https://www.infradead.org/openconnect",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.infradead.org/openconnect"
+      ],
+      "queries": [
+        "www.infradead.org/openconnect"
+      ],
+      "identity_sources": [
+        "https://www.infradead.org/openconnect"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.infradead.org%2Fopenconnect&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.infradead.org%2Fopenconnect&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenCTI",
@@ -31025,6 +31424,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2Figniterealtime%2FOpenfire&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenLDAP",
+      "slug": "catalog-0d67a1ccd6b19300",
+      "readme_url": "https://www.openldap.org/software",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openldap.org/software"
+      ],
+      "queries": [
+        "www.openldap.org/software"
+      ],
+      "identity_sources": [
+        "https://www.openldap.org/software"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openldap.org%2Fsoftware&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openldap.org%2Fsoftware&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "openNAC",
       "slug": "catalog-aafae964605dfc53",
       "readme_url": "https://github.com/ofgrenudo/openNAC",
@@ -33308,6 +33761,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2FOpenNumismat%2Fopen-numismat&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenOffice",
+      "slug": "catalog-e03768fd8d88a618",
+      "readme_url": "https://www.openoffice.org",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openoffice.org"
+      ],
+      "queries": [
+        "www.openoffice.org"
+      ],
+      "identity_sources": [
+        "https://www.openoffice.org"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openoffice.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openoffice.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "openOfficetab",
       "slug": "catalog-ee0ffbce0cbe1ee7",
       "readme_url": "https://github.com/xlennart/openOfficetab",
@@ -34927,6 +35434,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fopencfp%2Fopencfp&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2Fopencfp%2Fopencfp&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenConcerto",
+      "slug": "catalog-49f53ec385357043",
+      "readme_url": "https://www.openconcerto.org",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openconcerto.org"
+      ],
+      "queries": [
+        "www.openconcerto.org"
+      ],
+      "identity_sources": [
+        "https://www.openconcerto.org"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openconcerto.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openconcerto.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenCRM",
@@ -36774,6 +37335,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenStudy-dev%2FOpenStudy&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2FOpenStudy-dev%2FOpenStudy&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenText Content Manager",
+      "slug": "catalog-ce8cea0276d0682c",
+      "readme_url": "https://www.opentext.com/products/content-manager",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.opentext.com/products/content-manager"
+      ],
+      "queries": [
+        "www.opentext.com/products/content-manager"
+      ],
+      "identity_sources": [
+        "https://www.opentext.com/products/content-manager"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.opentext.com%2Fproducts%2Fcontent-manager&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.opentext.com%2Fproducts%2Fcontent-manager&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenWiki",
@@ -49087,6 +49702,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2FOpenClinica%2FOpenClinica&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "Open Dental",
+      "slug": "catalog-8ad408ff9627aed0",
+      "readme_url": "https://www.opendental.com",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.opendental.com"
+      ],
+      "queries": [
+        "www.opendental.com"
+      ],
+      "identity_sources": [
+        "https://www.opendental.com"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.opendental.com&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.opendental.com&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenELIS Global",
       "slug": "catalog-55c710587c566430",
       "readme_url": "https://github.com/DIGI-UW/OpenELIS-Global-2",
@@ -49312,6 +49981,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Finformatici%2Fopenhospital&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2Finformatici%2Fopenhospital&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "openIMIS",
+      "slug": "catalog-4935674cdad2fc03",
+      "readme_url": "https://www.openimis.org",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openimis.org"
+      ],
+      "queries": [
+        "www.openimis.org"
+      ],
+      "identity_sources": [
+        "https://www.openimis.org"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openimis.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openimis.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenMRS",
@@ -51838,6 +52561,255 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2FOpenELEC%2FOpenELEC.tv&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "openEuler",
+      "slug": "catalog-051fcbac2f4f696d",
+      "readme_url": "https://www.openeuler.org/en",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openeuler.org/en"
+      ],
+      "queries": [
+        "www.openeuler.org/en"
+      ],
+      "identity_sources": [
+        "https://www.openeuler.org/en"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [
+        {
+          "id": "48287188",
+          "title": "Introduction to Virtio Protocol",
+          "url": "https://www.openeuler.org/en/blog/yorifang/virtio-spec-overview.html",
+          "created_at": "2026-05-26T23:00:34+00:00",
+          "month": "2026-05",
+          "hn_url": "https://news.ycombinator.com/item?id=48287188",
+          "source_url": "https://hn.algolia.com/api/v1/items/48287188",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+        }
+      ],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openeuler.org%2Fen&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openeuler.org%2Fen&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenIndiana",
+      "slug": "catalog-dd15d26ec22976b7",
+      "readme_url": "https://www.openindiana.org",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openindiana.org"
+      ],
+      "queries": [
+        "www.openindiana.org"
+      ],
+      "identity_sources": [
+        "https://www.openindiana.org"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 1,
+      "active_months": 1,
+      "stories": [
+        {
+          "id": "44889676",
+          "title": "OpenIndiana: Community-Driven Illumos Distribution",
+          "url": "https://www.openindiana.org/",
+          "created_at": "2025-08-13T15:23:15+00:00",
+          "month": "2025-08",
+          "hn_url": "https://news.ycombinator.com/item?id=44889676",
+          "source_url": "https://hn.algolia.com/api/v1/items/44889676",
+          "reason": "reviewed/catalog exact URL: https://www.openindiana.org"
+        }
+      ],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openindiana.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openindiana.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenMandriva",
+      "slug": "catalog-0551c3511fc6b038",
+      "readme_url": "https://www.openmandriva.org",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openmandriva.org"
+      ],
+      "queries": [
+        "www.openmandriva.org"
+      ],
+      "identity_sources": [
+        "https://www.openmandriva.org"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 1,
+      "active_months": 1,
+      "stories": [
+        {
+          "id": "42839608",
+          "title": "OpenMandriva is built with Clang (Linux Distribution)",
+          "url": "https://www.openmandriva.org/",
+          "created_at": "2025-01-27T10:52:17+00:00",
+          "month": "2025-01",
+          "hn_url": "https://news.ycombinator.com/item?id=42839608",
+          "source_url": "https://hn.algolia.com/api/v1/items/42839608",
+          "reason": "reviewed/catalog exact URL: https://www.openmandriva.org"
+        }
+      ],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openmandriva.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openmandriva.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenPLi",
+      "slug": "catalog-3cd644dc8c58da14",
+      "readme_url": "https://www.openpli.org",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openpli.org"
+      ],
+      "queries": [
+        "www.openpli.org"
+      ],
+      "identity_sources": [
+        "https://www.openpli.org"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openpli.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openpli.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenRTX",
       "slug": "catalog-061b19e8aaab1952",
       "readme_url": "https://github.com/OpenRTX/OpenRTX",
@@ -51944,6 +52916,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FopenSIL%2FopenSIL&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2FopenSIL%2FopenSIL&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "openSUSE",
+      "slug": "catalog-b7d1141b996a17d9",
+      "readme_url": "https://www.opensuse.org",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.opensuse.org"
+      ],
+      "queries": [
+        "www.opensuse.org"
+      ],
+      "identity_sources": [
+        "https://www.opensuse.org"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.opensuse.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.opensuse.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenTracker",
@@ -52106,6 +53132,71 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Ftbnobody%2FOpenDTU&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2Ftbnobody%2FOpenDTU&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "openHAB",
+      "slug": "catalog-617fe5fb70db9959",
+      "readme_url": "https://www.openhab.org",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://www.openhab.org"
+      ],
+      "queries": [
+        "www.openhab.org"
+      ],
+      "identity_sources": [
+        "https://www.openhab.org"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "eligible": false,
+      "story_count": 1,
+      "active_months": 1,
+      "stories": [
+        {
+          "id": "49688226",
+          "title": "Why OpenHAB?",
+          "url": "https://www.openhab.org/",
+          "created_at": "2026-09-13T20:15:03+00:00",
+          "month": "2026-09",
+          "hn_url": "https://news.ycombinator.com/item?id=49688226",
+          "source_url": "https://hn.algolia.com/api/v1/items/49688226",
+          "reason": "reviewed/catalog exact URL: https://www.openhab.org"
+        }
+      ],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=www.openhab.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=www.openhab.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "openHASP",
@@ -138468,94 +139559,2157 @@
       "status": "ok"
     },
     "https://github.com/mvschwarz/openrig": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "382624bf612f5e448ee92aeeb8fbf14fb96fca98fd5ca116eb36e35cef6bea53",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "382624bf612f5e448ee92aeeb8fbf14fb96fca98fd5ca116eb36e35cef6bea53",
+        "project": {
+          "name": "OpenRig",
+          "slug": "catalog-a5babe6eb0c3a37f",
+          "readme_url": "https://github.com/mvschwarz/openrig",
+          "repositories": [
+            "mvschwarz/openrig"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/mvschwarz/openrig"
+          ],
+          "identity_sources": [
+            "https://github.com/mvschwarz/openrig"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "eligible": false,
+          "story_count": 2,
+          "active_months": 2,
+          "stories": [
+            {
+              "id": "47772935",
+              "title": "Show HN: OpenRig – agent harness that runs Claude Code and Codex as one system",
+              "url": "https://github.com/mvschwarz/openrig",
+              "created_at": "2026-04-14T23:46:40+00:00",
+              "month": "2026-04",
+              "hn_url": "https://news.ycombinator.com/item?id=47772935",
+              "source_url": "https://hn.algolia.com/api/v1/items/47772935",
+              "reason": "repository: mvschwarz/openrig"
+            },
+            {
+              "id": "49872623",
+              "title": "OpenRig: Multi-Agent Harness",
+              "url": "https://github.com/mvschwarz/openrig",
+              "created_at": "2026-09-28T01:48:09+00:00",
+              "month": "2026-09",
+              "hn_url": "https://news.ycombinator.com/item?id=49872623",
+              "source_url": "https://hn.algolia.com/api/v1/items/49872623",
+              "reason": "repository: mvschwarz/openrig"
+            }
+          ],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fmvschwarz%2Fopenrig&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2Fmvschwarz%2Fopenrig&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.infradead.org/openconnect": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "7c919c99e36de805512474300956fd4d03befc43dfed4576c6b3519cebfe6f53",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "7c919c99e36de805512474300956fd4d03befc43dfed4576c6b3519cebfe6f53",
+        "project": {
+          "name": "OpenConnect",
+          "slug": "catalog-cec9693d2ebe82f4",
+          "readme_url": "https://www.infradead.org/openconnect",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.infradead.org/openconnect"
+          ],
+          "queries": [
+            "www.infradead.org/openconnect"
+          ],
+          "identity_sources": [
+            "https://www.infradead.org/openconnect"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.infradead.org%2Fopenconnect&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.infradead.org%2Fopenconnect&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openbox.ai": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "4f0b94136f8891f48aa68822cf02d2466956a4e66f79eaffb84b4937afb4ff72",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "4f0b94136f8891f48aa68822cf02d2466956a4e66f79eaffb84b4937afb4ff72",
+        "project": {
+          "name": "OpenBox",
+          "slug": "catalog-9b026d08983e34a2",
+          "readme_url": "https://www.openbox.ai/",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openbox.ai/"
+          ],
+          "queries": [
+            "www.openbox.ai/"
+          ],
+          "identity_sources": [
+            "https://www.openbox.ai/"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openbox.ai%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openbox.ai%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openconcerto.org": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "ab49f03eb3ca8e4ca8aba800b908ce7815d441dc49d84fbbdb2c0abc872784d0",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "ab49f03eb3ca8e4ca8aba800b908ce7815d441dc49d84fbbdb2c0abc872784d0",
+        "project": {
+          "name": "OpenConcerto",
+          "slug": "catalog-49f53ec385357043",
+          "readme_url": "https://www.openconcerto.org",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openconcerto.org"
+          ],
+          "queries": [
+            "www.openconcerto.org"
+          ],
+          "identity_sources": [
+            "https://www.openconcerto.org"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openconcerto.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openconcerto.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.opendental.com": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "af0cc17008ffa6a2a6db4303f021af5186074fd1004b12e08dec5829678ab9d1",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "af0cc17008ffa6a2a6db4303f021af5186074fd1004b12e08dec5829678ab9d1",
+        "project": {
+          "name": "Open Dental",
+          "slug": "catalog-8ad408ff9627aed0",
+          "readme_url": "https://www.opendental.com",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.opendental.com"
+          ],
+          "queries": [
+            "www.opendental.com"
+          ],
+          "identity_sources": [
+            "https://www.opendental.com"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.opendental.com&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.opendental.com&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.opendocrouter.ai": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "ab10fec42970aee3fe59047814c0ecddd20b94d5f529208edd8348fbfa6c7c6a",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "ab10fec42970aee3fe59047814c0ecddd20b94d5f529208edd8348fbfa6c7c6a",
+        "project": {
+          "name": "OpenDocRouter",
+          "slug": "catalog-99fe2bac5e212ca3",
+          "readme_url": "https://www.opendocrouter.ai/",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.opendocrouter.ai/"
+          ],
+          "queries": [
+            "www.opendocrouter.ai/"
+          ],
+          "identity_sources": [
+            "https://www.opendocrouter.ai/"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.opendocrouter.ai%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.opendocrouter.ai%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openeuler.org/en": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "33c499aabb66010c11f7e661a111b656ced543d025623dff07e26bfdaab60319",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "33c499aabb66010c11f7e661a111b656ced543d025623dff07e26bfdaab60319",
+        "project": {
+          "name": "openEuler",
+          "slug": "catalog-051fcbac2f4f696d",
+          "readme_url": "https://www.openeuler.org/en",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openeuler.org/en"
+          ],
+          "queries": [
+            "www.openeuler.org/en"
+          ],
+          "identity_sources": [
+            "https://www.openeuler.org/en"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [
+            {
+              "id": "48287188",
+              "title": "Introduction to Virtio Protocol",
+              "url": "https://www.openeuler.org/en/blog/yorifang/virtio-spec-overview.html",
+              "created_at": "2026-05-26T23:00:34+00:00",
+              "month": "2026-05",
+              "hn_url": "https://news.ycombinator.com/item?id=48287188",
+              "source_url": "https://hn.algolia.com/api/v1/items/48287188",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+            }
+          ],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openeuler.org%2Fen&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openeuler.org%2Fen&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openhab.org": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "453fe031bf5f097679b5bd92a89b69d7d50953c053fb07aa58c0e5eddc180a7c",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "453fe031bf5f097679b5bd92a89b69d7d50953c053fb07aa58c0e5eddc180a7c",
+        "project": {
+          "name": "openHAB",
+          "slug": "catalog-617fe5fb70db9959",
+          "readme_url": "https://www.openhab.org",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openhab.org"
+          ],
+          "queries": [
+            "www.openhab.org"
+          ],
+          "identity_sources": [
+            "https://www.openhab.org"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "eligible": false,
+          "story_count": 1,
+          "active_months": 1,
+          "stories": [
+            {
+              "id": "49688226",
+              "title": "Why OpenHAB?",
+              "url": "https://www.openhab.org/",
+              "created_at": "2026-09-13T20:15:03+00:00",
+              "month": "2026-09",
+              "hn_url": "https://news.ycombinator.com/item?id=49688226",
+              "source_url": "https://hn.algolia.com/api/v1/items/49688226",
+              "reason": "reviewed/catalog exact URL: https://www.openhab.org"
+            }
+          ],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openhab.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openhab.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openimis.org": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "d22ca9546a8ab5af2692e4fecde5c48a4c839a03cfeee1b62365bdb18b6b8da5",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "d22ca9546a8ab5af2692e4fecde5c48a4c839a03cfeee1b62365bdb18b6b8da5",
+        "project": {
+          "name": "openIMIS",
+          "slug": "catalog-4935674cdad2fc03",
+          "readme_url": "https://www.openimis.org",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openimis.org"
+          ],
+          "queries": [
+            "www.openimis.org"
+          ],
+          "identity_sources": [
+            "https://www.openimis.org"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openimis.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openimis.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openindiana.org": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "1e7ac90dd8999747975d5f2afb6bc0be9b1b92ed2afd4d753665ab32e891c97b",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "1e7ac90dd8999747975d5f2afb6bc0be9b1b92ed2afd4d753665ab32e891c97b",
+        "project": {
+          "name": "OpenIndiana",
+          "slug": "catalog-dd15d26ec22976b7",
+          "readme_url": "https://www.openindiana.org",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openindiana.org"
+          ],
+          "queries": [
+            "www.openindiana.org"
+          ],
+          "identity_sources": [
+            "https://www.openindiana.org"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 1,
+          "active_months": 1,
+          "stories": [
+            {
+              "id": "44889676",
+              "title": "OpenIndiana: Community-Driven Illumos Distribution",
+              "url": "https://www.openindiana.org/",
+              "created_at": "2025-08-13T15:23:15+00:00",
+              "month": "2025-08",
+              "hn_url": "https://news.ycombinator.com/item?id=44889676",
+              "source_url": "https://hn.algolia.com/api/v1/items/44889676",
+              "reason": "reviewed/catalog exact URL: https://www.openindiana.org"
+            }
+          ],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openindiana.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openindiana.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openldap.org/software": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "bd0514a84c586ed6c0471b5c7daba590b03360438eb847745d02cc96cba2cf7d",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "bd0514a84c586ed6c0471b5c7daba590b03360438eb847745d02cc96cba2cf7d",
+        "project": {
+          "name": "OpenLDAP",
+          "slug": "catalog-0d67a1ccd6b19300",
+          "readme_url": "https://www.openldap.org/software",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openldap.org/software"
+          ],
+          "queries": [
+            "www.openldap.org/software"
+          ],
+          "identity_sources": [
+            "https://www.openldap.org/software"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openldap.org%2Fsoftware&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openldap.org%2Fsoftware&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openmandriva.org": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "1c2379d3d7e27bc7ecfc0e2300bba64d99b7d1ca1d4faf0af03d68398063abdb",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "1c2379d3d7e27bc7ecfc0e2300bba64d99b7d1ca1d4faf0af03d68398063abdb",
+        "project": {
+          "name": "OpenMandriva",
+          "slug": "catalog-0551c3511fc6b038",
+          "readme_url": "https://www.openmandriva.org",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openmandriva.org"
+          ],
+          "queries": [
+            "www.openmandriva.org"
+          ],
+          "identity_sources": [
+            "https://www.openmandriva.org"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 1,
+          "active_months": 1,
+          "stories": [
+            {
+              "id": "42839608",
+              "title": "OpenMandriva is built with Clang (Linux Distribution)",
+              "url": "https://www.openmandriva.org/",
+              "created_at": "2025-01-27T10:52:17+00:00",
+              "month": "2025-01",
+              "hn_url": "https://news.ycombinator.com/item?id=42839608",
+              "source_url": "https://hn.algolia.com/api/v1/items/42839608",
+              "reason": "reviewed/catalog exact URL: https://www.openmandriva.org"
+            }
+          ],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openmandriva.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openmandriva.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openoffice.org": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "411be238ef49b4e76a362956d5911e93d0f982e727063b42b1f592875bcfa733",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "411be238ef49b4e76a362956d5911e93d0f982e727063b42b1f592875bcfa733",
+        "project": {
+          "name": "OpenOffice",
+          "slug": "catalog-e03768fd8d88a618",
+          "readme_url": "https://www.openoffice.org",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openoffice.org"
+          ],
+          "queries": [
+            "www.openoffice.org"
+          ],
+          "identity_sources": [
+            "https://www.openoffice.org"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openoffice.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openoffice.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openpli.org": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "45c28b391df0eced407ed5ebde44e0cf7d41fe7ef89e1e5900e87f2134da57e2",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "45c28b391df0eced407ed5ebde44e0cf7d41fe7ef89e1e5900e87f2134da57e2",
+        "project": {
+          "name": "OpenPLi",
+          "slug": "catalog-3cd644dc8c58da14",
+          "readme_url": "https://www.openpli.org",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openpli.org"
+          ],
+          "queries": [
+            "www.openpli.org"
+          ],
+          "identity_sources": [
+            "https://www.openpli.org"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openpli.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openpli.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.openstack.org/software": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "645fff9031036c2daac6f7fb27f21246ae8b0790d10a3df3970075c45cad1c07",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "645fff9031036c2daac6f7fb27f21246ae8b0790d10a3df3970075c45cad1c07",
+        "project": {
+          "name": "OpenStack",
+          "slug": "catalog-2127fb25a9b8e533",
+          "readme_url": "https://www.openstack.org/software",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.openstack.org/software"
+          ],
+          "queries": [
+            "www.openstack.org/software"
+          ],
+          "identity_sources": [
+            "https://www.openstack.org/software"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.openstack.org%2Fsoftware&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.openstack.org%2Fsoftware&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.opensuse.org": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "0a9d701dbdf3dc8dab0c411c103f94800bcfc149e873a8cf38f76f9cbd3fd006",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "0a9d701dbdf3dc8dab0c411c103f94800bcfc149e873a8cf38f76f9cbd3fd006",
+        "project": {
+          "name": "openSUSE",
+          "slug": "catalog-b7d1141b996a17d9",
+          "readme_url": "https://www.opensuse.org",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.opensuse.org"
+          ],
+          "queries": [
+            "www.opensuse.org"
+          ],
+          "identity_sources": [
+            "https://www.opensuse.org"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.opensuse.org&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.opensuse.org&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.opentext.com/products/content-manager": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "594cab3ff883a4f7b9736035a5117413c34e9d87421ff1612aeae77b67ee60c3",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "594cab3ff883a4f7b9736035a5117413c34e9d87421ff1612aeae77b67ee60c3",
+        "project": {
+          "name": "OpenText Content Manager",
+          "slug": "catalog-ce8cea0276d0682c",
+          "readme_url": "https://www.opentext.com/products/content-manager",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.opentext.com/products/content-manager"
+          ],
+          "queries": [
+            "www.opentext.com/products/content-manager"
+          ],
+          "identity_sources": [
+            "https://www.opentext.com/products/content-manager"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.opentext.com%2Fproducts%2Fcontent-manager&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.opentext.com%2Fproducts%2Fcontent-manager&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://www.redhat.com/en/technologies/cloud-computing/openshift": {
-      "checked_at": "2026-10-27T00:18:10.442484+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "2d8af3e4269e9f25f4ce78aa4d2ac4af03d3696feaf088bc9bdda6b93ef2fd19",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "2d8af3e4269e9f25f4ce78aa4d2ac4af03d3696feaf088bc9bdda6b93ef2fd19",
+        "project": {
+          "name": "OpenShift",
+          "slug": "catalog-d363765f682ab8f8",
+          "readme_url": "https://www.redhat.com/en/technologies/cloud-computing/openshift",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://www.redhat.com/en/technologies/cloud-computing/openshift"
+          ],
+          "queries": [
+            "www.redhat.com/en/technologies/cloud-computing/openshift"
+          ],
+          "identity_sources": [
+            "https://www.redhat.com/en/technologies/cloud-computing/openshift"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=www.redhat.com%2Fen%2Ftechnologies%2Fcloud-computing%2Fopenshift&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=www.redhat.com%2Fen%2Ftechnologies%2Fcloud-computing%2Fopenshift&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     },
     "https://github.com/assimp/assimp": {
       "pending": {},
@@ -139856,32 +143010,131 @@
       "status": "ok"
     },
     "https://github.com/diggerhq/opencomputer": {
-      "checked_at": "2026-10-27T12:16:08.451924+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-28T03:13:09.545157+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "5595dd37a2a018aae817a364e9cdbcdc6468be9a368a7c2089bd1c4d7ddc5b92",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "5595dd37a2a018aae817a364e9cdbcdc6468be9a368a7c2089bd1c4d7ddc5b92",
+        "project": {
+          "name": "OpenComputer",
+          "slug": "catalog-e54c27197d1f9855",
+          "readme_url": "https://github.com/diggerhq/opencomputer",
+          "repositories": [
+            "diggerhq/opencomputer"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/diggerhq/opencomputer"
+          ],
+          "identity_sources": [
+            "https://github.com/diggerhq/opencomputer"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fdiggerhq%2Fopencomputer&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2Fdiggerhq%2Fopencomputer&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T03:13:09.545157+00:00"
+      }
     }
   },
   "budget": {
-    "utc_date": "2026-10-27",
-    "requests_used": 30,
+    "utc_date": "2026-10-28",
+    "requests_used": 19,
     "limit": 160,
     "paused": false,
-    "projects_used": 30,
+    "projects_used": 19,
     "project_limit": 50,
     "attempted_urls": [
-      "https://developers.reddit.com/apps/open-mod",
-      "https://github.com/akariasai/openscholar",
-      "https://github.com/assimp/assimp",
-      "https://github.com/diggerhq/opencomputer",
-      "https://github.com/evanzhang008/open-walnut",
-      "https://github.com/hakanseven12/opencadstudio",
       "https://github.com/mvschwarz/openrig",
-      "https://github.com/openaec-foundation/open-pdf-studio",
-      "https://github.com/openenv/openenv",
-      "https://github.com/openresponses/openresponses",
-      "https://github.com/opentodoapp/opentodo",
-      "https://github.com/openvolumemesh/openvolumemesh",
-      "https://www.graphics.rwth-aachen.de/software/openflipper/",
       "https://www.infradead.org/openconnect",
       "https://www.openbox.ai",
       "https://www.openconcerto.org",
@@ -139898,24 +143151,25 @@
       "https://www.openstack.org/software",
       "https://www.opensuse.org",
       "https://www.opentext.com/products/content-manager",
-      "https://www.redhat.com/en/technologies/cloud-computing/openshift"
+      "https://www.redhat.com/en/technologies/cloud-computing/openshift",
+      "https://github.com/diggerhq/opencomputer"
     ],
     "lane_projects": {
-      "new": 30,
-      "refresh": 0,
+      "new": 0,
+      "refresh": 19,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 30,
-      "refresh": 0,
+      "new": 0,
+      "refresh": 19,
       "continuation": 0
     }
   },
   "selection_report": {
     "catalog_projects": 545,
     "due_projects": 19,
-    "attempted_projects": 0,
-    "current_window_projects": 526,
+    "attempted_projects": 19,
+    "current_window_projects": 545,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
