@@ -131,7 +131,7 @@
 | [Open Components](https://github.com/uxfront-com/open-components) | MCP server and reference implementations for building and reviewing UI components against documented rules and contracts. <!-- STATS:START --><br><sub>2026-09-26 -- 2026-10-27 / MIT / 11</sub><!-- STATS:END --> |
 | [OpenContextEngine](https://github.com/AnnaSuSu/OpenContextEngine) | Self-hostable code-search engine that supplies AI agents with source snippets through MCP using semantic, keyword, and code-relationship search. <!-- STATS:START --><br><sub>2026-10-02 -- 2026-10-12 / MIT / 54</sub><!-- STATS:END --> |
 | [OpenCover](https://github.com/OpenCover/opencover) | Code coverage tool for .NET on Windows. <!-- STATS:START --><br><sub>2011-02-22 -- <b>2021-11-15</b> / 1.3k</sub><!-- STATS:END --> |
-| [Open Design Agent Kit](https://github.com/feimacode/open-design-agent-kit) | Extensions and MCP tools that add UI design workflows, templates, and design systems to coding agents. <!-- STATS:START --><br><sub>2026-09-19 -- 2026-10-28 / MIT / 100</sub><!-- STATS:END --> |
+| [Open Design Agent Kit](https://github.com/feimacode/open-design-agent-kit) | Extensions and MCP tools that add UI design workflows, templates, and design systems to coding agents. <!-- STATS:START --><br><sub>2026-09-19 -- 2026-10-28 / MIT / 101</sub><!-- STATS:END --> |
 | [OpenDex](https://github.com/dogmastr/OpenDex) | Roblox explorer and script-analysis suite with Luau navigation, flowcharts, and runtime inspection. <!-- STATS:START --><br><sub>2026-10-07 -- 2026-10-11 / MIT / 19</sub><!-- STATS:END --> |
 | [OpenDocRouter](https://www.opendocrouter.ai/) | Unified document-parsing API that converts PDFs and images into page-by-page Markdown using a selected model. |
 | [OpenEng](https://openeng.app) | Browser-based developer workbench with local engines for terminal sessions, Kubernetes management, and database queries. |
@@ -572,7 +572,7 @@
 | [OpenMVS](https://github.com/cdcseacave/openMVS) | Multi-view stereo reconstruction library for producing dense point clouds and textured 3D meshes. <!-- STATS:START --><br><sub>2015-05-18 -- 2026-10-27 / AGPL-3.0 / 4.2k</sub><!-- STATS:END --> |
 | [OpenMx](https://github.com/OpenMx/OpenMx) | Structural equation modeling package for R. <!-- STATS:START --><br><sub>2012-05-21 -- 2026-10-28 / 102</sub><!-- STATS:END --> |
 | [OpenPNM](https://github.com/PMEAL/OpenPNM) | Python framework for pore-network modeling and simulations of porous materials. <!-- STATS:START --><br><sub>2013-07-25 -- 2026-07-21 / MIT / 545</sub><!-- STATS:END --> |
-| [OpenQuake Engine](https://github.com/gem/oq-engine) | Seismic hazard and risk analysis. <!-- STATS:START --><br><sub>2010-06-28 -- 2026-10-28 / AGPL-3.0 / 459</sub><!-- STATS:END --> |
+| [OpenQuake Engine](https://github.com/gem/oq-engine) | Seismic hazard and risk analysis. <!-- STATS:START --><br><sub>2010-06-28 -- 2026-10-28 / AGPL-3.0 / 460</sub><!-- STATS:END --> |
 | [OpenRadioss](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/4816906) | Finite-element solver for nonlinear dynamic, crash, and impact simulation. |
 | [OpenRoads Designer](https://www.bentley.com/products/openroads-designer/) | Road and highway design software with terrain and corridor modeling, drainage tools, and synchronized 2D plans and 3D models. |
 | [OpenRocket](https://github.com/openrocket/openrocket) | Design model rockets and simulate their aerodynamics and flight trajectories. <!-- STATS:START --><br><sub>2012-09-29 -- 2026-10-28 / 3.2k</sub><!-- STATS:END --> |
