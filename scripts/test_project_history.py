@@ -30,9 +30,22 @@ class HistoryTests(unittest.TestCase):
         before = deepcopy(self.document)
         history.attach(projects, self.document, canonical_url)
         self.assertEqual(self.document, before)
-        self.assertEqual([e['occurred']['basis'] for e in self.document['events']], ['announcement', 'implementation'])
-        self.assertEqual(self.document['events'][1]['sources'][-1]['date'], '2024-08-23')
-        self.assertEqual(len(history.exact_events(self.document['events'])), 2)
+        events = {event['id']: event for event in self.document['events']}
+        seeds = [events['opentf-to-opentofu'], events['opendevin-to-openhands']]
+        self.assertEqual([e['occurred']['basis'] for e in seeds], ['announcement', 'implementation'])
+        self.assertEqual(seeds[1]['sources'][-1]['date'], '2024-08-23')
+        self.assertEqual(len(history.exact_events(seeds)), 2)
+
+    def test_digger_rename_keeps_repository_identity_and_date_basis(self):
+        event = next(e for e in self.document['events']
+                     if e['id'] == 'diggerhq-opensandbox-to-opencomputer')
+        self.assertEqual(event['project_url'], 'https://github.com/diggerhq/opencomputer')
+        self.assertEqual((event['old_name'], event['new_name']), ('OpenSandbox', 'OpenComputer'))
+        self.assertEqual(event['kind'], 'software_rename')
+        self.assertEqual(event['occurred'], {
+            'value': '2026-02-28', 'precision': 'day', 'basis': 'implementation',
+            'source_url': 'https://github.com/diggerhq/opencomputer/commit/4d7597db439f2f339d6d6186e109b638c6bacc7f'})
+        self.assertEqual(len(history.exact_events([event])), 1)
 
     def test_optional_source_does_not_change_projects(self):
         before = deepcopy(self.projects)
@@ -132,12 +145,22 @@ class HistoryOutputTests(unittest.TestCase):
         from site_test_fixtures import baseline_site
         output, catalog = baseline_site()
         projects = [p for p in catalog['projects'] if p.get('history')]
-        self.assertEqual(len(projects), 2)
+        document = json.loads((ROOT / history.PATH).read_text())
+        expected = {}
+        for event in document['events']:
+            expected.setdefault(canonical_url(event['project_url']), []).append(event)
+        self.assertEqual({p['url'] for p in projects}, set(expected))
         for project in projects:
             pid = project['id']
             record = (output / 'records' / (pid + '.html')).read_text()
             self.assertIn(history_view.timeline_title(project['history'][0]), record)
         self.assertTrue((output / history.PATH).exists())
         exported = json.loads((output / 'catalog.json').read_text())
-        self.assertEqual(sum(len(p.get('history', [])) for p in exported['projects']), 2)
-        self.assertFalse(any(p.get('history') for p in exported['projects'] if p['name'] not in {'OpenHands', 'OpenTofu'}))
+        actual = {p['url']: p['history'] for p in exported['projects'] if p.get('history')}
+        self.assertEqual(set(actual), set(expected))
+        for url, events in expected.items():
+            self.assertEqual(sorted(actual[url], key=lambda e: e['id']),
+                             sorted(events, key=lambda e: e['id']))
+        self.assertEqual(sum(map(len, actual.values())), len(document['events']))
+        self.assertFalse(any(p.get('history') for p in exported['projects']
+                             if p['url'] not in expected))
