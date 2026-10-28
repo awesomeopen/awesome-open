@@ -155,7 +155,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/dev-krish-xyz/OpenStore/blob/8df46180e401d81899ba021a0c1d2257c2a492f9/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Share filtered results",
+          "text": "Filter the directory by category, platform and other attributes, with filter choices retained in shareable URLs.",
+          "source_url": "https://github.com/dev-krish-xyz/OpenStore/blob/8df46180e401d81899ba021a0c1d2257c2a492f9/README.md"
+        },
+        {
+          "title": "Suggest community additions",
+          "text": "Submit a project for editorial consideration, vote on community finds or request alternatives.",
+          "source_url": "https://github.com/dev-krish-xyz/OpenStore/blob/8df46180e401d81899ba021a0c1d2257c2a492f9/README.md"
+        }
+      ]
     },
     "c02bf0d1fea4bf7fda6b7c35472c333590aff2bcd0182ccec706217771ccdfe7": {
       "project_url": "https://github.com/simonliu-ai-product/open-dashboard",
@@ -170,7 +182,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/simonliu-ai-product/open-dashboard/blob/a24304e358938b3272cdd940a2748184b78d6a75/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Share filtered dashboards",
+          "text": "Keep filter values in the URL and use chart drill-down actions to select a filter or open another dashboard.",
+          "source_url": "https://github.com/simonliu-ai-product/open-dashboard/blob/a24304e358938b3272cdd940a2748184b78d6a75/README.md"
+        },
+        {
+          "title": "Validate dashboard definitions",
+          "text": "Check named queries, panel columns and filter parameters together, reporting missing columns, unknown queries and SQL errors.",
+          "source_url": "https://github.com/simonliu-ai-product/open-dashboard/blob/a24304e358938b3272cdd940a2748184b78d6a75/README.md"
+        }
+      ]
     },
     "1f47a63aaef059c34f053c73f066bce5f50dbad3080c4841c65b8ff4295cde82": {
       "project_url": "https://github.com/rehan-remade/open-annie",
@@ -227,7 +251,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/bpinheiroms/open-apuracao-brazil/blob/48ee9c275ae201c4074b4cd43e3275574173d687/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Explore simulated counts",
+          "text": "Navigate between state, municipality and electoral-zone maps while inspecting fictional election-count results.",
+          "source_url": "https://github.com/bpinheiroms/open-apuracao-brazil/blob/48ee9c275ae201c4074b4cd43e3275574173d687/README.md"
+        },
+        {
+          "title": "Share a simulation view",
+          "text": "Keep the selected place, office, time and map mode in the URL so another viewer can open the same simulated view.",
+          "source_url": "https://github.com/bpinheiroms/open-apuracao-brazil/blob/48ee9c275ae201c4074b4cd43e3275574173d687/README.md"
+        }
+      ]
     },
     "f952835452592537ac04c71a848c03e1758cd346fb54bde42eaba38aefbed9ab": {
       "project_url": "https://github.com/cisco/openh264",
@@ -242,7 +278,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/cisco/openh264/blob/1bca62311e447fd9c39fc93de2c4b96cd5ce971c/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Adjust encoding parameters",
+          "text": "Change bitrate, frame rate and resolution dynamically while encoding H.264 video.",
+          "source_url": "https://github.com/cisco/openh264/blob/1bca62311e447fd9c39fc93de2c4b96cd5ce971c/README.md"
+        },
+        {
+          "title": "Produce multiple resolutions",
+          "text": "Encode simulcast output at up to four resolutions from a single input.",
+          "source_url": "https://github.com/cisco/openh264/blob/1bca62311e447fd9c39fc93de2c4b96cd5ce971c/README.md"
+        }
+      ]
     },
     "1cf5521e4f3d971b3cea3d28248f7a30e637e466873a9987de1fb9a0b27b9270": {
       "project_url": "https://github.com/openlm-research/open_llama",
@@ -284,7 +332,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/openrecall/openrecall/blob/62303e09bfd2491907e788ac5cbbdc21e73bd323/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Searchable screen history",
+          "text": "Search text and images from periodically captured desktop screenshots, or scroll back through earlier snapshots.",
+          "source_url": "https://github.com/openrecall/openrecall/blob/62303e09bfd2491907e788ac5cbbdc21e73bd323/README.md"
+        },
+        {
+          "title": "Capture and storage controls",
+          "text": "Choose where screenshots and the database are stored, and optionally limit capture to the primary monitor.",
+          "source_url": "https://github.com/openrecall/openrecall/blob/62303e09bfd2491907e788ac5cbbdc21e73bd323/README.md"
+        }
+      ]
     },
     "c413b557fa79ae25b81f3f438f61e47362e8a0063fac838f842afa257242439f": {
       "project_url": "https://gitlab.com/osp-group/flask-nginx-rtmp-manager",
@@ -299,7 +359,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/Open-Streaming-Platform/open-streaming-platform/blob/c80df071906c50224e4579625d93438450841d39/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Record and clip streams",
+          "text": "Record live streams for on-demand playback and create shorter clips from notable moments.",
+          "source_url": "https://github.com/Open-Streaming-Platform/open-streaming-platform/blob/c80df071906c50224e4579625d93438450841d39/README.md"
+        },
+        {
+          "title": "Moderate channel chat",
+          "text": "Provide real-time channel chat with owner controls for banning and unbanning participants.",
+          "source_url": "https://github.com/Open-Streaming-Platform/open-streaming-platform/blob/c80df071906c50224e4579625d93438450841d39/README.md"
+        }
+      ]
     },
     "484814187d43f2b6a32f0bebfda32af1c3fcb1fd891d919e76af56334e1d0bec": {
       "project_url": "https://github.com/facebook/openzl",
@@ -314,7 +386,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed."
+      "review_note": "Every capability checked against the official README at the cited commit. Paraphrased for the Function field; no candidate software executed. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/facebook/openzl/blob/e2c7925c146c51c2258f14515227a4c6349ab5a6/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Format-specific compressors",
+          "text": "Generate a specialized compressor from a description of the data format.",
+          "source_url": "https://github.com/facebook/openzl/blob/e2c7925c146c51c2258f14515227a4c6349ab5a6/README.md"
+        },
+        {
+          "title": "Shared decompressor",
+          "text": "Decode the outputs of generated compressors with a single universal decompressor.",
+          "source_url": "https://github.com/facebook/openzl/blob/e2c7925c146c51c2258f14515227a4c6349ab5a6/README.md"
+        }
+      ]
     },
     "5302907b521d495fcd4df1b42cbe473d37d7a22cabc7279fb77f4c7e600e183f": {
       "project_url": "https://opendss.epri.com",
@@ -412,7 +496,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Pinned README confirms editable catalog. Developer Center confirms discovery, lists, Python, APIs and monthly dumps. Quick Start confirms local Docker development."
+      "review_note": "Pinned README confirms editable catalog. Developer Center confirms discovery, lists, Python, APIs and monthly dumps. Quick Start confirms local Docker development. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://openlibrary.org/developers; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Query book catalog data",
+          "text": "Use the public, low-volume APIs to search for books, authors and availability from another application.",
+          "source_url": "https://openlibrary.org/developers"
+        },
+        {
+          "title": "Download bulk catalog data",
+          "text": "Obtain monthly data dumps for workflows that import books, authors or covers in bulk.",
+          "source_url": "https://openlibrary.org/developers"
+        }
+      ]
     },
     "c3cdcfdd208b07c7bb4c5b1d7f3c1e931d7979c657c5261cc479bebb35d7eee2": {
       "project_url": "https://github.com/opennumismat/open-numismat",
@@ -435,7 +531,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Desktop-only scope: homepage establishes lists/statistics; manual establishes photos, field types and SQLite; pinned README establishes builds and other collectibles. No Web-edition behavior included."
+      "review_note": "Desktop-only scope: homepage establishes lists/statistics; manual establishes photos, field types and SQLite; pinned README establishes builds and other collectibles. No Web-edition behavior included. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://opennumismat.github.io/, https://opennumismat.github.io/open-numismat/manual.html; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Organize collection lists",
+          "text": "Maintain a coin catalog alongside wish lists, selling lists and collection statistics.",
+          "source_url": "https://opennumismat.github.io/"
+        },
+        {
+          "title": "Record item photographs",
+          "text": "Attach descriptions and photographs to individual collection entries.",
+          "source_url": "https://opennumismat.github.io/open-numismat/manual.html"
+        }
+      ]
     },
     "940b9064d9702a4687a341521a07789d1c7f8d7ca078deb739313338e8194841": {
       "project_url": "https://www.bentley.com/products/openroads-designer/",
@@ -449,7 +557,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Bentley product and technical-capabilities sections establish terrain, geometry, survey, drainage/utilities, corridors, earthworks and synchronized deliverables. No accuracy, scale, price or licensing interpretation added."
+      "review_note": "Bentley product and technical-capabilities sections establish terrain, geometry, survey, drainage/utilities, corridors, earthworks and synchronized deliverables. No accuracy, scale, price or licensing interpretation added. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://www.bentley.com/products/openroads-designer/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Generate drawing sheets",
+          "text": "Generate plans, profiles and cross-section sheets from the road model, keeping 2D documentation synchronized with 3D geometry.",
+          "source_url": "https://www.bentley.com/products/openroads-designer/"
+        },
+        {
+          "title": "Model drainage and utilities",
+          "text": "Build 3D utility and drainage models and perform culvert, pond and hydraulic analyses.",
+          "source_url": "https://www.bentley.com/products/openroads-designer/"
+        }
+      ]
     },
     "91874098c295acfc1b15893d4fb08408cc17d91203282c7580ecad07b86aec27": {
       "project_url": "https://github.com/openrocket/openrocket",
@@ -464,7 +584,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Pinned README establishes component design, 3D visualization, simulation/plots, staging/clustering, six degrees of freedom, optimization, Java and named exports. No launch-safety or regulatory claims."
+      "review_note": "Pinned README establishes component design, 3D visualization, simulation/plots, staging/clustering, six degrees of freedom, optimization, Java and named exports. No launch-safety or regulatory claims. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/openrocket/openrocket/blob/591c5e5f7b7377e48f2bd5e501cef25cdfbd61d8/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Inspect simulated flight",
+          "text": "Plot flight results and view simulated altitude, velocity and acceleration for a model-rocket design.",
+          "source_url": "https://github.com/openrocket/openrocket/blob/591c5e5f7b7377e48f2bd5e501cef25cdfbd61d8/README.md"
+        },
+        {
+          "title": "Export component geometry",
+          "text": "Export components as OBJ files for 3D printing or SVG files for laser-cutting workflows.",
+          "source_url": "https://github.com/openrocket/openrocket/blob/591c5e5f7b7377e48f2bd5e501cef25cdfbd61d8/README.md"
+        }
+      ]
     },
     "072cc86568781283ab19d9c7593fd1702471534610ee159ec25b6bbddcea4212": {
       "project_url": "https://osdoc.cogsci.nl",
@@ -492,7 +624,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Creator homepage establishes clone identity, online shooter gameplay, destructible terrain, community modes and desktop requirements. No protocol-compatibility guarantee or tested hardware claim."
+      "review_note": "Creator homepage establishes clone identity, online shooter gameplay, destructible terrain, community modes and desktop requirements. No protocol-compatibility guarantee or tested hardware claim. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://openspades.yvt.jp/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Play on destructible terrain",
+          "text": "Take part in online first-person matches on terrain that players can destroy.",
+          "source_url": "https://openspades.yvt.jp/"
+        },
+        {
+          "title": "Choose community game modes",
+          "text": "Play community-created modes, including Capture the Flag.",
+          "source_url": "https://openspades.yvt.jp/"
+        }
+      ]
     },
     "0056a935b6e84440f3a725975749b355fdb777397c299b2644f7f04831f110f6": {
       "project_url": "https://opentaxsolver.sourceforge.net",
@@ -506,7 +650,19 @@
       "checked_at": "2026-10-13",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Official overview establishes federal/state calculation, PDF auto-fill and mailing, GUI/text workflows, intermediate results and self-preparation with government booklets. No e-filing, all-state coverage, correctness or tax-advice claims."
+      "review_note": "Official overview establishes federal/state calculation, PDF auto-fill and mailing, GUI/text workflows, intermediate results and self-preparation with government booklets. No e-filing, all-state coverage, correctness or tax-advice claims. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://opentaxsolver.sourceforge.net/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Fill printable tax forms",
+          "text": "Populate supported federal and state PDF forms with calculated entries for printing and mailing.",
+          "source_url": "https://opentaxsolver.sourceforge.net/"
+        },
+        {
+          "title": "Inspect tax calculations",
+          "text": "Enter data through the graphical interface or text files and inspect intermediate and final calculation values.",
+          "source_url": "https://opentaxsolver.sourceforge.net/"
+        }
+      ]
     },
     "0a5a5e152bc1c7df4f5d23dfabd26e769f4a966d29ab347b29ab4026eeadff44": {
       "project_url": "https://github.com/dogmastr/opendex",
@@ -596,7 +752,19 @@
       "checked_at": "2026-10-14",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/tinyhumansai/openscion/blob/00e92ab9c2a9985f39a64636b4b6c5c4bb583916/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Fetch a directory subset",
+          "text": "Request selected trees and blobs so a client can check out one directory without retrieving the whole repository.",
+          "source_url": "https://github.com/tinyhumansai/openscion/blob/00e92ab9c2a9985f39a64636b4b6c5c4bb583916/README.md"
+        },
+        {
+          "title": "Use source-control RPCs",
+          "text": "Access log, diff, blame, ancestry, rebase, revert and landing operations through the server API.",
+          "source_url": "https://github.com/tinyhumansai/openscion/blob/00e92ab9c2a9985f39a64636b4b6c5c4bb583916/README.md"
+        }
+      ]
     },
     "e2f9ef08304c955ba8342768249b69fa303714352c2af6c57e86a43e646fb72f": {
       "project_url": "https://github.com/OpenHandheldCollective/OpenABL",
@@ -611,7 +779,19 @@
       "checked_at": "2026-10-14",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/OpenHandheldCollective/OpenABL/blob/78b81b585f0f82882e9272cead99e1d395622de5/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Choose boot entries",
+          "text": "Select a detected boot entry individually or choose Linux and Android boot modes from the graphical menu.",
+          "source_url": "https://github.com/OpenHandheldCollective/OpenABL/blob/78b81b585f0f82882e9272cead99e1d395622de5/README.md"
+        },
+        {
+          "title": "Select boot storage",
+          "text": "Choose internal storage, an SD card or USB as the Linux boot source and retain menu settings across restarts.",
+          "source_url": "https://github.com/OpenHandheldCollective/OpenABL/blob/78b81b585f0f82882e9272cead99e1d395622de5/README.md"
+        }
+      ]
     },
     "68c021e20c1d532b053eeea3dd909ae024627c6199f48ec13a7756a4a07d1fa8": {
       "project_url": "https://github.com/lguerberg/open-sequence",
@@ -626,7 +806,24 @@
       "checked_at": "2026-10-14",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/lguerberg/open-sequence/blob/9e00448def4622a0a35ad99ab6e25cc0de3dea59/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Outreach sequences",
+          "text": "Define sequences with outreach, waits, conditions and human tasks, then enroll contacts through the API.",
+          "source_url": "https://github.com/lguerberg/open-sequence/blob/9e00448def4622a0a35ad99ab6e25cc0de3dea59/README.md"
+        },
+        {
+          "title": "Reply-driven progression",
+          "text": "Use replies, bounces, opt-outs, meetings and call outcomes to advance or exit outreach enrollments.",
+          "source_url": "https://github.com/lguerberg/open-sequence/blob/9e00448def4622a0a35ad99ab6e25cc0de3dea59/README.md"
+        },
+        {
+          "title": "Application interfaces",
+          "text": "Connect a CRM or application through REST, the TypeScript SDK or MCP, and receive outbound event webhooks.",
+          "source_url": "https://github.com/lguerberg/open-sequence/blob/9e00448def4622a0a35ad99ab6e25cc0de3dea59/README.md"
+        }
+      ]
     },
     "e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83": {
       "project_url": "https://github.com/isl-org/Open3D",
@@ -641,7 +838,19 @@
       "checked_at": "2026-10-14",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/isl-org/Open3D/blob/b6c5e196384ad71e75b6e6f9c5da22d046221f1d/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Process 3D geometry",
+          "text": "Use C++ or Python algorithms for scene reconstruction and surface alignment.",
+          "source_url": "https://github.com/isl-org/Open3D/blob/b6c5e196384ad71e75b6e6f9c5da22d046221f1d/README.md"
+        },
+        {
+          "title": "Render 3D scenes",
+          "text": "Visualize three-dimensional data and produce physically based renderings through the library.",
+          "source_url": "https://github.com/isl-org/Open3D/blob/b6c5e196384ad71e75b6e6f9c5da22d046221f1d/README.md"
+        }
+      ]
     },
     "658154879f83825b5fa01fa5728089b336e72d7522eea4413e4ff92fb5a074b4": {
       "project_url": "https://github.com/google-deepmind/open_spiel",
@@ -656,7 +865,24 @@
       "checked_at": "2026-10-14",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/google-deepmind/open_spiel/blob/48401890ee9857e611678302371378175a8e4c6b/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Varied game environments",
+          "text": "Research single-agent or multi-agent settings with cooperative, competitive, turn-based or simultaneous-move games and perfect or imperfect information.",
+          "source_url": "https://github.com/google-deepmind/open_spiel/blob/48401890ee9857e611678302371378175a8e4c6b/README.md"
+        },
+        {
+          "title": "C++ and Python access",
+          "text": "Use game environments through a C++ API exposed to Python, alongside algorithms and tools in both languages.",
+          "source_url": "https://github.com/google-deepmind/open_spiel/blob/48401890ee9857e611678302371378175a8e4c6b/README.md"
+        },
+        {
+          "title": "Learning analysis",
+          "text": "Analyze learning dynamics and common evaluation metrics using the framework's included tools.",
+          "source_url": "https://github.com/google-deepmind/open_spiel/blob/48401890ee9857e611678302371378175a8e4c6b/README.md"
+        }
+      ]
     },
     "a61eb4a0cf8007496765bde0c52c2b5c98f6d8e44d1b93bbff8152496fedb090": {
       "project_url": "https://github.com/PixarAnimationStudios/OpenUSD",
@@ -671,7 +897,19 @@
       "checked_at": "2026-10-14",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/PixarAnimationStudios/OpenUSD/blob/ce1ed124c1f59368f1248e1bc6d334cd0907b722/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Exchange scene descriptions",
+          "text": "Author, read and stream time-sampled scene descriptions for interchange between graphics applications.",
+          "source_url": "https://github.com/PixarAnimationStudios/OpenUSD/blob/ce1ed124c1f59368f1248e1bc6d334cd0907b722/README.md"
+        },
+        {
+          "title": "Embed scene libraries",
+          "text": "Build library-only targets for iOS, visionOS or WebAssembly applications; those targets omit command-line tools.",
+          "source_url": "https://github.com/PixarAnimationStudios/OpenUSD/blob/ce1ed124c1f59368f1248e1bc6d334cd0907b722/README.md"
+        }
+      ]
     },
     "0c1d0e794277c84119b834c4fff9213b247e62fe75f9de0c0cee257ff977d5ec": {
       "project_url": "https://github.com/OpenWhispr/openwhispr",
@@ -728,7 +966,19 @@
       "checked_at": "2026-10-14",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/diggerhq/digger/blob/853f6abf3f7ad9d2fa20b8956e5a758441ddca1e/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Pull-request Terraform commands",
+          "text": "Trigger Terraform plan and apply operations through pull-request comments, with jobs running in the existing CI environment.",
+          "source_url": "https://github.com/diggerhq/digger/blob/853f6abf3f7ad9d2fa20b8956e5a758441ddca1e/README.md"
+        },
+        {
+          "title": "Infrastructure coordination",
+          "text": "Use pull-request-level locks, Open Policy Agent checks and drift detection alongside Terraform workflows.",
+          "source_url": "https://github.com/diggerhq/digger/blob/853f6abf3f7ad9d2fa20b8956e5a758441ddca1e/README.md"
+        }
+      ]
     },
     "79c63bf03f65fab31691d3f9dd0a884196d15614867c17dbc8d81956b648695c": {
       "project_url": "https://developers.reddit.com/apps/open-moderator",
@@ -742,7 +992,24 @@
       "checked_at": "2026-10-14",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review."
+      "review_note": "Reviewed the cited official source and checked each capability and deployment statement. Proposed for maintainer review. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://developers.reddit.com/apps/open-moderator; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Removal consistency alerts",
+          "text": "Compare removed content with previously approved content and send moderators an alert with links and a similarity score.",
+          "source_url": "https://developers.reddit.com/apps/open-moderator"
+        },
+        {
+          "title": "Removal explanations",
+          "text": "Send users an explanation after a post or comment is removed, with configurable message tone and a cooldown between repeat messages.",
+          "source_url": "https://developers.reddit.com/apps/open-moderator"
+        },
+        {
+          "title": "Rule suggestions",
+          "text": "Analyze removal history every 30 days and suggest rule changes in a moderator-only post when at least ten removals are available.",
+          "source_url": "https://developers.reddit.com/apps/open-moderator"
+        }
+      ]
     },
     "0c5e750b6c4f40cc0308f50945d2af6b2d6d8b5ca3b4e61db41d0bc957f491d1": {
       "project_url": "https://github.com/open-cascade-sas/occt",
@@ -831,7 +1098,19 @@
       "checked_at": "2026-10-15",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/corentinravoux/opendeck/blob/28525dfc7ea6adb287514156ec82c0dd50a6756a/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Restore deck versions",
+          "text": "Save a version of a deck and use the history panel to inspect or restore earlier versions.",
+          "source_url": "https://github.com/corentinravoux/opendeck/blob/28525dfc7ea6adb287514156ec82c0dd50a6756a/README.md"
+        },
+        {
+          "title": "Export portable slides",
+          "text": "Export a presentation as PDF, an HTML folder, a ZIP archive or one self-contained HTML file.",
+          "source_url": "https://github.com/corentinravoux/opendeck/blob/28525dfc7ea6adb287514156ec82c0dd50a6756a/README.md"
+        }
+      ]
     },
     "1572e285c724ada6578327e70e3118d947558b96ca11d4d275b00dcbdc0d0690": {
       "project_url": "https://github.com/dexterlabs1/openpatch",
@@ -861,7 +1140,19 @@
       "checked_at": "2026-10-15",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/AristideDongo/opentask/blob/3d106c420c9794c55fe84988cc5494cca2bf587c/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Workspace membership",
+          "text": "Create team workspaces with members, roles and invitations in the current pre-release.",
+          "source_url": "https://github.com/AristideDongo/opentask/blob/3d106c420c9794c55fe84988cc5494cca2bf587c/README.md"
+        },
+        {
+          "title": "Workspace permissions",
+          "text": "Manage authenticated accounts and workspace permissions; project and task management remain planned at this revision.",
+          "source_url": "https://github.com/AristideDongo/opentask/blob/3d106c420c9794c55fe84988cc5494cca2bf587c/README.md"
+        }
+      ]
     },
     "2adc6806f7bb3286c4dc6a8fb5efa74e0137cc5c039f9519512c38a7fd8f926a": {
       "project_url": "https://github.com/anichikage/open-typora",
@@ -957,7 +1248,19 @@
       "checked_at": "2026-10-15",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR."
+      "review_note": "Capabilities and deployment wording checked against the cited official documentation. Agent content review; proposed for maintainer review in this draft PR. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/mathiasbk/openESL/blob/c1a293109e43689076a2a523fe5259406ee631ee/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Simulate tag communication",
+          "text": "Run the tag firmware and access-point core together on a PC with a simulated radio link; real-tag hardware support is not yet implemented.",
+          "source_url": "https://github.com/mathiasbk/openESL/blob/c1a293109e43689076a2a523fe5259406ee631ee/README.md"
+        },
+        {
+          "title": "Send label fields through HTTP",
+          "text": "The access-point API stores text fields per tag MAC for delivery to tags; the current tag workflow is limited to simulation.",
+          "source_url": "https://github.com/mathiasbk/openESL/blob/c1a293109e43689076a2a523fe5259406ee631ee/README.md"
+        }
+      ]
     },
     "1c5a8343da2d0d21957fb2784e044fea8274fa5b0dc62a86010624cf65a7598b": {
       "project_url": "https://www.graphics.rwth-aachen.de/software/openmesh/",
@@ -2561,7 +2864,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
+      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/open-industry-project/open-industry-project/blob/f3bc6826cf637addf64f002601038a84c6fe3685/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Program simulated equipment",
+          "text": "Control simulated conveyors, sensors and robots with the built-in subset of Structured Text and Ladder Diagram.",
+          "source_url": "https://github.com/open-industry-project/open-industry-project/blob/f3bc6826cf637addf64f002601038a84c6fe3685/README.md"
+        },
+        {
+          "title": "Connect external controllers",
+          "text": "Use the desktop app to connect the simulation to PLCs over protocols including Modbus TCP, OPC UA and EtherNet/IP.",
+          "source_url": "https://github.com/open-industry-project/open-industry-project/blob/f3bc6826cf637addf64f002601038a84c6fe3685/README.md"
+        }
+      ]
     },
     "8937d9c6b61e13570672d8c99470e4380e88a950f2af7716d503748bd5101ba9": {
       "project_url": "https://github.com/theanam/openlaser.app",
@@ -2576,7 +2891,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
+      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/theanam/openlaser.app/blob/e128495e5be167f5614b75c2663db29fb98d0585/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Preview toolpaths",
+          "text": "Scrub through burn and travel moves and inspect the estimated job duration before sending a design to the machine.",
+          "source_url": "https://github.com/theanam/openlaser.app/blob/e128495e5be167f5614b75c2663db29fb98d0585/README.md"
+        },
+        {
+          "title": "Trace images into vectors",
+          "text": "Convert logos, line drawings or photographs into vector layers with a live tracing preview.",
+          "source_url": "https://github.com/theanam/openlaser.app/blob/e128495e5be167f5614b75c2663db29fb98d0585/README.md"
+        }
+      ]
     },
     "b120ebd626696256ad76c7d15c2efd05162f9a8afdcd6811995f12f488359dd2": {
       "project_url": "https://github.com/andrewyng/openworker",
@@ -2591,7 +2918,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner."
+      "review_note": "AI review checked each capability and deployment statement against the linked official README at its pinned Git commit. Original paraphrase; approval covers source-backed display inclusion, with PR merge left to the owner. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/andrewyng/openworker/blob/7bac273885d77f5794416ba7da5ad4ab4ceafd5f/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Schedule recurring tasks",
+          "text": "Run recurring work such as briefs, reports or channel watches and review the resulting transcripts.",
+          "source_url": "https://github.com/andrewyng/openworker/blob/7bac273885d77f5794416ba7da5ad4ab4ceafd5f/README.md"
+        },
+        {
+          "title": "Start work from Slack",
+          "text": "Mention OpenWorker in a channel to open a desktop session and receive its response in the Slack thread.",
+          "source_url": "https://github.com/andrewyng/openworker/blob/7bac273885d77f5794416ba7da5ad4ab4ceafd5f/README.md"
+        }
+      ]
     },
     "30d76d1fe3350d3f2e5fba5bb8abce32de74f41bcaa91f4eed715d1361efc873": {
       "project_url": "https://github.com/scoheart/openrar",
@@ -2687,7 +3026,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/fabio-rovai/open-ontologies/blob/93295305201c7374988217fd6fa609de0fd643ee/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Preview ontology changes",
+          "text": "Plan ontology updates and inspect affected data, changed inferences and rollback options before applying them.",
+          "source_url": "https://github.com/fabio-rovai/open-ontologies/blob/93295305201c7374988217fd6fa609de0fd643ee/README.md"
+        },
+        {
+          "title": "Import data into RDF",
+          "text": "Load structured data such as CSV, JSON, XML, YAML, spreadsheets or Parquet into RDF.",
+          "source_url": "https://github.com/fabio-rovai/open-ontologies/blob/93295305201c7374988217fd6fa609de0fd643ee/README.md"
+        }
+      ]
     },
     "3479839df741f43cd40223b6466b6a95ee79cee895b1f7f494b17a1e44dac14d": {
       "project_url": "https://github.com/openstreetmap/openstreetmap-website",
@@ -2702,7 +3053,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/openstreetmap/openstreetmap-website/blob/9da20921c0a257d4d7ddd52de36bd3b75f3c8372/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Edit map data through APIs",
+          "text": "Expose XML- and JSON-based editing APIs alongside the web pages for browsing OpenStreetMap data.",
+          "source_url": "https://github.com/openstreetmap/openstreetmap-website/blob/9da20921c0a257d4d7ddd52de36bd3b75f3c8372/README.md"
+        },
+        {
+          "title": "Manage GPS traces",
+          "text": "Upload and browse GPX traces through the website and its API.",
+          "source_url": "https://github.com/openstreetmap/openstreetmap-website/blob/9da20921c0a257d4d7ddd52de36bd3b75f3c8372/README.md"
+        }
+      ]
     },
     "349d687dce9f4e18a768e8097d67ac572aacd6ad9bc51372878f927ae9309852": {
       "project_url": "https://github.com/jackwener/opencli",
@@ -2717,7 +3080,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/jackwener/opencli/blob/aeaff2b796efabb7fd46654112418ab61fcae917/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Browser commands",
+          "text": "Navigate pages, fill forms, click controls, extract content and capture screenshots through a connected Chrome or Chromium session.",
+          "source_url": "https://github.com/jackwener/opencli/blob/aeaff2b796efabb7fd46654112418ab61fcae917/README.md"
+        },
+        {
+          "title": "Reusable site adapters",
+          "text": "Package recurring website interactions as commands, with JSON output by default and optional table, YAML, Markdown or CSV formats.",
+          "source_url": "https://github.com/jackwener/opencli/blob/aeaff2b796efabb7fd46654112418ab61fcae917/README.md"
+        }
+      ]
     },
     "3503bcab4b8f5c6e176bbfa9f132a690187396592017d86d1df1dcf896fa3e1b": {
       "project_url": "https://github.com/openfilm/openfilm",
@@ -2732,7 +3107,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/openfilm/openfilm/blob/619c163d2632e6e87e989049fec04dfc22188cd1/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Edit clips and page elements",
+          "text": "Move, scale and restyle page elements, then trim and rearrange clips on the film timeline.",
+          "source_url": "https://github.com/openfilm/openfilm/blob/619c163d2632e6e87e989049fec04dfc22188cd1/README.md"
+        },
+        {
+          "title": "Render film output",
+          "text": "Render a film or selected time range to MP4, with options for 4K output, motion blur and alpha-capable formats.",
+          "source_url": "https://github.com/openfilm/openfilm/blob/619c163d2632e6e87e989049fec04dfc22188cd1/README.md"
+        }
+      ]
     },
     "351e373a9972ee26ef22e058558411d6e3ccf0a2a9a4d1ba11404177e5b12a6e": {
       "project_url": "https://github.com/openrailwaymap/openrailwaymap",
@@ -2747,7 +3134,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/openrailwaymap/openrailwaymap/blob/3d36317b80cf4bd909090fd106b9a0903dab1150/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Browse railway infrastructure",
+          "text": "View railway infrastructure mapped from OpenStreetMap data through the project's website.",
+          "source_url": "https://github.com/openrailwaymap/openrailwaymap/blob/3d36317b80cf4bd909090fd106b9a0903dab1150/README.md"
+        },
+        {
+          "title": "Support railway map editing",
+          "text": "Use the supplied JOSM tagging presets and validation rules when editing railway data.",
+          "source_url": "https://github.com/openrailwaymap/openrailwaymap/blob/3d36317b80cf4bd909090fd106b9a0903dab1150/README.md"
+        }
+      ]
     },
     "3654b8b6dc8bccc617ea87f2615d68e7b25f7b9830e984a58dc6039273b34994": {
       "project_url": "https://github.com/pixaranimationstudios/opensubdiv",
@@ -2762,7 +3161,14 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/pixaranimationstudios/opensubdiv/blob/ffffe6fb821dd59eabd8ed630720115ab74f76a3/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Evaluate subdivision surfaces",
+          "text": "Evaluate subdivision surfaces on CPU or GPU hardware, including deforming meshes whose topology stays fixed.",
+          "source_url": "https://github.com/pixaranimationstudios/opensubdiv/blob/ffffe6fb821dd59eabd8ed630720115ab74f76a3/README.md"
+        }
+      ]
     },
     "36f9dcf37e722ae88c534dc0b95483133073d5199ad94c8315e51b3723b1a5c6": {
       "project_url": "https://github.com/feimacode/open-design-agent-kit",
@@ -2777,7 +3183,19 @@
       "checked_at": "2026-10-23",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display."
+      "review_note": "Checked each capability and deployment statement against the pinned official README; original summary reviewed by Junge (AI) for proposed display. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/feimacode/open-design-agent-kit/blob/3fcb7533a5297680753a1281a036e387a2bd5a46/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Reuse design references",
+          "text": "Give coding agents access to design skills, templates, brand systems and remixable examples for creating workspace artifacts.",
+          "source_url": "https://github.com/feimacode/open-design-agent-kit/blob/3fcb7533a5297680753a1281a036e387a2bd5a46/README.md"
+        },
+        {
+          "title": "Keep a workspace design system",
+          "text": "Choose a bundled, custom or imported design system and reuse it for subsequent generations in the workspace.",
+          "source_url": "https://github.com/feimacode/open-design-agent-kit/blob/3fcb7533a5297680753a1281a036e387a2bd5a46/README.md"
+        }
+      ]
     },
     "370cc7a9eb73a9588edbbbc119e6eba8b60616daef2192a2ca5b95f97c9664af": {
       "project_url": "https://github.com/annasusu/opencontextengine",
@@ -2792,7 +3210,19 @@
       "checked_at": "2026-10-26",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/annasusu/opencontextengine/blob/8033e3f8121b103327cae37a6681e9962f6418d5/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Find related source snippets",
+          "text": "Combine semantic and keyword search with code relationships and reranking to return snippets with paths and line numbers.",
+          "source_url": "https://github.com/annasusu/opencontextengine/blob/8033e3f8121b103327cae37a6681e9962f6418d5/README.md"
+        },
+        {
+          "title": "Track working-directory changes",
+          "text": "Synchronize saved edits, deleted files and branch switches while reusing unchanged embeddings.",
+          "source_url": "https://github.com/annasusu/opencontextengine/blob/8033e3f8121b103327cae37a6681e9962f6418d5/README.md"
+        }
+      ]
     },
     "37642a1edc39f61f64673f2c0356a1a54ef2176cf2512f2d6cfe2fe060d542a1": {
       "project_url": "https://github.com/open-rmf/rmf",
@@ -2811,7 +3241,19 @@
       "checked_at": "2026-10-26",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://osrf.github.io/ros2multirobotbook/intro.html; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Coordinate shared infrastructure",
+          "text": "Coordinate multiple robot fleets and their use of shared lifts, doors and corridors.",
+          "source_url": "https://osrf.github.io/ros2multirobotbook/intro.html"
+        },
+        {
+          "title": "Create traffic floorplans",
+          "text": "Use Traffic Editor to annotate floorplans and traffic patterns and export YAML files for Gazebo simulation.",
+          "source_url": "https://osrf.github.io/ros2multirobotbook/intro.html"
+        }
+      ]
     },
     "37e8bdca242b1c54bec1b5d9d0ee9ece62c40cd1371630c0c210b6dd43ada5f4": {
       "project_url": "https://github.com/theaxelander/openbudgeteer",
@@ -2834,7 +3276,19 @@
       "checked_at": "2026-10-26",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://axelander.dev/latest/how-to/; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Import and split transactions",
+          "text": "Import bank transactions from CSV, then assign each transaction to one bucket or split its amount across several.",
+          "source_url": "https://axelander.dev/latest/how-to/"
+        },
+        {
+          "title": "Set recurring savings targets",
+          "text": "Configure monthly expenses, expenses every chosen number of months or savings tied to a target date.",
+          "source_url": "https://axelander.dev/latest/how-to/"
+        }
+      ]
     },
     "381b3c7b46757c2fb150babdeeb54131056b689f041e8374a8002960278ef638": {
       "project_url": "https://github.com/openfast/openfast",
@@ -2849,7 +3303,19 @@
       "checked_at": "2026-10-26",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/openfast/openfast/blob/2895884d2be01862173c88d70f86b358d2f1a50a/README.rst; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Simulate coupled turbine response",
+          "text": "Combine aerodynamic, hydrodynamic, control-system and structural models in nonlinear time-domain simulations.",
+          "source_url": "https://github.com/openfast/openfast/blob/2895884d2be01862173c88d70f86b358d2f1a50a/README.rst"
+        },
+        {
+          "title": "Linearize operating-point models",
+          "text": "Linearize a turbine model around an operating point to study response, natural frequencies, damping and mode shapes.",
+          "source_url": "https://github.com/openfast/openfast/blob/2895884d2be01862173c88d70f86b358d2f1a50a/README.rst"
+        }
+      ]
     },
     "3858d712cc68982beda266d15457403365e1ceea971f39e5f3e4e7c0b793d485": {
       "project_url": "https://github.com/heilonng23/openheard",
@@ -2879,7 +3345,19 @@
       "checked_at": "2026-10-26",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)",
-      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested."
+      "review_note": "Reviewed the cited official documentation for capabilities, intended use and deployment. GitHub README sources are pinned to verified commits. Content review by Junge (AI); installation was not tested. Feature-only review 2026-10-27 UTC by Junge (AI): checked only the added capability notes against https://github.com/openemu/openemu/blob/1d205104640d8410659d321809889cbfd06b99a9/README.md; the earlier Function-summary review and its date are unchanged.",
+      "features": [
+        {
+          "title": "Emulation-engine plugins",
+          "text": "Load different emulation engines through a modular plugin architecture while using the same native macOS interface.",
+          "source_url": "https://github.com/openemu/openemu/blob/1d205104640d8410659d321809889cbfd06b99a9/README.md"
+        },
+        {
+          "title": "Console and handheld systems",
+          "text": "Use engine plugins for systems including Game Boy, Nintendo DS, Sega Genesis, PlayStation and Atari consoles.",
+          "source_url": "https://github.com/openemu/openemu/blob/1d205104640d8410659d321809889cbfd06b99a9/README.md"
+        }
+      ]
     },
     "39070fe4ef7e16ddec476ad6b1a177b07be9f767be7896e0237d8887dea68598": {
       "project_url": "https://github.com/ui5/openui5",
