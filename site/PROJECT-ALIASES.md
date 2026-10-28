@@ -28,6 +28,15 @@ The full catalog JSON preserves aliases and their review evidence. The compact
 embedded search index keeps alias names only, and the ledger matches against
 it without a live fetch.
 
+## Plate display
+
+Reviewed alternate names appear immediately below the Field notes heading in
+drawers and full records. The first line reads “Also known as: [name]”; each
+additional name has its own line. Each name links to its official source.
+Names matching the current display name are omitted from this block; their
+evidence remains in the catalog and search index. Without alternate names,
+there is no block.
+
 ## Search behavior
 
 Queries still AND whitespace-separated tokens across names, descriptions,

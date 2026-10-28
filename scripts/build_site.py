@@ -474,6 +474,21 @@ def specimen_geometry(art, bbox):
             "fade_end": max(.5, ground - .08)}
 
 
+def plate_aliases(project):
+    """Reviewed alternate names, adjacent to the canonical plate heading."""
+    display_name = project_aliases.name_key(project["name"])
+    aliases = [alias for alias in project.get("aliases", [])
+               if project_aliases.name_key(alias["name"]) != display_name]
+    if not aliases:
+        return ""
+    items = "".join(
+        f'<li>{"Also known as: " if i == 0 else ""}'
+        f'<a href="{escape(alias["source_url"])}">{escape(alias["name"])}</a></li>'
+        for i, alias in enumerate(aliases)
+    )
+    return f'<ul class="plate-aliases" aria-label="Also known as">{items}</ul>'
+
+
 def specimen_plate(project, number, tags, function_detail, grid, cutout, variants=None):
     pid, name, url = (
         escape(project["id"]),
@@ -519,6 +534,7 @@ def specimen_plate(project, number, tags, function_detail, grid, cutout, variant
     return (
         f'<div class="specimen-interior specimen-plate{"" if art else " without-art"}" aria-labelledby="name-{pid}">'
         f'<div class="plate-heading"><span class="plate-index">Field notes / {number:03d}</span><span class="plate-index">{name}</span></div>'
+        f'{plate_aliases(project)}'
         f'<div class="plate-study"><svg class="plate-leaders" aria-hidden="true"></svg>'
         f'<div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description{" is-long" if len(project["description"]) > 90 else ""}">{escape(project["description"])}</p>{function_detail}</div>'
         f"{specimen}{notes}{label}</div>"

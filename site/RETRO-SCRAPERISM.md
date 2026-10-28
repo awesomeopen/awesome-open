@@ -407,6 +407,9 @@ cloud between the jars.
 ### Specimen plate for every record — 2026-10-14, user-approved (B29)
 
 Every expanded record is a plate. Folded ledger rows are unchanged.
+Reviewed aliases sit immediately below the Field notes heading: “Also known as:”
+on the first name’s line, then one name per line. Names link to their official
+sources; omit display-name duplicates and empty blocks.
 
 - **Study:** Function label, Półtawski statement and bracketed reviewed prose on the right;
   the specimen on the left with its label overlapping the lower illustration; feature notes beside the
