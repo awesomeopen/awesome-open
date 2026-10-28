@@ -143857,7 +143857,11 @@
     "project_limit": 50,
     "attempted_urls": [
       "https://github.com/diggerhq/opencomputer",
+      "https://github.com/greendelta/olca-app",
       "https://github.com/mvschwarz/openrig",
+      "https://github.com/pmeal/openpnm",
+      "https://openart.ai",
+      "https://openpanel.com",
       "https://www.infradead.org/openconnect",
       "https://www.openbox.ai",
       "https://www.openconcerto.org",
@@ -143874,11 +143878,7 @@
       "https://www.openstack.org/software",
       "https://www.opensuse.org",
       "https://www.opentext.com/products/content-manager",
-      "https://www.redhat.com/en/technologies/cloud-computing/openshift",
-      "https://github.com/pmeal/openpnm",
-      "https://github.com/greendelta/olca-app",
-      "https://openart.ai",
-      "https://openpanel.com"
+      "https://www.redhat.com/en/technologies/cloud-computing/openshift"
     ],
     "lane_projects": {
       "new": 4,
@@ -143893,8 +143893,8 @@
   },
   "selection_report": {
     "catalog_projects": 549,
-    "due_projects": 4,
-    "attempted_projects": 4,
+    "due_projects": 0,
+    "attempted_projects": 0,
     "current_window_projects": 549,
     "never_attempted_projects": 0
   },

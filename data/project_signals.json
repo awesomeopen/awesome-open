@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-28T08:49:39Z",
+  "collected_at": "2026-10-28T16:12:29Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -3272,13 +3272,13 @@
     "diggerhq/opencomputer": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:16:09Z",
+        "checked_at": "2026-10-28T16:12:29Z",
         "error": null,
-        "etag": "\"a67bd9f99cbbf77e82d8fd1ee5aefa7e0f8bcff1ee27aeb4bf6d16bd114b513e\"",
+        "etag": "\"f216218dc36c667ec5d4f11cf68fffac14c2a17b692aae5f9bab764a198c58aa\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T12:16:09Z",
+          "fetched_at": "2026-10-28T16:12:29Z",
           "observed_at": "2026-09-28T05:26:07Z",
           "source_commit": null,
           "tool_commit": null,
@@ -3290,7 +3290,7 @@
             "tag_name": "v0.6.0.49"
           }
         },
-        "last_success_at": "2026-10-27T12:16:09Z",
+        "last_success_at": "2026-10-28T16:12:29Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/diggerhq/opencomputer/releases/latest",
         "status": "available",
@@ -13628,13 +13628,13 @@
     "openenv/openenv": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-10-28T16:12:29Z",
         "error": null,
-        "etag": "\"39b81f6d908560ade3d4074a555dc87af2e371a64dd44e8555d125316ed08401\"",
+        "etag": "\"42e2da6ec37386acaf88b36cd2d8b8b8079fdf83bc3a5422003dff71b1501c09\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T12:07:11Z",
+          "fetched_at": "2026-10-28T16:12:29Z",
           "observed_at": "2026-10-22T06:11:33Z",
           "source_commit": null,
           "tool_commit": null,
@@ -13646,7 +13646,7 @@
             "tag_name": "v0.10.0"
           }
         },
-        "last_success_at": "2026-10-27T12:07:11Z",
+        "last_success_at": "2026-10-28T16:12:29Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openenv/openenv/releases/latest",
         "status": "available",
@@ -17923,7 +17923,7 @@
     "openresponses/openresponses": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-10-28T16:12:29Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -25758,5 +25758,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "3d40ab96b7b8f421be592bc351f7a40a6c98e099"
+  "source_sha": "d0f891fb7ace31ebc58aaf595efe2f3892674e8b"
 }
