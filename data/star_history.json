@@ -533390,12 +533390,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 4,
-    "due_repositories": 5,
-    "eligible_repositories": 495,
-    "unattempted_repositories": 1
+    "attempted_repositories": 0,
+    "due_repositories": 3,
+    "eligible_repositories": 497,
+    "unattempted_repositories": 3
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "c1cdf67910a515a06b81a46ce2cc5776aa260eae",
-  "updated_at": "2026-10-28T04:47:18.892563+00:00"
+  "source_sha": "3d40ab96b7b8f421be592bc351f7a40a6c98e099",
+  "updated_at": "2026-10-28T08:49:47.238622+00:00"
 }

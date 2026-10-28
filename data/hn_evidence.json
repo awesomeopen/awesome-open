@@ -24069,6 +24069,60 @@
       "search_url": "https://hn.algolia.com/?q=OpenObserve&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenPanel",
+      "slug": "catalog-cd9221ab1876cc97",
+      "readme_url": "https://openpanel.com/",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://openpanel.com/"
+      ],
+      "queries": [
+        "openpanel.com/"
+      ],
+      "identity_sources": [
+        "https://openpanel.com/"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=openpanel.com%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=openpanel.com%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "Open Policy Agent",
       "slug": "catalog-8ab59e31c99fd5b1",
       "readme_url": "https://github.com/open-policy-agent/opa",
@@ -38369,6 +38423,81 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2Fkcat%2Fopenal-soft&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenArt",
+      "slug": "catalog-b325c7d94ca8c297",
+      "readme_url": "https://openart.ai/",
+      "repositories": [],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [
+        "https://openart.ai/"
+      ],
+      "queries": [
+        "openart.ai/"
+      ],
+      "identity_sources": [
+        "https://openart.ai/"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [
+        {
+          "id": "48661377",
+          "title": "OpenArt Director: Claude Code for video production – vibe direct your videos",
+          "url": "https://openart.ai/director",
+          "created_at": "2026-06-24T15:24:57+00:00",
+          "month": "2026-06",
+          "hn_url": "https://news.ycombinator.com/item?id=48661377",
+          "source_url": "https://hn.algolia.com/api/v1/items/48661377",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+        },
+        {
+          "id": "49715465",
+          "title": "We asked creative experts to rank AI image / video models. Here's what happened",
+          "url": "https://openart.ai/arena",
+          "created_at": "2026-09-15T17:02:23+00:00",
+          "month": "2026-09",
+          "hn_url": "https://news.ycombinator.com/item?id=49715465",
+          "source_url": "https://hn.algolia.com/api/v1/items/49715465",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+        }
+      ],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=openart.ai%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=openart.ai%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "Open Asset Import Library",
       "slug": "catalog-52d3461c43c42b1a",
       "readme_url": "https://github.com/assimp/assimp",
@@ -46776,6 +46905,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2Fvhdani04%2FOpenLayout&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "openLCA",
+      "slug": "catalog-ed240c9f5ffc88a8",
+      "readme_url": "https://github.com/GreenDelta/olca-app",
+      "repositories": [
+        "GreenDelta/olca-app"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/GreenDelta/olca-app"
+      ],
+      "identity_sources": [
+        "https://github.com/GreenDelta/olca-app"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FGreenDelta%2Folca-app&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FGreenDelta%2Folca-app&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenMC",
       "slug": "catalog-9bb69154bcf9f90d",
       "readme_url": "https://github.com/openmc-dev/openmc",
@@ -47401,6 +47584,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenMx%2FOpenMx&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2FOpenMx%2FOpenMx&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenPNM",
+      "slug": "catalog-5058f4c689b6b988",
+      "readme_url": "https://github.com/PMEAL/OpenPNM",
+      "repositories": [
+        "PMEAL/OpenPNM"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/PMEAL/OpenPNM"
+      ],
+      "identity_sources": [
+        "https://github.com/PMEAL/OpenPNM"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FPMEAL%2FOpenPNM&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FPMEAL%2FOpenPNM&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenQuake Engine",
@@ -143124,14 +143361,499 @@
         },
         "collected_at": "2026-10-28T03:13:09.545157+00:00"
       }
+    },
+    "https://github.com/pmeal/openpnm": {
+      "pending": {},
+      "pending_identity_key": "b33af662a8738d3121ee55766486c9d95138351d84a024c2b3337a10c8155b39",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-28T08:49:33.274379+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "b33af662a8738d3121ee55766486c9d95138351d84a024c2b3337a10c8155b39",
+        "project": {
+          "name": "OpenPNM",
+          "slug": "catalog-5058f4c689b6b988",
+          "readme_url": "https://github.com/PMEAL/OpenPNM",
+          "repositories": [
+            "PMEAL/OpenPNM"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/PMEAL/OpenPNM"
+          ],
+          "identity_sources": [
+            "https://github.com/PMEAL/OpenPNM"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FPMEAL%2FOpenPNM&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FPMEAL%2FOpenPNM&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T08:49:33.274379+00:00"
+      },
+      "status": "ok"
+    },
+    "https://github.com/greendelta/olca-app": {
+      "pending": {},
+      "pending_identity_key": "bd1ab91585994be76847e0de66dc72a9bce90248e14b6eac196bd56b1099beaa",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-28T08:49:33.274379+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "bd1ab91585994be76847e0de66dc72a9bce90248e14b6eac196bd56b1099beaa",
+        "project": {
+          "name": "openLCA",
+          "slug": "catalog-ed240c9f5ffc88a8",
+          "readme_url": "https://github.com/GreenDelta/olca-app",
+          "repositories": [
+            "GreenDelta/olca-app"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/GreenDelta/olca-app"
+          ],
+          "identity_sources": [
+            "https://github.com/GreenDelta/olca-app"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FGreenDelta%2Folca-app&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FGreenDelta%2Folca-app&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T08:49:33.274379+00:00"
+      },
+      "status": "ok"
+    },
+    "https://openart.ai": {
+      "pending": {},
+      "pending_identity_key": "d505c8bca09a86e1a8672d5b9d3a278e8501f8dd3791faf8023c4b2027877478",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-28T08:49:33.274379+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "d505c8bca09a86e1a8672d5b9d3a278e8501f8dd3791faf8023c4b2027877478",
+        "project": {
+          "name": "OpenArt",
+          "slug": "catalog-b325c7d94ca8c297",
+          "readme_url": "https://openart.ai/",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://openart.ai/"
+          ],
+          "queries": [
+            "openart.ai/"
+          ],
+          "identity_sources": [
+            "https://openart.ai/"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [
+            {
+              "id": "48661377",
+              "title": "OpenArt Director: Claude Code for video production – vibe direct your videos",
+              "url": "https://openart.ai/director",
+              "created_at": "2026-06-24T15:24:57+00:00",
+              "month": "2026-06",
+              "hn_url": "https://news.ycombinator.com/item?id=48661377",
+              "source_url": "https://hn.algolia.com/api/v1/items/48661377",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+            },
+            {
+              "id": "49715465",
+              "title": "We asked creative experts to rank AI image / video models. Here's what happened",
+              "url": "https://openart.ai/arena",
+              "created_at": "2026-09-15T17:02:23+00:00",
+              "month": "2026-09",
+              "hn_url": "https://news.ycombinator.com/item?id=49715465",
+              "source_url": "https://hn.algolia.com/api/v1/items/49715465",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+            }
+          ],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=openart.ai%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=openart.ai%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T08:49:33.274379+00:00"
+      },
+      "status": "ok"
+    },
+    "https://openpanel.com": {
+      "pending": {},
+      "pending_identity_key": "1f52266cd8aa9a46f4e4211b3489f59517e1df75fccd99d7a371b525e30514d8",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-28T08:49:33.274379+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "1f52266cd8aa9a46f4e4211b3489f59517e1df75fccd99d7a371b525e30514d8",
+        "project": {
+          "name": "OpenPanel",
+          "slug": "catalog-cd9221ab1876cc97",
+          "readme_url": "https://openpanel.com/",
+          "repositories": [],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [
+            "https://openpanel.com/"
+          ],
+          "queries": [
+            "openpanel.com/"
+          ],
+          "identity_sources": [
+            "https://openpanel.com/"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=openpanel.com%2F&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=openpanel.com%2F&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-28T08:49:33.274379+00:00"
+      },
+      "status": "ok"
     }
   },
   "budget": {
     "utc_date": "2026-10-28",
-    "requests_used": 19,
+    "requests_used": 23,
     "limit": 160,
     "paused": false,
-    "projects_used": 19,
+    "projects_used": 23,
     "project_limit": 50,
     "attempted_urls": [
       "https://github.com/diggerhq/opencomputer",
@@ -143152,24 +143874,28 @@
       "https://www.openstack.org/software",
       "https://www.opensuse.org",
       "https://www.opentext.com/products/content-manager",
-      "https://www.redhat.com/en/technologies/cloud-computing/openshift"
+      "https://www.redhat.com/en/technologies/cloud-computing/openshift",
+      "https://github.com/pmeal/openpnm",
+      "https://github.com/greendelta/olca-app",
+      "https://openart.ai",
+      "https://openpanel.com"
     ],
     "lane_projects": {
-      "new": 0,
+      "new": 4,
       "refresh": 19,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 0,
+      "new": 4,
       "refresh": 19,
       "continuation": 0
     }
   },
   "selection_report": {
-    "catalog_projects": 545,
-    "due_projects": 0,
-    "attempted_projects": 0,
-    "current_window_projects": 545,
+    "catalog_projects": 549,
+    "due_projects": 4,
+    "attempted_projects": 4,
+    "current_window_projects": 549,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
