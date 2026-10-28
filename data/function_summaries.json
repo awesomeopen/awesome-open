@@ -4801,6 +4801,1128 @@
           "source_url": "https://github.com/opendatadiscovery/odd-platform/blob/015f6fa2dac9b6d0dfd00b6b6d9baab9329e6c4f/README.md"
         }
       ]
+    },
+    "7695295207bed0cbd8b0de86e931b300d092f8bf6d36befbd71df8289d21921b": {
+      "project_url": "https://github.com/opencart/opencart",
+      "text": "OpenCart is an ecommerce application for merchants building an online store on their own web hosting. Its PHP application connects to a MySQL or MariaDB database and provides a browser-based installation process. Extensions can add capabilities such as payment gateways and shipping modules, while a bundled Docker environment supports local development.",
+      "sources": [
+        {
+          "url": "https://github.com/opencart/opencart/blob/9d73cf2e5d6665dc24dc63469ecaaaaa23c364ec/README.md",
+          "title": "OpenCart README",
+          "revision": "9d73cf2e5d6665dc24dc63469ecaaaaa23c364ec"
+        },
+        {
+          "url": "https://github.com/opencart/opencart/blob/9d73cf2e5d6665dc24dc63469ecaaaaa23c364ec/INSTALL.md",
+          "title": "OpenCart installation guide",
+          "revision": "9d73cf2e5d6665dc24dc63469ecaaaaa23c364ec"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project.",
+      "features": [
+        {
+          "title": "Store installation",
+          "text": "Install the storefront on web hosting with a MySQL or MariaDB database and complete setup through the browser.",
+          "source_url": "https://github.com/opencart/opencart/blob/9d73cf2e5d6665dc24dc63469ecaaaaa23c364ec/INSTALL.md"
+        },
+        {
+          "title": "Extension modules",
+          "text": "Add store capabilities through extensions, including payment gateways and shipping modules.",
+          "source_url": "https://github.com/opencart/opencart/blob/9d73cf2e5d6665dc24dc63469ecaaaaa23c364ec/README.md"
+        },
+        {
+          "title": "Local development",
+          "text": "Use the included Docker environment for local development, with optional services enabled through Compose profiles.",
+          "source_url": "https://github.com/opencart/opencart/blob/9d73cf2e5d6665dc24dc63469ecaaaaa23c364ec/README.md"
+        }
+      ]
+    },
+    "7b8b9146201095165bbaf3b6f95e0f4033629d7f485f82d5629c11c8dce6021f": {
+      "project_url": "https://github.com/duartesantos8/opengym",
+      "text": "openGym is a workout tracker for planning routines, logging exercise sessions, and reviewing training progress. It supports weekday schedules or rotating routines, guided set logging, rest timers, and progression schemes. Users can run it as a standalone mobile app or connect devices to a self-hosted Docker server, with imports and exports for moving workout data.",
+      "sources": [
+        {
+          "url": "https://github.com/duartesantos8/opengym/blob/b6cfe2bbd3f099523ffbf2677438864e9a09a06f/README.md",
+          "title": "openGym README",
+          "revision": "b6cfe2bbd3f099523ffbf2677438864e9a09a06f"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project.",
+      "features": [
+        {
+          "title": "Routine planning",
+          "text": "Build weekday or rotating routines from the exercise library, or adapt a starter plan.",
+          "source_url": "https://github.com/duartesantos8/opengym/blob/b6cfe2bbd3f099523ffbf2677438864e9a09a06f/README.md"
+        },
+        {
+          "title": "Guided workout logging",
+          "text": "Log sets with previous-session weights, rest timers, and personal-record detection during a workout.",
+          "source_url": "https://github.com/duartesantos8/opengym/blob/b6cfe2bbd3f099523ffbf2677438864e9a09a06f/README.md"
+        },
+        {
+          "title": "Training data transfer",
+          "text": "Import workouts from supported trackers and export training data as JSON or CSV.",
+          "source_url": "https://github.com/duartesantos8/opengym/blob/b6cfe2bbd3f099523ffbf2677438864e9a09a06f/README.md"
+        }
+      ]
+    },
+    "7c029ba592b23bb0ae254c25b8247743ff93bc1fff1696158c2663443d8e36d1": {
+      "project_url": "https://github.com/opencti-platform/opencti",
+      "text": "OpenCTI is a web application for organizing and analyzing cyber threat intelligence, including technical observables and contextual information. It represents knowledge with STIX 2, links information to reports and relationships, and exposes a GraphQL API. Organizations deploy it through Docker, Helm, or manual installation and connect other intelligence tools through import, export, and connector workflows.",
+      "sources": [
+        {
+          "url": "https://github.com/opencti-platform/opencti/blob/953b7bc5cb427b02d0b3b7742c772b7413046a68/README.md",
+          "title": "OpenCTI README",
+          "revision": "953b7bc5cb427b02d0b3b7742c772b7413046a68"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project.",
+      "features": [
+        {
+          "title": "Linked intelligence",
+          "text": "Organize threat information and relationships with references to originating reports and events.",
+          "source_url": "https://github.com/opencti-platform/opencti/blob/953b7bc5cb427b02d0b3b7742c772b7413046a68/README.md"
+        },
+        {
+          "title": "Intelligence exchange",
+          "text": "Import and export intelligence using CSV or STIX 2 formats.",
+          "source_url": "https://github.com/opencti-platform/opencti/blob/953b7bc5cb427b02d0b3b7742c772b7413046a68/README.md"
+        },
+        {
+          "title": "External connectors",
+          "text": "Connect intelligence workflows to tools and sources such as MISP, TheHive, and MITRE ATT&CK.",
+          "source_url": "https://github.com/opencti-platform/opencti/blob/953b7bc5cb427b02d0b3b7742c772b7413046a68/README.md"
+        }
+      ]
+    },
+    "7c94eb734f17ebfcce7230067c672f89ec9b7d5fca87ca8e4c3a39dc6012b1dd": {
+      "project_url": "https://github.com/open-webui/open-webui",
+      "text": "Open WebUI is a self-hosted interface for chatting with language models through Ollama and OpenAI-compatible services. It combines model conversations with document retrieval, web search, and extensible tools, letting users provide additional context and actions to their assistants. Deployment options include Python packages, Docker, and Kubernetes, with roles and groups for managing access in shared installations.",
+      "sources": [
+        {
+          "url": "https://github.com/open-webui/open-webui/blob/33c1978d5bad52a31df75ea55143025dfad18d16/README.md",
+          "title": "Open WebUI README",
+          "revision": "33c1978d5bad52a31df75ea55143025dfad18d16"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project.",
+      "features": [
+        {
+          "title": "Model connections",
+          "text": "Connect chats to Ollama models and OpenAI-compatible API services.",
+          "source_url": "https://github.com/open-webui/open-webui/blob/33c1978d5bad52a31df75ea55143025dfad18d16/README.md"
+        },
+        {
+          "title": "Document context",
+          "text": "Upload and organize documents for retrieval-augmented conversations.",
+          "source_url": "https://github.com/open-webui/open-webui/blob/33c1978d5bad52a31df75ea55143025dfad18d16/README.md"
+        },
+        {
+          "title": "Assistant extensions",
+          "text": "Extend assistant behavior with tools, functions, filters, and supported external integrations.",
+          "source_url": "https://github.com/open-webui/open-webui/blob/33c1978d5bad52a31df75ea55143025dfad18d16/README.md"
+        }
+      ]
+    },
+    "7cbedd9f3cdb548cd5aeb1fbfc1b784aa36c33fad6f68a9534b86bdff594a9ee": {
+      "project_url": "https://github.com/openkruise/kruise",
+      "text": "OpenKruise extends Kubernetes application management through controllers installed in a cluster. It provides workload types for stateless and stateful applications, daemon processes, and jobs, with additional scaling and update strategies. Operators can update containers in place, manage sidecar lifecycles, and distribute workloads across deployment domains without replacing the Kubernetes API as their control interface.",
+      "sources": [
+        {
+          "url": "https://github.com/openkruise/kruise/blob/4fdf516e39c65bb24654994eff0309450833b1fe/README.md",
+          "title": "OpenKruise README",
+          "revision": "4fdf516e39c65bb24654994eff0309450833b1fe"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project.",
+      "features": [
+        {
+          "title": "In-place updates",
+          "text": "Update supported workloads in place rather than replacing pods for every application update.",
+          "source_url": "https://github.com/openkruise/kruise/blob/4fdf516e39c65bb24654994eff0309450833b1fe/README.md"
+        },
+        {
+          "title": "Sidecar lifecycle",
+          "text": "Inject and update sidecar containers and control their startup or termination behavior.",
+          "source_url": "https://github.com/openkruise/kruise/blob/4fdf516e39c65bb24654994eff0309450833b1fe/README.md"
+        },
+        {
+          "title": "Workload distribution",
+          "text": "Manage workload placement across multiple deployment domains with WorkloadSpread and UnitedDeployment.",
+          "source_url": "https://github.com/openkruise/kruise/blob/4fdf516e39c65bb24654994eff0309450833b1fe/README.md"
+        }
+      ]
+    },
+    "7fac8011bd2f8dc180429e6b80092e928400e00e260e77a6454c675925aecb6c": {
+      "project_url": "https://github.com/petoicamp/opencat-quadruped-robot",
+      "text": "OpenCat provides firmware and programming tools for quadruped robots using the legacy NyBoard platform, including the original Bittle and Nybble. It coordinates servos, walking gaits, and IMU input on Arduino-based hardware, with programming and control options including C/C++ and Python. The repository supports robot setup and calibration; current ESP32-based Petoi hardware uses a separate implementation.",
+      "sources": [
+        {
+          "url": "https://github.com/petoicamp/opencat-quadruped-robot/blob/24563ca2e0218150f6299d013cd3a20c45433467/README.md",
+          "title": "OpenCat README",
+          "revision": "24563ca2e0218150f6299d013cd3a20c45433467"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project. Scoped to the legacy NyBoard repository; current ESP32 hardware is explicitly excluded.",
+      "features": [
+        {
+          "title": "Quadruped motion",
+          "text": "Coordinate up to twelve servos on NyBoard hardware for robot movement and gait execution.",
+          "source_url": "https://github.com/petoicamp/opencat-quadruped-robot/blob/24563ca2e0218150f6299d013cd3a20c45433467/README.md"
+        },
+        {
+          "title": "Robot calibration",
+          "text": "Calibrate the IMU and robot joints during setup using the documented firmware and control interfaces.",
+          "source_url": "https://github.com/petoicamp/opencat-quadruped-robot/blob/24563ca2e0218150f6299d013cd3a20c45433467/README.md"
+        },
+        {
+          "title": "Programming interfaces",
+          "text": "Program and control supported robots using C/C++ or Python workflows.",
+          "source_url": "https://github.com/petoicamp/opencat-quadruped-robot/blob/24563ca2e0218150f6299d013cd3a20c45433467/README.md"
+        }
+      ]
+    },
+    "80862cbd9c524c35c3464f40ea9115665a9f7ecc857d4d510d4ae8e69d0324fd": {
+      "project_url": "https://github.com/mlfoundations/open_clip",
+      "text": "OpenCLIP is a PyTorch toolkit for training and using models that relate images to text. Developers can load pretrained checkpoints, preprocess images, tokenize text, and compare their embeddings for tasks such as assigning labels from text descriptions. It runs as a Python package and supports training on paired image-text data supplied through CSV files or WebDataset shards.",
+      "sources": [
+        {
+          "url": "https://github.com/mlfoundations/open_clip/blob/2691b5dda72e7d357bddec51fab457cdbc6768ed/README.md",
+          "title": "OpenCLIP README",
+          "revision": "2691b5dda72e7d357bddec51fab457cdbc6768ed"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project.",
+      "features": [
+        {
+          "title": "Pretrained models",
+          "text": "Load available model architectures and pretrained checkpoints with matching image transforms and tokenizers.",
+          "source_url": "https://github.com/mlfoundations/open_clip/blob/2691b5dda72e7d357bddec51fab457cdbc6768ed/README.md"
+        },
+        {
+          "title": "Image-text comparison",
+          "text": "Encode images and text into embeddings and compare their similarity for text-based image labeling.",
+          "source_url": "https://github.com/mlfoundations/open_clip/blob/2691b5dda72e7d357bddec51fab457cdbc6768ed/README.md"
+        },
+        {
+          "title": "Training datasets",
+          "text": "Train models using paired image-text examples from CSV files or WebDataset shards.",
+          "source_url": "https://github.com/mlfoundations/open_clip/blob/2691b5dda72e7d357bddec51fab457cdbc6768ed/README.md"
+        }
+      ]
+    },
+    "819f64c64bb9f39aab65d948e8a8e4259c5efb724fbcd2a64cf07f8636d5fcf4": {
+      "project_url": "https://github.com/fission-ai/openspec",
+      "text": "OpenSpec is a command-line tool for organizing specification-driven work with AI coding assistants. Each proposed change collects requirements, scenarios, design decisions, and implementation tasks in Markdown files that people can review before coding. Installed locally and initialized in a project, it guides proposal and implementation workflows, then archives completed changes and updates the project specifications.",
+      "sources": [
+        {
+          "url": "https://github.com/fission-ai/openspec/blob/6d04a1b58dedc95729d34e4f223d9d483aae210a/README.md",
+          "title": "OpenSpec README",
+          "revision": "6d04a1b58dedc95729d34e4f223d9d483aae210a"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project.",
+      "features": [
+        {
+          "title": "Change proposals",
+          "text": "Group a change proposal, specifications, design, and implementation tasks in its own directory.",
+          "source_url": "https://github.com/fission-ai/openspec/blob/6d04a1b58dedc95729d34e4f223d9d483aae210a/README.md"
+        },
+        {
+          "title": "Concrete scenarios",
+          "text": "Write requirements and behavior scenarios as plain Markdown for review alongside code.",
+          "source_url": "https://github.com/fission-ai/openspec/blob/6d04a1b58dedc95729d34e4f223d9d483aae210a/README.md"
+        },
+        {
+          "title": "Change archive",
+          "text": "Archive completed changes and update project specifications through the documented workflow.",
+          "source_url": "https://github.com/fission-ai/openspec/blob/6d04a1b58dedc95729d34e4f223d9d483aae210a/README.md"
+        }
+      ]
+    },
+    "837ee70fa77b6dd3f5835395e310843e1ced58baff88ddbcc12513b6fce3eaab": {
+      "project_url": "https://github.com/openzfs/zfs",
+      "text": "OpenZFS provides a filesystem and volume manager for Linux and FreeBSD. Administrators organize filesystems and block volumes within storage pools and manage them with command-line utilities. Its dataset operations include point-in-time snapshots, writable clones, quotas, and configurable properties, while send and receive streams support transferring full datasets or incremental changes between systems.",
+      "sources": [
+        {
+          "url": "https://github.com/openzfs/zfs/blob/5ebd13aa9a2329cac7bc8b23bfe946a4cde8bb53/README.md",
+          "title": "OpenZFS README",
+          "revision": "5ebd13aa9a2329cac7bc8b23bfe946a4cde8bb53"
+        },
+        {
+          "url": "https://github.com/openzfs/zfs/blob/5ebd13aa9a2329cac7bc8b23bfe946a4cde8bb53/man/man8/zfs.8",
+          "title": "OpenZFS dataset administration manual",
+          "revision": "5ebd13aa9a2329cac7bc8b23bfe946a4cde8bb53"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project.",
+      "features": [
+        {
+          "title": "Snapshots and clones",
+          "text": "Create point-in-time snapshots, roll datasets back, and create writable clones from snapshots.",
+          "source_url": "https://github.com/openzfs/zfs/blob/5ebd13aa9a2329cac7bc8b23bfe946a4cde8bb53/man/man8/zfs.8"
+        },
+        {
+          "title": "Dataset transfer",
+          "text": "Send and receive full or incremental streams to replicate dataset contents.",
+          "source_url": "https://github.com/openzfs/zfs/blob/5ebd13aa9a2329cac7bc8b23bfe946a4cde8bb53/man/man8/zfs.8"
+        },
+        {
+          "title": "Dataset controls",
+          "text": "Configure dataset properties and manage storage quotas through the ZFS command-line utilities.",
+          "source_url": "https://github.com/openzfs/zfs/blob/5ebd13aa9a2329cac7bc8b23bfe946a4cde8bb53/man/man8/zfs.8"
+        }
+      ]
+    },
+    "8458436703ac348ad75498f4627cfcab5117f7a3048ae8d2044cf082f80bd7fa": {
+      "project_url": "https://github.com/openpgpjs/openpgpjs",
+      "text": "OpenPGP.js is a JavaScript library for adding OpenPGP message and key operations to browser and Node.js applications. It encrypts and decrypts text or binary data with public keys or passwords, creates and verifies signatures, and generates or revokes keys. Streaming interfaces allow applications to process larger messages without first representing the entire input as a single string.",
+      "sources": [
+        {
+          "url": "https://github.com/openpgpjs/openpgpjs/blob/8bc35df4887933a3b2661e3741b33ba5f347b935/README.md",
+          "title": "OpenPGP.js README",
+          "revision": "8bc35df4887933a3b2661e3741b33ba5f347b935"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes reviewed by Junge (AI) against the official documentation at the cited commit revision; capabilities and deployment scope checked without installing or executing the project.",
+      "features": [
+        {
+          "title": "Message encryption",
+          "text": "Encrypt and decrypt text or binary messages using public keys or passwords.",
+          "source_url": "https://github.com/openpgpjs/openpgpjs/blob/8bc35df4887933a3b2661e3741b33ba5f347b935/README.md"
+        },
+        {
+          "title": "Digital signatures",
+          "text": "Create and verify signed messages, including detached signatures.",
+          "source_url": "https://github.com/openpgpjs/openpgpjs/blob/8bc35df4887933a3b2661e3741b33ba5f347b935/README.md"
+        },
+        {
+          "title": "Streaming messages",
+          "text": "Process message data through streaming interfaces for larger inputs.",
+          "source_url": "https://github.com/openpgpjs/openpgpjs/blob/8bc35df4887933a3b2661e3741b33ba5f347b935/README.md"
+        }
+      ]
+    },
+    "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106": {
+      "project_url": "https://github.com/augani/openreel-video",
+      "text": "OpenReel Video is a video editor for assembling footage, sound, text, and graphics on a multitrack timeline. It provides trimming, transitions, keyframe animation, captions, color adjustments, and audio mixing for producing videos in different aspect ratios. Core editing and rendering run on the device, with browser access and desktop applications for macOS, Windows, and Linux.",
+      "sources": [
+        {
+          "url": "https://github.com/Augani/openreel-video/blob/367d7e90b61b5181f9861b852bb8b9d7a7d2954a/README.md",
+          "title": "OpenReel Video README",
+          "revision": "367d7e90b61b5181f9861b852bb8b9d7a7d2954a"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed summary and feature notes against the official source at the pinned commit. Claims are limited to documented capabilities and deployment; no individual owner review is claimed.",
+      "features": [
+        {
+          "title": "Multitrack editing",
+          "text": "Arrange video, audio, text, and graphics on a timeline, with trimming, transitions, and keyframe animation.",
+          "source_url": "https://github.com/Augani/openreel-video/blob/367d7e90b61b5181f9861b852bb8b9d7a7d2954a/README.md"
+        },
+        {
+          "title": "Caption tools",
+          "text": "Add captions, import SRT subtitles, and create animated titles.",
+          "source_url": "https://github.com/Augani/openreel-video/blob/367d7e90b61b5181f9861b852bb8b9d7a7d2954a/README.md"
+        },
+        {
+          "title": "Audio mixing",
+          "text": "Adjust volume and fades, apply equalization and compression, and use ducking to balance audio.",
+          "source_url": "https://github.com/Augani/openreel-video/blob/367d7e90b61b5181f9861b852bb8b9d7a7d2954a/README.md"
+        }
+      ]
+    },
+    "875e1a110ecd8a2e297176972fac494474ca97357edc53928fe3a6cda2b9d6bd": {
+      "project_url": "https://github.com/thu-maic/openmaic",
+      "text": "OpenMAIC turns a topic or reference material into an interactive classroom with AI-generated lessons. It produces outlines and scenes containing slides, quizzes, simulations, and project activities, while AI teachers and classmates support discussion and whiteboard interaction. The application can be self-hosted with PostgreSQL, including through Docker, and connects to configured model services for lesson generation and classroom conversations.",
+      "sources": [
+        {
+          "url": "https://github.com/THU-MAIC/OpenMAIC/blob/e95c1d0bf23bd92a45dfbd270cbd4fffe6388e3b/README.md",
+          "title": "OpenMAIC README",
+          "revision": "e95c1d0bf23bd92a45dfbd270cbd4fffe6388e3b"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed summary and feature notes against the official source at the pinned commit. Claims are limited to documented capabilities and deployment; no individual owner review is claimed.",
+      "features": [
+        {
+          "title": "Generated lesson scenes",
+          "text": "Build lessons from outlines with slides, quizzes, HTML simulations, and project-based activities.",
+          "source_url": "https://github.com/THU-MAIC/OpenMAIC/blob/e95c1d0bf23bd92a45dfbd270cbd4fffe6388e3b/README.md"
+        },
+        {
+          "title": "Interactive quizzes",
+          "text": "Use single-choice, multiple-choice, and short-answer exercises with AI grading and feedback.",
+          "source_url": "https://github.com/THU-MAIC/OpenMAIC/blob/e95c1d0bf23bd92a45dfbd270cbd4fffe6388e3b/README.md"
+        },
+        {
+          "title": "Classroom discussion",
+          "text": "Interact with AI teachers and classmates through discussion, speech, and a shared whiteboard.",
+          "source_url": "https://github.com/THU-MAIC/OpenMAIC/blob/e95c1d0bf23bd92a45dfbd270cbd4fffe6388e3b/README.md"
+        }
+      ]
+    },
+    "8946eb62f7ed8d372772f38d12406e95efd28f4552d90a9dc2693fbf6a949141": {
+      "project_url": "https://github.com/openvpn/openvpn",
+      "text": "OpenVPN is a VPN daemon for creating IP tunnels between networked systems. It uses TUN/TAP interfaces and supports Ethernet bridging, TCP or UDP transport, and certificate-based TLS connections. Administrators run it on participating machines and configure it through command-line options or configuration files, with support for tunnels operating through proxies or NAT and networks using dynamic addresses.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenVPN/openvpn/blob/54a66f355ace8e89b25ed9e85c659d290eb700d2/doc/openvpn.8.rst",
+          "title": "OpenVPN manual",
+          "revision": "54a66f355ace8e89b25ed9e85c659d290eb700d2"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed summary and feature notes against the official source at the pinned commit. Claims are limited to documented capabilities and deployment; no individual owner review is claimed.",
+      "features": [
+        {
+          "title": "Tunnel transport",
+          "text": "Use TCP or UDP tunnel transport, including connections through proxies or NAT.",
+          "source_url": "https://github.com/OpenVPN/openvpn/blob/54a66f355ace8e89b25ed9e85c659d290eb700d2/doc/openvpn.8.rst"
+        },
+        {
+          "title": "Virtual network interfaces",
+          "text": "Build tunnels using TUN/TAP interfaces, with support for Ethernet bridging.",
+          "source_url": "https://github.com/OpenVPN/openvpn/blob/54a66f355ace8e89b25ed9e85c659d290eb700d2/doc/openvpn.8.rst"
+        },
+        {
+          "title": "Configuration files",
+          "text": "Set options on the command line or place them in a configuration file.",
+          "source_url": "https://github.com/OpenVPN/openvpn/blob/54a66f355ace8e89b25ed9e85c659d290eb700d2/doc/openvpn.8.rst"
+        }
+      ]
+    },
+    "8ab59e31c99fd5b12e45a732a567743d1c9298f1d4a1a3d8761736fb0de2fc3d": {
+      "project_url": "https://github.com/open-policy-agent/opa",
+      "text": "Open Policy Agent evaluates policy decisions separately from application code. Services submit queries against declarative Rego rules and data, then use the results to enforce decisions such as API access or resource placement. Developers can run OPA through its command-line tool or container images, integrate it through a REST API, or embed policy evaluation using its Go interfaces.",
+      "sources": [
+        {
+          "url": "https://github.com/open-policy-agent/opa/blob/d6b52e2ebc6867f560b7836932163dd9b0facdad/README.md",
+          "title": "Open Policy Agent README",
+          "revision": "d6b52e2ebc6867f560b7836932163dd9b0facdad"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed summary and feature notes against the official source at the pinned commit. Claims are limited to documented capabilities and deployment; no individual owner review is claimed.",
+      "features": [
+        {
+          "title": "Rego policy rules",
+          "text": "Express policy decisions as declarative rules evaluated against data and queries.",
+          "source_url": "https://github.com/open-policy-agent/opa/blob/d6b52e2ebc6867f560b7836932163dd9b0facdad/README.md"
+        },
+        {
+          "title": "Application decision queries",
+          "text": "Let services request policy decisions instead of embedding the decision logic in each service.",
+          "source_url": "https://github.com/open-policy-agent/opa/blob/d6b52e2ebc6867f560b7836932163dd9b0facdad/README.md"
+        },
+        {
+          "title": "Go and REST integration",
+          "text": "Integrate policy evaluation with a Go SDK or API, or call the REST API from other languages.",
+          "source_url": "https://github.com/open-policy-agent/opa/blob/d6b52e2ebc6867f560b7836932163dd9b0facdad/README.md"
+        }
+      ]
+    },
+    "8b3d47c790c2825f313993fb2dcea050b57238b81201333bac9f3a1296b9dc98": {
+      "project_url": "https://github.com/cmu-perceptual-computing-lab/openpose",
+      "text": "OpenPose detects body, hand, face, and foot keypoints in images and video for pose-analysis applications. It accepts saved media, webcams, IP cameras, and custom inputs, and can output rendered images or structured keypoint data. The software runs locally on supported desktop platforms through command-line tools or C++ and Python interfaces, with CPU, CUDA, and OpenCL execution options.",
+      "sources": [
+        {
+          "url": "https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/5c5d96523ef917bd30301245fdc8343937cae48d/README.md",
+          "title": "OpenPose README",
+          "revision": "5c5d96523ef917bd30301245fdc8343937cae48d"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed summary and feature notes against the official source at the pinned commit. Claims are limited to documented capabilities and deployment; no individual owner review is claimed.",
+      "features": [
+        {
+          "title": "Multiple keypoint types",
+          "text": "Detect body and foot keypoints along with hand and facial keypoints in two-dimensional images.",
+          "source_url": "https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/5c5d96523ef917bd30301245fdc8343937cae48d/README.md"
+        },
+        {
+          "title": "Media and camera inputs",
+          "text": "Process image and video files, webcams, IP cameras, or custom input sources.",
+          "source_url": "https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/5c5d96523ef917bd30301245fdc8343937cae48d/README.md"
+        },
+        {
+          "title": "Structured pose output",
+          "text": "Export detected keypoints as JSON, XML, or YML, alongside rendered image or video output.",
+          "source_url": "https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/5c5d96523ef917bd30301245fdc8343937cae48d/README.md"
+        }
+      ]
+    },
+    "8d1401d46c9088a90e896b86ab0a6d1afcda86cedcc9dbf1fbcd8f1b06759d20": {
+      "project_url": "https://github.com/openobserve/openobserve",
+      "text": "OpenObserve collects and explores logs, metrics, and traces for observing applications and infrastructure. Users query logs with SQL, analyze metrics with SQL or PromQL, inspect traces, and assemble dashboards and alerts. It can run as a self-hosted binary or container, with a hosted cloud service also available, so teams can choose where to operate their observability data system.",
+      "sources": [
+        {
+          "url": "https://github.com/openobserve/openobserve/blob/3137aa1a4b4e52dc05863e552f3bb4afd69267d9/README.md",
+          "title": "OpenObserve README",
+          "revision": "3137aa1a4b4e52dc05863e552f3bb4afd69267d9"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed summary and feature notes against the official source at the pinned commit. Claims are limited to documented capabilities and deployment; no individual owner review is claimed.",
+      "features": [
+        {
+          "title": "Log and metric queries",
+          "text": "Query logs with SQL and metrics with SQL or PromQL.",
+          "source_url": "https://github.com/openobserve/openobserve/blob/3137aa1a4b4e52dc05863e552f3bb4afd69267d9/README.md"
+        },
+        {
+          "title": "Trace visualization",
+          "text": "Inspect traces using waterfall views and flame graphs.",
+          "source_url": "https://github.com/openobserve/openobserve/blob/3137aa1a4b4e52dc05863e552f3bb4afd69267d9/README.md"
+        },
+        {
+          "title": "Dashboards and alerts",
+          "text": "Build dashboards with chart panels and configure threshold-based or scheduled alerts.",
+          "source_url": "https://github.com/openobserve/openobserve/blob/3137aa1a4b4e52dc05863e552f3bb4afd69267d9/README.md"
+        }
+      ]
+    },
+    "8ed2cce02536b2fac8708e67e14ab1136fcb76481ac22657c331df6ebb6ffb92": {
+      "project_url": "https://github.com/tinyhumansai/openhuman",
+      "text": "OpenHuman is an agent harness offered as a desktop application and an embeddable Rust library. It combines memory retrieval with tools for browser and computer interaction, assembling relevant context for an agent within a token budget. Modular tool capabilities can load as needed, while large tool outputs can be retained behind searchable references instead of repeatedly entering the conversation.",
+      "sources": [
+        {
+          "url": "https://github.com/tinyhumansai/openhuman/blob/755862c766ad0cae81092578ccbe2c62ec51e515/README.md",
+          "title": "OpenHuman README",
+          "revision": "755862c766ad0cae81092578ccbe2c62ec51e515"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed summary and feature notes against the official source at the pinned commit. Claims are limited to documented capabilities and deployment; no individual owner review is claimed.",
+      "features": [
+        {
+          "title": "Context retrieval",
+          "text": "Select relevant stored context within a token budget and return it with citations.",
+          "source_url": "https://github.com/tinyhumansai/openhuman/blob/755862c766ad0cae81092578ccbe2c62ec51e515/README.md"
+        },
+        {
+          "title": "Searchable tool results",
+          "text": "Keep large tool outputs behind searchable handles rather than passing their full contents through each turn.",
+          "source_url": "https://github.com/tinyhumansai/openhuman/blob/755862c766ad0cae81092578ccbe2c62ec51e515/README.md"
+        },
+        {
+          "title": "Embeddable agent engine",
+          "text": "Use the Rust library to embed the agent engine in another application.",
+          "source_url": "https://github.com/tinyhumansai/openhuman/blob/755862c766ad0cae81092578ccbe2c62ec51e515/README.md"
+        }
+      ]
+    },
+    "936033ea14abbbd15d50b6c5cf102626c758ef2b0fb132d9729b0d0592b48f32": {
+      "project_url": "https://github.com/openzeppelin/openzeppelin-contracts",
+      "text": "OpenZeppelin Contracts provides reusable Solidity components for building smart contracts and decentralized applications. Its library includes token-standard implementations such as ERC20 and ERC721, together with role-based permissions and other building blocks for custom contracts. Developers install it into a project through npm or Foundry and import or inherit the required components rather than running it as a standalone service.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/decbfad2a4141e674c82d912b94ac89fabf9aaad/README.md",
+          "title": "OpenZeppelin Contracts README",
+          "revision": "decbfad2a4141e674c82d912b94ac89fabf9aaad"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed summary and feature notes against the official source at the pinned commit. Claims are limited to documented capabilities and deployment; no individual owner review is claimed.",
+      "features": [
+        {
+          "title": "Token standards",
+          "text": "Use implementations of token standards including ERC20 and ERC721.",
+          "source_url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/decbfad2a4141e674c82d912b94ac89fabf9aaad/README.md"
+        },
+        {
+          "title": "Role-based permissions",
+          "text": "Apply the library’s role-based permissioning components to contract access decisions.",
+          "source_url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/decbfad2a4141e674c82d912b94ac89fabf9aaad/README.md"
+        },
+        {
+          "title": "Composable Solidity contracts",
+          "text": "Import and inherit reusable Solidity components when building custom contracts.",
+          "source_url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/decbfad2a4141e674c82d912b94ac89fabf9aaad/README.md"
+        }
+      ]
+    },
+    "940ec4695c1e241c2ff4b2dbbe30fd7fe9adf683efa182142fa954be4f3c9973": {
+      "project_url": "https://github.com/nvidia/openshell",
+      "text": "OpenShell manages runtime environments for autonomous AI agents using sandboxes and policies for filesystem, network, and process access. A command-line interface works with a gateway that controls sandboxes and access settings. It can establish a local gateway or deploy the gateway on Kubernetes, while language SDKs let other applications connect to that control plane and manage agent environments.",
+      "sources": [
+        {
+          "url": "https://github.com/NVIDIA/OpenShell/blob/33138516ad7057c04e5de250c3d39262ac36784c/README.md",
+          "title": "OpenShell README",
+          "revision": "33138516ad7057c04e5de250c3d39262ac36784c"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed summary and feature notes against the official source at the pinned commit. Claims are limited to documented capabilities and deployment; no individual owner review is claimed.",
+      "features": [
+        {
+          "title": "Sandbox lifecycle",
+          "text": "Create and manage agent sandboxes through the command-line interface and gateway.",
+          "source_url": "https://github.com/NVIDIA/OpenShell/blob/33138516ad7057c04e5de250c3d39262ac36784c/README.md"
+        },
+        {
+          "title": "Access policies",
+          "text": "Declare filesystem, network, and process rules for an agent’s sandbox.",
+          "source_url": "https://github.com/NVIDIA/OpenShell/blob/33138516ad7057c04e5de250c3d39262ac36784c/README.md"
+        },
+        {
+          "title": "Gateway SDKs",
+          "text": "Connect applications to a gateway using Python, TypeScript, Go, or Rust SDKs.",
+          "source_url": "https://github.com/NVIDIA/OpenShell/blob/33138516ad7057c04e5de250c3d39262ac36784c/README.md"
+        }
+      ]
+    },
+    "943219a4977c51c8974d4a332bd022ea22f3ab1b1f0ebd9e6f9d6c8de62fe0ff": {
+      "project_url": "https://github.com/openrlhf/openrlhf",
+      "text": "OpenRLHF is a Python framework for reinforcement learning from feedback and language-model training on distributed GPUs. It coordinates training and generation through Ray, DeepSpeed and vLLM, with tools for supervised fine-tuning, reward modeling and policy optimization. Researchers can supply custom rewards and connect multi-turn agent interactions to the training loop.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenRLHF/OpenRLHF/blob/dc2a7ad326f619fc5a47737ea47d1920ce2c0b53/README.md",
+          "title": "OpenRLHF official documentation",
+          "revision": "dc2a7ad326f619fc5a47737ea47d1920ce2c0b53"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Distributed training roles",
+          "text": "Ray coordinates actor, reward, reference and critic components across GPU resources.",
+          "source_url": "https://github.com/OpenRLHF/OpenRLHF/blob/dc2a7ad326f619fc5a47737ea47d1920ce2c0b53/README.md"
+        },
+        {
+          "title": "Custom reward functions",
+          "text": "Training can use user-defined reward functions and multi-turn environment feedback.",
+          "source_url": "https://github.com/OpenRLHF/OpenRLHF/blob/dc2a7ad326f619fc5a47737ea47d1920ce2c0b53/README.md"
+        }
+      ]
+    },
+    "945bc92dc0f949ad7e9961f52fc1c6a29c8864d975151dd99095fc298b9c9fac": {
+      "project_url": "https://github.com/openfaas/faas",
+      "text": "OpenFaaS runs event-driven functions and microservices on Kubernetes. Developers package code or existing binaries as container images, define deployments in YAML and use a command-line tool to build and deploy them. HTTP endpoints and asynchronous processing let applications invoke functions directly or handle work in the background.",
+      "sources": [
+        {
+          "url": "https://github.com/openfaas/faas/blob/eb29c060bda6c2de3df83ca62f7ff6dedca9db23/README.md",
+          "title": "OpenFaaS official documentation",
+          "revision": "eb29c060bda6c2de3df83ca62f7ff6dedca9db23"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Container-based functions",
+          "text": "Functions use container images built from language templates or a custom Dockerfile.",
+          "source_url": "https://github.com/openfaas/faas/blob/eb29c060bda6c2de3df83ca62f7ff6dedca9db23/README.md"
+        },
+        {
+          "title": "Asynchronous invocation",
+          "text": "An asynchronous processing path queues function work for background execution.",
+          "source_url": "https://github.com/openfaas/faas/blob/eb29c060bda6c2de3df83ca62f7ff6dedca9db23/README.md"
+        }
+      ]
+    },
+    "94c48af14511c86ca201b7008085c5b6a429d5b5ec76e2c406e99d9b644efe6f": {
+      "project_url": "https://github.com/openapitools/openapi-generator",
+      "text": "OpenAPI Generator turns OpenAPI descriptions into API client libraries, server stubs, documentation and configuration files. Developers choose a target language or framework and generate code for their application or integration. It runs through a command-line tool, Docker images and Maven or Gradle plugins, allowing generation to become part of a build workflow.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenAPITools/openapi-generator/blob/644f963c3cd98e109940dacc182e39c2d87623ef/README.md",
+          "title": "OpenAPI Generator official documentation",
+          "revision": "644f963c3cd98e109940dacc182e39c2d87623ef"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Client and server generation",
+          "text": "The same API description can generate client libraries or server stubs for supported languages and frameworks.",
+          "source_url": "https://github.com/OpenAPITools/openapi-generator/blob/644f963c3cd98e109940dacc182e39c2d87623ef/README.md"
+        },
+        {
+          "title": "Build integration",
+          "text": "Maven and Gradle plugins make code generation available within application build workflows.",
+          "source_url": "https://github.com/OpenAPITools/openapi-generator/blob/644f963c3cd98e109940dacc182e39c2d87623ef/README.md"
+        }
+      ]
+    },
+    "9647b08a450e2820321356b14c26a4d83d9e488a56feb6af3c0938d4383643cd": {
+      "project_url": "https://github.com/thesysdev/openui",
+      "text": "OpenUI is a framework for adding model-generated interfaces to applications. Developers define a component library, derive a prompt describing it and stream the resulting OpenUI Lang output into a renderer. Its core supports parsing and prompt generation, with bindings for React, Vue, Svelte and Angular and React components for forms, charts, tables and chat.",
+      "sources": [
+        {
+          "url": "https://github.com/thesysdev/openui/blob/1492107c8d24805a19651ad57420156f702bbda5/README.md",
+          "title": "OpenUI official documentation",
+          "revision": "1492107c8d24805a19651ad57420156f702bbda5"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Component-derived prompts",
+          "text": "A declared component library supplies the schema used to generate the model system prompt.",
+          "source_url": "https://github.com/thesysdev/openui/blob/1492107c8d24805a19651ad57420156f702bbda5/README.md"
+        },
+        {
+          "title": "Streaming interfaces",
+          "text": "Framework bindings render OpenUI Lang output as it streams from a model.",
+          "source_url": "https://github.com/thesysdev/openui/blob/1492107c8d24805a19651ad57420156f702bbda5/README.md"
+        }
+      ]
+    },
+    "977cc08ae17462a3692fdb52bd8c298fa091201b7a44c99f6c14ba55df1a5843": {
+      "project_url": "https://github.com/sfttech/openage",
+      "text": "openage is a developing game-engine implementation for real-time strategy games built on the Genie Engine, including Age of Empires titles. It converts assets from original game installations rather than supplying those assets itself. The source-built engine combines C++ and Python components with a separate game-data format; its documentation explicitly warns that gameplay is currently largely nonfunctional.",
+      "sources": [
+        {
+          "url": "https://github.com/SFTtech/openage/blob/6d147f488b1f19669e7e113c594a0c09a8dbb63a/README.md",
+          "title": "openage official documentation",
+          "revision": "6d147f488b1f19669e7e113c594a0c09a8dbb63a"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Original asset conversion",
+          "text": "The project converts assets from supported original games; users must supply the game files.",
+          "source_url": "https://github.com/SFTtech/openage/blob/6d147f488b1f19669e7e113c594a0c09a8dbb63a/README.md"
+        }
+      ]
+    },
+    "9b4f3a2831f5b2984b13416b8b87dc1f850011f955fb40cfddd8bf3662c1d17c": {
+      "project_url": "https://github.com/opennmt/opennmt-py",
+      "text": "OpenNMT-py is a PyTorch toolkit for neural machine translation, language modeling and related sequence-generation research. It provides training and inference workflows, including low-rank fine-tuning, quantized model support and tensor parallelism. Users run it as a Python package or through Docker. This repository is no longer actively supported, which its documentation distinguishes from the separate Eole project.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenNMT/OpenNMT-py/blob/97111d97551c24857076a4102eabdb468b35cff4/README.md",
+          "title": "OpenNMT official documentation",
+          "revision": "97111d97551c24857076a4102eabdb468b35cff4"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Low-rank fine-tuning",
+          "text": "LoRA workflows support adapting models, including configurations with four-bit or eight-bit quantization.",
+          "source_url": "https://github.com/OpenNMT/OpenNMT-py/blob/97111d97551c24857076a4102eabdb468b35cff4/README.md"
+        },
+        {
+          "title": "Tensor parallelism",
+          "text": "Training and inference can distribute model computation across multiple GPUs using tensor parallelism.",
+          "source_url": "https://github.com/OpenNMT/OpenNMT-py/blob/97111d97551c24857076a4102eabdb468b35cff4/README.md"
+        }
+      ]
+    },
+    "9d0676f86bdb17a2e91f3e78bf4828905d7ea058917f2527ef926276cddf5e67": {
+      "project_url": "https://github.com/bentoml/openllm",
+      "text": "OpenLLM serves open and custom language models through an OpenAI-compatible API. Its command-line interface starts a model server, while a browser chat interface and terminal chat provide ways to try it. Built on BentoML, it supports local serving and deployment through containers or Kubernetes, with a model catalog and registration of additional model repositories.",
+      "sources": [
+        {
+          "url": "https://github.com/bentoml/OpenLLM/blob/200b37fbf6f75b174e0737b937b886af460495e9/README.md",
+          "title": "OpenLLM official documentation",
+          "revision": "200b37fbf6f75b174e0737b937b886af460495e9"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Compatible model endpoint",
+          "text": "A served model exposes an OpenAI-compatible API for application clients.",
+          "source_url": "https://github.com/bentoml/OpenLLM/blob/200b37fbf6f75b174e0737b937b886af460495e9/README.md"
+        },
+        {
+          "title": "Interactive chat",
+          "text": "Built-in browser and terminal chat interfaces connect to the running model server.",
+          "source_url": "https://github.com/bentoml/OpenLLM/blob/200b37fbf6f75b174e0737b937b886af460495e9/README.md"
+        }
+      ]
+    },
+    "9e264209ab714b7678421b94bd33295274d1516cde98dc1e771a2a1f16dec2d6": {
+      "project_url": "https://github.com/open-pencil/open-pencil",
+      "text": "OpenPencil is a visual design editor available as desktop applications and a browser app. It opens Figma and Pencil files and provides components, variants, automatic layout and grid layout for interface design. Developers can inspect and export designs through a command-line tool, while optional AI chat and peer-to-peer collaboration support additional editing workflows.",
+      "sources": [
+        {
+          "url": "https://github.com/open-pencil/open-pencil/blob/4c7f97a7eedecfed4ac5662dfbc125f250607118/README.md",
+          "title": "OpenPencil official documentation",
+          "revision": "4c7f97a7eedecfed4ac5662dfbc125f250607118"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Design file editing",
+          "text": "The editor opens .fig and .pen files and supports components, variants and layout controls.",
+          "source_url": "https://github.com/open-pencil/open-pencil/blob/4c7f97a7eedecfed4ac5662dfbc125f250607118/README.md"
+        },
+        {
+          "title": "Command-line inspection",
+          "text": "CLI commands inspect, query, export and lint design documents.",
+          "source_url": "https://github.com/open-pencil/open-pencil/blob/4c7f97a7eedecfed4ac5662dfbc125f250607118/README.md"
+        },
+        {
+          "title": "Peer collaboration",
+          "text": "WebRTC-based collaboration lets participants co-edit a design.",
+          "source_url": "https://github.com/open-pencil/open-pencil/blob/4c7f97a7eedecfed4ac5662dfbc125f250607118/README.md"
+        }
+      ]
+    },
+    "9facd576272f54b11c98879ba276031a4af25a2ddb525b638d1c75d061262e9d": {
+      "project_url": "https://github.com/open-telemetry/opentelemetry-collector",
+      "text": "The OpenTelemetry Collector receives, processes and exports telemetry for observability systems. Its single codebase handles traces, metrics and logs and can be deployed as an agent or collector. Applications can use it to route data from supported telemetry formats to open-source or commercial backends instead of maintaining a separate collection agent for each destination.",
+      "sources": [
+        {
+          "url": "https://github.com/open-telemetry/opentelemetry-collector/blob/d10a163a82835918587e28a8b0ab11bda22fb71b/README.md",
+          "title": "OpenTelemetry official documentation",
+          "revision": "d10a163a82835918587e28a8b0ab11bda22fb71b"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Multi-signal collection",
+          "text": "The Collector supports traces, metrics and logs within one deployable codebase.",
+          "source_url": "https://github.com/open-telemetry/opentelemetry-collector/blob/d10a163a82835918587e28a8b0ab11bda22fb71b/README.md"
+        },
+        {
+          "title": "Telemetry processing",
+          "text": "Collection pipelines receive telemetry, process it and export it to configured backends.",
+          "source_url": "https://github.com/open-telemetry/opentelemetry-collector/blob/d10a163a82835918587e28a8b0ab11bda22fb71b/README.md"
+        }
+      ]
+    },
+    "a03dc41f3c45d7161cc30d734d50f6ea56b1a6ccf5608fc30bc930e16fb2c1ce": {
+      "project_url": "https://github.com/volcengine/openviking",
+      "text": "OpenViking is a context database for AI agents that organizes knowledge, memories and skills in a virtual filesystem. Agents can browse directories, read documents and use semantic search, with layered summaries controlling how much context is retrieved. It runs as a self-hosted server with command-line, HTTP and SDK access and can extract memories from archived sessions.",
+      "sources": [
+        {
+          "url": "https://github.com/volcengine/OpenViking/blob/6afd9ba300848cd302cd00bc944b4f1d02e28476/README.md",
+          "title": "OpenViking official documentation",
+          "revision": "6afd9ba300848cd302cd00bc944b4f1d02e28476"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Layered context",
+          "text": "Directory abstracts, overviews and full content provide progressively more detailed retrieval levels.",
+          "source_url": "https://github.com/volcengine/OpenViking/blob/6afd9ba300848cd302cd00bc944b4f1d02e28476/README.md"
+        },
+        {
+          "title": "Session memories",
+          "text": "Archived agent sessions can be processed into reusable Markdown memories.",
+          "source_url": "https://github.com/volcengine/OpenViking/blob/6afd9ba300848cd302cd00bc944b4f1d02e28476/README.md"
+        },
+        {
+          "title": "Filesystem and semantic access",
+          "text": "Agents can combine directory navigation and file operations with scoped semantic searches.",
+          "source_url": "https://github.com/volcengine/OpenViking/blob/6afd9ba300848cd302cd00bc944b4f1d02e28476/README.md"
+        }
+      ]
+    },
+    "42ac4a514d6ca8e0232da9b5da4d8f803144f177cc8f462134890d6dd89c922a": {
+      "project_url": "https://github.com/ob-f/openbot",
+      "text": "OpenBot combines Android smartphone software with a small robotic vehicle, using the phone as the robot’s computing device. Its software supports person following and autonomous navigation, alongside controller-based driving. The project supplies robot-body instructions, Arduino firmware and an Android robot app, plus a programming playground and a workflow for training driving policies.",
+      "sources": [
+        {
+          "url": "https://github.com/ob-f/OpenBot/blob/c5f05271a067ca83d3de38e5976fa07bcec74b6e/README.md",
+          "title": "OpenBot official documentation",
+          "revision": "c5f05271a067ca83d3de38e5976fa07bcec74b6e"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Phone-based robot control",
+          "text": "An Android smartphone runs the robot software on a vehicle with Arduino firmware.",
+          "source_url": "https://github.com/ob-f/OpenBot/blob/c5f05271a067ca83d3de38e5976fa07bcec74b6e/README.md"
+        },
+        {
+          "title": "Navigation behaviors",
+          "text": "The software supports person following and autonomous navigation.",
+          "source_url": "https://github.com/ob-f/OpenBot/blob/c5f05271a067ca83d3de38e5976fa07bcec74b6e/README.md"
+        },
+        {
+          "title": "Driving policy training",
+          "text": "The project includes a workflow for training a custom driving policy.",
+          "source_url": "https://github.com/ob-f/OpenBot/blob/c5f05271a067ca83d3de38e5976fa07bcec74b6e/README.md"
+        }
+      ]
+    },
+    "42eaa3e1c6557712e65dc0dde6943fde5f9b22d350aac998402f08011be2641b": {
+      "project_url": "https://github.com/bazodev/open-vids",
+      "text": "OpenVids is a desktop video editor for macOS and Windows with both manual editing and AI-agent workflows. Users describe edits in chat while agents arrange footage, captions and motion graphics in project files. Editing, media analysis and rendering run locally, while connected model providers receive agent inputs. Projects remain folders of editable files rather than a cloud editing workspace.",
+      "sources": [
+        {
+          "url": "https://github.com/bazodev/open-vids/blob/119cbe17557e2955f0fbe731aa65acc13bfc66f7/README.md",
+          "title": "OpenVids official documentation",
+          "revision": "119cbe17557e2955f0fbe731aa65acc13bfc66f7"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Editable project files",
+          "text": "Agent edits are written to project files and reflected in the timeline and preview.",
+          "source_url": "https://github.com/bazodev/open-vids/blob/119cbe17557e2955f0fbe731aa65acc13bfc66f7/README.md"
+        },
+        {
+          "title": "Turn-level rollback",
+          "text": "A prompt creates a checkpoint that can revert the edits from that agent turn.",
+          "source_url": "https://github.com/bazodev/open-vids/blob/119cbe17557e2955f0fbe731aa65acc13bfc66f7/README.md"
+        },
+        {
+          "title": "Manual editing",
+          "text": "The timeline, preview, inspector and code view can be used without enabling agents.",
+          "source_url": "https://github.com/bazodev/open-vids/blob/119cbe17557e2955f0fbe731aa65acc13bfc66f7/README.md"
+        }
+      ]
+    },
+    "47e5b51105df748a5b00781e0e6a9731bd299d09250afe6b37d76ec2d6a92066": {
+      "project_url": "https://github.com/openlookeng/hetu-core",
+      "text": "openLooKeng is a SQL query engine for analyzing data across existing relational databases, NoSQL systems and warehouses without providing its own storage engine. It supports federated queries and hierarchical deployment across data centers. Administrators deploy compute clusters separately from storage, while connectors, dynamic filtering, indexes and caches support exploration and cross-source analysis.",
+      "sources": [
+        {
+          "url": "https://github.com/openlookeng/hetu-core/blob/73989707b733c11c74147d9228a0600e16fe5193/README.md",
+          "title": "openLooKeng official documentation",
+          "revision": "73989707b733c11c74147d9228a0600e16fe5193"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Federated SQL queries",
+          "text": "A query can combine data from heterogeneous sources such as relational databases, NoSQL systems and Hive.",
+          "source_url": "https://github.com/openlookeng/hetu-core/blob/73989707b733c11c74147d9228a0600e16fe5193/README.md"
+        },
+        {
+          "title": "Cross-cluster queries",
+          "text": "A connector links openLooKeng clusters so multiple data centers can participate in a query.",
+          "source_url": "https://github.com/openlookeng/hetu-core/blob/73989707b733c11c74147d9228a0600e16fe5193/README.md"
+        },
+        {
+          "title": "Execution plan caching",
+          "text": "Previously generated execution plans can be reused for subsequent queries.",
+          "source_url": "https://github.com/openlookeng/hetu-core/blob/73989707b733c11c74147d9228a0600e16fe5193/README.md"
+        }
+      ]
+    },
+    "48f2963d9fe66181432bc7f0633e7986b2e6376c661227d219df4ca9272e67f8": {
+      "project_url": "https://github.com/sophontrace/opennex",
+      "text": "The repository cataloged as OpenNex now provides OpenLnku, a Windows client for Jilin University campus-network authentication using DrCOM. It selects a network adapter, connects with the user’s credentials and can reconnect after interruptions or sleep. The desktop application also displays traffic and connection status and offers network speed tests; existing OpenNex settings are migrated.",
+      "sources": [
+        {
+          "url": "https://github.com/SophonTrace/OpenLnku/blob/c971094031228addb3097540788a55e5ff75a143/README.md",
+          "title": "OpenNex official documentation",
+          "revision": "c971094031228addb3097540788a55e5ff75a143"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed. The official repository redirects to OpenLnku and its README explicitly describes migration of original OpenNex accounts and settings; the existing catalog ID and URL are preserved.",
+      "features": [
+        {
+          "title": "Automatic reconnection",
+          "text": "The client can restore authentication after a network interruption or waking from sleep.",
+          "source_url": "https://github.com/SophonTrace/OpenLnku/blob/c971094031228addb3097540788a55e5ff75a143/README.md"
+        },
+        {
+          "title": "Network diagnostics",
+          "text": "Speed tests report download, upload, HTTP latency and jitter, with selectable network paths.",
+          "source_url": "https://github.com/SophonTrace/OpenLnku/blob/c971094031228addb3097540788a55e5ff75a143/README.md"
+        }
+      ]
+    },
+    "4942d538aa80608180f41ac2193e0542b6e39df8f9b962bdf5def7c095948369": {
+      "project_url": "https://github.com/openturns/openturns",
+      "text": "OpenTURNS is a C++ and Python scientific library for adding probabilistic analysis to engineering studies. It supplies a data model and algorithms for treating uncertainty in industrial applications, allowing engineers to work beyond purely deterministic models. The library is installed from binaries or built from source and used within C++ or Python analysis programs.",
+      "sources": [
+        {
+          "url": "https://github.com/openturns/openturns/blob/e28522b93b021c3bf1fc20b102e915cc0ac43547/README.rst",
+          "title": "OpenTURNS official documentation",
+          "revision": "e28522b93b021c3bf1fc20b102e915cc0ac43547"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Uncertainty analysis",
+          "text": "The library provides a data model and algorithms dedicated to treating uncertainty in engineering studies.",
+          "source_url": "https://github.com/openturns/openturns/blob/e28522b93b021c3bf1fc20b102e915cc0ac43547/README.rst"
+        }
+      ]
+    },
+    "49e456f5cbeb17bf822138a62ca7679162d30270e670e370c1dacb399eadafaf": {
+      "project_url": "https://github.com/opensees/opensees",
+      "text": "OpenSees is a software framework for finite-element simulation of structural and geotechnical systems. Developed for earthquake-engineering research, it also supports studying structural response to other natural hazards. Users run applications built on the framework, while developers can extend those applications or build their own; source-build instructions cover Windows, Linux and macOS.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenSees/OpenSees/blob/84b34448ca200c633cc08cd16d25646c6376e1bf/README.md",
+          "title": "OpenSees official documentation",
+          "revision": "84b34448ca200c633cc08cd16d25646c6376e1bf"
+        },
+        {
+          "url": "https://opensees.github.io/OpenSeesDocumentation/",
+          "title": "OpenSees framework and application documentation"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Structural response simulation",
+          "text": "The framework models dynamic response in structural and geotechnical systems.",
+          "source_url": "https://opensees.github.io/OpenSeesDocumentation/"
+        },
+        {
+          "title": "Extensible applications",
+          "text": "Developers can extend existing OpenSees applications or build applications using the framework.",
+          "source_url": "https://opensees.github.io/OpenSeesDocumentation/"
+        }
+      ]
+    },
+    "49f53ec38535704380cc1f653d7120d48077434858929834453fcc3561117e8d": {
+      "project_url": "https://www.openconcerto.org",
+      "text": "OpenConcerto is business-management software combining sales, customer relationships, purchasing, inventory, invoicing, accounting and payroll. It serves small organizations through a single workstation or a multiuser installation on their own server, with a hosted cloud option. Windows, Linux and macOS clients provide access to the same modular system, including order preparation and project-management functions.",
+      "sources": [
+        {
+          "url": "https://www.openconcerto.org:443/fr/index.html",
+          "title": "OpenConcerto official documentation"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Business operations",
+          "text": "Sales, purchasing, inventory, invoicing, accounting and payroll are available within the same system.",
+          "source_url": "https://www.openconcerto.org:443/fr/index.html"
+        },
+        {
+          "title": "Deployment choices",
+          "text": "Organizations can use a single workstation, their own multiuser server or the vendor-hosted cloud offering.",
+          "source_url": "https://www.openconcerto.org:443/fr/index.html"
+        }
+      ]
+    },
+    "4a547953988b93f4b4c3bd98d7b1be32475659c7665d235b3fd80845a3e53884": {
+      "project_url": "https://github.com/a-funk/open-appleremote",
+      "text": "open-appleremote is a Python package for reading first-generation Apple Siri Remotes on Linux through BlueZ. It unlocks the device and decodes touch, button and gesture reports into events for other applications. Command-line monitors and a local web lab inspect those events, while capture replay supports development without a connected remote. Newer remote generations are not supported.",
+      "sources": [
+        {
+          "url": "https://github.com/a-funk/open-appleremote/blob/1e6e190c3c29a3d2d8cad2c38c09f8953e9633e3/README.md",
+          "title": "open-appleremote official documentation",
+          "revision": "1e6e190c3c29a3d2d8cad2c38c09f8953e9633e3"
+        }
+      ],
+      "checked_at": "2026-10-28",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI review by Junge (AI) of the cited official documentation on 2026-10-28. Summary and feature claims checked together; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Decoded event streams",
+          "text": "Monitor commands output touch, button and gesture events as line-delimited JSON.",
+          "source_url": "https://github.com/a-funk/open-appleremote/blob/1e6e190c3c29a3d2d8cad2c38c09f8953e9633e3/README.md"
+        },
+        {
+          "title": "Capture replay",
+          "text": "Saved reports can be replayed through monitoring, gesture and lab tools without a physical remote.",
+          "source_url": "https://github.com/a-funk/open-appleremote/blob/1e6e190c3c29a3d2d8cad2c38c09f8953e9633e3/README.md"
+        }
+      ]
     }
   }
 }
