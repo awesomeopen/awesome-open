@@ -191,6 +191,7 @@
 | [OpenNebula](https://github.com/OpenNebula/one) | Cloud and edge computing management platform.<br>Alternative to: [VMware](https://opennebula.io/open-alternative-to-vmware/) |
 | [OpenNMS](https://github.com/OpenNMS/opennms) | Network management and monitoring platform. |
 | [OpenObserve](https://github.com/openobserve/openobserve) | Observability platform for logs, metrics, traces, and user monitoring.<br>Alternative to: [Datadog](https://github.com/openobserve/openobserve#readme), [Splunk](https://github.com/openobserve/openobserve#readme), [Elasticsearch](https://github.com/openobserve/openobserve#readme) |
+| [OpenPanel](https://openpanel.com/) | Multi-user web hosting control panel with per-user containers, website management, and configurable server services. |
 | [Open Policy Agent](https://github.com/open-policy-agent/opa) | General-purpose policy engine. |
 | [OpenResty](https://github.com/openresty/openresty) | Web application platform based on Nginx and LuaJIT. |
 | [OpenSearch](https://github.com/opensearch-project/OpenSearch) | Distributed search and analytics engine with a REST API.<br>Alternative to: [Elasticsearch](https://docs.opensearch.org/latest/migration-assistant/), [Apache Solr](https://docs.opensearch.org/latest/migration-assistant/solr-migration/) |
@@ -399,6 +400,7 @@
 | --- | --- |
 | [OBS Studio](https://github.com/obsproject/obs-studio) | Live streaming and screen recording. |
 | [OpenAL Soft](https://github.com/kcat/openal-soft) | Cross-platform implementation of the OpenAL 3D audio API. |
+| [OpenArt](https://openart.ai/) | Hosted AI platform for generating and editing images and videos, with reusable characters and multi-model creative workflows. |
 | [Open Asset Import Library](https://github.com/assimp/assimp) | C and C++ library for importing, exporting, and post-processing 3D models through a shared scene representation. |
 | [OpenAudible](https://openaudible.org) | Desktop audiobook manager for downloading, organizing, playing, and converting Audible libraries. |
 | [OpenBRender](https://github.com/GPTchatly/OpenBRender) | Browser-based scientific figure editor with vector artwork, editable charts, statistical comparisons, portable projects, and image and PDF export. |
@@ -555,6 +557,7 @@
 | [OpenGeoSys](https://gitlab.opengeosys.org/ogs/ogs) | Finite-element framework for simulating coupled thermal, hydraulic, mechanical, and chemical processes in porous and fractured media. |
 | [OpenIPSL](https://github.com/OpenIPSL/OpenIPSL) | Modelica component library for power-system dynamic analysis. |
 | [OpenLayout](https://github.com/vhdani04/OpenLayout) | Custom-IC design environment combining schematic capture, circuit simulation, layout, design-rule checks, and parasitic extraction for ASAP7. |
+| [openLCA](https://github.com/GreenDelta/olca-app) | Desktop software for life-cycle assessment, environmental footprint analysis, and sustainability modeling. |
 | [OpenMC](https://github.com/openmc-dev/openmc) | Monte Carlo particle transport simulation. |
 | [OpenMDAO](https://github.com/OpenMDAO/OpenMDAO) | Python platform for systems analysis and multidisciplinary optimization. |
 | [OpenMesh](https://www.graphics.rwth-aachen.de/software/openmesh/) | C++ library with Python bindings for representing and manipulating polygonal meshes. |
@@ -566,6 +569,7 @@
 | [OpenMVG](https://github.com/openMVG/openMVG) | C++ libraries and pipelines for reconstructing 3D scenes from images using multiple-view geometry and structure from motion. |
 | [OpenMVS](https://github.com/cdcseacave/openMVS) | Multi-view stereo reconstruction library for producing dense point clouds and textured 3D meshes. |
 | [OpenMx](https://github.com/OpenMx/OpenMx) | Structural equation modeling package for R. |
+| [OpenPNM](https://github.com/PMEAL/OpenPNM) | Python framework for pore-network modeling and simulations of porous materials. |
 | [OpenQuake Engine](https://github.com/gem/oq-engine) | Seismic hazard and risk analysis. |
 | [OpenRadioss](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/4816906) | Finite-element solver for nonlinear dynamic, crash, and impact simulation. |
 | [OpenRoads Designer](https://www.bentley.com/products/openroads-designer/) | Road and highway design software with terrain and corridor modeling, drainage tools, and synchronized 2D plans and 3D models. |
