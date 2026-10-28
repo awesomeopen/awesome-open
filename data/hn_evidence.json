@@ -143134,6 +143134,7 @@
     "projects_used": 19,
     "project_limit": 50,
     "attempted_urls": [
+      "https://github.com/diggerhq/opencomputer",
       "https://github.com/mvschwarz/openrig",
       "https://www.infradead.org/openconnect",
       "https://www.openbox.ai",
@@ -143151,8 +143152,7 @@
       "https://www.openstack.org/software",
       "https://www.opensuse.org",
       "https://www.opentext.com/products/content-manager",
-      "https://www.redhat.com/en/technologies/cloud-computing/openshift",
-      "https://github.com/diggerhq/opencomputer"
+      "https://www.redhat.com/en/technologies/cloud-computing/openshift"
     ],
     "lane_projects": {
       "new": 0,
@@ -143167,8 +143167,8 @@
   },
   "selection_report": {
     "catalog_projects": 545,
-    "due_projects": 19,
-    "attempted_projects": 19,
+    "due_projects": 0,
+    "attempted_projects": 0,
     "current_window_projects": 545,
     "never_attempted_projects": 0
   },
