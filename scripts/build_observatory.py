@@ -15,6 +15,7 @@ from pathlib import Path
 from build_catalog import canonical_url
 import re
 import shutil
+from update_hn import chart_displayable
 
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
 RECENCY = [
@@ -546,7 +547,7 @@ def coverage(catalog, hn):
         deployment=sum(bool(p.get("deployment")) for p in projects),
         artwork=sum(bool(p.get("artwork")) for p in projects),
         hn_tracked=len(tracked),
-        hn_eligible=sum(p.get("eligible") is True for p in tracked),
+        hn_eligible=sum(chart_displayable(p) for p in tracked),
         hn_unique_stories=len(ids),
         hn_project_matches=matches,
         hn_window_start=hn.get("window_start"),

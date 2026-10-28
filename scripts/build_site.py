@@ -629,7 +629,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
     inline_chart = ""
     if project["hn"]:
         attention = project["hn"]
-        inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched stories" loading="lazy">'
+        inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched {"story" if attention["total_stories"] == 1 else "stories"}" loading="lazy">'
     leader_categories = project.get("leader_categories", [])
     leader_label = (
         " / ".join(categories[c] for c in leader_categories)
@@ -861,11 +861,12 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None):
         aliases=project_aliases.load_optional(root / project_aliases.PATH),
         history=project_history.load_optional(root / project_history.PATH),
     )
+    display = display_hn_evidence(source, evidence)
     if evidence.get("months"):
         catalog["hn_window"] = {
             "first": evidence["months"][0],
             "last": evidence["months"][-1],
-            "monthly_maximum": evidence.get("shared_monthly_maximum"),
+            "monthly_maximum": display["shared_monthly_maximum"],
         }
     footer_assets = discover_footer_art(root)
     catalog["footer_backgrounds"] = list(footer_assets)
@@ -884,7 +885,7 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None):
     ledger = render_html(catalog, script_url=script_url, root=root)
     # Validate charts before touching generated files. The renderer is shared with README.
     charts = {
-        p["slug"]: hn.svg(p, evidence) for p in display_hn_evidence(source, evidence)["projects"] if p["eligible"]
+        p["slug"]: hn.svg(p, display) for p in display["projects"] if hn.chart_displayable(p)
     }
     star_charts = {
         p["star_history"]["chart_url"]: star_history.svg(p)

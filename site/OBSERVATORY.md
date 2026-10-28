@@ -38,7 +38,9 @@ forecast model. The main-only publisher includes the route automatically.
 - Coverage is whole-collection, labeled “Whole collection” and unaffected by filters. Optional
   provider counts distinguish checked/cached and available/partial/stale/missing.
   Scorecard is coverage only; there is no combined security score or verdict.
-- HN coverage counts tracked and chart-eligible projects separately. Story IDs
+- HN coverage counts tracked and chart-eligible projects separately. A chart-eligible
+  project has at least one verified story in its completed current-window collection,
+  independent of the historical `eligible` flag retained in the evidence. Story IDs
   deduplicate within a project and globally; project–story matches can exceed
   globally distinct stories. This hand-mapped subset is not representative.
 - Star-history coverage is separate from present stars. It means monthly stars

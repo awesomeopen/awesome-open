@@ -265,9 +265,9 @@ class ObservatoryAccountingTests(unittest.TestCase):
 
     def test_hn_global_dedup_and_partial_scorecard_remain_explicit(self):
         catalog=fixture()
-        hn=dict(projects=[dict(readme_url='https://github.com/Example/Alpha/',eligible=True,stories=[{'id':'1'},{'id':'1'},{'id':'2'}]),dict(readme_url='https://example.com/beta',eligible=False,stories=[{'id':'2'}])])
+        hn=dict(projects=[dict(readme_url='https://github.com/Example/Alpha/',eligible=True,story_count=2,stories=[{'id':'1'},{'id':'1'},{'id':'2'}]),dict(readme_url='https://example.com/beta',eligible=False,story_count=1,stories=[{'id':'2'}])])
         covered=obs.coverage(catalog,hn)
-        self.assertEqual((covered['hn_tracked'],covered['hn_eligible'],covered['hn_unique_stories'],covered['hn_project_matches']),(2,1,2,3))
+        self.assertEqual((covered['hn_tracked'],covered['hn_eligible'],covered['hn_unique_stories'],covered['hn_project_matches']),(2,2,2,3))
         self.assertEqual(covered['scorecard']['states'],{'not checked':2,'partial':1})
         self.assertEqual(covered['release']['states'],{'not checked':2,'stale':1})
 

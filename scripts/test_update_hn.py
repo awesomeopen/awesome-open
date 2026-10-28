@@ -13,7 +13,7 @@ import update_hn as hn
 
 class HistoryTests(unittest.TestCase):
     def setUp(self):
-        self.project = {'name': 'OpenThing', 'slug': 'openthing', 'domains': ['openthing.org'], 'repositories': ['org/openthing'], 'title_aliases': ['OpenThing'], 'readme_url': 'https://github.com/org/openthing', 'eligible': True, 'monthly_counts': [0, 3] + [0] * 22, 'search_url': 'https://hn.algolia.com/?q=OpenThing&type=story'}
+        self.project = {'name': 'OpenThing', 'slug': 'openthing', 'domains': ['openthing.org'], 'repositories': ['org/openthing'], 'title_aliases': ['OpenThing'], 'readme_url': 'https://github.com/org/openthing', 'eligible': True, 'story_count': 3, 'monthly_counts': [0, 3] + [0] * 22, 'search_url': 'https://hn.algolia.com/?q=OpenThing&type=story'}
         self.evidence = {'projects': [self.project], 'months': hn.window(datetime(2026, 10, 3, tzinfo=timezone.utc))[2], 'shared_monthly_maximum': 6}
 
     def test_completed_month_window(self):

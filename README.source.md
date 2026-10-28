@@ -720,7 +720,7 @@
 
 Entry format: Open*, open*, OPEN*, spaces, hyphens etc. Open-source and proprietary software. Projects may appear in more than one category. Repository metadata is refreshed daily. Dates show GitHub repository creation followed by the last push (UTC), then a known SPDX license and star count. A bold last-push date is at least 12 calendar months old. Non-GH projects omit these statistics.
 
-**Bold names** mark the top three GitHub repositories by stars within each category; entries remain alphabetical. Small bars show monthly Hacker News story submissions mentioning the project over 24 completed months, oldest at left, on one shared square-root scale. Click a chart to browse HN. Attention includes praise, criticism, and controversy. Charts cover a researched subset with meaningful history. [Method, coverage, and sources](CONTRIBUTING.md#hacker-news-attention-sparklines).
+**Bold names** mark the top three GitHub repositories by stars within each category; entries remain alphabetical. Small bars show monthly Hacker News story submissions mentioning the project over 24 completed months, oldest at left, on one shared square-root scale. Click a chart to browse HN. Attention includes praise, criticism, and controversy. Charts appear when a completed collection has at least one verified matching story. [Method, coverage, and sources](CONTRIBUTING.md#hacker-news-attention-sparklines).
 
 ## Contributing, license
 

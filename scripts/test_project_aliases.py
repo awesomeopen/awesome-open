@@ -212,4 +212,4 @@ class AliasRenderTests(unittest.TestCase):
         self.assertEqual(evidence, before)
         self.assertEqual(display['queue'], evidence['queue'])
         self.assertEqual(current['story_count'], original['story_count'])
-        self.assertEqual(display['shared_monthly_maximum'], evidence['shared_monthly_maximum'])
+        self.assertEqual(display['shared_monthly_maximum'], max(1, *(max(p['monthly_counts']) for p in evidence['projects'] if p['story_count'] > 0)))
