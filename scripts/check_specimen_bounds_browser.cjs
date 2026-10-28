@@ -33,12 +33,22 @@ function stableLayoutSample({ selector, reset = false }) {
   return frames >= 3;
 }
 
-async function waitForSpecimenLayout(page, selector = '.specimen-plate') {
+async function waitForSpecimenLayout(page, selector = '.specimen-plate', noJavaScript = false) {
   await page.locator(selector + ' .plate-art img').evaluate(image => image.decode());
   await page.evaluate(() => document.fonts.ready);
   await page.evaluate(stableLayoutSample, { selector, reset: true });
   try {
-    await page.waitForFunction(stableLayoutSample, { selector }, { polling: 'raf', timeout: 5000 });
+    if (noJavaScript) {
+      // Browser timers do not reliably run with page JavaScript disabled.
+      // Drive bounded condition polling from Node, not a fixed layout delay.
+      const deadline = Date.now() + 5000;
+      while (!await page.evaluate(stableLayoutSample, { selector })) {
+        assert.ok(Date.now() < deadline, 'No-JS specimen layout did not stabilize');
+        await new Promise(resolve => setTimeout(resolve, 16));
+      }
+    } else {
+      await page.waitForFunction(stableLayoutSample, { selector }, { polling: 'raf', timeout: 5000 });
+    }
   } finally {
     await page.evaluate(stableLayoutSample, { selector, reset: true });
   }
@@ -233,10 +243,14 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
     const staticPage = await noJS.newPage();
     await staticPage.goto(new URL(`records/${cases[0].id}.html`, url).href);
     await staticPage.locator('.plate-art img').evaluate(image => image.decode());
-    await waitForSpecimenLayout(staticPage);
+    // requestAnimationFrame polling is unavailable in a JavaScript-disabled context.
+    // Poll the same readiness condition instead; geometry assertions stay identical.
+    await waitForSpecimenLayout(staticPage, '.specimen-plate', true);
     assertGeometry(await measure(staticPage), 'No-JS static record');
     await staticPage.emulateMedia({ media: 'print' });
-    await waitForSpecimenLayout(staticPage);
+    // requestAnimationFrame polling is unavailable in a JavaScript-disabled context.
+    // Poll the same readiness condition instead; geometry assertions stay identical.
+    await waitForSpecimenLayout(staticPage, '.specimen-plate', true);
     assertGeometry(await measure(staticPage), 'Printed no-JS static record');
   } finally { await noJS.close(); }
   const touch = await browser.newContext({ hasTouch: true, viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
@@ -254,3 +268,5 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
 
 module.exports.stableLayoutSample = stableLayoutSample;
 module.exports.assertGeometry = assertGeometry;
+
+module.exports.waitForSpecimenLayout = waitForSpecimenLayout;

@@ -57,3 +57,15 @@ test('unchanged geometry assertion rejects a misplaced leader', () => {
   assert.doesNotThrow(() => assertGeometry(m, 'valid'));
   assert.throws(() => assertGeometry({ ...m, leaderY: [111] }, 'wrong'), /leader follows subject baseline/);
 });
+test('no-JS readiness polls from Node without browser timers', async () => {
+  const { waitForSpecimenLayout } = require('./check_specimen_bounds_browser.cjs');
+  let samples = 0;
+  const page = {
+    locator: () => ({ evaluate: async () => undefined }),
+    evaluate: async (fn, arg) => { if (arg && !arg.reset) samples++; return fn(arg); },
+    waitForFunction: () => { throw new Error('No browser timer in no-JS context'); },
+  };
+  await waitForSpecimenLayout(page, '.specimen-plate', true);
+  assert.equal(samples, 3);
+  assert.equal(plate.__boundsReadiness, undefined);
+});
