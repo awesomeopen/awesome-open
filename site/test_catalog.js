@@ -1379,3 +1379,35 @@ test('fully rendered ledgers and single-record pages enhance without fetching or
     assert.equal(ui.document.querySelectorAll('.specimen-plate').length, ui.records.length);
   }
 });
+
+test("empty-search reset preserves the query and restores all-category results", () => {
+  const ui = fixture();
+  catalog.init(ui.document, ui.window);
+  ui.ids["category-filter"].value = "tools";
+  ui.ids.search.value = "beta";
+  ui.ids.search.fire("change");
+  assert.equal(ui.ids["empty-state"].hidden, false);
+  const reset = ui.ids["empty-state"].children.at(-1);
+  assert.equal(reset.textContent, "Reset filters.");
+  reset.fire("click");
+  assert.equal(ui.ids.search.value, "beta");
+  assert.equal(ui.ids["category-filter"].value, "");
+  assert.equal(ui.ids["empty-state"].hidden, true);
+  assertVisiblePositions(ui, ["open-beta"]);
+  ui.window.history.go(-1);
+  assert.equal(ui.ids["category-filter"].value, "tools");
+  assert.equal(ui.ids["empty-state"].hidden, false);
+});
+
+test("query and sort alone show the plain empty state", () => {
+  const ui = fixture();
+  catalog.init(ui.document, ui.window);
+  ui.ids.search.value = "unfindable";
+  ui.ids["sort-order"].value = "name";
+  ui.ids.search.fire("change");
+  assert.equal(ui.ids["empty-state"].textContent, "No matches found.");
+  assert.equal(ui.ids["empty-state"].children.length, 0);
+  ui.ids["license-filter"].value = "MIT";
+  ui.ids["license-filter"].fire("change");
+  assert.equal(ui.ids["empty-state"].children.at(-1).textContent, "Reset filters.");
+});

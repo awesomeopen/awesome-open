@@ -7,7 +7,7 @@
 .jar-page .header-search input,.jar-page .header-search .search-input>span {color:var(--rs-blueprint);}
 .jar-hall {margin:0 32px;color:var(--rs-blueprint);}
 .jar-scroll {overflow:visible;}
-.jar-stage {display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));height:380px;max-width:980px;margin:auto;position:relative;}
+.jar-stage {display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));height:380px;max-width:808px;margin:auto;position:relative;}
 /* A shallow footprint arc, rather than a broad shaded wall. */
 .jar-stage::before {content:"";position:absolute;left:0;right:0;bottom:32px;height:38px;pointer-events:none;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20980%2038%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22soft%22%20x%3D%22-10%25%22%20y%3D%22-100%25%22%20width%3D%22120%25%22%20height%3D%22300%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%2F%3E%3C%2Ffilter%3E%3ClinearGradient%20id%3D%22fade%22%3E%3Cstop%20stop-color%3D%22%230b2546%22%20stop-opacity%3D%220%22%2F%3E%3Cstop%20offset%3D%22.1%22%20stop-color%3D%22%230b2546%22%20stop-opacity%3D%22.1%22%2F%3E%3Cstop%20offset%3D%22.9%22%20stop-color%3D%22%230b2546%22%20stop-opacity%3D%22.1%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230b2546%22%20stop-opacity%3D%220%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M74%2026%20Q490%202%20906%2026%22%20fill%3D%22none%22%20stroke%3D%22url%28%23fade%29%22%20stroke-width%3D%227%22%20filter%3D%22url%28%23soft%29%22%2F%3E%3C%2Fsvg%3E") center / 100% 100% no-repeat;}
 .jar-exhibit {position:relative;min-width:0;--setback:0px;--mx:0px;--my:0px;--reflection-x:0px;--shadow-scale:.82;--inner-x:0px;--inner-y:0px;--glass-light:.18;}
@@ -97,8 +97,8 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 .jar-motion-toggle {position:absolute;right:0;bottom:0;z-index:8;border:0;background:white;color:var(--rs-muted);font:14px var(--mono);width:44px;height:40px;padding:0;text-decoration:none;}
 .jar-motion-toggle[hidden] {display:none;}
 .jar-uplight,.jar-led,.jar-steam,.jar-lid {position:absolute;pointer-events:none;}
-.jar-uplight {inset:0;z-index:3;background:linear-gradient(to top,transparent 0%,rgb(var(--smoke-rgb) / .48) 9%,rgb(var(--smoke-rgb) / .12) 17%,transparent 29%);mask-image:var(--glass-mask);mask-size:100% 100%;mask-repeat:no-repeat;mix-blend-mode:normal;opacity:0;transition:opacity .6s ease;}
-.jar-led {z-index:4;left:var(--sx);width:var(--sw);height:8px;bottom:calc(var(--display-foot) + 1px);border-radius:50%;background:radial-gradient(ellipse,color-mix(in srgb,rgb(var(--smoke-rgb)),white 65%) 5%,rgb(var(--smoke-rgb)) 35%,transparent 72%);filter:blur(1px);opacity:0;transition:opacity .6s ease;}
+.jar-uplight {inset:0;z-index:3;background:linear-gradient(to top,transparent 0%,color-mix(in srgb,var(--rs-emerald-art) 48%,transparent) 9%,color-mix(in srgb,var(--rs-emerald-art) 12%,transparent) 17%,transparent 29%);mask-image:var(--glass-mask);mask-size:100% 100%;mask-repeat:no-repeat;mix-blend-mode:normal;opacity:0;transition:opacity .6s ease;}
+.jar-led {z-index:4;left:var(--sx);width:var(--sw);height:8px;bottom:calc(var(--display-foot) + 1px);border-radius:50%;background:radial-gradient(ellipse,color-mix(in srgb,var(--rs-emerald-art),white 65%) 5%,var(--rs-emerald-art) 35%,transparent 72%);filter:blur(1px);opacity:0;transition:opacity .6s ease;}
 .is-active .jar-uplight,.is-active .jar-led {opacity:.75;}
 .specimen-idle {position:absolute;inset:0;filter:none;transition:filter .6s ease;}
 .is-active .specimen-idle {filter:brightness(1.09) contrast(1.045);}
@@ -108,7 +108,7 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 .jar-lid {inset:0;width:100%;height:100%;max-width:none;z-index:5;clip-path:inset(0 0 calc(100% - var(--lid-cut)));transform-origin:65% var(--lid-cut);transition:transform .8s cubic-bezier(.22,.7,.2,1);}
 .photo-ready .is-active .jar-lid {transform:translateY(-4px) rotate(-12deg);}
 /* Each fixed strand fades once, in close succession. */
-.jar-steam {z-index:4;left:calc(50% - 28px);top:calc(var(--mouth) - 78px);width:56px;height:60px;overflow:visible;color:rgb(var(--smoke-rgb, 255 0 180));}
+.jar-steam {z-index:4;left:calc(50% - 28px);top:calc(var(--mouth) - 78px);width:56px;height:60px;overflow:visible;color:var(--rs-emerald-art);}
 .jar-steam text {fill:currentColor;stroke:none;font:20px "DejaVu Sans","Segoe UI Symbol","Apple Symbols",sans-serif;opacity:0;}
 .photo-ready .is-active .steam-strand {animation:steam-fade 1.6s ease-in-out .2s 1 both;}
 .photo-ready .is-active .steam-strand:nth-child(2) {animation-delay:.5s;}
@@ -124,8 +124,8 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 }
 
 /* Grounded LED source and colored spill: move with the contact shadow, independently of the glass. */
-.jar-shadow::after {content:"";position:absolute;inset:0 14%;background:radial-gradient(ellipse,rgb(var(--smoke-rgb) / .36),rgb(var(--smoke-rgb) / .10) 32%,transparent 68%);opacity:0;transition:opacity .6s ease;}
-.jar-light-source {position:absolute;z-index:2;left:calc(50% - 2px);bottom:calc(42px + var(--setback));width:4px;height:3px;border-radius:50%;background:color-mix(in srgb,rgb(var(--smoke-rgb)),white 65%);box-shadow:0 0 3px 1px rgb(var(--smoke-rgb));opacity:0;pointer-events:none;transform:translateX(calc(var(--mx)*.6));transition:opacity .6s ease;}
+.jar-shadow::after {content:"";position:absolute;inset:0 14%;background:radial-gradient(ellipse,color-mix(in srgb,var(--rs-emerald-art) 36%,transparent),color-mix(in srgb,var(--rs-emerald-art) 10%,transparent) 32%,transparent 68%);opacity:0;transition:opacity .6s ease;}
+.jar-light-source {position:absolute;z-index:2;left:calc(50% - 2px);bottom:calc(42px + var(--setback));width:4px;height:3px;border-radius:50%;background:color-mix(in srgb,var(--rs-emerald-art),white 65%);box-shadow:0 0 3px 1px var(--rs-emerald-art);opacity:0;pointer-events:none;transform:translateX(calc(var(--mx)*.6));transition:opacity .6s ease;}
 .photo-ready .is-active .jar-shadow::after,.photo-ready .is-active .jar-light-source {opacity:.75;}
 @media(prefers-reduced-motion:reduce){.jar-light-source{transform:none;transition:none;}.jar-shadow::after{transition:none;}}
 

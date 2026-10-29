@@ -529,7 +529,7 @@ def specimen_plate(project, number, tags, function_detail, grid, cutout, variant
             notes = f'<ol class="plate-notes" aria-label="Feature notes">{items}</ol>'
         label = ""
     host = repository_host(project["url"])
-    departure_label = f"Explore {name}" + (f" on {host}" if host else "")
+    departure_label = f"{name}" + (f" on {host}" if host else "")
     address = escape(project["url"].removeprefix("https://").removeprefix("http://"))
     return (
         f'<div class="specimen-interior specimen-plate{"" if art else " without-art"}" aria-labelledby="name-{pid}">'
@@ -539,7 +539,7 @@ def specimen_plate(project, number, tags, function_detail, grid, cutout, variant
         f'<div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description{" is-long" if len(project["description"]) > 90 else ""}">{escape(project["description"])}</p>{function_detail}</div>'
         f"{specimen}{notes}{label}</div>"
         + f'<div class="plate-grid">{grid}'
-        f'<nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">In the wild</span><a href="{url}"><span>{departure_label}</span>'
+        f'<nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">Explore</span><a href="{url}"><span>{departure_label}</span>'
         f'<span class="departure-arrow" aria-hidden="true">↗</span></a><span class="departure-address">{address}</span></nav></div></div>'
     )
 
@@ -775,7 +775,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
   </form></div>
   <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Follow its full-record link for evidence and printing. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
   <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="name">Name A–Z</option><option value="stars" selected>Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
-  <p id="project-link-notice" class="link-notice" role="status" hidden></p><p id="empty-state" class="empty-state" hidden>No projects match these filters. Try a broader search or reset filters.</p>
+  <p id="project-link-notice" class="link-notice" role="status" hidden></p><p id="empty-state" class="empty-state" hidden>No matches found.</p>
   <div id="project-list" class="project-list">{projects}</div>
  </main>
 </div>
