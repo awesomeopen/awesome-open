@@ -428,7 +428,17 @@ def timeline(created, release, pushed, events=()):
         if events
         else f'role="img" aria-label="{escape(summary)}"'
     )
-    return f'<div class="timeline" {role}{raised}><span class="timeline-axis"></span>{span}{years}{"".join(marks)}{"".join(labels)}</div>'
+    spacer = ""
+    if not dated and len(events) == 1:
+        day, title, _ = events[0]
+        position = pct(day)
+        room = position if position > 55 else round(100 - position, 2)
+        # Match the anchored label's wrap width; its bottom is 34px below the
+        # timeline's top. The invisible copy reserves its actual text height.
+        spacer = (f'<div class="timeline-rename-space" aria-hidden="true">'
+                  f'<div style="width:{room}%">{escape(title)} (i)'
+                  f'<span class="timeline-date">{day.isoformat()}</span></div></div>')
+    return spacer + f'<div class="timeline" {role}{raised}><span class="timeline-axis"></span>{span}{years}{"".join(marks)}{"".join(labels)}</div>'
 
 
 def specimen_label(project, tags, number):

@@ -55,7 +55,9 @@ creation/release/push retain their literal meanings. The axis spans all
 verified dates, including events before the current repository existed; the
 repository lifetime segment still starts at repository creation. Missing
 repository dates are omitted, without hiding a verified project-name event.
-Records without reviewed history keep their existing timeline unchanged.
+A single rename with no repository dates reserves space for its wrapped label.
+Source popups use the available timeline width and stay beside their label when
+space permits. Records without reviewed history keep their existing timeline unchanged.
 
 Approximate/unknown occurrence dates, review dates and first observations never
 enter the axis or future monthly occurrence counts. Events without an exact date

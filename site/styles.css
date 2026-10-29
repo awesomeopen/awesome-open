@@ -1308,13 +1308,15 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .timeline-mark.is-rename {width:11px;height:11px;margin-left:-5.5px;top:41px;border-radius:0;transform:rotate(45deg);}
 .timeline:has(.is-rename) {container-type:inline-size;}
 .timeline-label.is-rename {width:max-content;white-space:normal;}
+.timeline-rename-space {margin:0 6px;visibility:hidden;font:11px/1.35 var(--mono);}
+.timeline-rename-space + .timeline {margin-top:-34px;}
 .timeline-info {display:inline;}
 .timeline-date {display:block;}
 .timeline-info summary {display:inline;cursor:pointer;list-style:none;color:var(--rs-blueprint);}
 .timeline-info summary::-webkit-details-marker {display:none;}
 .timeline-info summary:focus-visible {outline:2px solid var(--rs-scarlet);outline-offset:2px;}
-.timeline-info-panel {position:absolute;z-index:2;top:100%;left:0;width:min(26rem,calc(var(--room) * 1cqw));margin-top:6px;padding:4px 12px;box-sizing:border-box;background:white;border:1px solid var(--rs-blueprint);text-align:left;font:.6875rem/1.5 var(--mono);overflow-wrap:anywhere;}
-.is-right .timeline-info-panel {left:auto;right:0;}
+.timeline-info-panel {position:absolute;z-index:2;top:100%;left:min(0px,calc(var(--room) * 1cqw - min(26rem,100cqw)));width:min(26rem,100cqw);margin-top:6px;padding:4px 12px;box-sizing:border-box;background:white;border:1px solid var(--rs-blueprint);text-align:left;font:.6875rem/1.5 var(--mono);overflow-wrap:anywhere;}
+.is-right .timeline-info-panel {left:auto;right:min(0px,calc(var(--room) * 1cqw - min(26rem,100cqw)));}
 .timeline-info-panel p {margin:8px 0;}
 .history-evidence {margin-top:24px;font-size:.75rem;overflow-wrap:anywhere;}
 .history-evidence summary {cursor:pointer;}

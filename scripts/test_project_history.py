@@ -44,6 +44,7 @@ class HistoryTests(unittest.TestCase):
             'value': '2015-07-03', 'precision': 'day', 'basis': 'implementation',
             'source_url': 'https://github.com/dmfs/opentasks/commit/89df3527f999fc1af885097a0e847002314e9dc8'})
         line = timeline(None, None, None, history_view.timeline_events([event]))
+        self.assertIn('class="timeline-rename-space" aria-hidden="true"', line)
         self.assertIn('Renamed: Tasks → OpenTasks', line)
         self.assertIn('2015-07-03', line)
         self.assertIn(event['occurred']['source_url'], line)
