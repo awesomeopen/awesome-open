@@ -119,6 +119,7 @@
 | [openalias](https://github.com/cypherstack/openalias) | Dart library for parsing OpenAlias records and resolving recipients with locally validated DNSSEC. |
 | [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) | Generate client libraries, server stubs, and documentation from OpenAPI specifications. |
 | [OpenAPI TypeScript](https://github.com/openapi-ts/openapi-typescript) | Generate TypeScript types from OpenAPI 3 specifications. |
+| [OpenArtifact](https://github.com/openartifact/openartifact) | Self-hosted artifact repository for storing and serving software packages and container images, with hosted, proxy, and group repositories. |
 | [OpenBarcode](https://github.com/InPoint-Cloud/OpenBarcode) | .NET library and command-line tool for reading barcodes from images and PDFs using managed code. |
 | [open-bridge](https://github.com/bks-lab/open-bridge) | Git-backed workspace of context, tasks, and skills used by coding-agent command-line tools. |
 | [OpenChamber](https://github.com/openchamber/openchamber) | Desktop, web, mobile, and VS Code workspace for running and reviewing AI coding sessions powered by OpenCode. |
