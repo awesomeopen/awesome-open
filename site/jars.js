@@ -4,10 +4,6 @@
  const hall=document.querySelector('.jar-hall');if(!hall)return;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover: hover) and (pointer: fine)');
  const exhibits=[...hall.querySelectorAll('.jar-exhibit')],stage=hall.querySelector('.jar-stage');
- // Shuffle once per page: each vessel keeps its own neon hue through repeated hovers.
- const smokeColors=['255 0 180','125 45 255','0 215 255','0 235 125','200 255 0','255 90 0','255 35 90'];
- for(let i=smokeColors.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[smokeColors[i],smokeColors[j]]=[smokeColors[j],smokeColors[i]];}
- exhibits.forEach((node,i)=>node.style.setProperty('--smoke-rgb',smokeColors[i%smokeColors.length]));
  // Three distinct characters per jar, fixed until the page reloads.
  const vaporPool=[...'∰⋈⌘∑∂∇∞⊕⋇AXRkx0279'];
  exhibits.forEach(node=>{

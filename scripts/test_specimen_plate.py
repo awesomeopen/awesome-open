@@ -68,11 +68,11 @@ class PlateTests(unittest.TestCase):
         self.assertIn('Domain: <a class="tag" data-category="tools"', html)
         self.assertIn('Specimen: OpenExample (permalink)', html)
         self.assertIn('Awesome Open* · Field record', html)
-        self.assertIn('Explore OpenExample on GitHub', html)
+        self.assertIn('OpenExample on GitHub', html)
         labels = re.findall(r'<span class="sheet-label">([^<]+)</span>', html)
         # The evidence grid is fixed: every section is present without evidence (B-PR158-01).
         self.assertEqual(labels, ['I / Function', 'II / Repository record', 'III / Observations &amp; evidence',
-                                  'IV / Release record', 'V / Where it runs', 'In the wild'])
+                                  'IV / Release record', 'V / Where it runs', 'Explore'])
 
     def test_aliases_are_directly_below_heading_in_source_order(self):
         project = copy.deepcopy(PROJECT)
@@ -128,7 +128,7 @@ class PlateTests(unittest.TestCase):
                 project = copy.deepcopy(PROJECT)
                 project.update(url=url, github=None, name='Open & Example')
                 html = render(project)
-                label = 'Explore Open &amp; Example' + (f' on {host}' if host else '')
+                label = 'Open &amp; Example' + (f' on {host}' if host else '')
                 self.assertIn(f'<a href="{url}"><span>{label}</span>', html)
                 self.assertNotIn('its official site', html)
 

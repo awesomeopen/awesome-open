@@ -868,6 +868,24 @@
         ? total.toLocaleString("en-US") + " projects"
         : total.toLocaleString("en-US") + " of " + data.projects.length.toLocaleString("en-US") + " projects";
       empty.hidden = total !== 0;
+      empty.textContent = "No matches found.";
+      var hasFilters = Object.keys(DEFAULTS).some(function (key) {
+        return key !== "q" && key !== "sort" && state[key] !== DEFAULTS[key];
+      });
+      if (!total && hasFilters) {
+        var reset = document.createElement("a");
+        reset.textContent = "Reset filters.";
+        reset.href = stateToURL(window.location.href, Object.assign({}, DEFAULTS, { q: state.q })).href;
+        reset.addEventListener("click", function (event) {
+          event.preventDefault();
+          cancelPending();
+          setControls(Object.assign({}, DEFAULTS, { q: controls.q.value }));
+          apply();
+          controls.q.focus({ preventScroll: true });
+        });
+        empty.textContent += " ";
+        empty.appendChild(reset);
+      }
       linkedProject(false);
       if (endMark) {
         var selectedLink = navLinks.find(function (link) { return link.dataset.category === state.category; });

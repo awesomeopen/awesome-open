@@ -400,8 +400,10 @@ the footprints, and short individual shadows directed behind each base. There is
 no drawn arrow, shelf edge, horizon or shaded wall. Hide the shared trail in the
 no-JavaScript stacked fallback. Preserve the paper stickers and natural cork.
 
-Jar captions use the single literal space between number and name; the number
-span adds no extra margin. Rear shadows stay close to the bases, never a rising
+Jar captions show the name, shortened after 11 characters with an ellipsis,
+then the Catalog folio number on a new line. Full names remain in title attributes.
+The desktop stage has an 808px maximum width. Hover lighting and vapor use
+`--rs-emerald-art` for every jar. Rear shadows stay close to the bases, never a rising
 cloud between the jars.
 
 ### Specimen plate for every record — 2026-10-14, user-approved (B29)
@@ -441,7 +443,7 @@ sources; omit display-name duplicates and empty blocks.
   created, push, two columns each; full-width timeline), III / Observations & evidence
   (GitHub stars and HN sparklines at 5:1 on a shared baseline, a reserved box, OpenSSF
   Scorecard), IV / Release record (two), a reserved box (three), V / Where it runs
-  (three), VI / Reviewed alternatives in thirds, then “In the wild”. Numbers are
+  (three), VI / Reviewed alternatives in thirds, then “Explore”. Numbers are
   fixed. Every box keeps its place and size without evidence and reads “Unknown”;
   only the alternatives row may be absent. Reserved boxes are solid
   `--rs-verdigris-art`, `aria-hidden`, and hidden below 720px.
@@ -457,7 +459,7 @@ sources; omit display-name duplicates and empty blocks.
   and `--rs-emerald-art`, ink text; the popup starts with a colour key.
   Alternatives omit a repeated title and end their scope with “Checked&nbsp;date”.
 - **Labels and timeline:** block labels with `--rs-mist` type, no horizontal rules.
-  “I / Function” and “In the wild” use `--rs-scarlet`; grid labels II–VI use
+  “I / Function” and “Explore” use `--rs-scarlet`; grid labels II–VI use
   `--rs-muted` (6.9:1). The project name in reviewed prose is highlighted on
   `--rs-scarlet`. The timeline keeps creation/release/push and collapses to one line,
   “Repository timeline: Unknown”, without dates.
@@ -465,13 +467,13 @@ sources; omit display-name duplicates and empty blocks.
   the “(i)” opens its sources. Unknown/coarse dates and
   first-observed/review dates stay in a folded Name-change evidence block, never
   on the axis ([B-PR139-01](../brand/decisions/B-PR139-01.md),
-  [B-PR150-01](../brand/decisions/B-PR150-01.md)). “In the wild” departure on plain
+  [B-PR150-01](../brand/decisions/B-PR150-01.md)). “Explore” departure on plain
   Prussian blue inside the grid panel, with its decorative contours centered around
   the link (B-PR129-01). The repeating navy pattern remains exclusive to the footer.
-  Departure copy is “Explore [name] on [host]” for recognized repository
+  Departure copy is “[name] on [host]” for recognized repository
   destinations (GitHub, GitLab, Codeberg, Bitbucket, SourceForge), including
   explicitly reviewed self-hosted repositories. Homepage and unrecognized
-  destinations use “Explore [name]”. `scripts/repository_hosts.py` owns the
+  destinations use “[name]”. `scripts/repository_hosts.py` owns the
   presentation mapping independently of metrics collection. The canonical
   catalog URL supplies the destination; domain substrings never supply a label.
 - **Removed captions:** contour/loupe disclaimers, “Under the loupe”, timeline and flow
