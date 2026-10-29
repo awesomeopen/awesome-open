@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-28T18:03:04Z",
+  "collected_at": "2026-10-29T03:07:42Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -3174,13 +3174,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-21T18:48:59Z",
+        "checked_at": "2026-10-29T03:07:42Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-21T18:48:59Z",
+          "fetched_at": "2026-10-29T03:07:42Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "853f6abf3f7ad9d2fa20b8956e5a758441ddca1e",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -3262,7 +3262,7 @@
             "score": 4.9
           }
         },
-        "last_success_at": "2026-10-21T18:48:59Z",
+        "last_success_at": "2026-10-29T03:07:42Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/diggerhq/digger",
         "status": "available",
@@ -25758,5 +25758,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "72826c1eab81ea2a66940eb0d9af8c22d94c643c"
+  "source_sha": "ec9730071fd30d581dcdbbc40e839fdd5698e06f"
 }

@@ -28,7 +28,7 @@
     "2026-08",
     "2026-09"
   ],
-  "refreshed_utc_date": "2026-10-28",
+  "refreshed_utc_date": "2026-10-29",
   "metric": "Deduplicated HN story submissions per UTC month, regardless of points, comments or sentiment. Search coverage is best-effort and depends on the HN Algolia index.",
   "eligibility": {
     "minimum_stories": 6,
@@ -143849,45 +143849,21 @@
     }
   },
   "budget": {
-    "utc_date": "2026-10-28",
-    "requests_used": 23,
+    "utc_date": "2026-10-29",
+    "requests_used": 0,
     "limit": 160,
     "paused": false,
-    "projects_used": 23,
+    "projects_used": 0,
     "project_limit": 50,
-    "attempted_urls": [
-      "https://github.com/diggerhq/opencomputer",
-      "https://github.com/greendelta/olca-app",
-      "https://github.com/mvschwarz/openrig",
-      "https://github.com/pmeal/openpnm",
-      "https://openart.ai",
-      "https://openpanel.com",
-      "https://www.infradead.org/openconnect",
-      "https://www.openbox.ai",
-      "https://www.openconcerto.org",
-      "https://www.opendental.com",
-      "https://www.opendocrouter.ai",
-      "https://www.openeuler.org/en",
-      "https://www.openhab.org",
-      "https://www.openimis.org",
-      "https://www.openindiana.org",
-      "https://www.openldap.org/software",
-      "https://www.openmandriva.org",
-      "https://www.openoffice.org",
-      "https://www.openpli.org",
-      "https://www.openstack.org/software",
-      "https://www.opensuse.org",
-      "https://www.opentext.com/products/content-manager",
-      "https://www.redhat.com/en/technologies/cloud-computing/openshift"
-    ],
+    "attempted_urls": [],
     "lane_projects": {
-      "new": 4,
-      "refresh": 19,
+      "new": 0,
+      "refresh": 0,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 4,
-      "refresh": 19,
+      "new": 0,
+      "refresh": 0,
       "continuation": 0
     }
   },
