@@ -223,12 +223,19 @@ NAME_WHITESPACE = re.compile(
 )
 # Matching-key separators: White_Space, hyphen and underscore. Other punctuation stays.
 NAME_SEPARATORS = re.compile(NAME_WHITESPACE.pattern[:-1] + "_-]")
-NAME_TAGS = ("Case", "Spacing", "Exact duplicates")
+NAME_TAGS = ("Case", "Spacing", "Plural", "Exact duplicates")
+# Reviewed display-name match only; canonical identities and rhyme keys stay separate.
+REVIEWED_PLURALS = {"opentasks": "opentask"}
 
 
 def name_key(name):
     """Lowercase (str.lower, matching JS toLowerCase) and drop separators."""
     return NAME_SEPARATORS.sub("", name.lower())
+
+
+def shared_name_key(name):
+    key = name_key(name)
+    return REVIEWED_PLURALS.get(key, key)
 
 
 def name_anatomy(name):
@@ -245,12 +252,17 @@ def name_anatomy(name):
 
 def name_differences(names):
     parts = [name_anatomy(name) for name in names]
-    chars, gaps = parts[0]
-    at = lambda values, i: values[i] if i < len(values) else None
+    at = lambda values, i, default=None: values[i] if i < len(values) else default
     return (
-        [any(at(c, i) != chars[i] for c, _ in parts) for i in range(len(chars))],
-        [any(at(g, i) != gaps[i] for _, g in parts) for i in range(len(gaps))],
+        [len({at(c, i) for c, _ in parts}) > 1 for i in range(max(len(c) for c, _ in parts))],
+        [len({at(g, i, "") for _, g in parts}) > 1 for i in range(max(len(g) for _, g in parts))],
     )
+
+
+def has_case_difference(names):
+    parts = [name_anatomy(name)[0] for name in names]
+    return any(a != b and a.lower() == b.lower()
+               for left in parts for right in parts for a, b in zip(left, right))
 
 
 def shared_names(projects):
@@ -263,7 +275,7 @@ def shared_names(projects):
     ordered = sorted(unique.values(), key=lambda p: (p["name"], p["id"]))
     buckets = {}
     for project in ordered:
-        key = name_key(project["name"])
+        key = shared_name_key(project["name"])
         if key:
             buckets.setdefault(key, []).append(project)
     identical, variants = [], []
@@ -277,13 +289,15 @@ def shared_names(projects):
             identical.append(group)
             continue
         chars, gaps = name_differences(names)
+        plural = len({name_key(name) for name in names}) > 1
         group["tags"] = [
             tag
             for tag, present in zip(
                 NAME_TAGS,
                 [
-                    any(chars),
+                    has_case_difference(names) if plural else any(chars),
                     any(gaps),
+                    plural,
                     any(sum(p["name"] == name for p in rows) > 1 for name in names),
                 ],
             )
@@ -307,7 +321,7 @@ def shared_names(projects):
 
 
 def marked_name(name, names):
-    """Escape a displayed name, marking case and separator differences in its group."""
+    """Escape a displayed name, marking letter and separator differences in its group."""
     if len(names) < 2:
         return escape(name)
     diff_chars, diff_gaps = name_differences(names)
@@ -476,7 +490,7 @@ def shared_names_html(names, categories, selected, total, rhymes=""):
     legend = "".join(legend_items)
     group_count = len(names["identical"]) + len(names["variants"])
     summary = f"{group_count} group{'' if group_count == 1 else 's'} · {names['tool_count']} tools"
-    return f"""<section id="shared-names" class="obs-section obs-names" aria-labelledby="shared-names-heading"><h2 id="shared-names-heading"><span id="shared-name-count">{names["tool_count"]}</span> tools share a name</h2><p class="obs-lede">Each project counts once across these groups. <span id="selection-summary" role="status" aria-live="polite" aria-atomic="true">{selected:,}/{total:,} selected.</span></p><figure class="obs-tally" aria-label="One mark per tool that shares a name"><div id="name-tally" class="obs-tally-marks">{tally}</div><figcaption><ul class="obs-tally-legend">{legend}</ul></figcaption></figure><details id="name-groups" class="obs-disclosure"><summary>Show duplicate names <span id="name-group-summary" class="obs-muted">{summary}</span></summary><div id="name-group-bands">{"".join(bands)}</div><details id="name-method" class="obs-disclosure obs-method"><summary>How groups are formed</summary><ol><li>Projects are deduplicated by canonical project ID. Cross-listed projects count once.</li><li>Each displayed name gets one matching key: lowercased, with whitespace, hyphens and underscores removed.</li><li>Projects with the same key form one group. Each project belongs to at most one group, and a group needs at least two distinct projects.</li><li>Identical name: every project in the group displays the same name. Spelling variants: the displayed names differ.</li></ol><p>Tags name what differs in a variant group: Case, Spacing (whitespace, hyphen or underscore) and Exact duplicates. A group can carry several tags. Other punctuation, spelling and sound-alike names are not matched.</p></details></details>{rhymes}</section>"""
+    return f"""<section id="shared-names" class="obs-section obs-names" aria-labelledby="shared-names-heading"><h2 id="shared-names-heading"><span id="shared-name-count">{names["tool_count"]}</span> tools share a name</h2><p class="obs-lede">Each project counts once across these groups. <span id="selection-summary" role="status" aria-live="polite" aria-atomic="true">{selected:,}/{total:,} selected.</span></p><figure class="obs-tally" aria-label="One mark per tool that shares a name"><div id="name-tally" class="obs-tally-marks">{tally}</div><figcaption><ul class="obs-tally-legend">{legend}</ul></figcaption></figure><details id="name-groups" class="obs-disclosure"><summary>Show duplicate names <span id="name-group-summary" class="obs-muted">{summary}</span></summary><div id="name-group-bands">{"".join(bands)}</div><details id="name-method" class="obs-disclosure obs-method"><summary>How groups are formed</summary><ol><li>Projects are deduplicated by canonical project ID. Cross-listed projects count once.</li><li>Each displayed name gets one matching key: lowercased, with whitespace, hyphens and underscores removed.</li><li>The reviewed plural pair OpenTask / OpenTasks shares one key. Projects with the same key form one group. Each project belongs to at most one group, and a group needs at least two distinct projects.</li><li>Identical name: every project in the group displays the same name. Spelling variants: the displayed names differ.</li></ol><p>Tags name what differs in a variant group: Case, Spacing (whitespace, hyphen or underscore), Plural and Exact duplicates. A group can carry several tags. Plural matching uses the reviewed pair above; other names retain their full spelling.</p></details></details>{rhymes}</section>"""
 
 
 def aggregate(index, projects=None):

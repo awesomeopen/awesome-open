@@ -311,6 +311,7 @@
 | [OpenStats](https://github.com/gentpan/OpenStats) | macOS menu-bar system monitor with fan control, keep-awake, and cleanup tools. |
 | [Open Sunsama](https://github.com/ShadowWalker2014/open-sunsama) | Daily planner with Kanban, time blocking, and focus mode.<br>Alternative to: [Sunsama](https://github.com/ShadowWalker2014/open-sunsama#readme) |
 | [OpenTask](https://github.com/AristideDongo/opentask) | Self-hosted teamwork application with accounts, workspaces, member roles, and invitations; task management is planned. |
+| [OpenTasks](https://github.com/dmfs/opentasks) | Task management app for Android. |
 | [OpenTodo](https://github.com/OpenTodoApp/OpenTodo) | Self-hosted task manager with shared lists, reminders, and offline access. |
 | [OpenTodoList](https://opentodolist.rpdev.net) | Tasks, notes, images, and recipes with local storage and optional synchronization. |
 | [OpenTypeless](https://github.com/tover0314-w/opentypeless) | AI voice typing for macOS, Windows, and Linux.<br>Alternative to: [Wispr Flow](https://github.com/tover0314-w/opentypeless#readme), [Superwhisper](https://github.com/tover0314-w/opentypeless#readme), [Typeless](https://www.opentypeless.com/en/typeless-alternative) |

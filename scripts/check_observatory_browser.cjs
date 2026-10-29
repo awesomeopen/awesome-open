@@ -106,7 +106,8 @@ function sharedGroups(projects) {
   const unique = [...new Map(projects.map(project => [project.id, project])).values()];
   const map = new Map();
   for (const project of unique) {
-    const key = nameKey(project.name);
+    const normalized = nameKey(project.name);
+    const key = normalized === 'opentasks' ? 'opentask' : normalized;
     if (key) map.set(key, [...(map.get(key) || []), project]);
   }
   const groups = [...map.values()].filter(rows => rows.length > 1);
@@ -115,6 +116,13 @@ function sharedGroups(projects) {
 }
 
 async function assertSharedNames(page, projects, label) {
+  if (['OpenTask', 'OpenTasks'].every(name => projects.some(project => project.name === name))) {
+    const pair = page.locator('.shared-name-group[data-name="OpenTask / OpenTasks"]');
+    assert.equal(await pair.count(), 1, label + ': reviewed plural pair');
+    assert.deepEqual(await pair.locator('.obs-tag').allTextContents(), ['Plural'], label + ': plural tag only');
+    assert.deepEqual(await pair.locator('.name-diff').allTextContents(), ['s', 's'], label + ': heading and project suffix highlighted');
+    assert.equal(await pair.locator('.name-gap, .name-nogap').count(), 0, label + ': no phantom spacing marks');
+  }
   const ledgerBase = await page.locator('[data-ledger-base]').first().getAttribute('data-ledger-base') || '../';
   const expected = sharedGroups(projects);
   const countedIDs = Object.values(expected).flat(2).map(project => project.id);
@@ -537,6 +545,15 @@ async function checkObservatory({ browser, url }) {
       await checkPairArtwork(page, name);
       await page.locator('#shared-names').scrollIntoViewIfNeeded();
       await capture(name + '-shared-names');
+      const pluralPair = page.locator('.shared-name-group[data-name="OpenTask / OpenTasks"]');
+      if (await pluralPair.count()) {
+        const disclosure = page.locator('#name-groups');
+        const wasOpen = await disclosure.evaluate(node => node.open);
+        await disclosure.evaluate(node => { node.open = true; });
+        await pluralPair.scrollIntoViewIfNeeded();
+        await capture(name + '-plural-pair');
+        await disclosure.evaluate((node, value) => { node.open = value; }, wasOpen);
+      }
       for (const id of ['name-groups', 'name-method', 'rhyme-groups']) {
         const disclosure = page.locator('#' + id);
         if (id === 'name-method') await page.locator('#name-groups').evaluate(node => { node.open = true; });

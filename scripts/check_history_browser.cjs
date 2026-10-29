@@ -1,8 +1,8 @@
 /* Reviewed renames on the repository timeline: readable label, "(i)" evidence with its source. */
 const assert = require('node:assert/strict');
 module.exports = async ({page, url, data, capture}) => {
-  const projects = data.projects.filter(p => ['OpenTofu','OpenHands'].includes(p.name) && p.history?.length);
-  assert.equal(projects.length, 2, 'Two reviewed historical seed records');
+  const projects = data.projects.filter(p => ['OpenTofu','OpenHands','OpenTasks'].includes(p.name) && p.history?.length);
+  assert.equal(projects.length, 3, 'Reviewed historical seeds and OpenTasks rename');
   async function check(plate, project, label) {
     const event = project.history[0];
     const rename = plate.locator('.timeline-label.is-rename');
@@ -10,6 +10,11 @@ module.exports = async ({page, url, data, capture}) => {
     assert.ok((await rename.innerText()).includes(`Renamed: ${event.old_name} → ${event.new_name} (i)`), label + ': rename label text');
     assert.ok((await rename.innerText()).includes(event.occurred.value), label + ': rename date');
     assert.equal(await plate.locator('.history-marker,.history-dates').count(), 0, label + ': no numbered lanes');
+    if (project.name === 'OpenTasks') {
+      const labelBox = await rename.boundingBox();
+      const timelineBox = await plate.locator('.pg-timeline').boundingBox();
+      assert.ok(labelBox.y >= timelineBox.y, label + ': rename label stays inside its timeline box');
+    }
     const info = rename.locator('details.timeline-info');
     assert.equal(await info.getAttribute('open'), null, label + ': details start folded');
     await info.locator('summary').focus();
@@ -23,6 +28,10 @@ module.exports = async ({page, url, data, capture}) => {
     const box = await panel.boundingBox();
     const width = await page.evaluate(() => innerWidth);
     assert.ok(box.x >= 0 && box.x + box.width <= width, label + ': details fit the viewport');
+    if (project.name === 'OpenTasks') {
+      const axis = await plate.locator('.timeline').boundingBox();
+      assert.ok(box.width >= Math.min(200, axis.width) - 1, label + ': evidence uses available timeline width');
+    }
     const labels = await plate.locator('.timeline-label:visible').evaluateAll(ns => ns.map(n => {
       const r = n.getBoundingClientRect(); return {left:r.left,right:r.right};
     }));

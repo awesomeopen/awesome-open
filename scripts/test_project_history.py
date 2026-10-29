@@ -36,6 +36,19 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual(seeds[1]['sources'][-1]['date'], '2024-08-23')
         self.assertEqual(len(history.exact_events(seeds)), 2)
 
+    def test_opentasks_rename_uses_app_name_and_implementation_date(self):
+        event = next(e for e in self.document['events'] if e['id'] == 'dmfs-tasks-to-opentasks')
+        self.assertEqual(event['project_url'], 'https://github.com/dmfs/opentasks')
+        self.assertEqual((event['old_name'], event['new_name']), ('Tasks', 'OpenTasks'))
+        self.assertEqual(event['occurred'], {
+            'value': '2015-07-03', 'precision': 'day', 'basis': 'implementation',
+            'source_url': 'https://github.com/dmfs/opentasks/commit/89df3527f999fc1af885097a0e847002314e9dc8'})
+        line = timeline(None, None, None, history_view.timeline_events([event]))
+        self.assertIn('class="timeline-rename-space" aria-hidden="true"', line)
+        self.assertIn('Renamed: Tasks → OpenTasks', line)
+        self.assertIn('2015-07-03', line)
+        self.assertIn(event['occurred']['source_url'], line)
+
     def test_digger_rename_keeps_repository_identity_and_date_basis(self):
         event = next(e for e in self.document['events']
                      if e['id'] == 'diggerhq-opensandbox-to-opencomputer')

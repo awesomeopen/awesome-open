@@ -102,6 +102,30 @@
       "checked_at": "2026-10-27",
       "reviewed_by": "Junge (AI)",
       "note": "The date records the commit changing the README title from OpenSandbox to OpenComputer. The former diggerhq/opensandbox URL redirects to the same GitHub repository."
+    },
+    {
+      "id": "dmfs-tasks-to-opentasks",
+      "project_url": "https://github.com/dmfs/opentasks",
+      "kind": "software_rename",
+      "old_name": "Tasks",
+      "new_name": "OpenTasks",
+      "occurred": {
+        "value": "2015-07-03",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/dmfs/opentasks/commit/89df3527f999fc1af885097a0e847002314e9dc8"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/dmfs/opentasks/commit/89df3527f999fc1af885097a0e847002314e9dc8",
+          "title": "Rename app to OpenTasks",
+          "role": "implementation",
+          "date": "2015-07-03"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "reviewed_by": "Junge (AI)",
+      "note": "The rename commit changes the default Android app_name from Tasks to OpenTasks and the README heading from tasks to OpenTasks. The date records this implementation commit."
     }
   ]
 }

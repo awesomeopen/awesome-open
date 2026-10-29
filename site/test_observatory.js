@@ -169,7 +169,7 @@ test('one matching key combines case and separator differences with descriptive 
     { name: 'OpenBot / openbot', ids: ['h', 'i', 'j'], tags: ['Case', 'Exact duplicates'] },
     { name: 'OpenDashboard / open-dashboard', ids: ['e', 'd'], tags: ['Case', 'Spacing'] }
   ], tool_count: 10, identical_tool_count: 0, variant_tool_count: 10 });
-  assert.deepEqual(result.tags, { Case: 3, Spacing: 3, 'Exact duplicates': 1 });
+  assert.deepEqual(result.tags, { Case: 3, Spacing: 3, Plural: 0, 'Exact duplicates': 1 });
   assert.deepEqual(observatory.sharedNames(projects.slice().reverse()), result);
 });
 
@@ -347,5 +347,21 @@ test('rhyme renderer keeps names as text, linked IDs, selected coverage and empt
 test('obsolete serif choices are ignored by filter serialization', () => {
   for (const choice of ['fraunces', 'instrument', 'poltawski', 'invalid']) {
     assert.equal(observatory.filterSearch({ category: 'all', license: 'unknown' }, '?serif=' + choice), '?license=unknown');
+  }
+});
+
+
+test('reviewed plural pair stays in spelling variants and keeps distinct rhyme keys', () => {
+  const rows = [project({ id: 'a', name: 'OpenTask' }), project({ id: 'b', name: 'OpenTasks' })];
+  const result = observatory.sharedNames(rows.concat(rows[0]));
+  assert.equal(result.tool_count, 2);
+  assert.deepEqual(result.variants[0].tags, ['Plural']);
+  assert.deepEqual(observatory.sharedNames(rows.slice().reverse()), result);
+  assert.equal(observatory.sharedNames(rows.slice(0, 1)).tool_count, 0);
+  assert.notEqual(observatory.nameKey('OpenTask'), observatory.nameKey('OpenTasks'));
+  assert.deepEqual(observatory.sharedNames([project({id:'a',name:'Openİ'}),project({id:'b',name:'Openi\u0307'})]).variants[0].tags, ['Case']);
+  assert.deepEqual(observatory.sharedNames([project({ id:'a',name:'Open Task' }),project({ id:'b',name:'openTasks' })]).variants[0].tags, ['Case','Spacing','Plural']);
+  for (const names of [['OpenTool','OpenTools'],['OpenNew','OpenNews'],['OpenTask','OpenTasks.']]) {
+    assert.equal(observatory.sharedNames(names.map((name,i) => project({id:String(i),name}))).tool_count, 0);
   }
 });
