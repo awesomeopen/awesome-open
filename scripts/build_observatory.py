@@ -288,15 +288,16 @@ def shared_names(projects):
         if len(names) == 1:
             identical.append(group)
             continue
-        _, gaps = name_differences(names)
+        chars, gaps = name_differences(names)
+        plural = len({name_key(name) for name in names}) > 1
         group["tags"] = [
             tag
             for tag, present in zip(
                 NAME_TAGS,
                 [
-                    has_case_difference(names),
+                    has_case_difference(names) if plural else any(chars),
                     any(gaps),
-                    len({name_key(name) for name in names}) > 1,
+                    plural,
                     any(sum(p["name"] == name for p in rows) > 1 for name in names),
                 ],
             )

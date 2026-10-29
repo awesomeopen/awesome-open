@@ -174,6 +174,8 @@ class ObservatoryAccountingTests(unittest.TestCase):
         self.assertEqual(obs.marked_name('OpenTasks', ['OpenTask', 'OpenTasks']),
                          'OpenTask<span class="name-diff">s</span>')
         self.assertEqual(obs.marked_name('OpenTask', ['OpenTasks', 'OpenTask']), 'OpenTask')
+        expanded_case = self.named_projects([('a', 'Openİ'), ('b', 'Openi\u0307')])
+        self.assertEqual(obs.shared_names(expanded_case)['variants'][0]['tags'], ['Case'])
         mixed = self.named_projects([('a', 'Open Task'), ('b', 'openTasks')])
         self.assertEqual(obs.shared_names(mixed)['variants'][0]['tags'], ['Case', 'Spacing', 'Plural'])
         for names in [('OpenTool', 'OpenTools'), ('OpenNew', 'OpenNews'), ('OpenTask', 'OpenTasks.')]:

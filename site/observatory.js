@@ -208,8 +208,9 @@
       var group = { name: names.join(' / '), names: names, projects: rows, tags: [] };
       if (names.length === 1) { result.identical.push(group); result.identical_tool_count += rows.length; return; }
       var differences = nameDifferences(names);
-      var present = [hasCaseDifference(names), differences.gaps.some(Boolean),
-        new Set(names.map(nameKey)).size > 1,
+      var plural = new Set(names.map(nameKey)).size > 1;
+      var present = [plural ? hasCaseDifference(names) : differences.chars.some(Boolean), differences.gaps.some(Boolean),
+        plural,
         names.some(function (name) { return rows.filter(function (project) { return project.name === name; }).length > 1; })];
       group.tags = NAME_TAGS.filter(function (_, i) { return present[i]; });
       group.tags.forEach(function (tag) { result.tags[tag] += 1; });

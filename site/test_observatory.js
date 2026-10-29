@@ -359,6 +359,7 @@ test('reviewed plural pair stays in spelling variants and keeps distinct rhyme k
   assert.deepEqual(observatory.sharedNames(rows.slice().reverse()), result);
   assert.equal(observatory.sharedNames(rows.slice(0, 1)).tool_count, 0);
   assert.notEqual(observatory.nameKey('OpenTask'), observatory.nameKey('OpenTasks'));
+  assert.deepEqual(observatory.sharedNames([project({id:'a',name:'Openİ'}),project({id:'b',name:'Openi\u0307'})]).variants[0].tags, ['Case']);
   assert.deepEqual(observatory.sharedNames([project({ id:'a',name:'Open Task' }),project({ id:'b',name:'openTasks' })]).variants[0].tags, ['Case','Spacing','Plural']);
   for (const names of [['OpenTool','OpenTools'],['OpenNew','OpenNews'],['OpenTask','OpenTasks.']]) {
     assert.equal(observatory.sharedNames(names.map((name,i) => project({id:String(i),name}))).tool_count, 0);
