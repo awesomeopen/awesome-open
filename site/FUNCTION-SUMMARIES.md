@@ -60,7 +60,7 @@ python3 -m unittest discover -s scripts -p 'test_function_summaries.py'
 python3 scripts/build_site.py --output tmp/summary-site
 ```
 
-Inspect the expanded record and the unchanged folded description. Sources and review date must appear beneath the longer prose. Search remains based on names, short descriptions and reviewed alternatives. Static record pages show the summary and source links through the same renderer.
+Inspect the expanded record and the unchanged folded description. Sources and review date must appear beneath the longer prose. Search uses names, short descriptions, reviewed alternatives and [reviewed aliases](PROJECT-ALIASES.md#search-behavior). Static record pages show the summary and source links through the same renderer.
 
 ## Optional feature notes
 
@@ -73,10 +73,10 @@ and `source_url` matching one of the entry's reviewed `sources`. Review those
 claims with the summary before marking the parent approved. No HTML, invented
 capabilities, or descriptions of the specimen illustration.
 
-The illustrated plate prototypes choose one feature using the canonical ID
-modulo the number of features. This gives varied notes and reproducible offline
-builds without an additional collector or page-load randomness. Missing features
-omit the note; nothing is inferred from artwork.
+Illustrated plates show the first two reviewed features in list order, or the
+single feature when only one is available. Missing artwork or features omit the
+notes. See the [specimen plate contract](../brand/visual-system.md#specimen-plate-for-every-record-b29)
+for their presentation.
 
 ### Missing-feature backfill
 
