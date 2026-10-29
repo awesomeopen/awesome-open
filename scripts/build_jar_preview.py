@@ -224,6 +224,7 @@ def build(output, production=False):
     if edition:
         by_id = {p['id']: p for p in catalog['projects']}
         selected = assign_to_jars([by_id[p['id']] for p in edition['projects']], assets, cutouts)
+    folios = {p["id"]: i + 1 for i, p in enumerate(catalog["projects"])}
     exhibits=[]
     for index in DISPLAY_ORDER:
         number = index + 1
@@ -278,7 +279,7 @@ def build(output, production=False):
             <g class="crack-first"><path pathLength="1" d="M48 49 39 38 42 27 31 14 M39 38 24 36 16 27 M48 49 63 44 70 31 79 25 M48 49 44 63 53 75 48 91 M44 63 30 70"/></g>
            </svg><span class="jar-uplight"></span><span class="jar-led"></span>{lid}{steam}
           </div>
-          <span class="jar-caption" title="{escape(name, quote=True)}"><span>0{number}</span> {escape(name)}</span>
+          <span class="jar-caption" title="{escape(name, quote=True)}">{escape(name[:11] + "…" if len(name) > 11 else name)}<br><span>{folios[pid]:03d}</span></span>
           <div class="jar-annotation" id="jar-info-{pid}">
            <svg class="jar-leaders" aria-hidden="true"><g><path pathLength="1"/><circle r="3"/></g><g><path pathLength="1"/><circle r="3"/></g><g><path pathLength="1"/><circle r="3"/></g></svg>
            <div class="jar-callout callout-function"><span class="callout-kicker">{verb}</span><p><span class="label-ink">{escape(p['description'])}</span></p></div>

@@ -85,7 +85,7 @@ Omit the block when only the canonical display name or no aliases are present.
 The expanded record is one plate for all projects; the bounded three-record study
 (B13–B15) and its plain restoration (B24) are superseded. Order: Function statement and reviewed prose, the specimen,
 feature notes, the specimen label, then the fixed evidence grid
-([B-PR158-01](decisions/B-PR158-01.md)) ending with the centered “In the wild”
+([B-PR158-01](decisions/B-PR158-01.md)) ending with the centered “Explore”
 departure on a Prussian band.
 
 - The illustration stands on a decorative contour “floor”, seeded by Registry ID and
@@ -111,7 +111,7 @@ departure on a Prussian band.
   record” (or “Archived on GitHub” when GitHub reports it), name, Registry ID · Folio,
   “Domain:” with every domain, and the permalink. No paper or object treatment (B28).
 - Section labels are blocks with mist type and no horizontal rules inside the plate;
-  spacing and labels carry the hierarchy. “I / Function” and “In the wild” are scarlet
+  spacing and labels carry the hierarchy. “I / Function” and “Explore” are scarlet
   (5.86:1); grid labels II–VI are muted grey (6.9:1). Chart axes remain.
 - The project name in the reviewed prose is highlighted on scarlet with white type.
   A Function statement over 90 characters steps down to 24–30px.
@@ -259,7 +259,7 @@ Top. Its shortened stars note follows the HN note; source evidence remains linke
 The Catalog omits the snapshot/setup explanation beneath Filters. Folded summaries
 have no authored padding or minimum height at desktop or narrow widths; folio
 numbers retain 4px left padding ([B-PR128-01](decisions/B-PR128-01.md)).
-The “In the wild” departure uses plain Prussian blue with decorative contours
+The “Explore” departure uses plain Prussian blue with decorative contours
 centered around its link (y=200 in the 1000 × 400 viewBox). The navy texture
 remains in the footer only. Asset pixels, filter semantics, contour styling and
 clipping are unchanged. See [B-PR129-01](decisions/B-PR129-01.md).
