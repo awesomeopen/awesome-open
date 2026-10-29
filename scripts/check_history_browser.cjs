@@ -1,8 +1,8 @@
 /* Reviewed renames on the repository timeline: readable label, "(i)" evidence with its source. */
 const assert = require('node:assert/strict');
 module.exports = async ({page, url, data, capture}) => {
-  const projects = data.projects.filter(p => ['OpenTofu','OpenHands'].includes(p.name) && p.history?.length);
-  assert.equal(projects.length, 2, 'Two reviewed historical seed records');
+  const projects = data.projects.filter(p => ['OpenTofu','OpenHands','OpenTasks'].includes(p.name) && p.history?.length);
+  assert.equal(projects.length, 3, 'Reviewed historical seeds and OpenTasks rename');
   async function check(plate, project, label) {
     const event = project.history[0];
     const rename = plate.locator('.timeline-label.is-rename');
