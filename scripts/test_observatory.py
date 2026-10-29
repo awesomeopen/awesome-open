@@ -158,10 +158,26 @@ class ObservatoryAccountingTests(unittest.TestCase):
             dict(name='OpenBot / openbot',ids=['h','i','j'],tags=['Case','Exact duplicates']),
             dict(name='OpenDashboard / open-dashboard',ids=['e','d'],tags=['Case','Spacing'])],
             tool_count=10,identical_tool_count=0,variant_tool_count=10))
-        self.assertEqual(result['tags'],{'Case':3,'Spacing':3,'Exact duplicates':1})
+        self.assertEqual(result['tags'],{'Case':3,'Spacing':3,'Plural':0,'Exact duplicates':1})
         ids=[p['id'] for group in result['identical']+result['variants'] for p in group['projects']]
         self.assertEqual(len(ids),len(set(ids)))
         self.assertEqual(obs.shared_names(list(reversed(projects))),result)
+
+    def test_reviewed_plural_pair_is_a_spelling_variant(self):
+        rows = self.named_projects([('a', 'OpenTask'), ('b', 'OpenTasks')])
+        result = obs.shared_names(rows + [rows[0]])
+        self.assertEqual(result['tool_count'], 2)
+        self.assertEqual(result['variants'][0]['tags'], ['Plural'])
+        self.assertEqual(obs.shared_names(list(reversed(rows))), result)
+        self.assertEqual(obs.shared_names(rows[:1])['tool_count'], 0)
+        self.assertNotEqual(obs.name_key('OpenTask'), obs.name_key('OpenTasks'))
+        self.assertEqual(obs.marked_name('OpenTasks', ['OpenTask', 'OpenTasks']),
+                         'OpenTask<span class="name-diff">s</span>')
+        self.assertEqual(obs.marked_name('OpenTask', ['OpenTasks', 'OpenTask']), 'OpenTask')
+        mixed = self.named_projects([('a', 'Open Task'), ('b', 'openTasks')])
+        self.assertEqual(obs.shared_names(mixed)['variants'][0]['tags'], ['Case', 'Spacing', 'Plural'])
+        for names in [('OpenTool', 'OpenTools'), ('OpenNew', 'OpenNews'), ('OpenTask', 'OpenTasks.')]:
+            self.assertEqual(obs.shared_names(self.named_projects(list(zip(('a', 'b'), names))))['tool_count'], 0)
 
     def test_shared_names_no_alias_inference_and_empty_singleton(self):
         for pairs in [[],[('a','Tool')],[('a','Tool'),('b','Tool.'),('c','Tools'),('d','Tool OSS'),('e','T00l')],

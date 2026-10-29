@@ -14,14 +14,16 @@ forecast model. The main-only publisher includes the route automatically.
   in Python, `toLowerCase` in JavaScript), then remove Unicode `White_Space`,
   hyphen and underscore. The explicit White_Space set is U+0009–000D, U+0020,
   U+0085, U+00A0, U+1680, U+2000–200A, U+2028–2029, U+202F, U+205F and U+3000.
-  Zero-width space, BOM, the dot and other punctuation are retained; spelling and
-  sound-alike names are not matched. Projects with equal keys form one group, so
+  Zero-width space, BOM, the dot and other punctuation are retained. The reviewed
+  plural pair OpenTask / OpenTasks shares the `opentask` key for this grouping.
+  Other names retain their full spelling; rhyme matching keeps its original keys. Projects with equal keys form one group, so
   each canonical project ID belongs to at most one group and groups cannot chain.
   A group needs two distinct project IDs; empty keys never match. **Identical
   name** groups display one name; **Spelling variants** display several. Variant
-  groups carry non-exclusive tags (Case, Spacing, Exact duplicates); tag counts do
+  groups carry non-exclusive tags (Case, Spacing, Plural, Exact duplicates); tag counts do
   not sum to a total. The headline counts tools in all groups. Groups follow the
-  selected category/license filters. Plates show unchanged displayed names,
+  selected category/license filters. Letter differences, including the plural
+  suffix, are highlighted; Case tags require a case-only letter difference. Plates show unchanged displayed names,
   source URLs and the catalog's short description; a shared key does not
   establish an alias or relationship. No additional collection or dependency.
 - Stars sum observed cached GitHub counts, including actual zeroes; missing
