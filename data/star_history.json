@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 15,
+    "requests_used": 16,
     "utc_date": "2026-10-29"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -47755,6 +47755,16 @@
       "source_sha": "ff8fb4fe2bd9fe8e89024c69823497fe70db5a9d",
       "source_url": "https://api.github.com/repos/co-l/openfox/stargazers/history",
       "status": "ok"
+    },
+    "coastalwebdesigns/opendocker": {
+      "checked_at": "2026-10-29T03:21:14.008659+00:00",
+      "error": "Daily star-history request budget exhausted",
+      "name": "OpenDocker",
+      "readme_url": "https://github.com/coastalwebdesigns/opendocker",
+      "repo": "coastalwebdesigns/opendocker",
+      "source_sha": "ea8f9fbe0bdc224414d0af7d999bb4e642abe715",
+      "source_url": "https://api.github.com/repos/coastalwebdesigns/opendocker/stargazers/history",
+      "status": "deferred"
     },
     "codexemmzy/openledger": {
       "checked_at": "2026-10-19T15:34:35.736227+00:00",
@@ -539304,10 +539314,10 @@
   "selection_report": {
     "attempted_repositories": 1,
     "due_repositories": 1,
-    "eligible_repositories": 498,
+    "eligible_repositories": 499,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "39cf7336d6025fc5c89c79568a2cfdcc4865c1b8",
-  "updated_at": "2026-10-29T03:12:14.763072+00:00"
+  "source_sha": "ea8f9fbe0bdc224414d0af7d999bb4e642abe715",
+  "updated_at": "2026-10-29T03:21:14.008659+00:00"
 }

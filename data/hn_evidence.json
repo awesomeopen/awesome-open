@@ -23400,6 +23400,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2Fopencost%2Fopencost&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenDocker",
+      "slug": "catalog-c064b2322cb46238",
+      "readme_url": "https://github.com/coastalwebdesigns/opendocker",
+      "repositories": [
+        "coastalwebdesigns/opendocker"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/coastalwebdesigns/opendocker"
+      ],
+      "identity_sources": [
+        "https://github.com/coastalwebdesigns/opendocker"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fcoastalwebdesigns%2Fopendocker&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2Fcoastalwebdesigns%2Fopendocker&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenEBS",
       "slug": "catalog-c164427947f20a56",
       "readme_url": "https://github.com/openebs/openebs",
@@ -144016,34 +144070,151 @@
         "collected_at": "2026-10-29T03:12:09.877916+00:00"
       },
       "status": "ok"
+    },
+    "https://github.com/coastalwebdesigns/opendocker": {
+      "pending": {},
+      "pending_identity_key": "b8ecb44837cc70f9fd435e55ee592f0c5b5ec531b37617079b9f92914b5b8cbf",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-29T03:19:23.659033+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "b8ecb44837cc70f9fd435e55ee592f0c5b5ec531b37617079b9f92914b5b8cbf",
+        "project": {
+          "name": "OpenDocker",
+          "slug": "catalog-c064b2322cb46238",
+          "readme_url": "https://github.com/coastalwebdesigns/opendocker",
+          "repositories": [
+            "coastalwebdesigns/opendocker"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/coastalwebdesigns/opendocker"
+          ],
+          "identity_sources": [
+            "https://github.com/coastalwebdesigns/opendocker"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fcoastalwebdesigns%2Fopendocker&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2Fcoastalwebdesigns%2Fopendocker&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-29T03:19:23.659033+00:00"
+      },
+      "status": "ok"
     }
   },
   "budget": {
     "utc_date": "2026-10-29",
-    "requests_used": 1,
+    "requests_used": 2,
     "limit": 160,
     "paused": false,
-    "projects_used": 1,
+    "projects_used": 2,
     "project_limit": 50,
     "attempted_urls": [
-      "https://github.com/openartifact/openartifact"
+      "https://github.com/openartifact/openartifact",
+      "https://github.com/coastalwebdesigns/opendocker"
     ],
     "lane_projects": {
-      "new": 1,
+      "new": 2,
       "refresh": 0,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 1,
+      "new": 2,
       "refresh": 0,
       "continuation": 0
     }
   },
   "selection_report": {
-    "catalog_projects": 550,
+    "catalog_projects": 551,
     "due_projects": 1,
     "attempted_projects": 1,
-    "current_window_projects": 550,
+    "current_window_projects": 551,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
