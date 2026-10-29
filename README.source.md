@@ -181,6 +181,7 @@
 | [Open Cluster Management](https://github.com/open-cluster-management-io/ocm) | Manage applications and workloads across Kubernetes clusters. |
 | [open-compute](https://github.com/elliothux/open-compute) | Self-hosted platform for Cloudflare Workers-compatible applications with storage, queues, workflows, and scheduled tasks. |
 | [OpenCost](https://github.com/opencost/opencost) | Monitor Kubernetes workload and cloud costs. |
+| [OpenDocker](https://github.com/coastalwebdesigns/opendocker) | Read-only terminal interface for viewing Docker containers, streaming logs, and inspecting images and volumes. |
 | [OpenEBS](https://github.com/openebs/openebs) | Persistent storage for stateful applications on Kubernetes. |
 | [OpenELB](https://github.com/openelb/openelb) | Load balancer for Kubernetes in bare-metal, edge, and virtualized environments. |
 | [OpenFGA](https://github.com/openfga/openfga) | Authorization and permissions engine inspired by Google Zanzibar. |
