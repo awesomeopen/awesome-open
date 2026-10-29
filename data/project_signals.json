@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-29T03:07:42Z",
+  "collected_at": "2026-10-29T03:12:11Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -10714,6 +10714,150 @@
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openarena/engine",
         "status": "unavailable"
+      }
+    },
+    "openartifact/openartifact": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-29T03:12:11Z",
+        "error": null,
+        "etag": "\"1fe317a108c39cc53b4921f996a69c3ab4df75e2eec3958f56d7fbfb8e737410\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-29T03:12:11Z",
+          "observed_at": "2026-10-28T17:26:59Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/openartifact/openartifact/releases/tag/v0.14.0",
+            "published_at": "2026-10-28T17:26:59Z",
+            "release_id": 426977068,
+            "tag_name": "v0.14.0"
+          }
+        },
+        "last_success_at": "2026-10-29T03:12:11Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openartifact/openartifact/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-29T03:12:11Z",
+        "error": null,
+        "etag": null,
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-29T03:12:11Z",
+          "observed_at": "2026-10-29T00:50:51Z",
+          "source_commit": "8cea36c51a983d2b430aed4fc2edff3d5052ad2d",
+          "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
+          "tool_version": "v5.6.0",
+          "value": {
+            "checks": [
+              {
+                "name": "Dependency-Update-Tool",
+                "reason": "update tool detected",
+                "score": 10
+              },
+              {
+                "name": "Code-Review",
+                "reason": "Found 3/30 approved changesets -- score normalized to 1",
+                "score": 1
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
+                "score": 10
+              },
+              {
+                "name": "Maintained",
+                "reason": "30 commit(s) and 29 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
+              },
+              {
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
+                "score": 10
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "GitHub workflow tokens follow principle of least privilege",
+                "score": 10
+              },
+              {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
+              },
+              {
+                "name": "Binary-Artifacts",
+                "reason": "no binaries found in the repo",
+                "score": 10
+              },
+              {
+                "name": "CII-Best-Practices",
+                "reason": "badge detected: InProgress",
+                "score": 2
+              },
+              {
+                "name": "Pinned-Dependencies",
+                "reason": "all dependencies are pinned",
+                "score": 10
+              },
+              {
+                "name": "Vulnerabilities",
+                "reason": "3 existing vulnerabilities detected",
+                "score": 7
+              },
+              {
+                "name": "SAST",
+                "reason": "SAST tool detected but not run on all commits",
+                "score": 9
+              },
+              {
+                "name": "Packaging",
+                "reason": "packaging workflow detected",
+                "score": 10
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is fuzzed",
+                "score": 10
+              },
+              {
+                "name": "Branch-Protection",
+                "reason": "branch protection is not maximal on development and all release branches",
+                "score": 3
+              },
+              {
+                "name": "Signed-Releases",
+                "reason": "5 out of the last 5 releases have a total of 10 signed artifacts.",
+                "score": 10
+              },
+              {
+                "name": "Contributors",
+                "reason": "project has 0 contributing companies or organizations -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "CI-Tests",
+                "reason": "30 out of 30 merged PRs checked by a CI test -- score normalized to 10",
+                "score": 10
+              }
+            ],
+            "repository": "github.com/openartifact/openartifact",
+            "score": 8.2
+          }
+        },
+        "last_success_at": "2026-10-29T03:12:11Z",
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/openartifact/openartifact",
+        "status": "available",
+        "success_time_precision": "second"
       }
     },
     "openbabel/openbabel": {
@@ -25758,5 +25902,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "ec9730071fd30d581dcdbbc40e839fdd5698e06f"
+  "source_sha": "39cf7336d6025fc5c89c79568a2cfdcc4865c1b8"
 }

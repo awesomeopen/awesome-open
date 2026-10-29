@@ -20156,6 +20156,60 @@
       "search_url": "https://hn.algolia.com/?q=github.com%2Fopenapi-ts%2Fopenapi-typescript&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
+      "name": "OpenArtifact",
+      "slug": "catalog-a5f594f78f711178",
+      "readme_url": "https://github.com/openartifact/openartifact",
+      "repositories": [
+        "openartifact/openartifact"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/openartifact/openartifact"
+      ],
+      "identity_sources": [
+        "https://github.com/openartifact/openartifact"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fopenartifact%2Fopenartifact&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2Fopenartifact%2Fopenartifact&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
       "name": "OpenBarcode",
       "slug": "catalog-116d6a334994a21a",
       "readme_url": "https://github.com/InPoint-Cloud/OpenBarcode",
@@ -143846,32 +143900,150 @@
         "collected_at": "2026-10-28T08:49:33.274379+00:00"
       },
       "status": "ok"
+    },
+    "https://github.com/openartifact/openartifact": {
+      "pending": {},
+      "pending_identity_key": "db9d85cf21e873231df3cd0e4fd90cc247faa1c4ef4d4e6039e832cb7eb860a4",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "checked_at": "2026-10-29T03:12:09.877916+00:00",
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "db9d85cf21e873231df3cd0e4fd90cc247faa1c4ef4d4e6039e832cb7eb860a4",
+        "project": {
+          "name": "OpenArtifact",
+          "slug": "catalog-a5f594f78f711178",
+          "readme_url": "https://github.com/openartifact/openartifact",
+          "repositories": [
+            "openartifact/openartifact"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/openartifact/openartifact"
+          ],
+          "identity_sources": [
+            "https://github.com/openartifact/openartifact"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fopenartifact%2Fopenartifact&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2Fopenartifact%2Fopenartifact&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-29T03:12:09.877916+00:00"
+      },
+      "status": "ok"
     }
   },
   "budget": {
     "utc_date": "2026-10-29",
-    "requests_used": 0,
+    "requests_used": 1,
     "limit": 160,
     "paused": false,
-    "projects_used": 0,
+    "projects_used": 1,
     "project_limit": 50,
-    "attempted_urls": [],
+    "attempted_urls": [
+      "https://github.com/openartifact/openartifact"
+    ],
     "lane_projects": {
-      "new": 0,
+      "new": 1,
       "refresh": 0,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 0,
+      "new": 1,
       "refresh": 0,
       "continuation": 0
     }
   },
   "selection_report": {
-    "catalog_projects": 549,
-    "due_projects": 0,
-    "attempted_projects": 0,
-    "current_window_projects": 549,
+    "catalog_projects": 550,
+    "due_projects": 1,
+    "attempted_projects": 1,
+    "current_window_projects": 550,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
