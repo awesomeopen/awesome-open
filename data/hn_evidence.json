@@ -144186,33 +144186,39 @@
         "collected_at": "2026-10-29T03:19:23.659033+00:00"
       },
       "status": "ok"
+    },
+    "https://github.com/dmfs/opentasks": {
+      "checked_at": "2026-10-29T19:02:28.183525+00:00",
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     }
   },
   "budget": {
     "utc_date": "2026-10-29",
-    "requests_used": 2,
+    "requests_used": 3,
     "limit": 160,
     "paused": false,
-    "projects_used": 2,
+    "projects_used": 3,
     "project_limit": 50,
     "attempted_urls": [
       "https://github.com/coastalwebdesigns/opendocker",
+      "https://github.com/dmfs/opentasks",
       "https://github.com/openartifact/openartifact"
     ],
     "lane_projects": {
-      "new": 2,
+      "new": 3,
       "refresh": 0,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 2,
+      "new": 3,
       "refresh": 0,
       "continuation": 0
     }
   },
   "selection_report": {
-    "catalog_projects": 551,
-    "due_projects": 0,
+    "catalog_projects": 552,
+    "due_projects": 1,
     "attempted_projects": 0,
     "current_window_projects": 551,
     "never_attempted_projects": 0
