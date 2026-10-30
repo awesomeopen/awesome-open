@@ -1054,6 +1054,27 @@
         "Detected license changed from {old}"
       ],
       "used_in": []
+    },
+    {
+      "id": "rank.trophy",
+      "group": "rank",
+      "status": "today",
+      "base": "none",
+      "shape": "Outlined two-handled cup on a stem and flat foot; paired with a place numeral",
+      "color_token": "--rs-blueprint",
+      "sizes": [
+        "m"
+      ],
+      "meaning": "Shared first, second or third place for one metric in a frozen Scoreboard edition",
+      "labels": [
+        "1",
+        "2",
+        "3"
+      ],
+      "used_in": [
+        "scripts/build_scoreboard.py:trophy",
+        "scripts/build_site.py:specimen_label"
+      ]
     }
   ],
   "files": "site/brand/icons/{id}-{size}.svg, written by scripts/build_icons.py"

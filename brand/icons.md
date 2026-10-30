@@ -312,3 +312,13 @@ ring with registration ticks reads well enough as a click target.
    family to the [asset index](assets.md) with provenance and refresh the lock.
 3. Before implementing an icon, re-check the referenced line and label against
    the current source.
+
+## Scoreboard place trophy
+
+| ID | Status | Meaning | Label | Shape | Token | Size | Use |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `rank.trophy` | today | Shared first, second or third place for one metric in a frozen weekly edition | Place numeral and metric name | Outlined two-handled cup, stem and flat foot | `--rs-blueprint` | m | Scoreboard rows and specimen plate trophy links |
+
+The numeral carries the place; the cup is decorative. Tied values share the same
+place. Each plate link names the metric and edition. The Scoreboard contract
+defines eligibility and tie handling.

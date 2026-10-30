@@ -179,5 +179,13 @@
         }
       ]
     }
+  },
+  "scoreboard_trophy": {
+    "icon": "rank.trophy",
+    "created": "2026-10-30",
+    "method": "Original whole-pixel SVG geometry authored in scripts/build_icons.py; no model-generated image or external reference.",
+    "author": "Junge (AI)",
+    "source_revision": "7fb603a838a8c0adc126c87d1e13f71ec9f81b75",
+    "use": "Metric-specific places 1–3 in weekly Scoreboard tables and specimen plate links."
   }
 }

@@ -1323,3 +1323,11 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .history-evidence ul {padding-left:1.25em;}
 .history-evidence li {margin:16px 0;}
 .history-evidence p {margin:8px 0;}
+
+/* Frozen Scoreboard places use the same cup and numeral as their rank tables. */
+.scoreboard-plate { margin-top: 8px; }
+.scoreboard-edition { display: block; font-size: 10px; color: var(--rs-muted); }
+.scoreboard-trophies { display: flex; flex-wrap: wrap; gap: 0 12px; }
+.scoreboard-trophies a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; font-size: 10px; }
+.score-trophy { display: inline-flex; align-items: center; gap: 4px; color: var(--rs-blueprint); font-variant-numeric: tabular-nums; }
+.score-trophy svg { display: inline-block; flex: none; width: 16px; height: 16px; }

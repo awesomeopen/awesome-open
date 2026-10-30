@@ -289,3 +289,12 @@ paired introductions, with centered headings and project names. Images retain
 their full proportions; missing art adds no placeholder. Catalog links appear
 as linked Registry IDs in the regular facts list. Narrow screens stack records.
 See the [Observatory contract](../site/OBSERVATORY.md#shared-name-illustrations).
+
+## Scoreboard proposal
+
+The Scoreboard uses the B42 sibling-route shell for six comparative ranking tables.
+Each table states qualifying coverage, units and foldable source evidence. A
+small outlined cup and place numeral identify shared ranks 1–3; the same compact
+metric links appear beneath the specimen label's domains. The weekly edition is
+stated once above those links. Existing category-star bolding remains separate.
+See [the measurement and weekly contract](../site/SCOREBOARD.md).

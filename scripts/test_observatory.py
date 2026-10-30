@@ -348,9 +348,9 @@ class ObservatoryBuildTests(unittest.TestCase):
     def test_header_uses_ledger_links(self):
         nav=next(n for n in self.page.elements if n.has_class('obs-nav'))
         links=nav.descendants('a')
-        self.assertEqual(len(links),3)
-        self.assertEqual([a.attrs['href'] for a in links],['../#catalog','../#about','./'])
-        self.assertEqual([a.attrs.get('aria-current') for a in links],[None,None,'page'])
+        self.assertEqual(len(links),4)
+        self.assertEqual([a.attrs['href'] for a in links],['../#catalog','../#about','./','../scoreboard/'])
+        self.assertEqual([a.attrs.get('aria-current') for a in links],[None,None,'page',None])
 
     def test_metric_art_sources_and_label_backings(self):
         expected={c['id']:c['artwork']['variants']['s']['path']

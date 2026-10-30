@@ -317,6 +317,15 @@ def view_table(p):
     p.line([(p.c, t), (p.c, bot)], width=1)
 
 
+def rank_trophy(p):
+    # One 16px interface glyph, authored on its own grid.
+    p.line([(4, 2), (12, 2), (11, 7), (8, 10), (5, 7)], closed=True)
+    p.line([(4, 3), (1, 3), (2, 7), (5, 7)])
+    p.line([(12, 3), (15, 3), (14, 7), (11, 7)])
+    p.line([(8, 10), (8, 14)])
+    p.line([(5, 14), (11, 14)])
+
+
 DRAW = {
     "state.current": state_current, "state.aged": state_aged, "state.partial": state_partial,
     "state.pending": state_pending, "state.none": state_none, "state.failed": state_failed,
@@ -324,7 +333,7 @@ DRAW = {
     "status.archived": status_archived, "link.external": link_external, "link.permalink": link_permalink,
     "link.commit": link_commit, "link.download": link_download, "link.data": link_data,
     "disclose.closed": disclose_closed, "disclose.open": disclose_open, "control.reset": control_reset,
-    "scope.collection": scope_collection, "view.chart": view_chart, "view.table": view_table,
+    "scope.collection": scope_collection, "view.chart": view_chart, "view.table": view_table, "rank.trophy": rank_trophy,
 }
 
 

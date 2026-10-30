@@ -442,6 +442,7 @@ def timeline(created, release, pushed, events=()):
 
 
 def specimen_label(project, tags, number):
+    from build_scoreboard import trophy_links
     pid, name = escape(project["id"]), escape(project["name"])
     github = project.get("github") or {}
     status = (
@@ -455,6 +456,7 @@ def specimen_label(project, tags, number):
         f'<span class="label-name">{name}</span>'
         f'<span><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span> · <span class="sheet-folio" title="Folio number">Folio {number:03d}</span></span>'
         f"<span>Domain: {tags}</span>"
+        f'{trophy_links(project)}'
         f'<nav class="specimen-links" aria-label="Record for {name}"><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen: {name} (permalink)</a></nav></div></div>'
     )
 
@@ -770,7 +772,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
 <body>
 <a class="skip-link" href="#catalog">Skip to specimen ledger</a>
 <div class="page-shell">
-<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/botanical-128.png" alt="" width="64" height="64"><span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img class="search-icon" src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Catalog</a><a href="#about">About</a><a href="observatory/">Observatory</a></nav></header>
+<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/botanical-128.png" alt="" width="64" height="64"><span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img class="search-icon" src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Catalog</a><a href="#about">About</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a></nav></header>
 <div class="layout">
 
  <main id="catalog" class="catalog-main" tabindex="-1">
@@ -817,7 +819,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <link rel="stylesheet" href="{font_asset_url('styles.css', root)}"><link rel="stylesheet" href="{content_url('observatory/observatory.css', root / 'site/observatory.css')}">
 <script src="{escape(script_url)}" defer></script></head>
 <body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>
-<div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="spotlight/">Weekly draws</a></nav></header></div>
+<div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Weekly draws</a></nav></header></div>
 <main class="obs-shell" id="record" tabindex="-1"><section class="obs-hero"><p><span class="obs-label">Project record</span></p><h1>{name}</h1></section>
 <aside class="obs-finding"><p>Full catalog record, evidence and sources. <a href="#project-{pid}">Return to this project in the ledger</a>. Use your browser’s Print command to print this record.</p></aside>
 {card}
@@ -825,7 +827,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Project record</p><ul class="obs-footer-links"><li><a href="./">Return to project ledger</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {revision}</li></ul></div></footer></body></html>'''
 
 
-def build(output, source_sha=None, root=ROOT, qr_cache=None):
+def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=False):
     root = Path(root)
     output = Path(output).resolve()
     # Protect source directories from accidental --output . or --output site.
@@ -888,6 +890,19 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None):
     import weekly_draw
     draws = weekly_draw.load(root / weekly_draw.PATH)
     catalog["weekly_draws"] = draws
+    import weekly_scoreboard
+    scoreboard = weekly_scoreboard.load(root / weekly_scoreboard.PATH)
+    if scoreboard_preview:
+        from datetime import date
+        weekly_scoreboard.validate_evidence(evidence)
+        scoreboard = weekly_scoreboard.snapshot(catalog, evidence, date.fromisoformat(catalog["metrics_as_of"]), source_sha)
+    weekly_scoreboard.attach(catalog, scoreboard)
+    if scoreboard_preview:
+        for project in catalog["projects"]:
+            for award in project.get("scoreboard_trophies", []):
+                award["preview"] = True
+    catalog["scoreboard_edition"] = ({"week": scoreboard["week"], "recorded_on": scoreboard["recorded_on"],
+                                     "preview": scoreboard_preview} if scoreboard else None)
     # HTML and its drawer runtime must not share a cache key with older code.
     # Hash content, not snapshots: evidence-only publishes can reuse the script.
     runtime = (root / "site/catalog.js").read_text(encoding="utf-8")
@@ -994,6 +1009,8 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None):
     build_observatory(catalog, evidence, output, root)
     from build_draw_archive import build as build_draw_archive
     build_draw_archive(catalog, draws, output, root)
+    from build_scoreboard import build as build_scoreboard
+    build_scoreboard(catalog, scoreboard, output, root, preview=scoreboard_preview)
     return catalog
 
 
@@ -1014,8 +1031,11 @@ def main():
         type=Path,
         help="Directory of permalink QR SVGs reused between builds (CI caches it)",
     )
+    parser.add_argument("--scoreboard-preview", action="store_true", help="Explicit provisional Scoreboard from cached evidence; never saves a weekly edition")
     args = parser.parse_args()
-    catalog = build(args.output, args.source_sha, qr_cache=args.qr_cache)
+    if args.production and args.scoreboard_preview:
+        parser.error("Provisional Scoreboard is not a production edition")
+    catalog = build(args.output, args.source_sha, qr_cache=args.qr_cache, scoreboard_preview=args.scoreboard_preview)
     if args.production:
         from build_jar_preview import build as build_hero
 
