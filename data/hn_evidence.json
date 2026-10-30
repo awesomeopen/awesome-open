@@ -28,7 +28,7 @@
     "2026-08",
     "2026-09"
   ],
-  "refreshed_utc_date": "2026-10-29",
+  "refreshed_utc_date": "2026-10-30",
   "metric": "Deduplicated HN story submissions per UTC month, regardless of points, comments or sentiment. Search coverage is best-effort and depends on the HN Algolia index.",
   "eligibility": {
     "minimum_stories": 6,
@@ -34915,6 +34915,60 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FAristideDongo%2Fopentask&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
       ],
       "search_url": "https://hn.algolia.com/?q=github.com%2FAristideDongo%2Fopentask&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+    },
+    {
+      "name": "OpenTasks",
+      "slug": "catalog-19d61663a527fda4",
+      "readme_url": "https://github.com/dmfs/opentasks",
+      "repositories": [
+        "dmfs/opentasks"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/dmfs/opentasks"
+      ],
+      "identity_sources": [
+        "https://github.com/dmfs/opentasks"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fdmfs%2Fopentasks&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2Fdmfs%2Fopentasks&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
     },
     {
       "name": "OpenTodo",
@@ -144188,39 +144242,148 @@
       "status": "ok"
     },
     "https://github.com/dmfs/opentasks": {
-      "checked_at": "2026-10-29T19:02:28.183525+00:00",
-      "status": "unavailable",
-      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
+      "checked_at": "2026-10-30T01:49:09.660769+00:00",
+      "status": "ok",
+      "pending": {},
+      "pending_identity_key": "6085334dc3ae492cd138cc5540732ac748398f04a2d02637373773e08593c451",
+      "pending_months": [
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "last_good": {
+        "months": [
+          "2024-10",
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "identity_key": "6085334dc3ae492cd138cc5540732ac748398f04a2d02637373773e08593c451",
+        "project": {
+          "name": "OpenTasks",
+          "slug": "catalog-19d61663a527fda4",
+          "readme_url": "https://github.com/dmfs/opentasks",
+          "repositories": [
+            "dmfs/opentasks"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/dmfs/opentasks"
+          ],
+          "identity_sources": [
+            "https://github.com/dmfs/opentasks"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fdmfs%2Fopentasks&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1727740800%2Ccreated_at_i%3C1790812800&hitsPerPage=100&page=0"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2Fdmfs%2Fopentasks&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate"
+        },
+        "collected_at": "2026-10-30T01:49:09.660769+00:00"
+      }
     }
   },
   "budget": {
-    "utc_date": "2026-10-29",
-    "requests_used": 3,
+    "utc_date": "2026-10-30",
+    "requests_used": 1,
     "limit": 160,
     "paused": false,
-    "projects_used": 3,
+    "projects_used": 1,
     "project_limit": 50,
     "attempted_urls": [
-      "https://github.com/coastalwebdesigns/opendocker",
-      "https://github.com/dmfs/opentasks",
-      "https://github.com/openartifact/openartifact"
+      "https://github.com/dmfs/opentasks"
     ],
     "lane_projects": {
-      "new": 3,
-      "refresh": 0,
+      "new": 0,
+      "refresh": 1,
       "continuation": 0
     },
     "lane_requests": {
-      "new": 3,
-      "refresh": 0,
+      "new": 0,
+      "refresh": 1,
       "continuation": 0
     }
   },
   "selection_report": {
     "catalog_projects": 552,
     "due_projects": 1,
-    "attempted_projects": 0,
-    "current_window_projects": 551,
+    "attempted_projects": 1,
+    "current_window_projects": 552,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
