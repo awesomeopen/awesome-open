@@ -7496,6 +7496,652 @@
           "source_url": "https://github.com/rose22/openlumara/blob/38bda8063d7d409924d341d86dad81590c81ab75/README.md"
         }
       ]
+    },
+    "e390eb08d6cbc3fdb42e665d32bff22f4a619bba354ac990eadfce5d23287485": {
+      "project_url": "https://github.com/opencv/opencv",
+      "text": "OpenCV supplies computer-vision and machine-learning algorithms for applications that work with images and video. Developers can detect objects, track motion, reconstruct three-dimensional scenes from stereo cameras, and stitch images into panoramas. The library is written in C++ and exposes interfaces including Python and Java across desktop and Android platforms.",
+      "sources": [
+        {
+          "url": "https://github.com/opencv/opencv/blob/2f5613fd94c131c6a52228c6293aabb2eef2d383/README.md",
+          "title": "OpenCV official README",
+          "revision": "2f5613fd94c131c6a52228c6293aabb2eef2d383"
+        },
+        {
+          "url": "https://opencv.org/about/",
+          "title": "About OpenCV"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed capabilities and feature notes against official documentation; repository revision verified through the GitHub commit API. No candidate software executed.",
+      "features": [
+        {
+          "title": "Motion tracking",
+          "text": "Track moving objects and camera movement in image sequences.",
+          "source_url": "https://opencv.org/about/"
+        },
+        {
+          "title": "Stereo reconstruction",
+          "text": "Derive three-dimensional point clouds from stereo camera images.",
+          "source_url": "https://opencv.org/about/"
+        },
+        {
+          "title": "Panorama stitching",
+          "text": "Combine overlapping images into a larger view of a scene.",
+          "source_url": "https://opencv.org/about/"
+        }
+      ]
+    },
+    "e3f813edf912b296b4d2654b327108091f5ce6ce395ad47e0cfcc56ea20f5adf": {
+      "project_url": "https://github.com/openra/openra",
+      "text": "OpenRA provides a real-time strategy game engine with playable reimaginings of Red Alert, Tiberian Dawn, and Dune 2000. Players can use multiplayer matches and dedicated game servers. Map makers can alter gameplay with custom rules and Lua-scripted missions, while the separate Mod SDK supports building additional games on the engine.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenRA/OpenRA/blob/9636b63eaee62fcb60ef2e896e7985bdf2f1ee68/README.md",
+          "title": "OpenRA official README",
+          "revision": "9636b63eaee62fcb60ef2e896e7985bdf2f1ee68"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed capabilities and feature notes against official documentation; repository revision verified through the GitHub commit API. No candidate software executed.",
+      "features": [
+        {
+          "title": "Classic RTS reimaginings",
+          "text": "Play included mods based on Red Alert, Tiberian Dawn, and Dune 2000.",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/9636b63eaee62fcb60ef2e896e7985bdf2f1ee68/README.md"
+        },
+        {
+          "title": "Custom missions",
+          "text": "Create maps with custom gameplay rules and Lua-scripted missions.",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/9636b63eaee62fcb60ef2e896e7985bdf2f1ee68/README.md"
+        },
+        {
+          "title": "Dedicated servers",
+          "text": "Run a dedicated game server for multiplayer sessions.",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/9636b63eaee62fcb60ef2e896e7985bdf2f1ee68/README.md"
+        }
+      ]
+    },
+    "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951": {
+      "project_url": "https://github.com/krillinai/opencreator",
+      "text": "OpenCreator combines a local Codex-based agent runtime with visual tools for creative work. Users can translate videos and subtitles, produce voiceovers, generate images or videos through configured services, and develop scripts or articles. Web and desktop interfaces share project state, while versioned outputs preserve earlier settings and results for comparison.",
+      "sources": [
+        {
+          "url": "https://github.com/krillinai/OpenCreator/blob/d17bdc16d431db7a45b138c3180bdae533df003a/README.md",
+          "title": "OpenCreator official README",
+          "revision": "d17bdc16d431db7a45b138c3180bdae533df003a"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed capabilities and feature notes against official documentation; repository revision verified through the GitHub commit API. No candidate software executed.",
+      "features": [
+        {
+          "title": "Subtitle editing",
+          "text": "Adjust subtitle timing, split or merge cues, and find and replace text in a playback-linked editor.",
+          "source_url": "https://github.com/krillinai/OpenCreator/blob/d17bdc16d431db7a45b138c3180bdae533df003a/README.md"
+        },
+        {
+          "title": "Versioned outputs",
+          "text": "Keep earlier settings and outputs when creating a new revision.",
+          "source_url": "https://github.com/krillinai/OpenCreator/blob/d17bdc16d431db7a45b138c3180bdae533df003a/README.md"
+        },
+        {
+          "title": "Dual-mode workspace",
+          "text": "Use visual tools or agent conversation with shared task state.",
+          "source_url": "https://github.com/krillinai/OpenCreator/blob/d17bdc16d431db7a45b138c3180bdae533df003a/README.md"
+        }
+      ]
+    },
+    "e98b8b41849cbfba4b3e49e63c7620edbe5d8f082b60fddc68a6609c7f07e48b": {
+      "project_url": "https://github.com/opensearch-project/opensearch",
+      "text": "OpenSearch indexes and searches data for application search, log analysis, and observability workflows. It supports full-text and vector queries, with mappings and index-management tools for organizing stored information. Teams can install the suite on their chosen platform and use the companion OpenSearch Dashboards interface to analyze data and inspect application logs, metrics, and traces.",
+      "sources": [
+        {
+          "url": "https://github.com/opensearch-project/OpenSearch/blob/d03d23e3c51c9fa1feaef88239cf49c2189fc5f2/README.md",
+          "title": "OpenSearch official README",
+          "revision": "d03d23e3c51c9fa1feaef88239cf49c2189fc5f2"
+        },
+        {
+          "url": "https://docs.opensearch.org/latest/about/",
+          "title": "OpenSearch and OpenSearch Dashboards overview"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed capabilities and feature notes against official documentation; repository revision verified through the GitHub commit API. No candidate software executed.",
+      "features": [
+        {
+          "title": "Vector search",
+          "text": "Combine vector queries with traditional search and analytics.",
+          "source_url": "https://docs.opensearch.org/latest/about/"
+        },
+        {
+          "title": "Observability data",
+          "text": "Inspect application logs, metrics, and traces through observability workflows.",
+          "source_url": "https://docs.opensearch.org/latest/about/"
+        },
+        {
+          "title": "Index management",
+          "text": "Create indexes, manage templates, and automate index lifecycle.",
+          "source_url": "https://docs.opensearch.org/latest/about/"
+        }
+      ]
+    },
+    "eb1cd71bbc85c172dd554bb8f46db5f72ac4e757764868efc4d9c048f1a60b46": {
+      "project_url": "https://github.com/wandb/openui",
+      "text": "OpenUI turns natural-language interface descriptions into live-rendered UI prototypes. Users can request revisions and convert generated HTML into React, Svelte, or Web Components. It runs locally through Docker or a Python backend and connects to hosted language-model providers or local Ollama models, with provider selection and configuration available through its settings.",
+      "sources": [
+        {
+          "url": "https://github.com/wandb/openui/blob/42d7ab4ab6650433486dfb12eb3783c393a3e475/README.md",
+          "title": "OpenUI official README",
+          "revision": "42d7ab4ab6650433486dfb12eb3783c393a3e475"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed capabilities and feature notes against official documentation; repository revision verified through the GitHub commit API. No candidate software executed.",
+      "features": [
+        {
+          "title": "Live UI preview",
+          "text": "Describe a user interface and see the generated result rendered live.",
+          "source_url": "https://github.com/wandb/openui/blob/42d7ab4ab6650433486dfb12eb3783c393a3e475/README.md"
+        },
+        {
+          "title": "Framework conversion",
+          "text": "Convert generated HTML into React, Svelte, or Web Components.",
+          "source_url": "https://github.com/wandb/openui/blob/42d7ab4ab6650433486dfb12eb3783c393a3e475/README.md"
+        },
+        {
+          "title": "Local model support",
+          "text": "Connect to Ollama models as an alternative to hosted model services.",
+          "source_url": "https://github.com/wandb/openui/blob/42d7ab4ab6650433486dfb12eb3783c393a3e475/README.md"
+        }
+      ]
+    },
+    "00898489ed72fd55e12dd50a965973e95ccb79411eade2298ab10e31fe05761d": {
+      "project_url": "https://github.com/open-llm-vtuber/open-llm-vtuber",
+      "text": "Open-LLM-VTuber combines voice conversations, visual input and a Live2D character in a web interface or desktop client. Users can customize the character and choose speech recognition, language-model and speech-synthesis backends, including local models for offline operation. It runs on Windows, macOS and Linux, retains chat logs, and offers a transparent desktop-pet mode.",
+      "sources": [
+        {
+          "url": "https://github.com/open-llm-vtuber/open-llm-vtuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md",
+          "title": "Open-LLM-VTuber official README",
+          "revision": "992309c0aa19845960228f880013d4685fde93b5"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official repository README and checked each summary and feature claim against its documented capabilities.",
+      "features": [
+        {
+          "title": "Voice and visual interaction",
+          "text": "The companion accepts spoken conversation and visual input from cameras, screen recordings or screenshots.",
+          "source_url": "https://github.com/open-llm-vtuber/open-llm-vtuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md"
+        },
+        {
+          "title": "Desktop pet mode",
+          "text": "The desktop client supports a transparent, always-on-top character with mouse click-through.",
+          "source_url": "https://github.com/open-llm-vtuber/open-llm-vtuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md"
+        },
+        {
+          "title": "Configurable model backends",
+          "text": "Configuration files select language-model, speech-recognition and speech-synthesis implementations, including local options.",
+          "source_url": "https://github.com/open-llm-vtuber/open-llm-vtuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md"
+        }
+      ]
+    },
+    "012cd304d8265ea55d6a07975d08a58b66834d9d3ef824678bde0b7d1baf0bbc": {
+      "project_url": "https://github.com/openbq-org/openbb",
+      "text": "OpenBB's Open Data Platform integrates public, licensed and proprietary data sources for research tools and downstream applications. Its Python interface can retrieve financial datasets and convert results into data frames. Teams can run a local API server and expose integrations to REST clients, Excel, MCP agents or OpenBB Workspace, which provides a separate analyst interface.",
+      "sources": [
+        {
+          "url": "https://github.com/openbq-org/openbb/blob/7df7d0c5592bf25be88e87e130a05c71e243d2d8/README.md",
+          "title": "OpenBB official README",
+          "revision": "7df7d0c5592bf25be88e87e130a05c71e243d2d8"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official repository README and checked each summary and feature claim against its documented capabilities.",
+      "features": [
+        {
+          "title": "Python data retrieval",
+          "text": "A Python interface retrieves datasets such as historical equity prices and converts results to data frames.",
+          "source_url": "https://github.com/openbq-org/openbb/blob/7df7d0c5592bf25be88e87e130a05c71e243d2d8/README.md"
+        },
+        {
+          "title": "Local API server",
+          "text": "The openbb-api command starts a local FastAPI server for consuming platform data through HTTP.",
+          "source_url": "https://github.com/openbq-org/openbb/blob/7df7d0c5592bf25be88e87e130a05c71e243d2d8/README.md"
+        },
+        {
+          "title": "Shared data integrations",
+          "text": "The platform exposes integrated data to Python, REST APIs, Excel, MCP servers and OpenBB Workspace.",
+          "source_url": "https://github.com/openbq-org/openbb/blob/7df7d0c5592bf25be88e87e130a05c71e243d2d8/README.md"
+        }
+      ]
+    },
+    "0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9": {
+      "project_url": "https://github.com/openssl/openssl",
+      "text": "OpenSSL supplies protocol libraries and command-line tools for applications using TLS, DTLS and QUIC. Developers can link its protocol implementation or use the underlying cryptographic library independently. The command-line program creates keys and certificate requests, calculates digests, encrypts or decrypts data, and tests protocol clients and servers. It can be built from source or consumed through platform-provided packages.",
+      "sources": [
+        {
+          "url": "https://github.com/openssl/openssl/blob/949fe8b5f48c4c82bff6be7fb23de473ab6945a0/README.md",
+          "title": "OpenSSL official README",
+          "revision": "949fe8b5f48c4c82bff6be7fb23de473ab6945a0"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official repository README and checked each summary and feature claim against its documented capabilities.",
+      "features": [
+        {
+          "title": "Cryptographic library",
+          "text": "The libcrypto library can be used independently of the TLS implementation.",
+          "source_url": "https://github.com/openssl/openssl/blob/949fe8b5f48c4c82bff6be7fb23de473ab6945a0/README.md"
+        },
+        {
+          "title": "Certificate and key tools",
+          "text": "The command-line program creates key parameters, X.509 certificates, certificate-signing requests and revocation lists.",
+          "source_url": "https://github.com/openssl/openssl/blob/949fe8b5f48c4c82bff6be7fb23de473ab6945a0/README.md"
+        },
+        {
+          "title": "Protocol testing",
+          "text": "Command-line tools support SSL, TLS and DTLS client/server tests and QUIC client tests.",
+          "source_url": "https://github.com/openssl/openssl/blob/949fe8b5f48c4c82bff6be7fb23de473ab6945a0/README.md"
+        }
+      ]
+    },
+    "077c63ae0ccd48d64db5cd5e01153cfcc9407584691a5bcd61de938562ab5074": {
+      "project_url": "https://github.com/apache/opendal",
+      "text": "Apache OpenDAL gives applications a common interface for accessing object stores, file systems, databases, cloud services and key-value storage. Its Rust core exposes an Operator abstraction with language bindings for other runtimes. Developers select storage backends and compose layers for retries, timeouts, logging, metrics or concurrency limits, while retaining the same access model across supported services.",
+      "sources": [
+        {
+          "url": "https://github.com/apache/opendal/blob/451bc73c1f53b421b9e04685fc77f11e444a00a6/README.md",
+          "title": "OpenDAL official README",
+          "revision": "451bc73c1f53b421b9e04685fc77f11e444a00a6"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official repository README and checked each summary and feature claim against its documented capabilities.",
+      "features": [
+        {
+          "title": "Unified storage access",
+          "text": "The Operator abstraction provides a common access model across supported storage services.",
+          "source_url": "https://github.com/apache/opendal/blob/451bc73c1f53b421b9e04685fc77f11e444a00a6/README.md"
+        },
+        {
+          "title": "Composable operation layers",
+          "text": "Applications add retry, timeout, logging, tracing, metrics and traffic-control layers.",
+          "source_url": "https://github.com/apache/opendal/blob/451bc73c1f53b421b9e04685fc77f11e444a00a6/README.md"
+        },
+        {
+          "title": "Language bindings",
+          "text": "Bindings expose the storage model to application runtimes beyond the Rust core, including Python, Java, Go and Node.js.",
+          "source_url": "https://github.com/apache/opendal/blob/451bc73c1f53b421b9e04685fc77f11e444a00a6/README.md"
+        }
+      ]
+    },
+    "540fa13488ebedf45d4720a44f99d08ad746c2a4b6521756652e143c2f7b7ce3": {
+      "project_url": "https://github.com/pwilkin/openmoss",
+      "text": "openmoss-ggml is a C++ runtime for generating speech and sound effects with MOSS models. It runs through a command-line interface, a resident HTTP server or a browser interface, using CPU or supported GPU backends. Users can synthesize audio from text, clone a voice from reference audio and stream generated speech incrementally.",
+      "sources": [
+        {
+          "url": "https://github.com/pwilkin/openmoss/blob/bfb1f465e0a86fb5a52bbf93e67ceba4b7d0b4e1/README.md",
+          "title": "openmoss-ggml README",
+          "revision": "bfb1f465e0a86fb5a52bbf93e67ceba4b7d0b4e1"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes checked by Junge (AI) against the official README at the cited commit; this is an AI source review, not individual owner review or merge approval.",
+      "features": [
+        {
+          "title": "Command line or server",
+          "text": "Generate audio in a command-line invocation, or keep models loaded in an HTTP server for repeated requests.",
+          "source_url": "https://github.com/pwilkin/openmoss/blob/bfb1f465e0a86fb5a52bbf93e67ceba4b7d0b4e1/README.md"
+        },
+        {
+          "title": "Reference voice cloning",
+          "text": "Supply reference audio to generate speech in the referenced voice.",
+          "source_url": "https://github.com/pwilkin/openmoss/blob/bfb1f465e0a86fb5a52bbf93e67ceba4b7d0b4e1/README.md"
+        },
+        {
+          "title": "Incremental audio",
+          "text": "Streaming mode emits speech audio as generation progresses rather than waiting for the complete output.",
+          "source_url": "https://github.com/pwilkin/openmoss/blob/bfb1f465e0a86fb5a52bbf93e67ceba4b7d0b4e1/README.md"
+        }
+      ]
+    },
+    "543d9422dfffc402be4d86e6b5ac014232f09fdafab785dbf33874e746f2b22d": {
+      "project_url": "https://github.com/wouterapts/openik-unity",
+      "text": "OpenIK adds inverse kinematics to Unity projects, with solvers for positioning articulated chains and controlling their orientation. Developers can constrain hinge, ball-and-socket and sliding joints, limit joint speeds and choose automatic or scripted execution. The Unity package includes editor controls and sample scenes illustrating robotic arms, basic chains and a walking spider.",
+      "sources": [
+        {
+          "url": "https://github.com/wouterapts/openik-unity/blob/0233c65ae9d94e39dc5f4e67d44b11e4c5b13ff9/README.md",
+          "title": "OpenIK README",
+          "revision": "0233c65ae9d94e39dc5f4e67d44b11e4c5b13ff9"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes checked by Junge (AI) against the official README at the cited commit; this is an AI source review, not individual owner review or merge approval.",
+      "features": [
+        {
+          "title": "Joint constraints",
+          "text": "Set hinge angles, ball-and-socket swing and twist limits, or slider travel limits for an articulated chain.",
+          "source_url": "https://github.com/wouterapts/openik-unity/blob/0233c65ae9d94e39dc5f4e67d44b11e4c5b13ff9/README.md"
+        },
+        {
+          "title": "Bend direction",
+          "text": "Pole targets control elbow and knee bend directions across the available solvers.",
+          "source_url": "https://github.com/wouterapts/openik-unity/blob/0233c65ae9d94e39dc5f4e67d44b11e4c5b13ff9/README.md"
+        },
+        {
+          "title": "Execution control",
+          "text": "Choose per-frame solving or invoke the solver from scripts, with separate control over when results are applied.",
+          "source_url": "https://github.com/wouterapts/openik-unity/blob/0233c65ae9d94e39dc5f4e67d44b11e4c5b13ff9/README.md"
+        }
+      ]
+    },
+    "54eee77d25bcd5fb3a03e91f7ca69c5a0c68d8b5c90dd9eb7733b7068f6b5514": {
+      "project_url": "https://github.com/tylerebowers/openvat",
+      "text": "OpenVat is a desktop resin-printing slicer for Linux, Windows and macOS. Users import models, arrange and repair meshes, add supports and select printer and resin profiles before inspecting sliced layers. It also offers command-line slicing. The documented confirmed printer is the Anycubic Photon Mono M7 Pro; other listed models have varying experimental or unconfirmed support.",
+      "sources": [
+        {
+          "url": "https://github.com/tylerebowers/openvat/blob/41b003f6337d07162aa55432771f3f59b2d35606/README.md",
+          "title": "OpenVat README",
+          "revision": "41b003f6337d07162aa55432771f3f59b2d35606"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes checked by Junge (AI) against the official README at the cited commit; this is an AI source review, not individual owner review or merge approval.",
+      "features": [
+        {
+          "title": "Model preparation",
+          "text": "Position, rotate, scale, mirror, clone, repair and automatically arrange imported models on the build plate.",
+          "source_url": "https://github.com/tylerebowers/openvat/blob/41b003f6337d07162aa55432771f3f59b2d35606/README.md"
+        },
+        {
+          "title": "Support placement",
+          "text": "Add supports manually or automatically, adjust their settings and move or remove individual supports.",
+          "source_url": "https://github.com/tylerebowers/openvat/blob/41b003f6337d07162aa55432771f3f59b2d35606/README.md"
+        },
+        {
+          "title": "Layer inspection",
+          "text": "Inspect individual vector layers and a voxel reconstruction of the sliced model before exporting.",
+          "source_url": "https://github.com/tylerebowers/openvat/blob/41b003f6337d07162aa55432771f3f59b2d35606/README.md"
+        }
+      ]
+    },
+    "552113b0e0ceeefcc8a9842e4c9c6b82c0ebca8f18642102deb7476f318ba5f5": {
+      "project_url": "https://github.com/hypersniper05/open-omnivoice-tts",
+      "text": "OPEN-OMNIVOICE-TTS provides a self-hosted text-to-speech server built on OmniVoice, with an OpenAI-compatible speech endpoint for existing clients. It runs in Docker using an NVIDIA GPU or an AMD GPU with ROCm on Linux. Users can select bundled voices, create voices from recordings or descriptions, and choose audio formats and playback speed.",
+      "sources": [
+        {
+          "url": "https://github.com/hypersniper05/open-omnivoice-tts/blob/e8ce09b6850f507d66ee7245f2762fd854ee1bc4/README.md",
+          "title": "OPEN-OMNIVOICE-TTS README",
+          "revision": "e8ce09b6850f507d66ee7245f2762fd854ee1bc4"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes checked by Junge (AI) against the official README at the cited commit; this is an AI source review, not individual owner review or merge approval.",
+      "features": [
+        {
+          "title": "Speech API",
+          "text": "Connect compatible clients to the speech endpoint and choose MP3, Opus, AAC, FLAC, WAV or PCM output.",
+          "source_url": "https://github.com/hypersniper05/open-omnivoice-tts/blob/e8ce09b6850f507d66ee7245f2762fd854ee1bc4/README.md"
+        },
+        {
+          "title": "Custom voices",
+          "text": "Create a voice from an audio sample or a description of attributes such as pitch, age and accent.",
+          "source_url": "https://github.com/hypersniper05/open-omnivoice-tts/blob/e8ce09b6850f507d66ee7245f2762fd854ee1bc4/README.md"
+        },
+        {
+          "title": "Voice management",
+          "text": "List, create and delete custom voices through API endpoints; sample-based creation uses a consent-recording endpoint.",
+          "source_url": "https://github.com/hypersniper05/open-omnivoice-tts/blob/e8ce09b6850f507d66ee7245f2762fd854ee1bc4/README.md"
+        }
+      ]
+    },
+    "5590e70b852313ba9e2ee8a4a64fa853f966cf9aba8ba61fa2cf94d027bbc8e8": {
+      "project_url": "https://github.com/nullmagic2/open-volar-s",
+      "text": "Open Volar S combines a tuner software stack with a native television application for the original AVerTV Volar S A865R receiver. On Windows and Linux, users scan supported ISDB-T broadcasts, watch channels, record transport streams and browse broadcaster-provided program information. Recording-based time shifting, picture controls and diagnostic utilities accompany the viewing interface.",
+      "sources": [
+        {
+          "url": "https://github.com/nullmagic2/open-volar-s/blob/876d218de4d7f63792373beb47799bf49e98629d/README.md",
+          "title": "Open Volar S README",
+          "revision": "876d218de4d7f63792373beb47799bf49e98629d"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes checked by Junge (AI) against the official README at the cited commit; this is an AI source review, not individual owner review or merge approval.",
+      "features": [
+        {
+          "title": "Recording-based time shift",
+          "text": "Pause, seek and step through an active recording, or open a saved transport-stream file; ordinary live viewing creates no rewind buffer.",
+          "source_url": "https://github.com/nullmagic2/open-volar-s/blob/876d218de4d7f63792373beb47799bf49e98629d/README.md"
+        },
+        {
+          "title": "Broadcast information",
+          "text": "Display the electronic program guide and supported ISDB captions when the broadcaster supplies them.",
+          "source_url": "https://github.com/nullmagic2/open-volar-s/blob/876d218de4d7f63792373beb47799bf49e98629d/README.md"
+        },
+        {
+          "title": "Picture adjustment",
+          "text": "Adjust deinterlacing, scaling, aspect ratio and picture settings, including ICC color profiles.",
+          "source_url": "https://github.com/nullmagic2/open-volar-s/blob/876d218de4d7f63792373beb47799bf49e98629d/README.md"
+        }
+      ]
+    },
+    "55c710587c5664300e5a37080b3d9019eda15c2fbe30fab0e2988bcb074f29a7": {
+      "project_url": "https://github.com/digi-uw/openelis-global-2",
+      "text": "OpenELIS Global manages laboratory workflows for public health laboratories, including patients, orders, sample preparation, results, validation and reports. It can import analyzer results and exchange orders and results with other systems through optional integration services. Docker deployments include a lighter configuration that retains laboratory workflows without the FHIR server or Analyzer Bridge.",
+      "sources": [
+        {
+          "url": "https://github.com/digi-uw/openelis-global-2/blob/615942a7e3a20360ec44a2e6d55276100f042738/README.md",
+          "title": "OpenELIS Global README",
+          "revision": "615942a7e3a20360ec44a2e6d55276100f042738"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes checked by Junge (AI) against the official README at the cited commit; this is an AI source review, not individual owner review or merge approval.",
+      "features": [
+        {
+          "title": "Laboratory workflow",
+          "text": "Manage patient records, orders, sample preparation and labels, result validation, reports and sample storage.",
+          "source_url": "https://github.com/digi-uw/openelis-global-2/blob/615942a7e3a20360ec44a2e6d55276100f042738/README.md"
+        },
+        {
+          "title": "Optional exchange services",
+          "text": "Use the FHIR server and Analyzer Bridge for exchanges involving analyzers, electronic orders, laboratory referrals and other systems.",
+          "source_url": "https://github.com/digi-uw/openelis-global-2/blob/615942a7e3a20360ec44a2e6d55276100f042738/README.md"
+        },
+        {
+          "title": "Environmental result evaluation",
+          "text": "Configure test thresholds for selected compliance standards and display per-standard pass or fail indicators alongside environmental results.",
+          "source_url": "https://github.com/digi-uw/openelis-global-2/blob/615942a7e3a20360ec44a2e6d55276100f042738/README.md"
+        }
+      ]
+    },
+    "56e90df294ee754d433a909fef2752dd690eefa56f648d0863c6320981edaeab": {
+      "project_url": "https://github.com/theopen-institute/opendesk",
+      "text": "Open Desk customizes navigation in Frappe 16.50 and later as an app installed on a Frappe site. Administrators can group modules into apps, rearrange dock entries and control how apps and modules appear on the Apps screen. Separate settings also relocate sidebar tiles, search, notifications, help and site tools.",
+      "sources": [
+        {
+          "url": "https://github.com/theopen-institute/opendesk/blob/bf00cee04f153b4ddd1d15fac7c08bf4badb0727/README.md",
+          "title": "Open Desk README",
+          "revision": "bf00cee04f153b4ddd1d15fac7c08bf4badb0727"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes checked by Junge (AI) against the official README at the cited commit; this is an AI source review, not individual owner review or merge approval.",
+      "features": [
+        {
+          "title": "Module grouping",
+          "text": "Use Desk App records or management menus to group and rearrange modules in the dock.",
+          "source_url": "https://github.com/theopen-institute/opendesk/blob/bf00cee04f153b4ddd1d15fac7c08bf4badb0727/README.md"
+        },
+        {
+          "title": "Apps screen layout",
+          "text": "Choose per app whether the Apps screen shows an app icon, module icons, both or neither, in dock order.",
+          "source_url": "https://github.com/theopen-institute/opendesk/blob/bf00cee04f153b4ddd1d15fac7c08bf4badb0727/README.md"
+        },
+        {
+          "title": "Navigation placement",
+          "text": "Move other apps’ sidebar tiles to the dock and relocate search, notifications, help or site tools through separate settings.",
+          "source_url": "https://github.com/theopen-institute/opendesk/blob/bf00cee04f153b4ddd1d15fac7c08bf4badb0727/README.md"
+        }
+      ]
+    },
+    "57176ddb5c8aaad10d1128aeb31143916f76bb4f5855f2bcd45746395f6fda00": {
+      "project_url": "https://github.com/composio-community/open-dot",
+      "text": "Open Dot is a Mac desktop application for running personal agents with user-supplied OpenAI or OpenRouter credentials. Agents use browser sessions, connected applications and workspaces to carry out tasks, with chat approval cards and configurable rules. Users can schedule routines, configure app-event triggers and choose local folders, Docker containers or E2B cloud computers for code work.",
+      "sources": [
+        {
+          "url": "https://github.com/composio-community/open-dot/blob/f838e17cf5c3a88ade5ceea54680a8145d048c1d/README.md",
+          "title": "Open Dot README",
+          "revision": "f838e17cf5c3a88ade5ceea54680a8145d048c1d"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes checked by Junge (AI) against the official README at the cited commit; this is an AI source review, not individual owner review or merge approval.",
+      "features": [
+        {
+          "title": "Browser handover",
+          "text": "Watch an agent’s browser and take control for login or other interactions before handing it back.",
+          "source_url": "https://github.com/composio-community/open-dot/blob/f838e17cf5c3a88ade5ceea54680a8145d048c1d/README.md"
+        },
+        {
+          "title": "Scheduled and triggered work",
+          "text": "Run routines on a schedule or react to Composio app events while the application remains running.",
+          "source_url": "https://github.com/composio-community/open-dot/blob/f838e17cf5c3a88ade5ceea54680a8145d048c1d/README.md"
+        },
+        {
+          "title": "Workspace choices",
+          "text": "Give agents a local folder, a Docker container or an E2B cloud computer for code execution.",
+          "source_url": "https://github.com/composio-community/open-dot/blob/f838e17cf5c3a88ade5ceea54680a8145d048c1d/README.md"
+        }
+      ]
+    },
+    "57455bef2ab5b06abd079be9a9b3136ff8b81c5354fa4b674ad1857e0b99e908": {
+      "project_url": "https://github.com/koosoli/openposeidon",
+      "text": "Open Poseidon Engine extends the engine used by Operation Flashpoint and Arma Cold War Assault, requiring the user’s original game data. Its Windows-focused builds provide updated rendering, streamed whole-Earth terrain, weather effects and terrain editing. Experimental mission support extends to additional Arma games, but compatibility remains incomplete and their installed content is required.",
+      "sources": [
+        {
+          "url": "https://github.com/koosoli/openposeidon/blob/6a5245823c869341deb4823b33400f0773efec62/README.md",
+          "title": "Open Poseidon Engine README",
+          "revision": "6a5245823c869341deb4823b33400f0773efec62"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Summary and feature notes checked by Junge (AI) against the official README at the cited commit; this is an AI source review, not individual owner review or merge approval.",
+      "features": [
+        {
+          "title": "Whole-Earth terrain",
+          "text": "Stream elevation and imagery for terrain rendering from ground level to orbit; this feature requires an internet connection.",
+          "source_url": "https://github.com/koosoli/openposeidon/blob/6a5245823c869341deb4823b33400f0773efec62/README.md"
+        },
+        {
+          "title": "Terrain editing",
+          "text": "Edit terrain within the engine using its terrain editor.",
+          "source_url": "https://github.com/koosoli/openposeidon/blob/6a5245823c869341deb4823b33400f0773efec62/README.md"
+        },
+        {
+          "title": "Experimental mission compatibility",
+          "text": "Load missions from additional Arma games with their installed content, subject to missing script commands and compatibility limitations.",
+          "source_url": "https://github.com/koosoli/openposeidon/blob/6a5245823c869341deb4823b33400f0773efec62/README.md"
+        }
+      ]
+    },
+    "608dfde0120eac998c5adcaadb52fafaa83e70687ef00a7202125aaa75eff482": {
+      "project_url": "https://m11.ai/openmarket",
+      "text": "OpenMarket is a hosted research preview for comparing products through competing seller agents. A buyer agent carries the shopper’s requirements, while a referee checks seller claims against evidence. Users can compare arguments from several brands in one room and make the final purchase decision themselves; the buyer agent cannot purchase products.",
+      "sources": [
+        {
+          "url": "https://m11.ai/openmarket",
+          "title": "OpenMarket official product page"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed official documentation and matched each capability to its source. Unversioned official web documentation; no source revision claimed.",
+      "features": [
+        {
+          "title": "Competing seller agents",
+          "text": "Product-specific agents argue for their offerings and challenge competing products.",
+          "source_url": "https://m11.ai/openmarket"
+        },
+        {
+          "title": "Evidence checks",
+          "text": "A referee classifies seller claims as substantiated, unsupported or unverifiable.",
+          "source_url": "https://m11.ai/openmarket"
+        },
+        {
+          "title": "Buyer brief",
+          "text": "A buyer agent retains the shopper’s requirements and requests further input when needed.",
+          "source_url": "https://m11.ai/openmarket"
+        }
+      ]
+    },
+    "617fe5fb70db9959b7c17e6d5fdede0cfe34a87319830199334b1dcaddb23cd5": {
+      "project_url": "https://www.openhab.org",
+      "text": "openHAB connects household devices and automation systems through a common interface and rule system. Users install bindings for devices, represent their state as items, and create pages and rules to monitor or control them. The Java-based application runs on Linux, Windows and macOS, including small computers such as Raspberry Pi or dedicated home servers.",
+      "sources": [
+        {
+          "url": "https://www.openhab.org/docs/",
+          "title": "openHAB introduction"
+        }
+      ],
+      "checked_at": "2026-10-29",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed official documentation and matched each capability to its source. Unversioned official web documentation; no source revision claimed.",
+      "features": [
+        {
+          "title": "Device bindings",
+          "text": "Bindings translate commands between connected devices and openHAB.",
+          "source_url": "https://www.openhab.org/docs/"
+        },
+        {
+          "title": "Automation rules",
+          "text": "Rules respond to events with user-defined actions across connected devices.",
+          "source_url": "https://www.openhab.org/docs/"
+        },
+        {
+          "title": "Custom control pages",
+          "text": "User-defined web pages display device information and provide controls.",
+          "source_url": "https://www.openhab.org/docs/"
+        }
+      ]
     }
   }
 }
