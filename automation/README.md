@@ -51,8 +51,12 @@ The manual `history_backfill` input defaults to false and adds no GitHub cron.
 - Among curated-source writes, only discovery's source-only catalog additions
   have direct-main authorization.
   All other authored-source and enrichment proposals use separate scoped **draft PRs**. A build's
-  `approved` record status does not authorize a merge. No task merges, marks a
-  draft ready, enables auto-merge or changes repository protections.
+  `approved` record status alone does not authorize a merge. The sole exception
+  is validated new-artwork-only publication under the owner's
+  [standing authorization](../site/SPECIMEN-ART.md#publication-after-validation):
+  its agent may mark ready and merge the verified head. Other proposals retain
+  owner merge review. No task submits approval reviews, enables auto-merge or
+  changes repository protections.
 - Use each contract's validation, offline tests and previews. For artwork and
   summaries, also check the catalog/site output and relevant browser behavior.
   Verify remote diff, head and draft state, and exact-head CI through its terminal
@@ -96,7 +100,7 @@ catalog commit, and unavailable enrichment does not block discovery.
 corresponding incremental `site/specimens/cutouts.json` records and incremental
 `brand/assets.lock.json` checksum entries. Generate and validate the derivatives
 under the merged specimen contract and keep all five parts together in the same
-separate scoped draft PR. Preserve unrelated assets and records. Catalog acceptance, technical review and separate merge approval remain required.
+separate scoped draft PR. Preserve unrelated assets and records. Catalog acceptance and technical review remain required; validated new-artwork-only PRs follow the specimen guide's standing publication authorization.
 
 The dedicated [summary job](backfill-function-summaries.md) owns missing
 existing-project summaries. Discovery's conditional hosted instruction delegates
@@ -172,7 +176,7 @@ change or an unchanged pending proposal requires no new PR or routine report.
 PRs, official project documentation and the [specimen/brand guides](../site/SPECIMEN-ART.md).
 Use actual image generation with Speculative FOSSoligy and Retro-Scraperism.
 Select at most **40 distinct canonical projects per batch**, in descending cached
-star order. Keep at most **one backfill batch awaiting user review**. Skip artwork
+star order. Keep at most **one backfill batch in flight** through validation and publication. Skip artwork
 of every existing review status, overlapping proposals and owner edits; never
 regenerate existing images without a separate request.
 
@@ -186,8 +190,9 @@ Use full catalog IDs, actual pixel review and truthful generation/source/reviewe
 provenance. Independently derive subjects from each tool's function; do not use
 exemplar images, style anchors or contact sheets as generation references.
 New images are display-approved after required technical, provenance and safety
-checks; stylistic reservations remain nonblocking notes. Merge approval stays
-separate. The guide's original-image fallback handles missing/stale derivatives
+checks; stylistic reservations remain nonblocking notes. Follow the specimen
+guide's new-artwork-only procedure to mark ready, merge the verified head and
+verify normal publication without waiting for owner aesthetic review. The guide's original-image fallback handles missing/stale derivatives
 at build time; it does not replace the requirement to include matching cut-outs
 and their manifest records in the backfill PR.
 

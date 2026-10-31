@@ -37,8 +37,10 @@ do not block display; individual images can be redone later when requested.
 Follow the [approval and review contract](../site/SPECIMEN-ART.md#default-display-approval-and-review)
 for blocking issues and truthful reviewer attribution. This does not change
 historical statuses or authorize replacement of existing accepted assets.
-“Approved” in the manifest permits proposed-build inclusion. Keep draft-PR review
-and separate publication approval.
+“Approved” in the manifest permits build inclusion. Validated new-artwork-only
+PRs follow the owner's [standing publication authorization](../site/SPECIMEN-ART.md#publication-after-validation);
+no separate owner aesthetic checkpoint is required. Other PRs retain their
+existing review gates.
 
 Review silhouette, anatomy, functional analogy, palette, background, legibility
 at use size, and differentiation from other specimens. Store actual results, not

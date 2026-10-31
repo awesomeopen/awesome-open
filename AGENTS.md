@@ -48,7 +48,10 @@ lead with the answer, and keep the detail needed to understand or act on it.
   `--refresh` updates checksums only; it never grants approval.
 - Use a focused branch and draft PR. Follow `site/PREVIEW.md` for a requested
   private preview; preserve the audience. Record the exact source revision and
-  verification limits. Never merge or modify repository protections by inference.
+  verification limits. The owner-authorized new-artwork publication exception in
+  [the specimen handoff](site/SPECIMEN-ART.md#publication-after-validation) permits
+  only its validated art-only PRs to be marked ready and merged by the agent.
+  All other PRs retain their review gate. Never modify repository protections.
 
 Read `brand/maintenance.md` for the operating procedure, including Junge handoffs.
 These instructions do not create a scheduled task or trigger another agent.
