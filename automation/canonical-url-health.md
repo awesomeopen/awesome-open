@@ -1,6 +1,6 @@
 # Canonical URL health audit
 
-Status: PROPOSED. Not registered, not scheduled, not implemented. This file is a plan only. Editing, cloning, or merging this file does not register a task, enable a schedule, or authorize a run. A run becomes executable only after this contract and its linked implementation are reviewed and merged, the owner authorizes registration, and the actual registration is verified separately. This draft was prepared locally for owner review on 2026-10-30 and submitted as a draft pull request for Phase 0 contract review. No schedule, code, or catalog change accompanies it.
+Status: PROPOSED. Not registered, not scheduled, not implemented. This file is a plan only. Editing, cloning, or merging this file does not register a task, enable a schedule, or authorize a run. A run becomes executable only after this contract and its linked implementation are reviewed and merged, the owner authorizes registration, and the actual registration is verified separately. This draft was prepared locally for owner review on 2026-10-30, submitted as draft pull request #231, and merged on 2026-10-31. The redirect-triage and slow-host amendments in section 6, added 2026-10-31, are proposed in a follow-up draft and take effect only when that follow-up is merged. No schedule, code, or catalog change accompanies them.
 
 Signing: contributions prepared by the assistant for this repository are signed "Superhirn (AI)" in the pull request and commit descriptions, and in any author or reviewer field where the assistant is the author. Owner review and merge remain separate and are not signed by the assistant.
 
@@ -73,7 +73,7 @@ Concurrency and politeness bounds, version 2:
 - At most 8 probe workers in total, and at most 1 in-flight request per host. Different hosts run in parallel; the same host is always probed serially.
 - A minimum interval of 1.0 second between requests to github.com, and 0.5 seconds between requests to any other host. These intervals, not a batch cap, pace the sweep. With 500 github.com URLs at 1.0 second, the github.com leg takes about 8.3 minutes, while the other hosts finish in parallel. At 1,000 URLs with the same github.com share, the sweep takes about 15 minutes.
 - At most 1,200 HTTP requests per run, counting redirect hops, and at most 45 minutes of total probe time. A run that would exceed either bound stops, preserves the observations already recorded, and reports the bound as a blocker. The bound is a safety stop, not a batch size: a normal sweep of 552 URLs uses about 552 requests plus a small number of redirect hops.
-- The per-hop timeout, body cap, and retry rule from section 6 are unchanged.
+- The per-hop timeouts, body cap, and retry rule from section 6 apply within these bounds.
 
 If a previous material draft is still pending review, the next sweep still runs, because a sweep is only observation, but it files no new draft. Its results are held for the next draft, and the sweep summary in section 11 records that a draft was skipped for that reason. This differs from the enrichment one-pending-draft gate, which pauses the work itself; here the observation work is cheap and safe to repeat, and only the filing is gated. A sweep never overwrites a pending draft's branch, and it never merges anything itself.
 
@@ -84,12 +84,14 @@ Cadence, proposed, to be authorized by the owner before registration:
 
 ## 6. HTTP protocol: what a probe does, and what each result means
 
+Revision note, 2026-10-31: the pilot sweep of the first 100 URLs, reported in chat, found two probe defects in this section's first draft. First, `https://osdoc.cogsci.nl` (OpenSesame) answers GET in about 11 seconds and never answers HEAD within 10 seconds, for any User-Agent, so a HEAD-only 10-second timeout recorded a transport error for a site that opens in a browser. Second, a permanent redirect alone does not say whether the change is a URL correction, a move, or a rename, or whether it is already recorded. This section now requires a GET fallback on a HEAD timeout, with a longer timeout and a method switch on retry, and adds redirect triage and handover below. The contract version stays 1: the original contract was merged as PR #231, and this amendment is proposed as a follow-up draft.
+
 One probe, per selected URL, in this exact sequence:
 
 1. Send an HTTP HEAD request to the canonical URL, with a distinct honest User-Agent that identifies the audit, a 10-second timeout per hop, and no credentials, cookies, or Referer. Follow no redirects automatically. Use an opener that refuses redirects, in the style of the NoRedirect handler already used in `scripts/update_signals.py`, so each hop is observed and recorded separately.
-2. If HEAD returns 405, 501, or another method-related rejection, send one HTTP GET request to the same URL, with the same headers and timeout, reading at most 64 KB of the body and then closing the connection. Never read a full page, never parse scripts, and never follow links in the body.
+2. If HEAD returns 405, 501, or another method-related rejection, or if HEAD times out, send one HTTP GET request to the same hop URL, with the same headers, a 30-second timeout, reading at most 64 KB of the body and then closing the connection. Never read a full page, never parse scripts, and never follow links in the body. A GET fallback may occupy its host slot for up to 30 seconds; that time counts toward the 45-minute run bound in section 5. A HEAD timeout alone is never recorded as a transport error.
 3. Follow redirect responses, 301, 302, 303, 307, and 308, one hop at a time, recording each hop's status and Location header, up to 5 hops. Stop at the first non-redirect response, at 5 hops, or at a redirect loop, and record the stopping reason. Never follow a redirect to a URL with a username, password, or encoded host. Never send a credential on any hop.
-4. On HTTP 429, read the Retry-After header if present, record it, and stop that URL for this run. Do not retry the URL in the same run. On a timeout, DNS failure, or TLS failure, record the error kind, retry once after a 5-second pause, and record both attempts. A second failure ends that URL for this run.
+4. On HTTP 429, read the Retry-After header if present, record it, and stop that URL for this run. Do not retry the URL in the same run. On a timeout, DNS failure, or TLS failure, record the error kind, retry once after a 5-second pause, switching method: a HEAD failure is retried as GET with a 30-second timeout, and a GET failure is retried once as GET with a 30-second timeout. Record both attempts and the method of each attempt in `review_note` when the methods differ. A second failure ends that URL for this run. A transport error is recorded only after the GET fallback in step 2 has also failed.
 5. For a URL whose host is github.com and whose final response is a redirect, verify identity only when a GitHub token is available: request the repository API record for the old path and for the new path, and compare repository IDs. Record both IDs, or record that verification was unavailable. The catalog name and URL stay unchanged regardless of the result; only a separate curated change, under the history and alias contracts, may update them.
 
 Status taxonomy, and the only meanings the evidence file may record:
@@ -100,12 +102,20 @@ Status taxonomy, and the only meanings the evidence file may record:
 - `client-error`: a final 4xx response, including 404 and 410. Meaning: the server answered that the resource was not found or unavailable on the checked date. A single client error never establishes withdrawal, removal, or a name change.
 - `server-error`: a final 5xx response. Meaning: the server failed to answer on the checked date. It establishes nothing about the project.
 - `blocked`: a 403, 429, or a response that indicates bot or rate-limit handling, or a redirect loop. Meaning: the probe was refused or limited. It establishes nothing about the project, and it must never be reported as a dead link.
-- `transport-error`: a DNS failure, TLS failure, connection failure, or timeout after the one retry. Meaning: the probe could not reach the server. It establishes nothing about the project.
+- `transport-error`: a DNS failure, TLS failure, connection failure, or timeout after the GET fallback and the one retry in steps 2 and 4. Meaning: the probe could not reach the server. It establishes nothing about the project. A HEAD timeout alone is a probe artifact, not a transport error, and it never counts toward persistent failure.
 - `unknown`: any result that does not fit the taxonomy, or a probe that could not run. Meaning: no observation was recorded for that URL in that run.
 
 Persistent failure, the only aggregate state the job may compute:
 
 - A URL is in persistent-failure state after the same client-error, server-error, or transport-error result on two consecutive runs on different UTC dates, with no reachable observation in between. A blocked result never counts toward persistent failure. A persistent failure is a prompt for human review, never a proposal to remove, rename, or delist a project. The review may lead to a history record, an alias record, an identity update, or no change, each through its own contract and draft pull request.
+
+Redirect triage and handover. Before an evidence draft is filed, every `redirect-permanent` record is triaged into one class, and a temporary redirect is triaged only when its identity is verified. The class, the check for an existing record, and the handover, if any, are stated in the run report in section 11. Triage never changes a catalog entry by itself.
+
+- Class A, URL correction: the final URL differs from the canonical URL only by a trailing slash, a scheme, or another difference the builder's `canonical_url()` already absorbs. No identity change, no follow-up. A correction record is recorded once; later sweeps confirm the same chain and file no new packet. If the chain changes, the record is triaged again.
+- Class B, move: the host or path changed, the project is the same, and no software-name change is evidenced. The follow-up depends on identity verification: for a GitHub URL, the repository-ID comparison in step 5; for another host, an official HTTPS source stating that the same project moved. If identity is verified and the move is not yet recorded in the history file or the rename ledger in CONTRIBUTING.md, the handover is a history event of kind `repository_rename` or `owner_transfer`, or a star-history endpoint mapping, as the relevant contract requires. If the software name may also have changed, that check is done before any proposal, and a move and a rename are never bundled into one packet.
+- Class C, rename: the repository path changed and a software-name change is evidenced by an official source, such as a rename commit, an announcement, or a release. The handover is a history event of kind `software_rename`, one event for one rename, under `site/PROJECT-HISTORY.md`, with the occurrence date at the precision the source supports and the source that supports it. A display-name update is a separate curated change and is never included in the history packet.
+
+For every class B and class C record, the agent checks, before proposing anything, whether the same change is already recorded: in `data/project_history.json` for an event with the same catalog URL, kind, old and new names, and occurrence; in `data/project_aliases.json` for an existing alias; and in the rename ledger in CONTRIBUTING.md and `REVIEWED_REPOSITORY_RENAMES` for an existing path mapping. If it is already recorded, the report states that, with the location, and no packet is prepared. If it is not recorded, the handover packet contains the catalog ID, the old and new URLs, the full redirect chain, the identity evidence with both repository IDs or the official source, the date basis with its sources, the exact content of the proposed change, and a separate flag for any display-name decision the owner must still make. The packet is proposed as a separate scoped draft pull request under its own contract, never inside the evidence draft, and it requires its own owner review and merge. If no official source establishes an exact occurrence date, the packet proposes `occurred: null` with an explicit unknown-date note, so the event stays in the folded secondary evidence block and never enters the timeline on an invented date.
 
 
 ## 7. Evidence schema: `data/canonical_url_health.json`
@@ -160,7 +170,7 @@ Validation, run before any draft is filed:
 - The JSON parses, the schema version is 1, every non-retained key is a complete catalog ID present in the freshly built catalog, every retained record carries `last_present_source_sha` and no other record uses a stale ID, and every record's `project_url` matches the catalog URL for that ID or, for a retained record, the URL for that ID at `last_present_source_sha`.
 - Every `status` is in the taxonomy, every date is a valid UTC date, every redirect chain has at most 5 hops, and every GitHub verification claim includes both IDs or an explicit unavailable reason.
 - No record proposes a catalog change. The file contains no `README.source.md` edit, no name change, and no URL change.
-- The offline test suite passes, including fixture tests that replay a permanent redirect, a temporary redirect, a 404, a timeout, a redirect loop, and a GitHub rename with matching and mismatching repository IDs, with no network access.
+- The offline test suite passes, including fixture tests that replay a permanent redirect, a temporary redirect, a 404, a timeout, a redirect loop, a HEAD timeout followed by a successful GET, a slow host that answers GET only after 10 seconds, and a GitHub rename with matching and mismatching repository IDs, with no network access.
 
 ## 8. Output and pull request scope
 
@@ -175,6 +185,7 @@ The draft pull request:
 - Uses a focused branch, a draft state, and a title that names the job, the sweep date, and the number of changed records, for example `canonical-url-health: 2026-11-03, 6 changed` or, for a monthly checkpoint with no changes, `canonical-url-health: 2026-11-24 sweep summary`.
 - Links this contract, the catalog source SHA, the sweep summary and digest, and the exact-head CI result.
 - States the actual coverage: how many URLs were checked, how many were reachable, redirected, failed, or blocked, and how many records are new, updated, or unchanged.
+- Includes the redirect triage table from section 11, with one row per triaged record, stating its class, whether the change is already recorded and where, or a link to the separate handover packet, or that no follow-up is required and why.
 - Makes no claim beyond the observations. It does not say a project is dead, moved, or withdrawn. It does not say the catalog is healthy or unhealthy as a whole.
 - Never merges itself, never marks itself ready, never enables auto-merge, and never changes repository protections. Owner merge approval remains separate, and a passing check alone does not merge it.
 
@@ -185,7 +196,7 @@ A draft is filed only in two cases. First, a material change: at least one new o
 Two reviews, kept separate:
 
 1. Observation review. A reviewer checks that each new or changed record matches its method: the status fits the taxonomy, the redirect chain is complete, the GitHub ID comparison, when claimed, used the repository API records, and the dates are actual UTC dates. The reviewer records the check in `review_note` and sets `review_status` to `approved` or `rejected` in a follow-up commit to the same draft, or in review comments that the integrator applies before merge. Stylistic reservations about wording are nonblocking notes; a factual error in an observation blocks approval of that record.
-2. Catalog change review, only when a follow-up is proposed. A permanent redirect with a verified matching repository ID, a documented rename, or a persistent failure may lead to a separate proposal, each under its own contract: an identity update under the catalog builder rules and the migration procedure in section 10, an alias record under `site/PROJECT-ALIASES.md`, or a history record under `site/PROJECT-HISTORY.md`. That proposal uses a separate scoped draft pull request, never the evidence draft, and it requires its own owner review and merge. The evidence record's `approved` status does not authorize the catalog change.
+2. Catalog change review, only when a follow-up is proposed. A permanent redirect with a verified matching repository ID, a documented rename, or a persistent failure may lead to a separate proposal, each under its own contract: an identity update under the catalog builder rules and the migration procedure in section 10, an alias record under `site/PROJECT-ALIASES.md`, or a history record under `site/PROJECT-HISTORY.md`. The proposal arises from the redirect triage in section 6, is prepared as a handover packet with its exact content, and uses a separate scoped draft pull request, never the evidence draft, and it requires its own owner review and merge. The evidence record's `approved` status does not authorize the catalog change.
 
 No task, including this one, merges, marks a draft ready, enables auto-merge, or changes repository protections. No force-push is used. Concurrent edits are preserved by re-fetching fresh `main` and rechecking open pull requests before writing, and by applying only the selected records.
 
@@ -256,6 +267,7 @@ Changed records: <N> — new: <N>, updated: <N>, pruned: <N> — unchanged and u
 Persistent failures, two consecutive runs: <list of catalog IDs and names, or "none">
 GitHub redirects with verified matching repository ID: <list, or "none">
 GitHub redirects with unverified or mismatching identity: <list, or "none">
+Redirect triage: <one row per triaged record: catalog ID and name, class A/B/C, already recorded and where, or separate handover packet link, or no follow-up and why; or "none">
 Skips and limits: <quota, timeout, or access limits hit, or "none">
 Blockers: <actionable blockers, or "none">
 ```
@@ -269,14 +281,14 @@ A run with no supported changes and no actionable blocker stays quiet. A run tha
 - Validation failure: if the evidence file fails validation, file no draft, preserve the observations in the run's local output only, and report the failure. Never publish an unvalidated evidence file.
 - Catalog drift: if `main` advances between selection and writing, discard the selection, rebuild the catalog from fresh `main`, and reselect. Never write observations against a stale catalog revision.
 - Redirect to an unexpected host: record the chain and stop. Never follow a redirect that carries credentials, never send a token to the new host, and never treat a redirect to a different host as an identity match without official-source review.
-- Large or slow responses: the 64 KB body cap, the 10-second per-hop timeout, and the 15-minute run budget are hard bounds. A URL that exceeds them is recorded as a transport error with the bound that was hit, not retried with a larger budget in the same run.
+- Large or slow responses: the 64 KB body cap, the 10-second HEAD timeout, the 30-second GET fallback timeout, and the 45-minute run budget are hard bounds. A URL that exceeds the GET fallback and its retry is recorded as a transport error with the bound that was hit, not retried with a larger budget in the same run. A URL that answers GET only after the HEAD timeout is recorded as reachable with that method in its `review_note`, not as a transport error.
 
 ## 13. Optimization over time: calibration, not drift
 
 After every four scheduled runs, the job's operator, who may be the owner or a reviewer, performs a calibration review, recorded as a decision note in the draft that proposes any change. The review measures, from the evidence file and run reports:
 
 - Coverage: the share of unique catalog URLs checked in the most recent sweep, and the number of sweeps since the last merged sweep summary. Target: 100 percent of URLs checked in every sweep, and a merged sweep summary at least monthly.
-- False-positive rate: the share of persistent failures that human review later found to be artifacts, such as a temporary block, a probe error, or a redirect that resolved. Target: below 5 percent of persistent failures. If the rate is higher, the first change is to the classification or retry rule, never to the taxonomy's meanings.
+- False-positive rate: the share of persistent failures that human review later found to be artifacts, such as a temporary block, a probe error, a timeout recorded only because HEAD timed out, or a redirect that resolved. Target: below 5 percent of persistent failures. If the rate is higher, the first change is to the classification or retry rule, never to the taxonomy's meanings.
 - Proposal acceptance: the share of follow-up identity, alias, or history proposals that the owner merged, and the share rejected. A low acceptance rate means the proposal threshold is too eager; a high rate with few proposals means the threshold may be too cautious. Either way, the threshold change is proposed as a contract change, with the numbers quoted.
 - Cost: median probe latency, requests per run, and runs stopped by quota. If the median latency rises, the first change is to lengthen the per-host interval or the per-hop timeout, never to drop the redirect-chain recording.
 - Review lag: the median time from draft filing to owner decision. If lag grows, the first change is to file drafts less often for unchanged sweeps, so each draft is easier to review, never to skip review.
@@ -343,13 +355,13 @@ This descriptor is a codification aid, not a registration. No runner in this rep
   "status": "proposed",
   "runner": null,
   "cadence": {"kind": "weekly", "weekday": "Tuesday", "time": "10:00", "timezone": "America/New_York", "flexible": true},
-  "sweep": {"scope": "all unique canonical URLs", "max_requests_per_run": 1200, "max_minutes_per_run": 45, "max_workers": 8, "max_concurrent_per_host": 1, "min_interval_seconds_github": 1.0, "min_interval_seconds_other_hosts": 0.5, "max_hops_per_url": 5, "timeout_seconds_per_hop": 10, "max_body_bytes": 65536},
+  "sweep": {"scope": "all unique canonical URLs", "max_requests_per_run": 1200, "max_minutes_per_run": 45, "max_workers": 8, "max_concurrent_per_host": 1, "min_interval_seconds_github": 1.0, "min_interval_seconds_other_hosts": 0.5, "max_hops_per_url": 5, "timeout_seconds_head_per_hop": 10, "timeout_seconds_get_fallback": 30, "max_body_bytes": 65536},
   "drafts": {"on_material_change": true, "monthly_coverage_checkpoint": true, "changed_records_only": true},
   "inputs": ["README.source.md", "scripts/build_catalog.py", "data/canonical_url_health.json"],
   "outputs": ["data/canonical_url_health.json"],
   "pr_scope": ["data/canonical_url_health.json"],
   "gates": {"one_pending_draft": true, "direct_main": false, "auto_merge": false, "force_push": false},
-  "http": {"method": "HEAD, then GET on method rejection", "stdlib_only": true, "credentials": "none, except optional GitHub token for repository-ID verification after a redirect", "user_agent": "distinct honest audit identifier, to be fixed in implementation"},
+  "http": {"method": "HEAD, then GET on method rejection or HEAD timeout", "stdlib_only": true, "credentials": "none, except optional GitHub token for repository-ID verification after a redirect", "user_agent": "distinct honest audit identifier, to be fixed in implementation"},
   "taxonomy": ["reachable", "redirect-permanent", "redirect-temporary", "client-error", "server-error", "blocked", "transport-error", "unknown"],
   "display": "none in version 1"
 }
@@ -359,7 +371,7 @@ This descriptor is a codification aid, not a registration. No runner in this rep
 
 This example is illustrative only. It is drawn from the rename ledger already documented in CONTRIBUTING.md, and it is not a fresh live observation. No URL was probed to write it.
 
-A catalog URL `https://github.com/openremote/openremote` is swept. The probe records a 301 hop to `https://github.com/openremote/core`. The checker, with a token available, requests both repository API records and finds the same repository ID, `50994619`, in both. The evidence record states: status `redirect-permanent`, redirect chain with one 301 hop, GitHub identity verified, and a review note stating that a separate curated change is required before the catalog URL or history endpoint changes, and that the catalog name stays unchanged. The draft pull request for that sweep contains only the evidence record. The owner may then propose, in a separate draft, an identity update under the catalog rules, or a history record under the history contract, or no change. If the two repository IDs had differed, the record would state that plainly, identity would stay unverified, and no identity proposal would follow from that observation alone.
+A catalog URL `https://github.com/openremote/openremote` is swept. The probe records a 301 hop to `https://github.com/openremote/core`. The checker, with a token available, requests both repository API records and finds the same repository ID, `50994619`, in both. The evidence record states: status `redirect-permanent`, redirect chain with one 301 hop, GitHub identity verified, and a review note stating that a separate curated change is required before the catalog URL or history endpoint changes, and that the catalog name stays unchanged. The draft pull request for that sweep contains only the evidence record. Under the redirect triage rule in section 6, the sweep's draft report also states the triage class for this redirect, and any handover packet for a follow-up is a separate draft. The owner may then propose, in a separate draft, an identity update under the catalog rules, or a history record under the history contract, or no change. If the two repository IDs had differed, the record would state that plainly, identity would stay unverified, and no identity proposal would follow from that observation alone.
 
 ## Appendix C. Open questions for the owner
 
