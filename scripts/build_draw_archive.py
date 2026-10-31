@@ -20,7 +20,7 @@ def week_label(week):
     return f'{year}-W{number:02d}'
 
 
-def specimen_html(project, status, output, root, categories, current_ids):
+def specimen_html(project, output, root, categories, current_ids):
     pid = project['id']
     art = project['artwork']
     source = root / 'site' / art['path']
@@ -36,8 +36,7 @@ def specimen_html(project, status, output, root, categories, current_ids):
     return (
         f'<li class="draw-specimen {"has-art" if image else "no-art"}">{image}'
         f'<h3><a href="{escape(link, quote=True)}">{escape(project["name"])}</a></h3>'
-        f'<p class="draw-function">{escape(project["description"])}</p>'
-        f'<p class="draw-meta">{escape(domains)}<br>{status}</p></li>'
+        f'<p class="draw-meta">{escape(domains)}</p></li>'
     )
 
 
@@ -73,15 +72,12 @@ def build(catalog, doc, output, root):
     categories = {c['id']: c['name'] for c in catalog['categories']}
     current_ids = {p['id'] for p in catalog['projects']}
     editions = visible(doc)
-    seen = set()
-    # Count appearances chronologically; render newest first.
+    # Render newest first.
     rendered = []
     for number, edition in enumerate(editions):
         rows = []
         for project in edition['projects']:
-            status = 'Returning' if project['id'] in seen else 'First appearance'
-            rows.append(specimen_html(project, status, output, root, categories, current_ids))
-            seen.add(project['id'])
+            rows.append(specimen_html(project, output, root, categories, current_ids))
         rendered.append(edition_html(edition, rows, number == len(editions) - 1))
     sections = list(reversed(rendered))
     if not sections:
@@ -93,7 +89,7 @@ def build(catalog, doc, output, root):
     )
     page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Spotlight</title><meta name="description" content="Seven illustrated Awesome Open projects, drawn each week and shown the following week, with every past edition."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="../{content_url('observatory/observatory.css', root / 'site/observatory.css')}"><link rel="stylesheet" href="{content_url('draws.css', root / 'site/draws.css')}"></head>
-<body class="observatory draws"><a class="skip-link" href="#spotlight">Skip to spotlight</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../#about">About</a><a href="./" aria-current="page">Spotlight</a><a href="../scoreboard/">Scoreboard</a></nav></header></div>
+<body class="observatory draws"><a class="skip-link" href="#spotlight">Skip to spotlight</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../observatory/">Observatory</a><a href="../scoreboard/">Scoreboard</a><a href="./" aria-current="page">Spotlight</a></nav></header></div>
 <main id="spotlight" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Spotlight</h1></section>
 <nav class="obs-jump draw-jump" aria-label="Sections" hidden><a href="#editions">Editions</a><a href="draws.json" download>Download draw records</a></nav>
 {metrics_html(editions, len(catalog['projects']))}

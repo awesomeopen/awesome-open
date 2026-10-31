@@ -243,12 +243,13 @@ Scorecard coverage ends at “returned”.
 ## Catalog and Spotlight naming
 
 Page titles are “Awesome Open* Catalog” and “Awesome Open* Observatory”.
-Top navigation uses Catalog and links About to the catalog footer’s `#about`.
+Subpage navigation reads Catalog, Observatory, Scoreboard, Spotlight in that order.
+The Catalog footer links read Submit a project, Observatory, Scoreboard, Spotlight, GitHub, Top.
 The weekly draw archive uses `/spotlight/` and the visible page name Spotlight.
 Edition labels, current-edition values and anchors use ISO week years/numbers
 (`2026-W43`, linking to `/spotlight/#2026-W43`). Its page hides the section jump
-navigation, omits the scope and method blocks, and removes Observatory links and
-the footer’s Return to project ledger link. Download draw records · Draw contract
+navigation and omits the scope and method blocks. Every edition uses the compact
+seven-column tray, with category metadata at 10px and -0.05em letter-spacing. Download draw records · Draw contract
 sits in the footer immediately above GitHub. The download lives at
 `/spotlight/draws.json`; the draw evidence contract and saved dates are unchanged.
 See [B-PR134-01](decisions/B-PR134-01.md). The catalog footer puts GitHub immediately before
