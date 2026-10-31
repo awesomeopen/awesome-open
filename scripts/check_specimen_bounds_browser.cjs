@@ -7,8 +7,8 @@ const near = (actual, expected, label) => assert.ok(Math.abs(actual - expected) 
   `${label}: expected ${expected}, got ${actual}`);
 
 // Readiness is independent of correctness: a stable but wrong connector must
-// still reach assertGeometry and fail. Sample on animation frames so resize
-// handlers and responsive layout run before we compare the image and SVG.
+// still reach assertGeometry and fail. Consecutive layout observations let resize
+// handlers and responsive layout settle before we compare the image and SVG.
 function stableLayoutSample({ selector, reset = false }) {
   const plate = document.querySelector(selector);
   if (!plate) return false;
@@ -33,25 +33,87 @@ function stableLayoutSample({ selector, reset = false }) {
   return frames >= 3;
 }
 
-async function waitForSpecimenLayout(page, selector = '.specimen-plate', noJavaScript = false) {
-  await page.locator(selector + ' .plate-art img').evaluate(image => image.decode());
-  await page.evaluate(() => document.fonts.ready);
-  await page.evaluate(stableLayoutSample, { selector, reset: true });
-  try {
-    if (noJavaScript) {
-      // Browser timers do not reliably run with page JavaScript disabled.
-      // Drive bounded condition polling from Node, not a fixed layout delay.
-      const deadline = Date.now() + 5000;
-      while (!await page.evaluate(stableLayoutSample, { selector })) {
-        assert.ok(Date.now() < deadline, 'No-JS specimen layout did not stabilize');
-        await new Promise(resolve => setTimeout(resolve, 16));
-      }
-    } else {
-      await page.waitForFunction(stableLayoutSample, { selector }, { polling: 'raf', timeout: 5000 });
-    }
-  } finally {
-    await page.evaluate(stableLayoutSample, { selector, reset: true });
+// Browser samples are synchronous: decode promises are observed, never awaited
+// by evaluate(), so Node can bound stalled decodes even with page JS disabled.
+function imageReadinessSample({ selector, reset = false }) {
+  const image = document.querySelector(selector);
+  if (!image) return { status: 'missing' };
+  if (reset) { delete image.__decodeReadiness; return { status: 'reset' }; }
+  const source = {
+    currentSrc: image.currentSrc, src: image.getAttribute('src'),
+    srcset: image.getAttribute('srcset'), sizes: image.getAttribute('sizes'),
+  };
+  const key = JSON.stringify(source);
+  const detail = { ...source, complete: image.complete,
+    naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight };
+  if (!image.complete || !image.currentSrc) {
+    delete image.__decodeReadiness;
+    return { ...detail, key, status: 'loading' };
   }
+  if (!image.naturalWidth || !image.naturalHeight) {
+    return { ...detail, key, status: 'broken' };
+  }
+  let state = image.__decodeReadiness;
+  if (!state || state.key !== key) {
+    state = { key, samples: 0, status: 'settling' };
+    image.__decodeReadiness = state;
+  }
+  state.samples++;
+  if (state.status === 'settling' && state.samples >= 3) {
+    state.status = 'decoding';
+    // A source replacement creates a different state. Late settlement updates
+    // only this captured attempt, never the replacement image's readiness.
+    Promise.resolve().then(() => image.decode()).then(
+      () => { state.status = 'decoded'; },
+      error => { state.status = 'rejected'; state.error = { name: error.name, message: error.message }; }
+    );
+  }
+  return { ...detail, key, status: state.status, error: state.error };
+}
+
+async function waitForImageReady(page, selector, { timeoutMs = 5000, layoutSelector = null } = {}) {
+  const started = Date.now();
+  const deadline = started + timeoutMs;
+  const history = [];
+  let last;
+  const fail = reason => {
+    const error = new Error(reason + ': ' + JSON.stringify(last));
+    error.readiness = { selector, timeoutMs, elapsedMs: Date.now() - started, history };
+    throw error;
+  };
+  await page.evaluate(imageReadinessSample, { selector, reset: true });
+  if (layoutSelector) await page.evaluate(stableLayoutSample, { selector: layoutSelector, reset: true });
+  try {
+    while (Date.now() < deadline) {
+      last = await page.evaluate(imageReadinessSample, { selector });
+      if (!history.length || JSON.stringify(history.at(-1)) !== JSON.stringify(last)) {
+        history.push(last);
+        if (history.length > 20) history.shift();
+      }
+      if (last.status === 'broken') fail('Specimen image is broken');
+      if (last.status === 'rejected') fail('Specimen image decode rejected for an unchanged source');
+      if (last.status === 'decoded') {
+        const stable = !layoutSelector || await page.evaluate(stableLayoutSample, { selector: layoutSelector });
+        if (stable) {
+          const final = await page.evaluate(imageReadinessSample, { selector });
+          if (final.status === 'decoded' && final.key === last.key) return final;
+        }
+      } else if (layoutSelector) {
+        await page.evaluate(stableLayoutSample, { selector: layoutSelector, reset: true });
+      }
+      // Node-driven condition polling also works in a JavaScript-disabled page.
+      await new Promise(resolve => setTimeout(resolve, 16));
+    }
+    fail('Specimen image readiness timed out');
+  } finally {
+    await page.evaluate(imageReadinessSample, { selector, reset: true });
+    if (layoutSelector) await page.evaluate(stableLayoutSample, { selector: layoutSelector, reset: true });
+  }
+}
+
+async function waitForSpecimenLayout(page, selector = '.specimen-plate', noJavaScript = false) {
+  await page.evaluate(() => document.fonts.ready);
+  return waitForImageReady(page, selector + ' .plate-art img', { layoutSelector: selector });
 }
 
 async function measure(page, selector = '.specimen-plate') {
@@ -116,6 +178,7 @@ async function captureSpecimen(page, filename) {
 }
 
 module.exports = async function checkSpecimenBounds({ browser, context, url, data }) {
+  const readinessControls = await require('./check_image_readiness_browser.cjs')({ browser, context, url });
   const cutouts = JSON.parse(fs.readFileSync(path.join(__dirname, '../site/specimens/cutouts.json'), 'utf8')).cutouts;
   const projects = data.projects.filter(p => p.artwork && cutouts[p.id]);
   projects.sort((a, b) => {
@@ -135,8 +198,9 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
   let currentCase = null;
   try {
     for (const project of cases) {
+      currentCase = { id: project.id, name: project.name, phase: 'initial image' };
       await page.goto(new URL(`records/${project.id}.html`, url).href);
-      await page.locator('.plate-art img').evaluate(image => image.decode());
+      await waitForImageReady(page, '.plate-art img');
       for (const [step, width] of [1440, 901, 900, 768, 721, 720, 390, 320,
         390, 720, 721, 900, 901, 1440, 320, 901, 900, 1440].entries()) {
         currentCase = { id: project.id, name: project.name, width, step, phase: 'resize' };
@@ -202,7 +266,7 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
       const image = phone.locator('.plate-art img');
       if (await image.getAttribute('srcset')) {
         await image.scrollIntoViewIfNeeded();
-        await image.evaluate(node => node.decode());
+        await waitForImageReady(phone, '.plate-art img');
         const current = await image.evaluate(node => new URL(node.currentSrc).pathname);
         assert.match(current, /\/specimens\/responsive\/[a-f0-9]{64}(-cutout)?-512\.webp$/, 'Phone loads the 512px variant');
       }
@@ -217,7 +281,7 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
           currentCase = { id: project.id, name: project.name, width, phase: 'PR-base capture' };
           await page.setViewportSize({ width, height: 1000 });
           await page.goto(new URL(`bounds-before/${project.id}.html`, url).href);
-          await page.locator('.plate-art img').evaluate(image => image.decode());
+          await waitForImageReady(page, '.plate-art img');
           await page.evaluate(() => document.fonts.ready);
           const file = `bounds-before-${project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${width}.png`;
           await captureSpecimen(page, path.join(output, file));
@@ -230,6 +294,8 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
     // This child page holds the failing record. The core suite's parent-page
     // failure.png cannot show a record opened here.
     const failure = { ...currentCase, url: page.url(), viewport: page.viewportSize(), error: error.message };
+    failure.readiness = error.readiness || null;
+    failure.image = await page.evaluate(imageReadinessSample, { selector: '.plate-art img' }).catch(() => null);
     failure.measurement = await measure(page).catch(() => null);
     await page.screenshot({ path: path.join(output, 'bounds-failure.png'), fullPage: true,
       animations: 'disabled', caret: 'hide', scale: 'css' }).catch(captureError => {
@@ -242,7 +308,7 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
   try {
     const staticPage = await noJS.newPage();
     await staticPage.goto(new URL(`records/${cases[0].id}.html`, url).href);
-    await staticPage.locator('.plate-art img').evaluate(image => image.decode());
+    await waitForImageReady(staticPage, '.plate-art img');
     // requestAnimationFrame polling is unavailable in a JavaScript-disabled context.
     // Poll the same readiness condition instead; geometry assertions stay identical.
     await waitForSpecimenLayout(staticPage, '.specimen-plate', true);
@@ -257,16 +323,19 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
   try {
     const touchPage = await touch.newPage();
     await touchPage.goto(new URL(`records/${cases[0].id}.html`, url).href);
-    await touchPage.locator('.plate-art img').evaluate(image => image.decode());
+    await waitForImageReady(touchPage, '.plate-art img');
     await touchPage.locator('.plate-stage').tap();
     assert.equal(await touchPage.locator('.plate-lens').evaluate(n => n.classList.contains('is-on')), true, 'Tap opens loupe');
     await touchPage.locator('.plate-stage').tap();
     assert.equal(await touchPage.locator('.plate-lens').evaluate(n => n.classList.contains('is-on')), false, 'Second tap closes loupe');
   } finally { await touch.close(); }
-  return { cases: results, screenshots, noJS: true, print: true, touch: true };
+  return { cases: results, screenshots, readinessControls, noJS: true, print: true, touch: true };
 };
 
 module.exports.stableLayoutSample = stableLayoutSample;
 module.exports.assertGeometry = assertGeometry;
 
 module.exports.waitForSpecimenLayout = waitForSpecimenLayout;
+
+module.exports.imageReadinessSample = imageReadinessSample;
+module.exports.waitForImageReady = waitForImageReady;

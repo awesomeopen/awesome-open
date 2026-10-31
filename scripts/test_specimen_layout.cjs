@@ -5,13 +5,14 @@ const { stableLayoutSample, assertGeometry } = require('./check_specimen_bounds_
 let image, leader, rect, plate;
 beforeEach(() => {
   rect = { left: 0, top: 0, width: 627, height: 627 };
-  image = { complete: true, naturalWidth: 1254, currentSrc: 'specimen.webp' };
+  image = { complete: true, naturalWidth: 1254, naturalHeight: 1254, currentSrc: 'specimen.webp',
+    getAttribute: name => name === 'src' ? image.currentSrc : null, decode: async () => {} };
   leader = { innerHTML: '<circle cy="500"/>' };
   plate = {
     querySelector: selector => selector === '.plate-art img' ? image : leader,
     querySelectorAll: () => [{ getBoundingClientRect: () => rect }],
   };
-  global.document = { querySelector: () => plate, fonts: { status: 'loaded' } };
+  global.document = { querySelector: selector => selector.endsWith('img') ? image : plate, fonts: { status: 'loaded' } };
   global.innerWidth = 1440;
   global.innerHeight = 1000;
 });
@@ -62,10 +63,71 @@ test('no-JS readiness polls from Node without browser timers', async () => {
   let samples = 0;
   const page = {
     locator: () => ({ evaluate: async () => undefined }),
-    evaluate: async (fn, arg) => { if (arg && !arg.reset) samples++; return fn(arg); },
+    evaluate: async (fn, arg) => { if (fn === stableLayoutSample && arg && !arg.reset) samples++; return fn(arg); },
     waitForFunction: () => { throw new Error('No browser timer in no-JS context'); },
   };
   await waitForSpecimenLayout(page, '.specimen-plate', true);
   assert.equal(samples, 3);
   assert.equal(plate.__boundsReadiness, undefined);
+});
+
+const { waitForImageReady } = require('./check_specimen_bounds_browser.cjs');
+const mockPage = (hook = () => {}) => ({
+  evaluate: async (fn, arg) => { hook(fn, arg); return fn(arg); },
+});
+test('a changed source rejected during decode is decoded afresh', async () => {
+  let calls = 0;
+  image.decode = async () => {
+    calls++;
+    if (calls === 1) {
+      image.currentSrc = 'replacement.webp';
+      throw Object.assign(new Error('request replaced'), { name: 'EncodingError' });
+    }
+  };
+  const ready = await waitForImageReady(mockPage(), '.plate-art img');
+  assert.equal(ready.currentSrc, 'replacement.webp');
+  assert.equal(calls, 2);
+  assert.equal(image.__decodeReadiness, undefined);
+});
+test('unchanged source rejection is a hard failure, never retried', async () => {
+  let calls = 0;
+  image.decode = async () => { calls++; throw new Error('corrupt bytes'); };
+  await assert.rejects(waitForImageReady(mockPage(), '.plate-art img'),
+    error => /unchanged source/.test(error.message) && error.readiness.history.at(-1).status === 'rejected');
+  assert.equal(calls, 1);
+});
+test('complete broken image fails without decode', async () => {
+  image.naturalWidth = 0;
+  image.decode = () => { throw new Error('must not decode broken image'); };
+  await assert.rejects(waitForImageReady(mockPage(), '.plate-art img'), /image is broken/);
+});
+test('pending load and never-settling decode are bounded', async () => {
+  image.complete = false;
+  await assert.rejects(waitForImageReady(mockPage(), '.plate-art img', { timeoutMs: 60 }), /timed out/);
+  image.complete = true;
+  image.decode = () => new Promise(() => {});
+  await assert.rejects(waitForImageReady(mockPage(), '.plate-art img', { timeoutMs: 100 }), /timed out/);
+  assert.equal(image.__decodeReadiness, undefined);
+});
+test('changed source after decode during layout needs its own successful decode', async () => {
+  let calls = 0, changed = false;
+  image.decode = async () => { calls++; };
+  const page = mockPage((fn, arg) => {
+    if (fn === stableLayoutSample && !arg.reset && !changed) {
+      image.currentSrc = 'new-layout.webp'; changed = true;
+    }
+  });
+  await waitForImageReady(page, '.plate-art img', { layoutSelector: '.specimen-plate' });
+  assert.equal(calls, 2);
+  assert.equal(plate.__boundsReadiness, undefined);
+});
+test('source attributes invalidate readiness before currentSrc changes', async () => {
+  let srcset = 'first.webp 1x', calls = 0;
+  image.getAttribute = name => name === 'srcset' ? srcset : null;
+  image.decode = async () => {
+    calls++;
+    if (calls === 1) { srcset = 'second.webp 1x'; throw new Error('candidate changed'); }
+  };
+  await waitForImageReady(mockPage(), '.plate-art img');
+  assert.equal(calls, 2);
 });
