@@ -2,7 +2,8 @@
 
 `/scoreboard/` displays six Top 10 rankings from cached evidence. Places 1–3 carry
 small numbered trophies, repeated as links on each current specimen plate.
-Each trophy names its metric and edition.
+Each trophy names its metric and the current snapshot's update date. The page
+shows one current set of tables, with optional **Over time** views beneath them.
 
 ## Measurements
 
@@ -39,24 +40,72 @@ evidence. The snapshot download keeps frozen values and provenance.
 Weeks are Monday–Sunday in `America/New_York`, matching Spotlight's calendar.
 The first successful **normal** publisher run in a week freezes that week's
 Scoreboard from its validated caches. It displays immediately; Spotlight's
-one-week-ahead draw policy remains unchanged. These are weekly editions of
-cached measurements, not measurements of performance during the preceding week.
+one-week-ahead draw policy remains unchanged. The weekly snapshot records cached measurements as of their stated source dates.
 
 `scripts/weekly_scoreboard.py` runs offline in the existing serialized publisher,
 after collection and before validation. `data/weekly_scoreboard.json` is the
-publisher-owned latest snapshot. It records the week, actual recording date,
+publisher-owned current snapshot and measurement history. It records the week, actual recording date,
 metrics date, HN window, source SHA, input SHA-256 fingerprints, qualifying counts,
 and ranked rows. Same-week reruns preserve it byte-for-byte. The existing
 publisher validates before committing, fetches main again before pushing, and
 restarts on concurrent changes; unpublished attempts never become editions.
-No collector, credential, schedule or workflow permission is added.
+Collection, credentials, schedules and workflow permissions remain unchanged.
 
-Only the latest edition is retained in this cache; Git history retains previously
-published editions. Missed weeks are not reconstructed. Cached repair publication
-and ordinary offline builds retain the edition without advancing it. A delayed
-weekly publication keeps the original week and dates visible. Before the first
-normal publication, the page states that no edition exists and plates have no
-trophies.
+The page leads with **Updated YYYY-MM-DD**, using the actual snapshot recording
+date. Weekly boundaries remain a publisher rule rather than an archive of reader
+pages. Cached repair publication and ordinary offline builds preserve the saved
+snapshot. Before first publication, the page states that no snapshot exists and
+plates have no trophies.
+
+## Measurement history
+
+Schema 2 keeps compact, dated observations of every qualifying project alongside
+the current Top 10 in the same atomic snapshot file. Stable project identities
+and shared source facts are stored once; measurements reference that evidence.
+`history_projects` is an append-stable list of full canonical ID, name and URL.
+`history_details` holds digest-verified `facts` and `provenance` objects; each
+measurement stores project index, value, fact index and provenance index.
+`history_view()` resolves those references for rendering and validation. Each weekly observation
+retains its source revision, input fingerprints, catalog and qualifying counts,
+measurement date and HN window. The existing publisher commits the file only
+after validation. Same-week reruns preserve its bytes; missing weeks add no
+observations. The existing collection schedule remains unchanged.
+
+Schema 1 remains readable. Its recorded Top 10 can appear as a **top-10-only**
+observation; projects outside those rows have no saved value. At the next weekly
+freeze, schema 2 preserves that exact partial observation and starts all-eligible
+history. It does not reconstruct earlier standings or fill absent values with
+zero. Names can follow the latest known label for a canonical identity; saved
+Top 10 rows keep their frozen names.
+
+**Over time** opens beneath each board. Up to three current leaders have native
+project disclosures, readable without JavaScript. Observed-value charts default
+to a 12-month range with monthly labels and retain actual observation dates.
+A single observation is a point, not a fabricated trend. Missing measurements
+remain gaps. The latest actual capture in each month supplies the plotted point;
+its exact date remains visible. Source links, dates and values are available as
+text alongside the chart. The page embeds only its selected series; the full
+archive is an explicit download. Captured observations are retained without
+an automatic expiry.
+
+| Measurement | Historical view |
+| --- | --- |
+| Repository age | Repository creation-date comparison |
+| Release-to-push gap | Observed gaps with evidenced release-publication dates |
+| Recorded software renames | Verified occurrence timeline, with separately labeled record/review dates when known |
+| HN story-day streak | The evidenced start and end of the selected streak |
+| Matched HN stories | Monthly submission counts from a saved complete-window observation, when available |
+| Cached GitHub stars | Observed total stars at their recorded cache timestamps |
+
+Historical HN bars describe story dates within the stated matching window, not
+past Scoreboard standings. Legacy snapshots without monthly counts state that
+limit until an actual capture supplies them. Retained-star acquisition buckets
+are a different measurement and do not supply total-star history.
+
+Changing catalog membership, matching scope, collection coverage or reviewed
+rename evidence can change a ranking. The method exposes those limits and the
+qualifying counts; charts describe measurements rather than historical places.
+Only the current tables award plate trophies.
 
 Removed projects remain in their frozen board with saved names and official-source
 links. Only matching current canonical IDs receive plate trophies. Current names
@@ -107,4 +156,5 @@ status appears inside evidence. Keyboard and no-JavaScript access are preserved.
 Display titles use “Most names”, “Longes HN streak”, “Most HN stories” and
 “Most GitHub stars”. Frozen snapshots retain their recorded titles and values;
 the renderer applies current presentation labels. The page ends after the
-rankings and their methods, followed by the shared footer and snapshot download.
+rankings, optional trends and their methods, followed by the shared footer and
+snapshot download.
