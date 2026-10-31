@@ -61,7 +61,11 @@ plates have no trophies.
 
 Schema 2 keeps compact, dated observations of every qualifying project alongside
 the current Top 10 in the same atomic snapshot file. Stable project identities
-and shared source facts are stored once; measurements reference that evidence. Each weekly observation
+and shared source facts are stored once; measurements reference that evidence.
+`history_projects` is an append-stable list of full canonical ID, name and URL.
+`history_details` holds digest-verified `facts` and `provenance` objects; each
+measurement stores project index, value, fact index and provenance index.
+`history_view()` resolves those references for rendering and validation. Each weekly observation
 retains its source revision, input fingerprints, catalog and qualifying counts,
 measurement date and HN window. The existing publisher commits the file only
 after validation. Same-week reruns preserve its bytes; missing weeks add no
@@ -78,8 +82,11 @@ Top 10 rows keep their frozen names.
 project disclosures, readable without JavaScript. Observed-value charts default
 to a 12-month range with monthly labels and retain actual observation dates.
 A single observation is a point, not a fabricated trend. Missing measurements
-remain gaps. Source links, dates and values are available as text alongside the
-chart.
+remain gaps. The latest actual capture in each month supplies the plotted point;
+its exact date remains visible. Source links, dates and values are available as
+text alongside the chart. The page embeds only its selected series; the full
+archive is an explicit download. Captured observations are retained without
+an automatic expiry.
 
 | Measurement | Historical view |
 | --- | --- |
@@ -149,4 +156,5 @@ status appears inside evidence. Keyboard and no-JavaScript access are preserved.
 Display titles use “Most names”, “Longes HN streak”, “Most HN stories” and
 “Most GitHub stars”. Frozen snapshots retain their recorded titles and values;
 the renderer applies current presentation labels. The page ends after the
-rankings, optional trends and their methods, followed by the shared footer and snapshot download.
+rankings, optional trends and their methods, followed by the shared footer and
+snapshot download.
