@@ -1,0 +1,924 @@
+{
+  "schema_version": 1,
+  "algorithm": "cached-competition-ranks-v1",
+  "timezone": "America/New_York",
+  "week": "2026-10-26",
+  "recorded_on": "2026-10-31",
+  "metrics_as_of": "2026-10-31",
+  "source_sha": "f4767ddbb5eccb29d2d1011213b322cb8e982f89",
+  "input_hashes": {
+    "README.source.md": "2165d133d90c00605af8143c7e29c5e47ee9592f0438277e95b98c9efdf59fc9",
+    "data/github_metrics.json": "3ed3ec4a176b3be57b6ad17e548523748d7b6c89c9086b7b26061c3e09839978",
+    "data/alternatives.json": "5be5a3727e8be976a9522bc5d9583697265d9aeb1669bb7c7d9551fa131412bc",
+    "data/hn_evidence.json": "cc898461137ebb3ea7cc5080d126fba4fed81cfc0588b3464c9b81229041093a",
+    "data/project_signals.json": "abad992ff99afa6452e06d34e23b535ea1d8364e00563c81ced163bdfa1534c0",
+    "data/project_history.json": "a1b1caee0dc49222649dd6a8b9e6a4e9db3f1fb26601486118fbca6024f409cc"
+  },
+  "catalog_count": 552,
+  "hn_window": {
+    "start": "2024-10-01",
+    "end_exclusive": "2026-10-01",
+    "covered_count": 552,
+    "url_only_count": 535
+  },
+  "metrics": [
+    {
+      "id": "oldest-repository",
+      "title": "Oldest repository",
+      "unit": "days",
+      "eligible_count": 500,
+      "rows": [
+        {
+          "id": "9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660",
+          "name": "Open Library",
+          "url": "https://github.com/internetarchive/openlibrary",
+          "value": 6575,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2008-10-30T05:20:14Z"
+          },
+          "rank": 1
+        },
+        {
+          "id": "603d5f88f07b8631ca3f076e7426b5ea5e47c452899727f180f9ec770bc7a208",
+          "name": "Open Babel",
+          "url": "https://github.com/openbabel/openbabel",
+          "value": 6518,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2008-12-26T04:52:22Z"
+          },
+          "rank": 2
+        },
+        {
+          "id": "a6c9dcb7ce9dcce2cf960e79e2d8a988e9ad1e41cd4428e06a26d10eb220bfdd",
+          "name": "OpenMW",
+          "url": "https://github.com/openmw/openmw",
+          "value": 6278,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2009-08-23T14:46:21Z"
+          },
+          "rank": 3
+        },
+        {
+          "id": "5a544a968dec704f562d029f9ee6964619719b221c41d382fbfe76b28b46e5e9",
+          "name": "Open Monograph Press",
+          "url": "https://github.com/pkp/omp",
+          "value": 6246,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2009-09-24T17:19:48Z"
+          },
+          "rank": 4
+        },
+        {
+          "id": "50cc6bd8883fbe59561ca9960144bddc7de50f285f1638b06d83cb8b38e7371f",
+          "name": "openFrameworks",
+          "url": "https://github.com/openframeworks/openframeworks",
+          "value": 6219,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2009-10-21T21:55:54Z"
+          },
+          "rank": 5
+        },
+        {
+          "id": "3e33e07d0dbbe4dbc8abd96a40ff5ab87ff610df9dceaa0092ca5119ec880ab1",
+          "name": "Open Journal Systems",
+          "url": "https://github.com/pkp/ojs",
+          "value": 6193,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2009-11-16T21:19:14Z"
+          },
+          "rank": 6
+        },
+        {
+          "id": "837ee70fa77b6dd3f5835395e310843e1ced58baff88ddbcc12513b6fce3eaab",
+          "name": "OpenZFS",
+          "url": "https://github.com/openzfs/zfs",
+          "value": 6165,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2009-12-14T20:20:34Z"
+          },
+          "rank": 7
+        },
+        {
+          "id": "d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54",
+          "name": "OpenResty",
+          "url": "https://github.com/openresty/openresty",
+          "value": 6128,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2010-01-20T03:57:59Z"
+          },
+          "rank": 8
+        },
+        {
+          "id": "a8bf94abbf0f412b9f6f7ce49759d06db8f236f460021e7792c610a0260effbd",
+          "name": "OpenCPN",
+          "url": "https://github.com/opencpn/opencpn",
+          "value": 6115,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2010-02-02T11:55:06Z"
+          },
+          "rank": 9
+        },
+        {
+          "id": "92ea50f7a44cebfc8499ecefab1beffb8afaec71fada7a97640ef2beb91d0a91",
+          "name": "OpenSceneGraph",
+          "url": "https://github.com/openscenegraph/openscenegraph",
+          "value": 6088,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "created_at": "2010-03-01T12:11:29Z"
+          },
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "id": "release-push-gap",
+      "title": "Longest release-to-push gap",
+      "unit": "days",
+      "eligible_count": 294,
+      "rows": [
+        {
+          "id": "24af095b5c53b4af51066f8a783a935e876f69311ed47b81d39fa17ef9736d96",
+          "name": "Open Hexagon",
+          "url": "https://github.com/vittorioromeo/ssvopenhexagon",
+          "value": 4706,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2013-07-03T01:22:50Z",
+            "pushed_at": "2026-05-22T08:48:27Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-30T06:28:57Z",
+            "release_url": "https://github.com/vittorioromeo/SSVOpenHexagon/releases/tag/1.92b",
+            "tag": "1.92b"
+          },
+          "rank": 1
+        },
+        {
+          "id": "c6f4cdabc8b23b43ec144b071fc9907e47d3c54b79d4547487c000955d13cc97",
+          "name": "Open edX",
+          "url": "https://github.com/openedx/openedx-platform",
+          "value": 4261,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2015-03-02T21:13:51Z",
+            "pushed_at": "2026-10-31T04:52:47Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-31T05:21:24Z",
+            "release_url": "https://github.com/openedx/openedx-platform/releases/tag/named-release/birch",
+            "tag": "named-release/birch"
+          },
+          "rank": 2
+        },
+        {
+          "id": "c78229944dbc26e2ad446e3d065c4ab7fc129bd57a308e0e6ec95c0d96b7a026",
+          "name": "OpenDungeons",
+          "url": "https://github.com/opendungeons/opendungeons",
+          "value": 3312,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2016-09-08T20:55:08Z",
+            "pushed_at": "2025-10-03T23:56:55Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-31T05:21:24Z",
+            "release_url": "https://github.com/OpenDungeons/OpenDungeons/releases/tag/0.7.1",
+            "tag": "0.7.1"
+          },
+          "rank": 3
+        },
+        {
+          "id": "19fce0b353bf9ddfda29f9b71c9bd9ee34eaacfacbe1421e73ae48b5b732df20",
+          "name": "OpenDUNE",
+          "url": "https://github.com/opendune/opendune",
+          "value": 3050,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2018-05-25T12:51:19Z",
+            "pushed_at": "2026-09-30T23:04:55Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-31T05:21:24Z",
+            "release_url": "https://github.com/OpenDUNE/OpenDUNE/releases/tag/0.9",
+            "tag": "0.9"
+          },
+          "rank": 4
+        },
+        {
+          "id": "935405b01803540992885944db4a721d963a548f7d04a5a7f9944817220233bd",
+          "name": "OpenLara",
+          "url": "https://github.com/xproger/openlara",
+          "value": 2753,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2019-01-11T07:42:30Z",
+            "pushed_at": "2026-07-26T16:56:52Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-30T06:28:57Z",
+            "release_url": "https://github.com/XProger/OpenLara/releases/tag/latest",
+            "tag": "latest"
+          },
+          "rank": 5
+        },
+        {
+          "id": "af12d3cd454d4ca0110274182a142fc1e49b30e6a8f32323d35f0e075026b871",
+          "name": "OpenCFP",
+          "url": "https://github.com/opencfp/opencfp",
+          "value": 2329,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2020-01-03T21:41:18Z",
+            "pushed_at": "2026-05-20T02:58:25Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-31T05:21:24Z",
+            "release_url": "https://github.com/opencfp/opencfp/releases/tag/v1.8.0",
+            "tag": "v1.8.0"
+          },
+          "rank": 6
+        },
+        {
+          "id": "5b9f54d17f28bcfbc045c17c0de689bd4e72c44ac5ea2a6b437ab0ffa2200fd4",
+          "name": "OpenXRay",
+          "url": "https://github.com/openxray/xray-16",
+          "value": 2135,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2020-12-21T17:20:12Z",
+            "pushed_at": "2026-10-26T12:52:59Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-31T05:21:24Z",
+            "release_url": "https://github.com/OpenXRay/xray-16/releases/tag/822-december-preview",
+            "tag": "822-december-preview"
+          },
+          "rank": 7
+        },
+        {
+          "id": "13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc",
+          "name": "OpenSCAD",
+          "url": "https://github.com/openscad/openscad",
+          "value": 2092,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2021-02-07T00:14:34Z",
+            "pushed_at": "2026-10-31T03:09:27Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-31T05:21:24Z",
+            "release_url": "https://github.com/openscad/openscad/releases/tag/openscad-2021.01",
+            "tag": "openscad-2021.01"
+          },
+          "rank": 8
+        },
+        {
+          "id": "69d1874ce67705b773677047c818a47405bd87e7c0c99951e52d9299cdcca085",
+          "name": "OpenDMARC",
+          "url": "https://github.com/trusteddomainproject/opendmarc",
+          "value": 1706,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2021-12-20T06:45:04Z",
+            "pushed_at": "2026-08-22T11:36:58Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-30T06:28:57Z",
+            "release_url": "https://github.com/trusteddomainproject/OpenDMARC/releases/tag/rel-opendmarc-1-4-2",
+            "tag": "rel-opendmarc-1-4-2"
+          },
+          "rank": 9
+        },
+        {
+          "id": "7e95ed244907f8682225544c4ea7be9aa5d115df7b6f7c3f81d5cbe4aab20214",
+          "name": "OpenGamma Platform",
+          "url": "https://github.com/opengamma/og-platform",
+          "value": 1693,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z",
+            "published_at": "2013-10-09T13:24:05Z",
+            "pushed_at": "2018-05-29T12:29:44Z",
+            "release_status": "available",
+            "release_observed_at": "2026-10-31T05:21:24Z",
+            "release_url": "https://github.com/OpenGamma/OG-Platform/releases/tag/rel/v2.1.0",
+            "tag": "rel/v2.1.0"
+          },
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "id": "software-renames",
+      "title": "Most recorded software renames",
+      "unit": "renames",
+      "eligible_count": 4,
+      "rows": [
+        {
+          "id": "19d61663a527fda4d31ef629692a40d485e4f4f4f433fe194cc29d6692dfe249",
+          "name": "OpenTasks",
+          "url": "https://github.com/dmfs/opentasks",
+          "value": 1,
+          "details": {
+            "events": [
+              {
+                "id": "dmfs-tasks-to-opentasks",
+                "old_name": "Tasks",
+                "new_name": "OpenTasks",
+                "sources": [
+                  {
+                    "url": "https://github.com/dmfs/opentasks/commit/89df3527f999fc1af885097a0e847002314e9dc8",
+                    "title": "Rename app to OpenTasks",
+                    "role": "implementation",
+                    "date": "2015-07-03"
+                  }
+                ],
+                "occurred": {
+                  "value": "2015-07-03",
+                  "precision": "day",
+                  "basis": "implementation",
+                  "source_url": "https://github.com/dmfs/opentasks/commit/89df3527f999fc1af885097a0e847002314e9dc8"
+                }
+              }
+            ]
+          },
+          "rank": 1
+        },
+        {
+          "id": "a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d",
+          "name": "OpenTofu",
+          "url": "https://github.com/opentofu/opentofu",
+          "value": 1,
+          "details": {
+            "events": [
+              {
+                "id": "opentf-to-opentofu",
+                "old_name": "OpenTF",
+                "new_name": "OpenTofu",
+                "sources": [
+                  {
+                    "url": "https://www.linuxfoundation.org/press/announcing-opentofu",
+                    "title": "Linux Foundation announces OpenTofu, previously OpenTF",
+                    "role": "announcement",
+                    "date": "2023-09-20"
+                  },
+                  {
+                    "url": "https://github.com/opentofu/opentofu/issues/451",
+                    "title": "Maintainers track the announced OpenTF to OpenTofu rename",
+                    "role": "implementation",
+                    "date": "2023-09-20"
+                  }
+                ],
+                "occurred": {
+                  "value": "2023-09-20",
+                  "precision": "day",
+                  "basis": "announcement",
+                  "source_url": "https://www.linuxfoundation.org/press/announcing-opentofu"
+                }
+              }
+            ]
+          },
+          "rank": 1
+        },
+        {
+          "id": "d9330c307f7dbfb63c2fd1774f785815ec7f1221d80dad006ea980909c10db50",
+          "name": "OpenHands",
+          "url": "https://github.com/openhands/openhands",
+          "value": 1,
+          "details": {
+            "events": [
+              {
+                "id": "opendevin-to-openhands",
+                "old_name": "OpenDevin",
+                "new_name": "OpenHands",
+                "sources": [
+                  {
+                    "url": "https://github.com/OpenHands/OpenHands/pull/3472",
+                    "title": "Project-wide rename merged into main",
+                    "role": "implementation",
+                    "date": "2024-08-19"
+                  },
+                  {
+                    "url": "https://github.com/OpenHands/OpenHands/blob/01ae22ef57d497f7cfdfba96a99b96af06be5a05/README.md",
+                    "title": "README at the merged rename revision",
+                    "role": "identity",
+                    "date": "2024-08-19"
+                  },
+                  {
+                    "url": "https://github.com/OpenHands/OpenHands/releases/tag/0.9.0",
+                    "title": "Release 0.9.0 includes the rename",
+                    "role": "release",
+                    "date": "2024-08-23"
+                  }
+                ],
+                "occurred": {
+                  "value": "2024-08-19",
+                  "precision": "day",
+                  "basis": "implementation",
+                  "source_url": "https://github.com/OpenHands/OpenHands/pull/3472"
+                }
+              }
+            ]
+          },
+          "rank": 1
+        },
+        {
+          "id": "e54c27197d1f98554061719985f7ed70e72141963158ea2a252a8b3449364302",
+          "name": "OpenComputer",
+          "url": "https://github.com/diggerhq/opencomputer",
+          "value": 1,
+          "details": {
+            "events": [
+              {
+                "id": "diggerhq-opensandbox-to-opencomputer",
+                "old_name": "OpenSandbox",
+                "new_name": "OpenComputer",
+                "sources": [
+                  {
+                    "url": "https://github.com/diggerhq/opencomputer/commit/4d7597db439f2f339d6d6186e109b638c6bacc7f",
+                    "title": "Rename project to OpenComputer and update README",
+                    "role": "implementation",
+                    "date": "2026-02-28"
+                  },
+                  {
+                    "url": "https://github.com/diggerhq/opencomputer/blob/ad2cac7630ea2c45d22376dc11a8e99004b01991/README.md",
+                    "title": "OpenSandbox README immediately before the rename",
+                    "role": "identity",
+                    "date": null
+                  },
+                  {
+                    "url": "https://github.com/diggerhq/opencomputer/blob/4d7597db439f2f339d6d6186e109b638c6bacc7f/README.md",
+                    "title": "OpenComputer README at the rename revision",
+                    "role": "identity",
+                    "date": "2026-02-28"
+                  }
+                ],
+                "occurred": {
+                  "value": "2026-02-28",
+                  "precision": "day",
+                  "basis": "implementation",
+                  "source_url": "https://github.com/diggerhq/opencomputer/commit/4d7597db439f2f339d6d6186e109b638c6bacc7f"
+                }
+              }
+            ]
+          },
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "id": "hn-streak",
+      "title": "Longest matched HN story-day streak",
+      "unit": "days",
+      "eligible_count": 83,
+      "rows": [
+        {
+          "id": "0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831",
+          "name": "OpenClaw",
+          "url": "https://github.com/openclaw/openclaw",
+          "value": 56,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenClaw&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": "2026-10-15T18:02:20.939771+00:00",
+            "attempt_status": "ok",
+            "checked_at": "2026-10-15T18:02:20.939771+00:00",
+            "first_day": "2026-01-30",
+            "last_day": "2026-03-26"
+          },
+          "rank": 1
+        },
+        {
+          "id": "79411ef822d1502cc97b428ef9e03c9180d0feed0eec29c913c04d40f6db2fcb",
+          "name": "OpenBSD",
+          "url": "https://www.openbsd.org",
+          "value": 5,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenBSD&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00",
+            "first_day": "2025-10-21",
+            "last_day": "2025-10-25"
+          },
+          "rank": 2
+        },
+        {
+          "id": "518382fd43e354ec84ae2de886feb18c62c9ba31932d935318624d7a1b424334",
+          "name": "OpenWrt",
+          "url": "https://github.com/openwrt/openwrt",
+          "value": 4,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenWrt&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00",
+            "first_day": "2024-12-01",
+            "last_day": "2024-12-04"
+          },
+          "rank": 3
+        },
+        {
+          "id": "9647b08a450e2820321356b14c26a4d83d9e488a56feb6af3c0938d4383643cd",
+          "name": "OpenUI",
+          "url": "https://github.com/thesysdev/openui",
+          "value": 4,
+          "details": {
+            "coverage": "catalog-url-only",
+            "search_url": "https://hn.algolia.com/?q=github.com%2Fthesysdev%2Fopenui&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": "2026-10-16T01:55:52.646480+00:00",
+            "attempt_status": "ok",
+            "checked_at": "2026-10-16T01:55:52.646480+00:00",
+            "first_day": "2026-05-14",
+            "last_day": "2026-05-17"
+          },
+          "rank": 3
+        },
+        {
+          "id": "9facd576272f54b11c98879ba276031a4af25a2ddb525b638d1c75d061262e9d",
+          "name": "OpenTelemetry",
+          "url": "https://github.com/open-telemetry/opentelemetry-collector",
+          "value": 4,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenTelemetry&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00",
+            "first_day": "2025-01-13",
+            "last_day": "2025-01-16"
+          },
+          "rank": 3
+        },
+        {
+          "id": "0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9",
+          "name": "OpenSSL",
+          "url": "https://github.com/openssl/openssl",
+          "value": 3,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenSSL&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00",
+            "first_day": "2026-04-13",
+            "last_day": "2026-04-15"
+          },
+          "rank": 6
+        },
+        {
+          "id": "7c94eb734f17ebfcce7230067c672f89ec9b7d5fca87ca8e4c3a39dc6012b1dd",
+          "name": "Open WebUI",
+          "url": "https://github.com/open-webui/open-webui",
+          "value": 3,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=Open+WebUI&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00",
+            "first_day": "2025-05-06",
+            "last_day": "2025-05-08"
+          },
+          "rank": 6
+        },
+        {
+          "id": "837ee70fa77b6dd3f5835395e310843e1ced58baff88ddbcc12513b6fce3eaab",
+          "name": "OpenZFS",
+          "url": "https://github.com/openzfs/zfs",
+          "value": 3,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenZFS&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00",
+            "first_day": "2025-07-14",
+            "last_day": "2025-07-16"
+          },
+          "rank": 6
+        },
+        {
+          "id": "d9330c307f7dbfb63c2fd1774f785815ec7f1221d80dad006ea980909c10db50",
+          "name": "OpenHands",
+          "url": "https://github.com/openhands/openhands",
+          "value": 3,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenHands&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00",
+            "first_day": "2025-11-18",
+            "last_day": "2025-11-20"
+          },
+          "rank": 6
+        },
+        {
+          "id": "ffccace0ba14fd154d902639a2f95b1ae1083081bc9a5e17e891a557c23f7895",
+          "name": "OpenCode",
+          "url": "https://github.com/anomalyco/opencode",
+          "value": 3,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenCode&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": "2026-10-15T18:02:20.939771+00:00",
+            "attempt_status": "ok",
+            "checked_at": "2026-10-15T18:02:20.939771+00:00",
+            "first_day": "2026-01-07",
+            "last_day": "2026-01-09"
+          },
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "id": "hn-stories",
+      "title": "Most matched HN stories",
+      "unit": "stories",
+      "eligible_count": 83,
+      "rows": [
+        {
+          "id": "0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831",
+          "name": "OpenClaw",
+          "url": "https://github.com/openclaw/openclaw",
+          "value": 364,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenClaw&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": "2026-10-15T18:02:20.939771+00:00",
+            "attempt_status": "ok",
+            "checked_at": "2026-10-15T18:02:20.939771+00:00"
+          },
+          "rank": 1
+        },
+        {
+          "id": "9facd576272f54b11c98879ba276031a4af25a2ddb525b638d1c75d061262e9d",
+          "name": "OpenTelemetry",
+          "url": "https://github.com/open-telemetry/opentelemetry-collector",
+          "value": 208,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenTelemetry&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00"
+          },
+          "rank": 2
+        },
+        {
+          "id": "79411ef822d1502cc97b428ef9e03c9180d0feed0eec29c913c04d40f6db2fcb",
+          "name": "OpenBSD",
+          "url": "https://www.openbsd.org",
+          "value": 168,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenBSD&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00"
+          },
+          "rank": 3
+        },
+        {
+          "id": "518382fd43e354ec84ae2de886feb18c62c9ba31932d935318624d7a1b424334",
+          "name": "OpenWrt",
+          "url": "https://github.com/openwrt/openwrt",
+          "value": 81,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenWrt&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00"
+          },
+          "rank": 4
+        },
+        {
+          "id": "0655255815bfbe2cf677762ed1c4fccfca51dd2997db1780e32ab1a4366056e9",
+          "name": "OpenSSL",
+          "url": "https://github.com/openssl/openssl",
+          "value": 72,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenSSL&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00"
+          },
+          "rank": 5
+        },
+        {
+          "id": "b69ba8eafbe8bc5e28ef8acbae390cbea1efb65fec7bb8b8d5fb125a8dba7276",
+          "name": "OpenSSH",
+          "url": "https://github.com/openssh/openssh-portable",
+          "value": 53,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenSSH&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00"
+          },
+          "rank": 6
+        },
+        {
+          "id": "837ee70fa77b6dd3f5835395e310843e1ced58baff88ddbcc12513b6fce3eaab",
+          "name": "OpenZFS",
+          "url": "https://github.com/openzfs/zfs",
+          "value": 52,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenZFS&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00"
+          },
+          "rank": 7
+        },
+        {
+          "id": "ffccace0ba14fd154d902639a2f95b1ae1083081bc9a5e17e891a557c23f7895",
+          "name": "OpenCode",
+          "url": "https://github.com/anomalyco/opencode",
+          "value": 38,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenCode&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": "2026-10-15T18:02:20.939771+00:00",
+            "attempt_status": "ok",
+            "checked_at": "2026-10-15T18:02:20.939771+00:00"
+          },
+          "rank": 8
+        },
+        {
+          "id": "a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d",
+          "name": "OpenTofu",
+          "url": "https://github.com/opentofu/opentofu",
+          "value": 33,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=OpenTofu&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00"
+          },
+          "rank": 9
+        },
+        {
+          "id": "7c94eb734f17ebfcce7230067c672f89ec9b7d5fca87ca8e4c3a39dc6012b1dd",
+          "name": "Open WebUI",
+          "url": "https://github.com/open-webui/open-webui",
+          "value": 26,
+          "details": {
+            "coverage": "reviewed",
+            "search_url": "https://hn.algolia.com/?q=Open+WebUI&type=story&dateRange=custom&dateStart=1727740800&dateEnd=1790812799&sort=byDate",
+            "collected_at": null,
+            "attempt_status": "ok",
+            "checked_at": "2026-10-03T00:00:00+00:00"
+          },
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "id": "github-stars",
+      "title": "Most cached GitHub stars",
+      "unit": "stars",
+      "eligible_count": 500,
+      "rows": [
+        {
+          "id": "0b5c4741d1c147be5fddf0c75c5c0f478ced75a3c3b71cf8751002122b8f3831",
+          "name": "OpenClaw",
+          "url": "https://github.com/openclaw/openclaw",
+          "value": 393498,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 1
+        },
+        {
+          "id": "ffccace0ba14fd154d902639a2f95b1ae1083081bc9a5e17e891a557c23f7895",
+          "name": "OpenCode",
+          "url": "https://github.com/anomalyco/opencode",
+          "value": 223379,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 2
+        },
+        {
+          "id": "7c94eb734f17ebfcce7230067c672f89ec9b7d5fca87ca8e4c3a39dc6012b1dd",
+          "name": "Open WebUI",
+          "url": "https://github.com/open-webui/open-webui",
+          "value": 157315,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 3
+        },
+        {
+          "id": "d8ff876dfb1eadf08a100b53f794ef54a69e7b476b1a3a841ca2e4b21264a13d",
+          "name": "OpenDesign",
+          "url": "https://github.com/nexu-io/open-design",
+          "value": 105078,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 4
+        },
+        {
+          "id": "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+          "name": "OpenCut",
+          "url": "https://github.com/opencut-app/opencut",
+          "value": 96877,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 5
+        },
+        {
+          "id": "d9330c307f7dbfb63c2fd1774f785815ec7f1221d80dad006ea980909c10db50",
+          "name": "OpenHands",
+          "url": "https://github.com/openhands/openhands",
+          "value": 92306,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 6
+        },
+        {
+          "id": "e390eb08d6cbc3fdb42e665d32bff22f4a619bba354ac990eadfce5d23287485",
+          "name": "OpenCV",
+          "url": "https://github.com/opencv/opencv",
+          "value": 91388,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 7
+        },
+        {
+          "id": "0e1c34b3f948e9037466f84680e402b96f2c0b61351865137c4359f41e5d3014",
+          "name": "OBS Studio",
+          "url": "https://github.com/obsproject/obs-studio",
+          "value": 78647,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 8
+        },
+        {
+          "id": "012cd304d8265ea55d6a07975d08a58b66834d9d3ef824678bde0b7d1baf0bbc",
+          "name": "OpenBB",
+          "url": "https://github.com/openbq-org/openbb",
+          "value": 74927,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 9
+        },
+        {
+          "id": "ba95e748639f9bf1e2d548075ea1db7c41689aac3d2c3da3247f1f30d19001ed",
+          "name": "OpenMontage",
+          "url": "https://github.com/calesthio/openmontage",
+          "value": 73547,
+          "details": {
+            "metrics_status": "fresh",
+            "metrics_observed_at": "2026-10-31T05:20:52Z"
+          },
+          "rank": 10
+        }
+      ]
+    }
+  ]
+}
