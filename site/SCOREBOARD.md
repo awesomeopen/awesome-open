@@ -94,3 +94,17 @@ The page extends the Observatory route shell: white/Prussian frame, serif headin
 ruled comparative tables, visible section links, native evidence disclosures and
 shared footer. The small `rank.trophy` glyph is a code-authored interface icon;
 existing specimen artwork is unchanged.
+
+
+## Compact presentation
+
+Each ranking entry occupies one line: place, project name and linked count.
+Long project names truncate with an ellipsis and retain the full name in a title.
+The count opens the native evidence disclosure as an overlay, styled as a plain
+underlined link with no marker. Units appear in column headers. Retained-cache
+status appears inside evidence. Keyboard and no-JavaScript access are preserved.
+
+Display titles use “Most names”, “Longes HN streak”, “Most HN stories” and
+“Most GitHub stars”. Frozen snapshots retain their recorded titles and values;
+the renderer applies current presentation labels. The page ends after the
+rankings and their methods, followed by the shared footer and snapshot download.

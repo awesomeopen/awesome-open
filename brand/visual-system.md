@@ -299,3 +299,12 @@ small outlined cup and place numeral identify shared ranks 1–3; the same compa
 metric links appear beneath the specimen label's domains. The weekly edition is
 stated once above those links. Existing category-star bolding remains separate.
 See [the measurement and weekly contract](../site/SCOREBOARD.md).
+
+
+## Compact Scoreboard rows
+
+Ranking entries use one line with place, truncated project name and numeric
+evidence control. Counts open native disclosures styled as plain underlined
+links, with marker-free overlays. Units stay in column headers and cache status
+stays in the evidence. Current display headings and the omitted coverage section
+are recorded in [B-PR234-01](decisions/B-PR234-01.md).
