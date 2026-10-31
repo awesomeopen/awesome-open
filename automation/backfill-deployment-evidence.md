@@ -736,15 +736,16 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
     "install_methods": [{"value"}], "record": "records/<id>.html"}`. Write the
     full approved records once to a new site download,
     `data/deployment_evidence.json` (compact JSON), next to the existing
-    `catalog.json` write. Add "Setup evidence" to the footer's evidence links,
-    beside "HN evidence / Comparison evidence / Catalog JSON".
-  - *Why one download rather than per-project JSON files:* the "Files" budget is
-    256 plus 8 per record, against a baseline of about 6.8 per record, and the
-    per-project record pages already exist. Separate JSON files per project
-    remain an option if the owner wants machine-readable per-project files. They
-    would add one file per covered record.
+    `catalog.json` write. Add "Where it runs (data)" to the footer's evidence
+    links, beside "HN evidence / Comparison evidence / Catalog JSON".
+  - *One download:* Phase L ships only the single combined
+    `data/deployment_evidence.json`. Per-project JSON files, such as
+    `data/deployment/<slug>.json`, are deferred. They can be generated from that
+    file later if someone asks for them, and they are out of scope for now. The
+    "Files" budget is 256 plus 8 per record, against a baseline of about 6.8 per
+    record, and the per-project record pages already exist.
   - *`scripts/check_budget.py`:* keep the 4 KiB per-record `catalog.json` limit.
-    Add a row "Setup evidence download", measure `deployment_bytes`, limit
+    Add a row "Where it runs (data)", measure `deployment_bytes`, limit
     `per_record(0, 3 * KIB)` (3 KiB per catalog record, against about 2.1 KB per
     covered record), and extend `test_check_budget.py`.
   - *Consumers to check:* `scripts/build_observatory.py` counts
@@ -848,10 +849,20 @@ Excluded for overlap: canonical URL health (`canonical-url-health.md`, PR #238),
 repository-path and spelling-variant detection (PR #237), Scoreboard trends (PR
 #236), Actions pinning and hardening (PR #99), and all existing enrichment jobs.
 
-## Appendix C. Open questions for the owner
+## Appendix C. Decisions and open questions
 
-1. Phase L footer: is "Setup evidence" the right label for the new download link,
-   and should per-project JSON files be added as well (one extra file per covered
-   record)?
-2. Maintenance ledger-only fallback: monthly as proposed, or weekly as in
+### Decisions
+
+Repository owner, 2026-10-31:
+
+1. The Phase L footer link for `data/deployment_evidence.json` is labeled
+   "Where it runs (data)".
+2. Per-project JSON files are deferred. Phase L ships only the single combined
+   `data/deployment_evidence.json`. Files such as `data/deployment/<slug>.json`
+   can be generated from that file later if someone asks for them. They are
+   out of scope for now.
+
+### Open questions for the owner
+
+1. Maintenance ledger-only fallback: monthly as proposed, or weekly as in
    backfill?
