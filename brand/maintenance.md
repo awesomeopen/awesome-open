@@ -63,8 +63,10 @@ agent's project instructions through its supported interface):
 > design work. Use the repository's awesome-open-brand skill. Update affected
 > documentation, decisions and asset/skill provenance in the same PR; otherwise
 > explain why the change has no brand impact. Run scripts/check_brand.py and the
-> relevant checks. Open a draft PR; do not merge automatically. Use the current
-> checkout and source revision, not a remembered preview.
+> relevant checks. Open a draft PR. Only validated new-artwork-only PRs have the
+> [standing publication authorization](../site/SPECIMEN-ART.md#publication-after-validation)
+> to be marked ready and merged by the agent; other PRs await owner review.
+> Use the current checkout and source revision, not a remembered preview.
 
 This is a handoff instruction. Agents operating only
 through GitHub APIs must explicitly fetch these files; do not assume their runtime

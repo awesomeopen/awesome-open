@@ -75,11 +75,46 @@ direction. Never name the owner as the individual reviewer unless that review
 actually happened, or invent a human review. The manifest example above is a
 completed-record template, not evidence that its placeholder checks occurred.
 
-`approved` means eligible for inclusion in the proposed build under this policy.
-It does not authorize merging, deploying, bypassing validation or changing
-repository protections. Continue using draft PRs; merging remains the owner's
-separate publication approval. A change in star ranking does not delete existing
-artwork.
+## Publication after validation
+
+The owner's standing direction of 2026-10-31 authorizes publication of technically
+valid new illustrations without a per-image or per-batch aesthetic approval.
+This applies to discovery artwork and artwork backfill only. A manifest's
+`approved` status still records display eligibility, not proof of completed checks.
+
+Create a separate scoped draft PR containing only new originals, matching new
+cut-outs, their new records in both manifests and corresponding incremental
+asset-lock entries. Preserve existing assets, records and owner edits. Keep at
+most one backfill batch in flight; complete or resolve it before starting another.
+
+Before publication:
+- Inspect the generated pixels and verify identity, dimensions, alt text,
+  technical validity, provenance, rights and safety. Record truthful AI review;
+  stylistic reservations remain nonblocking.
+- Save original generation artifacts, prompts, source evidence, final images,
+  cut-outs, manifests and checksums in a verified recoverable bundle before
+  GitHub uploads. Record durable recovery references outside the repository.
+- Run the required offline tests, README/catalog/site builds and applicable
+  browser/preview checks. Verify the remote diff and exact head, all required
+  CI to a successful terminal outcome, and preserved unrelated records.
+- Recheck current main, overlap and owner edits. Reconcile races and repeat
+  affected validation; never force-push or publish an unverified changed head.
+
+Once those checks pass, the agent may mark this new-artwork-only PR ready and
+merge it using the verified expected head SHA, without waiting for owner aesthetic
+review. Do not submit a PR approval review, enable auto-merge or change workflows,
+credentials, permissions or branch protections. If protection requires independent
+approval, access is denied, or a required check fails or is unavailable, stop
+dependent publication and report the blocker; do not bypass the gate.
+
+The existing main publisher and Pages deployment remain the publication path.
+Verify their successful output includes the merged artwork before claiming it is
+live. This authorization excludes policy, code, workflow and mixed-scope PRs;
+their existing review rules remain unchanged. In particular, a PR changing this
+policy is not a new-artwork-only PR.
+
+Existing artwork of any review status is not replaced or regenerated without a
+specific owner request. A change in star ranking does not delete artwork.
 
 ## Build behavior
 
@@ -87,7 +122,7 @@ Only approved records with existing files render. Missing files warn and are omi
 
 The initial pilot covered OpenTofu, OpenRefine and OpenSCAD. The current daily
 backfill selects up to 40 distinct canonical projects with missing artwork, in
-descending cached star order, with at most one batch awaiting user review. It
+descending cached star order, with at most one batch in flight through validation and publication. It
 skips existing records of every review status, overlapping PRs and owner edits.
 No eligible missing projects means report completion and disable only that
 backfill task. See the [inventory](../automation/README.md#backfill-specimen-artwork)
@@ -109,7 +144,7 @@ incremental cut-out manifest/checksum entries belong together in its separate
 artwork draft PR. It attempts artwork after catalog acceptance on main. See the
 [automation inventory](../automation/README.md#discover-open-software) for the
 verified scope. Both artwork tasks preserve unrelated assets and records and
-retain their existing review gates.
+follow the new-artwork-only publication procedure above.
 
 The expanded record shows `site/specimens/cutouts/<project-id>.webp`, a transparent derivative
 with only the border-connected white ground removed, so the decorative contour floor passes
