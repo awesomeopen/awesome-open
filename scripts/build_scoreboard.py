@@ -5,9 +5,9 @@ from pathlib import Path
 import shutil
 
 from build_icons import render as render_icon
-from build_draw_archive import week_label
 from font_assets import content_url, font_asset_url
-from weekly_scoreboard import validate
+from weekly_scoreboard import validate, history_view
+from scoreboard_trends import over_time, hn_scope
 
 REPOSITORY = 'https://github.com/awesomeopen/awesome-open'
 TITLES = {'software-renames': 'Most names', 'hn-streak': 'Longes HN streak',
@@ -33,13 +33,13 @@ def trophy_links(project):
     awards = project.get('scoreboard_trophies', [])
     if not awards:
         return ''
-    week = week_label(awards[0]['week'])
+    updated = awards[0].get('recorded_on') or 'date unavailable'
     links = []
     preview = any(a.get('preview') for a in awards)
     for award in awards:
-        label = f'{"Preview: " if preview else ""}{award["title"]}, place {award["rank"]}, {week}'
+        label = f'{"Preview: " if preview else ""}{award["title"]}, place {award["rank"]}, updated {updated}'
         links.append(f'<a href="scoreboard/#{escape(award["metric"])}" title="{escape(label, quote=True)}" aria-label="{escape(label, quote=True)}">{trophy(award["rank"])}<span>{SHORT[award["metric"]]}</span></a>')
-    return f'<div class="scoreboard-plate"><span class="scoreboard-edition">{"Preview · " if preview else ""}Scoreboard · {week}</span><nav class="scoreboard-trophies" aria-label="Scoreboard places">{"".join(links)}</nav></div>'
+    return f'<div class="scoreboard-plate"><span class="scoreboard-edition">{"Preview · " if preview else ""}Scoreboard · Updated {escape(updated)}</span><nav class="scoreboard-trophies" aria-label="Scoreboard places">{"".join(links)}</nav></div>'
 
 
 def safe_link(url, label):
@@ -60,7 +60,7 @@ def evidence_html(metric, row):
                    '; observed ' + escape(str(d.get('release_observed_at') or 'unknown'))]
     elif metric == 'software-renames':
         for event in d['events']:
-            sources = ' · '.join(safe_link(s['url'], s['title']) for s in event['sources'])
+            sources = ' · '.join(safe_link(s['url'], s.get('title') or s['url']) for s in event['sources'])
             pieces.append(escape(event['old_name']) + ' → ' + escape(event['new_name']) + ': ' + sources)
     elif metric.startswith('hn-'):
         if metric == 'hn-streak':
@@ -73,7 +73,7 @@ def evidence_html(metric, row):
     return '<br>'.join(pieces)
 
 
-def metric_html(metric, current_ids):
+def metric_html(metric, current_ids, doc=None, view=None):
     key = metric['id']
     rows = []
     for row in metric['rows']:
@@ -85,7 +85,7 @@ def metric_html(metric, current_ids):
     if not rows:
         rows.append('<tr><td colspan="3" class="obs-empty">No qualifying cached observations.</td></tr>')
     extra = ' · includes cutoff ties' if len(metric['rows']) > 10 else ''
-    return f'''<section class="score-board" id="{key}" aria-labelledby="{key}-heading"><p><span class="obs-label">Top 10{extra}</span></p><h2 id="{key}-heading">{escape(TITLES.get(key, metric['title']))}</h2><p class="score-coverage">{metric['eligible_count']:,} qualifying projects</p><table><thead><tr><th scope="col">Place</th><th scope="col">Project</th><th scope="col">{metric['unit'].capitalize()}</th></tr></thead><tbody>{''.join(rows)}</tbody></table><details class="obs-disclosure score-method"><summary>How this is measured</summary><p>{METHOD[key]}</p></details></section>'''
+    return f'''<section class="score-board" id="{key}" aria-labelledby="{key}-heading"><p><span class="obs-label">Top 10{extra}</span></p><h2 id="{key}-heading">{escape(TITLES.get(key, metric['title']))}</h2><p class="score-coverage">{metric['eligible_count']:,} qualifying projects</p><table><thead><tr><th scope="col">Place</th><th scope="col">Project</th><th scope="col">{metric['unit'].capitalize()}</th></tr></thead><tbody>{''.join(rows)}</tbody></table><details class="obs-disclosure score-method"><summary>How this is measured</summary><p>{METHOD[key]}</p>{hn_scope(doc) if doc and key.startswith("hn-") else ""}</details>{over_time(metric, doc, view) if doc else ""}</section>'''
 
 
 def build(catalog, doc, output, root, preview=False):
@@ -96,12 +96,12 @@ def build(catalog, doc, output, root, preview=False):
     revision = catalog.get('source_sha')
     stamp = safe_link(f'{REPOSITORY}/commit/{revision}', revision[:12]) if revision else 'Local preview; source revision not supplied'
     if doc:
-        week = week_label(doc['week'])
-        lead = ('<strong>Provisional preview.</strong> Computed from this checkout’s cached evidence; no weekly edition has been published.' if preview else
-                f'Frozen {doc["recorded_on"]} · metrics dated {doc["metrics_as_of"]}.')
-        edition = f'<div class="score-scope"><p class="score-week">{week}</p><p>{lead}</p><p>{doc["catalog_count"]:,} catalog projects · six measurements</p></div>'
+        view = history_view(doc)
+        lead = ('<strong>Provisional preview.</strong> Computed from this checkout’s cached evidence; not yet published.' if preview else
+                f'Metrics dated {doc["metrics_as_of"]} · refreshed weekly.')
+        edition = f'<div class="score-scope"><p class="score-updated">Updated {doc["recorded_on"]}</p><p>{lead}</p><p>{doc["catalog_count"]:,} catalog projects · six measurements</p></div>'
         jumps = '<nav class="obs-jump score-jump" aria-label="Rankings">' + ''.join(f'<a href="#{m["id"]}">{SHORT[m["id"]]}</a>' for m in doc['metrics']) + '</nav>'
-        boards = '<div class="score-boards">' + ''.join(metric_html(m, {p['id'] for p in catalog['projects']}) for m in doc['metrics']) + '</div>'
+        boards = '<div class="score-boards">' + ''.join(metric_html(m, {p['id'] for p in catalog['projects']}, doc, view) for m in doc['metrics']) + '</div>'
     else:
         edition = '<div class="score-scope"><p>The first weekly edition will appear after the next successful normal publication.</p></div>'
         jumps = boards = ''
