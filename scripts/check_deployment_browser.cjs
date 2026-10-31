@@ -2,7 +2,12 @@
 const assert = require('node:assert/strict');
 module.exports = async function ({ page, browser, url, data, capture }) {
   const reviewed = data.projects.filter(p => p.deployment);
-  assert.equal(reviewed.length, 8, 'Eight reviewed setup records');
+  // The eight pilot records stay present; reviewed backfill batches add more.
+  const setupPilots = ['https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad',
+    'https://github.com/open-webui/open-webui', 'https://github.com/opensearch-project/opensearch', 'https://github.com/opencv/opencv',
+    'https://www.openhab.org', 'https://github.com/openwrt/openwrt'];
+  assert.ok(setupPilots.every(url => reviewed.some(p => p.url === url)), 'Pilot setup records remain reviewed');
+  assert.ok(reviewed.length >= setupPilots.length, 'Reviewed setup records include the pilot');
   const functionPilots = ['https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad'];
   assert.ok(functionPilots.every(url => reviewed.some(p => p.url === url && p.function_summary)), 'Existing Function prose coexists with setup facts');
   const visible = () => page.locator('.project-card:not([hidden])').count();
