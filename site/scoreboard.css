@@ -1,5 +1,4 @@
 /* Scoreboard extends the shared Observatory route shell. */
-.score-intro { margin-top: 24px; font-size: 16px; }
 .score-scope { padding: 24px 32px; background: var(--rs-mist); display: grid; gap: 8px; }
 .score-week { font: 400 32px/1.2 var(--rs-display); }
 .score-jump { display: flex; justify-content: flex-start; margin: 24px 0 0; gap: 0 24px; }
@@ -9,22 +8,24 @@
 .score-board h2 { margin: 16px 0 8px; font-size: clamp(28px, 3vw, 36px); }
 .score-coverage { color: var(--rs-muted); font-size: 12px; margin-bottom: 16px; }
 .score-board table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-.score-board th, .score-board td { border-bottom: 1px solid var(--obs-hair); padding: 12px 0; vertical-align: top; text-align: left; }
+.score-board th, .score-board td { border-bottom: 1px solid var(--obs-hair); padding: 12px 0; vertical-align: middle; text-align: left; }
 .score-board thead th { font-size: 11px; font-weight: 400; color: var(--rs-muted); border-bottom-color: var(--rs-blueprint); }
 .score-board thead th:first-child { width: 54px; }
 .score-board thead th:last-child { width: 86px; text-align: right; }
-.score-board tbody th { font-weight: 400; overflow-wrap: anywhere; padding-right: 12px; }
-.score-board tbody th > a { display: inline-block; font-size: 15px; line-height: 1.5; }
+.score-board tbody th { font-weight: 400; padding-right: 12px; }
+.score-board tbody th > a { display: block; font-size: 15px; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .score-board .score-value { text-align: right; font-size: 18px; font-variant-numeric: tabular-nums; }
-.score-value > span { display: block; font-size: 10px; color: var(--rs-muted); }
 .score-trophy { display: inline-flex; align-items: center; gap: 4px; color: var(--rs-blueprint); font-variant-numeric: tabular-nums; }
 .score-trophy svg { display: inline-block; flex: none; width: 16px; height: 16px; }
-.score-evidence { font-size: 11px; color: var(--rs-muted); }
-.score-evidence > summary { min-height: 44px; display: list-item; padding-top: 4px; }
-.score-evidence p { padding: 8px 0; overflow-wrap: anywhere; }
 .score-method { border-top: 1px solid var(--rs-blueprint); margin-top: 12px; }
 .score-method p { font-size: 12px; padding: 8px 0 16px; max-width: 72ch; }
-.score-retained { display: block; font-size: 10px; color: var(--rs-muted); }
-.score-notes p { max-width: 75ch; margin-block: 16px; }
 @media (max-width: 760px) { .score-boards { grid-template-columns: 1fr; gap: 48px; } .score-scope { padding: 20px; } }
 @media print { .score-evidence, .score-method { break-inside: avoid; } .score-boards { display: block; } .score-board { break-inside: avoid; margin-top: 32px; } }
+
+.score-value { position: relative; white-space: nowrap; }
+.score-evidence > summary { display: inline; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; list-style: none; }
+.score-evidence > summary::-webkit-details-marker { display: none; }
+.score-evidence > summary::marker { content: ""; }
+.score-evidence > summary:focus-visible { outline: 2px solid var(--rs-scarlet); outline-offset: 4px; }
+.score-evidence p { position: absolute; z-index: 5; right: 0; top: 100%; width: min(340px, 75vw); padding: 16px; border: 1px solid var(--rs-blueprint); background: white; text-align: left; font-size: 12px; line-height: 1.5; white-space: normal; overflow-wrap: anywhere; box-shadow: 0 4px 12px #0002; }
+@media print { .score-evidence p { position: static; width: auto; box-shadow: none; } }

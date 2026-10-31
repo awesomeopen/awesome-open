@@ -1,5 +1,4 @@
 """Static Scoreboard and metric-specific specimen trophy links."""
-from datetime import date
 from html import escape
 import json
 from pathlib import Path
@@ -11,6 +10,8 @@ from font_assets import content_url, font_asset_url
 from weekly_scoreboard import validate
 
 REPOSITORY = 'https://github.com/awesomeopen/awesome-open'
+TITLES = {'software-renames': 'Most names', 'hn-streak': 'Longes HN streak',
+          'hn-stories': 'Most HN stories', 'github-stars': 'Most GitHub stars'}
 SHORT = {'oldest-repository': 'Repo age', 'release-push-gap': 'Release → push',
          'software-renames': 'Renames', 'hn-streak': 'HN streak',
          'hn-stories': 'HN stories', 'github-stars': 'Stars'}
@@ -79,12 +80,12 @@ def metric_html(metric, current_ids):
         link = '../#project-' + row['id'] if row['id'] in current_ids else row['url']
         rank = trophy(row['rank']) if row['rank'] <= 3 else str(row['rank'])
         cached = row['details'].get('metrics_status') == 'stale' or row['details'].get('release_status') == 'stale'
-        stale = '<span class="score-retained">Retained cache</span>' if cached else ''
-        rows.append(f'<tr data-project-id="{row["id"]}" data-rank="{row["rank"]}"><td class="score-place">{rank}</td><th scope="row"><a href="{escape(link, quote=True)}">{escape(row["name"])}</a>{stale}<details class="score-evidence"><summary>Evidence</summary><p>{evidence_html(key, row)}</p></details></th><td class="score-value">{row["value"]:,}<span>{metric["unit"]}</span></td></tr>')
+        retained = 'Retained cache. ' if cached else ''
+        rows.append(f'<tr data-project-id="{row["id"]}" data-rank="{row["rank"]}"><td class="score-place">{rank}</td><th scope="row"><a href="{escape(link, quote=True)}" title="{escape(row["name"], quote=True)}">{escape(row["name"])}</a></th><td class="score-value"><details class="score-evidence"><summary aria-label="Evidence for {escape(row["name"], quote=True)}: {row["value"]:,} {escape(metric["unit"], quote=True)}">{row["value"]:,}</summary><p>{retained}{evidence_html(key, row)}</p></details></td></tr>')
     if not rows:
         rows.append('<tr><td colspan="3" class="obs-empty">No qualifying cached observations.</td></tr>')
     extra = ' · includes cutoff ties' if len(metric['rows']) > 10 else ''
-    return f'''<section class="score-board" id="{key}" aria-labelledby="{key}-heading"><p><span class="obs-label">Top 10{extra}</span></p><h2 id="{key}-heading">{escape(metric['title'])}</h2><p class="score-coverage">{metric['eligible_count']:,} qualifying projects</p><table><thead><tr><th scope="col">Place</th><th scope="col">Project</th><th scope="col">{metric['unit'].capitalize()}</th></tr></thead><tbody>{''.join(rows)}</tbody></table><details class="obs-disclosure score-method"><summary>How this is measured</summary><p>{METHOD[key]}</p></details></section>'''
+    return f'''<section class="score-board" id="{key}" aria-labelledby="{key}-heading"><p><span class="obs-label">Top 10{extra}</span></p><h2 id="{key}-heading">{escape(TITLES.get(key, metric['title']))}</h2><p class="score-coverage">{metric['eligible_count']:,} qualifying projects</p><table><thead><tr><th scope="col">Place</th><th scope="col">Project</th><th scope="col">{metric['unit'].capitalize()}</th></tr></thead><tbody>{''.join(rows)}</tbody></table><details class="obs-disclosure score-method"><summary>How this is measured</summary><p>{METHOD[key]}</p></details></section>'''
 
 
 def build(catalog, doc, output, root, preview=False):
@@ -96,19 +97,16 @@ def build(catalog, doc, output, root, preview=False):
     stamp = safe_link(f'{REPOSITORY}/commit/{revision}', revision[:12]) if revision else 'Local preview; source revision not supplied'
     if doc:
         week = week_label(doc['week'])
-        end = date.fromisoformat(doc['hn_window']['end_exclusive'])
-        window = f'{doc["hn_window"]["start"]} ≤ UTC date < {end.isoformat()}'
         lead = ('<strong>Provisional preview.</strong> Computed from this checkout’s cached evidence; no weekly edition has been published.' if preview else
                 f'Frozen {doc["recorded_on"]} · metrics dated {doc["metrics_as_of"]}.')
         edition = f'<div class="score-scope"><p class="score-week">{week}</p><p>{lead}</p><p>{doc["catalog_count"]:,} catalog projects · six measurements</p></div>'
         jumps = '<nav class="obs-jump score-jump" aria-label="Rankings">' + ''.join(f'<a href="#{m["id"]}">{SHORT[m["id"]]}</a>' for m in doc['metrics']) + '</nav>'
         boards = '<div class="score-boards">' + ''.join(metric_html(m, {p['id'] for p in catalog['projects']}) for m in doc['metrics']) + '</div>'
-        details = f'''<section class="obs-section score-notes" id="method"><h2>Edition and coverage</h2><p>Ranks compare the cached facts frozen for this edition. The first successful normal publication each Monday–Sunday week in America/New_York freezes the next snapshot. A delayed publication retains the displayed edition and its original dates.</p><p>Equal values share a place: 1, 1, 3. Canonical Registry ID orders tied rows. Every project tied at the tenth position is shown, so a board may contain more than ten projects. Shared places 1–3 carry the same trophy on their specimen plates.</p><p>HN window: {window}. Completed matching collections: {doc['hn_window']['covered_count']:,}; catalog-URL-only scopes: {doc['hn_window']['url_only_count']:,}. Matching scope varies by project and Algolia coverage is best-effort. Only projects with matched stories enter the HN boards. Retained successful observations keep their collection date and latest attempt status in Evidence.</p><p>Repository age refers to repository creation. Rename counts cover recorded software renames; missing history is unreviewed. Each table states its qualifying coverage. Collection dates and retained-cache states remain in each row’s evidence.</p><details class="obs-disclosure"><summary>Snapshot provenance</summary><p>Captured from {safe_link(f'{REPOSITORY}/commit/{doc["source_sha"]}', doc['source_sha']) if doc['source_sha'] else 'a local preview'} · algorithm {escape(doc['algorithm'])}. Input fingerprints and frozen values are in the snapshot download.</p></details></section>'''
     else:
         edition = '<div class="score-scope"><p>The first weekly edition will appear after the next successful normal publication.</p></div>'
-        jumps = boards = details = ''
+        jumps = boards = ''
     download = '<li><a href="snapshot.json" download>Download snapshot</a></li>' if doc else ''
-    page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Scoreboard</title><meta name="description" content="Weekly Top 10 rankings from Awesome Open’s cached repository facts, reviewed renames and matched HN stories."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="../{content_url('observatory/observatory.css', root / 'site/observatory.css')}"><link rel="stylesheet" href="{content_url('scoreboard.css', root / 'site/scoreboard.css')}"></head><body class="observatory scoreboard"><a class="skip-link" href="#scoreboard">Skip to scoreboard</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../observatory/">Observatory</a><a href="./" aria-current="page">Scoreboard</a><a href="../spotlight/">Spotlight</a></nav></header></div><main id="scoreboard" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Scoreboard</h1></section>{edition}{jumps}{boards}{details}</div><div class="obs-closing-mark"><img class="obs-logo" src="../brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo"></div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Scoreboard</p><ul class="obs-footer-links">{download}<li><a href="{REPOSITORY}/blob/main/site/SCOREBOARD.md">Scoreboard method</a></li><li><a href="../#catalog">Return to Catalog</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li></ul></div></footer></body></html>'''
+    page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Scoreboard</title><meta name="description" content="Weekly Top 10 rankings from Awesome Open’s cached repository facts, reviewed renames and matched HN stories."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="../{content_url('observatory/observatory.css', root / 'site/observatory.css')}"><link rel="stylesheet" href="{content_url('scoreboard.css', root / 'site/scoreboard.css')}"></head><body class="observatory scoreboard"><a class="skip-link" href="#scoreboard">Skip to scoreboard</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../observatory/">Observatory</a><a href="./" aria-current="page">Scoreboard</a><a href="../spotlight/">Spotlight</a></nav></header></div><main id="scoreboard" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Scoreboard</h1></section>{edition}{jumps}{boards}</div><div class="obs-closing-mark"><img class="obs-logo" src="../brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo"></div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Scoreboard</p><ul class="obs-footer-links">{download}<li><a href="{REPOSITORY}/blob/main/site/SCOREBOARD.md">Scoreboard method</a></li><li><a href="../#catalog">Return to Catalog</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li></ul></div></footer></body></html>'''
     (target / 'index.html').write_text(page)
     if doc:
         (target / 'snapshot.json').write_text(json.dumps({**doc, 'preview': preview}, ensure_ascii=False, separators=(',', ':')) + '\n')
