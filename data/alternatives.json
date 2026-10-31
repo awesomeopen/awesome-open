@@ -617,6 +617,17 @@
           "confidence": "high"
         }
       ]
+    },
+    {
+      "readme_url": "https://github.com/AprilNEA/OpenLogi",
+      "alternatives": [
+        {
+          "name": "Logitech Options+",
+          "source_url": "https://github.com/AprilNEA/OpenLogi/blob/1851f89ac2f7c372d7191f91ed9d32f7573e97b7/README.md",
+          "checked_utc_date": "2026-10-31",
+          "scope": "Configuration of supported Logitech mice, keyboards, and webcams. The official README explicitly calls OpenLogi an alternative to Logitech Options+. Feature coverage varies by device and platform; quit Options+ before use because only one application can own a receiver at a time."
+        }
+      ]
     }
   ]
 }

@@ -524,7 +524,7 @@
 | [Open Industry Project](https://github.com/Open-Industry-Project/Open-Industry-Project) | Browser-based warehouse and manufacturing simulator with industrial equipment, a built-in PLC, and desktop connections to external controllers. |
 | [OpenIPC](https://github.com/OpenIPC/firmware) | Alternative firmware for IP cameras. |
 | [openlaser](https://github.com/theanam/openlaser.app) | Browser-based design, toolpath preview, and job control for laser engravers and cutters. |
-| [OpenLogi](https://github.com/AprilNEA/OpenLogi) | Desktop software for configuring Logitech mice, keyboards, and webcams on macOS, Linux, and Windows. |
+| [OpenLogi](https://github.com/AprilNEA/OpenLogi) | Desktop software for configuring Logitech mice, keyboards, and webcams on macOS, Linux, and Windows.<br>Alternative to: [Logitech Options+](https://github.com/AprilNEA/OpenLogi/blob/1851f89ac2f7c372d7191f91ed9d32f7573e97b7/README.md) |
 | [OpenMV](https://github.com/openmv/openmv) | Python-programmable camera firmware with embedded machine vision. |
 | [OpenNollie](https://github.com/AbdulWasayWk/OpenNollie) | Linux application for Nollie 16CH RGB controllers, with per-port colors, custom lighting effects, and on-device animation storage. |
 | [OpenOCD](https://github.com/openocd-org/openocd) | On-chip programming, debugging, and boundary-scan tools. |
