@@ -1,0 +1,16 @@
+{
+  "schema_version": 2,
+  "job": "deployment-evidence-backfill",
+  "contract_version": 2,
+  "mode": "backfill",
+  "mode_since": "2026-10-31",
+  "mode_history": [
+    {
+      "mode": "backfill",
+      "since": "2026-10-31",
+      "reason": "initial"
+    }
+  ],
+  "considered": {},
+  "runs": []
+}
