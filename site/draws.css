@@ -11,19 +11,13 @@
 .draw-edition h2 a:hover { text-decoration: underline; }
 
 /* Specimen tray: art on white, no frames; spacing carries the grid. */
-.draw-projects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 56px 32px; }
+.draw-projects { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 32px 20px; }
 .draw-specimen { display: flex; flex-direction: column; min-width: 0; }
 .draw-specimen img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; margin-bottom: 16px; mix-blend-mode: multiply; /* white art ground, as on the plate */ }
-.draw-specimen h3 { font-size: 25px; margin-bottom: 8px; overflow-wrap: anywhere; }
+.draw-specimen h3 { font-size: 18px; margin-bottom: 8px; overflow-wrap: anywhere; }
 .draw-specimen h3 a { text-decoration-thickness: 1px; }
-.draw-function { font-size: 13px; line-height: 1.6; }
-.draw-meta { margin-top: 8px; font-size: 12px; color: var(--rs-muted, #465665); }
+.draw-meta { margin-top: 8px; font-size: 10px; letter-spacing: -0.05em; color: var(--rs-muted, #465665); }
 .draw-specimen.no-art h3 { margin-top: 0; }
-
-/* Earlier editions: the same tray at a smaller scale. */
-.draw-edition:not(.is-latest) .draw-projects { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 32px 20px; }
-.draw-edition:not(.is-latest) .draw-specimen h3 { font-size: 18px; }
-.draw-edition:not(.is-latest) .draw-function { display: none; }
 
 .draw-record { margin-top: 48px; border-top: 1px solid var(--obs-rule); }
 .draw-record-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 24px; padding: 8px 0 16px; font-size: 12px; }
@@ -33,15 +27,12 @@
 .draw-empty-text { font: var(--rs-display-weight, 400) clamp(22px, 2.6vw, 30px)/1.22 var(--rs-display, Georgia, serif); font-variation-settings: var(--rs-display-axes, normal); max-width: 32ch; margin-top: 16px; }
 
 @media (max-width: 1000px) {
-  .draw-projects { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .draw-edition:not(.is-latest) .draw-projects { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .draw-projects { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .draw-record-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .draw-projects { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 16px; }
-  .draw-edition:not(.is-latest) .draw-projects { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 12px; }
-  .draw-specimen h3 { font-size: 20px; }
-  .draw-edition:not(.is-latest) .draw-specimen h3 { font-size: 15px; overflow-wrap: break-word; }
+  .draw-projects { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 12px; }
+  .draw-specimen h3 { font-size: 15px; overflow-wrap: break-word; }
   .draw-edition { margin-top: 64px; }
   .draw-record-list { grid-template-columns: minmax(0, 1fr); }
 }

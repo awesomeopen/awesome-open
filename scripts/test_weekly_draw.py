@@ -100,7 +100,7 @@ class WeeklyDrawTests(unittest.TestCase):
             self.assertIn('href="#2026-W43">2026-W43</a>', html)
             self.assertIn('<span data-metric>2026-W43</span>', html)
             for removed in ('Week of ', 'How the draw works', 'Stars do not affect the draw.',
-                            'class="obs-finding', 'Return to project ledger', '>Observatory</a>', '#week-'):
+                            'class="obs-finding', 'Return to project ledger', '#week-'):
                 self.assertNotIn(removed, html)
             self.assertIn('class="obs-jump draw-jump" aria-label="Sections" hidden', html)
             footer = html.split('<footer class="obs-footer">', 1)[1]

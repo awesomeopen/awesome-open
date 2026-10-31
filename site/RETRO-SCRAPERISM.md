@@ -499,8 +499,10 @@ until the first saved edition activates. See [weekly draw contract](WEEKLY-DRAWS
 for the calendar, snapshot archive, eligibility and failure behavior. Spotlight
 uses ISO week edition labels and anchors (`2026-W43`, `#2026-W43`). Its scope and
 method blocks are omitted, its section jump navigation is hidden, and its footer
-puts Download draw records · Draw contract above GitHub. Omit Observatory links
-and the Return to project ledger footer link on this route (B-PR134-01).
+puts Download draw records · Draw contract above GitHub. Use Catalog, Observatory, Scoreboard, Spotlight in that order for all three
+subpage headers. The Catalog footer links read Submit a project, Observatory,
+Scoreboard, Spotlight, GitHub, Top. Each Spotlight edition uses the same compact
+tray with names and categories; metadata is 10px with -0.05em letter-spacing.
 
 ## Crisp photographic jar motion (B40)
 
