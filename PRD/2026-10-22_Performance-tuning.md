@@ -4,8 +4,11 @@
 - **Status:** In progress. Phase 1 merged in [#176](https://github.com/awesomeopen/awesome-open/pull/176)
   and [#177](https://github.com/awesomeopen/awesome-open/pull/177); phase 2 merged in
   [#184](https://github.com/awesomeopen/awesome-open/pull/184) and
-  [#194](https://github.com/awesomeopen/awesome-open/pull/194); phase 3a is in
-  [#195](https://github.com/awesomeopen/awesome-open/pull/195).
+  [#194](https://github.com/awesomeopen/awesome-open/pull/194); phase 3a merged in
+  [#195](https://github.com/awesomeopen/awesome-open/pull/195), responsive specimens
+  in [#196](https://github.com/awesomeopen/awesome-open/pull/196), and phase 4 in
+  [#197](https://github.com/awesomeopen/awesome-open/pull/197). The original/cut-out
+  shipping review and W6 remain open.
 - **Owner:** Project owner
 - **Related:** [Remove the standalone download](2026-10-22_Remove-standalone-download.md)
   (separate PRD), TODO entry "Responsive hero images and compact catalog index"
@@ -124,20 +127,17 @@ projected 490 MiB at 1,000 records with artwork for each.
 
 - Write site-only JSON (`catalog.json`, the copied `data/*.json`) compactly. The
   repository copies keep their indented, diffable form.
-- Ship star history once: `catalog.json` refers to `data/star_history.json`
-  instead of embedding `last_good` per project, or the reverse; pick one owner.
-  Chosen in [#195](https://github.com/awesomeopen/awesome-open/pull/195):
-  `data/star_history.json` owns the counts, keyed by `star_history.repo`.
-  `catalog.json` falls from 12.2 MiB to 1.3 MiB and `data/` from 14.6 MiB to
-  6.2 MiB.
-- Add responsive specimen artwork (`srcset` at 512/768/1254 px) to static
-  records and drawers. The plate is at most 627 px wide and `.specimen-art` at
-  most 400 px; phones currently download the 1254 px original. Derived variants
-  follow the `jars/responsive/` pattern and need provenance and a
-  `brand/assets.md` update.
-  Proposed in [#196](https://github.com/awesomeopen/awesome-open/pull/196)
-  ([B-PR196-01](../brand/decisions/B-PR196-01.md)) at 512/768 px plus the
-  source; the loupe keeps the source.
+- Star-history counts ship once in `data/star_history.json`, keyed by
+  `star_history.repo`; `catalog.json` keeps status and chart links. Merged in
+  [#195](https://github.com/awesomeopen/awesome-open/pull/195), reducing
+  `catalog.json` from 12.2 MiB to 1.3 MiB and `data/` from 14.6 MiB to 6.2 MiB
+  in that PR's measured build.
+- Responsive specimen artwork merged in
+  [#196](https://github.com/awesomeopen/awesome-open/pull/196)
+  ([B-PR196-01](../brand/decisions/B-PR196-01.md)): static records and drawers
+  use 512/768 px variants plus the source where current variants exist; the
+  loupe keeps the source. See [Display variants](../site/SPECIMEN-ART.md#display-variants)
+  for generation, provenance and source-only fallback.
 - Review whether both the original and the cutout need to ship for every project
   that has a cutout.
 - New image files (the responsive variants, and any change to which of original
@@ -154,12 +154,14 @@ projected 490 MiB at 1,000 records with artwork for each.
   still runs for them.
 - Cache the Playwright browser directory (`~/.cache/ms-playwright`) keyed on the
   locked Playwright version.
-- Cache derived outputs that change only with their inputs (QR SVGs, responsive
-  image variants) with `actions/cache` keyed on input hashes.
+- Cache permalink QR SVGs with `build_site.py --qr-cache`, keyed on the
+  encoder, encoded URL and label. Image variants are committed and copied by the
+  build, so they need no build-output cache.
 
-Proposed in [#197](https://github.com/awesomeopen/awesome-open/pull/197). The
-build generates no image variants (they are committed and copied), so only QR
-SVGs are cached: `build_site.py --qr-cache`, 4.0 s to 1.7 s per build.
+Merged in [#197](https://github.com/awesomeopen/awesome-open/pull/197). Its
+measured QR-cached build fell from 4.0 s to 1.7 s. Current workflow exclusions
+and cache behavior are documented in
+[Contributing](../CONTRIBUTING.md#filterable-website-preview).
 
 ### W6. Later, as the catalog grows
 
