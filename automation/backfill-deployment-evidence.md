@@ -767,8 +767,9 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
   - *Effect:* each covered record adds about 150 bytes to `catalog.json` instead
     of about 2.1 KB, so full coverage fits well within the budget. The 100 KiB
     guard (section 14) stays in force regardless.
-- **Phase 2, pilot batch.** With owner authorization, one manual run with
-  `--limit 5`. The owner reviews every record.
+- **Phase 2, pilot batch.** Approved by the repository owner on 2026-10-31.
+  After this PR merges, one supervised run prepares one 25-project batch as a
+  draft PR. The owner reviews that draft before any schedule is registered.
 - **Phase 3, supervised runs.** Up to 4 full batches of 25 on manual dispatch,
   then the first calibration review.
 - **Phase 4, registration.** The owner authorizes both routines. The
@@ -785,7 +786,7 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
 - [ ] `python3 -m unittest discover -s scripts -p 'test_*.py'` passes on `main`, or known unrelated failures are listed
 - [ ] `validate`, `status` and `coverage` run cleanly; baseline 8/552 recorded
 - [ ] Budget headroom measured from a fresh `tmp/site` build
-- [ ] Run with `--limit 5`, records compared against the pilot, all section 13 commands pass
+- [ ] After this PR merges, one supervised 25-project batch is opened as a draft PR; records compared against the pilot; section 13 commands pass; the owner reviews the draft before any schedule is registered
 - [ ] Draft PR opened with the section 12 template; exact-head CI followed to a final result
 - [ ] Report sent; ledger shows the run
 
@@ -861,8 +862,10 @@ Repository owner, 2026-10-31:
    `data/deployment_evidence.json`. Files such as `data/deployment/<slug>.json`
    can be generated from that file later if someone asks for them. They are
    out of scope for now.
+3. In maintenance mode, a ledger-only draft opens monthly, on the first run of
+   a calendar month. In backfill mode, a ledger-only draft opens after 7 days
+   without a pull request.
+4. After this PR merges, one supervised pilot run is approved: one 25-project
+   batch as a draft PR, reviewed before any schedule is registered.
 
-### Open questions for the owner
-
-1. Maintenance ledger-only fallback: monthly as proposed, or weekly as in
-   backfill?
+No open questions remain.
