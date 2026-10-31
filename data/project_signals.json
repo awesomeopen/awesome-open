@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-31T18:23:22Z",
+  "collected_at": "2026-10-31T22:37:06Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -1364,6 +1364,47 @@
         "source_url": "https://api.scorecard.dev/projects/github.com/apache/openwhisk",
         "status": "partial",
         "success_time_precision": "second"
+      }
+    },
+    "aprilnea/openlogi": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-31T22:37:06Z",
+        "error": null,
+        "etag": "\"c867884bce0e7f0362b4ccf2117539077c7eae3e62889d19f530514f58093e1c\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-10-31T22:37:06Z",
+          "observed_at": "2026-10-29T16:16:23Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/AprilNEA/OpenLogi/releases/tag/v0.8.19",
+            "published_at": "2026-10-29T16:16:23Z",
+            "release_id": 428103915,
+            "tag_name": "v0.8.19"
+          }
+        },
+        "last_success_at": "2026-10-31T22:37:06Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/aprilnea/openlogi/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-10-31T22:37:06Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/aprilnea/openlogi",
+        "status": "unavailable"
       }
     },
     "aristidedongo/opentask": {
@@ -26080,5 +26121,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "dac04b57dbd11185c5c69031ac71500c37057cdb"
+  "source_sha": "5f72e1996facf771d550f597c42d8955d989b09e"
 }
