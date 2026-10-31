@@ -46,7 +46,7 @@ meaning. The strangeness lives in artwork and organization, never in the facts.
 ## Operating Context
 
 - Routes: the main catalog ledger with search, category filters and detail
-  drawers; `/observatory/` snapshot statistics; `/spotlight/` weekly draw archive;
+  drawers; `/observatory/` snapshot statistics; `/spotlight/` weekly draw archive; `/scoreboard/` weekly cached-evidence rankings;
   the jar hero; static record pages (`records/<id>.html`) and downloadable
   `catalog.json` and evidence files.
 - A single serialized publisher workflow collects metrics and evidence, renders

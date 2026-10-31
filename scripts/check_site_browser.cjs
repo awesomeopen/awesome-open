@@ -304,7 +304,9 @@ const path = require('node:path');
     assert.equal(await page.locator('#search').getAttribute('placeholder'), null);
     assert.equal(await page.locator('#search').evaluate(n => getComputedStyle(n).borderBottomStyle), 'dashed');
     assert.equal(await page.locator('.ledger-columns, .ledger-heading').count(), 0);
-    assert.deepEqual(await page.locator('.header-links a').allTextContents(), ['Catalog', 'About', 'Observatory']);
+    assert.deepEqual(await page.locator('.header-links a').allTextContents(), ['Catalog', 'About', 'Observatory', 'Scoreboard']);
+    assert.deepEqual(await page.locator('.header-links a').evaluateAll(links => links.map(a => a.getAttribute('href'))),
+      ['#catalog', '#about', 'observatory/', 'scoreboard/']);
     assert.deepEqual(await page.locator('.footer-actions a').allTextContents(), ['Submit a project', 'Spotlight', 'GitHub', 'Top']);
     assert.ok(await page.locator('.footer-baseline').textContent().then(t => t.includes(data.projects.length + ' Projects')));
     const absentLicense = data.projects.find(p => !p.github || !p.github.license);

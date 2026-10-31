@@ -1,0 +1,30 @@
+/* Scoreboard extends the shared Observatory route shell. */
+.score-intro { margin-top: 24px; font-size: 16px; }
+.score-scope { padding: 24px 32px; background: var(--rs-mist); display: grid; gap: 8px; }
+.score-week { font: 400 32px/1.2 var(--rs-display); }
+.score-jump { display: flex; justify-content: flex-start; margin: 24px 0 0; gap: 0 24px; }
+.score-jump a { min-height: 44px; }
+.score-boards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px 48px; margin-top: 48px; align-items: start; }
+.score-board { min-width: 0; scroll-margin-top: 24px; }
+.score-board h2 { margin: 16px 0 8px; font-size: clamp(28px, 3vw, 36px); }
+.score-coverage { color: var(--rs-muted); font-size: 12px; margin-bottom: 16px; }
+.score-board table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.score-board th, .score-board td { border-bottom: 1px solid var(--obs-hair); padding: 12px 0; vertical-align: top; text-align: left; }
+.score-board thead th { font-size: 11px; font-weight: 400; color: var(--rs-muted); border-bottom-color: var(--rs-blueprint); }
+.score-board thead th:first-child { width: 54px; }
+.score-board thead th:last-child { width: 86px; text-align: right; }
+.score-board tbody th { font-weight: 400; overflow-wrap: anywhere; padding-right: 12px; }
+.score-board tbody th > a { display: inline-block; font-size: 15px; line-height: 1.5; }
+.score-board .score-value { text-align: right; font-size: 18px; font-variant-numeric: tabular-nums; }
+.score-value > span { display: block; font-size: 10px; color: var(--rs-muted); }
+.score-trophy { display: inline-flex; align-items: center; gap: 4px; color: var(--rs-blueprint); font-variant-numeric: tabular-nums; }
+.score-trophy svg { display: inline-block; flex: none; width: 16px; height: 16px; }
+.score-evidence { font-size: 11px; color: var(--rs-muted); }
+.score-evidence > summary { min-height: 44px; display: list-item; padding-top: 4px; }
+.score-evidence p { padding: 8px 0; overflow-wrap: anywhere; }
+.score-method { border-top: 1px solid var(--rs-blueprint); margin-top: 12px; }
+.score-method p { font-size: 12px; padding: 8px 0 16px; max-width: 72ch; }
+.score-retained { display: block; font-size: 10px; color: var(--rs-muted); }
+.score-notes p { max-width: 75ch; margin-block: 16px; }
+@media (max-width: 760px) { .score-boards { grid-template-columns: 1fr; gap: 48px; } .score-scope { padding: 20px; } }
+@media print { .score-evidence, .score-method { break-inside: avoid; } .score-boards { display: block; } .score-board { break-inside: avoid; margin-top: 32px; } }

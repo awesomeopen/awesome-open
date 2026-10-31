@@ -167,3 +167,7 @@ unchanged. Contours are manually calibrated against the existing photographic
 sources, including the low jar's leaning-lid occlusion. They affect display
 composition only; no asset bytes or checksum inventory change. See the
 [fit contract](../site/WEEKLY-DRAWS.md#fit-and-archive).
+
+The Scoreboard `rank.trophy` interface glyph is authored by `scripts/build_icons.py`;
+its shape, 16px grid and label contract are in the icon map. Provenance is in
+`site/brand/icons/provenance.json`; it uses no specimen or generated-image source.

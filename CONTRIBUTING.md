@@ -349,6 +349,13 @@ those sources. A single history cannot mix old/new endpoints across pages or
 borrow an unreviewed repository's evidence. Further renames require independent identity verification and review;
 both history transports still refuse redirects without following them.
 
+## Scoreboard
+
+The weekly [Scoreboard](site/SCOREBOARD.md) ranks cached evidence and repeats
+metric-specific places 1–3 on specimen plates. The existing normal publisher
+freezes `data/weekly_scoreboard.json` once per week; contributors edit its code and
+contract rather than hand-editing ranked results. No extra data collection runs.
+
 ## Observatory snapshot
 
 The site build also creates `/observatory/` from the same validated catalog and

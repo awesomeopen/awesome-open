@@ -23,6 +23,7 @@ def make_plan(catalog):
     suites = [dict(name='core', script='check_site_browser.cjs', seconds=180),
               dict(name='fonts', script='check_fonts_browser.cjs', seconds=90),
               dict(name='observatory', script='check_observatory_browser.cjs', seconds=90),
+              dict(name='scoreboard', script='check_scoreboard_browser.cjs', seconds=90),
               dict(name='exhibition', script='check_exhibition_browser.cjs', seconds=90),
               dict(name='jars', script='check_jar_browser.cjs', seconds=90)]
     for index, start in enumerate(range(0, len(ids), CHUNK_SIZE)):
