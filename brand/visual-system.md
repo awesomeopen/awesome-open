@@ -296,9 +296,21 @@ See the [Observatory contract](../site/OBSERVATORY.md#shared-name-illustrations)
 The Scoreboard uses the B42 sibling-route shell for six comparative ranking tables.
 Each table states qualifying coverage, units and foldable source evidence. A
 small outlined cup and place numeral identify shared ranks 1–3; the same compact
-metric links appear beneath the specimen label's domains. The weekly edition is
+metric links appear beneath the specimen label's domains. The snapshot's actual update date is
 stated once above those links. Existing category-star bolding remains separate.
 See [the measurement and weekly contract](../site/SCOREBOARD.md).
+
+
+### Scoreboard measurement trends
+
+The current tables remain the primary view. Native **Over time** disclosures
+add restrained, labeled charts for up to three current leaders per measurement.
+Observed series use a 12-month view with monthly ticks; repository creation,
+rename occurrences and HN streaks retain their literal date meanings. A single
+observation stays a point; unavailable observations stay gaps. Text values and
+sources remain readable without JavaScript. Weekly refresh stays underneath an
+**Updated** date, with no list of weekly pages or historical trophy collection.
+The measurement/history contract is in [SCOREBOARD.md](../site/SCOREBOARD.md).
 
 
 ## Compact Scoreboard rows

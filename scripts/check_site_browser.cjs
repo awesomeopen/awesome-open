@@ -307,7 +307,11 @@ const path = require('node:path');
     assert.deepEqual(await page.locator('.header-links a').allTextContents(), ['Catalog', 'About', 'Observatory', 'Scoreboard']);
     assert.deepEqual(await page.locator('.header-links a').evaluateAll(links => links.map(a => a.getAttribute('href'))),
       ['#catalog', '#about', 'observatory/', 'scoreboard/']);
-    assert.deepEqual(await page.locator('.footer-actions a').allTextContents(), ['Submit a project', 'Spotlight', 'GitHub', 'Top']);
+    assert.deepEqual(await page.locator('.footer-actions a').allTextContents(),
+      ['Submit a project', 'Observatory', 'Scoreboard', 'Spotlight', 'GitHub', 'Top']);
+    assert.deepEqual(await page.locator('.footer-actions a').evaluateAll(links => links.map(a => a.getAttribute('href'))),
+      [`https://github.com/awesomeopen/awesome-open/blob/${data.source_sha || 'main'}/CONTRIBUTING.md`,
+        'observatory/', 'scoreboard/', 'spotlight/', 'https://github.com/awesomeopen/awesome-open', '#catalog']);
     assert.ok(await page.locator('.footer-baseline').textContent().then(t => t.includes(data.projects.length + ' Projects')));
     const absentLicense = data.projects.find(p => !p.github || !p.github.license);
     if (absentLicense) assert.equal(await page.locator('#project-' + absentLicense.id + ' .license-readout').textContent(), '');
