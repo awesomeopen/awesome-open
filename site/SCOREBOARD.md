@@ -5,6 +5,10 @@ small numbered trophies, repeated as links on each current specimen plate.
 Each trophy names its metric and the current snapshot's update date. The page
 shows one current set of tables, with optional **Over time** views beneath them.
 
+**Proposed addition:** [Most up to date](SCOREBOARD-COMPLETENESS-PROPOSAL.md)
+defines a completeness gate, recent activity count and verification tie-break
+for owner review. The current implementation and frozen snapshots have six boards.
+
 ## Measurements
 
 | Board | Measurement | Qualifying evidence |
