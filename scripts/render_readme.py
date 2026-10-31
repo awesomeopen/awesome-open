@@ -52,6 +52,10 @@ def validate_snapshot(snapshot):
             raise ValueError("Expected lowercase canonical repository path: " + repo)
         if not isinstance(record, dict):
             raise ValueError("Expected GitHub metrics record for " + repo)
+        if "repository_identity" in record:
+            if snapshot["schema_version"] != 2 or record.get("last_success_at") is None:
+                raise ValueError("Repository identity requires a successful schema-2 observation for " + repo)
+            stats.validate_repository_identity(record["repository_identity"], repo, record["last_success_at"])
         if snapshot["schema_version"] == 2:
             status = record.get("status")
             attempt = record.get("last_attempt")
@@ -162,3 +166,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -14,13 +14,15 @@ forecast model. The main-only publisher includes the route automatically.
   in Python, `toLowerCase` in JavaScript), then remove Unicode `White_Space`,
   hyphen and underscore. The explicit White_Space set is U+0009–000D, U+0020,
   U+0085, U+00A0, U+1680, U+2000–200A, U+2028–2029, U+202F, U+205F and U+3000.
-  Zero-width space, BOM, the dot and other punctuation are retained. The reviewed
-  plural pair OpenTask / OpenTasks shares the `opentask` key for this grouping.
-  Other names retain their full spelling; rhyme matching keeps its original keys. Projects with equal keys form one group, so
+  Zero-width space, BOM, the dot and other punctuation are retained. Reviewed
+  equivalences can join different spellings with an explicit plural or spelling
+  reason; the initial record preserves OpenTask / OpenTasks. Current displayed
+  names alone drive these groups. Rhyme matching keeps its original keys.
+  Projects with equal keys form one group, so
   each canonical project ID belongs to at most one group and groups cannot chain.
   A group needs two distinct project IDs; empty keys never match. **Identical
   name** groups display one name; **Spelling variants** display several. Variant
-  groups carry non-exclusive tags (Case, Spacing, Plural, Exact duplicates); tag counts do
+  groups carry non-exclusive tags (Case, Spacing, Plural, Spelling, Exact duplicates); tag counts do
   not sum to a total. The headline counts tools in all groups. Groups follow the
   selected category/license filters. Letter differences, including the plural
   suffix, are highlighted; Case tags require a case-only letter difference. Plates show unchanged displayed names,
@@ -111,6 +113,36 @@ browser check invokes `scripts/check_observatory_browser.cjs`, retaining route
 screenshots and a source manifest in the existing browser artifact. No new
 workflow, permissions, dependencies or public preview host is needed.
 
+## Reviewing name matches
+
+The reviewed registry in `scripts/name_matching.py` binds current catalog URLs
+and exact names to a shared key, with a `plural` or `spelling` reason, official
+source URLs, review date, reviewer and basis. Changes follow code review.
+Validation rejects unknown or renamed members and overlapping groups. Update the
+review when a member changes name; former-name aliases and history events do not
+create current twins. The validated key and reason are shared by Python and
+JavaScript. Partial fixtures without any registered members keep ordinary
+normalized-name matching.
+
+After an offline catalog build, inspect review candidates:
+
+```sh
+python3 scripts/name_matching.py --catalog tmp/site/catalog.json --metrics data/github_metrics.json
+```
+
+Use the catalog path from your build. The command reads existing files and prints
+JSON. `candidates` contains current Open-prefixed names whose ASCII remainder has
+at least four letters and differs by one insertion, deletion or substitution.
+Identical normalized spellings and existing reviewed equivalences are skipped.
+Review the official names before adding an equivalence; candidate output never
+populates published groups automatically. This bounded comparison is not
+exhaustive or a pronunciation judgment.
+
+`repository_changes` separately lists cached requested/resolved GitHub path
+mismatches. Follow the [repository-path review method](PROJECT-HISTORY.md#repository-path-review-candidates)
+to verify identity and software-name evidence. Its observation time does not date
+a rename. Older caches without identity observations produce no such candidates.
+
 ## Reviewed rhyming names
 
 The “Show names that rhyme” disclosure sits directly below “Show duplicate
@@ -158,3 +190,4 @@ Stack columns on narrow screens. Preserve this presentation after filtering,
 and without JavaScript.
 The visual comparison invites inspection; similarity of names or illustrations
 does not establish a relationship between projects.
+

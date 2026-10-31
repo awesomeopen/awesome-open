@@ -75,6 +75,27 @@ second rename. Category memberships can overlap. A current-catalog-only backfill
 misses projects that renamed away from Open. Ex-Open archival eligibility remains a separate
 curated decision; the proposed frozen archive is not implemented here.
 
+## Repository-path review candidates
+
+The existing GitHub metrics request also records its returned repository ID,
+full path and HTML URL in an optional `repository_identity` object. Older
+snapshots without that object have no identity baseline. New successful
+observations keep the catalog's requested path as their cache key; a mismatch
+between that path and the returned path appears in the publisher log as a
+review candidate and is available through
+`update_stats.repository_change_candidates(snapshot)`.
+
+The observation timestamp records when we saw the endpoint. Official commits,
+announcements or releases still establish any software-rename event and its
+date. A same-ID path change can support continuity; a changed repository ID
+aborts the atomic metrics update for review rather than replacing a project's
+metrics with another repository's. A repository-scoped 404 keeps the prior
+identity and its original observation timestamp alongside stale metrics.
+
+These candidates do not edit catalog names, URLs, aliases or history, and they
+do not enter rename counts. Reviewers use the existing history schema above
+after checking official evidence.
+
 ## Checks
 
 Run the full offline Python suite and brand checks, build production-shaped
@@ -84,3 +105,4 @@ the rename label and its details, stacked close labels, pre-repository events an
 absent repository dates. Browser checks exercise the seeded records at 320px and
 desktop in drawers and full records: label text, keyboard
 opening of "(i)", the source link and details fitting the viewport.
+

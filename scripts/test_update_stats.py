@@ -17,6 +17,8 @@ class UpdateStatsTests(unittest.TestCase):
         clock.start()
         self.addCleanup(clock.stop)
         self.record = {
+            "id": 1001, "full_name": "Example/OpenExample",
+            "html_url": "https://github.com/Example/OpenExample",
             "created_at": "2022-11-11T12:00:00Z",
             "pushed_at": "2026-10-02T15:00:00Z",
             "license": {"spdx_id": "MIT"},
@@ -237,7 +239,7 @@ class UnavailableMetricsTests(unittest.TestCase):
             '| [A](https://github.com/example/a) | A. |\n'
             '| [B](https://github.com/example/b) | B. |\n')
         self.output = self.root / 'data/github_metrics.json'
-        self.record = dict(archived=False, created_at='2020-01-01T00:00:00Z',
+        self.record = dict(id=1002, full_name='Example/A', html_url='https://github.com/Example/A', archived=False, created_at='2020-01-01T00:00:00Z',
                            pushed_at=None, license=None, stargazers_count=0)
         self.previous = dict(schema_version=1, as_of='2026-10-01',
                              repositories={'example/a': self.record})
@@ -348,3 +350,4 @@ class UnavailableMetricsTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

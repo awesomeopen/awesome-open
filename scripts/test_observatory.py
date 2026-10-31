@@ -158,13 +158,14 @@ class ObservatoryAccountingTests(unittest.TestCase):
             dict(name='OpenBot / openbot',ids=['h','i','j'],tags=['Case','Exact duplicates']),
             dict(name='OpenDashboard / open-dashboard',ids=['e','d'],tags=['Case','Spacing'])],
             tool_count=10,identical_tool_count=0,variant_tool_count=10))
-        self.assertEqual(result['tags'],{'Case':3,'Spacing':3,'Plural':0,'Exact duplicates':1})
+        self.assertEqual(result['tags'],{'Case':3,'Spacing':3,'Plural':0,'Spelling':0,'Exact duplicates':1})
         ids=[p['id'] for group in result['identical']+result['variants'] for p in group['projects']]
         self.assertEqual(len(ids),len(set(ids)))
         self.assertEqual(obs.shared_names(list(reversed(projects))),result)
 
     def test_reviewed_plural_pair_is_a_spelling_variant(self):
         rows = self.named_projects([('a', 'OpenTask'), ('b', 'OpenTasks')])
+        for row in rows: row['name_match'] = {'key': 'reviewed:opentask-plural', 'reason': 'plural'}
         result = obs.shared_names(rows + [rows[0]])
         self.assertEqual(result['tool_count'], 2)
         self.assertEqual(result['variants'][0]['tags'], ['Plural'])
@@ -177,6 +178,7 @@ class ObservatoryAccountingTests(unittest.TestCase):
         expanded_case = self.named_projects([('a', 'Openİ'), ('b', 'Openi\u0307')])
         self.assertEqual(obs.shared_names(expanded_case)['variants'][0]['tags'], ['Case'])
         mixed = self.named_projects([('a', 'Open Task'), ('b', 'openTasks')])
+        for row in mixed: row['name_match'] = {'key': 'reviewed:opentask-plural', 'reason': 'plural'}
         self.assertEqual(obs.shared_names(mixed)['variants'][0]['tags'], ['Case', 'Spacing', 'Plural'])
         for names in [('OpenTool', 'OpenTools'), ('OpenNew', 'OpenNews'), ('OpenTask', 'OpenTasks.')]:
             self.assertEqual(obs.shared_names(self.named_projects(list(zip(('a', 'b'), names))))['tool_count'], 0)
@@ -532,3 +534,4 @@ class ObservatoryBuildTests(unittest.TestCase):
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
 
 if __name__=='__main__':unittest.main()
+

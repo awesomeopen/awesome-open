@@ -157,14 +157,14 @@
 
   // Unicode White_Space (shared with build_observatory.py) plus hyphen and underscore.
   var NAME_SEPARATORS = /[\u0009-\u000d\u0020\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000_-]/g;
-  var NAME_TAGS = ['Case', 'Spacing', 'Plural', 'Exact duplicates'];
+  var NAME_TAGS = ['Case', 'Spacing', 'Plural', 'Spelling', 'Exact duplicates'];
   // [result key, band label, legend label, ID prefix]
   var NAME_KINDS = [['identical', 'Identical names', 'Identical name', 'identical'], ['variants', 'Spelling variants', 'Spelling variants', 'variant']];
 
   function isSeparator(char) { NAME_SEPARATORS.lastIndex = 0; return NAME_SEPARATORS.test(char); }
   function nameKey(name) { return name.toLowerCase().replace(NAME_SEPARATORS, ''); }
-  // Reviewed display-name match; keep ordinary nameKey for rhyme exclusion.
-  function sharedNameKey(name) { var key = nameKey(name); return key === 'opentasks' ? 'opentask' : key; }
+  // The validated snapshot supplies reviewed equivalences; rhyme keys stay separate.
+  function sharedNameKey(project) { return (project.name_match || {}).key || nameKey(project.name); }
   function nameAnatomy(name) {
     var chars = [], gaps = [''];
     Array.from(name).forEach(function (char) {
@@ -195,7 +195,7 @@
     var ordered = Array.from(unique.values()).sort(function (a, b) { return compareName(a.name, b.name) || compareName(a.id, b.id); });
     var buckets = new Map();
     ordered.forEach(function (project) {
-      var key = sharedNameKey(project.name);
+      var key = sharedNameKey(project);
       if (!key) return;
       if (!buckets.has(key)) buckets.set(key, []);
       buckets.get(key).push(project);
@@ -208,9 +208,10 @@
       var group = { name: names.join(' / '), names: names, projects: rows, tags: [] };
       if (names.length === 1) { result.identical.push(group); result.identical_tool_count += rows.length; return; }
       var differences = nameDifferences(names);
-      var plural = new Set(names.map(nameKey)).size > 1;
-      var present = [plural ? hasCaseDifference(names) : differences.chars.some(Boolean), differences.gaps.some(Boolean),
-        plural,
+      var differentKeys = new Set(names.map(nameKey)).size > 1;
+      var reasons = new Set(rows.map(function (project) { return (project.name_match || {}).reason; }));
+      var present = [differentKeys ? hasCaseDifference(names) : differences.chars.some(Boolean), differences.gaps.some(Boolean),
+        differentKeys && reasons.has('plural'), differentKeys && reasons.has('spelling'),
         names.some(function (name) { return rows.filter(function (project) { return project.name === name; }).length > 1; })];
       group.tags = NAME_TAGS.filter(function (_, i) { return present[i]; });
       group.tags.forEach(function (tag) { result.tags[tag] += 1; });
@@ -622,3 +623,4 @@
     renderChart: renderChart, renderSharedNames: renderSharedNames, renderRhymingNames: renderRhymingNames, init: init
   };
 }));
+

@@ -185,6 +185,68 @@ def fetch(repo, token):
         time.sleep(2 ** (attempt + 1))
 
 
+IDENTITY_FIELDS = {"repository_id", "requested_full_name", "resolved_full_name",
+                   "resolved_url", "observed_at"}
+
+
+def validate_repository_identity(identity, requested, observed_at):
+    """Validate an observed endpoint identity, independently of software names."""
+    if not isinstance(identity, dict) or set(identity) != IDENTITY_FIELDS:
+        raise ValueError("Invalid repository identity observation for " + requested)
+    if type(identity["repository_id"]) is not int or identity["repository_id"] <= 0:
+        raise ValueError("Expected a positive GitHub repository ID for " + requested)
+    if identity["requested_full_name"] != requested:
+        raise ValueError("Repository identity request differs from cache key for " + requested)
+    resolved = identity["resolved_full_name"]
+    if not isinstance(resolved, str) or not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", resolved):
+        raise ValueError("Invalid resolved GitHub repository path for " + requested)
+    url = identity["resolved_url"]
+    if not isinstance(url, str) or url.lower() != "https://github.com/" + resolved.lower():
+        raise ValueError("Resolved repository URL differs from its path for " + requested)
+    stamp = identity["observed_at"]
+    if not isinstance(stamp, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", stamp):
+        raise ValueError("Invalid repository identity observation time for " + requested)
+    datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+    if stamp != observed_at:
+        raise ValueError("Repository identity must retain its successful observation time for " + requested)
+
+
+def observe_repository_identity(repo, result, attempted_at, previous=None):
+    """Record API identity; refuse to replace a known repository with another."""
+    identity = {
+        "repository_id": result.get("id"),
+        "requested_full_name": repo,
+        "resolved_full_name": result.get("full_name"),
+        "resolved_url": result.get("html_url"),
+        "observed_at": attempted_at,
+    }
+    validate_repository_identity(identity, repo, attempted_at)
+    old = (previous or {}).get("repository_identity")
+    if old is not None and old["repository_id"] != identity["repository_id"]:
+        raise RuntimeError(
+            f"{repo}: repository identity changed from {old['repository_id']} to "
+            f"{identity['repository_id']}; possible reused endpoint. Review identity "
+            "before replacing cached metrics."
+        )
+    return identity
+
+
+def repository_change_candidates(snapshot):
+    """Review queue from observed paths; observation dates are not rename dates."""
+    candidates = []
+    for repo, record in sorted(snapshot.get("repositories", {}).items()):
+        identity = record.get("repository_identity")
+        if not identity or identity["resolved_full_name"].lower() == repo.lower():
+            continue
+        candidates.append({
+            "kind": "repository_path_mismatch",
+            "project_url": "https://github.com/" + repo,
+            **identity,
+            "metrics_status": record.get("status"),
+        })
+    return candidates
+
+
 def main():
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
     if not token:
@@ -202,19 +264,23 @@ def main():
     fields = ("archived", "created_at", "pushed_at", "license", "stargazers_count")
 
     def collect(repo):
+        old = (previous or {}).get("repositories", {}).get(repo)
         try:
             result = fetch(repo, token)
         except RepositoryUnavailable:
-            old = (previous or {}).get("repositories", {}).get(repo)
             last_success = (old.get("last_success_at", previous["as_of"])
                             if old is not None else None)
             record = {key: old.get(key) if last_success else None for key in fields}
+            if old is not None and "repository_identity" in old:
+                record["repository_identity"] = old["repository_identity"]
             record.update(status="stale" if last_success else "unavailable",
                           last_success_at=last_success,
                           last_attempt={"at": attempted_at, "status": "unavailable",
                                         "http_status": 404, "reason": "repository_unavailable"})
             return record
+        identity = observe_repository_identity(repo, result, attempted_at, old)
         record = {key: result.get(key) for key in fields}
+        record["repository_identity"] = identity
         if record["license"]:
             record["license"] = {"spdx_id": record["license"].get("spdx_id")}
         record.update(status="fresh", last_success_at=attempted_at,
@@ -233,6 +299,15 @@ def main():
     snapshot = {"schema_version": 2, "as_of": attempted_at[:10],
                 "repositories": dict(zip(repos, results))}
     validate_snapshot(snapshot)
+    for candidate in repository_change_candidates(snapshot):
+        print(
+            f"REVIEW: {candidate['requested_full_name']} resolves to "
+            f"{candidate['resolved_full_name']} (GitHub repository "
+            f"{candidate['repository_id']}, observed {candidate['observed_at']}, "
+            f"{candidate['metrics_status']}). Check official rename evidence; "
+            "the observation does not date a software rename.",
+            file=sys.stderr,
+        )
     if (output.read_text(encoding="utf-8") if output.exists() else None) != previous_text:
         raise RuntimeError("GitHub metrics snapshot changed during collection; rerun against the latest cache.")
     if path.read_text(encoding="utf-8") != original:
@@ -261,3 +336,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
