@@ -110,12 +110,18 @@ class DeploymentTests(unittest.TestCase):
 
     def test_pilot_offline_build_and_unchanged_core_metadata(self):
         document = deployment.load_optional(ROOT / 'data/deployment_evidence.json')
-        self.assertEqual(len(document['projects']), 8)
+        # The eight pilot records stay present; reviewed backfill batches add more.
+        pilot_urls = {'https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine',
+                      'https://github.com/openscad/openscad', 'https://github.com/open-webui/open-webui',
+                      'https://github.com/opensearch-project/opensearch', 'https://github.com/opencv/opencv',
+                      'https://www.openhab.org', 'https://github.com/openwrt/openwrt'}
+        self.assertTrue(pilot_urls <= {r['project_url'] for r in document['projects'].values()})
+        approved = sum(1 for r in document['projects'].values() if r['review_status'] == 'approved')
         with patch('socket.create_connection', side_effect=AssertionError('Offline build attempted network')):
             output, catalog = baseline_site()
             if catalog is None: catalog = json.loads((output / 'catalog.json').read_text())
             reviewed = [p for p in catalog['projects'] if p.get('deployment')]
-            self.assertEqual(len(reviewed), 8)
+            self.assertEqual(len(reviewed), approved)
             expected_function_urls = {'https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad'}
             self.assertTrue(expected_function_urls <= {p['url'] for p in reviewed if p.get('function_summary')})
             self.assertTrue(all(p['deployment']['review_status'] == 'approved' for p in reviewed))
@@ -132,7 +138,7 @@ class DeploymentTests(unittest.TestCase):
             self.assertEqual(page.count('class="deployment-evidence"'), 0)
             records = ''.join(record.read_text() for record in (output / 'records').glob('*.html'))
             # Setup facts live in the plate's Where it runs box and its popup.
-            self.assertEqual(records.count('<dl class="pg-kit">'), 8)
+            self.assertEqual(records.count('<dl class="pg-kit">'), approved)
             self.assertEqual(records.count('class="deployment-evidence"'), 0)
             self.assertIn('id="run-mode-filter"', page)
             self.assertIn('id="install-method-filter"', page)

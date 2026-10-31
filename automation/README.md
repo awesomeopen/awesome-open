@@ -16,6 +16,7 @@ Check actual registration and the current repository contract before a run.
 | [Backfill Function summaries](backfill-function-summaries.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
 | [Backfill feature notes](backfill-feature-notes.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
 | [Reconcile documentation](reconcile-documentation.md) | ChatGPT-hosted assistant | Daily, 04:00 `America/New_York`, exact | Enabled, recurring |
+| [Backfill deployment evidence](backfill-deployment-evidence.md) | Grok Bot ("Kanzler") scheduled routines, write through a Cursor cloud agent | Daily, nominal 11:00 and 17:00 `America/New_York` (maintenance: 11:00 only), flexible | Proposed, not registered |
 | [Backfill GitHub star history](#backfill-github-star-history) | Retired ChatGPT-hosted coordinator; manual collection capability remains in GitHub Actions | Formerly hourly; scheduler timezone `America/Los_Angeles` | Disabled 2026-10-21; initial backfill complete with one documented unavailable repository |
 
 Flexible times are nominal. New York schedules follow local time, including
@@ -135,6 +136,42 @@ Flexible windows can overlap. Check active attempts and relevant open PRs before
 research and publication; clock separation is not a lock. Summary and feature
 jobs share a file and deduplicate by canonical ID. Re-fetch main and apply only
 selected-record additions, preserving other proposals and owner edits.
+
+## Backfill deployment evidence
+
+**Status:** Proposed. The [job contract](backfill-deployment-evidence.md) is a
+plan until it and its helper (`scripts/select_deployment_backfill.py`, with
+tests) are merged and the owner authorizes registration. Editing this
+inventory does not register the task.
+
+**Inputs and scope:** Catalog projects without a record in
+`data/deployment_evidence.json`, official installation and run documentation,
+package registries and the [deployment contract](../site/DEPLOYMENT-EVIDENCE.md).
+Backfill mode: at most **25 projects per run**, two slots a day (11:00 and
+17:00 `America/New_York`); approved-artwork projects first, with 8 slots
+reserved for the rest of the catalog. Existing records are not rewritten.
+Maintenance mode, after full coverage: one run a day at 11:00 covers new
+catalog rows and re-verifies the 3 oldest records (about a six-month cycle),
+changing a record only when its official sources changed.
+
+**Output and review:** A draft PR only when records are added or updated (or
+the mode switches), changing `data/deployment_evidence.json` and the job
+ledger `automation/state/deployment-evidence-backfill.json`. At most one open
+draft; a run exits quietly while one is open. Owner merge review applies; the
+agent never merges or marks ready.
+
+**State:** The ledger in Git records every considered project, outcome, reason,
+recheck date, run and mode. Runs without a PR commit the ledger to the
+long-lived branch `state/deployment-backfill-carry`, which rides along with the
+next PR; a ledger-only draft opens after 7 days without a PR (monthly in
+maintenance). A new agent resumes from `main` plus the carry branch, not from
+chat history.
+
+**Stop/pause:** Recurring until changed or canceled. The switch from backfill
+to maintenance follows the contract's exact condition; slot B disables itself
+at the switch. More than 75 uncovered projects switch back to backfill.
+Adding records pauses while `catalog.json` has under 100 KiB of budget
+headroom.
 
 ## Find project alternatives
 
