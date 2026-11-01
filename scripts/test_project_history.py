@@ -150,9 +150,6 @@ class HistoryTests(unittest.TestCase):
         self.assertNotIn('timeline-info', render(PROJECT))
 
 
-if __name__ == '__main__': unittest.main()
-
-
 class HistoryOutputTests(unittest.TestCase):
     def test_full_record_and_offline_share_evidence(self):
         from site_test_fixtures import baseline_site
@@ -177,3 +174,6 @@ class HistoryOutputTests(unittest.TestCase):
         self.assertEqual(sum(map(len, actual.values())), len(document['events']))
         self.assertFalse(any(p.get('history') for p in exported['projects']
                              if p['url'] not in expected))
+
+
+if __name__ == '__main__': unittest.main()
