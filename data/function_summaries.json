@@ -8142,6 +8142,671 @@
           "source_url": "https://www.openhab.org/docs/"
         }
       ]
+    },
+    "dae9bb6402f5ad1cdb0f67026a06301c1f314b541e9d018d5123c57db90f3ddf": {
+      "project_url": "https://github.com/openstack/swift",
+      "text": "OpenStack Swift stores unstructured objects such as backups and web or mobile content across a distributed cluster. Applications access storage through a REST API, with official Python client bindings available. Operators can deploy it on a single machine or across many servers, and use an all-in-one virtual-machine environment for development and small-scale testing.",
+      "sources": [
+        {
+          "title": "OpenStack Swift README",
+          "url": "https://github.com/openstack/swift/blob/fb7cc2d920e6346c3d54087266e3cdfb4030023b/README.rst",
+          "revision": "fb7cc2d920e6346c3d54087266e3cdfb4030023b"
+        }
+      ],
+      "features": [
+        {
+          "title": "Object storage",
+          "text": "Store backups, web content, mobile content and other unstructured data.",
+          "source_url": "https://github.com/openstack/swift/blob/fb7cc2d920e6346c3d54087266e3cdfb4030023b/README.rst"
+        },
+        {
+          "title": "REST access",
+          "text": "Applications interact with stored objects through the documented REST API.",
+          "source_url": "https://github.com/openstack/swift/blob/fb7cc2d920e6346c3d54087266e3cdfb4030023b/README.rst"
+        },
+        {
+          "title": "Development cluster",
+          "text": "The all-in-one setup provides a virtual-machine cluster for small-scale tests.",
+          "source_url": "https://github.com/openstack/swift/blob/fb7cc2d920e6346c3d54087266e3cdfb4030023b/README.rst"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "dd41edfdb6db7821db5b516335952c44e09df53475baa36ece3fac1c89027209": {
+      "project_url": "https://github.com/openboard-org/openboard",
+      "text": "OpenBoard is an interactive whiteboard application for classroom use, installed on Windows, macOS or Debian computers. Teachers can place websites on the board as web widgets and use them within the application. Widget developers can build their web applications inside OpenBoard and inspect them with its integrated web inspector.",
+      "sources": [
+        {
+          "title": "OpenBoard README",
+          "url": "https://github.com/OpenBoard-org/OpenBoard/blob/30d120cec100e97e6675d1b9be0c67eafb4c502b/README.md",
+          "revision": "30d120cec100e97e6675d1b9be0c67eafb4c502b"
+        }
+      ],
+      "features": [
+        {
+          "title": "Web widgets",
+          "text": "Place and use websites directly on the whiteboard as web widgets.",
+          "source_url": "https://github.com/OpenBoard-org/OpenBoard/blob/30d120cec100e97e6675d1b9be0c67eafb4c502b/README.md"
+        },
+        {
+          "title": "Widget development",
+          "text": "Develop web applications inside OpenBoard and debug them with the web inspector.",
+          "source_url": "https://github.com/OpenBoard-org/OpenBoard/blob/30d120cec100e97e6675d1b9be0c67eafb4c502b/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "dfce93018f91de8cf857bbfc65425d95c81406cc168ebad7ac0afb1bdd633202": {
+      "project_url": "https://github.com/cdcseacave/openmvs",
+      "text": "OpenMVS is a reconstruction library that turns camera poses and a sparse point cloud into a textured three-dimensional mesh. It supplies dense point-cloud reconstruction, surface meshing, refinement and texturing for photogrammetry workflows. Its scalable Python pipeline splits scenes that exceed available memory into smaller reconstructions, then merges their results.",
+      "sources": [
+        {
+          "title": "OpenMVS README",
+          "url": "https://github.com/cdcseacave/openMVS/blob/610562a4f033be2aaf4f240512c93e1038186768/README.md",
+          "revision": "610562a4f033be2aaf4f240512c93e1038186768"
+        }
+      ],
+      "features": [
+        {
+          "title": "Surface reconstruction",
+          "text": "Build a mesh from a reconstructed dense point cloud, then refine its surface detail.",
+          "source_url": "https://github.com/cdcseacave/openMVS/blob/610562a4f033be2aaf4f240512c93e1038186768/README.md"
+        },
+        {
+          "title": "Mesh texturing",
+          "text": "Compute textures to colour the reconstructed mesh.",
+          "source_url": "https://github.com/cdcseacave/openMVS/blob/610562a4f033be2aaf4f240512c93e1038186768/README.md"
+        },
+        {
+          "title": "Large-scene processing",
+          "text": "Split scenes that exceed available memory into sub-scenes, reconstruct them sequentially and merge the results.",
+          "source_url": "https://github.com/cdcseacave/openMVS/blob/610562a4f033be2aaf4f240512c93e1038186768/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "e98067272f8a7e63b3b4c34ec9a1f9a9831dd16181ec210b113b124db3d31ad2": {
+      "project_url": "https://github.com/open-webui/open-terminal",
+      "text": "Open Terminal gives AI agents and automation clients a self-hosted REST interface for shell commands, code execution, file management and search. It runs either in a Docker container or as a Python package on the host. The full container image bundles development and media tools; host installations operate with the local user’s permissions.",
+      "sources": [
+        {
+          "title": "Open Terminal README",
+          "url": "https://github.com/open-webui/open-terminal/blob/93fb121038a8ab50457482f2dc8019573966d9b5/README.md",
+          "revision": "93fb121038a8ab50457482f2dc8019573966d9b5"
+        }
+      ],
+      "features": [
+        {
+          "title": "Remote command execution",
+          "text": "Run shell commands and code through a REST API.",
+          "source_url": "https://github.com/open-webui/open-terminal/blob/93fb121038a8ab50457482f2dc8019573966d9b5/README.md"
+        },
+        {
+          "title": "File management",
+          "text": "Automation clients can manage and search files through the terminal service.",
+          "source_url": "https://github.com/open-webui/open-terminal/blob/93fb121038a8ab50457482f2dc8019573966d9b5/README.md"
+        },
+        {
+          "title": "Deployment choices",
+          "text": "Run the service in Docker or directly as a Python package on the host.",
+          "source_url": "https://github.com/open-webui/open-terminal/blob/93fb121038a8ab50457482f2dc8019573966d9b5/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "eead3ace70482e80ec4c8dbc71b69100eed52248a75bffbb094cc964cc10c5f4": {
+      "project_url": "https://github.com/opensc/opensc",
+      "text": "OpenSC supplies libraries and utilities for applications that use cryptographic smart cards for authentication, email encryption and digital signatures. It exposes card operations through PKCS#11, the Windows Smart Card Minidriver interface and macOS CryptoTokenKit. Desktop deployments can use Windows or macOS installers, while Unix users have source-build instructions and command-line tools.",
+      "sources": [
+        {
+          "title": "OpenSC README",
+          "url": "https://github.com/OpenSC/OpenSC/blob/3856d698594785bfb00b4ae1392b478aea5fd08d/README",
+          "revision": "3856d698594785bfb00b4ae1392b478aea5fd08d"
+        },
+        {
+          "title": "OpenSC official wiki overview",
+          "url": "https://github.com/OpenSC/OpenSC/wiki"
+        }
+      ],
+      "features": [
+        {
+          "title": "Standard card interfaces",
+          "text": "Connect applications to smart cards through PKCS#11, Windows Smart Card Minidriver or macOS CryptoTokenKit.",
+          "source_url": "https://github.com/OpenSC/OpenSC/wiki"
+        },
+        {
+          "title": "Cryptographic card uses",
+          "text": "Use supported smart cards with applications for authentication, email encryption and digital signatures.",
+          "source_url": "https://github.com/OpenSC/OpenSC/wiki"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "f8fcebe8091852b6673539b034297b744e14b29c6faa1a13a083768ce6637482": {
+      "project_url": "https://github.com/openziti/ziti",
+      "text": "OpenZiti connects applications and services through an overlay network with identity-based access policies. Operators can run controllers and edge routers on their own infrastructure, connecting existing applications through tunnelers or embedding SDKs in new software. A management API and web console manage identities, services and policies across cloud, on-premises and edge environments.",
+      "sources": [
+        {
+          "title": "OpenZiti README",
+          "url": "https://github.com/openziti/ziti/blob/843cfd2375a3fa5f466952379164cda3130a6f3a/README.md",
+          "revision": "843cfd2375a3fa5f466952379164cda3130a6f3a"
+        }
+      ],
+      "features": [
+        {
+          "title": "Application integration",
+          "text": "Use tunnelers with existing applications or embed an SDK in application code.",
+          "source_url": "https://github.com/openziti/ziti/blob/843cfd2375a3fa5f466952379164cda3130a6f3a/README.md"
+        },
+        {
+          "title": "Network management",
+          "text": "Manage identities, services and access policies through a REST API and web console.",
+          "source_url": "https://github.com/openziti/ziti/blob/843cfd2375a3fa5f466952379164cda3130a6f3a/README.md"
+        },
+        {
+          "title": "Self-hosted overlay",
+          "text": "Run controllers and edge routers on your own infrastructure to connect applications across networks.",
+          "source_url": "https://github.com/openziti/ziti/blob/843cfd2375a3fa5f466952379164cda3130a6f3a/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "075e80dbc3bacd20fe2602c17db391a4b96fcf8659696b109ef9c517b4b44ff9": {
+      "project_url": "https://github.com/academysoftwarefoundation/openimageio",
+      "text": "OpenImageIO supplies image input, output and processing tools for visual-effects and animation pipelines. Applications use format-independent APIs backed by file-format plugins, with Python bindings for the major interfaces. Its command-line programs convert images, inspect metadata and compare results; image caching and filtered texture lookups also support renderers and other image-processing applications.",
+      "sources": [
+        {
+          "title": "OpenImageIO README",
+          "url": "https://github.com/AcademySoftwareFoundation/OpenImageIO/blob/1ff2c7bc2f3eb925cf0c6bb722e684e83ed5946f/README.md",
+          "revision": "1ff2c7bc2f3eb925cf0c6bb722e684e83ed5946f"
+        }
+      ],
+      "features": [
+        {
+          "title": "Format-independent image access",
+          "text": "Read and write supported image formats through common APIs and runtime format plugins.",
+          "source_url": "https://github.com/AcademySoftwareFoundation/OpenImageIO/blob/1ff2c7bc2f3eb925cf0c6bb722e684e83ed5946f/README.md"
+        },
+        {
+          "title": "Command-line image processing",
+          "text": "Convert formats, inspect metadata and compare images using the included utilities.",
+          "source_url": "https://github.com/AcademySoftwareFoundation/OpenImageIO/blob/1ff2c7bc2f3eb925cf0c6bb722e684e83ed5946f/README.md"
+        },
+        {
+          "title": "Texture lookup and caching",
+          "text": "Use ImageCache and TextureSystem for cached image access and filtered MIP-map texture lookups.",
+          "source_url": "https://github.com/AcademySoftwareFoundation/OpenImageIO/blob/1ff2c7bc2f3eb925cf0c6bb722e684e83ed5946f/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "14068f25332d79cc7fc0f3e528db87821e2f87c9572317b808a1a295dbce5295": {
+      "project_url": "https://github.com/openenv/openenv",
+      "text": "OpenEnv provides execution environments for training and evaluating AI agents with reinforcement learning. Clients interact through reset, step and state operations over WebSockets, using synchronous or asynchronous calls. Environments are packaged as Docker images for local, cloud-sandbox or Hugging Face Spaces deployment; developers can scaffold custom environments, compose rewards and connect supported training frameworks.",
+      "sources": [
+        {
+          "title": "OpenEnv README",
+          "url": "https://github.com/openenv/OpenEnv/blob/739b44b525d174700c11c328618a5ba41d5f428f/README.md",
+          "revision": "739b44b525d174700c11c328618a5ba41d5f428f"
+        }
+      ],
+      "features": [
+        {
+          "title": "Common environment interface",
+          "text": "Use reset, step and state operations through synchronous or asynchronous clients.",
+          "source_url": "https://github.com/openenv/OpenEnv/blob/739b44b525d174700c11c328618a5ba41d5f428f/README.md"
+        },
+        {
+          "title": "Containerized environments",
+          "text": "Package environments as Docker images for local execution, cloud sandboxes or Hugging Face Spaces.",
+          "source_url": "https://github.com/openenv/OpenEnv/blob/739b44b525d174700c11c328618a5ba41d5f428f/README.md"
+        },
+        {
+          "title": "Custom environment workflow",
+          "text": "Scaffold and validate a new environment with the CLI, then deploy it to Hugging Face Spaces.",
+          "source_url": "https://github.com/openenv/OpenEnv/blob/739b44b525d174700c11c328618a5ba41d5f428f/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "596c42ed710db9bb0a8e05535be0db4a5719645f3fa3d8695e2df48ab114ac65": {
+      "project_url": "https://github.com/openrewrite/rewrite",
+      "text": "OpenRewrite applies automated refactoring recipes to source repositories for framework migrations, code fixes and style changes. Its engine builds a type-aware representation of source code and runs predefined or customized transformations. Java developers can invoke recipes through Maven or Gradle plugins against one repository, while parsers and base recipes also cover several other languages.",
+      "sources": [
+        {
+          "title": "OpenRewrite README",
+          "url": "https://github.com/openrewrite/rewrite/blob/137e9e6251d19fa191a7f1ef83022a3b3c98c823/README.md",
+          "revision": "137e9e6251d19fa191a7f1ef83022a3b3c98c823"
+        }
+      ],
+      "features": [
+        {
+          "title": "Recipe-based refactoring",
+          "text": "Apply existing transformation recipes or customize and write recipes for project-specific changes.",
+          "source_url": "https://github.com/openrewrite/rewrite/blob/137e9e6251d19fa191a7f1ef83022a3b3c98c823/README.md"
+        },
+        {
+          "title": "Java build-tool integration",
+          "text": "Run a recipe against a Java repository through the Maven or Gradle plugin.",
+          "source_url": "https://github.com/openrewrite/rewrite/blob/137e9e6251d19fa191a7f1ef83022a3b3c98c823/README.md"
+        },
+        {
+          "title": "Type-aware source model",
+          "text": "Build an in-memory Lossless Semantic Tree when a recipe runs to represent source code with type information.",
+          "source_url": "https://github.com/openrewrite/rewrite/blob/137e9e6251d19fa191a7f1ef83022a3b3c98c823/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "5a58ce8e86c6855eb885d3f439ab9be143a4ad3320eec7a056f18ebd5b77e70f": {
+      "project_url": "https://github.com/openlit/openlit",
+      "text": "OpenLIT collects OpenTelemetry traces and metrics from AI applications and coding agents so teams can inspect model calls, tool activity, latency and costs. Its self-hosted dashboard works with Python and TypeScript instrumentation. Additional tools evaluate outputs, manage versioned prompts, compare model responses and monitor GPU utilization, giving developers several views of agent behavior during investigation and iteration.",
+      "sources": [
+        {
+          "title": "OpenLIT README",
+          "url": "https://github.com/openlit/openlit/blob/1ed8bb7359a8978178e4abadda17d75adb04697d/README.md",
+          "revision": "1ed8bb7359a8978178e4abadda17d75adb04697d"
+        }
+      ],
+      "features": [
+        {
+          "title": "Agent tracing",
+          "text": "Inspect model calls, tool calls, retrieval operations, errors and token usage through OpenTelemetry traces.",
+          "source_url": "https://github.com/openlit/openlit/blob/1ed8bb7359a8978178e4abadda17d75adb04697d/README.md"
+        },
+        {
+          "title": "Versioned prompts",
+          "text": "Create and version prompts centrally, compare versions and retrieve them from application code.",
+          "source_url": "https://github.com/openlit/openlit/blob/1ed8bb7359a8978178e4abadda17d75adb04697d/README.md"
+        },
+        {
+          "title": "Model comparison",
+          "text": "Run a prompt across providers in OpenGround and compare output, latency and cost.",
+          "source_url": "https://github.com/openlit/openlit/blob/1ed8bb7359a8978178e4abadda17d75adb04697d/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "5b6a7058f229b8b6c6319819b3762bf64a0e43d2a535e3dafbf91348bc29aa95": {
+      "project_url": "https://github.com/opengrep/opengrep",
+      "text": "Opengrep scans source code for configurable patterns and potential security issues using static analysis. Developers run its command-line tool against code directories with YAML rules, including existing Semgrep rulesets. It supports multiple programming languages, intrafile taint analysis and JSON or SARIF reports, with self-contained binaries available for local installation and integration into development tooling.",
+      "sources": [
+        {
+          "title": "Opengrep README",
+          "url": "https://github.com/opengrep/opengrep/blob/4b3d6dd06dbd5ab5b828251566742060a1de99bd/README.md",
+          "revision": "4b3d6dd06dbd5ab5b828251566742060a1de99bd"
+        }
+      ],
+      "features": [
+        {
+          "title": "Custom pattern rules",
+          "text": "Define YAML rules describing code patterns, languages and finding messages, then scan selected directories.",
+          "source_url": "https://github.com/opengrep/opengrep/blob/4b3d6dd06dbd5ab5b828251566742060a1de99bd/README.md"
+        },
+        {
+          "title": "Machine-readable findings",
+          "text": "Export scan results in JSON or SARIF for use by other development tools.",
+          "source_url": "https://github.com/opengrep/opengrep/blob/4b3d6dd06dbd5ab5b828251566742060a1de99bd/README.md"
+        },
+        {
+          "title": "Intrafile taint analysis",
+          "text": "Track taint through constructors, field assignments and method calls using the intrafile analysis mode.",
+          "source_url": "https://github.com/opengrep/opengrep/blob/4b3d6dd06dbd5ab5b828251566742060a1de99bd/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "5b9f54d17f28bcfbc045c17c0de689bd4e72c44ac5ea2a6b437ab0ffa2200fd4": {
+      "project_url": "https://github.com/openxray/xray-16",
+      "text": "OpenXRay develops a modified X-Ray game engine for playing and modding supported S.T.A.L.K.E.R. titles. It supports Call of Pripyat, Clear Sky and Call of Chernobyl, adds 64-bit support and runs on Linux, macOS and BSD systems as well as Windows builds. Clear Sky may have minor bugs; Shadow of Chernobyl is not currently supported.",
+      "sources": [
+        {
+          "title": "OpenXRay README",
+          "url": "https://github.com/OpenXRay/xray-16/blob/c62d9d343981d50f6ed176412b85d94c61b578b5/README.md",
+          "revision": "c62d9d343981d50f6ed176412b85d94c61b578b5"
+        }
+      ],
+      "features": [
+        {
+          "title": "Supported game versions",
+          "text": "Run Call of Pripyat 1.6.02, Clear Sky 1.5.10 and Call of Chernobyl 1.4.22 with the engine; minor bugs are possible in Clear Sky.",
+          "source_url": "https://github.com/OpenXRay/xray-16/blob/c62d9d343981d50f6ed176412b85d94c61b578b5/README.md"
+        },
+        {
+          "title": "Additional platforms",
+          "text": "Use the engine on Linux, macOS and BSD systems, with Windows build instructions also provided.",
+          "source_url": "https://github.com/OpenXRay/xray-16/blob/c62d9d343981d50f6ed176412b85d94c61b578b5/README.md"
+        },
+        {
+          "title": "Architecture support",
+          "text": "The engine supports 64-bit operation and additional architectures including ARM, ARM64, E2K and PPC64LE.",
+          "source_url": "https://github.com/OpenXRay/xray-16/blob/c62d9d343981d50f6ed176412b85d94c61b578b5/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "6352037aa0eac8716d46c2e7db7ccd12b458104504d2f8f45368d538e4248ed8": {
+      "project_url": "https://github.com/openbmc/openbmc",
+      "text": "OpenBMC is a Linux distribution for management controllers in servers, switches and storage appliances. Platform developers build firmware for supported hardware using Yocto and OpenEmbedded. Its management functions include power and cooling control, inventory, events, firmware updates, remote KVM and virtual media, exposed through interfaces including a web UI, REST and D-Bus; board support varies by platform.",
+      "sources": [
+        {
+          "title": "OpenBMC README",
+          "url": "https://github.com/openbmc/openbmc/blob/293e2c04c021b4de7c924bba951a38c43f76baa0/README.md",
+          "revision": "293e2c04c021b4de7c924bba951a38c43f76baa0"
+        }
+      ],
+      "features": [
+        {
+          "title": "Host management",
+          "text": "Manage host power, cooling, LEDs, inventory, events and watchdog functions.",
+          "source_url": "https://github.com/openbmc/openbmc/blob/293e2c04c021b4de7c924bba951a38c43f76baa0/README.md"
+        },
+        {
+          "title": "Remote console and media",
+          "text": "Provide remote KVM, virtual media and SSH-based serial-over-LAN access.",
+          "source_url": "https://github.com/openbmc/openbmc/blob/293e2c04c021b4de7c924bba951a38c43f76baa0/README.md"
+        },
+        {
+          "title": "Hardware-specific firmware builds",
+          "text": "Select a supported hardware target and build an OpenBMC firmware image with the Yocto-based build system.",
+          "source_url": "https://github.com/openbmc/openbmc/blob/293e2c04c021b4de7c924bba951a38c43f76baa0/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "6bd1cb1bc4107eeea0d94ca25414ddf0443f1473fb06086dd957ae45e7b2f446": {
+      "project_url": "https://github.com/openvswitch/ovs",
+      "text": "Open vSwitch provides a software switch for virtual-machine networking across physical servers. Administrators configure VLANs, interface bonds, tunnels and traffic policies, and control forwarding through OpenFlow. Its daemon uses a transactional configuration database and forwards through a Linux kernel module or userspace datapath. Userspace supports DPDK devices; the non-DPDK userspace datapath is experimental.",
+      "sources": [
+        {
+          "title": "Open vSwitch README",
+          "url": "https://github.com/openvswitch/ovs/blob/d9bc176f591c1457871514a5751ddae42bc558f7/README.rst",
+          "revision": "d9bc176f591c1457871514a5751ddae42bc558f7"
+        }
+      ],
+      "features": [
+        {
+          "title": "Virtual network configuration",
+          "text": "Configure VLAN access and trunk ports, interface bonding and tunnels such as Geneve, GRE and VXLAN.",
+          "source_url": "https://github.com/openvswitch/ovs/blob/d9bc176f591c1457871514a5751ddae42bc558f7/README.rst"
+        },
+        {
+          "title": "Network visibility",
+          "text": "Use NetFlow, sFlow and port mirroring to observe traffic through the switch.",
+          "source_url": "https://github.com/openvswitch/ovs/blob/d9bc176f591c1457871514a5751ddae42bc558f7/README.rst"
+        },
+        {
+          "title": "Programmable forwarding",
+          "text": "Control forwarding through OpenFlow and manage switch configuration through the transactional database and command-line tools.",
+          "source_url": "https://github.com/openvswitch/ovs/blob/d9bc176f591c1457871514a5751ddae42bc558f7/README.rst"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "72ec40c66c0a4c4dadf92ca390b6969bd7fc0f4e07369dc40c9f0b2d2f2f7fcc": {
+      "project_url": "https://github.com/andremichelle/opendaw",
+      "text": "openDAW is a browser-based music production workstation with synthesizers, samplers, audio effects and MIDI tools. Musicians can layer instruments, process sound through effect chains and host WebCLAP instruments or effects compiled to WebAssembly. Plugin interfaces open in floating windows, their parameters can be automated, and project bundles can carry the plugins with them.",
+      "sources": [
+        {
+          "title": "openDAW README",
+          "url": "https://github.com/andremichelle/openDAW/blob/fbbea2b2daf0b9b652d495b437aee007be10a922/README.md",
+          "revision": "fbbea2b2daf0b9b652d495b437aee007be10a922"
+        }
+      ],
+      "features": [
+        {
+          "title": "Instrument layers",
+          "text": "Combine multiple instruments under one set of notes, with separate effect chains for each instrument.",
+          "source_url": "https://github.com/andremichelle/openDAW/blob/fbbea2b2daf0b9b652d495b437aee007be10a922/README.md"
+        },
+        {
+          "title": "WebCLAP plugins",
+          "text": "Import a WebCLAP bundle or choose a cloud plugin, then automate its parameters and save it with the project.",
+          "source_url": "https://github.com/andremichelle/openDAW/blob/fbbea2b2daf0b9b652d495b437aee007be10a922/README.md"
+        },
+        {
+          "title": "Programmable devices",
+          "text": "Write JavaScript for a programmable instrument, MIDI effect or audio effect.",
+          "source_url": "https://github.com/andremichelle/openDAW/blob/fbbea2b2daf0b9b652d495b437aee007be10a922/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "75653b2d1868910842fb1929a3d1de7844f29d96bf277e3dd2ab1f4014521ca9": {
+      "project_url": "https://github.com/kcat/openal-soft",
+      "text": "OpenAL Soft is a cross-platform audio library implementing the OpenAL API for sound in virtual three-dimensional environments. Applications can position directional sound sources and use distance attenuation, Doppler effects and environmental processing. The library also supports streamed audio, multichannel buffers and audio capture, with configuration available at user or system level.",
+      "sources": [
+        {
+          "title": "OpenAL Soft README",
+          "url": "https://github.com/kcat/openal-soft/blob/b7463649fd73188146e3b1467a91e7f0926a6d04/README.md",
+          "revision": "b7463649fd73188146e3b1467a91e7f0926a6d04"
+        }
+      ],
+      "features": [
+        {
+          "title": "Spatial sound",
+          "text": "Represent directional emitters with distance attenuation and Doppler shifts in a virtual three-dimensional environment.",
+          "source_url": "https://github.com/kcat/openal-soft/blob/b7463649fd73188146e3b1467a91e7f0926a6d04/README.md"
+        },
+        {
+          "title": "Environmental effects",
+          "text": "Use the EFX extension for air absorption, occlusion and environmental reverberation.",
+          "source_url": "https://github.com/kcat/openal-soft/blob/b7463649fd73188146e3b1467a91e7f0926a6d04/README.md"
+        },
+        {
+          "title": "Audio diagnostics",
+          "text": "The included openal-info utility reports detected devices, versions and supported extensions.",
+          "source_url": "https://github.com/kcat/openal-soft/blob/b7463649fd73188146e3b1467a91e7f0926a6d04/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "756ea9c7c7494182972283d416bc9efcc1d746afb6c16d73caf753cac48cf085": {
+      "project_url": "https://github.com/openfrontio/openfrontio",
+      "text": "OpenFront.io is a real-time strategy game played in a web browser. Players expand territory, construct buildings and manage resources while balancing attacks with defense. Alliances provide a way to cooperate with other players, and maps draw on real-world geographical regions. The repository includes a browser client and game server for running a development instance.",
+      "sources": [
+        {
+          "title": "OpenFront.io README",
+          "url": "https://github.com/openfrontio/OpenFrontIO/blob/030274df6e377a57e784a9f6f9865720b0dfbbba/README.md",
+          "revision": "030274df6e377a57e784a9f6f9865720b0dfbbba"
+        }
+      ],
+      "features": [
+        {
+          "title": "Alliances",
+          "text": "Form alliances with other players for mutual defense.",
+          "source_url": "https://github.com/openfrontio/OpenFrontIO/blob/030274df6e377a57e784a9f6f9865720b0dfbbba/README.md"
+        },
+        {
+          "title": "Geographical maps",
+          "text": "Compete on maps representing regions such as Europe, Asia and Africa.",
+          "source_url": "https://github.com/openfrontio/OpenFrontIO/blob/030274df6e377a57e784a9f6f9865720b0dfbbba/README.md"
+        },
+        {
+          "title": "Territory and resources",
+          "text": "Expand controlled territory while balancing resource use and defensive capabilities.",
+          "source_url": "https://github.com/openfrontio/OpenFrontIO/blob/030274df6e377a57e784a9f6f9865720b0dfbbba/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "793bd4b271fd3e434d7e1fe93b1fbd2f15a0342b58948e0d259bf08f203ab298": {
+      "project_url": "https://github.com/elliothux/open-compute",
+      "text": "open-compute runs a Cloudflare Workers-compatible programming model on a single self-hosted machine. Its daemon combines request routing, deployment management and scheduling with a workerd runtime and SQLite-backed state. Workers can use storage and messaging bindings, while operators manage resources through an API or dashboard. Object data uses local files by default, with optional S3-compatible storage.",
+      "sources": [
+        {
+          "title": "open-compute README",
+          "url": "https://github.com/elliothux/open-compute/blob/94e5ef74899284e23ca3790d1be6c2298e11b786/README.md",
+          "revision": "94e5ef74899284e23ca3790d1be6c2298e11b786"
+        }
+      ],
+      "features": [
+        {
+          "title": "Deployment management",
+          "text": "Promote or roll back immutable deployments by changing the active deployment reference.",
+          "source_url": "https://github.com/elliothux/open-compute/blob/94e5ef74899284e23ca3790d1be6c2298e11b786/README.md"
+        },
+        {
+          "title": "Storage bindings",
+          "text": "Expose Workers-style KV, R2, D1 and Durable Objects interfaces on the self-hosted platform.",
+          "source_url": "https://github.com/elliothux/open-compute/blob/94e5ef74899284e23ca3790d1be6c2298e11b786/README.md"
+        },
+        {
+          "title": "Operator dashboard",
+          "text": "Manage compute, storage and platform resources, and switch between instances registered with the daemon.",
+          "source_url": "https://github.com/elliothux/open-compute/blob/94e5ef74899284e23ca3790d1be6c2298e11b786/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "83a7e53a608c1f8118393bbdeb8d7196e332986d6570597e5ad490b0f17f764b": {
+      "project_url": "https://github.com/1technophile/openmqttgateway",
+      "text": "OpenMQTTGateway is firmware that connects supported sensors and radio technologies to MQTT-based systems. Users flash a compatible board through a browser or build a customized configuration with PlatformIO. The project documents BLE devices and RF or infrared gateway hardware, alongside integrations with Home Assistant, openHAB, Node-RED and AWS IoT for consuming gateway data.",
+      "sources": [
+        {
+          "title": "OpenMQTTGateway README",
+          "url": "https://github.com/1technophile/OpenMQTTGateway/blob/1d865aa881a445975c02e28e26824d15f67719df/README.md",
+          "revision": "1d865aa881a445975c02e28e26824d15f67719df"
+        }
+      ],
+      "features": [
+        {
+          "title": "MQTT bridge",
+          "text": "Bring supported device technologies into MQTT-based automation systems through a common gateway firmware.",
+          "source_url": "https://github.com/1technophile/OpenMQTTGateway/blob/1d865aa881a445975c02e28e26824d15f67719df/README.md"
+        },
+        {
+          "title": "Board installation",
+          "text": "Flash a board through the documented web installer or build a custom configuration using PlatformIO.",
+          "source_url": "https://github.com/1technophile/OpenMQTTGateway/blob/1d865aa881a445975c02e28e26824d15f67719df/README.md"
+        },
+        {
+          "title": "Automation integrations",
+          "text": "Use the documented integrations with Home Assistant, openHAB, Node-RED or AWS IoT.",
+          "source_url": "https://github.com/1technophile/OpenMQTTGateway/blob/1d865aa881a445975c02e28e26824d15f67719df/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "8c6e85c872534ce1400e945948ff6a575eba3a4379d6461533443a25432acf4d": {
+      "project_url": "https://github.com/openpnp/openpnp",
+      "text": "OpenPnP provides software for controlling surface-mount component pick-and-place machines, together with hardware designs that builders can modify. Users can configure a machine they designed themselves or use the software with existing commercial equipment. The project supplies ready-to-run software and a quick-start workflow that introduces operation through a sample placement job.",
+      "sources": [
+        {
+          "title": "OpenPnP README",
+          "url": "https://github.com/openpnp/openpnp/blob/5bd404cfc70f34103a3ca0fbb6b50c2b465f407c/README.md",
+          "revision": "5bd404cfc70f34103a3ca0fbb6b50c2b465f407c"
+        },
+        {
+          "title": "OpenPnP project overview",
+          "url": "https://openpnp.org/"
+        }
+      ],
+      "features": [
+        {
+          "title": "Machine control",
+          "text": "Run pick-and-place equipment built from your own design or existing commercial machines.",
+          "source_url": "https://openpnp.org/"
+        },
+        {
+          "title": "Sample job",
+          "text": "Use the quick-start guide to run a sample job before building or configuring machine hardware.",
+          "source_url": "https://openpnp.org/"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
+    },
+    "94decd3a01b8db4aa0878e91989e85868bbbc0f83a002f9cfc24f0ff411afadb": {
+      "project_url": "https://github.com/logiclabs-ou/openarchiver",
+      "text": "Open Archiver is a self-hosted web application for collecting and searching email archives. It imports mail from IMAP, Google Workspace, Microsoft 365 and archive files, then indexes messages and attachments for full-text search. Docker Compose runs the application and supporting services. Archived messages use the EML format, with local filesystem or S3-compatible object storage.",
+      "sources": [
+        {
+          "title": "Open Archiver README",
+          "url": "https://github.com/LogicLabs-OU/OpenArchiver/blob/1903f17ef46296d41265ea4769086e32b13d9af9/README.md",
+          "revision": "1903f17ef46296d41265ea4769086e32b13d9af9"
+        }
+      ],
+      "features": [
+        {
+          "title": "Email ingestion",
+          "text": "Import from connected mail services or PST, Mbox and zipped EML files, with ongoing synchronization for connected sources.",
+          "source_url": "https://github.com/LogicLabs-OU/OpenArchiver/blob/1903f17ef46296d41265ea4769086e32b13d9af9/README.md"
+        },
+        {
+          "title": "Attachment search",
+          "text": "Search indexed email text and attachment content, including PDF and DOCX files.",
+          "source_url": "https://github.com/LogicLabs-OU/OpenArchiver/blob/1903f17ef46296d41265ea4769086e32b13d9af9/README.md"
+        },
+        {
+          "title": "Storage options",
+          "text": "Store archived messages on a local filesystem or in S3-compatible object storage.",
+          "source_url": "https://github.com/LogicLabs-OU/OpenArchiver/blob/1903f17ef46296d41265ea4769086e32b13d9af9/README.md"
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources on 2026-10-31; README commits were verified."
     }
   }
 }
