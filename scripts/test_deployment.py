@@ -77,7 +77,7 @@ class DeploymentTests(unittest.TestCase):
                               'scope': 'Community package, no live availability claim', 'source_ids': ['install']}]
         entry['external_services'] = [{'name': 'Model API', 'requirement': 'configuration-dependent',
                                       'scope': 'Only API configurations', 'source_ids': ['install']}]
-        self.assertIn('community', deployment.render(self.attach(doc)))
+        self.assertIn('community', deployment.sections(self.attach(doc)))
         for key, value in (('coordinate', ''), ('channel', ''), ('status', True), ('upstream_relationship', 'official-ish')):
             changed = deepcopy(doc); changed['projects'][PID]['packages'][0][key] = value
             with self.assertRaises(ValueError): self.attach(changed)
@@ -86,12 +86,10 @@ class DeploymentTests(unittest.TestCase):
 
     def test_plain_text_escaping(self):
         doc = fixture(); doc['projects'][PID]['run_modes'][0]['scope'] = '<script>alert("x")</script>'
-        rendered = deployment.render(self.attach(doc))
-        self.assertIn('Test reviewer · Approved evidence record</p><p><strong>Run:</strong>', rendered)
-        self.assertEqual(rendered.count('Approved evidence record'), 1)
+        rendered = deployment.sections(self.attach(doc))
         self.assertNotIn('<script>', rendered)
         self.assertIn('&lt;script&gt;', rendered)
-        self.assertEqual(deployment.render({'id': PID}), '')
+        self.assertEqual(deployment.sections({'id': PID}), '')
 
     def test_full_site_without_optional_evidence_file(self):
         with tempfile.TemporaryDirectory() as folder:

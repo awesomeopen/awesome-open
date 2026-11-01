@@ -101,12 +101,3 @@ def copy_category_art(catalog, root, output):
             shutil.copyfile(Path(root) / 'site' / path, Path(output) / path)
     if destination.exists():
         shutil.copyfile(Path(root) / 'site/domains/provenance.json', destination / 'provenance.json')
-
-
-def embed_category_art(page, catalog, root):
-    # Embed the small navigation icon and medium closing mark, not every
-    # responsive candidate. Category selection must also work offline.
-    for category in catalog['categories']:
-        if category.get('artwork'):
-            page = page.replace(category_image(category), category_image(category, offline=True, root=root))
-    return page

@@ -438,8 +438,7 @@
         "More filters",
         "About the data",
         "View source & retrieval history",
-        "Check results and scan provenance",
-        "View setup facts & sources"
+        "Check results and scan provenance"
       ],
       "used_in": [
         "scripts/build_site.py:729 `Table of contents`",
@@ -448,7 +447,6 @@
         "scripts/build_site.py:744 `About the data`",
         "scripts/build_site.py:243 `note-provenance`",
         "scripts/build_site.py:200 `signal-checks`",
-        "scripts/deployment.py:154 `View setup facts`",
         "site/styles.css:445 `.drawer-sign`"
       ]
     },
