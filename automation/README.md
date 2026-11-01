@@ -16,6 +16,7 @@ Check actual registration and the current repository contract before a run.
 | [Backfill Function summaries](backfill-function-summaries.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
 | [Backfill feature notes](backfill-feature-notes.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
 | [Reconcile documentation](reconcile-documentation.md) | ChatGPT-hosted assistant | Daily, 04:00 `America/New_York`, exact | Enabled, recurring |
+| [Nightly code-quality audit](nightly-code-quality-audit.md) | Grok Bot-hosted assistant | Daily, nominal 02:00 `America/New_York`, flexible | Enabled, recurring |
 | [Backfill deployment evidence](backfill-deployment-evidence.md) | Grok Bot ("Kanzler") scheduled routines, write through a Cursor cloud agent | Daily, nominal 11:00 and 17:00 `America/New_York` (maintenance: 11:00 only), flexible | Proposed, not registered |
 | [Backfill GitHub star history](#backfill-github-star-history) | Retired ChatGPT-hosted coordinator; manual collection capability remains in GitHub Actions | Formerly hourly; scheduler timezone `America/Los_Angeles` | Disabled 2026-10-21; initial backfill complete with one documented unavailable repository |
 
@@ -308,6 +309,14 @@ docs-only draft. It compares approved intent, implementation and registered
 runtime state, and shortens duplicate or obsolete guidance. Same-PR maintenance
 remains the first defense. The job is registered and enabled; editing the
 contract alone creates no schedule.
+
+## Nightly code-quality audit
+
+The [job contract](nightly-code-quality-audit.md) reviews authored code in
+`scripts/` and `site/` for repository-rule breaks, dead code, needless
+complexity and unnecessary comments. Cloud agents research every in-scope file,
+then open one focused cleanup draft per area, at most three pending. Markdown
+stays with Reconcile documentation.
 
 ## Keeping this inventory current
 
