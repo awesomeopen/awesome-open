@@ -69,59 +69,30 @@ class StarSiteTests(unittest.TestCase):
         project=next(p for p in self.catalog()['projects'] if p.get('star_history'))
         self.assertIsNotNone(project['star_history']['chart_url'])
         self.assertIn('Stale cached result',plate_grid.stars_box(project))
-    def test_reviewed_openremote_endpoint_preserves_project_id_and_chart_attachment(self):
-        from test_update_star_history import NOW, OPENREMOTE, pager, weekly_series
-        baseline = self.catalog()
-        original = next(p for p in baseline['projects'] if p['url'] == OPENREMOTE['readme_url'])
-        self.snapshot = collector.refresh([OPENREMOTE], now=NOW, getter=pager(weekly_series()))
-        updated = next(p for p in self.catalog()['projects'] if p['url'] == OPENREMOTE['readme_url'])
-        self.assertEqual(updated['id'], original['id'])
-        self.assertEqual(updated['url'], original['url'])
-        self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/openremote/core/stargazers/history', plate_grid.stars_box(updated))
-    def test_reviewed_openomsi_endpoint_preserves_project_id_and_chart_attachment(self):
-        from test_update_star_history import NOW, OPENOMSI, pager, weekly_series
-        baseline = self.catalog()
-        original = next(p for p in baseline['projects'] if p['url'] == OPENOMSI['readme_url'])
-        self.snapshot = collector.refresh([OPENOMSI], now=NOW, getter=pager(weekly_series()))
-        updated = next(p for p in self.catalog()['projects'] if p['url'] == OPENOMSI['readme_url'])
-        self.assertEqual(updated['id'], original['id'])
-        self.assertEqual(updated['url'], original['url'])
-        self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/openomsi-org/openomsi/stargazers/history', plate_grid.stars_box(updated))
-    def test_reviewed_openbrender_endpoint_preserves_project_id_and_chart_attachment(self):
-        from test_update_star_history import NOW, OPENBRENDER, pager, weekly_series
-        baseline = self.catalog()
-        original = next(p for p in baseline['projects'] if p['url'] == OPENBRENDER['readme_url'])
-        self.snapshot = collector.refresh([OPENBRENDER], now=NOW, getter=pager(weekly_series()))
-        updated = next(p for p in self.catalog()['projects'] if p['url'] == OPENBRENDER['readme_url'])
-        self.assertEqual(updated['id'], original['id'])
-        self.assertEqual(updated['url'], original['url'])
-        self.assertEqual(updated['name'], original['name'])
-        self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/gptchatly/drawplotia/stargazers/history', plate_grid.stars_box(updated))
-    def test_reviewed_opennex_endpoint_preserves_project_id_and_chart_attachment(self):
-        from test_update_star_history import NOW, OPENNEX, pager, weekly_series
-        baseline = self.catalog()
-        original = next(p for p in baseline['projects'] if p['url'] == OPENNEX['readme_url'])
-        self.snapshot = collector.refresh([OPENNEX], now=NOW, getter=pager(weekly_series()))
-        updated = next(p for p in self.catalog()['projects'] if p['url'] == OPENNEX['readme_url'])
-        self.assertEqual(updated['id'], original['id'])
-        self.assertEqual(updated['url'], original['url'])
-        self.assertEqual(updated['name'], original['name'])
-        self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/sophontrace/openlnku/stargazers/history', plate_grid.stars_box(updated))
-    def test_reviewed_openmijia_endpoint_preserves_project_id_and_chart_attachment(self):
-        from test_update_star_history import NOW, OPENMIJIA, pager, weekly_series
-        baseline = self.catalog()
-        original = next(p for p in baseline['projects'] if p['url'] == OPENMIJIA['readme_url'])
-        self.snapshot = collector.refresh([OPENMIJIA], now=NOW, getter=pager(weekly_series()))
-        updated = next(p for p in self.catalog()['projects'] if p['url'] == OPENMIJIA['readme_url'])
-        self.assertEqual(updated['id'], original['id'])
-        self.assertEqual(updated['url'], original['url'])
-        self.assertEqual(updated['name'], original['name'])
-        self.assertIsNotNone(updated['star_history']['chart_url'])
-        self.assertIn('https://api.github.com/repos/hzdavy/openmexia/stargazers/history', plate_grid.stars_box(updated))
+    def test_reviewed_endpoints_preserve_project_id_and_chart_attachment(self):
+        from test_update_star_history import NOW, REVIEWED_RENAMES, pager, weekly_series
+        folded = (
+            'openremote/openremote', 'openomsi-project/openomsi', 'gptchatly/openbrender',
+            'sophontrace/opennex', 'hzdavy/openmijia',
+        )
+        initial = self.snapshot
+        seen = []
+        for project, target, _source_readme in REVIEWED_RENAMES:
+            if project['repo'] not in folded:
+                continue
+            seen.append(project['repo'])
+            with self.subTest(repo=project['repo']):
+                self.snapshot = initial
+                baseline = self.catalog()
+                original = next(p for p in baseline['projects'] if p['url'] == project['readme_url'])
+                self.snapshot = collector.refresh([project], now=NOW, getter=pager(weekly_series()))
+                updated = next(p for p in self.catalog()['projects'] if p['url'] == project['readme_url'])
+                self.assertEqual(updated['id'], original['id'])
+                self.assertEqual(updated['url'], original['url'])
+                self.assertEqual(updated['name'], original['name'])
+                self.assertIsNotNone(updated['star_history']['chart_url'])
+                self.assertIn(collector.API + target + '/stargazers/history', plate_grid.stars_box(updated))
+        self.assertEqual(seen, list(folded))
     def test_identity_and_invalid_counts_rejected_non_github_omitted(self):
         record=self.snapshot['repositories'][self.repo]
         record['repo']='wrong/repo'
