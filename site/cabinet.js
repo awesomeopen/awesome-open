@@ -75,7 +75,7 @@
       url.searchParams.delete('cabinet');
       if (model.state().ids.length) url.searchParams.set('cabinet', model.state().ids.join(','));
       url.hash = 'specimen-cabinet';
-      win.history.pushState(null, '', url);
+      try { win.history.pushState(null, '', url); } catch (_) { /* Copy URL remains usable in local previews. */ }
     }
     function shareURL() {
       const url = new URL(win.location.href);

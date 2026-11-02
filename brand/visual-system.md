@@ -323,7 +323,8 @@ are recorded in [B-PR234-01](decisions/B-PR234-01.md).
 
 ## Experimental specimen cabinet
 
-The proposed [WebMCP cabinet](../site/WEBMCP-CABINET.md) sits within the Catalog as
+The proposed cabinet ([B-PR250-01](decisions/B-PR250-01.md))
+described in the [cabinet contract](../site/WEBMCP-CABINET.md) sits within the Catalog as
 a folded white/Prussian instrument. Ordered ruled rows share human/native-tool
 state; a labeled scroll region contains the evidence comparison. Plain Earlier,
 Later and Remove controls retain keyboard/mobile access. Existing tokens, fonts
