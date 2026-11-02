@@ -5,6 +5,7 @@
 | `awesome-open-brand` | Read/update the current project contract | This repository | `.agents/skills/awesome-open-brand/`; installed routing mirror for cross-chat use |
 | `retro-scraperism` | Reusable interface/graphic language | Owner's reusable Skills workspace | Pinned snapshot with the recorded repository adjustment below |
 | `speculative-fossoligy` | Reusable drawing language | Owner's reusable Skills workspace | Exact pinned snapshot including style atlas and UI assets |
+| `m-speculative-fossoligy` | Human-centric drawing of tools, projects, ideas and inhabited worlds | This repository, at the owner’s direction | Derived from the pinned Speculative FOSSoligy folder; adapted atlas and UI metadata, inherited icon |
 | `curb-your-verbosiasm` | Reader-focused documentation and explanatory copy for Awesome Open* | Owner's Skills workspace; current project rules govern facts and voice | Exact pinned snapshot including editing examples and repository checks |
 | `gpt-taste` | Optional composition/refinement aid | Upstream/installed skill | Not a project dependency; no automatic theme/font/motion substitution |
 | `imagegen-frontend-web` | Optional section reference-image workflow | Owner's installed skill | Not a project dependency; one image per requested section when invoked |
@@ -74,3 +75,12 @@ command or claim a skill was invoked merely because its name appears in a prompt
 
 No scheduled updater, automatic upstream pull, or third-party skill installer is
 added. Skill pins change through review.
+
+## Speculative FOSSoligy macro
+
+[Speculative FOSSoligy macro](../.agents/skills/m-speculative-fossoligy/SKILL.md)
+starts with human use, history, ideation, or consumption and welcomes people,
+cities, landscapes, and inhabited dwellings. The owner requested this separate
+repository derivative on 2026-11-02. Its lock entry records the repository source
+revision and checksums for all four bundled files. Maintain it through focused
+PRs. The original reusable skill retains its own scope and upstream authority.

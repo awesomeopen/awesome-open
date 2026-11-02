@@ -90,6 +90,33 @@
           "sha256": "62496a7d16fdad3ea75add0e5b5610f4f3f8eaa0665b6edfaec5eac429809383"
         }
       }
+    },
+    {
+      "name": "m-speculative-fossoligy",
+      "path": ".agents/skills/m-speculative-fossoligy",
+      "authority": "Repository-maintained derivative, created at owner request",
+      "source_skill": ".agents/skills/speculative-fossoligy",
+      "source_revision": "2e09e72f21137c5cf39f3463557f75854514d7d6",
+      "captured_at": "2026-11-02",
+      "adaptation": "Human-centric macro scope; adapted instructions, atlas and UI metadata; inherited icon.",
+      "files": {
+        ".agents/skills/m-speculative-fossoligy/SKILL.md": {
+          "bytes": 16867,
+          "sha256": "245c6a8d3e6d54ff8e14d007b46a21e933317fe658692d4585a368adf6c9414d"
+        },
+        ".agents/skills/m-speculative-fossoligy/agents/openai.yaml": {
+          "bytes": 397,
+          "sha256": "aebb546bb62a818d3c2c26c267e1cbe96e96dd5a56e15f59b23737af672b9074"
+        },
+        ".agents/skills/m-speculative-fossoligy/assets/icon.svg": {
+          "bytes": 1210,
+          "sha256": "49315dda7125ec5fc77ef5f2b96126d8b2121c6e72944b4702972e90f321d3ee"
+        },
+        ".agents/skills/m-speculative-fossoligy/references/style-atlas.md": {
+          "bytes": 9752,
+          "sha256": "0acc58e7500c9b939a96903ebc6820feb6e0cb49ca399dcc877c02685e3a4e83"
+        }
+      }
     }
   ]
 }
