@@ -201,15 +201,21 @@ class HNAliasReuseTests(unittest.TestCase):
 class AliasRenderTests(unittest.TestCase):
     def test_display_projection_changes_only_current_labels(self):
         import render_readme
-        root = Path(__file__).resolve().parents[1]
-        evidence = json.loads((root / 'data/hn_evidence.json').read_text())
-        before = deepcopy(evidence)
-        display = render_readme.display_hn_evidence((root / 'README.source.md').read_text(), evidence)
+        from test_hn_display import project
         url = 'https://github.com/obsproject/obs-studio'
-        current = next(p for p in display['projects'] if p['readme_url'] == url)
-        original = next(p for p in evidence['projects'] if p['readme_url'] == url)
-        self.assertEqual(current, dict(original, name='OBS Studio'))
-        self.assertEqual(evidence, before)
-        self.assertEqual(display['queue'], evidence['queue'])
-        self.assertEqual(current['story_count'], original['story_count'])
-        self.assertEqual(display['shared_monthly_maximum'], max(1, *(max(p['monthly_counts']) for p in evidence['projects'] if p['story_count'] > 0)))
+        source = '| [OBS Studio](' + url + ') | Recording. |\n'
+        original = dict(project('Old OBS label', [2]+[0]*23), readme_url=url)
+        other = project('Other', [7]+[0]*23)
+        # The current projection can be empty or omit OBS while its last-good
+        # observation remains in the rolling collection queue.
+        for projects, expected_maximum in (([original, other], 7), ([other], 7), ([], 1)):
+            with self.subTest(projects=projects):
+                evidence = dict(projects=deepcopy(projects), shared_monthly_maximum=99,
+                                queue={url: dict(last_good=dict(project=deepcopy(original)))})
+                before = deepcopy(evidence)
+                display = render_readme.display_hn_evidence(source, evidence)
+                self.assertEqual(display['projects'], [dict(p, name='OBS Studio')
+                    if p['readme_url'] == url else p for p in projects])
+                self.assertEqual(evidence, before)
+                self.assertEqual(display['queue'], evidence['queue'])
+                self.assertEqual(display['shared_monthly_maximum'], expected_maximum)

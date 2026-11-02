@@ -11,13 +11,17 @@ import build_site
 import plate_grid
 import star_history
 import update_star_history as collector
+import update_hn
+from test_update_star_history import NOW
 from datetime import datetime, timezone
 
 class StarSiteTests(unittest.TestCase):
     def setUp(self):
         self.root = build_site.ROOT
         self.source = (self.root/'README.source.md').read_text()
-        self.metrics, self.alternatives, self.hn = [json.loads((self.root/'data'/p).read_text()) for p in ('github_metrics.json','alternatives.json','hn_evidence.json')]
+        self.metrics, self.alternatives = [json.loads((self.root/'data'/p).read_text()) for p in ('github_metrics.json','alternatives.json')]
+        # Match the fixed collector fixtures, independently of publisher rollovers.
+        self.hn = self.hn_window(NOW)
         self.repo = 'opentofu/opentofu'
         now = datetime.fromisoformat(self.hn['window_end_exclusive'])
         newest = int(now.timestamp()) - 86400
@@ -27,6 +31,15 @@ class StarSiteTests(unittest.TestCase):
             return weeks[(page-1)*30:page*30]
         self.good = collector.collect_repository(self.repo,now=now,getter=getter,source_sha='a'*40)
         self.snapshot = dict(schema_version=1,repositories={self.repo:dict(repo=self.repo, name='OpenTofu', readme_url='https://github.com/'+self.repo, status='ok', checked_at='2026-10-13T00:00:00Z', source_url='https://api.github.com/repos/'+self.repo+'/stargazers/history',last_good=self.good)})
+    def hn_window(self, now):
+        start, end, months = update_hn.window(now)
+        project = dict(name='OpenTofu', readme_url='https://github.com/opentofu/opentofu',
+                       slug='opentofu', eligible=False, story_count=1, monthly_counts=[1]+[0]*23,
+                       search_url='https://hn.algolia.com/?q=OpenTofu')
+        return dict(schema_version=1, projects=[project], months=months,
+                    window_start=start.isoformat(), window_end_exclusive=end.isoformat(),
+                    shared_monthly_maximum=1)
+
     def catalog(self):
         return build_catalog.build_catalog(self.source,self.metrics,self.alternatives,self.hn,star_evidence=self.snapshot)
     def test_chart_is_offline_additive_aligned_and_private(self):
@@ -60,7 +73,7 @@ class StarSiteTests(unittest.TestCase):
         self.assertIn('no zero values inferred',plate_grid.stars_box(project))
         record['last_good']=self.good
         # A valid previous window is safe to retain but cannot pair with current HN.
-        self.hn['months'] = self.hn['months'][1:] + ['2099-01']
+        self.hn = self.hn_window(datetime(2026, 11, 1, tzinfo=timezone.utc))
         project=next(p for p in self.catalog()['projects'] if p.get('star_history'))
         self.assertIsNone(project['star_history']['chart_url'])
         self.assertIn('withheld until aligned',plate_grid.stars_box(project))
@@ -93,6 +106,36 @@ class StarSiteTests(unittest.TestCase):
                 self.assertIsNotNone(updated['star_history']['chart_url'])
                 self.assertIn(collector.API + target + '/stargazers/history', plate_grid.stars_box(updated))
         self.assertEqual(seen, list(folded))
+    def test_rollover_withholds_old_window_and_attaches_refreshed_history(self):
+        from test_update_star_history import pager, weekly_series
+        november = datetime(2026, 11, 13, tzinfo=timezone.utc)
+        self.hn = self.hn_window(november)
+        before = deepcopy(self.snapshot)
+        old = next(p for p in self.catalog()['projects'] if p.get('star_history'))
+        self.assertIsNone(old['star_history']['chart_url'])
+        self.assertEqual(old['star_history']['last_good'], self.good)
+        self.assertIn('withheld until aligned', plate_grid.stars_box(old))
+        self.assertEqual(self.snapshot, before)
+        project = dict(repo=self.repo, name='OpenTofu', readme_url='https://github.com/'+self.repo)
+        self.snapshot = collector.refresh([project], now=november,
+            getter=pager(weekly_series(offset=31*86400)))
+        current = next(p for p in self.catalog()['projects'] if p.get('star_history'))
+        self.assertIsNotNone(current['star_history']['chart_url'])
+        self.assertEqual(current['star_history']['last_good']['months'], self.hn['months'])
+        self.assertEqual(current['id'], old['id'])
+
+    def test_aligned_stars_survive_empty_and_partial_hn_projection(self):
+        other = dict(name='Other', readme_url='https://example.org/other', slug='other',
+                     eligible=False, story_count=1, monthly_counts=[1]+[0]*23,
+                     search_url='https://hn.algolia.com/?q=other')
+        for projects in ([], [other]):
+            with self.subTest(projects=projects):
+                self.hn['projects'] = projects
+                current = next(p for p in self.catalog()['projects'] if p.get('star_history'))
+                self.assertIsNone(current['hn'])
+                self.assertIsNotNone(current['star_history']['chart_url'])
+                self.assertEqual(current['star_history']['last_good'], self.good)
+
     def test_identity_and_invalid_counts_rejected_non_github_omitted(self):
         record=self.snapshot['repositories'][self.repo]
         record['repo']='wrong/repo'
@@ -192,6 +235,7 @@ class StarSiteTests(unittest.TestCase):
             shutil.copyfile(self.root/'README.source.md',root/'README.source.md')
             for name in ('site','data'):shutil.copytree(self.root/name,root/name)
             (root/'data/star_history.json').write_text(json.dumps(self.snapshot))
+            (root/'data/hn_evidence.json').write_text(json.dumps(self.hn))
             build_site.build(output,root=root)
             self.assertEqual(len(list((output/'assets/stars').glob('*.svg'))),1)
             (root/'data/star_history.json').unlink()
