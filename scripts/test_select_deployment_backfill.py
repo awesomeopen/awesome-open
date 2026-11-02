@@ -176,6 +176,20 @@ class StateTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             apply(job.empty_state(), [{"id": pid(9), "project_url": "u", "outcome": "proposed"}], cat, evidence())
 
+    def test_proposed_accepts_the_record_written_before_update_state(self):
+        """Section 7 adds the evidence record, then update-state. checked_at is the run date."""
+        cat = catalog(1)
+        ev = evidence({pid(0): record(0, checked="2026-11-02")})
+        state = job.empty_state()
+        state["contract_version"] = 2
+        state = apply(state, [{"id": pid(0), "project_url": url(0), "outcome": "proposed"}], cat, ev)
+        self.assertEqual(state["considered"][pid(0)]["outcome"], "proposed")
+        self.assertIsNone(state["runs"][-1]["pr"])
+        self.assertEqual(state["contract_version"], job.CONTRACT)
+        with self.assertRaises(ValueError):
+            apply(job.empty_state(), [{"id": pid(0), "project_url": url(0), "outcome": "skipped",
+                                       "reason": "no_schema_fit"}], cat, ev)
+
     def test_runs_bounded_and_pr_links(self):
         cat = catalog(1)
         state = job.empty_state()

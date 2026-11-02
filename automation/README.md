@@ -17,7 +17,7 @@ Check actual registration and the current repository contract before a run.
 | [Backfill feature notes](backfill-feature-notes.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
 | [Reconcile documentation](reconcile-documentation.md) | ChatGPT-hosted assistant | Daily, 04:00 `America/New_York`, exact | Enabled, recurring |
 | [Nightly code-quality audit](nightly-code-quality-audit.md) | Grok Bot-hosted assistant | Daily, nominal 02:00 `America/New_York`, flexible | Enabled, recurring |
-| [Backfill deployment evidence](backfill-deployment-evidence.md) | Grok Bot ("Kanzler") scheduled routines, write through a Cursor cloud agent | Daily, nominal 11:00 and 17:00 `America/New_York` (maintenance: 11:00 only), flexible | Proposed, not registered |
+| [Backfill deployment evidence](backfill-deployment-evidence.md) | Grok Bot ("Kanzler") scheduled routines, write through a Cursor cloud agent | Daily, nominal 11:00 and 17:00 `America/New_York` (maintenance: 11:00 only), flexible | Pilot merged (PR #245). Registration after contract version 3 merges: 11:00 and 17:00 `America/New_York`, 25 per run |
 | [Backfill GitHub star history](#backfill-github-star-history) | Retired ChatGPT-hosted coordinator; manual collection capability remains in GitHub Actions | Formerly hourly; scheduler timezone `America/Los_Angeles` | Disabled 2026-10-21; initial backfill complete with one documented unavailable repository |
 
 Flexible times are nominal. New York schedules follow local time, including
@@ -140,10 +140,12 @@ selected-record additions, preserving other proposals and owner edits.
 
 ## Backfill deployment evidence
 
-**Status:** Proposed. The [job contract](backfill-deployment-evidence.md) is a
-plan until it and its helper (`scripts/select_deployment_backfill.py`, with
-tests) are merged and the owner authorizes registration. Editing this
-inventory does not register the task.
+**Status:** Contract version 3. The helper
+(`scripts/select_deployment_backfill.py`, with tests) is on `main`. The
+supervised pilot merged as PR #245 (25 records, 2026-11-01). The owner
+registers the schedule after that contract merges: 11:00 and 17:00
+`America/New_York`, 25 projects per run. The schedule is unregistered until
+that registration. Editing this inventory does not register the task.
 
 **Inputs and scope:** Catalog projects without a record in
 `data/deployment_evidence.json`, official installation and run documentation,
