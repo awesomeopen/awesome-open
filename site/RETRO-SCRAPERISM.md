@@ -558,3 +558,10 @@ default for headings and wordmarks. No extra font download or synthetic bold is
 needed. Italic cuts are not included.
 
 Body-led wall clipping is proposed in [B-PR143-01](../brand/decisions/B-PR143-01.md).
+
+## Experimental cabinet
+
+The [specimen cabinet](WEBMCP-CABINET.md) uses the existing Catalog frame, a
+Prussian disclosure heading, white ordered selection rows and a mist-headed
+evidence table. On narrow screens the row controls wrap and the labeled table
+region scrolls horizontally. Activity records actual operations and outcomes.
