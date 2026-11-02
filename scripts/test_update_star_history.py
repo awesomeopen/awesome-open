@@ -18,21 +18,26 @@ SHA = 'a' * 40
 PROJECT = {'name': 'Example', 'repo': 'org/example', 'readme_url': 'https://github.com/org/example'}
 OPENREMOTE = {'name': 'OpenRemote', 'repo': 'openremote/openremote',
               'readme_url': 'https://github.com/openremote/openremote'}
-
-OPENOMSI = {'name': 'openOMSI', 'repo': 'openomsi-project/openomsi',
-            'readme_url': 'https://github.com/openomsi-project/openomsi'}
-
-OPENBRENDER = {'name': 'OpenBRender', 'repo': 'gptchatly/openbrender',
-               'readme_url': 'https://github.com/gptchatly/openbrender'}
-OPENNEX = {'name': 'OpenNex', 'repo': 'sophontrace/opennex',
-           'readme_url': 'https://github.com/sophontrace/opennex'}
-OPENMIJIA = {'name': 'OpenMijia', 'repo': 'hzdavy/openmijia',
-             'readme_url': 'https://github.com/hzdavy/openmijia'}
-OCT20_RENAMES = (
+REVIEWED_RENAMES = (
+    (OPENREMOTE, 'openremote/core', OPENREMOTE['readme_url']),
+    ({'name': 'openOMSI', 'repo': 'openomsi-project/openomsi',
+      'readme_url': 'https://github.com/openomsi-project/openomsi'},
+     'openomsi-org/openomsi', 'https://github.com/openomsi-project/openomsi'),
+    ({'name': 'OpenBRender', 'repo': 'gptchatly/openbrender',
+      'readme_url': 'https://github.com/gptchatly/openbrender'},
+     'gptchatly/drawplotia', 'https://github.com/gptchatly/openbrender'),
+    ({'name': 'OpenNex', 'repo': 'sophontrace/opennex',
+      'readme_url': 'https://github.com/sophontrace/opennex'},
+     'sophontrace/openlnku', 'https://github.com/SophonTrace/OpenNex'),
+    ({'name': 'OpenMijia', 'repo': 'hzdavy/openmijia',
+      'readme_url': 'https://github.com/hzdavy/openmijia'},
+     'hzdavy/openmexia', 'https://github.com/HZDavy/OpenMijia'),
     ({'name': 'Open Whisper', 'repo': 'twilightduck/openwhisper',
-      'readme_url': 'https://github.com/twilightduck/openwhisper'}, 'twilightduck/openquill'),
+      'readme_url': 'https://github.com/twilightduck/openwhisper'},
+     'twilightduck/openquill', 'https://github.com/twilightduck/openwhisper'),
     ({'name': 'OpenSkitch', 'repo': 'shoemoney/openskitch',
-      'readme_url': 'https://github.com/shoemoney/openskitch'}, 'shoemoney/opensnap'),
+      'readme_url': 'https://github.com/shoemoney/openskitch'},
+     'shoemoney/opensnap', 'https://github.com/shoemoney/openskitch'),
 )
 
 def weekly_series(count=108, offset=0):
@@ -78,308 +83,8 @@ class CollectorTests(unittest.TestCase):
         self.assertTrue(all('/stargazers/history?' in url for url in calls))
         self.assertNotIn('login', json.dumps(good))
 
-    def test_reviewed_rename_only_changes_history_endpoint(self):
-        calls = []
-        cache = stars.refresh([OPENREMOTE], now=NOW, source_sha=SHA,
-                              getter=pager(weekly_series(), calls))
-        record = cache['repositories'][OPENREMOTE['repo']]
-        for key, value in OPENREMOTE.items():
-            self.assertEqual(record[key], value)
-        expected = stars.API + 'openremote/core/stargazers/history'
-        self.assertEqual(record['source_url'], expected)
-        self.assertEqual(record['last_good']['source_urls'], calls)
-        self.assertEqual(calls, [expected + f'?per_page=30&page={page}' for page in range(1, 5)])
-        self.assertEqual(stars.history_source_url('unknown/renamed'), stars.API + 'unknown/renamed/stargazers/history')
-        self.assertEqual(stars.history_source_url('openremote/core'), expected)
-        source = '| [OpenRemote](https://github.com/openremote/openremote) | IoT platform. |\n'
-        self.assertEqual(stars.load_projects({'schema_version': 2, 'scope': 'catalog_github'}, source), [OPENREMOTE])
-
-    def test_rename_retains_old_evidence_urls_and_archive_observations(self):
-        import chart_observations as observations
-        with patch.dict(stars.REVIEWED_REPOSITORY_RENAMES, {}, clear=True):
-            original = stars.refresh([OPENREMOTE], now=NOW, source_sha=SHA, getter=pager(weekly_series()))
-        before = deepcopy(original)
-        archive = observations.add_stars(observations.empty(), original)
-        prior_observations = deepcopy(archive['observations'])
-        def unavailable(url):
-            raise stars.HistoryError('GitHub history HTTP 503', 'unavailable')
-        failed = stars.refresh([OPENREMOTE], existing=original, now=NOW + timedelta(days=1),
-                               source_sha=SHA, getter=unavailable, force=True)
-        old = original['repositories'][OPENREMOTE['repo']]
-        retained = failed['repositories'][OPENREMOTE['repo']]
-        self.assertEqual(retained['last_good'], old['last_good'])
-        self.assertEqual(retained['source_url'], old['source_url'])
-        observations.add_stars(archive, failed)
-        self.assertEqual(archive['observations'], prior_observations)
-        current = stars.refresh([OPENREMOTE], existing=failed, now=NOW + timedelta(days=2),
-                                source_sha=SHA, getter=pager(weekly_series()), force=True)
-        observations.add_stars(archive, current)
-        observations.validate(archive)
-        self.assertEqual(len(archive['observations']), 2)
-        for key, value in prior_observations.items():
-            self.assertEqual(archive['observations'][key], value)
-        self.assertEqual(original, before)
-
-    def test_rename_cannot_remap_other_repos_or_mix_pagination_identities(self):
-        cache = stars.refresh([OPENREMOTE], now=NOW, getter=pager(weekly_series()))
-        for mutation in ['unreviewed', 'mixed_pages', 'mismatched_source', 'reverse']:
-            bad = deepcopy(cache)
-            record = bad['repositories'][OPENREMOTE['repo']]
-            if mutation == 'unreviewed':
-                record['source_url'] = stars.API + 'openremote/other/stargazers/history'
-            elif mutation == 'mixed_pages':
-                record['last_good']['source_urls'][1] = record['last_good']['source_urls'][1].replace('/core/', '/openremote/')
-            elif mutation == 'mismatched_source':
-                record['source_url'] = stars.API + 'openremote/openremote/stargazers/history'
-            else:
-                bad['repositories'] = {'openremote/core': record}
-                record.update(repo='openremote/core', readme_url='https://github.com/openremote/core',
-                              source_url=stars.API + 'openremote/openremote/stargazers/history')
-            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
-                stars.validate_cache(bad)
-
-    def test_openomsi_reviewed_rename_only_changes_history_endpoint(self):
-        calls = []
-        cache = stars.refresh([OPENOMSI], now=NOW, source_sha=SHA,
-                              getter=pager(weekly_series(), calls))
-        record = cache['repositories'][OPENOMSI['repo']]
-        for key, value in OPENOMSI.items():
-            self.assertEqual(record[key], value)
-        expected = stars.API + 'openomsi-org/openomsi/stargazers/history'
-        self.assertEqual(record['source_url'], expected)
-        self.assertEqual(record['last_good']['source_urls'], calls)
-        self.assertEqual(calls, [expected + f'?per_page=30&page={page}' for page in range(1, 5)])
-        self.assertEqual(stars.history_source_url('unknown/renamed'), stars.API + 'unknown/renamed/stargazers/history')
-        self.assertEqual(stars.history_source_url('openomsi-org/openomsi'), expected)
-        source = '| [openOMSI](https://github.com/openomsi-project/openomsi) | Bus simulator. |\n'
-        self.assertEqual(stars.load_projects({'schema_version': 2, 'scope': 'catalog_github'}, source), [OPENOMSI])
-
-    def test_openomsi_rename_retains_old_evidence_urls_and_archive_observations(self):
-        import chart_observations as observations
-        with patch.dict(stars.REVIEWED_REPOSITORY_RENAMES, {}, clear=True):
-            original = stars.refresh([OPENOMSI], now=NOW, source_sha=SHA, getter=pager(weekly_series()))
-        before = deepcopy(original)
-        archive = observations.add_stars(observations.empty(), original)
-        prior_observations = deepcopy(archive['observations'])
-        def unavailable(url):
-            raise stars.HistoryError('GitHub history HTTP 503', 'unavailable')
-        failed = stars.refresh([OPENOMSI], existing=original, now=NOW + timedelta(days=1),
-                               source_sha=SHA, getter=unavailable, force=True)
-        old = original['repositories'][OPENOMSI['repo']]
-        retained = failed['repositories'][OPENOMSI['repo']]
-        self.assertEqual(retained['last_good'], old['last_good'])
-        self.assertEqual(retained['source_url'], old['source_url'])
-        observations.add_stars(archive, failed)
-        self.assertEqual(archive['observations'], prior_observations)
-        current = stars.refresh([OPENOMSI], existing=failed, now=NOW + timedelta(days=2),
-                                source_sha=SHA, getter=pager(weekly_series()), force=True)
-        observations.add_stars(archive, current)
-        observations.validate(archive)
-        self.assertEqual(len(archive['observations']), 2)
-        for key, value in prior_observations.items():
-            self.assertEqual(archive['observations'][key], value)
-        self.assertEqual(original, before)
-
-    def test_openomsi_rename_cannot_remap_other_repos_or_mix_pagination_identities(self):
-        cache = stars.refresh([OPENOMSI], now=NOW, getter=pager(weekly_series()))
-        for mutation in ['unreviewed', 'mixed_pages', 'mismatched_source', 'reverse']:
-            bad = deepcopy(cache)
-            record = bad['repositories'][OPENOMSI['repo']]
-            if mutation == 'unreviewed':
-                record['source_url'] = stars.API + 'openomsi-org/other/stargazers/history'
-            elif mutation == 'mixed_pages':
-                record['last_good']['source_urls'][1] = record['last_good']['source_urls'][1].replace('/openomsi-org/', '/openomsi-project/')
-            elif mutation == 'mismatched_source':
-                record['source_url'] = stars.API + 'openomsi-project/openomsi/stargazers/history'
-            else:
-                bad['repositories'] = {'openomsi-org/openomsi': record}
-                record.update(repo='openomsi-org/openomsi', readme_url='https://github.com/openomsi-org/openomsi',
-                              source_url=stars.API + 'openomsi-project/openomsi/stargazers/history')
-            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
-                stars.validate_cache(bad)
-
-    def test_openbrender_reviewed_rename_only_changes_history_endpoint(self):
-        calls = []
-        cache = stars.refresh([OPENBRENDER], now=NOW, source_sha=SHA,
-                              getter=pager(weekly_series(), calls))
-        record = cache['repositories'][OPENBRENDER['repo']]
-        for key, value in OPENBRENDER.items():
-            self.assertEqual(record[key], value)
-        expected = stars.API + 'gptchatly/drawplotia/stargazers/history'
-        self.assertEqual(record['source_url'], expected)
-        self.assertEqual(record['last_good']['source_urls'], calls)
-        self.assertEqual(calls, [expected + f'?per_page=30&page={page}' for page in range(1, 5)])
-        self.assertEqual(stars.history_source_url('unknown/renamed'), stars.API + 'unknown/renamed/stargazers/history')
-        self.assertEqual(stars.history_source_url('gptchatly/drawplotia'), expected)
-        source = '| [OpenBRender](https://github.com/gptchatly/openbrender) | Scientific figure editor. |\n'
-        self.assertEqual(stars.load_projects({'schema_version': 2, 'scope': 'catalog_github'}, source), [OPENBRENDER])
-
-    def test_openbrender_rename_retains_old_evidence_urls_and_archive_observations(self):
-        import chart_observations as observations
-        with patch.dict(stars.REVIEWED_REPOSITORY_RENAMES, {}, clear=True):
-            original = stars.refresh([OPENBRENDER], now=NOW, source_sha=SHA, getter=pager(weekly_series()))
-        before = deepcopy(original)
-        archive = observations.add_stars(observations.empty(), original)
-        prior_observations = deepcopy(archive['observations'])
-        def unavailable(url):
-            raise stars.HistoryError('GitHub history HTTP 503', 'unavailable')
-        failed = stars.refresh([OPENBRENDER], existing=original, now=NOW + timedelta(days=1),
-                               source_sha=SHA, getter=unavailable, force=True)
-        old = original['repositories'][OPENBRENDER['repo']]
-        retained = failed['repositories'][OPENBRENDER['repo']]
-        self.assertEqual(retained['last_good'], old['last_good'])
-        self.assertEqual(retained['source_url'], old['source_url'])
-        observations.add_stars(archive, failed)
-        self.assertEqual(archive['observations'], prior_observations)
-        current = stars.refresh([OPENBRENDER], existing=failed, now=NOW + timedelta(days=2),
-                                source_sha=SHA, getter=pager(weekly_series()), force=True)
-        observations.add_stars(archive, current)
-        observations.validate(archive)
-        self.assertEqual(len(archive['observations']), 2)
-        for key, value in prior_observations.items():
-            self.assertEqual(archive['observations'][key], value)
-        self.assertEqual(original, before)
-
-    def test_openbrender_rename_cannot_remap_other_repos_or_mix_pagination_identities(self):
-        cache = stars.refresh([OPENBRENDER], now=NOW, getter=pager(weekly_series()))
-        for mutation in ['unreviewed', 'mixed_pages', 'mismatched_source', 'reverse']:
-            bad = deepcopy(cache)
-            record = bad['repositories'][OPENBRENDER['repo']]
-            if mutation == 'unreviewed':
-                record['source_url'] = stars.API + 'gptchatly/other/stargazers/history'
-            elif mutation == 'mixed_pages':
-                record['last_good']['source_urls'][1] = record['last_good']['source_urls'][1].replace('/drawplotia/', '/openbrender/')
-            elif mutation == 'mismatched_source':
-                record['source_url'] = stars.API + 'gptchatly/openbrender/stargazers/history'
-            else:
-                bad['repositories'] = {'gptchatly/drawplotia': record}
-                record.update(repo='gptchatly/drawplotia', readme_url='https://github.com/gptchatly/drawplotia',
-                              source_url=stars.API + 'gptchatly/openbrender/stargazers/history')
-            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
-                stars.validate_cache(bad)
-
-    def test_opennex_reviewed_rename_only_changes_history_endpoint(self):
-        calls = []
-        cache = stars.refresh([OPENNEX], now=NOW, source_sha=SHA,
-                              getter=pager(weekly_series(), calls))
-        record = cache['repositories'][OPENNEX['repo']]
-        for key, value in OPENNEX.items():
-            self.assertEqual(record[key], value)
-        expected = stars.API + 'sophontrace/openlnku/stargazers/history'
-        self.assertEqual(record['source_url'], expected)
-        self.assertEqual(record['last_good']['source_urls'], calls)
-        self.assertEqual(calls, [expected + f'?per_page=30&page={page}' for page in range(1, 5)])
-        self.assertEqual(stars.history_source_url('unknown/renamed'), stars.API + 'unknown/renamed/stargazers/history')
-        self.assertEqual(stars.history_source_url('sophontrace/openlnku'), expected)
-        source = '| [OpenNex](https://github.com/SophonTrace/OpenNex) | Network authentication client. |\n'
-        self.assertEqual(stars.load_projects({'schema_version': 2, 'scope': 'catalog_github'}, source), [OPENNEX])
-
-    def test_opennex_rename_retains_old_evidence_urls_and_archive_observations(self):
-        import chart_observations as observations
-        with patch.dict(stars.REVIEWED_REPOSITORY_RENAMES, {}, clear=True):
-            original = stars.refresh([OPENNEX], now=NOW, source_sha=SHA, getter=pager(weekly_series()))
-        before = deepcopy(original)
-        archive = observations.add_stars(observations.empty(), original)
-        prior_observations = deepcopy(archive['observations'])
-        def unavailable(url):
-            raise stars.HistoryError('GitHub history HTTP 503', 'unavailable')
-        failed = stars.refresh([OPENNEX], existing=original, now=NOW + timedelta(days=1),
-                               source_sha=SHA, getter=unavailable, force=True)
-        old = original['repositories'][OPENNEX['repo']]
-        retained = failed['repositories'][OPENNEX['repo']]
-        self.assertEqual(retained['last_good'], old['last_good'])
-        self.assertEqual(retained['source_url'], old['source_url'])
-        observations.add_stars(archive, failed)
-        self.assertEqual(archive['observations'], prior_observations)
-        current = stars.refresh([OPENNEX], existing=failed, now=NOW + timedelta(days=2),
-                                source_sha=SHA, getter=pager(weekly_series()), force=True)
-        observations.add_stars(archive, current)
-        observations.validate(archive)
-        self.assertEqual(len(archive['observations']), 2)
-        for key, value in prior_observations.items():
-            self.assertEqual(archive['observations'][key], value)
-        self.assertEqual(original, before)
-
-    def test_opennex_rename_cannot_remap_other_repos_or_mix_pagination_identities(self):
-        cache = stars.refresh([OPENNEX], now=NOW, getter=pager(weekly_series()))
-        for mutation in ['unreviewed', 'mixed_pages', 'mismatched_source', 'reverse']:
-            bad = deepcopy(cache)
-            record = bad['repositories'][OPENNEX['repo']]
-            if mutation == 'unreviewed':
-                record['source_url'] = stars.API + 'sophontrace/other/stargazers/history'
-            elif mutation == 'mixed_pages':
-                record['last_good']['source_urls'][1] = record['last_good']['source_urls'][1].replace('/openlnku/', '/opennex/')
-            elif mutation == 'mismatched_source':
-                record['source_url'] = stars.API + 'sophontrace/opennex/stargazers/history'
-            else:
-                bad['repositories'] = {'sophontrace/openlnku': record}
-                record.update(repo='sophontrace/openlnku', readme_url='https://github.com/sophontrace/openlnku',
-                              source_url=stars.API + 'sophontrace/opennex/stargazers/history')
-            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
-                stars.validate_cache(bad)
-
-    def test_openmijia_reviewed_rename_only_changes_history_endpoint(self):
-        calls = []
-        cache = stars.refresh([OPENMIJIA], now=NOW, source_sha=SHA,
-                              getter=pager(weekly_series(), calls))
-        record = cache['repositories'][OPENMIJIA['repo']]
-        for key, value in OPENMIJIA.items():
-            self.assertEqual(record[key], value)
-        expected = stars.API + 'hzdavy/openmexia/stargazers/history'
-        self.assertEqual(record['source_url'], expected)
-        self.assertEqual(record['last_good']['source_urls'], calls)
-        self.assertEqual(calls, [expected + f'?per_page=30&page={page}' for page in range(1, 5)])
-        self.assertEqual(stars.history_source_url('unknown/renamed'), stars.API + 'unknown/renamed/stargazers/history')
-        self.assertEqual(stars.history_source_url('hzdavy/openmexia'), expected)
-        source = '| [OpenMijia](https://github.com/HZDavy/OpenMijia) | Smart home control client. |\n'
-        self.assertEqual(stars.load_projects({'schema_version': 2, 'scope': 'catalog_github'}, source), [OPENMIJIA])
-
-    def test_openmijia_rename_retains_old_evidence_urls_and_archive_observations(self):
-        import chart_observations as observations
-        with patch.dict(stars.REVIEWED_REPOSITORY_RENAMES, {}, clear=True):
-            original = stars.refresh([OPENMIJIA], now=NOW, source_sha=SHA, getter=pager(weekly_series()))
-        before = deepcopy(original)
-        archive = observations.add_stars(observations.empty(), original)
-        prior_observations = deepcopy(archive['observations'])
-        def unavailable(url):
-            raise stars.HistoryError('GitHub history HTTP 503', 'unavailable')
-        failed = stars.refresh([OPENMIJIA], existing=original, now=NOW + timedelta(days=1),
-                               source_sha=SHA, getter=unavailable, force=True)
-        old = original['repositories'][OPENMIJIA['repo']]
-        retained = failed['repositories'][OPENMIJIA['repo']]
-        self.assertEqual(retained['last_good'], old['last_good'])
-        self.assertEqual(retained['source_url'], old['source_url'])
-        observations.add_stars(archive, failed)
-        self.assertEqual(archive['observations'], prior_observations)
-        current = stars.refresh([OPENMIJIA], existing=failed, now=NOW + timedelta(days=2),
-                                source_sha=SHA, getter=pager(weekly_series()), force=True)
-        observations.add_stars(archive, current)
-        observations.validate(archive)
-        self.assertEqual(len(archive['observations']), 2)
-        for key, value in prior_observations.items():
-            self.assertEqual(archive['observations'][key], value)
-        self.assertEqual(original, before)
-
-    def test_openmijia_rename_cannot_remap_other_repos_or_mix_pagination_identities(self):
-        cache = stars.refresh([OPENMIJIA], now=NOW, getter=pager(weekly_series()))
-        for mutation in ['unreviewed', 'mixed_pages', 'mismatched_source', 'reverse']:
-            bad = deepcopy(cache)
-            record = bad['repositories'][OPENMIJIA['repo']]
-            if mutation == 'unreviewed':
-                record['source_url'] = stars.API + 'hzdavy/other/stargazers/history'
-            elif mutation == 'mixed_pages':
-                record['last_good']['source_urls'][1] = record['last_good']['source_urls'][1].replace('/openmexia/', '/openmijia/')
-            elif mutation == 'mismatched_source':
-                record['source_url'] = stars.API + 'hzdavy/openmijia/stargazers/history'
-            else:
-                bad['repositories'] = {'hzdavy/openmexia': record}
-                record.update(repo='hzdavy/openmexia', readme_url='https://github.com/hzdavy/openmexia',
-                              source_url=stars.API + 'hzdavy/openmijia/stargazers/history')
-            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
-                stars.validate_cache(bad)
-
-    def test_oct20_reviewed_renames_only_change_history_endpoints(self):
-        for project, target in OCT20_RENAMES:
+    def test_reviewed_renames_only_change_history_endpoints(self):
+        for project, target, source_readme in REVIEWED_RENAMES:
             with self.subTest(repo=project['repo']):
                 calls = []
                 cache = stars.refresh([project], now=NOW, source_sha=SHA,
@@ -393,12 +98,15 @@ class CollectorTests(unittest.TestCase):
                 self.assertEqual(record['last_good']['source_urls'], calls)
                 self.assertEqual(calls, [expected + f'?per_page=30&page={page}' for page in range(1, 5)])
                 self.assertEqual(stars.history_source_url(project['repo'].upper()), expected)
-                source = f"| [{project['name']}]({project['readme_url']}) | Application. |\n"
+                self.assertEqual(stars.history_source_url(target), expected)
+                self.assertEqual(stars.history_source_url('unknown/renamed'),
+                                 stars.API + 'unknown/renamed/stargazers/history')
+                source = f"| [{project['name']}]({source_readme}) | Application. |\n"
                 self.assertEqual(stars.load_projects({'schema_version': 2, 'scope': 'catalog_github'}, source), [project])
 
-    def test_oct20_renames_preserve_old_evidence_and_archive_keys(self):
+    def test_reviewed_renames_preserve_old_evidence_and_archive_keys(self):
         import chart_observations as observations
-        for project, target in OCT20_RENAMES:
+        for project, target, _source_readme in REVIEWED_RENAMES:
             with self.subTest(repo=project['repo']):
                 with patch.dict(stars.REVIEWED_REPOSITORY_RENAMES, {}, clear=True):
                     original = stars.refresh([project], now=NOW, source_sha=SHA, getter=pager(weekly_series()))
@@ -429,8 +137,8 @@ class CollectorTests(unittest.TestCase):
                         self.assertEqual(archive[section][key], value)
                 self.assertEqual(original, before)
 
-    def test_oct20_renames_reject_unreviewed_mixed_and_reverse_identities(self):
-        for project, target in OCT20_RENAMES:
+    def test_reviewed_renames_reject_unreviewed_mixed_and_reverse_identities(self):
+        for project, target, _source_readme in REVIEWED_RENAMES:
             cache = stars.refresh([project], now=NOW, getter=pager(weekly_series()))
             old_url = stars.API + project['repo'] + '/stargazers/history'
             for mutation in ('unreviewed', 'mixed_pages', 'mismatched_source', 'reverse'):

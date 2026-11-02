@@ -11,7 +11,7 @@ from urllib.error import HTTPError, URLError
 import backfill_star_history as b
 import update_star_history as h
 import chart_observations as observations
-from test_update_star_history import NOW, OCT20_RENAMES, OPENNEX, OPENMIJIA, OPENBRENDER, OPENOMSI, OPENREMOTE, PROJECT, SHA, pager, weekly_series
+from test_update_star_history import NOW, OPENREMOTE, PROJECT, REVIEWED_RENAMES, SHA, pager, weekly_series
 
 
 def archive_of(*records):
@@ -140,89 +140,8 @@ class BackfillTests(unittest.TestCase):
             t(URL)
         self.assertEqual(caught.exception.context, {'request_url': b.RATE_URL, 'http_status': 401})
 
-    def test_backfill_uses_reviewed_endpoint_and_retains_catalog_identity(self):
-        rows = weekly_series()
-        t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
-        flushed = []
-        with tempfile.TemporaryDirectory() as directory:
-            state = b.collect([OPENREMOTE], {'schema_version': 1, 'repositories': {}}, {}, t,
-                              SHA, Path(directory) / 'c.json', lambda records: flushed.append(deepcopy(records)), NOW)
-        self.assertEqual(state['status'], 'complete')
-        self.assertEqual(state['failures'], [])
-        self.assertEqual(set(state['records']), {'openremote/openremote'})
-        record = state['records'][OPENREMOTE['repo']]
-        self.assertEqual(record['readme_url'], OPENREMOTE['readme_url'])
-        self.assertEqual(record['source_url'], h.API + 'openremote/core/stargazers/history')
-        self.assertTrue(all('/openremote/core/' in url for _, url in calls[1:]))
-        self.assertEqual(flushed[-1][OPENREMOTE['repo']], record)
-
-    def test_openomsi_backfill_uses_reviewed_endpoint_and_retains_catalog_identity(self):
-        rows = weekly_series()
-        t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
-        flushed = []
-        with tempfile.TemporaryDirectory() as directory:
-            state = b.collect([OPENOMSI], {'schema_version': 1, 'repositories': {}}, {}, t,
-                              SHA, Path(directory) / 'c.json', lambda records: flushed.append(deepcopy(records)), NOW)
-        self.assertEqual(state['status'], 'complete')
-        self.assertEqual(state['failures'], [])
-        self.assertEqual(set(state['records']), {'openomsi-project/openomsi'})
-        record = state['records'][OPENOMSI['repo']]
-        self.assertEqual(record['readme_url'], OPENOMSI['readme_url'])
-        self.assertEqual(record['source_url'], h.API + 'openomsi-org/openomsi/stargazers/history')
-        self.assertTrue(all('/openomsi-org/openomsi/' in url for _, url in calls[1:]))
-        self.assertEqual(flushed[-1][OPENOMSI['repo']], record)
-
-    def test_openbrender_backfill_uses_reviewed_endpoint_and_retains_catalog_identity(self):
-        rows = weekly_series()
-        t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
-        flushed = []
-        with tempfile.TemporaryDirectory() as directory:
-            state = b.collect([OPENBRENDER], {'schema_version': 1, 'repositories': {}}, {}, t,
-                              SHA, Path(directory) / 'c.json', lambda records: flushed.append(deepcopy(records)), NOW)
-        self.assertEqual(state['status'], 'complete')
-        self.assertEqual(state['failures'], [])
-        self.assertEqual(set(state['records']), {'gptchatly/openbrender'})
-        record = state['records'][OPENBRENDER['repo']]
-        self.assertEqual(record['readme_url'], OPENBRENDER['readme_url'])
-        self.assertEqual(record['source_url'], h.API + 'gptchatly/drawplotia/stargazers/history')
-        self.assertTrue(all('/gptchatly/drawplotia/' in url for _, url in calls[1:]))
-        self.assertEqual(flushed[-1][OPENBRENDER['repo']], record)
-
-    def test_opennex_backfill_uses_reviewed_endpoint_and_retains_catalog_identity(self):
-        rows = weekly_series()
-        t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
-        flushed = []
-        with tempfile.TemporaryDirectory() as directory:
-            state = b.collect([OPENNEX], {'schema_version': 1, 'repositories': {}}, {}, t,
-                              SHA, Path(directory) / 'c.json', lambda records: flushed.append(deepcopy(records)), NOW)
-        self.assertEqual(state['status'], 'complete')
-        self.assertEqual(state['failures'], [])
-        self.assertEqual(set(state['records']), {'sophontrace/opennex'})
-        record = state['records'][OPENNEX['repo']]
-        self.assertEqual(record['readme_url'], OPENNEX['readme_url'])
-        self.assertEqual(record['source_url'], h.API + 'sophontrace/openlnku/stargazers/history')
-        self.assertTrue(all('/sophontrace/openlnku/' in url for _, url in calls[1:]))
-        self.assertEqual(flushed[-1][OPENNEX['repo']], record)
-
-    def test_openmijia_backfill_uses_reviewed_endpoint_and_retains_catalog_identity(self):
-        rows = weekly_series()
-        t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
-        flushed = []
-        with tempfile.TemporaryDirectory() as directory:
-            state = b.collect([OPENMIJIA], {'schema_version': 1, 'repositories': {}}, {}, t,
-                              SHA, Path(directory) / 'c.json', lambda records: flushed.append(deepcopy(records)), NOW)
-            self.assertEqual(state, json.loads((Path(directory) / 'c.json').read_text()))
-        self.assertEqual(state['status'], 'complete')
-        self.assertEqual(state['failures'], [])
-        self.assertEqual(set(state['records']), {'hzdavy/openmijia'})
-        record = state['records'][OPENMIJIA['repo']]
-        self.assertEqual(record['readme_url'], OPENMIJIA['readme_url'])
-        self.assertEqual(record['source_url'], h.API + 'hzdavy/openmexia/stargazers/history')
-        self.assertTrue(all('/hzdavy/openmexia/' in url for _, url in calls[1:]))
-        self.assertEqual(flushed[-1][OPENMIJIA['repo']], record)
-
-    def test_oct20_backfill_uses_reviewed_endpoints_and_preserves_checkpoint_identities(self):
-        for project, target in OCT20_RENAMES:
+    def test_reviewed_backfill_uses_reviewed_endpoints_and_preserves_checkpoint_identities(self):
+        for project, target, _source_readme in REVIEWED_RENAMES:
             with self.subTest(repo=project['repo']):
                 rows = weekly_series()
                 t, calls, _ = self.transport([Response({})] + [Response(rows[i:i + 30]) for i in range(0, len(rows), 30)])
@@ -554,9 +473,6 @@ class BackfillTests(unittest.TestCase):
         self.assertEqual(h.DEFAULT_REQUEST_BUDGET, 16)
 
 
-if __name__ == '__main__':
-    unittest.main()
-
 class CheckpointGitTests(unittest.TestCase):
     def setUp(self):
         import subprocess
@@ -790,3 +706,7 @@ class CheckpointGitTests(unittest.TestCase):
         self.assertEqual(before, self.git(self.origin, 'rev-parse', 'main'))
         self.assertEqual(observations.load(self.checkout / b.publisher.RECOVERY_PATH), archive_of(self.record))
         self.assert_worktree_removed()
+
+
+if __name__ == '__main__':
+    unittest.main()
