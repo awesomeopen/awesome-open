@@ -19,7 +19,7 @@ const fs = require('node:fs');
   return typeof result==='string'?JSON.parse(result):result;
  },{name,args,stringInput:major<155});}
  try {
-  await page.goto(base);await page.waitForFunction(()=>document.querySelector('#cabinet-support').textContent.includes('four tools'));
+  await page.goto(base);report.sourceSha=await page.locator('#specimen-cabinet').getAttribute('data-source-sha');await page.waitForFunction(()=>document.querySelector('#cabinet-support').textContent.includes('four tools'));
   assert.deepEqual(await page.evaluate(async()=> (await document.modelContext.getTools()).map(t=>t.name).sort()),['cabinet_arrange','cabinet_compare','cabinet_find','cabinet_inspect']);
   const found=await call('cabinet_find',{query:'scad'});assert.ok(found.projects.length>=2);
   const ids=found.projects.slice(0,2).map(p=>p.id);

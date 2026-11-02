@@ -1,5 +1,5 @@
 """Initial-memory budget and native fallback contracts, without network or a browser."""
-from font_assets import font_asset_url
+from font_assets import font_asset_url, content_url
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 import json
@@ -27,7 +27,10 @@ class LazyDetailSiteTests(unittest.TestCase):
         for path in [self.output / 'index.html', *sorted((self.output / 'records').glob('*.html'))]:
             page = Page(path.read_text())
             scripts = [node.attrs['src'] for node in page.nodes('script') if 'src' in node.attrs]
-            self.assertEqual(scripts, [expected], path.name)
+            expected_scripts = [expected]
+            if path.name == 'index.html':
+                expected_scripts.append(content_url('cabinet.js', ROOT / 'site/cabinet.js'))
+            self.assertEqual(scripts, expected_scripts, path.name)
         # A metadata-only revision keeps the same runtime identity; raw renderer
         # callers remain compatible with historical preview tooling.
         for revision in ('b' * 40, 'c' * 40):

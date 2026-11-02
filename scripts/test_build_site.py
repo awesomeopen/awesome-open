@@ -3,7 +3,7 @@
 import copy
 from html.parser import HTMLParser
 import json
-from font_assets import font_asset_url
+from font_assets import font_asset_url, content_url
 from pathlib import Path
 import re
 import shutil
@@ -16,7 +16,7 @@ from build_site import BRAND_ASSETS, ROOT, build, json_for_html, load_site_catal
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
-RUNTIME_SCRIPTS = ('catalog.js',)
+RUNTIME_SCRIPTS = ('catalog.js', content_url('cabinet.js', ROOT / 'site/cabinet.js'))
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 
 
