@@ -800,8 +800,7 @@
       }
       // Preserve a drawer the reader closed while changing unrelated filters.
       if (!focus && !becameVisible) return;
-      var drawer = String(card.tagName || "").toLowerCase() === "details" ? card
-        : typeof card.querySelector === "function" ? card.querySelector("details.specimen-drawer") : null;
+      var drawer = typeof card.querySelector === "function" ? card.querySelector("details.specimen-drawer") : null;
       if (drawer) {
         drawer.open = true;
         plates.open(drawer);
