@@ -94,8 +94,10 @@ class HistoryTests(unittest.TestCase):
             {'objectID': '124', 'title': 'OpenThing today', 'url': '', 'created_at_i': int(end.timestamp())},
             {'objectID': '125', 'title': 'Unrelated', 'url': '', 'created_at_i': int(start.timestamp())},
         ]
+        def getter(url):
+            raise AssertionError(url)
         with patch.object(hn, 'fetch_query', return_value=(hits, ['https://example.org/query'])):
-            result = hn.collect_project(project, start, end, months)
+            result = hn.collect_project(project, start, end, months, getter)
         self.assertEqual(result['story_count'], 1)
         self.assertEqual(result['monthly_counts'], [1] + [0] * 23)
         self.assertFalse(result['eligible'])

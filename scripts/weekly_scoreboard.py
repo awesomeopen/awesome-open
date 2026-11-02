@@ -9,8 +9,6 @@ import tempfile
 from zoneinfo import ZoneInfo
 
 from build_catalog import build_catalog, canonical_url
-import project_history
-import signals
 import update_hn
 
 PATH = 'data/weekly_scoreboard.json'

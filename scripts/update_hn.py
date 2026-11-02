@@ -91,19 +91,7 @@ def identity_reason(story, project):
     return None
 
 
-def get_json(url):
-    for attempt in range(4):
-        try:
-            request = Request(url, headers={'User-Agent': 'awesome-open-hn-history/1.0'})
-            with urlopen(request, timeout=45) as response:
-                return json.load(response)
-        except Exception:
-            if attempt == 3:
-                raise
-            time.sleep(2 ** attempt)
-
-
-def fetch_query(query, start, end, getter=get_json):
+def fetch_query(query, start, end, getter):
     """Page every query; split time ranges before Algolia's 1,000-hit cap."""
     hits, sources = [], []
     page = 0
@@ -134,11 +122,11 @@ def fetch_query(query, start, end, getter=get_json):
             return hits, sources
 
 
-def collect_project(project, start, end, months, getter=None):
+def collect_project(project, start, end, months, getter):
     accepted, rejected, sources = {}, {}, []
     for query in project['queries']:
         args = (query, int(start.timestamp()), int(end.timestamp()))
-        hits, urls = fetch_query(*args, getter=getter) if getter else fetch_query(*args)
+        hits, urls = fetch_query(*args, getter=getter)
         sources.extend(urls)
         for hit in hits:
             sid = str(hit['objectID'])
