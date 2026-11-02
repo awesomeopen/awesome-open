@@ -280,32 +280,30 @@ function fixture(initialURL = "https://example.org/catalog/?utm_source=test#cata
   });
   const alphabeticalIds = fixtureData.projects.slice().sort(catalog.comparator("name")).map(project => project.id);
   fixtureData.projects.forEach(project => {
-    const card = new Element(options.detailsCard ? "details" : "article");
+    const card = new Element("article");
     card.className = "project-card";
     card.dataset.projectId = project.id;
     card.id = "project-" + project.id;
     ids[card.id] = card;
-    if (options.drawers !== false) {
-      const drawer = options.detailsCard ? card : new Element("details");
-      drawer.classList.add("specimen-drawer");
-      const summary = new Element("summary");
-      const folio = String(alphabeticalIds.indexOf(project.id) + 1).padStart(3, "0");
-      const addText = (parent, className, text) => {
-        const node = new Element("span");
-        node.className = className;
-        node.textContent = text;
-        parent.appendChild(node);
-        return node;
-      };
-      addText(summary, "folio", folio);
-      drawer.appendChild(summary);
-      addText(drawer, "sheet-folio", "Folio " + folio);
-      addText(drawer, "plate-index", "Field notes / " + folio);
-      addText(drawer, "registry", "OP-" + project.id.slice(0, 8).toUpperCase());
-      const permalink = addText(drawer, "permalink", "Permalink");
-      permalink.setAttribute("href", "#project-" + project.id);
-      if (drawer !== card) card.appendChild(drawer);
-    }
+    const drawer = new Element("details");
+    drawer.classList.add("specimen-drawer");
+    const summary = new Element("summary");
+    const folio = String(alphabeticalIds.indexOf(project.id) + 1).padStart(3, "0");
+    const addText = (parent, className, text) => {
+      const node = new Element("span");
+      node.className = className;
+      node.textContent = text;
+      parent.appendChild(node);
+      return node;
+    };
+    addText(summary, "folio", folio);
+    drawer.appendChild(summary);
+    addText(drawer, "sheet-folio", "Folio " + folio);
+    addText(drawer, "plate-index", "Field notes / " + folio);
+    addText(drawer, "registry", "OP-" + project.id.slice(0, 8).toUpperCase());
+    const permalink = addText(drawer, "permalink", "Permalink");
+    permalink.setAttribute("href", "#project-" + project.id);
+    card.appendChild(drawer);
     ids["project-list"].appendChild(card);
   });
   const categoryLinks = ["", "writing", "tools"].map(category => {
@@ -630,7 +628,7 @@ test("new URL filters normalize, round-trip, canonicalize duplicates and clear i
 });
 
 test("older markup works without optional controls and retains URL-only optional state until clear", () => {
-  const legacy = fixture(undefined, { optional: false, drawers: false });
+  const legacy = fixture(undefined, { optional: false });
   assert.equal(catalog.init(legacy.document, legacy.window), true);
   assert.equal(legacy.visible().length, 5);
   const ui = fixture("https://example.org/?metrics=present&window=unknown", { optional: false });
@@ -694,15 +692,6 @@ test("project hash opens its specimen drawer and focuses the linked project on i
   assert.equal(ui.document.activeElement, beta.children[0].children[0]);
   assert.equal(beta.scrolled, 1);
   assert.equal(ui.ids["project-link-notice"].hidden, true);
-  // A project's card may itself be the disclosure; legacy articles still focus.
-  for (const options of [{ detailsCard: true }, { drawers: false }]) {
-    const layout = fixture("https://example.org/#project-open-alpha", options);
-    assert.equal(catalog.init(layout.document, layout.window), true);
-    const card = layout.ids["project-open-alpha"];
-    if (options.detailsCard) assert.equal(card.open, true);
-    else assert.equal(layout.document.activeElement, card);
-    assert.equal(card.scrolled, 1);
-  }
 });
 
 test("filtered-out project hashes keep filters and show a notice, then reveal the project when filters clear", () => {
