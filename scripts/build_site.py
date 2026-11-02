@@ -768,6 +768,8 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
  <link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="{font_asset_url('styles.css', root)}">
  <script src="{escape(script_url)}" defer></script>
+ <script src="{content_url("cabinet.js", root / "site/cabinet.js")}" defer></script>
+ <link rel="stylesheet" href="{content_url("cabinet.css", root / "site/cabinet.css")}">
 </head>
 <body>
 <a class="skip-link" href="#catalog">Skip to specimen ledger</a>
@@ -786,6 +788,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
    </div></details><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
   </form></div>
   <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Follow its full-record link for evidence and printing. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
+  {(root / "site/cabinet.html").read_text(encoding="utf-8").replace("__SOURCE_SHA__", escape(catalog.get("source_sha") or ""))}
   <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="name">Name A–Z</option><option value="stars" selected>Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
   <p id="project-link-notice" class="link-notice" role="status" hidden></p><p id="empty-state" class="empty-state" hidden>No matches found.</p>
   <div id="project-list" class="project-list">{projects}</div>
@@ -921,6 +924,8 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
     assets = {
         "styles.css": (root / "site/styles.css").read_text(encoding="utf-8"),
         "catalog.js": runtime,
+        "cabinet.js": (root / "site/cabinet.js").read_text(encoding="utf-8"),
+        "cabinet.css": (root / "site/cabinet.css").read_text(encoding="utf-8"),
     }
     assets["tokens.css"] = (root / "site/design/tokens.css").read_text(encoding="utf-8")
     output.mkdir(parents=True, exist_ok=True)

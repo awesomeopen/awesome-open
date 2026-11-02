@@ -320,3 +320,12 @@ evidence control. Counts open native disclosures styled as plain underlined
 links, with marker-free overlays. Units stay in column headers and cache status
 stays in the evidence. Current display headings and the omitted coverage section
 are recorded in [B-PR234-01](decisions/B-PR234-01.md).
+
+## Experimental specimen cabinet
+
+The proposed cabinet ([B-PR250-01](decisions/B-PR250-01.md))
+described in the [cabinet contract](../site/WEBMCP-CABINET.md) sits within the Catalog as
+a folded white/Prussian instrument. Ordered ruled rows share human/native-tool
+state; a labeled scroll region contains the evidence comparison. Plain Earlier,
+Later and Remove controls retain keyboard/mobile access. Existing tokens, fonts
+and artwork remain unchanged.

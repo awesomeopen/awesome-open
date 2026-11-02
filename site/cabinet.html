@@ -1,0 +1,17 @@
+<details id="specimen-cabinet" class="specimen-cabinet" data-source-sha="__SOURCE_SHA__">
+ <summary><span class="cabinet-kicker">Experimental / WebMCP</span><span class="cabinet-title">Specimen cabinet</span><span id="cabinet-count">Up to six projects</span></summary>
+ <div class="cabinet-body">
+  <p>Collect projects, arrange them, and compare their evidence. Share the selection with a cabinet URL.</p>
+  <p id="cabinet-support">Enable JavaScript to use the experimental cabinet.</p>
+  <div id="cabinet-controls" hidden>
+   <ol id="cabinet-selection" class="cabinet-selection" aria-label="Selected projects"></ol>
+   <div class="cabinet-actions"><button id="cabinet-compare" type="button">Compare evidence</button><button id="cabinet-cancel" type="button" disabled>Cancel operation</button></div>
+   <p id="cabinet-status" role="status" aria-live="polite"></p>
+   <div id="cabinet-comparison" class="cabinet-comparison" role="region" aria-label="Evidence comparison" tabindex="0"></div>
+   <form id="cabinet-find"><label for="cabinet-query">Find projects for this cabinet</label><div class="cabinet-actions"><input id="cabinet-query" type="search" maxlength="160" autocomplete="off"><button type="submit">Find projects</button></div></form>
+   <ul id="cabinet-results" class="cabinet-results" aria-label="Cabinet search results"></ul>
+   <label for="cabinet-share">Share selection</label><div class="cabinet-actions"><input id="cabinet-share" readonly type="url"><button id="cabinet-copy" type="button">Copy URL</button></div>
+   <details class="cabinet-method"><summary>Activity &amp; method</summary><p>Activity records the latest 20 operations in this page. Selection URLs contain ordered project IDs; evidence comes from the published snapshot when opened. Unknown values retain their source status. GitHub license detection and reviewed alternatives link to their sources.</p><p>Native tools share these controls and results. A compatible browser agent supplies its own model and connection. This page displays tool activity only.</p><ol id="cabinet-activity" aria-label="Recent cabinet operations"></ol></details>
+  </div>
+ </div>
+</details>
