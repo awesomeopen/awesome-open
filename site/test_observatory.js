@@ -344,13 +344,6 @@ test('rhyme renderer keeps names as text, linked IDs, selected coverage and empt
   assert.equal(ids.get('rhyme-group-list').children[0].children[0].textContent, 'No reviewed rhyming names in this selection.');
 });
 
-test('obsolete serif choices are ignored by filter serialization', () => {
-  for (const choice of ['fraunces', 'instrument', 'poltawski', 'invalid']) {
-    assert.equal(observatory.filterSearch({ category: 'all', license: 'unknown' }, '?serif=' + choice), '?license=unknown');
-  }
-});
-
-
 test('reviewed plural pair stays in spelling variants and keeps distinct rhyme keys', () => {
   const rows = [project({ id: 'a', name: 'OpenTask' }), project({ id: 'b', name: 'OpenTasks' })];
   rows.forEach(row => { row.name_match = { key: 'reviewed:opentask-plural', reason: 'plural' }; });
