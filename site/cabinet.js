@@ -180,6 +180,7 @@
       const number = ++calls, revision = model.state().revision;
       log.unshift(number + ' · ' + actor + ' · ' + name + ' · running'); log.splice(20); logRender();
       $('cabinet-cancel').disabled = false;
+      message('Running: ' + name.replace('cabinet_', '') + '.');
       panel.open = true;
       const check = () => { if (controller.signal.aborted) throw new DOMException('Cancelled', 'AbortError'); };
       try {
@@ -205,7 +206,7 @@
           result = { ...model.state(), projects: comparison };
         } else throw Error('Unknown cabinet tool.');
         log[0] = number + ' · ' + actor + ' · ' + name + ' · completed';
-        message('Completed: ' + name.replace('cabinet_', '') + '.');
+        message(name === 'cabinet_find' ? 'Found ' + result.total + ' projects; showing ' + result.projects.length + '.' : 'Completed: ' + name.replace('cabinet_', '') + '.');
         return result;
       } catch (error) {
         const cancelled = controller.signal.aborted;

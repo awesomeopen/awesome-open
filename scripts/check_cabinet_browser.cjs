@@ -48,6 +48,7 @@ const fs = require('node:fs');
   let release, started;const waiting=new Promise(resolve=>started=resolve);
   await other.route('**/catalog.json',async route=>{started();await new Promise(resolve=>release=resolve);await route.abort();});
   await other.locator('#cabinet-compare').click();await waiting;
+  assert.match(await other.locator('#cabinet-status').textContent(),/Running: compare/);
   await other.locator('#cabinet-cancel').click();release();
   await other.waitForFunction(()=>document.querySelector('#cabinet-status').textContent.includes('Cancelled'));
   assert.deepEqual((await call('cabinet_find',{query:''},other)).ids,shared.ids);
