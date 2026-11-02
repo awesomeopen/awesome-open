@@ -17,7 +17,6 @@
 .deployment-group h5 {font:14px/1.5 var(--mono);margin-bottom:12px;}
 .deployment-group ul {padding-left:20px;}
 .deployment-group li {margin-bottom:16px;}
-.deployment-group p {font-size:14px;line-height:1.55;}
 .deployment-group .fine-print {font-size:12px;}
 
 /* Retro-Scraperism */
@@ -161,10 +160,6 @@ summary::marker {
   padding:16px 32px 64px;
   align-items:start;
 }
-.sidebar {
-  position:sticky;
-  top:24px;
-}
 .category-panel>summary {
   font:13px var(--mono);
   text-transform:uppercase;
@@ -226,20 +221,6 @@ summary::marker {
 }
 .catalog-main:focus:not(:focus-visible) {
   outline:none;
-}
-h1 {
-  font-size:clamp(32px,3.5vw,52px);
-  font-weight:550;
-  line-height:1.08;
-  letter-spacing:-.04em;
-  margin-top:8px;
-}
-h1>span {
-  color:var(--accent);
-}
-.catalog-toolbar {
-  border-top:2px solid var(--ink);
-  border-bottom:1px solid var(--ink);
 }
 .search-field {
   padding:16px 0;
@@ -383,9 +364,6 @@ h1>span {
   overflow-wrap:anywhere;
   letter-spacing:-.02em;
 }
-.name-prefix,.name-stem {
-  font:inherit;
-}
 .description {
   font-size:15px;
   line-height:1.5;
@@ -523,9 +501,6 @@ h1>span {
     padding:12px 20px;
     gap:16px;
   }
-  .header-links {
-    gap:16px;
-  }
   .layout {
     display:block;
     padding:20px;
@@ -551,10 +526,6 @@ h1>span {
   .ledger-columns {
     display:none;
   }
-  .specimen-drawer>summary {
-    grid-template-columns:28px minmax(0,1fr) 24px;
-    gap:8px 12px;
-  }
   .folio {
     grid-column:1;
     grid-row:1;
@@ -567,24 +538,6 @@ h1>span {
     grid-column:3;
     grid-row:1;
   }
-  .description {
-    grid-column:2 / 4;
-    grid-row:2;
-  }
-  .license-readout {
-    grid-column:2 / 4;
-    grid-row:3;
-  }
-  .license-readout::before {
-    content:'License: ';
-  }
-  .specimen-interior {
-    grid-template-columns:1fr;
-    padding:20px 8px;
-  }
-  .specimen-art {
-    max-width:240px;
-  }
   .diagnostic-filters {
     grid-template-columns:1fr;
     gap:12px;
@@ -595,9 +548,6 @@ h1>span {
   .colophon {
     grid-template-columns:1fr;
     gap:16px;
-  }
-  .specimen-name {
-    font-size:22px;
   }
   .site-header {
     flex-wrap:wrap;
@@ -619,12 +569,6 @@ h1>span {
   .sort-field select {
     max-width:145px;
   }
-  .category-nav {
-    grid-template-columns:1fr;
-  }
-  .leader-key {
-    font-size:13px;
-  }
 }
 @media(prefers-reduced-motion:reduce) {
   html {
@@ -635,14 +579,6 @@ h1>span {
   }
 }
 
-.filter-options > summary {
-  display: flex;
-  justify-content: space-between;
-  min-height: 44px;
-  padding: 12px 0;
-  border-top: 1px solid var(--rule);
-  font: 13px/1.5 var(--mono);
-}
 .filter-options[open] > summary > span {
   transform: rotate(45deg);
 }
@@ -667,21 +603,16 @@ h1 { font-size:28px; margin:0; }
 .category-nav, .filter-body { width:calc(200% + 12px); padding:12px 0; }
 .category-nav { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0 20px; max-height:50vh; }
 .filter-body { margin-left:calc(-100% - 12px); }
-.results-heading { margin:8px 0; }
 .result-actions { display:flex; align-items:center; gap:16px; }
 #clear-filters { font-size:12px; padding:4px 8px; }
 .leader-key { margin-bottom:12px; }
 @media(max-width:900px) {
   .category-nav { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .layout { padding-top:12px; }
-  .header-links { gap:16px; }
 }
 @media(max-width:720px) {
-  .site-header { gap:8px 16px; }
-  .brand { font-size:22px; }
   .header-search { order:3; max-width:none; flex-basis:100%; }
   .header-links { width:auto; margin-left:auto; font-size:12px; gap:12px; }
-  .header-links a:first-child { display:none; }
   .category-nav { grid-template-columns:1fr; }
   .results-heading { flex-wrap:wrap; }
   .result-actions { gap:8px; margin-left:auto; }
@@ -690,7 +621,6 @@ h1 { font-size:28px; margin:0; }
 
 /* Compact production ledger */
 .results-heading { justify-content:flex-end; }
-.header-links a:first-child { display:inline; }
 .leader-label { display:none; }
 .description { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .license-readout { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -699,7 +629,6 @@ h1 { font-size:28px; margin:0; }
 .colophon li { margin:4px 0; }
 .colophon .coverage-notes { margin-top:24px; }
 @media(max-width:720px) {
-  .specimen-drawer > summary { grid-template-columns:28px minmax(0,1fr) 24px; }
   .specimen-drawer > summary > .description, .specimen-drawer > summary > .license-readout { display:none; }
 }
 
@@ -723,7 +652,6 @@ h1 { font-size:28px; margin:0; }
 .specimen-links a {font:14px/1.5 var(--mono);padding:8px 0;margin:0;}
 .sheet-label {display:block;font:12px/1.5 var(--mono);color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
 .record-description {font:500 clamp(25px,2.5vw,36px)/1.16 var(--sans);letter-spacing:-.025em;color:var(--rs-blueprint);max-width:34ch;margin-bottom:32px;overflow-wrap:anywhere;}
-.optional-signals {display:contents;}
 .without-art {grid-template-columns:minmax(180px,.5fr) minmax(0,2fr);}
 @media(max-width:720px) {
   .specimen-interior,.specimen-interior.without-art {grid-template-columns:1fr;padding:24px 12px 32px;gap:28px;}
@@ -746,7 +674,6 @@ h1 { font-size:28px; margin:0; }
 /* Reviewed Function prose supplements the concise ledger headline. */
 .function-detail>p {font:18px/1.6 var(--sans);overflow-wrap:anywhere;}
 .function-detail .function-provenance {font:12px/1.6 var(--mono);color:var(--muted);margin-top:12px;}
-@media(max-width:720px){.function-detail>p {font-size:17px;}.function-detail .function-provenance{font-size:12px;}}
 
 
 /* The text stays on solid blue / pattern; transparent creatures occupy the footer floor. */
