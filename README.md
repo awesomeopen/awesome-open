@@ -67,7 +67,7 @@
 | [OpenEnv](https://github.com/openenv/OpenEnv) | Framework for creating and deploying execution environments for agentic reinforcement learning through a Gymnasium-style API. <!-- STATS:START --><br><sub>2025-10-01 -- 2026-11-03 / BSD-3-Clause / 2.8k</sub><!-- STATS:END --> |
 | [OpenFace](https://github.com/cmusatyalab/openface) | Face recognition with deep neural networks. <!-- STATS:START --><br><sub>2015-09-16 -- 2026-10-30 / Apache-2.0 / 15.4k</sub><!-- STATS:END --> |
 | [OpenFang](https://github.com/RightNow-AI/openfang) | Rust runtime for autonomous AI agents with scheduled tasks, persistent memory, messaging integrations, and a web dashboard. <!-- STATS:START --><br><sub>2026-02-24 -- 2026-07-02 / Apache-2.0 / 18.2k</sub><!-- STATS:END --> |
-| [OpenFeed](https://github.com/noemauser/OpenFeed) | Python library and command-line tools for exchanging searchable knowledge packs and messages among AI agents. <!-- STATS:START --><br><sub>2026-10-11 -- 2026-10-12 / MIT / 0 / Metrics stale; last success 2026-10-31T23:49:59Z; unavailable at 2026-11-03T07:55:09Z (HTTP 404)</sub><!-- STATS:END --> |
+| [OpenFeed](https://github.com/noemauser/OpenFeed) | Python library and command-line tools for exchanging searchable knowledge packs and messages among AI agents. <!-- STATS:START --><br><sub>2026-10-11 -- 2026-10-12 / MIT / 0 / Metrics stale; last success 2026-10-31T23:49:59Z; unavailable at 2026-11-03T08:00:22Z (HTTP 404)</sub><!-- STATS:END --> |
 | [OpenFoundry](https://github.com/bsamud/openfoundry-agentic-framework) | AI-agent orchestration framework with DAG workflows, model routing, guardrails, and observability. <!-- STATS:START --><br><sub>2026-01-09 -- 2026-03-28 / MIT / 33</sub><!-- STATS:END --> |
 | [OpenFox](https://github.com/co-l/openfox) | Coding assistant for local language models with planning, implementation, and verification workflows. <!-- STATS:START --><br><sub>2026-03-11 -- 2026-10-05 / 370</sub><!-- STATS:END --> |
 | [Opengeni](https://github.com/Cloudgeni-ai/opengeni) | Service for running AI agents with durable sessions, replayable histories, human approvals, and managed execution environments. <!-- STATS:START --><br><sub>2026-04-16 -- 2026-11-03 / Apache-2.0 / 214</sub><!-- STATS:END --> |
@@ -591,7 +591,7 @@
 | [OpenVat](https://github.com/tylerebowers/OpenVat) | Resin 3D-printing slicer with model editing, support generation, printer profiles, and Anycubic file export. <!-- STATS:START --><br><sub>2026-10-09 -- 2026-10-28 / GPL-3.0 / 1</sub><!-- STATS:END --> |
 | [OpenVnmrJ](https://github.com/OpenVnmrJ/OpenVnmrJ) | NMR spectrometer operation and data analysis. <!-- STATS:START --><br><sub>2016-01-21 -- 2026-10-22 / Apache-2.0 / 41</sub><!-- STATS:END --> |
 | [OpenVolumeMesh](https://github.com/OpenVolumeMesh/OpenVolumeMesh) | C++ library for representing and traversing polyhedral, tetrahedral, and hexahedral meshes. <!-- STATS:START --><br><sub>2022-02-19 -- 2026-10-23 / 13</sub><!-- STATS:END --> |
-| [OpenVSP](https://github.com/OpenVSP/OpenVSP) | Parametric aircraft geometry modeling. <!-- STATS:START --><br><sub>2012-01-14 -- 2026-10-30 / 880</sub><!-- STATS:END --> |
+| [OpenVSP](https://github.com/OpenVSP/OpenVSP) | Parametric aircraft geometry modeling. <!-- STATS:START --><br><sub>2012-01-14 -- 2026-10-30 / 881</sub><!-- STATS:END --> |
 
 ## Maps & Geospatial
 
