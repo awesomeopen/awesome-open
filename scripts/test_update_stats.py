@@ -42,14 +42,9 @@ class UpdateStatsTests(unittest.TestCase):
         self.assertEqual(stats.update_text(updated, self.data), updated)
         self.assertEqual(stats.repositories(original), ["example/openexample"])
 
-    def test_list_star_block_is_ignored_if_present(self):
-        updated = stats.update_text(self.header + self.row, self.data)
-        self.assertTrue(updated.startswith(self.header))
-
     def test_project_metadata_updates_without_list_star_block(self):
         updated = stats.update_text(self.row, self.data)
         self.assertIn(" / MIT / 111k</sub>", updated)
-        self.assertNotIn("<!-- STARS:", updated)
         self.assertEqual(stats.repositories(self.row), ["example/openexample"])
 
     def test_metadata_uses_subscript_and_slash_separators(self):

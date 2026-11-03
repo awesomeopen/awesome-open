@@ -117,7 +117,6 @@ class DeploymentTests(unittest.TestCase):
         approved = sum(1 for r in document['projects'].values() if r['review_status'] == 'approved')
         with patch('socket.create_connection', side_effect=AssertionError('Offline build attempted network')):
             output, catalog = baseline_site()
-            if catalog is None: catalog = json.loads((output / 'catalog.json').read_text())
             reviewed = [p for p in catalog['projects'] if p.get('deployment')]
             self.assertEqual(len(reviewed), approved)
             expected_function_urls = {'https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad'}

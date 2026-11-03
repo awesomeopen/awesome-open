@@ -227,10 +227,8 @@ class StateTests(unittest.TestCase):
         self.assertEqual(len(job.validate_state(state, catalog_ids=set(), evidence_ids=set())), 2)
 
     def test_checked_in_initial_ledger_is_valid(self):
-        for path in (Path(__file__).resolve().parents[1] / "state/deployment-evidence-backfill.json",
-                     Path(__file__).resolve().parents[1] / job.STATE_PATH):
-            if path.exists():
-                self.assertEqual(job.validate_state(json.loads(path.read_text())), [])
+        path = Path(__file__).resolve().parents[1] / job.STATE_PATH
+        self.assertEqual(job.validate_state(json.loads(path.read_text())), [])
 
 
 class CliTests(unittest.TestCase):

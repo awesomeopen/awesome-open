@@ -17,12 +17,12 @@ ALGORITHM = 'cached-competition-ranks-v1'
 INPUTS = ('README.source.md', 'data/github_metrics.json', 'data/alternatives.json',
           'data/hn_evidence.json', 'data/project_signals.json', 'data/project_history.json')
 METRICS = (
-    ('oldest-repository', 'Oldest repository', 'days', 'desc'),
-    ('release-push-gap', 'Longest release-to-push gap', 'days', 'desc'),
-    ('software-renames', 'Most recorded software renames', 'renames', 'desc'),
-    ('hn-streak', 'Longest matched HN story-day streak', 'days', 'desc'),
-    ('hn-stories', 'Most matched HN stories', 'stories', 'desc'),
-    ('github-stars', 'Most cached GitHub stars', 'stars', 'desc'),
+    ('oldest-repository', 'Oldest repository', 'days'),
+    ('release-push-gap', 'Longest release-to-push gap', 'days'),
+    ('software-renames', 'Most recorded software renames', 'renames'),
+    ('hn-streak', 'Longest matched HN story-day streak', 'days'),
+    ('hn-stories', 'Most matched HN stories', 'stories'),
+    ('github-stars', 'Most cached GitHub stars', 'stars'),
 )
 
 
@@ -138,7 +138,7 @@ def snapshot(catalog, evidence, today, source_sha=None, input_hashes=None, recor
                 days, first, last = longest_streak(stories.values(), start, end)
                 if days:
                     add('hn-streak', p, days, {**provenance, 'first_day': first, 'last_day': last})
-    result = {'schema_version': 1, 'algorithm': ALGORITHM, 'timezone': TIMEZONE,
+    result = {'schema_version': 2, 'algorithm': ALGORITHM, 'timezone': TIMEZONE,
               'week': monday(today).isoformat(), 'recorded_on': today.isoformat(),
               'metrics_as_of': catalog['metrics_as_of'], 'source_sha': source_sha,
               'input_hashes': input_hashes or {}, 'catalog_count': len(catalog['projects']),
@@ -146,8 +146,7 @@ def snapshot(catalog, evidence, today, source_sha=None, input_hashes=None, recor
                             'covered_count': hn_covered, 'url_only_count': url_only},
               'metrics': [{'id': key, 'title': title, 'unit': unit,
                            'eligible_count': len(rows[key]), 'rows': ranked(rows[key])}
-                          for key, title, unit, _ in METRICS]}
-    result['schema_version'] = 2
+                          for key, title, unit in METRICS]}
     result['recorded_at'] = recorded_at
     eligible_ids = {row['id'] for metric_rows in rows.values() for row in metric_rows}
     result['history_projects'] = {p['id']: {'name': p['name'], 'url': p['url']}
@@ -180,7 +179,7 @@ def validate(doc):
         raise ValueError('Invalid scoreboard HN coverage')
     if [m['id'] for m in doc['metrics']] != [m[0] for m in METRICS]:
         raise ValueError('Invalid scoreboard metric set')
-    for metric, (_, title, unit, _) in zip(doc['metrics'], METRICS):
+    for metric, (_, title, unit) in zip(doc['metrics'], METRICS):
         rows = metric['rows']
         if metric['title'] != title or metric['unit'] != unit:
             raise ValueError('Invalid scoreboard metric definition')
@@ -398,7 +397,7 @@ def validate_history(doc):
             except (ValueError, TypeError, AttributeError) as error:
                 raise ValueError('Invalid scoreboard recording instant') from error
         synthetic.update(schema_version=1, algorithm=ALGORITHM, timezone=TIMEZONE, metrics=[])
-        for key, title, unit, _ in METRICS:
+        for key, title, unit in METRICS:
             metric = observation['metrics'][key]
             if (not isinstance(metric, dict) or set(metric) != {'eligible_count', 'points'}
                     or type(metric['eligible_count']) is not int
