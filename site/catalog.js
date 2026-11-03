@@ -981,13 +981,11 @@
     if (headerSearch) headerSearch.hidden = false;
     filters.dataset.enhanced = "true";
     filters.hidden = false;
-    document.documentElement.classList.add("catalog-enhanced");
     return true;
   }
 
   return {
     DEFAULTS: DEFAULTS,
-    fold: fold,
     validDate: validDate,
     licenseOf: licenseOf,
     starsOf: starsOf,
@@ -1002,7 +1000,6 @@
     comparator: comparator,
     selectProjects: selectProjects,
     stateToURL: stateToURL,
-    plateRings: plateRings,
     init: init
   };
 });
