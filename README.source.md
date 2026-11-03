@@ -60,6 +60,8 @@
 | [Open Deep Research](https://github.com/langchain-ai/open_deep_research) | Configurable research agent supporting multiple model providers, search tools, and MCP servers. |
 | [Open Dot](https://github.com/composio-community/open-dot) | Mac application for persistent personal AI agents with browsers, app integrations, and scheduled tasks. |
 | [OpenDots](https://github.com/CopilotKit/OpenDots) | Self-hostable template for persistent AI agents with individual computers, document workspaces, text, calls, and Slack. |
+| [Open Duet](https://github.com/Anil-matcha/open-duet) | Workspace for AI-agent teams with persistent memory, scheduled routines, shared tasks, and configurable model engines. |
+| [OpenDuet](https://github.com/CopilotKit/OpenDuet) | Self-hosted proactive AI assistant with email and calendar briefs, scheduled tasks, and a browser workspace. |
 | [OpenEnv](https://github.com/openenv/OpenEnv) | Framework for creating and deploying execution environments for agentic reinforcement learning through a Gymnasium-style API. |
 | [OpenFace](https://github.com/cmusatyalab/openface) | Face recognition with deep neural networks. |
 | [OpenFang](https://github.com/RightNow-AI/openfang) | Rust runtime for autonomous AI agents with scheduled tasks, persistent memory, messaging integrations, and a web dashboard. |
