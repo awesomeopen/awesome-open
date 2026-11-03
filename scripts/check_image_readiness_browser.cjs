@@ -53,6 +53,4 @@ module.exports = async function checkImageReadiness({ browser, context, url }) {
     const ready = await waitForImageReady(staticPage, 'img');
     assert.ok(ready.currentSrc.endsWith('/small.svg'), 'Node polling works without page JavaScript');
   } finally { await noJS.close(); }
-  return { responsiveUpsize: true, replacedDecode: true, brokenImageFails: true,
-    stalledDecodeBounded: true, noJavaScript: true };
 };

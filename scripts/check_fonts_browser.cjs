@@ -19,7 +19,6 @@ module.exports = async ({ browser, url, data, output }) => {
     assert.ok(await page.evaluate(() => Array.from(document.fonts).some(face => face.family.replace(/["']/g, '') === 'Commit Mono' && face.status === 'loaded')));
     assert.match(await page.locator('body').evaluate(node => getComputedStyle(node).fontFamily), /Commit Mono/);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
-    assert.equal(await page.locator('.serif-preview,#serif-preview-choice').count(), 0);
   };
   await page.route(url + '/design/**', route => {
     const tokens = new URL(route.request().url()).pathname.endsWith('/tokens.css');

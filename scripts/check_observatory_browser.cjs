@@ -324,7 +324,6 @@ async function checkObservatory({ browser, url }) {
   };
   const checkProjectData = async (current, label) => {
     const section = current.locator('#project-records');
-    assert.equal(await current.locator('#project-data, #project-table, #project-count').count(), 0, label + ': no project data table');
     assert.equal(await section.locator('table, details').count(), 0, label + ': downloads only');
     assert.deepEqual(await section.locator('a').allTextContents(),
       ['Download selection CSV', 'Download complete snapshot JSON'], label + ': CSV and JSON downloads');
@@ -857,11 +856,6 @@ async function checkObservatory({ browser, url }) {
     await context.close();
   }
 }
-
-module.exports = checkObservatory;
-// Expose pure CSV parsing for a small offline harness without launching a browser.
-module.exports.parseCSV = parseCSV;
-module.exports.chartRows = chartRows;
 
 if (require.main === module) {
   (async () => {

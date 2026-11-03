@@ -111,7 +111,7 @@ async function waitForImageReady(page, selector, { timeoutMs = 5000, layoutSelec
   }
 }
 
-async function waitForSpecimenLayout(page, selector = '.specimen-plate', noJavaScript = false) {
+async function waitForSpecimenLayout(page, selector = '.specimen-plate') {
   await page.evaluate(() => document.fonts.ready);
   return waitForImageReady(page, selector + ' .plate-art img', { layoutSelector: selector });
 }
@@ -178,7 +178,7 @@ async function captureSpecimen(page, filename) {
 }
 
 module.exports = async function checkSpecimenBounds({ browser, context, url, data }) {
-  const readinessControls = await require('./check_image_readiness_browser.cjs')({ browser, context, url });
+  await require('./check_image_readiness_browser.cjs')({ browser, context, url });
   const cutouts = JSON.parse(fs.readFileSync(path.join(__dirname, '../site/specimens/cutouts.json'), 'utf8')).cutouts;
   const projects = data.projects.filter(p => p.artwork && cutouts[p.id]);
   projects.sort((a, b) => {
@@ -309,14 +309,10 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
     const staticPage = await noJS.newPage();
     await staticPage.goto(new URL(`records/${cases[0].id}.html`, url).href);
     await waitForImageReady(staticPage, '.plate-art img');
-    // requestAnimationFrame polling is unavailable in a JavaScript-disabled context.
-    // Poll the same readiness condition instead; geometry assertions stay identical.
-    await waitForSpecimenLayout(staticPage, '.specimen-plate', true);
+    await waitForSpecimenLayout(staticPage, '.specimen-plate');
     assertGeometry(await measure(staticPage), 'No-JS static record');
     await staticPage.emulateMedia({ media: 'print' });
-    // requestAnimationFrame polling is unavailable in a JavaScript-disabled context.
-    // Poll the same readiness condition instead; geometry assertions stay identical.
-    await waitForSpecimenLayout(staticPage, '.specimen-plate', true);
+    await waitForSpecimenLayout(staticPage, '.specimen-plate');
     assertGeometry(await measure(staticPage), 'Printed no-JS static record');
   } finally { await noJS.close(); }
   const touch = await browser.newContext({ hasTouch: true, viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
@@ -329,7 +325,7 @@ module.exports = async function checkSpecimenBounds({ browser, context, url, dat
     await touchPage.locator('.plate-stage').tap();
     assert.equal(await touchPage.locator('.plate-lens').evaluate(n => n.classList.contains('is-on')), false, 'Second tap closes loupe');
   } finally { await touch.close(); }
-  return { cases: results, screenshots, readinessControls, noJS: true, print: true, touch: true };
+  return { cases: results, screenshots, noJS: true, print: true, touch: true };
 };
 
 module.exports.stableLayoutSample = stableLayoutSample;
@@ -337,5 +333,4 @@ module.exports.assertGeometry = assertGeometry;
 
 module.exports.waitForSpecimenLayout = waitForSpecimenLayout;
 
-module.exports.imageReadinessSample = imageReadinessSample;
 module.exports.waitForImageReady = waitForImageReady;
