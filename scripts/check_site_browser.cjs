@@ -486,116 +486,161 @@ const path = require('node:path');
     await page.evaluate(() => document.documentElement.style.fontSize = '200%');
     await assertLedgerFits(page, '200% root text size');
 
-    // Expanded content must remain usable across the former two-column breakpoint.
-    // Checking only page overflow misses zero-width diagnostics hidden by clipping.
-    const tofu = data.projects.find(project => project.url === 'https://github.com/opentofu/opentofu');
-    assert.ok(tofu?.hn && tofu.star_history?.chart_url && tofu.deployment && tofu.function_summary,
-      'OpenTofu covers Function, both cached charts, and reviewed setup');
-    for (const width of [320, 390, 900, 901, 1024, 1180, 1200, 1201, 1440]) {
-      await page.setViewportSize({ width, height: 1000 });
-      const expandedURL = new URL(url);
-      expandedURL.searchParams.set('q', tofu.name);
-      expandedURL.hash = '#project-' + tofu.id;
-      await page.goto(expandedURL.href);
-      await waitForState();
-      const card = page.locator('#project-' + tofu.id);
-      const drawer = card.locator('.specimen-drawer');
-      assert.equal(await drawer.evaluate(node => node.open), true);
-      await waitForPlate(card);
-      const catalogWidth = await page.locator('#catalog').evaluate(node => node.getBoundingClientRect().width);
-      assert.ok(catalogWidth >= width - 100, `Catalog uses available width at ${width}px`);
-      const diagnostics = card.locator('.plate-grid');
-      assert.ok(await diagnostics.evaluate(node => node.getBoundingClientRect().width) >= 200,
-        `Readable diagnostics at ${width}px`);
-      assert.equal(await card.locator('.function-detail > p').first().textContent(), tofu.function_summary.text);
-      for (const selector of ['[data-signal="hn"] .pg-spark', '[data-signal="star-history"] .pg-spark']) {
-        const chart = card.locator(selector);
-        await chart.scrollIntoViewIfNeeded();
-        await chart.evaluate(image => image.decode());
-        assert.equal(await chart.isVisible(), true, `Visible ${selector} at ${width}px`);
-        assert.ok(await chart.evaluate(image => image.complete && image.naturalWidth === 120 &&
-          image.getBoundingClientRect().width >= 120 && image.getBoundingClientRect().height >= 24),
-          `Loaded, non-collapsed ${selector} at ${width}px`);
+    // Real renderers supply fixed evidence only to this page's intercepted requests.
+    const installEvidence = require('./browser_evidence_fixture.cjs');
+    report.evidenceFixtures = { synthetic: true, fixedWindowEnd: '2026-10-01',
+      states: ['complete', 'empty', 'partial', 'unavailable', 'rollover'] };
+    {
+      const fixture = await installEvidence(page, url, 'complete');
+      const data = fixture.data;
+      try {
+        // Expanded content must remain usable across the former two-column breakpoint.
+        // Checking only page overflow misses zero-width diagnostics hidden by clipping.
+        const tofu = data.projects.find(project => project.url === 'https://github.com/opentofu/opentofu');
+        assert.ok(tofu?.hn && tofu.star_history?.chart_url && tofu.deployment && tofu.function_summary,
+          'OpenTofu covers Function, both cached charts, and reviewed setup');
+        for (const width of [320, 390, 900, 901, 1024, 1180, 1200, 1201, 1440]) {
+          await page.setViewportSize({ width, height: 1000 });
+          const expandedURL = new URL(url);
+          expandedURL.searchParams.set('q', tofu.name);
+          expandedURL.hash = '#project-' + tofu.id;
+          await page.goto(expandedURL.href);
+          await waitForState();
+          const card = page.locator('#project-' + tofu.id);
+          const drawer = card.locator('.specimen-drawer');
+          assert.equal(await drawer.evaluate(node => node.open), true);
+          await waitForPlate(card);
+          const catalogWidth = await page.locator('#catalog').evaluate(node => node.getBoundingClientRect().width);
+          assert.ok(catalogWidth >= width - 100, `Catalog uses available width at ${width}px`);
+          const diagnostics = card.locator('.plate-grid');
+          assert.ok(await diagnostics.evaluate(node => node.getBoundingClientRect().width) >= 200,
+            `Readable diagnostics at ${width}px`);
+          assert.equal(await card.locator('.function-detail > p').first().textContent(), tofu.function_summary.text);
+          for (const selector of ['[data-signal="hn"] .pg-spark', '[data-signal="star-history"] .pg-spark']) {
+            const chart = card.locator(selector);
+            await chart.scrollIntoViewIfNeeded();
+            await chart.evaluate(image => image.decode());
+            assert.equal(await chart.isVisible(), true, `Visible ${selector} at ${width}px`);
+            assert.ok(await chart.evaluate(image => image.complete && image.naturalWidth === 120 &&
+              image.getBoundingClientRect().width >= 120 && image.getBoundingClientRect().height >= 24),
+              `Loaded, non-collapsed ${selector} at ${width}px`);
+          }
+          const setup = card.locator('.pg-runs .pg-info');
+          await setup.locator(':scope > summary').click();
+          assert.equal(await setup.evaluate(node => node.open), true);
+          assert.equal(await setup.locator('.deployment-group').first().isVisible(), true);
+          await assertLedgerFits(page, `expanded OpenTofu at ${width}px`);
+          // A row label names its whole row and may run past its first box over the
+          // lane above the row; it is measured against the grid instead of the box.
+          const clipped = await card.locator('.specimen-interior, .plate-grid, .function-detail, .pg-box, .pg-pop, .deployment-group')
+            .evaluateAll(nodes => {
+              const labels = [...document.querySelectorAll('.pg-box > .sheet-label')];
+              labels.forEach(label => { label.style.display = 'none'; });
+              const result = nodes.filter(node => {
+                const rect = node.getBoundingClientRect();
+                return rect.width <= 0 || rect.left < -1 || rect.right > innerWidth + 1 || node.scrollWidth > node.clientWidth + 1;
+              }).map(node => node.className);
+              labels.forEach(label => { label.style.display = ''; });
+              return result;
+            });
+          assert.deepEqual(clipped, [], `Expanded sections fit at ${width}px`);
+          const rowLabels = await card.locator('.pg-box > .sheet-label').evaluateAll(labels => labels.filter(label => {
+            const rect = label.getBoundingClientRect(), grid = label.closest('.plate-grid').getBoundingClientRect();
+            return rect.width <= 0 || rect.left < grid.left - 1 || rect.right > grid.right + 1;
+          }).map(label => label.textContent));
+          assert.deepEqual(rowLabels, [], `Row labels stay inside the grid at ${width}px`);
+          await diagnostics.scrollIntoViewIfNeeded();
+          await capture(`expanded-opentofu-${width}.png`);
+          await setup.locator(':scope > summary').click();
+          assert.equal(await setup.evaluate(node => node.open), false);
+          await drawer.locator(':scope > summary').click();
+          assert.equal(await diagnostics.isVisible(), false);
+          await drawer.locator(':scope > summary').click();
+          assert.equal(await diagnostics.isVisible(), true);
+        }
+
+        // Sparse verified histories use the same search link as larger histories.
+        const singleton = data.projects.find(p => p.hn?.total_stories === 1);
+        const multiple = data.projects.find(p => p.hn?.total_stories > 1);
+        assert.ok(singleton && multiple, 'Fixed sparse and multiple-story evidence');
+        for (const width of [1440, 390]) {
+          await page.setViewportSize({ width, height: 1000 });
+          const sparseURL = new URL(url);
+          sparseURL.hash = '#project-' + singleton.id;
+          await page.goto(sparseURL.href);
+          await waitForState();
+          const sparseCard = page.locator('#project-' + singleton.id);
+          await waitForPlate(sparseCard);
+          const sparseBox = sparseCard.locator('[data-signal="hn"]');
+          const image = sparseBox.locator('.pg-spark');
+          await image.scrollIntoViewIfNeeded();
+          await image.evaluate(node => node.decode());
+          assert.ok(await image.isVisible());
+          assert.equal(await sparseBox.locator('.pg-spark-link').getAttribute('href'), singleton.hn.search_url);
+          assert.equal(new URL(singleton.hn.search_url).hostname, 'hn.algolia.com');
+          assert.match(await sparseBox.textContent(), /1 submission \/ past 2y/);
+          await capture(`hn-single-story-${width}.png`);
+          await page.goto(new URL('records/' + multiple.id + '.html', url + '/').href);
+          const multipleBox = page.locator('[data-signal="hn"]');
+          await multipleBox.locator('.pg-spark').scrollIntoViewIfNeeded();
+          await multipleBox.locator('.pg-spark').evaluate(node => node.decode());
+          assert.ok(await multipleBox.locator('.pg-spark').isVisible());
+          assert.equal(await multipleBox.locator('.pg-spark-link').getAttribute('href'), multiple.hn.search_url);
+        }
+
+        // Compact chart becomes the expanded chart when the drawer opens.
+        await page.setViewportSize({ width: 1440, height: 1000 });
+        await page.goto(url);
+        await waitForState();
+        assert.equal(await page.locator('.hero, .reading-room, .collection-band').count(), 0);
+        assert.equal(await page.locator('.specimen-caption h3').count(), 0);
+        const traced = data.projects.find(p => p.hn);
+        const tracedCard = page.locator('#project-' + traced.id);
+        assert.ok(await tracedCard.locator('.name-sparkline').isVisible());
+        await tracedCard.locator('.name-sparkline').evaluate(image => image.decode());
+        await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = true; });
+        await waitForPlate(tracedCard);
+        assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
+        assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
+        await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
+
+      } finally {
+        await fixture.dispose();
       }
-      const setup = card.locator('.pg-runs .pg-info');
-      await setup.locator(':scope > summary').click();
-      assert.equal(await setup.evaluate(node => node.open), true);
-      assert.equal(await setup.locator('.deployment-group').first().isVisible(), true);
-      await assertLedgerFits(page, `expanded OpenTofu at ${width}px`);
-      // A row label names its whole row and may run past its first box over the
-      // lane above the row; it is measured against the grid instead of the box.
-      const clipped = await card.locator('.specimen-interior, .plate-grid, .function-detail, .pg-box, .pg-pop, .deployment-group')
-        .evaluateAll(nodes => {
-          const labels = [...document.querySelectorAll('.pg-box > .sheet-label')];
-          labels.forEach(label => { label.style.display = 'none'; });
-          const result = nodes.filter(node => {
-            const rect = node.getBoundingClientRect();
-            return rect.width <= 0 || rect.left < -1 || rect.right > innerWidth + 1 || node.scrollWidth > node.clientWidth + 1;
-          }).map(node => node.className);
-          labels.forEach(label => { label.style.display = ''; });
-          return result;
-        });
-      assert.deepEqual(clipped, [], `Expanded sections fit at ${width}px`);
-      const rowLabels = await card.locator('.pg-box > .sheet-label').evaluateAll(labels => labels.filter(label => {
-        const rect = label.getBoundingClientRect(), grid = label.closest('.plate-grid').getBoundingClientRect();
-        return rect.width <= 0 || rect.left < grid.left - 1 || rect.right > grid.right + 1;
-      }).map(label => label.textContent));
-      assert.deepEqual(rowLabels, [], `Row labels stay inside the grid at ${width}px`);
-      await diagnostics.scrollIntoViewIfNeeded();
-      await capture(`expanded-opentofu-${width}.png`);
-      await setup.locator(':scope > summary').click();
-      assert.equal(await setup.evaluate(node => node.open), false);
-      await drawer.locator(':scope > summary').click();
-      assert.equal(await diagnostics.isVisible(), false);
-      await drawer.locator(':scope > summary').click();
-      assert.equal(await diagnostics.isVisible(), true);
     }
-
-    // Sparse verified histories use the same search link as larger histories.
-    const singleton = data.projects.find(p => p.hn?.total_stories === 1);
-    const multiple = data.projects.find(p => p.hn?.total_stories > 1);
-    // Collection windows may legitimately contain no singleton; offline fixtures
-    // cover the policy independently of current public evidence.
-    if (singleton && multiple) for (const width of [1440, 390]) {
-      await page.setViewportSize({ width, height: 1000 });
-      const sparseURL = new URL(url);
-      sparseURL.hash = '#project-' + singleton.id;
-      await page.goto(sparseURL.href);
-      await waitForState();
-      const sparseCard = page.locator('#project-' + singleton.id);
-      await waitForPlate(sparseCard);
-      const sparseBox = sparseCard.locator('[data-signal="hn"]');
-      const image = sparseBox.locator('.pg-spark');
-      await image.scrollIntoViewIfNeeded();
-      await image.evaluate(node => node.decode());
-      assert.ok(await image.isVisible());
-      assert.equal(await sparseBox.locator('.pg-spark-link').getAttribute('href'), singleton.hn.search_url);
-      assert.equal(new URL(singleton.hn.search_url).hostname, 'hn.algolia.com');
-      assert.match(await sparseBox.textContent(), /1 submission \/ past 2y/);
-      await capture(`hn-single-story-${width}.png`);
-      await page.goto(new URL('records/' + multiple.id + '.html', url + '/').href);
-      const multipleBox = page.locator('[data-signal="hn"]');
-      await multipleBox.locator('.pg-spark').scrollIntoViewIfNeeded();
-      await multipleBox.locator('.pg-spark').evaluate(node => node.decode());
-      assert.ok(await multipleBox.locator('.pg-spark').isVisible());
-      assert.equal(await multipleBox.locator('.pg-spark-link').getAttribute('href'), multiple.hn.search_url);
+    for (const state of ['empty', 'partial', 'unavailable', 'rollover']) {
+      const fixture = await installEvidence(page, url, state);
+      try {
+        const project = fixture.data.projects.find(p => p.name === 'OpenTofu');
+        for (const width of [390, 1440]) {
+          await page.setViewportSize({ width, height: 1000 });
+          await page.goto(url + '?fixture=' + state + '&q=OpenTofu#project-' + project.id);
+          await waitForState();
+          const card = page.locator('#project-' + project.id);
+          await waitForPlate(card);
+          assert.equal(await card.locator('[data-signal="hn"] .pg-spark').count(), state === 'partial' ? 1 : 0);
+          assert.equal(await card.locator('[data-signal="star-history"] .pg-spark').count(), 0);
+          for (const signal of ['hn', 'star-history']) {
+            const box = card.locator(`[data-signal="${signal}"]`);
+            await box.locator('.pg-info > summary').click();
+            const expected = signal === 'hn' ? (state === 'partial' ? '3 submissions' : 'Not recorded') :
+              state === 'empty' ? 'Not recorded' : state === 'rollover' ? 'chart withheld until aligned' : 'History unavailable; no zero values inferred';
+            assert.ok((await box.innerText()).includes(expected), `${state}: ${signal} disclosure`);
+            await box.locator('.pg-info > summary').click();
+          }
+          await assertLedgerFits(page, `${state} evidence at ${width}px`);
+          await card.locator('.plate-grid').scrollIntoViewIfNeeded();
+          await capture(`evidence-${state}-${width}.png`);
+        }
+      } finally {
+        await fixture.dispose();
+      }
     }
-
-    // Ledger-first layout and optional art work without animation dependencies.
+    // Continue the production-preview checks after removing all fixture routes.
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(url);
     await waitForState();
-    assert.equal(await page.locator('.hero, .reading-room, .collection-band').count(), 0);
-    assert.equal(await page.locator('.specimen-caption h3').count(), 0);
-    const traced = data.projects.find(p => p.hn);
-    const tracedCard = page.locator('#project-' + traced.id);
-    assert.ok(await tracedCard.locator('.name-sparkline').isVisible());
-    await tracedCard.locator('.name-sparkline').evaluate(image => image.decode());
-    await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = true; });
-    await waitForPlate(tracedCard);
-    assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
-    assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
-    await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
+    assert.equal(await visible(), data.projects.length, 'Production catalog restored after fixture routes');
 
     assert.equal(await page.locator('script[src*="gsap"], script[src*="ScrollTrigger"]').count(), 0);
     await page.emulateMedia({ reducedMotion: 'reduce' });

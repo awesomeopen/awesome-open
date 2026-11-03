@@ -1,0 +1,144 @@
+{
+  "function_summaries": {
+    "schema_version": 1,
+    "summaries": {
+      "a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d": {
+        "project_url": "https://github.com/opentofu/opentofu",
+        "text": "Infrastructure teams describe cloud and on-premises resources in reusable configuration files. OpenTofu uses provider APIs to manage components such as servers, networks, storage and DNS. Its workflow separates writing configuration, reviewing a plan and applying the approved changes. State records track managed resources, while modules package configurations for reuse.",
+        "sources": [
+          {
+            "url": "https://opentofu.org/docs/intro/",
+            "title": "OpenTofu: Getting started"
+          }
+        ],
+        "checked_at": "2026-10-13",
+        "review_status": "approved",
+        "reviewed_by": "Codex (AI)",
+        "review_note": "Checked against the linked official source; paraphrased for the specimen sheet. Proposed for inclusion in this PR.",
+        "features": [
+          {
+            "title": "Preview the changes",
+            "text": "Review an execution plan before applying resource changes. OpenTofu orders approved operations around their dependencies.",
+            "source_url": "https://opentofu.org/docs/intro/"
+          },
+          {
+            "title": "Reusable infrastructure",
+            "text": "Modules package configurable infrastructure so teams can reuse configurations across projects.",
+            "source_url": "https://opentofu.org/docs/intro/"
+          }
+        ]
+      }
+    }
+  },
+  "deployment_evidence": {
+    "schema_version": 1,
+    "projects": {
+      "a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d": {
+        "project_url": "https://github.com/opentofu/opentofu",
+        "review_status": "approved",
+        "checked_at": "2026-10-13",
+        "reviewed_by": "AI evidence review",
+        "review_note": "AI-reviewed primary-source facts prepared for owner review; approval means evidence eligibility. No software was installed or executed. The detailed container instructions qualify the broader overview: direct-use official images are no longer supported starting with OpenTofu 1.10. No universal memory requirement was established.",
+        "sources": {
+          "install": {
+            "url": "https://opentofu.org/docs/intro/install/",
+            "title": "OpenTofu installation options",
+            "kind": "upstream_docs"
+          },
+          "container": {
+            "url": "https://opentofu.org/docs/intro/install/docker/",
+            "title": "Building a Docker image with OpenTofu",
+            "kind": "upstream_docs"
+          },
+          "brew": {
+            "url": "https://formulae.brew.sh/formula/opentofu",
+            "title": "Homebrew opentofu formula",
+            "kind": "registry"
+          }
+        },
+        "run_modes": [
+          {
+            "value": "cli",
+            "scope": "Standalone tofu executable; also usable inside a custom container.",
+            "source_ids": [
+              "container"
+            ]
+          }
+        ],
+        "install_methods": [
+          {
+            "value": "binary",
+            "scope": "Standalone downloads for the documented operating systems.",
+            "source_ids": [
+              "install"
+            ]
+          },
+          {
+            "value": "package_manager",
+            "scope": "Upstream documents Homebrew and several OS package routes.",
+            "source_ids": [
+              "install"
+            ]
+          },
+          {
+            "value": "container",
+            "scope": "Build your own image; the minimal upstream image supplies the tofu binary for a multi-stage build.",
+            "source_ids": [
+              "container"
+            ]
+          }
+        ],
+        "platforms": [
+          {
+            "value": "Linux / macOS / Windows / FreeBSD",
+            "scope": "Standalone installation paths.",
+            "source_ids": [
+              "install"
+            ]
+          }
+        ],
+        "packages": [
+          {
+            "ecosystem": "Homebrew formula",
+            "coordinate": "opentofu",
+            "channel": "stable",
+            "status": "documented",
+            "upstream_relationship": "unknown",
+            "scope": "Upstream documents Homebrew installation. The core formula is listed; upstream ownership of the formula was not established.",
+            "source_ids": [
+              "install",
+              "brew"
+            ]
+          },
+          {
+            "ecosystem": "OCI / GitHub Container Registry",
+            "coordinate": "ghcr.io/opentofu/opentofu:minimal",
+            "channel": "rolling minimal",
+            "status": "documented",
+            "upstream_relationship": "upstream",
+            "scope": "Binary-only build-stage input for a custom image, not a documented ready-to-run container.",
+            "source_ids": [
+              "container"
+            ]
+          }
+        ],
+        "requirements": [
+          {
+            "kind": "constraint",
+            "note": "Build a custom container image for current container usage.",
+            "scope": "OpenTofu 1.10 and later: direct usage of the former official images is unsupported.",
+            "source_ids": [
+              "container"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "artwork": {
+    "path": "specimens/a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d.webp",
+    "alt": "An opened seed pod whose ribs form a scaffold, with seeds held at its joints.",
+    "width": 1254,
+    "height": 1254
+  }
+}
