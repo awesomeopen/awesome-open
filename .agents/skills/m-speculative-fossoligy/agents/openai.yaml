@@ -1,0 +1,14 @@
+interface:
+  display_name: "Speculative FOSSoligy macro"
+  short_description: Draw human worlds, tools, and shared lives with observed logic
+  default_prompt: Use $m-speculative-fossoligy to redraw this image or illustrate my
+    description.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
