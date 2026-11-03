@@ -66,7 +66,7 @@ test('no-JS readiness polls from Node without browser timers', async () => {
     evaluate: async (fn, arg) => { if (fn === stableLayoutSample && arg && !arg.reset) samples++; return fn(arg); },
     waitForFunction: () => { throw new Error('No browser timer in no-JS context'); },
   };
-  await waitForSpecimenLayout(page, '.specimen-plate', true);
+  await waitForSpecimenLayout(page, '.specimen-plate');
   assert.equal(samples, 3);
   assert.equal(plate.__boundsReadiness, undefined);
 });

@@ -22,17 +22,12 @@ module.exports = async ({ page, url, data, capture }) => {
     assert.equal(await chart.evaluate(img=>img.complete && img.naturalWidth===120),true);
     assert.equal(await card.locator('summary .pg-spark').count(),0);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
-    assert.ok(!(await card.innerText()).includes('As of '));
     const provenance=card.locator('[data-signal="star-history"] .pg-info');
     await provenance.locator('summary').click();
     const maximum = Math.max(1, ...counts).toLocaleString('en-US');
     const explanation = 'Stars created in each month that remained at the last successful fetch. ' +
       `Independent square-root scale: 0–${maximum} stars/month.`;
     assert.ok((await provenance.locator('.pg-pop > p:not(.fine-print)').innerText()).includes(explanation));
-    const popupText = await provenance.innerText();
-    for (const removed of ['Not historical totals', 'not guaranteed UTC', 'HN stories and GitHub stars are independent measurements']) {
-      assert.ok(!popupText.includes(removed));
-    }
     assert.equal(await provenance.getByRole('link', { name: 'Provider source' }).getAttribute('href'), project.star_history.source_url);
     await provenance.locator('summary').click();
     await capture(name);

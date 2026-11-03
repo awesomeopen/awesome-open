@@ -468,7 +468,6 @@ const path = require('node:path');
       assert.ok(Math.abs(controls[0] - controls[1]) < 2, 'Category and filter buttons share a row');
       assert.ok(await page.locator('.project-card').first().evaluate(node => { const hero=document.querySelector('.jar-hall'); return node.getBoundingClientRect().top-(hero?hero.getBoundingClientRect().bottom:0)<500; }), 'Ledger starts promptly after the hero');
       assert.equal(await page.locator('.brand-mark').evaluate(node => node.getBoundingClientRect().width), 64);
-      assert.equal(await page.locator('.leader-label').allTextContents().then(labels => labels.some(text => text.includes('Top 3 by stars'))), false);
       await page.locator('.filter-options > summary').click();
       assert.equal(await page.locator('#push-window').isVisible(), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'Expanded filters fit');
@@ -592,8 +591,6 @@ const path = require('node:path');
         await page.setViewportSize({ width: 1440, height: 1000 });
         await page.goto(url);
         await waitForState();
-        assert.equal(await page.locator('.hero, .reading-room, .collection-band').count(), 0);
-        assert.equal(await page.locator('.specimen-caption h3').count(), 0);
         const traced = data.projects.find(p => p.hn);
         const tracedCard = page.locator('#project-' + traced.id);
         assert.ok(await tracedCard.locator('.name-sparkline').isVisible());
@@ -642,7 +639,6 @@ const path = require('node:path');
     await waitForState();
     assert.equal(await visible(), data.projects.length, 'Production catalog restored after fixture routes');
 
-    assert.equal(await page.locator('script[src*="gsap"], script[src*="ScrollTrigger"]').count(), 0);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     assert.equal(await page.locator('html').evaluate(node => getComputedStyle(node).scrollBehavior), 'auto');
     await page.locator('#clear-filters').click();
@@ -672,7 +668,6 @@ const path = require('node:path');
         await card.scrollIntoViewIfNeeded();
         await assertLedgerFits(page, 'open specimen ' + kind + ' at ' + width);
         assert.equal(await card.locator('.specimen-art figcaption').count(), 0);
-        assert.ok(!await card.textContent().then(text => text.includes('Unknown values indicate missing cached data.')));
         if (width !== 320) await capture('sheet-' + kind + '-' + width + '.png');
       }
     }

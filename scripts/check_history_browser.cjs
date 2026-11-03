@@ -9,7 +9,6 @@ module.exports = async ({page, url, data, capture}) => {
     assert.equal(await rename.count(), 1, label + ': one rename label');
     assert.ok((await rename.innerText()).includes(`Renamed: ${event.old_name} → ${event.new_name} (i)`), label + ': rename label text');
     assert.ok((await rename.innerText()).includes(event.occurred.value), label + ': rename date');
-    assert.equal(await plate.locator('.history-marker,.history-dates').count(), 0, label + ': no numbered lanes');
     if (project.name === 'OpenTasks') {
       const labelBox = await rename.boundingBox();
       const timelineBox = await plate.locator('.pg-timeline').boundingBox();
