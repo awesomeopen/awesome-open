@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-03T04:42:53Z",
+  "collected_at": "2026-11-03T04:50:04Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -910,6 +910,34 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/anichikage/open-typora",
+        "status": "unavailable"
+      }
+    },
+    "anil-matcha/open-duet": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-03T04:50:04Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/anil-matcha/open-duet/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-03T04:50:04Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/anil-matcha/open-duet",
         "status": "unavailable"
       }
     },
@@ -2851,6 +2879,34 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/copilotkit/opendots",
+        "status": "unavailable"
+      }
+    },
+    "copilotkit/openduet": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-03T04:50:04Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/copilotkit/openduet/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-03T04:50:04Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/copilotkit/openduet",
         "status": "unavailable"
       }
     },
@@ -26121,5 +26177,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "526578444a3ae29fe5ec4d154afb3840dd2e309d"
+  "source_sha": "4c9ce7d69572e16c36834971954dc5be3f183de6"
 }
