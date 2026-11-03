@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = "automation/state/deployment-evidence-backfill.json"
 JOB = "deployment-evidence-backfill"
 SCHEMA = 2
+CONTRACT = 3                    # automation/backfill-deployment-evidence.md
 MAX_BATCH = 25                  # new projects per run, both modes
 REMAINING_SHARE = 0.3           # share of backfill slots reserved for projects without artwork
 DEFAULT_REVERIFY = 3            # oldest approved records re-verified per maintenance run (~21/week)
@@ -41,6 +42,10 @@ TRANSIENT = {"sources_unreachable", "overlaps_other_work", "deferred_budget"}
 SKIP_REASONS = EDITORIAL | TRANSIENT
 RECHECK_DAYS = {**{r: 90 for r in EDITORIAL}, **{r: 14 for r in TRANSIENT}}
 # Outcome -> (applies to a project with an evidence record?, reason required?)
+# "proposed" is the exception. Section 7 writes the new record, then update-state.
+# A record whose checked_at is the run date is that new record. A record checked
+# on an earlier day is already reviewed. Absence of a record is also accepted,
+# so a caller that updates the ledger before writing the file still works.
 OUTCOMES = {
     "proposed": (False, False),          # new record in this run's PR
     "skipped": (False, True),            # no record proposed; recheck later
@@ -66,7 +71,7 @@ def _day(value, label):
 
 
 def empty_state(since="2026-10-31"):
-    return {"schema_version": SCHEMA, "job": JOB, "contract_version": 2, "mode": "backfill",
+    return {"schema_version": SCHEMA, "job": JOB, "contract_version": CONTRACT, "mode": "backfill",
             "mode_since": since, "mode_history": [{"mode": "backfill", "since": since, "reason": "initial"}],
             "considered": {}, "runs": []}
 
@@ -335,9 +340,15 @@ def update_state(state, outcomes, *, catalog, evidence, art=None):
         if outcome not in OUTCOMES:
             raise ValueError("Unknown outcome " + str(outcome))
         on_record, needs_reason = OUTCOMES[outcome]
-        if on_record and pid not in record_ids:
+        if outcome == "proposed" and pid in record_ids:
+            record = evidence["projects"][pid]
+            checked = record.get("checked_at") if isinstance(record, dict) else None
+            if checked != outcomes["date"]:
+                raise ValueError("proposed applies to a new record from this run (checked_at %s); %s was checked on %s"
+                                 % (outcomes["date"], pid, checked))
+        elif on_record and pid not in record_ids:
             raise ValueError("%s applies only to an existing record: %s" % (outcome, pid))
-        if not on_record and pid in record_ids:
+        elif not on_record and pid in record_ids:
             raise ValueError("%s applies only to a project without a record: %s" % (outcome, pid))
         if outcome in ("verified_unchanged", "update_proposed", "verify_deferred") and new["mode"] != "maintenance":
             raise ValueError("Re-verification outcomes require maintenance mode")
@@ -377,6 +388,7 @@ def update_state(state, outcomes, *, catalog, evidence, art=None):
             raise ValueError("Switch condition not met: " + json.dumps(report, sort_keys=True))
         new["mode"], new["mode_since"] = switch["mode"], outcomes["date"]
         new["mode_history"].append({"mode": switch["mode"], "since": outcomes["date"], "reason": switch["reason"]})
+    new["contract_version"] = CONTRACT
     validate_state(new)
     return new
 
