@@ -10,7 +10,7 @@ Start with [the brand reference](brand/README.md), [agent instructions](AGENTS.m
 
 ## Reviewed deployment and installation
 
-The website's eight-project setup pilot uses optional, source-reviewed `data/deployment_evidence.json`. Follow [the deployment evidence contract](site/DEPLOYMENT-EVIDENCE.md) for canonical identities, multi-valued run/install facts, qualified platforms/services/packages/requirements, provenance and review status. Missing facts remain unknown. Contributions stay review-only and must pass offline and browser checks; no new collection schedule or package execution is introduced.
+The website's setup evidence uses optional, source-reviewed `data/deployment_evidence.json`. Follow [the deployment evidence contract](site/DEPLOYMENT-EVIDENCE.md) for canonical identities, multi-valued run/install facts, qualified platforms/services/packages/requirements, provenance and review status. Missing facts remain unknown. Contributions stay review-only and must pass offline and browser checks; no new collection schedule or package execution is introduced.
 
 ## Scope
 
@@ -164,7 +164,7 @@ Metadata is rendered as `<br><sub>creation-date -- last-push-date / SPDX-license
 
 Only the three highest-starred GitHub repository name links within each category are bold. Categories with fewer than three eligible repositories highlight all of them; exact star-count ties use the lowercase canonical repository path alphabetically. Cross-listed projects are ranked separately in each category. Ranking uses the unrounded API count and never reorders entries. This highlighting is independent of HN chart coverage.
 
-Edit descriptions only in `README.source.md`. To collect a new metrics snapshot, set `GH_TOKEN` and run `python3 scripts/update_stats.py`; this collector does not write README. Then run `python3 scripts/render_readme.py` to render it. The snapshot retains raw integer star counts, creation/last-push timestamps, and the API license identifier. Collection validates every record and replaces the snapshot atomically only after all requests succeed.
+Edit descriptions only in `README.source.md`. To collect a new metrics snapshot, set `GH_TOKEN` and run `python3 scripts/update_stats.py`; this collector does not write README. Then run `python3 scripts/render_readme.py` to render it. The snapshot retains raw integer star counts, creation/last-push timestamps, and the API license identifier. Collection validates every record before atomically replacing the snapshot, retaining stale or unknown metrics for isolated HTTP 404 responses under the [publication failure rules](#source-previews-and-publication).
 
 ## Optional website evidence
 

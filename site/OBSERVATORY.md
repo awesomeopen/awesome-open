@@ -67,7 +67,7 @@ and Back/Forward support. Native HTML chart tables, exact values, source revisio
 and snapshot date remain available without JavaScript. The Project data section
 holds the CSV and snapshot JSON downloads; per-project rows are in those files
 ([B-PR184-01](../brand/decisions/B-PR184-01.md)). Name-group plates are folded in a
-native disclosure (“Show name groups”), with
+native disclosure (“Show duplicate names”), with
 “How groups are formed” as a nested disclosure; the unit tally above them stays
 open, one equal-weight mark per tool, square for identical names and circle for
 spelling variants. The CSV includes every displayed data field
@@ -89,7 +89,7 @@ manufacture percentages, missing values or a zero-star observation.
 
 - Instrument: white/cool-mist reading ground, Prussian rules, the existing Półtawski Nowy
   and Commit Mono pair, linear charts and explicit evidence labels. The header
-  repeats the ledger's links (Ledger, About, Observatory, GitHub), with Observatory
+  repeats the ledger's links (Catalog, Observatory, Scoreboard, Spotlight), with Observatory
   marked as the current page. One sticky
   selection bar without visible labels (each select has an accessible name) and
   bold section jumps; no kickers; “N/N selected.” ends the Shared names paragraph.
