@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-03T08:01:00Z",
+  "collected_at": "2026-11-03T08:48:35Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -1602,13 +1602,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "2ee1888d74e2f2be44f1639a91c13a984b43fbd1",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -1690,7 +1690,7 @@
             "score": 6.9
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/assimp/assimp",
         "status": "partial",
@@ -16698,13 +16698,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "62a54aa73f499307574dd42f5153a4080015c2ec",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -16786,7 +16786,7 @@
             "score": 6.6
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openmrs/openmrs-core",
         "status": "partial",
@@ -16904,13 +16904,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "90e35bf5f8cf8e962efad0773ee6962e12c4a9b0",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -16992,7 +16992,7 @@
             "score": 3.8
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openmv/openmv",
         "status": "partial",
@@ -17166,13 +17166,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2022-08-15T00:00:00Z",
           "source_commit": "24a3c4cf20f20dc7f1a8df33a70351c5e7b2bb4f",
           "tool_commit": "10b6052acfb4f0b8136bc4876cb6f5b6f26bfe93",
@@ -17259,7 +17259,7 @@
             "score": 5.6
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opennebula/one",
         "status": "stale",
@@ -17818,13 +17818,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "5bd404cfc70f34103a3ca0fbb6b50c2b465f407c",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -17906,7 +17906,7 @@
             "score": 3
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openpnp/openpnp",
         "status": "partial",
@@ -18203,13 +18203,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "dd45b9ff3dbe297d519a6dc8817a2dd0c278b6ca",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -18291,7 +18291,7 @@
             "score": 7.5
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openremote/openremote",
         "status": "partial",
@@ -18396,13 +18396,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "d9be22ab49a3d9351ad4f89700313c6abb4d8d59",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -18484,7 +18484,7 @@
             "score": 3.8
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openresty/openresty",
         "status": "partial",
@@ -18520,13 +18520,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "e80a5eac981d7031dfa3d714f8c353bdb32e304e",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -18608,7 +18608,7 @@
             "score": 3
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openrewrite/rewrite",
         "status": "partial",
@@ -18947,13 +18947,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "e5721012999ba873f6dd74ffd89fa33f7dd11f63",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -19035,7 +19035,7 @@
             "score": 5.5
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openscad/openscad",
         "status": "partial",
@@ -19250,13 +19250,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "cd1412754c3f11c8db22b65bea797ba0420f54fc",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -19338,7 +19338,7 @@
             "score": 2
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opensemanticsearch/open-semantic-search",
         "status": "partial",
@@ -19553,13 +19553,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "6e3a883f66220f7d0c0b20f255e1c714cc828144",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -19641,7 +19641,7 @@
             "score": 5.2
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opensim-org/opensim-core",
         "status": "partial",
@@ -19925,13 +19925,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "97648317199613d06247bf4cc4d44a95f250c532",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -20013,7 +20013,7 @@
             "score": 7.6
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openssh/openssh-portable",
         "status": "partial",
@@ -20049,13 +20049,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "4d885b16ebc6e6cc76f8a72fb4b7a00db127990f",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -20137,7 +20137,7 @@
             "score": 6.3
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openssl/openssl",
         "status": "partial",
@@ -20160,13 +20160,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "878acd19807f77cf827fdf8f3440e000df2ec5c7",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -20248,7 +20248,7 @@
             "score": 3.5
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openstack/cinder",
         "status": "partial",
@@ -20271,13 +20271,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "3129f9c186328307cf26c2d2923428a95a2f1c73",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -20359,7 +20359,7 @@
             "score": 3.2
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openstack/swift",
         "status": "partial",
@@ -20410,13 +20410,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "ba2d7a6dc1b8a422c4d8c05c964b6c9c00b22494",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -20498,7 +20498,7 @@
             "score": 6.6
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openstreetmap/openstreetmap-website",
         "status": "partial",
@@ -20644,13 +20644,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "356195c69e09ff1c67528a8d25b18379d14845ed",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -20732,7 +20732,7 @@
             "score": 4.8
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opentimestamps/opentimestamps-client",
         "status": "partial",
@@ -20878,13 +20878,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "0234719ee7e5a3baff688380d14092522eb5f6c7",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -20966,7 +20966,7 @@
             "score": 2.9
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opentoonz/opentoonz",
         "status": "partial",
@@ -21166,13 +21166,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "fb8622ddad710fb49908879bca96bfe1ba22f23e",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -21254,7 +21254,7 @@
             "score": 2.1
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opentx/opentx",
         "status": "partial",
@@ -21372,13 +21372,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "943c5ececbcfb300f8e71a539f67dfc5b5a471c8",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -21460,7 +21460,7 @@
             "score": 8.5
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openvinotoolkit/openvino",
         "status": "partial",
@@ -21649,13 +21649,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "c78f687fb62ce954e8d5c48f6b962f097c15223c",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -21737,7 +21737,7 @@
             "score": 4.7
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openvswitch/ovs",
         "status": "partial",
@@ -21842,13 +21842,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "a0c15916d016a66e4a31c0510c3f49b10e7c3947",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -21930,7 +21930,7 @@
             "score": 6.5
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openwisp/openwisp-controller",
         "status": "partial",
@@ -22035,13 +22035,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "7d0bf92beefbb62e306f2318dfe5b47538bd85a6",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -22123,7 +22123,7 @@
             "score": 5.1
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openwrt/openwrt",
         "status": "partial",
@@ -22228,32 +22228,22 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
-          "observed_at": "2026-10-24T01:47:21Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
+          "observed_at": "2026-10-31T01:36:51Z",
           "source_commit": "83ce3925379d28ee691d8f55e512b3c6e1dfc31e",
           "tool_commit": "c395761df6afe1a69e476bc60a013a94bcbc153f",
           "tool_version": "v5.5.0",
           "value": {
             "checks": [
               {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
-                "score": 10
-              },
-              {
                 "name": "Code-Review",
                 "reason": "all changesets reviewed",
-                "score": 10
-              },
-              {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
@@ -22262,13 +22252,23 @@
                 "score": 10
               },
               {
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
+                "score": 10
+              },
+              {
                 "name": "Token-Permissions",
                 "reason": "GitHub workflow tokens follow principle of least privilege",
                 "score": 10
               },
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no dangerous workflow patterns detected",
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
+                "score": 10
+              },
+              {
+                "name": "Maintained",
+                "reason": "30 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
@@ -22277,39 +22277,14 @@
                 "score": 10
               },
               {
-                "name": "License",
-                "reason": "license file detected",
-                "score": 10
-              },
-              {
                 "name": "CII-Best-Practices",
                 "reason": "badge detected: Passing",
                 "score": 5
               },
               {
-                "name": "Packaging",
-                "reason": "packaging workflow detected",
-                "score": 10
-              },
-              {
                 "name": "Vulnerabilities",
-                "reason": "18 existing vulnerabilities detected",
+                "reason": "23 existing vulnerabilities detected",
                 "score": 0
-              },
-              {
-                "name": "Fuzzing",
-                "reason": "project is fuzzed",
-                "score": 10
-              },
-              {
-                "name": "Branch-Protection",
-                "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
-                "score": null
-              },
-              {
-                "name": "Pinned-Dependencies",
-                "reason": "dependency not pinned by hash detected -- score normalized to 1",
-                "score": 1
               },
               {
                 "name": "SAST",
@@ -22317,9 +22292,34 @@
                 "score": 10
               },
               {
+                "name": "Packaging",
+                "reason": "packaging workflow detected",
+                "score": 10
+              },
+              {
+                "name": "Pinned-Dependencies",
+                "reason": "dependency not pinned by hash detected -- score normalized to 1",
+                "score": 1
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is fuzzed",
+                "score": 10
+              },
+              {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
+              },
+              {
                 "name": "Signed-Releases",
                 "reason": "Project has not signed or included provenance with any releases.",
                 "score": 0
+              },
+              {
+                "name": "Branch-Protection",
+                "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
+                "score": null
               },
               {
                 "name": "CI-Tests",
@@ -22336,7 +22336,7 @@
             "score": 7.8
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openyurtio/openyurt",
         "status": "partial",
@@ -22413,13 +22413,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "9d6e2cc702987b1c6640534faa48b0d1bad4627f",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -22501,7 +22501,7 @@
             "score": 6.2
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openzfs/zfs",
         "status": "partial",
@@ -22537,13 +22537,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "4ee639ebed2b5b7d7a4e720dffd64a7b4d7bedaf",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -22625,7 +22625,7 @@
             "score": 5.9
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openziti/ziti",
         "status": "partial",
@@ -22689,13 +22689,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "09d960870e73c67f77a3f62b5c7f65b4d5b48140",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -22777,7 +22777,7 @@
             "score": 7
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opf/openproject",
         "status": "partial",
@@ -22841,13 +22841,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "03b382868424ee9c5f04e09fe588fa433a7716ef",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -22929,7 +22929,7 @@
             "score": 5.2
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/oracle/opengrok",
         "status": "partial",
@@ -23213,13 +23213,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "d270741b6bbe64d9932d9622e86b4631d8506ef1",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -23301,7 +23301,7 @@
             "score": 4.9
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/pkp/ojs",
         "status": "partial",
@@ -23641,13 +23641,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "e76b0b2489a3ec2cf8fa044019a1975b446318a7",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -23729,7 +23729,7 @@
             "score": 4.7
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/rdiankov/openrave",
         "status": "partial",
@@ -24082,13 +24082,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
+          "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "69488123ed9362dd44b6f28e7f4680abbff1442b",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -24170,7 +24170,7 @@
             "score": 3.4
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/rpng/open_vins",
         "status": "partial",
@@ -24993,33 +24993,33 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T08:17:32Z",
+        "checked_at": "2026-11-03T08:48:35Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T08:17:32Z",
-          "observed_at": "2026-10-19T00:00:00Z",
-          "source_commit": "fb12e4fefbdb1b9acd1e5561a2614f827ab639ff",
+          "fetched_at": "2026-11-03T08:48:35Z",
+          "observed_at": "2026-10-26T00:00:00Z",
+          "source_commit": "55a90395fb42f3f95e61dd7ad0666bc676a53751",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no dangerous workflow patterns detected",
-                "score": 10
-              },
-              {
-                "name": "Maintained",
-                "reason": "13 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
-                "score": 10
-              },
-              {
                 "name": "Code-Review",
                 "reason": "Found 27/28 approved changesets -- score normalized to 9",
                 "score": 9
+              },
+              {
+                "name": "Maintained",
+                "reason": "15 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
+              },
+              {
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
+                "score": 10
               },
               {
                 "name": "Binary-Artifacts",
@@ -25042,14 +25042,14 @@
                 "score": 0
               },
               {
-                "name": "License",
-                "reason": "license file detected",
-                "score": 10
-              },
-              {
                 "name": "Pinned-Dependencies",
                 "reason": "dependency not pinned by hash detected -- score normalized to 0",
                 "score": 0
+              },
+              {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
               },
               {
                 "name": "Signed-Releases",
@@ -25081,7 +25081,7 @@
             "score": 6.3
           }
         },
-        "last_success_at": "2026-10-27T08:17:32Z",
+        "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/thinkst/opencanary",
         "status": "partial",
@@ -26177,5 +26177,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "af73608517ab3708af98e00164d8f587a529f479"
+  "source_sha": "954bdad533f66e777a01c175ce673c96137c95e6"
 }
