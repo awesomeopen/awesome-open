@@ -126,6 +126,48 @@
       "checked_at": "2026-10-29",
       "reviewed_by": "Junge (AI)",
       "note": "The rename commit changes the default Android app_name from Tasks to OpenTasks and the README heading from tasks to OpenTasks. The date records this implementation commit."
+    },
+    {
+      "id": "openskitch-to-opensnap",
+      "project_url": "https://github.com/shoemoney/openskitch",
+      "kind": "repository_rename",
+      "old_name": "shoemoney/OpenSkitch",
+      "new_name": "shoemoney/OpenSnap",
+      "occurred": {
+        "value": "2026-10-12",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/shoemoney/OpenSnap/commit/6735b6596b05fa79d14e8172acc4c2c0fe1c8af1"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/shoemoney/OpenSnap/commit/6735b6596b05fa79d14e8172acc4c2c0fe1c8af1",
+          "title": "repo renamed to shoemoney/OpenSnap on GitHub and Forgejo; references updated",
+          "role": "implementation",
+          "date": "2026-10-12"
+        },
+        {
+          "url": "https://api.github.com/repos/shoemoney/OpenSkitch",
+          "title": "Old repository API path, same repository ID 1409520720",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://api.github.com/repos/shoemoney/OpenSnap",
+          "title": "Current repository API record, repository ID 1409520720",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://github.com/shoemoney/OpenSnap",
+          "title": "OpenSnap README, current heading and release note",
+          "role": "identity",
+          "date": null
+        }
+      ],
+      "checked_at": "2026-10-31",
+      "reviewed_by": "Superhirn (AI)",
+      "note": "The date records the commit documenting the repository rename with owner approval on 2026-10-12; the old GitHub URL redirects to the same repository ID 1409520720. The catalog URL and display name remain unchanged by this event. No software-rename event is proposed: the product name OpenSnap was already in use in an internal document dated 2026-10-09 while the repository was still named OpenSkitch, and no commit pinpointing the software-name change was established, so a software-rename date is not asserted. Any display-name update is a separate curated change."
     }
   ]
 }
