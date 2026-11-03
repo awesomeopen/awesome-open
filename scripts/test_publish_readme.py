@@ -243,6 +243,41 @@ class PublisherGitTests(unittest.TestCase):
         self.assertEqual(signals['source_sha'], latest_contributor[0])
         self.assert_worktree_removed()
 
+    def test_hn_results_survive_fresh_main_race_without_refetch(self):
+        from test_hn_queue import NOW, empty, page, project
+        original_collect = publisher.collect_and_render
+        original_refresh = hn.refresh
+        attempts, requests = [], []
+
+        def refresh(**kwargs):
+            return original_refresh(now=NOW, projects=[project()], metadata={}, **kwargs)
+
+        def get(url):
+            requests.append(url)
+            return page(url)
+
+        def collect(root, budget=None):
+            original_collect(root, budget)
+            path = root / 'data/hn_evidence.json'
+            # Each detached checkout starts with fresh-main evidence.
+            hn.write_evidence(path, empty())
+            with patch.object(hn, 'EVIDENCE_PATH', path), patch.object(hn, 'refresh', side_effect=refresh), \
+                    patch.object(hn, 'fetch_page', side_effect=get), patch.object(hn.time, 'sleep'), \
+                    patch('sys.argv', ['update_hn.py', '--invocation-budget-file', str(budget.with_name('hn-budget.json'))]):
+                hn.main()
+            attempts.append(json.loads(path.read_text()))
+            if len(attempts) == 1:
+                self.advance_source('Concurrent curated change.\n')
+
+        with patch.object(publisher, 'collect_and_render', side_effect=collect):
+            published = publisher.publish(self.checkout)
+        self.assertEqual(len(attempts), 2)
+        self.assertEqual(len(requests), 1)
+        self.assertEqual(attempts[0]['projects'], attempts[1]['projects'])
+        self.assertEqual(attempts[0]['budget'], attempts[1]['budget'])
+        self.assertEqual(self.remote_head(), published)
+        self.assertIn('Concurrent curated change.', self.remote_file('README.md'))
+
     def test_retry_unions_observations_without_carrying_stale_caches(self):
         first = star_fixture(day=13)
         concurrent = star_fixture(day=14)

@@ -5,7 +5,8 @@ Every attempt uses a disposable, detached worktree of freshly fetched main.
 Nothing is rebased onto a stale generated README: if main advances, collection
 and rendering start again from its new source. The final ordinary Git push is
 an additional compare-and-swap guard against a race after the last fetch.
-Completed observations are unioned across attempts without reusing old caches.
+Completed observations are unioned across attempts. HN also retains validated
+per-project results beside the invocation quota guard for fresh-main retries.
 The invoking checkout (including any local curated edits) is never reset.
 """
 

@@ -406,10 +406,39 @@ def validate_page(url, data):
         raise UpstreamFailure('Incomplete Algolia page')
 
 
+def reconcile_retry_results(records, projects, months, now, archive):
+    """Restore completed invocation results under the fresh catalog contract."""
+    import chart_observations as observations
+    observations.validate(archive)
+    identities = {canonical_url(p['readme_url']): p for p in projects}
+    for observation in archive['observations'].values():
+        key = observation['identity']
+        if observation['kind'] != 'hn' or key not in identities:
+            continue
+        good = observations.materialize(archive, observation)
+        collected = good.get('collected_at')
+        if (not collected or good['months'] != months
+                or good.get('identity_key') != identity_key(identities[key])):
+            continue
+        stamp = datetime.fromisoformat(collected)
+        current = records.get(key, {})
+        # Equal/newer main attempts (including failures) retain their state.
+        if (stamp > now or (current.get('checked_at') and
+                datetime.fromisoformat(current['checked_at']) >= stamp)):
+            continue
+        current_good = current.get('last_good', {})
+        if current_good and (not current_good.get('collected_at') or
+                datetime.fromisoformat(current_good['collected_at']) >= stamp):
+            continue
+        records[key] = {'status': 'ok', 'checked_at': collected,
+                        'last_good': good, 'pending': {}}
+
+
 def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=None,
             request_budget=DEFAULT_REQUESTS, max_projects=DEFAULT_PROJECTS,
             seconds=DEFAULT_SECONDS, force=False, invocation_budget_file=None,
-            checkpoint=None, monotonic=time.monotonic, sleeper=time.sleep, retain=None):
+            checkpoint=None, monotonic=time.monotonic, sleeper=time.sleep, retain=None,
+            retry_archive=None):
     live_clock = now is None
     now = now or datetime.now(timezone.utc)
     start, end, months = window(now)
@@ -436,6 +465,8 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
             }
     identities = {canonical_url(p['readme_url']): p for p in projects}
     records = {k: v for k, v in records.items() if k in identities}
+    if retry_archive is not None:
+        reconcile_retry_results(records, projects, months, now, retry_archive)
     today = now.date().isoformat()
     budget = {'utc_date': today, 'requests_used': 0, 'limit': request_budget, 'paused': False,
               'projects_used': 0, 'project_limit': max_projects, 'attempted_urls': [],
@@ -725,11 +756,18 @@ def main():
         'schema_version': 1, 'months': window()[2], 'projects': []}
     observations.add_hn(archive, existing)
     observations.save(archive_path, archive)
+    retry_path = (args.invocation_budget_file.with_name('hn-results.json')
+                  if args.invocation_budget_file else None)
+    retry_archive = observations.load(retry_path) if retry_path else observations.empty()
     def retain(key, good):
         observations.add_hn(archive, {'schema_version': 2, 'months': good['months'], 'projects': [],
             'queue': {key: {'status': 'ok', 'checked_at': good['collected_at'], 'last_good': good}}})
         observations.save(archive_path, archive)
-    evidence = refresh(existing=existing, retain=retain, force=args.refresh, invocation_budget_file=args.invocation_budget_file,
+        if retry_path:
+            observations.add_hn(retry_archive, {'schema_version': 2, 'months': good['months'], 'projects': [],
+                'queue': {key: {'status': 'ok', 'checked_at': good['collected_at'], 'last_good': good}}})
+            observations.save(retry_path, retry_archive)
+    evidence = refresh(existing=existing, retain=retain, retry_archive=retry_archive, force=args.refresh, invocation_budget_file=args.invocation_budget_file,
                        checkpoint=lambda document: write_evidence(EVIDENCE_PATH, document))
     write_evidence(EVIDENCE_PATH, evidence)
     report = evidence['selection_report']
