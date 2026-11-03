@@ -28,7 +28,7 @@
     "2026-09",
     "2026-10"
   ],
-  "refreshed_utc_date": "2026-11-02",
+  "refreshed_utc_date": "2026-11-03",
   "metric": "Deduplicated HN story submissions per UTC month, regardless of points, comments or sentiment. Search coverage is best-effort and depends on the HN Algolia index.",
   "eligibility": {
     "minimum_stories": 6,
@@ -29688,7 +29688,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -29784,7 +29784,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openemu/openemu": {
       "pending": {},
@@ -29815,7 +29816,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -29900,7 +29901,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/langchain-ai/openwiki": {
       "pending": {},
@@ -29931,7 +29933,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -30027,7 +30029,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openimsdk/open-im-server": {
       "pending": {},
@@ -30058,7 +30061,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -30143,7 +30146,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openrct2/openrct2": {
       "pending": {},
@@ -30174,7 +30178,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -30259,7 +30263,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/opf/openproject": {
       "pending": {},
@@ -30290,7 +30295,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -30375,7 +30380,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/nvidia/openshell": {
       "pending": {},
@@ -30554,7 +30560,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -30639,7 +30645,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/opensandbox-group/opensandbox": {
       "pending": {},
@@ -30670,7 +30677,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -30755,7 +30762,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/acidanthera/opencorepkg": {
       "pending": {},
@@ -30786,7 +30794,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -30871,7 +30879,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/open-metadata/openmetadata": {
       "pending": {},
@@ -30902,7 +30911,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -30987,7 +30996,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/rmyndharis/openwa": {
       "pending": {},
@@ -31018,7 +31028,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -31103,7 +31113,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/cmusatyalab/openface": {
       "pending": {},
@@ -31134,7 +31145,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -31219,7 +31230,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openvpn/openvpn": {
       "pending": {},
@@ -31250,7 +31262,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -31367,7 +31379,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/sfttech/openage": {
       "pending": {},
@@ -31398,7 +31411,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -31483,7 +31496,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/mlfoundations/open_clip": {
       "pending": {},
@@ -31514,7 +31528,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-15T18:02:20.939771+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -31599,7 +31613,8 @@
         },
         "collected_at": "2026-10-15T18:02:20.939771+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/evilsocket/opensnitch": {
       "pending": {},
@@ -31630,7 +31645,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -31736,7 +31751,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/open-llm-vtuber/open-llm-vtuber": {
       "pending": {},
@@ -31767,7 +31783,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -31852,7 +31868,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/isl-org/open3d": {
       "pending": {},
@@ -31883,7 +31900,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -31968,7 +31985,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openresty/openresty": {
       "pending": {},
@@ -31999,7 +32017,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -32084,7 +32102,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/opennhp/opennhp": {
       "pending": {},
@@ -32115,7 +32134,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -32200,7 +32219,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/opensearch-project/opensearch": {
       "pending": {},
@@ -32231,7 +32251,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -32327,7 +32347,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/seemoo-lab/openhaystack": {
       "pending": {},
@@ -32358,7 +32379,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -32474,7 +32495,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/anomalyco/opentui": {
       "pending": {},
@@ -32505,7 +32527,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -32590,7 +32612,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/krillinai/opencreator": {
       "pending": {},
@@ -32621,7 +32644,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -32706,7 +32729,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openreplay/openreplay": {
       "pending": {},
@@ -32737,7 +32761,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -32822,7 +32846,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/langchain-ai/open_deep_research": {
       "pending": {},
@@ -32853,7 +32878,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -32949,7 +32974,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openlayers/openlayers": {
       "pending": {},
@@ -32980,7 +33006,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -33065,7 +33091,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/bentoml/openllm": {
       "pending": {},
@@ -33096,7 +33123,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -33181,7 +33208,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/duartesantos8/opengym": {
       "pending": {},
@@ -33212,7 +33240,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -33308,7 +33336,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/open-policy-agent/opa": {
       "pending": {},
@@ -33339,7 +33368,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -33424,7 +33453,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openrefine/openrefine": {
       "pending": {},
@@ -33455,7 +33485,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -33540,7 +33570,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openchamber/openchamber": {
       "pending": {},
@@ -33571,7 +33602,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -33667,7 +33698,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/open-jarvis/openjarvis": {
       "pending": {},
@@ -33698,7 +33730,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -33794,7 +33826,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/thesysdev/openui": {
       "pending": {},
@@ -33825,7 +33858,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -33961,7 +33994,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openvinotoolkit/openvino": {
       "pending": {},
@@ -33992,7 +34026,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -34099,7 +34133,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openframeworks/openframeworks": {
       "pending": {},
@@ -34130,7 +34165,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -34215,7 +34250,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/opencti-platform/opencti": {
       "pending": {},
@@ -34246,7 +34282,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -34331,7 +34367,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openrlhf/openrlhf": {
       "pending": {},
@@ -34362,7 +34399,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -34447,7 +34484,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openebs/openebs": {
       "pending": {},
@@ -34478,7 +34516,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -34563,7 +34601,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openwhispr/openwhispr": {
       "pending": {},
@@ -34594,7 +34633,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -34690,7 +34729,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openstatushq/openstatus": {
       "pending": {},
@@ -34721,7 +34761,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -34817,7 +34857,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/open-pencil/open-pencil": {
       "pending": {},
@@ -34848,7 +34889,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -34944,7 +34985,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/xitanggg/open-resume": {
       "pending": {},
@@ -34975,7 +35017,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -35060,7 +35102,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openapi-ts/openapi-typescript": {
       "pending": {},
@@ -35091,7 +35134,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -35176,7 +35219,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/opencart/opencart": {
       "pending": {},
@@ -35207,7 +35251,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -35292,7 +35336,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openedx/openedx-platform": {
       "pending": {},
@@ -35323,7 +35368,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -35408,7 +35453,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/opentoonz/opentoonz": {
       "pending": {},
@@ -35439,7 +35485,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -35524,7 +35570,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openmathlib/openblas": {
       "pending": {},
@@ -35555,7 +35602,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -35640,7 +35687,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/pixaranimationstudios/openusd": {
       "pending": {},
@@ -35671,7 +35719,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -35756,7 +35804,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/open-compass/opencompass": {
       "pending": {},
@@ -35787,7 +35836,7 @@
         "2026-08",
         "2026-09"
       ],
-      "checked_at": "2026-10-16T01:55:52.646480+00:00",
+      "checked_at": "2026-11-03T04:42:53.449760+00:00",
       "last_good": {
         "months": [
           "2024-10",
@@ -35872,7 +35921,8 @@
         },
         "collected_at": "2026-10-16T01:55:52.646480+00:00"
       },
-      "status": "ok"
+      "status": "unavailable",
+      "error": "Earlier invocation attempt has no retained result; retry on a later UTC day"
     },
     "https://github.com/openlm-research/open_llama": {
       "pending": {},
@@ -89280,63 +89330,63 @@
     }
   },
   "budget": {
-    "utc_date": "2026-11-02",
-    "requests_used": 117,
+    "utc_date": "2026-11-03",
+    "requests_used": 50,
     "limit": 160,
     "paused": false,
     "projects_used": 50,
     "project_limit": 50,
     "attempted_urls": [
-      "https://github.com/anomalyco/opencode",
-      "https://github.com/calesthio/openmontage",
-      "https://github.com/cmu-perceptual-computing-lab/openpose",
-      "https://github.com/commaai/openpilot",
-      "https://github.com/different-ai/openwork",
-      "https://github.com/every-app/open-seo",
-      "https://github.com/firecrawl/open-lovable",
-      "https://github.com/fission-ai/openspec",
-      "https://github.com/foundationagents/openmanus",
-      "https://github.com/game1024/openspeedy",
-      "https://github.com/hpcaitech/open-sora",
-      "https://github.com/jackwener/opencli",
-      "https://github.com/laion-ai/open-assistant",
-      "https://github.com/lfnovo/open-notebook",
-      "https://github.com/myshell-ai/openvoice",
-      "https://github.com/nexu-io/open-design",
-      "https://github.com/nvidia/openshell",
-      "https://github.com/obsproject/obs-studio",
-      "https://github.com/open-dev-society/openstock",
-      "https://github.com/open-telemetry/opentelemetry-collector",
-      "https://github.com/open-webui/open-webui",
-      "https://github.com/openapitools/openapi-generator",
-      "https://github.com/openbao/openbao",
-      "https://github.com/openbq-org/openbb",
-      "https://github.com/openclaw/openclaw",
-      "https://github.com/opencut-app/opencut",
-      "https://github.com/opencv/opencv",
-      "https://github.com/openfaas/faas",
-      "https://github.com/openhands/openhands",
-      "https://github.com/openinterpreter/openinterpreter",
-      "https://github.com/openjdk/jdk",
-      "https://github.com/openlistteam/openlist",
-      "https://github.com/openmw/openmw",
-      "https://github.com/openobserve/openobserve",
-      "https://github.com/openra/openra",
-      "https://github.com/openscad/openscad",
-      "https://github.com/openssh/openssh-portable",
-      "https://github.com/openssl/openssl",
-      "https://github.com/opentofu/opentofu",
-      "https://github.com/openttd/openttd",
-      "https://github.com/openwrt/openwrt",
-      "https://github.com/openzeppelin/openzeppelin-contracts",
-      "https://github.com/openzfs/zfs",
-      "https://github.com/thu-maic/openmaic",
-      "https://github.com/tinyhumansai/openhuman",
-      "https://github.com/vernesong/openclash",
-      "https://github.com/volcengine/openviking",
-      "https://github.com/wandb/openui",
-      "https://github.com/zai-org/open-autoglm",
-      "https://www.openbsd.org"
+      "https://github.com/acidanthera/opencorepkg",
+      "https://github.com/anomalyco/opentui",
+      "https://github.com/bentoml/openllm",
+      "https://github.com/cmusatyalab/openface",
+      "https://github.com/duartesantos8/opengym",
+      "https://github.com/evilsocket/opensnitch",
+      "https://github.com/isl-org/open3d",
+      "https://github.com/krillinai/opencreator",
+      "https://github.com/langchain-ai/open_deep_research",
+      "https://github.com/langchain-ai/openwiki",
+      "https://github.com/mlfoundations/open_clip",
+      "https://github.com/open-compass/opencompass",
+      "https://github.com/open-jarvis/openjarvis",
+      "https://github.com/open-llm-vtuber/open-llm-vtuber",
+      "https://github.com/open-metadata/openmetadata",
+      "https://github.com/open-pencil/open-pencil",
+      "https://github.com/open-policy-agent/opa",
+      "https://github.com/openapi-ts/openapi-typescript",
+      "https://github.com/opencart/opencart",
+      "https://github.com/openchamber/openchamber",
+      "https://github.com/opencti-platform/opencti",
+      "https://github.com/openebs/openebs",
+      "https://github.com/openedx/openedx-platform",
+      "https://github.com/openemu/openemu",
+      "https://github.com/openframeworks/openframeworks",
+      "https://github.com/openimsdk/open-im-server",
+      "https://github.com/openlayers/openlayers",
+      "https://github.com/openmathlib/openblas",
+      "https://github.com/opennhp/opennhp",
+      "https://github.com/openrct2/openrct2",
+      "https://github.com/openrefine/openrefine",
+      "https://github.com/openreplay/openreplay",
+      "https://github.com/openresty/openresty",
+      "https://github.com/openrlhf/openrlhf",
+      "https://github.com/opensandbox-group/opensandbox",
+      "https://github.com/opensearch-project/opensearch",
+      "https://github.com/openstatushq/openstatus",
+      "https://github.com/opentoonz/opentoonz",
+      "https://github.com/openvinotoolkit/openvino",
+      "https://github.com/openvpn/openvpn",
+      "https://github.com/openwhispr/openwhispr",
+      "https://github.com/opf/openproject",
+      "https://github.com/pixaranimationstudios/openusd",
+      "https://github.com/rightnow-ai/openfang",
+      "https://github.com/rmyndharis/openwa",
+      "https://github.com/seemoo-lab/openhaystack",
+      "https://github.com/sfttech/openage",
+      "https://github.com/thesysdev/openui",
+      "https://github.com/wasp-lang/open-saas",
+      "https://github.com/xitanggg/open-resume"
     ],
     "lane_projects": {
       "new": 0,
@@ -89345,7 +89395,7 @@
     },
     "lane_requests": {
       "new": 0,
-      "refresh": 117,
+      "refresh": 50,
       "continuation": 0
     }
   },

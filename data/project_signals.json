@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-02T21:19:35Z",
+  "collected_at": "2026-11-03T04:42:53Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -17610,13 +17610,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:21:53Z",
+        "checked_at": "2026-11-03T04:42:53Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-27T00:21:53Z",
+          "fetched_at": "2026-11-03T04:42:53Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "8bc35df4887933a3b2661e3741b33ba5f347b935",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -17698,7 +17698,7 @@
             "score": 7.2
           }
         },
-        "last_success_at": "2026-10-27T00:21:53Z",
+        "last_success_at": "2026-11-03T04:42:53Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openpgpjs/openpgpjs",
         "status": "partial",
@@ -25611,7 +25611,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-19T21:45:51Z",
+        "checked_at": "2026-11-03T04:42:53Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -26121,5 +26121,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "46ff240e06003549e0ae26aff3199e347af3ece8"
+  "source_sha": "526578444a3ae29fe5ec4d154afb3840dd2e309d"
 }
