@@ -365,6 +365,56 @@
       ],
       "checked_at": "2026-10-31",
       "reviewed_by": "Junge (AI)"
+    },
+    {
+      "project_url": "https://github.com/natlabrockies/openstudio",
+      "aliases": [
+        {
+          "name": "OpenStudio SDK",
+          "source_url": "https://github.com/NatLabRockies/OpenStudio/blob/develop/README.md"
+        }
+      ],
+      "checked_at": "2026-11-03",
+      "reviewed_by": "Junge (AI)"
+    },
+    {
+      "project_url": "https://github.com/nexu-io/open-design",
+      "aliases": [
+        {
+          "name": "OD",
+          "ambiguous": true,
+          "source_url": "https://github.com/nexu-io/open-design/blob/main/README.md"
+        }
+      ],
+      "checked_at": "2026-11-03",
+      "reviewed_by": "Junge (AI)"
+    },
+    {
+      "project_url": "https://github.com/opensil/opensil",
+      "aliases": [
+        {
+          "name": "AMD openSIL",
+          "source_url": "https://github.com/openSIL/openSIL/blob/genoa_poc/README.md"
+        },
+        {
+          "name": "AMD open Silicon Initialization Library",
+          "source_url": "https://github.com/openSIL/openSIL/blob/genoa_poc/README.md"
+        }
+      ],
+      "checked_at": "2026-11-03",
+      "reviewed_by": "Junge (AI)"
+    },
+    {
+      "project_url": "https://github.com/openstack/swift",
+      "aliases": [
+        {
+          "name": "Swift",
+          "ambiguous": true,
+          "source_url": "https://github.com/openstack/swift/blob/master/README.rst"
+        }
+      ],
+      "checked_at": "2026-11-03",
+      "reviewed_by": "Junge (AI)"
     }
   ]
 }
