@@ -1,6 +1,6 @@
 # Canonical URL health audit
 
-Status: PROPOSED. Not registered, not scheduled, not implemented. This file is a plan only. Editing, cloning, or merging this file does not register a task, enable a schedule, or authorize a run. A run becomes executable only after this contract and its linked implementation are reviewed and merged, the owner authorizes registration, and the actual registration is verified separately. This draft was prepared locally for owner review on 2026-10-30, submitted as draft pull request #231, and merged on 2026-10-31. The redirect-triage and slow-host amendments in section 6, added 2026-10-31, are proposed in a follow-up draft and take effect only when that follow-up is merged. No schedule, code, or catalog change accompanies them.
+Status: PROPOSED. Not registered, not scheduled, not implemented. This file is a plan only. Editing, cloning, or merging this file does not register a task, enable a schedule, or authorize a run. A run becomes executable only after this contract and its linked implementation are reviewed and merged, the owner authorizes registration, and the actual registration is verified separately. This draft was prepared locally for owner review on 2026-10-30, submitted as draft pull request #231, and merged on 2026-10-31. The redirect-triage and slow-host amendments in section 6, added 2026-10-31, are proposed in a follow-up draft and take effect only when that follow-up is merged. No schedule, code, or catalog change accompanies them. On 2026-10-31 the owner accepted the five Appendix C decisions; they are recorded in Appendix C and fixed in the Phase 1 checker and tests, proposed as a separate draft.
 
 Signing: contributions prepared by the assistant for this repository are signed "Superhirn (AI)" in the pull request and commit descriptions, and in any author or reviewer field where the assistant is the author. Owner review and merge remain separate and are not signed by the assistant.
 
@@ -137,7 +137,7 @@ Each record contains:
   "checked_at": "2026-11-03",
   "checked_by": "canonical-url-health/1",
   "status": "redirect-permanent",
-  "http_status": 301,
+  "http_status": 200,
   "final_url": "https://github.com/example/openexample-core",
   "redirect_chain": [
     {"status": 301, "location": "https://github.com/example/openexample-core"}
@@ -361,7 +361,7 @@ This descriptor is a codification aid, not a registration. No runner in this rep
   "outputs": ["data/canonical_url_health.json"],
   "pr_scope": ["data/canonical_url_health.json"],
   "gates": {"one_pending_draft": true, "direct_main": false, "auto_merge": false, "force_push": false},
-  "http": {"method": "HEAD, then GET on method rejection or HEAD timeout", "stdlib_only": true, "credentials": "none, except optional GitHub token for repository-ID verification after a redirect", "user_agent": "distinct honest audit identifier, to be fixed in implementation"},
+  "http": {"method": "HEAD, then GET on method rejection or HEAD timeout", "stdlib_only": true, "credentials": "none, except optional GitHub token for repository-ID verification after a redirect", "user_agent": "awesome-open-canonical-url-health/1.0 (+https://github.com/awesomeopen/awesome-open)"},
   "taxonomy": ["reachable", "redirect-permanent", "redirect-temporary", "client-error", "server-error", "blocked", "transport-error", "unknown"],
   "display": "none in version 1"
 }
@@ -374,6 +374,8 @@ This example is illustrative only. It is drawn from the rename ledger already do
 A catalog URL `https://github.com/openremote/openremote` is swept. The probe records a 301 hop to `https://github.com/openremote/core`. The checker, with a token available, requests both repository API records and finds the same repository ID, `50994619`, in both. The evidence record states: status `redirect-permanent`, redirect chain with one 301 hop, GitHub identity verified, and a review note stating that a separate curated change is required before the catalog URL or history endpoint changes, and that the catalog name stays unchanged. The draft pull request for that sweep contains only the evidence record. Under the redirect triage rule in section 6, the sweep's draft report also states the triage class for this redirect, and any handover packet for a follow-up is a separate draft. The owner may then propose, in a separate draft, an identity update under the catalog rules, or a history record under the history contract, or no change. If the two repository IDs had differed, the record would state that plainly, identity would stay unverified, and no identity proposal would follow from that observation alone.
 
 ## Appendix C. Open questions for the owner
+
+Decided 2026-10-31 by the owner, accepting the five recommended defaults: (1) weekly Tuesday full sweep at 1.0s per github.com request and 0.5s per other host; (2) the existing publisher token may be used for repository-ID verification after a redirect only; (3) User-Agent `awesome-open-canonical-url-health/1.0 (+https://github.com/awesomeopen/awesome-open)`, fixed in the Phase 1 implementation; (4) reviewer-only evidence file in version 1, no display; (5) hosted assistant task, not a GitHub Actions workflow. Registration, permissions, and secrets still require separate owner authorization and verification; accepting these decisions schedules nothing and builds nothing by itself.
 
 1. Cadence and pacing: is a weekly Tuesday full sweep, paced at 1.0 second per github.com request and 0.5 seconds per other host, the right starting point, or should the first sweep be paced more conservatively?
 2. GitHub token: may the checker use the existing publisher token for repository-ID verification after a redirect, and only for that purpose?
