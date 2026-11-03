@@ -613,14 +613,13 @@
   }
 
   return {
-    AGE_BOUNDS: AGE_BOUNDS, AGE_LABELS: AGE_LABELS,
     RECENCY_BOUNDS: RECENCY_BOUNDS, RECENCY_LABELS: RECENCY_LABELS,
-    CSV_COLUMNS: CSV_COLUMNS, metricsCacheLabel: metricsCacheLabel, knownLicense: knownLicense, knownStars: knownStars,
+    CSV_COLUMNS: CSV_COLUMNS, metricsCacheLabel: metricsCacheLabel,
     normalizeFilters: normalizeFilters, readFilters: readFilters, filterSearch: filterSearch,
-    filterProjects: filterProjects, isoDay: isoDay, dateHistogram: dateHistogram,
-    categoryCounts: categoryCounts, licenseCounts: licenseCounts, starConcentration: starConcentration,
+    isoDay: isoDay, dateHistogram: dateHistogram,
+    licenseCounts: licenseCounts, starConcentration: starConcentration,
     nameKey: nameKey, sharedNames: sharedNames, rhymingNames: rhymingNames, aggregate: aggregate, csvCell: csvCell, exportCSV: exportCSV,
-    renderChart: renderChart, renderSharedNames: renderSharedNames, renderRhymingNames: renderRhymingNames, init: init
+    renderRhymingNames: renderRhymingNames, init: init
   };
 }));
 
