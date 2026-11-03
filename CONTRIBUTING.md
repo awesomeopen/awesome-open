@@ -257,7 +257,7 @@ Successful collections become due after 30 days, a month-window change or an ide
 
 Only completed project collections replace last-good evidence. Ordinary upstream failures preserve that evidence and partial progress while healthy projects continue. Corrupt local queue data still fails visibly. Cached results from a different window or identity stay retained but are withheld from current charts. Same-window last-good results remain available after a failed refresh, with retrieval and attempt status in the evidence. Checkpoints are atomically written after each attempted project; the existing publisher owns committing generated evidence. Run `python3 scripts/update_hn.py --refresh` to mark everything due, still within the same budgets, then `python3 scripts/render_readme.py` to render offline. Do not edit generated HN markers or SVGs manually.
 
-The publisher never force-pushes. If another contributor or automation updates main during collection, it regenerates against the new branch tip rather than overwriting concurrent edits. Completed observations carry forward in the archive; current caches and curated input are rebuilt from fresh main.
+The publisher never force-pushes. If another contributor or automation updates main during collection, it regenerates against the new branch tip rather than overwriting concurrent edits. Completed observations carry forward in the archive; validated, dated HN results from the same invocation can rejoin fresh main’s cache when identity and window still match. Newer main records and quota charges are preserved. See the [retry handoff and partial-page limits](site/CHART-OBSERVATIONS.md#collection-and-publication).
 
 ## Reviewed Function summaries
 

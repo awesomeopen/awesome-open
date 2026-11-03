@@ -73,6 +73,17 @@ erase already collected successful observations merely because the invocation's
 request budget prevents querying them again. Cached publication also archives
 its current snapshots without API calls.
 
+HN also checkpoints completed results in the invocation's temporary
+`hn-results.json`, alongside its quota guard. Each fresh-main retry validates
+these observations and restores individual results only for an unchanged canonical
+identity and exact identity/query fingerprint, the current 24-month window, and
+an original collection timestamp no later than the retry. Equal or newer main
+attempts/results take precedence; undated main results are preserved. Collection
+dates and all quota charges remain intact. Partial pages remain in the worktree
+cache and can be lost when that worktree is discarded; their charges still prevent
+same-day refetch. This handoff lasts for one publisher invocation. Recovery after
+runner loss still requires the reviewed archive procedure below.
+
 The bounded backfill archives both the previous cache and every validated incoming
 complete record before selecting eligible/newer records for the live cache. A
 result collected before a concurrent catalog removal, or an older result beaten
