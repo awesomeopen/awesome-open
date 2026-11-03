@@ -358,7 +358,7 @@ class ScoreboardIntegrationTests(unittest.TestCase):
             page = (output / 'scoreboard/index.html').read_text()
             self.assertIn('Provisional preview.', page)
             self.assertTrue(json.loads((output / 'scoreboard/snapshot.json').read_text())['preview'])
-            for key, _, _, _ in scoreboard.METRICS:
+            for key, _, _ in scoreboard.METRICS:
                 self.assertIn('id="' + key + '"', page)
             build_scoreboard.build(c, None, output, root)
             page = (output / 'scoreboard/index.html').read_text()

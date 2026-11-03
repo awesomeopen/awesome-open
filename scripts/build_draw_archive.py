@@ -4,7 +4,7 @@ The page uses the Observatory route shell (B42): its header, column, section
 labels, closing mark and footer come from ../observatory/observatory.css.
 """
 from font_assets import content_url, font_asset_url
-from datetime import date, timedelta
+from datetime import date
 from html import escape
 import json
 from pathlib import Path

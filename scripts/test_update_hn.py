@@ -149,8 +149,6 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual(hn.decorate_readme(result, empty), source)
 
     def test_checked_in_evidence_invariants(self):
-        if not hn.EVIDENCE_PATH.exists():
-            self.skipTest('No committed evidence yet')
         evidence = json.loads(hn.EVIDENCE_PATH.read_text())
         self.assertEqual(len(evidence['months']), 24)
         eligible_max = 1

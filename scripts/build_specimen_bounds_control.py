@@ -10,7 +10,6 @@ import json
 import re
 from pathlib import Path
 import subprocess
-import sys
 import tempfile
 
 from build_jar_preview import jar_stylesheet_href

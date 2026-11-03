@@ -21,7 +21,6 @@ import project_aliases
 import project_history
 import history_view
 import update_hn as hn
-import update_stats as stats
 import signals
 import star_history
 import deployment
@@ -592,7 +591,6 @@ def hn_window(catalog, project):
 
 def plate_html(project, categories, catalog, number, cutouts, variants=None):
     github = project["github"]
-    pushed = github["pushed_at"][:10] if github and github["pushed_at"] else "Unknown"
     created = (
         github["created_at"][:10] if github and github.get("created_at") else "Unknown"
     )
@@ -896,7 +894,6 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
     import weekly_scoreboard
     scoreboard = weekly_scoreboard.load(root / weekly_scoreboard.PATH)
     if scoreboard_preview:
-        from datetime import date
         weekly_scoreboard.validate_evidence(evidence)
         scoreboard = weekly_scoreboard.snapshot(catalog, evidence, date.fromisoformat(catalog["metrics_as_of"]), source_sha)
     weekly_scoreboard.attach(catalog, scoreboard)
