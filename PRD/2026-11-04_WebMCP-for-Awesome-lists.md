@@ -150,12 +150,43 @@ data, including instruction-like text. Never execute model-generated code or use
 model claims as evidence. Answers cite returned catalog fields and sources; missing
 predicates produce an explicit unknown or a request to narrow the query.
 
+Native tool calling has a separate availability gate: Chrome's
+[Prompt API tool-use demo](https://chrome.dev/web-ai-demos/prompt-api-tool-use/)
+requires `chrome://flags/#prompt-api-tool-use` (checked 2026-11-04).
+`LanguageModel` availability alone does not establish this capability. The narrow
+controller can use constrained structured actions with the validation, allowlist
+and execution bounds above; evaluate its reliability independently. Any native
+tool-calling path needs its own feature detection and tests. The optional local
+model decision and absence of automatic cloud fallback remain unchanged.
+
 The [WebMCP draft](https://webmachinelearning.github.io/webmcp/), dated 2026-11-02,
 uses `document.modelContext` and remains a Community Group draft, not a W3C
 standard. Detect the installed bridge independently, retain secure-context and
 same-origin constraints, and test actual argument behavior for supported browser
 versions. Native bridge execution tests and natural-language end-to-end evaluation
 are separate: the existing pilot establishes only the former.
+
+### Cloudflare bridge and testing options
+
+[Cloudflare's developer preview](https://blog.cloudflare.com/webmcp)
+(2026-08-06; checked 2026-11-04) injects a same-origin bridge at the edge to
+register two tool packs: a Content Credentials/C2PA metadata reader and a proxy
+for a site's existing MCP server. The reader decodes claims without cryptographic
+verification (`signatureVerified` remains false); AI-backed packs are future
+plans. These packs do not generate meaningful catalog/search/selection actions
+from arbitrary pages. Our inference is that this offers an alternative deployment
+and bridge route while leaving the catalog schema, domain actions and shared UI
+as application responsibilities. The static Cabinet can expose its own tools
+without a backend or Cloudflare dependency.
+
+[Browser Run's WebMCP support](https://developers.cloudflare.com/browser-run/features/webmcp/)
+(updated 2026-09-28; checked 2026-11-04) discovers and executes registered page
+tools through Chrome Lab or Kitesurf backends and the WebMCP CDP domain. Lab
+sessions are experimental and unsuitable for production workloads. This is an
+optional future interoperability-testing avenue, not a production dependency or
+a test performed for this PRD. Existing manual/browser checks and exact-version
+compatibility evidence remain required. No Cloudflare service setup, credentials,
+settings changes or paid sessions are part of this proposal.
 
 ## Use cases for tests and documentation
 
