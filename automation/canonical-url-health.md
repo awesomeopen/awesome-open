@@ -1,12 +1,14 @@
 # Canonical URL health audit
 
-Status: PROPOSED. Not registered, not scheduled, not implemented. This file is a plan only. Editing, cloning, or merging this file does not register a task, enable a schedule, or authorize a run. A run becomes executable only after this contract and its linked implementation are reviewed and merged, the owner authorizes registration, and the actual registration is verified separately. This draft was prepared locally for owner review on 2026-10-30, submitted as draft pull request #231, and merged on 2026-10-31. The redirect-triage and slow-host amendments in section 6, added 2026-10-31, are proposed in a follow-up draft and take effect only when that follow-up is merged. No schedule, code, or catalog change accompanies them. On 2026-10-31 the owner accepted the five Appendix C decisions; they are recorded in Appendix C and fixed in the Phase 1 checker and tests, proposed as a separate draft.
+Status: Phase 1 checker and offline fixture tests merged in [PR #264](https://github.com/awesomeopen/awesome-open/pull/264). The contract merged in [PR #231](https://github.com/awesomeopen/awesome-open/pull/231), its redirect-triage and slow-host amendments in [PR #238](https://github.com/awesomeopen/awesome-open/pull/238), and the inventory entry in [PR #263](https://github.com/awesomeopen/awesome-open/pull/263). The owner's accepted defaults are preserved in [Appendix C](#appendix-c-accepted-owner-decisions).
+
+Live rollout follows the pilot and review gates in section 15. Registration requires separate owner authorization and verification of the actual runner, cadence and access. When registration is inaccessible, mark it unverified and continue only repository checks. Editing, cloning or merging this file creates no schedule or live-run authorization.
 
 Signing: contributions prepared by the assistant for this repository are signed "Superhirn (AI)" in the pull request and commit descriptions, and in any author or reviewer field where the assistant is the author. Owner review and merge remain separate and are not signed by the assistant.
 
 ## 1. The job in one paragraph
 
-Check, once a week, every catalog project's canonical URL: whether it still responds, where it redirects, and whether a GitHub repository has moved to a new path with the same repository ID. Record only the observed HTTP facts, with dates and redirect chains, in a new evidence file, and file a draft only when an observation has changed or a monthly coverage checkpoint is due (section 8). Propose nothing automatically. Any change to a catalog name, URL, alias, or history record remains a separate curated change, reviewed and merged by the owner. The job exists because catalog URLs decay: repositories rename, owners transfer, domains lapse, and pages move. Today those changes are found ad hoc. The reviewed rename ledger in CONTRIBUTING.md shows the pattern: each rename was verified manually by comparing repository IDs, and only the history endpoint changed, while the catalog name and URL stayed unchanged until a separate curated change. No collector in `scripts/` probes canonical URLs, no job in `automation/README.md` owns URL health, and no entry in TODO.md covers it. The scripts directory listing as read on 2026-10-30 contains collectors for GitHub metrics, Hacker News, star history, and signals, and browser checks for the rendered site, and none for canonical-URL availability, redirects, or dead links.
+Check, once a week, every catalog project's canonical URL: whether it still responds, where it redirects, and whether a GitHub repository has moved to a new path with the same repository ID. Record only the observed HTTP facts, with dates and redirect chains, in a new evidence file, and file a draft only when an observation has changed or a monthly coverage checkpoint is due (section 8). Propose nothing automatically. Any change to a catalog name, URL, alias, or history record remains a separate curated change, reviewed and merged by the owner. The job exists because catalog URLs decay: repositories rename, owners transfer, domains lapse, and pages move. The [reviewed rename ledger](../CONTRIBUTING.md#reviewed-repository-renames) shows why URL observations and curated changes need separate review: each rename was verified by comparing repository IDs, and only the history endpoint changed while the catalog name and URL remained unchanged. The checker is `scripts/check_canonical_urls.py`; its operating contract is indexed in the [automation inventory](README.md#canonical-url-health-audit).
 
 ## 2. Philosophy fit
 
@@ -77,14 +79,14 @@ Concurrency and politeness bounds, version 2:
 
 If a previous material draft is still pending review, the next sweep still runs, because a sweep is only observation, but it files no new draft. Its results are held for the next draft, and the sweep summary in section 11 records that a draft was skipped for that reason. This differs from the enrichment one-pending-draft gate, which pauses the work itself; here the observation work is cheap and safe to repeat, and only the filing is gated. A sweep never overwrites a pending draft's branch, and it never merges anything itself.
 
-Cadence, proposed, to be authorized by the owner before registration:
+Cadence accepted in Appendix C; registration still requires separate owner authorization and verification:
 
 - Weekly, Tuesdays, nominal 10:00 America/New_York, flexible. Tuesday at 10:00 avoids the enrichment windows at 08:00, 15:00, and 19:00, the documentation reconciliation run at 04:00, and the publisher's daily run at 00:00 UTC. The exact registration, runner, and timezone handling, including daylight saving changes, must be verified in the registration itself, not inferred from this file.
 - Manual dispatch is allowed for a bounded recheck of a single persistent failure, with the same per-host bounds, and only after the owner authorizes the scope. Manual dispatch never starts a full sweep and never changes the schedule.
 
 ## 6. HTTP protocol: what a probe does, and what each result means
 
-Revision note, 2026-10-31: the pilot sweep of the first 100 URLs, reported in chat, found two probe defects in this section's first draft. First, `https://osdoc.cogsci.nl` (OpenSesame) answers GET in about 11 seconds and never answers HEAD within 10 seconds, for any User-Agent, so a HEAD-only 10-second timeout recorded a transport error for a site that opens in a browser. Second, a permanent redirect alone does not say whether the change is a URL correction, a move, or a rename, or whether it is already recorded. This section now requires a GET fallback on a HEAD timeout, with a longer timeout and a method switch on retry, and adds redirect triage and handover below. The contract version stays 1: the original contract was merged as PR #231, and this amendment is proposed as a follow-up draft.
+Revision note, 2026-10-31: the pilot sweep of the first 100 URLs, reported in chat, found two probe defects in this section's first draft. First, `https://osdoc.cogsci.nl` (OpenSesame) answers GET in about 11 seconds and never answers HEAD within 10 seconds, for any User-Agent, so a HEAD-only 10-second timeout recorded a transport error for a site that opens in a browser. Second, a permanent redirect alone does not say whether the change is a URL correction, a move, or a rename, or whether it is already recorded. This section now requires a GET fallback on a HEAD timeout, with a longer timeout and a method switch on retry, and adds redirect triage and handover below. The contract version stays 1; the amendment merged in [PR #238](https://github.com/awesomeopen/awesome-open/pull/238).
 
 One probe, per selected URL, in this exact sequence:
 
@@ -302,28 +304,49 @@ A new agent, with only this file, `AGENTS.md`, `CONTRIBUTING.md`, and the reposi
 1. Read fresh `main`, `AGENTS.md`, `CONTRIBUTING.md`, this contract, and `automation/README.md`. Read the catalog builder, `scripts/build_catalog.py`, and the identity rules in section 4. Read the evidence contracts for history and aliases.
 2. Check the actual registration: runner, cadence, permissions, and last run report. If registration is inaccessible, mark that part unverified and continue only the repository checks. Never infer registration from this file.
 3. Check open pull requests and active work for this job and for overlapping evidence work. If a draft from this job is pending, run the sweep but file no new draft, and hold its results for the next draft.
-4. Build the catalog and run the sweep in dry-run mode against fixtures. Confirm the probe order matches section 5 for the current catalog, and record the source SHA and the expected digest for the fixtures.
-5. Run the checker in dry-run mode against fixtures, with no network access, and confirm the recorded chains match the fixtures. Then run the live sweep, within the bounds in sections 5 and 6, and validate the evidence file.
+4. Build the catalog and use `--dry-run` without fixtures to inspect its catalog-ID order. This prints the order only; it produces no observations or digest. Record the catalog source SHA.
+5. Use `--dry-run --fixtures <fixture-file>` to replay recorded responses without network access; confirm the chains and digest against the fixtures. Live probing follows the authorization and review gates in section 15, within the bounds in sections 5 and 6, and requires evidence validation.
 6. File one scoped draft pull request, with the report format in section 11, and follow exact-head CI to its terminal result. Report failed, skipped, or unavailable checks accurately.
 7. Stay quiet if nothing changed. Report only material additions, persistent failures, and actionable blockers, with verified commit, pull request, or run links.
 
-Commands, version 1, to be finalized with the implementation and kept exact in the implementation's own documentation:
+Offline commands:
 
 ```sh
 python3 scripts/build_catalog.py --output tmp/catalog.json
-python3 scripts/check_canonical_urls.py --catalog tmp/catalog.json --evidence data/canonical_url_health.json --output data/canonical_url_health.json --dry-run
-python3 scripts/check_canonical_urls.py --catalog tmp/catalog.json --evidence data/canonical_url_health.json --output data/canonical_url_health.json
+python3 scripts/check_canonical_urls.py --catalog tmp/catalog.json --output tmp/url-health-preview.json --dry-run
 python3 scripts/test_canonical_url_health.py
 python3 -m unittest discover -s scripts -p 'test_canonical_url_health.py'
 ```
 
-The script names above are proposed, not yet implemented. Until they exist, a run must not claim to have used them. The implementation phase, section 15, creates them, with tests, before any scheduled run.
+For a fixture replay, prepare `tmp/url-health-fixtures.json` with a `responses`
+object mapping `METHOD <url>` to ordered response lists, then run:
+
+```sh
+python3 scripts/check_canonical_urls.py --catalog tmp/catalog.json --output tmp/url-health-preview.json --dry-run --fixtures tmp/url-health-fixtures.json
+```
+
+Each fixture response has `status` and optional `location`, or `error_kind`.
+Unscripted requests return synthetic HTTP 200; fixture results are test evidence.
+Fixture mode prints its sweep report and writes no output unless `--write-output`
+is also supplied. Without fixtures, dry-run always prints only the full probe
+order and writes nothing. `--output` is required in both modes.
+`--evidence <path>` optionally loads prior evidence for comparison.
+
+After the section 15 gates authorize the relevant live scope, the live command is:
+
+```sh
+python3 scripts/check_canonical_urls.py --catalog tmp/catalog.json --evidence data/canonical_url_health.json --output data/canonical_url_health.json
+```
+
+Use `--limit 100` for the authorized Phase 2 pilot. Omitting `--dry-run` makes
+network requests and writes the evidence file; the command itself grants no
+live-run authorization.
 
 ## 15. Implementation roadmap
 
-Phase 0, contract review, no schedule, no code. Owner reviews this file, corrects the cadence and the per-host intervals, and decides whether GitHub ID verification may use the existing token. No registration is created. The inventory in `automation/README.md` is updated only to list this job as Proposed, with its runner and cadence marked To be authorized, never as Enabled.
+Phase 0, contract review, merged in PRs #231 and #238, with the inventory added in PR #263. Appendix C records the owner’s accepted defaults. These repository changes created no registration.
 
-Phase 1, offline implementation, no network. Implement the sweep, the evidence schema and validation, and the fixture tests. The checker runs in dry-run mode only, against recorded redirect chains. A draft pull request carries only the contract, the implementation, and the tests. No live probing, no evidence file, and no schedule are included.
+Phase 1, offline implementation, merged in PR #264. It added the checker and fixture tests, with contract corrections. Validation used recorded responses without network access; the PR included no live probe, evidence file or schedule. Live validation and rollout remain subject to the following phases.
 
 Phase 2, pilot, bounded and reviewed. With owner authorization, run one live pilot sweep of 100 URLs in ascending catalog ID order, and file one draft pull request with the observations. The owner reviews every record against its method before any further sweep. If the pilot's false-positive rate, latency, or review burden is unacceptable, the contract is corrected before Phase 3.
 
@@ -333,15 +356,13 @@ Phase 4, registration. Only after Phase 3 has produced reviewed, merged evidence
 
 Phase 5, steady state and optimization. Continue the weekly sweeps, the calibration reviews, and the contract versioning in section 13. A display proposal, if the owner wants one, is a separate decision with its own evidence contract, and it must not reuse this job's observations as a health score or verdict.
 
-## 16. Inventory entry, proposed
+<a id="16-inventory-entry-proposed"></a>
+## 16. Inventory entry
 
-When Phase 0 is approved, add this row to the hosting and cadence table in `automation/README.md`, and a matching section in the same style as the other jobs. Until registration is verified, the operating state stays Proposed, never Enabled:
-
-| Task | Runner | Configured cadence | Operating state |
-| --- | --- | --- | --- |
-| Canonical URL health audit | To be authorized | Weekly, nominal Tuesday 10:00 America/New_York, flexible | Proposed, not registered |
-
-The section that follows the table must state, in the same words as the other jobs, that editing the inventory does not register the task, and must link this contract, the sweep and checker commands, and the evidence file. The inventory update is part of the Phase 0 draft, not a separate change.
+The [inventory entry](README.md#canonical-url-health-audit) was added in PR #263.
+Keep its implementation status aligned with merged changes. Mark the task Enabled
+only after the Phase 4 registration is authorized and verified; record runner,
+cadence and access evidence with the registration, outside Git.
 
 ## Appendix A. Machine-readable job descriptor, proposed
 
@@ -373,12 +394,7 @@ This example is illustrative only. It is drawn from the rename ledger already do
 
 A catalog URL `https://github.com/openremote/openremote` is swept. The probe records a 301 hop to `https://github.com/openremote/core`. The checker, with a token available, requests both repository API records and finds the same repository ID, `50994619`, in both. The evidence record states: status `redirect-permanent`, redirect chain with one 301 hop, GitHub identity verified, and a review note stating that a separate curated change is required before the catalog URL or history endpoint changes, and that the catalog name stays unchanged. The draft pull request for that sweep contains only the evidence record. Under the redirect triage rule in section 6, the sweep's draft report also states the triage class for this redirect, and any handover packet for a follow-up is a separate draft. The owner may then propose, in a separate draft, an identity update under the catalog rules, or a history record under the history contract, or no change. If the two repository IDs had differed, the record would state that plainly, identity would stay unverified, and no identity proposal would follow from that observation alone.
 
-## Appendix C. Open questions for the owner
+<a id="appendix-c-open-questions-for-the-owner"></a>
+## Appendix C. Accepted owner decisions
 
 Decided 2026-10-31 by the owner, accepting the five recommended defaults: (1) weekly Tuesday full sweep at 1.0s per github.com request and 0.5s per other host; (2) the existing publisher token may be used for repository-ID verification after a redirect only; (3) User-Agent `awesome-open-canonical-url-health/1.0 (+https://github.com/awesomeopen/awesome-open)`, fixed in the Phase 1 implementation; (4) reviewer-only evidence file in version 1, no display; (5) hosted assistant task, not a GitHub Actions workflow. Registration, permissions, and secrets still require separate owner authorization and verification; accepting these decisions schedules nothing and builds nothing by itself.
-
-1. Cadence and pacing: is a weekly Tuesday full sweep, paced at 1.0 second per github.com request and 0.5 seconds per other host, the right starting point, or should the first sweep be paced more conservatively?
-2. GitHub token: may the checker use the existing publisher token for repository-ID verification after a redirect, and only for that purpose?
-3. User-Agent: what distinct honest identifier should the checker send? Fix it in the implementation, and record it in the contract, before the first live run.
-4. Display: should the evidence file ever be displayed, for example as Observatory coverage, or should it remain a reviewer-only evidence file? No display work starts until that decision and its contract exist.
-5. Runner: should this job run as a hosted assistant task, in the same style as the other enrichment jobs, or as a GitHub Actions workflow, in the style of the publisher? The contract is written to work under either, but the registration, permissions, and secrets differ, and the choice must be made before Phase 4.

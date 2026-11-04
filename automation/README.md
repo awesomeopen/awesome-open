@@ -18,7 +18,7 @@ Check actual registration and the current repository contract before a run.
 | [Reconcile documentation](reconcile-documentation.md) | ChatGPT-hosted assistant | Daily, 04:00 `America/New_York`, exact | Enabled, recurring |
 | [Nightly code-quality audit](nightly-code-quality-audit.md) | Grok Bot-hosted assistant | Daily, nominal 02:00 `America/New_York`, flexible | Enabled, recurring |
 | [Backfill deployment evidence](backfill-deployment-evidence.md) | Grok Bot ("Kanzler") scheduled routines, write through a Cursor cloud agent | Daily, nominal 11:00 and 17:00 `America/New_York` (maintenance: 11:00 only), flexible | Pilot merged (PR #245). Registration after contract version 3 merges: 11:00 and 17:00 `America/New_York`, 25 per run |
-| [Canonical URL health audit](canonical-url-health.md) | To be authorized | Weekly, nominal Tuesday 10:00 `America/New_York`, flexible | Proposed, not registered |
+| [Canonical URL health audit](canonical-url-health.md) | Hosted assistant; registration requires verification | Weekly, nominal Tuesday 10:00 `America/New_York`, flexible | Phase 1 checker/tests merged; live rollout follows the contract gates |
 | [Backfill GitHub star history](#backfill-github-star-history) | Retired ChatGPT-hosted coordinator; manual collection capability remains in GitHub Actions | Formerly hourly; scheduler timezone `America/Los_Angeles` | Disabled 2026-10-21; initial backfill complete with one documented unavailable repository |
 
 Flexible times are nominal. New York schedules follow local time, including
@@ -337,13 +337,14 @@ rename is handed over as a packet with its exact proposed content in a
 separate scoped draft PR under its own contract. Owner merge approval remains
 separate; no auto-merge, no force-push.
 
-**Stop/pause:** Proposed, not registered. Editing this inventory or the
-[contract](canonical-url-health.md) alone creates no schedule; registration
-requires separate owner authorization and verification. Sweep with
-`python3 scripts/build_catalog.py --output tmp/catalog.json` and
-`python3 scripts/check_canonical_urls.py --catalog tmp/catalog.json --evidence data/canonical_url_health.json --output data/canonical_url_health.json`
-(dry-run first, per the contract's handover checklist). The checker and its
-tests do not exist yet; do not claim a run used them until Phase 1 is merged.
+**Implementation and gates:** The checker and offline fixture tests merged in
+[PR #264](https://github.com/awesomeopen/awesome-open/pull/264). Follow the
+[handover commands](canonical-url-health.md#14-handover-how-any-agent-takes-over-this-job)
+for probe-order inspection and fixture replay; these are distinct dry-run modes.
+Live pilot, full-sweep review and registration retain the
+[rollout gates](canonical-url-health.md#15-implementation-roadmap).
+Registration requires separate owner authorization and verification; inaccessible
+runtime state remains unverified. Editing this inventory creates no schedule.
 
 ## Keeping this inventory current
 
