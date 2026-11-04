@@ -19,6 +19,16 @@ from browser_impact import impact
 
 ROOT = Path(__file__).resolve().parent.parent
 CHUNK_SIZE = 32
+# Canonical identities survive display-name changes (including openpilot/OpenPilot).
+REPRESENTATIVE_IDS = {
+    'a2b374fddf2f0492141da0f237e94a0c0ba11325c8ad3c4b8883d097f5ede99d',  # OpenTofu
+    '88684ee6223e89613d45d7d8acfe54b2a4e69968f18b7b263f5670c7cde35906',  # OpenRefine
+    '13f08bab005ffd3059f206ffa72c6e33c964e3c7d26d1a7dcfc700eaa55ed2fc',  # OpenSCAD
+    '012cd304d8265ea55d6a07975d08a58b66834d9d3ef824678bde0b7d1baf0bbc',  # OpenBB
+    '819f64c64bb9f39aab65d948e8a8e4259c5efb724fbcd2a64cf07f8636d5fcf4',  # OpenSpec
+    '005bd9f29aff8832050b843a0d5451f4a91eae39424376761245670799a1450b',  # openpilot
+    '91874098c295acfc1b15893d4fb08408cc17d91203282c7580ecad07b86aec27',  # OpenRocket
+}
 
 
 def make_plan(catalog, comparison=None):
@@ -31,9 +41,8 @@ def make_plan(catalog, comparison=None):
         mode = 'full'
     # Named, stable examples supplement all responsive/fixture captures retained
     # by the core suites. Removed/unrendered changed IDs conservatively use full.
-    representatives = {'OpenTofu', 'OpenRefine', 'OpenSCAD', 'OpenBB', 'OpenSpec', 'Openpilot', 'OpenRocket'}
     capture_ids = ids if mode == 'full' else sorted(set(comparison['changedIds']) | {
-        p['id'] for p in catalog['projects'] if p.get('artwork') and p.get('name') in representatives})
+        p['id'] for p in catalog['projects'] if p.get('artwork') and p['id'] in REPRESENTATIVE_IDS})
     suites = [dict(name='core', script='check_site_browser.cjs', seconds=120),
               *[dict(name=name, script='check_site_browser.cjs', args=[name], seconds=seconds)
                 for name, seconds in [('aliases', 45), ('bounds', 90), ('details', 60), ('footer', 60),

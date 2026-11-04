@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 import unittest
 from browser_impact import classify, impact
-from run_browser_checks import make_plan
+from run_browser_checks import make_plan, REPRESENTATIVE_IDS
 
 A, B = 'a' * 64, 'b' * 64
 
@@ -27,6 +27,13 @@ class ImpactTests(unittest.TestCase):
         plan = make_plan(data, result)
         self.assertEqual(plan['captureIds'], [A, B])
         self.assertEqual(plan['artworkIds'], [A, B])
+
+    def test_representatives_keep_identity_after_display_name_changes(self):
+        sample = sorted(REPRESENTATIVE_IDS)[0]
+        data = dict(source_sha='sha', projects=[dict(id=sample, name='Renamed', artwork=True),
+                                             dict(id=A, name='Changed', artwork=True)])
+        plan = make_plan(data, dict(mode='selective', changedIds=[A]))
+        self.assertEqual(plan['captureIds'], sorted([sample, A]))
 
     def test_invalid_manifest_schema_or_lock_scope_uses_full(self):
         for old, new in [({}, {}), ({'artworks': []}, {'artworks': {}}),

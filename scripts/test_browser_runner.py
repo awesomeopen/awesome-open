@@ -131,7 +131,10 @@ class BrowserRunnerTests(unittest.TestCase):
             for code, expected in [('pass', 'passed'), ('raise SystemExit(7)', 'failed'),
                                    ('import os, signal; os.kill(os.getpid(), signal.SIGTERM)', 'failed'),
                                    ('import time; time.sleep(10)', 'timed_out')]:
-                result = run_suite(dict(name='probe', seconds=.1), output, [sys.executable, '-c', code])
+                # Normal exits need process-startup headroom on loaded runners;
+                # only the intentional sleeping child exercises the short timeout.
+                limit = .1 if expected == 'timed_out' else 2
+                result = run_suite(dict(name='probe', seconds=limit), output, [sys.executable, '-c', code])
                 self.assertEqual(result['status'], expected)
                 self.assertLess(result['elapsedSeconds'], 4)
             self.assertEqual(run_suite(dict(name='missing', seconds=1), output,
