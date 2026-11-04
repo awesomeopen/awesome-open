@@ -20,6 +20,25 @@ and works independently of WebMCP. Ordinary search and comparison remain complet
 without either API. No automatic model download, provider key, backend service or
 paid cloud fallback is required by this product.
 
+### A regular visitor asks what software to get
+
+The central product hypothesis is that a visitor can describe a need and receive
+a useful, detailed answer from the optional in-page local assistant without
+bringing an agent or configuring a service. Illustrative journey: “What software
+should I get to manage family photos on my own server?” The assistant clarifies
+the visitor's requirements, searches declared catalog fields, inspects matching
+records, and builds a visible shortlist and comparison through structured actions.
+It explains fit to those explicit needs and trade-offs using sourced fields,
+links the evidence, and preserves unknowns. The visitor can revise the shortlist
+or requirements and makes the final choice.
+
+This conversational guidance uses the existing evidence contract. It introduces
+no aggregate score, invented ranking or recommendation engine. Evaluate whether
+the answer helps a regular visitor make an informed choice, alongside action
+correctness; sparse evidence must remain visible in the answer.
+
+### Relationship to existing agent tools
+
 [Context Awesome](https://www.context-awesome.com/browse) already offers useful
 cross-list discovery. Its [per-list page](https://www.context-awesome.com/list/f/awesome-chatgpt-prompts)
 provides an example prompt and MCP setup link; its
