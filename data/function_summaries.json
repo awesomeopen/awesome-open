@@ -11972,6 +11972,1058 @@
           "source_url": "https://github.com/openolat/openolat/blob/cec958d09cd901aa9bcca7914d5af705f14274bd/README.md"
         }
       ]
+    },
+    "b5ad74aca44e088569b377c7470f8d32a4e816d3bf411f66f39db97ddc6b09fd": {
+      "project_url": "https://github.com/opencloudgaming/opennow-ps5",
+      "text": "OpenNOW PS5 is an experimental GeForce NOW client for PlayStation 5 consoles that can run native homebrew. Users sign in to NVIDIA, browse their library and the service catalog, and stream games with hardware video decoding and DualSense controls. It offers adjustable stream settings, queue progress, and resuming sessions after an application restart.",
+      "sources": [
+        {
+          "url": "https://github.com/opencloudgaming/opennow-ps5/blob/b98068112d6697f1ed8c32939171102dc0f7c785/README.md",
+          "title": "OpenNOW PS5 README",
+          "revision": "b98068112d6697f1ed8c32939171102dc0f7c785"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Cloud-game browsing",
+          "text": "Browse the account library and service catalog, search games, and follow session queue progress.",
+          "source_url": "https://github.com/opencloudgaming/opennow-ps5/blob/b98068112d6697f1ed8c32939171102dc0f7c785/README.md"
+        },
+        {
+          "title": "DualSense input",
+          "text": "Send gamepad input with rumble, touchpad mouse controls, and an in-game keyboard.",
+          "source_url": "https://github.com/opencloudgaming/opennow-ps5/blob/b98068112d6697f1ed8c32939171102dc0f7c785/README.md"
+        }
+      ]
+    },
+    "b6d9a575d023b1cbf18e4122d83ba85b9cca0f3ad7d0406ee9e26a9972ae2321": {
+      "project_url": "https://github.com/maanhimself/opendlss-nr",
+      "text": "OpenDLSS-NR implements a neural rendering network with Vulkan to modify already rendered frames at their original resolution. Developers supply the model weights and can use command-line tools for benchmarking, profiling, and comparison against reference fixtures. The repository includes a glTF scene demo and an independent WebGPU implementation that runs the network in a browser. Its Vulkan build requires Windows and a supported NVIDIA GPU.",
+      "sources": [
+        {
+          "url": "https://github.com/maanhimself/opendlss-nr/blob/9d08f4184bbcb9d858e2fb7a7834ec0837a9d2f1/README.md",
+          "title": "OpenDLSS-NR README",
+          "revision": "9d08f4184bbcb9d858e2fb7a7834ec0837a9d2f1"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Frame processing",
+          "text": "Processes a rendered frame with noise, reprojected previous output, and conditioning values to produce color residuals and temporal blending output.",
+          "source_url": "https://github.com/maanhimself/opendlss-nr/blob/9d08f4184bbcb9d858e2fb7a7834ec0837a9d2f1/README.md"
+        },
+        {
+          "title": "Reference comparisons",
+          "text": "Command-line parity and verification modes compare network results against supplied reference fixtures.",
+          "source_url": "https://github.com/maanhimself/opendlss-nr/blob/9d08f4184bbcb9d858e2fb7a7834ec0837a9d2f1/README.md"
+        }
+      ]
+    },
+    "b7d1141b996a17d93d2a94318e8bc8066ef657d70a339e58d77178dde47793c6": {
+      "project_url": "https://www.opensuse.org",
+      "text": "openSUSE provides Linux operating systems for desktop computers, servers, and containers. Users can choose a stable Leap release or the rolling Tumbleweed distribution, with specialized immutable variants also available. The installer offers KDE, GNOME, and XFCE desktops, server configurations, full-disk encryption, and Btrfs snapshots, with optional access to restricted codecs and drivers.",
+      "sources": [
+        {
+          "url": "https://www.opensuse.org",
+          "title": "openSUSE official website"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Release choices",
+          "text": "Offers stable Leap and rolling Tumbleweed distributions alongside specialized immutable variants.",
+          "source_url": "https://www.opensuse.org"
+        },
+        {
+          "title": "Installation options",
+          "text": "The installer offers desktop and server configurations, full-disk encryption, Btrfs snapshots, and LVM partitioning.",
+          "source_url": "https://www.opensuse.org"
+        }
+      ]
+    },
+    "b7eaa32d8f6433f0aa6e83b47e395a042b4dc75b363a2cc147c7e204fa2ded95": {
+      "project_url": "https://github.com/hascheksolutions/opentrashmail",
+      "text": "Open Trashmail is a self-hosted mail receiver for disposable addresses and email-driven integrations. It accepts messages without pre-creating each address and exposes them through a web interface, JSON API, RSS feeds, and configurable webhooks. Users can retrieve attachments, delete messages, and generate random addresses. Its file-based storage operates without a database.",
+      "sources": [
+        {
+          "url": "https://github.com/hascheksolutions/opentrashmail/blob/cd5bec19bbed1b490ef4af7ece9b670b24067fc9/README.md",
+          "title": "Open Trashmail README",
+          "revision": "cd5bec19bbed1b490ef4af7ece9b670b24067fc9"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Mailbox integration",
+          "text": "Read received messages through JSON endpoints or an RSS feed for each address.",
+          "source_url": "https://github.com/hascheksolutions/opentrashmail/blob/cd5bec19bbed1b490ef4af7ece9b670b24067fc9/README.md"
+        },
+        {
+          "title": "Incoming-message webhooks",
+          "text": "Configure per-address webhooks with customizable JSON payloads, with a global webhook option for incoming mail.",
+          "source_url": "https://github.com/hascheksolutions/opentrashmail/blob/cd5bec19bbed1b490ef4af7ece9b670b24067fc9/README.md"
+        }
+      ]
+    },
+    "b89fc85164cffc93fb67100919c6bf7ecf3440169212f09fda314efd332d609b": {
+      "project_url": "https://github.com/pkp/ops",
+      "text": "Open Preprint Systems is software for operating a preprint server, developed by the Public Knowledge Project. Administrators can deploy official release packages for production or use the source repository for local development. The application runs with PHP and supports MySQL, MariaDB, or PostgreSQL databases on Linux and other documented operating systems.",
+      "sources": [
+        {
+          "url": "https://github.com/pkp/ops/blob/0acd73102d8cbbb94770472346bef26a11bae580/README.md",
+          "title": "Open Preprint Systems README",
+          "revision": "0acd73102d8cbbb94770472346bef26a11bae580"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Preprint-server management",
+          "text": "Provides an application for managing a preprint server.",
+          "source_url": "https://github.com/pkp/ops/blob/0acd73102d8cbbb94770472346bef26a11bae580/README.md"
+        },
+        {
+          "title": "Database choices",
+          "text": "Supports deployment with MySQL, MariaDB, or PostgreSQL.",
+          "source_url": "https://github.com/pkp/ops/blob/0acd73102d8cbbb94770472346bef26a11bae580/README.md"
+        }
+      ]
+    },
+    "b8ef16f595439bc0685d444f09f94e45dcae8c690d9b141a3e0ed2839357f38b": {
+      "project_url": "https://github.com/kevinbadi/open-edits",
+      "text": "OPEN VIDEO EDIT supplies Claude Code skills and Python rendering tools for turning footage or scripts into edited videos. It supports vertical talking-head shorts, landscape videos, and faceless news formats with animated graphics and captions aligned to spoken words. Rendering runs locally with Python and ffmpeg, while supporting scripts prepare audio, word timestamps, and visual assets.",
+      "sources": [
+        {
+          "url": "https://github.com/kevinbadi/open-edits/blob/7fbd74651ea945711792b207e8a9f0a167f78132/README.md",
+          "title": "OPEN VIDEO EDIT README",
+          "revision": "7fbd74651ea945711792b207e8a9f0a167f78132"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Speech-timed graphics",
+          "text": "Uses word timestamps from the talking-head audio to place graphics and captions at spoken anchors.",
+          "source_url": "https://github.com/kevinbadi/open-edits/blob/7fbd74651ea945711792b207e8a9f0a167f78132/README.md"
+        },
+        {
+          "title": "Video formats",
+          "text": "Includes workflows for vertical shorts, landscape talking-head videos, and faceless news videos.",
+          "source_url": "https://github.com/kevinbadi/open-edits/blob/7fbd74651ea945711792b207e8a9f0a167f78132/README.md"
+        }
+      ]
+    },
+    "b989cc8b8ad1a9eb8a97aa34257472f653b9819e2895c8a02bd5a5c5f62904e1": {
+      "project_url": "https://github.com/openvsp/openvsp",
+      "text": "OpenVSP is a parametric aircraft geometry tool for constructing three-dimensional models from engineering parameters. Designers can process those models into formats suitable for engineering analysis. The software provides a graphical interface, an API for access from other programs, and a batch mode that runs without user interaction; headless builds can omit graphics libraries.",
+      "sources": [
+        {
+          "url": "https://github.com/openvsp/openvsp/blob/5240ef210f41c5d6aeed0ba7687f6fab0ca0cafb/README.md",
+          "title": "OpenVSP README",
+          "revision": "5240ef210f41c5d6aeed0ba7687f6fab0ca0cafb"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Parametric aircraft models",
+          "text": "Creates three-dimensional aircraft geometry defined by common engineering parameters.",
+          "source_url": "https://github.com/openvsp/openvsp/blob/5240ef210f41c5d6aeed0ba7687f6fab0ca0cafb/README.md"
+        },
+        {
+          "title": "Programmatic operation",
+          "text": "Offers an API and a batch mode, including headless builds without graphics-library dependencies.",
+          "source_url": "https://github.com/openvsp/openvsp/blob/5240ef210f41c5d6aeed0ba7687f6fab0ca0cafb/README.md"
+        }
+      ]
+    },
+    "b9ee5361ea6e35c1c0d2a4438763e1503f710d45f7c7cff72724cf1c5c4dad64": {
+      "project_url": "https://github.com/opensilver/opensilver",
+      "text": "OpenSilver is an application framework that combines XAML interfaces with C#, VB.NET, or F#. It deploys web applications through WebAssembly and desktop or mobile applications through .NET MAUI or Photino. Its supported WPF API subset includes data binding, commands, styles, and templates, while JavaScript interoperability and Blazor integration let developers combine existing components with XAML.",
+      "sources": [
+        {
+          "url": "https://github.com/opensilver/opensilver/blob/1ab0c5f47d553356b731a211a92de6b0d12853db/README.md",
+          "title": "OpenSilver README",
+          "revision": "1ab0c5f47d553356b731a211a92de6b0d12853db"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "XAML and .NET",
+          "text": "Supports XAML interfaces with C#, VB.NET, and F#, including data binding, commands, styles, and templates.",
+          "source_url": "https://github.com/opensilver/opensilver/blob/1ab0c5f47d553356b731a211a92de6b0d12853db/README.md"
+        },
+        {
+          "title": "Web deployment",
+          "text": "Builds web applications as static WebAssembly, JavaScript, and HTML files that can be served by a basic web server.",
+          "source_url": "https://github.com/opensilver/opensilver/blob/1ab0c5f47d553356b731a211a92de6b0d12853db/README.md"
+        }
+      ]
+    },
+    "ba016f936e88665d75681f62b320e7d47700a6ebf48ef8018a2bfa665c035a5e": {
+      "project_url": "https://openmpt.org",
+      "text": "OpenMPT is a Windows music tracker for composing and playing module music through a native graphical interface. It imports multiple module formats and natively edits Impulse Tracker, FastTracker, Scream Tracker, and ProTracker files alongside its own song format. Musicians can also use VST plugins and ASIO audio output within the application.",
+      "sources": [
+        {
+          "url": "https://openmpt.org",
+          "title": "OpenMPT official website"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Module editing",
+          "text": "Natively edits Impulse Tracker, FastTracker, Scream Tracker, and ProTracker module files as well as its own format.",
+          "source_url": "https://openmpt.org"
+        },
+        {
+          "title": "Audio integration",
+          "text": "Supports VST plugins and ASIO output for music production and playback.",
+          "source_url": "https://openmpt.org"
+        }
+      ]
+    },
+    "ba0ccd862e62710a47ed2bf4337582f74cf5691e2bcdaf69a07cecadce33806d": {
+      "project_url": "https://github.com/l-at-nnes/openscissors",
+      "text": "OpenScissors is a portable photo-cutout editor that runs locally with separately downloaded AI models. It proposes a subject mask, lets users refine it with brushes and selection tools, and composites the result onto transparent, colored, gradient, or picture backgrounds. The editor provides edge cleanup, shadows, cropping, and multiple export formats, with folder batch processing and a companion command-line tool.",
+      "sources": [
+        {
+          "url": "https://github.com/l-at-nnes/openscissors/blob/3fc41da8cbdd68bb6cd4d597c57059c573fbf16b/README.md",
+          "title": "OpenScissors README",
+          "revision": "3fc41da8cbdd68bb6cd4d597c57059c573fbf16b"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Mask correction",
+          "text": "Refine the proposed cutout with keep/remove brushes, soft-edge tools, and color-based grouping.",
+          "source_url": "https://github.com/l-at-nnes/openscissors/blob/3fc41da8cbdd68bb6cd4d597c57059c573fbf16b/README.md"
+        },
+        {
+          "title": "Batch export",
+          "text": "Processes a folder using saved or current editing settings and exports results as PNG, JPEG, WebP, or AVIF.",
+          "source_url": "https://github.com/l-at-nnes/openscissors/blob/3fc41da8cbdd68bb6cd4d597c57059c573fbf16b/README.md"
+        }
+      ]
+    },
+    "ba1dbb3dfb06a67475f3250a0514a843112ee6fd9cc017b14a539569b9b432e8": {
+      "project_url": "https://github.com/hyunwoo137/openattention",
+      "text": "OpenAttention applies sparse attention during language-model inference by selecting key-value cache entries and representing unread tokens with cluster proxies. It allocates additional reads using estimated cluster error. The repository provides a PyTorch evaluation path and a separate Triton GPU pipeline with CUDA-graph decoding for measuring generation performance.",
+      "sources": [
+        {
+          "url": "https://github.com/hyunwoo137/openattention/blob/6e43d4fc8c0e95b26d17d198a4545c627b2d6931/README.md",
+          "title": "OpenAttention README",
+          "revision": "6e43d4fc8c0e95b26d17d198a4545c627b2d6931"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Tail proxies",
+          "text": "Represents unread tokens with count-aware cluster means so they still contribute to attention.",
+          "source_url": "https://github.com/hyunwoo137/openattention/blob/6e43d4fc8c0e95b26d17d198a4545c627b2d6931/README.md"
+        },
+        {
+          "title": "Evaluation and GPU paths",
+          "text": "Includes a PyTorch accuracy evaluation framework and a sparse Triton pipeline for decode measurements.",
+          "source_url": "https://github.com/hyunwoo137/openattention/blob/6e43d4fc8c0e95b26d17d198a4545c627b2d6931/README.md"
+        }
+      ]
+    },
+    "ba7b1a94582e51645964bafb986961c658bf54b97ffcc7b666b5a915b2b15065": {
+      "project_url": "https://github.com/opendisplay/firmware",
+      "text": "OpenDisplay supplies firmware and tools for Bluetooth Low Energy display tags built with NRF52840 and supported ESP32 chips. Its installation tools upload firmware to supported boards, while configuration tools set BLE tag options. A display tool lets users test their connected display and upload images to it.",
+      "sources": [
+        {
+          "url": "https://github.com/opendisplay/firmware/blob/6d058329757da73f70d452e16ec663b5e694fe8f/README.md",
+          "title": "OpenDisplay README",
+          "revision": "6d058329757da73f70d452e16ec663b5e694fe8f"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "BLE tag configuration",
+          "text": "Provides tools for configuring settings on Bluetooth Low Energy display tags.",
+          "source_url": "https://github.com/opendisplay/firmware/blob/6d058329757da73f70d452e16ec663b5e694fe8f/README.md"
+        },
+        {
+          "title": "Image upload",
+          "text": "Includes a display tool for testing the display and uploading images.",
+          "source_url": "https://github.com/opendisplay/firmware/blob/6d058329757da73f70d452e16ec663b5e694fe8f/README.md"
+        }
+      ]
+    },
+    "bdb914f4925efc114d998ffc99d55647a9d5e0f84dff38c69770e3a55a9d7131": {
+      "project_url": "https://github.com/nannndev/opennotchi",
+      "text": "OpenNotchi adds a hover-expandable panel around the MacBook notch, with a floating panel option for displays without one. This macOS application combines media controls, battery information, a temporary file tray and searchable clipboard history. Users can drag files into the tray, reopen them, share them through AirDrop or convert stored images.",
+      "sources": [
+        {
+          "url": "https://github.com/nannndev/opennotchi/blob/9673d2801e21269b91f3c5c38c24aa5349c38957/README.md",
+          "title": "OpenNotchi README",
+          "revision": "9673d2801e21269b91f3c5c38c24aa5349c38957"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "File tray",
+          "text": "Parks dragged files for later retrieval, opening, Finder access or AirDrop sharing.",
+          "source_url": "https://github.com/nannndev/opennotchi/blob/9673d2801e21269b91f3c5c38c24aa5349c38957/README.md"
+        },
+        {
+          "title": "Clipboard history",
+          "text": "Keeps searchable text and image history, with an action to copy an earlier item again.",
+          "source_url": "https://github.com/nannndev/opennotchi/blob/9673d2801e21269b91f3c5c38c24aa5349c38957/README.md"
+        }
+      ]
+    },
+    "bebc03d54e6e8c57ae2113b17b396862b94bd87a54949bacd18af66436ec937f": {
+      "project_url": "https://github.com/leezer3/openbve",
+      "text": "OpenBVE is a three-dimensional train simulator centered on driving from the cab. It reads routes in native CSV or RW, BVE5 TXT and Mechanik DAT formats, and supports BVE2 and BVE4 trains with OpenBVE extensions. Users can install package files to add content to the simulator.",
+      "sources": [
+        {
+          "url": "https://github.com/leezer3/openbve/blob/f0ae1bd3f8f215dbe25b6153271ea1135e50d181/Readme.md",
+          "title": "OpenBVE README",
+          "revision": "f0ae1bd3f8f215dbe25b6153271ea1135e50d181"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Route formats",
+          "text": "Loads native CSV/RW, BVE5 TXT and Mechanik DAT route formats.",
+          "source_url": "https://github.com/leezer3/openbve/blob/f0ae1bd3f8f215dbe25b6153271ea1135e50d181/Readme.md"
+        },
+        {
+          "title": "Train and package support",
+          "text": "Supports BVE2/BVE4 trains with OpenBVE extensions and installation of content package files.",
+          "source_url": "https://github.com/leezer3/openbve/blob/f0ae1bd3f8f215dbe25b6153271ea1135e50d181/Readme.md"
+        }
+      ]
+    },
+    "c057c81539d057ede24d4138ec30322b612c3982df1f26b05b70728d021d2f8a": {
+      "project_url": "https://github.com/openchoice-team/openliterature",
+      "text": "OpenChoice provides standalone React components for academic-literature discovery and reading. Its discovery interface ranks literature by topic and maps research across countries, regions and institutions. The reading room supports PDFs, annotations and synchronized reading state, backed by a Rust API and PostgreSQL; optional OpenAI-compatible services add assistance and cross-document questions.",
+      "sources": [
+        {
+          "url": "https://github.com/openchoice-team/openliterature/blob/fd4e093036c289cc64da92a4b799c2c6d6f8fed3/README.md",
+          "title": "OpenChoice README",
+          "revision": "fd4e093036c289cc64da92a4b799c2c6d6f8fed3"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Research map",
+          "text": "Supports country, region and institution drill-down, filters, collaboration arcs and map/data exports.",
+          "source_url": "https://github.com/openchoice-team/openliterature/blob/fd4e093036c289cc64da92a4b799c2c6d6f8fed3/README.md"
+        },
+        {
+          "title": "PDF reading room",
+          "text": "Combines PDF viewing, annotations and synchronized reading progress, with optional AI assistance and cross-document questions.",
+          "source_url": "https://github.com/openchoice-team/openliterature/blob/fd4e093036c289cc64da92a4b799c2c6d6f8fed3/README.md"
+        }
+      ]
+    },
+    "c064b2322cb46238925d789d4c1e0edddffcb3bf2aed453590e1eef03729384f": {
+      "project_url": "https://github.com/coastalwebdesigns/opendocker",
+      "text": "OpenDocker is a read-only terminal interface for inspecting a running Docker environment. It displays container status, streams and filters logs, and lets users examine images, layer history and volume configuration. The application connects through the Docker socket and supports macOS, Linux and Windows, with keyboard navigation and clipboard copying in SSH or tmux sessions.",
+      "sources": [
+        {
+          "url": "https://github.com/coastalwebdesigns/opendocker/blob/1c9858dc90b785f844bca152ca565a76899f4eb9/README.md",
+          "title": "OpenDocker README",
+          "revision": "1c9858dc90b785f844bca152ca565a76899f4eb9"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Live container logs",
+          "text": "Streams container logs with filtering while displaying container status updates.",
+          "source_url": "https://github.com/coastalwebdesigns/opendocker/blob/1c9858dc90b785f844bca152ca565a76899f4eb9/README.md"
+        },
+        {
+          "title": "Image and volume inspection",
+          "text": "Browses image configuration, layer history and volume configuration through the terminal interface.",
+          "source_url": "https://github.com/coastalwebdesigns/opendocker/blob/1c9858dc90b785f844bca152ca565a76899f4eb9/README.md"
+        }
+      ]
+    },
+    "c0b806cc1ad248df64416187ebc8a78c7ab27ae362cd2a6d28e7a182d691e222": {
+      "project_url": "https://github.com/dcurrent/openbor",
+      "text": "OpenBOR is a sprite-based game engine for creating and playing side-scrolling games, particularly beat-em-ups. Authors can modify existing game modules or build their own using images and the built-in scripting engine. The engine runs on Android, Linux, macOS and Windows, and community modules provide ready-made games to load.",
+      "sources": [
+        {
+          "url": "https://github.com/dcurrent/openbor/blob/65a7f0b41aee87fe4084e538634b4ed73236f871/README.md",
+          "title": "OpenBOR README",
+          "revision": "65a7f0b41aee87fe4084e538634b4ed73236f871"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Module-based games",
+          "text": "Runs game modules that authors can create or modify from existing modules.",
+          "source_url": "https://github.com/dcurrent/openbor/blob/65a7f0b41aee87fe4084e538634b4ed73236f871/README.md"
+        },
+        {
+          "title": "Built-in scripting",
+          "text": "Provides a scripting engine for authors developing their own game behavior.",
+          "source_url": "https://github.com/dcurrent/openbor/blob/65a7f0b41aee87fe4084e538634b4ed73236f871/README.md"
+        }
+      ]
+    },
+    "c1462de7f23dfc00aa9d52d400ab69b819c21ae028d9e1748926edf89f32ad0a": {
+      "project_url": "https://github.com/qarl/openmarquee",
+      "text": "openMarquee is beta software that runs on a Raspberry Pi to control an HDMI-connected sign or display through a browser dashboard. Users build playlists from text, images and videos, arrange layers, and configure slide durations and transitions. Playback and stored content remain on the device, which can create a Wi-Fi access point for local setup.",
+      "sources": [
+        {
+          "url": "https://github.com/qarl/openmarquee/blob/dcd53b4c07227b76f3e92f552de69c94e444ea9e/README.md",
+          "title": "openMarquee README",
+          "revision": "dcd53b4c07227b76f3e92f552de69c94e444ea9e"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Browser playlist editor",
+          "text": "Builds ordered slide playlists with adjustable durations, transitions and layered text, image or video content.",
+          "source_url": "https://github.com/qarl/openmarquee/blob/dcd53b4c07227b76f3e92f552de69c94e444ea9e/README.md"
+        },
+        {
+          "title": "Local display playback",
+          "text": "Stores content on the SD card and renders the playlist through HDMI on the device.",
+          "source_url": "https://github.com/qarl/openmarquee/blob/dcd53b4c07227b76f3e92f552de69c94e444ea9e/README.md"
+        }
+      ]
+    },
+    "c1b801e83be42a34a125d87352a3993889638ce31ddbcf6fbd864a0a9de8cf38": {
+      "project_url": "https://github.com/haswitchplate/openhasp",
+      "text": "openHASP is firmware for controlling home-automation devices from a customizable touchscreen interface. It communicates through MQTT and uses the LVGL graphics library on the microcontroller to drive a commodity display. The project targets ESP32 and STM32F4 hardware, allowing the touchscreen interface to run directly on these embedded devices.",
+      "sources": [
+        {
+          "url": "https://github.com/haswitchplate/openhasp/blob/5361c3cacb16d67142988cbddc56d099e373e650/README.md",
+          "title": "openHASP README",
+          "revision": "5361c3cacb16d67142988cbddc56d099e373e650"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "MQTT controls",
+          "text": "Connects a customizable touchscreen interface to home-automation devices through MQTT.",
+          "source_url": "https://github.com/haswitchplate/openhasp/blob/5361c3cacb16d67142988cbddc56d099e373e650/README.md"
+        },
+        {
+          "title": "Embedded display rendering",
+          "text": "Uses LVGL on the microcontroller to drive a commodity display on ESP32 or STM32F4 hardware.",
+          "source_url": "https://github.com/haswitchplate/openhasp/blob/5361c3cacb16d67142988cbddc56d099e373e650/README.md"
+        }
+      ]
+    },
+    "c291b70246f2e2da027e41592a72419bb50094b4905890ff20c40f556f9ff2f3": {
+      "project_url": "https://github.com/hefttech/openpos",
+      "text": "OpenPOS is a demonstration desktop point-of-sale application for cashiers to find products, build carts and record sales. It supports quantity changes, discounts, tax calculation and printable receipts, alongside stock summaries and receiving inventory. Product browsing uses a local SQLite copy synchronized with a central database, so searches can continue without an internet connection.",
+      "sources": [
+        {
+          "url": "https://github.com/hefttech/openpos/blob/cd36583d0209be47ebe8562fa0e96e211b8bf88d/README.md",
+          "title": "OpenPOS README",
+          "revision": "cd36583d0209be47ebe8562fa0e96e211b8bf88d"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed summary and feature claims against the pinned official README. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Sales and receipts",
+          "text": "Builds carts with quantities, percentage discounts and tax calculation, then produces printable receipts.",
+          "source_url": "https://github.com/hefttech/openpos/blob/cd36583d0209be47ebe8562fa0e96e211b8bf88d/README.md"
+        },
+        {
+          "title": "Inventory and local search",
+          "text": "Shows stock levels and stock value, accepts received quantities, and searches a locally synchronized SQLite catalog.",
+          "source_url": "https://github.com/hefttech/openpos/blob/cd36583d0209be47ebe8562fa0e96e211b8bf88d/README.md"
+        }
+      ]
+    },
+    "c29e94b9202074700ad94638cc4d2584e5b505752e76b29336f25953a34a6db8": {
+      "project_url": "https://github.com/openstack/cinder",
+      "text": "OpenStack Cinder provides block-storage volumes for virtual machines, bare-metal hosts and containers. Users create and manage volumes through the Horizon web interface, command-line clients or a REST API. Operators deploy it as an OpenStack service, typically alongside Keystone identity management; applications can use the API to automate storage operations.",
+      "sources": [
+        {
+          "url": "https://github.com/openstack/cinder/blob/a6c80e021f2c470e5d7aac53804296b1508883a0/README.rst",
+          "title": "OpenStack Cinder README",
+          "revision": "a6c80e021f2c470e5d7aac53804296b1508883a0"
+        },
+        {
+          "url": "https://docs.openstack.org/cinder/latest/",
+          "title": "OpenStack Block Storage documentation"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Volume management",
+          "text": "Creates and manages block-storage volumes for virtual machines, bare-metal hosts and containers.",
+          "source_url": "https://docs.openstack.org/cinder/latest/"
+        },
+        {
+          "title": "Storage automation",
+          "text": "Exposes its features through a REST API that applications can call directly or through SDKs.",
+          "source_url": "https://docs.openstack.org/cinder/latest/"
+        }
+      ]
+    },
+    "c3a7686789a7db41124f44dc0709294baa14890dd31a55cc0e6e5faa24dc9f3e": {
+      "project_url": "https://openmeetings.apache.org",
+      "text": "OpenMeetings provides browser-based audio and video conferences with shared whiteboards, chat and collaborative document editing. Organizers schedule meetings and invite participants through its calendar, while moderators control individual permissions. Rooms include shared file storage, and sessions can be recorded for online playback or downloaded as MP4 files.",
+      "sources": [
+        {
+          "url": "https://openmeetings.apache.org",
+          "title": "OpenMeetings official overview"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Meeting recording",
+          "text": "Records conference sessions with audio and provides online playback and MP4 downloads.",
+          "source_url": "https://openmeetings.apache.org"
+        },
+        {
+          "title": "Shared whiteboards",
+          "text": "Lets participants draw, write and import documents into multiple whiteboards, then save them as files.",
+          "source_url": "https://openmeetings.apache.org"
+        }
+      ]
+    },
+    "c50db0eddbbe1b371a019e869284b2fd45af40a40319bc9cb2046789a40bd8c3": {
+      "project_url": "https://github.com/opencmiss/cm",
+      "text": "OpenCMISS provides a mathematical modelling environment for applying finite element analysis to bioengineering problems. The OpenCMISS-cm repository supplies its computational backend as a Fortran 2003 library. It forms part of the wider OpenCMISS collection of modelling and visualisation libraries and applications, which developers use to build computational modelling software.",
+      "sources": [
+        {
+          "url": "https://github.com/opencmiss/cm/blob/a2dba68489b8ee70fa5908df46d52043a75677b0/README.rst",
+          "title": "OpenCMISS README",
+          "revision": "a2dba68489b8ee70fa5908df46d52043a75677b0"
+        },
+        {
+          "url": "https://www.opencmiss.org/",
+          "title": "OpenCMISS modelling and visualisation overview"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Finite element modelling",
+          "text": "Applies finite element analysis techniques to complex bioengineering problems.",
+          "source_url": "https://github.com/opencmiss/cm/blob/a2dba68489b8ee70fa5908df46d52043a75677b0/README.rst"
+        },
+        {
+          "title": "Computational backend",
+          "text": "Provides the OpenCMISS computational backend as a library developed in Fortran 2003.",
+          "source_url": "https://github.com/opencmiss/cm/blob/a2dba68489b8ee70fa5908df46d52043a75677b0/README.rst"
+        }
+      ]
+    },
+    "c573e01aa171e7242b96eb0acd6c48d81235c6b31310b91a3bbfc7ea2e3af0c6": {
+      "project_url": "https://github.com/oleyyu/openclaudedesktop",
+      "text": "OpenClaude Desktop is an unofficial macOS desktop interface for working with selectable AI providers and OpenAI-compatible endpoints. It presents conversations, task lists, terminal sessions, file changes and previews alongside permission controls. Users connect their own provider credentials; settings and conversation history are stored on the Mac. The documented build targets Apple Silicon. Building also requires reference assets absent from the repository.",
+      "sources": [
+        {
+          "url": "https://github.com/oleyyu/openclaudedesktop/blob/9ad3a7384e5f87218935cb3551c2198191345b6f/README.md",
+          "title": "OpenClaude Desktop README",
+          "revision": "9ad3a7384e5f87218935cb3551c2198191345b6f"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Selectable AI providers",
+          "text": "Connects selectable AI cores or an OpenAI-compatible endpoint, with per-model names, context windows and image-input settings.",
+          "source_url": "https://github.com/oleyyu/openclaudedesktop/blob/9ad3a7384e5f87218935cb3551c2198191345b6f/README.md"
+        },
+        {
+          "title": "Coding workspace",
+          "text": "Provides terminal, preview, files and changes panes alongside task lists and permission modes.",
+          "source_url": "https://github.com/oleyyu/openclaudedesktop/blob/9ad3a7384e5f87218935cb3551c2198191345b6f/README.md"
+        }
+      ]
+    },
+    "c78229944dbc26e2ad446e3d065c4ab7fc129bd57a308e0e6ec95c0d96b7a026": {
+      "project_url": "https://github.com/opendungeons/opendungeons",
+      "text": "OpenDungeons is a real-time strategy game in which players build underground dungeons populated by creatures. Players compete for territory by directing creatures indirectly, casting combat spells and setting traps. The game offers single-player skirmish levels and menus for hosting or joining multiplayer games, with in-game help explaining gameplay.",
+      "sources": [
+        {
+          "url": "https://github.com/opendungeons/opendungeons/blob/a9efe49a6f0790f8b5f89a6cd93775b197ecab1c/README.md",
+          "title": "OpenDungeons README",
+          "revision": "a9efe49a6f0790f8b5f89a6cd93775b197ecab1c"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Dungeon combat",
+          "text": "Combines indirect creature commands with directly cast combat spells and traps.",
+          "source_url": "https://github.com/opendungeons/opendungeons/blob/a9efe49a6f0790f8b5f89a6cd93775b197ecab1c/README.md"
+        },
+        {
+          "title": "Solo and multiplayer games",
+          "text": "Provides single-player skirmishes and options to host or join multiplayer games.",
+          "source_url": "https://github.com/opendungeons/opendungeons/blob/a9efe49a6f0790f8b5f89a6cd93775b197ecab1c/README.md"
+        }
+      ]
+    },
+    "c98d0ea367ed772cc2bbc48a0960937a4f33d1fef98793305c4fe1d71166758a": {
+      "project_url": "https://opencrm.co.uk",
+      "text": "OpenCRM is a hosted customer-management system that combines sales, marketing, support and project information. Teams track leads through sales stages, send and monitor email campaigns, manage support tickets and keep product, pricing and order records together. The service hosts customer data in UK datacentres and integrates with business tools including Microsoft 365 and Xero.",
+      "sources": [
+        {
+          "url": "https://opencrm.co.uk",
+          "title": "OpenCRM official overview"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Sales pipeline",
+          "text": "Tracks leads from initial contact through the stages of a sale.",
+          "source_url": "https://opencrm.co.uk"
+        },
+        {
+          "title": "Email campaigns",
+          "text": "Provides a Campaigns module for building, sending and tracking email campaigns.",
+          "source_url": "https://opencrm.co.uk"
+        }
+      ]
+    },
+    "c98e2b5b410c47ca77e0cde90d9fa2472abe51c5d0575d6be1862a5e314dc6bf": {
+      "project_url": "https://github.com/jketterl/openwebrx",
+      "text": "OpenWebRX lets multiple users listen to software-defined radio receivers through a web interface. It supports multiple SDR devices simultaneously and provides demodulators for analogue and digital modes, including AM, FM, SSB, DMR and FT8. Users adjust the filter passband and navigate a waterfall display. Deployment options include Raspberry Pi images, Debian packages and Docker images.",
+      "sources": [
+        {
+          "url": "https://github.com/jketterl/openwebrx/blob/640c5b0b3e19b10d823a7ee703f2a683ec848eac/README.md",
+          "title": "OpenWebRX README",
+          "revision": "640c5b0b3e19b10d823a7ee703f2a683ec848eac"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Receiver access",
+          "text": "Provides browser access to a multi-user SDR receiver and supports multiple connected SDR devices simultaneously.",
+          "source_url": "https://github.com/jketterl/openwebrx/blob/640c5b0b3e19b10d823a7ee703f2a683ec848eac/README.md"
+        },
+        {
+          "title": "Interactive tuning",
+          "text": "Lets users zoom and pan the waterfall display and drag the filter envelope to adjust its passband.",
+          "source_url": "https://github.com/jketterl/openwebrx/blob/640c5b0b3e19b10d823a7ee703f2a683ec848eac/README.md"
+        }
+      ]
+    },
+    "cb975411c255d6fc0d11fb366470d33a479ee387ad5e232badf2f77c9975f83f": {
+      "project_url": "https://github.com/ej3mpl0/openpdf",
+      "text": "openPDF is a native Linux application for viewing and working with PDF documents, with a GTK interface and a separate command-line tool. Its commands extract text, render pages, merge or split documents, and organize pages through insertion, extraction, replacement and cropping. It also provides image conversion and a PKCS#11/PAdES signing backend.",
+      "sources": [
+        {
+          "url": "https://github.com/ej3mpl0/openpdf/blob/d6acd364e15626158304e4266d559ad974e783ca/README.md",
+          "title": "openPDF README",
+          "revision": "d6acd364e15626158304e4266d559ad974e783ca"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Document organization",
+          "text": "Offers command-line operations to merge, split, insert, extract, replace and crop PDF pages.",
+          "source_url": "https://github.com/ej3mpl0/openpdf/blob/d6acd364e15626158304e4266d559ad974e783ca/README.md"
+        },
+        {
+          "title": "PDF conversion",
+          "text": "Provides commands to extract text, render pages and convert between PDFs and images.",
+          "source_url": "https://github.com/ej3mpl0/openpdf/blob/d6acd364e15626158304e4266d559ad974e783ca/README.md"
+        }
+      ]
+    },
+    "cc642612204143db7165f05045b0900f4daa9f677951b475b451daf0e1b0b1c4": {
+      "project_url": "https://github.com/iursevla/open-receipt-ocr",
+      "text": "Open Receipt OCR processes receipts and documents through a web interface or REST API. Users upload files, select a configured OCR provider and retrieve job status and extracted results. It supports local engines and cloud services, with local or OneDrive file storage. A Docker Compose deployment runs the client, server, background worker and Redis together.",
+      "sources": [
+        {
+          "url": "https://github.com/iursevla/open-receipt-ocr/blob/419d137dda511652864af779279fe419ebb2cb8c/README.md",
+          "title": "Open Receipt OCR README",
+          "revision": "419d137dda511652864af779279fe419ebb2cb8c"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Provider selection",
+          "text": "Lets users choose configured local or cloud OCR engines for uploaded files.",
+          "source_url": "https://github.com/iursevla/open-receipt-ocr/blob/419d137dda511652864af779279fe419ebb2cb8c/README.md"
+        },
+        {
+          "title": "Headless OCR jobs",
+          "text": "Exposes REST endpoints for uploading files and retrieving job status and transcribed results.",
+          "source_url": "https://github.com/iursevla/open-receipt-ocr/blob/419d137dda511652864af779279fe419ebb2cb8c/README.md"
+        }
+      ]
+    },
+    "cd08aeea8018c346ba1aa7c26ec28c1ab3dc689eb9107073c28913fbf0189836": {
+      "project_url": "https://github.com/swallowdili/openpaste",
+      "text": "OpenPaste is a native macOS clipboard manager that keeps a local history of copied text, links, images and file references. Users search and filter entries, organize favorites, preview content and queue items for sequential pasting. Optional quick translation sends selected text to a user-configured OpenAI-compatible service, then offers the translation for insertion.",
+      "sources": [
+        {
+          "url": "https://github.com/swallowdili/openpaste/blob/c9a3bca276c75404cedc9f4634e7fec678db33e5/README.md",
+          "title": "OpenPaste README",
+          "revision": "c9a3bca276c75404cedc9f4634e7fec678db33e5"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official sources. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Clipboard history",
+          "text": "Stores copied text, links, images and file references with deduplication, search and filters.",
+          "source_url": "https://github.com/swallowdili/openpaste/blob/c9a3bca276c75404cedc9f4634e7fec678db33e5/README.md"
+        },
+        {
+          "title": "Paste queue",
+          "text": "Queues selected entries and retrieves them one at a time in order.",
+          "source_url": "https://github.com/swallowdili/openpaste/blob/c9a3bca276c75404cedc9f4634e7fec678db33e5/README.md"
+        }
+      ]
+    },
+    "cd2c36fef7e9bca0a871583a03a00acbcb54333dfadff51ce225d0e9b023f58d": {
+      "project_url": "https://github.com/openeducat/openeducat_erp",
+      "text": "OpenEduCat is a modular educational ERP for managing academic and administrative work. Institutions can maintain student profiles and academic histories, organize courses and batches, schedule examinations, and process results. Its documented modules also cover fee collection, attendance, timetables, library lending, and staff records, bringing these activities into one configurable system.",
+      "sources": [
+        {
+          "url": "https://github.com/openeducat/openeducat_erp/blob/46a5d7d400820d471b67b8c019997bfa5d3c873e/README.md",
+          "title": "OpenEduCat README",
+          "revision": "46a5d7d400820d471b67b8c019997bfa5d3c873e"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official source. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Student records",
+          "text": "Maintains student profiles, personal details, and academic history.",
+          "source_url": "https://github.com/openeducat/openeducat_erp/blob/46a5d7d400820d471b67b8c019997bfa5d3c873e/README.md"
+        },
+        {
+          "title": "Examination management",
+          "text": "Supports exam scheduling, evaluation, and result processing.",
+          "source_url": "https://github.com/openeducat/openeducat_erp/blob/46a5d7d400820d471b67b8c019997bfa5d3c873e/README.md"
+        }
+      ]
+    },
+    "ce8cea0276d0682cb2724ec47e65bf5593e3a197a924c823b51ec9fde4f60cb6": {
+      "project_url": "https://www.opentext.com/products/content-manager",
+      "text": "OpenText Content Manager organizes enterprise documents and records through their lifecycle, from capture to disposal. Organizations can automate workflows, classify content by metadata or its creators, apply retention rules, and place holds on content in external repositories. A web client provides search, and a managed cloud service is available alongside license and subscription options.",
+      "sources": [
+        {
+          "url": "https://www.opentext.com/products/content-manager",
+          "title": "OpenText Content Manager official product documentation"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official source. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Content classification",
+          "text": "Organizes content in containers or folders using criteria such as creation dates, metadata, and creating people or groups.",
+          "source_url": "https://www.opentext.com/products/content-manager"
+        },
+        {
+          "title": "Retention and holds",
+          "text": "Applies retention and disposal policies to records and supports holds on content in external repositories.",
+          "source_url": "https://www.opentext.com/products/content-manager"
+        }
+      ]
+    },
+    "cec9693d2ebe82f43f396d116b359b9610edc57b68a99c925f870e79370aa288": {
+      "project_url": "https://www.infradead.org/openconnect",
+      "text": "OpenConnect is a cross-platform VPN client that connects to servers using several SSL VPN protocols, including Cisco AnyConnect, Juniper, GlobalProtect, and Fortinet protocols. It presents a shared command-line interface and API where possible, handling tunnel configuration and client certificates. Protocol-specific options let users select the connection type while retaining common controls such as dead-peer detection.",
+      "sources": [
+        {
+          "url": "https://www.infradead.org/openconnect/",
+          "title": "OpenConnect official product documentation"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official source. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Multiple VPN protocols",
+          "text": "Connects using supported AnyConnect, Juniper, Pulse, GlobalProtect, F5, Array, and Fortinet protocols.",
+          "source_url": "https://www.infradead.org/openconnect/"
+        },
+        {
+          "title": "Shared connection controls",
+          "text": "Provides common API and command-line controls across protocols, including dead-peer detection where the selected VPN supports it.",
+          "source_url": "https://www.infradead.org/openconnect/"
+        }
+      ]
+    },
+    "ced45611c2a57f134f635ed1bc756dec599e83aa6e784b50c4a0fed224f26cd1": {
+      "project_url": "https://opencamera.org.uk",
+      "text": "Open Camera is a photography and video application for Android phones and tablets. It provides exposure and white-balance controls, composition grids, timers, panoramas, and optional location tagging. Camera2 support adds manual controls and RAW capture on compatible devices; available features depend on the device, camera hardware, and Android version.",
+      "sources": [
+        {
+          "url": "https://opencamera.org.uk",
+          "title": "Open Camera official product documentation"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official source. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Manual and RAW capture",
+          "text": "Uses Camera2 for manual controls and RAW DNG capture on devices that support those features.",
+          "source_url": "https://opencamera.org.uk"
+        },
+        {
+          "title": "Exposure tools",
+          "text": "Provides exposure bracketing and HDR capture with alignment and ghost removal; availability depends on the device.",
+          "source_url": "https://opencamera.org.uk"
+        }
+      ]
+    },
+    "cfc8dca79b6a191cf5bd43a3f795a7c0736e47ff18109a3f209aefceea4d384a": {
+      "project_url": "https://openeng.app",
+      "text": "OpenEng provides browser-based engineering tools backed by native engines running on the user’s machine. Its beta Terminal groups command output into blocks and organizes sessions; Kubernetes browses resources, streams pod logs, and manages port forwarding; Data connects databases and runs queries. The published Terminal, Kubernetes, and Data engines support local execution, while Git and Chat engines are listed as forthcoming.",
+      "sources": [
+        {
+          "url": "https://openeng.app",
+          "title": "OpenEng official product documentation"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official source. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Terminal sessions",
+          "text": "Groups terminal output into copyable command blocks and organizes interactive shells into sessions and tabs.",
+          "source_url": "https://openeng.app"
+        },
+        {
+          "title": "Kubernetes operations",
+          "text": "Browses and edits cluster resources, streams logs, executes commands in pods, and supports port forwarding.",
+          "source_url": "https://openeng.app"
+        }
+      ]
+    },
+    "d09edcdbb0045a3d9029f4c2bb00710c177a1fc74c4566b6073e8b8344921f99": {
+      "project_url": "https://github.com/openapoc/openapoc",
+      "text": "OpenApoc reimplements X-COM: Apocalypse as a C++ and SDL2 game engine that requires the original game files. It supports modern display resolutions, configurable gameplay enhancements, and modding. Savegames contain editable XML inside ZIP archives, and an experimental skirmish mode provides custom battles. The project describes its development state as alpha, with core work still listed as unfinished.",
+      "sources": [
+        {
+          "url": "https://github.com/openapoc/openapoc/blob/d06cc102905e35d0e703d2d25204fd4ab2795e12/README.md",
+          "title": "OpenApoc README",
+          "revision": "d06cc102905e35d0e703d2d25204fd4ab2795e12"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official source. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Editable savegames",
+          "text": "Stores savegame data as human-readable XML inside ZIP archives for editing ongoing games.",
+          "source_url": "https://github.com/openapoc/openapoc/blob/d06cc102905e35d0e703d2d25204fd4ab2795e12/README.md"
+        },
+        {
+          "title": "Experimental skirmishes",
+          "text": "Includes an experimental skirmish mode for quick fights and custom battles.",
+          "source_url": "https://github.com/openapoc/openapoc/blob/d06cc102905e35d0e703d2d25204fd4ab2795e12/README.md"
+        }
+      ]
+    },
+    "d363765f682ab8f882aee677f2eb058c53d49d73cb5750bb382247e1b08f47dd": {
+      "project_url": "https://www.redhat.com/en/technologies/cloud-computing/openshift",
+      "text": "OpenShift is Red Hat’s Kubernetes-based application platform for building, deploying, and managing workloads. Teams can run it themselves or use managed cloud services, with editions covering container orchestration, application development, and virtual machines. Operators extend the platform with capabilities such as GitOps delivery, pipelines, service networking, and monitoring across supported infrastructure.",
+      "sources": [
+        {
+          "url": "https://www.redhat.com/en/technologies/cloud-computing/openshift",
+          "title": "OpenShift official product documentation"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official source. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Application lifecycle",
+          "text": "Provides tools to build, deploy, run, and manage cloud-native applications on Kubernetes.",
+          "source_url": "https://www.redhat.com/en/technologies/cloud-computing/openshift"
+        },
+        {
+          "title": "Delivery workflows",
+          "text": "OpenShift GitOps and OpenShift Pipelines extend the platform with application CI/CD workflows.",
+          "source_url": "https://www.redhat.com/en/technologies/cloud-computing/openshift"
+        }
+      ]
+    },
+    "d44481524fdce6d505f0a02621ea8d764d150b4784e0a4a538c769ea60912e23": {
+      "project_url": "https://github.com/alkacon/opencms-core",
+      "text": "OpenCms is a Java-based content management system for internet and intranet websites. Editors can arrange pages visually, edit structured content through forms, and manage navigation by dragging items in a sitemap. One installation can serve multiple websites, deliver content dynamically or as static HTML, and expose JSON through a headless API. It runs in a servlet container with a supported database.",
+      "sources": [
+        {
+          "url": "https://github.com/alkacon/opencms-core/blob/89a5a0a733fbe40223c27ac0f27e22395e0e7060/README.md",
+          "title": "OpenCms README",
+          "revision": "89a5a0a733fbe40223c27ac0f27e22395e0e7060"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official source. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Visual editing",
+          "text": "Supports inline page editing, drag-and-drop content arrangement, and form-based editing of structured content.",
+          "source_url": "https://github.com/alkacon/opencms-core/blob/89a5a0a733fbe40223c27ac0f27e22395e0e7060/README.md"
+        },
+        {
+          "title": "Multiple delivery formats",
+          "text": "Serves content dynamically, exports static HTML, and offers a headless JSON API for external applications.",
+          "source_url": "https://github.com/alkacon/opencms-core/blob/89a5a0a733fbe40223c27ac0f27e22395e0e7060/README.md"
+        }
+      ]
+    },
+    "d4ee9bd9921bbd32263fe7ae9e7d06ef7d83ed77268cb3da1d74a8c36160632c": {
+      "project_url": "https://github.com/hkumarsaikia/opendictate",
+      "text": "OpenDictate is a Linux desktop dictation application with local Whisper transcription and configurable cloud AI providers. Users can record from a floating control bar, edit the resulting transcript, copy text, and revisit saved dictations. It supports Wayland and X11 desktops, provides microphone selection and keyboard recording controls, and is distributed through native packages and portable or sandboxed formats.",
+      "sources": [
+        {
+          "url": "https://github.com/hkumarsaikia/opendictate/blob/06a4da3b9f3f16e24c138d9d9a2f8f71377bf424/README.md",
+          "title": "OpenDictate README",
+          "revision": "06a4da3b9f3f16e24c138d9d9a2f8f71377bf424"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the cited official source. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Local transcription",
+          "text": "Runs whisper.cpp models on the device, with a model selector and CPU-thread controls.",
+          "source_url": "https://github.com/hkumarsaikia/opendictate/blob/06a4da3b9f3f16e24c138d9d9a2f8f71377bf424/README.md"
+        },
+        {
+          "title": "Transcript review",
+          "text": "Provides an editable transcript drawer and a SQLite-backed history with copy and delete controls.",
+          "source_url": "https://github.com/hkumarsaikia/opendictate/blob/06a4da3b9f3f16e24c138d9d9a2f8f71377bf424/README.md"
+        }
+      ]
     }
   }
 }
