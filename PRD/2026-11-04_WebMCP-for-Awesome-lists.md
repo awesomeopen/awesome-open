@@ -39,17 +39,21 @@ correctness; sparse evidence must remain visible in the answer.
 
 ### Relationship to existing agent tools
 
-[Context Awesome](https://www.context-awesome.com/browse) already offers useful
-cross-list discovery. Its [per-list page](https://www.context-awesome.com/list/f/awesome-chatgpt-prompts)
+[Context Awesome](https://www.context-awesome.com/browse) is a direct competitor
+to the potential drop-in **WebMCPlet** (working concept/name; no published package
+or settled brand decision). Its [per-list page](https://www.context-awesome.com/list/f/awesome-chatgpt-prompts)
 provides an example prompt and MCP setup link; its
 [hosted endpoint](https://www.context-awesome.com/#installation) requires client
 configuration, with no server installation. Local installation is a development
 option. Its [server](https://github.com/bh-rat/context-awesome/blob/main/src/mcp-server.ts)
-exposes sections, item search and list/section retrieval. Our product hypothesis
-is that tools exposed by a visited page reduce per-service client setup for
-existing browser-agent users, while Prompt API serves visitors without an agent.
-This is an adoption hypothesis to test. Compatible agents and browser/model
-availability still gate these paths. The observed browse/detail counts differ;
+exposes sections, item search and list/section retrieval. Its central multi-list
+service offers cross-list discovery and distribution through connected MCP
+clients. Our proposed list-hosted actions share the page's UI and give each
+maintainer control of per-page context; optional Prompt API serves visitors
+without an agent. The trade-off is client connection for the hosted service
+versus compatible browser agents and browser/model availability for our paths.
+Reduced per-service setup is an adoption hypothesis to test, with no claim of
+superiority or exclusive capabilities. The observed browse/detail counts differ;
 completeness was not established, and its MCP endpoint was not invoked.
 
 The [Context Awesome demonstration](https://www.context-awesome.com/#installation)
