@@ -59,5 +59,5 @@ const fs=require('node:fs');
  assert.equal(await fallback.locator('.exhibit').count(),3);assert.equal(await fallback.locator('#ex-search-form').isVisible(),false);
  await fallback.locator('#ex-list summary').first().click();assert.ok(await fallback.locator('#ex-list details').first().evaluate(n=>n.open));await fallback.close();
  assert.deepEqual(errors,[]);console.log('Exhibition preview: desktop/mobile, artwork, inspect, search, filters, sort, view URL, missing art, keyboard and no-JS checks pass.');
- }catch(e){await capture('exhibition-failure.png');throw e;}finally{await browser.close();}
+ }catch(e){await capture('exhibition-failure.png').catch(()=>{});throw e;}finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
