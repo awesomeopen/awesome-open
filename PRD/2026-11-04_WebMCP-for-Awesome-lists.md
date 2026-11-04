@@ -195,7 +195,7 @@ lists had `has_pages=false`.
 
 | Candidate | Pilot finding | Follow-up before selection |
 | --- | --- | --- |
-| [awesome-python](https://github.com/vinta/awesome-python), [site](https://awesome-python.com/) | Pages enabled; 528 projects / 74 categories extracted; existing Markdown AST parser | Reproduce extraction at a recorded source revision; inspect representative entries |
+| [awesome-python](https://github.com/vinta/awesome-python), [site](https://awesome-python.com/) | Pages enabled; site advertises 528 projects / 74 categories; existing Markdown AST parser | Reproduce extraction at a recorded source revision; inspect representative entries |
 | [awesome-go](https://github.com/avelino/awesome-go), [site](https://awesome-go.com/) | Pages enabled; conventional nested lists; Netlify configuration present | Establish canonical hosting and category/link mapping |
 | [awesome-mac](https://github.com/jaywcjlove/awesome-mac), [site](https://wangchujiang.com/awesome-mac/) | Pages enabled; multiple links and badges; source CC0 versus site-footer CC BY 4.0 conflict | Resolve rights and primary-link selection before reuse |
 | [free-for-dev](https://github.com/ripienaar/free-for-dev), [site](https://free-for.dev/) | Pages enabled; dynamic Docsify shell | Use source adapter; inspect descriptions and section structure |
