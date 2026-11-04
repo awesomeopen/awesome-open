@@ -1,17 +1,26 @@
 """Offline regression coverage for bounded, exhaustive browser orchestration."""
 import json
+import hashlib
+import struct
 import math
 from pathlib import Path
 import sys
 import tempfile
 import unittest
 
-from run_browser_checks import CHUNK_SIZE, execute, make_plan, run_suite
+from run_browser_checks import CHUNK_SIZE, execute, make_plan, run_suite, valid_png
 
 
 def catalog(count):
     return dict(source_sha='revision', projects=[dict(id=f'{i:064x}', name='Same name', artwork=True)
                                                 for i in reversed(range(count))])
+
+
+def fake_png(output, project):
+    blob = b'\x89PNG\r\n\x1a\n' + b'\0' * 8 + struct.pack('>II', 1440, 1000)
+    name = f'specimen-{project}.png'
+    (output / name).write_bytes(blob)
+    return dict(file=name, width=1440, height=1000, bytes=len(blob), sha256=hashlib.sha256(blob).hexdigest())
 
 
 class BrowserRunnerTests(unittest.TestCase):
@@ -54,12 +63,14 @@ class BrowserRunnerTests(unittest.TestCase):
         plan = make_plan(catalog(33))
         def runner(suite, output):
             if 'ids' in suite:
-                for project in suite['ids']:
+                policy = json.loads((output / 'capture-plan.json').read_text())
+                for project in suite['captureIds']:
                     (output / f'specimen-{project}.png').touch()
                 (output / (suite['name'] + '.json')).write_text(json.dumps(dict(
                     status='passed', sourceSha='revision', expectedIds=suite['ids'],
+                    planId=policy['planId'], prHeadSha=policy['prHeadSha'], expectedCaptureIds=suite['captureIds'],
                     projects=[dict(id=i) for i in suite['ids']],
-                    screenshots=[dict(file=f'specimen-{i}.png') for i in suite['ids']])))
+                    screenshots=[fake_png(output, i) for i in suite['captureIds']])))
             return dict(name=suite['name'], status='passed')
         with tempfile.TemporaryDirectory() as directory:
             self.assertEqual(execute(plan, Path(directory), runner)['status'], 'passed')
@@ -69,6 +80,50 @@ class BrowserRunnerTests(unittest.TestCase):
                     (output / f"specimen-{suite['ids'][0]}.png").unlink()
                 return result
             self.assertEqual(execute(plan, Path(directory), wrong)['status'], 'failed')
+
+    def test_selective_assertions_still_cover_all_ids_and_old_evidence_is_removed(self):
+        data = catalog(50)
+        changed = [f'{i:064x}' for i in range(40)]
+        plan = make_plan(data, dict(mode='selective', changedIds=changed))
+        self.assertEqual(plan['captureIds'], changed, 'All 40 new images require captures')
+        self.assertEqual(len(plan['artworkIds']), 50)
+        def runner(suite, output):
+            if 'ids' in suite:
+                policy = json.loads((output / 'capture-plan.json').read_text())
+                for i in suite['captureIds']:
+                    (output / f'specimen-{i}.png').touch()
+                (output / (suite['name'] + '.json')).write_text(json.dumps(dict(
+                    status='passed', sourceSha='revision', expectedIds=suite['ids'],
+                    expectedCaptureIds=suite['captureIds'], planId=policy['planId'], prHeadSha=policy['prHeadSha'],
+                    projects=[dict(id=i) for i in suite['ids']],
+                    screenshots=[fake_png(output, i) for i in suite['captureIds']])))
+            return dict(name=suite['name'], status='passed')
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            for name in ('old.png', 'old.json', 'old.log'):
+                (output / name).touch()
+            self.assertEqual(execute(plan, output, runner)['status'], 'passed')
+            self.assertEqual(len(list(output.glob('*.png'))), 40)
+            self.assertFalse((output / 'old.json').exists())
+            self.assertFalse((output / 'old.log').exists())
+            for field, value in [('planId', 'previous-run'), ('sourceSha', 'old'),
+                                 ('prHeadSha', 'wrong-head'), ('expectedCaptureIds', []), ('projects', [])]:
+                def stale(suite, output):
+                    result = runner(suite, output)
+                    if 'ids' in suite:
+                        file = output / (suite['name'] + '.json')
+                        manifest = json.loads(file.read_text()); manifest[field] = value
+                        file.write_text(json.dumps(manifest))
+                    return result
+                self.assertEqual(execute(plan, output, stale)['status'], 'failed', field)
+
+    def test_png_metadata_is_bound_to_actual_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            capture = fake_png(output, 'example')
+            self.assertTrue(valid_png(output, capture))
+            (output / capture['file']).write_bytes(b'old or truncated PNG')
+            self.assertFalse(valid_png(output, capture))
 
     def test_real_subprocess_success_failure_signal_timeout_and_spawn_error(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -100,7 +155,8 @@ class BrowserRunnerTests(unittest.TestCase):
             calls.append(suite['name'])
             if 'ids' in suite:
                 (output / (suite['name'] + '.json')).write_text(json.dumps(dict(
-                    status='passed', sourceSha='revision', expectedIds=suite['ids'], projects=None)))
+                    status='passed', sourceSha='revision', expectedIds=suite['ids'],
+                    projects=None)))
             return dict(name=suite['name'], status='passed')
         with tempfile.TemporaryDirectory() as directory:
             report = execute(make_plan(catalog(33)), Path(directory), runner)

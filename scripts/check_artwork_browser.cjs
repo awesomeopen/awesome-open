@@ -1,15 +1,16 @@
-/* Exhaustive specimen capture, one bounded canonical-ID chunk per process. */
+/* Exhaustive specimen assertions and planned captures, one bounded ID chunk per process. */
 const { chromium } = require('playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const CHUNK_SIZE = 32;
+const policy = require('./browser_capture.cjs');
 (async () => {
   const chunk = Number(process.argv[2]);
   assert.ok(Number.isInteger(chunk) && chunk >= 0, 'Supply a nonnegative chunk index');
   const output = path.resolve(__dirname, '../tmp/site-qa');
   fs.mkdirSync(output, { recursive: true });
-  const report = { status: 'running', chunk, sourceSha: null, prHeadSha: process.env.PR_HEAD_SHA || null, projects: [], screenshots: [] };
+  const report = { status: 'running', chunk, sourceSha: null, prHeadSha: process.env.PR_HEAD_SHA || null, planId: policy.plan?.planId || null, projects: [], screenshots: [] };
   const write = () => fs.writeFileSync(path.join(output, `artwork-${chunk}.json`), JSON.stringify(report, null, 2) + '\n');
   write();
   let browser, page;
@@ -35,7 +36,8 @@ const CHUNK_SIZE = 32;
     assert.equal(new Set(illustrated.map(p => p.id)).size, illustrated.length, 'Canonical IDs are unique');
     const projects = illustrated.slice(chunk * CHUNK_SIZE, (chunk + 1) * CHUNK_SIZE);
     assert.ok(projects.length, 'Chunk must contain artwork');
-    report.expectedIds = projects.map(p => p.id); write();
+    report.expectedIds = projects.map(p => p.id);
+    report.expectedCaptureIds = report.expectedIds.filter(policy.artwork); write();
     const change = async (id, value) => {
       await page.locator('#' + id).fill(value);
       await page.locator('#' + id).dispatchEvent('change');
@@ -46,7 +48,7 @@ const CHUNK_SIZE = 32;
       const png = await page.screenshot({ path: path.join(output, name), animations: 'disabled', caret: 'hide', scale: 'css' });
       const dimensions = { width: png.readUInt32BE(16), height: png.readUInt32BE(20) };
       assert.deepEqual(dimensions, page.viewportSize(), `Screenshot dimensions: ${name}`);
-      report.screenshots.push({ file: name, ...dimensions, bytes: png.length }); write();
+      report.screenshots.push({ file: name, ...dimensions, bytes: png.length, sha256: require('node:crypto').createHash('sha256').update(png).digest('hex') }); write();
     };
     for (const project of projects) {
       report.currentProjectId = project.id; write();
@@ -66,7 +68,7 @@ const CHUNK_SIZE = 32;
       await image.scrollIntoViewIfNeeded();
       await page.waitForFunction(id => { const img = document.querySelector('#project-' + id + ' .specimen-art img'); return img && img.complete && img.naturalWidth > 0; }, project.id, { timeout: 10000 });
       assert.equal(await image.evaluate(img => img.naturalWidth > 0), true);
-      await capture('specimen-' + project.id + '.png');
+      if (policy.artwork(project.id)) await capture('specimen-' + project.id + '.png');
       report.projects.push({ id: project.id, name: project.name }); write();
     }
     assert.deepEqual(errors, []);

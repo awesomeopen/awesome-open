@@ -63,15 +63,14 @@ class BrowserWorkflowTests(unittest.TestCase):
         self.assertIn("packages['node_modules/playwright'].version", text)
         self.assertIn('path: ~/.cache/ms-playwright', text)
         self.assertIn('key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}-chromium', text)
-        self.assertIn("if: steps.playwright-cache.outputs.cache-hit == 'true'\n        run: npx --no-install playwright install-deps chromium", text)
+        self.assertIn("if: steps.impact.outputs.browser != 'false' && (steps.playwright-cache.outputs.cache-hit == 'true')\n        run: npx --no-install playwright install-deps chromium", text)
 
-    def test_docs_only_pull_requests_skip_but_catalog_edits_run(self):
-        paths = self.workflow.split('pull_request:', 1)[1].split('push:', 1)[0]
-        patterns = re.findall(r"- '([^']+)'", paths)
-        self.assertEqual(patterns[0], '**')
-        self.assertIn('!**.md', patterns)
-        # Later patterns win: the catalog source must be re-included after the .md exclusion.
-        self.assertGreater(patterns.index('README.source.md'), patterns.index('!**.md'))
+    def test_docs_keep_required_job_and_conservative_runtime_gate(self):
+        self.assertNotIn('paths:', self.workflow.split('permissions:', 1)[0])
+        self.assertIn('  test:', self.workflow)
+        self.assertIn('python3 scripts/browser_impact.py', self.workflow)
+        self.assertIn('github.event.pull_request.base.sha || github.event.before', self.workflow)
+        self.assertIn("if: steps.impact.outputs.browser != 'false'", self.workflow)
 
     def test_qr_cache_is_keyed_on_the_encoder(self):
         self.assertIn('--qr-cache tmp/qr-cache', self.workflow)

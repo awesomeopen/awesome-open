@@ -369,6 +369,13 @@ module.exports = async ({ page, context, browser, url, data, capture }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(base.href);
     await ready();
+    // Fixed structural budget for the deferred ledger: summaries only, no plates.
+    // A fully rendered ledger measured about 146 elements per row on 2026-10-22.
+    const rows = report.cold.summaries;
+    report.domBudget = { elementsPerRow: 24, limit: 24 * rows, elements: report.cold.elements };
+    assert.ok(report.cold.elements <= report.domBudget.limit,
+      `Deferred ledger has ${report.cold.elements} DOM elements; budget is 24 per row (${report.domBudget.limit})`);
+    report.domBudget.measure = 'Element count of the cold ledger in Chromium at the check viewport';
     return report;
   } finally {
     // Leave a failing page intact for the harness's failure screenshot.
