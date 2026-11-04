@@ -737,6 +737,7 @@ Found an OpenSomething? [Add it to the list](CONTRIBUTING.md). License: public d
 - [Awesome Falsehoods](https://github.com/kdeldycke/awesome-falsehood) -- Falsehoods programmers believe, organized by topic.
 - [Open Awesome](https://open-awesome.com/) -- Searchable hub of libraries, tools, and frameworks from GitHub Awesome Lists.
 - [Startup Archaelogy](https://absurd.website/startup-archaeology/) -- Future startup ideas, excavated from science fiction.
+- [awesome-awesome-awesome-awesome](https://github.com/sindresorhus/awesome-awesome-awesome-awesome)
 - ...
 
 ## Support this awesome list by clicking here:
