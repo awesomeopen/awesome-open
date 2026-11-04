@@ -67,7 +67,7 @@
 | [OpenEnv](https://github.com/openenv/OpenEnv) | Framework for creating and deploying execution environments for agentic reinforcement learning through a Gymnasium-style API. <!-- STATS:START --><br><sub>2025-10-01 -- 2026-11-03 / BSD-3-Clause / 2.8k</sub><!-- STATS:END --> |
 | [OpenFace](https://github.com/cmusatyalab/openface) | Face recognition with deep neural networks. <!-- STATS:START --><br><sub>2015-09-16 -- 2026-10-30 / Apache-2.0 / 15.4k</sub><!-- STATS:END --> |
 | [OpenFang](https://github.com/RightNow-AI/openfang) | Rust runtime for autonomous AI agents with scheduled tasks, persistent memory, messaging integrations, and a web dashboard. <!-- STATS:START --><br><sub>2026-02-24 -- 2026-07-02 / Apache-2.0 / 18.2k</sub><!-- STATS:END --> |
-| [OpenFeed](https://github.com/noemauser/OpenFeed) | Python library and command-line tools for exchanging searchable knowledge packs and messages among AI agents. <!-- STATS:START --><br><sub>2026-10-11 -- 2026-10-12 / MIT / 0 / Metrics stale; last success 2026-10-31T23:49:59Z; unavailable at 2026-11-04T04:01:35Z (HTTP 404)</sub><!-- STATS:END --> |
+| [OpenFeed](https://github.com/noemauser/OpenFeed) | Python library and command-line tools for exchanging searchable knowledge packs and messages among AI agents. <!-- STATS:START --><br><sub>2026-10-11 -- 2026-10-12 / MIT / 0 / Metrics stale; last success 2026-10-31T23:49:59Z; unavailable at 2026-11-04T04:26:17Z (HTTP 404)</sub><!-- STATS:END --> |
 | [OpenFoundry](https://github.com/bsamud/openfoundry-agentic-framework) | AI-agent orchestration framework with DAG workflows, model routing, guardrails, and observability. <!-- STATS:START --><br><sub>2026-01-09 -- 2026-03-28 / MIT / 33</sub><!-- STATS:END --> |
 | [OpenFox](https://github.com/co-l/openfox) | Coding assistant for local language models with planning, implementation, and verification workflows. <!-- STATS:START --><br><sub>2026-03-11 -- 2026-10-05 / 370</sub><!-- STATS:END --> |
 | [Opengeni](https://github.com/Cloudgeni-ai/opengeni) | Service for running AI agents with durable sessions, replayable histories, human approvals, and managed execution environments. <!-- STATS:START --><br><sub>2026-04-16 -- 2026-11-04 / Apache-2.0 / 215</sub><!-- STATS:END --> |
@@ -134,7 +134,7 @@
 | [Open Components](https://github.com/uxfront-com/open-components) | MCP server and reference implementations for building and reviewing UI components against documented rules and contracts. <!-- STATS:START --><br><sub>2026-09-26 -- 2026-11-01 / MIT / 14</sub><!-- STATS:END --> |
 | [OpenContextEngine](https://github.com/AnnaSuSu/OpenContextEngine) | Self-hostable code-search engine that supplies AI agents with source snippets through MCP using semantic, keyword, and code-relationship search. <!-- STATS:START --><br><sub>2026-10-02 -- 2026-10-12 / MIT / 54</sub><!-- STATS:END --> |
 | [OpenCover](https://github.com/OpenCover/opencover) | Code coverage tool for .NET on Windows. <!-- STATS:START --><br><sub>2011-02-22 -- <b>2021-11-15</b> / 1.3k</sub><!-- STATS:END --> |
-| [Open Design Agent Kit](https://github.com/feimacode/open-design-agent-kit) | Extensions and MCP tools that add UI design workflows, templates, and design systems to coding agents. <!-- STATS:START --><br><sub>2026-09-19 -- 2026-11-04 / MIT / 962</sub><!-- STATS:END --> |
+| [Open Design Agent Kit](https://github.com/feimacode/open-design-agent-kit) | Extensions and MCP tools that add UI design workflows, templates, and design systems to coding agents. <!-- STATS:START --><br><sub>2026-09-19 -- 2026-11-04 / MIT / 963</sub><!-- STATS:END --> |
 | [OpenDex](https://github.com/dogmastr/OpenDex) | Roblox explorer and script-analysis suite with Luau navigation, flowcharts, and runtime inspection. <!-- STATS:START --><br><sub>2026-10-07 -- 2026-10-11 / MIT / 20</sub><!-- STATS:END --> |
 | [OpenDocRouter](https://www.opendocrouter.ai/) | Unified document-parsing API that converts PDFs and images into page-by-page Markdown using a selected model. |
 | [OpenEng](https://openeng.app) | Browser-based developer workbench with local engines for terminal sessions, Kubernetes management, and database queries. |
@@ -181,7 +181,7 @@
 | Project | Description |
 | --- | --- |
 | [OpenBao](https://github.com/openbao/openbao) | Manage, store, and distribute secrets, certificates, and encryption keys.<br>Alternative to: [HashiCorp Vault Community Edition](https://openbao.org/docs/guides/migration/) <!-- STATS:START --><br><sub>2023-11-09 -- 2026-11-03 / MPL-2.0 / 8.9k</sub><!-- STATS:END --> |
-| [OpenChoreo](https://github.com/openchoreo/openchoreo) | Internal developer platform for Kubernetes. <!-- STATS:START --><br><sub>2025-02-28 -- 2026-11-03 / Apache-2.0 / 1.8k</sub><!-- STATS:END --> |
+| [OpenChoreo](https://github.com/openchoreo/openchoreo) | Internal developer platform for Kubernetes. <!-- STATS:START --><br><sub>2025-02-28 -- 2026-11-04 / Apache-2.0 / 1.8k</sub><!-- STATS:END --> |
 | [Open Cluster Management](https://github.com/open-cluster-management-io/ocm) | Manage applications and workloads across Kubernetes clusters. <!-- STATS:START --><br><sub>2021-09-30 -- 2026-11-03 / Apache-2.0 / 1.1k</sub><!-- STATS:END --> |
 | [open-compute](https://github.com/elliothux/open-compute) | Self-hosted platform for Cloudflare Workers-compatible applications with storage, queues, workflows, and scheduled tasks. <!-- STATS:START --><br><sub>2026-08-23 -- 2026-11-03 / Apache-2.0 / 2.9k</sub><!-- STATS:END --> |
 | [OpenCost](https://github.com/opencost/opencost) | Monitor Kubernetes workload and cloud costs. <!-- STATS:START --><br><sub>2019-03-27 -- 2026-10-29 / Apache-2.0 / 6.8k</sub><!-- STATS:END --> |
@@ -247,7 +247,7 @@
 | **[OpenShell](https://github.com/NVIDIA/OpenShell)** | Sandbox runtime with policy controls for autonomous AI agents. <!-- STATS:START --><br><sub>2026-02-24 -- 2026-11-04 / Apache-2.0 / 21.1k</sub><!-- STATS:END --> |
 | [OpenSnitch](https://github.com/evilsocket/opensnitch) | Interactive application firewall for GNU/Linux. <!-- STATS:START --><br><sub>2017-04-16 -- 2026-07-26 / GPL-3.0 / 14.2k</sub><!-- STATS:END --> |
 | [OpenSSH](https://github.com/openssh/openssh-portable) | Secure remote login, command execution, and file transfer. <!-- STATS:START --><br><sub>2014-01-17 -- 2026-11-03 / 4.1k</sub><!-- STATS:END --> |
-| **[OpenSSL](https://github.com/openssl/openssl)** | General-purpose TLS and cryptography library. <!-- STATS:START --><br><sub>2013-01-15 -- 2026-11-03 / Apache-2.0 / 31.2k</sub><!-- STATS:END --> |
+| **[OpenSSL](https://github.com/openssl/openssl)** | General-purpose TLS and cryptography library. <!-- STATS:START --><br><sub>2013-01-15 -- 2026-11-04 / Apache-2.0 / 31.2k</sub><!-- STATS:END --> |
 | [OpenStego](https://github.com/syvaidya/openstego) | Hide data inside images and create invisible image watermarks. <!-- STATS:START --><br><sub>2015-05-29 -- <b>2023-08-12</b> / GPL-2.0 / 1.4k</sub><!-- STATS:END --> |
 | [OpenTAXII](https://github.com/eclecticiq/OpenTAXII) | Python server implementation of TAXII for exchanging threat intelligence. <!-- STATS:START --><br><sub>2014-11-24 -- 2026-03-12 / BSD-3-Clause / 217</sub><!-- STATS:END --> |
 | [OpenTimestamps Client](https://github.com/opentimestamps/opentimestamps-client) | Command-line tool for creating and verifying Bitcoin-backed timestamp proofs for files and signed Git commits. <!-- STATS:START --><br><sub>2012-10-05 -- 2026-10-27 / 433</sub><!-- STATS:END --> |
@@ -432,7 +432,7 @@
 | [OpenImageIO](https://github.com/AcademySoftwareFoundation/OpenImageIO) | Image reading, writing, and processing library for visual effects. <!-- STATS:START --><br><sub>2011-02-02 -- 2026-11-03 / Apache-2.0 / 2.4k</sub><!-- STATS:END --> |
 | [OpenLP](https://openlp.org) | Worship presentation software for lyrics, scripture, images, and video. |
 | [openMarquee](https://github.com/qarl/openmarquee) | Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback. <!-- STATS:START --><br><sub>2026-05-22 -- 2026-10-02 / GPL-3.0 / 0</sub><!-- STATS:END --> |
-| [OpenMontage](https://github.com/calesthio/OpenMontage) | Video production pipelines and tools for AI coding assistants. <!-- STATS:START --><br><sub>2026-03-29 -- 2026-11-03 / AGPL-3.0 / 76k</sub><!-- STATS:END --> |
+| [OpenMontage](https://github.com/calesthio/OpenMontage) | Video production pipelines and tools for AI coding assistants. <!-- STATS:START --><br><sub>2026-03-29 -- 2026-11-03 / AGPL-3.0 / 76.1k</sub><!-- STATS:END --> |
 | [OpenMPT](https://openmpt.org) | Tracker for composing and editing module music. |
 | [OpenPatch](https://github.com/dexterlabs1/openpatch) | Desktop modular synthesizer with patchable oscillators, filters, sequencers, signal visualization, and local MCP control. <!-- STATS:START --><br><sub>2026-10-13 -- 2026-10-25 / MIT / 2</sub><!-- STATS:END --> |
 | [OpenPencil](https://github.com/open-pencil/open-pencil) | Design editor with Figma-file support, AI tools, and real-time collaboration.<br>Alternative to: [Figma](https://github.com/open-pencil/open-pencil#why) <!-- STATS:START --><br><sub>2026-02-27 -- 2026-11-03 / MIT / 9.6k</sub><!-- STATS:END --> |
@@ -739,6 +739,7 @@ Found an OpenSomething? [Add it to the list](CONTRIBUTING.md). License: public d
 - [Awesome Falsehoods](https://github.com/kdeldycke/awesome-falsehood) -- Falsehoods programmers believe, organized by topic.
 - [Open Awesome](https://open-awesome.com/) -- Searchable hub of libraries, tools, and frameworks from GitHub Awesome Lists.
 - [Startup Archaelogy](https://absurd.website/startup-archaeology/) -- Future startup ideas, excavated from science fiction.
+- [awesome-awesome-awesome-awesome](https://github.com/sindresorhus/awesome-awesome-awesome-awesome)
 - ...
 
 ## Support this awesome list by clicking here:
