@@ -2,14 +2,6 @@ name: Check README source and preview
 
 on:
   pull_request:
-    # Documentation and brand-record changes skip the build and browser plan;
-    # check-brand.yml still runs for them. README.source.md is the catalog.
-    paths:
-      - '**'
-      - '!**.md'
-      - '!brand/decisions/**'
-      - '!brand/studies/**'
-      - 'README.source.md'
   push:
     branches: [main]
 
@@ -20,10 +12,22 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      BROWSER_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - name: Classify browser impact
+        id: impact
+        run: |
+          if [[ "$BROWSER_BASE_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            git fetch --no-tags --depth=1 origin "$BROWSER_BASE_SHA" || echo "Base unavailable; full browser fallback"
+          fi
+          python3 scripts/browser_impact.py
+      - name: Report documentation-only browser decision
+        if: steps.impact.outputs.browser == 'false'
+        run: echo "Browser capture skipped for verified guidance-only changes. Offline tests and builds still run." >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -78,7 +82,7 @@ jobs:
       - name: Check the site size budget
         run: python3 scripts/check_budget.py tmp/site
       - name: Build specimen comparison records from PR base
-        if: github.event_name == 'pull_request'
+        if: steps.impact.outputs.browser != 'false' && (github.event_name == 'pull_request')
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
@@ -91,26 +95,31 @@ jobs:
           path: tmp/site/
           if-no-files-found: error
       - name: Install browser-check dependencies
+        if: steps.impact.outputs.browser != 'false'
         run: npm ci --ignore-scripts
       - name: Read the locked Playwright version
+        if: steps.impact.outputs.browser != 'false'
         id: playwright
         run: echo "version=$(node -p "require('./package-lock.json').packages['node_modules/playwright'].version")" >> "$GITHUB_OUTPUT"
       - name: Restore the Playwright browser
+        if: steps.impact.outputs.browser != 'false'
         id: playwright-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}-chromium
       - name: Install Playwright Chromium and system dependencies
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: steps.impact.outputs.browser != 'false' && (steps.playwright-cache.outputs.cache-hit != 'true')
         run: npx --no-install playwright install --with-deps chromium
       - name: Install Playwright system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        if: steps.impact.outputs.browser != 'false' && (steps.playwright-cache.outputs.cache-hit == 'true')
         run: npx --no-install playwright install-deps chromium
       - name: Plan bounded browser suites
+        if: steps.impact.outputs.browser != 'false'
         id: browser-plan
         run: python3 scripts/run_browser_checks.py --plan
       - name: Check the generated field guide in Chromium
+        if: steps.impact.outputs.browser != 'false'
         timeout-minutes: ${{ fromJSON(steps.browser-plan.outputs.timeout_minutes) }}
         env:
           SITE_URL: http://127.0.0.1:8000

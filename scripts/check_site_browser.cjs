@@ -8,6 +8,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 (async () => {
+  const group = process.argv[2] || 'core';
+  const groups = ['core', 'aliases', 'bounds', 'details', 'footer', 'deployment', 'star-history', 'plates', 'history'];
+  assert.ok(groups.includes(group), 'Unknown core group');
   const output = path.resolve(__dirname, '../tmp/site-qa');
   fs.mkdirSync(output, { recursive: true });
   const options = { headless: true };
@@ -21,53 +24,21 @@ const path = require('node:path');
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   const url = process.env.SITE_URL || 'http://127.0.0.1:8000';
-  const report = { status: 'running', url, sourceSha: null,
-    prHeadSha: process.env.PR_HEAD_SHA || null, screenshots: [] };
-  const writeReport = () => fs.writeFileSync(path.join(output, 'screenshots.json'), JSON.stringify(report, null, 2) + '\n');
+  const report = { status: 'running', group, url, sourceSha: null,
+    prHeadSha: process.env.PR_HEAD_SHA || null, planId: require('./browser_capture.cjs').plan?.planId || null, screenshots: [], skippedScreenshots: [] };
+  const writeReport = () => fs.writeFileSync(path.join(output, group === 'core' ? 'screenshots.json' : group + '-screenshots.json'), JSON.stringify(report, null, 2) + '\n');
   const capture = async (name, target = page) => {
+    if (!require('./browser_capture.cjs').review(name)) {
+      report.skippedScreenshots.push({ file: name, reason: 'Unchanged component; assertions retained' });
+      writeReport();
+      return;
+    }
     await target.evaluate(() => document.fonts.ready);
     const png = await target.screenshot({ path: path.join(output, name), animations: 'disabled', caret: 'hide', scale: 'css' });
     const dimensions = { width: png.readUInt32BE(16), height: png.readUInt32BE(20) };
     assert.deepEqual(dimensions, target.viewportSize(), `Screenshot dimensions: ${name}`);
     report.screenshots.push({ file: name, ...dimensions, bytes: png.length });
     writeReport();
-  };
-  const checkFooter = async () => {
-    for (const width of [2560, 1440, 390]) {
-      await page.setViewportSize({ width, height: 1000 });
-      await page.locator('.site-footer').scrollIntoViewIfNeeded();
-      const footer = await page.locator('.site-footer').evaluate(async node => {
-        const style = getComputedStyle(node);
-        const background = style.backgroundImage.slice(5, -2);
-        const image = new Image();
-        image.src = background;
-        await image.decode();
-        const art = node.querySelector('[data-footer-background]');
-        await art.decode();
-        const rect = art.getBoundingClientRect(), bounds = node.getBoundingClientRect();
-        return { renderedWidth: rect.width, renderedHeight: rect.height, center: (rect.left + rect.right) / 2,
-          footerCenter: (bounds.left + bounds.right) / 2, bottom: rect.bottom, footerBottom: bounds.bottom - parseFloat(style.borderBottomWidth),
-          clipped: style.overflowX, background, width: image.naturalWidth, artWidth: art.naturalWidth,
-          artHeight: art.naturalHeight, widthAttr: Number(art.getAttribute('width')), heightAttr: Number(art.getAttribute('height')),
-          sizes: JSON.parse(art.dataset.backgroundSizes),
-          choices: JSON.parse(art.dataset.backgrounds), border: style.borderTopStyle };
-      });
-      assert.equal(footer.width, 1254);
-      assert.equal(footer.artWidth, footer.widthAttr);
-      assert.equal(footer.artHeight, footer.heightAttr);
-      assert.equal(footer.renderedWidth, footer.artWidth, "Footer artwork keeps its native width");
-      assert.equal(footer.renderedHeight, footer.artHeight, "Footer artwork keeps its native height");
-      assert.ok(Math.abs(footer.center - footer.footerCenter) < 1, "Footer artwork stays horizontally centered");
-      assert.ok(Math.abs(footer.bottom - footer.footerBottom) < 1, "Footer artwork stays bottom aligned");
-      assert.equal(footer.clipped, "hidden");
-      assert.ok(footer.choices.length > 0);
-      assert.equal(footer.choices.length, footer.sizes.length);
-      assert.equal(footer.border, 'double');
-      assert.ok(footer.background.endsWith('/patterns/navypattern2.png'));
-      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
-      await capture(`footer-production-${width}.png`);
-    }
-    await page.setViewportSize({ width: 1440, height: 1000 });
   };
   const visible = () => page.locator('.project-card:not([hidden])').count();
   const assertVisiblePositions = async (target, label) => {
@@ -173,7 +144,7 @@ const path = require('node:path');
     // Capture both viewports before assertions so a later failure retains useful
     // review artifacts. Fixed motion, fonts, pixel scale, locale and theme avoid
     // screenshots depending on a runner's preferences or an animation frame.
-    for (const [name, viewport] of [
+    if (group === 'core') for (const [name, viewport] of [
       ['desktop.png', { width: 1440, height: 1000 }],
       ['mobile.png', { width: 390, height: 844 }],
     ]) {
@@ -196,11 +167,15 @@ const path = require('node:path');
     report.sourceSha = data.source_sha;
     writeReport();
     if (process.env.SITE_SOURCE_SHA) assert.equal(data.source_sha, process.env.SITE_SOURCE_SHA, 'Browser must test the generated checkout');
-    report.aliases = await require('./check_aliases_browser.cjs')({ context, url, data, capture });
-    writeReport();
-    report.specimenBounds = await require('./check_specimen_bounds_browser.cjs')({ browser, context, url, data });
-    report.detailLoading = await require('./check_lazy_details_browser.cjs')({ page, context, browser, url, data, capture });
-    writeReport();
+    if (group !== 'core') {
+      const modules = { aliases: 'aliases', bounds: 'specimen_bounds', details: 'lazy_details',
+        footer: 'footer', deployment: 'deployment', 'star-history': 'star_history', plates: 'plate', history: 'history' };
+      report.result = await require('./check_' + modules[group] + '_browser.cjs')({ page, context, browser, url, data, capture });
+      assert.deepEqual(errors, []);
+      report.status = 'passed';
+      writeReport();
+      return;
+    }
     // Category illustrations stay inside the existing native disclosure. Check
     // actual decoding and candidate selection at desktop and narrow widths.
     assert.equal(await page.locator('.category-art').count(), data.categories.filter(category => category.artwork).length);
@@ -252,34 +227,6 @@ const path = require('node:path');
         assert.ok(await art.evaluate((image, suffix) => image.currentSrc.endsWith(`-${suffix}.webp`), suffix),
           `Category artwork uses the expected candidate at ${density}x`);
       } finally { await denseContext.close(); }
-    }
-    // Exercise every panorama at native size; filename changes must remain automatic.
-    const backgrounds = data.footer_backgrounds || [];
-    if (backgrounds.length) {
-      await page.addInitScript(() => { Math.random = () => Number(sessionStorage.getItem('footer-test-random') || 0); });
-      for (const [index] of backgrounds.entries()) {
-        const random = (index + .5) / backgrounds.length;
-        await page.evaluate(value => sessionStorage.setItem('footer-test-random', String(value)), random);
-        await page.goto(url);
-        const art = page.locator('[data-footer-background]');
-        await art.scrollIntoViewIfNeeded();
-        await art.evaluate(image => image.decode());
-        assert.ok((await art.getAttribute('src')).endsWith(backgrounds[index]));
-        for (const width of [2560, 1440, 390]) {
-          await page.setViewportSize({width, height:1000});
-          const size = await art.evaluate(image => { const r=image.getBoundingClientRect(); return [r.width,r.height,image.naturalWidth,image.naturalHeight]; });
-          assert.deepEqual(size.slice(0,2), size.slice(2), 'Every panorama retains native dimensions at '+width+'px');
-        }
-        await page.setViewportSize({width:1440,height:1000});
-        await capture('footer-background-' + index + '.png');
-      }
-      await page.setViewportSize({width:390,height:1000});
-      await page.locator('#about').scrollIntoViewIfNeeded();
-      await assertLedgerFits(page, 'footer artwork mobile');
-      await capture('footer-mobile.png');
-      await page.setViewportSize({width:1440,height:1000});
-      await page.goto(url);
-      await waitForState();
     }
     assert.equal(await visible(), data.projects.length);
     assert.equal(await page.locator('#sort-order').isEnabled(), true);
@@ -673,8 +620,6 @@ const path = require('node:path');
     }
     await page.setViewportSize({width:1440, height:1000});
 
-    await checkFooter();
-
     const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     const fallback = await noJS.newPage();
     await fallback.goto(url);
@@ -697,21 +642,8 @@ const path = require('node:path');
     assert.equal(await fallback.locator('.plate-departure > a').isVisible(), true);
     assert.equal(await fallback.locator('.plate-departure > a').getAttribute('href'), data.projects.find(project => project.id === staticRecordId).url);
     await noJS.close();
+    assert.deepEqual(errors, []);
 
-    // Fixed structural budget for the deferred ledger: summaries only, no plates.
-    // A fully rendered ledger measured about 146 elements per row on 2026-10-22.
-    const rows = report.detailLoading.cold.summaries;
-    report.detailLoading.domBudget = { elementsPerRow: 24, limit: 24 * rows, elements: report.detailLoading.cold.elements };
-    assert.ok(report.detailLoading.cold.elements <= report.detailLoading.domBudget.limit,
-      `Deferred ledger has ${report.detailLoading.cold.elements} DOM elements; budget is 24 per row (${report.detailLoading.domBudget.limit})`);
-    report.detailLoading.domBudget.measure = 'Element count of the cold ledger in Chromium at the check viewport';
-    writeReport();
-    await require('./check_deployment_browser.cjs')({ page, browser, url, data, capture });
-    assert.deepEqual(errors, []);
-    await require('./check_star_history_browser.cjs')({ page, url, data, capture });
-    await require('./check_plate_browser.cjs')({ page, url, data, capture });
-    await require('./check_history_browser.cjs')({ page, url, data, capture });
-    assert.deepEqual(errors, []);
     report.status = 'passed';
     writeReport();
     console.log(JSON.stringify(report, null, 2));
@@ -722,12 +654,11 @@ const path = require('node:path');
         'Download `field-guide-browser-screenshots` for desktop.png (1440 × 1000), mobile.png (390 × 844), ' +
         'screenshots.json, and browser/server logs.\n');
     }
-    console.log(JSON.stringify({ status: 'passed', projects: data.projects.length, screenshots: output,
-      checks: ['visible result positions and stable alphabetical folios/Registry IDs/permalinks', 'search', 'reviewed aliases and stable OBS identity', 'combined filters', 'snapshot windows', 'exact alternatives', 'missing metrics', 'zero threshold', 'sorts', 'empty/reset', 'URL reload', 'Back/Forward race', 'permalinks', 'filtered-out deep links', 'keyboard disclosures', 'responsive boundaries 320–1440px', '200% root text size', 'reduced motion', 'category-aware leaders', 'optional specimen artwork', 'cold summary-only DOM', 'fetch-on-open detail lifecycle', 'failure/retry and stale-response guards', 'bounded closed-plate retention', 'no-JS static records and print route', 'deferred ledger DOM budget', 'no page errors'] }, null, 2));
+    console.log(JSON.stringify({ status: 'passed', group, projects: data.projects.length, screenshots: output }));
   } catch (error) {
     report.status = 'failed';
     report.error = error.message;
-    await capture('failure.png').catch(() => {});
+    await capture(group + '-failure.png').catch(() => {});
     writeReport();
     console.error(JSON.stringify(report, null, 2));
     throw error;

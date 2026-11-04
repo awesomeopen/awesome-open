@@ -243,6 +243,8 @@ const path=require('node:path');
    width:Number(n.getAttribute('width')),height:Number(n.getAttribute('height'))})));
  for(const record of occupantSources)if(!manifest.sources[record.path])manifest.sources[record.path]={
    width:record.width,height:record.height,variants:[{path:record.path,width:record.width,height:record.height}]};
+ const capturePolicy=require('./browser_capture.cjs');
+ const jarArtChanged=capturePolicy.plan?.changedIds?.some(id=>occupantSources.some(source=>source.path.includes(id))) ?? false;
  const sources=Object.keys(manifest.sources);
  const byVariant=Object.fromEntries(sources.flatMap(source=>manifest.sources[source].variants.map(v=>[v.path,source])));
  const heroPaths=[...sources,...Object.keys(byVariant)];
@@ -251,6 +253,7 @@ const path=require('node:path');
    return heroPaths.find(relative=>pathname.endsWith('/'+relative));
  };
  const payload=[];
+ const reviewEvidence={captured:[],skipped:[]};
  const noJavaScript=[];
  for(const dpr of [1,2,3]){
    const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:900},deviceScaleFactor:dpr});
@@ -297,8 +300,25 @@ const path=require('node:path');
      await probe.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
      await probe.evaluate(()=>document.fonts.ready);
      await probe.locator('.jar-select').first().focus();
-     await probe.waitForTimeout(700); // Include the now-visible underlight mask.
-     await probe.screenshot({path:`tmp/site-qa/hero-${label}-${control?'original':'responsive'}.png`});
+     // Reduced-motion comparison contexts have no light transition. Wait for
+     // the visible light and its actual selected mask to decode before capture
+     // and resource assertions; elapsed time alone cannot prove readiness.
+     await probe.waitForFunction(async () => {
+       const light = document.querySelector('.jar-exhibit.is-active .jar-uplight');
+       if (!light || Number(getComputedStyle(light).opacity) !== .75) return false;
+       const mask = getComputedStyle(light).maskImage;
+       const image = light.closest('.jar-exhibit').querySelector('.jar-photo');
+       if (!image.complete || !image.naturalWidth || !mask.includes(image.currentSrc)) return false;
+       await image.decode();
+       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+       return true;
+     }, null, { timeout: 15000 });
+     await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.jar-sticker,.jar-cork,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+     const captureName = `hero-${label}-${control?'original':'responsive'}.png`;
+     if (capturePolicy.review(captureName, {affected:jarArtChanged})) {
+       await probe.screenshot({path:`tmp/site-qa/${captureName}`});
+       reviewEvidence.captured.push(captureName);
+     } else reviewEvidence.skipped.push(captureName);
      if(!control){
        const images=await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.jar-sticker,.jar-cork,.specimen-print').evaluateAll(nodes=>nodes.map(n=>({
          class:n.className,currentSrc:new URL(n.currentSrc).pathname,cssWidth:n.getBoundingClientRect().width,
@@ -324,7 +344,7 @@ const path=require('node:path');
      await context.close();
    }
  }
- fs.writeFileSync('tmp/site-qa/hero-payload.json',JSON.stringify({prHeadSha:process.env.PR_HEAD_SHA||null,sourceSha:process.env.SITE_SOURCE_SHA||null,originalHeroBytes:sources.reduce((sum,s)=>sum+fs.statSync(path.join(__dirname,'../site',s)).size,0),cases:payload,noJavaScript},null,2)+'\n');
+ fs.writeFileSync('tmp/site-qa/hero-payload.json',JSON.stringify({prHeadSha:process.env.PR_HEAD_SHA||null,sourceSha:process.env.SITE_SOURCE_SHA||null,planId:require('./browser_capture.cjs').plan?.planId||null,reviewEvidence,originalHeroBytes:sources.reduce((sum,s)=>sum+fs.statSync(path.join(__dirname,'../site',s)).size,0),cases:payload,noJavaScript},null,2)+'\n');
  assert.deepEqual(errors,[]);console.log('Seven jars: assets, hover overlap, fixed-size translation parallax, pixel-snapped settling, vertical stability, underlight, lid lift, vapor, idle movement/pause, outlined inspect action, record links, search, keyboard/Escape, reduced motion, responsive density, touch selection/scroll and no-JS pass.');
- }catch(e){await page.screenshot({path:'tmp/site-qa/jars-failure.png'});throw e;}finally{await browser.close();}
+ }catch(e){await page.screenshot({path:'tmp/site-qa/jars-failure.png'}).catch(()=>{});throw e;}finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
