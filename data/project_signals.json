@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-04T04:26:56Z",
+  "collected_at": "2026-11-04T05:39:03Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -916,7 +916,7 @@
     "anil-matcha/open-duet": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T04:50:04Z",
+        "checked_at": "2026-11-04T05:39:03Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -2885,7 +2885,7 @@
     "copilotkit/openduet": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T04:50:04Z",
+        "checked_at": "2026-11-04T05:39:03Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -13275,7 +13275,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-21T05:31:54Z",
+        "checked_at": "2026-11-04T05:39:03Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -26177,5 +26177,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "a5b8e67743867a546f58f9f597d795f1e80ee5d3"
+  "source_sha": "c76ae3ffa815549d145e8fc8b9409c17d864506b"
 }
