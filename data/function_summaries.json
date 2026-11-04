@@ -10926,6 +10926,1052 @@
           "source_url": "https://github.com/opencourant/opencourant/blob/9b0e33915260b82635b171f76bc5508371f723ab/README.md"
         }
       ]
+    },
+    "8ecabd27e71a569b010c3f3b67c6d11e55e436a12a850b80b83ac2fc55bad88b": {
+      "project_url": "https://github.com/opensips/opensips",
+      "text": "OpenSIPS is a modular SIP server for building communication services. Its registrar processes device registrations and stores contact information for routing requests. A load-balancing module distributes calls according to available destination capacity, retries another destination after failure, and probes destinations so recovered servers can return to service.",
+      "sources": [
+        {
+          "url": "https://github.com/opensips/opensips/blob/7a4e46b4dda4a49efe71d9e01fc897d0fc8f8eef/README.md",
+          "title": "OpenSIPS README",
+          "revision": "7a4e46b4dda4a49efe71d9e01fc897d0fc8f8eef"
+        },
+        {
+          "url": "https://github.com/opensips/opensips/blob/7a4e46b4dda4a49efe71d9e01fc897d0fc8f8eef/modules/registrar/README.md",
+          "title": "OpenSIPS registrar module",
+          "revision": "7a4e46b4dda4a49efe71d9e01fc897d0fc8f8eef"
+        },
+        {
+          "url": "https://github.com/opensips/opensips/blob/7a4e46b4dda4a49efe71d9e01fc897d0fc8f8eef/modules/load_balancer/README.md",
+          "title": "OpenSIPS load-balancer module",
+          "revision": "7a4e46b4dda4a49efe71d9e01fc897d0fc8f8eef"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "SIP registration",
+          "text": "Processes SIP REGISTER requests and stores contacts for subsequent request lookup.",
+          "source_url": "https://github.com/opensips/opensips/blob/7a4e46b4dda4a49efe71d9e01fc897d0fc8f8eef/modules/registrar/README.md"
+        },
+        {
+          "title": "Capacity-based call routing",
+          "text": "Selects destinations by available capacity and supports failure recovery through alternate destinations and SIP probing.",
+          "source_url": "https://github.com/opensips/opensips/blob/7a4e46b4dda4a49efe71d9e01fc897d0fc8f8eef/modules/load_balancer/README.md"
+        }
+      ]
+    },
+    "90386c1d50b798e0b8c0d3ae47dc4921fd659c64a22a1356c9e818d82a194c2a": {
+      "project_url": "https://github.com/ibmshaikh/openpilot",
+      "text": "OpenPilot is an Electron desktop app that connects an AI chat to a selected project folder. Users configure OpenAI-compatible model endpoints and keys, then let the agent read and edit files or run tools with approval controls. It supports reusable skills, per-chat MCP tools, persistent memory, and optional TinyFish web search and page fetching.",
+      "sources": [
+        {
+          "url": "https://github.com/ibmshaikh/openpilot/blob/dcedefeb213d2572a0312e7f15ad073ee57d018e/README.md",
+          "title": "OpenPilot README",
+          "revision": "dcedefeb213d2572a0312e7f15ad073ee57d018e"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Workspace tools",
+          "text": "Connects a chat to a selected folder for file reads, edits and tool execution with approval controls.",
+          "source_url": "https://github.com/ibmshaikh/openpilot/blob/dcedefeb213d2572a0312e7f15ad073ee57d018e/README.md"
+        },
+        {
+          "title": "Model and tool selection",
+          "text": "Supports multiple OpenAI-compatible models and enables MCP server tools separately for each chat.",
+          "source_url": "https://github.com/ibmshaikh/openpilot/blob/dcedefeb213d2572a0312e7f15ad073ee57d018e/README.md"
+        }
+      ]
+    },
+    "929fc4b0fd97be26eebe45c6df52031cd2b3ccf035bb578e82f9d2d0e73a902c": {
+      "project_url": "https://github.com/thesysdev/open-intelligent-ui",
+      "text": "Open Intelligent UI is a web demo and component library for turning model responses into interactive interfaces. Streamed OpenUI Lang arranges maps, charts, forms, images and other components; inputs update shared state and calculated results in the page. The Node application can use OpenUI Cloud, a direct OpenAI-compatible API, or a local model through Ollama.",
+      "sources": [
+        {
+          "url": "https://github.com/thesysdev/open-intelligent-ui/blob/16ef26475999e3a021a50b1607a03717c0721255/README.md",
+          "title": "Open Intelligent UI README",
+          "revision": "16ef26475999e3a021a50b1607a03717c0721255"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Interactive response state",
+          "text": "Inputs bind to shared variables so calculated text, charts and other components update as users interact.",
+          "source_url": "https://github.com/thesysdev/open-intelligent-ui/blob/16ef26475999e3a021a50b1607a03717c0721255/README.md"
+        },
+        {
+          "title": "Model connections",
+          "text": "Supports OpenUI Cloud, direct OpenAI-compatible APIs and local models through Ollama.",
+          "source_url": "https://github.com/thesysdev/open-intelligent-ui/blob/16ef26475999e3a021a50b1607a03717c0721255/README.md"
+        }
+      ]
+    },
+    "9431ce1b4248acb5a600d9a2e484e64bbb9610798df5b33d2864c0fd15525701": {
+      "project_url": "https://github.com/rossecho/openreception",
+      "text": "OpenReception runs a WhatsApp receptionist for appointment-based businesses as a Dockerized Go service. It combines OpenRouter conversations with validated booking, cancellation, availability and reminder workflows. Owners configure services, hours and assistant behavior through a web control panel, and can manage appointments through authenticated chat. Deployment requires WhatsApp Cloud API access, OpenRouter credentials and an HTTPS callback.",
+      "sources": [
+        {
+          "url": "https://github.com/rossecho/openreception/blob/45453cd946598001d975ad313727cd7e17322d03/README.md",
+          "title": "OpenReception README",
+          "revision": "45453cd946598001d975ad313727cd7e17322d03"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Appointment workflows",
+          "text": "Handles booking, availability, appointment lookup and cancellation, with Go validating the scheduling actions.",
+          "source_url": "https://github.com/rossecho/openreception/blob/45453cd946598001d975ad313727cd7e17322d03/README.md"
+        },
+        {
+          "title": "Owner control panel",
+          "text": "Provides appointment controls, analytics, business settings and configurable reminder timing in a web dashboard.",
+          "source_url": "https://github.com/rossecho/openreception/blob/45453cd946598001d975ad313727cd7e17322d03/README.md"
+        }
+      ]
+    },
+    "94fe624d29162c319dda2ea470e16bc8842ba040d2ee802a0219ef02fc7763b0": {
+      "project_url": "https://github.com/codexemmzy/openledger",
+      "text": "OpenLedger is a local and test implementation of a double-entry ledger with a Fastify API and PostgreSQL storage. Its implemented phase provides authenticated, owner-scoped account and transfer endpoints, balanced ledger posting, and a Paystack deposit workflow with webhook verification and worker reconciliation. Production deployment remains unproven, and the project explicitly excludes holding or moving real money.",
+      "sources": [
+        {
+          "url": "https://github.com/codexemmzy/openledger/blob/8f10dea85f6ee5813b7ac2f3a19bdf13a16abc75/README.md",
+          "title": "OpenLedger README",
+          "revision": "8f10dea85f6ee5813b7ac2f3a19bdf13a16abc75"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed. Retained the documented local/test-only scope and production limitation.",
+      "features": [
+        {
+          "title": "Account and transfer API",
+          "text": "Provides OIDC-protected, owner-scoped account and transfer routes backed by a PostgreSQL ledger.",
+          "source_url": "https://github.com/codexemmzy/openledger/blob/8f10dea85f6ee5813b7ac2f3a19bdf13a16abc75/README.md"
+        },
+        {
+          "title": "Deposit reconciliation",
+          "text": "Credits deposits after webhook signature and server-side transaction verification, with bounded outbox processing by a worker.",
+          "source_url": "https://github.com/codexemmzy/openledger/blob/8f10dea85f6ee5813b7ac2f3a19bdf13a16abc75/README.md"
+        }
+      ]
+    },
+    "95770dc956c765e992f739e230176d66e09b05e8e8458eaf9343895790b3d435": {
+      "project_url": "https://github.com/opensprinkler/opensprinkler-firmware",
+      "text": "OpenSprinkler firmware controls irrigation zones on OpenSprinkler controllers and the Raspberry Pi-based OSPi. Users create watering programs, inspect status and logs, and adjust settings through a browser or mobile app. Weather-based watering adjustments and sensor inputs support irrigation control, while supported zone expanders increase the number of valves a controller can operate.",
+      "sources": [
+        {
+          "url": "https://github.com/opensprinkler/opensprinkler-firmware/blob/40894d14195a15c2899f645f1c8156437663e2d1/docs/docs/2.2.1/221_6_manual.md",
+          "title": "OpenSprinkler Firmware 2.2.1(6) User Manual",
+          "revision": "40894d14195a15c2899f645f1c8156437663e2d1"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Browser control",
+          "text": "Shows controller status and logs and lets users change settings and watering programs through a web browser or mobile app.",
+          "source_url": "https://github.com/opensprinkler/opensprinkler-firmware/blob/40894d14195a15c2899f645f1c8156437663e2d1/docs/docs/2.2.1/221_6_manual.md"
+        },
+        {
+          "title": "Expandable irrigation zones",
+          "text": "Supports zone expanders to add physical irrigation outputs beyond the controller’s eight built-in zones.",
+          "source_url": "https://github.com/opensprinkler/opensprinkler-firmware/blob/40894d14195a15c2899f645f1c8156437663e2d1/docs/docs/2.2.1/221_6_manual.md"
+        }
+      ]
+    },
+    "959a4a0e11f8c16d981d0cfb0f7adbc2741f05b76f727de0bd46828c0a275d64": {
+      "project_url": "https://github.com/openms/openms",
+      "text": "OpenMS provides a C++ library and analysis tools for liquid chromatography and mass spectrometry data. Researchers can identify and quantify compounds, inspect data in one, two or three dimensions with TOPPView, and assemble proteomics or metabolomics workflows. Python bindings expose much of the API, and the software runs on Windows, macOS and Linux.",
+      "sources": [
+        {
+          "url": "https://github.com/openms/openms/blob/d60780f6052e2b462fb8f263e0d718a8d2e82b76/README.md",
+          "title": "OpenMS README",
+          "revision": "d60780f6052e2b462fb8f263e0d718a8d2e82b76"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Analysis workflows",
+          "text": "Provides tools for proteomics and metabolomics identification and quantification workflows, including label-free and isotope-labelled analysis.",
+          "source_url": "https://github.com/openms/openms/blob/d60780f6052e2b462fb8f263e0d718a8d2e82b76/README.md"
+        },
+        {
+          "title": "Visual inspection and programming",
+          "text": "Includes TOPPView for one-, two- and three-dimensional data visualization and pyOpenMS bindings for Python access to the API.",
+          "source_url": "https://github.com/openms/openms/blob/d60780f6052e2b462fb8f263e0d718a8d2e82b76/README.md"
+        }
+      ]
+    },
+    "9793abe40508d5c857a0cb14ec1e2afcc13d1b5568cf2c1d71f2937c5d3e2b3c": {
+      "project_url": "https://github.com/opensemanticsearch/open-semantic-search",
+      "text": "Open Semantic Search combines a search server, document-processing framework and browser interfaces for exploring collections. Its processing includes crawling, text extraction, named-entity recognition and OCR for images and embedded PDF images. Users can conduct full-text, faceted and knowledge-graph searches. Deployment options include Debian or Ubuntu packages and a Docker Compose environment with a web interface.",
+      "sources": [
+        {
+          "url": "https://github.com/opensemanticsearch/open-semantic-search/blob/cd1412754c3f11c8db22b65bea797ba0420f54fc/README.md",
+          "title": "Open Semantic Search README",
+          "revision": "cd1412754c3f11c8db22b65bea797ba0420f54fc"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Document processing",
+          "text": "Extracts text, recognizes named entities and applies OCR to images, including images embedded in PDFs.",
+          "source_url": "https://github.com/opensemanticsearch/open-semantic-search/blob/cd1412754c3f11c8db22b65bea797ba0420f54fc/README.md"
+        },
+        {
+          "title": "Collection exploration",
+          "text": "Offers full-text, faceted, exploratory and knowledge-graph search interfaces.",
+          "source_url": "https://github.com/opensemanticsearch/open-semantic-search/blob/cd1412754c3f11c8db22b65bea797ba0420f54fc/README.md"
+        }
+      ]
+    },
+    "97e3e8eac826528a20b26b601f83f6ac58efff47750704437fd9ba815ce30880": {
+      "project_url": "https://github.com/openmachinelabs/openmachine",
+      "text": "Open Machine connects an existing AI agent to local machines through an MCP runtime. Its tools inspect environments, read and edit workspace files, execute authorized commands, and retain task evidence for explicit continuation. The supported consumer installer runs a macOS Apple Silicon service; command execution and writes start disabled. Completed background jobs require an explicit continuation to resume the agent.",
+      "sources": [
+        {
+          "url": "https://github.com/openmachinelabs/openmachine/blob/da231efcbd78bef72866b48d74a86f6b9b661ddd/README.md",
+          "title": "Open Machine README",
+          "revision": "da231efcbd78bef72866b48d74a86f6b9b661ddd"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed. Retained macOS Apple Silicon consumer support, default-disabled mutations and explicit task-continuation limits; omitted planned context integrations.",
+      "features": [
+        {
+          "title": "Persistent task evidence",
+          "text": "Retains goals and evidence so interrupted work can be explicitly continued without rerunning completed steps.",
+          "source_url": "https://github.com/openmachinelabs/openmachine/blob/da231efcbd78bef72866b48d74a86f6b9b661ddd/README.md"
+        },
+        {
+          "title": "Permission-controlled execution",
+          "text": "Exposes native command and workspace-editing tools, with execution and writes disabled by default.",
+          "source_url": "https://github.com/openmachinelabs/openmachine/blob/da231efcbd78bef72866b48d74a86f6b9b661ddd/README.md"
+        }
+      ]
+    },
+    "983196e68deeab402ffe24a397f2b984dcc0bfcbd1ed5f73610722d5a34dd143": {
+      "project_url": "https://github.com/mcdcorp/opentest",
+      "text": "OpenTest automates functional tests across web applications, Android and iOS apps, and APIs using keyword-based steps with optional JavaScript. A Node.js server coordinates Java test actors, provides a web interface and exposes an HTTP API. Tests can run across multiple machines and data sets. Existing releases remain available, while the project states that further maintenance is not planned.",
+      "sources": [
+        {
+          "url": "https://github.com/mcdcorp/opentest/blob/4a1989723a6c7acffe1fb49c6b2b5199471f41d4/README.adoc",
+          "title": "OpenTest README",
+          "revision": "4a1989723a6c7acffe1fb49c6b2b5199471f41d4"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Junge (AI) reviewed the summary and feature claims against the pinned official documentation. Candidate software was not installed or executed. Retained the source’s discontinued-maintenance notice.",
+      "features": [
+        {
+          "title": "Distributed test actors",
+          "text": "Coordinates Java actors across machines through a Node.js sync server and its HTTP API.",
+          "source_url": "https://github.com/mcdcorp/opentest/blob/4a1989723a6c7acffe1fb49c6b2b5199471f41d4/README.adoc"
+        },
+        {
+          "title": "Keyword and data-driven tests",
+          "text": "Combines reusable keyword steps with embedded JavaScript and repeated runs over external data records.",
+          "source_url": "https://github.com/mcdcorp/opentest/blob/4a1989723a6c7acffe1fb49c6b2b5199471f41d4/README.adoc"
+        }
+      ]
+    },
+    "99c4975e74d48503309ff17055e08305883932e89df6c04dcaf7fbcf0a10a794": {
+      "project_url": "https://github.com/josssphzhou/openzine",
+      "text": "OpenZine turns PDFs, including scanned documents, or folders of page images into browser booklets with animated page turns. It can run as an agent skill or a Node.js command and produces a single HTML file containing its pages and viewer. Readers can drag, click or use keyboard controls, with single-page and spread layouts for different screens. The viewer requires WebGL.",
+      "sources": [
+        {
+          "url": "https://github.com/josssphzhou/openzine/blob/846932987afd30301e51853b5311d6df44727908/README.md",
+          "title": "OpenZine official README",
+          "revision": "846932987afd30301e51853b5311d6df44727908"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and feature claims against the cited official sources. Source review only; candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Self-contained booklets",
+          "text": "Embeds the pages and viewer in one HTML file that can be shared or placed on a static host.",
+          "source_url": "https://github.com/josssphzhou/openzine/blob/846932987afd30301e51853b5311d6df44727908/README.md"
+        },
+        {
+          "title": "Page navigation",
+          "text": "Supports dragging, clicking, arrow keys and a single-page or spread view; switching layouts preserves the current page.",
+          "source_url": "https://github.com/josssphzhou/openzine/blob/846932987afd30301e51853b5311d6df44727908/README.md"
+        }
+      ]
+    },
+    "99ea5ec09827eeb394574262c92c3d8fef90c6aff13597530a0bc94f13bbe933": {
+      "project_url": "https://github.com/shadowwalker2014/open-sunsama",
+      "text": "Open Sunsama organizes daily work with task boards, calendar time blocks and a focus timer. Tasks can include subtasks, notes, attachments, priorities and time estimates, while unfinished work can roll forward. It offers hosted web, desktop and mobile clients as well as self-hosting. Its MCP connector and REST API let compatible assistants read schedules and manage tasks and time blocks.",
+      "sources": [
+        {
+          "url": "https://github.com/shadowwalker2014/open-sunsama/blob/d55458d7644c1edec71c5061984df475338e6925/README.md",
+          "title": "Open Sunsama official README",
+          "revision": "d55458d7644c1edec71c5061984df475338e6925"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and feature claims against the cited official sources. Source review only; candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Task-linked time blocks",
+          "text": "Drag tasks onto the calendar and compare time spent in focus mode with the task estimate.",
+          "source_url": "https://github.com/shadowwalker2014/open-sunsama/blob/d55458d7644c1edec71c5061984df475338e6925/README.md"
+        },
+        {
+          "title": "Assistant integration",
+          "text": "An MCP connector exposes tasks and time blocks to compatible assistants; the REST API also supports integrations.",
+          "source_url": "https://github.com/shadowwalker2014/open-sunsama/blob/d55458d7644c1edec71c5061984df475338e6925/README.md"
+        }
+      ]
+    },
+    "99fe2bac5e212ca38f885c2a702b2ed0e7f173f8b041322eb74826dc307e707d": {
+      "project_url": "https://www.opendocrouter.ai",
+      "text": "OpenDocRouter provides a hosted API that converts PDFs and images into markdown for document-processing applications. Developers choose a parsing model and submit a document URL with optional page selection. Results are returned per page, including text structure, tables and figures where the model extracts them. Each page has its own status, allowing failed pages to be retried without resubmitting completed pages.",
+      "sources": [
+        {
+          "url": "https://www.opendocrouter.ai",
+          "title": "OpenDocRouter official overview"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and feature claims against the cited official sources. Source review only; candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Page-level results",
+          "text": "Returns separate markdown, status and charge information for each processed page.",
+          "source_url": "https://www.opendocrouter.ai"
+        },
+        {
+          "title": "Selective retries",
+          "text": "Page selection lets applications retry failed pages and skip pages they already have.",
+          "source_url": "https://www.opendocrouter.ai"
+        }
+      ]
+    },
+    "9b026d08983e34a24b4e4b5375c8dc25e1ab550566d5d99463cfb07fd55ef7ba": {
+      "project_url": "https://www.openbox.ai",
+      "text": "OpenBox adds runtime governance to AI agents through an SDK connected to its managed platform. Teams configure authorization policies, guardrails and behavioral rules, then monitor agent activity, cost, latency and drift. Its dashboard also supports risk assessment and human approvals. Documented integrations include Temporal, Mastra and LangGraph, allowing governance checks to accompany existing agent workflows while their workflow engine retains the system of record.",
+      "sources": [
+        {
+          "url": "https://www.openbox.ai",
+          "title": "OpenBox official overview"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and feature claims against the cited official sources. Source review only; candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Policy configuration",
+          "text": "Configure guardrails, OPA policies and behavioral rules for agent actions.",
+          "source_url": "https://www.openbox.ai"
+        },
+        {
+          "title": "Runtime monitoring",
+          "text": "The dashboard exposes runtime activity, drift, cost and latency, alongside human approval steps.",
+          "source_url": "https://www.openbox.ai"
+        }
+      ]
+    },
+    "9bb69154bcf9f90dfe79e9ac505714459b140b8b51905eb0d6c7f35517896787": {
+      "project_url": "https://github.com/openmc-dev/openmc",
+      "text": "OpenMC simulates neutron and photon transport using Monte Carlo methods. Researchers can model geometry with constructive solids or CAD and run fixed-source, eigenvalue and subcritical multiplication calculations. It supports continuous-energy and multigroup transport, using HDF5 interaction data for continuous-energy simulations. Hybrid MPI and OpenMP parallelism lets the simulation distribute work across processes and threads.",
+      "sources": [
+        {
+          "url": "https://github.com/openmc-dev/openmc/blob/e43e16583f56318d5946d666a703ef7ecea09137/README.md",
+          "title": "OpenMC official README",
+          "revision": "e43e16583f56318d5946d666a703ef7ecea09137"
+        },
+        {
+          "url": "https://github.com/openmc-dev/openmc/blob/e43e16583f56318d5946d666a703ef7ecea09137/docs/source/index.rst",
+          "title": "OpenMC documentation introduction",
+          "revision": "e43e16583f56318d5946d666a703ef7ecea09137"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and feature claims against the cited official sources. Source review only; candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Transport calculations",
+          "text": "Runs fixed-source, k-eigenvalue and subcritical multiplication calculations for neutron and photon transport.",
+          "source_url": "https://github.com/openmc-dev/openmc/blob/e43e16583f56318d5946d666a703ef7ecea09137/docs/source/index.rst"
+        },
+        {
+          "title": "Geometry and parallelism",
+          "text": "Accepts constructive solid geometry or CAD models and supports hybrid MPI and OpenMP execution.",
+          "source_url": "https://github.com/openmc-dev/openmc/blob/e43e16583f56318d5946d666a703ef7ecea09137/docs/source/index.rst"
+        }
+      ]
+    },
+    "9ddc9e5324804e483ba4e232707f7e3c3c3aa805525f3635a54541cc8cd3e516": {
+      "project_url": "https://github.com/openvnmrj/openvnmrj",
+      "text": "OpenVnmrJ operates NMR spectrometers and provides a data-station environment for working with spectra. It can function without an existing VnmrJ installation and supports Linux hosts, with macOS available for data-station use. The project also documents Windows operation through WSL2. Users can extend the environment with application directories containing pulse sequences and macros, and use spectrum import and export commands.",
+      "sources": [
+        {
+          "url": "https://github.com/openvnmrj/openvnmrj/blob/cceec156137e998b852458cd0de2757b2aa75264/README.md",
+          "title": "OpenVnmrJ official README",
+          "revision": "cceec156137e998b852458cd0de2757b2aa75264"
+        },
+        {
+          "url": "https://github.com/openvnmrj/openvnmrj/blob/cceec156137e998b852458cd0de2757b2aa75264/Notes.txt",
+          "title": "OpenVnmrJ release notes",
+          "revision": "cceec156137e998b852458cd0de2757b2aa75264"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and feature claims against the cited official sources. Source review only; candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Application directories",
+          "text": "Supports user-contributed application directories with pulse sequences and macro libraries.",
+          "source_url": "https://github.com/openvnmrj/openvnmrj/blob/cceec156137e998b852458cd0de2757b2aa75264/README.md"
+        },
+        {
+          "title": "Spectrum exchange",
+          "text": "Release notes document importing complex one-dimensional spectra and exporting spectra as ASCII.",
+          "source_url": "https://github.com/openvnmrj/openvnmrj/blob/cceec156137e998b852458cd0de2757b2aa75264/Notes.txt"
+        }
+      ]
+    },
+    "9e7866b34a959cdc3dcab891fa7ec617ee8fe771431ceebd4b1cc2ac0734e10d": {
+      "project_url": "https://github.com/trusteddomainproject/opendkim",
+      "text": "OpenDKIM provides a library and mail filter for signing and verifying email with DKIM. The filter connects to mail servers through the milter protocol, including supported Sendmail and Postfix versions, while developers can use the library in their own DKIM-aware applications. Optional integrations provide SQL or LDAP access and Lua hooks for filter policy control; verification requires access to a working nameserver.",
+      "sources": [
+        {
+          "url": "https://github.com/trusteddomainproject/opendkim/blob/5c539587561785a66c1f67f720f2fb741f320785/README",
+          "title": "OpenDKIM official README",
+          "revision": "5c539587561785a66c1f67f720f2fb741f320785"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and feature claims against the cited official sources. Source review only; candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Mail-server integration",
+          "text": "A milter-based filter supplies DKIM signing and verification to mail servers that support the protocol.",
+          "source_url": "https://github.com/trusteddomainproject/opendkim/blob/5c539587561785a66c1f67f720f2fb741f320785/README"
+        },
+        {
+          "title": "Application library",
+          "text": "The separate library lets developers add DKIM services to their own applications.",
+          "source_url": "https://github.com/trusteddomainproject/opendkim/blob/5c539587561785a66c1f67f720f2fb741f320785/README"
+        }
+      ]
+    },
+    "9f270c0d96f68c63bcb9106dd3dc79884acddfa9cdecb0569d2cd3aaf78a6915": {
+      "project_url": "https://github.com/prasanthsasikumar/openclicky",
+      "text": "OpenClicky is a desktop assistant that answers questions about the screen with a pointer and turns speech into text in the active application. Its dictation tools include a correction dictionary, spoken shortcuts, app-specific styles and searchable history. On macOS, dictation uses an on-device recognizer by default, with optional network engines. More involved tasks can be handed to a Codex agent through its additional CLI.",
+      "sources": [
+        {
+          "url": "https://github.com/prasanthsasikumar/openclicky/blob/454b3f27707770d6d99170541422bd022c99273a/README.md",
+          "title": "OpenClicky official README",
+          "revision": "454b3f27707770d6d99170541422bd022c99273a"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and feature claims against the cited official sources. Source review only; candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "On-screen guidance",
+          "text": "Ask about an interface element and receive a spoken answer with a pointer indicating its location.",
+          "source_url": "https://github.com/prasanthsasikumar/openclicky/blob/454b3f27707770d6d99170541422bd022c99273a/README.md"
+        },
+        {
+          "title": "Dictation controls",
+          "text": "Provides app-specific styles, a correction dictionary, spoken shortcuts and searchable dictation history.",
+          "source_url": "https://github.com/prasanthsasikumar/openclicky/blob/454b3f27707770d6d99170541422bd022c99273a/README.md"
+        }
+      ]
+    },
+    "9f8b7e0dd7200f6af7a81da1ff534273851c323e20d342ffcee368aa10254b67": {
+      "project_url": "https://github.com/syvaidya/openstego",
+      "text": "OpenStego is a desktop steganography tool for hiding data inside image files and adding invisible image watermarks. The watermarking function embeds a signature intended to help detect unauthorized copying. Users can work through a graphical interface or a command-line interface, with launch scripts documented for Windows, Linux and macOS and a Windows installer available.",
+      "sources": [
+        {
+          "url": "https://github.com/syvaidya/openstego/blob/54e8a691254d19f208ec7e07c6a9611dd2dd837a/README.md",
+          "title": "OpenStego official README",
+          "revision": "54e8a691254d19f208ec7e07c6a9611dd2dd837a"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and feature claims against the cited official sources. Source review only; candidate software was not installed or executed.",
+      "features": [
+        {
+          "title": "Data hiding",
+          "text": "Hides data within an image file.",
+          "source_url": "https://github.com/syvaidya/openstego/blob/54e8a691254d19f208ec7e07c6a9611dd2dd837a/README.md"
+        },
+        {
+          "title": "Invisible watermarking",
+          "text": "Adds an invisible signature to image files for checking unauthorized copying.",
+          "source_url": "https://github.com/syvaidya/openstego/blob/54e8a691254d19f208ec7e07c6a9611dd2dd837a/README.md"
+        }
+      ]
+    },
+    "a1d9fde9dd9fcd7c15216d40ad9be669aba29325736f2664463b54d19194bb0f": {
+      "project_url": "https://github.com/iamjsd/opencomputeruse",
+      "text": "OpenComputerUse lets an agent operate application windows through an MCP server, with sessions for screenshots, accessibility trees, clicks and keyboard input. It supports macOS, Linux and Windows; Linux sessions use their own display server. An agent can inspect covered windows and manage multiple sessions while the user continues working in other applications.",
+      "sources": [
+        {
+          "url": "https://github.com/iamjsd/opencomputeruse/blob/c0133f943833cfcfe3d06aa6de694efd86d82800/README.md",
+          "title": "OpenComputerUse README",
+          "revision": "c0133f943833cfcfe3d06aa6de694efd86d82800"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Window inspection",
+          "text": "Capture a session window and request its accessibility tree to locate controls by element ID.",
+          "source_url": "https://github.com/iamjsd/opencomputeruse/blob/c0133f943833cfcfe3d06aa6de694efd86d82800/README.md"
+        },
+        {
+          "title": "Session control",
+          "text": "Start, list and end application sessions, then send pointer actions, text and key combinations to a chosen session.",
+          "source_url": "https://github.com/iamjsd/opencomputeruse/blob/c0133f943833cfcfe3d06aa6de694efd86d82800/README.md"
+        }
+      ]
+    },
+    "a214d26181e7040cb7dfb55a955995bc4f65fccbe41c9864314b4ab5fae3b249": {
+      "project_url": "https://github.com/lawlaw09/opendam",
+      "text": "OpenDAM organizes 3D models, CAD files, materials and textures in a Windows desktop application. Users can preview geometry, search their asset libraries, and arrange files with nested collections, tags, ratings and color labels. Each library stores its database and thumbnails beside the files, allowing teams to share the same library through a mounted network folder.",
+      "sources": [
+        {
+          "url": "https://github.com/lawlaw09/opendam/blob/948a42d3cf9195aad8799dd9cfde6d6684ebf451/README.md",
+          "title": "OpenDAM README",
+          "revision": "948a42d3cf9195aad8799dd9cfde6d6684ebf451"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Asset previews",
+          "text": "Inspect supported models in an interactive 3D viewport or enlarge an asset preview with the spacebar.",
+          "source_url": "https://github.com/lawlaw09/opendam/blob/948a42d3cf9195aad8799dd9cfde6d6684ebf451/README.md"
+        },
+        {
+          "title": "Shared libraries",
+          "text": "A library keeps its database inside the shared folder and uses relative paths so different drive mappings can access the same records.",
+          "source_url": "https://github.com/lawlaw09/opendam/blob/948a42d3cf9195aad8799dd9cfde6d6684ebf451/README.md"
+        }
+      ]
+    },
+    "a231b071eb47cfa40d2c6094d6c257f7a6e2d3498b50ce278b9f4f0bfb15de30": {
+      "project_url": "https://github.com/icosa-foundation/open-brush",
+      "text": "Open Brush is a room-scale virtual-reality painting application derived from Tilt Brush. Artists create and save three-dimensional sketches, with releases for standalone headsets and desktop VR systems. The project also provides preview Android viewers for phones, tablets and headsets; its phone and tablet viewer supports touch navigation and optional augmented reality.",
+      "sources": [
+        {
+          "url": "https://github.com/icosa-foundation/open-brush/blob/6996c28dabda6ce7ff2b4728767ff99484445162/README.md",
+          "title": "Open Brush README",
+          "revision": "6996c28dabda6ce7ff2b4728767ff99484445162"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Room-scale painting",
+          "text": "Paint three-dimensional sketches in a virtual-reality workspace.",
+          "source_url": "https://github.com/icosa-foundation/open-brush/blob/6996c28dabda6ce7ff2b4728767ff99484445162/README.md"
+        },
+        {
+          "title": "Android sketch viewers",
+          "text": "Separate preview viewer builds support handheld Android devices and headsets; the handheld viewer includes touch navigation and optional AR.",
+          "source_url": "https://github.com/icosa-foundation/open-brush/blob/6996c28dabda6ce7ff2b4728767ff99484445162/README.md"
+        }
+      ]
+    },
+    "a5a7aca91287bca4194c9ec1b6a29d54855a3fa4c95854138cc83cfbe527d2e8": {
+      "project_url": "https://github.com/os4ed/opensis-classic",
+      "text": "openSIS Classic manages student, staff and school records for K–12, vocational and higher-education institutions. Schools can organize courses and schedules, record attendance, maintain teacher gradebooks, and produce progress reports, report cards and transcripts. The Community Edition runs as a PHP web application with Apache and a MySQL or MariaDB database, and supports bulk data imports.",
+      "sources": [
+        {
+          "url": "https://github.com/os4ed/opensis-classic/blob/8348cd069aa2875511101ded9eaa9c86116884db/README.md",
+          "title": "openSIS README",
+          "revision": "8348cd069aa2875511101ded9eaa9c86116884db"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Academic records",
+          "text": "Track grades in teacher gradebooks and produce progress reports, report cards and transcripts.",
+          "source_url": "https://github.com/os4ed/opensis-classic/blob/8348cd069aa2875511101ded9eaa9c86116884db/README.md"
+        },
+        {
+          "title": "School operations",
+          "text": "Manage courses, schedules, attendance and student, staff and school data, including bulk imports.",
+          "source_url": "https://github.com/os4ed/opensis-classic/blob/8348cd069aa2875511101ded9eaa9c86116884db/README.md"
+        }
+      ]
+    },
+    "a5f594f78f71117878ce7c997d5192d6d53798e84ffc9da4dcd3ec232b3b9cf2": {
+      "project_url": "https://github.com/openartifact/openartifact",
+      "text": "OpenArtifact is a self-hosted repository service for software packages, container images and other build artifacts. Teams can publish their own packages, proxy upstream repositories, and combine repositories into ordered groups. A Go server with an embedded web interface and PostgreSQL provides shared access controls, while native package protocols let existing clients retrieve artifacts.",
+      "sources": [
+        {
+          "url": "https://github.com/openartifact/openartifact/blob/5245f3e89e37c7bd4c0574a847ea1de710e8a8c0/README.md",
+          "title": "OpenArtifact README",
+          "revision": "5245f3e89e37c7bd4c0574a847ea1de710e8a8c0"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Repository modes",
+          "text": "Use hosted repositories for uploads, proxy repositories for upstream mirrors, and ordered groups that return the first matching artifact.",
+          "source_url": "https://github.com/openartifact/openartifact/blob/5245f3e89e37c7bd4c0574a847ea1de710e8a8c0/README.md"
+        },
+        {
+          "title": "Package formats",
+          "text": "Serve formats including Maven, npm, PyPI, Docker/OCI and Helm through their native client protocols.",
+          "source_url": "https://github.com/openartifact/openartifact/blob/5245f3e89e37c7bd4c0574a847ea1de710e8a8c0/README.md"
+        }
+      ]
+    },
+    "a6960c400535b15e04d6cf5236d2fe812ceda74fcaeefc2f76e14fba5b249fdc": {
+      "project_url": "https://github.com/openkuasa/openkuasaos",
+      "text": "OpenKuasa OS combines CRM, staff administration, recruitment and accounting for Malaysian small businesses in a self-hostable web application. Users can track contacts and deals, handle leave requests, manage candidates, and prepare invoices and ledger reports. Its assistants propose changes for approval. The project remains in early development: payroll figures require human confirmation, and bank feeds and statutory filing integrations are unfinished.",
+      "sources": [
+        {
+          "url": "https://github.com/openkuasa/openkuasaos/blob/0880e8f2ae174d8f8a738217a50c08a2124b2d36/README.md",
+          "title": "OpenKuasa OS README",
+          "revision": "0880e8f2ae174d8f8a738217a50c08a2124b2d36"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Customer and candidate pipelines",
+          "text": "Manage contacts and deals in configurable stages, and track job applications, interviews and candidates.",
+          "source_url": "https://github.com/openkuasa/openkuasaos/blob/0880e8f2ae174d8f8a738217a50c08a2124b2d36/README.md"
+        },
+        {
+          "title": "Approval-based assistance",
+          "text": "The cross-module assistant presents proposed changes for approval before saving them.",
+          "source_url": "https://github.com/openkuasa/openkuasaos/blob/0880e8f2ae174d8f8a738217a50c08a2124b2d36/README.md"
+        }
+      ]
+    },
+    "a8bf94abbf0f412b9f6f7ce49759d06db8f236f460021e7792c610a0260effbd": {
+      "project_url": "https://github.com/opencpn/opencpn",
+      "text": "OpenCPN provides a chart-based navigation interface for vessels with a helm-visible computer. It displays BSB raster charts and S57 ENC vector charts, giving navigators a common interface for these two chart formats. The desktop application is portable across Windows, macOS and Linux, and the project also supports Android devices.",
+      "sources": [
+        {
+          "url": "https://github.com/opencpn/opencpn/blob/38fbe28bb52fae08eecc3732425d2714a449af61/README",
+          "title": "OpenCPN README",
+          "revision": "38fbe28bb52fae08eecc3732425d2714a449af61"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Raster and vector charts",
+          "text": "Display BSB raster charts and S57 ENC vector charts in the navigation interface.",
+          "source_url": "https://github.com/opencpn/opencpn/blob/38fbe28bb52fae08eecc3732425d2714a449af61/README"
+        },
+        {
+          "title": "Navigation display",
+          "text": "Use the application as a navigation interface on a helm-visible system, with desktop and Android platform support.",
+          "source_url": "https://github.com/opencpn/opencpn/blob/38fbe28bb52fae08eecc3732425d2714a449af61/README"
+        }
+      ]
+    },
+    "a95c87bc19639b2bbbe2c2919ff845697e233a1f7228d7251119d3eb33e9d59e": {
+      "project_url": "https://github.com/openwam-official/openwam",
+      "text": "OpenWAM is a research toolkit for training and evaluating models that combine visual world representations with robot actions. Researchers can choose model architectures, backbones and datasets through configuration files, train or fine-tune policies, and deploy checkpoints as a policy server. It provides pretrained checkpoints and benchmark workflows, with native Python and Docker installation paths for GPU environments.",
+      "sources": [
+        {
+          "url": "https://github.com/openwam-official/openwam/blob/a00c4bad1ede10ec488b4b0db5b81ca8c1b82b27/README.md",
+          "title": "OpenWAM README",
+          "revision": "a00c4bad1ede10ec488b4b0db5b81ca8c1b82b27"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Configurable experiments",
+          "text": "Compose architectures, video backbones, dataloaders and runtime settings through Hydra configuration files and command-line overrides.",
+          "source_url": "https://github.com/openwam-official/openwam/blob/a00c4bad1ede10ec488b4b0db5b81ca8c1b82b27/README.md"
+        },
+        {
+          "title": "Policy deployment",
+          "text": "Deploy a trained checkpoint as a server and test prediction requests over a WebSocket connection.",
+          "source_url": "https://github.com/openwam-official/openwam/blob/a00c4bad1ede10ec488b4b0db5b81ca8c1b82b27/README.md"
+        }
+      ]
+    },
+    "aa78453a3cdbb8302b0d8eb46027754e7fdddbea2e9f7e6d60610157cf579f86": {
+      "project_url": "https://github.com/openqodex/openqodex",
+      "text": "OpenQodex reviews code changes from a terminal or coding agent using source scanners and a separate Claude Code or Codex reviewer. It checks proposed findings against the code, produces reports, and lets users choose which findings to fix. The local tool also exposes code-graph queries through MCP; full reviews require an installed, authenticated reviewer, and configured hooks can warn about or block pushes.",
+      "sources": [
+        {
+          "url": "https://github.com/openqodex/openqodex/blob/9227da68eba65fa52c1efe71b0acc2818324b7e7/README.md",
+          "title": "OpenQodex README",
+          "revision": "9227da68eba65fa52c1efe71b0acc2818324b7e7"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Review reports",
+          "text": "Generate HTML, Markdown, JSON and SARIF reports containing checked findings and review status.",
+          "source_url": "https://github.com/openqodex/openqodex/blob/9227da68eba65fa52c1efe71b0acc2818324b7e7/README.md"
+        },
+        {
+          "title": "Code-graph queries",
+          "text": "Expose questions such as which functions call a given function through a local MCP server.",
+          "source_url": "https://github.com/openqodex/openqodex/blob/9227da68eba65fa52c1efe71b0acc2818324b7e7/README.md"
+        }
+      ]
+    },
+    "aaf300746fa86330edff13c6208baa16744d95b9847636e382f8f6940c474894": {
+      "project_url": "https://github.com/alistert/openjazz",
+      "text": "OpenJazz runs the classic Jazz Jackrabbit platform game on modern systems using files from an original game installation. It can be built for Windows, macOS, Linux and BSD, with additional console and handheld ports and a browser version. Users can select a game-data folder when launching it; the engine also includes multiplayer support.",
+      "sources": [
+        {
+          "url": "https://github.com/alistert/openjazz/blob/a1626f4edd4a7af72c54103021790c56d8ecfced/README.md",
+          "title": "OpenJazz README",
+          "revision": "a1626f4edd4a7af72c54103021790c56d8ecfced"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README for the summary and feature claims. Documentation review only; the software was not installed or executed.",
+      "features": [
+        {
+          "title": "Original game data",
+          "text": "Load files from an original Jazz Jackrabbit game, either beside the executable or from a folder supplied at launch.",
+          "source_url": "https://github.com/alistert/openjazz/blob/a1626f4edd4a7af72c54103021790c56d8ecfced/README.md"
+        },
+        {
+          "title": "Platform ports",
+          "text": "Run native desktop builds or available console, handheld and web-browser ports.",
+          "source_url": "https://github.com/alistert/openjazz/blob/a1626f4edd4a7af72c54103021790c56d8ecfced/README.md"
+        }
+      ]
+    },
+    "acbba60cf6b4c824399d57bec6e732fdc8175f9bdafd500dd5594b84d4df8ecd": {
+      "project_url": "https://github.com/openstudy-dev/openstudy",
+      "text": "OpenStudy is a self-hosted dashboard for organizing courses, weekly schedules, lectures, study topics, deadlines and tasks. Students can upload course files, track study progress and see approaching work in one interface. An MCP connector lets Claude read course material and update the same records. The application runs a containerized backend, database and web frontend.",
+      "sources": [
+        {
+          "url": "https://github.com/openstudy-dev/openstudy/blob/3cb98d3f1ced0d61ee0ddf1dc7a468281762b858/README.md",
+          "title": "OpenStudy README",
+          "revision": "3cb98d3f1ced0d61ee0ddf1dc7a468281762b858"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the cited official sources. Source review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Course planning",
+          "text": "Keep course schedules, deliverables, study topics and tasks together, with a weekly grid and progress views.",
+          "source_url": "https://github.com/openstudy-dev/openstudy/blob/3cb98d3f1ced0d61ee0ddf1dc7a468281762b858/README.md"
+        },
+        {
+          "title": "MCP course access",
+          "text": "Connected Claude clients can list course files, read PDF pages as images and update coursework records.",
+          "source_url": "https://github.com/openstudy-dev/openstudy/blob/3cb98d3f1ced0d61ee0ddf1dc7a468281762b858/README.md"
+        }
+      ]
+    },
+    "ad6db0260bf6f51bbe87dedcf850370f48ea671bbd70548bc1a8b3d1be5f0a80": {
+      "project_url": "https://github.com/openclinica/openclinica",
+      "text": "OpenClinica supports electronic data capture and clinical data management for clinical studies. Teams can build studies, create electronic case report forms, define edit checks and schedule participant visits. Study sites enter form data through the web, while staff monitor records, use audit trails and electronic signatures, and import or export data for analysis and reporting.",
+      "sources": [
+        {
+          "url": "https://github.com/openclinica/openclinica/blob/69cccaf0f5d3a8f09ac99522835cc8089c618554/README.md",
+          "title": "OpenClinica README",
+          "revision": "69cccaf0f5d3a8f09ac99522835cc8089c618554"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the cited official sources. Source review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Study forms and checks",
+          "text": "Create electronic case report forms, define rules and edit checks, and schedule patient visits.",
+          "source_url": "https://github.com/openclinica/openclinica/blob/69cccaf0f5d3a8f09ac99522835cc8089c618554/README.md"
+        },
+        {
+          "title": "Clinical data handling",
+          "text": "Capture form data from study sites through the web and export records for analysis and reporting.",
+          "source_url": "https://github.com/openclinica/openclinica/blob/69cccaf0f5d3a8f09ac99522835cc8089c618554/README.md"
+        }
+      ]
+    },
+    "af12d3cd454d4ca0110274182a142fc1e49b30e6a8f32323d35f0e075026b871": {
+      "project_url": "https://github.com/opencfp/opencfp",
+      "text": "OpenCFP is a PHP web application for collecting and selecting conference talk proposals. Speakers register their contact details, submit talks and manage profiles through a dashboard. Organizers review submissions and choose talks in an administrative dashboard, with command-line utilities for administration. It is installed on a web server with a database; the project accepts security fixes in maintenance mode.",
+      "sources": [
+        {
+          "url": "https://github.com/opencfp/opencfp/blob/6bb648ba3b6341f4a015ee98ea6ce826a0453fcf/README.md",
+          "title": "OpenCFP README",
+          "revision": "6bb648ba3b6341f4a015ee98ea6ce826a0453fcf"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the cited official sources. Source review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Speaker submissions",
+          "text": "Registered speakers submit talk proposals and manage their contact information and profiles.",
+          "source_url": "https://github.com/opencfp/opencfp/blob/6bb648ba3b6341f4a015ee98ea6ce826a0453fcf/README.md"
+        },
+        {
+          "title": "Proposal review",
+          "text": "An administrative dashboard lets conference organizers review submissions and make selections.",
+          "source_url": "https://github.com/opencfp/opencfp/blob/6bb648ba3b6341f4a015ee98ea6ce826a0453fcf/README.md"
+        }
+      ]
+    },
+    "af328c6923a8e9bf1249d12c40033e6fb599f86b3a136114cbe2631a28a85b82": {
+      "project_url": "https://github.com/openboxes/openboxes",
+      "text": "OpenBoxes is a web-based warehouse and inventory management system for tracking products, stock and shipments across facilities. Staff can monitor quantities by bin, lot or serial number and expiration date, manage purchase orders, receive deliveries and prepare outbound shipments. Reports support consumption and demand analysis. Organizations can deploy it on their own servers or use cloud hosting.",
+      "sources": [
+        {
+          "url": "https://github.com/openboxes/openboxes/blob/0493fec99606cae1971bc55124daabebddabbe69/README.md",
+          "title": "OpenBoxes README",
+          "revision": "0493fec99606cae1971bc55124daabebddabbe69"
+        },
+        {
+          "url": "https://openboxes.com/features/",
+          "title": "OpenBoxes features"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the cited official sources. Source review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Lot and expiry tracking",
+          "text": "Track stock by facility, bin, product, lot or serial number, and expiration date.",
+          "source_url": "https://openboxes.com/features/"
+        },
+        {
+          "title": "Purchasing and fulfillment",
+          "text": "Create purchase orders, receive inbound goods, and pick, pack and ship outbound stock.",
+          "source_url": "https://openboxes.com/features/"
+        }
+      ]
+    },
+    "b1d30b8fafa6516a10eb69973e760789dfd49e197bb049f9fbd02bc76a8b9a41": {
+      "project_url": "https://github.com/opensim-org/opensim-core",
+      "text": "OpenSim lets researchers build musculoskeletal models and simulate movement. Its core includes C++ libraries, examples and command-line tools for tasks such as inverse kinematics and computed muscle control, with Java and Python bindings for integration. Users can work through a separately distributed graphical application or scripts, and developers can build the core on Windows, macOS or Linux.",
+      "sources": [
+        {
+          "url": "https://github.com/opensim-org/opensim-core/blob/01683ac33568a3cb5eef2e445c7815f8220e8905/README.md",
+          "title": "OpenSim README",
+          "revision": "01683ac33568a3cb5eef2e445c7815f8220e8905"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the cited official sources. Source review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Movement simulation",
+          "text": "Develop models of musculoskeletal structures and create dynamic simulations of movement.",
+          "source_url": "https://github.com/opensim-org/opensim-core/blob/01683ac33568a3cb5eef2e445c7815f8220e8905/README.md"
+        },
+        {
+          "title": "Programmatic analysis",
+          "text": "Use C++ libraries, command-line applications and Java or Python bindings for modeling and analysis workflows.",
+          "source_url": "https://github.com/opensim-org/opensim-core/blob/01683ac33568a3cb5eef2e445c7815f8220e8905/README.md"
+        }
+      ]
+    },
+    "b2a1c4f971db2f4c700ee24f75fbf42ee3a2ecf3f7c232cfd63ae3bcf8125271": {
+      "project_url": "https://github.com/laurent512/opencalque",
+      "text": "OpenCalque is a desktop and browser editor for two-dimensional architectural plans. Users draw joined walls, insert doors and windows, define rooms with calculated areas, and add dimensions and notes. Drawings are stored as readable JSON, with a command-line interface using the same editing operations. An optional assistant can modify drawings through supported remote models or a local Ollama model.",
+      "sources": [
+        {
+          "url": "https://github.com/laurent512/opencalque/blob/46c7a8e9c912ef9e73ea8b68863547d546220015/README.md",
+          "title": "OpenCalque README",
+          "revision": "46c7a8e9c912ef9e73ea8b68863547d546220015"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the cited official sources. Source review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Building-aware geometry",
+          "text": "Walls stay joined, doors and windows snap into walls, and rooms report their areas.",
+          "source_url": "https://github.com/laurent512/opencalque/blob/46c7a8e9c912ef9e73ea8b68863547d546220015/README.md"
+        },
+        {
+          "title": "Scriptable drawings",
+          "text": "Plain JSON drawings and shared editing operations support both the visual editor and local command-line workflows.",
+          "source_url": "https://github.com/laurent512/opencalque/blob/46c7a8e9c912ef9e73ea8b68863547d546220015/README.md"
+        }
+      ]
+    },
+    "b30b5e7c85864539bd1eac920e7b6582b88a5b83a7c8f804278ff01f9989c4db": {
+      "project_url": "https://opentodolist.rpdev.net",
+      "text": "OpenTodoList organizes tasks, notes, images and recipes into libraries on mobile and desktop devices. Libraries use ordinary folders and files, so they can stay on a single device and be backed up directly. Users can optionally synchronize them through Nextcloud, ownCloud, another WebDAV server or Dropbox. The application is available for Android, iOS, Linux, macOS and Windows.",
+      "sources": [
+        {
+          "url": "https://opentodolist.rpdev.net",
+          "title": "OpenTodoList official overview"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the cited official sources. Source review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Mixed libraries",
+          "text": "Keep related todo lists, tasks, notes, images and recipes together in a library.",
+          "source_url": "https://opentodolist.rpdev.net"
+        },
+        {
+          "title": "Optional synchronization",
+          "text": "Keep libraries local or synchronize them using Nextcloud, ownCloud, WebDAV or Dropbox.",
+          "source_url": "https://opentodolist.rpdev.net"
+        }
+      ]
+    },
+    "b325c7d94ca8c297c6b57916dbb53b3bf2344d27278abb6b94bd04596755684f": {
+      "project_url": "https://openart.ai",
+      "text": "OpenArt is an online platform for generating and editing images, videos and audio. Users can create visuals from text or reference images, erase or expand image regions, change backgrounds and reuse saved characters across scenes. Its video tools support prompt-based generation and storyboard refinement through chat, while audio tools provide voiceovers, music and sound effects for assembled stories.",
+      "sources": [
+        {
+          "url": "https://openart.ai",
+          "title": "OpenArt official overview"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the cited official sources. Source review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Image generation and editing",
+          "text": "Generate from prompts or reference images, then erase, expand, restyle, upscale or change backgrounds on the same canvas.",
+          "source_url": "https://openart.ai"
+        },
+        {
+          "title": "Reusable characters",
+          "text": "Create characters from reference images or text, save them in a library and reuse them in image and video generations.",
+          "source_url": "https://openart.ai"
+        }
+      ]
+    },
+    "b481aff23404e3c49e0311df57e9357259dc8ea83fbf9d51e2e8cd4a670ddf65": {
+      "project_url": "https://github.com/openolat/openolat",
+      "text": "OpenOlat is a web-based learning management system for teaching, learning, assessment and communication. Course authors assemble learning experiences with a modular toolkit, and organizations can adapt installations to their own needs and existing IT infrastructure. The software runs as a Java web application with a database, and provides configurable themes and an optional REST API for integration.",
+      "sources": [
+        {
+          "url": "https://github.com/openolat/openolat/blob/cec958d09cd901aa9bcca7914d5af705f14274bd/README.md",
+          "title": "OpenOlat README",
+          "revision": "cec958d09cd901aa9bcca7914d5af705f14274bd"
+        }
+      ],
+      "checked_at": "2026-11-04",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the cited official sources. Source review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Modular course authoring",
+          "text": "Assemble courses using a modular toolkit for teaching, learning, assessment and communication.",
+          "source_url": "https://github.com/openolat/openolat/blob/cec958d09cd901aa9bcca7914d5af705f14274bd/README.md"
+        },
+        {
+          "title": "REST integration",
+          "text": "Administrators can enable the REST API and access its documentation from the administration interface.",
+          "source_url": "https://github.com/openolat/openolat/blob/cec958d09cd901aa9bcca7914d5af705f14274bd/README.md"
+        }
+      ]
     }
   }
 }
