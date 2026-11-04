@@ -52,6 +52,16 @@ This is an adoption hypothesis to test. Compatible agents and browser/model
 availability still gate these paths. The observed browse/detail counts differ;
 completeness was not established, and its MCP endpoint was not invoked.
 
+The [Context Awesome demonstration](https://www.context-awesome.com/#installation)
+shows a roughly 90-second Cursor journey asking for resources to author technical
+books. After an initial generic answer, a run using `awesome-server` calls
+`find_awesome_section` and multiple `get_awesome_items` operations on
+technical-writing lists, then produces a detailed categorized answer. This
+observes curated retrieval feeding an answer; local inference and independent
+factual accuracy were not demonstrated. Our proposed extension brings that useful
+journey into the webpage through the optional Prompt API controller, validated
+actions and the evidence limits below.
+
 ## Current Cabinet and gaps
 
 The merged implementation provides `cabinet_find`, `cabinet_inspect`,
