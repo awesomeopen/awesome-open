@@ -243,6 +243,8 @@ const path=require('node:path');
    width:Number(n.getAttribute('width')),height:Number(n.getAttribute('height'))})));
  for(const record of occupantSources)if(!manifest.sources[record.path])manifest.sources[record.path]={
    width:record.width,height:record.height,variants:[{path:record.path,width:record.width,height:record.height}]};
+ const capturePolicy=require('./browser_capture.cjs');
+ const jarArtChanged=capturePolicy.plan?.changedIds?.some(id=>occupantSources.some(source=>source.path.includes(id))) ?? false;
  const sources=Object.keys(manifest.sources);
  const byVariant=Object.fromEntries(sources.flatMap(source=>manifest.sources[source].variants.map(v=>[v.path,source])));
  const heroPaths=[...sources,...Object.keys(byVariant)];
@@ -313,7 +315,7 @@ const path=require('node:path');
      }, null, { timeout: 15000 });
      await probe.locator('.jar-photo,.jar-reflection,.jar-lid,.jar-sticker,.jar-cork,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
      const captureName = `hero-${label}-${control?'original':'responsive'}.png`;
-     if (require('./browser_capture.cjs').review(captureName)) {
+     if (capturePolicy.review(captureName, {affected:jarArtChanged})) {
        await probe.screenshot({path:`tmp/site-qa/${captureName}`});
        reviewEvidence.captured.push(captureName);
      } else reviewEvidence.skipped.push(captureName);

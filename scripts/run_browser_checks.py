@@ -110,7 +110,7 @@ def execute(plan, output, runner=run_suite):
     for artifact in output.iterdir():
         if artifact.is_file() and artifact.suffix in {'.png', '.json', '.log'} and artifact.name != 'server.log':
             artifact.unlink()
-    capture_plan = dict(sourceSha=plan['sourceSha'], mode=plan['mode'], captureIds=plan['captureIds'],
+    capture_plan = dict(sourceSha=plan['sourceSha'], mode=plan['mode'], captureIds=plan['captureIds'], changedIds=plan['comparison']['changedIds'],
                         planId=uuid.uuid4().hex, prHeadSha=os.environ.get('PR_HEAD_SHA'))
     plan_path = output.resolve() / 'capture-plan.json'
     plan_path.write_text(json.dumps(capture_plan, indent=2) + '\n')

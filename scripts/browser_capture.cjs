@@ -10,8 +10,8 @@ if (process.env.BROWSER_CAPTURE_PLAN) {
 module.exports = {
   plan,
   artwork: id => !plan || plan.mode === 'full' || plan.captureIds.includes(id),
-  review: name => {
-    if (!plan || plan.mode === 'full' || /failure/.test(name)) return true;
+  review: (name, { affected = false } = {}) => {
+    if (!plan || plan.mode === 'full' || affected || /failure/.test(name)) return true;
     if (name.startsWith('footer-')) return ['footer-production-1440.png', 'footer-mobile.png'].includes(name);
     if (name.startsWith('hero-')) return name === 'hero-desktop-1x-responsive.png';
     return true;

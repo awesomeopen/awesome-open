@@ -16,6 +16,7 @@ class CapturePolicyTests(unittest.TestCase):
         script = r"""
 const assert = require('node:assert/strict');
 const policy = require('./scripts/browser_capture.cjs');
+assert.equal(policy.review('hero-mobile-3x-original.png', {affected:true}), true);
 assert.equal(policy.artwork('selected'), true);
 assert.equal(policy.artwork('unchanged'), !policy.plan);
 for (const name of ['footer-mobile.png', 'footer-production-1440.png', 'hero-desktop-1x-responsive.png', 'sheet-full-390.png', 'footer-failure.png', 'jars-failure.png']) assert.equal(policy.review(name), true);
