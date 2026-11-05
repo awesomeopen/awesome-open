@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-04T19:49:54Z",
+  "collected_at": "2026-11-05T03:49:24Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -3312,37 +3312,37 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-29T03:07:42Z",
+        "checked_at": "2026-11-05T03:49:24Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-29T03:07:42Z",
-          "observed_at": "2026-10-19T00:00:00Z",
-          "source_commit": "853f6abf3f7ad9d2fa20b8956e5a758441ddca1e",
+          "fetched_at": "2026-11-05T03:49:24Z",
+          "observed_at": "2026-11-02T00:00:00Z",
+          "source_commit": "7c237c093d7252db8c9a5dc93793f964d883a948",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
+              {
+                "name": "Maintained",
+                "reason": "10 commit(s) and 1 issue activity found in the last 90 days -- score normalized to 9",
+                "score": 9
+              },
               {
                 "name": "Code-Review",
                 "reason": "Found 24/30 approved changesets -- score normalized to 8",
                 "score": 8
               },
               {
-                "name": "Maintained",
-                "reason": "8 commit(s) and 1 issue activity found in the last 90 days -- score normalized to 7",
-                "score": 7
+                "name": "Binary-Artifacts",
+                "reason": "no binaries found in the repo",
+                "score": 10
               },
               {
                 "name": "Dangerous-Workflow",
                 "reason": "no dangerous workflow patterns detected",
-                "score": 10
-              },
-              {
-                "name": "Binary-Artifacts",
-                "reason": "no binaries found in the repo",
                 "score": 10
               },
               {
@@ -3371,6 +3371,11 @@
                 "score": 0
               },
               {
+                "name": "Packaging",
+                "reason": "packaging workflow detected",
+                "score": 10
+              },
+              {
                 "name": "Branch-Protection",
                 "reason": "branch protection is not maximal on development and all release branches",
                 "score": 6
@@ -3381,29 +3386,24 @@
                 "score": 0
               },
               {
-                "name": "Packaging",
-                "reason": "packaging workflow detected",
-                "score": 10
-              },
-              {
                 "name": "Pinned-Dependencies",
                 "reason": "dependency not pinned by hash detected -- score normalized to 1",
                 "score": 1
               },
               {
                 "name": "SAST",
-                "reason": "SAST tool is not run on all commits -- score normalized to 0",
-                "score": 0
+                "reason": "internal error: internal error: Client.Checks.ListCheckRunsForRef: error during graphqlHandler.setupCheckRuns: Although you appear to have the correct authorization credentials, the `cursor` organization has an IP allow list enabled, and your IP address is not permitted to access this resource.",
+                "score": null
               }
             ],
             "repository": "github.com/diggerhq/digger",
-            "score": 4.9
+            "score": 5.3
           }
         },
-        "last_success_at": "2026-10-29T03:07:42Z",
+        "last_success_at": "2026-11-05T03:49:24Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/diggerhq/digger",
-        "status": "available",
+        "status": "partial",
         "success_time_precision": "second"
       }
     },
@@ -4328,7 +4328,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-22T01:04:45Z",
+        "checked_at": "2026-11-05T03:49:24Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -11020,28 +11020,23 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-29T03:12:11Z",
+        "checked_at": "2026-11-05T03:49:24Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-29T03:12:11Z",
-          "observed_at": "2026-10-29T00:50:51Z",
-          "source_commit": "8cea36c51a983d2b430aed4fc2edff3d5052ad2d",
+          "fetched_at": "2026-11-05T03:49:24Z",
+          "observed_at": "2026-11-04T21:07:34Z",
+          "source_commit": "b745224ac467a9aea3188a9c92a1185ccb97950b",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Dependency-Update-Tool",
-                "reason": "update tool detected",
-                "score": 10
-              },
-              {
                 "name": "Code-Review",
-                "reason": "Found 3/30 approved changesets -- score normalized to 1",
-                "score": 1
+                "reason": "Found 0/30 approved changesets -- score normalized to 0",
+                "score": 0
               },
               {
                 "name": "Security-Policy",
@@ -11049,8 +11044,13 @@
                 "score": 10
               },
               {
+                "name": "Dependency-Update-Tool",
+                "reason": "update tool detected",
+                "score": 10
+              },
+              {
                 "name": "Maintained",
-                "reason": "30 commit(s) and 29 issue activity found in the last 90 days -- score normalized to 10",
+                "reason": "30 commit(s) and 28 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
@@ -11064,13 +11064,13 @@
                 "score": 10
               },
               {
-                "name": "License",
-                "reason": "license file detected",
+                "name": "Binary-Artifacts",
+                "reason": "no binaries found in the repo",
                 "score": 10
               },
               {
-                "name": "Binary-Artifacts",
-                "reason": "no binaries found in the repo",
+                "name": "Pinned-Dependencies",
+                "reason": "all dependencies are pinned",
                 "score": 10
               },
               {
@@ -11079,8 +11079,8 @@
                 "score": 2
               },
               {
-                "name": "Pinned-Dependencies",
-                "reason": "all dependencies are pinned",
+                "name": "Signed-Releases",
+                "reason": "5 out of the last 5 releases have a total of 10 signed artifacts.",
                 "score": 10
               },
               {
@@ -11089,18 +11089,23 @@
                 "score": 7
               },
               {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
+              },
+              {
                 "name": "SAST",
                 "reason": "SAST tool detected but not run on all commits",
                 "score": 9
               },
               {
-                "name": "Packaging",
-                "reason": "packaging workflow detected",
+                "name": "Fuzzing",
+                "reason": "project is fuzzed",
                 "score": 10
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is fuzzed",
+                "name": "Packaging",
+                "reason": "packaging workflow detected",
                 "score": 10
               },
               {
@@ -11109,14 +11114,9 @@
                 "score": 3
               },
               {
-                "name": "Signed-Releases",
-                "reason": "5 out of the last 5 releases have a total of 10 signed artifacts.",
-                "score": 10
-              },
-              {
                 "name": "Contributors",
-                "reason": "project has 0 contributing companies or organizations -- score normalized to 0",
-                "score": 0
+                "reason": "project has 1 contributing companies or organizations -- score normalized to 3",
+                "score": 3
               },
               {
                 "name": "CI-Tests",
@@ -11128,7 +11128,7 @@
             "score": 8.2
           }
         },
-        "last_success_at": "2026-10-29T03:12:11Z",
+        "last_success_at": "2026-11-05T03:49:24Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openartifact/openartifact",
         "status": "available",
@@ -26177,5 +26177,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "ba61118a9093ae73bd036fa87599c3bad8691d86"
+  "source_sha": "e6600a95e2463cbfaf1125f4663591e8a8af60dc"
 }
