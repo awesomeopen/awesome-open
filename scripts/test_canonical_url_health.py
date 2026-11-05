@@ -341,6 +341,47 @@ class EvidenceTests(unittest.TestCase):
         # The second github.com request waits the full 1.0s interval.
         self.assertTrue(any(s >= 1.0 for s in clock.sleeps))
 
+    def test_per_host_pacing_queued_worker(self):
+        # A worker that queued on the per-host lock while another held
+        # it must wait the full interval after the holder finishes.
+        # Reading next_allowed before acquiring the lock lets the queued
+        # worker reuse the stale initial value and start immediately.
+        clock = FakeClock()
+        pacer = checker.HostPacer(sleep=clock.sleep, monotonic=clock.monotonic)
+        entered = threading.Event()
+        release = threading.Event()
+        started = threading.Event()
+
+        def holder():
+            with pacer.pacing("github.com"):
+                entered.set()
+                release.wait(timeout=5)
+
+        def waiter():
+            started.set()
+            with pacer.pacing("github.com"):
+                pass
+
+        holder_thread = threading.Thread(target=holder, daemon=True)
+        holder_thread.start()
+        self.assertTrue(entered.wait(timeout=5))
+        waiter_thread = threading.Thread(target=waiter, daemon=True)
+        waiter_thread.start()
+        self.assertTrue(started.wait(timeout=5))
+        try:
+            # The waiter cannot finish while the holder holds the lock,
+            # so a timed join proves it queued on the lock (and
+            # therefore read next_allowed before the holder finished).
+            waiter_thread.join(timeout=0.2)
+            self.assertTrue(waiter_thread.is_alive())
+        finally:
+            release.set()
+        waiter_thread.join(timeout=5)
+        holder_thread.join(timeout=5)
+        self.assertFalse(waiter_thread.is_alive())
+        self.assertFalse(holder_thread.is_alive())
+        self.assertTrue(any(s >= 1.0 for s in clock.sleeps))
+
 
 if __name__ == "__main__":
     unittest.main()

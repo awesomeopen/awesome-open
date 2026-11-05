@@ -186,8 +186,13 @@ class HostPacer:
         host = (host or "").lower()
         interval = INTERVAL_SECONDS_GITHUB if host == "github.com" else INTERVAL_SECONDS_OTHER_HOSTS
         with self._state_lock:
-            lock, next_allowed = self._state.setdefault(host, (threading.Lock(), 0.0))
+            lock = self._state.setdefault(host, (threading.Lock(), 0.0))[0]
         with lock:
+            # Re-read inside the lock: a worker that queued on the lock
+            # must see the value set by the previous holder, not the
+            # stale value captured before it blocked.
+            with self._state_lock:
+                next_allowed = self._state[host][1]
             now = self._monotonic()
             if now < next_allowed:
                 self._sleep(next_allowed - now)
