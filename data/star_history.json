@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 10,
+    "requests_used": 16,
     "utc_date": "2026-11-05"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -125027,7 +125027,8 @@
       "status": "ok"
     },
     "laion-ai/open-assistant": {
-      "checked_at": "2026-10-15T06:49:08.002085+00:00",
+      "checked_at": "2026-11-05T04:26:11.230718+00:00",
+      "error": "Daily star-history request budget exhausted",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
@@ -126665,9 +126666,9 @@
       "name": "OpenAssistant",
       "readme_url": "https://github.com/laion-ai/open-assistant",
       "repo": "laion-ai/open-assistant",
-      "source_sha": "ed6110f7d1cf44bb2dea317a9c1707f471141d93",
+      "source_sha": "0f1112d6fa36ee64e20caee83612bc0fb98f7650",
       "source_url": "https://api.github.com/repos/laion-ai/open-assistant/stargazers/history",
-      "status": "ok"
+      "status": "deferred"
     },
     "langchain-ai/open-canvas": {
       "checked_at": "2026-10-15T23:34:55.975088+00:00",
@@ -145259,44 +145260,43 @@
       "status": "ok"
     },
     "myshell-ai/openvoice": {
-      "checked_at": "2026-10-15T06:49:08.002085+00:00",
+      "checked_at": "2026-11-05T04:26:11.230718+00:00",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
-          "newest_week": 1791676800,
-          "oldest_week": 1719705600,
+          "newest_week": 1793491200,
+          "oldest_week": 1721520000,
           "repository_created_at": "2023-11-29T12:17:01+00:00",
           "terminal_page": null
         },
-        "fetched_at": "2026-10-15T06:49:08.002085+00:00",
+        "fetched_at": "2026-11-05T04:26:11.230718+00:00",
         "monthly_counts": [
-          883,
           377,
-          346,
-          456,
-          476,
+          345,
+          454,
+          475,
           465,
           509,
           472,
           347,
           936,
           567,
-          307,
-          747,
-          321,
-          234,
-          205,
+          306,
+          745,
+          318,
+          233,
+          204,
           184,
           219,
           276,
-          267,
-          296,
-          278,
-          387,
-          415
+          266,
+          294,
+          279,
+          386,
+          412,
+          439
         ],
         "months": [
-          "2024-10",
           "2024-11",
           "2024-12",
           "2025-01",
@@ -145319,10 +145319,11 @@
           "2026-06",
           "2026-07",
           "2026-08",
-          "2026-09"
+          "2026-09",
+          "2026-10"
         ],
         "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-        "source_sha": "ed6110f7d1cf44bb2dea317a9c1707f471141d93",
+        "source_sha": "0f1112d6fa36ee64e20caee83612bc0fb98f7650",
         "source_urls": [
           "https://api.github.com/repos/myshell-ai/openvoice/stargazers/history?per_page=30&page=1",
           "https://api.github.com/repos/myshell-ai/openvoice/stargazers/history?per_page=30&page=2",
@@ -145332,15 +145333,54 @@
         "weeks": [
           {
             "days": [
-              14,
-              19,
-              17,
-              15,
+              10,
+              7,
+              12,
+              5,
               0,
               0,
               0
             ],
-            "total": 65,
+            "total": 34,
+            "week": 1793491200
+          },
+          {
+            "days": [
+              11,
+              11,
+              13,
+              9,
+              10,
+              7,
+              5
+            ],
+            "total": 66,
+            "week": 1792886400
+          },
+          {
+            "days": [
+              77,
+              28,
+              16,
+              12,
+              10,
+              10,
+              11
+            ],
+            "total": 164,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              13,
+              19,
+              17,
+              15,
+              12,
+              11,
+              9
+            ],
+            "total": 96,
             "week": 1791676800
           },
           {
@@ -145351,22 +145391,22 @@
               16,
               6,
               11,
-              13
+              12
             ],
-            "total": 89,
+            "total": 88,
             "week": 1791072000
           },
           {
             "days": [
               10,
-              22,
+              21,
               21,
               17,
               3,
               6,
               16
             ],
-            "total": 95,
+            "total": 94,
             "week": 1790467200
           },
           {
@@ -145412,13 +145452,13 @@
             "days": [
               18,
               20,
-              14,
-              14,
+              13,
+              13,
               20,
               15,
               8
             ],
-            "total": 109,
+            "total": 107,
             "week": 1788048000
           },
           {
@@ -145452,12 +145492,12 @@
               10,
               8,
               9,
-              9,
+              8,
               5,
               9,
               2
             ],
-            "total": 52,
+            "total": 51,
             "week": 1786233600
           },
           {
@@ -145501,7 +145541,7 @@
           },
           {
             "days": [
-              10,
+              11,
               12,
               5,
               8,
@@ -145509,7 +145549,7 @@
               7,
               7
             ],
-            "total": 65,
+            "total": 66,
             "week": 1783814400
           },
           {
@@ -145571,10 +145611,10 @@
               5,
               7,
               22,
-              14,
+              13,
               16
             ],
-            "total": 81,
+            "total": 80,
             "week": 1780790400
           },
           {
@@ -145582,12 +145622,12 @@
               7,
               9,
               9,
-              9,
+              8,
               13,
               4,
               6
             ],
-            "total": 57,
+            "total": 56,
             "week": 1780185600
           },
           {
@@ -145650,9 +145690,9 @@
               36,
               16,
               22,
-              17
+              16
             ],
-            "total": 106,
+            "total": 105,
             "week": 1777161600
           },
           {
@@ -145829,12 +145869,12 @@
               6,
               6,
               7,
-              8,
+              7,
               10,
               6,
               5
             ],
-            "total": 48,
+            "total": 47,
             "week": 1768694400
           },
           {
@@ -145882,16 +145922,16 @@
               5,
               3,
               14,
-              8,
+              7,
               5,
               7
             ],
-            "total": 50,
+            "total": 49,
             "week": 1766275200
           },
           {
             "days": [
-              8,
+              7,
               5,
               7,
               11,
@@ -145899,20 +145939,20 @@
               6,
               3
             ],
-            "total": 49,
+            "total": 48,
             "week": 1765670400
           },
           {
             "days": [
               12,
-              3,
+              4,
               5,
               4,
               9,
               3,
               7
             ],
-            "total": 43,
+            "total": 44,
             "week": 1765065600
           },
           {
@@ -145970,14 +146010,14 @@
           {
             "days": [
               27,
-              31,
-              22,
+              30,
+              21,
               16,
               12,
-              10,
+              9,
               5
             ],
-            "total": 123,
+            "total": 120,
             "week": 1762041600
           },
           {
@@ -145995,7 +146035,7 @@
           },
           {
             "days": [
-              277,
+              275,
               100,
               18,
               9,
@@ -146003,7 +146043,7 @@
               13,
               9
             ],
-            "total": 434,
+            "total": 432,
             "week": 1760832000
           },
           {
@@ -146035,14 +146075,14 @@
           {
             "days": [
               7,
-              8,
+              7,
               10,
               9,
               6,
               11,
               9
             ],
-            "total": 60,
+            "total": 59,
             "week": 1759017600
           },
           {
@@ -146099,7 +146139,7 @@
           },
           {
             "days": [
-              25,
+              24,
               22,
               18,
               14,
@@ -146107,12 +146147,12 @@
               8,
               12
             ],
-            "total": 107,
+            "total": 106,
             "week": 1755993600
           },
           {
             "days": [
-              16,
+              17,
               29,
               22,
               23,
@@ -146120,7 +146160,7 @@
               14,
               18
             ],
-            "total": 142,
+            "total": 143,
             "week": 1755388800
           },
           {
@@ -146217,14 +146257,14 @@
           {
             "days": [
               5,
-              14,
+              13,
               16,
               15,
               9,
               11,
               11
             ],
-            "total": 81,
+            "total": 80,
             "week": 1750550400
           },
           {
@@ -146257,13 +146297,13 @@
             "days": [
               7,
               15,
-              6,
+              7,
               12,
               17,
               16,
               14
             ],
-            "total": 87,
+            "total": 88,
             "week": 1748736000
           },
           {
@@ -146441,11 +146481,11 @@
               16,
               15,
               18,
-              13,
+              12,
               11,
               17
             ],
-            "total": 102,
+            "total": 101,
             "week": 1740268800
           },
           {
@@ -146528,15 +146568,15 @@
           },
           {
             "days": [
+              13,
               14,
-              14,
-              33,
+              32,
               17,
               14,
               21,
               15
             ],
-            "total": 128,
+            "total": 126,
             "week": 1736035200
           },
           {
@@ -146586,9 +146626,9 @@
               12,
               13,
               19,
-              7
+              6
             ],
-            "total": 95,
+            "total": 94,
             "week": 1733616000
           },
           {
@@ -146671,8 +146711,8 @@
           },
           {
             "days": [
-              28,
-              26,
+              27,
+              27,
               31,
               23,
               21,
@@ -146793,10 +146833,10 @@
               19,
               14,
               29,
-              15,
+              14,
               10
             ],
-            "total": 101,
+            "total": 100,
             "week": 1723939200
           },
           {
@@ -146827,7 +146867,7 @@
           },
           {
             "days": [
-              16,
+              15,
               14,
               26,
               22,
@@ -146835,7 +146875,7 @@
               25,
               19
             ],
-            "total": 133,
+            "total": 132,
             "week": 1722124800
           },
           {
@@ -146850,54 +146890,15 @@
             ],
             "total": 248,
             "week": 1721520000
-          },
-          {
-            "days": [
-              7,
-              39,
-              20,
-              18,
-              19,
-              14,
-              17
-            ],
-            "total": 134,
-            "week": 1720915200
-          },
-          {
-            "days": [
-              18,
-              17,
-              20,
-              16,
-              19,
-              16,
-              20
-            ],
-            "total": 126,
-            "week": 1720310400
-          },
-          {
-            "days": [
-              16,
-              19,
-              25,
-              28,
-              28,
-              13,
-              15
-            ],
-            "total": 144,
-            "week": 1719705600
           }
         ],
-        "window_end_exclusive": "2026-10-01T00:00:00+00:00",
-        "window_start": "2024-10-01T00:00:00+00:00"
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
       },
       "name": "OpenVoice",
       "readme_url": "https://github.com/myshell-ai/openvoice",
       "repo": "myshell-ai/openvoice",
-      "source_sha": "ed6110f7d1cf44bb2dea317a9c1707f471141d93",
+      "source_sha": "0f1112d6fa36ee64e20caee83612bc0fb98f7650",
       "source_url": "https://api.github.com/repos/myshell-ai/openvoice/stargazers/history",
       "status": "ok"
     },
@@ -543475,12 +543476,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 4,
-    "due_repositories": 496,
+    "attempted_repositories": 2,
+    "due_repositories": 492,
     "eligible_repositories": 503,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "e6600a95e2463cbfaf1125f4663591e8a8af60dc",
-  "updated_at": "2026-11-05T03:49:28.699720+00:00"
+  "source_sha": "0f1112d6fa36ee64e20caee83612bc0fb98f7650",
+  "updated_at": "2026-11-05T04:26:11.230718+00:00"
 }
