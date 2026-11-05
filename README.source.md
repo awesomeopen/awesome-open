@@ -738,6 +738,7 @@ Found an OpenSomething? [Add it to the list](CONTRIBUTING.md). License: public d
 - [Open Awesome](https://open-awesome.com/) -- Searchable hub of libraries, tools, and frameworks from GitHub Awesome Lists.
 - [Startup Archaelogy](https://absurd.website/startup-archaeology/) -- Future startup ideas, excavated from science fiction.
 - [awesome-awesome-awesome-awesome](https://github.com/sindresorhus/awesome-awesome-awesome-awesome)
+- [Awesome Open](https://github.com/paulhendricks/awesome-open)
 - ...
 
 ## Support this awesome list by clicking here:
