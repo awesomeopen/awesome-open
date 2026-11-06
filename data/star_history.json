@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 14,
+    "requests_used": 16,
     "utc_date": "2026-11-06"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -78852,7 +78852,8 @@
       "status": "ok"
     },
     "firecrawl/open-lovable": {
-      "checked_at": "2026-10-15T18:22:24.727650+00:00",
+      "checked_at": "2026-11-06T05:59:30.861494+00:00",
+      "error": "Daily star-history request budget exhausted",
       "last_good": {
         "coverage": {
           "creation_week_reached": true,
@@ -79748,9 +79749,9 @@
       "name": "Open Lovable",
       "readme_url": "https://github.com/firecrawl/open-lovable",
       "repo": "firecrawl/open-lovable",
-      "source_sha": "3548bd4e01f213d16f567481b8e399071b5f5171",
+      "source_sha": "ee926fec1c01f5756b5e169854dd4a9719ac8e07",
       "source_url": "https://api.github.com/repos/firecrawl/open-lovable/stargazers/history",
-      "status": "ok"
+      "status": "deferred"
     },
     "fission-ai/openspec": {
       "checked_at": "2026-11-03T04:42:56.168459+00:00",
@@ -543515,12 +543516,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 4,
-    "due_repositories": 491,
+    "attempted_repositories": 1,
+    "due_repositories": 487,
     "eligible_repositories": 503,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "ee49cf4510662d631cfd939a3a0221ebca2464a8",
-  "updated_at": "2026-11-06T04:23:25.593605+00:00"
+  "source_sha": "ee926fec1c01f5756b5e169854dd4a9719ac8e07",
+  "updated_at": "2026-11-06T05:59:30.861494+00:00"
 }
