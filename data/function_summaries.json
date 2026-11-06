@@ -13024,6 +13024,1082 @@
           "source_url": "https://github.com/hkumarsaikia/opendictate/blob/06a4da3b9f3f16e24c138d9d9a2f8f71377bf424/README.md"
         }
       ]
+    },
+    "d7079dae873170cd3b1d01e28d81a0974d74a92371677110080ad459556f16a5": {
+      "project_url": "https://github.com/openliberty/open-liberty",
+      "text": "Open Liberty provides a Java framework for building cloud-native microservices. Developers can select MicroProfile and Java EE features and use live reload while iterating on applications. The project supports development through Maven and Docker, with command-line operations for managing the server and reference documentation for its features, configuration and APIs.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenLiberty/open-liberty/blob/497e76c81b78e280a3906fe4cdcd400d3ea81705/README.md",
+          "title": "Open Liberty README",
+          "revision": "497e76c81b78e280a3906fe4cdcd400d3ea81705"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official documentation at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Selectable APIs",
+          "text": "Add or remove MicroProfile and Java EE features to configure the framework for an application.",
+          "source_url": "https://github.com/OpenLiberty/open-liberty/blob/497e76c81b78e280a3906fe4cdcd400d3ea81705/README.md"
+        },
+        {
+          "title": "Live reload",
+          "text": "Reload application changes during development to iterate on Java microservices.",
+          "source_url": "https://github.com/OpenLiberty/open-liberty/blob/497e76c81b78e280a3906fe4cdcd400d3ea81705/README.md"
+        }
+      ]
+    },
+    "d7937d8d038951453c378d902e7f6f79c192f5d4cc9d0cbe4c741ba72067be7c": {
+      "project_url": "https://github.com/tover0314-w/opentypeless",
+      "text": "OpenTypeless is a desktop voice-input application for macOS, Windows and Linux. A shortcut starts dictation, which can be polished by a language model and inserted into the active application. Users can also rewrite selected text with spoken instructions, translate speech or selections, and ask one-shot voice questions. Speech recognition and language-model processing support configurable providers.",
+      "sources": [
+        {
+          "url": "https://github.com/tover0314-w/opentypeless/blob/f5ad60298f535e0fff716a749802138ee409dea7/README.md",
+          "title": "OpenTypeless README",
+          "revision": "f5ad60298f535e0fff716a749802138ee409dea7"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official documentation at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Spoken text editing",
+          "text": "Select text in another application and speak an instruction to rewrite, summarize, translate or correct it.",
+          "source_url": "https://github.com/tover0314-w/opentypeless/blob/f5ad60298f535e0fff716a749802138ee409dea7/README.md"
+        },
+        {
+          "title": "Voice questions",
+          "text": "Record a one-shot question and receive the language model's answer in a small floating panel.",
+          "source_url": "https://github.com/tover0314-w/opentypeless/blob/f5ad60298f535e0fff716a749802138ee409dea7/README.md"
+        }
+      ]
+    },
+    "d795ea855bc15b9741784a44bf1664a6861d972ad96ecdae4fa1fa84292d1bb2": {
+      "project_url": "https://github.com/natlabrockies/openstudio",
+      "text": "OpenStudio is a collection of tools for whole-building energy modeling and daylight analysis on Windows, macOS and Linux. It uses EnergyPlus for building energy simulation and Radiance for daylight analysis. Building researchers and software developers can access its SDK through C++, Ruby, Python or C# when developing their own building-modeling tools and extensions.",
+      "sources": [
+        {
+          "url": "https://github.com/NatLabRockies/OpenStudio/blob/fb22b142c3dc416f09e032a9ab6fd632643d9989/README.md",
+          "title": "OpenStudio README",
+          "revision": "fb22b142c3dc416f09e032a9ab6fd632643d9989"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official documentation at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Energy and daylight analysis",
+          "text": "Use EnergyPlus for whole-building energy modeling and Radiance for daylight analysis.",
+          "source_url": "https://github.com/NatLabRockies/OpenStudio/blob/fb22b142c3dc416f09e032a9ab6fd632643d9989/README.md"
+        },
+        {
+          "title": "SDK language access",
+          "text": "Access the OpenStudio SDK from C++, Ruby, Python or C#.",
+          "source_url": "https://github.com/NatLabRockies/OpenStudio/blob/fb22b142c3dc416f09e032a9ab6fd632643d9989/README.md"
+        }
+      ]
+    },
+    "d7f53f70ebbc9c6fc6d3a4e1483f709fc1d2c798b47420342dbaa0a8feda050e": {
+      "project_url": "https://github.com/hzdavy/openmijia",
+      "text": "OpenMijia's repository, currently named OpenMexia, provides a Windows desktop client for controlling Mijia smart-home devices. Users sign in by scanning a QR code, synchronize device lists and status, and operate controls such as lighting brightness, fan speed and air-conditioner temperature. Device cards can be rearranged or collapsed, and the application supports an always-on-top window and system-tray controls.",
+      "sources": [
+        {
+          "url": "https://github.com/HZDavy/OpenMexia/blob/03f0cccccad1237e85e52e7d5206eba2ae5a12af/README.md",
+          "title": "OpenMexia README",
+          "revision": "03f0cccccad1237e85e52e7d5206eba2ae5a12af"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official documentation at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Device controls",
+          "text": "Adjust supported switches, brightness, color temperature, fan settings and air-conditioner target temperatures.",
+          "source_url": "https://github.com/HZDavy/OpenMexia/blob/03f0cccccad1237e85e52e7d5206eba2ae5a12af/README.md"
+        },
+        {
+          "title": "Device-card layout",
+          "text": "Drag device cards to reorder them and collapse them with a double-click or context menu.",
+          "source_url": "https://github.com/HZDavy/OpenMexia/blob/03f0cccccad1237e85e52e7d5206eba2ae5a12af/README.md"
+        }
+      ]
+    },
+    "d979dd34717a25c32785bfa040241b35b1fd8d2512f4f1c6dc3f5b5ad366bcad": {
+      "project_url": "https://github.com/opensil/opensil",
+      "text": "openSIL supplies C libraries for integrating silicon initialization into x86 host firmware. Its silicon initialization, platform reference, and utilities libraries can be compiled directly into firmware or linked as static libraries. The reviewed Genoa proof of concept targets AMD fourth-generation EPYC on the Onyx reference board for evaluation; its README excludes production firmware use.",
+      "sources": [
+        {
+          "url": "https://github.com/openSIL/openSIL/blob/9648171d730771cc3574d7d4d13581d22d163319/README.md",
+          "title": "openSIL README",
+          "revision": "9648171d730771cc3574d7d4d13581d22d163319"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official documentation at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Static firmware integration",
+          "text": "Integrate the three libraries by compiling their source into host firmware or linking static libraries.",
+          "source_url": "https://github.com/openSIL/openSIL/blob/9648171d730771cc3574d7d4d13581d22d163319/README.md"
+        },
+        {
+          "title": "Library components",
+          "text": "The library set separates silicon initialization, platform reference functions, and utilities and services.",
+          "source_url": "https://github.com/openSIL/openSIL/blob/9648171d730771cc3574d7d4d13581d22d163319/README.md"
+        }
+      ]
+    },
+    "da6d18cb80430d29a44e3e906358e1d454b1c9bc68d28801051262ffa6d2926b": {
+      "project_url": "https://github.com/openspace/openspace",
+      "text": "OpenSpace visualizes astronomical observations, simulations and space missions in an interactive environment for public presentations and scientific exploration. It runs on Windows and Linux, supporting personal computers, tiled displays and planetarium domes. Users can combine planetary imagery, extrasolar catalogs and animated spacecraft models, create custom content profiles, and control the engine through Lua, JavaScript or Python interfaces.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenSpace/OpenSpace/blob/4fd8524f11d6c9c6a0900241feae846efef85b7d/README.md",
+          "title": "OpenSpace README",
+          "revision": "4fd8524f11d6c9c6a0900241feae846efef85b7d"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official documentation at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Astronomical scenes",
+          "text": "Combine extrasolar datasets, high-resolution planetary images and animated models of space missions.",
+          "source_url": "https://github.com/OpenSpace/OpenSpace/blob/4fd8524f11d6c9c6a0900241feae846efef85b7d/README.md"
+        },
+        {
+          "title": "Programmable controls",
+          "text": "Use Lua, JavaScript or Python interfaces to customize control of the visualization engine.",
+          "source_url": "https://github.com/OpenSpace/OpenSpace/blob/4fd8524f11d6c9c6a0900241feae846efef85b7d/README.md"
+        }
+      ]
+    },
+    "da8b40dbff059828a1d1ccad6cf55b524135ebb374f0f62871e78602804f50c8": {
+      "project_url": "https://github.com/openmodelica/openmodelica",
+      "text": "OpenModelica is a Modelica-based environment for modeling and simulation in industrial and academic work. Its compiler is paired with OMEdit, a graphical interface, and interactive tools including OMNotebook, OMPlot and OMShell. The included OMSimulator supports FMI- and SSP-based co-simulation and can run separately or within OMEdit.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenModelica/OpenModelica/blob/15d67a8f7b2a7c0ad0f81471a716301f8f3434c9/README.md",
+          "title": "OpenModelica README",
+          "revision": "15d67a8f7b2a7c0ad0f81471a716301f8f3434c9"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official documentation at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Graphical modeling interface",
+          "text": "OMEdit provides a graphical interface on top of the OpenModelica compiler.",
+          "source_url": "https://github.com/OpenModelica/OpenModelica/blob/15d67a8f7b2a7c0ad0f81471a716301f8f3434c9/README.md"
+        },
+        {
+          "title": "Co-simulation",
+          "text": "OMSimulator supplies FMI- and SSP-based co-simulation, either standalone or integrated into OMEdit.",
+          "source_url": "https://github.com/OpenModelica/OpenModelica/blob/15d67a8f7b2a7c0ad0f81471a716301f8f3434c9/README.md"
+        }
+      ]
+    },
+    "db960f3bdc5bf495869ca8b9e44008ffd0139ea3a79707d8fc796b793e7c6e3b": {
+      "project_url": "https://github.com/shayekhbinislam/openrag",
+      "text": "Open-RAG is a research framework for retrieval-augmented question answering with language models. It converts a dense model into a sparse mixture of experts and supports reasoning across multiple retrieved passages. The repository provides training examples for Llama 2 models, pretrained-model links, and evaluation commands for multi-hop question-answering datasets, including HotpotQA, 2WikiMultihopQA and MuSiQue.",
+      "sources": [
+        {
+          "url": "https://github.com/ShayekhBinIslam/openrag/blob/82403f16dbaa8868ea9f43c45497a177983be38d/README.md",
+          "title": "Open-RAG README",
+          "revision": "82403f16dbaa8868ea9f43c45497a177983be38d"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official documentation at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Multi-hop question answering",
+          "text": "Answer questions by reasoning across multiple retrieved knowledge passages.",
+          "source_url": "https://github.com/ShayekhBinIslam/openrag/blob/82403f16dbaa8868ea9f43c45497a177983be38d/README.md"
+        },
+        {
+          "title": "Training and evaluation",
+          "text": "Use the documented Llama 2 training recipes and multi-hop evaluation commands with the linked datasets and model checkpoint.",
+          "source_url": "https://github.com/ShayekhBinIslam/openrag/blob/82403f16dbaa8868ea9f43c45497a177983be38d/README.md"
+        }
+      ]
+    },
+    "dbb0cc5c01f9d54dacb377475e10b7ff50debb0ce7100a41f3cd16e50d36e238": {
+      "project_url": "https://github.com/goalgorilla/open_social",
+      "text": "Open Social is a Drupal-based community management system for connecting members, sharing knowledge and developing ideas. Organizations can use it for communities of practice and other online communities. The distribution is available through an installation profile or as a hosted service. Its private-message module adds Open Social views, settings and notifications around private messaging.",
+      "sources": [
+        {
+          "url": "https://github.com/goalgorilla/open_social/blob/dc52b9ad9779d33933828245002fcf494ea712e4/README.md",
+          "title": "Open Social README",
+          "revision": "dc52b9ad9779d33933828245002fcf494ea712e4"
+        },
+        {
+          "url": "https://www.drupal.org/project/social",
+          "title": "Open Social — Drupal project overview"
+        },
+        {
+          "url": "https://github.com/goalgorilla/open_social/blob/dc52b9ad9779d33933828245002fcf494ea712e4/modules/social_features/social_private_message/README.md",
+          "title": "Open Social private-message module README",
+          "revision": "dc52b9ad9779d33933828245002fcf494ea712e4"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official Drupal project overview and the repository README and private-message module README at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Knowledge-sharing communities",
+          "text": "Create online spaces where members connect, share knowledge and contribute ideas.",
+          "source_url": "https://www.drupal.org/project/social"
+        },
+        {
+          "title": "Private-message integration",
+          "text": "Provide Open Social views, settings and notifications around Drupal's private_message module.",
+          "source_url": "https://github.com/goalgorilla/open_social/blob/dc52b9ad9779d33933828245002fcf494ea712e4/modules/social_features/social_private_message/README.md"
+        }
+      ]
+    },
+    "dc771369d5e00c35fc8411743e9a30a912a09251ace28b8937e337dfa1f6dd1f": {
+      "project_url": "https://github.com/opensearch-project/opensearch-dashboards",
+      "text": "OpenSearch Dashboards is a web application for visualizing data held in OpenSearch. Users can explore indexed data, build charts and maps, and interact with OpenSearch through the Dev Tools Console. The application supports plugins and can connect to a local or external OpenSearch cluster; its development guide also describes importing, exporting and managing saved objects.",
+      "sources": [
+        {
+          "url": "https://github.com/opensearch-project/OpenSearch-Dashboards/blob/7f5653d836d0a8ede0c79d7f0dd261fdc562aba5/README.md",
+          "title": "OpenSearch Dashboards README",
+          "revision": "7f5653d836d0a8ede0c79d7f0dd261fdc562aba5"
+        },
+        {
+          "url": "https://github.com/opensearch-project/OpenSearch-Dashboards/blob/7f5653d836d0a8ede0c79d7f0dd261fdc562aba5/DEVELOPER_GUIDE.md",
+          "title": "OpenSearch Dashboards Developer Guide",
+          "revision": "7f5653d836d0a8ede0c79d7f0dd261fdc562aba5"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and feature claims against the official documentation at the cited commit. Documentation review only; software was not installed or run.",
+      "features": [
+        {
+          "title": "Data exploration",
+          "text": "Explore indexed data and build visualizations such as charts, maps and aggregations using OpenSearch.",
+          "source_url": "https://github.com/opensearch-project/OpenSearch-Dashboards/blob/7f5653d836d0a8ede0c79d7f0dd261fdc562aba5/DEVELOPER_GUIDE.md"
+        },
+        {
+          "title": "Query console",
+          "text": "Use the Dev Tools Console to send queries to OpenSearch.",
+          "source_url": "https://github.com/opensearch-project/OpenSearch-Dashboards/blob/7f5653d836d0a8ede0c79d7f0dd261fdc562aba5/DEVELOPER_GUIDE.md"
+        }
+      ]
+    },
+    "dd15d26ec22976b762d4517bee79dc8d7f6d38d31bcdf016b1d13ba5a18caafa": {
+      "project_url": "https://www.openindiana.org",
+      "text": "OpenIndiana is an illumos-based Unix-like operating system for workstations and servers. It combines command-line administration with a MATE desktop and uses the Image Packaging System to install and update software. Administrators can manage storage with ZFS, inspect running systems with DTrace, and isolate applications in operating-system-level Zones.",
+      "sources": [
+        {
+          "url": "https://docs.openindiana.org/misc/openindiana/",
+          "title": "About OpenIndiana"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation against all summary and feature claims. The documentation page is unversioned.",
+      "features": [
+        {
+          "title": "Storage management",
+          "text": "ZFS supplies filesystem and volume management, with Time-Slider providing automated snapshots and rollbacks.",
+          "source_url": "https://docs.openindiana.org/misc/openindiana/"
+        },
+        {
+          "title": "Package management",
+          "text": "The Image Packaging System installs and updates software from package repositories.",
+          "source_url": "https://docs.openindiana.org/misc/openindiana/"
+        }
+      ]
+    },
+    "ddb225dc690c393e017d61f716513c0abef789ccd0d62a9aa3160ddf9158586e": {
+      "project_url": "https://github.com/techjiang/openblog",
+      "text": "OpenBlog is a PHP blogging application with public pages and an administration area for posts, categories, tags, comments, media, and site settings. It supports light and dark themes and adapts its navigation to desktop and mobile screens. The documented setup uses SQLite for local demonstrations and MySQL with a web server for production deployment.",
+      "sources": [
+        {
+          "url": "https://github.com/techjiang/OpenBlog/blob/c38220841cf6571efd93caf48c61edb3d9331ab4/README.md",
+          "title": "OpenBlog README",
+          "revision": "c38220841cf6571efd93caf48c61edb3d9331ab4"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation against all summary and feature claims. The source was read at the verified full Git commit revision.",
+      "features": [
+        {
+          "title": "Blog administration",
+          "text": "Manage posts, categories, tags, comments, media, and site settings through the administration area.",
+          "source_url": "https://github.com/techjiang/OpenBlog/blob/c38220841cf6571efd93caf48c61edb3d9331ab4/README.md"
+        },
+        {
+          "title": "Database options",
+          "text": "Use SQLite for the local demonstration or configure MySQL for deployment with Nginx or Apache.",
+          "source_url": "https://github.com/techjiang/OpenBlog/blob/c38220841cf6571efd93caf48c61edb3d9331ab4/README.md"
+        }
+      ]
+    },
+    "dea6dd80a3e3db0940ef91e743190ad501f980b2cce0e480d0f06dc29ed0c7eb": {
+      "project_url": "https://github.com/openmsx/openmsx",
+      "text": "openMSX runs MSX software by emulating selectable computer models, extension cartridges, and attached devices. Users load ROM, disk, and tape images into a configured machine and control it through graphical menus or a command console. Machine setups can be saved for reuse, and emulation speed and device connections can be changed while working.",
+      "sources": [
+        {
+          "url": "https://github.com/openMSX/openMSX/blob/a0a4f24199a6f15faaa624deed2c79cbf778495d/doc/manual/user.html",
+          "title": "openMSX User's Manual",
+          "revision": "a0a4f24199a6f15faaa624deed2c79cbf778495d"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation against all summary and feature claims. The source was read at the verified full Git commit revision.",
+      "features": [
+        {
+          "title": "Machine configurations",
+          "text": "Select an MSX model, add extension cartridges and connected devices, and save the resulting setup for later use.",
+          "source_url": "https://github.com/openMSX/openMSX/blob/a0a4f24199a6f15faaa624deed2c79cbf778495d/doc/manual/user.html"
+        },
+        {
+          "title": "Runtime controls",
+          "text": "Use the built-in console to change disk images, connected input devices, settings, and key bindings while the emulator runs.",
+          "source_url": "https://github.com/openMSX/openMSX/blob/a0a4f24199a6f15faaa624deed2c79cbf778495d/doc/manual/user.html"
+        }
+      ]
+    },
+    "e03768fd8d88a61825b9889105a0cfe9e4819a31df78a455b437959dfa498bc4": {
+      "project_url": "https://www.openoffice.org",
+      "text": "Apache OpenOffice combines applications for writing documents, working with spreadsheets, creating presentations, drawing diagrams, managing databases, and composing mathematical equations. Writer handles letters and longer documents, while Calc calculates and presents data. Base provides tools for database tables, forms, queries, and reports. The suite uses OpenDocument Format as its native file format.",
+      "sources": [
+        {
+          "url": "https://www.openoffice.org/product/index.html",
+          "title": "Apache OpenOffice Product Description"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation against all summary and feature claims. The documentation page is unversioned.",
+      "features": [
+        {
+          "title": "Database tools",
+          "text": "Create and modify database tables, forms, queries, and reports using Base.",
+          "source_url": "https://www.openoffice.org/product/index.html"
+        },
+        {
+          "title": "Equation editing",
+          "text": "Compose mathematical equations through Math's graphical interface or by typing formulas into its editor.",
+          "source_url": "https://www.openoffice.org/product/index.html"
+        }
+      ]
+    },
+    "e2376705d8e819f9ce641919539618d100cfcaa16e40d23e4443c0868186938b": {
+      "project_url": "https://github.com/137137137/opendisk",
+      "text": "OpenDisk scans Mac drives to show where storage is being used. Users can explore folders, inspect file sizes, search filenames, and collect unwanted items for deletion or transfer to the Trash. It displays purgeable space and caches, recognizes external drives, and reuses previous scan information to rescan changed folders. It requires macOS 14 or later.",
+      "sources": [
+        {
+          "url": "https://github.com/137137137/OpenDisk/blob/67892f487859efa293c1c6638c38abeacf36531b/README.md",
+          "title": "OpenDisk README",
+          "revision": "67892f487859efa293c1c6638c38abeacf36531b"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation against all summary and feature claims. The source was read at the verified full Git commit revision.",
+      "features": [
+        {
+          "title": "Storage exploration",
+          "text": "Explore folders and exact sizes, search filenames, and inspect purgeable space and caches.",
+          "source_url": "https://github.com/137137137/OpenDisk/blob/67892f487859efa293c1c6638c38abeacf36531b/README.md"
+        },
+        {
+          "title": "Collected cleanup",
+          "text": "Gather selected items in the Collector, review the recoverable space, then move them to the Trash or delete them permanently.",
+          "source_url": "https://github.com/137137137/OpenDisk/blob/67892f487859efa293c1c6638c38abeacf36531b/README.md"
+        }
+      ]
+    },
+    "e4b473a5cbd382f110d716507b92b72af7a58da7310dd97578c9525b6a7d408a": {
+      "project_url": "https://github.com/krunalcodes/opencadence",
+      "text": "OpenCadence is self-hosted email marketing and outreach software for newsletters and multi-step follow-up sequences. It provides contact lists and segments, reusable visual templates, scheduled campaigns, mailbox rotation, and a shared suppression list. Contact and engagement data live in PostgreSQL. The project describes its current implementation as early development, with production deployment packaging still planned.",
+      "sources": [
+        {
+          "url": "https://github.com/krunalcodes/OpenCadence/blob/675ae06fd303068cdb87ec15b7381901116e1232/README.md",
+          "title": "OpenCadence README",
+          "revision": "675ae06fd303068cdb87ec15b7381901116e1232"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation against all summary and feature claims. The source was read at the verified full Git commit revision.",
+      "features": [
+        {
+          "title": "Campaign targeting",
+          "text": "Send campaigns to all contacts, selected lists, or rule-based segments, with scheduling and pause, resume, or cancel controls.",
+          "source_url": "https://github.com/krunalcodes/OpenCadence/blob/675ae06fd303068cdb87ec15b7381901116e1232/README.md"
+        },
+        {
+          "title": "Follow-up sequences",
+          "text": "Build delayed email steps with sending windows, mailbox rotation, and follow-ups sent in an existing thread or as new messages.",
+          "source_url": "https://github.com/krunalcodes/OpenCadence/blob/675ae06fd303068cdb87ec15b7381901116e1232/README.md"
+        }
+      ]
+    },
+    "e53102bd8cd84f6dea3ff2b3e4c6b64c5192c6651ad26a3bddde3072686d0d56": {
+      "project_url": "https://github.com/openipsl/openipsl",
+      "text": "OpenIPSL provides Modelica component models for studying power-system dynamics, including phasor time-domain simulations. Researchers and educators can incorporate the library into Modelica workflows and use its reference power-system models to develop and test compiler back ends. Simulations require a Modelica-compliant tool; the project documents compatibility with Dymola and several other modeling environments.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenIPSL/OpenIPSL/blob/0bdbd311eb53600d71ee5e21d1d731d89737a5e7/README.md",
+          "title": "OpenIPSL README",
+          "revision": "0bdbd311eb53600d71ee5e21d1d731d89737a5e7"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation against all summary and feature claims. The source was read at the verified full Git commit revision.",
+      "features": [
+        {
+          "title": "Dynamic power-system models",
+          "text": "Use power-system component models written in Modelica for dynamic analysis, including phasor time-domain simulation.",
+          "source_url": "https://github.com/OpenIPSL/OpenIPSL/blob/0bdbd311eb53600d71ee5e21d1d731d89737a5e7/README.md"
+        },
+        {
+          "title": "Compiler research models",
+          "text": "Reference power-system models support development and testing of Modelica compiler back ends.",
+          "source_url": "https://github.com/OpenIPSL/OpenIPSL/blob/0bdbd311eb53600d71ee5e21d1d731d89737a5e7/README.md"
+        }
+      ]
+    },
+    "e54c27197d1f98554061719985f7ed70e72141963158ea2a252a8b3449364302": {
+      "project_url": "https://github.com/diggerhq/opencomputer",
+      "text": "OpenComputer lets developers define cloud agents in code, group multiple agents in one project, and deploy them through a TypeScript command-line tool. A watched development deployment applies code changes while developers test from the dashboard or CLI. Versioned deployments can be published with a production alias, and the dashboard exposes sessions, schedules, webhooks, memory, and connections.",
+      "sources": [
+        {
+          "url": "https://github.com/diggerhq/opencomputer/blob/ed001f79d2bc82a8b3f8bfcd8491fbd0b6a40f93/README.md",
+          "title": "OpenComputer README",
+          "revision": "ed001f79d2bc82a8b3f8bfcd8491fbd0b6a40f93"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation against all summary and feature claims. The source was read at the verified full Git commit revision.",
+      "features": [
+        {
+          "title": "Watched cloud development",
+          "text": "Edit agent functions, tools, connections, and routing while the CLI watches and deploys changes to the development cloud.",
+          "source_url": "https://github.com/diggerhq/opencomputer/blob/ed001f79d2bc82a8b3f8bfcd8491fbd0b6a40f93/README.md"
+        },
+        {
+          "title": "Versioned deployments",
+          "text": "Publish an immutable deployment with a production alias and inspect deployments and sessions in the project dashboard.",
+          "source_url": "https://github.com/diggerhq/opencomputer/blob/ed001f79d2bc82a8b3f8bfcd8491fbd0b6a40f93/README.md"
+        }
+      ]
+    },
+    "e64d82a39c201e1933ab8cb7d4ab2a646c0002c831bea4b9f042db02c65526ca": {
+      "project_url": "https://github.com/cveburak/openwaap",
+      "text": "OpenWAAP is a self-hosted reverse proxy that combines web application firewall rules, bot handling, API request checks, and application-layer traffic limits in a single Go executable. Administrators configure domain routing and protection policies through YAML or a web console, and inspect events through logs and Prometheus metrics. Its documented deployment places it directly in front of an origin server.",
+      "sources": [
+        {
+          "url": "https://github.com/cveburak/OpenWAAP/blob/05af9992c1ce8e7fffd12838d224cf23206fbe83/README.md",
+          "title": "OpenWAAP README",
+          "revision": "05af9992c1ce8e7fffd12838d224cf23206fbe83"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation against all summary and feature claims. The source was read at the verified full Git commit revision.",
+      "features": [
+        {
+          "title": "API request checks",
+          "text": "Configure JWT validation and route-specific JSON Schema checks for incoming API requests.",
+          "source_url": "https://github.com/cveburak/OpenWAAP/blob/05af9992c1ce8e7fffd12838d224cf23206fbe83/README.md"
+        },
+        {
+          "title": "Traffic policies",
+          "text": "Apply managed or custom firewall rules and rate limits scoped to IP addresses, paths, methods, or headers.",
+          "source_url": "https://github.com/cveburak/OpenWAAP/blob/05af9992c1ce8e7fffd12838d224cf23206fbe83/README.md"
+        }
+      ]
+    },
+    "e684a47f34d989f91e354ad8d88c06c841f2ffd6d8a29aafb318bdf42a3eecc9": {
+      "project_url": "https://github.com/vhdani04/openlayout",
+      "text": "OpenLayout combines schematic capture, circuit simulation and physical layout tools for custom integrated-circuit design with the ASAP7 FinFET process kit. Its desktop hub organizes libraries, cells and views while coordinating xschem and KLayout. Designers can generate layout instances from schematics, run design-rule and connectivity checks, extract parasitics and inspect simulation waveforms.",
+      "sources": [
+        {
+          "url": "https://github.com/vhdani04/OpenLayout/blob/7b25375228a288b3d4e2cb0a7e4d19f82504c85e/README.md",
+          "title": "OpenLayout README",
+          "revision": "7b25375228a288b3d4e2cb0a7e4d19f82504c85e"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official commit-pinned README and its documented capabilities against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Schematic-driven layout",
+          "text": "Generate or update layout instances from a schematic while retaining placement and routing for existing instances.",
+          "source_url": "https://github.com/vhdani04/OpenLayout/blob/7b25375228a288b3d4e2cb0a7e4d19f82504c85e/README.md"
+        },
+        {
+          "title": "Post-layout simulation",
+          "text": "OLSim supports variables, sweeps, process corners and per-cell or per-instance selection of schematic or extracted views.",
+          "source_url": "https://github.com/vhdani04/OpenLayout/blob/7b25375228a288b3d4e2cb0a7e4d19f82504c85e/README.md"
+        }
+      ]
+    },
+    "e7d9b32abf18af2c3da58b84f97156a878379c3676362d047cf7b0536c106f2a": {
+      "project_url": "https://github.com/open-rpc/generator",
+      "text": "OpenRPC Generator creates client, server and documentation components from OpenRPC API descriptions. Developers run its command-line generator with a configuration specifying the components and their options, or use an interactive initializer to build that configuration. Custom components can come from JavaScript files or npm packages, and individual components can be generated directly with command-line options.",
+      "sources": [
+        {
+          "url": "https://github.com/open-rpc/generator/blob/7765a2b91621bd6b17ccd21114a64dfd11f70944/README.md",
+          "title": "OpenRPC Generator README",
+          "revision": "7765a2b91621bd6b17ccd21114a64dfd11f70944"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official commit-pinned README and its documented capabilities against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Interactive configuration",
+          "text": "The init command walks through building a configuration for the components to generate.",
+          "source_url": "https://github.com/open-rpc/generator/blob/7765a2b91621bd6b17ccd21114a64dfd11f70944/README.md"
+        },
+        {
+          "title": "Custom generators",
+          "text": "Load a custom component from a JavaScript module or npm package and specify its type, name and language.",
+          "source_url": "https://github.com/open-rpc/generator/blob/7765a2b91621bd6b17ccd21114a64dfd11f70944/README.md"
+        }
+      ]
+    },
+    "e9edf90f8ef292c1654f46bba2c00ecb7801c914ec83c0d9d1411e8a67cd6f84": {
+      "project_url": "https://github.com/openlightingproject/ola",
+      "text": "Open Lighting Architecture distributes control data to entertainment lighting equipment across different hardware interfaces and network protocols. Its daemon, plugins and client library let lighting applications generate control information through a common framework. OLA can translate between network protocols or, with a USB-to-DMX512 device, provide a DMX-over-IP gateway. It runs on Linux and macOS, with partial Windows functionality.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenLightingProject/ola/blob/3f870a79b69e08a8553df360c82635113c192504/README.md",
+          "title": "Open Lighting Architecture README",
+          "revision": "3f870a79b69e08a8553df360c82635113c192504"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official commit-pinned README and its documented capabilities against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Protocol conversion",
+          "text": "Convert between lighting network protocols or bridge DMX-over-IP to DMX512 using a USB-to-DMX512 device.",
+          "source_url": "https://github.com/OpenLightingProject/ola/blob/3f870a79b69e08a8553df360c82635113c192504/README.md"
+        },
+        {
+          "title": "Application interfaces",
+          "text": "Use the C++ client library or Python module to integrate lighting control into applications.",
+          "source_url": "https://github.com/OpenLightingProject/ola/blob/3f870a79b69e08a8553df360c82635113c192504/README.md"
+        }
+      ]
+    },
+    "eb270ad3b4285f22d00b6dd996f3c20f0c8327e4022c274ac104e573522d686f": {
+      "project_url": "https://github.com/openloco/openloco",
+      "text": "OpenLoco reimplements Chris Sawyer’s Locomotion as a construction and management game about running a transport company. The C++ implementation is available as desktop releases for Windows, Linux and macOS, and requires asset files from the original game. Its current save format retains Locomotion’s map and vehicle limits; expanding those limits is a stated development goal.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenLoco/OpenLoco/blob/9fb9e37ae10f65d68cd02062f0cb9d6b5ff1de2d/README.md",
+          "title": "OpenLoco README",
+          "revision": "9fb9e37ae10f65d68cd02062f0cb9d6b5ff1de2d"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official commit-pinned README and its documented capabilities against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Transport-company simulation",
+          "text": "Play a construction and management simulation centered on operating a transport company.",
+          "source_url": "https://github.com/OpenLoco/OpenLoco/blob/9fb9e37ae10f65d68cd02062f0cb9d6b5ff1de2d/README.md"
+        },
+        {
+          "title": "Desktop releases",
+          "text": "Prebuilt releases are provided for Windows, Linux and macOS and require the original Locomotion asset files.",
+          "source_url": "https://github.com/OpenLoco/OpenLoco/blob/9fb9e37ae10f65d68cd02062f0cb9d6b5ff1de2d/README.md"
+        }
+      ]
+    },
+    "ec3e191d6c3b8df0c9cffd22ff488f61bfd54ff1971d2ea06dc724f64ffa29c3": {
+      "project_url": "https://github.com/pearshm2/openbell",
+      "text": "Openbell is a stock-search web application where signed-in users look up companies or symbols, view opening and current prices, inspect intraday charts and save stocks to a personal dashboard. It runs with Node.js and PostgreSQL. Finnhub supplies live quotes and company data, while Twelve Data supplies chart history; without API keys, the application displays labeled sample data.",
+      "sources": [
+        {
+          "url": "https://github.com/pearshm2/OpenBell/blob/19f63d92b09262bf841b6ec257e20fcec7313e6e/README.md",
+          "title": "Openbell README",
+          "revision": "19f63d92b09262bf841b6ec257e20fcec7313e6e"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official commit-pinned README and its documented capabilities against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Saved-stock dashboard",
+          "text": "Save stocks to a personal dashboard and inspect prices, changes and chart information.",
+          "source_url": "https://github.com/pearshm2/OpenBell/blob/19f63d92b09262bf841b6ec257e20fcec7313e6e/README.md"
+        },
+        {
+          "title": "Configurable market data",
+          "text": "Use Finnhub for live search and quotes and Twelve Data for chart history, or run with built-in sample prices.",
+          "source_url": "https://github.com/pearshm2/OpenBell/blob/19f63d92b09262bf841b6ec257e20fcec7313e6e/README.md"
+        }
+      ]
+    },
+    "ec539470b3bf318faa983422bcd3ac7f15648edf30a2a865c89e104a4baeb909": {
+      "project_url": "https://openaudible.org",
+      "text": "OpenAudible organizes audiobook collections on Windows, macOS and Linux. It connects to an Audible account to synchronize and download books, converts them to MP3 or M4B, and imports existing MP3, M4A and M4B audiobooks. A built-in player supports listening from the application. Conversion and chapter splitting require a license.",
+      "sources": [
+        {
+          "url": "https://openaudible.org/documentation",
+          "title": "OpenAudible Documentation and User Guide"
+        },
+        {
+          "url": "https://openaudible.org",
+          "title": "OpenAudible: features and licensing"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official documentation and linked official pages against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Library synchronization",
+          "text": "Refresh the book list with a quick sync or update the full library and its metadata with a full sync.",
+          "source_url": "https://openaudible.org/documentation"
+        },
+        {
+          "title": "Audio conversion",
+          "text": "Convert downloaded Audible books to MP3 or M4B individually or in a batch.",
+          "source_url": "https://openaudible.org/documentation"
+        }
+      ]
+    },
+    "ed240c9f5ffc88a851033369e23117976593ab562edfe051d9117828f5a67140": {
+      "project_url": "https://github.com/greendelta/olca-app",
+      "text": "openLCA is a desktop application for life-cycle assessment and footprint modelling, distributed for Windows, Linux and macOS. Users can build product-system models graphically or construct supply chains automatically, compare process contributions and examine uncertainty with Monte Carlo analysis. It also supports life-cycle costing, scenario calculations through parameter sets and importing data in formats including ILCD and JSON-LD.",
+      "sources": [
+        {
+          "url": "https://github.com/GreenDelta/olca-app/blob/f8cb161d3262ea337ec27ac198e5cd0e610e4586/README.md",
+          "title": "openLCA README",
+          "revision": "f8cb161d3262ea337ec27ac198e5cd0e610e4586"
+        },
+        {
+          "url": "https://www.openlca.org/features/",
+          "title": "openLCA Features"
+        },
+        {
+          "url": "https://www.openlca.org/",
+          "title": "openLCA: Life Cycle Assessment and footprint software"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official commit-pinned README and linked official pages against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Contribution analysis",
+          "text": "Compare process contributions to flows and impact categories to locate impact hot spots.",
+          "source_url": "https://www.openlca.org/features/"
+        },
+        {
+          "title": "Uncertainty analysis",
+          "text": "Run Monte Carlo analysis by varying model inputs according to uncertainty distributions.",
+          "source_url": "https://www.openlca.org/features/"
+        }
+      ]
+    },
+    "ed24c18e3af22ad3142bba9941910bad786b4741f1fcd3de60d4f00686d0bea9": {
+      "project_url": "https://openloc.com",
+      "text": "OpenLoc is a translation management system for localization teams, available in public beta for self-hosting or through its hosted early-access program. It stores projects, files, translation memories and terminology, and runs translation, quality checks and post-editing with chosen AI models and prompts. A CAT editor, built-in assistant, MCP server and customer API provide ways to review and manage translation work.",
+      "sources": [
+        {
+          "url": "https://github.com/modelfront/openloc/blob/d7aa8fd3cfbcdf818a16cb0abba128bd07ce8b59/README.md",
+          "title": "OpenLoc README",
+          "revision": "d7aa8fd3cfbcdf818a16cb0abba128bd07ce8b59"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official commit-pinned README and its documented capabilities against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Context-aware prompts",
+          "text": "Include translation-memory matches, glossary terms and surrounding context in AI translation, quality-checking and post-editing prompts.",
+          "source_url": "https://github.com/modelfront/openloc/blob/d7aa8fd3cfbcdf818a16cb0abba128bd07ce8b59/README.md"
+        },
+        {
+          "title": "MCP access",
+          "text": "Let compatible AI tools read and manage translation data through the built-in MCP server.",
+          "source_url": "https://github.com/modelfront/openloc/blob/d7aa8fd3cfbcdf818a16cb0abba128bd07ce8b59/README.md"
+        }
+      ]
+    },
+    "ee0ffbce0cbe1ee78a1d8b0962aa04d31d74b187c15d3d6a3754a2a764850ef4": {
+      "project_url": "https://github.com/xlennart/openofficetab",
+      "text": "openOfficetab adds document tabs below the ribbon in desktop Word, Excel and PowerPoint on Windows. Users can switch documents, reorder tabs, manage files from context menus and move documents between tab groups or independent windows. The add-in preserves Office’s save prompts and tracks recently closed saved files, with English and Simplified Chinese interface options.",
+      "sources": [
+        {
+          "url": "https://github.com/xlennart/openOfficeTab/blob/aa072d681ea728a4926cfa8ea36cb922b3fbfb66/README.md",
+          "title": "openOfficetab README",
+          "revision": "aa072d681ea728a4926cfa8ea36cb922b3fbfb66"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official commit-pinned README and its documented capabilities against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "Tab groups",
+          "text": "Drag tabs into new groups or merge them into another tab bar while retaining independent-window options.",
+          "source_url": "https://github.com/xlennart/openOfficeTab/blob/aa072d681ea728a4926cfa8ea36cb922b3fbfb66/README.md"
+        },
+        {
+          "title": "Reopen saved files",
+          "text": "Reopen up to 20 recently closed saved files per application; files already open are activated instead of duplicated.",
+          "source_url": "https://github.com/xlennart/openOfficeTab/blob/aa072d681ea728a4926cfa8ea36cb922b3fbfb66/README.md"
+        }
+      ]
+    },
+    "ee4b2fbd26e2b09c498bc4d7b75eebc3fa57163c26cef0df742f69fb7e7c4971": {
+      "project_url": "https://github.com/academysoftwarefoundation/opencolorio",
+      "text": "OpenColorIO manages color across digital-content applications and production pipelines, with a focus on visual effects and computer animation. It provides shared color-management behavior with configurable processing setups, supports the Academy Color Encoding Specification and accepts multiple lookup-table formats. Applications including Maya, Nuke and Houdini integrate it, and reference configurations are available for animation, visual-effects and ACES workflows.",
+      "sources": [
+        {
+          "url": "https://github.com/AcademySoftwareFoundation/OpenColorIO/blob/22dd9c4faa0d1b7cfb3d64d1a6e9cb454acc6cfd/README.md",
+          "title": "OpenColorIO README",
+          "revision": "22dd9c4faa0d1b7cfb3d64d1a6e9cb454acc6cfd"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official commit-pinned README and its documented capabilities against every summary and feature claim. Documentation review only; software was not installed or executed.",
+      "features": [
+        {
+          "title": "ACES compatibility",
+          "text": "Use color-management configurations compatible with the Academy Color Encoding Specification.",
+          "source_url": "https://github.com/AcademySoftwareFoundation/OpenColorIO/blob/22dd9c4faa0d1b7cfb3d64d1a6e9cb454acc6cfd/README.md"
+        },
+        {
+          "title": "Lookup-table formats",
+          "text": "Work with multiple lookup-table formats within the same color-management framework.",
+          "source_url": "https://github.com/AcademySoftwareFoundation/OpenColorIO/blob/22dd9c4faa0d1b7cfb3d64d1a6e9cb454acc6cfd/README.md"
+        }
+      ]
+    },
+    "ef3627f96cc864631bfa736c157c0747f1d515ab2cf59a33524f9dc2f72c9dd4": {
+      "project_url": "https://github.com/yuanzhixiang/openphoto",
+      "text": "OpenPhoto is a macOS image editor for working with layered PSD files and common bitmap formats. It provides layer masks, blending, selections, transformations, painting tools, color adjustments and filters, with PNG and JPEG export. A bundled MCP server exposes editing operations to agents through keyword search and named tool calls, using the same document functions as the interface.",
+      "sources": [
+        {
+          "url": "https://github.com/yuanzhixiang/openphoto/blob/d72a71c12a8d56cf3f49fc4c95372406b6de0222/README.md",
+          "title": "OpenPhoto README",
+          "revision": "d72a71c12a8d56cf3f49fc4c95372406b6de0222"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "Layered PSD editing",
+          "text": "Open and save PSD documents containing layers, groups, blend modes and masks.",
+          "source_url": "https://github.com/yuanzhixiang/openphoto/blob/d72a71c12a8d56cf3f49fc4c95372406b6de0222/README.md"
+        },
+        {
+          "title": "Agent editing interface",
+          "text": "The bundled MCP server lets clients search for editing operations and run them over stdio.",
+          "source_url": "https://github.com/yuanzhixiang/openphoto/blob/d72a71c12a8d56cf3f49fc4c95372406b6de0222/README.md"
+        }
+      ]
+    },
+    "ef46f3ecbaf5e80e5319ea13a91a24cdf7232caf2eb178610cd8c1a1d76e14cc": {
+      "project_url": "https://github.com/apache/opennlp",
+      "text": "OpenNLP is a Java toolkit for building natural-language text processing services. It provides tokenization, sentence segmentation, part-of-speech tagging, named entity extraction, parsing and language detection. Developers can use its Java API or command-line tools to train, evaluate and run models, with modules for several machine-learning classifiers and ONNX model support.",
+      "sources": [
+        {
+          "url": "https://github.com/apache/opennlp/blob/c09f832e561cee43ad2fa78f14ccea025df21d7b/README.md",
+          "title": "OpenNLP README",
+          "revision": "c09f832e561cee43ad2fa78f14ccea025df21d7b"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "Text analysis",
+          "text": "Tokenize text, split sentences, identify named entities and detect languages through the toolkit.",
+          "source_url": "https://github.com/apache/opennlp/blob/c09f832e561cee43ad2fa78f14ccea025df21d7b/README.md"
+        },
+        {
+          "title": "Model workflows",
+          "text": "Command-line tools train, evaluate and run models; separate modules provide classifiers and ONNX integration.",
+          "source_url": "https://github.com/apache/opennlp/blob/c09f832e561cee43ad2fa78f14ccea025df21d7b/README.md"
+        }
+      ]
+    },
+    "f0f7d510308f2d623c523cb8e632ab49d579e179e6099d574add51299505e5e7": {
+      "project_url": "https://github.com/joseph-b22/openport",
+      "text": "OpenPort runs language models locally on a Windows PC to help with IT troubleshooting, configurations, logs and PowerShell. It checks command and parameter names against the machine's PowerShell, compares generated edits with original files, and checks selected claims against local services, updates and paths. Its interface also provides chat recall, saved facts and user-defined model tests.",
+      "sources": [
+        {
+          "url": "https://github.com/Joseph-B22/OpenPort/blob/69543fcc6ca81cf32fde5291400aa7fc26d05913/README.md",
+          "title": "OpenPort README",
+          "revision": "69543fcc6ca81cf32fde5291400aa7fc26d05913"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "PowerShell command checks",
+          "text": "Look up command and parameter names in the PC's PowerShell and flag unrecognized names without executing the generated commands.",
+          "source_url": "https://github.com/Joseph-B22/OpenPort/blob/69543fcc6ca81cf32fde5291400aa7fc26d05913/README.md"
+        },
+        {
+          "title": "Edit comparison",
+          "text": "Compare an answer with an attached file or earlier answer, highlighting changed lines and listing omitted lines.",
+          "source_url": "https://github.com/Joseph-B22/OpenPort/blob/69543fcc6ca81cf32fde5291400aa7fc26d05913/README.md"
+        }
+      ]
+    },
+    "f29965e0ee4b71ffa7d7eb8f452e3cde5bf3a1a1bc81c1e83f67ab63e3012ca7": {
+      "project_url": "https://github.com/minimax-ai/openagentcore",
+      "text": "OpenAgentCore provides a self-hosted Agents API for running Codex, Claude Code or MiniMax Code with configurable model providers. Applications connect through the OpenAI SDK or HTTP, while a web interface supports operation of the installation. Sessions can run on users' Linux, macOS or Windows machines or sandbox providers, with replaceable components for agent harnesses, workspace filesystems and compute.",
+      "sources": [
+        {
+          "url": "https://github.com/MiniMax-AI/OpenAgentCore/blob/673085b6a1ade96e64ff9d94bfdcbccc3cdd1ccf/README.md",
+          "title": "OpenAgentCore README",
+          "revision": "673085b6a1ade96e64ff9d94bfdcbccc3cdd1ccf"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "Agent harness selection",
+          "text": "Run sessions with Codex, Claude Code or MiniMax Code and a configured model provider.",
+          "source_url": "https://github.com/MiniMax-AI/OpenAgentCore/blob/673085b6a1ade96e64ff9d94bfdcbccc3cdd1ccf/README.md"
+        },
+        {
+          "title": "Persistent sandbox workspaces",
+          "text": "The microsandbox provider separates workspace storage from compute so idle sessions can resume on a compatible node with their files intact.",
+          "source_url": "https://github.com/MiniMax-AI/OpenAgentCore/blob/673085b6a1ade96e64ff9d94bfdcbccc3cdd1ccf/README.md"
+        }
+      ]
+    },
+    "f3d86f73003859527ee568b177bc46894c9e3c18719038234c695346a48717b3": {
+      "project_url": "https://github.com/jinjinov/openhabittracker",
+      "text": "OpenHabitTracker combines Markdown notes, scheduled tasks and habit tracking in desktop, mobile and web applications. Tasks can include checklists, durations and timers, while habits show overdue progress and historical charts. Users can organize records with categories and priorities, filter their lists, import or export several text formats, and synchronize devices through a server they host themselves.",
+      "sources": [
+        {
+          "url": "https://github.com/Jinjinov/OpenHabitTracker/blob/b8f40577e9b64e38c32192866021195d4d9f83a9/README.md",
+          "title": "OpenHabitTracker README",
+          "revision": "b8f40577e9b64e38c32192866021195d4d9f83a9"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "Habit progress charts",
+          "text": "View habit targets and history by day, week, month, quarter or year, alongside calendar and streak views.",
+          "source_url": "https://github.com/Jinjinov/OpenHabitTracker/blob/b8f40577e9b64e38c32192866021195d4d9f83a9/README.md"
+        },
+        {
+          "title": "Portable records",
+          "text": "Import and export JSON, YAML, TSV and Markdown, and import notes from a Google Keep Takeout ZIP.",
+          "source_url": "https://github.com/Jinjinov/OpenHabitTracker/blob/b8f40577e9b64e38c32192866021195d4d9f83a9/README.md"
+        }
+      ]
+    },
+    "f3eccdfe3f625c43503a5d75d08e0a3a760874458019e84d3c6131d54e579294": {
+      "project_url": "https://github.com/taymcquaya/openopen",
+      "text": "OpenOPen is a document editor for writing and formatting text, opening DOCX and RTF files, and exporting finished documents to DOCX or PDF. It offers font and size controls, bold and italic formatting, bulleted and numbered lists, search and replace, undo and redo, printing, adjustable zoom and a dark display mode.",
+      "sources": [
+        {
+          "url": "https://github.com/TayMcQuaya/OpenOPen/blob/218448e3178e6897f17a6ee327efdf161a76ebe3/README.md",
+          "title": "OpenOPen README",
+          "revision": "218448e3178e6897f17a6ee327efdf161a76ebe3"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "Document exchange",
+          "text": "Open and edit DOCX or RTF documents, then export documents as DOCX or PDF.",
+          "source_url": "https://github.com/TayMcQuaya/OpenOPen/blob/218448e3178e6897f17a6ee327efdf161a76ebe3/README.md"
+        },
+        {
+          "title": "Editing controls",
+          "text": "Find and replace text, change fonts and sizes, create lists and undo or redo edits.",
+          "source_url": "https://github.com/TayMcQuaya/OpenOPen/blob/218448e3178e6897f17a6ee327efdf161a76ebe3/README.md"
+        }
+      ]
+    },
+    "f3eef835bd90565456c0d4f705686c3e494c321b92138d2b053e5333269f0f83": {
+      "project_url": "https://github.com/academysoftwarefoundation/opencue",
+      "text": "OpenCue manages rendering jobs for visual effects and animation production by splitting work into tasks and dispatching them to a render farm. Tags route jobs to machine types, and hosts can be divided into processes with reserved cores and memory. It supports on-premises, cloud, hybrid and multi-facility deployments, with a Docker Compose setup for local environments.",
+      "sources": [
+        {
+          "url": "https://github.com/AcademySoftwareFoundation/OpenCue/blob/f14888e864fe9d0bf88d566b2d7fc0e960948fb0/README.md",
+          "title": "OpenCue README",
+          "revision": "f14888e864fe9d0bf88d566b2d7fc0e960948fb0"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "Resource allocation",
+          "text": "Divide a host into processes with their own reserved CPU cores and memory requirements.",
+          "source_url": "https://github.com/AcademySoftwareFoundation/OpenCue/blob/f14888e864fe9d0bf88d566b2d7fc0e960948fb0/README.md"
+        },
+        {
+          "title": "Job routing",
+          "text": "Use tags to allocate rendering jobs to particular machine types through the dispatch queue.",
+          "source_url": "https://github.com/AcademySoftwareFoundation/OpenCue/blob/f14888e864fe9d0bf88d566b2d7fc0e960948fb0/README.md"
+        }
+      ]
+    },
+    "f60cc22bad5bff9cafd35ba7e9c175c2a4c6637e0d15caaceee66e598b3db60f": {
+      "project_url": "https://github.com/molcas/openmolcas",
+      "text": "OpenMolcas is a quantum chemistry package for scientists applying electronic-structure methods to chemical systems. Its central approach is multiconfigurational calculation, including CASSCF and CASPT2. Users build the package with CMake and run calculations through the pymolcas driver, using either the supplied LAPACK submodule or another linear algebra library such as MKL or OpenBLAS.",
+      "sources": [
+        {
+          "url": "https://github.com/Molcas/OpenMolcas/blob/df22cf791586ed96e07a375b1575945cae449a1b/README.md",
+          "title": "OpenMolcas README",
+          "revision": "df22cf791586ed96e07a375b1575945cae449a1b"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "Multiconfigurational methods",
+          "text": "Apply CASSCF and CASPT2 methods to electronic-structure calculations for chemical systems.",
+          "source_url": "https://github.com/Molcas/OpenMolcas/blob/df22cf791586ed96e07a375b1575945cae449a1b/README.md"
+        },
+        {
+          "title": "Calculation driver",
+          "text": "Use pymolcas to run calculations and access the package's setup and verification options.",
+          "source_url": "https://github.com/Molcas/OpenMolcas/blob/df22cf791586ed96e07a375b1575945cae449a1b/README.md"
+        }
+      ]
+    },
+    "f6a8b1172f7cd59b1bec6ec1af7efb99122edb63ebd2b4ead16876c85440195c": {
+      "project_url": "https://github.com/abdulwasaywk/opennollie",
+      "text": "OpenNollie is a Linux application for controlling a Nollie 16CH RGB controller running firmware 2.3.0. Its desktop interface, tray and command line manage per-port colors, lighting effects, LED counts and color balance. Users can preview a case layout, upload FSEQ animations, or save rendered effects to the controller so lighting plays at power-on without the PC application running.",
+      "sources": [
+        {
+          "url": "https://github.com/AbdulWasayWk/OpenNollie/blob/46af9de6dee1885022c00d40748bd87e9815f860/README.md",
+          "title": "OpenNollie README",
+          "revision": "46af9de6dee1885022c00d40748bd87e9815f860"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "Stored lighting",
+          "text": "Render an effect loop into the controller's flash for playback at power-on without a running PC application.",
+          "source_url": "https://github.com/AbdulWasayWk/OpenNollie/blob/46af9de6dee1885022c00d40748bd87e9815f860/README.md"
+        },
+        {
+          "title": "Per-port configuration",
+          "text": "Set LED counts, LED ordering and color balance for individual controller ports.",
+          "source_url": "https://github.com/AbdulWasayWk/OpenNollie/blob/46af9de6dee1885022c00d40748bd87e9815f860/README.md"
+        }
+      ]
+    },
+    "f7e4ac0a5624c60b6a0f6a734da863e5fc21d7064fcf3799bd87ca19d0257203": {
+      "project_url": "https://github.com/openmx/openmx",
+      "text": "OpenMx is an R package for specifying and fitting structural equation models programmatically. Models can use RAM or LISREL paths or direct matrix algebra, with maximum-likelihood and weighted-least-squares fit functions. Supported analyses include confirmatory factor models, multiple groups, mixture distributions, categorical thresholds, differential equations and state-space models. The documentation includes worked model scripts.",
+      "sources": [
+        {
+          "url": "https://github.com/OpenMx/OpenMx/blob/b592c22705c22e6b16e37cf348b70491e11c7ab4/README.md",
+          "title": "OpenMx README",
+          "revision": "b592c22705c22e6b16e37cf348b70491e11c7ab4"
+        }
+      ],
+      "checked_at": "2026-11-06",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the summary and both feature notes against the official README at the cited commit. Documentation review only; software was not installed or tested.",
+      "features": [
+        {
+          "title": "Model specification",
+          "text": "Describe models with RAM or LISREL paths, or express them directly using matrix algebra.",
+          "source_url": "https://github.com/OpenMx/OpenMx/blob/b592c22705c22e6b16e37cf348b70491e11c7ab4/README.md"
+        },
+        {
+          "title": "Fit functions",
+          "text": "Fit models with maximum likelihood, using summary or full information, or weighted least squares.",
+          "source_url": "https://github.com/OpenMx/OpenMx/blob/b592c22705c22e6b16e37cf348b70491e11c7ab4/README.md"
+        }
+      ]
     }
   }
 }
