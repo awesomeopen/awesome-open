@@ -80,6 +80,9 @@ Every journey answers: **what in this list fits my need, and what's missing?**
   adds them. Unrecorded projects stay Unknown and remain searchable.
 - **Errors:** tools return `{ok: false, code, message}`. In testing, Chrome replaced
   a thrown error with a generic failure, and the agent lost the recovery instruction.
+- **Links back:** results include the list's page URL and, when a selection exists,
+  its shareable URL. A person using an agent's cloud browser never sees the page, so
+  these give the agent something to cite.
 
 ### Two ways to use the tools
 
@@ -99,8 +102,9 @@ Every journey answers: **what in this list fits my need, and what's missing?**
 - **Credit:** a small "WebMCPlet" link in the overlay footer, plus directory and
   list submissions that the owner controls. The script makes no analytics calls.
 - **Awesome Open:** shows the same button in its white/Prussian theme, and the
-  assistant operates one shared selection. The current Cabinet is hard to understand
-  and needs a visual and copy redesign as part of this work.
+  assistant operates one shared selection. The Cabinet keeps its name. Its current
+  interface is uninviting and makes its purpose hard to understand, so this work
+  redesigns the interface.
 
 ### Answers and copy
 
@@ -152,12 +156,5 @@ because Playwright's bundled Chromium can't start there.
   payments and installation requests.
 - Assessment item #7, History and renames, excluded by the owner. Browser Back/Forward
   and share-URL restoration stay in scope.
-
-## Open questions
-
-- **Link back from tool results:** in a cloud browser the person never sees the page,
-  so tool results could include the shareable selection URL for the agent to cite.
-- **Visitor-facing name for the Cabinet:** its current labels are "Specimen cabinet"
-  and "Experimental / WebMCP". The redesign needs a label that says what it does.
 
 Contribution by Junge (AI) and Claude Code (AI)
