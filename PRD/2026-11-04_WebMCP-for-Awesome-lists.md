@@ -1,313 +1,163 @@
-# PRD: WebMCP for Awesome-list websites
+# PRD: WebMCPlet
 
-- **Date:** 2026-11-04
-- **Status:** Proposed product plan; no implementation or active brand-policy change
+- **Date:** 2026-11-04; revised 2026-11-06 after the owner's design review
+- **Status:** Proposed. The merged Cabinet is the only implementation so far
 - **Owner:** Project owner
-- **Baseline:** main `cdfdbbc4ac4077e2ce4950eaea6a87311e51e675`
-- **Related:** [Cabinet contract](../site/WEBMCP-CABINET.md),
-  [Cabinet decision](../brand/decisions/B-PR250-01.md), [reuse proposal](../CLONE.md)
+- **Baseline:** main `b8e27f5`
+- **Related:** [research notes](2026-11-06_WebMCPlet-research.md),
+  [Cabinet contract](../site/WEBMCP-CABINET.md), [reuse proposal](../CLONE.md),
+  future home [JumperMCP/webmcplet](https://github.com/JumperMCP/webmcplet)
 
-## Decision and purpose
+## Purpose
 
-Package the Cabinet's catalog search, ordered selection and evidence comparison
-for curated Awesome-list websites. Awesome Open\* is the first showcase. Visitors
-can use the panel themselves, ask a small built-in assistant, or use a compatible
-browser agent against the page's WebMCP tools.
+WebMCPlet lets people ask an AI about a curated list from the list's own page,
+with no MCP server to install. A maintainer adds one script and one generated JSON
+file; the page then offers a search panel, a local assistant where the browser
+supports one, and tools for visiting agents.
 
-Choose Chrome's Prompt API for the optional built-in assistant. Its narrow browser
-scope fits a showcase; defer WebLLM. The assistant calls application-owned actions
-and works independently of WebMCP. Ordinary search and comparison remain complete
-without either API. No automatic model download, provider key, backend service or
-paid cloud fallback is required by this product.
+The target experience is the [Context Awesome demo](https://github.com/bh-rat/context-awesome):
+an agent finds the relevant section, retrieves its items and writes a detailed
+answer. WebMCPlet brings that journey to one list at a time, on that list's page.
 
-### A regular visitor asks what software to get
+Awesome Open\* is the rich example. [open-source-mac-os-apps](https://github.com/serhii-londar/open-source-mac-os-apps)
+is the outside proof, because the showcase is only useful if a similar site can
+adopt it like a product.
 
-The central product hypothesis is that a visitor can describe a need and receive
-a useful, detailed answer from the optional in-page local assistant without
-bringing an agent or configuring a service. Illustrative journey: “What software
-should I get to manage family photos on my own server?” The assistant clarifies
-the visitor's requirements, searches declared catalog fields, inspects matching
-records, and builds a visible shortlist and comparison through structured actions.
-It explains fit to those explicit needs and trade-offs using sourced fields,
-links the evidence, and preserves unknowns. The visitor can revise the shortlist
-or requirements and makes the final choice.
+**Audience:** developers, list maintainers and people following WebMCP. Limited
+browser and hardware support is accepted. Search in the panel works for everyone.
 
-This conversational guidance uses the existing evidence contract. It introduces
-no aggregate score, invented ranking or recommendation engine. Evaluate whether
-the answer helps a regular visitor make an informed choice, alongside action
-correctness; sparse evidence must remain visible in the answer.
+## Evidence so far
 
-### Relationship to existing agent tools
-
-[Context Awesome](https://www.context-awesome.com/browse) is a direct competitor
-to the potential drop-in **WebMCPlet** (working concept/name; no published package
-or settled brand decision). Its [per-list page](https://www.context-awesome.com/list/f/awesome-chatgpt-prompts)
-provides an example prompt and MCP setup link; its
-[hosted endpoint](https://www.context-awesome.com/#installation) requires client
-configuration, with no server installation. Local installation is a development
-option. Its [server](https://github.com/bh-rat/context-awesome/blob/main/src/mcp-server.ts)
-exposes sections, item search and list/section retrieval. Its central multi-list
-service offers cross-list discovery and distribution through connected MCP
-clients. Our proposed list-hosted actions share the page's UI and give each
-maintainer control of per-page context; optional Prompt API serves visitors
-without an agent. The trade-off is client connection for the hosted service
-versus compatible browser agents and browser/model availability for our paths.
-Reduced per-service setup is an adoption hypothesis to test, with no claim of
-superiority or exclusive capabilities. The observed browse/detail counts differ;
-completeness was not established, and its MCP endpoint was not invoked.
-
-The [Context Awesome demonstration](https://www.context-awesome.com/#installation)
-shows a roughly 90-second Cursor journey asking for resources to author technical
-books. After an initial generic answer, a run using `awesome-server` calls
-`find_awesome_section` and multiple `get_awesome_items` operations on
-technical-writing lists, then produces a detailed categorized answer. This
-observes curated retrieval feeding an answer; local inference and independent
-factual accuracy were not demonstrated. Our proposed extension brings that useful
-journey into the webpage through the optional Prompt API controller, validated
-actions and the evidence limits below.
-
-## Current Cabinet and gaps
-
-The merged implementation provides `cabinet_find`, `cabinet_inspect`,
-`cabinet_arrange` and `cabinet_compare`. Humans and tools share an ordered selection
-of at most six distinct canonical IDs, a selection revision and the latest 20
-operation names, actors and outcomes in memory. Invalid inputs fail before
-mutation; comparisons reject a selection changed during loading.
-
-The [current code](../site/cabinet.js) has two useful starting gaps:
-
-- Find performs AND matching of lowercase substring tokens, capped at 12 results.
-  It is literal search. It differs from the Catalog's Unicode/reviewed-alias
-  matcher; sharing that matcher should precede natural-language claims.
-- Compare labels short descriptions as Function. It does not yet consume reviewed
-  Function summaries/features. Those can improve comparisons where available.
-
-Discovery uses the embedded index. Inspect and compare load same-origin
-`catalog.json`, rejecting redirects and source-revision mismatch. Shared URLs
-serialize ordered IDs and reopen the current published evidence. They do not
-freeze a snapshot. Preserve the [evidence meanings](../brand/foundation.md#evidence-contract)
-and existing prohibitions on aggregate rankings/recommendations, arbitrary URLs
-or code, repository writes, payments and installation requests.
-
-## Proposed package boundaries
-
-| Component | Responsibility |
-| --- | --- |
-| Deterministic core | Validated catalog, matching, bounded results, ordered selection, revisions and comparisons |
-| Application action registry | One allowlisted contract for manual controls, model controller and bridge; application validation remains authoritative |
-| Generic panel | Accessible search, selection, reorder/remove, comparison, sources and literal status/error text |
-| Awesome Open adapter | Current canonical IDs, reviewed evidence, dates, presentation and existing source-loading safeguards |
-| Prompt API controller | Optional bounded interpretation of natural language into registry actions |
-| WebMCP bridge | Independently detected registration for a compatible browser agent |
-
-The generic panel must work with keyboard and touch, expose visible shared state,
-and keep human override available during model activity. Awesome Open retains its
-existing visual/evidence contracts; other lists need no specimen artwork or
-Awesome Open branding. Other site surfaces are outside the generic MVP.
-
-### Data contract and integration
-
-Phase 1 must settle and version a minimal schema. Proposed required fields are
-stable item ID, name, primary URL, description, category memberships and source
-references, plus dataset revision. Empty descriptions/categories may be represented
-explicitly for sparse lists; importer review must still establish that the result
-is useful. Identity must survive ordering changes and distinguish duplicate names.
-
-Optional typed capability/evidence fields declare their meaning, mapping, source
-and observation/review dates. Preserve absent, unknown and stale values; never
-coerce unknown to zero or false. Generic lists need not supply metrics, artwork,
-reviewed Function summaries or rich evidence. Unsupported comparison fields stay
-unavailable. A declared capability must correspond to data the adapter can supply.
-
-Prefer existing structured data, then a Markdown AST, then explicitly configured
-DOM extraction. Universal DOM parsing is outside scope. A GitHub README cannot
-run this JavaScript: integration requires a maintainer-controlled hosted page,
-Pages companion or build step. Drop-in means a small documented integration with
-a proven adapter, not automatic compatibility with every list.
-
-## Optional natural-language controller
-
-Use the current `LanguageModel` global, rather than historical `window.ai`
-examples. Chrome's [Prompt API documentation](https://developer.chrome.com/docs/ai/prompt-api)
-was checked on 2026-11-04 (updated 2026-10-21; web availability listed as Chrome
-148). Gemini Nano is a separate download. Link the live browser, OS, hardware and
-storage requirements in setup documentation instead of freezing those limits here.
-
-Feature-detect before calling `LanguageModel.availability(options)`. Keep language,
-modality and other applicable options consistent across availability, creation and
-prompting. Distinguish unavailable, downloadable, downloading and available states.
-Require explicit user activation before `LanguageModel.create(...)`; expose
-`monitor` / `downloadprogress`, errors and cancellation via an `AbortSignal`.
-Missing API or failed setup leaves the full manual panel available. Cancellation
-must stop this controller's work; do not promise removal of browser-managed model
-files. Session teardown and late-result handling must preserve human edits.
-
-The controller proposes structured actions, validates their schema and semantics,
-and dispatches only registered verbs. Set explicit turn, result and context limits
-before implementation; reject malformed JSON, unsupported actions and oversized
-requests. Re-read selection revisions before mutations. Source prose is untrusted
-data, including instruction-like text. Never execute model-generated code or use
-model claims as evidence. Answers cite returned catalog fields and sources; missing
-predicates produce an explicit unknown or a request to narrow the query.
-
-Native tool calling has a separate availability gate: Chrome's
-[Prompt API tool-use demo](https://chrome.dev/web-ai-demos/prompt-api-tool-use/)
-requires `chrome://flags/#prompt-api-tool-use` (checked 2026-11-04).
-`LanguageModel` availability alone does not establish this capability. The narrow
-controller can use constrained structured actions with the validation, allowlist
-and execution bounds above; evaluate its reliability independently. Any native
-tool-calling path needs its own feature detection and tests. The optional local
-model decision and absence of automatic cloud fallback remain unchanged.
-
-The [WebMCP draft](https://webmachinelearning.github.io/webmcp/), dated 2026-11-02,
-uses `document.modelContext` and remains a Community Group draft, not a W3C
-standard. Detect the installed bridge independently, retain secure-context and
-same-origin constraints, and test actual argument behavior for supported browser
-versions. Native bridge execution tests and natural-language end-to-end evaluation
-are separate: the existing pilot establishes only the former.
-
-### Cloudflare bridge and testing options
-
-[Cloudflare's developer preview](https://blog.cloudflare.com/webmcp)
-(2026-08-06; checked 2026-11-04) injects a same-origin bridge at the edge to
-register two tool packs: a Content Credentials/C2PA metadata reader and a proxy
-for a site's existing MCP server. The reader decodes claims without cryptographic
-verification (`signatureVerified` remains false); AI-backed packs are future
-plans. These packs do not generate meaningful catalog/search/selection actions
-from arbitrary pages. Our inference is that this offers an alternative deployment
-and bridge route while leaving the catalog schema, domain actions and shared UI
-as application responsibilities. The static Cabinet can expose its own tools
-without a backend or Cloudflare dependency.
-
-[Browser Run's WebMCP support](https://developers.cloudflare.com/browser-run/features/webmcp/)
-(updated 2026-09-28; checked 2026-11-04) discovers and executes registered page
-tools through Chrome Lab or Kitesurf backends and the WebMCP CDP domain. Lab
-sessions are experimental and unsuitable for production workloads. This is an
-optional future interoperability-testing avenue, not a production dependency or
-a test performed for this PRD. Existing manual/browser checks and exact-version
-compatibility evidence remain required. No Cloudflare service setup, credentials,
-settings changes or paid sessions are part of this proposal.
-
-## Use cases for tests and documentation
-
-The supplied assessment contributes the following scenarios and candidate additions.
-They are requirements for evaluation, not claims of model reliability.
-
-| Visitor request | Expected behavior and evidence boundary |
-| --- | --- |
-| Find tools for a task, shortlist, then compare | Match declared fields, show bounded results, preserve chosen IDs and compare supported facts |
-| Compare named A, B and C | Resolve identities, clarify ambiguity, retain the requested order |
-| Is this still alive? | Show dated push/release observations and unknowns; do not infer maintenance, health or security verdicts |
-| Find substitutes / open-source options | Use reviewed alternatives or evidenced capability fields; apply “open-source” only with a verified license predicate |
-| Share this shortlist | Reopen ordered IDs against current evidence; disclose current-evidence semantics |
-| Let me make the choice | Show state and sources, support human edits and reject stale model mutations |
-
-### Candidate additions
-
-Prioritize these after reviewing their cost and evidence coverage. The assessment's
-“easy things to add” label is not an effort estimate.
-
-1. Bootstrap/status action returning selection, selection revision, dataset
-   revision, count and declared capabilities.
-2. Richer comparison using reviewed Function summaries/features and optional mapped
-   fields, with evidence dates and sources.
-3. Atomic add/remove operations using the same identity, limit and revision rules.
-4. Declared filters and bounded pagination beyond the first 12 matches.
-5. Stronger tool descriptions and examples for ordering, unknowns and recovery.
-
-Optional later work: seeded random selection and Markdown/JSON selection export.
-Retain the existing bounded in-memory activity in Awesome Open; decide whether the
-generic panel needs the same optional surface. **Assessment item #7, History and
-renames, is excluded by the owner.** It is neither MVP nor committed later scope.
-This exclusion is distinct from browser Back/Forward and share-URL restoration.
-
-## Discovering showcase lists
-
-Scan [sindresorhus/awesome](https://github.com/sindresorhus/awesome) for candidate
-hosted lists. GitHub Pages is a useful discovery cohort; custom domains and other
-hosts remain eligible. `has_pages` alone establishes neither the canonical host
-nor compatibility.
-
-### Preliminary pilot, 2026-11-04
-
-The supplied scan pinned root README Git blob
-`0acaa99d5f45582ecf70f987213f59ae1855226f` and found 674 distinct direct GitHub
-repository links, including links that are not lists. A purposeful sample of 14
-repositories had seven with `has_pages=true`. This was a pilot, not a census or
-prevalence estimate. The Pages endpoint was inaccessible; actual Pages hosting,
-live reachability and integration compatibility remain unverified. Several hosted
-lists had `has_pages=false`.
-
-| Candidate | Pilot finding | Follow-up before selection |
+| Finding | Result | Consequence |
 | --- | --- | --- |
-| [awesome-python](https://github.com/vinta/awesome-python), [site](https://awesome-python.com/) | Pages enabled; site advertises 528 projects / 74 categories; existing Markdown AST parser | Reproduce extraction at a recorded source revision; inspect representative entries |
-| [awesome-go](https://github.com/avelino/awesome-go), [site](https://awesome-go.com/) | Pages enabled; conventional nested lists; Netlify configuration present | Establish canonical hosting and category/link mapping |
-| [awesome-mac](https://github.com/jaywcjlove/awesome-mac), [site](https://wangchujiang.com/awesome-mac/) | Pages enabled; multiple links and badges; source CC0 versus site-footer CC BY 4.0 conflict | Resolve rights and primary-link selection before reuse |
-| [free-for-dev](https://github.com/ripienaar/free-for-dev), [site](https://free-for.dev/) | Pages enabled; dynamic Docsify shell | Use source adapter; inspect descriptions and section structure |
+| ChatGPT's web UI on the live Catalog, 2026-11-06 | Its cloud browser called `cabinet_find`, `cabinet_arrange` and `cabinet_compare`. The live site has no origin-trial token | The no-install journey works today for this client |
+| Current search on the PRD's first example | "manage family photos on my own server" returns 0 of 555 projects; "video editor" returns 6 | Search comes first; no-match is a required outcome |
+| Scan of 673 lists in `sindresorhus/awesome` | 68% use `- [name](url) - description`; 16% have Pages on; 5 of 586 carry star counts on most entries | Structure is common. Hosting and page control decide adoption |
+| Quick importer on the Mac list's full README | Found 977 distinct URLs, all in the list's JSON; missed 7 | The list's JSON can score the importer automatically |
 
-These are leads for extraction tests; they carry no maintainer endorsement.
+Methods and limits are in the [research notes](2026-11-06_WebMCPlet-research.md).
 
-### Reproducible scanner plan
+## Journeys
 
-1. Pin the root repository revision and README blob. Use Markdown AST extraction
-   to classify actual list links and separate navigation, tooling and incidental
-   repositories. Deduplicate redirects/canonical names by numeric repository ID.
-2. Record `has_pages`, homepage and default branch. Independently record verified
-   Pages hosting, canonical destination, live reachability and structural
-   suitability, including unknown/denied states.
-3. Inspect structured sources or Markdown without executing candidate scripts.
-   Record source revisions, extracted counts, unique identities, categories,
-   descriptions, primary/source links, rights, checked dates and unknowns.
-4. Manually review bounded samples for false positives, multi-link choices,
-   duplicate names, missing descriptions and usefulness for the use cases above.
-   Publish the sample selection and observed error counts with the report.
-5. Choose two or three contrasting candidates only after useful extraction is
-   demonstrated: Go/Python conventional lists and a Docsify source are potential
-   choices. Keep fixtures pinned and rights-reviewed; re-run deterministically.
+Every journey answers: **what in this list fits my need, and what's missing?**
 
-Honor access denials, quotas and `Retry-After`; record unresolved checks. Do not
-deploy to others' sites, contact maintainers or imply endorsement. Full-census
-coverage is outside this first scan.
-
-## Phases and acceptance
-
-| Phase | Deliverable | Acceptance gate |
+| Request | List | Required behavior |
 | --- | --- | --- |
-| 1. Shared foundation | Core, schema, action registry and reconciled search | Manual and action paths return identical IDs/order/unknowns; existing evidence safeguards pass |
-| 2. Optional Prompt API showcase | Explicit activation, bounded controller, evaluation corpus | All availability/error paths preserve manual use; held-out natural-language results and failures are recorded separately from bridge tests |
-| 3. Portable panel | Generic panel plus JSON adapter and genuinely different fixture | Both catalogs search/select/compare/share with no Awesome Open metrics or artwork dependency; keyboard/touch checks pass |
-| 4. Proven importers | Two or three source structures and reproducible scan report | Every sampled imported record has verified identity/link mapping; omissions and unresolved rights are explicit; reruns preserve identities |
-| 5. Packaging | Versioned assets/schema, integration instructions and examples | A maintainer can reproduce the fixture integration from documented inputs and run the acceptance suite |
+| Find a video editor and compare two | Awesome Open\* | Returns matches, compares recorded fields with their dates and sources |
+| Find a Markdown editor | Mac list | Same script and tools, with fields limited to what the list supplies |
+| Manage family photos on my own server | Awesome Open\* | Reports no match in this Open\*-named catalog and names no unrelated project |
 
-For each use case, maintain expected IDs, permissible actions, evidence fields and
-order. Record browser/model versions, fixture revisions, repeated-run outcomes,
-completion rate, corrections and failures. Set a numerical natural-language release
-threshold after baseline measurement and before promotion; this PRD invents no
-latency, reach or reliability promises. Deterministic invariants must pass every
-run. A failing scenario remains documented and blocks its supported-use-case claim.
+## Decisions
 
-Required edge/adversarial coverage: empty query and no results; more than 12
-matches with bounded pagination; more than six selections; duplicate/unknown IDs;
-stale selection revision; cancellation; invalid model JSON; unsupported action;
-source-revision mismatch; unknown fields; concurrent human/model edits;
-unavailable/download/error states; and instruction-like text embedded in sources.
-Test manual fallback with both APIs absent. Inspect visible status, keyboard focus,
-mobile comparison and cancellation. Never infer natural-language success from
-native bridge discovery/execution alone.
+### Adoption
 
-## Risks and unresolved decisions
+- **Delivery:** adopters copy a versioned script into their site and run a pinned
+  build step that generates the JSON. We serve no script.
+- **Input:** the build step reads README Markdown; a list with good JSON can use
+  that. Importers read raw files, because GitHub's README API truncated large files
+  at about 512 KB.
+- **Schema:** stable ID, section, name, URL and description are required. Identity
+  is the normalized URL, so cross-listed entries merge into one item with several
+  sections. Other fields are declared and optional, and missing values read Unknown.
+- **GitHub stars:** an optional field fetched at build time and labelled "GitHub
+  stars, observed on [date]". Results default to match order; sorting by stars
+  happens only on request.
+- **Code home and license:** a self-contained directory in this repository with no
+  Awesome Open imports, in dependency-free JavaScript, under its own MIT license.
+  `LICENSE.md` and `CONTRIBUTING.md` record that exception when the directory is
+  created, since this repository's contributions are CC0. It moves to
+  `JumperMCP/webmcplet` once someone outside adopts it.
 
-- Browser/API evolution and model/device availability limit reach. Keep support
-  checks isolated and publish the tested version matrix.
-- Thin descriptions may support discovery but weak comparisons. Capability
-  declarations and explicit unknowns bound the answer; evaluate usefulness before
-  choosing a showcase list.
-- Source structure, identity and licensing can change. Pin fixtures, retain
-  provenance and review rights before redistribution.
-- Local inference covers model processing; ordinary site requests and analytics
-  retain their own privacy behavior. Document the actual data flow.
-- Final schema details, controller budgets, package format and release thresholds
-  require phase-specific review. This proposal does not activate new collectors,
-  schedules, publication targets or brand rules.
+### Tools
 
-Contribution by Junge (AI)
+- **Core tools:** read-only section listing, item search and item retrieval.
+- **Optional module:** ordered selection and comparison, which Awesome Open enables.
+- **Search:** one shared matcher across names, descriptions, aliases, function
+  summaries and feature notes, reporting which field matched.
+- **Run modes:** a declared filter on recorded run modes that reports coverage, for
+  example "33 of 555 have a recorded run mode". Records are read at build time, so
+  coverage grows as the [deployment-evidence job](../automation/backfill-deployment-evidence.md)
+  adds them. Unrecorded projects stay Unknown and remain searchable.
+- **Errors:** tools return `{ok: false, code, message}`. In testing, Chrome replaced
+  a thrown error with a generic failure, and the agent lost the recovery instruction.
+
+### Two ways to use the tools
+
+- **WebMCP** serves visiting agents, starting with ChatGPT's browser. Other clients
+  are listed in the [research notes](2026-11-06_WebMCPlet-research.md#client-support).
+- **The Prompt API** serves visitors with no agent, on capable desktop Chrome. It
+  stays in only if the model test passes. There is no cloud fallback.
+
+### Panel
+
+- **Default:** a small labelled corner button that never opens by itself or
+  animates. It opens a large overlay. A banner is an opt-in style.
+- **Contents:** search and browsing for everyone. The assistant appears when the
+  model is available or downloadable, and any download needs an explicit click.
+- **Silencing:** maintainers set `data-webmcplet-panel="off"`, which keeps the tools
+  registered. Visitors can dismiss the button, stored only in their browser.
+- **Credit:** a small "WebMCPlet" link in the overlay footer, plus directory and
+  list submissions that the owner controls. The script makes no analytics calls.
+- **Awesome Open:** shows the same button in its white/Prussian theme, and the
+  assistant operates one shared selection. The current Cabinet is hard to understand
+  and needs a visual and copy redesign as part of this work.
+
+### Answers and copy
+
+- **Assistant answers** show rows and links from tool results separately from model
+  prose, which is labelled as generated. A deterministic check rejects any project
+  the tools did not return. Missing facts read Unknown.
+- **Visiting agents** write their own prose. In the ChatGPT test, recorded values
+  were correct and the model added its own judgment that one project was "the more
+  immediately informative choice". Tool descriptions state what each field means;
+  the page's own answer rules cover only the built-in assistant.
+- **Copy:** panel text, tool descriptions and the assistant's instructions follow
+  [curb-your-verbosiasm](../.agents/skills/curb-your-verbosiasm/SKILL.md) and its
+  sister skill `straightforward`. Say what a thing is and does.
+
+### Origin-trial token
+
+Tokens are optional for adopters. ChatGPT's browser worked without one; a token
+turns the API on for visitors' Chrome without a flag. Register ours at release. It
+needs attention by Chrome 162, stable on 2027-02-02.
+
+## Delivery
+
+| PR | Deliverable | Acceptance |
+| --- | --- | --- |
+| 1 | This PRD split into decisions and research notes | Links and brand checks pass |
+| 2 | Shared search, structured errors and the Cabinet check in CI, on Awesome Open | Manual and tool paths return identical IDs, order and unknowns; the Journeys table's Awesome Open searches behave as specified |
+| 3 | Throwaway model test on the M5, unmerged | Context window, speed and valid-action rate recorded for the journeys on both lists. Set a threshold after the first baseline. A failure drops the Prompt API and leaves search plus WebMCP |
+| 4 | Core, schema, read-only tools and importer | The importer is scored against the Mac list's JSON; the same script runs on Awesome Open and on the Mac list, injected only in our own browser |
+| 5 | Panel, assistant if it passed, and the Cabinet redesign, with a brand decision record | Keyboard, touch, focus and silencing checks pass on both lists |
+| 6 | Packaging, adopter docs, token and a demo recording | A maintainer can reproduce the fixture integration from the docs; the owner reviews the recording before anything is published |
+
+**Demo recording,** about 90 seconds on the M5: the local assistant on Awesome Open
+with "video editor"; the family-photo query returning a clear no-match; the same
+script on the Mac list, labelled as a local demo with no affiliation; then an agent
+calling the same tools.
+
+**Test machines:** the M5 (`ssh m5`) runs model and browser work. `alder` has about
+15 GB of RAM and reports the model as `downloadable`, so it serves as the low-end
+reference. On `alder`, browser checks need system Chrome through `CHROMIUM_PATH`,
+because Playwright's bundled Chromium can't start there.
+
+## Out of scope
+
+- Hosted scripts, backends, provider keys, automatic model downloads and analytics.
+- Deploying to other people's sites, or contacting maintainers without the owner.
+- Implying endorsement by any list used as a fixture.
+- Universal DOM parsing.
+- Aggregate rankings or recommendations; arbitrary URLs or code; repository writes,
+  payments and installation requests.
+- Assessment item #7, History and renames, excluded by the owner. Browser Back/Forward
+  and share-URL restoration stay in scope.
+
+## Open questions
+
+- **Link back from tool results:** in a cloud browser the person never sees the page,
+  so tool results could include the shareable selection URL for the agent to cite.
+- **Visitor-facing name for the Cabinet:** its current labels are "Specimen cabinet"
+  and "Experimental / WebMCP". The redesign needs a label that says what it does.
+
+Contribution by Junge (AI) and Claude Code (AI)
