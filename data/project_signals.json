@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-05T16:46:36Z",
+  "collected_at": "2026-11-06T04:23:22Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -3518,14 +3518,14 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-29T19:02:28Z",
+        "checked_at": "2026-11-06T04:23:22Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-10-29T19:02:28Z",
-          "observed_at": "2026-10-26T00:00:00Z",
+          "fetched_at": "2026-11-06T04:23:22Z",
+          "observed_at": "2026-11-02T00:00:00Z",
           "source_commit": "3ccb6f9d0195795bd461c3e634bbb8b22c72932c",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
@@ -3542,6 +3542,11 @@
                 "score": 0
               },
               {
+                "name": "Dangerous-Workflow",
+                "reason": "no workflows found",
+                "score": null
+              },
+              {
                 "name": "Token-Permissions",
                 "reason": "No tokens found",
                 "score": null
@@ -3550,11 +3555,6 @@
                 "name": "Code-Review",
                 "reason": "Found 5/30 approved changesets -- score normalized to 1",
                 "score": 1
-              },
-              {
-                "name": "Dangerous-Workflow",
-                "reason": "no workflows found",
-                "score": null
               },
               {
                 "name": "Binary-Artifacts",
@@ -3567,11 +3567,6 @@
                 "score": 0
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file not detected",
-                "score": 0
-              },
-              {
                 "name": "Pinned-Dependencies",
                 "reason": "no dependencies found",
                 "score": null
@@ -3579,6 +3574,11 @@
               {
                 "name": "Fuzzing",
                 "reason": "project is not fuzzed",
+                "score": 0
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file not detected",
                 "score": 0
               },
               {
@@ -3606,7 +3606,7 @@
             "score": 2.4
           }
         },
-        "last_success_at": "2026-10-29T19:02:28Z",
+        "last_success_at": "2026-11-06T04:23:22Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/dmfs/opentasks",
         "status": "partial",
@@ -26190,5 +26190,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "1d72bd0b30ab697292a2eb50eb9ce8e4251f28ce"
+  "source_sha": "ee49cf4510662d631cfd939a3a0221ebca2464a8"
 }
