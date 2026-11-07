@@ -230,7 +230,7 @@ const path = require('node:path');
     }
     assert.equal(await visible(), data.projects.length);
     assert.equal(await page.locator('#sort-order').isEnabled(), true);
-    assert.equal(await page.locator('#sort-order').inputValue(), 'stars');
+    assert.equal(await page.locator('#sort-order').inputValue(), 'match');
     const defaultIds = await page.evaluate(() => {
       const d = JSON.parse(document.getElementById('catalog-data').textContent);
       return d.projects.slice().sort(OpenCatalog.comparator('stars')).map(p => p.id);
@@ -244,7 +244,7 @@ const path = require('node:path');
     await assertVisiblePositions(page, 'name sort');
     await assertRecordIdentities(page, data, 'name sort');
     await page.locator('#clear-filters').click();
-    assert.equal(await page.locator('#sort-order').inputValue(), 'stars');
+    assert.equal(await page.locator('#sort-order').inputValue(), 'match');
 
     assert.equal(await page.locator('.specimen-drawer').count(), data.projects.length);
     await assertLedgerFits(page, 'desktop');
