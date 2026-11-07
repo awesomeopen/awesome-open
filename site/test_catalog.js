@@ -820,14 +820,17 @@ test('unavailable records are unknown while stale zero remains measurable', () =
   assert.deepEqual(catalog.selectProjects([unavailable, stale], state({ stars: '0' })).map(p => p.id), ['stale']);
 });
 
-test("explicit name sorting survives URL changes while reset uses stars", () => {
+test("explicit name sorting survives URL changes while reset uses match order", () => {
   const explicit = state(new URLSearchParams("sort=name&category=writing"));
   assert.equal(explicit.sort, "name");
   assert.deepEqual(ids({ sort: "name" }), ["open-alpha", "open-alpha-2", "open-beta", "open-empty", "open-zero"]);
   const url = catalog.stateToURL("https://example.org/?sort=name", explicit);
   assert.equal(state(url.searchParams).sort, "name");
   assert.equal(catalog.stateToURL(url, state({})).searchParams.has("sort"), false);
-  assert.equal(state({}).sort, "stars");
+  assert.equal(state({}).sort, "match");
+  assert.deepEqual(ids({}), ids({ sort: "stars" })); // No query: match order is the ledger's star order
+  assert.equal(state(new URLSearchParams("sort=stars")).sort, "stars");
+  assert.equal(catalog.stateToURL("https://example.org/", state({ sort: "stars" })).searchParams.get("sort"), "stars");
 });
 
 test("reviewed aliases match on boundaries and short names do not leak into prose", () => {
@@ -1394,7 +1397,7 @@ test("query and sort alone show the plain empty state", () => {
   ui.ids.search.value = "unfindable";
   ui.ids["sort-order"].value = "name";
   ui.ids.search.fire("change");
-  assert.equal(ui.ids["empty-state"].textContent, "No matches found.");
+  assert.match(ui.ids["empty-state"].textContent, /^No match in this catalog of \d+ Open\*-named projects\.$/);
   assert.equal(ui.ids["empty-state"].children.length, 0);
   ui.ids["license-filter"].value = "MIT";
   ui.ids["license-filter"].fire("change");

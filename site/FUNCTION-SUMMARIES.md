@@ -60,7 +60,7 @@ python3 -m unittest discover -s scripts -p 'test_function_summaries.py'
 python3 scripts/build_site.py --output tmp/summary-site
 ```
 
-Inspect the expanded record and the unchanged folded description. Sources and review date must appear beneath the longer prose. Search uses names, short descriptions, reviewed alternatives and [reviewed aliases](PROJECT-ALIASES.md#search-behavior). Static record pages show the summary and source links through the same renderer.
+Inspect the expanded record and the unchanged folded description. Sources and review date must appear beneath the longer prose. Search uses names, short descriptions, reviewed alternatives, [reviewed aliases](PROJECT-ALIASES.md#search-behavior), summaries and feature notes, through the [shared matcher](WEBMCP-CABINET.md#search). Static record pages show the summary and source links through the same renderer.
 
 ## Optional feature notes
 
