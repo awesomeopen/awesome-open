@@ -1,7 +1,7 @@
 /* Progressive enhancement for the static catalog. Same-origin records load on demand. */
 (function (root, factory) {
   "use strict";
-  var catalog = factory();
+  var catalog = factory(typeof module === "object" && module.exports ? require("./search.js") : root.OpenSearch);
   if (typeof module === "object" && module.exports) {
     module.exports = catalog;
   } else {
@@ -14,20 +14,15 @@
       catalog.init(root.document, root);
     }
   }
-})(typeof globalThis === "object" ? globalThis : this, function () {
+})(typeof globalThis === "object" ? globalThis : this, function (Search) {
   "use strict";
 
   var DEFAULTS = Object.freeze({
-    q: "", category: "", license: "all", stars: null, pushed: "", sort: "stars",
+    q: "", category: "", license: "all", stars: null, pushed: "", sort: "match",
     window: "all", alternative: "", metrics: "all", run_mode: "", install_method: ""
   });
   var PARAMS = ["q", "category", "license", "stars", "pushed", "sort", "window", "alternative", "metrics", "run_mode", "install_method"];
   var DAY = 24 * 60 * 60 * 1000;
-
-  function fold(value) {
-    return String(value == null ? "" : value).normalize("NFKD")
-      .replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  }
 
   function validDate(value) {
     if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return "";
@@ -36,17 +31,9 @@
       ? value : "";
   }
 
-  function licenseOf(project) {
-    var value = project.github && project.github.license;
-    if (typeof value !== "string") return "";
-    value = value.trim();
-    return value && !/^(NOASSERTION|OTHER|UNKNOWN)$/i.test(value) ? value : "";
-  }
+  function licenseOf(project) { return Search.licenseOf(project); }
 
-  function starsOf(project) {
-    var value = project.github && project.github.stars;
-    return typeof value === "number" && Number.isFinite(value) && value >= 0 ? value : null;
-  }
+  function starsOf(project) { return Search.starsOf(project); }
 
   function pushedAt(project) {
     var value = project.github && project.github.pushed_at;
@@ -63,7 +50,7 @@
     return Array.from(new Set(projects.reduce(function (names, project) {
       return names.concat((project.alternatives || []).map(function (item) { return item.name; })
         .filter(function (name) { return typeof name === "string" && name !== ""; }));
-    }, []))).sort(compareText);
+    }, []))).sort(Search.compareText);
   }
 
   function snapshotDate(snapshot) {
@@ -135,7 +122,7 @@
         ? license : "all",
       stars: stars,
       pushed: validDate(String(get("pushed") || "")),
-      sort: ["name", "stars", "pushed"].indexOf(get("sort")) !== -1 ? get("sort") : DEFAULTS.sort,
+      sort: ["match", "name", "stars", "pushed"].indexOf(get("sort")) !== -1 ? get("sort") : DEFAULTS.sort,
       window: ["all", "recent", "older", "unknown"].indexOf(get("window")) !== -1 ? get("window") : "all",
       alternative: alternativeNames(data.projects || []).indexOf(alternative) !== -1 ? alternative : "",
       run_mode: setupFilter(String(get("run_mode") || ""), data.projects || [], "run_modes"),
@@ -144,43 +131,15 @@
     };
   }
 
-  function searchText(project) {
-    return fold([project.name, project.description].concat(
-      (project.alternatives || []).map(function (item) { return item.name; })
-    ).join(" "));
-  }
-
-  function aliasNames(project) {
-    return (project.aliases || []).map(function (alias) { return fold(alias.name); });
-  }
-
-  function shortAliasNames(projects) {
-    return new Set(projects.reduce(function (names, project) {
-      return names.concat(aliasNames(project).filter(function (name) {
-        return /^[\p{L}\p{N}_]{1,4}$/u.test(name);
-      }));
-    }, []));
-  }
-
-  function boundaryMatch(text, token) {
-    var literal = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    return new RegExp("(^|[^\\p{L}\\p{N}\\p{M}_])" + literal + "(?=$|[^\\p{L}\\p{N}\\p{M}_])", "u").test(text);
-  }
-
   function matchesProject(project, state, snapshot, shortAliases) {
-    var tokens = fold(state.q).split(/\s+/).filter(Boolean);
-    if (tokens.length) {
-      var text = searchText(project);
-      var aliases = aliasNames(project);
-      shortAliases = shortAliases || shortAliasNames((snapshot && snapshot.projects) || [project]);
-      if (!tokens.every(function (token) {
-        // Preserve ordinary substring search; an exact reviewed short name such
-        // as OBS must not match incidental prose like "obsolete". Alias-only
-        // terms always use word boundaries, including Unicode letters/numbers.
-        return (shortAliases.has(token) ? boundaryMatch(text, token) : text.indexOf(token) !== -1) ||
-          aliases.some(function (alias) { return boundaryMatch(alias, token); });
-      })) return false;
-    }
+    var tokens = Search.words(state.q);
+    if (tokens.length && !Search.match(project, tokens,
+      shortAliases || Search.shortAliasNames((snapshot && snapshot.projects) || [project]),
+      snapshot && snapshot.search_text)) return false;
+    return matchesFilters(project, state, snapshot);
+  }
+
+  function matchesFilters(project, state, snapshot) {
     if (state.category && (project.categories || []).indexOf(state.category) === -1) return false;
     if (state.window && state.window !== "all" && pushWindowOf(project, snapshot) !== state.window) return false;
     if (state.metrics === "present" && !metricsPresent(project)) return false;
@@ -207,34 +166,20 @@
     return true;
   }
 
-  // Lexical comparisons make ordering reproducible across browser locales.
-  function compareText(a, b) {
-    return a < b ? -1 : a > b ? 1 : 0;
-  }
-
-  function compareName(a, b) {
-    return compareText(fold(a.name), fold(b.name)) || compareText(String(a.id), String(b.id));
-  }
-
-  function compareDescending(a, b) {
-    if (a === null && b === null) return 0;
-    if (a === null) return 1;
-    if (b === null) return -1;
-    return b - a;
-  }
-
-  function comparator(sort) {
+  function comparator(sort, hits) {
+    if (sort === "match") return Search.compareMatch(hits || null);
     return function (a, b) {
-      var result = sort === "stars" ? compareDescending(starsOf(a), starsOf(b))
-        : sort === "pushed" ? compareDescending(pushedAt(a), pushedAt(b)) : 0;
-      return result || compareName(a, b);
+      var result = sort === "stars" ? Search.compareDescending(starsOf(a), starsOf(b))
+        : sort === "pushed" ? Search.compareDescending(pushedAt(a), pushedAt(b)) : 0;
+      return result || Search.compareName(a, b);
     };
   }
 
   function selectProjects(projects, state, snapshot) {
-    var shortAliases = shortAliasNames(projects);
-    return projects.filter(function (project) { return matchesProject(project, state, snapshot, shortAliases); })
-      .sort(comparator(state.sort));
+    var text = snapshot && snapshot.search_text, hits = Search.find(projects, state.q, text);
+    return projects.filter(function (project) {
+      return (!hits || hits.has(project.id)) && matchesFilters(project, state, snapshot);
+    }).sort(comparator(state.sort, hits));
   }
 
   function stateToURL(currentURL, state) {
@@ -736,7 +681,7 @@
         data.projects.some(function (project) { return !project || !cards.has(project.id); })) return false;
 
     var existingLicenses = new Set(Array.from(controls.license.options).map(function (option) { return option.value; }));
-    Array.from(new Set(data.projects.map(licenseOf).filter(Boolean))).sort(compareText).forEach(function (license) {
+    Array.from(new Set(data.projects.map(licenseOf).filter(Boolean))).sort(Search.compareText).forEach(function (license) {
       if (!existingLicenses.has(license)) {
         var option = document.createElement("option");
         option.value = license;
@@ -769,7 +714,10 @@
     var navLinks = Array.from(document.querySelectorAll(".category-nav a[data-category]"));
     var timer = null;
     var currentState = DEFAULTS;
-    var renderedSort = null;
+    var renderedOrder = null;
+    var searchTextURL = embedded.dataset && embedded.dataset.searchText;
+    var searchTextState = searchTextURL ? "idle" : "unavailable";
+    var searchTextNotice = null;
     var linkNotice = document.getElementById("project-link-notice");
     var lastLinkedCard = null;
     var linkedWasHidden = false;
@@ -833,16 +781,46 @@
       });
     }
 
+    // The first search fetches function summaries and feature notes, then renders
+    // again with them. Until then it covers the fields in the embedded index.
+    function loadSearchText() {
+      if (searchTextState !== "idle") return;
+      searchTextState = "loading";
+      filters.dataset.searchText = "loading";
+      Search.loadText(window, searchTextURL, embedded.dataset.sourceSha).then(function (text) {
+        data.search_text = text;
+        searchTextState = "ready";
+        filters.dataset.searchText = "ready";
+        if (searchTextNotice) searchTextNotice.hidden = true;
+        render(currentState);
+      }).catch(function () {
+        searchTextState = "idle";
+        filters.dataset.searchText = "failed";
+        if (!searchTextNotice) {
+          searchTextNotice = document.createElement("p");
+          searchTextNotice.className = "link-notice";
+          searchTextNotice.setAttribute("role", "status");
+          searchTextNotice.textContent = "Function summaries and feature notes could not load. Search covers names, aliases, descriptions and alternatives.";
+          filters.appendChild(searchTextNotice);
+        }
+        searchTextNotice.hidden = false;
+      });
+    }
+
     function render(state) {
       currentState = state;
+      if (state.q) loadSearchText();
       var total = 0;
-      // Keep rows attached on filter-only changes. Reparenting a summary during
+      var hits = Search.find(data.projects, state.q, data.search_text);
+      var ordered = data.projects.slice().sort(comparator(state.sort, hits));
+      var order = ordered.map(function (project) { return project.id; }).join();
+      // Keep rows attached when the order holds. Reparenting a summary during
       // input blur can cancel the native disclosure click that follows.
-      var reorder = renderedSort !== state.sort;
+      var reorder = renderedOrder !== order;
       var fragment = reorder ? document.createDocumentFragment() : null;
-      data.projects.slice().sort(comparator(state.sort)).forEach(function (project) {
+      ordered.forEach(function (project) {
         var card = cards.get(project.id);
-        var visible = matchesProject(project, state, data);
+        var visible = (!hits || hits.has(project.id)) && matchesFilters(project, state, data);
         card.hidden = !visible;
         var leaders = project.leader_categories || [];
         var selectedLeaders = state.category ? leaders.filter(function (id) { return id === state.category; }) : leaders;
@@ -855,15 +833,15 @@
         if (reorder) fragment.appendChild(card);
       });
       if (reorder) list.appendChild(fragment);
-      renderedSort = state.sort;
+      renderedOrder = order;
       count.textContent = total === data.projects.length
         ? total.toLocaleString("en-US") + " projects"
         : total.toLocaleString("en-US") + " of " + data.projects.length.toLocaleString("en-US") + " projects";
       empty.hidden = total !== 0;
-      empty.textContent = "No matches found.";
       var hasFilters = Object.keys(DEFAULTS).some(function (key) {
         return key !== "q" && key !== "sort" && state[key] !== DEFAULTS[key];
       });
+      empty.textContent = hasFilters ? "No matches found." : Search.noMatch(data.projects.length);
       if (!total && hasFilters) {
         var reset = document.createElement("a");
         reset.textContent = "Reset filters.";

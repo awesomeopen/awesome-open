@@ -6,8 +6,10 @@ controls share the ordered selection, comparison and activity display.
 
 ## Tools and state
 
-- `cabinet_find`: literal word matching across names, descriptions and reviewed
-  aliases; at most 12 results, plus the current selection revision.
+- `cabinet_find`: the Catalog's search, through the [shared matcher](#search).
+  Returns 12 results from `offset`, the `total`, each result's `matched_fields`
+  and the current selection revision. Zero matches return a `message` naming this
+  catalog.
 - `cabinet_inspect`: display one project's cached evidence and source links.
 - `cabinet_arrange`: replace the ordered selection atomically with zero to six
   distinct canonical IDs, using the current revision. Stale revisions fail.
@@ -19,13 +21,36 @@ state change. Only one tool operation runs at a time. Cancellation aborts pendin
 fetches and is checked before committing a change. A comparison whose selection
 changed during loading fails; human selection changes remain available.
 
+Successful tool results carry `ok: true`. Failures return
+`{ok: false, code, message}`, because Chrome replaces a thrown error with a generic
+failure and the caller would lose the recovery instruction. The codes are
+`invalid_arguments`, `invalid_query`, `invalid_offset`, `invalid_ids`,
+`stale_revision`, `selection_changed`, `empty_selection`, `busy`, `cancelled`,
+`search_unavailable`, `evidence_unavailable` and `catalog_changed`.
+
 The page retains the latest 20 operation names, actors and outcomes in memory.
 It records executed operations, without generated reasoning. The agent/client
 provides its own model and connection; the site supplies native tools only.
 
+## Search
+
+`site/search.js` is the one matcher behind the Catalog's search box, the Cabinet's
+form and `cabinet_find`, so they return the same IDs, order and unknown values.
+
+- **Fields:** name, reviewed aliases, description, reviewed alternatives, function
+  summary and feature notes. Every query word must appear in at least one of them.
+- **Order:** the rank is the weakest field any word needed, in the order above; ties
+  go by name. With no query, the order is GitHub stars. Other orders are the Catalog's
+  explicit sort choices.
+- **Loading:** names, aliases, descriptions and alternatives are in the embedded
+  index. Summaries and notes are in `search-text.json`, fetched at the first search,
+  because embedding them would nearly double `index.html`'s gzip size. Until it
+  arrives the Catalog searches the embedded fields, then renders again. If it fails,
+  the Catalog says what it covered and `cabinet_find` returns `search_unavailable`.
+
 ## Evidence and URLs
 
-Search uses the embedded catalog index. Inspect and compare lazily load the one
+Inspect and compare lazily load the one
 same-origin generated `catalog.json`, rejecting redirects and a source-revision
 mismatch. The comparison presents Function, GitHub stars, detected license,
 repository push, cache status, observation/attempt dates and reviewed alternatives
@@ -52,12 +77,14 @@ palette and typography, ordered ruled rows and a labeled horizontally scrollable
 evidence table. Reorder/remove controls are keyboard and touch accessible; empty,
 loading, cancelled and error states use literal text. Existing artwork is unchanged.
 
-Run `node --test site/test_cabinet.js`, the Python suite and existing builds, then
-serve the generated site and run `node scripts/check_cabinet_browser.cjs`.
+Run `node --test site/test_search.js site/test_cabinet.js`, the Python suite and existing builds, then
+serve the generated site and run `node scripts/check_cabinet_browser.cjs`; CI runs
+it as the `cabinet` suite of `scripts/run_browser_checks.py`.
 Use `CHROMIUM_PATH` for an installed browser and `CHROMIUM_NO_SANDBOX=1` only when
 required by the execution environment. The dedicated check enables the native
-WebMCP feature and verifies discovery/execution, state sharing, invalid inputs,
-URL restoration, cancellation and desktop/mobile pixels. Report native bridge
+WebMCP feature and verifies discovery/execution, state sharing, structured errors,
+identical results between the Catalog and `cabinet_find`, the PRD's search journeys,
+a failed `search-text.json`, URL restoration, cancellation and desktop/mobile pixels. Report native bridge
 coverage separately from a full natural-language agent/client test.
 
 References checked 2026-11-02: [Chrome imperative API](https://developer.chrome.com/docs/ai/webmcp/imperative-api),

@@ -1,6 +1,7 @@
 """Offline site checks also run in the existing unittest workflow."""
 
 import copy
+import hashlib
 from html.parser import HTMLParser
 import json
 from font_assets import font_asset_url, content_url
@@ -12,11 +13,11 @@ import subprocess
 import tempfile
 import unittest
 
-from build_site import BRAND_ASSETS, ROOT, build, json_for_html, load_site_catalog, render_html, search_index
+from build_site import BRAND_ASSETS, ROOT, build, json_for_html, load_site_catalog, render_html, search_index, search_text
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
-RUNTIME_SCRIPTS = ('catalog.js', content_url('cabinet.js', ROOT / 'site/cabinet.js'))
+RUNTIME_SCRIPTS = (content_url('search.js', ROOT / 'site/search.js'), 'catalog.js', content_url('cabinet.js', ROOT / 'site/cabinet.js'))
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 
 
@@ -87,7 +88,7 @@ class SiteTests(unittest.TestCase):
                                 cwd=ROOT, capture_output=True, text=True, check=True)
         self.assertEqual(self.page.cards, json.loads(result.stdout))
         options = self.page.by_id['sort-order'].descendants('option')
-        self.assertEqual([o.attrs['value'] for o in options if 'selected' in o.attrs], ['stars'])
+        self.assertEqual([o.attrs['value'] for o in options if 'selected' in o.attrs], ['match'])
         self.assertIn('List numbers show position in current results', self.html)
         self.assertIn('Folio numbers show alphabetical position', self.html)
         folios = {p['id']: i + 1 for i, p in enumerate(self.catalog['projects'])}
@@ -254,7 +255,10 @@ class SiteTests(unittest.TestCase):
         for node in scripts[:-1]:
             self.assertIn('defer', node.attrs)
             self.assertEqual(node.text, '')
-        self.assertEqual(scripts[-1].attrs, {'id': 'catalog-data', 'type': 'application/json'})
+        data_attrs = dict(scripts[-1].attrs)
+        self.assertRegex(data_attrs.pop('data-search-text'), r'^search-text\.json\?v=[0-9a-f]{64}$')
+        self.assertRegex(data_attrs.pop('data-source-sha'), r'^[0-9a-f]*$')
+        self.assertEqual(data_attrs, {'id': 'catalog-data', 'type': 'application/json'})
         for node in page.elements:
             self.assertFalse(any(key.lower().startswith('on') for key in node.attrs), node.attrs)
             for attribute in ('href', 'src'):
@@ -266,6 +270,21 @@ class SiteTests(unittest.TestCase):
         for name in RUNTIME_SCRIPTS:
             name = name.split('?')[0]
             self.assertEqual((self.output / name).read_bytes(), (ROOT / 'site' / name).read_bytes())
+
+    def test_search_text_is_published_separately_and_addressed_by_content(self):
+        catalog = copy.deepcopy(self.catalog)
+        project = catalog['projects'][0]
+        project['function_summary'] = dict(text='Manages recorded herbarium sheets.', sources=[], checked_at='2026-11-06',
+                                           features=[dict(title='Sheet maps', text='Plots each sheet.', source_url='https://example.org')])
+        document = json.loads(search_text(catalog))
+        self.assertEqual(document['source_sha'], catalog.get('source_sha') or '')
+        self.assertEqual(document['projects'][project['id']], dict(summary='Manages recorded herbarium sheets.', features=['Sheet maps Plots each sheet.']))
+        self.assertNotIn('function_summary', search_index(catalog)['projects'][0])
+        self.assertNotIn('herbarium', json_for_html(search_index(catalog)))
+        written = (self.output / 'search-text.json').read_text(encoding='utf-8')
+        node = self.page.by_id['catalog-data']
+        self.assertEqual(node.attrs['data-search-text'], 'search-text.json?v=' + hashlib.sha256(written.encode('utf-8')).hexdigest())
+        self.assertEqual(node.attrs['data-source-sha'], json.loads(written)['source_sha'])
 
     def test_search_index_contains_only_runtime_fields_without_mutating_catalog(self):
         original = copy.deepcopy(self.catalog)

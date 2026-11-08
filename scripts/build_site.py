@@ -169,6 +169,22 @@ def search_index(catalog):
     }
 
 
+def search_text(catalog):
+    """Function summaries and feature notes, fetched on a visitor's first search.
+
+    Embedding them would nearly double the initial gzip transfer of index.html.
+    """
+    projects = {}
+    for project in catalog["projects"]:
+        summary = project.get("function_summary")
+        if summary:
+            projects[project["id"]] = {
+                "summary": summary["text"],
+                "features": [f'{feature["title"]} {feature["text"]}' for feature in summary.get("features", [])],
+            }
+    return compact_json({"source_sha": catalog.get("source_sha") or "", "projects": projects})
+
+
 def split_name(name):
     """The prefix treatment never changes the canonical name or identity."""
     if name[:4].lower() == "open":
@@ -765,6 +781,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
  <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
  <link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="{font_asset_url('styles.css', root)}">
+ <script src="{content_url("search.js", root / "site/search.js")}" defer></script>
  <script src="{escape(script_url)}" defer></script>
  <script src="{content_url("cabinet.js", root / "site/cabinet.js")}" defer></script>
  <link rel="stylesheet" href="{content_url("cabinet.css", root / "site/cabinet.css")}">
@@ -787,15 +804,15 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
   </form></div>
   <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Follow its full-record link for evidence and printing. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
   {(root / "site/cabinet.html").read_text(encoding="utf-8").replace("__SOURCE_SHA__", escape(catalog.get("source_sha") or ""))}
-  <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="name">Name A–Z</option><option value="stars" selected>Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
+  <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="match" selected>Match or stars</option><option value="name">Name A–Z</option><option value="stars">Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
   <p id="project-link-notice" class="link-notice" role="status" hidden></p><p id="empty-state" class="empty-state" hidden>No matches found.</p>
   <div id="project-list" class="project-list">{projects}</div>
  </main>
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
-<script id="catalog-data" type="application/json">{json_for_html(search_index(catalog))}</script>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Search results list the strongest matching field first, then by name</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Detected licenses: verify against current official terms</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared square-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+<script id="catalog-data" type="application/json" data-source-sha="{escape(catalog.get("source_sha") or "")}" data-search-text="search-text.json?v={hashlib.sha256(search_text(catalog).encode("utf-8")).hexdigest()}">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
 
@@ -921,6 +938,7 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
     assets = {
         "styles.css": (root / "site/styles.css").read_text(encoding="utf-8"),
         "catalog.js": runtime,
+        "search.js": (root / "site/search.js").read_text(encoding="utf-8"),
         "cabinet.js": (root / "site/cabinet.js").read_text(encoding="utf-8"),
         "cabinet.css": (root / "site/cabinet.css").read_text(encoding="utf-8"),
     }
@@ -937,6 +955,7 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
             render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root, variants=variants), encoding="utf-8"
         )
     (output / "catalog.json").write_text(compact_json(published_catalog(catalog)), encoding="utf-8")
+    (output / "search-text.json").write_text(search_text(catalog), encoding="utf-8")
     for name, content in assets.items():
         (output / name).write_text(content, encoding="utf-8")
     (output / "assets/hn").mkdir(parents=True, exist_ok=True)
