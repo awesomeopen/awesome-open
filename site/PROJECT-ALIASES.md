@@ -39,15 +39,16 @@ there is no block.
 
 ## Search behavior
 
-Queries still AND whitespace-separated tokens across names, descriptions,
-reviewed alternative names and aliases. Existing ordinary fields keep substring
+Queries AND whitespace-separated tokens across the
+[shared search fields](WEBMCP-CABINET.md#search). Ordinary fields keep substring
 matching. Alias-only text matches at Unicode word boundaries; it does not
 introduce partial-word hits. When a token exactly equals a reviewed short alias
 (one to four letters/numbers/underscores), that token also uses boundaries in
 ordinary fields. Thus `OBS` finds a real OBS name, not incidental `obsolete` or
 `observatory` prose. Matching folds case and accents; punctuation is literal.
-Other filter, URL-state and stars/name/push sorting behavior is unchanged. There
-is no relevance score. Alias collisions can return more than one project.
+The shared matcher defines default match order; explicit stars/name/push sorting,
+filters and URL state remain available. Alias collisions can return more than
+one project.
 
 Observatory counts and Shared names remain display-name-only. Aliases do not
 create extra projects, category memberships or name groups. The separate
