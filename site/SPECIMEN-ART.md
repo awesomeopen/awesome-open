@@ -87,13 +87,19 @@ cut-outs, their new records in both manifests and corresponding incremental
 asset-lock entries. Preserve existing assets, records and owner edits. Keep at
 most one backfill batch in flight; complete or resolve it before starting another.
 
+Follow [recoverable artwork batches](../automation/artwork-recovery.md) before
+generation: round-trip a small storage probe, then preserve and restore each
+original before starting the next image. Keep per-image archives and a durable
+index outside the repository. This applies to discovery artwork and backfill.
+
 Before publication:
 - Inspect the generated pixels and verify identity, dimensions, alt text,
   technical validity, provenance, rights and safety. Record truthful AI review;
   stylistic reservations remain nonblocking.
 - Save original generation artifacts, prompts, source evidence, final images,
   cut-outs, manifests and checksums in a verified recoverable bundle before
-  GitHub uploads. Record durable recovery references outside the repository.
+  GitHub uploads. Individually verified image archives plus their durable index
+  form this bundle. Record durable recovery references outside the repository.
 - Run the required offline tests, README/catalog/site builds and applicable
   browser/preview checks. Verify the remote diff and exact head, all required
   CI to a successful terminal outcome, and preserved unrelated records.
