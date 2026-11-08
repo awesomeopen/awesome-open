@@ -7,12 +7,13 @@
 | `speculative-fossoligy` | Reusable drawing language | Owner's reusable Skills workspace | Exact pinned snapshot including style atlas and UI assets |
 | `m-speculative-fossoligy` | Human-centric drawing of tools, projects, ideas and inhabited worlds | This repository, at the owner’s direction | Derived from the pinned Speculative FOSSoligy folder; adapted atlas and UI metadata, inherited icon |
 | `curb-your-verbosiasm` | Reader-focused documentation and explanatory copy for Awesome Open* | Owner's Skills workspace; current project rules govern facts and voice | Exact pinned snapshot including editing examples and repository checks |
+| [`straightforward`](../.agents/skills/straightforward/SKILL.md) | Optional direct, terse writing across formats | Owner's installed skill; repository adaptation reviewed in [PR #280](https://github.com/awesomeopen/awesome-open/pull/280) | Optional repository-local writing guide, outside the four pinned brand dependencies |
 | `gpt-taste` | Optional composition/refinement aid | Upstream/installed skill | Not a project dependency; no automatic theme/font/motion substitution |
 | `imagegen-frontend-web` | Optional section reference-image workflow | Owner's installed skill | Not a project dependency; one image per requested section when invoked |
 | `redesign-existing-projects` | Optional audit aid | Upstream/installed skill | Installed separately from taste-skill; no automatic project-wide redesign |
 | `brandkit` | Optional future visual summary | Upstream if adopted | Evaluated, not installed; no dependency or new identity implied |
 
-[skills.lock.json](skills.lock.json) pins every bundled reusable-skill file by
+[skills.lock.json](skills.lock.json) pins every file in the four brand-skill dependencies by
 SHA-256, along with its source name and captured Skills commit. `source_revision`
 identifies that upstream capture; `files` records the actual bundled bytes.
 Retro-Scraperism also records its repository adjustment below. The originals are
