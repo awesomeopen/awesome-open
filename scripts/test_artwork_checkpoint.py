@@ -156,6 +156,65 @@ class CheckpointTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "another plan"):
             checkpoint.validate_recovery_index(wrong, result["manifest"])
 
+    def test_candidate_revision_mismatch_fails_before_archive_creation(self):
+        _, specs, _ = self.bundle("publication")
+        candidate = next(e for e in specs if e["role"] == "candidate")
+        (self.staging / candidate["path"]).write_bytes(checkpoint.encode({"candidate_revision": "e" * 40}))
+        output = self.root / "bad-candidate.zip"
+        with self.assertRaisesRegex(ValueError, "Candidate revision differs"):
+            checkpoint.create_archive(self.plan, "publication", None, specs, self.staging, output)
+        self.assertFalse(output.exists())
+
+    def test_candidate_binding_detects_stale_bytes_records_and_checksums(self):
+        pid = "1" * 64
+        self.plan["project_ids"] = [pid]
+        candidate = self.root / "candidate"
+        archives = self.root / "archives"
+        archives.mkdir()
+        paths = {"final": f"site/specimens/{pid}.webp", "cutout": f"site/specimens/cutouts/{pid}.webp"}
+        payloads = {"final": b"final image fixture", "cutout": b"cutout image fixture"}
+        lock = {paths[role]: {"bytes": len(data), "sha256": checkpoint.digest(data)} for role, data in payloads.items()}
+        art_record = {"path": paths["final"][5:], "alt": "Fixture"}
+        cutout_record = {"path": paths["cutout"][5:]}
+        for role, path in paths.items():
+            checkpoint.write_new_bytes(candidate / path, payloads[role])
+        checkpoint.write_new(candidate / "data/specimen_art.json", {"artworks": {pid: art_record}})
+        checkpoint.write_new(candidate / "site/specimens/cutouts.json", {"cutouts": {pid: cutout_record}})
+        checkpoint.write_new(candidate / "brand/assets.lock.json", {"files": lock})
+        payloads.update({"artwork_record": checkpoint.encode(art_record), "cutout_record": checkpoint.encode(cutout_record),
+                         "checksums": checkpoint.encode(lock)})
+        specs = []
+        for role, data in payloads.items():
+            name = f"finalization/{role}.bin"
+            checkpoint.write_new_bytes(self.staging / name, data)
+            specs.append({"path": name, "role": role, "project_id": pid})
+        final_archive = self.root / "finalization.zip"
+        checkpoint.create_archive(self.plan, "finalization", pid, specs, self.staging, final_archive)
+        generation, _, _ = self.bundle("generation", pid)
+        receipts = {}
+        for kind, source in (("generation", generation), ("finalization", final_archive)):
+            restored = archives / (checkpoint.digest(source.read_bytes()) + ".zip")
+            shutil.copyfile(source, restored)
+            receipts[kind] = checkpoint.verify_restore(source, restored, self.storage, self.now)
+        index = {"plan_sha256": checkpoint.validate_plan(self.plan), "candidate_revision": "c" * 40, "images": {pid: receipts}}
+        self.assertEqual(checkpoint.verify_candidate(self.plan, index, candidate, archives)["project_count"], 1)
+        target = candidate / paths["final"]
+        before = target.read_bytes()
+        target.write_bytes(b"changed final")
+        with self.assertRaisesRegex(ValueError, "image differs"):
+            checkpoint.verify_candidate(self.plan, index, candidate, archives)
+        target.write_bytes(before)
+        manifest = candidate / "data/specimen_art.json"
+        before = manifest.read_bytes()
+        manifest.write_bytes(checkpoint.encode({"artworks": {pid: {**art_record, "alt": "Changed"}}}))
+        with self.assertRaisesRegex(ValueError, "records differ"):
+            checkpoint.verify_candidate(self.plan, index, candidate, archives)
+        manifest.write_bytes(before)
+        lock[paths["final"]]["sha256"] = "e" * 64
+        (candidate / "brand/assets.lock.json").write_bytes(checkpoint.encode({"files": lock}))
+        with self.assertRaisesRegex(ValueError, "checksums differ"):
+            checkpoint.verify_candidate(self.plan, index, candidate, archives)
+
     def test_rejects_stale_plan_unreserved_and_wrong_destination_receipts(self):
         self.receipt()
         changed = {**self.plan, "source_revision": "b" * 40}
