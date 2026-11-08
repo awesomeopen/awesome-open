@@ -221,6 +221,9 @@ star order. Keep at most **one backfill batch in flight** through validation and
 of every existing review status, overlapping proposals and owner edits; never
 regenerate existing images without a separate request.
 
+**Recovery:** Follow the [storage preflight and per-image checkpoints](artwork-recovery.md)
+before generation. An unavailable verified recovery destination pauses generation.
+
 **Output and review:** The backfill task delegates to the merged specimen
 contract and current approved art scope. Submit new originals under
 `site/specimens/`, matching cut-outs under `site/specimens/cutouts/`, corresponding
