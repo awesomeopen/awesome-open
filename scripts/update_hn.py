@@ -34,6 +34,7 @@ API = 'https://hn.algolia.com/api/v1/search_by_date'
 # Historical collection qualification, retained for cache/archive validation.
 # Current chart visibility is derived by chart_displayable(), independently.
 MIN_STORIES, MIN_MONTHS = 6, 3
+LOST_RESULT = 'Earlier invocation attempt has no retained result; retry on a later UTC day'
 COLLECTED_KEYS = {'monthly_counts', 'eligible', 'story_count', 'active_months',
                   'stories', 'excluded_candidates', 'query_sources', 'search_url'}
 MARKER = re.compile(r'(?:<br\s*/?>)?<!-- HN:START -->.*?<!-- HN:END -->', re.S)
@@ -434,11 +435,62 @@ def reconcile_retry_results(records, projects, months, now, archive):
                         'last_good': good, 'pending': {}}
 
 
+def recover_lost_results(records, projects, months, now, archive):
+    """Restore complete archived evidence behind a synthetic retry placeholder.
+
+    Keep the last attempt, pending state and quota accounting unchanged. The
+    recovered observation supplies charts while ordinary retry selection remains
+    due; recovery is not a new collection or a successful network attempt.
+    """
+    import chart_observations as observations
+    observations.validate(archive)
+    identities = {canonical_url(p['readme_url']): p for p in projects}
+    candidates = {}
+    for reference, observation in archive['observations'].items():
+        key = observation['identity']
+        record = records.get(key, {})
+        if (observation['kind'] != 'hn' or key not in identities
+                or record.get('status') != 'unavailable'
+                or record.get('error') != LOST_RESULT or record.get('pending')):
+            continue
+        previous = record.get('last_good', {})
+        # Only an older window can be displaced. Legacy observations may have
+        # no collection date; their original payload stays in the archive.
+        if previous:
+            after_window = datetime.strptime(previous['months'][-1], '%Y-%m') + timedelta(days=32)
+            if window(after_window)[2] != previous['months']:
+                raise ValueError('Invalid previous HN recovery window')
+            if previous['months'][-1] >= months[-1]:
+                continue
+        good = observations.materialize(archive, observation)
+        collected = good.get('collected_at')
+        if (not collected or good['months'] != months
+                or good.get('identity_key') != identity_key(identities[key])):
+            continue
+        stamp = datetime.fromisoformat(collected)
+        if (stamp > now or stamp > datetime.fromisoformat(record['checked_at'])
+                or (previous.get('collected_at')
+                    and stamp <= datetime.fromisoformat(previous['collected_at']))):
+            continue
+        candidates.setdefault(key, []).append((stamp, reference, good))
+    recovered = {}
+    for key, values in candidates.items():
+        latest = max(value[0] for value in values)
+        newest = [value for value in values if value[0] == latest]
+        # Conflicting results with the same timestamp need a separate review.
+        if len(newest) != 1:
+            continue
+        _, reference, good = newest[0]
+        records[key]['last_good'] = good
+        recovered[key] = reference
+    return recovered
+
+
 def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=None,
             request_budget=DEFAULT_REQUESTS, max_projects=DEFAULT_PROJECTS,
             seconds=DEFAULT_SECONDS, force=False, invocation_budget_file=None,
             checkpoint=None, monotonic=time.monotonic, sleeper=time.sleep, retain=None,
-            retry_archive=None):
+            retry_archive=None, recovery_archive=None):
     live_clock = now is None
     now = now or datetime.now(timezone.utc)
     start, end, months = window(now)
@@ -467,6 +519,8 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
     records = {k: v for k, v in records.items() if k in identities}
     if retry_archive is not None:
         reconcile_retry_results(records, projects, months, now, retry_archive)
+    if recovery_archive is not None:
+        recover_lost_results(records, projects, months, now, recovery_archive)
     today = now.date().isoformat()
     budget = {'utc_date': today, 'requests_used': 0, 'limit': request_budget, 'paused': False,
               'projects_used': 0, 'project_limit': max_projects, 'attempted_urls': [],
@@ -502,7 +556,7 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
         if key in identities and key not in known_today:
             record = records.setdefault(key, {})
             record.update(checked_at=now.isoformat(), status='unavailable',
-                          error='Earlier invocation attempt has no retained result; retry on a later UTC day')
+                          error=LOST_RESULT)
     validate_budget(budget)
     deadline = monotonic() + seconds
     metadata = metadata if metadata is not None else json.loads(METADATA_PATH.read_text())
@@ -767,7 +821,8 @@ def main():
             observations.add_hn(retry_archive, {'schema_version': 2, 'months': good['months'], 'projects': [],
                 'queue': {key: {'status': 'ok', 'checked_at': good['collected_at'], 'last_good': good}}})
             observations.save(retry_path, retry_archive)
-    evidence = refresh(existing=existing, retain=retain, retry_archive=retry_archive, force=args.refresh, invocation_budget_file=args.invocation_budget_file,
+    evidence = refresh(existing=existing, retain=retain, retry_archive=retry_archive, recovery_archive=archive,
+                       force=args.refresh, invocation_budget_file=args.invocation_budget_file,
                        checkpoint=lambda document: write_evidence(EVIDENCE_PATH, document))
     write_evidence(EVIDENCE_PATH, evidence)
     report = evidence['selection_report']
