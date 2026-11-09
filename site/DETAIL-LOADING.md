@@ -11,7 +11,8 @@ same-origin record request; no framework runtime or remote data service is used.
   evidence, art or identity. The loader adopts only its validated plate.
 - Each ledger drawer retains a clearly labeled full-record link for no-JavaScript,
   unavailable fetch, file browsing, error recovery and printing. Search and
-  filtering still use the embedded index without a request.
+  filtering use the embedded index; summary and feature-note search loads
+  separately through the [shared matcher](WEBMCP-CABINET.md#search).
 - The exhibition preview retains its complete static records.
 - Registry IDs, hash permalinks, QR destinations, alphabetical detail folios,
   current visible row numbering and filter/sort history retain their meanings.
