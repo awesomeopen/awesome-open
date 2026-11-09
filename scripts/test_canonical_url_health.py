@@ -12,11 +12,18 @@ Run:  python3 scripts/test_canonical_url_health.py
       python3 -m unittest discover -s scripts -p 'test_canonical_url_health.py'
 """
 
+from datetime import date, datetime, timezone
 import hashlib
+import io
+import json
+import os
 import sys
+import tempfile
 import threading
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -319,6 +326,125 @@ class EvidenceTests(unittest.TestCase):
                        "redirect_chain": [], "error_kind": None}}}
         with self.assertRaises(checker.EvidenceError):
             checker.validate_evidence(stale, by_id)
+
+    def test_departed_id_keeps_previous_sweep_catalog_sha(self):
+        stayed = "https://example.org/stay"
+        left = "https://example.org/left"
+        current = make_catalog([stayed])
+        previous_sha = "b" * 40
+        left_id = catalog_id(left)
+        evidence = {
+            "schema_version": 1,
+            "last_sweep": {"date": "2026-10-31", "catalog_source_sha": previous_sha},
+            "records": {left_id: {
+                "project_url": left,
+                "canonical_url_checked": left,
+                "checked_at": "2026-10-31",
+                "checked_by": "canonical-url-health/1",
+                "status": "client-error",
+                "http_status": 404,
+                "final_url": left,
+                "redirect_chain": [],
+                "error_kind": None,
+                "attempts": 1,
+                "review_status": "pending",
+                "review_note": "",
+                "observations": [],
+            }},
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            catalog_path = root / "catalog.json"
+            evidence_path = root / "evidence.json"
+            output_path = root / "out.json"
+            fixtures_path = root / "fixtures.json"
+            catalog_path.write_text(json.dumps(current), encoding="utf-8")
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+            fixtures_path.write_text(json.dumps({"responses": {}}), encoding="utf-8")
+            stdout, stderr = io.StringIO(), io.StringIO()
+            with redirect_stdout(stdout), redirect_stderr(stderr):
+                code = checker.main([
+                    "--catalog", str(catalog_path),
+                    "--evidence", str(evidence_path),
+                    "--output", str(output_path),
+                    "--dry-run", "--fixtures", str(fixtures_path),
+                    "--write-output", "--checked-date", "2026-11-09",
+                ])
+            self.assertEqual(code, 0, stderr.getvalue())
+            written = json.loads(output_path.read_text(encoding="utf-8"))
+        self.assertEqual(written["last_sweep"]["catalog_source_sha"], current["source_sha"])
+        self.assertEqual(written["records"][left_id]["last_present_source_sha"], previous_sha)
+        self.assertNotIn("last_present_source_sha", written["records"][catalog_id(stayed)])
+
+    def test_default_checked_date_is_utc(self):
+        catalog = make_catalog(["https://example.org/a"])
+        fetch = FixtureFetch({})
+
+        class local_date:
+            @staticmethod
+            def today():
+                return date(2026, 11, 8)
+
+        class utc_datetime:
+            @staticmethod
+            def now(tz=None):
+                return datetime(2026, 11, 9, 3, 0, tzinfo=timezone.utc)
+
+        with patch.object(checker, "date", local_date), \
+                patch.object(checker, "datetime", utc_datetime):
+            observations, report, _, _ = sweep(catalog, fetch)
+        self.assertEqual(report["date"], "2026-11-09")
+        self.assertEqual(observations[0].checked_at, "2026-11-09")
+
+    def test_live_run_reads_gh_token_then_github_token(self):
+        catalog = make_catalog(["https://example.org/a"])
+        seen = []
+
+        def fetch(method, url, timeout, opener=None):
+            return HopResponse(200, {})
+
+        def api_factory(token, timeout=checker.HEAD_TIMEOUT_SECONDS):
+            seen.append(token)
+            return lambda path: {"id": 1}
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            catalog_path = root / "catalog.json"
+            output_path = root / "out.json"
+            catalog_path.write_text(json.dumps(catalog), encoding="utf-8")
+            argv = ["--catalog", str(catalog_path), "--output", str(output_path),
+                    "--checked-date", "2026-11-09"]
+
+            def run(env):
+                seen.clear()
+                stdout, stderr = io.StringIO(), io.StringIO()
+                with patch.object(checker, "live_fetch", fetch), \
+                        patch.object(checker, "live_api_fetch", api_factory), \
+                        patch.dict(os.environ, env, clear=False), \
+                        redirect_stdout(stdout), redirect_stderr(stderr):
+                    os.environ.pop("GH_TOKEN", None)
+                    os.environ.pop("GITHUB_TOKEN", None)
+                    os.environ.update(env)
+                    code = checker.main(argv)
+                self.assertEqual(code, 0, stderr.getvalue())
+                return list(seen)
+
+            self.assertEqual(run({"GH_TOKEN": "from-gh", "GITHUB_TOKEN": "from-github"}),
+                             ["from-gh"])
+            self.assertEqual(run({"GITHUB_TOKEN": "from-github"}), ["from-github"])
+
+    def test_run_report_includes_redirect_class(self):
+        url = "https://www.openldap.org/software"
+        final = url + "/"
+        catalog = make_catalog([url])
+        fetch = FixtureFetch({
+            "HEAD " + url: [{"status": 301, "location": final}],
+            "HEAD " + final: [{"status": 200}],
+        })
+        observations, report, _, _ = sweep(catalog, fetch, checked_at="2026-11-09")
+        self.assertEqual(observations[0].status, "redirect-permanent")
+        self.assertEqual(report["redirect_triage"], [
+            {"catalog_id": catalog_id(url), "class": "A"}])
 
     def test_triage_class_a_trailing_slash(self):
         self.assertEqual(
