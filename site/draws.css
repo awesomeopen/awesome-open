@@ -1,7 +1,6 @@
 /* Spotlight (/spotlight/). The route shell, labels, metrics,
    disclosures, closing mark and footer come from observatory.css (B42).
    This file only lays out the specimen tray and its records. */
-.draw-jump { margin: 0 0 8px; }
 .draw-metrics { margin-top: 48px; margin-bottom: 0; }
 .draw-metrics [data-metric] { font-size: clamp(20px, 2.2vw, 28px); }
 

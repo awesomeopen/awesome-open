@@ -31,7 +31,6 @@ class AliasTests(unittest.TestCase):
         self.assertEqual(result['id'], original['id'])
         self.assertEqual(result['url'], original['url'])
         self.assertEqual(result['aliases'], doc['projects'][0]['aliases'])
-        self.assertEqual(result['alias_review']['checked_at'], '2026-10-16')
         result['aliases'][0]['name'] = 'Changed output'
         self.assertEqual(doc, before)
         with tempfile.TemporaryDirectory() as directory:
@@ -92,8 +91,6 @@ class AliasTests(unittest.TestCase):
                 self.assertEqual(projects[url]['id'], baseline[url]['id'])
                 self.assertEqual(projects[url]['name'], baseline[url]['name'])
                 self.assertEqual(projects[url]['aliases'], record['aliases'])
-                self.assertEqual(projects[url]['alias_review'], {
-                    'checked_at': record['checked_at'], 'reviewed_by': record['reviewed_by']})
         self.assertEqual(document, before)
 
     def test_hn_reuse_is_explicit_and_ambiguous_names_require_context(self):

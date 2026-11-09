@@ -102,7 +102,6 @@ class WeeklyDrawTests(unittest.TestCase):
             for removed in ('Week of ', 'How the draw works', 'Stars do not affect the draw.',
                             'class="obs-finding', 'Return to project ledger', '#week-'):
                 self.assertNotIn(removed, html)
-            self.assertIn('class="obs-jump draw-jump" aria-label="Sections" hidden', html)
             footer = html.split('<footer class="obs-footer">', 1)[1]
             self.assertIn('href="draws.json" download>Download draw records</a> · ', footer)
             self.assertLess(footer.index('Draw contract</a>'), footer.index('>GitHub</a>'))
