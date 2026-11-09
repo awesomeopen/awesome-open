@@ -657,11 +657,6 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         attention = project["hn"]
         inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched {"story" if attention["total_stories"] == 1 else "stories"}" loading="lazy">'
     leader_categories = project.get("leader_categories", [])
-    leader_label = (
-        " / ".join(categories[c] for c in leader_categories)
-        if leader_categories
-        else ""
-    )
     if deferred:
         interior = (
             f'<div class="specimen-detail-host" data-detail-url="records/{pid}.html" data-project-id="{pid}">'
@@ -671,7 +666,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         interior = plate_html(project, categories, catalog, number, cutouts, variants)
     return f'''<article class="project-card" data-leader="{"true" if leader_categories else "false"}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
-  <summary><span class="folio" title="Position in current results" aria-hidden="true">{position:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}<span class="leader-label"{"" if leader_categories else " hidden"}>{escape(leader_label)}</span></span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
+  <summary><span class="folio" title="Position in current results" aria-hidden="true">{position:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}</span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
 {interior}
  </details>
 </article>'''

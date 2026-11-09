@@ -79,7 +79,7 @@
     return "";
   }
 
-  // The summary and filter share these predicates; no lifecycle judgment is inferred.
+  // The summary and filter share these predicates.
   function diagnosticCounts(projects, snapshot) {
     var counts = { recent: 0, older: 0, unknown: 0, "metrics-present": 0, "metrics-missing": 0 };
     projects.forEach(function (project) {
@@ -204,7 +204,7 @@
     };
   }
 
-  // Concentric contour rings; deterministic per Registry ID and encoding no data.
+  // Concentric contour rings; deterministic per Registry ID.
   function plateRings(seed, cx, cy, count, step, sx, sy) {
     var random = seededRandom(seed);
     var phase = [random() * 6.28, random() * 6.28, random() * 6.28];

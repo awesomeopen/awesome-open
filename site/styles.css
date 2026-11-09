@@ -155,17 +155,9 @@ summary::marker {
   align-items:start;
 }
 .category-panel>summary {
-  font:13px var(--mono);
-  text-transform:uppercase;
-  padding:14px 0;
-  border-top:2px solid var(--ink);
-  border-bottom:1px solid var(--ink);
-  display:flex;
-  justify-content:space-between;
   gap:12px;
 }
 .category-nav {
-  padding-top:8px;
   overflow:auto;
   scrollbar-width:thin;
 }
@@ -213,9 +205,6 @@ summary::marker {
 .catalog-main:focus:not(:focus-visible) {
   outline:none;
 }
-.search-field {
-  padding:16px 0;
-}
 .search-field>label,.filter-field>label {
   display:block;
   font:13px/1.5 var(--mono);
@@ -224,23 +213,12 @@ summary::marker {
 .search-input {
   display:flex;
   align-items:center;
-  gap:12px;
-}
-.search-input>span {
-  color:var(--accent);
-  font-size:26px;
 }
 .search-input input {
   width:100%;
   min-width:0;
-  border:1px solid var(--ink);
-  background:white;
-  padding:12px;
-  font-size:19px;
-  min-height:48px;
 }
 .search-input input::placeholder {
-  color:var(--muted);
   opacity:1;
 }
 .diagnostic-filters,.filter-grid {
@@ -350,7 +328,6 @@ summary::marker {
 .license-readout {
   font:13px/1.5 var(--mono);
   overflow-wrap:anywhere;
-  color:var(--muted);
 }
 .drawer-sign {
   font:24px/1 var(--mono);
@@ -526,7 +503,6 @@ summary::marker {
 .header-search { padding:0; flex:1; min-width:160px; }
 .header-search > label { margin:0; color:var(--rs-trace); font-size:12px; }
 .header-search .search-input { gap:0; }
-.header-search .search-input > span { display:none; }
 .header-search input { min-height:36px; padding:4px 0; color:white; background:transparent; border:0; border-bottom:1px dashed var(--rs-trace); }
 .header-search input::placeholder { color:var(--rs-trace); }
 h1 { margin:0; }
@@ -555,7 +531,6 @@ h1 { margin:0; }
 
 /* Compact production ledger */
 .results-heading { justify-content:flex-end; }
-.leader-label { display:none; }
 .description { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .license-readout { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .license-readout:empty { visibility:hidden; }
@@ -589,7 +564,7 @@ h1 { margin:0; }
 .function-detail>p {overflow-wrap:anywhere;}
 
 
-/* The text stays on solid blue / pattern; transparent creatures occupy the footer floor. */
+/* The text stays on solid blue / pattern. */
 .site-footer.has-art {position:relative;isolation:isolate;overflow:hidden;padding-bottom:24px;background-image: url(patterns/navypattern2.png); border-top: 3px double #fff;}
 /* One source pixel per CSS pixel at every viewport; the footer clips overflow. */
 .footer-art {position:absolute;z-index:-1;inset:auto auto 0 50%;left:round(nearest,50%,1px);width:auto;height:auto;min-width:0;max-width:none;max-height:none;transform:translateX(-50%);pointer-events:none;mask-image:linear-gradient(to bottom,transparent,#000 22%);}
@@ -605,7 +580,7 @@ h1 { margin:0; }
 
 .page-end {display:flex;justify-content:center;padding:72px 24px 120px;}
 .page-end img {display:block;max-width:100%;height:auto;}
-/* Typography revision: soft editorial headings, precise ledger text. */
+/* Soft editorial headings, precise ledger text. */
 body {font-size:15px;line-height:1.6;font-weight:400;font-variant-numeric:tabular-nums;font-synthesis:none;}
 h1,h2,h3,.record-description,.data-notes>summary {
   font-family:var(--rs-display);font-weight:var(--rs-display-weight, 400);font-optical-sizing:auto;
@@ -655,7 +630,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
   .specimen-name {font-size:16px;line-height:1.45;}
 }
 
-/* Specimen plate: the expanded record for every project (B22). Folded ledger rows are unchanged. */
+/* Specimen plate: the expanded record for every project (B22). */
 .specimen-interior.specimen-plate {display:block;color:var(--rs-blueprint);border-top:3px double var(--rs-blueprint);isolation:isolate;}
 .plate-heading {display:flex;gap:16px;}
 .plate-aliases {list-style:none;margin:4px 0 0;padding:0;font:12px/1.75 var(--mono);color:var(--muted);overflow-wrap:anywhere;}

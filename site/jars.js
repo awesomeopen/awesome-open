@@ -1,4 +1,4 @@
-/* Fixed-size photographic planes; depth comes from translation, not rescaling. */
+/* Fixed-size photographic planes; depth comes from translation. */
 (()=>{
  'use strict';
  const hall=document.querySelector('.jar-hall');if(!hall)return;
@@ -17,8 +17,8 @@
  const staticMotion=()=>reduced.matches||motionPaused;
  function syncAmbient(){hall.classList.toggle('ambient-paused',staticMotion()||document.hidden||!inView);}
  const pointer={inside:false,x:0};
- const keys=['x','y','ix','iy','reflection','light'];
- const resting={x:0,y:0,ix:0,iy:0,reflection:0,light:.14};
+ const keys=['x','y','ix','reflection','light'];
+ const resting={x:0,y:0,ix:0,reflection:0,light:.14};
  const motion=exhibits.map(node=>({node,value:{...resting},velocity:Object.fromEntries(keys.map(k=>[k,0]))}));
  const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
  function paint(item,moving=false){
@@ -27,7 +27,7 @@
    // without a transformed ancestor retaining a composited raster of the jar.
    const pixels=value=>(moving?value.toFixed(3):Math.round(value))+'px';
    style.setProperty('--mx',pixels(v.x));style.setProperty('--my',pixels(v.y));
-   style.setProperty('--inner-x',pixels(v.ix));style.setProperty('--inner-y',pixels(v.iy));
+   style.setProperty('--inner-x',pixels(v.ix));
    style.setProperty('--reflection-x',pixels(v.reflection));
    style.setProperty('--glass-light',v.light.toFixed(3));
  }
@@ -39,7 +39,7 @@
    const selected=active===item.node,depth=1-Math.abs(index-3)/5;
    const forward=selected?1:near*.42;
    return {x:-cameraX*(4+depth*3),y:-forward*3,
-     ix:cameraX*(2+forward),iy:0,reflection:-cameraX*2,
+     ix:cameraX*(2+forward),reflection:-cameraX*2,
      light:.14+forward*.11+Math.abs(cameraX)*.04};
  }
  function tick(time){
