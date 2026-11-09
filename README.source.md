@@ -358,6 +358,7 @@
 | [OpenSEO](https://github.com/every-app/open-seo) | SEO platform for keyword research, rank tracking, competitor analysis, backlinks, site audits, and AI-agent integrations.<br>Alternative to: [Semrush](https://github.com/every-app/open-seo/blob/main/README.md), [Ahrefs](https://github.com/every-app/open-seo/blob/main/README.md) |
 | [OpenSequence](https://github.com/lguerberg/open-sequence) | Self-hosted engine for scheduling sales outreach sequences, tracking replies, and connecting CRM workflows through APIs and webhooks. |
 | [OpenSign](https://github.com/OpenSignLabs/OpenSign) | Document signing and electronic signature workflows.<br>Alternative to: [DocuSign](https://github.com/OpenSignLabs/OpenSign#readme), [PandaDoc](https://github.com/OpenSignLabs/OpenSign#readme), [SignNow](https://github.com/OpenSignLabs/OpenSign#readme) |
+| [OpenVerein](https://github.com/KI-Klub-Werder-e-V/openverein) | Self-hosted management for German registered associations, with membership, dues, accounting, events, and a member portal. |
 
 ## Knowledge Management
 
