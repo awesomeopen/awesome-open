@@ -628,6 +628,34 @@
           "scope": "Configuration of supported Logitech mice, keyboards, and webcams. The official README explicitly calls OpenLogi an alternative to Logitech Options+. Feature coverage varies by device and platform; quit Options+ before use because only one application can own a receiver at a time."
         }
       ]
+    },
+    {
+      "readme_url": "https://github.com/ganeshrvel/openmtp",
+      "alternatives": [
+        {
+          "name": "Android File Transfer",
+          "source_url": "https://openmtp.ganeshrvel.com/",
+          "checked_utc_date": "2026-11-09",
+          "claimant": "OpenMTP",
+          "source_quote": "alternative to Google's Android File Transfer",
+          "scope": "USB MTP file transfer between macOS and Android devices. The official FAQ explicitly positions OpenMTP as an Android File Transfer alternative.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "readme_url": "https://github.com/LAION-AI/Open-Assistant",
+      "alternatives": [
+        {
+          "name": "ChatGPT",
+          "source_url": "https://projects.laion.ai/Open-Assistant/blog/we-need-your-help",
+          "checked_utc_date": "2026-11-09",
+          "claimant": "OpenAssistant",
+          "source_quote": "alternative to ChatGPT",
+          "scope": "Chat-based AI assistance. The official February 5, 2023 announcement positions OpenAssistant as a ChatGPT alternative. The project announced completion on October 25, 2023; this records its historical positioning.",
+          "confidence": "high"
+        }
+      ]
     }
   ]
 }
