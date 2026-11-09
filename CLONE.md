@@ -211,7 +211,7 @@ Each task specification should record:
 | Inputs | Repository/ref, naming policy, existing records and evidence contracts |
 | Method | Search guidance, canonical-URL deduplication, official-source verification, ambiguity handling |
 | Output | Candidate or correction, source URLs, checked UTC date, evidence excerpt/summary, affected paths, unresolved questions |
-| Review | Explicit write authorization, factual checks and exact tested revision; draft PR/maintainer approval by default, no automatic merge. The current discovery-only direct-source exception is recorded in the inventory and is not inherited by clones |
+| Review | Explicit write authorization, factual checks and exact tested revision; draft PR/maintainer approval by default, no automatic merge. The inventory records Awesome Open's task-specific review gates; clones require their own authorization |
 | Schedule | Proposed timezone/cadence and manual trigger; operator explicitly installs/enables it |
 | Failure | Rate limits, stale/unknown data, last-good preservation, retry budget and visible failure report |
 | Run record | Start/end time, input revision, task-spec version, changed files, checks and PR URL |
