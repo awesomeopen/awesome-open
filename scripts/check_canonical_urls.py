@@ -7,22 +7,12 @@ library only. No network access in tests: the probe takes an injectable
 ``fetch`` callable, and the test suite replays recorded redirect chains
 through it.
 
-Confirmed owner decisions, 2026-10-31 (Appendix C of the contract):
-1. Pacing: 1.0s between github.com requests, 0.5s for other hosts, at most
-   8 workers, 1 in flight per host, full weekly sweep.
-2. GitHub token: the existing publisher token, for repository-ID
-   verification after a redirect only. Never sent to a non-GitHub host,
-   never written to any file or report.
-3. User-Agent: ``awesome-open-canonical-url-health/1.0
-   (+https://github.com/awesomeopen/awesome-open)``.
-4. Display: reviewer-only evidence file in version 1, no Observatory display.
-   This script produces no display output.
-5. Runner: hosted assistant task, not a GitHub Actions workflow. Nothing
-   in this script registers a schedule.
+Owner decisions are recorded in ``automation/canonical-url-health.md``.
 
 The checker never edits the catalog, a name, a URL, an alias, or a history
-record. It writes only ``data/canonical_url_health.json`` (changed-only
-records plus a sweep summary), and only when not in dry-run mode.
+record. It writes the ``--output`` evidence file (changed-only records plus
+a sweep summary). A dry run writes that file only when ``--write-output``
+is given; without ``--fixtures`` it prints probe order and writes nothing.
 """
 
 import argparse
@@ -71,16 +61,12 @@ ERROR_KINDS = {
     "too-many-hops", None,
 }
 
-# Section 6 requires following each hop and stopping at the first
-# non-redirect response, and section 7 defines http_status as the final
-# response status. This implementation follows sections 6 and 7:
-# http_status and final_url describe the final response after the chain,
-# so a permanent redirect whose target answers 200 records
-# http_status 200 at the new URL.
+# http_status and final_url are the final response after the redirect chain,
+# so a permanent redirect whose target answers 200 records http_status 200.
 
 
 class EvidenceError(ValueError):
-    """The catalog or evidence file fails validation; file no draft."""
+    """Catalog or evidence validation failed."""
 
 
 class ProbeFailure(Exception):
@@ -547,7 +533,9 @@ def merge_evidence(previous_records, observations, checked_at, catalog_by_id,
     A record that answers cleanly (reachable, no redirect) is kept for one
     further sweep and removed on the next clean sweep. Cleanliness is
     read from the previous record's top-level fields, so no extra field
-    is added to the schema.
+    is added to the schema. ``catalog_source_sha`` is the previous sweep's
+    catalog SHA, written to ``last_present_source_sha`` when an ID has left
+    the catalog and that record has no stamp yet.
     """
     records = {}
     changed_ids = []
@@ -555,8 +543,12 @@ def merge_evidence(previous_records, observations, checked_at, catalog_by_id,
     by_id = {obs.catalog_id: obs for obs in observations}
     for catalog_id, previous in previous_records.items():
         if catalog_id not in by_id:
-            # Retained record for a URL that left the catalog, or a record
-            # from a partial sweep: preserve it untouched.
+            if (catalog_id not in catalog_by_id
+                    and isinstance(previous, dict)
+                    and not previous.get("last_present_source_sha")
+                    and catalog_source_sha):
+                previous = dict(previous)
+                previous["last_present_source_sha"] = catalog_source_sha
             records[catalog_id] = previous
     for observation in observations:
         project = catalog_by_id[observation.catalog_id]
@@ -656,7 +648,7 @@ def run_sweep(catalog, fetch, *, pacer=None, sleep=time.sleep, checked_at=None,
     set of HTTP results. A rate-limit blocker (>10 URLs returning 429)
     stops the sweep and preserves the observations already recorded.
     """
-    checked_at = checked_at or date.today().isoformat()
+    checked_at = checked_at or datetime.now(timezone.utc).date().isoformat()
     clock = clock or time.monotonic
     pacer = pacer or HostPacer(sleep=sleep)
     projects = sorted(catalog["projects"], key=lambda item: item["id"])
@@ -707,6 +699,16 @@ def run_sweep(catalog, fetch, *, pacer=None, sleep=time.sleep, checked_at=None,
                 and previous.get("error_kind") == observation.error_kind
                 and previous.get("checked_at") != checked_at):
             persistent.append(observation.catalog_id)
+    triage = []
+    for observation in observations:
+        if observation.status != "redirect-permanent" and not (
+                observation.status == "redirect-temporary"
+                and observation.github_identity_verified):
+            continue
+        label = triage_class(observation.canonical_url_checked,
+                             observation.final_url, observation.redirect_chain)
+        if label:
+            triage.append({"catalog_id": observation.catalog_id, "class": label})
     report = {
         "date": checked_at,
         "catalog_source_sha": catalog.get("source_sha"),
@@ -716,6 +718,7 @@ def run_sweep(catalog, fetch, *, pacer=None, sleep=time.sleep, checked_at=None,
         "requests": total_requests,
         "elapsed_seconds": round(clock() - started, 1),
         "persistent_failures": sorted(persistent),
+        "redirect_triage": triage,
         "blockers": blockers,
     }
     return observations, report, blockers
@@ -762,8 +765,9 @@ def main(argv=None):
                         help="Evidence file to write (not written in dry-run mode "
                              "unless --write-output is also given)")
     parser.add_argument("--dry-run", action="store_true",
-                        help="No network. Requires --fixtures; writes nothing "
-                             "unless --write-output is given.")
+                        help="No network. Without --fixtures, print probe order "
+                             "and write nothing. With --fixtures, replay them and "
+                             "write the output only when --write-output is given.")
     parser.add_argument("--write-output", action="store_true",
                         help="Write the output file even in dry-run mode.")
     parser.add_argument("--fixtures", type=Path,
@@ -774,10 +778,6 @@ def main(argv=None):
                         help="Probe only the first N URLs in catalog-ID order (pilot bound)")
     parser.add_argument("--workers", type=int, default=MAX_WORKERS,
                         help="Probe workers, at most 8, 1 in flight per host")
-    parser.add_argument("--github-token-env", default="GITHUB_TOKEN",
-                        help="Environment variable holding the GitHub token for "
-                             "repository-ID verification; unset means unverified. "
-                             "The token is never written to any file.")
     args = parser.parse_args(argv)
     if args.checked_date:
         try:
@@ -803,17 +803,20 @@ def main(argv=None):
         api_fetch = None
     else:
         fetch = live_fetch
-        token = os.environ.get(args.github_token_env)
+        token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
         api_fetch = live_api_fetch(token) if token else None
         if token is None:
-            print("No GitHub token in %s; GitHub redirects stay identity-unverified."
-                  % args.github_token_env, file=sys.stderr)
+            print("No GitHub token in GH_TOKEN or GITHUB_TOKEN; "
+                  "GitHub redirects stay identity-unverified.", file=sys.stderr)
     observations, report, blockers = run_sweep(
         catalog, fetch, checked_at=args.checked_date, api_fetch=api_fetch,
         max_workers=args.workers, max_urls=args.limit, previous_records=previous_records)
+    last_sweep = previous.get("last_sweep")
+    previous_catalog_sha = (last_sweep.get("catalog_source_sha")
+                            if isinstance(last_sweep, dict) else None)
     records, changed_ids, pruned_ids = merge_evidence(
         previous_records, observations, report["date"],
-        {p["id"]: p for p in catalog["projects"]}, catalog.get("source_sha"))
+        {p["id"]: p for p in catalog["projects"]}, previous_catalog_sha)
     evidence = {
         "schema_version": SCHEMA_VERSION,
         "last_sweep": {
