@@ -72,7 +72,8 @@ Validate and accept → Build → Public listing.
 
 Use three actor lanes: **Submitter / discovery**, **Research and review**,
 **Publication**. Show **Catalog PR → Owner merge → Main source accepted**.
-Discovery uses a source-only draft PR on this same acceptance path.
+Discovery uses a source-only draft PR on this same acceptance path, as recorded
+in [the workflow revision](brand/decisions/B-PR297-01.md).
 Show **README generated → Website built → Pages deployed** inside the publication lane.
 
 Decision exits: **Already listed → Existing record**; **Already proposed → Existing
