@@ -141,12 +141,11 @@ def validate(root):
 
 
 def publish(root=ROOT, max_attempts=5, cached=False):
+    if cached:
+        return publish_attempts(root, max_attempts, None, cached=True)
     # A retry uses another worktree, but shares the optional star-request budget.
     with tempfile.TemporaryDirectory(prefix="star-request-budget-") as directory:
-        budget_file = Path(directory) / "budget.json"
-        if cached:
-            return publish_attempts(root, max_attempts, budget_file, cached=True)
-        return publish_attempts(root, max_attempts, budget_file)
+        return publish_attempts(root, max_attempts, Path(directory) / "budget.json")
 
 
 def publish_attempts(root, max_attempts, star_budget_file, cached=False):

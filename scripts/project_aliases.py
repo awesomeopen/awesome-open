@@ -76,7 +76,6 @@ def attach(projects, document, canonical_url):
         raise ValueError('Reviewed aliases refer to unlisted projects: ' + ', '.join(sorted(unused)))
     for url, entry in evidence.items():
         projects[url]['aliases'] = entry['aliases']
-        projects[url]['alias_review'] = {key: entry[key] for key in ('checked_at', 'reviewed_by')}
 
 
 def hn_rules(project, evidence):

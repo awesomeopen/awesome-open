@@ -14,7 +14,7 @@ METHOD_VERSION = '1'
 REPO = re.compile(r'[a-z0-9_.-]+/[a-z0-9_.-]+')
 SHA = re.compile(r'[0-9a-f]{40}')
 STATUSES = {'available', 'unavailable', 'pending', 'partial', 'stale'}
-FETCH_STATUSES = {'not_checked', 'ok', 'not_modified', 'not_found', 'pending', 'error', 'deferred'}
+FETCH_STATUSES = {'not_checked', 'ok', 'not_modified', 'not_found', 'pending', 'error'}
 
 
 def timestamp(value):
@@ -64,7 +64,7 @@ def empty_snapshot(at, source_sha=None):
 def effective_status(record, provider, at):
     good = record['last_good']
     if good is None:
-        return 'pending' if record['fetch_status'] in {'not_checked', 'pending', 'deferred'} else 'unavailable'
+        return 'pending' if record['fetch_status'] in {'not_checked', 'pending'} else 'unavailable'
     if record['fetch_status'] not in {'ok', 'not_modified'}:
         return 'stale'
     # Release age describes a release, not cache freshness. Scorecard scan age is
