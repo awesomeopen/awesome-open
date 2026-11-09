@@ -1,7 +1,7 @@
 """Immutable, offline archive of completed HN and aggregate-star observations.
 
-The display caches remain rolling 24-month views. This archive never synthesizes
-historical totals, merges counts from different fetches, or drives chart output.
+The display caches remain rolling 24-month views. Validated complete observations
+can restore those caches; the renderers read only their selected current window.
 Raw stories and weekly bins are content-addressed so unchanged evidence is stored
 once, including across fetches, windows and reviewed identity revisions.
 """

@@ -84,6 +84,18 @@ cache and can be lost when that worktree is discarded; their charges still preve
 same-day refetch. This handoff lasts for one publisher invocation. Recovery after
 runner loss still requires the reviewed archive procedure below.
 
+The collector also repairs the synthetic “Earlier invocation attempt has no
+retained result” placeholder from completed observations already in the durable
+archive. It restores `last_good` only when the current catalog identity/query
+fingerprint and 24-month window match, the original collection date precedes or
+equals the placeholder attempt, and any existing result has an older window.
+Dated prior results also require a later collection timestamp. Undated older
+observations retain their original payloads in the archive. Current/newer windows,
+pending pages, and conflicting latest timestamps remain unchanged. The attempt
+date, failure status, quota charges and immutable archive stay intact; collection
+remains due under the ordinary retry policy. The restored observation supplies
+the chart immediately without a recovery request to Algolia.
+
 The bounded backfill archives both the previous cache and every validated incoming
 complete record before selecting eligible/newer records for the live cache. A
 result collected before a concurrent catalog removal, or an older result beaten
