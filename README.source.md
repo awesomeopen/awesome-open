@@ -76,6 +76,7 @@
 | [Open Intelligent UI](https://github.com/thesysdev/open-intelligent-ui) | Demo application that turns AI chat requests into interactive maps, photos, and editable travel itineraries. |
 | [Open Interpreter](https://github.com/openinterpreter/openinterpreter) | Coding agent for running open language models.<br>Alternative to: [Codex](https://www.openinterpreter.com/docs/terminal/migrate) |
 | [OpenJarvis](https://github.com/open-jarvis/OpenJarvis) | Framework for building and evaluating local-first personal AI agents. |
+| [OpenJet](https://github.com/L-Forster/open-jet) | Local language-model inference engine, terminal coding agent, and Python SDK. |
 | [OpenLLaMA](https://github.com/openlm-research/open_llama) | LLaMA reproduction with pretrained 3B, 7B, and 13B language-model weights for PyTorch and JAX. |
 | [OpenLLM](https://github.com/bentoml/OpenLLM) | Serve language models through OpenAI-compatible API endpoints. |
 | [Open-LLM-VTuber](https://github.com/Open-LLM-VTuber/Open-LLM-VTuber) | AI companion with voice conversations, visual input, and Live2D avatars, supporting local and hosted language and speech models. |
@@ -118,6 +119,7 @@
 
 | Project | Description |
 | --- | --- |
+| [open](https://github.com/sindresorhus/open) | Node.js library for opening URLs, files, and applications across operating systems. |
 | [openalias](https://github.com/cypherstack/openalias) | Dart library for parsing OpenAlias records and resolving recipients with locally validated DNSSEC. |
 | [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) | Generate client libraries, server stubs, and documentation from OpenAPI specifications. |
 | [OpenAPI TypeScript](https://github.com/openapi-ts/openapi-typescript) | Generate TypeScript types from OpenAPI 3 specifications. |
@@ -162,6 +164,7 @@
 | [OpenSaaS](https://github.com/wasp-lang/open-saas) | Full-stack SaaS starter with authentication, payments, email, and file uploads. |
 | [OpenScion](https://github.com/tinyhumansai/openscion) | Server-centric source control for large monorepos, with API-based history, diffs, commits, and sparse checkouts. |
 | [OpenSilver](https://github.com/OpenSilver/OpenSilver) | Framework for cross-platform applications using C#, VB.NET, or F# with XAML and WebAssembly or native .NET.<br>Alternative to: [Silverlight](https://doc.opensilver.net/documentation/migrate-from-silverlight/overview.html) |
+| [OpenSmalltalk](https://github.com/OpenSmalltalk/opensmalltalk-vm) | Cross-platform virtual machine for Squeak and Cuis Smalltalk, with interpreter and JIT variants. |
 | [OpenSpec](https://github.com/Fission-AI/OpenSpec) | Specification-driven development tools for AI coding assistants. |
 | [OpenStore](https://github.com/dev-krish-xyz/OpenStore) | Searchable software directory with curated project listings, comparison filters, and community submissions. |
 | [OpenSwoole](https://github.com/openswoole/openswoole) | PHP application platform with asynchronous I/O, coroutines, and components for HTTP and gRPC services. |
@@ -172,6 +175,7 @@
 | [OpenUI5](https://github.com/UI5/openui5) | JavaScript UI framework for responsive web applications with reusable controls and JSON, XML, and OData data binding. |
 | [OpenVSCode Server](https://github.com/gitpod-io/openvscode-server) | Run VS Code remotely and access it through a web browser. |
 | [Open Walnut](https://github.com/EvanZhang008/open-walnut) | Self-hosted web workspace for local and remote Claude Code sessions, change review, tasks, notes, and memory. |
+| [Open Watcom v2](https://github.com/open-watcom/open-watcom-v2) | Suite of C, C++, and Fortran compilers and development tools continuing Open Watcom. |
 | [OpenWhisk](https://github.com/apache/openwhisk) | Serverless cloud platform for event-driven functions. |
 
 ## Infrastructure & DevOps
@@ -308,6 +312,7 @@
 | [OpenResume](https://github.com/xitanggg/open-resume) | Browser-based resume builder and parser that creates PDFs and checks resume readability for applicant tracking systems. |
 | [OpenScan](https://github.com/ethereal-developers/OpenScan) | Mobile document scanning with image cropping and PDF or JPG export. |
 | [OpenSign](https://github.com/OpenSignLabs/OpenSign) | Document signing and electronic signature workflows.<br>Alternative to: [DocuSign](https://github.com/OpenSignLabs/OpenSign#readme), [PandaDoc](https://github.com/OpenSignLabs/OpenSign#readme), [SignNow](https://github.com/OpenSignLabs/OpenSign#readme) |
+| [open-slide](https://github.com/open-slide/open-slide) | React-based slide framework with visual editing, presenter tools, and HTML, PDF, and PowerPoint export. |
 | [OpenSlides](https://github.com/OpenSlides/OpenSlides) | Digital assembly management for motions, elections, and agendas. |
 | [OpenSpell](https://github.com/lvanbei/openSpell) | macOS menu-bar app for correcting spelling, grammar, and punctuation with local or cloud models. |
 | [OpenStats](https://github.com/gentpan/OpenStats) | macOS menu-bar system monitor with fan control, keep-awake, and cleanup tools. |
@@ -336,6 +341,7 @@
 | [open-dashboard](https://github.com/simonliu-ai-product/open-dashboard) | Dashboard framework that renders SQL queries and React panels over databases, with filters and static exports. |
 | [Open Desk](https://github.com/theopen-institute/opendesk) | Frappe add-on for customizing navigation rails, app and module grouping, desktop icons, and user menus. |
 | [OpenEduCat](https://github.com/openeducat/openeducat_erp) | ERP for educational institutions. |
+| [OpenEMM](https://github.com/agnitas-org/openemm) | Email marketing and automation software for newsletters, campaigns, and transactional messages. |
 | [OpenEvents](https://github.com/clawnify/OpenEvents) | Event-networking app template for agent-assisted attendee research, approved outreach, reply tracking, and meeting records. |
 | [openheard](https://github.com/Heilonng23/openheard) | Customer feedback boards with voting, roadmaps, and changelog publishing.<br>Alternative to: [Canny](https://github.com/Heilonng23/openheard), [Featurebase](https://github.com/Heilonng23/openheard) |
 | [OpenImport](https://github.com/iranimij/openimport) | Magento 2 extension for scheduled imports and exports with field mapping, transformations, previews, and run history. |
@@ -352,6 +358,7 @@
 | [OpenSEO](https://github.com/every-app/open-seo) | SEO platform for keyword research, rank tracking, competitor analysis, backlinks, site audits, and AI-agent integrations.<br>Alternative to: [Semrush](https://github.com/every-app/open-seo/blob/main/README.md), [Ahrefs](https://github.com/every-app/open-seo/blob/main/README.md) |
 | [OpenSequence](https://github.com/lguerberg/open-sequence) | Self-hosted engine for scheduling sales outreach sequences, tracking replies, and connecting CRM workflows through APIs and webhooks. |
 | [OpenSign](https://github.com/OpenSignLabs/OpenSign) | Document signing and electronic signature workflows.<br>Alternative to: [DocuSign](https://github.com/OpenSignLabs/OpenSign#readme), [PandaDoc](https://github.com/OpenSignLabs/OpenSign#readme), [SignNow](https://github.com/OpenSignLabs/OpenSign#readme) |
+| [OpenVerein](https://github.com/KI-Klub-Werder-e-V/openverein) | Self-hosted management for German registered associations, with membership, dues, accounting, events, and a member portal. |
 
 ## Knowledge Management
 
@@ -387,9 +394,11 @@
 | [Openfire](https://github.com/igniterealtime/Openfire) | XMPP server for real-time messaging. |
 | [Open Grind](https://git.opengrind.org/open-grind/open-grind) | Cross-platform unofficial client for Grindr. |
 | [OpenIM](https://github.com/openimsdk/open-im-server) | Instant messaging server and infrastructure for chat applications. |
+| [OpenMeet](https://openmeet.net/) | Community platform for creating groups, organizing events, and managing attendance. |
 | [OpenMeetings](https://openmeetings.apache.org) | Video conferencing, instant messaging, shared whiteboards, and document collaboration. |
 | [Open Mod](https://developers.reddit.com/apps/open-mod) | Reddit application that publishes configurable moderation-log extracts to another subreddit. |
 | [Open Moderator](https://developers.reddit.com/apps/open-moderator) | Reddit moderation application with removal explanations, consistency alerts, comment monitoring, and rule-improvement suggestions. |
+| [OpenPost](https://github.com/getopenpost/openpost) | Social-post writing, media editing, scheduling, and publishing. |
 | [Opensend](https://github.com/PanaraStudios/opensend.cc) | Self-hosted email application with Amazon SES setup, domain management, and team authentication.<br>Alternative to: [Resend](https://opensend.cc/) |
 | [OpenSIPS](https://github.com/OpenSIPS/opensips) | SIP server for voice and real-time communications. |
 | [Open Social](https://github.com/goalgorilla/open_social) | Drupal distribution for online communities. |
@@ -428,6 +437,7 @@
 | [openFrameworks](https://github.com/openframeworks/openFrameworks) | Cross-platform C++ toolkit for creative coding. |
 | [OpenH264](https://github.com/cisco/openh264) | H.264 video encoding and decoding library for real-time applications such as WebRTC. |
 | [OpenImageIO](https://github.com/AcademySoftwareFoundation/OpenImageIO) | Image reading, writing, and processing library for visual effects. |
+| [OpenKaraoke](https://github.com/tm3u/OpenKaraoke) | Windows karaoke software with accompaniment creation, song queues, recording, and pitch scoring. |
 | [OpenLP](https://openlp.org) | Worship presentation software for lyrics, scripture, images, and video. |
 | [openMarquee](https://github.com/qarl/openmarquee) | Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback. |
 | [OpenMontage](https://github.com/calesthio/OpenMontage) | Video production pipelines and tools for AI coding assistants. |
@@ -441,6 +451,7 @@
 | [OpenSceneGraph](https://github.com/openscenegraph/OpenSceneGraph) | C++ and OpenGL scene-graph toolkit for 3D graphics, visual simulation, games, and scientific visualization. |
 | [OpenScissors](https://github.com/L-at-nnes/OpenScissors) | Desktop photo background remover with AI cut-outs, brush corrections, compositing, and batch export. |
 | [OpenScreen](https://github.com/getopenscreen/openscreen) | Screen recording and editing for product demos and walkthroughs.<br>Alternative to: [Screen Studio](https://getopenscreen.com/alternatives/screen-studio/), [Camtasia](https://getopenscreen.com/alternatives/camtasia/) |
+| [Open Shading Language](https://github.com/AcademySoftwareFoundation/OpenShadingLanguage) | Shading language for describing materials, lights, displacement, and patterns in renderers. |
 | [OpenShot](https://github.com/OpenShot/openshot-qt) | Video editor with animation, compositing, and audio mixing. |
 | [OpenSkitch](https://github.com/shoemoney/OpenSkitch) | Native macOS screenshot and image-annotation application reconstructing Skitch 1.0.12. |
 | [OpenSong](https://opensong.org) | Song management and presentation software for chords and lyrics. |
@@ -519,9 +530,11 @@
 | [OpenCat](https://github.com/PetoiCamp/OpenCat-Quadruped-Robot) | Framework for building and programming quadruped robots. |
 | [OpenDashboard](https://github.com/JanRi3D/OpenDashboard) | Android car-head-unit dashboard and launcher with app tiles, radio controls, and vehicle-data integrations. |
 | [OpenDeck](https://github.com/nekename/OpenDeck) | Desktop control software for Elgato Stream Deck devices with plugin support, macros, and application-specific profiles. |
+| [OpenEB](https://github.com/prophesee-ai/openeb) | SDK for event-based cameras, event-stream processing, and visualization. |
 | [OpenESL](https://github.com/mathiasbk/openESL) | Firmware project for electronic shelf labels and an ESP32 access point, with an HTTP API and PC simulation; tag hardware support is unfinished. |
 | [open-gps](https://github.com/open-flight/open-gps) | ESP32-S3 firmware for a handheld golf shot tracker with GPS distance measurement and shot export. |
 | [OpenHaystack](https://github.com/seemoo-lab/openhaystack) | Track personal Bluetooth devices through Apple's Find My network. |
+| [OpenHMD](https://github.com/OpenHMD/OpenHMD) | API and drivers for head-mounted displays and head tracking. |
 | [OpenIK](https://github.com/WouterApts/openik-unity) | Unity components for inverse kinematics with FABRIK, CCD, and Jacobian solvers and joint constraints. |
 | [Open Industry Project](https://github.com/Open-Industry-Project/Open-Industry-Project) | Browser-based warehouse and manufacturing simulator with industrial equipment, a built-in PLC, and desktop connections to external controllers. |
 | [OpenIPC](https://github.com/OpenIPC/firmware) | Alternative firmware for IP cameras. |
@@ -645,6 +658,7 @@
 | [openplate](https://github.com/LowCarbCheck/openplate) | Self-hosted food diary that uses selected local or hosted AI models to estimate nutrients from meal photos. |
 | [OpenSport](https://github.com/AirWan-dev/OpenSport) | Flutter fitness-app scaffold with local storage, navigation, and activity-map views; workout logging and GPS recording are planned. |
 | [OpenTrainer](https://github.com/janpetr93/OpenTrainer) | Local indoor cycling app with Bluetooth trainer control, interval workouts, a training calendar, and MCP planning tools. |
+| [OpenVitals](https://github.com/zmeyer44/OpenVitals) | Health-record ingestion, normalization, biomarker tracking, and wearable-data dashboards. |
 
 ## Operating Systems & Firmware
 
