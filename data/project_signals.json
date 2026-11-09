@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-08T07:12:39Z",
+  "collected_at": "2026-11-09T03:10:45Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -403,6 +403,47 @@
         "status": "unavailable"
       }
     },
+    "academysoftwarefoundation/openshadinglanguage": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"e694e18cdc070a40028c939c279504097c987c6f8b854a222c00c3b6d1310f7b\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-10-30T05:28:56Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/releases/tag/v1.15.8.0",
+            "published_at": "2026-10-30T05:28:56Z",
+            "release_id": 428683873,
+            "tag_name": "v1.15.8.0"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/academysoftwarefoundation/openshadinglanguage/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/academysoftwarefoundation/openshadinglanguage",
+        "status": "unavailable"
+      }
+    },
     "academysoftwarefoundation/opentimelineio": {
       "release": {
         "check_time_precision": "second",
@@ -552,6 +593,150 @@
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/adamsilverstein/open-ancestry",
         "status": "unavailable"
+      }
+    },
+    "agnitas-org/openemm": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"ec15ad7600b5a6bd38f2e494fe689ad342b71e7229d5b955952319091ccb4362\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-11-04T14:03:42Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/agnitas-org/openemm/releases/tag/26.11.136",
+            "published_at": "2026-11-04T14:03:42Z",
+            "release_id": 434002074,
+            "tag_name": "26.11.136"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/agnitas-org/openemm/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": null,
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2025-01-14T05:38:36Z",
+          "source_commit": "990440c53869d3151a86f54b7f30a96a930f4e4d",
+          "tool_commit": "49c0eed3a423f00c872b5c3c9f1bbca9e8aae799",
+          "tool_version": "v4.13.1",
+          "value": {
+            "checks": [
+              {
+                "name": "Binary-Artifacts",
+                "reason": "binaries present in source code",
+                "score": 0
+              },
+              {
+                "name": "Branch-Protection",
+                "reason": "branch protection not enabled on development/release branches",
+                "score": 0
+              },
+              {
+                "name": "CI-Tests",
+                "reason": "no pull request found",
+                "score": null
+              },
+              {
+                "name": "CII-Best-Practices",
+                "reason": "no effort to earn an OpenSSF best practices badge detected",
+                "score": 0
+              },
+              {
+                "name": "Code-Review",
+                "reason": "found 30 unreviewed changesets out of 30 -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "Contributors",
+                "reason": "0 different organizations found -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
+                "score": 10
+              },
+              {
+                "name": "Dependency-Update-Tool",
+                "reason": "no update tool detected",
+                "score": 0
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
+                "score": 0
+              },
+              {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
+              },
+              {
+                "name": "Maintained",
+                "reason": "4 commit(s) out of 30 and 0 issue activity out of 12 found in the last 90 days -- score normalized to 3",
+                "score": 3
+              },
+              {
+                "name": "Packaging",
+                "reason": "no published package detected",
+                "score": null
+              },
+              {
+                "name": "Pinned-Dependencies",
+                "reason": "dependency not pinned by hash detected -- score normalized to 8",
+                "score": 8
+              },
+              {
+                "name": "SAST",
+                "reason": "no SAST tool detected",
+                "score": 0
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file not detected",
+                "score": 0
+              },
+              {
+                "name": "Signed-Releases",
+                "reason": "no releases found",
+                "score": null
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "GitHub workflow tokens follow principle of least privilege",
+                "score": 10
+              },
+              {
+                "name": "Vulnerabilities",
+                "reason": "internal error: vulnerabilitiesClient.ListUnfixedVulnerabilities: osvscanner.DoScan: scan failed server response error: {\"code\":3,\"message\":\"Invalid query.\"}",
+                "score": null
+              }
+            ],
+            "repository": "github.com/agnitas-org/openemm",
+            "score": 3.2
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/agnitas-org/openemm",
+        "status": "stale",
+        "success_time_precision": "second"
       }
     },
     "airwan-dev/opensport": {
@@ -4931,6 +5116,47 @@
         "status": "unavailable"
       }
     },
+    "getopenpost/openpost": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"e2e7f75157ba5bbeecd0e1d170b9340fb28066f1b327950a0697008cd8023646\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-11-08T20:05:38Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/getopenpost/openpost/releases/tag/v7.38.6",
+            "published_at": "2026-11-08T20:05:38Z",
+            "release_id": 438487606,
+            "tag_name": "v7.38.6"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/getopenpost/openpost/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/getopenpost/openpost",
+        "status": "unavailable"
+      }
+    },
     "getopenscreen/openscreen": {
       "release": {
         "check_time_precision": "second",
@@ -6856,6 +7082,47 @@
         "status": "unavailable"
       }
     },
+    "ki-klub-werder-e-v/openverein": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"408fea99a95eca16f2bee2ae56ad1c548e13cd9aff2b919d9e2ce7b993a2639c\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-11-03T12:38:10Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/KI-Klub-Werder-e-V/openverein/releases/tag/v0.1.0",
+            "published_at": "2026-11-03T12:38:10Z",
+            "release_id": 432677106,
+            "tag_name": "v0.1.0"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/ki-klub-werder-e-v/openverein/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/ki-klub-werder-e-v/openverein",
+        "status": "unavailable"
+      }
+    },
     "koosoli/openposeidon": {
       "release": {
         "check_time_precision": "second",
@@ -6991,6 +7258,47 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/l-at-nnes/openscissors",
+        "status": "unavailable"
+      }
+    },
+    "l-forster/open-jet": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"3b76200f442ce15bc42e4bd628f08ab041699b33b3430a433d9b29a85a1d2843\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-10-30T16:47:20Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/L-Forster/open-jet/releases/tag/v0.5.4",
+            "published_at": "2026-10-30T16:47:20Z",
+            "release_id": 429270549,
+            "tag_name": "v0.5.4"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/l-forster/open-jet/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/l-forster/open-jet",
         "status": "unavailable"
       }
     },
@@ -10209,6 +10517,47 @@
         "success_time_precision": "second"
       }
     },
+    "open-slide/open-slide": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"82e265d3a0454a2db6e740aa7f5cbde1a256083027e1530553bc9e354357373a\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-10-23T11:26:43Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/open-slide/open-slide/releases/tag/%40open-slide/core%402.3.1",
+            "published_at": "2026-10-23T11:26:43Z",
+            "release_id": 421761645,
+            "tag_name": "@open-slide/core@2.3.1"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/open-slide/open-slide/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/open-slide/open-slide",
+        "status": "unavailable"
+      }
+    },
     "open-telemetry/opentelemetry-collector": {
       "release": {
         "check_time_precision": "second",
@@ -10349,6 +10698,117 @@
         "last_success_at": "2026-11-03T07:55:50Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/open-telemetry/opentelemetry-collector",
+        "status": "partial",
+        "success_time_precision": "second"
+      }
+    },
+    "open-watcom/open-watcom-v2": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/open-watcom/open-watcom-v2/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": null,
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-11-02T00:00:00Z",
+          "source_commit": "2540ed0f1b0794182ccd15266d08d8c089680581",
+          "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
+          "tool_version": "v5.6.0",
+          "value": {
+            "checks": [
+              {
+                "name": "Code-Review",
+                "reason": "Found 3/30 approved changesets -- score normalized to 1",
+                "score": 1
+              },
+              {
+                "name": "Maintained",
+                "reason": "30 commit(s) and 26 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
+              },
+              {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
+              },
+              {
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
+                "score": 10
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "detected GitHub workflow tokens with excessive permissions",
+                "score": 0
+              },
+              {
+                "name": "CII-Best-Practices",
+                "reason": "no effort to earn an OpenSSF best practices badge detected",
+                "score": 0
+              },
+              {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 9
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file not detected",
+                "score": 0
+              },
+              {
+                "name": "Branch-Protection",
+                "reason": "branch protection not enabled on development/release branches",
+                "score": 0
+              },
+              {
+                "name": "Signed-Releases",
+                "reason": "Project has not signed or included provenance with any releases.",
+                "score": 0
+              },
+              {
+                "name": "Binary-Artifacts",
+                "reason": "binaries present in source code",
+                "score": 0
+              },
+              {
+                "name": "SAST",
+                "reason": "SAST tool is not run on all commits -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
+                "score": 0
+              },
+              {
+                "name": "Pinned-Dependencies",
+                "reason": "dependency not pinned by hash detected -- score normalized to 0",
+                "score": 0
+              }
+            ],
+            "repository": "github.com/open-watcom/open-watcom-v2",
+            "score": 2.6
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/open-watcom/open-watcom-v2",
         "status": "partial",
         "success_time_precision": "second"
       }
@@ -14912,6 +15372,47 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openhands/openhands",
+        "status": "unavailable"
+      }
+    },
+    "openhmd/openhmd": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"f28d657f3a16ab6dbc2032ce65544c28262ead6a3d4c918a39bcfd66653dfd90\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2019-07-12T14:46:42Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/OpenHMD/OpenHMD/releases/tag/0.3.0",
+            "published_at": "2019-07-12T14:46:42Z",
+            "release_id": 18581030,
+            "tag_name": "0.3.0"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openhmd/openhmd/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/openhmd/openhmd",
         "status": "unavailable"
       }
     },
@@ -19730,6 +20231,47 @@
         "status": "unavailable"
       }
     },
+    "opensmalltalk/opensmalltalk-vm": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"1760578879faad1f30e747e1de26153fc7da25c0acc284c120e028a428802667\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-06-27T11:57:59Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/OpenSmalltalk/opensmalltalk-vm/releases/tag/202606270913",
+            "published_at": "2026-06-27T11:57:59Z",
+            "release_id": 345685188,
+            "tag_name": "202606270913"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/opensmalltalk/opensmalltalk-vm/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/opensmalltalk/opensmalltalk-vm",
+        "status": "unavailable"
+      }
+    },
     "opensmtpd/opensmtpd": {
       "release": {
         "check_time_precision": "second",
@@ -23487,6 +24029,47 @@
         "status": "unavailable"
       }
     },
+    "prophesee-ai/openeb": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"711b4e94cd7b6acc463e00cca5416ac4dcc1769e9f71193d11784482ae246323\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-01-13T15:19:13Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/prophesee-ai/openeb/releases/tag/5.2.0",
+            "published_at": "2026-01-13T15:19:13Z",
+            "release_id": 276408070,
+            "tag_name": "5.2.0"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/prophesee-ai/openeb/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/prophesee-ai/openeb",
+        "status": "unavailable"
+      }
+    },
     "pwilkin/openmoss": {
       "release": {
         "check_time_precision": "second",
@@ -24576,6 +25159,130 @@
         "status": "unavailable"
       }
     },
+    "sindresorhus/open": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"471997f4a42a2a99bc6f15a0ab3f4a7a4b89a74c6cf37e4fddf8ebf90381905c\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-09-14T20:34:28Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/sindresorhus/open/releases/tag/v11.0.4",
+            "published_at": "2026-09-14T20:34:28Z",
+            "release_id": 388694943,
+            "tag_name": "v11.0.4"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/sindresorhus/open/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": null,
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-10-19T00:00:00Z",
+          "source_commit": "41511103abd932225b605b8e7f9e565cc180b1b6",
+          "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
+          "tool_version": "v5.6.0",
+          "value": {
+            "checks": [
+              {
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
+                "score": 10
+              },
+              {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
+              },
+              {
+                "name": "Maintained",
+                "reason": "9 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 7",
+                "score": 7
+              },
+              {
+                "name": "Code-Review",
+                "reason": "Found 5/30 approved changesets -- score normalized to 1",
+                "score": 1
+              },
+              {
+                "name": "Binary-Artifacts",
+                "reason": "no binaries found in the repo",
+                "score": 10
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "detected GitHub workflow tokens with excessive permissions",
+                "score": 0
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
+                "score": 9
+              },
+              {
+                "name": "Pinned-Dependencies",
+                "reason": "dependency not pinned by hash detected -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "CII-Best-Practices",
+                "reason": "no effort to earn an OpenSSF best practices badge detected",
+                "score": 0
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
+                "score": 0
+              },
+              {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
+              },
+              {
+                "name": "Signed-Releases",
+                "reason": "no releases found",
+                "score": null
+              },
+              {
+                "name": "Branch-Protection",
+                "reason": "branch protection not enabled on development/release branches",
+                "score": 0
+              },
+              {
+                "name": "SAST",
+                "reason": "SAST tool is not run on all commits -- score normalized to 0",
+                "score": 0
+              }
+            ],
+            "repository": "github.com/sindresorhus/open",
+            "score": 4.2
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/sindresorhus/open",
+        "status": "partial",
+        "success_time_precision": "second"
+      }
+    },
     "sophontrace/opennex": {
       "release": {
         "check_time_precision": "second",
@@ -25249,6 +25956,47 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/tinyhumansai/openscion",
+        "status": "unavailable"
+      }
+    },
+    "tm3u/openkaraoke": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": null,
+        "etag": "\"c146868ddf2af8d2be88900e6743fdb2e92698447332a18bc5468664aa793dbb\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-09T03:10:45Z",
+          "observed_at": "2026-11-04T01:05:26Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/tm3u/OpenKaraoke/releases/tag/v1.0.1",
+            "published_at": "2026-11-04T01:05:26Z",
+            "release_id": 433394372,
+            "tag_name": "v1.0.1"
+          }
+        },
+        "last_success_at": "2026-11-09T03:10:45Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/tm3u/openkaraoke/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/tm3u/openkaraoke",
         "status": "unavailable"
       }
     },
@@ -26160,6 +26908,34 @@
         "status": "unavailable"
       }
     },
+    "zmeyer44/openvitals": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/zmeyer44/openvitals/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-09T03:10:45Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/zmeyer44/openvitals",
+        "status": "unavailable"
+      }
+    },
     "zseven-w/openpencil": {
       "release": {
         "check_time_precision": "second",
@@ -26190,5 +26966,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "9990f3e6a9e934141bd6eb8d58c0b8732a6947af"
+  "source_sha": "a0e260b77f6ba6509b0db1f09956146b37ae1df8"
 }
