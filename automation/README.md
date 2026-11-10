@@ -19,6 +19,7 @@ Check actual registration and the current repository contract before a run.
 | [Nightly code-quality audit](nightly-code-quality-audit.md) | Grok Bot-hosted assistant | Daily, nominal 02:00 `America/New_York`, flexible | Enabled, recurring |
 | [Backfill deployment evidence](backfill-deployment-evidence.md) | Grok Bot ("Kanzler") scheduled routines, write through a Cursor cloud agent | Weekdays, nominal 11:00 and 17:00 `America/New_York` (maintenance: 11:00 only), flexible ±15 minutes | Enabled, backfill. Registration check 2026-11-09. First run 2026-11-09 slot A: no PR |
 | [Canonical URL health audit](canonical-url-health.md) | Hosted assistant; registration requires verification | Weekly, nominal Tuesday 10:00 `America/New_York`, flexible | Phase 1 checker/tests merged; live rollout follows the contract gates |
+| [WebMCPlet listings](webmcplet-listings.md) | Grok Bot assistant ("WebMCPlet Brücke"); writes issue #316 through the GitHub API, external pull requests from the owner's account | Weekly reviewer follow-up; on each new `webmcplet-v*` tag; monthly drift check and new-venue search | Assigned 2026-11-10; tracking issue #316 open; weekly assistant routine, Mondays around 9:00 America/New_York |
 | [Backfill GitHub star history](#backfill-github-star-history) | Retired ChatGPT-hosted coordinator; manual collection capability remains in GitHub Actions | Formerly hourly; scheduler timezone `America/Los_Angeles` | Disabled 2026-10-21; initial backfill complete with one documented unavailable repository |
 
 Flexible times are nominal. New York schedules follow local time, including
@@ -354,6 +355,16 @@ Live pilot, full-sweep review and registration retain the
 [rollout gates](canonical-url-health.md#15-implementation-roadmap).
 Registration requires separate owner authorization and verification; inaccessible
 runtime state remains unverified. Editing this inventory creates no schedule.
+
+## WebMCPlet listings
+
+The [job description](webmcplet-listings.md) lists WebMCPlet and the Catalog in
+external WebMCP directories and curated lists, under the
+[listings handover](../PRD/2026-11-10_WebMCPlet-listings-handover.md). State
+lives in [issue #316](https://github.com/awesomeopen/awesome-open/issues/316);
+in this repository the job writes only that issue and, on owner request, its
+job description. External pull requests go out from the owner's account.
+Editing the job description creates no schedule.
 
 ## Keeping this inventory current
 
