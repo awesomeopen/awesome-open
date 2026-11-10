@@ -30,7 +30,8 @@ class LazyDetailSiteTests(unittest.TestCase):
             expected_scripts = [expected]
             if path.name == 'index.html':
                 expected_scripts = [content_url('search.js', ROOT / 'site/search.js'), expected,
-                                    content_url('cabinet.js', ROOT / 'site/cabinet.js')]
+                                    content_url('cabinet.js', ROOT / 'site/cabinet.js'),
+                                    content_url('webmcplet/webmcplet.js', ROOT / 'webmcplet/webmcplet.js')]
             self.assertEqual(scripts, expected_scripts, path.name)
         # A metadata-only revision keeps the same runtime identity; raw renderer
         # callers remain compatible with historical preview tooling.

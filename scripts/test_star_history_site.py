@@ -233,7 +233,7 @@ class StarSiteTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)/'root'; output=Path(directory)/'preview';root.mkdir()
             shutil.copyfile(self.root/'README.source.md',root/'README.source.md')
-            for name in ('site','data'):shutil.copytree(self.root/name,root/name)
+            for name in ('site','data','webmcplet'):shutil.copytree(self.root/name,root/name)
             (root/'data/star_history.json').write_text(json.dumps(self.snapshot))
             (root/'data/hn_evidence.json').write_text(json.dumps(self.hn))
             build_site.build(output,root=root)

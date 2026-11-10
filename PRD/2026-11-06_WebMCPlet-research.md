@@ -87,6 +87,12 @@ With short item refs and an `empty_selection` message naming `cabinet_arrange`, 
 of 20 runs and no answer shows an item the tools did not return. The shipped assistant is
 measured against it.
 
+**Shipped assistant, 2026-11-10:** 20 of 20 for the family-photo and Markdown-editor
+journeys; 8 of 20 for the video-editor comparison, where every failure selected three
+projects. The catalog had grown, and the measured configuration also dropped to 2 of 20
+on it. The assistant is therefore opt-in (`data-webmcplet-assistant="on"`) and off on
+Awesome Open\*; search and WebMCP ship. [Follow-up](../experiments/prompt-api-m5/README.md#follow-up-2026-11-10).
+
 ## Catalog evidence
 
 Live catalog, 2026-11-06, 555 projects: 503 have GitHub stars, 419 function summaries,

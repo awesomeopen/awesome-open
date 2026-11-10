@@ -52,7 +52,8 @@ def make_plan(catalog, comparison=None):
               dict(name='scoreboard', script='check_scoreboard_browser.cjs', seconds=90),
               dict(name='exhibition', script='check_exhibition_browser.cjs', seconds=90),
               dict(name='jars', script='check_jar_browser.cjs', seconds=90),
-              dict(name='cabinet', script='check_cabinet_browser.cjs', seconds=120)]
+              dict(name='cabinet', script='check_cabinet_browser.cjs', seconds=120),
+              dict(name='webmcplet', script='check_webmcplet_browser.cjs', args=['--awesome-open-only'], seconds=120)]
     for index, start in enumerate(range(0, len(ids), CHUNK_SIZE)):
         suites.append(dict(name=f'artwork-{index}', script='check_artwork_browser.cjs',
                            args=[str(index)], seconds=60, ids=ids[start:start + CHUNK_SIZE],

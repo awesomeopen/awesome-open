@@ -17,7 +17,8 @@ from build_site import BRAND_ASSETS, ROOT, build, json_for_html, load_site_catal
 from site_test_fixtures import baseline_site, copy_site_fixture
 
 
-RUNTIME_SCRIPTS = (content_url('search.js', ROOT / 'site/search.js'), 'catalog.js', content_url('cabinet.js', ROOT / 'site/cabinet.js'))
+RUNTIME_SCRIPTS = (content_url('search.js', ROOT / 'site/search.js'), 'catalog.js', content_url('cabinet.js', ROOT / 'site/cabinet.js'),
+                   content_url('webmcplet/webmcplet.js', ROOT / 'webmcplet/webmcplet.js'))
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 
 
@@ -269,7 +270,8 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(json.loads(self.page.by_id['catalog-data'].text), search_index(self.catalog))
         for name in RUNTIME_SCRIPTS:
             name = name.split('?')[0]
-            self.assertEqual((self.output / name).read_bytes(), (ROOT / 'site' / name).read_bytes())
+            source = ROOT / name if name.startswith('webmcplet/') else ROOT / 'site' / name
+            self.assertEqual((self.output / name).read_bytes(), source.read_bytes())
 
     def test_search_text_is_published_separately_and_addressed_by_content(self):
         catalog = copy.deepcopy(self.catalog)

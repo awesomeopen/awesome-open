@@ -107,14 +107,77 @@ test("overview counts each item once per containing section", () => {
 });
 
 test("registered tools return results and failures as data", async () => {
-  const tools = new Map();
-  const doc = { modelContext: { registerTool: async tool => { tools.set(tool.name, tool); } } };
-  const { registered } = await W.register(fixture(), { document: doc });
-  assert.deepEqual(registered, ["list_sections", "list_find", "list_get"]);
-  assert.equal(tools.get("list_find").annotations.readOnlyHint, true);
-  assert.deepEqual(tools.get("list_find").execute({ query: "obs" }).items.map(i => i.id), ["d"]);
-  assert.equal(tools.get("list_find").execute('{"query":"obs"}').ok, true);
-  assert.deepEqual(tools.get("list_get").execute({ id: "zz" }), { ok: false, code: "unknown_id", message: "id must be an id returned by list_find." });
-  assert.equal(tools.get("list_find").execute("{").code, "invalid_arguments");
-  assert.deepEqual(await W.register(fixture(), { document: {} }), { registered: [] });
+  const registered = new Map();
+  const doc = { modelContext: { registerTool: async tool => { registered.set(tool.name, tool); } } };
+  const result = await W.register(fixture(), { document: doc });
+  assert.deepEqual(result.registered, ["list_sections", "list_find", "list_get"]);
+  const find = registered.get("list_find"), get = registered.get("list_get");
+  assert.equal(find.annotations.readOnlyHint, true);
+  assert.deepEqual((await find.execute({ query: "obs" })).items.map(i => i.id), ["d"]);
+  assert.equal((await find.execute('{"query":"obs"}')).ok, true);
+  assert.deepEqual(await get.execute({ id: "zz" }), { ok: false, code: "unknown_id", message: "id must be an id returned by list_find." });
+  assert.equal((await find.execute("{")).code, "invalid_arguments");
+  assert.deepEqual((await W.register(fixture(), { document: {} })).registered, []);
+});
+
+test("a lazy list loads once, at the first call, and retries after a failure", async () => {
+  let loads = 0, fail = true;
+  const tools = W.tools(async () => { loads++; if (fail) throw new Error("offline"); return fixture(); }, { title: "Awesome Test" });
+  assert.equal(loads, 0);
+  assert.match(tools[1].description, /^Search Awesome Test\./);
+  assert.equal((await tools[1].execute({ query: "obs" })).code, "list_unavailable");
+  fail = false;
+  await tools[1].execute({ query: "obs" }); await tools[2].execute({ id: "a" });
+  assert.equal(loads, 2);
+});
+
+// A scripted stand-in for a LanguageModel session.
+function session(replies) {
+  const prompts = [];
+  return { prompts, prompt: async (input, options) => {
+    prompts.push({ input, options });
+    const next = replies.shift();
+    if (next instanceof Error) throw next;
+    return JSON.stringify(next);
+  } };
+}
+
+test("the assistant sees refs, calls tools with real IDs and shows rows from results", async () => {
+  const tools = W.tools(fixture(), {});
+  const model = session([{ action: "call", tool: "list_find", args: { query: "video editor" } },
+    { action: "call", tool: "list_get", args: { id: "r2" } },
+    { action: "answer", text: "Video Editor trims clips.", ids: ["r1", "r9"] }]);
+  const outcome = await W.assistant.ask({ session: model, tools, request: "Find a video editor.", names: fixture().items.map(i => i.name) });
+  assert.match(model.prompts[1].input, /"id":"r1"/);
+  assert.doesNotMatch(model.prompts[1].input, /"id":"b"/);
+  assert.deepEqual(outcome.trace[1].args, { id: "a" });
+  assert.equal(outcome.status, "answered");
+  assert.deepEqual(outcome.rows.map(r => [r.id, r.name, r.href]), [["b", "Video Editor", "https://b.example/"]]);
+  assert.equal(outcome.removed, 1);
+  assert.equal(outcome.text, "Video Editor trims clips.");
+});
+
+test("the assistant withholds text naming an item the tools did not return", async () => {
+  const model = session([{ action: "call", tool: "list_find", args: { query: "family photos" } },
+    { action: "answer", text: "Try Broadcaster, or see https://apple.example/Apple.", ids: [] }]);
+  const outcome = await W.assistant.ask({ session: model, tools: W.tools(fixture(), {}), request: "Manage family photos.", names: fixture().items.map(i => i.name) });
+  assert.deepEqual([outcome.rows, outcome.text, outcome.withheld], [[], null, ["Broadcaster"]]);
+});
+
+test("the assistant retries UnknownError once and stops at its limits", async () => {
+  const unknown = () => Object.assign(new Error("kErrorUnknown"), { name: "UnknownError" });
+  const tools = W.tools(fixture(), {});
+  const retried = await W.assistant.ask({ session: session([unknown(), { action: "answer", text: "No match.", ids: [] }]), tools, request: "x" });
+  assert.equal(retried.status, "answered");
+  assert.equal((await W.assistant.ask({ session: session([unknown(), unknown()]), tools, request: "x" })).status, "error");
+  const loop = session(Array.from({ length: 9 }, () => ({ action: "call", tool: "list_sections", args: {} })));
+  assert.equal((await W.assistant.ask({ session: loop, tools, request: "x", maxTurns: 3 })).status, "turn_limit");
+  const stop = new AbortController(); stop.abort();
+  assert.equal((await W.assistant.ask({ session: session([]), tools, request: "x", signal: stop.signal })).status, "cancelled");
+});
+
+test("the model schema uses refs for IDs and drops uniqueItems", () => {
+  const schema = W.assistant.modelSchema({ type: "object", properties: { ids: { type: "array", uniqueItems: true, maxItems: 6, items: { type: "string", pattern: "^[a-f0-9]{64}$" } }, id: { type: "string" } } });
+  assert.deepEqual(schema.properties, { ids: { type: "array", maxItems: 6, items: { type: "string", pattern: "^r[0-9]{1,3}$" } }, id: { type: "string", pattern: "^r[0-9]{1,3}$" } });
+  assert.deepEqual(W.assistant.namesIn("Use Apple-tools or Apple. See github.com/x/Apple", ["Apple", "Pear"]), ["Apple"]);
 });

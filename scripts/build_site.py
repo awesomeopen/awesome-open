@@ -24,6 +24,7 @@ import update_hn as hn
 import signals
 import star_history
 import deployment
+import build_webmcplet_list
 import plate_grid
 import qr
 from repository_hosts import repository_host
@@ -183,6 +184,14 @@ def search_text(catalog):
                 "features": [f'{feature["title"]} {feature["text"]}' for feature in summary.get("features", [])],
             }
     return compact_json({"source_sha": catalog.get("source_sha") or "", "projects": projects})
+
+
+SITE_URL = "https://awesomeopen.github.io/awesome-open/"
+
+
+def webmcplet_list(catalog):
+    """The catalog as a WebMCPlet list document, loaded at the first tool call or panel use."""
+    return compact_json(build_webmcplet_list.build(catalog, SITE_URL))
 
 
 def split_name(name):
@@ -779,6 +788,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
  <script src="{content_url("search.js", root / "site/search.js")}" defer></script>
  <script src="{escape(script_url)}" defer></script>
  <script src="{content_url("cabinet.js", root / "site/cabinet.js")}" defer></script>
+ <script src="{content_url("webmcplet/webmcplet.js", root / "webmcplet/webmcplet.js")}" data-webmcplet-src="webmcplet/list.json?v={hashlib.sha256(webmcplet_list(catalog).encode("utf-8")).hexdigest()}" data-webmcplet-title="Awesome Open*" defer></script>
  <link rel="stylesheet" href="{content_url("cabinet.css", root / "site/cabinet.css")}">
 </head>
 <body>
@@ -951,6 +961,9 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
         )
     (output / "catalog.json").write_text(compact_json(published_catalog(catalog)), encoding="utf-8")
     (output / "search-text.json").write_text(search_text(catalog), encoding="utf-8")
+    (output / "webmcplet").mkdir(exist_ok=True)
+    (output / "webmcplet/list.json").write_text(webmcplet_list(catalog), encoding="utf-8")
+    shutil.copyfile(root / "webmcplet/webmcplet.js", output / "webmcplet/webmcplet.js")
     for name, content in assets.items():
         (output / name).write_text(content, encoding="utf-8")
     (output / "assets/hn").mkdir(parents=True, exist_ok=True)

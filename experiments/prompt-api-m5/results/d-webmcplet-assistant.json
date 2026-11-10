@@ -1,0 +1,2881 @@
+{
+ "started": "2026-11-10T08:17:20.015Z",
+ "chrome": "156.0.8078.80",
+ "runs": 20,
+ "site": "http://127.0.0.1:8000/",
+ "mac": "https://serhii-londar.github.io/open-source-mac-os-apps/",
+ "journeys": {
+  "video-compare": {
+   "request": "Find a video editor and compare two.",
+   "expected": [
+    "OPEN VIDEO EDIT",
+    "Open Video Editor",
+    "Open Editor",
+    "Open Video Craft",
+    "OpenArt",
+    "OpenCineAgent",
+    "OpenCreator",
+    "OpenCut",
+    "OpenFilm",
+    "OpenReel Video",
+    "OpenShot",
+    "OpenVid",
+    "OpenVids",
+    "openMarquee",
+    "OpenMeetings",
+    "OpenMontage",
+    "OpenScreen"
+   ],
+   "passed": 8,
+   "threshold": 17,
+   "met": false,
+   "runs": [
+    {
+     "seconds": 10.359,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "text": "OpenCut and OpenReel Video are video editors. OpenCut is a video editor for web, desktop, and mobile, and is a rewrite of CapCut. OpenReel Video is a browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 4.075,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "text": "OpenCut, OpenReel Video, and OpenCreator are video editors.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r11\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenCreator"
+    },
+    {
+     "seconds": 4.069,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenVid"
+     ],
+     "text": "I found three video editors: OpenCut, OpenReel Video, and OpenVid.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "4e6b9fb8891b030833809e21f847427f5a85f87977a4218266618fec5f03c73c"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r10\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "4e6b9fb8891b030833809e21f847427f5a85f87977a4218266618fec5f03c73c"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenVid"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenVid"
+    },
+    {
+     "seconds": 5.691,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "text": "OpenCut and OpenReel Video are similar video editors. OpenCut is a video editor for web, desktop, and mobile with multitrack timelines, captions, audio mixing, color tools, and effects. OpenReel Video is a browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects. OpenReel Video is available at https://github.com/augani/openreel-video, while OpenCut is at https://github.com/OpenCut-app/OpenCut. OpenCut is an alternative to CapCut.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 4.325,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "text": "OpenCut and OpenReel Video are video editors. OpenCut is a video editor for web, desktop, and mobile. OpenReel Video is a browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 4.089,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "text": "Here are three video editors matching your criteria: OpenCut, OpenReel Video, and OpenCreator.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r11\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenCreator"
+    },
+    {
+     "seconds": 4.935,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "text": "OpenCut, OpenReel Video, and OpenCreator are all video editors. OpenCut is a video editor for web, desktop, and mobile. OpenReel Video is a browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects. OpenCreator is an AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r11\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenCreator"
+    },
+    {
+     "seconds": 6.619,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "text": "Here are three video editors:\n\n* **OpenCut (r3)**: Video editor for web, desktop, and mobile. GitHub: [https://github.com/opencut-app/opencut](https://github.com/opencut-app/opencut)\n* **OpenReel Video (r5)**: Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects. GitHub: [https://github.com/augani/openreel-video](https://github.com/augani/openreel-video)\n* **OpenCreator (r11)**: AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content. GitHub: [https://github.com/krillinai/opencreator](https://github.com/krillinai/opencreator)",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r11\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenCreator"
+    },
+    {
+     "seconds": 5.697,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "text": "Here are some video editors:\n- OpenCut: Video editor for web, desktop, and mobile. URL: https://github.com/opencut-app/opencut\n- OpenReel Video: Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects. URL: https://github.com/augani/openreel-video\n- OpenCreator: AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content. URL: https://github.com/krillinai/opencreator",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r11\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenCreator"
+    },
+    {
+     "seconds": 7.345,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "text": "Here's a comparison of OpenCut, OpenReel Video, and OpenCreator:\n\n**OpenCut (r3)**:\n*   Description: Video editor for web, desktop, and mobile.\n*   URL: https://github.com/opencut-app/opencut\n*   License: MIT\n*   Stars: 97842\n\n**OpenReel Video (r5)**:\n*   Description: Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\n*   URL: https://github.com/augani/openreel-video\n*   License: MIT\n*   Stars: 5616\n\n**OpenCreator (r11)**:\n*   Description: AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\n*   URL: https://github.com/krillinai/opencreator\n*   License: Apache-2.0\n*   Stars: 14244",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r11\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenCreator"
+    },
+    {
+     "seconds": 4.842,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Open Video Editor",
+      "OpenCut"
+     ],
+     "text": "Open Video Editor and OpenCut are both video editors. Open Video Editor is an Android video editor for trimming, scaling, rotating, and applying filters. OpenCut is a video editor for web, desktop, and mobile. OpenCut is a CapCut alternative, with an open-source project. \n\nids: \nr1\nr3",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f",
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r1\",\"r3\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f",
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc"
+       ]
+      }
+     ],
+     "selection": [
+      "Open Video Editor",
+      "OpenCut"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 12.751,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "text": "OpenCut and OpenReel Video are video editors. OpenCut is a video editor for web, desktop, and mobile developed by OpenCut-app. OpenReel Video is a browser and desktop video editor developed by augani.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 4.402,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Open Video Editor",
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "text": "I found Open Video Editor (r1), OpenCut (r3), OpenReel Video (r5), and OpenCreator (r11).",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f",
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r1\",\"r3\",\"r5\",\"r11\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f",
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+       ]
+      }
+     ],
+     "selection": [
+      "Open Video Editor",
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: Open Video Editor, OpenCut, OpenReel Video, OpenCreator"
+    },
+    {
+     "seconds": 4.083,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "text": "Here are three video editors: OpenCut, OpenReel Video, and OpenCreator.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r11\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenCreator"
+    },
+    {
+     "seconds": 4.859,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "text": "OpenCut and OpenReel Video are both video editors. OpenCut is a video editor for web, desktop, and mobile. OpenReel Video is a browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 4.837,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenVid"
+     ],
+     "text": "OpenCut, OpenReel Video, and OpenVid are all video editors. OpenCut is a video editor for web, desktop, and mobile; OpenReel Video is a browser-based video editor with multitrack timelines; and OpenVid is a browser-based screen recording and video editing tool.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "4e6b9fb8891b030833809e21f847427f5a85f87977a4218266618fec5f03c73c"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r10\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "4e6b9fb8891b030833809e21f847427f5a85f87977a4218266618fec5f03c73c"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenVid"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenVid"
+    },
+    {
+     "seconds": 4.632,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "text": "OpenCut ([r3]) and OpenReel Video ([r5]) are both video editors. OpenCut is a video editor for web, desktop, and mobile. OpenReel Video is a browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects. OpenCut is an open-source alternative to CapCut.\n",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 6.863,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Open Video Editor",
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "text": "The following video editors match your criteria:\n\nr1: Open Video Editor - Android video editor for trimming, scaling, rotating, and applying filters. [https://github.com/devhyper/open-video-editor](https://github.com/devhyper/open-video-editor)\n\nr3: OpenCut - Video editor for web, desktop, and mobile. [https://github.com/opencut-app/opencut](https://github.com/opencut-app/opencut)\n\nr5: OpenReel Video - Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects. [https://github.com/augani/openreel-video](https://github.com/augani/openreel-video)",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f",
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r1\",\"r3\",\"r5\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f",
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106"
+       ]
+      }
+     ],
+     "selection": [
+      "Open Video Editor",
+      "OpenCut",
+      "OpenReel Video"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: Open Video Editor, OpenCut, OpenReel Video"
+    },
+    {
+     "seconds": 4.325,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "text": "I found OpenCut (r3), OpenReel Video (r5), and OpenCreator (r11).",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+         "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+         "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r3\",\"r5\",\"r11\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+        "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+        "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951"
+       ]
+      }
+     ],
+     "selection": [
+      "OpenCut",
+      "OpenReel Video",
+      "OpenCreator"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": false,
+     "reason": "selection: OpenCut, OpenReel Video, OpenCreator"
+    },
+    {
+     "seconds": 4.34,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Open Video Editor",
+      "OpenCut"
+     ],
+     "text": "Open Video Editor (r1) and OpenCut (r3) are both video editors. Open Video Editor is an Android video editor for trimming, scaling, rotating, and applying filters. OpenCut is a video editor for web, desktop, and mobile.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "video editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a video editor and compare two."
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": false,
+       "code": "empty_selection",
+       "prompt": "Result of cabinet_find: {\"ok\":true,\"ids\":[],\"revision\":1,\"total\":12,\"offset\":0,\"projects\":[{\"id\":\"r1\",\"name\":\"Open Video Editor\",\"description\":\"Android video editor for trimming, scaling, rotating, and applying filters.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":737,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-08-26T22:51:27Z\"}},{\"id\":\"r2\",\"name\":\"Open Editor\",\"description\":\"Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control.\",\"matched_fields\":[\"name\",\"description\"],\"github\":{\"stars\":null,\"license\":null,\"pushed_at\":null}},{\"id\":\"r3\",\"name\":\"OpenCut\",\"description\":\"Video editor for web, desktop, and mobile.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":97842,\"license\":\"MIT\",\"pushed_at\":\"2026-09-24T09:24:44Z\"}},{\"id\":\"r4\",\"name\":\"OpenFilm\",\"description\":\"Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":5386,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T20:56:09Z\"}},{\"id\":\"r5\",\"name\":\"OpenReel Video\",\"description\":\"Browser and desktop video editor with multitrack timelines, captions, audio mixing, color tools, and effects.\",\"matched_fields\":[\"name\",\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":5616,\"license\":\"MIT\",\"pushed_at\":\"2026-10-17T07:17:20Z\"}},{\"id\":\"r6\",\"name\":\"OpenShot\",\"description\":\"Video editor with animation, compositing, and audio mixing.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":6758,\"license\":null,\"pushed_at\":\"2026-11-08T21:52:26Z\"}},{\"id\":\"r7\",\"name\":\"OpenVids\",\"description\":\"Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks.\",\"matched_fields\":[\"description\",\"summary\"],\"github\":{\"stars\":41,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-10-09T11:40:36Z\"}},{\"id\":\"r8\",\"name\":\"Open Video Craft\",\"description\":\"Desktop screen, camera, and audio recorder with timeline editing, subtitles, mixing, and local video export.\",\"matched_fields\":[\"name\",\"description\",\"summary\"],\"github\":{\"stars\":14,\"license\":\"ISC\",\"pushed_at\":\"2026-09-25T16:06:18Z\"}},{\"id\":\"r9\",\"name\":\"OpenScreen\",\"description\":\"Screen recording and editing for product demos and walkthroughs.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":6689,\"license\":\"MIT\",\"pushed_at\":\"2026-11-08T18:16:02Z\"}},{\"id\":\"r10\",\"name\":\"OpenVid\",\"description\":\"Browser-based screen recording and video editing tool for demos with zooms, device mockups, and 3D effects.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":2827,\"license\":null,\"pushed_at\":\"2026-11-02T02:39:36Z\"}},{\"id\":\"r11\",\"name\":\"OpenCreator\",\"description\":\"AI workspace for creating and editing videos, images, voiceovers, subtitles, and written content.\",\"matched_fields\":[\"description\",\"summary\",\"feature\"],\"github\":{\"stars\":14244,\"license\":\"Apache-2.0\",\"pushed_at\":\"2026-11-08T22:49:48Z\"}},{\"id\":\"r12\",\"name\":\"openMarquee\",\"description\":\"Raspberry Pi digital-signage controller with browser-based editing, media playlists, transitions, and HDMI playback.\",\"matched_fields\":[\"summary\",\"feature\"],\"github\":{\"stars\":0,\"license\":\"GPL-3.0\",\"pushed_at\":\"2026-10-02T14:20:20Z\"}}]}"
+      },
+      {
+       "tool": "cabinet_arrange",
+       "args": {
+        "ids": [
+         "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f",
+         "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc"
+        ],
+        "revision": 1
+       },
+       "ok": true,
+       "prompt": "Result of cabinet_compare: {\"ok\":false,\"code\":\"empty_selection\",\"message\":\"Nothing is selected. Call cabinet_arrange with ids from cabinet_find and its revision, then call cabinet_compare.\"}"
+      },
+      {
+       "tool": "cabinet_compare",
+       "args": {},
+       "ok": true,
+       "prompt": "Result of cabinet_arrange: {\"ok\":true,\"ids\":[\"r1\",\"r3\"],\"revision\":2}"
+      },
+      {
+       "answer": true,
+       "ids": [
+        "331a75e8a67541cb698d7b35bb37bd104d6d3ce39a0753a3dc08aafc49566d5f",
+        "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc"
+       ]
+      }
+     ],
+     "selection": [
+      "Open Video Editor",
+      "OpenCut"
+     ],
+     "activity": "4 · Assistant · cabinet_compare · completed3 · Assistant · cabinet_arrange · completed2 · Assistant · cabinet_compare · failed1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    }
+   ]
+  },
+  "markdown-editor": {
+   "request": "Find a Markdown editor.",
+   "expected": [
+    "Downright",
+    "Edmund",
+    "Gingko",
+    "JustMD",
+    "MacDown",
+    "Mark Text",
+    "MarkEdit",
+    "Markout",
+    "Markup",
+    "mxMarkEdit",
+    "Pine",
+    "Quillite Markdown",
+    "Zettlr"
+   ],
+   "passed": 20,
+   "threshold": 17,
+   "met": true,
+   "runs": [
+    {
+     "seconds": 4.065,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here's a list of Markdown editors I found:\n\nr1: Downright\n\nr2: Edmund\n\nr3: Gingko\n\nr4: JustMD\n\nr5: MacDown\n\nr6: Mark Text\n\nr7: MarkEdit\n\nr8: Markout\n\nr9: Markup\n\nr10: mxMarkEdit\n\nr11: Pine\n\nr12: Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.818,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors found on open-source-mac-os-apps:\n\nr1: Downright\nr2: Edmund\nr3: Gingko\nr4: JustMD\nr5: MacDown\nr6: Mark Text\nr7: MarkEdit\nr8: Markout\nr9: Markup\nr10: mxMarkEdit\nr11: Pine\nr12: Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 4.311,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors I found:\n\n*   Downright (r1)\n*   Edmund (r2)\n*   Gingko (r3)\n*   JustMD (r4)\n*   MacDown (r5)\n*   Mark Text (r6)\n*   MarkEdit (r7)\n*   Markout (r8)\n*   Markup (r9)\n*   mxMarkEdit (r10)\n*   Pine (r11)\n*   Quillite Markdown (r12)",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.718,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here's a list of Markdown editors I found:\n\n*   Downright\n*   Edmund\n*   Gingko\n*   JustMD\n*   MacDown\n*   Mark Text\n*   MarkEdit\n*   Markout\n*   Markup\n*   mxMarkEdit\n*   Pine\n*   Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 6.395,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors found:\n- Downright: Native macOS Markdown reader and editor for ordinary files, with Quick Look, Finder thumbnails, source-preserving rendering, and safe review of external rewrites.\n- Edmund: Minimal, native macOS Markdown editor with live preview that works with your existing files, no vault.\n- Gingko: Tree-structured markdown editor for macOS, Windows, and Linux.\n- JustMD: Native Markdown editor with hidden syntax, a rendered reading mode, and PDF export.\n- MacDown: Markdown editor for macOS.\n- Mark Text: Realtime preview markdown editor for macOS Windows and Linux.\n- MarkEdit: Free and open-source Markdown editor for macOS.\n- Markout: Native Markdown editor with live preview, offline KaTeX math, Mermaid diagrams, and HTML/PDF export.\n- Markup: Reader-first, native macOS Markdown editor: renders notes like a web page and edits on demand, with a vault, backlinks, graph view and full-text search.\n- mxMarkEdit: A visual editor of Markdown document, tasks and tables.\n- Pine: A modern MacOS markdown editor.\n- Quillite Markdown: Lightweight, local-first Markdown reader and editor with live preview, visual diagrams, math, and multi-format export.",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 6.95,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors I found:\n\nr1. Downright: Native macOS Markdown reader and editor for ordinary files, with Quick Look, Finder thumbnails, source-preserving rendering, and safe review of external rewrites.\n\nr2. Edmund: Minimal, native macOS Markdown editor with live preview that works with your existing files, no vault.\n\nr3. Gingko: Tree-structured markdown editor for macOS, Windows, and Linux.\n\nr4. JustMD: Native Markdown editor with hidden syntax, a rendered reading mode, and PDF export.\n\nr5. MacDown: Markdown editor for macOS.\n\nr6. Mark Text: Realtime preview markdown editor for macOS Windows and Linux.\n\nr7. MarkEdit: Realtime markdown editor for macOS.\n\nr8. Markout: Native Markdown editor with live preview, offline KaTeX math, Mermaid diagrams, and HTML/PDF export.\n\nr9. Markup: Reader-first, native macOS Markdown editor: renders notes like a web page and edits on demand, with a vault, backlinks, graph view and full-text search.\n\nr10. mxMarkEdit: A visual editor of Markdown document, tasks and tables.\n\nr11. Pine: A modern MacOS markdown editor.\n\nr12. Quillite Markdown: Lightweight, local-first Markdown reader and editor with live preview, visual diagrams, math, and multi-format export.",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 11.454,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors I found:\n- Downright: Native macOS Markdown reader and editor for ordinary files, with Quick Look, Finder thumbnails, source-preserving rendering, and safe review of external rewrites. ([https://github.com/ezzy1630/Downright](https://github.com/ezzy1630/Downright))\n- Edmund: Minimal, native macOS Markdown editor with live preview that works with your existing files, no vault. ([https://github.com/I7T5/Edmund](https://github.com/I7T5/Edmund))\n- Gingko: Tree-structured markdown editor for macOS, Windows, and Linux. ([https://github.com/gingko/client](https://github.com/gingko/client))\n- JustMD: Native Markdown editor with hidden syntax, a rendered reading mode, and PDF export. ([https://github.com/yuraist/just-md](https://github.com/yuraist/just-md))\n- MacDown: Markdown editor for macOS. ([https://github.com/MacDownApp/macdown](https://github.com/MacDownApp/macdown))\n- Mark Text: Realtime preview markdown editor for macOS Windows and Linux. ([https://github.com/marktext/marktext/](https://github.com/marktext/marktext/))\n- MarkEdit: Free and open-source Markdown editor for macOS. ([https://github.com/MarkEdit-app/MarkEdit](https://github.com/MarkEdit-app/MarkEdit))\n- Markout: Native Markdown editor with live preview, offline KaTeX math, Mermaid diagrams, and HTML/PDF export. ([https://github.com/maxmilian/markout](https://github.com/maxmilian/markout))\n- Markup: Reader-first, native macOS Markdown editor: renders notes like a web page and edits on demand, with a vault, backlinks, graph view and full-text search. ([https://github.com/oratis/Markup](https://github.com/oratis/Markup))\n- mxMarkEdit: Visual editor of Markdown document, tasks and tables. ([https://github.com/maxnd/mxMarkEdit](https://github.com/maxnd/mxMarkEdit))\n- Pine: A modern MacOS markdown editor. ([https://github.com/lukakerr/Pine](https://github.com/lukakerr/Pine))\n- Quillite Markdown: Lightweight, local-first Markdown reader and editor with live preview, visual diagrams, math, and multi-format export. ([https://github.com/liuhang798/quillite-markdown](https://github.com/liuhang798/quillite-markdown))\n",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.826,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are Markdown editors: \n- Downright (r1)\n- Edmund (r2)\n- Gingko (r3)\n- JustMD (r4)\n- MacDown (r5)\n- Mark Text (r6)\n- MarkEdit (r7)\n- Markout (r8)\n- Markup (r9)\n- mxMarkEdit (r10)\n- Pine (r11)\n- Quillite Markdown (r12)",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 6.147,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors I found:\n\n- Downright: Native macOS Markdown reader and editor for ordinary files, with Quick Look, Finder thumbnails, source-preserving rendering, and safe review of external rewrites.\n- Edmund: Minimal, native macOS Markdown editor with live preview that works with your existing files, no vault.\n- Gingko: Tree-structured markdown editor for macOS, Windows, and Linux.\n- JustMD: Native Markdown editor with hidden syntax, a rendered reading mode, and PDF export.\n- MacDown: Markdown editor for macOS.\n- Mark Text: Realtime preview markdown editor for macOS Windows and Linux.\n- MarkEdit: A free and open-source Markdown editor, for macOS.\n- Markout: Native Markdown editor with live preview, offline KaTeX math, Mermaid diagrams, and HTML/PDF export.\n- Markup: Reader-first, native macOS Markdown editor: renders notes like a web page and edits on demand, with a vault, backlinks, graph view and full-text search.\n- mxMarkEdit: A visual editor of Markdown document, tasks and tables.\n- Pine: A modern MacOS markdown editor.\n- Quillite Markdown: Lightweight, local-first Markdown reader and editor with live preview, visual diagrams, math, and multi-format export.\n",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.088,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors I found:\n- Downright\n- Edmund\n- Gingko\n- JustMD\n- MacDown\n- Mark Text\n- MarkEdit\n- Markout\n- Markup\n- mxMarkEdit\n- Pine\n- Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.689,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors I found:\n- Downright (r1)\n- Edmund (r2)\n- Gingko (r3)\n- JustMD (r4)\n- MacDown (r5)\n- Mark Text (r6)\n- MarkEdit (r7)\n- Markout (r8)\n- Markup (r9)\n- mxMarkEdit (r10)\n- Pine (r11)\n- Quillite Markdown (r12)",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.559,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors I found:\n\nr1. Downright\nr2. Edmund\nr3. Gingko\nr4. JustMD\nr5. MacDown\nr6. Mark Text\nr7. MarkEdit\nr8. Markout\nr9. Markup\nr10. mxMarkEdit\nr11. Pine\nr12. Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.666,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors I found:\n\nr1. Downright\nr2. Edmund\nr3. Gingko\nr4. JustMD\nr5. MacDown\nr6. Mark Text\nr7. MarkEdit\nr8. Markout\nr9. Markup\nr10. mxMarkEdit\nr11. Pine\nr12. Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.722,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here's a list of Markdown editors I found:\n\n*   Downright\n*   Edmund\n*   Gingko\n*   JustMD\n*   MacDown\n*   Mark Text\n*   MarkEdit\n*   Markout\n*   Markup\n*   mxMarkEdit\n*   Pine\n*   Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.4,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors: \n- Downright\n- Edmund\n- Gingko\n- JustMD\n- MacDown\n- Mark Text\n- MarkEdit\n- Markout\n- Markup\n- mxMarkEdit\n- Pine\n- Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 4.073,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are Markdown editors I found:\n\n- Downright (r1)\n- Edmund (r2)\n- Gingko (r3)\n- JustMD (r4)\n- MacDown (r5)\n- Mark Text (r6)\n- MarkEdit (r7)\n- Markout (r8)\n- Markup (r9)\n- mxMarkEdit (r10)\n- Pine (r11)\n- Quillite Markdown (r12)",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 10.564,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here are some Markdown editors: r1: Downright, r2: Edmund, r3: Gingko, r4: JustMD, r5: MacDown, r6: Mark Text, r7: MarkEdit, r8: Markout, r9: Markup, r10: mxMarkEdit, r11: Pine, r12: Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.564,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here's a list of Markdown editors I found:\n\n- Downright\n- Edmund\n- Gingko\n- JustMD\n- MacDown\n- Mark Text\n- MarkEdit\n- Markout\n- Markup\n- mxMarkEdit\n- Pine\n- Quillite Markdown",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 3.833,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "Here's a list of Markdown editors I found:\n\n*   Downright\n*   Edmund\n*   Gingko\n*   JustMD\n*   MacDown\n*   Mark Text\n*   MarkEdit\n*   Markout\n*   Markup\n*   mxMarkEdit\n*   Pine\n*   Quillite Markdown\n",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 4.157,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [
+      "Downright",
+      "Edmund",
+      "Gingko",
+      "JustMD",
+      "MacDown",
+      "Mark Text",
+      "MarkEdit",
+      "Markout",
+      "Markup",
+      "mxMarkEdit",
+      "Pine",
+      "Quillite Markdown"
+     ],
+     "text": "I found the following Markdown editors:\n\n*   Downright (r1)\n*   Edmund (r2)\n*   Gingko (r3)\n*   JustMD (r4)\n*   MacDown (r5)\n*   Mark Text (r6)\n*   MarkEdit (r7)\n*   Markout (r8)\n*   Markup (r9)\n*   mxMarkEdit (r10)\n*   Pine (r11)\n*   Quillite Markdown (r12)",
+     "trace": [
+      {
+       "tool": "list_find",
+       "args": {
+        "query": "Markdown editor",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Find a Markdown editor."
+      },
+      {
+       "answer": true,
+       "ids": [
+        "github.com/ezzy1630/downright",
+        "github.com/i7t5/edmund",
+        "github.com/gingko/client",
+        "github.com/yuraist/just-md",
+        "github.com/macdownapp/macdown",
+        "github.com/marktext/marktext",
+        "github.com/markedit-app/markedit",
+        "github.com/maxmilian/markout",
+        "github.com/oratis/markup",
+        "github.com/maxnd/mxmarkedit",
+        "github.com/lukakerr/pine",
+        "github.com/liuhang798/quillite-markdown"
+       ]
+      }
+     ],
+     "selection": [],
+     "activity": "",
+     "pass": true,
+     "reason": "ok"
+    }
+   ]
+  },
+  "family-photos": {
+   "request": "Manage family photos on my own server.",
+   "expected": [],
+   "passed": 20,
+   "threshold": 17,
+   "met": true,
+   "runs": [
+    {
+     "seconds": 1.566,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "Manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.557,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.654,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.594,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "There are no projects in this catalog that match \"manage family photos\".",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.558,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "Manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.553,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.579,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.553,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "Manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.56,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.567,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "Manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.572,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.572,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.554,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "Manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.627,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.804,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.818,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.555,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "family photos",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.567,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.817,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This catalog has no match for 'manage family photos'.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "manage family photos",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    },
+    {
+     "seconds": 1.561,
+     "state": "Answered.",
+     "answered": true,
+     "rows": [],
+     "text": "This list has no match.",
+     "trace": [
+      {
+       "tool": "cabinet_find",
+       "args": {
+        "query": "Manage family photos on my own server",
+        "offset": 0
+       },
+       "ok": true,
+       "prompt": "Manage family photos on my own server."
+      },
+      {
+       "answer": true,
+       "ids": []
+      }
+     ],
+     "selection": [],
+     "activity": "1 · Assistant · cabinet_find · completed",
+     "pass": true,
+     "reason": "ok"
+    }
+   ]
+  }
+ },
+ "met": false
+}

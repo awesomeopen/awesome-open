@@ -1,13 +1,14 @@
 # WebMCPlet
 
 WebMCPlet gives a curated list read-only [WebMCP](https://webmachinelearning.github.io/webmcp/)
-tools on the list's own page. A maintainer adds one script and one generated JSON file;
-a visiting browser agent can then list sections, search items and read an item's
-recorded fields. There is no server to install.
+tools and a search panel on the list's own page. A maintainer adds one script and one
+generated JSON file; a visiting browser agent can then list sections, search items and
+read an item's recorded fields, and a visitor can search and browse from a corner button.
+There is no server to install.
 
-Status: tools and build step only. The panel and local assistant are planned in the
-[PRD](../PRD/2026-11-04_WebMCP-for-Awesome-lists.md#delivery). This directory has no
-dependencies, imports nothing from Awesome Open\* and is MIT-licensed ([LICENSE](LICENSE)).
+This directory has no dependencies, imports nothing from Awesome Open\* and is
+MIT-licensed ([LICENSE](LICENSE)). Packaging and adopter releases follow in the
+[PRD](../PRD/2026-11-04_WebMCP-for-Awesome-lists.md#delivery).
 
 ## Add it to a list
 
@@ -24,12 +25,21 @@ dependencies, imports nothing from Awesome Open\* and is MIT-licensed ([LICENSE]
 2. Publish `webmcplet.js` and `list.json` with the page, and add:
 
    ```html
-   <script src="webmcplet.js" data-webmcplet-src="list.json" defer></script>
+   <script src="webmcplet.js" data-webmcplet-src="list.json" data-webmcplet-title="Awesome X" defer></script>
    ```
 
-   `data-webmcplet-prefix` renames the tools from `list_*`. The document must be
-   same-origin; redirects are refused. Tools register only where the browser provides
-   `document.modelContext` in a secure context.
+   With `data-webmcplet-title`, `list.json` loads at the first tool call or panel use;
+   without it, at page load. The document must be same-origin; redirects are refused.
+   Tools register only where the browser provides `document.modelContext` in a secure
+   context; the panel works in every browser.
+
+| Attribute | Effect |
+| --- | --- |
+| `data-webmcplet-prefix` | Renames the tools from `list_*` |
+| `data-webmcplet-panel` | `button` (default) is a corner button; `banner` is a full-width bar at the top of the page; `off` removes the panel and keeps the tools |
+| `data-webmcplet-label` | The button's text, default "Search this list" |
+| `data-webmcplet-assistant` | `on` adds the [assistant](#assistant) to the panel |
+| `data-webmcplet-assistant-tools` | Tool names the assistant uses, such as the page's own tools (below) |
 
 ## Tools
 
@@ -55,6 +65,41 @@ fields such as summaries are long, so only `list_get` returns them.
 error with a generic failure and the agent would lose the recovery instruction. Codes:
 `invalid_arguments`, `invalid_query`, `invalid_offset`, `invalid_section`,
 `invalid_filter` and `unknown_id`.
+
+## Panel
+
+The corner button opens a modal dialog with search, a section filter and results that
+link to each item. The button never opens or moves by itself. Escape or Close returns
+focus to the button. A visitor can hide the button with "Hide this button"; the choice is
+stored in that browser only and the tools stay registered. The panel loads no other
+files and makes no analytics calls.
+
+The panel sits in a shadow root. A page themes it by setting these custom properties on
+`[data-webmcplet-host]`: `--webmcplet-bg`, `--webmcplet-fg`, `--webmcplet-accent`,
+`--webmcplet-muted`, `--webmcplet-rule`, `--webmcplet-focus`, `--webmcplet-font`,
+`--webmcplet-heading-font` and `--webmcplet-radius`. On a page wider than the screen,
+or when zoomed, the button and dialog follow the visible part of the page.
+
+## Assistant
+
+With `data-webmcplet-assistant="on"`, the panel offers Chrome's on-device model
+([Prompt API](https://developer.chrome.com/docs/ai/prompt-api)) where Chrome reports it
+available or downloadable. Downloading needs a click. The model calls the same tools,
+one JSON action per turn, at most 8 turns and 30 seconds per turn, and sees short refs
+such as `r1` in place of item IDs. The answer's rows come from tool results; the model's
+text is labelled as generated and withheld when it names an item the tools did not return.
+
+A page can give the assistant its own tools by pushing definitions shaped like
+`registerTool`'s argument onto `window.webmcpletTools` and naming them in
+`data-webmcplet-assistant-tools`.
+
+**Status: opt-in.** Measured on 2026-11-10 with Chrome 156 and on-device model
+2025.8.8.1141, 20 runs per journey, it passed the family-photo journey (no match)
+20 of 20 and the Markdown-editor journey 20 of 20, and selected the requested two
+projects for the video-editor comparison in 8 of 20 runs; the other 12 selected three. The pass threshold is 17 of 20
+for each journey, so it stays off by default. Method and earlier results:
+[experiments/prompt-api-m5](../experiments/prompt-api-m5/README.md),
+`scripts/check_webmcplet_assistant.cjs`.
 
 ## List document
 

@@ -295,53 +295,72 @@
     return { find: find, get: get, overview: overview };
   }
 
-  function definitions(prefix, doc) {
-    var title = doc.list.title;
-    return [
-      [prefix + "_sections", "Describe " + title + ": its sections with item counts, and its declared fields with their meaning, source, observation date and how many items record them. Unknown values are null.",
-        {}, []],
-      [prefix + "_find", "Search " + title + ". Every word of query must appear in an item’s name, aliases, description or a searched field. Returns 12 items from offset, strongest matching field first, with matched_fields and total; an empty query lists items in list order. section limits results to a section and its subsections. filters maps a filterable field to one value and reports how many items record it. total 0 means no item in this list matches.",
-        { query: { type: "string", maxLength: MAX_QUERY }, offset: { type: "integer", minimum: 0 },
-          section: { type: "string" }, filters: { type: "object", additionalProperties: { type: "string" } } }, []],
-      [prefix + "_get", "Return one item from " + title + " with every recorded field, including text fields. Unknown values are null.",
-        { id: { type: "string" } }, ["id"]]
-    ];
-  }
 
   function failure(code, message) {
     return { ok: false, code: code, message: message };
   }
 
-  // Registers the tools on document.modelContext. Chrome replaces a thrown error
-  // with a generic failure, so every tool returns {ok:false, code, message}.
-  async function register(doc, options) {
-    options = options || {};
-    var prefix = options.prefix || "list", context = options.document || document;
-    var bridge = context.modelContext;
-    if (!bridge || typeof bridge.registerTool !== "function") return { registered: [] };
-    var list = create(doc, { prefix: prefix });
-    var run = { _sections: list.overview, _find: list.find, _get: list.get };
-    var names = [];
-    for (var entry of definitions(prefix, doc)) {
-      var name = entry[0], handler = run[name.slice(prefix.length)];
-      await bridge.registerTool({
-        name: name, description: entry[1],
-        inputSchema: { type: "object", properties: entry[2], required: entry[3], additionalProperties: false },
-        annotations: { readOnlyHint: true, untrustedContentHint: true },
-        execute: (function (handler) {
-          return function (args) {
-            try {
-              var parsed = typeof args === "string" ? JSON.parse(args || "{}") : args || {};
-              return Object.assign({ ok: true }, handler(parsed));
-            } catch (error) {
-              return error.code ? failure(error.code, error.message) : failure("invalid_arguments", "Arguments must be a JSON object.");
-            }
-          };
-        })(handler)
-      }, options.signal ? { signal: options.signal } : undefined);
-      names.push(name);
+  // The three read-only tools. `source` is a list document or a function that
+  // loads one; the document loads at the first call, so a page pays for it only
+  // when a tool or the panel is used. Chrome replaces a thrown error with a
+  // generic failure, so every tool returns {ok:false, code, message}.
+  function tools(source, options) {
+    var prefix = options.prefix || "list", title = options.title || (source && source.list && source.list.title);
+    var pending = null;
+    function list() {
+      if (!pending) {
+        pending = Promise.resolve(typeof source === "function" ? source() : source)
+          .then(function (doc) { return { doc: doc, list: create(doc, { prefix: prefix }) }; });
+        pending.catch(function () { pending = null; });
+      }
+      return pending;
     }
-    return { registered: names };
+    function tool(suffix, description, properties, required, method, modelProperties) {
+      return {
+        name: prefix + suffix, description: description,
+        inputSchema: { type: "object", properties: properties, required: required, additionalProperties: false },
+        // The on-device model fills optional arguments with invented values, such as
+        // a section name, so the assistant sees only the arguments it needs.
+        modelSchema: modelProperties && { type: "object", properties: modelProperties, required: required, additionalProperties: false },
+        annotations: { readOnlyHint: true, untrustedContentHint: true },
+        execute: async function (args) {
+          var parsed;
+          try { parsed = typeof args === "string" ? JSON.parse(args || "{}") : args || {}; }
+          catch (_) { return failure("invalid_arguments", "Arguments must be a JSON object."); }
+          var loaded;
+          try { loaded = await list(); }
+          catch (error) { return failure("list_unavailable", "The list could not load. Retry later."); }
+          try { return Object.assign({ ok: true }, loaded.list[method](parsed)); }
+          catch (error) { return error.code ? failure(error.code, error.message) : failure("invalid_arguments", "Arguments must be a JSON object."); }
+        }
+      };
+    }
+    var defined = [
+      tool("_sections", "Describe " + title + ": its sections with item counts, and its declared fields with their meaning, source, observation date and how many items record them. Unknown values are null.",
+        {}, [], "overview"),
+      tool("_find", "Search " + title + ". Every word of query must appear in an item’s name, aliases, description or a searched field. Returns 12 items from offset, strongest matching field first, with matched_fields and total; an empty query lists items in list order. section limits results to a section and its subsections. filters maps a filterable field to one value and reports how many items record it. total 0 means no item in this list matches.",
+        { query: { type: "string", maxLength: MAX_QUERY }, offset: { type: "integer", minimum: 0 },
+          section: { type: "string" }, filters: { type: "object", additionalProperties: { type: "string" } } }, [], "find",
+        { query: { type: "string", maxLength: MAX_QUERY }, offset: { type: "integer", minimum: 0 } }),
+      tool("_get", "Return one item from " + title + " with every recorded field, including text fields. Unknown values are null.",
+        { id: { type: "string" } }, ["id"], "get")
+    ];
+    defined.document = function () { return list().then(function (loaded) { return loaded.doc; }); };
+    return defined;
+  }
+
+  // Registers the tools on document.modelContext where the browser provides it.
+  async function register(source, options) {
+    options = options || {};
+    var defined = tools(source, options), context = options.document || document;
+    var bridge = context.modelContext, names = [];
+    if (bridge && typeof bridge.registerTool === "function") {
+      for (var tool of defined) {
+        await bridge.registerTool(tool, options.signal ? { signal: options.signal } : undefined);
+        names.push(tool.name);
+      }
+    }
+    return { registered: names, tools: defined };
   }
 
   // Loads one same-origin document. Redirects and credentials are refused.
@@ -353,19 +372,482 @@
     return response.json();
   }
 
-  // <script src="webmcplet.js" data-webmcplet-src="list.json" data-webmcplet-prefix="list">
+  // ---- Assistant: Chrome's Prompt API driving the same tools ----
+  //
+  // Measured in experiments/prompt-api-m5: the model copies short refs reliably
+  // and 64-character IDs poorly, needs recovery messages that name the next tool,
+  // and occasionally fails with UnknownError or generates without end.
+
+  var LANG = { expectedInputs: [{ type: "text", languages: ["en"] }], expectedOutputs: [{ type: "text", languages: ["en"] }] };
+  var REF = { type: "string", pattern: "^r[0-9]{1,3}$" };
+  var MAX_TURNS = 8, TURN_MS = 30000, MAX_REQUEST = 500;
+
+  function Refs() {
+    var toRef = new Map(), toId = new Map();
+    function ref(id) {
+      if (!toRef.has(id)) { var r = "r" + (toRef.size + 1); toRef.set(id, r); toId.set(r, id); }
+      return toRef.get(id);
+    }
+    function id(r) { return toId.has(r) ? toId.get(r) : r; }
+    function hide(value, key) {
+      if (key === "id" && typeof value === "string") return ref(value);
+      if (key === "ids" && Array.isArray(value)) return value.map(function (v) { return typeof v === "string" ? ref(v) : v; });
+      if (Array.isArray(value)) return value.map(function (v) { return hide(v); });
+      if (isObject(value)) {
+        var out = {};
+        Object.keys(value).forEach(function (k) { out[k] = hide(value[k], k); });
+        return out;
+      }
+      return value;
+    }
+    // Unknown refs pass through unchanged, so the tool rejects them.
+    function reveal(args) {
+      var out = Object.assign({}, args);
+      if (typeof out.id === "string") out.id = id(out.id);
+      if (Array.isArray(out.ids)) out.ids = out.ids.map(id);
+      return out;
+    }
+    return { hide: hide, reveal: reveal, id: id };
+  }
+
+  function schemaOf(tool) {
+    if (tool.modelSchema) return tool.modelSchema;
+    return typeof tool.inputSchema === "string" ? JSON.parse(tool.inputSchema) : tool.inputSchema;
+  }
+
+  // Item IDs become refs in the schema the model sees. Chrome 156 rejects a
+  // responseConstraint containing uniqueItems; the tools enforce it themselves.
+  function modelSchema(schema) {
+    if (Array.isArray(schema)) return schema.map(modelSchema);
+    if (!isObject(schema)) return schema;
+    var out = {};
+    Object.keys(schema).forEach(function (key) {
+      if (key === "uniqueItems") return;
+      out[key] = key === "properties" ? refProperties(schema[key]) : modelSchema(schema[key]);
+    });
+    return out;
+  }
+
+  function refProperties(properties) {
+    var out = {};
+    Object.keys(properties).forEach(function (key) {
+      if (key === "id") out[key] = REF;
+      else if (key === "ids") out[key] = Object.assign(modelSchema(properties[key]), { items: REF });
+      else out[key] = modelSchema(properties[key]);
+    });
+    return out;
+  }
+
+  function actionSchema(tools) {
+    return { anyOf: tools.map(function (tool) {
+      return { type: "object", additionalProperties: false, required: ["action", "tool", "args"],
+        properties: { action: { type: "string", enum: ["call"] }, tool: { type: "string", enum: [tool.name] }, args: modelSchema(schemaOf(tool)) } };
+    }).concat([{ type: "object", additionalProperties: false, required: ["action", "text", "ids"],
+      properties: { action: { type: "string", enum: ["answer"] }, text: { type: "string" }, ids: { type: "array", items: REF } } }]) };
+  }
+
+  // Wording measured in experiments/prompt-api-m5; small changes moved pass rates.
+  function instructions(title, tools) {
+    return [
+      "You help a visitor find items in " + title + ". You can only read this page through its tools.",
+      "Each turn, reply with one JSON action.",
+      "Items are identified by short refs such as r1. Use these refs in tool arguments and in ids.",
+      "To call a tool: {\"action\":\"call\",\"tool\":\"<name>\",\"args\":{...}}. The next message gives its result.",
+      "To finish: {\"action\":\"answer\",\"text\":\"<answer for the visitor>\",\"ids\":[\"<id>\", ...]}.",
+      "Rules:",
+      "- Search with short keyword queries. A result must contain every word of the query, so long phrases often find nothing; try fewer or simpler words.",
+      "- State only facts from tool results. A null value is Unknown.",
+      "- ids lists the items your answer presents as fitting the request, copied exactly from tool results.",
+      "- If no item fits, say that this list has no match, leave ids empty and name no item.",
+      "- If a tool returns ok:false, follow its message.",
+      "Tools:"
+    ].concat(tools.map(function (tool) {
+      return "- " + tool.name + ": " + tool.description + " Arguments: " + JSON.stringify(modelSchema(schemaOf(tool)));
+    })).join("\n");
+  }
+
+  // Every object with a string id and name in a tool result, as a display row.
+  function collectRows(value, rows) {
+    if (Array.isArray(value)) value.forEach(function (v) { collectRows(v, rows); });
+    else if (isObject(value)) {
+      if (typeof value.id === "string" && typeof value.name === "string") {
+        var row = rows.get(value.id) || { id: value.id, name: value.name };
+        if (!row.description && typeof value.description === "string") row.description = value.description;
+        if (!row.href) row.href = value.link || value.record || value.url || null;
+        rows.set(value.id, row);
+      }
+      Object.keys(value).forEach(function (k) { collectRows(value[k], rows); });
+    }
+    return rows;
+  }
+
+  // Names of list items written in text, as whole words of four or more
+  // characters outside URLs; hyphens join words.
+  function namesIn(text, names) {
+    var plainText = text.replace(/\b(?:https?:\/\/|[\w.-]+\.\w+\/)\S*/g, " ");
+    return names.filter(function (name) {
+      if (name.length < 4) return false;
+      var literal = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return new RegExp("(^|[^\\p{L}\\p{N}-])" + literal + "(?![\\p{L}\\p{N}-])", "u").test(plainText);
+    });
+  }
+
+  // Runs one request to an answer, the turn limit or cancellation. The answer's
+  // rows come from tool results; the model's text is returned separately, and is
+  // withheld when it names an item the tools did not return.
+  async function ask(options) {
+    var session = options.session, available = options.tools, refs = Refs(), rows = new Map();
+    var constraint = actionSchema(available), maxTurns = options.maxTurns || MAX_TURNS, turnMs = options.turnMs || TURN_MS;
+    var trace = [], input = options.request, retried = false;
+    function report(entry) { trace.push(entry); if (options.onStep) options.onStep(entry); }
+    for (var turn = 0; turn < maxTurns; turn++) {
+      if (options.signal && options.signal.aborted) return { status: "cancelled", rows: [], trace: trace };
+      var raw;
+      try {
+        var signals = [AbortSignal.timeout(turnMs)];
+        if (options.signal) signals.push(options.signal);
+        raw = await session.prompt(input, { responseConstraint: constraint, signal: AbortSignal.any(signals) });
+      } catch (error) {
+        if (options.signal && options.signal.aborted) return { status: "cancelled", rows: [], trace: trace };
+        // UnknownError was transient in testing; retry the same prompt once.
+        if (error && error.name === "UnknownError" && !retried) { retried = true; turn--; continue; }
+        return { status: error && error.name === "TimeoutError" ? "timeout" : "error",
+          message: error && error.message, rows: [], trace: trace };
+      }
+      var action;
+      try { action = JSON.parse(raw); } catch (_) { report({ invalid: "malformed_json" }); input = "That was not valid JSON. Reply with one JSON action."; continue; }
+      if (action.action === "answer") {
+        var ids = (action.ids || []).map(refs.id);
+        var shown = ids.filter(function (id) { return rows.has(id); }).map(function (id) { return rows.get(id); });
+        var returnedNames = new Set(Array.from(rows.values()).map(function (r) { return r.name; }));
+        var unreturned = namesIn(action.text || "", options.names || []).filter(function (n) { return !returnedNames.has(n); });
+        report({ answer: true, ids: ids });
+        return { status: "answered", rows: shown, removed: ids.length - shown.length,
+          text: unreturned.length ? null : action.text, withheld: unreturned, trace: trace };
+      }
+      var tool = available.find(function (t) { return t.name === action.tool; });
+      if (action.action !== "call" || !tool) { report({ invalid: "unsupported_action" }); input = "Unsupported action. Call one of the listed tools or answer."; continue; }
+      var args = refs.reveal(action.args || {});
+      var result = await tool.execute(args, options.signal ? { signal: options.signal } : {});
+      if (typeof result === "string") result = JSON.parse(result);
+      if (result && result.ok) collectRows(result, rows);
+      report({ tool: tool.name, args: args, ok: Boolean(result && result.ok), code: result && result.code, prompt: input });
+      input = "Result of " + tool.name + ": " + JSON.stringify(refs.hide(result));
+    }
+    return { status: "turn_limit", rows: [], trace: trace };
+  }
+
+  // ---- Panel ----
+
+  var STYLE = [
+    ":host{all:initial;--wm-bg:var(--webmcplet-bg,#fff);--wm-fg:var(--webmcplet-fg,#1b1b1b);--wm-accent:var(--webmcplet-accent,#1d4ed8);",
+    "--wm-muted:var(--webmcplet-muted,#555);--wm-rule:var(--webmcplet-rule,#c8c8c8);--wm-focus:var(--webmcplet-focus,#c2410c);",
+    "--wm-font:var(--webmcplet-font,system-ui,sans-serif);--wm-heading:var(--webmcplet-heading-font,var(--wm-font));--wm-radius:var(--webmcplet-radius,4px)}",
+    "*{box-sizing:border-box}",
+    ".trigger{display:block;font:14px/1.2 var(--wm-font);min-height:44px;padding:12px 16px;",
+    "border:1px solid var(--wm-accent);border-radius:var(--wm-radius);background:var(--wm-accent);color:var(--wm-bg);cursor:pointer}",
+    ".banner .trigger{width:100%;text-align:left}",
+    "button,input,select,textarea{font:inherit;color:inherit}",
+    ":focus-visible{outline:3px solid var(--wm-focus);outline-offset:2px}",
+    "dialog{width:min(880px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:0;border:1px solid var(--wm-accent);",
+    "border-radius:var(--wm-radius);background:var(--wm-bg);color:var(--wm-fg);font:14px/1.6 var(--wm-font)}",
+    "dialog::backdrop{background:rgba(0,0,0,.45)}",
+    ".frame{padding:24px}header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}",
+    "h2{margin:0;font:400 28px/1.2 var(--wm-heading)}h3{margin:32px 0 8px;font:400 22px/1.2 var(--wm-heading)}",
+    "h4{margin:16px 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--wm-muted)}",
+    "label{display:block;margin:16px 0 4px}.row{display:flex;gap:8px;flex-wrap:wrap}",
+    "input,select,textarea{min-height:44px;padding:8px 12px;border:1px solid var(--wm-accent);border-radius:var(--wm-radius);background:var(--wm-bg)}",
+    "input,textarea{flex:1;min-width:0;width:100%}select{width:100%}textarea{resize:vertical}",
+    ".frame button{min-height:44px;padding:8px 16px;border:1px solid var(--wm-accent);border-radius:var(--wm-radius);background:var(--wm-bg);color:var(--wm-accent);cursor:pointer}",
+    ".frame button.primary{background:var(--wm-accent);color:var(--wm-bg)}.frame button:disabled{opacity:.45;cursor:default}",
+    "ol{list-style:none;margin:8px 0;padding:0}li{padding:12px 0;border-bottom:1px solid var(--wm-rule)}",
+    "li a{color:var(--wm-accent);font:400 18px/1.3 var(--wm-heading)}li p{margin:4px 0 0}.meta,.note,.state{color:var(--wm-muted);font-size:13px}",
+    ".status{min-height:1.6em}footer{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:32px;",
+    "padding-top:16px;border-top:1px solid var(--wm-rule);font-size:13px}footer a{color:var(--wm-muted)}",
+    "progress{width:100%}[hidden]{display:none!important}",
+    "@media(max-width:560px){.frame{padding:16px}h2{font-size:24px}dialog{width:calc(100vw - 16px);max-height:calc(100vh - 16px)}}"
+  ].join("");
+
+  function element(doc, tag, attrs, parent, text) {
+    var el = doc.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (key) {
+      if (key === "class") el.className = attrs[key]; else el.setAttribute(key, attrs[key]);
+    });
+    if (text !== undefined) el.textContent = text;
+    if (parent) parent.append(el);
+    return el;
+  }
+
+  function hiddenKey(win) { return "webmcplet-hidden:" + win.location.pathname; }
+
+  function readHidden(win) {
+    try { return win.localStorage.getItem(hiddenKey(win)) === "1"; } catch (_) { return false; }
+  }
+
+  // A labelled corner button that opens the list's search, browsing and, where
+  // Chrome offers its model, the assistant. It never opens or moves by itself.
+  function mount(win, options) {
+    var doc = win.document, title = options.title, coreTools = options.tools;
+    if (readHidden(win)) return null;
+    var host = element(doc, "div", { "data-webmcplet-host": "" });
+    // The host carries its own placement so that page CSS on divs, such as a
+    // transform, cannot move the corner button into the page's flow.
+    var place = options.mode === "banner"
+      ? { display: "block", position: "static", transform: "none" }
+      : { display: "block", position: "fixed", right: "16px", bottom: "16px", left: "auto", top: "auto",
+          "z-index": "2147483000", transform: "none", margin: "0", width: "auto", height: "auto" };
+    Object.keys(place).forEach(function (key) { host.style.setProperty(key, place[key], "important"); });
+    if (options.mode === "banner") doc.body.prepend(host); else doc.body.append(host);
+    var root = host.attachShadow({ mode: "open" });
+    element(doc, "style", {}, root, STYLE);
+    var wrap = element(doc, "div", { class: options.mode === "banner" ? "banner" : "corner" }, root);
+    var trigger = element(doc, "button", { class: "trigger", type: "button", "aria-haspopup": "dialog" }, wrap, options.label || "Search this list");
+    var dialog = element(doc, "dialog", { "aria-labelledby": "wm-title" }, wrap);
+    var frame = element(doc, "div", { class: "frame" }, dialog);
+    var head = element(doc, "header", {}, frame);
+    element(doc, "h2", { id: "wm-title" }, head, title);
+    var close = element(doc, "button", { type: "button" }, head, "Close");
+    var form = element(doc, "form", { role: "search" }, frame);
+    element(doc, "label", { for: "wm-query" }, form, "Search " + title);
+    var row = element(doc, "div", { class: "row" }, form);
+    var query = element(doc, "input", { id: "wm-query", type: "search", maxlength: String(MAX_QUERY), autocomplete: "off" }, row);
+    element(doc, "button", { type: "submit", class: "primary" }, row, "Search");
+    element(doc, "label", { for: "wm-section" }, form, "Section");
+    var section = element(doc, "select", { id: "wm-section" }, form);
+    element(doc, "option", { value: "" }, section, "All sections");
+    var status = element(doc, "p", { class: "status", role: "status", "aria-live": "polite" }, frame);
+    var results = element(doc, "ol", { "aria-label": "Results" }, frame);
+    var more = element(doc, "button", { type: "button", hidden: "" }, frame, "Show 12 more");
+    var assistant = element(doc, "section", { "aria-labelledby": "wm-ask-title", hidden: "" }, frame);
+    element(doc, "h3", { id: "wm-ask-title" }, assistant, "Ask Chrome’s on-device model");
+    element(doc, "p", { class: "note" }, assistant, "The model runs in this browser and uses the same tools. Rows come from the list; the text below them is generated.");
+    var modelState = element(doc, "p", { class: "state", role: "status", "aria-live": "polite" }, assistant);
+    var download = element(doc, "button", { type: "button", hidden: "" }, assistant, "Download the model");
+    var progress = element(doc, "progress", { max: "1", value: "0", hidden: "", "aria-label": "Model download" }, assistant);
+    var askForm = element(doc, "form", { hidden: "" }, assistant);
+    element(doc, "label", { for: "wm-question" }, askForm, "Question");
+    var question = element(doc, "textarea", { id: "wm-question", rows: "3", maxlength: String(MAX_REQUEST) }, askForm);
+    var askRow = element(doc, "div", { class: "row" }, askForm);
+    var askButton = element(doc, "button", { type: "submit", class: "primary" }, askRow, "Ask");
+    var stop = element(doc, "button", { type: "button", disabled: "" }, askRow, "Stop");
+    var answer = element(doc, "div", { hidden: "" }, assistant);
+    element(doc, "h4", {}, answer, "From the list");
+    var answerRows = element(doc, "ol", { "aria-label": "Items in the answer" }, answer);
+    element(doc, "h4", {}, answer, "Generated text");
+    var generated = element(doc, "p", { class: "generated" }, answer);
+    var foot = element(doc, "footer", {}, frame);
+    var hide = element(doc, "button", { type: "button" }, foot, "Hide this button");
+    element(doc, "span", { class: "note" }, foot, "Hidden in this browser until its site data is cleared.");
+    element(doc, "a", { href: "https://github.com/awesomeopen/awesome-open/tree/main/webmcplet" }, foot, "WebMCPlet");
+
+    var find = coreTools.find(function (t) { return /_find$/.test(t.name); });
+    var listDoc = null, current = { query: "", section: "", offset: 0 }, running = null;
+
+    function link(item) { return item.link || item.url; }
+    function sectionTitle(id) {
+      var s = listDoc && listDoc.sections.find(function (x) { return x.id === id; });
+      return s ? s.title : id;
+    }
+    function renderRow(list, item) {
+      var li = element(doc, "li", {}, list);
+      var href = item.href || link(item);
+      if (href) element(doc, "a", { href: href }, li, item.name); else element(doc, "strong", {}, li, item.name);
+      if (item.description) element(doc, "p", {}, li, item.description);
+      if (item.sections) element(doc, "p", { class: "meta" }, li, item.sections.map(sectionTitle).join(" · "));
+    }
+    async function run(append) {
+      if (!append) current.offset = 0;
+      var args = { query: current.query, offset: current.offset };
+      if (current.section) args.section = current.section;
+      status.textContent = "Searching…";
+      var result = await find.execute(args);
+      if (!result.ok) { status.textContent = result.message; return; }
+      if (!append) results.replaceChildren();
+      result.items.forEach(function (item) { renderRow(results, item); });
+      current.offset += result.items.length;
+      var shown = current.offset;
+      status.textContent = result.total ? (result.total === 1 ? "1 item" : result.total + " items") +
+        (shown < result.total ? "; showing " + shown + "." : ".") : result.message;
+      more.hidden = shown >= result.total;
+    }
+    async function prepare() {
+      if (listDoc) return;
+      status.textContent = "Loading the list…";
+      try { listDoc = await coreTools.document(); }
+      catch (_) { status.textContent = "The list could not load. Close and retry."; return; }
+      listDoc.sections.forEach(function (s) {
+        var depth = 0;
+        for (var p = s.parent; p; p = (listDoc.sections.find(function (x) { return x.id === p; }) || {}).parent) depth++;
+        element(doc, "option", { value: s.id }, section, " ".repeat(depth) + s.title);
+      });
+      status.textContent = listDoc.items.length + " items in " + listDoc.sections.length + " sections.";
+      refreshModel();
+    }
+
+    // Assistant availability: hidden where Chrome has no model for this device.
+    // The assistant is opt-in: it missed the pass threshold on one PRD journey
+    // (webmcplet/README.md#assistant).
+    var model = options.assistant ? win.LanguageModel : null;
+    async function refreshModel() {
+      if (!model || typeof model.availability !== "function") return;
+      var state;
+      try { state = await model.availability(LANG); } catch (_) { state = "unavailable"; }
+      assistant.hidden = state === "unavailable";
+      download.hidden = state !== "downloadable";
+      askForm.hidden = state !== "available";
+      progress.hidden = state !== "downloading";
+      modelState.textContent = {
+        downloadable: "Chrome can download its on-device model to answer here. The download is several gigabytes and happens once per browser.",
+        downloading: "Chrome is downloading its on-device model.",
+        available: "The model is ready."
+      }[state] || "";
+    }
+    download.addEventListener("click", async function () {
+      download.disabled = true; progress.hidden = false;
+      modelState.textContent = "Downloading the model…";
+      try {
+        var created = await model.create(Object.assign({}, LANG, { monitor: function (m) {
+          m.addEventListener("downloadprogress", function (e) { progress.value = e.loaded; });
+        } }));
+        created.destroy();
+      } catch (error) {
+        modelState.textContent = "The download stopped: " + (error && error.message) + " Retry when ready.";
+        download.disabled = false; return;
+      }
+      download.disabled = false;
+      refreshModel();
+    });
+
+    function assistantTools() {
+      var names = options.assistantTools;
+      var extra = (win.webmcpletTools || []);
+      var all = coreTools.concat(extra);
+      // By default the measured set: search and retrieval, plus the page's own tools.
+      var chosen = !names ? all.filter(function (t) { return !/_sections$/.test(t.name); })
+        : names.map(function (n) { return all.find(function (t) { return t.name === n; }); }).filter(Boolean);
+      // In name order, as Chrome lists tools: with cabinet_arrange listed first the
+      // model recovered from an empty selection; in registration order it did not.
+      return chosen.slice().sort(function (a, b) { return compareText(a.name, b.name); });
+    }
+    askForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      var request = question.value.trim();
+      if (!request || running) return;
+      running = new AbortController();
+      askButton.disabled = true; stop.disabled = false; answer.hidden = true;
+      modelState.textContent = "Working…";
+      var session;
+      try {
+        var available = assistantTools();
+        // The list's description names what its items are, as in the measured wording.
+        var about = listDoc && listDoc.list.description ? title + ", " + listDoc.list.description.charAt(0).toLowerCase() + listDoc.list.description.slice(1).replace(/\.$/, "") : title;
+        session = await model.create(Object.assign({}, LANG, { initialPrompts: [{ role: "system", content: instructions(about, available) }], signal: running.signal }));
+        var outcome = await ask({ session: session, tools: available, request: request, signal: running.signal,
+          names: listDoc ? listDoc.items.map(function (i) { return i.name; }) : [],
+          onStep: function (step) { if (step.tool) modelState.textContent = "Called " + step.tool + (step.ok ? "." : ": " + step.code + "."); } });
+        // The last outcome, with its tool trace, for the page's developer tools.
+        if (win.WebMCPlet) win.WebMCPlet.lastAnswer = outcome;
+        showAnswer(outcome);
+      } catch (error) {
+        modelState.textContent = running.signal.aborted ? "Stopped." : "The model stopped: " + (error && error.message);
+      } finally {
+        if (session) session.destroy();
+        running = null; askButton.disabled = false; stop.disabled = true;
+      }
+    });
+    function showAnswer(outcome) {
+      if (outcome.status !== "answered") {
+        modelState.textContent = {
+          cancelled: "Stopped.", timeout: "The model took longer than 30 seconds for one step. Ask again.",
+          turn_limit: "The model did not finish within " + MAX_TURNS + " steps. Ask again or search above.",
+          error: "The model stopped: " + outcome.message
+        }[outcome.status];
+        return;
+      }
+      answer.hidden = false;
+      answerRows.replaceChildren();
+      outcome.rows.forEach(function (r) { renderRow(answerRows, r); });
+      if (!outcome.rows.length) element(doc, "li", {}, answerRows, "No items.");
+      generated.textContent = outcome.text !== null ? outcome.text
+        : "The generated text named items the tools did not return, so it is withheld.";
+      modelState.textContent = outcome.removed ? "The model listed " + outcome.removed + " item(s) the tools did not return; they are omitted." : "Answered.";
+    }
+    stop.addEventListener("click", function () { if (running) running.abort(); });
+
+    // Fixed elements follow the layout viewport. On a page wider than the screen,
+    // or when zoomed, that differs from what the visitor sees, so place the button
+    // and dialog in the visual viewport instead.
+    function follow() {
+      var vv = win.visualViewport;
+      var offset = vv && (Math.abs(vv.width - win.innerWidth) > 1 || Math.abs(vv.height - win.innerHeight) > 1 || vv.offsetLeft || vv.offsetTop);
+      if (options.mode !== "banner") {
+        if (offset) {
+          host.style.setProperty("left", (vv.offsetLeft + vv.width - host.offsetWidth - 16) + "px", "important");
+          host.style.setProperty("top", (vv.offsetTop + vv.height - host.offsetHeight - 16) + "px", "important");
+          host.style.setProperty("right", "auto", "important"); host.style.setProperty("bottom", "auto", "important");
+        } else {
+          host.style.setProperty("left", "auto", "important"); host.style.setProperty("top", "auto", "important");
+          host.style.setProperty("right", "16px", "important"); host.style.setProperty("bottom", "16px", "important");
+        }
+      }
+      if (offset) {
+        dialog.style.margin = "0"; dialog.style.position = "fixed";
+        dialog.style.width = Math.min(880, vv.width - 16) + "px"; dialog.style.maxHeight = (vv.height - 16) + "px";
+        dialog.style.left = (vv.offsetLeft + (vv.width - Math.min(880, vv.width - 16)) / 2) + "px";
+        dialog.style.top = (vv.offsetTop + 8) + "px";
+      } else ["margin", "position", "width", "maxHeight", "left", "top"].forEach(function (k) { dialog.style[k] = ""; });
+    }
+    if (win.visualViewport) {
+      win.visualViewport.addEventListener("resize", follow);
+      win.visualViewport.addEventListener("scroll", follow);
+    }
+    win.requestAnimationFrame(follow);
+
+    trigger.addEventListener("click", function () { dialog.showModal(); follow(); query.focus(); prepare(); });
+    close.addEventListener("click", function () { dialog.close(); });
+    dialog.addEventListener("close", function () { if (running) running.abort(); trigger.focus(); });
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); current.query = query.value; current.section = section.value; run(false);
+    });
+    section.addEventListener("change", function () { current.query = query.value; current.section = section.value; run(false); });
+    more.addEventListener("click", function () { run(true); });
+    hide.addEventListener("click", function () {
+      try { win.localStorage.setItem(hiddenKey(win), "1"); } catch (_) { /* Hidden for this page view only. */ }
+      dialog.close(); host.remove();
+    });
+    return host;
+  }
+
+  // <script src="webmcplet.js" data-webmcplet-src="list.json" data-webmcplet-title="Awesome X"
+  //   data-webmcplet-prefix="list" data-webmcplet-panel="button|banner|off" data-webmcplet-assistant="on">
+  // With a title, the document loads at the first tool call or panel use.
   function autostart(win) {
     var script = win.document && win.document.currentScript;
     if (!script || !script.dataset || !script.dataset.webmcpletSrc) return;
-    var options = { prefix: script.dataset.webmcpletPrefix || "list" };
-    win.WebMCPlet.ready = load(script.dataset.webmcpletSrc, win)
-      .then(function (doc) { return register(doc, options); })
-      .catch(function (error) {
-        if (win.console) win.console.warn("WebMCPlet: " + error.message);
-        return { registered: [], error: error.code || "list_unavailable" };
-      });
+    var data = script.dataset, options = { prefix: data.webmcpletPrefix || "list", title: data.webmcpletTitle };
+    var loader = function () { return load(data.webmcpletSrc, win); };
+    var source = options.title ? Promise.resolve(loader) : loader().then(function (doc) {
+      options.title = doc.list.title; return doc;
+    });
+    win.WebMCPlet.ready = source.then(function (src) { return register(src, options); }).then(function (result) {
+      var mode = data.webmcpletPanel || "button";
+      if (mode !== "off") {
+        var start = function () {
+          result.panel = mount(win, { title: options.title, tools: result.tools, mode: mode, label: data.webmcpletLabel,
+            assistant: data.webmcpletAssistant === "on",
+            assistantTools: data.webmcpletAssistantTools ? data.webmcpletAssistantTools.split(/[\s,]+/).filter(Boolean) : null });
+        };
+        if (win.document.body) start(); else win.document.addEventListener("DOMContentLoaded", start);
+      }
+      return result;
+    }).catch(function (error) {
+      if (win.console) win.console.warn("WebMCPlet: " + error.message);
+      return { registered: [], error: error.code || "list_unavailable" };
+    });
   }
 
   return { VERSION: VERSION, PAGE: PAGE, normalizeUrl: normalizeUrl, validate: validate, create: create,
-    register: register, load: load, autostart: autostart, fold: fold };
+    tools: tools, register: register, load: load, autostart: autostart, fold: fold,
+    assistant: { ask: ask, actionSchema: actionSchema, instructions: instructions, modelSchema: modelSchema, Refs: Refs, namesIn: namesIn },
+    mount: mount };
 });

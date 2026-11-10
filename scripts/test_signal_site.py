@@ -144,7 +144,7 @@ class SignalSiteTests(unittest.TestCase):
             root=Path(directory)/'root'; output=Path(directory)/'preview'
             root.mkdir()
             for name in ('README.source.md',):shutil.copyfile(self.root/name,root/name)
-            for name in ('site','data'):shutil.copytree(self.root/name,root/name)
+            for name in ('site','data','webmcplet'):shutil.copytree(self.root/name,root/name)
             update_signals.write_snapshot(root/'data/project_signals.json',self.optional)
             build_site.build(output,root=root)
             self.assertEqual(json.loads((output/'data/project_signals.json').read_text()),self.optional)

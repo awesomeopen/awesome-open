@@ -28,9 +28,20 @@ failure and the caller would lose the recovery instruction. The codes are
 `stale_revision`, `selection_changed`, `empty_selection`, `busy`, `cancelled`,
 `search_unavailable`, `evidence_unavailable` and `catalog_changed`.
 
+An agent's `empty_selection` names the next step: "Call cabinet_arrange with ids from
+cabinet_find and its revision, then call cabinet_compare." In the
+[Prompt API test](../experiments/prompt-api-m5/README.md) the on-device model recovered
+with that message and not with "Select at least one project first.", which the page's
+own Compare button still shows.
+
+The page also hands the four tools to [WebMCPlet](../webmcplet/README.md) through
+`window.webmcpletTools`, so its opt-in assistant can operate the same selection; its
+calls appear as "Assistant" in the activity log. The page registers WebMCPlet's
+`list_sections`, `list_find` and `list_get` beside these tools, from the same catalog.
+
 The page retains the latest 20 operation names, actors and outcomes in memory.
 It records executed operations, without generated reasoning. The agent/client
-provides its own model and connection; the site supplies native tools only.
+provides its own model and connection.
 
 ## Search
 
@@ -72,10 +83,14 @@ Unsupported browsers show an experimental support notice and retain human contro
 
 ## Design and validation
 
-The cabinet is a folded Catalog instrument with the existing white/Prussian
-palette and typography, ordered ruled rows and a labeled horizontally scrollable
-evidence table. Reorder/remove controls are keyboard and touch accessible; empty,
-loading, cancelled and error states use literal text. Existing artwork is unchanged.
+The cabinet is a folded Catalog instrument ([B-PR304-01](../brand/decisions/B-PR304-01.md)).
+Its mist heading names it and states its purpose, "Compare up to six projects side by
+side", with the selection count. Opened, it reads as three numbered steps: Find,
+Arrange and Compare, followed by the cabinet URL. Native WebMCP status, the activity log
+and the method sit in "Agents, activity & method". Selection rows are ruled; the evidence
+table scrolls horizontally in a labeled region. Compare is disabled with no selection.
+Controls are keyboard and touch accessible; empty, loading, cancelled and error states
+use literal text. Existing artwork is unchanged.
 
 Run `node --test site/test_search.js site/test_cabinet.js`, the Python suite and existing builds, then
 serve the generated site and run `node scripts/check_cabinet_browser.cjs`; CI runs

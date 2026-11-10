@@ -71,6 +71,7 @@ class FooterArtTests(unittest.TestCase):
     def test_new_file_is_sorted_copied_embedded_and_requires_inventory(self):
         source = self.root / 'source'
         shutil.copytree(ROOT / 'site', source / 'site')
+        shutil.copytree(ROOT / 'webmcplet', source / 'webmcplet')
         shutil.copytree(ROOT / 'data', source / 'data')
         shutil.copyfile(ROOT / 'README.source.md', source / 'README.source.md')
         asset = source / 'site/footer-backgrounds' / self.name

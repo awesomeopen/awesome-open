@@ -1,17 +1,20 @@
 <details id="specimen-cabinet" class="specimen-cabinet" data-source-sha="__SOURCE_SHA__">
- <summary><span class="cabinet-kicker">Experimental / WebMCP</span><span class="cabinet-title">Specimen cabinet</span><span id="cabinet-count">Up to six projects</span></summary>
+ <summary><span class="cabinet-heading"><span class="cabinet-title">Specimen cabinet</span><span class="cabinet-lede">Compare up to six projects side by side</span></span><span id="cabinet-count">0 of 6 selected</span><span class="cabinet-sign" aria-hidden="true"></span></summary>
  <div class="cabinet-body">
-  <p>Collect projects, arrange them, and compare their evidence. Share the selection with a cabinet URL.</p>
-  <p id="cabinet-support">Enable JavaScript to use the experimental cabinet.</p>
+  <p class="cabinet-intro">Add projects, put them in order, then compare their recorded evidence in one table. The cabinet URL keeps the selection.</p>
+  <noscript><p>Enable JavaScript to use the cabinet.</p></noscript>
   <div id="cabinet-controls" hidden>
-   <ol id="cabinet-selection" class="cabinet-selection" aria-label="Selected projects"></ol>
-   <div class="cabinet-actions"><button id="cabinet-compare" type="button">Compare evidence</button><button id="cabinet-cancel" type="button" disabled>Cancel operation</button></div>
    <p id="cabinet-status" role="status" aria-live="polite"></p>
-   <div id="cabinet-comparison" class="cabinet-comparison" role="region" aria-label="Evidence comparison" tabindex="0"></div>
-   <form id="cabinet-find"><label for="cabinet-query">Find projects for this cabinet</label><div class="cabinet-actions"><input id="cabinet-query" type="search" maxlength="160" autocomplete="off"><button type="submit">Find projects</button></div></form>
-   <ul id="cabinet-results" class="cabinet-results" aria-label="Cabinet search results"></ul>
-   <label for="cabinet-share">Share selection</label><div class="cabinet-actions"><input id="cabinet-share" readonly type="url"><button id="cabinet-copy" type="button">Copy URL</button></div>
-   <details class="cabinet-method"><summary>Activity &amp; method</summary><p>Activity records the latest 20 operations in this page. Selection URLs contain ordered project IDs; evidence comes from the published snapshot when opened. Unknown values retain their source status. GitHub license detection and reviewed alternatives link to their sources.</p><p>Native tools share these controls and results. A compatible browser agent supplies its own model and connection. This page displays tool activity only.</p><ol id="cabinet-activity" aria-label="Recent cabinet operations"></ol></details>
+   <form id="cabinet-find" class="cabinet-step"><h3 class="cabinet-step-title"><span class="cabinet-step-number">1</span>Find</h3><label for="cabinet-query">Project name or function</label><div class="cabinet-actions"><input id="cabinet-query" type="search" maxlength="160" autocomplete="off"><button type="submit">Find projects</button></div>
+    <ul id="cabinet-results" class="cabinet-results" aria-label="Cabinet search results"></ul></form>
+   <div class="cabinet-step"><h3 class="cabinet-step-title"><span class="cabinet-step-number">2</span>Arrange</h3>
+    <p id="cabinet-empty" class="cabinet-empty">Nothing selected yet. Add projects from step 1.</p>
+    <ol id="cabinet-selection" class="cabinet-selection" aria-label="Selected projects"></ol></div>
+   <div class="cabinet-step"><h3 class="cabinet-step-title"><span class="cabinet-step-number">3</span>Compare</h3>
+    <div class="cabinet-actions"><button id="cabinet-compare" class="cabinet-primary" type="button" disabled>Compare evidence</button><button id="cabinet-cancel" type="button" disabled>Cancel operation</button></div>
+    <div id="cabinet-comparison" class="cabinet-comparison" role="region" aria-label="Evidence comparison" tabindex="0"></div>
+    <label for="cabinet-share">Cabinet URL</label><div class="cabinet-actions"><input id="cabinet-share" readonly type="url"><button id="cabinet-copy" type="button">Copy URL</button></div></div>
+   <details class="cabinet-method"><summary>Agents, activity &amp; method</summary><p id="cabinet-support" class="cabinet-support-line">Checking for native WebMCP.</p><p>Browser agents can use the same cabinet through native WebMCP tools; the page's assistant uses them too. Activity records the latest 20 operations in this page, by person, agent or assistant.</p><p>Cabinet URLs contain ordered project IDs; evidence comes from the published snapshot when opened. Unknown values keep their source status. GitHub license detection and reviewed alternatives link to their sources.</p><ol id="cabinet-activity" aria-label="Recent cabinet operations"></ol></details>
   </div>
  </div>
 </details>

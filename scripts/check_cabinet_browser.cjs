@@ -20,7 +20,8 @@ const fs = require('node:fs');
  },{name,args,stringInput:major<155});}
  try {
   await page.goto(base);report.sourceSha=await page.locator('#specimen-cabinet').getAttribute('data-source-sha');await page.waitForFunction(()=>document.querySelector('#cabinet-support').textContent.includes('four tools'));
-  assert.deepEqual(await page.evaluate(async()=> (await document.modelContext.getTools()).map(t=>t.name).sort()),['cabinet_arrange','cabinet_compare','cabinet_find','cabinet_inspect']);
+  await page.waitForFunction(async()=>(await document.modelContext.getTools()).length===7);
+  assert.deepEqual(await page.evaluate(async()=> (await document.modelContext.getTools()).map(t=>t.name).sort()),['cabinet_arrange','cabinet_compare','cabinet_find','cabinet_inspect','list_find','list_get','list_sections']);
   const found=await call('cabinet_find',{query:'scad'});assert.equal(found.ok,true);assert.ok(found.projects.length>=2);
   const ids=found.projects.slice(0,2).map(p=>p.id);
   await call('cabinet_arrange',{ids,revision:found.revision});
@@ -110,7 +111,7 @@ const fs = require('node:fs');
   await other.unroute('**/catalog.json');
   await call('cabinet_compare',{},other);
   // Client abort is propagated through the native bridge.
-  await other.reload();
+  await other.reload();await other.waitForFunction(async()=>(await document.modelContext.getTools()).length===7);
   let releaseNative, nativeStarted;const nativeWaiting=new Promise(resolve=>nativeStarted=resolve);
   await other.route('**/catalog.json',async route=>{nativeStarted();await new Promise(resolve=>releaseNative=resolve);await route.abort();});
   const cancelled=other.evaluate(async stringInput=>{
