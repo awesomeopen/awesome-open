@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-10T10:25:05Z",
+  "collected_at": "2026-11-10T20:41:38Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -1815,38 +1815,33 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "2ee1888d74e2f2be44f1639a91c13a984b43fbd1",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "a79ff6bbce54d3e01186a918dc6374ed55317426",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
-              {
-                "name": "Code-Review",
-                "reason": "Found 23/29 approved changesets -- score normalized to 7",
-                "score": 7
-              },
               {
                 "name": "Packaging",
                 "reason": "packaging workflow not detected",
                 "score": null
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
+                "name": "Maintained",
+                "reason": "30 commit(s) and 25 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 7 issue activity found in the last 90 days -- score normalized to 10",
-                "score": 10
+                "name": "Code-Review",
+                "reason": "Found 26/29 approved changesets -- score normalized to 8",
+                "score": 8
               },
               {
                 "name": "Dangerous-Workflow",
@@ -1857,6 +1852,11 @@
                 "name": "Token-Permissions",
                 "reason": "No tokens found",
                 "score": null
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
+                "score": 10
               },
               {
                 "name": "Binary-Artifacts",
@@ -1900,10 +1900,10 @@
               }
             ],
             "repository": "github.com/assimp/assimp",
-            "score": 6.9
+            "score": 7
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/assimp/assimp",
         "status": "partial",
@@ -2146,7 +2146,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -3417,7 +3417,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -3705,7 +3705,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:16:09Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -4638,7 +4638,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -12444,13 +12444,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "bb7d8759dfb8d60cbf6bd119fd89ca8a034572fa",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -12532,7 +12532,7 @@
             "score": 3.4
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opencart/opencart",
         "status": "partial",
@@ -12568,28 +12568,33 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-26T00:00:00Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
           "source_commit": "6bb648ba3b6341f4a015ee98ea6ce826a0453fcf",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Code-Review",
-                "reason": "Found 2/13 approved changesets -- score normalized to 1",
-                "score": 1
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
+                "score": 10
               },
               {
                 "name": "Maintained",
                 "reason": "0 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 0",
                 "score": 0
+              },
+              {
+                "name": "Code-Review",
+                "reason": "Found 2/13 approved changesets -- score normalized to 1",
+                "score": 1
               },
               {
                 "name": "Packaging",
@@ -12602,11 +12607,6 @@
                 "score": 0
               },
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no dangerous workflow patterns detected",
-                "score": 10
-              },
-              {
                 "name": "Binary-Artifacts",
                 "reason": "no binaries found in the repo",
                 "score": 10
@@ -12617,13 +12617,13 @@
                 "score": 0
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
+                "name": "Security-Policy",
+                "reason": "security policy file not detected",
                 "score": 0
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file not detected",
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
                 "score": 0
               },
               {
@@ -12632,14 +12632,14 @@
                 "score": 10
               },
               {
-                "name": "Pinned-Dependencies",
-                "reason": "dependency not pinned by hash detected -- score normalized to 0",
-                "score": 0
-              },
-              {
                 "name": "Signed-Releases",
                 "reason": "no releases found",
                 "score": null
+              },
+              {
+                "name": "Pinned-Dependencies",
+                "reason": "dependency not pinned by hash detected -- score normalized to 0",
+                "score": 0
               },
               {
                 "name": "Branch-Protection",
@@ -12656,7 +12656,7 @@
             "score": 3.2
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opencfp/opencfp",
         "status": "partial",
@@ -12830,22 +12830,22 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-11-02T12:06:23Z",
-          "source_commit": "e48195c16330eefc4994531b75d2e8be8197c4d9",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-10T10:48:16Z",
+          "source_commit": "dc6f85d08b4f90278d468b1c4df299482c84c7be",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Code-Review",
-                "reason": "all changesets reviewed",
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
                 "score": 10
               },
               {
@@ -12855,22 +12855,22 @@
               },
               {
                 "name": "Maintained",
-                "reason": "30 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
+                "reason": "30 commit(s) and 1 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
+                "name": "Code-Review",
+                "reason": "all changesets reviewed",
                 "score": 10
-              },
-              {
-                "name": "Token-Permissions",
-                "reason": "detected GitHub workflow tokens with excessive permissions",
-                "score": 0
               },
               {
                 "name": "Dangerous-Workflow",
                 "reason": "dangerous workflow patterns detected",
+                "score": 0
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "detected GitHub workflow tokens with excessive permissions",
                 "score": 0
               },
               {
@@ -12884,9 +12884,9 @@
                 "score": 5
               },
               {
-                "name": "License",
-                "reason": "license file detected",
-                "score": 10
+                "name": "Signed-Releases",
+                "reason": "5 out of the last 5 releases have a total of 5 signed artifacts.",
+                "score": 8
               },
               {
                 "name": "Pinned-Dependencies",
@@ -12894,9 +12894,14 @@
                 "score": 10
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is fuzzed",
+                "name": "License",
+                "reason": "license file detected",
                 "score": 10
+              },
+              {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
               },
               {
                 "name": "Vulnerabilities",
@@ -12904,14 +12909,9 @@
                 "score": 0
               },
               {
-                "name": "Signed-Releases",
-                "reason": "5 out of the last 5 releases have a total of 5 signed artifacts.",
-                "score": 8
-              },
-              {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
-                "score": null
+                "name": "Fuzzing",
+                "reason": "project is fuzzed",
+                "score": 10
               },
               {
                 "name": "Branch-Protection",
@@ -12938,7 +12938,7 @@
             "score": 6.8
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openchoreo/openchoreo",
         "status": "partial",
@@ -13194,15 +13194,15 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-29T20:52:33Z",
-          "source_commit": "24b94ef6acb4f4db39140d2380488e3c5bf45265",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-10T15:27:29Z",
+          "source_commit": "17daaa72c27cb12c490ce6e15d096554b274f322",
           "tool_commit": "c22063e786c11f9dd714d777a687ff7c4599b600",
           "tool_version": "v5.3.0",
           "value": {
@@ -13213,23 +13213,18 @@
                 "score": 10
               },
               {
-                "name": "Code-Review",
-                "reason": "all changesets reviewed",
-                "score": 10
-              },
-              {
                 "name": "Maintained",
-                "reason": "30 commit(s) and 4 issue activity found in the last 90 days -- score normalized to 10",
+                "reason": "30 commit(s) and 5 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
-              },
-              {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
-                "score": null
               },
               {
                 "name": "Security-Policy",
                 "reason": "security policy file detected",
+                "score": 10
+              },
+              {
+                "name": "Code-Review",
+                "reason": "all changesets reviewed",
                 "score": 10
               },
               {
@@ -13238,14 +13233,19 @@
                 "score": 0
               },
               {
-                "name": "Token-Permissions",
-                "reason": "detected GitHub workflow tokens with excessive permissions",
-                "score": 9
-              },
-              {
                 "name": "Binary-Artifacts",
                 "reason": "no binaries found in the repo",
                 "score": 10
+              },
+              {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "detected GitHub workflow tokens with excessive permissions",
+                "score": 9
               },
               {
                 "name": "CII-Best-Practices",
@@ -13253,24 +13253,9 @@
                 "score": 2
               },
               {
-                "name": "License",
-                "reason": "license file detected",
-                "score": 10
-              },
-              {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
-                "score": 0
-              },
-              {
                 "name": "Pinned-Dependencies",
                 "reason": "dependency not pinned by hash detected -- score normalized to 0",
                 "score": 0
-              },
-              {
-                "name": "Branch-Protection",
-                "reason": "branch protection is not maximal on development and all release branches",
-                "score": 8
               },
               {
                 "name": "Signed-Releases",
@@ -13278,14 +13263,9 @@
                 "score": 0
               },
               {
-                "name": "Vulnerabilities",
-                "reason": "50 existing vulnerabilities detected",
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
                 "score": 0
-              },
-              {
-                "name": "SAST",
-                "reason": "internal error: internal error: Client.Checks.ListCheckRunsForRef: error during graphqlHandler.setupCheckRuns: Although you appear to have the correct authorization credentials, the `cursor` organization has an IP allow list enabled, and your IP address is not permitted to access this resource.",
-                "score": null
               },
               {
                 "name": "CI-Tests",
@@ -13293,8 +13273,28 @@
                 "score": null
               },
               {
+                "name": "SAST",
+                "reason": "internal error: internal error: Client.Checks.ListCheckRunsForRef: error during graphqlHandler.setupCheckRuns: Although you appear to have the correct authorization credentials, the `cursor` organization has an IP allow list enabled, and your IP address is not permitted to access this resource.",
+                "score": null
+              },
+              {
+                "name": "Branch-Protection",
+                "reason": "branch protection is not maximal on development and all release branches",
+                "score": 8
+              },
+              {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
+              },
+              {
+                "name": "Vulnerabilities",
+                "reason": "51 existing vulnerabilities detected",
+                "score": 0
+              },
+              {
                 "name": "Contributors",
-                "reason": "project has 15 contributing companies or organizations",
+                "reason": "project has 14 contributing companies or organizations",
                 "score": 10
               }
             ],
@@ -13302,7 +13302,7 @@
             "score": 5.8
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opencost/opencost",
         "status": "partial",
@@ -13543,37 +13543,32 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "cd3dc424fbec0e1bc54bf58cd8a2385d09065be6",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "71babee383e846ce4a037a7aa4a92c72551c4866",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
+              },
+              {
                 "name": "Code-Review",
-                "reason": "Found 17/20 approved changesets -- score normalized to 8",
-                "score": 8
+                "reason": "Found 21/23 approved changesets -- score normalized to 9",
+                "score": 9
               },
               {
                 "name": "Token-Permissions",
                 "reason": "No tokens found",
-                "score": null
-              },
-              {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
-                "score": 10
-              },
-              {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
                 "score": null
               },
               {
@@ -13583,7 +13578,12 @@
               },
               {
                 "name": "Maintained",
-                "reason": "30 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
+                "reason": "30 commit(s) and 1 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
                 "score": 10
               },
               {
@@ -13628,10 +13628,10 @@
               }
             ],
             "repository": "github.com/opencv/opencv",
-            "score": 5.5
+            "score": 5.7
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opencv/opencv",
         "status": "partial",
@@ -13708,15 +13708,15 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-19T00:00:00Z",
-          "source_commit": "48a5c88787148f6df7f724b9cb699bf778c91dbb",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-02T00:00:00Z",
+          "source_commit": "1faa1f9cd58e50d796ca7f42dcf5f099a62e73ac",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
@@ -13728,8 +13728,8 @@
               },
               {
                 "name": "Code-Review",
-                "reason": "Found 6/8 approved changesets -- score normalized to 7",
-                "score": 7
+                "reason": "all changesets reviewed",
+                "score": 10
               },
               {
                 "name": "Dangerous-Workflow",
@@ -13772,13 +13772,13 @@
                 "score": 10
               },
               {
-                "name": "Signed-Releases",
-                "reason": "no releases found",
+                "name": "Branch-Protection",
+                "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
                 "score": null
               },
               {
-                "name": "Branch-Protection",
-                "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
+                "name": "Signed-Releases",
+                "reason": "no releases found",
                 "score": null
               },
               {
@@ -13793,10 +13793,10 @@
               }
             ],
             "repository": "github.com/opendatacube/datacube-core",
-            "score": 7.2
+            "score": 7.5
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opendatacube/datacube-core",
         "status": "partial",
@@ -14078,27 +14078,27 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "713f56fe1846e9985aaf81592a8e61b2960a3b15",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "7288975f191976d69cf0dd7fba3b6ce828737b7c",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 12 issue activity found in the last 90 days -- score normalized to 10",
+                "name": "Code-Review",
+                "reason": "all changesets reviewed",
                 "score": 10
               },
               {
-                "name": "Code-Review",
-                "reason": "all changesets reviewed",
+                "name": "Maintained",
+                "reason": "30 commit(s) and 12 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
@@ -14107,14 +14107,14 @@
                 "score": 9
               },
               {
-                "name": "Binary-Artifacts",
-                "reason": "no binaries found in the repo",
-                "score": 10
-              },
-              {
                 "name": "Packaging",
                 "reason": "packaging workflow not detected",
                 "score": null
+              },
+              {
+                "name": "Binary-Artifacts",
+                "reason": "no binaries found in the repo",
+                "score": 10
               },
               {
                 "name": "Dangerous-Workflow",
@@ -14159,14 +14159,14 @@
               {
                 "name": "Branch-Protection",
                 "reason": "branch protection is not maximal on development and all release branches",
-                "score": 8
+                "score": 5
               }
             ],
             "repository": "github.com/openebs/openebs",
-            "score": 5.8
+            "score": 5.6
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openebs/openebs",
         "status": "partial",
@@ -14189,32 +14189,37 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-26T00:00:00Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
           "source_commit": "46a5d7d400820d471b67b8c019997bfa5d3c873e",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no workflows found",
-                "score": null
-              },
-              {
-                "name": "Maintained",
-                "reason": "5 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 4",
-                "score": 4
+                "name": "Code-Review",
+                "reason": "Found 22/23 approved changesets -- score normalized to 9",
+                "score": 9
               },
               {
                 "name": "Packaging",
                 "reason": "packaging workflow not detected",
+                "score": null
+              },
+              {
+                "name": "Maintained",
+                "reason": "4 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 3",
+                "score": 3
+              },
+              {
+                "name": "Dangerous-Workflow",
+                "reason": "no workflows found",
                 "score": null
               },
               {
@@ -14223,24 +14228,9 @@
                 "score": null
               },
               {
-                "name": "Code-Review",
-                "reason": "Found 22/23 approved changesets -- score normalized to 9",
-                "score": 9
-              },
-              {
                 "name": "CII-Best-Practices",
                 "reason": "no effort to earn an OpenSSF best practices badge detected",
                 "score": 0
-              },
-              {
-                "name": "Security-Policy",
-                "reason": "security policy file not detected",
-                "score": 0
-              },
-              {
-                "name": "License",
-                "reason": "license file detected",
-                "score": 9
               },
               {
                 "name": "Binary-Artifacts",
@@ -14248,14 +14238,24 @@
                 "score": 10
               },
               {
+                "name": "Pinned-Dependencies",
+                "reason": "no dependencies found",
+                "score": null
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file not detected",
+                "score": 0
+              },
+              {
                 "name": "Fuzzing",
                 "reason": "project is not fuzzed",
                 "score": 0
               },
               {
-                "name": "Pinned-Dependencies",
-                "reason": "no dependencies found",
-                "score": null
+                "name": "License",
+                "reason": "license file detected",
+                "score": 9
               },
               {
                 "name": "Signed-Releases",
@@ -14274,10 +14274,10 @@
               }
             ],
             "repository": "github.com/openeducat/openeducat_erp",
-            "score": 4.6
+            "score": 4.4
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openeducat/openeducat_erp",
         "status": "partial",
@@ -14354,33 +14354,23 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-19T00:00:00Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-02T00:00:00Z",
           "source_commit": "12cdbfc004a8101b7826a34492a1c50a7696f959",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
-                "score": null
-              },
-              {
                 "name": "Code-Review",
                 "reason": "Found 13/14 approved changesets -- score normalized to 9",
                 "score": 9
-              },
-              {
-                "name": "Token-Permissions",
-                "reason": "detected GitHub workflow tokens with excessive permissions",
-                "score": 0
               },
               {
                 "name": "Dangerous-Workflow",
@@ -14388,8 +14378,18 @@
                 "score": 10
               },
               {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
+              },
+              {
                 "name": "Maintained",
                 "reason": "0 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "detected GitHub workflow tokens with excessive permissions",
                 "score": 0
               },
               {
@@ -14403,13 +14403,13 @@
                 "score": 2
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file not detected",
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
                 "score": 0
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
+                "name": "Security-Policy",
+                "reason": "security policy file not detected",
                 "score": 0
               },
               {
@@ -14442,7 +14442,7 @@
             "score": 4.3
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openelb/openelb",
         "status": "partial",
@@ -14671,7 +14671,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -14712,33 +14712,33 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-19T00:00:00Z",
-          "source_commit": "8d803bf9e2655aec6a60fd0e25b392839f96af95",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-02T00:00:00Z",
+          "source_commit": "eb29c060bda6c2de3df83ca62f7ff6dedca9db23",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no dangerous workflow patterns detected",
-                "score": 10
+                "name": "Code-Review",
+                "reason": "Found 3/29 approved changesets -- score normalized to 1",
+                "score": 1
               },
               {
                 "name": "Maintained",
-                "reason": "0 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 0",
-                "score": 0
+                "reason": "2 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 1",
+                "score": 1
               },
               {
-                "name": "Token-Permissions",
-                "reason": "detected GitHub workflow tokens with excessive permissions",
-                "score": 0
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
+                "score": 10
               },
               {
                 "name": "Security-Policy",
@@ -14746,8 +14746,8 @@
                 "score": 9
               },
               {
-                "name": "Code-Review",
-                "reason": "Found 2/30 approved changesets -- score normalized to 0",
+                "name": "Token-Permissions",
+                "reason": "detected GitHub workflow tokens with excessive permissions",
                 "score": 0
               },
               {
@@ -14771,14 +14771,14 @@
                 "score": 9
               },
               {
-                "name": "Signed-Releases",
-                "reason": "no releases found",
-                "score": null
-              },
-              {
                 "name": "Pinned-Dependencies",
                 "reason": "dependency not pinned by hash detected -- score normalized to 0",
                 "score": 0
+              },
+              {
+                "name": "Signed-Releases",
+                "reason": "no releases found",
+                "score": null
               },
               {
                 "name": "Branch-Protection",
@@ -14797,10 +14797,10 @@
               }
             ],
             "repository": "github.com/openfaas/faas",
-            "score": 4.2
+            "score": 4.4
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openfaas/faas",
         "status": "partial",
@@ -14877,27 +14877,32 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-11-02T18:09:12Z",
-          "source_commit": "2dfa5d30155bfdc0f6212eaa566b7d5f584fc6c2",
-          "tool_commit": "c395761df6afe1a69e476bc60a013a94bcbc153f",
-          "tool_version": "v5.5.0",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-10T20:08:13Z",
+          "source_commit": "8e4909c4ac5aa53f1915383713c07416280a7449",
+          "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
+          "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
                 "name": "Code-Review",
-                "reason": "Found 21/27 approved changesets -- score normalized to 7",
+                "reason": "Found 19/24 approved changesets -- score normalized to 7",
                 "score": 7
               },
               {
                 "name": "Dependency-Update-Tool",
                 "reason": "update tool detected",
+                "score": 10
+              },
+              {
+                "name": "Maintained",
+                "reason": "30 commit(s) and 4 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
@@ -14911,8 +14916,8 @@
                 "score": 10
               },
               {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 3 issue activity found in the last 90 days -- score normalized to 10",
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
                 "score": 10
               },
               {
@@ -14936,11 +14941,6 @@
                 "score": 8
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is fuzzed",
-                "score": 10
-              },
-              {
                 "name": "Signed-Releases",
                 "reason": "5 out of the last 5 releases have a total of 10 signed artifacts.",
                 "score": 10
@@ -14951,13 +14951,8 @@
                 "score": 10
               },
               {
-                "name": "SAST",
-                "reason": "SAST tool detected",
-                "score": 10
-              },
-              {
-                "name": "License",
-                "reason": "license file detected",
+                "name": "Fuzzing",
+                "reason": "project is fuzzed",
                 "score": 10
               },
               {
@@ -14966,13 +14961,18 @@
                 "score": 8
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
+              },
+              {
+                "name": "SAST",
+                "reason": "SAST tool detected",
                 "score": 10
               },
               {
                 "name": "CI-Tests",
-                "reason": "24 out of 24 merged PRs checked by a CI test -- score normalized to 10",
+                "reason": "25 out of 25 merged PRs checked by a CI test -- score normalized to 10",
                 "score": 10
               },
               {
@@ -14985,7 +14985,7 @@
             "score": 9.3
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openfga/openfga",
         "status": "available",
@@ -15021,13 +15021,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "b59e1f291965f14fbee5172cd83a20f5b856204f",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -15109,7 +15109,7 @@
             "score": 5.4
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openfheorg/openfhe-development",
         "status": "partial",
@@ -15721,22 +15721,22 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "bfffe172f185c4e97ee717580deffcd999a09983",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-02T00:00:00Z",
+          "source_commit": "ce0c58ba42f0001e8e86573c34c6b82264de2922",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
                 "name": "Code-Review",
-                "reason": "Found 1/29 approved changesets -- score normalized to 0",
+                "reason": "Found 0/30 approved changesets -- score normalized to 0",
                 "score": 0
               },
               {
@@ -15755,16 +15755,6 @@
                 "score": 10
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
-                "score": 10
-              },
-              {
-                "name": "Token-Permissions",
-                "reason": "detected GitHub workflow tokens with excessive permissions",
-                "score": 0
-              },
-              {
                 "name": "Dangerous-Workflow",
                 "reason": "no dangerous workflow patterns detected",
                 "score": 10
@@ -15772,6 +15762,16 @@
               {
                 "name": "CII-Best-Practices",
                 "reason": "no effort to earn an OpenSSF best practices badge detected",
+                "score": 0
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
+                "score": 10
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "detected GitHub workflow tokens with excessive permissions",
                 "score": 0
               },
               {
@@ -15786,7 +15786,7 @@
               },
               {
                 "name": "SAST",
-                "reason": "SAST tool is not run on all commits -- score normalized to 0",
+                "reason": "no SAST tool detected",
                 "score": 0
               },
               {
@@ -15809,7 +15809,7 @@
             "score": 5.4
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openjdk/jdk",
         "status": "partial",
@@ -15845,38 +15845,33 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-26T00:00:00Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
           "source_commit": "ce175be6e436a752e81ef68068e9f1acf2d28adb",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Code-Review",
-                "reason": "Found 3/17 approved changesets -- score normalized to 1",
-                "score": 1
-              },
-              {
                 "name": "Maintained",
                 "reason": "project is archived",
                 "score": 0
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
-                "score": 10
+                "name": "Dangerous-Workflow",
+                "reason": "no workflows found",
+                "score": null
               },
               {
-                "name": "Token-Permissions",
-                "reason": "No tokens found",
-                "score": null
+                "name": "Code-Review",
+                "reason": "Found 3/17 approved changesets -- score normalized to 1",
+                "score": 1
               },
               {
                 "name": "Packaging",
@@ -15884,9 +15879,14 @@
                 "score": null
               },
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no workflows found",
+                "name": "Token-Permissions",
+                "reason": "No tokens found",
                 "score": null
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
+                "score": 10
               },
               {
                 "name": "CII-Best-Practices",
@@ -15919,13 +15919,13 @@
                 "score": null
               },
               {
-                "name": "SAST",
-                "reason": "SAST tool is not run on all commits -- score normalized to 0",
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
                 "score": 0
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
+                "name": "SAST",
+                "reason": "SAST tool is not run on all commits -- score normalized to 0",
                 "score": 0
               }
             ],
@@ -15933,7 +15933,7 @@
             "score": 2.7
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openkm/document-management-system",
         "status": "partial",
@@ -15969,22 +15969,32 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-11-02T14:38:05Z",
-          "source_commit": "4fdf516e39c65bb24654994eff0309450833b1fe",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-10T14:36:18Z",
+          "source_commit": "c6d106679fc17b19d994427a709a9c7ee90e81a7",
           "tool_commit": "c22063e786c11f9dd714d777a687ff7c4599b600",
           "tool_version": "v5.3.0",
           "value": {
             "checks": [
               {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
+                "name": "Maintained",
+                "reason": "26 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
+              },
+              {
+                "name": "Code-Review",
+                "reason": "Found 20/25 approved changesets -- score normalized to 8",
+                "score": 8
+              },
+              {
+                "name": "Dependency-Update-Tool",
+                "reason": "update tool detected",
                 "score": 10
               },
               {
@@ -15993,28 +16003,13 @@
                 "score": 10
               },
               {
-                "name": "Code-Review",
-                "reason": "Found 15/21 approved changesets -- score normalized to 7",
-                "score": 7
-              },
-              {
-                "name": "Dependency-Update-Tool",
-                "reason": "update tool detected",
-                "score": 10
-              },
-              {
-                "name": "Maintained",
-                "reason": "20 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
-                "score": 10
-              },
-              {
                 "name": "Packaging",
                 "reason": "packaging workflow not detected",
                 "score": null
               },
               {
-                "name": "Token-Permissions",
-                "reason": "GitHub workflow tokens follow principle of least privilege",
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
                 "score": 10
               },
               {
@@ -16023,14 +16018,29 @@
                 "score": 10
               },
               {
+                "name": "Token-Permissions",
+                "reason": "GitHub workflow tokens follow principle of least privilege",
+                "score": 10
+              },
+              {
                 "name": "CII-Best-Practices",
                 "reason": "badge detected: InProgress",
                 "score": 2
               },
               {
-                "name": "License",
-                "reason": "license file detected",
-                "score": 9
+                "name": "Vulnerabilities",
+                "reason": "67 existing vulnerabilities detected",
+                "score": 0
+              },
+              {
+                "name": "Pinned-Dependencies",
+                "reason": "dependency not pinned by hash detected -- score normalized to 8",
+                "score": 8
+              },
+              {
+                "name": "SAST",
+                "reason": "SAST tool is run on all commits",
+                "score": 10
               },
               {
                 "name": "Fuzzing",
@@ -16043,19 +16053,9 @@
                 "score": null
               },
               {
-                "name": "Pinned-Dependencies",
-                "reason": "dependency not pinned by hash detected -- score normalized to 8",
-                "score": 8
-              },
-              {
-                "name": "Vulnerabilities",
-                "reason": "67 existing vulnerabilities detected",
-                "score": 0
-              },
-              {
-                "name": "SAST",
-                "reason": "SAST tool is run on all commits",
-                "score": 10
+                "name": "License",
+                "reason": "license file detected",
+                "score": 9
               },
               {
                 "name": "Branch-Protection",
@@ -16064,7 +16064,7 @@
               },
               {
                 "name": "CI-Tests",
-                "reason": "22 out of 22 merged PRs checked by a CI test -- score normalized to 10",
+                "reason": "26 out of 26 merged PRs checked by a CI test -- score normalized to 10",
                 "score": 10
               },
               {
@@ -16074,10 +16074,10 @@
               }
             ],
             "repository": "github.com/openkruise/kruise",
-            "score": 8.5
+            "score": 8.6
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openkruise/kruise",
         "status": "partial",
@@ -16141,15 +16141,15 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "d4851af298ecf5e679938d0770b950a0b72d1e8d",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-02T00:00:00Z",
+          "source_commit": "e50554baf350ea5ab1c1db6e7aa530b29fc5681f",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
@@ -16161,7 +16161,7 @@
               },
               {
                 "name": "Maintained",
-                "reason": "30 commit(s) and 14 issue activity found in the last 90 days -- score normalized to 10",
+                "reason": "30 commit(s) and 11 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
@@ -16185,14 +16185,14 @@
                 "score": 10
               },
               {
-                "name": "Pinned-Dependencies",
-                "reason": "dependency not pinned by hash detected -- score normalized to 5",
-                "score": 5
-              },
-              {
                 "name": "Security-Policy",
                 "reason": "security policy file not detected",
                 "score": 0
+              },
+              {
+                "name": "Pinned-Dependencies",
+                "reason": "dependency not pinned by hash detected -- score normalized to 5",
+                "score": 5
               },
               {
                 "name": "License",
@@ -16205,13 +16205,13 @@
                 "score": null
               },
               {
-                "name": "Signed-Releases",
-                "reason": "Project has not signed or included provenance with any releases.",
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
                 "score": 0
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
+                "name": "Signed-Releases",
+                "reason": "Project has not signed or included provenance with any releases.",
                 "score": 0
               },
               {
@@ -16229,7 +16229,7 @@
             "score": 6.1
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openlayers/openlayers",
         "status": "partial",
@@ -16498,7 +16498,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -16731,14 +16731,14 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-19T00:00:00Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-02T00:00:00Z",
           "source_commit": "6c11838d38030148832c039c2ea367274db86a87",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
@@ -16750,19 +16750,19 @@
                 "score": 9
               },
               {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
-                "score": null
-              },
-              {
                 "name": "Maintained",
-                "reason": "3 commit(s) and 10 issue activity found in the last 90 days -- score normalized to 10",
-                "score": 10
+                "reason": "0 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 0",
+                "score": 0
               },
               {
                 "name": "Dangerous-Workflow",
                 "reason": "no dangerous workflow patterns detected",
                 "score": 10
+              },
+              {
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
               },
               {
                 "name": "Binary-Artifacts",
@@ -16785,13 +16785,13 @@
                 "score": 0
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
+                "name": "Security-Policy",
+                "reason": "security policy file not detected",
                 "score": 0
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file not detected",
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
                 "score": 0
               },
               {
@@ -16816,10 +16816,10 @@
               }
             ],
             "repository": "github.com/openmaptiles/openmaptiles",
-            "score": 5.2
+            "score": 4.1
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openmaptiles/openmaptiles",
         "status": "partial",
@@ -16896,15 +16896,15 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T07:55:50Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "b1bb3ec5f11f2739610ec173416d537dc23a582b",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "b4c1d95d42b9217402e40dd7350cb89751223dcf",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
@@ -16945,19 +16945,24 @@
                 "score": 0
               },
               {
-                "name": "License",
-                "reason": "license file detected",
-                "score": 9
-              },
-              {
                 "name": "Fuzzing",
                 "reason": "project is not fuzzed",
                 "score": 0
               },
               {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 9
+              },
+              {
                 "name": "Packaging",
                 "reason": "packaging workflow detected",
                 "score": 10
+              },
+              {
+                "name": "Branch-Protection",
+                "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
+                "score": null
               },
               {
                 "name": "Signed-Releases",
@@ -16970,11 +16975,6 @@
                 "score": 0
               },
               {
-                "name": "Branch-Protection",
-                "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
-                "score": null
-              },
-              {
                 "name": "SAST",
                 "reason": "SAST tool is not run on all commits -- score normalized to 0",
                 "score": 0
@@ -16984,7 +16984,7 @@
             "score": 5.1
           }
         },
-        "last_success_at": "2026-11-03T07:55:50Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openmc-dev/openmc",
         "status": "partial",
@@ -17048,11 +17048,11 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
-        "error": null,
+        "checked_at": "2026-11-10T20:41:38Z",
+        "error": "not_found",
         "etag": null,
-        "fetch_status": "ok",
-        "http_status": 200,
+        "fetch_status": "not_found",
+        "http_status": 404,
         "last_good": {
           "fetched_at": "2026-11-03T07:55:50Z",
           "observed_at": "2026-10-26T00:00:00Z",
@@ -17139,7 +17139,7 @@
         "last_success_at": "2026-11-03T07:55:50Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openmediavault/openmediavault",
-        "status": "partial",
+        "status": "stale",
         "success_time_precision": "second"
       }
     },
@@ -17172,11 +17172,11 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T07:55:50Z",
-        "error": null,
+        "checked_at": "2026-11-10T20:41:38Z",
+        "error": "not_found",
         "etag": null,
-        "fetch_status": "ok",
-        "http_status": 200,
+        "fetch_status": "not_found",
+        "http_status": 404,
         "last_good": {
           "fetched_at": "2026-11-03T07:55:50Z",
           "observed_at": "2026-10-26T00:00:00Z",
@@ -17263,7 +17263,7 @@
         "last_success_at": "2026-11-03T07:55:50Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openmm/openmm",
-        "status": "partial",
+        "status": "stale",
         "success_time_precision": "second"
       }
     },
@@ -17378,11 +17378,11 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
-        "error": null,
+        "checked_at": "2026-11-10T20:41:38Z",
+        "error": "not_found",
         "etag": null,
-        "fetch_status": "ok",
-        "http_status": 200,
+        "fetch_status": "not_found",
+        "http_status": 404,
         "last_good": {
           "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
@@ -17469,7 +17469,7 @@
         "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openmrs/openmrs-core",
-        "status": "partial",
+        "status": "stale",
         "success_time_precision": "second"
       }
     },
@@ -17584,11 +17584,11 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
-        "error": null,
+        "checked_at": "2026-11-10T20:41:38Z",
+        "error": "not_found",
         "etag": null,
-        "fetch_status": "ok",
-        "http_status": 200,
+        "fetch_status": "not_found",
+        "http_status": 404,
         "last_good": {
           "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
@@ -17675,7 +17675,7 @@
         "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openmv/openmv",
-        "status": "partial",
+        "status": "stale",
         "success_time_precision": "second"
       }
     },
@@ -17846,13 +17846,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
           "observed_at": "2022-08-15T00:00:00Z",
           "source_commit": "24a3c4cf20f20dc7f1a8df33a70351c5e7b2bb4f",
           "tool_commit": "10b6052acfb4f0b8136bc4876cb6f5b6f26bfe93",
@@ -17939,7 +17939,7 @@
             "score": 5.6
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opennebula/one",
         "status": "stale",
@@ -18098,7 +18098,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -18498,19 +18498,24 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
-          "observed_at": "2026-10-26T00:00:00Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
           "source_commit": "5bd404cfc70f34103a3ca0fbb6b50c2b465f407c",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
+              {
+                "name": "Maintained",
+                "reason": "0 commit(s) and 2 issue activity found in the last 90 days -- score normalized to 1",
+                "score": 1
+              },
               {
                 "name": "Code-Review",
                 "reason": "Found 4/17 approved changesets -- score normalized to 2",
@@ -18522,29 +18527,24 @@
                 "score": null
               },
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no dangerous workflow patterns detected",
-                "score": 10
-              },
-              {
                 "name": "Token-Permissions",
                 "reason": "detected GitHub workflow tokens with excessive permissions",
                 "score": 0
               },
               {
-                "name": "Maintained",
-                "reason": "0 commit(s) and 1 issue activity found in the last 90 days -- score normalized to 0",
-                "score": 0
-              },
-              {
-                "name": "Binary-Artifacts",
-                "reason": "no binaries found in the repo",
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
                 "score": 10
               },
               {
                 "name": "CII-Best-Practices",
                 "reason": "no effort to earn an OpenSSF best practices badge detected",
                 "score": 0
+              },
+              {
+                "name": "Binary-Artifacts",
+                "reason": "no binaries found in the repo",
+                "score": 10
               },
               {
                 "name": "Pinned-Dependencies",
@@ -18557,14 +18557,14 @@
                 "score": 0
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
-                "score": 0
-              },
-              {
                 "name": "License",
                 "reason": "license file detected",
                 "score": 10
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
+                "score": 0
               },
               {
                 "name": "Signed-Releases",
@@ -18583,10 +18583,10 @@
               }
             ],
             "repository": "github.com/openpnp/openpnp",
-            "score": 3
+            "score": 3.1
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openpnp/openpnp",
         "status": "partial",
@@ -18829,7 +18829,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -18911,22 +18911,22 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
-          "observed_at": "2026-10-19T00:00:00Z",
-          "source_commit": "dd45b9ff3dbe297d519a6dc8817a2dd0c278b6ca",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "718469671337aa028005cb63278a1cca0e49717b",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
                 "name": "Maintained",
-                "reason": "30 commit(s) and 11 issue activity found in the last 90 days -- score normalized to 10",
+                "reason": "30 commit(s) and 15 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
@@ -18936,8 +18936,8 @@
               },
               {
                 "name": "Code-Review",
-                "reason": "Found 17/18 approved changesets -- score normalized to 9",
-                "score": 9
+                "reason": "Found 15/17 approved changesets -- score normalized to 8",
+                "score": 8
               },
               {
                 "name": "Dangerous-Workflow",
@@ -18965,11 +18965,6 @@
                 "score": 9
               },
               {
-                "name": "Signed-Releases",
-                "reason": "no releases found",
-                "score": null
-              },
-              {
                 "name": "Fuzzing",
                 "reason": "project is not fuzzed",
                 "score": 0
@@ -18980,26 +18975,31 @@
                 "score": null
               },
               {
+                "name": "Signed-Releases",
+                "reason": "no releases found",
+                "score": null
+              },
+              {
                 "name": "Pinned-Dependencies",
                 "reason": "dependency not pinned by hash detected -- score normalized to 9",
                 "score": 9
               },
               {
-                "name": "SAST",
-                "reason": "SAST tool is run on all commits",
+                "name": "Packaging",
+                "reason": "packaging workflow detected",
                 "score": 10
               },
               {
-                "name": "Packaging",
-                "reason": "packaging workflow detected",
+                "name": "SAST",
+                "reason": "SAST tool is run on all commits",
                 "score": 10
               }
             ],
             "repository": "github.com/openremote/openremote",
-            "score": 7.5
+            "score": 7.4
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openremote/openremote",
         "status": "partial",
@@ -19063,7 +19063,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -19104,23 +19104,23 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "d9be22ab49a3d9351ad4f89700313c6abb4d8d59",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "1779c93a7eb5ab5b3c0fc45b9224107db9f3829e",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 4 issue activity found in the last 90 days -- score normalized to 10",
-                "score": 10
+                "name": "Code-Review",
+                "reason": "Found 0/30 approved changesets -- score normalized to 0",
+                "score": 0
               },
               {
                 "name": "Packaging",
@@ -19128,9 +19128,9 @@
                 "score": null
               },
               {
-                "name": "Code-Review",
-                "reason": "Found 0/30 approved changesets -- score normalized to 0",
-                "score": 0
+                "name": "Maintained",
+                "reason": "30 commit(s) and 4 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
               },
               {
                 "name": "Dangerous-Workflow",
@@ -19163,14 +19163,14 @@
                 "score": 0
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
-                "score": 0
-              },
-              {
                 "name": "License",
                 "reason": "license file detected",
                 "score": 9
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
+                "score": 0
               },
               {
                 "name": "Signed-Releases",
@@ -19192,7 +19192,7 @@
             "score": 3.8
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openresty/openresty",
         "status": "partial",
@@ -19228,23 +19228,23 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
-          "observed_at": "2026-10-19T00:00:00Z",
-          "source_commit": "e80a5eac981d7031dfa3d714f8c353bdb32e304e",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "64dbc89fafc1e7869e8bf48b1bc74611f9ce9cb0",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Code-Review",
-                "reason": "Found 1/30 approved changesets -- score normalized to 0",
-                "score": 0
+                "name": "Maintained",
+                "reason": "30 commit(s) and 14 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
               },
               {
                 "name": "Packaging",
@@ -19253,12 +19253,7 @@
               },
               {
                 "name": "Dangerous-Workflow",
-                "reason": "dangerous workflow patterns detected",
-                "score": 0
-              },
-              {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 16 issue activity found in the last 90 days -- score normalized to 10",
+                "reason": "no dangerous workflow patterns detected",
                 "score": 10
               },
               {
@@ -19267,14 +19262,14 @@
                 "score": 0
               },
               {
+                "name": "Code-Review",
+                "reason": "Found 4/30 approved changesets -- score normalized to 1",
+                "score": 1
+              },
+              {
                 "name": "CII-Best-Practices",
                 "reason": "no effort to earn an OpenSSF best practices badge detected",
                 "score": 0
-              },
-              {
-                "name": "Binary-Artifacts",
-                "reason": "binaries present in source code",
-                "score": 9
               },
               {
                 "name": "License",
@@ -19282,9 +19277,9 @@
                 "score": 10
               },
               {
-                "name": "Pinned-Dependencies",
-                "reason": "dependency not pinned by hash detected -- score normalized to 0",
-                "score": 0
+                "name": "Binary-Artifacts",
+                "reason": "binaries present in source code",
+                "score": 9
               },
               {
                 "name": "Branch-Protection",
@@ -19302,6 +19297,11 @@
                 "score": 0
               },
               {
+                "name": "Pinned-Dependencies",
+                "reason": "dependency not pinned by hash detected -- score normalized to 0",
+                "score": 0
+              },
+              {
                 "name": "Fuzzing",
                 "reason": "project is fuzzed",
                 "score": 10
@@ -19313,10 +19313,10 @@
               }
             ],
             "repository": "github.com/openrewrite/rewrite",
-            "score": 3
+            "score": 4.5
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openrewrite/rewrite",
         "status": "partial",
@@ -19655,13 +19655,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
           "observed_at": "2026-10-26T00:00:00Z",
           "source_commit": "e5721012999ba873f6dd74ffd89fa33f7dd11f63",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -19743,7 +19743,7 @@
             "score": 5.5
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openscad/openscad",
         "status": "partial",
@@ -19958,11 +19958,11 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
-        "error": null,
+        "checked_at": "2026-11-10T20:41:38Z",
+        "error": "not_found",
         "etag": null,
-        "fetch_status": "ok",
-        "http_status": 200,
+        "fetch_status": "not_found",
+        "http_status": 404,
         "last_good": {
           "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
@@ -20049,7 +20049,7 @@
         "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opensemanticsearch/open-semantic-search",
-        "status": "partial",
+        "status": "stale",
         "success_time_precision": "second"
       }
     },
@@ -20261,13 +20261,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
+          "fetched_at": "2026-11-10T20:41:38Z",
           "observed_at": "2026-10-19T00:00:00Z",
           "source_commit": "6e3a883f66220f7d0c0b20f255e1c714cc828144",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -20349,7 +20349,7 @@
             "score": 5.2
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opensim-org/opensim-core",
         "status": "partial",
@@ -20674,15 +20674,15 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "97648317199613d06247bf4cc4d44a95f250c532",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "1d28115e040b792075a391de01b0f0c033a4850a",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
@@ -20693,13 +20693,8 @@
                 "score": 9
               },
               {
-                "name": "Code-Review",
-                "reason": "Found 0/30 approved changesets -- score normalized to 0",
-                "score": 0
-              },
-              {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
+                "name": "Dangerous-Workflow",
+                "reason": "no dangerous workflow patterns detected",
                 "score": 10
               },
               {
@@ -20708,18 +20703,23 @@
                 "score": null
               },
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no dangerous workflow patterns detected",
+                "name": "Maintained",
+                "reason": "30 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
+              },
+              {
+                "name": "Code-Review",
+                "reason": "Found 0/30 approved changesets -- score normalized to 0",
+                "score": 0
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "GitHub workflow tokens follow principle of least privilege",
                 "score": 10
               },
               {
                 "name": "Binary-Artifacts",
                 "reason": "no binaries found in the repo",
-                "score": 10
-              },
-              {
-                "name": "Token-Permissions",
-                "reason": "GitHub workflow tokens follow principle of least privilege",
                 "score": 10
               },
               {
@@ -20733,14 +20733,14 @@
                 "score": 0
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is fuzzed",
-                "score": 10
-              },
-              {
                 "name": "License",
                 "reason": "license file detected",
                 "score": 9
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is fuzzed",
+                "score": 10
               },
               {
                 "name": "Signed-Releases",
@@ -20762,7 +20762,7 @@
             "score": 7.6
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openssh/openssh-portable",
         "status": "partial",
@@ -20798,19 +20798,24 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "4d885b16ebc6e6cc76f8a72fb4b7a00db127990f",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "b73e7d517e543fadcc6002dd32be22e8a2c6e26b",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
+              {
+                "name": "Code-Review",
+                "reason": "Found 0/30 approved changesets -- score normalized to 0",
+                "score": 0
+              },
               {
                 "name": "Packaging",
                 "reason": "packaging workflow not detected",
@@ -20818,18 +20823,13 @@
               },
               {
                 "name": "Maintained",
-                "reason": "30 commit(s) and 13 issue activity found in the last 90 days -- score normalized to 10",
+                "reason": "30 commit(s) and 14 issue activity found in the last 90 days -- score normalized to 10",
                 "score": 10
               },
               {
                 "name": "Token-Permissions",
                 "reason": "No tokens found",
                 "score": null
-              },
-              {
-                "name": "Code-Review",
-                "reason": "Found 0/30 approved changesets -- score normalized to 0",
-                "score": 0
               },
               {
                 "name": "Dangerous-Workflow",
@@ -20847,24 +20847,24 @@
                 "score": 5
               },
               {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
+              },
+              {
                 "name": "Binary-Artifacts",
                 "reason": "no binaries found in the repo",
                 "score": 10
               },
               {
-                "name": "License",
-                "reason": "license file detected",
+                "name": "Fuzzing",
+                "reason": "project is fuzzed",
                 "score": 10
               },
               {
                 "name": "Branch-Protection",
                 "reason": "internal error: error during branchesHandler.setup: internal error: some github tokens can't read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md",
                 "score": null
-              },
-              {
-                "name": "Fuzzing",
-                "reason": "project is fuzzed",
-                "score": 10
               },
               {
                 "name": "Pinned-Dependencies",
@@ -20886,7 +20886,7 @@
             "score": 6.3
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openssl/openssl",
         "status": "partial",
@@ -20909,23 +20909,23 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
-          "observed_at": "2026-10-26T00:00:00Z",
-          "source_commit": "878acd19807f77cf827fdf8f3440e000df2ec5c7",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "95b276fc1ccb13ec5e271916084f3976fb431606",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
-                "score": 10
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
               },
               {
                 "name": "Code-Review",
@@ -20933,8 +20933,8 @@
                 "score": 0
               },
               {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
+                "name": "Dangerous-Workflow",
+                "reason": "no workflows found",
                 "score": null
               },
               {
@@ -20943,14 +20943,9 @@
                 "score": null
               },
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no workflows found",
-                "score": null
-              },
-              {
-                "name": "CII-Best-Practices",
-                "reason": "no effort to earn an OpenSSF best practices badge detected",
-                "score": 0
+                "name": "Maintained",
+                "reason": "30 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
               },
               {
                 "name": "SAST",
@@ -20958,8 +20953,8 @@
                 "score": 0
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file not detected",
+                "name": "CII-Best-Practices",
+                "reason": "no effort to earn an OpenSSF best practices badge detected",
                 "score": 0
               },
               {
@@ -20973,9 +20968,9 @@
                 "score": null
               },
               {
-                "name": "Signed-Releases",
-                "reason": "no releases found",
-                "score": null
+                "name": "Security-Policy",
+                "reason": "security policy file not detected",
+                "score": 0
               },
               {
                 "name": "License",
@@ -20983,13 +20978,18 @@
                 "score": 10
               },
               {
-                "name": "Branch-Protection",
-                "reason": "branch protection not enabled on development/release branches",
-                "score": 0
+                "name": "Signed-Releases",
+                "reason": "no releases found",
+                "score": null
               },
               {
                 "name": "Fuzzing",
                 "reason": "project is not fuzzed",
+                "score": 0
+              },
+              {
+                "name": "Branch-Protection",
+                "reason": "branch protection not enabled on development/release branches",
                 "score": 0
               }
             ],
@@ -20997,7 +20997,7 @@
             "score": 3.5
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openstack/cinder",
         "status": "partial",
@@ -21020,29 +21020,19 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-03T08:48:35Z",
-          "observed_at": "2026-10-19T00:00:00Z",
-          "source_commit": "3129f9c186328307cf26c2d2923428a95a2f1c73",
+          "fetched_at": "2026-11-10T20:41:38Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "722c873e5ffa1b489c52dc1839a4c6aa1ad3333a",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
-              {
-                "name": "Dangerous-Workflow",
-                "reason": "no workflows found",
-                "score": null
-              },
-              {
-                "name": "Token-Permissions",
-                "reason": "No tokens found",
-                "score": null
-              },
               {
                 "name": "Packaging",
                 "reason": "packaging workflow not detected",
@@ -21056,6 +21046,21 @@
               {
                 "name": "Maintained",
                 "reason": "30 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "No tokens found",
+                "score": null
+              },
+              {
+                "name": "Dangerous-Workflow",
+                "reason": "no workflows found",
+                "score": null
+              },
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
                 "score": 10
               },
               {
@@ -21074,11 +21079,6 @@
                 "score": 0
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file not detected",
-                "score": 0
-              },
-              {
                 "name": "Pinned-Dependencies",
                 "reason": "dependency not pinned by hash detected -- score normalized to 0",
                 "score": 0
@@ -21089,14 +21089,14 @@
                 "score": 10
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
-                "score": 0
-              },
-              {
                 "name": "Signed-Releases",
                 "reason": "no releases found",
                 "score": null
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
+                "score": 0
               },
               {
                 "name": "Branch-Protection",
@@ -21105,10 +21105,10 @@
               }
             ],
             "repository": "github.com/openstack/swift",
-            "score": 3.2
+            "score": 4.1
           }
         },
-        "last_success_at": "2026-11-03T08:48:35Z",
+        "last_success_at": "2026-11-10T20:41:38Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openstack/swift",
         "status": "partial",
@@ -21159,11 +21159,11 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
-        "error": null,
+        "checked_at": "2026-11-10T20:41:38Z",
+        "error": "not_found",
         "etag": null,
-        "fetch_status": "ok",
-        "http_status": 200,
+        "fetch_status": "not_found",
+        "http_status": 404,
         "last_good": {
           "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-19T00:00:00Z",
@@ -21250,7 +21250,7 @@
         "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openstreetmap/openstreetmap-website",
-        "status": "partial",
+        "status": "stale",
         "success_time_precision": "second"
       }
     },
@@ -21434,11 +21434,11 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-03T08:48:35Z",
-        "error": null,
+        "checked_at": "2026-11-10T20:41:38Z",
+        "error": "not_found",
         "etag": null,
-        "fetch_status": "ok",
-        "http_status": 200,
+        "fetch_status": "not_found",
+        "http_status": 404,
         "last_good": {
           "fetched_at": "2026-11-03T08:48:35Z",
           "observed_at": "2026-10-26T00:00:00Z",
@@ -21525,7 +21525,7 @@
         "last_success_at": "2026-11-03T08:48:35Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/opentimestamps/opentimestamps-client",
-        "status": "partial",
+        "status": "stale",
         "success_time_precision": "second"
       }
     },
@@ -24680,7 +24680,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -25328,7 +25328,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -25369,7 +25369,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -26801,7 +26801,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T12:07:11Z",
+        "checked_at": "2026-11-10T20:41:38Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -27462,5 +27462,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "3c4e94d4828be48e772a3c7932965d0d8da9715c"
+  "source_sha": "8aeceeab3c7d3072423c5c67b5d11617a4b5c1ad"
 }
