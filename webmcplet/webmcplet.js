@@ -8,7 +8,8 @@
 })(typeof globalThis === "object" ? globalThis : this, function () {
   "use strict";
 
-  var VERSION = 1;
+  var RELEASE = "0.1.0"; // This script's version; CHANGELOG.md records each with its SHA-256.
+  var VERSION = 1; // The list document schema.
   var PAGE = 12;
   var MAX_QUERY = 160;
   var TYPES = ["number", "string", "date", "list", "text"];
@@ -846,7 +847,7 @@
     });
   }
 
-  return { VERSION: VERSION, PAGE: PAGE, normalizeUrl: normalizeUrl, validate: validate, create: create,
+  return { RELEASE: RELEASE, VERSION: VERSION, PAGE: PAGE, normalizeUrl: normalizeUrl, validate: validate, create: create,
     tools: tools, register: register, load: load, autostart: autostart, fold: fold,
     assistant: { ask: ask, actionSchema: actionSchema, instructions: instructions, modelSchema: modelSchema, Refs: Refs, namesIn: namesIn },
     mount: mount };

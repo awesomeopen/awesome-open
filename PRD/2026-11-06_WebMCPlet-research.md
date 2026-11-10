@@ -12,7 +12,7 @@ project has run.
 
 | Client | Reported state | Project test |
 | --- | --- | --- |
-| ChatGPT web UI, cloud browser | Not covered by the FAQ | **Worked**, 2026-11-06, owner's run (below) |
+| ChatGPT web UI, cloud browser | Not covered by the FAQ | **Worked**, 2026-11-06 and 2026-11-10, owner's runs (below) |
 | ChatGPT desktop | Uses WebMCP tools in its built-in browser since 2026-08-25 | Not tested |
 | Brave Leo | Available in Brave Nightly behind a flag | Not tested |
 | Gemini in Chrome | Cannot use WebMCP tools yet | Not tested |
@@ -34,6 +34,14 @@ find video editors, and compare two." The interface showed GPT-6.1 Terra Light.
 - It called OpenReel "the more immediately informative choice", which is the model's
   own judgment.
 - The no-match journey and ChatGPT desktop have not been run.
+
+Second run, 2026-11-10, owner's screenshot. The interface showed GPT-6.1 Sol Medium, and
+the live page had the four Cabinet tools and the earlier Cabinet interface.
+
+- It listed `cabinet_find`, `cabinet_inspect`, `cabinet_arrange` and `cabinet_compare`,
+  called `cabinet_find` with "video editor", and reported 12 matches with descriptions,
+  licenses, stars and push dates.
+- It called no other tool and said so.
 
 ### Local checks, 2026-11-06
 

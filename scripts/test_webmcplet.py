@@ -1,9 +1,11 @@
 import json
+import os
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -62,6 +64,13 @@ class WebMCPletTest(unittest.TestCase):
             path.write_text(json.dumps(adapter.build(CATALOG, 'https://example.org/list/')), encoding='utf-8')
             result = subprocess.run(['node', 'webmcplet/build.cjs', 'check', str(path)], cwd=ROOT, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_origin_trial_token_is_emitted_only_when_set(self):
+        import build_site
+        with mock.patch.dict(os.environ, {'GOOGLE_ORIGIN_TRIAL_TOKEN': ' A"b= '}):
+            self.assertEqual(build_site.origin_trial_meta(), '<meta http-equiv="origin-trial" content="A&quot;b=">')
+        with mock.patch.dict(os.environ, {}, clear=True):
+            self.assertEqual(build_site.origin_trial_meta(), '')
 
 
 if __name__ == '__main__':
