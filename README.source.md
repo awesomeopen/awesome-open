@@ -295,6 +295,7 @@
 | [OpenDictate](https://github.com/hkumarsaikia/OpenDictate) | Linux voice dictation with local Whisper transcription and cloud AI providers. |
 | [open-doc](https://github.com/simonliu-ai-product/open-doc) | React-based document framework with paginated layouts, outlines, tables of contents, and PDF export. |
 | [OpenFamily](https://github.com/NexaFlowFrance/OpenFamily) | Self-hosted family organizer. |
+| [opengtd](https://github.com/CarlosZ4un/opengtd) | GTD-inspired task manager with experience points, a mobile web interface, and a Telegram bot. |
 | [OpenHabitTracker](https://github.com/Jinjinov/OpenHabitTracker) | Cross-platform Markdown notes, task planning, and habit tracking with optional self-hosted synchronization. |
 | [OpenMD](https://github.com/MuLiuSaMa/OpenMD) | Desktop Markdown reader and editor with tabbed documents, rendered and source views, outline navigation, and visual editing. |
 | [OpenNotchi](https://github.com/nannndev/OpenNotchi) | macOS notch panel for media controls, clipboard history, file sharing, calendar events, and timers. |
@@ -316,6 +317,7 @@
 | [OpenSlides](https://github.com/OpenSlides/OpenSlides) | Digital assembly management for motions, elections, and agendas. |
 | [OpenSpell](https://github.com/lvanbei/openSpell) | macOS menu-bar app for correcting spelling, grammar, and punctuation with local or cloud models. |
 | [OpenStats](https://github.com/gentpan/OpenStats) | macOS menu-bar system monitor with fan control, keep-awake, and cleanup tools. |
+| [OpenStream](https://github.com/Nabzx/openstream) | macOS voice dictation that transcribes speech locally and inserts text at the cursor. |
 | [Open Sunsama](https://github.com/ShadowWalker2014/open-sunsama) | Daily planner with Kanban, time blocking, and focus mode.<br>Alternative to: [Sunsama](https://github.com/ShadowWalker2014/open-sunsama#readme) |
 | [OpenTask](https://github.com/AristideDongo/opentask) | Self-hosted teamwork application with accounts, workspaces, member roles, and invitations; task management is planned. |
 | [OpenTasks](https://github.com/dmfs/opentasks) | Task management app for Android. |
@@ -384,6 +386,7 @@
 | [OpenStudy](https://github.com/OpenStudy-dev/OpenStudy) | Self-hosted study dashboard with an MCP server for AI assistants. |
 | [OpenText Content Manager](https://www.opentext.com/products/content-manager) | Enterprise document and records management. |
 | [OpenTodoList](https://opentodolist.rpdev.net) | Tasks, notes, images, and recipes with local storage and optional synchronization. |
+| [Open US Law](https://github.com/Vaquill-AI/open-us-law) | Scrapers and ingestion pipelines that collect US primary legal materials and normalize them into a shared data schema. |
 | [OpenWiki](https://github.com/langchain-ai/openwiki) | Builds and maintains linked Markdown wikis from code and knowledge sources. |
 
 ## Communication & Social
@@ -432,6 +435,7 @@
 | [OpenDesign](https://github.com/nexu-io/open-design) | Collaborative design workspace powered by coding agents. |
 | [OpenDLSS-NR](https://github.com/maanHimself/OpenDLSS-NR) | Vulkan and WebGPU implementations of a DLSS neural-rendering network using user-supplied weights. |
 | [OpenDVR](https://github.com/McGeaverBeaver/OpenDVR) | Self-hosted live-TV and DVR server for HDHomeRun tuners, with shared streams, pause and rewind, and scheduled recordings. |
+| [Open Editor](https://github.com/yuno3311/OpenEditor) | Windows video editor with multitrack timelines, transcript-based cutting, color and audio tools, and MCP control. |
 | [OpenEXR](https://github.com/AcademySoftwareFoundation/openexr) | Libraries and tools for high dynamic range EXR images. |
 | [OpenFilm](https://github.com/openfilm/openfilm) | Local video-making toolkit with an HTML-based film format, timeline editor, rendering tools, and coding-agent integration. |
 | [openFrameworks](https://github.com/openframeworks/openFrameworks) | Cross-platform C++ toolkit for creative coding. |
@@ -459,6 +463,7 @@
 | [Open Streaming Platform](https://gitlab.com/osp-group/flask-nginx-rtmp-manager) | Self-hosted RTMP video streaming server with recording, on-demand playback, clips, and channel chat. |
 | [OpenSubdiv](https://github.com/PixarAnimationStudios/OpenSubdiv) | Subdivision surface library. |
 | [OpenSV](https://github.com/MetaMikuAI/OpenSV) | Command-line tools and a local interface for training singing-voice models and rendering songs. |
+| [OpenTabletArtist](https://github.com/TheSevenPens/OpenTabletArtist) | Windows application for configuring drawing tablets through OpenTabletDriver. |
 | [OpenTeleprompt](https://github.com/ArunNGun/openTeleprompt) | Voice-activated teleprompter for macOS. |
 | [OpenTimelineIO](https://github.com/AcademySoftwareFoundation/OpenTimelineIO) | API and interchange tools for editorial timelines. |
 | [OpenToonz](https://github.com/opentoonz/opentoonz) | 2D animation production software. |
@@ -548,8 +553,10 @@
 | [OpenRAVE](https://github.com/rdiankov/openrave) | Develop, test, and deploy robotics motion-planning algorithms. |
 | [OpenRGB](https://openrgb.org) | Control RGB lighting across devices from different manufacturers on Windows, Linux, and macOS. |
 | [Open-RMF](https://github.com/open-rmf/rmf) | Coordinate multiple robot fleets and building infrastructure. |
+| [OpenTabletDriver](https://github.com/OpenTabletDriver/OpenTabletDriver) | Cross-platform tablet driver with configurable pen mapping, pressure output, button bindings, and plugins. |
 | [openTPU](https://github.com/FeSens/openTPU) | Compiler, simulator, profiler, and host software for running language models on an FPGA-based AI accelerator. |
 | [OpenVINS](https://github.com/rpng/open_vins) | Platform for visual-inertial navigation research. |
+| [OpenVLA](https://github.com/openvla/openvla) | Vision-language-action models and training tools that turn camera images and language instructions into robot actions. |
 | [Open Volar S](https://github.com/NullMagic2/Open-Volar-S) | Driver, firmware, diagnostics, and live television toolkit for the AVerTV Volar S receiver. |
 | [OpenWAM](https://github.com/OpenWAM-Official/OpenWAM) | Research stack for training, deploying, and evaluating world-action models for robot control. |
 | [OpenWebRX](https://github.com/jketterl/openwebrx) | Multi-user software-defined radio receiver with a browser interface and analog and digital demodulation. |
@@ -584,6 +591,7 @@
 | [OpenMM](https://github.com/openmm/openmm) | Molecular simulation toolkit with GPU acceleration. |
 | [OpenModelica](https://github.com/OpenModelica/OpenModelica) | Modelica-based modeling and simulation environment. |
 | [OpenMolcas](https://github.com/Molcas/OpenMolcas) | Quantum chemistry software for electronic-structure calculations. |
+| [Open MPI](https://www.open-mpi.org/) | Message Passing Interface implementation for parallel applications across processes and computing nodes. |
 | [OpenMS](https://github.com/OpenMS/OpenMS) | Mass-spectrometry data management and analysis tools. |
 | [OpenMVG](https://github.com/openMVG/openMVG) | C++ libraries and pipelines for reconstructing 3D scenes from images using multiple-view geometry and structure from motion. |
 | [OpenMVS](https://github.com/cdcseacave/openMVS) | Multi-view stereo reconstruction library for producing dense point clouds and textured 3D meshes. |
@@ -631,6 +639,7 @@
 | [OpenChoice](https://github.com/openchoice-team/OpenLiterature) | Modular academic-literature discovery and reading tools with research maps, PDF annotations, and AI-assisted cross-document questions. |
 | [Open edX](https://github.com/openedx/openedx-platform) | Learning management system and course authoring platform. |
 | [Open Journal Systems](https://github.com/pkp/ojs) | Manage and publish scholarly journals. |
+| [OpenLearn](https://github.com/codeyourweb/openlearn) | Self-hosted learning platform with shared wikis, quizzes, revision cards, branching stories, and live sessions. |
 | [OpenLinguo](https://github.com/R4z4kk/OpenLinguo) | Mandarin-learning web app with offline dictionary lookup, character decomposition, stroke-order views, and spaced-repetition tools. |
 | [OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) | Generate interactive lessons with slides, quizzes, simulations, and AI teachers and classmates. |
 | [Open Monograph Press](https://github.com/pkp/omp) | Manage scholarly presses and monograph publishing. |
@@ -675,6 +684,7 @@
 | [OpenIndiana](https://www.openindiana.org) | Community-driven illumos distribution. |
 | [OpenMandriva](https://www.openmandriva.org) | Independent Linux distribution descended from Mandriva Linux. |
 | [OpenPLi](https://www.openpli.org) | Linux-based software for television set-top boxes. |
+| [OpenRC](https://github.com/OpenRC/openrc) | Dependency-based init system for starting and managing operating-system services. |
 | [OpenRTX](https://github.com/OpenRTX/OpenRTX) | Modular firmware for digital amateur radios. |
 | [openSIL](https://github.com/openSIL/openSIL) | AMD silicon initialization libraries for x86 host firmware. |
 | [openSUSE](https://www.opensuse.org) | Linux distributions for desktops, servers, and containers. |
