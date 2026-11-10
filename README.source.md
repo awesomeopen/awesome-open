@@ -38,6 +38,7 @@
 | Project | Description |
 | --- | --- |
 | [OpenAgentCore](https://github.com/MiniMax-AI/OpenAgentCore) | Self-hosted implementation of the OpenAI Agents API with multiple agent harnesses. |
+| [OpenAmika](https://github.com/zeekk0/OpenAmika) | AI companion with a Live2D avatar, voice and text conversations, persistent memory, and local or hosted language models. |
 | [open-annie](https://github.com/rehan-remade/open-annie) | Browser-based 3D character that combines spoken AI conversations with model-directed facial expressions and gestures. |
 | [OpenArchEvo](https://github.com/Optima-CityU/OpenArchEvo) | Neural architecture search framework that combines LLM-written model programs with population-based evolution. |
 | [OpenAssistant](https://github.com/LAION-AI/Open-Assistant) | Chat assistant that handles tasks, interacts with external systems, and retrieves information.<br>Alternative to: [ChatGPT](https://projects.laion.ai/Open-Assistant/blog/we-need-your-help) |
@@ -69,6 +70,7 @@
 | [OpenFoundry](https://github.com/bsamud/openfoundry-agentic-framework) | AI-agent orchestration framework with DAG workflows, model routing, guardrails, and observability. |
 | [OpenFox](https://github.com/co-l/openfox) | Coding assistant for local language models with planning, implementation, and verification workflows. |
 | [Opengeni](https://github.com/Cloudgeni-ai/opengeni) | Service for running AI agents with durable sessions, replayable histories, human approvals, and managed execution environments. |
+| [OpenGuardrail](https://github.com/alibaba/open-guardrail) | Service that validates submitted agent-action evidence against policies and records assessment decisions for execution tools. |
 | [OpenGym](https://github.com/widingmarcus-cyber/opengym) | Benchmark for evaluating AI-agent coding, memory, tool use, planning, resilience, safety, and coordination. |
 | [OpenHands](https://github.com/OpenHands/OpenHands) | AI agents for software development. |
 | [OpenHuman](https://github.com/tinyhumansai/openhuman) | AI agent harness with local-first memory, agent orchestration, and workflows.<br>Alternative to: [Vellum](https://www.vellum.ai/blog/best-openhuman-alternatives), [Hermes Agent](https://github.com/tinyhumansai/openhuman#how-it-compares), [OpenClaw](https://github.com/tinyhumansai/openhuman#how-it-compares) |
@@ -145,6 +147,7 @@
 | [Opengist](https://github.com/thomiceli/opengist) | Self-hosted pastebin that stores code snippets in Git repositories and provides web and Git interfaces. |
 | [OpenGrok](https://github.com/oracle/opengrok) | Source-code search and cross-reference engine. |
 | [OpenHands](https://github.com/OpenHands/OpenHands) | AI agents for software development. |
+| [OpenHarness](https://github.com/zhijiewong/openharness) | Terminal coding agent with configurable local and hosted language models, file-editing tools, and headless task execution. |
 | [Open Inspector](https://github.com/patlf/open-inspector) | Browser extension for inspecting page styles, layout, typography, assets, and design tokens. |
 | [OpenJDK](https://github.com/openjdk/jdk) | Java Development Kit implementation. |
 | [OpenLens](https://github.com/MuhammedKalkan/OpenLens) | Desktop Kubernetes IDE built from the Lens source code. |
@@ -163,6 +166,7 @@
 | [OpenRPC Generator](https://github.com/open-rpc/generator) | Generate components and language bindings from OpenRPC documents. |
 | [OpenSaaS](https://github.com/wasp-lang/open-saas) | Full-stack SaaS starter with authentication, payments, email, and file uploads. |
 | [OpenScion](https://github.com/tinyhumansai/openscion) | Server-centric source control for large monorepos, with API-based history, diffs, commits, and sparse checkouts. |
+| [Open Shelf](https://github.com/wingedpanther/openshelf) | Android TV app store for finding, installing, and updating TV applications from GitHub releases using a remote. |
 | [OpenSilver](https://github.com/OpenSilver/OpenSilver) | Framework for cross-platform applications using C#, VB.NET, or F# with XAML and WebAssembly or native .NET.<br>Alternative to: [Silverlight](https://doc.opensilver.net/documentation/migrate-from-silverlight/overview.html) |
 | [OpenSmalltalk](https://github.com/OpenSmalltalk/opensmalltalk-vm) | Cross-platform virtual machine for Squeak and Cuis Smalltalk, with interpreter and JIT variants. |
 | [OpenSpec](https://github.com/Fission-AI/OpenSpec) | Specification-driven development tools for AI coding assistants. |
@@ -501,6 +505,7 @@
 | [OpenLara](https://github.com/XProger/OpenLara) | Classic Tomb Raider engine reimplementation with browser and standalone builds. |
 | [OpenLieroX](https://github.com/openlierox/openlierox) | Real-time 2D shooter based on Liero Xtreme, featuring worms, weapons, and ninja ropes. |
 | [OpenLoco](https://github.com/OpenLoco/OpenLoco) | Reimplementation of Chris Sawyer's Locomotion. |
+| [OpenMap](https://github.com/openmap-world/openmap) | WoW Forever addon with a seamless world map, zoom and pan controls, travel routes, map pins, and drawing tools. |
 | [OpenMoHAA](https://github.com/openmoh/openmohaa) | Reimplementation of Medal of Honor: Allied Assault and its expansions. |
 | [openMSX](https://github.com/openMSX/openMSX) | MSX home computer emulator. |
 | [OpenMW](https://github.com/OpenMW/openmw) | Role-playing game engine supporting Morrowind. |
