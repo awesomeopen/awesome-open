@@ -2,7 +2,7 @@
 
 PR 3 of the [WebMCPlet PRD](../../PRD/2026-11-04_WebMCP-for-Awesome-lists.md#delivery):
 a throwaway test of Chrome's on-device model driving the page tools through the PRD's
-three journeys. This directory stays on its branch; it is not merged.
+three journeys. This directory is the test's record; the site build and CI do not use it.
 
 **Result:** with short item refs and a recovery message that names the next tool,
 the model passed 56 of 60 runs and 155 of 175 actions were valid. With the page's
