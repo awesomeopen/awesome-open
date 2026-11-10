@@ -184,7 +184,7 @@ lives elsewhere. Author portable, user-owned task instructions from the public
 catalog policy. Do not export an assistant's private configuration, conversation
 history, credentials or internal instructions.
 
-The current [automation inventory](automation/README.md) records the five hosted
+The current [automation inventory](automation/README.md) records the hosted
 tasks, their nominal cadences, public operating contracts and review boundaries.
 It also distinguishes the GitHub publisher. It is documentation only: no runner,
 scheduler registration or portable executable tooling is included.
@@ -239,7 +239,7 @@ the new owner's account. A copied schedule file does not activate a job, and
 | Workflow | Current behavior |
 | --- | --- |
 | [Brand integrity](.github/workflows/check-brand.yml) | Validates assets, pinned skills and reference files; flags design changes lacking documentation |
-| [Source and preview checks](.github/workflows/check-updaters.yml) | Runs offline tests, renders README/site previews, checks Chromium behavior and uploads review artifacts; pull requests that change only documentation or brand records skip it |
+| [Source and preview checks](.github/workflows/check-updaters.yml) | Runs offline tests, builds README/site previews and uploads artifacts on every PR and main push; verified changes confined to [selected guidance paths](CONTRIBUTING.md#filterable-website-preview) skip only the browser checks |
 | [Publisher](.github/workflows/update-stats.yml) | On relevant `main` changes, daily at 00:00 UTC, or manual dispatch: fetches current `main`, refreshes metrics/HN/due optional signals and star history, validates, commits generated paths, builds the accepted revision and deploys Pages |
 
 The publisher serializes runs and retries against fresh `main` when another

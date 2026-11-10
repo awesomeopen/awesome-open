@@ -24,18 +24,18 @@ unknown catalog URLs fail validation. Different projects may share an alias;
 they remain separate identities. An alias may repeat the display name when its
 source also supports explicit reuse elsewhere.
 
-The full catalog JSON preserves aliases and their review evidence. The compact
-embedded search index keeps alias names only, and the ledger matches against
-it without a live fetch.
+The full catalog JSON keeps alias names, official source URLs and optional
+ambiguity flags. Review dates and reviewers remain in `data/project_aliases.json`.
+The compact embedded search index keeps alias names only, and the ledger matches
+against it without a live fetch.
 
 ## Plate display
 
 Reviewed alternate names appear immediately below the Field notes heading in
 drawers and full records. The first line reads “Also known as: [name]”; each
 additional name has its own line. Each name links to its official source.
-Names matching the current display name are omitted from this block; their
-evidence remains in the catalog and search index. Without alternate names,
-there is no block.
+Names matching the current display name are omitted from this block; they
+remain available for search. Without alternate names, there is no block.
 
 ## Search behavior
 
