@@ -761,7 +761,7 @@ def svg(project, evidence):
         raise ValueError('Expected exactly 24 nonnegative monthly counts')
     maximum = max(1, evidence['shared_monthly_maximum'])
     title = html.escape(project['name'] + ': HN discussions / 2y')
-    desc = html.escape(f"Monthly HN story submissions, {evidence['months'][0]} through {evidence['months'][-1]}; oldest at left. Shared square-root scale: 0–{maximum} stories/month. Counts: " + ', '.join(map(str, counts)) + '. Attention includes critical coverage.')
+    desc = html.escape(f"Monthly HN story submissions, {evidence['months'][0]} through {evidence['months'][-1]}; oldest at left. Shared square-root scale: 0–{maximum} stories/month. Counts: " + ', '.join(map(str, counts)) + '. Attention includes praise, criticism, and controversy.')
     bars = []
     for i, count in enumerate(counts):
         height = math.sqrt(count / maximum) * 20

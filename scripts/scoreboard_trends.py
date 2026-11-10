@@ -54,7 +54,7 @@ def svg_chart(title, months, values, unit, releases=(), captured_dates=None, ste
     x = lambda i: x_date(date.fromisoformat((captured_dates[i] if captured_dates else None) or months[i] + '-01'))
     y = lambda value: bottom - value / maximum * (bottom - top)
     out = [f'<svg class="score-chart" viewBox="0 0 {width} 150" role="img" aria-label="{escape(title, quote=True)}">',
-           f'<title>{escape(title)}</title><desc>Observed cached measurements, not an interpolated activity history. Missing values leave gaps. Exact dates and sources follow.</desc>',
+           f'<title>{escape(title)}</title><desc>Sampled cached measurements; missing values leave gaps.</desc>',
            f'<path class="score-axis" d="M{left} {top} V{bottom} H{right}"/>',
            f'<text x="{left - 5}" y="{top + 4}" text-anchor="end">{maximum:,}</text>',
            f'<text x="{left - 5}" y="{bottom + 4}" text-anchor="end">0</text>']
@@ -121,7 +121,7 @@ def series_html(view, metric, row, end):
     title = row['name'] + ': ' + metric['title']
     note = f'{count} monthly capture' + ('' if count == 1 else 's') + '.'
     if count == 1:
-        note += ' One point is available; later publications will add observations.'
+        note += ' One point is available.'
     chart = svg_chart(title, months, values, metric['unit'], releases,
                       [observation['recorded_on'] if observation else None for _, observation, _ in series],
                       step=metric['id'] == 'release-push-gap')
@@ -189,7 +189,14 @@ def hn_scope(doc):
     window = doc.get('hn_window')
     if not window:
         return ''
-    return f'<p>Search window: {escape(window["start"])} to {escape(window["end_exclusive"])} (end exclusive). Counts describe this matching scope, not all HN mentions.</p>'
+    return f'<p>Search window: {escape(window["start"])} to {escape(window["end_exclusive"])} (end exclusive).</p>'
+
+
+def hn_search_line(url, doc):
+    window = doc.get('hn_window')
+    if isinstance(url, str) and url.startswith('https://') and window:
+        return f'<p>{link(url, "HN search")}: {escape(window["start"])} to {escape(window["end_exclusive"])} (end exclusive).</p>'
+    return hn_scope(doc) + '<p>' + link(url, 'HN search') + '</p>'
 
 
 def monthly_stories_html(row, doc):
@@ -209,7 +216,7 @@ def monthly_stories_html(row, doc):
               '<details class="score-values"><summary>Monthly values</summary><table><thead><tr><th scope="col">Month</th><th scope="col">Stories</th></tr></thead><tbody>']
     for entry in bins:
         parts.append(f'<tr><th scope="row">{entry["month"]}</th><td>{entry["value"]:,}</td></tr>')
-    return ''.join(parts) + '</tbody></table></details>' + hn_scope(doc) + '<p>' + link(d.get('search_url'), 'HN search') + '</p>'
+    return ''.join(parts) + '</tbody></table></details>' + hn_search_line(d.get('search_url'), doc)
 
 
 def over_time(metric, doc, view=None):

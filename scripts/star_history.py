@@ -10,7 +10,7 @@ from update_star_history import accepted_history_sources, validate_cache
 
 REPO = re.compile(r'[a-z0-9_.-]+/[a-z0-9_.-]+')
 BOUNDARIES = 'GitHub day boundaries are not guaranteed UTC; month-edge counts may differ from UTC months.'
-MEANING = 'Stars created in each month that remained at the last successful fetch. Not historical totals, active users, sentiment, or evidence of causation.'
+MEANING = 'Stars created in each month that remained at the last successful fetch.'
 
 
 def load_optional(path):
