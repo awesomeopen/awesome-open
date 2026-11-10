@@ -17,7 +17,7 @@ Check actual registration and the current repository contract before a run.
 | [Backfill feature notes](backfill-feature-notes.md) | ChatGPT-hosted assistant | Daily, nominal 08:00, 15:00 and 19:00 `America/New_York`, flexible | Enabled, recurring |
 | [Reconcile documentation](reconcile-documentation.md) | ChatGPT-hosted assistant | Daily, 04:00 `America/New_York`, exact | Enabled, recurring |
 | [Nightly code-quality audit](nightly-code-quality-audit.md) | Grok Bot-hosted assistant | Daily, nominal 02:00 `America/New_York`, flexible | Enabled, recurring |
-| [Backfill deployment evidence](backfill-deployment-evidence.md) | Grok Bot ("Kanzler") scheduled routines, write through a Cursor cloud agent | Daily, nominal 11:00 and 17:00 `America/New_York` (maintenance: 11:00 only), flexible | Pilot merged (PR #245). Registration after contract version 3 merges: 11:00 and 17:00 `America/New_York`, 25 per run |
+| [Backfill deployment evidence](backfill-deployment-evidence.md) | Grok Bot ("Kanzler") scheduled routines, write through a Cursor cloud agent | Weekdays, nominal 11:00 and 17:00 `America/New_York` (maintenance: 11:00 only), flexible ±15 minutes | Enabled, backfill. Registration check 2026-11-09. First run 2026-11-09 slot A: no PR |
 | [Canonical URL health audit](canonical-url-health.md) | Hosted assistant; registration requires verification | Weekly, nominal Tuesday 10:00 `America/New_York`, flexible | Phase 1 checker/tests merged; live rollout follows the contract gates |
 | [Backfill GitHub star history](#backfill-github-star-history) | Retired ChatGPT-hosted coordinator; manual collection capability remains in GitHub Actions | Formerly hourly; scheduler timezone `America/Los_Angeles` | Disabled 2026-10-21; initial backfill complete with one documented unavailable repository |
 
@@ -141,20 +141,24 @@ selected-record additions, preserving other proposals and owner edits.
 
 ## Backfill deployment evidence
 
-**Status:** Contract version 3. The helper
-(`scripts/select_deployment_backfill.py`, with tests) is on `main`. The
-supervised pilot merged as PR #245 (25 records, 2026-11-01). The owner
-registers the schedule after that contract merges: 11:00 and 17:00
-`America/New_York`, 25 projects per run. The schedule is unregistered until
-that registration. Editing this inventory does not register the task.
+**Status:** Contract version 3. Enabled, backfill. Registration check
+2026-11-09. The helper (`scripts/select_deployment_backfill.py`, with tests)
+is on `main`. The supervised pilot merged as PR #245 (25 records, 2026-11-01).
+[PR #255](https://github.com/awesomeopen/awesome-open/pull/255) merged
+2026-11-03 04:39 UTC. Kanzler's Grok Bot routines registered both routines on
+2026-11-07: weekdays at 11:00 and 17:00 `America/New_York`
+(`CRON_TZ=America/New_York`, `0 11 * * 1-5` and `0 17 * * 1-5`, flexible
+±15 minutes), 25 projects per run. The first fired run, 2026-11-09 slot A,
+wrote nothing, so there is no first-run PR link. Editing this inventory does
+not register the task.
 
 **Inputs and scope:** Catalog projects without a record in
 `data/deployment_evidence.json`, official installation and run documentation,
 package registries and the [deployment contract](../site/DEPLOYMENT-EVIDENCE.md).
-Backfill mode: at most **25 projects per run**, two slots a day (11:00 and
+Backfill mode: at most **25 projects per run**, two weekday slots (11:00 and
 17:00 `America/New_York`); approved-artwork projects first, with 8 slots
 reserved for the rest of the catalog. Existing records are not rewritten.
-Maintenance mode, after full coverage: one run a day at 11:00 covers new
+Maintenance mode, after full coverage: one weekday run at 11:00 covers new
 catalog rows and re-verifies the 3 oldest records (about a six-month cycle),
 changing a record only when its official sources changed.
 
@@ -171,7 +175,9 @@ next PR; a ledger-only draft opens after 7 days without a PR (monthly in
 maintenance). A new agent resumes from `main` plus the carry branch, not from
 chat history.
 
-**Stop/pause:** Recurring until changed or canceled. The switch from backfill
+**Stop/pause:** Recurring until changed or canceled. The owner disables both
+routines by asking Kanzler to pause or delete them, or by pausing them in the
+Routines list of Kanzler's info pane in Grok Bot. The switch from backfill
 to maintenance follows the contract's exact condition; slot B disables itself
 at the switch. More than 75 uncovered projects switch back to backfill.
 Adding records pauses while `catalog.json` has under 100 KiB of budget

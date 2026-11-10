@@ -3,12 +3,10 @@
 Status: Contract version 3. The helper, its tests and the schema-2 ledger are
 on `main`. The supervised pilot ran on 2026-10-31 and merged as
 [PR #245](https://github.com/awesomeopen/awesome-open/pull/245) (25 records).
-The schedule is unregistered. After this version 3 contract merges, the owner
-registers the two daily slots, 11:00 and 17:00 `America/New_York`, 25 projects
-per run. Editing, cloning or merging this file does not register that schedule.
-A scheduled run is executable once the owner authorizes registration and the
-registration check in section 18 is verified. Prepared 2026-10-31. Version 3
-records the pilot lessons and the owner's decisions of 2026-11-02 (section 22).
+The weekday schedule is registered (section 18, check 2026-11-09): 11:00 and
+17:00 `America/New_York`, 25 projects per run. Editing, cloning or merging this
+file does not register that schedule. Prepared 2026-10-31. Version 3 records
+the pilot lessons and the owner's decisions of 2026-11-02 (section 22).
 
 Signing: contributions prepared by the assistant for this job are signed
 "Kanzler (AI)" in pull request and commit descriptions, and in the
@@ -27,17 +25,16 @@ The eight-record pilot of 2026-10-13 covered 8 of 552 projects, 1.4 percent,
 measured from the published `catalog.json` on 2026-10-31. PR #245, merged
 2026-11-01, added 25 records (33 approved). The job has two modes:
 
-- **Backfill:** up to 25 projects per run, two runs per day, until every project
+- **Backfill:** up to 25 projects per run, two weekday runs, until every project
   has a record or a reviewed reason why not.
-- **Maintenance:** one run per day. It covers newly added catalog rows within a
+- **Maintenance:** one weekday run. It covers newly added catalog rows within a
   day, re-verifies the oldest records on a rolling cycle of about six months, and
   opens a pull request only when something changed.
 
 Every step is written down here, and progress lives in a ledger file in Git
-(section 10), so any agent can take over from the repository alone. Scheduled
-runs at 11:00 and 17:00 `America/New_York` start after the owner registers them,
-which follows the merge of contract version 3. Until that registration check
-(section 18), this file does not start a run.
+(section 10), so any agent can take over from the repository alone. Weekday
+runs at 11:00 and 17:00 `America/New_York` are registered. The registration
+check is section 18 (2026-11-09). A scheduled run starts from this file.
 
 ## 2. Philosophy fit
 
@@ -472,7 +469,7 @@ The run then:
 1. Records `set_mode` maintenance in its outcomes. The helper re-checks the
    condition and refuses otherwise.
 2. Opens a draft PR that changes only the ledger and the inventory row in
-   `automation/README.md` (cadence "Daily, nominal 11:00 `America/New_York`",
+   `automation/README.md` (cadence "Weekdays, nominal 11:00 `America/New_York`, flexible ±15 minutes",
    state "Enabled, maintenance"). The mode change itself counts as a change, so
    it gets a PR even though no records changed.
 3. Disables its own slot B routine. The owner authorizes this here, in the same
@@ -730,7 +727,7 @@ helper and the registered routines.
 | Selection, ledger, merge, mode switch check, KPIs | Automated, offline, deterministic | `scripts/select_deployment_backfill.py` | `python3 -m unittest discover -s scripts -p 'test_select_deployment_backfill.py'` |
 | Ledger schema check | Automated on every PR and `main` push | `check-updaters.yml` runs all `scripts/test_*.py` | The workflow run for the commit |
 | Carry state between PRs | Automated | Branch `state/deployment-backfill-carry` | `git log origin/state/deployment-backfill-carry -1` |
-| Schedule | Automated, outside Git, after the owner registers it | Two Grok Bot scheduled routines in the owner's account: "Awesome Open · deployment evidence · slot A (11:00 ET)" and "… slot B (17:00 ET)", 25 projects per run. Registration follows the merge of contract version 3. The schedule is unregistered until then | Ask Kanzler to list its routines, or open them in the Grok Bot app. Inventory says "Enabled" only after this check, with the date |
+| Schedule | Automated, outside Git | Two Grok Bot routines in Kanzler's routines, registered 2026-11-07. Repository writes go through a Cursor cloud agent (GitHub identity `cursoragent`). Weekdays at 11:00 and 17:00 `America/New_York`, flexible ±15 minutes, 25 projects per run. Registration check 2026-11-09, recorded below | Ask Kanzler to list its routines, or open the Routines list in Kanzler's info pane in Grok Bot. The inventory state is "Enabled, backfill" with the check date |
 | Source research and claim review | Automated agent judgment, bounded by sections 8 and 9 | The runner | The PR diff and its sources |
 | Branch, commit, draft PR | Automated | Runner, through the owner's existing GitHub connection | PR author, branch name, draft state |
 | Merge | **Manual, owner** | GitHub | PR merge event |
@@ -749,6 +746,34 @@ helper and the registered routines.
 
 Record the check date and the first run's PR link in the inventory. Credentials,
 connection details and private run context stay outside Git.
+
+**Registration check, 2026-11-09.** Owner Stefan (`snlr308`) approved this
+record on 2026-11-09. [PR #255](https://github.com/awesomeopen/awesome-open/pull/255)
+(contract version 3) merged 2026-11-03 04:39 UTC. Kanzler's Grok Bot routines
+registered both slots on 2026-11-07.
+
+- **Runner.** Kanzler's Grok Bot routines. Repository writes go through a Cursor
+  cloud agent. GitHub identity: `cursoragent`.
+- **Slot A.** "Awesome Open · deployment evidence · slot A (11:00 ET)".
+  `CRON_TZ=America/New_York`, `0 11 * * 1-5`, flexible ±15 minutes. Backfill
+  and maintenance. 25 projects.
+- **Slot B.** "Awesome Open · deployment evidence · slot B (17:00 ET)".
+  `CRON_TZ=America/New_York`, `0 17 * * 1-5`, flexible ±15 minutes. Backfill
+  only. 25 projects.
+- **Timezone and DST.** Weekdays, Monday through Friday. `CRON_TZ` keeps both
+  slots on `America/New_York` time across daylight saving.
+- **Prompt.** The registered prompts match the section 4 minimal prompt. The
+  runner confirmed that outside Git.
+- **Disable.** The owner asks Kanzler to pause or delete both routines, or
+  pauses them in the Routines list of Kanzler's info pane in Grok Bot. In
+  maintenance mode, slot B is disabled under section 11.
+- **First fired run.** 2026-11-09 slot A, on main `9b6d1e4`. The run wrote
+  nothing, so the inventory has no first-run pull request to link.
+
+Open at this check: GitHub access limited to branch push and draft PR; the
+one-open-draft gate; slot B's quiet exit in maintenance. Those three items
+remain for a later check. A scheduled run starts from the registration recorded
+above.
 
 ## 19. Handover: how any agent takes over
 
@@ -771,7 +796,7 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
 
 - **Phase 0, contract review.** Done for version 1. The owner's answers of
   2026-10-31 are applied in version 2. Version 3 records the pilot lessons and
-  the owner's decisions of 2026-11-02. The schedule is unregistered.
+  the owner's decisions of 2026-11-02. Registration is Phase 4.
 - **Phase 1, offline implementation, one draft PR.** Done. On `main`:
   - this file;
   - `scripts/select_deployment_backfill.py` and
@@ -837,14 +862,14 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
     guard (section 14) stays in force regardless.
 - **Phase 2, pilot batch.** Done. Approved by the repository owner on
   2026-10-31. The supervised run merged as PR #245 on 2026-11-01 (25 records,
-  run `2026-10-31T2342Z-kanzler-A`). The schedule stays unregistered until
-  Phase 4.
+  run `2026-10-31T2342Z-kanzler-A`). Registration is Phase 4.
 - **Phase 3, supervised runs.** Up to 4 full batches of 25 on manual dispatch,
   then the first calibration review.
-- **Phase 4, registration.** After contract version 3 merges, the owner
-  authorizes both routines (11:00 and 17:00 `America/New_York`, 25 projects per
-  run). The registration check is recorded. The inventory changes to "Enabled,
-  backfill".
+- **Phase 4, registration.** Done. [PR #255](https://github.com/awesomeopen/awesome-open/pull/255)
+  merged 2026-11-03 04:39 UTC. The owner authorized this record on 2026-11-09.
+  The runner registered both routines on 2026-11-07: weekdays at 11:00 and
+  17:00 `America/New_York`, 25 projects per run (section 18). The registration
+  check date is 2026-11-09. The inventory state is "Enabled, backfill".
 - **Phase 5, maintenance.** Starts automatically at the switch condition
   (section 11). Slot B is disabled. The inventory changes to "Enabled,
   maintenance".
@@ -854,7 +879,7 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
 - [x] Phase 1 merged; helper, tests and schema-2 ledger are on `main`; both pilot-count tests count the file
 - [ ] Phase L proposed (merged before about 250 new records)
 - [x] The pilot runner pushed a branch and opened a draft PR. `state/deployment-backfill-carry` is still unused
-- [x] Supervised 25-project batch merged as PR #245 on 2026-11-01. Schedule registration follows contract version 3
+- [x] Supervised 25-project batch merged as PR #245 on 2026-11-01. Routines registered 2026-11-07; registration check 2026-11-09 (section 18). Inventory state "Enabled, backfill"
 - [x] That draft used the section 12 template. Ledger run `2026-10-31T2342Z-kanzler-A` is on `main` with `pr: null`; the next run's `pr_links` records PR 245
 - [ ] `python3 -m unittest discover -s scripts -p 'test_*.py'` passes on `main`, or known unrelated failures are listed
 - [ ] `validate`, `status` and `coverage` run cleanly against current `main`
@@ -867,6 +892,7 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
 | 2026-10-31 | 1 | Initial proposal | Kanzler (AI) |
 | 2026-10-31 | 2 | Applies the owner's answers. Reviewer label `Kanzler (AI)` confirmed. Backfill raised to 25 projects per run in two daily slots (11:00 and 17:00 ET), with budgets scaled to 750 requests and 120 minutes per run, same per-host politeness, no stacking onto an open draft. Maintenance mode added (new rows within a day, 3 oldest records re-verified per run, PR only on change) with an exact switch condition and per-mode KPIs. Ledger schema 2 with `mode`, `mode_since`, `mode_history` and re-verification outcomes. Carry branch for runs without a PR; 7-day ledger-only fallback in backfill, monthly in maintenance. Phase L (slim `catalog.json`) added as a prerequisite, with the 100 KiB guard kept. Answered questions removed from Appendix C | Kanzler (AI) |
 | 2026-11-02 | 3 | Records the supervised pilot (PR #245) and the owner's decisions of 2026-11-02. An unfinished rewrite is recorded, with a review note that the documented setup is for an unfinished rewrite or development servers. One official install source is enough; otherwise 2 to 4 sources, inside the schema's 1 to 20. `update-state` accepts `proposed` after step 9 when the new record's `checked_at` is the run date, and stamps `contract_version` 3. A run is stored with `pr: null`; the next run's `pr_links` fills it. Section 13 uses the `check-updaters.yml` commands, including `--source-sha` and the exhibition and jar preview builds. Research cites the final fetched docs URL after a script redirect, and confirms a GitHub owner redirect on the project's website before recording. The schedule stays unregistered until the owner registers it after this version merges | Kanzler (AI) |
+| 2026-11-09 | 3 | Records the section 18 registration check. PR #255 merged 2026-11-03 04:39 UTC. Both routines were registered 2026-11-07: weekdays, `CRON_TZ=America/New_York`, `0 11 * * 1-5` and `0 17 * * 1-5`, flexible ±15 minutes, 25 projects per run. Inventory state "Enabled, backfill", registration check 2026-11-09. The contract version stays 3; this row records registration status | Kanzler (AI) |
 
 ## Appendix A. Machine-readable job descriptor
 
@@ -877,7 +903,7 @@ A codification aid, not a registration. No runner reads it today.
   "job": "deployment-evidence-backfill",
   "contract_version": 3,
   "contract_path": "automation/backfill-deployment-evidence.md",
-  "status": "pilot merged (PR 245); schedule unregistered until the owner registers it after this contract merges",
+  "status": "Enabled, backfill; weekdays 11:00 and 17:00 America/New_York; registration check 2026-11-09",
   "runner": {"proposed": "Grok Bot scheduled routines (Kanzler)", "writes_via": "Cursor cloud agent or equivalent branch-push access"},
   "slots": [
     {"id": "A", "time": "11:00", "timezone": "America/New_York", "modes": ["backfill", "maintenance"], "utc_edt": "15:00", "utc_est": "16:00"},
