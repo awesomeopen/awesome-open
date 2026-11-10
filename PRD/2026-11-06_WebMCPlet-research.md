@@ -43,6 +43,22 @@ the live page had the four Cabinet tools and the earlier Cabinet interface.
   licenses, stars and push dates.
 - It called no other tool and said so.
 
+Third run, 2026-11-10, owner's screenshots, after #304 and #308 deployed. Same prompt
+with "Visit … in your browser (for WebMCP)", GPT-6.1 Sol Medium, 1 minute 15 seconds.
+
+- It called `cabinet_find`, `cabinet_arrange` and `cabinet_compare`. Search returned 12
+  matches; it arranged and compared exactly two, OpenCut and OpenShot, and the page
+  showed both in Arrange and in its comparison table.
+- Stars, licenses and push dates equal the page's comparison table: 97,990 and 6,763
+  stars, MIT and Unknown, pushes on 2026-09-24 and 2026-11-10. OpenShot's Unknown
+  license stayed Unknown.
+- Its "Additional note" rows are its own reading: a rewrite underway for OpenCut, which
+  `cabinet_compare` does not return, and "more recent repository activity" for OpenShot,
+  inferred from the push date. It labelled the values as catalog observations checked on
+  November 10.
+- This journey covers visiting agents. The built-in assistant's video-editor result,
+  8 of 20, is a separate measurement in the [WebMCPlet README](../webmcplet/README.md#assistant).
+
 ### Local checks, 2026-11-06
 
 - With Chrome 156 and no flag, the live page reports "Native WebMCP is unavailable".
