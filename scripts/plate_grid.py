@@ -105,8 +105,7 @@ def repository(project, freshness):
                    cls=END if title in ("Repository created", "Repository push") else "")
 
     return (fact("GitHub stars", stars, label="II / Repository record")
-            + fact("Detected license", license_,
-                   extra="" if license_ else "<p>Verify against official terms.</p>")
+            + fact("Detected license", license_)
             + fact("Repository created", created)
             + fact("Repository push", pushed))
 

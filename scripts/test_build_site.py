@@ -189,7 +189,7 @@ class SiteTests(unittest.TestCase):
             self.assertIn(category['name'], link.text)
             self.assertTrue(link.attrs['href'].endswith('/README.source.md#' + category['id']))
         methods = [node for node in self.page.elements if node.has_class('colophon')][0]
-        for qualification in ('Detected licenses: verify against current official terms',
+        for qualification in ('Licenses: GitHub license metadata.',
                               'Repository dates refer to GitHub activity',
                               'HN charts: matched stories / 2 years, shared square-root scale',
                               'Specimen illustrations are original artwork'):

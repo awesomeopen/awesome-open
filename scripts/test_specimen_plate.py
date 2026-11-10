@@ -135,7 +135,7 @@ class PlateTests(unittest.TestCase):
     def test_unknown_license_is_labelled_unknown(self):
         html = render(copy.deepcopy(PROJECT))
         self.assertIn('<h4 class="pg-title">Detected license</h4><p class="pg-value is-unknown">Unknown</p>', html)
-        self.assertIn('<p>Verify against official terms.</p>', html)
+        self.assertNotIn('Verify against official terms.', html)
         # The compact ledger row keeps an unknown license blank; the open record names it.
         self.assertIn('<span class="license-readout"></span>', html)
 
