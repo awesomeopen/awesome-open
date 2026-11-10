@@ -40,7 +40,7 @@
 | [OpenAgentCore](https://github.com/MiniMax-AI/OpenAgentCore) | Self-hosted implementation of the OpenAI Agents API with multiple agent harnesses. |
 | [open-annie](https://github.com/rehan-remade/open-annie) | Browser-based 3D character that combines spoken AI conversations with model-directed facial expressions and gestures. |
 | [OpenArchEvo](https://github.com/Optima-CityU/OpenArchEvo) | Neural architecture search framework that combines LLM-written model programs with population-based evolution. |
-| [OpenAssistant](https://github.com/LAION-AI/Open-Assistant) | Chat assistant that handles tasks, interacts with external systems, and retrieves information. |
+| [OpenAssistant](https://github.com/LAION-AI/Open-Assistant) | Chat assistant that handles tasks, interacts with external systems, and retrieves information.<br>Alternative to: [ChatGPT](https://projects.laion.ai/Open-Assistant/blog/we-need-your-help) |
 | [OpenAttention](https://github.com/hyunwoo137/OpenAttention) | Sparse-attention implementation that combines selected key-value tokens with cluster proxies during language-model inference. |
 | [Open-AutoGLM](https://github.com/zai-org/Open-AutoGLM) | AI models and framework for phone automation. |
 | [OpenBot](https://github.com/regnull/openbot) | Self-hosted platform for persistent AI bots with shared conversations, tools, memory, and workflows. |
@@ -735,7 +735,7 @@
 | [OpenEBS](https://github.com/openebs/openebs) | Persistent storage for stateful applications on Kubernetes. |
 | [OpenList](https://github.com/OpenListTeam/OpenList) | File browser with multiple storage backends, previews, and WebDAV access. |
 | [openmediavault](https://github.com/openmediavault/openmediavault) | Debian-based network-attached storage with a web administration interface. |
-| [OpenMTP](https://github.com/ganeshrvel/openmtp) | macOS application for transferring files to and from Android and other MTP devices over USB. |
+| [OpenMTP](https://github.com/ganeshrvel/openmtp) | macOS application for transferring files to and from Android and other MTP devices over USB.<br>Alternative to: [Android File Transfer](https://openmtp.ganeshrvel.com/) |
 | [OpenRWP](https://github.com/recordweb/openRWP) | RecordWeb Protocol demo custodian server for storing versioned documents and sharing read-only capability links. |
 | [OpenStack Cinder](https://github.com/openstack/cinder) | Block storage service for OpenStack clouds. |
 | [OpenStack Swift](https://github.com/openstack/swift) | Distributed object storage for OpenStack clouds. |
