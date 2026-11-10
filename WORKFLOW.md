@@ -25,7 +25,7 @@ operating contract is in the [automation inventory](automation/README.md).
 | 2. Verify the project | Contributor or assistant | Read official sources. Establish the software's name, function and canonical URL. |
 | 3. Check eligibility and duplicates | Contributor or assistant | Confirm an Open-prefixed software name, including a documented expanded name. Compare canonical URLs, redirects, aliases and open proposals. |
 | 4. Prepare the catalog entry | Contributor or assistant | Write a concise factual description in the appropriate alphabetical category of `README.source.md`. Cross-category entries share one canonical identity. |
-| 5. Validate and accept | Contributor, assistant and repository owner | Run offline tests and inspect the README preview. Ordinary contributions use a PR and owner merge. Authorized discovery additions may commit the source-only change directly to main; branch restrictions require a draft PR instead. |
+| 5. Validate and accept | Contributor, assistant and repository owner | Run offline tests and inspect the README preview. Contributions use a PR and owner merge. Discovery submits its source-only additions as a draft PR for owner review. |
 | 6. Build the publication | Repository publisher | On a relevant main change, fetch fresh main, collect available metadata, render README and cached evidence, and run validation. Commit generated output through the serialized publisher. |
 | 7. Publish and verify | Publisher and operator | Successful generation updates the repository README. Build the website from the accepted published revision, then deploy it to Pages; verify the accepted entry in the published output. |
 
@@ -58,8 +58,10 @@ These are parallel, nonblocking branches from step 5:
 
 Authored enrichment passes its required validation and goes into a separate
 scoped draft PR. A record's `approved` status makes it eligible for display;
-owner merge approval remains separate. After merge, the normal publisher and
-Pages flow deliver it. Missing enrichment leaves the basic listing available.
+owner merge review applies except for validated new-artwork-only PRs under the
+[specimen publication procedure](site/SPECIMEN-ART.md#publication-after-validation).
+After merge, the normal publisher and Pages flow deliver it. Missing enrichment
+leaves the basic listing available.
 
 ## Flowchart brief
 
@@ -69,15 +71,18 @@ Pages flow deliver it. Missing enrichment leaves the basic listing available.
 Validate and accept → Build → Public listing.
 
 Use three actor lanes: **Submitter / discovery**, **Research and review**,
-**Publication**. Split “Validate and accept” into **Contributor PR → Owner merge**
-and **Authorized discovery commit**, then join at **Main source accepted**.
+**Publication**. Show **Catalog PR → Owner merge → Main source accepted**.
+Discovery uses a source-only draft PR on this same acceptance path, as recorded
+in [the workflow revision](brand/decisions/B-PR297-01.md).
 Show **README generated → Website built → Pages deployed** inside the publication lane.
 
 Decision exits: **Already listed → Existing record**; **Already proposed → Existing
 proposal**; **Needs evidence → Deferred**; **Ineligible → Declined**; **Checks fail → Fix and recheck**.
 Show **Awaiting owner review** before the PR merge. Draw later **Function + features**,
-**Artwork** and **Other evidence** branches through **Separate draft PR → Owner
-merge → Publish update**, without putting them in front of the first public listing.
+**Artwork** and **Other evidence** branches through **Separate draft PR → Required
+review and validation → Merge → Publish update**. Label owner merge for summaries
+and other evidence, and the specimen publication procedure for validated
+new-artwork-only PRs. Keep enrichment after the first catalog acceptance.
 
 Use short labels, white ground, Prussian-blue structure and restrained hand-drawn
 arrows in the existing [visual system](brand/visual-system.md). Keep labels as
