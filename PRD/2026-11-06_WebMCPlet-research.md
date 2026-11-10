@@ -127,6 +127,12 @@ CC0, with Pages built from its `github-pages-redesign` branch.
 
 `awesome-go`, with about 3,167 entries, is the size test.
 
+**Importer score, 2026-11-09,** at `23b6184`: `webmcplet/build.cjs markdown` found 978 of
+the JSON's 984 items by normalized URL and no others. Names and plain-text descriptions
+are equal for all 978, and section sets for 975. The 6 missing items are absent from the
+README; the 3 section differences are JSON categories with no README heading. Firefox and
+Thunderbird share one repository URL and merge. Method: [WebMCPlet importer](../webmcplet/README.md#importer).
+
 ## Alternatives and adjacent resources
 
 ### Context Awesome

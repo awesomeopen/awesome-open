@@ -34,7 +34,7 @@ If you are looking for vetted open source software or production-ready open sour
 
 Corrections, additional categories, and newly discovered projects are welcome. There is no minimum star count, release age, or requirement to have used a project personally. Keep descriptions concise and omit promotional claims.
 
-Contributions to this list are made under [CC0-1.0](LICENSE.md). Listed projects retain their own licenses.
+Contributions to this list are made under [CC0-1.0](LICENSE.md). Contributions to `webmcplet/` are made under its [MIT License](webmcplet/LICENSE), so the script can be copied into other lists' sites. Listed projects retain their own licenses.
 
 ## Reviewed name-change history
 
