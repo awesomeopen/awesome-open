@@ -42,10 +42,10 @@
           "name": "Vellum",
           "source_url": "https://www.vellum.ai/blog/best-openhuman-alternatives",
           "target_url": "https://www.vellum.ai/personal-ai",
-          "checked_utc_date": "2026-10-04",
+          "checked_utc_date": "2026-11-09",
           "claimant": "Vellum",
           "source_quote": "Vellum delivers on the same core promise",
-          "scope": "Personal AI assistants with persistent memory and task execution. User-requested mapping supported by Vellum’s official comparison, which positions Vellum as an alternative to OpenHuman."
+          "scope": "Personal AI assistants with persistent memory and task execution. Vellum’s official comparison supports this historical relationship. Its shutdown notice schedules hosted assistants to turn off starting November 7, 2026. The self-hosted harness remains available, with active maintenance and regular releases ending."
         },
         {
           "name": "Hermes Agent",
@@ -134,9 +134,9 @@
         {
           "name": "HashiCorp Vault Community Edition",
           "source_url": "https://openbao.org/docs/guides/migration/",
-          "checked_utc_date": "2026-10-05",
+          "checked_utc_date": "2026-11-09",
           "claimant": "OpenBao",
-          "scope": "Secrets, certificates, and key management; replacing a Vault CE server cluster with OpenBao. Guide tested against Vault CE 1.14.1 with Raft storage and Shamir unseal, using OpenBao 2.2.0. Does not establish Vault Enterprise replacement or universal newer-version compatibility.",
+          "scope": "Secrets, certificates, and key management; replacing a Vault CE cluster with OpenBao. Guide tested with Vault CE 1.14.1, Raft storage, Shamir unseal, and OpenBao 2.2.0. Inventory plugins before migration: mounts without included built-in plugins remain non-serving. Newer Vault versions and Vault Enterprise are outside the tested scope.",
           "confidence": "high",
           "source_quote": "migrate a HashiCorp Vault Community Edition cluster to OpenBao."
         }
@@ -282,9 +282,9 @@
         {
           "name": "Apache Solr",
           "source_url": "https://docs.opensearch.org/latest/migration-assistant/solr-migration/",
-          "checked_utc_date": "2026-10-05",
+          "checked_utc_date": "2026-11-09",
           "claimant": "OpenSearch",
-          "scope": "Search engine workloads; documents/schema migration followed by application cutover to OpenSearch. Backfill only; no live-traffic Capture and Replay. Applications must change their query layer. Solr plugins require replacement/reimplementation. Official overview and detailed page disagree on target OpenSearch version coverage, so no target-version guarantee is made.",
+          "scope": "Search workloads migrated through document/schema backfill and application cutover. The cited Solr guide supports backfill only and requires query-layer changes and plugin replacement. AWS separately documents Solr live-traffic capture/replay for Amazon OpenSearch Service. OpenSearch’s guide and compatibility matrix disagree on target-version coverage; confirm the deployment-specific migration path.",
           "confidence": "high",
           "source_quote": "Once confident, point your application directly at OpenSearch."
         }
@@ -577,8 +577,8 @@
         {
           "name": "Rewind.ai",
           "source_url": "https://github.com/openrecall/openrecall/blob/main/README.md",
-          "checked_utc_date": "2026-10-19",
-          "scope": "Searchable desktop activity history captured as screenshots. The official README explicitly names Rewind.ai as an alternative target; the claim concerns recalling on-screen activity.",
+          "checked_utc_date": "2026-11-09",
+          "scope": "Searchable desktop activity history captured as screenshots. OpenRecall explicitly names Rewind.ai as an alternative target. This is a historical comparison: Limitless’s sunset notice says Rewind’s latest update disables screen and audio capture starting December 19, 2025.",
           "source_quote": "alternative to proprietary solutions like Microsoft's Windows Recall or Limitless' Rewind.ai.",
           "confidence": "high"
         }
