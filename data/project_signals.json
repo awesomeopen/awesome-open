@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-10T08:55:19Z",
+  "collected_at": "2026-11-10T09:55:02Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -792,6 +792,34 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/akariasai/openscholar",
+        "status": "unavailable"
+      }
+    },
+    "alibaba/open-guardrail": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/alibaba/open-guardrail/releases/latest",
+        "status": "unavailable"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/alibaba/open-guardrail",
         "status": "unavailable"
       }
     },
@@ -16633,6 +16661,47 @@
         "status": "unavailable"
       }
     },
+    "openmap-world/openmap": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": null,
+        "etag": "\"8849b96b7110258f457589c4ea81d338a1dc44d4cb8696db69b342ba23fce5ee\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-10T09:55:02Z",
+          "observed_at": "2026-11-10T00:20:07Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/openmap-world/openmap/releases/tag/v0.8.3",
+            "published_at": "2026-11-10T00:20:07Z",
+            "release_id": 439798850,
+            "tag_name": "v0.8.3"
+          }
+        },
+        "last_success_at": "2026-11-10T09:55:02Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openmap-world/openmap/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/openmap-world/openmap",
+        "status": "unavailable"
+      }
+    },
     "openmaptiles/openmaptiles": {
       "release": {
         "check_time_precision": "second",
@@ -20151,7 +20220,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:21:53Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -20303,7 +20372,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:21:53Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -20344,7 +20413,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:21:53Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -20426,7 +20495,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:21:53Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -20467,7 +20536,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:21:53Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -20508,7 +20577,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:21:53Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -20536,7 +20605,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:21:53Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -20577,7 +20646,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:21:53Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -21062,7 +21131,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -21214,7 +21283,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -21255,7 +21324,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -21558,7 +21627,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -21723,7 +21792,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -21764,7 +21833,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -21805,7 +21874,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -21846,7 +21915,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22052,7 +22121,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22204,7 +22273,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22273,7 +22342,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22342,7 +22411,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22370,7 +22439,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22509,7 +22578,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22715,7 +22784,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22743,7 +22812,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22895,7 +22964,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22936,7 +23005,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -23121,7 +23190,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -23397,7 +23466,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -23549,7 +23618,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -23714,7 +23783,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -23755,7 +23824,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -23783,7 +23852,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -23811,7 +23880,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -23852,7 +23921,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -23893,7 +23962,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24073,7 +24142,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24101,7 +24170,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24183,7 +24252,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24211,7 +24280,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24321,7 +24390,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24362,7 +24431,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24403,7 +24472,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24542,7 +24611,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24583,7 +24652,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24652,7 +24721,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-27T00:58:00Z",
+        "checked_at": "2026-11-10T09:55:02Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -26882,6 +26951,47 @@
         "status": "unavailable"
       }
     },
+    "wingedpanther/openshelf": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": null,
+        "etag": "\"5eac3acef889acc849f48a41f2fffab1f9beb7d72932c3589038fd7746c7a161\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-10T09:55:02Z",
+          "observed_at": "2026-11-06T17:16:11Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/wingedpanther/openshelf/releases/tag/v0.5.1",
+            "published_at": "2026-11-06T17:16:11Z",
+            "release_id": 436781169,
+            "tag_name": "v0.5.1"
+          }
+        },
+        "last_success_at": "2026-11-10T09:55:02Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/wingedpanther/openshelf/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/wingedpanther/openshelf",
+        "status": "unavailable"
+      }
+    },
     "wouterapts/openik-unity": {
       "release": {
         "check_time_precision": "second",
@@ -27212,6 +27322,88 @@
         "status": "unavailable"
       }
     },
+    "zeekk0/openamika": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": null,
+        "etag": "\"d8e10f665dabecfadcaa33b7cf1282838d8edde26787d34a53d136529ed59094\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-10T09:55:02Z",
+          "observed_at": "2026-11-10T02:37:03Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/zeekk0/OpenAmika/releases/tag/v1.1.0",
+            "published_at": "2026-11-10T02:37:03Z",
+            "release_id": 439881830,
+            "tag_name": "v1.1.0"
+          }
+        },
+        "last_success_at": "2026-11-10T09:55:02Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/zeekk0/openamika/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/zeekk0/openamika",
+        "status": "unavailable"
+      }
+    },
+    "zhijiewong/openharness": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": null,
+        "etag": "\"9121fe981394e18e677a5c5fd973d5e311e6f0db1727cdbfd32bc1efdb75886f\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-10T09:55:02Z",
+          "observed_at": "2026-05-05T08:58:37Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/zhijiewong/openharness/releases/tag/v2.39.0",
+            "published_at": "2026-05-05T08:58:37Z",
+            "release_id": 317688782,
+            "tag_name": "v2.39.0"
+          }
+        },
+        "last_success_at": "2026-11-10T09:55:02Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/zhijiewong/openharness/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-10T09:55:02Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/zhijiewong/openharness",
+        "status": "unavailable"
+      }
+    },
     "zmeyer44/openvitals": {
       "release": {
         "check_time_precision": "second",
@@ -27270,5 +27462,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "15befab8f203ee02aad8494ee5d8c1fc353d0b2c"
+  "source_sha": "feba80c67256bef9513993e46f556dba06441c3a"
 }
