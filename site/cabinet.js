@@ -223,7 +223,9 @@
         } else if (name === 'cabinet_compare') {
           validate(args, []);
           const ids = model.state().ids;
-          if (!ids.length) throw failure('empty_selection', 'Select at least one project first.');
+          // A model given only the tool name recovers; the Prompt API test passed 0 of 20 without it.
+          if (!ids.length) throw failure('empty_selection', actor === 'Human' ? 'Select at least one project first.'
+            : 'Nothing is selected. Call cabinet_arrange with IDs from cabinet_find and its revision, then call cabinet_compare.');
           const map = await records(controller.signal); check();
           if (model.state().revision !== revision) throw failure('selection_changed', 'Selection changed. Compare again.');
           comparison = ids.map(id => evidence(map.get(id))); renderComparison();
