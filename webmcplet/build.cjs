@@ -4,12 +4,16 @@
  *   node build.cjs markdown README.md --title "Awesome X" --page-url https://example.org/awesome-x/ \
  *     [--source-url URL] [--source-revision SHA] [--license SPDX] [--out list.json]
  *   node build.cjs check list.json
+ *   node build.cjs try https://github.com/you/awesome-x | README.md [--title TITLE] [--port 8080] [--assistant on]
+ *   node build.cjs version
  *
  * Read the README from a raw file: GitHub's README API truncates large files.
  */
 "use strict";
+const crypto = require("node:crypto");
 const fs = require("node:fs");
-const { validate } = require("./webmcplet.js");
+const path = require("node:path");
+const { validate, RELEASE } = require("./webmcplet.js");
 const { importMarkdown } = require("./markdown.js");
 
 function options(args) {
@@ -52,6 +56,16 @@ if (command === "markdown") {
   const doc = JSON.parse(fs.readFileSync(file, "utf8"));
   check(doc, file);
   process.stderr.write(file + ": " + doc.items.length + " items in " + doc.sections.length + " sections.\n");
+} else if (command === "try") {
+  const [source] = opts.positional;
+  if (!source) fail("Usage: build.cjs try https://github.com/you/awesome-x | README.md [--port 8080]");
+  require("./try.js").tryList(source, { title: opts.title, port: Number(opts.port) || 0, assistant: opts.assistant === "on" }).then(result => {
+    process.stdout.write(result.counts.items + " items in " + result.sections + " sections from " + result.source + "\n" +
+      "Preview: " + result.url + "\nPress Ctrl+C to stop.\n");
+  }, error => fail(error.message));
+} else if (command === "version") {
+  const hash = crypto.createHash("sha256").update(fs.readFileSync(path.join(__dirname, "webmcplet.js"))).digest("hex");
+  process.stdout.write("WebMCPlet " + RELEASE + "\nwebmcplet.js SHA-256 " + hash + "\n");
 } else {
-  fail("Commands: markdown, check. See the header of build.cjs.");
+  fail("Commands: markdown, check, try, version. See the header of build.cjs.");
 }

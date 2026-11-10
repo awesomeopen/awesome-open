@@ -8,6 +8,7 @@ import html
 import unicodedata
 import json
 import math
+import os
 import re
 import warnings
 from datetime import date
@@ -187,6 +188,12 @@ def search_text(catalog):
 
 
 SITE_URL = "https://awesomeopen.github.io/awesome-open/"
+
+
+def origin_trial_meta():
+    """Chrome's WebMCP origin-trial token for SITE_URL's origin, from GOOGLE_ORIGIN_TRIAL_TOKEN."""
+    token = os.environ.get("GOOGLE_ORIGIN_TRIAL_TOKEN", "").strip()
+    return f'<meta http-equiv="origin-trial" content="{html.escape(token)}">' if token else ""
 
 
 def webmcplet_list(catalog):
@@ -780,7 +787,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
 <head>
  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
  <meta name="description" content="A natural-history field guide to software named Open, with searchable project records, repository data, and reviewed comparisons.">
- <meta name="color-scheme" content="light"><title>Awesome Open* Catalog</title>
+ <meta name="color-scheme" content="light"><title>Awesome Open* Catalog</title>{origin_trial_meta()}
  <link rel="icon" href="brand/favicon.ico" sizes="16x16 32x32 48x48">
  <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">

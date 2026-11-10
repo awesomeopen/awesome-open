@@ -7,22 +7,48 @@ read an item's recorded fields, and a visitor can search and browse from a corne
 There is no server to install.
 
 This directory has no dependencies, imports nothing from Awesome Open\* and is
-MIT-licensed ([LICENSE](LICENSE)). Packaging and adopter releases follow in the
-[PRD](../PRD/2026-11-04_WebMCP-for-Awesome-lists.md#delivery).
+MIT-licensed ([LICENSE](LICENSE)). Releases and their checksums are in the
+[CHANGELOG](CHANGELOG.md).
 
-## Add it to a list
+## Try it on your list
 
-1. Generate the list document from the README, read as a raw file because GitHub's
-   README API truncates large files:
+With Node.js 18 or later, download a release into an empty folder and preview your list
+from its README:
+
+```sh
+v=webmcplet-v0.1.0
+for f in webmcplet.js build.cjs markdown.js try.js LICENSE; do
+  curl -fsSLO "https://raw.githubusercontent.com/awesomeopen/awesome-open/$v/webmcplet/$f"
+done
+node build.cjs try https://github.com/you/awesome-x
+```
+
+It reads the README as a raw file, imports it, and serves a plain page of your entries
+with the panel at the printed `127.0.0.1` address until you press Ctrl+C. Your site and
+repository stay untouched. A local `README.md` path works too; `--assistant on` adds the
+[assistant](#assistant). The visitor tools appear in a browser that provides WebMCP, such
+as Chrome started with `--enable-blink-features=WebMCP`, as this repository's checks do.
+
+## Add it to your site
+
+WebMCPlet runs on a page you publish, such as a GitHub Pages site; GitHub's README view
+runs no scripts.
+
+1. Put `webmcplet.js`, `build.cjs`, `markdown.js` and `LICENSE` from that download in a
+   `webmcplet/` folder in your repository; `try.js` serves only the preview. Check that
+   the SHA-256 that `node build.cjs version` prints matches the release in the
+   [CHANGELOG](CHANGELOG.md).
+2. Generate the list document from the README in your site's build. Read the README as a
+   raw file, because GitHub's README API truncates large files:
 
    ```sh
    node build.cjs markdown README.md --title "Awesome X" --page-url https://example.org/awesome-x/ \
      --source-url https://github.com/you/awesome-x --source-revision "$(git rev-parse HEAD)" --out list.json
    ```
 
-   A list with its own structured data can write the document directly and run
-   `node build.cjs check list.json`.
-2. Publish `webmcplet.js` and `list.json` with the page, and add:
+   A list with its own structured data can write the [list document](#list-document)
+   directly and run `node build.cjs check list.json`.
+3. Publish `webmcplet.js` and `list.json` with the page, and add:
 
    ```html
    <script src="webmcplet.js" data-webmcplet-src="list.json" data-webmcplet-title="Awesome X" defer></script>
@@ -33,6 +59,11 @@ MIT-licensed ([LICENSE](LICENSE)). Packaging and adopter releases follow in the
    Tools register only where the browser provides `document.modelContext` in a secure
    context; the panel works in every browser.
 
+On your page, the script fetches only `list.json` from your origin, makes no analytics
+calls, and adds one element whose panel sits in a shadow root, so your styles and markup
+stay as they are. When a visitor hides the button, that browser stores one
+`localStorage` key. To update, copy a later release and compare its checksum the same way.
+
 | Attribute | Effect |
 | --- | --- |
 | `data-webmcplet-prefix` | Renames the tools from `list_*` |
@@ -40,6 +71,11 @@ MIT-licensed ([LICENSE](LICENSE)). Packaging and adopter releases follow in the
 | `data-webmcplet-label` | The button's text, default "Search this list" |
 | `data-webmcplet-assistant` | `on` adds the [assistant](#assistant) to the panel |
 | `data-webmcplet-assistant-tools` | Tool names the assistant uses, such as the page's own tools (below) |
+
+**Origin-trial token:** Chrome turns WebMCP on for visitors without a flag when the page
+carries a token for its origin from [Chrome Origin Trials](https://developer.chrome.com/origintrials/):
+`<meta http-equiv="origin-trial" content="TOKEN">`. Visiting agents such as ChatGPT's
+browser use the tools without one.
 
 ## Tools
 
@@ -153,3 +189,7 @@ score with `scripts/score_webmcplet_importer.cjs`.
 ```sh
 node --test test/*.test.js
 ```
+
+`scripts/check_webmcplet_adoption.cjs` follows [Try it](#try-it-on-your-list) and
+[Add it to your site](#add-it-to-your-site) on [a hypothetical list](example/README.md)
+in Chromium.

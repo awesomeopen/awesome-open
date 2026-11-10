@@ -52,7 +52,8 @@ Every journey answers: **what in this list fits my need, and what's missing?**
 ### Adoption
 
 - **Delivery:** adopters copy a versioned script into their site and run a pinned
-  build step that generates the JSON. We serve no script.
+  build step that generates the JSON. We serve no script. `build.cjs try` previews a list
+  from its README before any change to the site.
 - **Input:** the build step reads README Markdown; a list with good JSON can use
   that. Importers read raw files, because GitHub's README API truncated large files
   at about 512 KB.
@@ -134,9 +135,10 @@ needs attention by Chrome 162, stable on 2027-02-02.
 | 3 | Throwaway model test on the M5, unmerged | Context window, speed and valid-action rate recorded for the journeys on both lists. Set a threshold after the first baseline. A failure drops the Prompt API and leaves search plus WebMCP |
 | 4 | Core, schema, read-only tools and importer | The importer is scored against the Mac list's JSON; the same script runs on Awesome Open and on the Mac list, injected only in our own browser |
 | 5 | Panel, assistant if it passed, and the Cabinet redesign, with a brand decision record | Keyboard, touch, focus and silencing checks pass on both lists |
-| 6 | Packaging, adopter docs, token and a demo recording | A maintainer can reproduce the fixture integration from the docs; the owner reviews the recording before anything is published |
+| 6 | Packaging, adopter docs and token | A maintainer can reproduce the fixture integration from the docs |
+| 7 | Demo recording | The owner reviews the recording before anything is published |
 
-**Demo recording,** about 90 seconds on the M5: the local assistant on Awesome Open
+**Demo recording,** deferred by the owner on 2026-11-10 until every segment runs reliably; about 90 seconds on the M5: the local assistant on Awesome Open
 with "video editor"; the family-photo query returning a clear no-match; the same
 script on the Mac list, labelled as a local demo with no affiliation; then an agent
 calling the same tools.

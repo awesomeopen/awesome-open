@@ -79,6 +79,9 @@ Visitor tools accept no URLs, code, repository writes, payments or installation
 requests. External source prose is rendered as text and marked untrusted in tool
 annotations. Only human-activated source links leave the site. Tools register on
 `document.modelContext` in secure contexts, with no cross-origin exposure.
+When the publish build has `GOOGLE_ORIGIN_TRIAL_TOKEN`, the Catalog carries Chrome's
+WebMCP origin-trial token for `awesomeopen.github.io`, which turns the API on for
+visitors' Chrome without a flag.
 Unsupported browsers show an experimental support notice and retain human controls.
 
 ## Design and validation
