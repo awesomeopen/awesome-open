@@ -1,3 +1,7 @@
+The `webmcplet/` directory is licensed separately under the MIT License; see
+[webmcplet/LICENSE](webmcplet/LICENSE). Everything else in this repository is
+dedicated under CC0 1.0 Universal, below.
+
 Creative Commons Legal Code
 
 CC0 1.0 Universal
