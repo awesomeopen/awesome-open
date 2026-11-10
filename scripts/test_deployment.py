@@ -97,6 +97,7 @@ class DeploymentTests(unittest.TestCase):
             (root / 'data').mkdir()
             (root / 'README.source.md').symlink_to(ROOT / 'README.source.md')
             (root / 'site').symlink_to(ROOT / 'site', target_is_directory=True)
+            (root / 'webmcplet').symlink_to(ROOT / 'webmcplet', target_is_directory=True)
             for path in (ROOT / 'data').iterdir():
                 if path.name != 'deployment_evidence.json' and path.is_file():
                     (root / 'data' / path.name).symlink_to(path)

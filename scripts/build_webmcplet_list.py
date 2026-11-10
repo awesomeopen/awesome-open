@@ -105,7 +105,7 @@ def item(project, page_url):
 
 def build(catalog, page_url):
     listing = {'title': 'Awesome Open*', 'page_url': page_url,
-               'description': 'A catalog of software whose name begins with Open.',
+               'description': 'A catalog of Open*-named projects.',
                'source_url': 'https://github.com/awesomeopen/awesome-open', 'license': 'CC0-1.0'}
     if catalog.get('source_sha'):
         listing['source_revision'] = catalog['source_sha']

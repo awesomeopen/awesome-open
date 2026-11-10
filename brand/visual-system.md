@@ -62,6 +62,11 @@ The site publishes no single-file download of the ledger or the Observatory
 ([B-PR176-01](decisions/B-PR176-01.md), [B-PR184-01](decisions/B-PR184-01.md)).
 Verify copy and evidence changes in the ledger and the static record pages.
 
+The specimen cabinet opens as three numbered steps under a mist heading that states its
+purpose, and the Catalog carries the WebMCPlet corner button, "Search this list", themed
+with the existing tokens ([B-PR304-01](decisions/B-PR304-01.md), proposed). Details are
+in the [guide](../site/RETRO-SCRAPERISM.md#experimental-cabinet).
+
 ## Review
 
 Check the affected component, not an invented whole-site redesign. For visible

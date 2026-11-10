@@ -561,7 +561,14 @@ Body-led wall clipping is proposed in [B-PR143-01](../brand/decisions/B-PR143-01
 
 ## Experimental cabinet
 
-The [specimen cabinet](WEBMCP-CABINET.md) uses the existing Catalog frame, a
-Prussian disclosure heading, white ordered selection rows and a mist-headed
-evidence table. On narrow screens the row controls wrap and the labeled table
-region scrolls horizontally. Activity records actual operations and outcomes.
+The [specimen cabinet](WEBMCP-CABINET.md) uses the existing Catalog frame, a mist
+disclosure heading with its purpose and count, three numbered steps (Find, Arrange,
+Compare) with scarlet step numbers, white ordered selection rows and a mist-headed
+evidence table ([B-PR304-01](../brand/decisions/B-PR304-01.md)). On narrow screens the
+row controls wrap and the labeled table region scrolls horizontally. Agent status and
+activity sit in the method disclosure; activity records actual operations and outcomes.
+
+The [WebMCPlet](../webmcplet/README.md) corner button, "Search this list", opens a modal
+search over the same catalog. On the Catalog it takes the white/Prussian tokens through
+its custom properties: Prussian button and rules, Półtawski headings, Commit Mono text and
+a scarlet focus ring. It never opens or moves by itself.

@@ -76,6 +76,23 @@ updated 2026-10-21:
 | `m5` | M5 Max, 18 cores, 128 GB, 1.1 TB free | 156.0.8078.76 | Not on disk |
 | `alder` | About 15 GB RAM, 4 cores, integrated graphics, 40 GB free | 156.0.8078.47 | `downloadable` in the owner's Chrome; `unavailable` in a clean headless profile |
 
+### Prompt API model test, 2026-11-09
+
+The [M5 test](../experiments/prompt-api-m5/README.md) ran the three journeys 20 times each
+with Chrome 156 and on-device model 2025.8.8.1141, whose context window is 9,216 tokens.
+With short item refs and an `empty_selection` message naming `cabinet_arrange`, it passed
+17, 19 and 20 of 20; with the tools unchanged, 0, 5 and 20.
+
+**Threshold, set 2026-11-10:** the assistant stays in if each journey passes at least 17
+of 20 runs and no answer shows an item the tools did not return. The shipped assistant is
+measured against it.
+
+**Shipped assistant, 2026-11-10:** 20 of 20 for the family-photo and Markdown-editor
+journeys; 8 of 20 for the video-editor comparison, where every failure selected three
+projects. The catalog had grown, and the measured configuration also dropped to 2 of 20
+on it. The assistant is therefore opt-in (`data-webmcplet-assistant="on"`) and off on
+Awesome Open\*; search and WebMCP ship. [Follow-up](../experiments/prompt-api-m5/README.md#follow-up-2026-11-10).
+
 ## Catalog evidence
 
 Live catalog, 2026-11-06, 555 projects: 503 have GitHub stars, 419 function summaries,

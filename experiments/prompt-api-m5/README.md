@@ -117,5 +117,25 @@ node experiments/prompt-api-m5/run.cjs --site <site> --maclist <maclist> --profi
 ```
 
 The profile must hold the model; the first `create()` in it needs a click. Each run
-opens a fresh page and session. `results/` holds the three reports, including every
+opens a fresh page and session. `results/` holds every report, including each
 turn's prompt, raw output, latency and context use.
+
+## Follow-up, 2026-11-10
+
+The shipped assistant in `webmcplet/webmcplet.js` runs through the panel with
+`scripts/check_webmcplet_assistant.cjs`, on a catalog that had grown from 569 to 579
+projects. Results, 20 runs each:
+
+| Report | Video compare | Markdown editor | Family photos |
+| --- | --- | --- | --- |
+| `d-webmcplet-assistant.json`: shipped assistant, current catalog | 8/20 | 20/20 | 20/20 |
+| `e-config-c-rerun-original-catalog.json`: configuration C, original build | 17/20 | 17/20 | 20/20 |
+| `f-config-c-current-catalog.json`: configuration C, current catalog, Cabinet tools only | 2/20 | not run | not run |
+
+Configuration C reproduces its result on the original build and drops to 2/20 on the
+current catalog, where "video editor" returns 12 projects. The model then selects three
+to six projects when asked to compare two. All 12 failures of the shipped assistant
+selected three. Two controller details changed results: tools listed in name order, as
+Chrome's `getTools()` returns them (in registration order, 0 of 5 recovered from
+`empty_selection`), and `list_find` offered without its optional `section` argument, which
+the model otherwise filled with invented section names.
