@@ -505,7 +505,7 @@ const path = require('node:path');
           assert.equal(await diagnostics.isVisible(), true);
         }
 
-        // Sparse verified histories use the same search link as larger histories.
+        // Sparse legacy histories and dual-series histories link their recorded evidence.
         const singleton = data.projects.find(p => p.hn?.total_stories === 1);
         const multiple = data.projects.find(p => p.hn?.total_stories > 1);
         assert.ok(singleton && multiple, 'Fixed sparse and multiple-story evidence');
@@ -522,23 +522,33 @@ const path = require('node:path');
           await image.scrollIntoViewIfNeeded();
           await image.evaluate(node => node.decode());
           assert.ok(await image.isVisible());
-          assert.equal(await sparseBox.locator('.pg-spark-link').getAttribute('href'), singleton.hn.search_url);
+          assert.equal(await sparseBox.locator('.pg-spark-link').getAttribute('href'), singleton.hn.matched_evidence_url);
           assert.equal(new URL(singleton.hn.search_url).hostname, 'hn.algolia.com');
-          assert.match(await sparseBox.textContent(), /1 submission \/ past 2y/);
+          assert.match(await sparseBox.textContent(), /1 matched/);
           await capture(`hn-single-story-${width}.png`);
           await page.goto(new URL('records/' + multiple.id + '.html', url + '/').href);
           const multipleBox = page.locator('[data-signal="hn"]');
           await multipleBox.locator('.pg-spark').scrollIntoViewIfNeeded();
           await multipleBox.locator('.pg-spark').evaluate(node => node.decode());
           assert.ok(await multipleBox.locator('.pg-spark').isVisible());
-          assert.equal(await multipleBox.locator('.pg-spark-link').getAttribute('href'), multiple.hn.search_url);
+          assert.equal(await multipleBox.locator('.pg-spark-link').getAttribute('href'), multiple.hn.broad_evidence_url);
+          assert.equal(await multipleBox.locator('.pg-spark').getAttribute('src'), multiple.hn.comparison_chart_url);
+          assert.equal(await multipleBox.locator('.pg-hn-broad').getAttribute('href'), multiple.hn.broad_evidence_url);
+          assert.equal(await multipleBox.locator('.pg-hn-matched').getAttribute('href'), multiple.hn.matched_evidence_url);
+          assert.equal(await multipleBox.locator('.pg-hn-broad').textContent(), '6 possible');
+          assert.equal(await multipleBox.locator('.pg-hn-matched').textContent(), '3 matched');
+          await multipleBox.locator('.pg-hn-matched').click();
+          await page.waitForURL('**/fixture-tofu-evidence.html#matched');
+          assert.equal(await page.locator('#matched li').count(), 3);
+          assert.equal(await page.locator('#broad li').count(), 6);
+
         }
 
         // Compact chart becomes the expanded chart when the drawer opens.
         await page.setViewportSize({ width: 1440, height: 1000 });
         await page.goto(url);
         await waitForState();
-        const traced = data.projects.find(p => p.hn);
+        const traced = data.projects.find(p => p.hn?.broad_total_stories !== undefined);
         const tracedCard = page.locator('#project-' + traced.id);
         assert.ok(await tracedCard.locator('.name-sparkline').isVisible());
         await tracedCard.locator('.name-sparkline').evaluate(image => image.decode());
@@ -547,6 +557,13 @@ const path = require('node:path');
         assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
         assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
         await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
+        const traceLink = tracedCard.locator('.name-sparkline-link');
+        assert.equal(await traceLink.getAttribute('href'), traced.hn.broad_evidence_url);
+        await traceLink.focus();
+        await page.keyboard.press('Enter');
+        await page.waitForURL('**/fixture-tofu-evidence.html#broad');
+        assert.equal(await page.locator('#broad li').count(), 6);
+
 
       } finally {
         await fixture.dispose();

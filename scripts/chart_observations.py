@@ -100,7 +100,7 @@ def add_hn(archive, document):
         if 'collected_at' in metadata:
             observed = stamp(metadata['collected_at'], 'last_good.collected_at')
         project = good['project']
-        for name in ('stories', 'excluded_candidates'):
+        for name in ('stories', 'excluded_candidates', 'broad_stories'):
             if name in project:
                 project[name + '_refs'] = [intern(archive, 'hn_story', row) for row in project.pop(name)]
         append(archive, 'hn', key, good, metadata, observed)
@@ -118,7 +118,7 @@ def materialize(archive, observation):
         return {'repo': observation['identity'], 'status': 'ok', **evidence}
     good = evidence
     project = good['project']
-    for name in ('stories', 'excluded_candidates'):
+    for name in ('stories', 'excluded_candidates', 'broad_stories'):
         if name + '_refs' in project:
             project[name] = [resolve(archive, ref, 'hn_story') for ref in project.pop(name + '_refs')]
     good.update(deepcopy(observation['metadata']))

@@ -775,14 +775,14 @@ class PublisherScopeTests(unittest.TestCase):
     def test_generated_scope_is_explicit(self):
         for name in ['README.md', 'data/github_metrics.json', 'data/hn_evidence.json',
                      'data/project_signals.json', 'data/star_history.json',
-                     'data/chart_observations.json', 'assets/hn/project.svg', 'assets/readme/specimen-count.svg']:
+                     'data/chart_observations.json', 'assets/hn/project.svg', 'assets/hn/project-evidence.html', 'assets/readme/specimen-count.svg']:
             with self.subTest(name=name):
                 self.assertTrue(publisher.allowed_path(name))
         for name in ['README.source.md', 'CONTRIBUTING.md', 'data/hn_projects.json', 'data/alternatives.json',
                      'data/project_signals.json.tmp', 'data/other_signals.json', 'data/nested/project_signals.json',
                      'data/chart_observations.json.tmp', 'data/nested/chart_observations.json',
                      'assets/readme/other.svg', 'assets/readme/../../secret.svg', 'site/brand/browse-catalog.svg',
-                     '.github/workflows/update-stats.yml', 'assets/hn/../../secret.svg', 'assets/hn/script.py']:
+                     '.github/workflows/update-stats.yml', 'assets/hn/../../secret.svg', 'assets/hn/script.py', 'assets/hn/arbitrary.html']:
             with self.subTest(name=name):
                 self.assertFalse(publisher.allowed_path(name))
 

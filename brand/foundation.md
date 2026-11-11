@@ -45,7 +45,7 @@ change that implies one of those readings, and keep the list itself out of copy.
 | --- | --- | --- |
 | GitHub license detection | GitHub license metadata | Independent legal review |
 | Stars / category top three | Count/ranking within that category | Endorsement or quality |
-| HN submissions / 2y | Matched submissions | Sentiment, adoption or controversy |
+| HN submissions / 2y | Broad title/URL candidates with a separately labeled matched subset | Verified attribution of every candidate, sentiment or adoption |
 | Monthly stars retained at fetch | Retained stars in the cached history, with its qualifications | |
 | Last push / repository creation | Repository timestamps | Project health or birth |
 | Alternatives | Reviewed use-case comparison | Descent or feature parity |

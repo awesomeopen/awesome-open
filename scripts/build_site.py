@@ -671,7 +671,14 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
     inline_chart = ""
     if project["hn"]:
         attention = project["hn"]
-        inline_chart = f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" alt="HN discussions / 2y" title="HN discussions / 2y: {attention["total_stories"]} matched {"story" if attention["total_stories"] == 1 else "stories"}" loading="lazy">'
+        broad = "broad_total_stories" in attention
+        count = attention["broad_total_stories"] if broad else attention["total_stories"]
+        label = "possible matches" if broad else "matched stories"
+        evidence_url = attention.get("broad_evidence_url") or attention["matched_evidence_url"]
+        inline_chart = (f'<a class="name-sparkline-link" href="{escape(evidence_url)}" '
+                        f'aria-label="HN: {count} {label} / past 2y">'
+                        f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" '
+                        f'alt="HN {label} / past 2y" title="HN: {count} {label} / past 2y" loading="lazy"></a>')
     leader_categories = project.get("leader_categories", [])
     if deferred:
         interior = (
@@ -823,7 +830,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Search results list the strongest matching field first, then by name</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Licenses: GitHub license metadata.</li><li>Repository dates refer to GitHub activity</li><li>HN charts: matched stories / 2 years, shared cube-root scale</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Search results list the strongest matching field first, then by name</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Licenses: GitHub license metadata.</li><li>Repository dates refer to GitHub activity</li><li>HN charts: possible title/URL matches; red foreground: matched stories. Shared cube-root scale / 2 years</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
 <script id="catalog-data" type="application/json" data-source-sha="{escape(catalog.get("source_sha") or "")}" data-search-text="search-text.json?v={hashlib.sha256(search_text(catalog).encode("utf-8")).hexdigest()}">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
@@ -938,9 +945,14 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
     script_url = catalog_script_url(runtime)
     ledger = render_html(catalog, script_url=script_url, root=root)
     # Validate charts before touching generated files. The renderer is shared with README.
-    charts = {
-        p["slug"]: hn.svg(p, display) for p in display["projects"] if hn.chart_displayable(p)
-    }
+    charts = {}
+    for project in display["projects"]:
+        if hn.chart_displayable(project):
+            slug = project["slug"]
+            charts[slug + ".svg"] = hn.svg(project, display)
+            charts[slug + "-evidence.html"] = hn.evidence_html(project, display)
+            if "broad_story_count" in project:
+                charts[slug + "-comparison.svg"] = hn.svg(project, display, comparison=True)
     star_charts = {
         p["star_history"]["chart_url"]: star_history.svg(p)
         for p in catalog["projects"]
@@ -973,9 +985,10 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
     shutil.copyfile(root / "webmcplet/webmcplet.js", output / "webmcplet/webmcplet.js")
     for name, content in assets.items():
         (output / name).write_text(content, encoding="utf-8")
+    shutil.rmtree(output / "assets/hn", ignore_errors=True)
     (output / "assets/hn").mkdir(parents=True, exist_ok=True)
-    for slug, chart in charts.items():
-        (output / "assets/hn" / (slug + ".svg")).write_text(chart, encoding="utf-8")
+    for filename, chart in charts.items():
+        (output / "assets/hn" / filename).write_text(chart, encoding="utf-8")
     shutil.rmtree(output / "assets/stars", ignore_errors=True)
     (output / "assets/stars").mkdir(parents=True, exist_ok=True)
     for path, chart in star_charts.items():

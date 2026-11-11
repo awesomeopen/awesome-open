@@ -144,7 +144,19 @@ def _hn_evidence(document):
                 "chart_url": "assets/hn/" + slug + ".svg",
                 "search_url": project["search_url"],
                 "total_stories": count,
+                "matched_evidence_url": "assets/hn/" + slug + "-evidence.html#matched",
             }
+            if "broad_story_count" in project:
+                broad = project["broad_story_count"]
+                if type(broad) is not int or broad < count:
+                    raise ValueError("Expected HN broad count to include matched stories")
+                canonical_url(project.get("broad_search_url"))
+                by_url[url].update({
+                    "broad_total_stories": broad,
+                    "broad_search_url": project["broad_search_url"],
+                    "broad_evidence_url": "assets/hn/" + slug + "-evidence.html#broad",
+                    "comparison_chart_url": "assets/hn/" + slug + "-comparison.svg",
+                })
     return by_url
 
 

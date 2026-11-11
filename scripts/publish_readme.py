@@ -54,7 +54,7 @@ def latest_main(root):
 def allowed_path(name):
     path = PurePosixPath(name)
     return name in GENERATED_FILES or (
-        path.parent == PurePosixPath("assets/hn") and path.suffix == ".svg"
+        path.parent == PurePosixPath("assets/hn") and (path.suffix == ".svg" or path.name.endswith("-evidence.html"))
     )
 
 
@@ -128,8 +128,8 @@ def validate(root):
         run(root, sys.executable, "scripts/render_readme.py", "--strict-metrics", "--output", str(output))
         if output.read_bytes() != (root / "README.md").read_bytes():
             raise RuntimeError("The offline README render is not reproducible")
-        expected = {path.name: path.read_bytes() for path in (output.parent / "assets/hn").glob("*.svg")}
-        actual = {path.name: path.read_bytes() for path in (root / "assets/hn").glob("*.svg")}
+        expected = {path.name: path.read_bytes() for path in (output.parent / "assets/hn").iterdir() if path.suffix == ".svg" or path.name.endswith("-evidence.html")}
+        actual = {path.name: path.read_bytes() for path in (root / "assets/hn").iterdir() if path.suffix == ".svg" or path.name.endswith("-evidence.html")}
         if actual != expected:
             raise RuntimeError("The offline HN assets are not reproducible")
         badge = "assets/readme/specimen-count.svg"

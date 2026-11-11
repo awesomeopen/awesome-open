@@ -156,14 +156,28 @@ def hn_box(project, hn_window):
         return box(title, empty_chart(), popup=state("Not recorded"), signal="hn")
     first, last = (hn_window or {}).get("first"), (hn_window or {}).get("last")
     maximum = (hn_window or {}).get("monthly_maximum")
-    alt = "HN stories per month" + (f", {first} to {last}" if first else ", past 2y")
-    body = (f'<a class="pg-spark-link" href="{esc(hn["search_url"])}"><img class="pg-spark" src="{esc(hn["chart_url"])}" '
-            f'width="120" height="24" alt="{esc(alt)}" loading="lazy"></a>'
-            + foot(hn["total_stories"], first, last))
-    scale = (f"<p>Square-root scale: 0–{esc(maximum)} stories/month, shared across HN charts.</p>"
+    broad = "broad_total_stories" in hn
+    matched_url = hn.get("matched_evidence_url", hn["search_url"])
+    chart = hn.get("comparison_chart_url", hn["chart_url"])
+    evidence_url = hn.get("broad_evidence_url", matched_url)
+    alt = ("HN possible matches with matched stories in narrow red foreground bars" if broad
+           else "HN matched stories per month") + (f", {first} to {last}" if first else ", past 2y")
+    body = (f'<a class="pg-spark-link" href="{esc(evidence_url)}"><img class="pg-spark" src="{esc(chart)}" '
+            f'width="120" height="24" alt="{esc(alt)}" loading="lazy"></a>')
+    if broad:
+        body += (f'<p class="pg-foot pg-hn-key"><a class="pg-hn-broad" href="{esc(hn["broad_evidence_url"])}">'
+                 f'{hn["broad_total_stories"]:,} possible</a> '
+                 f'<a class="pg-hn-matched" href="{esc(matched_url)}">{hn["total_stories"]:,} matched</a></p>')
+        meaning = ("Possible matches come from title and URL searches. Narrow red bars show the matched subset: "
+                   "official URLs and reviewed name/context rules. The gap includes unverified candidates.")
+    else:
+        body += foot(f'<a href="{esc(matched_url)}">{hn["total_stories"]:,} matched</a>', first, last)
+        meaning = "Matched stories. Broader search has not been collected."
+    scale = (f"<p>Cube-root scale: 0–{esc(maximum)} stories/month, shared across HN charts and both series.</p>"
              if maximum is not None else "")
-    popup = (f'<p>{hn["total_stories"]} {"submission" if hn["total_stories"] == 1 else "submissions"} / past 2y.</p>{scale}'
-             f'<p class="fine-print"><a href="{esc(hn["search_url"])}">HN search</a></p>')
+    period = f"{window(first, last)} · past 2y" if first and last else "Past 2y"
+    popup = (f'<p>{period}.</p><p>{meaning}</p>{scale}'
+             f'<p class="fine-print"><a href="{esc(hn.get("broad_search_url", hn["search_url"]))}">Browse HN search</a></p>')
     return box(title, body, popup=popup, signal="hn")
 
 
