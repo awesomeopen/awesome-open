@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-11T03:53:24Z",
+  "collected_at": "2026-11-11T05:09:41Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -2463,19 +2463,24 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-04T04:04:05Z",
+        "checked_at": "2026-11-11T05:09:41Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-04T04:04:05Z",
-          "observed_at": "2026-10-26T00:00:00Z",
+          "fetched_at": "2026-11-11T05:09:41Z",
+          "observed_at": "2026-11-09T00:00:00Z",
           "source_commit": "1bca62311e447fd9c39fc93de2c4b96cd5ce971c",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
+              {
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
+                "score": 10
+              },
               {
                 "name": "Maintained",
                 "reason": "30 commit(s) and 2 issue activity found in the last 90 days -- score normalized to 10",
@@ -2487,19 +2492,14 @@
                 "score": 5
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
-                "score": 10
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
+                "score": null
               },
               {
                 "name": "Dangerous-Workflow",
                 "reason": "no dangerous workflow patterns detected",
                 "score": 10
-              },
-              {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
-                "score": null
               },
               {
                 "name": "Token-Permissions",
@@ -2522,14 +2522,14 @@
                 "score": 10
               },
               {
-                "name": "License",
-                "reason": "license file detected",
-                "score": 10
-              },
-              {
                 "name": "Pinned-Dependencies",
                 "reason": "dependency not pinned by hash detected -- score normalized to 0",
                 "score": 0
+              },
+              {
+                "name": "License",
+                "reason": "license file detected",
+                "score": 10
               },
               {
                 "name": "Signed-Releases",
@@ -2537,13 +2537,13 @@
                 "score": null
               },
               {
-                "name": "SAST",
-                "reason": "SAST tool is not run on all commits -- score normalized to 0",
+                "name": "Branch-Protection",
+                "reason": "branch protection not enabled on development/release branches",
                 "score": 0
               },
               {
-                "name": "Branch-Protection",
-                "reason": "branch protection not enabled on development/release branches",
+                "name": "SAST",
+                "reason": "SAST tool is not run on all commits -- score normalized to 0",
                 "score": 0
               }
             ],
@@ -2551,7 +2551,7 @@
             "score": 5.5
           }
         },
-        "last_success_at": "2026-11-04T04:04:05Z",
+        "last_success_at": "2026-11-11T05:09:41Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/cisco/openh264",
         "status": "partial",
@@ -6507,28 +6507,28 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-04T04:04:05Z",
+        "checked_at": "2026-11-11T05:09:41Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-04T04:04:05Z",
-          "observed_at": "2026-11-02T00:00:00Z",
-          "source_commit": "2100caf7fed65b244fa2e289e817e93f99ac2d3e",
+          "fetched_at": "2026-11-11T05:09:41Z",
+          "observed_at": "2026-11-09T00:00:00Z",
+          "source_commit": "e002ec94c1a5b753ccab6f40e2fe00ffbeab939d",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
               {
-                "name": "Code-Review",
-                "reason": "Found 7/17 approved changesets -- score normalized to 4",
-                "score": 4
+                "name": "Maintained",
+                "reason": "30 commit(s) and 12 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
               },
               {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 13 issue activity found in the last 90 days -- score normalized to 10",
-                "score": 10
+                "name": "Security-Policy",
+                "reason": "security policy file detected",
+                "score": 9
               },
               {
                 "name": "Dangerous-Workflow",
@@ -6536,8 +6536,8 @@
                 "score": 10
               },
               {
-                "name": "Security-Policy",
-                "reason": "security policy file detected",
+                "name": "Code-Review",
+                "reason": "Found 26/27 approved changesets -- score normalized to 9",
                 "score": 9
               },
               {
@@ -6592,10 +6592,10 @@
               }
             ],
             "repository": "github.com/internetarchive/openlibrary",
-            "score": 6.3
+            "score": 6.8
           }
         },
-        "last_success_at": "2026-11-04T04:04:05Z",
+        "last_success_at": "2026-11-11T05:09:41Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/internetarchive/openlibrary",
         "status": "partial",
@@ -19393,11 +19393,11 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-04T04:04:05Z",
-        "error": null,
+        "checked_at": "2026-11-11T05:09:41Z",
+        "error": "not_found",
         "etag": null,
-        "fetch_status": "ok",
-        "http_status": 200,
+        "fetch_status": "not_found",
+        "http_status": 404,
         "last_good": {
           "fetched_at": "2026-11-04T04:04:05Z",
           "observed_at": "2026-10-19T00:00:00Z",
@@ -19484,7 +19484,7 @@
         "last_success_at": "2026-11-04T04:04:05Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openrocket/openrocket",
-        "status": "partial",
+        "status": "stale",
         "success_time_precision": "second"
       }
     },
@@ -27462,5 +27462,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "561e5c1c7d674f3699e5e993e344745defbebf4a"
+  "source_sha": "3ff8bf94dc1561415c3bc0a1c570793dbe0620ca"
 }
