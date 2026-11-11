@@ -36,7 +36,9 @@ API = 'https://hn.algolia.com/api/v1/search_by_date'
 MIN_STORIES, MIN_MONTHS = 6, 3
 LOST_RESULT = 'Earlier invocation attempt has no retained result; retry on a later UTC day'
 COLLECTED_KEYS = {'monthly_counts', 'eligible', 'story_count', 'active_months',
-                  'stories', 'excluded_candidates', 'query_sources', 'search_url'}
+                  'stories', 'excluded_candidates', 'query_sources', 'search_url',
+                  'broad_stories', 'broad_story_count', 'broad_monthly_counts',
+                  'broad_query_sources', 'broad_search_url'}
 MARKER = re.compile(r'(?:<br\s*/?>)?<!-- HN:START -->.*?<!-- HN:END -->', re.S)
 
 
@@ -92,7 +94,7 @@ def identity_reason(story, project):
     return None
 
 
-def fetch_query(query, start, end, getter):
+def fetch_query(query, start, end, getter, *, exact_words=False):
     """Page every query; split time ranges before Algolia's 1,000-hit cap."""
     hits, sources = [], []
     page = 0
@@ -100,6 +102,8 @@ def fetch_query(query, start, end, getter):
     seen_ids = set()
     while True:
         url = API + '?' + urlencode({'query': query, 'tags': 'story', 'restrictSearchableAttributes': 'title,url', 'typoTolerance': 'false', 'numericFilters': f'created_at_i>={start},created_at_i<{end}', 'hitsPerPage': 100, 'page': page})
+        if exact_words:
+            url += '&queryType=prefixNone'
         data = getter(url)
         sources.append(url)
         totals = (data.get('nbHits'), data.get('nbPages'))
@@ -110,8 +114,8 @@ def fetch_query(query, start, end, getter):
             if end - start <= 1:
                 raise UpstreamFailure('Cannot enumerate this one-second interval completely')
             mid = (start + end) // 2
-            left, ls = fetch_query(query, start, mid, getter)
-            right, rs = fetch_query(query, mid, end, getter)
+            left, ls = fetch_query(query, start, mid, getter, exact_words=exact_words)
+            right, rs = fetch_query(query, mid, end, getter, exact_words=exact_words)
             return left + right, sources + ls + rs
         ids = [str(hit['objectID']) for hit in data['hits']]
         if len(set(ids)) != len(ids) or seen_ids.intersection(ids):
@@ -124,10 +128,11 @@ def fetch_query(query, start, end, getter):
 
 
 def collect_project(project, start, end, months, getter):
-    accepted, rejected, sources = {}, {}, []
-    for query in project['queries']:
+    accepted, rejected, candidates, sources = {}, {}, {}, []
+    queries = list(dict.fromkeys(project['queries'] + project.get('broad_queries', [])))
+    for query in queries:
         args = (query, int(start.timestamp()), int(end.timestamp()))
-        hits, urls = fetch_query(*args, getter=getter)
+        hits, urls = fetch_query(*args, getter=getter, exact_words=bool(project.get('broad_queries')))
         sources.extend(urls)
         for hit in hits:
             sid = str(hit['objectID'])
@@ -136,6 +141,7 @@ def collect_project(project, start, end, months, getter):
                 continue
             reason = identity_reason(hit, project)
             record = {'id': sid, 'title': hit.get('title') or '', 'url': hit.get('url') or '', 'created_at': datetime.fromtimestamp(stamp, timezone.utc).isoformat(), 'month': datetime.fromtimestamp(stamp, timezone.utc).strftime('%Y-%m'), 'hn_url': 'https://news.ycombinator.com/item?id=' + sid, 'source_url': 'https://hn.algolia.com/api/v1/items/' + sid}
+            candidates[sid] = {**record, 'reason': 'Candidate: exact-word title/URL search'}
             if reason:
                 record['reason'] = reason
                 accepted[sid] = record
@@ -146,7 +152,20 @@ def collect_project(project, start, end, months, getter):
     stories = sorted(accepted.values(), key=lambda item: (item['created_at'], int(item['id'])))
     counts = [sum(story['month'] == month for story in stories) for month in months]
     eligible = len(stories) >= MIN_STORIES and sum(value > 0 for value in counts) >= MIN_MONTHS
-    return {**project, 'monthly_counts': counts, 'eligible': eligible, 'story_count': len(stories), 'active_months': sum(value > 0 for value in counts), 'stories': stories, 'excluded_candidates': sorted(rejected.values(), key=lambda item: int(item['id'])), 'query_sources': sorted(set(sources)), 'search_url': 'https://hn.algolia.com/?' + urlencode({'q': project['title_aliases'][0] if project['title_aliases'] else project['queries'][0], 'type': 'story', 'dateRange': 'custom', 'dateStart': int(start.timestamp()), 'dateEnd': int(end.timestamp()) - 1, 'sort': 'byDate'})}
+    result = {**project, 'monthly_counts': counts, 'eligible': eligible, 'story_count': len(stories), 'active_months': sum(value > 0 for value in counts), 'stories': stories, 'excluded_candidates': sorted(rejected.values(), key=lambda item: int(item['id'])), 'query_sources': sorted(set(sources)), 'search_url': 'https://hn.algolia.com/?' + urlencode({'q': project['title_aliases'][0] if project['title_aliases'] else project['queries'][0], 'type': 'story', 'dateRange': 'custom', 'dateStart': int(start.timestamp()), 'dateEnd': int(end.timestamp()) - 1, 'sort': 'byDate'})}
+
+    if project.get('broad_queries'):
+        # One completed candidate union supplies both series. Accepted identities
+        # remain a subset even when the discovery query was a domain or repo.
+        broad = sorted(candidates.values(), key=lambda item: (item['created_at'], int(item['id'])))
+        result.update(broad_stories=broad, broad_story_count=len(broad),
+                      broad_monthly_counts=[sum(s['month'] == month for s in broad) for month in months],
+                      broad_query_sources=sorted(set(sources)),
+                      broad_search_url='https://hn.algolia.com/?' + urlencode({
+                          'query': project['broad_queries'][0], 'type': 'story', 'prefix': 'false',
+                          'dateRange': 'custom', 'dateStart': int(start.timestamp()),
+                          'dateEnd': int(end.timestamp()) - 1, 'sort': 'byDate'}))
+    return result
 
 
 def canonical_url(url):
@@ -208,6 +227,13 @@ def catalog_projects(source, reviewed, alias_document=None):
         }
     if len({p['slug'] for p in result.values()}) != len(result):
         raise ValueError('HN asset slug collision')
+    for key, identity in result.items():
+        names = [identity['name']]
+        names.extend(identity['title_aliases'])
+        names.extend(a['name'] for a in alias_evidence.get(key, {}).get('aliases', []))
+        # Broad discovery names do not grant strict attribution. Keep this
+        # configuration in the identity so revised searches refresh the cache.
+        identity['broad_queries'] = list(dict.fromkeys(names + identity['queries']))
     return list(result.values())
 
 
@@ -230,10 +256,15 @@ def identity_matches(good, project):
     identity = {k: v for k, v in previous.items() if k not in COLLECTED_KEYS}
     if good.get('identity_key') != identity_key(identity):
         return False
+    current = {k: v for k, v in project.items() if k not in COLLECTED_KEYS}
+    if 'broad_queries' not in identity:
+        # Legacy matched evidence remains usable while bounded broad collection
+        # catches up. Never reinterpret it as completed candidate evidence.
+        current.pop('broad_queries', None)
     # Compare canonical JSON fingerprints rather than Python equality, which
     # would treat True, 1 and 1.0 as interchangeable identity revisions.
     return (identity_key({k: v for k, v in identity.items() if k != 'name'})
-            == identity_key({k: v for k, v in project.items() if k not in COLLECTED_KEYS | {'name'}}))
+            == identity_key({k: v for k, v in current.items() if k != 'name'}))
 
 
 def pending_identity_matches(record, project):
@@ -319,6 +350,41 @@ def validate_collection(project, months):
             or type(project.get('eligible')) is not bool
             or project['eligible'] != (len(stories) >= MIN_STORIES and active >= MIN_MONTHS)):
         raise ValueError('Inconsistent local HN collection')
+
+    broad_fields = {'broad_stories', 'broad_story_count', 'broad_monthly_counts',
+                    'broad_query_sources', 'broad_search_url'}
+    if broad_fields.intersection(project):
+        if not broad_fields <= project.keys() or not project.get('broad_queries'):
+            raise ValueError('Incomplete broad HN collection')
+        broad = project['broad_stories']
+        if not isinstance(broad, list):
+            raise ValueError('Invalid broad HN stories')
+        broad_ids = set()
+        for story in broad:
+            if (not isinstance(story, dict) or not isinstance(story.get('id'), str)
+                    or not story['id'].isdigit() or story['id'] in broad_ids
+                    or story.get('month') not in months):
+                raise ValueError('Invalid broad HN story')
+            stamp = datetime.fromisoformat(story['created_at'])
+            if stamp.tzinfo is None or stamp.astimezone(timezone.utc).strftime('%Y-%m') != story['month']:
+                raise ValueError('Invalid broad HN timestamp')
+            broad_ids.add(story['id'])
+        if not ids <= broad_ids:
+            raise ValueError('Matched HN stories must be a subset of broad candidates')
+        by_id = {story['id']: story for story in broad}
+        for story in stories:
+            if any(story.get(k) != by_id[story['id']].get(k)
+                   for k in ('title', 'url', 'created_at', 'month', 'hn_url', 'source_url')):
+                raise ValueError('Conflicting HN series evidence')
+        expected_broad = [sum(story['month'] == month for story in broad) for month in months]
+        broad_counts = project['broad_monthly_counts']
+        if (not isinstance(broad_counts, list) or any(type(n) is not int or n < 0 for n in broad_counts)
+                or broad_counts != expected_broad or type(project['broad_story_count']) is not int
+                or project['broad_story_count'] != len(broad)
+                or not isinstance(project['broad_query_sources'], list)
+                or any(not isinstance(url, str) for url in project['broad_query_sources'])
+                or not isinstance(project['broad_search_url'], str)):
+            raise ValueError('Inconsistent broad HN collection')
 
 
 def validate_budget(budget):
@@ -565,7 +631,8 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
         good = record.get('last_good', {})
         return (force or good.get('months') != months or not identity_matches(good, p)
                 or now - datetime.fromisoformat(record.get('checked_at', '1970-01-01T00:00:00+00:00')) >= timedelta(days=REFRESH_DAYS)
-                or record.get('status') != 'ok')
+                or record.get('status') != 'ok'
+                or (p.get('broad_queries') and 'broad_monthly_counts' not in good.get('project', {})))
     def stars_key(p):
         values = [metadata.get('repositories', {}).get(repo.lower(), {}).get('stargazers_count')
                   for repo in p['repositories']]
@@ -641,7 +708,7 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
                                    'max_requests_per_project_run': PROJECT_REQUESTS, 'max_seconds_per_run': seconds,
                                    'max_seconds_per_project_when_queued': min(90, seconds / 3),
                                    'selection': 'interleaved reserved lanes; new backlog stars descending, unknown last; retries/refreshes and continuations oldest attempt; once per project per UTC day',
-                                   'coverage': 'reviewed aliases or conservative catalog URL/repository only'}}
+                                   'coverage': 'exact-word title/URL candidates plus reviewed identity matches; legacy matched-only cache retained until refreshed'}}
     for lane, project in selected_projects():
         started = monotonic()
         if budget['projects_used'] >= max_projects or budget['paused'] or budget['requests_used'] >= request_budget or started >= deadline or day_closed():
@@ -738,7 +805,7 @@ def chart_displayable(project):
     count = project.get('story_count')
     if type(count) is not int or count < 0:
         raise ValueError('Expected a nonnegative HN story count')
-    return count > 0
+    return count > 0 or project.get('broad_story_count', 0) > 0
 
 
 def display_evidence(evidence):
@@ -751,22 +818,70 @@ def display_evidence(evidence):
                     or any(type(n) is not int or n < 0 for n in counts)
                     or sum(counts) != project['story_count']):
                 raise ValueError('Expected 24 monthly counts matching HN story count')
-            maximum = max(maximum, max(counts))
+            broad = project.get('broad_monthly_counts', counts)
+            if (not isinstance(broad, list) or len(broad) != 24
+                    or any(type(n) is not int or n < 0 for n in broad)
+                    or sum(broad) != project.get('broad_story_count', project['story_count'])
+                    or any(a > b for a, b in zip(counts, broad))):
+                raise ValueError('Invalid broad HN counts or subset')
+            maximum = max(maximum, max(broad))
     return {**evidence, 'shared_monthly_maximum': maximum}
 
 
-def svg(project, evidence):
-    counts = project['monthly_counts']
+def svg(project, evidence, *, comparison=False):
+    counts = project.get('broad_monthly_counts', project['monthly_counts'])
     if len(counts) != 24 or any(not isinstance(n, int) or n < 0 for n in counts):
         raise ValueError('Expected exactly 24 nonnegative monthly counts')
     maximum = max(1, evidence['shared_monthly_maximum'])
     title = html.escape(project['name'] + ': HN discussions / 2y')
     desc = html.escape(f"Monthly HN story submissions, {evidence['months'][0]} through {evidence['months'][-1]}; oldest at left. Shared cube-root scale: 0–{maximum} stories/month. Counts: " + ', '.join(map(str, counts)) + '. Attention includes praise, criticism, and controversy.')
+    if 'broad_monthly_counts' in project:
+        desc += html.escape(' Broad title/URL candidates; possible matches. Matched counts: '
+                            + ', '.join(map(str, project['monthly_counts'])) + '.')
     bars = []
     for i, count in enumerate(counts):
         height = (count / maximum) ** (1 / 3) * 20
         bars.append(f'<rect x="{i*5}" y="{22-height:.3f}" width="4" height="{height:.3f}" fill="#64748b"/>')
+    if comparison and 'broad_monthly_counts' in project:
+        for i, count in enumerate(project['monthly_counts']):
+            height = (count / maximum) ** (1 / 3) * 20
+            bars.append(f'<rect x="{i*5+1}" y="{22-height:.3f}" width="2" height="{height:.3f}" fill="#B62420"/>')
     return f'<svg xmlns="http://www.w3.org/2000/svg" width="120" height="24" viewBox="0 0 120 24" role="img" aria-labelledby="title desc"><title id="title">{title}</title><desc id="desc">{desc}</desc>' + ''.join(bars) + '</svg>\n'
+
+
+def evidence_html(project, evidence):
+    """Static auditable story lists; provider content is escaped, never executable."""
+    esc = html.escape
+    title = esc(project['name'] + ' · Hacker News evidence')
+    def section(key, heading, records):
+        items = []
+        for story in records:
+            sid = story['id']
+            if not isinstance(sid, str) or not sid.isdigit():
+                raise ValueError('Invalid HN evidence ID')
+            label = esc(story.get('title') or '(untitled)')
+            reason = esc(story.get('reason', ''))
+            items.append(f'<li><a href="https://news.ycombinator.com/item?id={sid}">{label}</a> '
+                         f'<small>{esc(story["created_at"])} · {reason}</small></li>')
+        return f'<section id="{key}"><h2>{heading} ({len(records)})</h2><ol>' + ''.join(items) + '</ol></section>'
+    matched = section('matched', 'Matched to project', project.get('stories', []))
+    broad = (section('broad', 'Broader matches', project['broad_stories'])
+             if 'broad_stories' in project else '<p>Broader collection pending. This snapshot contains matched evidence only.</p>')
+    dual = 'broad_stories' in project
+    nav = '<a href="#matched">Matched to project</a>'
+    if dual:
+        nav = '<a href="#broad">Broader matches</a>' + nav
+    method = ('Broader matches are title/URL search candidates. Matched stories satisfy the recorded project identity rules. '
+              'Both sets count unique HN submissions; the matched set is included in the broader set.'
+              if dual else 'Matched stories satisfy the recorded project identity rules and count unique HN submissions.')
+    dates = esc(evidence['months'][0] + ' through ' + evidence['months'][-1])
+    queries = esc(', '.join(project.get('broad_queries', project.get('queries', []))))
+    return ('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+            f'<title>{title}</title><style>body{{max-width:70rem;margin:2rem auto;padding:0 1rem;color:#123047;background:white;font:1rem/1.6 system-ui}}'
+            'a{color:inherit}li{margin:.7rem 0}small{display:block}nav{display:flex;gap:1rem}</style>'
+            f'<h1>{title}</h1><p>{dates}; UTC submission dates.</p><nav>{nav}</nav>'
+            f'<p>{method}</p>'
+            f'<p>Discovery queries: {queries}</p>{broad}{matched}</html>\n')
 
 
 def decorate_readme(text, evidence=None):
@@ -778,7 +893,9 @@ def decorate_readme(text, evidence=None):
         project = by_url.get(canonical_url(match.group(2)))
         if not project:
             return match.group(0)
-        image = f"[![HN discussions / 2y](assets/hn/{project['slug']}.svg \"HN discussions / 2y\")]({project['search_url']})"
+        link = ('https://awesomeopen.github.io/awesome-open/assets/hn/' + project['slug'] + '-evidence.html#broad'
+                if 'broad_stories' in project else project['search_url'])
+        image = f"[![HN discussions / 2y](assets/hn/{project['slug']}.svg \"HN discussions / 2y\")]({link})"
         return match.group(0) + '<br><!-- HN:START -->' + image + '<!-- HN:END -->'
     return pattern.sub(decorate, text)
 
@@ -793,7 +910,13 @@ def render(evidence, directory=None):
             path = directory / (project['slug'] + '.svg')
             path.write_text(svg(project, evidence))
             keep.add(path)
-    for path in directory.glob('*.svg'):
+            if 'broad_stories' in project:
+                comparison = directory / (project['slug'] + '-comparison.svg')
+                comparison.write_text(svg(project, evidence, comparison=True))
+                page = directory / (project['slug'] + '-evidence.html')
+                page.write_text(evidence_html(project, evidence))
+                keep.update((comparison, page))
+    for path in list(directory.glob('*.svg')) + list(directory.glob('*-evidence.html')):
         if path not in keep:
             path.unlink()
 

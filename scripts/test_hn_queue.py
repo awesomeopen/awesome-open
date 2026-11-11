@@ -52,7 +52,7 @@ class QueueTests(unittest.TestCase):
                     'https://shared.example.evil/projects/other']:
             self.assertIsNone(hn.identity_reason({'url': url}, website))
         reviewed = project()
-        self.assertEqual(hn.catalog_projects(source, [reviewed])[0], reviewed)
+        self.assertEqual(hn.catalog_projects(source, [reviewed])[0], dict(reviewed, broad_queries=['OpenThing']))
 
     def test_catalog_url_case_slash_port_and_fragment_stay_distinct(self):
         urls = ['https://example.com/Open', 'https://example.com/open',

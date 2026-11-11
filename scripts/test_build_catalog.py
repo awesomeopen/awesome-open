@@ -187,12 +187,31 @@ class CatalogTests(unittest.TestCase):
         self.add_hn("https://GITHUB.com/EXAMPLE/Open/")
         project = self.build()["projects"][0]
         self.assertEqual(project["hn"], {"slug": "open", "chart_url": "assets/hn/open.svg",
-                                         "search_url": "https://hn.algolia.com/?q=Open&type=story", "total_stories": 8})
+                                         "search_url": "https://hn.algolia.com/?q=Open&type=story", "total_stories": 8,
+                                         "matched_evidence_url": "assets/hn/open-evidence.html#matched"})
         self.hn["projects"][0]["eligible"] = False
         self.hn["projects"][0]["story_count"] = 1
         self.assertEqual(self.build()["projects"][0]["hn"]["total_stories"], 1)
         self.hn["projects"][0]["story_count"] = 0
         self.assertIsNone(self.build()["projects"][0]["hn"])
+
+    def test_hn_broad_series_is_additive_and_keeps_strict_total(self):
+        record = self.add_hn()
+        record.update(broad_story_count=12, broad_search_url="https://hn.algolia.com/?q=open&type=story")
+        attention = self.build()["projects"][0]["hn"]
+        self.assertEqual(attention["total_stories"], 8)
+        self.assertEqual(attention["broad_total_stories"], 12)
+        self.assertEqual(attention["comparison_chart_url"], "assets/hn/open-comparison.svg")
+        self.assertEqual(attention["broad_evidence_url"], "assets/hn/open-evidence.html#broad")
+        self.assertEqual(attention["matched_evidence_url"], "assets/hn/open-evidence.html#matched")
+        for count in (7, -1, True, "12"):
+            record["broad_story_count"] = count
+            with self.subTest(count=count), self.assertRaises(ValueError):
+                self.build()
+        record["broad_story_count"] = 12
+        record["broad_search_url"] = "javascript:bad"
+        with self.assertRaises(ValueError):
+            self.build()
 
     def test_hn_does_not_attach_by_name_or_lowercase_non_github_path(self):
         self.add_hn("https://example.com/open")

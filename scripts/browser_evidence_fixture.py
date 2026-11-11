@@ -36,6 +36,17 @@ def fixture(state='complete'):
                      search_url='https://hn.algolia.com/?q='+name+'&type=story')
                 for name, url, slug, count in [('OpenTofu', URL, 'fixture-tofu', 3),
                     ('OpenSample', 'https://example.org/open-sample', 'fixture-sample', 1)]]
+    # One dual-series project and one older matched-only cache exercise both states.
+    for project in projects:
+        project["stories"] = [dict(id=str(100 + i), title=f"Synthetic matched story {i + 1}",
+                                  created_at=months[0] + "-01T00:00:00+00:00", reason="fixture identity")
+                              for i in range(project["story_count"])]
+    projects[0].update(broad_story_count=6, broad_monthly_counts=[5, 1] + [0]*22,
+                       broad_search_url="https://hn.algolia.com/?query=OpenTofu&prefix=false",
+                       broad_stories=projects[0]["stories"] + [
+                           dict(id=str(200+i), title=f"Synthetic candidate {i+1}",
+                                created_at=months[0 if i < 2 else 1] + "-01T00:00:00+00:00")
+                           for i in range(3)])
     evidence = dict(schema_version=1, projects=projects, months=months,
                     window_start=start.isoformat(), window_end_exclusive=end.isoformat(),
                     shared_monthly_maximum=3)
@@ -77,6 +88,9 @@ def fixture(state='complete'):
             responses[project['star_history']['chart_url']] = star_history.svg(project)
     for project in display['projects']:
         responses['assets/hn/'+project['slug']+'.svg'] = hn.svg(project, display)
+        responses['assets/hn/'+project['slug']+'-evidence.html'] = hn.evidence_html(project, display)
+        if 'broad_story_count' in project:
+            responses['assets/hn/'+project['slug']+'-comparison.svg'] = hn.svg(project, display, comparison=True)
     responses['data/star_history.json'] = json.dumps(stars)
     return dict(data=build_site.published_catalog(deepcopy(catalog)), responses=responses)
 

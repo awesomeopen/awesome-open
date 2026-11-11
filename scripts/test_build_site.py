@@ -12,6 +12,7 @@ import struct
 import subprocess
 import tempfile
 import unittest
+from urllib.parse import urlsplit
 
 from build_site import BRAND_ASSETS, ROOT, build, json_for_html, load_site_catalog, render_html, search_index, search_text
 from site_test_fixtures import baseline_site, copy_site_fixture
@@ -191,7 +192,7 @@ class SiteTests(unittest.TestCase):
         methods = [node for node in self.page.elements if node.has_class('colophon')][0]
         for qualification in ('Licenses: GitHub license metadata.',
                               'Repository dates refer to GitHub activity',
-                              'HN charts: matched stories / 2 years, shared cube-root scale',
+                              'HN charts: possible title/URL matches; red foreground: matched stories. Shared cube-root scale / 2 years',
                               'Specimen illustrations are original artwork'):
             self.assertIn(qualification, methods.text)
         self.assertIn('<title>Awesome Open* Catalog</title>', self.html)
@@ -207,7 +208,7 @@ class SiteTests(unittest.TestCase):
         self.assertTrue((self.output / 'spotlight/draws.json').is_file())
 
         self.assertIn('href="https://github.com/awesomeopen/awesome-open">GitHub</a><a href="#catalog">Top</a>', self.html)
-        self.assertIn('shared cube-root scale</li><li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>', self.html)
+        self.assertIn('Shared cube-root scale / 2 years</li><li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>', self.html)
 
     def test_ledger_starts_without_cover_and_retains_plain_controls(self):
         page = Page((self.output / 'index.html').read_text())
@@ -395,8 +396,12 @@ for (const input of inputs) {
             if href.startswith('#'):
                 self.assertIn(href[1:], self.page.ids)
             elif not href.startswith(('https://', 'http://')) and href != './':
-                target = self.output / href
-                self.assertTrue((target / 'index.html').is_file() if href.endswith('/') else target.is_file(), href)
+                parts = urlsplit(href)
+                target = self.output / parts.path
+                target = target / 'index.html' if parts.path.endswith('/') else target
+                self.assertTrue(target.is_file(), href)
+                if parts.fragment:
+                    self.assertIn(parts.fragment, Page(target.read_text()).ids, href)
         for resource in self.page.nodes('link'):
             href = resource.attrs['href']
             self.assertFalse(href.startswith(('/', 'http:', 'https:')))

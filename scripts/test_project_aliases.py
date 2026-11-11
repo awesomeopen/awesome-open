@@ -135,7 +135,10 @@ class HNAliasReuseTests(unittest.TestCase):
         self.base = self.hn.catalog_projects(self.source, [])[0]
 
     def test_catalog_aliases_never_enter_unreviewed_hn_matching(self):
-        self.assertEqual(self.hn.catalog_projects(self.source, [], self.evidence)[0], self.base)
+        current = self.hn.catalog_projects(self.source, [], self.evidence)[0]
+        self.assertIn('OBS', current['broad_queries'])
+        self.assertEqual({k:v for k,v in current.items() if k != 'broad_queries'},
+                         {k:v for k,v in self.base.items() if k != 'broad_queries'})
         self.assertIsNone(self.hn.identity_reason({'title':'OBS Studio release','url':'https://example.org/story'}, self.base))
 
     def test_only_referenced_aliases_expand_queries_and_matching(self):
@@ -181,18 +184,24 @@ class HNAliasReuseTests(unittest.TestCase):
         search_only['projects'][0]['aliases'][2]['source_url'] = 'https://obsproject.com/help'
         self.assertEqual(self.hn.catalog_projects(self.source,[reviewed],search_only)[0],original)
 
-    def test_production_obs_rename_keeps_original_url_only_observation(self):
+    def test_production_obs_review_requires_new_collection_preserving_old_observation(self):
         root = Path(__file__).resolve().parents[1]
         source = (root / 'README.source.md').read_text()
         identities = self.hn.catalog_projects(source,json.loads((root / 'data/hn_projects.json').read_text())['projects'],
                                              aliases.load_optional(root / aliases.PATH))
         current = next(p for p in identities if p['readme_url'] == self.url)
-        cached = json.loads((root / 'data/hn_evidence.json').read_text())['queue'][self.url]['last_good']
+        # A fixed legacy identity keeps this migration regression valid after
+        # production OBS evidence has itself been refreshed by the publisher.
+        legacy = {k:v for k,v in self.base.items() if k != 'broad_queries'}
+        cached = {'project':legacy, 'identity_key':self.hn.identity_key(legacy)}
+        before = deepcopy(cached)
         self.assertEqual(current['name'],'OBS Studio')
-        self.assertEqual(current['title_aliases'],[])
-        self.assertNotIn('catalog_title_aliases',current)
-        self.assertTrue(self.hn.identity_matches(cached,current))
-        self.assertEqual(cached['project']['story_count'], len(cached['project']['stories']))
+        self.assertIn('OBS Studio',current['title_aliases'])
+        self.assertIn('obsproject.com',current['domains'])
+        self.assertIn('catalog_title_aliases',current)
+        self.assertFalse(self.hn.identity_matches(cached,current))
+        self.assertEqual(cached['project']['title_aliases'],[])
+        self.assertEqual(cached, before)
 
 
 class AliasRenderTests(unittest.TestCase):

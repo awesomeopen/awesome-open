@@ -505,7 +505,7 @@ const path = require('node:path');
           assert.equal(await diagnostics.isVisible(), true);
         }
 
-        // Sparse verified histories use the same search link as larger histories.
+        // Sparse legacy histories and dual-series histories link their recorded evidence.
         const singleton = data.projects.find(p => p.hn?.total_stories === 1);
         const multiple = data.projects.find(p => p.hn?.total_stories > 1);
         assert.ok(singleton && multiple, 'Fixed sparse and multiple-story evidence');
@@ -522,23 +522,34 @@ const path = require('node:path');
           await image.scrollIntoViewIfNeeded();
           await image.evaluate(node => node.decode());
           assert.ok(await image.isVisible());
-          assert.equal(await sparseBox.locator('.pg-spark-link').getAttribute('href'), singleton.hn.search_url);
+          assert.equal(await sparseBox.locator('.pg-spark-link').evaluate(node => node.href), new URL(singleton.hn.matched_evidence_url, url + '/').href);
           assert.equal(new URL(singleton.hn.search_url).hostname, 'hn.algolia.com');
-          assert.match(await sparseBox.textContent(), /1 submission \/ past 2y/);
+          assert.match(await sparseBox.textContent(), /1 matched/);
           await capture(`hn-single-story-${width}.png`);
           await page.goto(new URL('records/' + multiple.id + '.html', url + '/').href);
           const multipleBox = page.locator('[data-signal="hn"]');
           await multipleBox.locator('.pg-spark').scrollIntoViewIfNeeded();
           await multipleBox.locator('.pg-spark').evaluate(node => node.decode());
           assert.ok(await multipleBox.locator('.pg-spark').isVisible());
-          assert.equal(await multipleBox.locator('.pg-spark-link').getAttribute('href'), multiple.hn.search_url);
+          assert.equal(await multipleBox.locator('.pg-spark-link').evaluate(node => node.href), new URL(multiple.hn.broad_evidence_url, url + '/').href);
+          assert.equal(await multipleBox.locator('.pg-spark').evaluate(node => node.src), new URL(multiple.hn.comparison_chart_url, url + '/').href);
+          assert.equal(await multipleBox.locator('.pg-hn-broad').evaluate(node => node.href), new URL(multiple.hn.broad_evidence_url, url + '/').href);
+          assert.equal(await multipleBox.locator('.pg-hn-matched').evaluate(node => node.href), new URL(multiple.hn.matched_evidence_url, url + '/').href);
+          assert.equal(await multipleBox.locator('.pg-hn-broad').textContent(), '6 possible');
+          assert.equal(await multipleBox.locator('.pg-hn-matched').textContent(), '3 matched');
+          await multipleBox.locator('.pg-hn-matched').focus();
+          await page.keyboard.press('Enter');
+          await page.waitForURL('**/fixture-tofu-evidence.html#matched');
+          assert.equal(await page.locator('#matched li').count(), 3);
+          assert.equal(await page.locator('#broad li').count(), 6);
+
         }
 
         // Compact chart becomes the expanded chart when the drawer opens.
         await page.setViewportSize({ width: 1440, height: 1000 });
         await page.goto(url);
         await waitForState();
-        const traced = data.projects.find(p => p.hn);
+        const traced = data.projects.find(p => p.hn?.broad_total_stories !== undefined);
         const tracedCard = page.locator('#project-' + traced.id);
         assert.ok(await tracedCard.locator('.name-sparkline').isVisible());
         await tracedCard.locator('.name-sparkline').evaluate(image => image.decode());
@@ -547,6 +558,13 @@ const path = require('node:path');
         assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
         assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
         await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
+        // The folded trace remains part of the drawer's native click target.
+        const beforeTraceClick = page.url();
+        await tracedCard.locator('.name-sparkline').click();
+        assert.equal(page.url(), beforeTraceClick);
+        assert.equal(await tracedCard.locator('.specimen-drawer').evaluate(node => node.open), true);
+        assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
+
 
       } finally {
         await fixture.dispose();
@@ -567,7 +585,7 @@ const path = require('node:path');
           for (const signal of ['hn', 'star-history']) {
             const box = card.locator(`[data-signal="${signal}"]`);
             await box.locator('.pg-info > summary').click();
-            const expected = signal === 'hn' ? (state === 'partial' ? '3 submissions' : 'Not recorded') :
+            const expected = signal === 'hn' ? (state === 'partial' ? '3 matched' : 'Not recorded') :
               state === 'empty' ? 'Not recorded' : state === 'rollover' ? 'chart withheld until aligned' : 'History unavailable; no zero values inferred';
             assert.ok((await box.innerText()).includes(expected), `${state}: ${signal} disclosure`);
             await box.locator('.pg-info > summary').click();

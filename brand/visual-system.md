@@ -67,6 +67,22 @@ purpose, and the Catalog carries the WebMCPlet corner button, "Search this list"
 with the existing tokens ([B-PR304-01](decisions/B-PR304-01.md), proposed). Details are
 in the [guide](../site/RETRO-SCRAPERISM.md#experimental-cabinet).
 
+## HN candidate and matched series
+
+Collapsed HN sparklines show possible title/URL matches when that collection is
+available. They remain part of the drawer toggle; evidence links live in the
+plate. The plate overlays the matched subset as narrower scarlet bars on the
+same month positions, zero baseline and shared cube-root scale. Gray background
+bars and red foreground bars have visible “possible” and “matched” count links;
+each opens its own deduplicated evidence list. Color is reinforced by bar width
+and text labels. Scoreboard rankings continue to use matched stories.
+
+Existing caches show matched stories alone until broader collection completes.
+A missing broader collection is a pending state, never a zero candidate count.
+The method disclosure states the window, shared scale, matching rules and the
+meaning of the gap between series. Ordinary HN search remains a browsing link;
+recorded evidence is the source for each displayed count.
+
 ## Review
 
 Check the affected component, not an invented whole-site redesign. For visible

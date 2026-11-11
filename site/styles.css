@@ -736,6 +736,10 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .pg-foot {margin:6px 0 0;font:12px/1.5 var(--mono);color:var(--rs-ink);}
 .pg-foot.is-unknown {color:var(--muted);}
 .pg-foot {padding-right:36px;}
+.pg-hn-key {display:flex;flex-wrap:wrap;gap:2px 10px;}
+.pg-hn-key a {white-space:nowrap;text-underline-offset:3px;}
+.pg-hn-broad {color:var(--muted);}
+.pg-hn-matched {color:var(--rs-scarlet);}
 .pg-reserved {grid-column:span 2;background:var(--rs-verdigris-art);border-radius:var(--rs-radius);opacity:.5}
 .pg-reserved.pg-wide,.pg-runs {grid-column:span 3;}
 /* Timeline: full height when there is something to draw, one line otherwise. */

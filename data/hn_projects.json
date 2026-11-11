@@ -428,6 +428,38 @@
         "pjasicek/OpenClaw"
       ],
       "scope_note": "Reviewed 2026-10-15: openclaw/openclaw is the personal AI assistant and its official repository links openclaw.ai. An unrelated Captain Claw game reimplementation exists at pjasicek/OpenClaw; its repository is excluded. Third-party OpenClaw titles need explicit AI/assistant/agent/LLM/chatbot context. Generic same-name titles and historical rename aliases are not inferred. This conservative identity coverage includes critical attention, not endorsement."
+    },
+    {
+      "name": "OBS Studio",
+      "slug": "catalog-0e1c34b3f948e903",
+      "readme_url": "https://github.com/obsproject/obs-studio",
+      "repositories": [
+        "obsproject/obs-studio"
+      ],
+      "domains": [
+        "obsproject.com"
+      ],
+      "title_aliases": [
+        "OBS Studio",
+        "Open Broadcaster Software"
+      ],
+      "catalog_aliases": [
+        {
+          "name": "OBS",
+          "context_pattern": "\\b(?:studio|broadcast(?:er|ing)?|stream(?:ing)?|video|webcam|plugin|WebRTC|WHIP|record(?:ing)?|Flatpak|Fedora|capture|scene|audio)\\b"
+        }
+      ],
+      "queries": [
+        "OBS",
+        "obsproject.com",
+        "github.com/obsproject/obs-studio",
+        "Open Broadcaster Software"
+      ],
+      "identity_sources": [
+        "https://obsproject.com/",
+        "https://github.com/obsproject/obs-studio"
+      ],
+      "scope_note": "Reviewed 2026-11-11: official OBS domain/repository and full project names identify OBS Studio. Short OBS title matches require broadcasting, capture, streaming or associated software context. Broader exact-word title/URL search candidates are retained separately, including ambiguous name collisions."
     }
   ]
 }
