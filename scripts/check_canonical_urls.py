@@ -554,6 +554,10 @@ def merge_evidence(previous_records, observations, checked_at, catalog_by_id,
         project = catalog_by_id[observation.catalog_id]
         previous = previous_records.get(observation.catalog_id)
         clean = observation.status == "reachable" and not observation.redirect_chain
+        if clean and previous is None:
+            # First observation, clean: not actionable (section 7) and
+            # nothing changed since a previous sweep, so no record.
+            continue
         if clean and previous is not None:
             previous_clean = (previous.get("status") == "reachable"
                               and not previous.get("redirect_chain"))

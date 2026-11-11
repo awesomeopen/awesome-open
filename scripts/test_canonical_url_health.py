@@ -309,6 +309,18 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(records, {})
         self.assertEqual(pruned, [catalog_id(url)])
 
+    def test_first_clean_sweep_writes_no_record(self):
+        url = "https://example.org/clean"
+        catalog = make_catalog([url])
+        by_id = {p["id"]: p for p in catalog["projects"]}
+        observations, _, _, _ = sweep(catalog, FixtureFetch({}), checked_at="2026-10-31",
+                                      previous_records={})
+        records, changed, pruned = checker.merge_evidence(
+            {}, observations, "2026-10-31", by_id, catalog["source_sha"])
+        self.assertEqual(records, {})
+        self.assertEqual(changed, [])
+        self.assertEqual(pruned, [])
+
     def test_validation_rejects_unknown_status_and_stale_key(self):
         catalog = make_catalog(["https://example.org/a"])
         by_id = {p["id"]: p for p in catalog["projects"]}
@@ -374,7 +386,9 @@ class EvidenceTests(unittest.TestCase):
             written = json.loads(output_path.read_text(encoding="utf-8"))
         self.assertEqual(written["last_sweep"]["catalog_source_sha"], current["source_sha"])
         self.assertEqual(written["records"][left_id]["last_present_source_sha"], previous_sha)
-        self.assertNotIn("last_present_source_sha", written["records"][catalog_id(stayed)])
+        # First clean sweep of "stayed": not actionable (section 7), so no
+        # record is written for it at all.
+        self.assertNotIn(catalog_id(stayed), written["records"])
 
     def test_default_checked_date_is_utc(self):
         catalog = make_catalog(["https://example.org/a"])
