@@ -108,18 +108,18 @@ class HistoryTests(unittest.TestCase):
         root = ET.fromstring(hn.svg(project, self.evidence))
         rectangles = root.findall('{http://www.w3.org/2000/svg}rect')
         self.assertEqual(len(rectangles), 24)
-        self.assertEqual(rectangles[1].attrib['height'], '14.142')
-        self.assertIn('Shared square-root scale: 0–6 stories/month.', hn.svg(project, self.evidence))
+        self.assertEqual(rectangles[1].attrib['height'], '15.874')
+        self.assertIn('Shared cube-root scale: 0–6 stories/month.', hn.svg(project, self.evidence))
         self.assertNotIn('<script>', hn.svg(project, self.evidence))
         self.assertNotIn('href=', hn.svg(project, self.evidence))
 
-    def test_square_root_scale_preserves_shared_heights_and_baseline(self):
+    def test_cube_root_scale_preserves_shared_heights_and_baseline(self):
         evidence = dict(self.evidence, shared_monthly_maximum=20)
         counts = [0, 1, 2, 5, 10, 20] + [0] * 18
         project = dict(self.project, monthly_counts=counts)
         rectangles = ET.fromstring(hn.svg(project, evidence)).findall('{http://www.w3.org/2000/svg}rect')
         heights = [float(rect.attrib['height']) for rect in rectangles]
-        self.assertEqual(heights[:6], [0, 4.472, 6.325, 10, 14.142, 20])
+        self.assertEqual(heights[:6], [0, 7.368, 9.283, 12.599, 15.874, 20])
         for rect in rectangles:
             self.assertAlmostEqual(float(rect.attrib['y']) + float(rect.attrib['height']), 22)
         # A lower-activity project keeps the same heights, not its own maximum.
@@ -128,7 +128,17 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual([r.attrib['height'] for r in small_rectangles[:3]],
                          [r.attrib['height'] for r in rectangles[:3]])
 
-    def test_square_root_scale_handles_all_zero_counts(self):
+    def test_cube_root_scale_keeps_sparse_history_visible(self):
+        evidence = dict(self.evidence, shared_monthly_maximum=160)
+        project = dict(self.project, monthly_counts=[0, 1, 3, 160] + [0] * 20)
+        rectangles = ET.fromstring(hn.svg(project, evidence)).findall('{http://www.w3.org/2000/svg}rect')
+        heights = [float(rect.attrib['height']) for rect in rectangles[:4]]
+        self.assertEqual(heights, [0, 3.684, 5.313, 20])
+        # The 120-wide SVG renders at 80px desktop and 56px mobile.
+        self.assertGreater(heights[1] * 80 / 120, 2.4)
+        self.assertGreater(heights[1] * 56 / 120, 1.7)
+
+    def test_cube_root_scale_handles_all_zero_counts(self):
         project = dict(self.project, monthly_counts=[0] * 24)
         evidence = dict(self.evidence, shared_monthly_maximum=0)
         rectangles = ET.fromstring(hn.svg(project, evidence)).findall('{http://www.w3.org/2000/svg}rect')

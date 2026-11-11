@@ -761,10 +761,10 @@ def svg(project, evidence):
         raise ValueError('Expected exactly 24 nonnegative monthly counts')
     maximum = max(1, evidence['shared_monthly_maximum'])
     title = html.escape(project['name'] + ': HN discussions / 2y')
-    desc = html.escape(f"Monthly HN story submissions, {evidence['months'][0]} through {evidence['months'][-1]}; oldest at left. Shared square-root scale: 0–{maximum} stories/month. Counts: " + ', '.join(map(str, counts)) + '. Attention includes praise, criticism, and controversy.')
+    desc = html.escape(f"Monthly HN story submissions, {evidence['months'][0]} through {evidence['months'][-1]}; oldest at left. Shared cube-root scale: 0–{maximum} stories/month. Counts: " + ', '.join(map(str, counts)) + '. Attention includes praise, criticism, and controversy.')
     bars = []
     for i, count in enumerate(counts):
-        height = math.sqrt(count / maximum) * 20
+        height = (count / maximum) ** (1 / 3) * 20
         bars.append(f'<rect x="{i*5}" y="{22-height:.3f}" width="4" height="{height:.3f}" fill="#64748b"/>')
     return f'<svg xmlns="http://www.w3.org/2000/svg" width="120" height="24" viewBox="0 0 120 24" role="img" aria-labelledby="title desc"><title id="title">{title}</title><desc id="desc">{desc}</desc>' + ''.join(bars) + '</svg>\n'
 
