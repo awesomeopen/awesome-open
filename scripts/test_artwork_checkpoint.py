@@ -41,6 +41,10 @@ class CheckpointTests(unittest.TestCase):
                     target.write_bytes(checkpoint.encode(self.recovery_index()))
                 elif role == "candidate":
                     target.write_bytes(checkpoint.encode({"candidate_revision": "c" * 40}))
+                elif role == "reservation":
+                    target.write_bytes(checkpoint.encode({"plan_sha256": checkpoint.validate_plan(self.plan), "project_id": pid}))
+                elif role == "failure":
+                    target.write_bytes(checkpoint.encode(self.failure(pid)))
                 else:
                     target.write_bytes(f"Fixture for {role} {project_id}".encode())
                 specs.append({"path": name, "role": role, "project_id": project_id})
@@ -54,9 +58,184 @@ class CheckpointTests(unittest.TestCase):
         # A local copy simulates retrieval only in this offline fixture.
         shutil.copyfile(archive, restored)
         receipt = checkpoint.verify_restore(archive, restored, storage or self.storage, now or self.now)
-        name = f"probes/{self.counter}.json" if kind == "probe" else f"{pid}.json"
+        name = f"probes/{self.counter}.json" if kind == "probe" else f"skips/{pid}.json" if kind == "skip" else f"{pid}.json"
         checkpoint.write_new(self.state / "receipts" / name, receipt)
         return receipt
+
+    def failure(self, pid):
+        return {"schema_version": 1, "plan_sha256": checkpoint.validate_plan(self.plan),
+                "project_id": pid, "scope": "project", "outcome": "no_output",
+                "operation": "Generate fixture artwork", "reason": "Fixture project input rejected before output",
+                "recorded_at": self.now.isoformat(), "retry": "future_batch_review"}
+
+    def test_skip_preserves_marker_and_advances_in_original_plan(self):
+        self.receipt()
+        pid = checkpoint.begin(self.plan, self.state, self.now)
+        marker = self.state / f"started/{pid}.json"
+        marker_before = marker.read_bytes()
+        self.receipt("skip", pid)
+        self.assertEqual(checkpoint.begin(self.plan, self.state, self.now), "2" * 64)
+        self.assertEqual(marker.read_bytes(), marker_before)
+        self.receipt("generation", "2" * 64)
+        self.assertIsNone(checkpoint.next_project(self.plan, self.state, self.now))
+        self.assertFalse((self.state / f"receipts/{pid}.json").exists())
+
+    def test_skip_does_not_invalidate_previous_generation_receipt(self):
+        self.plan["project_ids"].append("3" * 64)
+        self.receipt()
+        checkpoint.begin(self.plan, self.state, self.now)
+        self.receipt("generation", "1" * 64)
+        original = (self.state / ("receipts/" + "1" * 64 + ".json")).read_bytes()
+        checkpoint.begin(self.plan, self.state, self.now)
+        self.receipt("skip", "2" * 64)
+        self.assertEqual(checkpoint.begin(self.plan, self.state, self.now), "3" * 64)
+        self.assertEqual((self.state / ("receipts/" + "1" * 64 + ".json")).read_bytes(), original)
+
+    def test_raw_failure_or_unverified_archive_cannot_unblock_generation(self):
+        self.receipt()
+        pid = checkpoint.begin(self.plan, self.state, self.now)
+        checkpoint.write_new(self.state / f"failures/{pid}.json", self.failure(pid))
+        self.bundle("skip", pid)
+        with self.assertRaisesRegex(ValueError, "Recover outstanding"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+
+    def test_unreserved_or_conflicting_skip_receipts_fail_closed(self):
+        self.receipt()
+        self.receipt("skip", "1" * 64)
+        with self.assertRaisesRegex(ValueError, "Unreserved"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+        checkpoint.write_new(self.state / ("started/" + "1" * 64 + ".json"),
+                             {"plan_sha256": checkpoint.validate_plan(self.plan), "project_id": "1" * 64})
+        self.receipt("generation", "1" * 64)
+        with self.assertRaisesRegex(ValueError, "both a generation and skip"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+
+    def test_skip_retains_probe_identity_freshness_and_order_gates(self):
+        self.receipt()
+        checkpoint.begin(self.plan, self.state, self.now)
+        self.receipt("skip", "1" * 64)
+        with self.assertRaisesRegex(ValueError, "stale"):
+            checkpoint.next_project(self.plan, self.state, self.now + timedelta(days=2))
+        path = self.state / ("receipts/skips/" + "1" * 64 + ".json")
+        receipt = checkpoint.read_json(path)
+        for change, error in (({"plan_sha256": "b" * 64}, "another plan"),
+                              ({"verified_at": (self.now + timedelta(seconds=1)).isoformat()}, "Future-dated"),
+                              ({"storage": {**self.storage, "destination": "elsewhere"}}, "destination differ")):
+            path.write_bytes(checkpoint.encode({**receipt, **change}))
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, error):
+                checkpoint.next_project(self.plan, self.state, self.now)
+        path.write_bytes(checkpoint.encode(receipt))
+        (self.state / ("started/" + "1" * 64 + ".json")).unlink()
+        checkpoint.write_new(self.state / ("started/" + "2" * 64 + ".json"),
+                             {"plan_sha256": checkpoint.validate_plan(self.plan), "project_id": "2" * 64})
+        with self.assertRaisesRegex(ValueError, "Unreserved"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+
+    def test_unknown_skip_receipt_is_not_ignored(self):
+        self.receipt()
+        checkpoint.write_new(self.state / "receipts/skips/unknown.json", {})
+        with self.assertRaisesRegex(ValueError, "Unknown skip"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+
+    def test_skip_requires_known_no_output_project_scope_and_complete_evidence(self):
+        pid = "1" * 64
+        _, specs, _ = self.bundle("skip", pid)
+        record = next(e for e in specs if e["role"] == "failure")
+        for change in ({"scope": "shared"}, {"outcome": "uncertain"}, {"outcome": "output_produced"},
+                       {"retry": "immediate"}, {"project_id": "2" * 64}, {"plan_sha256": "f" * 64},
+                       {"operation": " "}, {"reason": ""}, {"recorded_at": "2026-11-08"},
+                       {"schema_version": True}):
+            (self.staging / record["path"]).write_bytes(checkpoint.encode({**self.failure(pid), **change}))
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                checkpoint.create_archive(self.plan, "skip", pid, specs, self.staging, self.root / "bad-skip.zip")
+            self.assertFalse((self.root / "bad-skip.zip").exists())
+        (self.staging / record["path"]).write_bytes(checkpoint.encode(self.failure(pid)))
+        for changed in ([e for e in specs if e["role"] != "evidence"],
+                        [e for e in specs if e["role"] != "reservation"]):
+            with self.assertRaisesRegex(ValueError, "Missing required roles"):
+                checkpoint.create_archive(self.plan, "skip", pid, changed, self.staging, self.root / "bad-skip.zip")
+        reservation = next(e for e in specs if e["role"] == "reservation")
+        (self.staging / reservation["path"]).write_bytes(checkpoint.encode({"project_id": pid}))
+        with self.assertRaisesRegex(ValueError, "Skip reservation"):
+            checkpoint.create_archive(self.plan, "skip", pid, specs, self.staging, self.root / "bad-skip.zip")
+
+    def test_skip_receipt_requires_separate_unchanged_restore_and_no_overwrite(self):
+        source, _, _ = self.bundle("skip", "1" * 64)
+        with self.assertRaisesRegex(ValueError, "separately retrieved"):
+            checkpoint.verify_restore(source, source, self.storage, self.now)
+        receipt = self.receipt("skip", "1" * 64)
+        path = self.state / ("receipts/skips/" + "1" * 64 + ".json")
+        before = path.read_bytes()
+        with self.assertRaises(FileExistsError):
+            checkpoint.write_new(path, receipt)
+        self.assertEqual(before, path.read_bytes())
+
+    def test_publication_index_accounts_for_skips_without_artwork_receipts(self):
+        index = self.recovery_index()
+        pid = "1" * 64
+        del index["images"][pid]
+        index["skips"] = {pid: self.receipt("skip", pid)}
+        manifest = {"plan": self.plan, "plan_sha256": checkpoint.validate_plan(self.plan)}
+        checkpoint.validate_recovery_index(index, manifest)
+        with patch.object(self, "recovery_index", return_value=index):
+            self.bundle("publication")
+        duplicate = deepcopy(index)
+        duplicate["images"][pid] = self.recovery_index()["images"][pid]
+        with self.assertRaisesRegex(ValueError, "both artwork and a skip"):
+            checkpoint.validate_recovery_index(duplicate, manifest)
+        wrong_kind = deepcopy(index)
+        wrong_kind["skips"][pid]["kind"] = "generation"
+        with self.assertRaisesRegex(ValueError, "another plan or checkpoint"):
+            checkpoint.validate_recovery_index(wrong_kind, manifest)
+        index["skips"] = {}
+        with self.assertRaisesRegex(ValueError, "every planned"):
+            checkpoint.validate_recovery_index(index, manifest)
+
+    def test_candidate_verifies_skip_archive_and_rejects_artwork_on_skipped_id(self):
+        pid = "1" * 64
+        self.plan["project_ids"] = [pid]
+        candidate, archives = self.root / "candidate", self.root / "archives"
+        archives.mkdir()
+        for path, key in (("data/specimen_art.json", "artworks"), ("site/specimens/cutouts.json", "cutouts"),
+                          ("brand/assets.lock.json", "files")):
+            checkpoint.write_new(candidate / path, {key: {}})
+        source, _, _ = self.bundle("skip", pid)
+        restored = archives / (checkpoint.digest(source.read_bytes()) + ".zip")
+        shutil.copyfile(source, restored)
+        receipt = checkpoint.verify_restore(source, restored, self.storage, self.now)
+        index = {"plan_sha256": checkpoint.validate_plan(self.plan), "candidate_revision": "c" * 40,
+                 "images": {}, "skips": {pid: receipt}}
+        result = checkpoint.verify_candidate(self.plan, index, candidate, archives)
+        self.assertEqual((result["project_count"], result["skipped_count"]), (0, 1))
+        for path, key, entry in (("data/specimen_art.json", "artworks", pid),
+                                 ("site/specimens/cutouts.json", "cutouts", pid),
+                                 ("brand/assets.lock.json", "files", f"site/specimens/{pid}.webp")):
+            (candidate / path).write_bytes(checkpoint.encode({key: {entry: {}}}))
+            with self.assertRaisesRegex(ValueError, "Skipped project has candidate artwork"):
+                checkpoint.verify_candidate(self.plan, index, candidate, archives)
+            (candidate / path).write_bytes(checkpoint.encode({key: {}}))
+        checkpoint.write_new_bytes(candidate / f"site/specimens/{pid}.webp", b"unexpected output")
+        with self.assertRaisesRegex(ValueError, "Skipped project has candidate artwork"):
+            checkpoint.verify_candidate(self.plan, index, candidate, archives)
+        (candidate / f"site/specimens/{pid}.webp").unlink()
+        restored.unlink()
+        with self.assertRaises(FileNotFoundError):
+            checkpoint.verify_candidate(self.plan, index, candidate, archives)
+
+    def test_cli_reports_skips_separately_from_generation_completion(self):
+        self.receipt()
+        for pid in self.plan["project_ids"]:
+            checkpoint.begin(self.plan, self.state, self.now)
+            self.receipt("skip", pid)
+        plan = self.root / "plan.json"
+        plan.write_bytes(checkpoint.encode(self.plan))
+        with patch.object(checkpoint, "datetime") as dt, patch("builtins.print") as output:
+            dt.now.return_value = self.now
+            dt.fromisoformat.side_effect = datetime.fromisoformat
+            self.assertEqual(checkpoint.main(["next", "--plan", str(plan), "--state", str(self.state)]), 0)
+        report = json.loads(output.call_args.args[0])
+        self.assertEqual(report["status"], "generation_complete_with_skips")
+        self.assertEqual(report["skipped_project_ids"], self.plan["project_ids"])
 
     def test_deterministic_bytes_and_no_overwrite(self):
         archive, specs, result = self.bundle()
@@ -167,7 +346,6 @@ class CheckpointTests(unittest.TestCase):
 
     def test_candidate_binding_detects_stale_bytes_records_and_checksums(self):
         pid = "1" * 64
-        self.plan["project_ids"] = [pid]
         candidate = self.root / "candidate"
         archives = self.root / "archives"
         archives.mkdir()
@@ -196,8 +374,14 @@ class CheckpointTests(unittest.TestCase):
             restored = archives / (checkpoint.digest(source.read_bytes()) + ".zip")
             shutil.copyfile(source, restored)
             receipts[kind] = checkpoint.verify_restore(source, restored, self.storage, self.now)
-        index = {"plan_sha256": checkpoint.validate_plan(self.plan), "candidate_revision": "c" * 40, "images": {pid: receipts}}
-        self.assertEqual(checkpoint.verify_candidate(self.plan, index, candidate, archives)["project_count"], 1)
+        skip, _, _ = self.bundle("skip", "2" * 64)
+        restored_skip = archives / (checkpoint.digest(skip.read_bytes()) + ".zip")
+        shutil.copyfile(skip, restored_skip)
+        skip_receipt = checkpoint.verify_restore(skip, restored_skip, self.storage, self.now)
+        index = {"plan_sha256": checkpoint.validate_plan(self.plan), "candidate_revision": "c" * 40,
+                 "images": {pid: receipts}, "skips": {"2" * 64: skip_receipt}}
+        result = checkpoint.verify_candidate(self.plan, index, candidate, archives)
+        self.assertEqual((result["project_count"], result["skipped_count"]), (1, 1))
         target = candidate / paths["final"]
         before = target.read_bytes()
         target.write_bytes(b"changed final")
