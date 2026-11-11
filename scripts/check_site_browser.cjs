@@ -585,7 +585,7 @@ const path = require('node:path');
           for (const signal of ['hn', 'star-history']) {
             const box = card.locator(`[data-signal="${signal}"]`);
             await box.locator('.pg-info > summary').click();
-            const expected = signal === 'hn' ? (state === 'partial' ? '3 submissions' : 'Not recorded') :
+            const expected = signal === 'hn' ? (state === 'partial' ? '3 matched' : 'Not recorded') :
               state === 'empty' ? 'Not recorded' : state === 'rollover' ? 'chart withheld until aligned' : 'History unavailable; no zero values inferred';
             assert.ok((await box.innerText()).includes(expected), `${state}: ${signal} disclosure`);
             await box.locator('.pg-info > summary').click();
