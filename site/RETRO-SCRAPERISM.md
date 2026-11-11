@@ -280,7 +280,7 @@ Editorial hand: release, Scorecard and reviewed alternatives read as separate ac
 
 ### Sheet refinement — HN and metadata
 
-Folded names include a small HN discussion trace where evidence exists; hide that duplicate trace while the record is open. The full HN evidence is a ruled note with a smaller linked chart. Counts describe matched stories, not adoption, quality or sentiment. License, star count and date values use the accessible scarlet token. Omit the rule beneath artwork and the generic feature-parity caveat beneath alternatives; retain each reviewed scope and its source.
+Folded names include a small HN discussion trace where evidence exists; hide that duplicate trace while the record is open. The full HN evidence is a ruled note with a smaller linked chart. HN bars use one shared cube-root count scale so sparse histories remain visible; equal monthly counts have equal heights. Counts describe matched stories, not adoption, quality or sentiment. License, star count and date values use the accessible scarlet token. Omit the rule beneath artwork and the generic feature-parity caveat beneath alternatives; retain each reviewed scope and its source.
 
 Proposed next data extension: keep the existing short description for folded rows and add an independently reviewed function summary from the official README or documentation. Record its source URL, checked date and source revision when available. Do not expand sparse prose with random claims or infer capabilities from popularity/activity metrics. Missing summaries fall back to the existing description. This is a proposal, not an enabled automation.
 
