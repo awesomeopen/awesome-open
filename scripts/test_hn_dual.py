@@ -101,6 +101,19 @@ class DualTests(unittest.TestCase):
         recovered=archive.materialize(saved,next(iter(saved['observations'].values())))
         self.assertEqual(recovered['project'],out['projects'][0])
 
+    def test_old_prefix_pages_cannot_complete_exact_word_refresh(self):
+        old = dict(project(), queries=['OpenThing', 'Other alias'])
+        partial = hn.refresh(now=NOW,projects=[old],existing=empty(),metadata={},getter=self.getter,request_budget=1)
+        self.assertEqual(partial['queue'][old['readme_url']]['status'],'deferred')
+        previous = list(partial['queue'][old['readme_url']]['pending'])
+        self.assertNotIn('queryType=prefixNone',previous[0])
+        self.calls.clear()
+        new = dict(old,broad_queries=['OpenThing','Other alias'])
+        done = hn.refresh(now=NOW+timedelta(days=1),projects=[new],existing=partial,metadata={},getter=self.getter)
+        self.assertEqual(len(self.calls),2)
+        self.assertTrue(all(q['queryType']==['prefixNone'] for q in self.calls))
+        self.assertEqual(done['projects'][0]['broad_story_count'],2)
+
     def test_obs_precision(self):
         from project_aliases import load_optional
         reviewed=json.loads(hn.PROJECTS_PATH.read_text())['projects']
