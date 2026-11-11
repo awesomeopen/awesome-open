@@ -15,6 +15,13 @@ controls share the ordered selection, comparison and activity display.
   distinct canonical IDs, using the current revision. Stale revisions fail.
 - `cabinet_compare`: display the current selection's evidence in its saved order.
 
+While a selection exists, `cabinet_find`, `cabinet_arrange` and `cabinet_compare`
+return `cabinet_url`, the [shared URL](#evidence-and-urls) for that selection, and the
+compare description asks the caller to give it to the person. A person using an
+agent's cloud browser never sees the page, so the link is how they open the comparison.
+The page's assistant gets neither the field nor those sentences, because its visitor is
+already on the page.
+
 Arguments are checked in application code as well as JSON Schema. Unknown IDs,
 duplicates, extra keys, oversized queries and oversized selections fail before a
 state change. Only one tool operation runs at a time. Cancellation aborts pending
