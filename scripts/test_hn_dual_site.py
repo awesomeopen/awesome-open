@@ -37,10 +37,12 @@ class HNDualSiteTests(unittest.TestCase):
         self.assertIn('2026-10', html)
         self.assertNotIn('Square-root', html)
 
-    def test_small_chart_shows_possible_count_and_evidence_link(self):
+    def test_small_chart_preserves_drawer_activation_and_shows_possible_count(self):
         project, catalog = self.project()
         page = build_site.project_html(project, {"ai--language-models":"AI & Language Models"}, catalog, deferred=True)
-        self.assertIn('class="name-sparkline-link" href="assets/hn/open-evidence.html#broad"', page)
+        self.assertNotIn('name-sparkline-link', page)
+        summary = page.split('<summary>', 1)[1].split('</summary>', 1)[0]
+        self.assertNotIn('<a ', summary)
         self.assertIn('alt="HN possible matches / past 2y"', page)
         self.assertIn('34 possible matches', page)
         self.assertNotIn('8 possible matches', page)
@@ -54,7 +56,8 @@ class HNDualSiteTests(unittest.TestCase):
         self.assertNotIn('0 possible', html)
         self.assertNotIn('#broad', html)
         page = build_site.project_html(project, {"ai--language-models":"AI & Language Models"}, catalog, deferred=True)
-        self.assertIn('href="assets/hn/open-evidence.html#matched"', page)
+        self.assertNotIn('name-sparkline-link', page)
+        self.assertNotIn('<a ', page.split('<summary>', 1)[1].split('</summary>', 1)[0])
         self.assertIn('8 matched stories', page)
 
     def test_zero_matched_is_explicit_when_broad_candidates_exist(self):

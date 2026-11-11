@@ -70,7 +70,8 @@ in the [guide](../site/RETRO-SCRAPERISM.md#experimental-cabinet).
 ## HN candidate and matched series
 
 Collapsed HN sparklines show possible title/URL matches when that collection is
-available. The plate overlays the matched subset as narrower scarlet bars on the
+available. They remain part of the drawer toggle; evidence links live in the
+plate. The plate overlays the matched subset as narrower scarlet bars on the
 same month positions, zero baseline and shared cube-root scale. Gray background
 bars and red foreground bars have visible “possible” and “matched” count links;
 each opens its own deduplicated evidence list. Color is reinforced by bar width

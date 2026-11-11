@@ -537,7 +537,8 @@ const path = require('node:path');
           assert.equal(await multipleBox.locator('.pg-hn-matched').getAttribute('href'), multiple.hn.matched_evidence_url);
           assert.equal(await multipleBox.locator('.pg-hn-broad').textContent(), '6 possible');
           assert.equal(await multipleBox.locator('.pg-hn-matched').textContent(), '3 matched');
-          await multipleBox.locator('.pg-hn-matched').click();
+          await multipleBox.locator('.pg-hn-matched').focus();
+          await page.keyboard.press('Enter');
           await page.waitForURL('**/fixture-tofu-evidence.html#matched');
           assert.equal(await page.locator('#matched li').count(), 3);
           assert.equal(await page.locator('#broad li').count(), 6);
@@ -557,12 +558,12 @@ const path = require('node:path');
         assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
         assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
         await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
-        const traceLink = tracedCard.locator('.name-sparkline-link');
-        assert.equal(await traceLink.getAttribute('href'), traced.hn.broad_evidence_url);
-        await traceLink.focus();
-        await page.keyboard.press('Enter');
-        await page.waitForURL('**/fixture-tofu-evidence.html#broad');
-        assert.equal(await page.locator('#broad li').count(), 6);
+        // The folded trace remains part of the drawer's native click target.
+        const beforeTraceClick = page.url();
+        await tracedCard.locator('.name-sparkline').click();
+        assert.equal(page.url(), beforeTraceClick);
+        assert.equal(await tracedCard.locator('.specimen-drawer').evaluate(node => node.open), true);
+        assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
 
 
       } finally {

@@ -674,11 +674,8 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         broad = "broad_total_stories" in attention
         count = attention["broad_total_stories"] if broad else attention["total_stories"]
         label = "possible matches" if broad else "matched stories"
-        evidence_url = attention.get("broad_evidence_url") or attention["matched_evidence_url"]
-        inline_chart = (f'<a class="name-sparkline-link" href="{escape(evidence_url)}" '
-                        f'aria-label="HN: {count} {label} / past 2y">'
-                        f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" '
-                        f'alt="HN {label} / past 2y" title="HN: {count} {label} / past 2y" loading="lazy"></a>')
+        inline_chart = (f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" '
+                        f'alt="HN {label} / past 2y" title="HN: {count} {label} / past 2y" loading="lazy">')
     leader_categories = project.get("leader_categories", [])
     if deferred:
         interior = (
