@@ -37537,141 +37537,6 @@
       "excluded_candidates": []
     },
     {
-      "active_months": 7,
-      "coverage": "catalog-url-only",
-      "domains": [],
-      "eligible": true,
-      "exact_urls": [],
-      "identity_sources": [
-        "https://github.com/obsproject/obs-studio"
-      ],
-      "monthly_counts": [
-        0,
-        0,
-        1,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        2,
-        1,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-      ],
-      "name": "OBS Studio",
-      "queries": [
-        "github.com/obsproject/obs-studio"
-      ],
-      "query_sources": [
-        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fobsproject%2Fobs-studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0"
-      ],
-      "readme_url": "https://github.com/obsproject/obs-studio",
-      "repositories": [
-        "obsproject/obs-studio"
-      ],
-      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
-      "search_url": "https://hn.algolia.com/?q=github.com%2Fobsproject%2Fobs-studio&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
-      "slug": "catalog-0e1c34b3f948e903",
-      "story_count": 8,
-      "title_aliases": [],
-      "stories": [
-        {
-          "id": "42646006",
-          "title": "OBS-Wiki – Streaming with Whip",
-          "url": "https://github.com/obsproject/obs-studio/wiki/Streaming-With-WHIP",
-          "created_at": "2025-01-09T14:36:29+00:00",
-          "month": "2025-01",
-          "hn_url": "https://news.ycombinator.com/item?id=42646006",
-          "source_url": "https://hn.algolia.com/api/v1/items/42646006",
-          "reason": "repository: obsproject/obs-studio"
-        },
-        {
-          "id": "42987701",
-          "title": "OBS merges pacing support for WHIP",
-          "url": "https://github.com/obsproject/obs-studio/commit/4162ca7169dd5b515ab97fd624d8b6fef3abd6e0",
-          "created_at": "2025-02-09T01:27:42+00:00",
-          "month": "2025-02",
-          "hn_url": "https://news.ycombinator.com/item?id=42987701",
-          "source_url": "https://hn.algolia.com/api/v1/items/42987701",
-          "reason": "repository: obsproject/obs-studio"
-        },
-        {
-          "id": "44567453",
-          "title": "OBS Studio 31.1.1 Released",
-          "url": "https://github.com/obsproject/obs-studio/releases/tag/31.1.1",
-          "created_at": "2025-07-15T02:55:32+00:00",
-          "month": "2025-07",
-          "hn_url": "https://news.ycombinator.com/item?id=44567453",
-          "source_url": "https://hn.algolia.com/api/v1/items/44567453",
-          "reason": "repository: obsproject/obs-studio"
-        },
-        {
-          "id": "46304312",
-          "title": "OBS Add Simulcast Support",
-          "url": "https://github.com/obsproject/obs-studio/pull/10885",
-          "created_at": "2025-12-17T19:28:03+00:00",
-          "month": "2025-12",
-          "hn_url": "https://news.ycombinator.com/item?id=46304312",
-          "source_url": "https://hn.algolia.com/api/v1/items/46304312",
-          "reason": "repository: obsproject/obs-studio"
-        },
-        {
-          "id": "46308200",
-          "title": "OBS Studio Merges WebRTC/Whip Simulcast Support",
-          "url": "https://github.com/obsproject/obs-studio/commit/cd4d624ec3e6fdb149effa4285beef4f948c565b",
-          "created_at": "2025-12-18T02:11:28+00:00",
-          "month": "2025-12",
-          "hn_url": "https://news.ycombinator.com/item?id=46308200",
-          "source_url": "https://hn.algolia.com/api/v1/items/46308200",
-          "reason": "repository: obsproject/obs-studio"
-        },
-        {
-          "id": "46633429",
-          "title": "OBS Studio 32.1.0 Beta 1 available",
-          "url": "https://github.com/obsproject/obs-studio/releases/tag/32.1.0-beta1",
-          "created_at": "2026-01-15T14:57:53+00:00",
-          "month": "2026-01",
-          "hn_url": "https://news.ycombinator.com/item?id=46633429",
-          "source_url": "https://hn.algolia.com/api/v1/items/46633429",
-          "reason": "repository: obsproject/obs-studio"
-        },
-        {
-          "id": "47343497",
-          "title": "OBS 32.1.0 Released with WebRTC Simulcast",
-          "url": "https://github.com/obsproject/obs-studio/releases/tag/32.1.0",
-          "created_at": "2026-03-11T22:53:42+00:00",
-          "month": "2026-03",
-          "hn_url": "https://news.ycombinator.com/item?id=47343497",
-          "source_url": "https://hn.algolia.com/api/v1/items/47343497",
-          "reason": "repository: obsproject/obs-studio"
-        },
-        {
-          "created_at": "2026-10-24T04:49:58+00:00",
-          "hn_url": "https://news.ycombinator.com/item?id=50218430",
-          "id": "50218430",
-          "month": "2026-10",
-          "reason": "repository: obsproject/obs-studio",
-          "source_url": "https://hn.algolia.com/api/v1/items/50218430",
-          "title": "OBS Studio 33",
-          "url": "https://github.com/obsproject/obs-studio/releases/tag/33.0.0"
-        }
-      ],
-      "excluded_candidates": []
-    },
-    {
       "name": "OpenAL Soft",
       "slug": "catalog-75653b2d18689108",
       "readme_url": "https://github.com/kcat/openal-soft",
@@ -143134,9 +142999,9 @@
   },
   "selection_report": {
     "catalog_projects": 584,
-    "due_projects": 184,
+    "due_projects": 584,
     "attempted_projects": 0,
-    "current_window_projects": 500,
+    "current_window_projects": 499,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
@@ -143156,6 +143021,6 @@
     "max_seconds_per_run": 300,
     "max_seconds_per_project_when_queued": 90,
     "selection": "interleaved reserved lanes; new backlog stars descending, unknown last; retries/refreshes and continuations oldest attempt; once per project per UTC day",
-    "coverage": "reviewed aliases or conservative catalog URL/repository only"
+    "coverage": "exact-word title/URL candidates plus reviewed identity matches; legacy matched-only cache retained until refreshed"
   }
 }

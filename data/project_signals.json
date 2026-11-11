@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-11T07:33:38Z",
+  "collected_at": "2026-11-11T09:35:46Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -5462,7 +5462,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -5587,7 +5587,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -6672,7 +6672,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -7704,7 +7704,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -15447,7 +15447,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22357,7 +22357,7 @@
     "openvolumemesh/openvolumemesh": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22385,13 +22385,13 @@
     "openvpn/openvpn": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": null,
-        "etag": "\"ef74939f2044c004c3513885b714c1dd21098130ab44512926775529c722e70d\"",
+        "etag": "\"b5a26bd95d30f8dd2dd6bf8cb399f28fd1e4c3345bd054ff70f15603ab0c2e25\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-10T06:58:05Z",
+          "fetched_at": "2026-11-11T09:35:46Z",
           "observed_at": "2026-11-05T15:14:51Z",
           "source_commit": null,
           "tool_commit": null,
@@ -22403,7 +22403,7 @@
             "tag_name": "v2.7.9"
           }
         },
-        "last_success_at": "2026-11-10T06:58:05Z",
+        "last_success_at": "2026-11-11T09:35:46Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openvpn/openvpn/releases/latest",
         "status": "available",
@@ -22426,7 +22426,7 @@
     "openvsp/openvsp": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22454,7 +22454,7 @@
     "openvswitch/ovs": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22565,7 +22565,7 @@
     "openwam-official/openwam": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22619,7 +22619,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22634,13 +22634,13 @@
     "openwisp/openwisp-controller": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": null,
-        "etag": "\"d904d0ae4bba776626f8f69a13bd7493a6d3f980fc582a1a9fc32633a69b647b\"",
+        "etag": "\"7ff48db9b9709eb03c197b4700fd01976df002ef4646926797f2413f1cb570d7\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-10T06:58:05Z",
+          "fetched_at": "2026-11-11T09:35:46Z",
           "observed_at": "2026-10-23T21:30:26Z",
           "source_commit": null,
           "tool_commit": null,
@@ -22652,7 +22652,7 @@
             "tag_name": "1.3.2"
           }
         },
-        "last_success_at": "2026-11-10T06:58:05Z",
+        "last_success_at": "2026-11-11T09:35:46Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openwisp/openwisp-controller/releases/latest",
         "status": "available",
@@ -22758,13 +22758,13 @@
     "openwisp/openwisp-network-topology": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": null,
-        "etag": "\"ef15a956f8b7d98746d84eac5237e27ed627586e4ccc3337a0412834de7d7df2\"",
+        "etag": "\"c0c746b1261ec8c9379c9776d73068d395aaa35e271b3b8a382e9ee2c0c08535\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-10T06:58:05Z",
+          "fetched_at": "2026-11-11T09:35:46Z",
           "observed_at": "2026-10-21T21:58:30Z",
           "source_commit": null,
           "tool_commit": null,
@@ -22776,7 +22776,7 @@
             "tag_name": "1.3.1"
           }
         },
-        "last_success_at": "2026-11-10T06:58:05Z",
+        "last_success_at": "2026-11-11T09:35:46Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openwisp/openwisp-network-topology/releases/latest",
         "status": "available",
@@ -22799,7 +22799,7 @@
     "openworkers/openworkers-runner": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22827,13 +22827,13 @@
     "openwrt/openwrt": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": null,
-        "etag": "\"e7fba92c9f582e3619845ac2584c05b26d4b4ae25532c4794912f6b68882c83a\"",
+        "etag": "\"b6e6a3e2a60a868c83242cde1078e27a532d8bf676a971a1510d6722608af9c0\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-10T06:58:05Z",
+          "fetched_at": "2026-11-11T09:35:46Z",
           "observed_at": "2026-10-18T23:38:46Z",
           "source_commit": null,
           "tool_commit": null,
@@ -22845,7 +22845,7 @@
             "tag_name": "v25.12.6"
           }
         },
-        "last_success_at": "2026-11-10T06:58:05Z",
+        "last_success_at": "2026-11-11T09:35:46Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openwrt/openwrt/releases/latest",
         "status": "available",
@@ -22951,7 +22951,7 @@
     "openxcom/openxcom": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -22979,13 +22979,13 @@
     "openxray/xray-16": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": null,
-        "etag": "\"8f66cf299f8fc2cc53fc442ccaa4abae4d75159cedf3a9e514bbbc728c852847\"",
+        "etag": "\"1791af008c21d2524f149a252824ee75dca8fd06bd67a38183d530c9801c8e33\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-10T06:58:05Z",
+          "fetched_at": "2026-11-11T09:35:46Z",
           "observed_at": "2020-12-21T17:20:12Z",
           "source_commit": null,
           "tool_commit": null,
@@ -22997,7 +22997,7 @@
             "tag_name": "822-december-preview"
           }
         },
-        "last_success_at": "2026-11-10T06:58:05Z",
+        "last_success_at": "2026-11-11T09:35:46Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openxray/xray-16/releases/latest",
         "status": "available",
@@ -23020,13 +23020,13 @@
     "openyurtio/openyurt": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": null,
-        "etag": "\"e2e4a75cad2505d5a378ff43ca8abe8047ae94ba372dd1ee441f6379ea860959\"",
+        "etag": "\"d6173d1d2410e0e6461048058103d0b701c4aee8e8c1cb063c30c0df2b31361a\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-10T06:58:05Z",
+          "fetched_at": "2026-11-11T09:35:46Z",
           "observed_at": "2026-05-06T06:59:41Z",
           "source_commit": null,
           "tool_commit": null,
@@ -23038,7 +23038,7 @@
             "tag_name": "v1.7.0"
           }
         },
-        "last_success_at": "2026-11-10T06:58:05Z",
+        "last_success_at": "2026-11-11T09:35:46Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openyurtio/openyurt/releases/latest",
         "status": "available",
@@ -24003,7 +24003,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24185,13 +24185,13 @@
     "pmeal/openpnm": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T06:58:05Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": null,
-        "etag": "\"482702385c5daed34ec2ee9db766243d99de6f6fd9e1c05ac86cc43763d8f6b2\"",
+        "etag": "\"dd1e1335c6fd1b21ad00d38e4f8791de0481c38b30805ed5cc5dab69e777f0f9\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-10T06:58:05Z",
+          "fetched_at": "2026-11-11T09:35:46Z",
           "observed_at": "2026-03-01T16:01:39Z",
           "source_commit": null,
           "tool_commit": null,
@@ -24203,7 +24203,7 @@
             "tag_name": "v3.6.1"
           }
         },
-        "last_success_at": "2026-11-10T06:58:05Z",
+        "last_success_at": "2026-11-11T09:35:46Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/pmeal/openpnm/releases/latest",
         "status": "available",
@@ -24211,7 +24211,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24762,7 +24762,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -26251,7 +26251,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-10-28T08:49:39Z",
+        "checked_at": "2026-11-11T09:35:46Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -27462,5 +27462,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "f747045519488f9c27eb6fe303e8198f24cb08d8"
+  "source_sha": "505b5cb1162a438b82ad07fa7fd2373ca443ca4d"
 }
