@@ -39,7 +39,8 @@ or repository settings, buy credits, or use a paid generation fallback.
 ## Checkpoint one image
 
 Run `begin` before invoking image generation. It exclusively records the next
-reserved ID and blocks another generation until that ID has a verified receipt.
+reserved ID and blocks another generation until that ID has a verified generation
+or [project skip](#skip-one-blocked-project) receipt.
 Save the actual tool output immediately, together with the complete prompt,
 consulted source bytes and truthful generation provenance. Package that image's
 `generation` checkpoint, upload it, independently retrieve it, and verify it.
@@ -50,7 +51,7 @@ A generation interruption leaves its reservation outstanding. Recover the output
 or establish the exact failure before retrying. Preserve the marker and failure
 record during reconciliation; do not remove a marker merely to unblock the next
 image. A known no-output failure can be explicitly reconciled in the task
-handoff before retrying that reserved image. Never assume a timeout means no
+handoff and skipped for this batch. Never assume a timeout means no
 image was generated.
 
 After actual pixel review, optimize the final WebP and build its matching
@@ -58,6 +59,55 @@ cut-out under the [existing artwork contract](../site/SPECIMEN-ART.md).
 Create, upload and restore a separate `finalization` checkpoint for that project.
 Keep both verified archives. This separates original preservation from later
 processing and avoids making a whole batch depend on one large archive.
+
+## Skip one blocked project
+
+Skip an isolated project blocker once its outcome is known and its evidence is
+recoverable. Keep the original plan, reservation marker and failure evidence.
+Successful projects retain their receipts and the next reserved ID can proceed.
+
+1. Establish that generation never started or returned no output, and that the
+   blocker affects only this project. Record the exact operation, reason and
+   outcome. Preserve the original tool response or other supporting evidence.
+2. Package a `skip` checkpoint with the unchanged reservation marker, the failure
+   record below and supporting evidence. Upload it to the verified destination,
+   retrieve it independently and run `verify-restore`. Save its receipt at
+   `state/receipts/skips/<project-id>.json` and update the durable run index.
+3. Run `next`, then `begin` for the next project. Keep skipped IDs in the handoff
+   and publication index. Report successful artwork and skips separately.
+
+Uncertain output still requires recovery. An existing generated original needs
+its generation checkpoint even when later processing fails. Shared storage,
+authentication, permission, quota or tool-access failures stop dependent work;
+do not classify them as project-local or change routes to evade a denial.
+The helper checks recorded scope and outcome; the operator verifies the evidence.
+
+Skips apply to this batch only. Missing artwork remains eligible for future
+backfill selection after checking the prior failure and current main, PRs and
+active work. Retry a denied operation only with materially new relevant evidence
+and the required authorization. A skip receipt grants no retry permission.
+Review unresolved skips during later spot checks. If every project is skipped,
+retain the recovery index and report the blockers without opening an art-only PR.
+
+The `failure` artifact has exactly these fields:
+
+```json
+{
+  "schema_version": 1,
+  "plan_sha256": "<hash from the original checkpoint plan>",
+  "project_id": "<full 64-character catalog ID>",
+  "scope": "project",
+  "outcome": "no_output",
+  "operation": "<exact failed operation>",
+  "reason": "<verified project-local blocker>",
+  "recorded_at": "<UTC timestamp>",
+  "retry": "future_batch_review"
+}
+```
+
+Use `not_started` for a blocker established before generation was invoked, or
+`no_output` for a completed failure verified to have produced no image. Preserve
+older failure records as `evidence` when writing this reconciliation record.
 
 ## Offline helper
 
@@ -92,10 +142,13 @@ symlinks, unsafe paths, duplicate members, missing roles and hash mismatches.
 | --- | --- | --- |
 | `probe` | null | `probe` |
 | `generation` | One planned ID | `original`, `prompt`, `source`, `provenance` |
+| `skip` | One planned ID | `reservation`, `failure`, `evidence` |
 | `finalization` | One planned ID | `final`, `cutout`, `artwork_record`, `cutout_record`, `checksums` |
 | `publication` | null | `artwork_manifest`, `cutout_manifest`, `checksums`, `candidate`, `recovery_index` |
 
-Multiple source captures may have the `source` role. Generation provenance names
+Multiple source captures may have the `source` role; multiple failure captures
+may have the `evidence` role. A skip has exactly one `reservation` and `failure`.
+Generation provenance names
 the actual tool/model, returned output identity when available, date and project.
 Finalization records are each project's exact record object from the two
 manifests. Their `checksums` artifact is a JSON object keyed by the two
@@ -125,17 +178,22 @@ than expiring or credential-bearing URLs. Generation receipts go in
 `state/receipts/probes/`; the most recently verified probe governs the gate.
 `next` inspects the gate without reserving work. File writes and new directory
 entries are synchronized before success is reported; existing outputs are never
-overwritten.
+overwritten. The gate accepts either a generation receipt or a skip receipt for
+each reserved ID; conflicting receipts fail closed. Completed plans with skips
+return `generation_complete_with_skips` and list `skipped_project_ids`.
 
 ## Before GitHub uploads
 
-Restore-check all generation and finalization checkpoints. Build the small
+Restore-check all generation, finalization and skip checkpoints. Build the small
 `publication` archive containing full candidate manifests, asset checksums,
 candidate metadata and a recovery index. The candidate metadata includes its
 exact `candidate_revision`. The recovery index has `plan_sha256`, the same
-`candidate_revision`, and `images`, keyed by every planned project ID. Each image
-holds the full `generation` and `finalization` restore receipts. The helper
-checks coverage, identity and receipt structure. Keep restored archives in a
+`candidate_revision`, and `images`, keyed by completed project ID. Each image
+holds the full `generation` and `finalization` restore receipts. When projects
+were skipped, add `skips`, keyed by project ID, containing their full `skip`
+restore receipts. Every planned ID appears exactly once across `images` and
+`skips`. Existing all-image indices remain valid. The helper checks coverage,
+identity and receipt structure. Keep restored archives in a
 local directory named by their SHA-256 (`<sha256>.zip`), then run:
 
 ```sh
@@ -146,11 +204,13 @@ python3 scripts/artwork_checkpoint.py verify-candidate \
 
 This compares the candidate's image bytes, per-project records and checksum
 entries with the exact restored generation/finalization archives referenced by
-the index. Repackage, upload and restore-check every changed project before
+the index, and verifies every referenced skip archive. Skipped IDs must have no
+candidate artwork, cut-outs or checksum entries. Repackage, upload and restore-check every changed project before
 updating its index receipt. Separately verify that the clean candidate checkout
 is the recorded Git revision; the helper compares files and reads the revision
-label supplied in the index. Reconcile raced or skipped IDs
-explicitly in a new plan and retain the earlier plan's history. A changed plan
+label supplied in the index. Project-local no-output skips keep the original
+plan. Reconcile other membership changes, including raced IDs, explicitly in a
+new plan and retain the earlier plan's history. A changed plan
 invalidates its old receipts: repackage preserved originals/evidence under the
 new plan, upload and restore-check them, and reconstruct the reservation history
 before resuming. Reuse the actual originals; a plan change never calls for new

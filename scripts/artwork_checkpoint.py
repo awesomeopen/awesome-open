@@ -27,6 +27,7 @@ ROLES = {
     "probe": {"probe"},
     "generation": {"original", "prompt", "source", "provenance"},
     "finalization": {"final", "cutout", "artwork_record", "cutout_record", "checksums"},
+    "skip": {"reservation", "failure", "evidence"},
     "publication": {"artwork_manifest", "cutout_manifest", "checksums",
                     "candidate", "recovery_index"},
 }
@@ -108,7 +109,7 @@ def validate_manifest(manifest):
     kind, pid = manifest["kind"], manifest["project_id"]
     if kind not in ROLES:
         raise ValueError("Unknown checkpoint kind")
-    per_project = kind in {"generation", "finalization"}
+    per_project = kind in {"generation", "finalization", "skip"}
     if (per_project and pid not in manifest["plan"]["project_ids"]) or (not per_project and pid is not None):
         raise ValueError("Checkpoint project mismatch")
     entries = manifest["artifacts"]
@@ -136,6 +137,27 @@ def validate_manifest(manifest):
         raise ValueError("Missing required roles or checkpoint exceeds 32 MiB")
     if kind == "publication" and any(sum(e["role"] == role for e in entries) != 1 for role in ROLES[kind]):
         raise ValueError("Publication requires one artifact for each role")
+    if kind == "skip" and any(sum(e["role"] == role for e in entries) != 1 for role in ("reservation", "failure")):
+        raise ValueError("Skip requires one reservation and one failure record")
+
+
+def validate_failure(failure, plan_hash, project_id):
+    """Validate an operator's project-local, known-no-output reconciliation."""
+    if not isinstance(failure, dict) or set(failure) != {
+        "schema_version", "plan_sha256", "project_id", "scope", "outcome",
+        "operation", "reason", "recorded_at", "retry"
+    } or type(failure["schema_version"]) is not int or failure["schema_version"] != 1:
+        raise ValueError("Invalid skip failure record")
+    if (failure["plan_sha256"], failure["project_id"]) != (plan_hash, project_id):
+        raise ValueError("Skip failure belongs to another plan or project")
+    if failure["scope"] != "project" or failure["outcome"] not in ("not_started", "no_output"):
+        raise ValueError("Skip requires a project-local failure with known no output")
+    if failure["retry"] != "future_batch_review":
+        raise ValueError("Skipped projects require review before a future batch")
+    for name in ("operation", "reason"):
+        if not isinstance(failure[name], str) or not failure[name].strip() or len(failure[name]) > 4000:
+            raise ValueError("Skip requires the exact failed operation and reason")
+    timestamp(failure["recorded_at"])
 
 
 def create_archive(plan, kind, project_id, artifacts, root, output):
@@ -203,6 +225,12 @@ def inspect_archive_bytes(data):
             data = archive.read(entry["path"])
             if len(data) != entry["size_bytes"] or digest(data) != entry["sha256"]:
                 raise ValueError(f"Artifact hash mismatch: {entry['path']}")
+        if manifest["kind"] == "skip":
+            records = {entry["role"]: decode_json(archive.read(entry["path"]))
+                       for entry in manifest["artifacts"] if entry["role"] in ("reservation", "failure")}
+            if records["reservation"] != {"plan_sha256": manifest["plan_sha256"], "project_id": manifest["project_id"]}:
+                raise ValueError("Skip reservation differs from plan or project")
+            validate_failure(records["failure"], manifest["plan_sha256"], manifest["project_id"])
         if manifest["kind"] == "publication":
             index = next(e for e in manifest["artifacts"] if e["role"] == "recovery_index")
             recovery = decode_json(archive.read(index["path"]))
@@ -215,14 +243,24 @@ def inspect_archive_bytes(data):
 
 
 def validate_recovery_index(index, manifest):
-    if not isinstance(index, dict) or set(index) != {"plan_sha256", "candidate_revision", "images"}:
+    if not isinstance(index, dict) or set(index) not in (
+        {"plan_sha256", "candidate_revision", "images"},
+        {"plan_sha256", "candidate_revision", "images", "skips"}
+    ):
         raise ValueError("Invalid recovery index")
     if index["plan_sha256"] != manifest["plan_sha256"]:
         raise ValueError("Recovery index plan mismatch")
     if not isinstance(index["candidate_revision"], str) or not HEX40.fullmatch(index["candidate_revision"]):
         raise ValueError("Recovery index requires exact candidate revision")
-    if not isinstance(index["images"], dict) or set(index["images"]) != set(manifest["plan"]["project_ids"]):
+    skips = index.get("skips", {})
+    if not isinstance(index["images"], dict) or not isinstance(skips, dict):
+        raise ValueError("Recovery index images and skips must be objects")
+    if set(index["images"]) & set(skips):
+        raise ValueError("A project cannot have both artwork and a skip")
+    if set(index["images"]) | set(skips) != set(manifest["plan"]["project_ids"]):
         raise ValueError("Recovery index must cover every planned project")
+    for pid, receipt in skips.items():
+        validate_receipt(receipt, manifest["plan_sha256"], "skip", pid)
     for pid, receipts in index["images"].items():
         if not isinstance(receipts, dict) or set(receipts) != {"generation", "finalization"}:
             raise ValueError("Recovery index requires generation and finalization receipts")
@@ -239,15 +277,21 @@ def verify_candidate(plan, index, root, archives):
     cutouts = read_json(root / "site/specimens/cutouts.json")["cutouts"]
     lock = read_json(root / "brand/assets.lock.json")["files"]
     for pid in plan["project_ids"]:
-        for kind in ("generation", "finalization"):
-            receipt = index["images"][pid][kind]
+        skipped = pid in index.get("skips", {})
+        if skipped and (pid in art or pid in cutouts or any(
+            (root / path).exists() or path in lock for path in (
+                f"site/specimens/{pid}.webp", f"site/specimens/cutouts/{pid}.webp")
+        )):
+            raise ValueError(f"Skipped project has candidate artwork; reconcile its identity: {pid}")
+        for kind in (("skip",) if skipped else ("generation", "finalization")):
+            receipt = index["skips"][pid] if skipped else index["images"][pid][kind]
             path = archives / (receipt["archive_sha256"] + ".zip")
             manifest = inspect_archive(path)
             if digest(path.read_bytes()) != receipt["archive_sha256"]:
                 raise ValueError("Recovery archive differs from its receipt")
             if (manifest["plan_sha256"], manifest["kind"], manifest["project_id"]) != (plan_hash, kind, pid):
                 raise ValueError("Recovery archive belongs to another checkpoint")
-            if kind == "generation":
+            if kind in ("generation", "skip"):
                 continue
             roles = {}
             with zipfile.ZipFile(path) as archive:
@@ -269,7 +313,7 @@ def verify_candidate(plan, index, root, archives):
                 if data != roles[role] or lock[relative] != {"bytes": len(data), "sha256": digest(data)}:
                     raise ValueError(f"Candidate image differs from finalization: {pid}")
     return {"status": "candidate_files_match", "candidate_revision": index["candidate_revision"],
-            "project_count": len(plan["project_ids"])}
+            "project_count": len(index["images"]), "skipped_count": len(index.get("skips", {}))}
 
 
 def timestamp(value):
@@ -331,19 +375,26 @@ def next_project(plan, state, now=None):
         raise ValueError("Storage probe is stale or future-dated; round-trip again")
     started = state / "started"
     known = set(plan["project_ids"])
-    if started.exists() and any(p.name != p.stem + ".json" or p.stem not in known for p in started.iterdir()):
-        raise ValueError("Unknown generation marker")
+    for directory, label in ((started, "generation marker"), (state / "receipts/skips", "skip receipt")):
+        if directory.exists() and any(p.name != p.stem + ".json" or p.stem not in known for p in directory.iterdir()):
+            raise ValueError(f"Unknown {label}")
     next_id = None
     gap = False
     for pid in plan["project_ids"]:
         marker, receipt_path = started / f"{pid}.json", state / f"receipts/{pid}.json"
+        skip_path = state / f"receipts/skips/{pid}.json"
+        if skip_path.exists() and receipt_path.exists():
+            raise ValueError("A project cannot have both a generation and skip receipt")
+        kind = "skip" if skip_path.exists() else "generation"
+        if kind == "skip":
+            receipt_path = skip_path
         if marker.exists():
             if gap or read_json(marker) != {"plan_sha256": plan_hash, "project_id": pid}:
                 raise ValueError("Generation markers conflict with plan order")
             if not receipt_path.exists():
                 raise ValueError(f"Recover outstanding image before generation: {pid}")
             receipt = read_json(receipt_path)
-            validate_receipt(receipt, plan_hash, "generation", pid)
+            validate_receipt(receipt, plan_hash, kind, pid)
             if timestamp(receipt["verified_at"]) > now:
                 raise ValueError("Future-dated image receipt")
             if {k: receipt["storage"][k] for k in ("provider", "destination")} != {
@@ -352,7 +403,7 @@ def next_project(plan, state, now=None):
                 raise ValueError("Image receipt and current storage probe destination differ")
         else:
             if receipt_path.exists():
-                raise ValueError("Unreserved image receipt; reconcile the interrupted state")
+                raise ValueError("Unreserved image or skip receipt; reconcile the interrupted state")
             gap = True
             next_id = next_id or pid
     return next_id
@@ -424,8 +475,10 @@ def main(argv=None):
         else:
             method = begin if args.command == "begin" else next_project
             pid = method(read_json(args.plan), args.state)
-            result = {"status": "reserved" if pid and args.command == "begin" else "ready" if pid else "generation_complete",
-                      "project_id": pid}
+            skipped = sorted(p.stem for p in (Path(args.state) / "receipts/skips").glob("*.json"))
+            result = {"status": "reserved" if pid and args.command == "begin" else "ready" if pid else
+                      "generation_complete_with_skips" if skipped else "generation_complete",
+                      "project_id": pid, "skipped_project_ids": skipped}
         print(json.dumps(result, indent=2))
         return 0
     except (ValueError, TypeError, KeyError, OSError, zipfile.BadZipFile, RuntimeError) as exc:
