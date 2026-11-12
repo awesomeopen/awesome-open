@@ -1211,8 +1211,23 @@
       "verified": 0,
       "updated": 0,
       "deferred": 0,
-      "pr": null,
+      "pr": 327,
       "notes": "Slot A. Reselection after main moved to 7d8fa18 kept this batch. OpenPencil's hosted page is not a run mode. OpenMM-Setup is a separate package. The OpenEBS page states kernel 5.15 as required and 5.13 as recommended for Mayastor."
+    },
+    {
+      "run_id": "2026-11-12T2147Z-kanzler-B",
+      "date": "2026-11-12",
+      "agent": "Kanzler (AI)",
+      "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+      "mode": "backfill",
+      "selected": 0,
+      "proposed": 0,
+      "skipped": 0,
+      "verified": 0,
+      "updated": 0,
+      "deferred": 0,
+      "pr": null,
+      "notes": "Size guard: catalog.json 2326284/2392064 bytes, headroom 64.2 KiB, below 100 KiB. Added no records. Phase L required. Publisher commits after PR 327 grew catalog.json by 42890 bytes from the 106.1 KiB headroom reported on that PR."
     }
   ]
 }
