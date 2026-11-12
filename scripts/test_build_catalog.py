@@ -218,6 +218,22 @@ class CatalogTests(unittest.TestCase):
         source = self.source.replace("https://github.com/example/open", "https://example.com/Open")
         self.assertIsNone(self.build(source)["projects"][0]["hn"])
 
+    def test_hn_membership_includes_candidates_without_inflating_matched_count(self):
+        record = self.add_hn(eligible=False)
+        for matched, broad, visible in ((0, None, False), (1, None, True),
+                                        (0, 0, False), (0, 7, True), (2, 7, True)):
+            with self.subTest(matched=matched, broad=broad):
+                record['story_count'] = matched
+                record.pop('broad_story_count', None)
+                record.pop('broad_search_url', None)
+                if broad is not None:
+                    record.update(broad_story_count=broad, broad_search_url=record['search_url'])
+                attention = self.build()['projects'][0]['hn']
+                self.assertEqual(attention is not None, visible)
+                if visible:
+                    self.assertEqual(attention['total_stories'], matched)
+                    self.assertEqual(attention.get('broad_total_stories'), broad)
+
     def test_hn_slug_path_traversal_and_duplicates_fail(self):
         record = self.add_hn()
         for slug in ("../open", "foo/bar", "Open", "open.svg", "", "a\\b"):
@@ -325,7 +341,8 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual({p['url'] for p in result['projects'] if p['alternatives']},
                          {catalog.canonical_url(p['readme_url']) for p in alternatives['projects']} & urls)
         self.assertEqual({p['url'] for p in result['projects'] if p['hn']},
-                         {catalog.canonical_url(p['readme_url']) for p in evidence['projects'] if p['story_count'] > 0} & urls)
+                         {catalog.canonical_url(p['readme_url']) for p in evidence['projects']
+                          if p['story_count'] > 0 or p.get('broad_story_count', 0) > 0} & urls)
         by_url = {item["url"]: item for item in result["projects"]}
         for row in source.splitlines():
             match = catalog.readme.ENTRY.fullmatch(row)

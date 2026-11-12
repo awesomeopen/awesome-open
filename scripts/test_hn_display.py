@@ -56,6 +56,32 @@ class DisplayTests(unittest.TestCase):
             self.assertEqual(list(Path(folder).glob('*.svg')), [])
         self.assertEqual(hn.display_evidence(dict(projects=[]))['shared_monthly_maximum'], 1)
 
+    def test_mixed_legacy_and_dual_collections_keep_candidate_only_charts(self):
+        projects = [project('Legacy', [1] + [0] * 23),
+                    project('Candidates', [0] * 24),
+                    project('Both', [2] + [0] * 23),
+                    project('Empty', [0] * 24)]
+        for p, count in zip(projects[1:], (7, 4, 0)):
+            p.update(broad_story_count=count, broad_monthly_counts=[count] + [0] * 23,
+                     broad_search_url=p['search_url'],
+                     broad_stories=[dict(id=str(i + 1), title='Candidate',
+                                         created_at='2024-11-01T00:00:00+00:00')
+                                    for i in range(count)])
+        evidence = dict(projects=projects, months=hn.window()[2])
+        before = deepcopy(evidence)
+        source = '\n'.join('| [{name}]({readme_url}) | Description. |'.format(**p) for p in projects)
+        display = render_readme.display_hn_evidence(source, evidence)
+        self.assertEqual({p['name'] for p in display['projects'] if hn.chart_displayable(p)},
+                         {'Legacy', 'Candidates', 'Both'})
+        self.assertEqual(display['shared_monthly_maximum'], 7)
+        self.assertEqual(hn.decorate_readme(source, display).count('HN:START'), 3)
+        with tempfile.TemporaryDirectory() as folder:
+            hn.render(display, Path(folder))
+            self.assertEqual({p.name for p in Path(folder).glob('*.svg')},
+                             {'legacy.svg', 'candidates.svg', 'candidates-comparison.svg',
+                              'both.svg', 'both-comparison.svg'})
+        self.assertEqual(evidence, before)
+
     def test_single_and_multiple_story_charts_keep_search_links(self):
         projects = [project('Single', [1] + [0] * 23), project('Several', [3] + [0] * 23),
                     project('Zero', [0] * 24)]
@@ -80,7 +106,8 @@ class DisplayTests(unittest.TestCase):
         display = render_readme.display_hn_evidence((ROOT / 'README.source.md').read_text(), evidence)
         self.assertEqual(display['queue'], evidence['queue'])
         self.assertEqual(sum(hn.chart_displayable(p) for p in display['projects']),
-                         sum(p['story_count'] > 0 for p in evidence['projects']))
+                         sum(p['story_count'] > 0 or p.get('broad_story_count', 0) > 0
+                             for p in evidence['projects']))
         self.assertEqual((evidence, archive), before)
         hn.validate_queue(evidence)
         chart_observations.validate(archive)
