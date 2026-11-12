@@ -282,7 +282,7 @@ Editorial hand: release, Scorecard and reviewed alternatives read as separate ac
 
 Folded names include a small HN trace of possible title/URL matches where collected; hide that duplicate trace while the record is open. Clicking the trace opens the drawer; the plate holds the evidence links. The plate overlays the matched subset with narrower scarlet bars over gray candidate bars. Both series share month positions, a zero baseline and one cube-root scale; equal monthly counts have equal heights. Visible “possible” and “matched” count links open their respective evidence lists. Existing caches remain labeled matched-only until broader collection completes. The method disclosure explains candidate and identity-matched coverage. Scoreboard rankings use the matched subset. License, star count and date values use the accessible scarlet token. Omit the rule beneath artwork and the generic feature-parity caveat beneath alternatives; retain each reviewed scope and its source.
 
-Proposed next data extension: keep the existing short description for folded rows and add an independently reviewed function summary from the official README or documentation. Record its source URL, checked date and source revision when available. Do not expand sparse prose with random claims or infer capabilities from popularity/activity metrics. Missing summaries fall back to the existing description. This is a proposal, not an enabled automation.
+Reviewed Function summaries expand the short folded description in the plate. Follow the [summary contract](FUNCTION-SUMMARIES.md) for source evidence, review and publication, and the [automation inventory](../automation/README.md#enrichment-jobs) for backfill ownership.
 
 ### Reviewed Function summaries — implemented proposal
 
