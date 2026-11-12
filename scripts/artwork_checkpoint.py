@@ -28,6 +28,7 @@ ROLES = {
     "generation": {"original", "prompt", "source", "provenance"},
     "finalization": {"final", "cutout", "artwork_record", "cutout_record", "checksums"},
     "skip": {"reservation", "failure", "evidence"},
+    "quarantine": {"reservation", "failure", "evidence"},
     "publication": {"artwork_manifest", "cutout_manifest", "checksums",
                     "candidate", "recovery_index"},
 }
@@ -109,7 +110,7 @@ def validate_manifest(manifest):
     kind, pid = manifest["kind"], manifest["project_id"]
     if kind not in ROLES:
         raise ValueError("Unknown checkpoint kind")
-    per_project = kind in {"generation", "finalization", "skip"}
+    per_project = kind in {"generation", "finalization", "skip", "quarantine"}
     if (per_project and pid not in manifest["plan"]["project_ids"]) or (not per_project and pid is not None):
         raise ValueError("Checkpoint project mismatch")
     entries = manifest["artifacts"]
@@ -137,8 +138,8 @@ def validate_manifest(manifest):
         raise ValueError("Missing required roles or checkpoint exceeds 32 MiB")
     if kind == "publication" and any(sum(e["role"] == role for e in entries) != 1 for role in ROLES[kind]):
         raise ValueError("Publication requires one artifact for each role")
-    if kind == "skip" and any(sum(e["role"] == role for e in entries) != 1 for role in ("reservation", "failure")):
-        raise ValueError("Skip requires one reservation and one failure record")
+    if kind in ("skip", "quarantine") and any(sum(e["role"] == role for e in entries) != 1 for role in ("reservation", "failure")):
+        raise ValueError("Skip or quarantine requires one reservation and one failure record")
 
 
 def validate_failure(failure, plan_hash, project_id):
@@ -157,6 +158,33 @@ def validate_failure(failure, plan_hash, project_id):
     for name in ("operation", "reason"):
         if not isinstance(failure[name], str) or not failure[name].strip() or len(failure[name]) > 4000:
             raise ValueError("Skip requires the exact failed operation and reason")
+    timestamp(failure["recorded_at"])
+
+
+def validate_quarantine(failure, plan_hash, project_id):
+    """Validate a retained terminal project rejection with unknown backend output.
+
+    The operator verifies the terminal response and absence of returned artifacts.
+    This record holds the project for review; it grants no retry permission.
+    """
+    if not isinstance(failure, dict) or set(failure) != {
+        "schema_version", "plan_sha256", "project_id", "scope", "outcome",
+        "operation", "reason", "recorded_at", "retry", "request_state",
+        "returned_artifacts", "failure_class"
+    } or type(failure["schema_version"]) is not int or failure["schema_version"] != 1:
+        raise ValueError("Invalid quarantine failure record")
+    if (failure["plan_sha256"], failure["project_id"]) != (plan_hash, project_id):
+        raise ValueError("Quarantine failure belongs to another plan or project")
+    if (failure["scope"], failure["outcome"], failure["request_state"],
+        failure["returned_artifacts"], failure["failure_class"]) != (
+        "project", "unknown_output", "terminal_failure", "none", "project_rejection"
+    ):
+        raise ValueError("Quarantine requires a terminal project rejection with no returned artifacts")
+    if failure["retry"] != "blocked_pending_review":
+        raise ValueError("Quarantined projects remain blocked pending review")
+    for name in ("operation", "reason"):
+        if not isinstance(failure[name], str) or not failure[name].strip() or len(failure[name]) > 4000:
+            raise ValueError("Quarantine requires the exact failed operation and reason")
     timestamp(failure["recorded_at"])
 
 
@@ -225,12 +253,13 @@ def inspect_archive_bytes(data):
             data = archive.read(entry["path"])
             if len(data) != entry["size_bytes"] or digest(data) != entry["sha256"]:
                 raise ValueError(f"Artifact hash mismatch: {entry['path']}")
-        if manifest["kind"] == "skip":
+        if manifest["kind"] in ("skip", "quarantine"):
             records = {entry["role"]: decode_json(archive.read(entry["path"]))
                        for entry in manifest["artifacts"] if entry["role"] in ("reservation", "failure")}
             if records["reservation"] != {"plan_sha256": manifest["plan_sha256"], "project_id": manifest["project_id"]}:
-                raise ValueError("Skip reservation differs from plan or project")
-            validate_failure(records["failure"], manifest["plan_sha256"], manifest["project_id"])
+                raise ValueError("Skip reservation or quarantine reservation differs from plan or project")
+            validator = validate_failure if manifest["kind"] == "skip" else validate_quarantine
+            validator(records["failure"], manifest["plan_sha256"], manifest["project_id"])
         if manifest["kind"] == "publication":
             index = next(e for e in manifest["artifacts"] if e["role"] == "recovery_index")
             recovery = decode_json(archive.read(index["path"]))
@@ -245,7 +274,9 @@ def inspect_archive_bytes(data):
 def validate_recovery_index(index, manifest):
     if not isinstance(index, dict) or set(index) not in (
         {"plan_sha256", "candidate_revision", "images"},
-        {"plan_sha256", "candidate_revision", "images", "skips"}
+        {"plan_sha256", "candidate_revision", "images", "skips"},
+        {"plan_sha256", "candidate_revision", "images", "quarantines"},
+        {"plan_sha256", "candidate_revision", "images", "skips", "quarantines"}
     ):
         raise ValueError("Invalid recovery index")
     if index["plan_sha256"] != manifest["plan_sha256"]:
@@ -253,14 +284,19 @@ def validate_recovery_index(index, manifest):
     if not isinstance(index["candidate_revision"], str) or not HEX40.fullmatch(index["candidate_revision"]):
         raise ValueError("Recovery index requires exact candidate revision")
     skips = index.get("skips", {})
-    if not isinstance(index["images"], dict) or not isinstance(skips, dict):
-        raise ValueError("Recovery index images and skips must be objects")
+    quarantines = index.get("quarantines", {})
+    if any(not isinstance(group, dict) for group in (index["images"], skips, quarantines)):
+        raise ValueError("Recovery index images, skips and quarantines must be objects")
     if set(index["images"]) & set(skips):
         raise ValueError("A project cannot have both artwork and a skip")
-    if set(index["images"]) | set(skips) != set(manifest["plan"]["project_ids"]):
+    if set(quarantines) & (set(index["images"]) | set(skips)):
+        raise ValueError("A quarantined project cannot also have artwork or a skip")
+    if set(index["images"]) | set(skips) | set(quarantines) != set(manifest["plan"]["project_ids"]):
         raise ValueError("Recovery index must cover every planned project")
     for pid, receipt in skips.items():
         validate_receipt(receipt, manifest["plan_sha256"], "skip", pid)
+    for pid, receipt in quarantines.items():
+        validate_receipt(receipt, manifest["plan_sha256"], "quarantine", pid)
     for pid, receipts in index["images"].items():
         if not isinstance(receipts, dict) or set(receipts) != {"generation", "finalization"}:
             raise ValueError("Recovery index requires generation and finalization receipts")
@@ -278,20 +314,24 @@ def verify_candidate(plan, index, root, archives):
     lock = read_json(root / "brand/assets.lock.json")["files"]
     for pid in plan["project_ids"]:
         skipped = pid in index.get("skips", {})
-        if skipped and (pid in art or pid in cutouts or any(
+        quarantined = pid in index.get("quarantines", {})
+        if (skipped or quarantined) and (pid in art or pid in cutouts or any(
             (root / path).exists() or path in lock for path in (
                 f"site/specimens/{pid}.webp", f"site/specimens/cutouts/{pid}.webp")
         )):
-            raise ValueError(f"Skipped project has candidate artwork; reconcile its identity: {pid}")
-        for kind in (("skip",) if skipped else ("generation", "finalization")):
-            receipt = index["skips"][pid] if skipped else index["images"][pid][kind]
+            label = "Quarantined" if quarantined else "Skipped"
+            raise ValueError(f"{label} project has candidate artwork; reconcile its identity: {pid}")
+        held_kind = "quarantine" if quarantined else "skip" if skipped else None
+        held_group = "quarantines" if quarantined else "skips"
+        for kind in ((held_kind,) if held_kind else ("generation", "finalization")):
+            receipt = index[held_group][pid] if held_kind else index["images"][pid][kind]
             path = archives / (receipt["archive_sha256"] + ".zip")
             manifest = inspect_archive(path)
             if digest(path.read_bytes()) != receipt["archive_sha256"]:
                 raise ValueError("Recovery archive differs from its receipt")
             if (manifest["plan_sha256"], manifest["kind"], manifest["project_id"]) != (plan_hash, kind, pid):
                 raise ValueError("Recovery archive belongs to another checkpoint")
-            if kind in ("generation", "skip"):
+            if kind in ("generation", "skip", "quarantine"):
                 continue
             roles = {}
             with zipfile.ZipFile(path) as archive:
@@ -313,7 +353,8 @@ def verify_candidate(plan, index, root, archives):
                 if data != roles[role] or lock[relative] != {"bytes": len(data), "sha256": digest(data)}:
                     raise ValueError(f"Candidate image differs from finalization: {pid}")
     return {"status": "candidate_files_match", "candidate_revision": index["candidate_revision"],
-            "project_count": len(index["images"]), "skipped_count": len(index.get("skips", {}))}
+            "project_count": len(index["images"]), "skipped_count": len(index.get("skips", {})),
+            "quarantined_count": len(index.get("quarantines", {}))}
 
 
 def timestamp(value):
@@ -375,7 +416,8 @@ def next_project(plan, state, now=None):
         raise ValueError("Storage probe is stale or future-dated; round-trip again")
     started = state / "started"
     known = set(plan["project_ids"])
-    for directory, label in ((started, "generation marker"), (state / "receipts/skips", "skip receipt")):
+    for directory, label in ((started, "generation marker"), (state / "receipts/skips", "skip receipt"),
+                             (state / "receipts/quarantines", "quarantine receipt")):
         if directory.exists() and any(p.name != p.stem + ".json" or p.stem not in known for p in directory.iterdir()):
             raise ValueError(f"Unknown {label}")
     next_id = None
@@ -385,9 +427,14 @@ def next_project(plan, state, now=None):
         skip_path = state / f"receipts/skips/{pid}.json"
         if skip_path.exists() and receipt_path.exists():
             raise ValueError("A project cannot have both a generation and skip receipt")
-        kind = "skip" if skip_path.exists() else "generation"
-        if kind == "skip":
-            receipt_path = skip_path
+        quarantine_path = state / f"receipts/quarantines/{pid}.json"
+        if quarantine_path.exists() and (skip_path.exists() or receipt_path.exists()):
+            raise ValueError("A quarantined project cannot also have generation or skip receipts")
+        if quarantine_path.exists() and (state / f"finalization/{pid}").exists():
+            raise ValueError("A quarantined project cannot have finalization output")
+        kind = "quarantine" if quarantine_path.exists() else "skip" if skip_path.exists() else "generation"
+        if kind != "generation":
+            receipt_path = quarantine_path if kind == "quarantine" else skip_path
         if marker.exists():
             if gap or read_json(marker) != {"plan_sha256": plan_hash, "project_id": pid}:
                 raise ValueError("Generation markers conflict with plan order")
@@ -403,7 +450,7 @@ def next_project(plan, state, now=None):
                 raise ValueError("Image receipt and current storage probe destination differ")
         else:
             if receipt_path.exists():
-                raise ValueError("Unreserved image or skip receipt; reconcile the interrupted state")
+                raise ValueError("Unreserved image, skip or quarantine receipt; reconcile the interrupted state")
             gap = True
             next_id = next_id or pid
     return next_id
@@ -476,9 +523,12 @@ def main(argv=None):
             method = begin if args.command == "begin" else next_project
             pid = method(read_json(args.plan), args.state)
             skipped = sorted(p.stem for p in (Path(args.state) / "receipts/skips").glob("*.json"))
+            quarantined = sorted(p.stem for p in (Path(args.state) / "receipts/quarantines").glob("*.json"))
             result = {"status": "reserved" if pid and args.command == "begin" else "ready" if pid else
+                      "generation_processed_with_holds" if quarantined else
                       "generation_complete_with_skips" if skipped else "generation_complete",
-                      "project_id": pid, "skipped_project_ids": skipped}
+                      "project_id": pid, "skipped_project_ids": skipped,
+                      "quarantined_project_ids": quarantined}
         print(json.dumps(result, indent=2))
         return 0
     except (ValueError, TypeError, KeyError, OSError, zipfile.BadZipFile, RuntimeError) as exc:
