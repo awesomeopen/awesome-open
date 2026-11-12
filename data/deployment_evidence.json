@@ -6655,6 +6655,1782 @@
           ]
         }
       ]
+    },
+    "12ebff74e851ffb8e9ae5c84fc7b08e0f70c39565cfe39d3fae4eba8c45dfa75": {
+      "project_url": "https://github.com/acidanthera/opencorepkg",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README identifies the bootloader and SDK. It does not document a packaged installer. The recorded setup is the repository build script.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/acidanthera/OpenCorePkg/blob/ebea824880706ac9faa8ee45604245de62be658b/README.md",
+          "title": "OpenCorePkg README",
+          "kind": "upstream_repository",
+          "revision": "ebea824880706ac9faa8ee45604245de62be658b"
+        },
+        "build": {
+          "url": "https://github.com/acidanthera/OpenCorePkg/blob/ebea824880706ac9faa8ee45604245de62be658b/build_oc.tool",
+          "title": "OpenCorePkg build_oc.tool",
+          "kind": "upstream_repository",
+          "revision": "ebea824880706ac9faa8ee45604245de62be658b"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "OpenCorePkg is the OpenCore bootloader.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "firmware"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "build_oc.tool is the repository script that builds OpenCorePkg and its utilities.",
+          "source_ids": [
+            "build"
+          ],
+          "value": "source"
+        }
+      ]
+    },
+    "bbf06f292bc52c53f3d0053a3abce42da5f504d64afa90fe3a83b30c5df712dd": {
+      "project_url": "https://github.com/cmusatyalab/openface",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Setup is documented for Linux and OS X, tested on Ubuntu 14.04 and OS X 10.10, with a warning for architectures other than 64-bit x86. The conda path uses Python 2.7.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/cmusatyalab/openface/blob/99b7241a8748421e2c5e32ccf7581c08e513e79e/README.md",
+          "title": "OpenFace README",
+          "kind": "upstream_repository",
+          "revision": "99b7241a8748421e2c5e32ccf7581c08e513e79e"
+        },
+        "setup": {
+          "url": "https://cmusatyalab.github.io/openface/setup/",
+          "title": "OpenFace setup",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The repository contains the openface Python library.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "library"
+        },
+        {
+          "scope": "The README lists a real-time web demo in demos/web.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "local_web"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "The setup page recommends the pre-built bamos/openface image unless you build Linux software from source.",
+          "source_ids": [
+            "setup"
+          ],
+          "value": "container"
+        },
+        {
+          "scope": "A conda path for OS X and GNU/Linux creates a Python 2.7 environment and installs the listed dependencies.",
+          "source_ids": [
+            "setup"
+          ],
+          "value": "package_manager"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Instructions are for Linux and OS X. The page names Ubuntu 14.04 and OS X 10.10 as tested.",
+          "source_ids": [
+            "setup"
+          ],
+          "value": "Linux / OS X"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "The setup page calls bamos/openface the project's pre-built automated image.",
+          "source_ids": [
+            "setup"
+          ],
+          "ecosystem": "Docker Hub",
+          "coordinate": "bamos/openface",
+          "channel": "automated build",
+          "status": "documented",
+          "upstream_relationship": "upstream"
+        }
+      ]
+    },
+    "9647b08a450e2820321356b14c26a4d83d9e488a56feb6af3c0938d4383643cd": {
+      "project_url": "https://github.com/thesysdev/openui",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Covers the README quick start and package install commands, plus the npm registry entries fetched the same day.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/thesysdev/openui/blob/8202fc7b183490bec7682440e7c94a8fb4f397b0/README.md",
+          "title": "OpenUI README",
+          "kind": "upstream_repository",
+          "revision": "8202fc7b183490bec7682440e7c94a8fb4f397b0"
+        },
+        "npm_cli": {
+          "url": "https://registry.npmjs.org/@openuidev%2Fcli",
+          "title": "npm @openuidev/cli",
+          "kind": "registry"
+        },
+        "npm_react": {
+          "url": "https://registry.npmjs.org/@openuidev%2Freact-lang",
+          "title": "npm @openuidev/react-lang",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The README documents npm packages for rendering streamed UI in React, Vue, Svelte, and Angular.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "library"
+        },
+        {
+          "scope": "npx @openuidev/cli@latest create scaffolds an application from the command line.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "cli"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "The README gives npm install commands for the language runtimes and the CLI create command.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "package_manager"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "Registry repository is github.com/thesysdev/openui. Latest tag fetched was 0.6.3.",
+          "source_ids": [
+            "readme",
+            "npm_cli"
+          ],
+          "ecosystem": "npm",
+          "coordinate": "@openuidev/cli",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream"
+        },
+        {
+          "scope": "Registry repository is github.com/thesysdev/openui. Latest tag fetched was 1.1.0.",
+          "source_ids": [
+            "readme",
+            "npm_react"
+          ],
+          "ecosystem": "npm",
+          "coordinate": "@openuidev/react-lang",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream"
+        }
+      ]
+    },
+    "8946eb62f7ed8d372772f38d12406e95efd28f4552d90a9dc2693fbf6a949141": {
+      "project_url": "https://github.com/openvpn/openvpn",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README's community-downloads link resolves to the community download page. Linux distribution packages are not named there.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/OpenVPN/openvpn/blob/83c988d49fddc7e0ad9c40741ab6f391f236ed45/README",
+          "title": "OpenVPN README",
+          "kind": "upstream_repository",
+          "revision": "83c988d49fddc7e0ad9c40741ab6f391f236ed45"
+        },
+        "downloads": {
+          "url": "https://openvpn.net/community/",
+          "title": "OpenVPN community downloads",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The README describes OpenVPN as a tunneling daemon built and installed from source.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "cli"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "The README documents ./configure, make, and make install from the source tarball.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        },
+        {
+          "scope": "Windows installers include the GUI client and a system service daemon, for x86-64, ARM64, and x86.",
+          "source_ids": [
+            "downloads"
+          ],
+          "value": "installer"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The community MSI is supported on Windows 10 and later, including Windows Server editions.",
+          "source_ids": [
+            "downloads"
+          ],
+          "value": "Windows 10 and later"
+        }
+      ]
+    },
+    "00898489ed72fd55e12dd50a965973e95ccb79411eade2298ab10e31fe05761d": {
+      "project_url": "https://github.com/open-llm-vtuber/open-llm-vtuber",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README quick-start link resolves to the English guide on docs.llmvtuber.com. The Electron client is published from the separate Open-LLM-VTuber-Web releases. The guide's default stack is Ollama, sherpa-onnx-asr, and edge_tts.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md",
+          "title": "Open-LLM-VTuber README",
+          "kind": "upstream_repository",
+          "revision": "992309c0aa19845960228f880013d4685fde93b5"
+        },
+        "quick": {
+          "url": "https://docs.llmvtuber.com/en/docs/quick-start/",
+          "title": "Open-LLM-VTuber quick start",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "uv run run_server.py starts the backend used with the browser.",
+          "source_ids": [
+            "quick"
+          ],
+          "value": "server"
+        },
+        {
+          "scope": "The guide recommends Chrome for the interface and documents an Electron window and desktop-pet client.",
+          "source_ids": [
+            "quick"
+          ],
+          "value": "local_web"
+        },
+        {
+          "scope": "Windows .exe and macOS .dmg Electron clients are downloaded from Open-LLM-VTuber-Web releases and need the backend running.",
+          "source_ids": [
+            "quick"
+          ],
+          "value": "desktop"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Clone with --recursive, install uv, then uv sync. pip install -r requirements.txt is also documented.",
+          "source_ids": [
+            "quick"
+          ],
+          "value": "source"
+        },
+        {
+          "scope": "The Electron client is a downloaded .exe or .dmg from the Web releases.",
+          "source_ids": [
+            "quick"
+          ],
+          "value": "installer"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Git and FFmpeg install sections name Windows, macOS, and Linux.",
+          "source_ids": [
+            "quick"
+          ],
+          "value": "Windows / macOS / Linux"
+        }
+      ],
+      "external_services": [
+        {
+          "scope": "The default guide uses Ollama and says an OpenAI-compatible API can replace it.",
+          "source_ids": [
+            "quick"
+          ],
+          "name": "Ollama or an OpenAI-compatible API",
+          "requirement": "configuration-dependent"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "FFmpeg is a required dependency for this deployment.",
+          "source_ids": [
+            "quick"
+          ],
+          "kind": "minimum",
+          "note": "FFmpeg must be installed."
+        }
+      ]
+    },
+    "977cc08ae17462a3692fdb52bd8c298fa091201b7a44c99f6c14ba55df1a5843": {
+      "project_url": "https://github.com/sfttech/openage",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README says gameplay is currently non-functional and that playing requires original Age of Empires assets. The project does not publish its own deb, rpm, Flatpak, snap, or AppImage packages.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/SFTtech/openage/blob/6d147f488b1f19669e7e113c594a0c09a8dbb63a/README.md",
+          "title": "openage README",
+          "kind": "upstream_repository",
+          "revision": "6d147f488b1f19669e7e113c594a0c09a8dbb63a"
+        },
+        "building": {
+          "url": "https://github.com/SFTtech/openage/blob/6d147f488b1f19669e7e113c594a0c09a8dbb63a/doc/building.md",
+          "title": "openage building guide",
+          "kind": "upstream_repository",
+          "revision": "6d147f488b1f19669e7e113c594a0c09a8dbb63a"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "After the build, the README says to run the program with cd bin && ./run main.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "desktop"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Quickstart: clone, install dependencies, then ./configure --download-nyan and make.",
+          "source_ids": [
+            "readme",
+            "building"
+          ],
+          "value": "source"
+        },
+        {
+          "scope": "The README documents an alternative Docker build and run path.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "container"
+        },
+        {
+          "scope": "Windows users are pointed to the release page for the latest installer.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "installer"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The README names Linux, Windows, and macOS. macOS and Linux have no project packages and are built from source.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "Linux / Windows / macOS"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Playing uses converted assets from AoE1, AoE2, or a Definitive Edition.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "constraint",
+          "note": "Original Age of Empires game assets are required to play."
+        }
+      ]
+    },
+    "61d99c8db9f65977ee0dd2fdcf4755b2e254d9769646d54dbd029888fef428eb": {
+      "project_url": "https://github.com/open-jarvis/openjarvis",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README install section is the install doc. jarvis gui from a source checkout needs Node.js 22 or later; the packaged desktop installers are a separate download.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/open-jarvis/OpenJarvis/blob/6201505cd3425079459589f54764667b4758ce48/README.md",
+          "title": "OpenJarvis README",
+          "kind": "upstream_repository",
+          "revision": "6201505cd3425079459589f54764667b4758ce48"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The jarvis command starts the default chat.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "cli"
+        },
+        {
+          "scope": "jarvis gui starts a local API and frontend and opens the chat in the browser.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "local_web"
+        },
+        {
+          "scope": "Desktop GUI downloads are .exe, .dmg, .deb, .rpm, and .AppImage builds.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "desktop"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "macOS, Linux, and WSL2 use the install.sh one-liner. Native Windows uses install.ps1.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "installer"
+        },
+        {
+          "scope": "Desktop GUI packages are downloaded from the latest GitHub release.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "binary"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The install table names macOS, Linux, WSL2, and native Windows.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "macOS / Linux / WSL2 / Windows"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Applies to jarvis gui from a source checkout, not to the packaged desktop installers.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "minimum",
+          "note": "Node.js 22 or later for the source-checkout graphical interface."
+        }
+      ]
+    },
+    "e613d35c39dc202308882b06ad9484d426aed9721c9a059bd87f7c9be27bd951": {
+      "project_url": "https://github.com/krillinai/opencreator",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Desktop installers and the web-from-source path are both in the README quick start. Real model tasks use a ChatGPT sign-in, an API key, or another configured provider.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/krillinai/OpenCreator/blob/983a0bfa003bb6939703dc24df47eb3f7d98a883/README.md",
+          "title": "OpenCreator README",
+          "kind": "upstream_repository",
+          "revision": "983a0bfa003bb6939703dc24df47eb3f7d98a883"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The desktop app launches a local runtime and a window.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "desktop"
+        },
+        {
+          "scope": "pnpm web:dev serves the browser app at http://127.0.0.1:19861/.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "local_web"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Desktop installers are downloaded for macOS Apple Silicon, macOS Intel, and Windows x64.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "installer"
+        },
+        {
+          "scope": "The web path clones the repository and runs corepack enable, pnpm install, and pnpm web:dev.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Desktop installers are listed for macOS Apple Silicon, macOS Intel, and Windows x64.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "macOS Apple Silicon / macOS Intel / Windows x64"
+        }
+      ],
+      "external_services": [
+        {
+          "scope": "Real model tasks require a usable ChatGPT sign-in or API key, and the startup flow can select another provider.",
+          "source_ids": [
+            "readme"
+          ],
+          "name": "ChatGPT or another model provider",
+          "requirement": "configuration-dependent"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Applies to the desktop installer. It includes Codex CLI.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "default",
+          "note": "The desktop app is installed and opened without a separate Node.js or pnpm setup."
+        },
+        {
+          "scope": "Applies to running the web app from source.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "minimum",
+          "note": "Node.js 22 or later, pnpm 9.15.0, and a Codex CLI executable."
+        }
+      ]
+    },
+    "401437d296950840c94b759fd1ee341c9acd87c40cb3709996c28b4fb217779a": {
+      "project_url": "https://github.com/evilsocket/opensnitch",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README download and installation section is the install doc used here. The linked wiki was not copied into this record.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/evilsocket/opensnitch/blob/a1353848ba1b660320e90cefea782c3fba272c00/README.md",
+          "title": "OpenSnitch README",
+          "kind": "upstream_repository",
+          "revision": "a1353848ba1b660320e90cefea782c3fba272c00"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "After install, the README says to run opensnitch-ui or launch the GUI from the applications menu.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "desktop"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Download the release deb or rpm, then apt install the deb packages or dnf install the rpm.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "package_manager"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The README describes OpenSnitch as a GNU/Linux application firewall.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "GNU/Linux"
+        }
+      ]
+    },
+    "80862cbd9c524c35c3464f40ea9115665a9f7ecc857d4d510d4ae8e69d0324fd": {
+      "project_url": "https://github.com/mlfoundations/open_clip",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Covers the README usage and training-install sections and the PyPI entry fetched the same day. Host operating systems are not listed.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/mlfoundations/open_clip/blob/4cc208d3a44a2fb6d6435006a46f520d2ccc29b1/README.md",
+          "title": "OpenCLIP README",
+          "kind": "upstream_repository",
+          "revision": "4cc208d3a44a2fb6d6435006a46f520d2ccc29b1"
+        },
+        "pypi": {
+          "url": "https://pypi.org/pypi/open_clip_torch/json",
+          "title": "PyPI open_clip_torch",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The usage section imports open_clip from Python to encode images and text.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "library"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Usage documents pip install open_clip_torch. Training uses pip install 'open_clip_torch[training]'.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "package_manager"
+        },
+        {
+          "scope": "Development clones the repository and runs make install inside a virtualenv.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "Registry repository is github.com/mlfoundations/open_clip. Latest version fetched was 4.2.2. The registry name is open-clip-torch.",
+          "source_ids": [
+            "readme",
+            "pypi"
+          ],
+          "ecosystem": "PyPI",
+          "coordinate": "open_clip_torch",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Stated for using OpenCLIP. Python 3.14 and 3.15 are noted as validated with PyTorch 2.15 for inference and compiled training.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "minimum",
+          "note": "Python 3.9 or later and PyTorch 2.6 or later."
+        }
+      ]
+    },
+    "e30c092e43a54d5e7f675e251625a0bcfb59e18c106e9441d5f7cbf3f3842e83": {
+      "project_url": "https://github.com/isl-org/open3d",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README quick start is the install doc. open3d-cpu is described as a smaller CPU-only wheel on x86_64 Linux from v0.17, and was not given its own registry check.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/isl-org/Open3D/blob/b6c5e196384ad71e75b6e6f9c5da22d046221f1d/README.md",
+          "title": "Open3D README",
+          "kind": "upstream_repository",
+          "revision": "b6c5e196384ad71e75b6e6f9c5da22d046221f1d"
+        },
+        "pypi": {
+          "url": "https://pypi.org/pypi/open3d/json",
+          "title": "PyPI open3d",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The Python API imports open3d and calls its visualization functions.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "library"
+        },
+        {
+          "scope": "The quick start runs the open3d example command.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "cli"
+        },
+        {
+          "scope": "Open3D-Viewer is a standalone viewer app downloaded from the release page.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "desktop"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "pip install open3d, or pip install open3d-cpu for the smaller CPU-only Linux wheel.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "package_manager"
+        },
+        {
+          "scope": "C++ users download a binary package from the release page or the development builds.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "binary"
+        },
+        {
+          "scope": "The README points source builds to the compilation guide.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Pre-built pip packages support Ubuntu 20.04 or later, macOS 10.15 or later, and Windows 10 or later (64-bit).",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "Ubuntu 20.04+ / macOS 10.15+ / Windows 10+ (64-bit)"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "PyPI source code URL is github.com/isl-org/Open3D. Latest version fetched was 0.20.0.",
+          "source_ids": [
+            "readme",
+            "pypi"
+          ],
+          "ecosystem": "PyPI",
+          "coordinate": "open3d",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Applies to the pre-built pip packages.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "minimum",
+          "note": "Python 3.10 through 3.14."
+        }
+      ]
+    },
+    "d77e5f04a6c8781cc3d09822da6547a9f30a990745075a95d58f815c986bfe54": {
+      "project_url": "https://github.com/openresty/openresty",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Package coordinates for the individual Linux distributions are not copied. The installation page names those distributions and the Homebrew tap.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openresty/openresty/blob/1779c93a7eb5ab5b3c0fc45b9224107db9f3829e/README.markdown",
+          "title": "OpenResty README",
+          "kind": "upstream_repository",
+          "revision": "1779c93a7eb5ab5b3c0fc45b9224107db9f3829e"
+        },
+        "install": {
+          "url": "https://openresty.org/en/installation.html",
+          "title": "OpenResty installation",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The README describes OpenResty as a web application server bundled with nginx.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "server"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Official pre-built packages are documented for Ubuntu, Debian, CentOS, RHEL, Fedora, openSUSE, Alpine, and Amazon Linux.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "package_manager"
+        },
+        {
+          "scope": "Pre-built Win32 packages are provided on the download page.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "binary"
+        },
+        {
+          "scope": "The same page documents a source build from the bundle tarball after its listed prerequisites.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Linux distributions named above, macOS through Homebrew, and Windows through the Win32 packages.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "Linux / macOS / Windows"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "The installation page recommends brew install openresty/brew/openresty. Formula ownership was not established beyond that page.",
+          "source_ids": [
+            "install"
+          ],
+          "ecosystem": "Homebrew",
+          "coordinate": "openresty/brew/openresty",
+          "channel": "homebrew",
+          "status": "documented",
+          "upstream_relationship": "unknown"
+        }
+      ]
+    },
+    "3bcfdb2e7c940ecf1f6360e3fb375125cb1a3728fe9228ae61527fc0fdc8097c": {
+      "project_url": "https://github.com/seemoo-lab/openhaystack",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README calls the software experimental and says it is not affiliated with or endorsed by Apple. The Mail plugin install temporarily disables Gatekeeper.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/seemoo-lab/openhaystack/blob/ea05dadb9e6e71075ef08afb5c2087302fbb7210/README.md",
+          "title": "OpenHaystack README",
+          "kind": "upstream_repository",
+          "revision": "ea05dadb9e6e71075ef08afb5c2087302fbb7210"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The macOS application displays the last reported location of accessories.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "desktop"
+        },
+        {
+          "scope": "The firmware image makes Bluetooth devices broadcast beacons that iPhones can discover.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "firmware"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Download a precompiled release, or build the application from source with Xcode.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "binary"
+        },
+        {
+          "scope": "The README documents firmware deployment for BBC micro:bit v1 and ESP32 boards, plus a Linux HCI path.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "firmware_image"
+        },
+        {
+          "scope": "Building the macOS application from source with Xcode is the documented alternative to the release binary.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The application requires macOS 11 (Big Sur). Firmware rows name micro:bit v1, ESP32 boards, and a Raspberry Pi 4.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "macOS 11 / micro:bit v1 / ESP32 / Raspberry Pi 4"
+        }
+      ],
+      "external_services": [
+        {
+          "scope": "Nearby Apple devices upload location reports, and the Mail plugin downloads them from Apple's servers.",
+          "source_ids": [
+            "readme"
+          ],
+          "name": "Apple Find My network",
+          "requirement": "required"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Applies to the macOS application.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "minimum",
+          "note": "macOS 11 (Big Sur)."
+        },
+        {
+          "scope": "Applies to ESP32 deployment from the app.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "constraint",
+          "note": "ESP32 deployment requires Python 3."
+        }
+      ]
+    },
+    "3d4109cbeddbb9302a39368007702f6bb25e31b1b2b20162d5e95056289d2483": {
+      "project_url": "https://github.com/opennhp/opennhp",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Host operating systems are not listed. Docker is documented for the full-stack demo, and the hosted demo sites are separate from the local build.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/OpenNHP/opennhp/blob/3d85c009d6d3d9c007ccefcf96b4a67cc072269d/README.md",
+          "title": "OpenNHP README",
+          "kind": "upstream_repository",
+          "revision": "3d85c009d6d3d9c007ccefcf96b4a67cc072269d"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "make builds daemon binaries, including nhp-agentd and nhp-serverd.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "cli"
+        },
+        {
+          "scope": "nhp-serverd is the server daemon built by make serverd.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "server"
+        },
+        {
+          "scope": "The README documents iOS, Android, and browser JavaScript SDKs.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "library"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "With Go and make installed, make builds the components.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        },
+        {
+          "scope": "cd docker && docker-compose up --build runs the full-stack demo.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "container"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Prerequisites for the documented build and demo.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "minimum",
+          "note": "Go 1.26 or later and make. Docker and Docker Compose are required for the full-stack demo."
+        }
+      ]
+    },
+    "be2f8eb6130d3cb0c3c9c919fefa08332c0971f432e938cbe1d889f1a929e4a2": {
+      "project_url": "https://github.com/anomalyco/opentui",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The quick start installs @opentui/core with Bun. Native artifact targets and the Node.js acceptance note come from the runtime-support page.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/anomalyco/opentui/blob/ff703d174f12c3e42fe4af71a62ccd847688151f/README.md",
+          "title": "OpenTUI README",
+          "kind": "upstream_repository",
+          "revision": "ff703d174f12c3e42fe4af71a62ccd847688151f"
+        },
+        "quick": {
+          "url": "https://opentui.com/docs/getting-started/quickstart/",
+          "title": "OpenTUI quickstart",
+          "kind": "upstream_docs"
+        },
+        "runtime": {
+          "url": "https://opentui.com/docs/getting-started/runtime-support/",
+          "title": "OpenTUI runtime support",
+          "kind": "upstream_docs"
+        },
+        "npm": {
+          "url": "https://registry.npmjs.org/@opentui%2Fcore",
+          "title": "npm @opentui/core",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "OpenTUI is a library for terminal user interfaces, used from TypeScript, React, or Solid.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "library"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "The quick start runs bun add @opentui/core.",
+          "source_ids": [
+            "quick"
+          ],
+          "value": "package_manager"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Native artifacts are listed for macOS x64 and arm64, Linux x64 and arm64 with glibc or musl, and Windows x64 and arm64.",
+          "source_ids": [
+            "runtime"
+          ],
+          "value": "macOS / Linux (glibc or musl) / Windows, x64 and arm64"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "Registry repository is github.com/anomalyco/opentui. Latest tag fetched was 0.8.4.",
+          "source_ids": [
+            "quick",
+            "npm"
+          ],
+          "ecosystem": "npm",
+          "coordinate": "@opentui/core",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "The runtime page says the Node.js acceptance scripts accept Node.js 26.4 or later.",
+          "source_ids": [
+            "runtime"
+          ],
+          "kind": "constraint",
+          "note": "Node.js acceptance scripts accept Node.js 26.4 or later."
+        },
+        {
+          "scope": "Applies to native Windows arm64.",
+          "source_ids": [
+            "runtime"
+          ],
+          "kind": "minimum",
+          "note": "Bun 1.4.0 or later on native Windows arm64."
+        }
+      ]
+    },
+    "52d3461c43c42b1ad880b016b61665c3f709aedd2cfc7f401231e18ba0e9161a": {
+      "project_url": "https://github.com/assimp/assimp",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Pre-built binaries are linked from the project's itch.io page. Language bindings listed in the README are not recorded as packages.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/assimp/assimp/blob/3f1e307a60b0d4f5d4ed22f879c52ace20739472/Readme.md",
+          "title": "assimp Readme",
+          "kind": "upstream_repository",
+          "revision": "3f1e307a60b0d4f5d4ed22f879c52ace20739472"
+        },
+        "build": {
+          "url": "https://github.com/assimp/assimp/blob/3f1e307a60b0d4f5d4ed22f879c52ace20739472/Build.md",
+          "title": "assimp build instructions",
+          "kind": "upstream_repository",
+          "revision": "3f1e307a60b0d4f5d4ed22f879c52ace20739472"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The Readme describes a C and C++ library that loads 3D files into a shared in-memory scene.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "library"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "The developer quickstart clones the repository and builds it with CMake and Ninja.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        },
+        {
+          "scope": "The Readme says assimp is available in vcpkg.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "package_manager"
+        },
+        {
+          "scope": "Pre-built binaries are downloaded from the project's itch.io page.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "binary"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The Readme says assimp runs on Android and iOS. Build.md documents Windows, Linux, and a Mac OS X framework option.",
+          "source_ids": [
+            "readme",
+            "build"
+          ],
+          "value": "Windows / Linux / Mac OS X / Android / iOS"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "The Readme says the project is available in vcpkg. Port ownership was not established.",
+          "source_ids": [
+            "readme"
+          ],
+          "ecosystem": "vcpkg",
+          "coordinate": "assimp",
+          "channel": "vcpkg",
+          "status": "documented",
+          "upstream_relationship": "unknown"
+        }
+      ]
+    },
+    "42ed694a3525bf0ba204dcc95e803fab5d2fe8fe049cfa940edc6cd24d0e9a68": {
+      "project_url": "https://github.com/openreplay/openreplay",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. This record covers the self-hosted Docker Compose path and the README's source-deploy link. Cloud, Helm, and the other VM guides are linked from the README and were not copied command by command.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openreplay/openreplay/blob/812d5544c5dc6ae8f9cc95c2c163f79d40c26dfa/README.md",
+          "title": "OpenReplay README",
+          "kind": "upstream_repository",
+          "revision": "812d5544c5dc6ae8f9cc95c2c163f79d40c26dfa"
+        },
+        "docker": {
+          "url": "https://docs.openreplay.com/en/deployment/deploy-docker/",
+          "title": "Deploy OpenReplay with Docker Compose",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The Docker guide installs the OpenReplay stack on a server.",
+          "source_ids": [
+            "docker"
+          ],
+          "value": "server"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "A curl install script from the openreplay repository runs the Docker Compose deployment for a chosen domain.",
+          "source_ids": [
+            "docker"
+          ],
+          "value": "container"
+        },
+        {
+          "scope": "The README links a from-source deployment guide alongside the Docker path.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The Docker guide names Ubuntu 20.04 LTS and an x86 machine.",
+          "source_ids": [
+            "docker"
+          ],
+          "value": "Ubuntu 20.04 LTS / x86"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Single-machine Docker Compose deployment. The guide says this stack needs a server.",
+          "source_ids": [
+            "readme",
+            "docker"
+          ],
+          "kind": "minimum",
+          "note": "2 vCPUs, 8 GB of RAM, 50 GB of storage, and an x86 architecture."
+        }
+      ]
+    },
+    "a55fec6a3dc740ea43d83c7b4acb7119ab801ce300348df9960857c70449de7b": {
+      "project_url": "https://github.com/nekename/opendeck",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README says to avoid AppImage releases. The Flathub id is me.amankhanna.opendeck. Wine is only for Windows-built plugins.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/nekename/OpenDeck/blob/3ddecc1ce8952a423916cf066724356267b97410/README.md",
+          "title": "OpenDeck README",
+          "kind": "upstream_repository",
+          "revision": "3ddecc1ce8952a423916cf066724356267b97410"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "OpenDeck is desktop software for Stream Deck devices, with Linux, Windows, and macOS install sections.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "desktop"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Windows uses an .exe or .msi. macOS uses a .dmg or a .tar.gz extracted into Applications.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "installer"
+        },
+        {
+          "scope": "Linux installs a release .deb or .rpm, the Arch extra package opendeck, or the Flathub application.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "package_manager"
+        },
+        {
+          "scope": "A source build needs Tauri's prerequisites and Deno, plus libudev and libdbus on Linux.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Install sections are provided for Linux, Windows, and macOS.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "Linux / Windows / macOS"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "Flathub id from the README. It does not match the GitHub owner, so the relationship stays unknown.",
+          "source_ids": [
+            "readme"
+          ],
+          "ecosystem": "Flathub",
+          "coordinate": "me.amankhanna.opendeck",
+          "channel": "flathub",
+          "status": "documented",
+          "upstream_relationship": "unknown"
+        },
+        {
+          "scope": "The README lists the opendeck package in Arch extra. Package ownership was not established.",
+          "source_ids": [
+            "readme"
+          ],
+          "ecosystem": "Arch Linux",
+          "coordinate": "opendeck",
+          "channel": "extra",
+          "status": "documented",
+          "upstream_relationship": "unknown"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Linux needs the udev rules. A .deb or .rpm installs them; other installs copy the rules and reload udev.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "constraint",
+          "note": "Linux installs need the Stream Deck udev rules loaded."
+        }
+      ]
+    },
+    "a161af8c67aa49cddb37265bb84e8d50a3bb910b238c88ed2b20e61b68be8fa6": {
+      "project_url": "https://github.com/openocd-org/openocd",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The installing section says packagers produce the binaries and that the OpenOCD developers do not provide direct support for those packaged binaries.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openocd-org/openocd/blob/4900bcdfc82848e9cfa7f895b39aca6b9ca4b911/README.md",
+          "title": "OpenOCD README",
+          "kind": "upstream_repository",
+          "revision": "4900bcdfc82848e9cfa7f895b39aca6b9ca4b911"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The quickstart starts the openocd command with a board or interface config, then GDB connects to localhost:3333.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "cli"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "The installing section documents apt, dnf, Homebrew, and MSYS2 pacman.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "package_manager"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Packages are documented for Debian and Ubuntu, Fedora, macOS, and Windows via MSYS2.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "Debian / Ubuntu / Fedora / macOS / Windows"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "The README presents apt and dnf packages as distributor builds.",
+          "source_ids": [
+            "readme"
+          ],
+          "ecosystem": "Debian",
+          "coordinate": "openocd",
+          "channel": "apt",
+          "status": "documented",
+          "upstream_relationship": "distribution"
+        },
+        {
+          "scope": "brew install open-ocd is grouped with the packager-provided binaries. Formula ownership was not established.",
+          "source_ids": [
+            "readme"
+          ],
+          "ecosystem": "Homebrew",
+          "coordinate": "open-ocd",
+          "channel": "homebrew",
+          "status": "documented",
+          "upstream_relationship": "unknown"
+        }
+      ]
+    },
+    "19bfe41b9ffe125d1b2c4f33f5701e9d4dfc41a44c98ed82529cb3db17badb7c": {
+      "project_url": "https://github.com/academysoftwarefoundation/openshadinglanguage",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. INSTALL.md is the install doc at this commit. It documents a CMake source build.",
+      "sources": {
+        "install": {
+          "url": "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/blob/93cce85fad16d4d66abfa79e567d21fb85d1916f/INSTALL.md",
+          "title": "Open Shading Language INSTALL.md",
+          "kind": "upstream_repository",
+          "revision": "93cce85fad16d4d66abfa79e567d21fb85d1916f"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "INSTALL.md documents the CMake build and install of OSL.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "library"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "cmake -B build -S . followed by cmake --build build --target install.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "INSTALL.md says OSL compiles and runs on Linux (x86_64), Mac OS X (x86_64 and aarch64), and Windows (x86_64).",
+          "source_ids": [
+            "install"
+          ],
+          "value": "Linux x86_64 / Mac OS X x86_64 and aarch64 / Windows x86_64"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Applies to the documented CMake build.",
+          "source_ids": [
+            "install"
+          ],
+          "kind": "minimum",
+          "note": "CMake 3.23 or newer."
+        }
+      ]
+    },
+    "e535bf0a0fcf7e0964dccdbfb9a928c69df7dd95be82713e1e804c3eff800d4d": {
+      "project_url": "https://github.com/openfoam/openfoam-dev",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. This catalog row is the OpenFOAM-dev repository. The foundation's packaged OpenFOAM v14 downloads are a different repository and are not recorded here. The source page's description says compilation on GNU/Linux.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/OpenFOAM/OpenFOAM-dev/blob/88f2739f19a8992a2af409a5ee3564ad43faccf4/README.org",
+          "title": "OpenFOAM-dev README",
+          "kind": "upstream_repository",
+          "revision": "88f2739f19a8992a2af409a5ee3564ad43faccf4"
+        },
+        "source": {
+          "url": "https://openfoam.org/download/source/",
+          "title": "Compiling OpenFOAM from source",
+          "kind": "upstream_docs"
+        }
+      },
+      "install_methods": [
+        {
+          "scope": "The dev README links the foundation's source-compilation instructions. Those steps compile the OpenFOAM-dev line.",
+          "source_ids": [
+            "readme",
+            "source"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The source page description says compiling OpenFOAM from source on GNU/Linux. It identifies OpenFOAM-dev as the current development line.",
+          "source_ids": [
+            "source"
+          ],
+          "value": "GNU/Linux"
+        }
+      ]
+    },
+    "af7d4ef7db37211305c730d033d51e5be4243aa2bb7649e124766a8e46564a29": {
+      "project_url": "https://github.com/openipc/firmware",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The homepage is the install overview used here. Flashing is device-specific. No universal memory threshold is documented on that page.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/OpenIPC/firmware/blob/9d781910ae88813aef29e0104d4f0a558a67b2bb/README.md",
+          "title": "OpenIPC firmware README",
+          "kind": "upstream_repository",
+          "revision": "9d781910ae88813aef29e0104d4f0a558a67b2bb"
+        },
+        "home": {
+          "url": "https://openipc.org/",
+          "title": "OpenIPC homepage",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The README describes OpenIPC as alternative firmware for IP cameras.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "firmware"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "The homepage documents a vendor Upgrade path for many Xiongmai cameras and board identification before flashing other cameras.",
+          "source_ids": [
+            "home"
+          ],
+          "value": "firmware_image"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Homepage names Allwinner, Ambarella, Anyka, Fullhan, Goke, GrainMedia, HiSilicon, Ingenic, MStar, Novatek, Rockchip, SigmaStar, TI, and Xiongmai.",
+          "source_ids": [
+            "home"
+          ],
+          "value": "Named camera SoC families"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Installation follows the camera board, including the Xiongmai Upgrade path where the homepage documents it.",
+          "source_ids": [
+            "home"
+          ],
+          "kind": "constraint",
+          "note": "Select the firmware path for the exact camera board."
+        }
+      ]
+    },
+    "dc771369d5e00c35fc8411743e9a30a912a09251ace28b8937e337dfa1f6dd1f": {
+      "project_url": "https://github.com/opensearch-project/opensearch-dashboards",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The install index is the source. Helm and Ansible are listed there and have no separate method rows.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/opensearch-project/OpenSearch-Dashboards/blob/f92444e83db1b6cba1e5e0abd808dbc46cb0b39f/README.md",
+          "title": "OpenSearch Dashboards README",
+          "kind": "upstream_repository",
+          "revision": "f92444e83db1b6cba1e5e0abd808dbc46cb0b39f"
+        },
+        "install": {
+          "url": "https://docs.opensearch.org/latest/install-and-configure/install-dashboards/index/",
+          "title": "Installing OpenSearch Dashboards",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "After it starts, open the interface in a browser. The default listen port is 5601.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "local_web"
+        },
+        {
+          "scope": "OpenSearch Dashboards is the server process that serves that interface.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "server"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "The install index lists Docker and a Docker path that can start with OpenSearch.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "container"
+        },
+        {
+          "scope": "Debian and RPM packages are listed install methods.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "package_manager"
+        },
+        {
+          "scope": "A tarball install is listed. Distribution packages include a Node.js runtime.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "binary"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The install index lists Debian, RPM, tarball, and Windows methods.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "Linux (Debian, RPM, tarball) / Windows"
+        }
+      ],
+      "external_services": [
+        {
+          "scope": "The install index says to install OpenSearch first and connect Dashboards to that cluster.",
+          "source_ids": [
+            "install"
+          ],
+          "name": "OpenSearch",
+          "requirement": "required"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "The default demo security configuration serves HTTP and uses the known kibanaserver password. The page says to change that before production.",
+          "source_ids": [
+            "install"
+          ],
+          "kind": "constraint",
+          "note": "Production use replaces the demo security configuration, including the kibanaserver password and TLS."
+        }
+      ]
+    },
+    "ee4b2fbd26e2b09c498bc4d7b75eebc3fa57163c26cef0df742f69fb7e7c4971": {
+      "project_url": "https://github.com/academysoftwarefoundation/opencolorio",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Homebrew and vcpkg omit some command-line tools. PyPI lists the project homepage and no repository URL, so that distribution stays unknown.",
+      "sources": {
+        "install": {
+          "url": "https://opencolorio.readthedocs.io/en/latest/quick_start/installation.html",
+          "title": "OpenColorIO installation",
+          "kind": "upstream_docs"
+        },
+        "pypi": {
+          "url": "https://pypi.org/pypi/opencolorio/json",
+          "title": "PyPI opencolorio",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The installation guide's pip wheels provide the Python binding.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "library"
+        },
+        {
+          "scope": "The same guide documents command-line tools such as ocioconvert, which some package-manager installs omit.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "cli"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "pip install opencolorio, brew install opencolorio, or the documented vcpkg command.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "package_manager"
+        },
+        {
+          "scope": "Source builds are documented for Linux, macOS, and Windows.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The installation guide documents source builds on Linux, macOS, and Windows, vcpkg on Windows 7 or higher, and Homebrew on macOS.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "Linux / macOS / Windows"
+        }
+      ],
+      "packages": [
+        {
+          "scope": "pip install opencolorio. Latest version fetched was 2.6.0. Registry ownership was not established.",
+          "source_ids": [
+            "install",
+            "pypi"
+          ],
+          "ecosystem": "PyPI",
+          "coordinate": "opencolorio",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "unknown"
+        },
+        {
+          "scope": "brew install opencolorio on macOS. Formula ownership was not established.",
+          "source_ids": [
+            "install"
+          ],
+          "ecosystem": "Homebrew",
+          "coordinate": "opencolorio",
+          "channel": "homebrew",
+          "status": "documented",
+          "upstream_relationship": "unknown"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "CMake can download the other required components.",
+          "source_ids": [
+            "install"
+          ],
+          "kind": "minimum",
+          "note": "A C++17 to C++23 compiler, CMake 3.14 or newer, and an internet connection."
+        }
+      ]
+    },
+    "3d1d9d97d6271a99befab3f5fc6811f70e62ea4222b6229c8bbf7c219106dc59": {
+      "project_url": "https://github.com/openremote/openremote",
+      "review_status": "approved",
+      "checked_at": "2026-11-11",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The catalog repository openremote/openremote resolves to openremote/core in the same organization. The fetched README is titled OpenRemote Core and links https://openremote.io.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openremote/core/blob/1ee1ed7db8d09d45b8865a3e85eb5fa2be4604f1/README.md",
+          "title": "OpenRemote Core README",
+          "kind": "upstream_repository",
+          "revision": "1ee1ed7db8d09d45b8865a3e85eb5fa2be4604f1"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "docker compose starts the stack, including the manager.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "server"
+        },
+        {
+          "scope": "The Manager UI is served at https://127.0.0.1 after the compose stack starts.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "local_web"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Download the repository docker-compose file and run docker compose pull and docker compose -p openremote up. Docker Desktop v18 or later is required.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "container"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "The README says the docker images support amd64 and arm64.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "amd64 / arm64"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Applies to the documented compose quickstart.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "minimum",
+          "note": "Docker Desktop v18 or later."
+        }
+      ]
     }
   }
 }
