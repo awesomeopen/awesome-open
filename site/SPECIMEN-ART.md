@@ -90,7 +90,10 @@ most one backfill batch in flight; complete or resolve it before starting anothe
 Follow [recoverable artwork batches](../automation/artwork-recovery.md) before
 generation: round-trip a small storage probe, then preserve and restore each
 original before starting the next image. Keep per-image archives and a durable
-index outside the repository. This applies to discovery artwork and backfill.
+index outside the repository. The recovery procedure provides verified skips for
+known no-output failures and quarantined holds for terminal project rejections
+with no returned artifact; preserve those receipts and exclude held projects
+from generation and publication until reconciled. This applies to discovery artwork and backfill.
 
 Before publication:
 - Inspect the generated pixels and verify identity, dimensions, alt text,

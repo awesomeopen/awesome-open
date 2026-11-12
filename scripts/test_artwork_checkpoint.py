@@ -44,7 +44,7 @@ class CheckpointTests(unittest.TestCase):
                 elif role == "reservation":
                     target.write_bytes(checkpoint.encode({"plan_sha256": checkpoint.validate_plan(self.plan), "project_id": pid}))
                 elif role == "failure":
-                    target.write_bytes(checkpoint.encode(self.failure(pid)))
+                    target.write_bytes(checkpoint.encode(self.quarantine_failure(pid) if kind == "quarantine" else self.failure(pid)))
                 else:
                     target.write_bytes(f"Fixture for {role} {project_id}".encode())
                 specs.append({"path": name, "role": role, "project_id": project_id})
@@ -58,7 +58,7 @@ class CheckpointTests(unittest.TestCase):
         # A local copy simulates retrieval only in this offline fixture.
         shutil.copyfile(archive, restored)
         receipt = checkpoint.verify_restore(archive, restored, storage or self.storage, now or self.now)
-        name = f"probes/{self.counter}.json" if kind == "probe" else f"skips/{pid}.json" if kind == "skip" else f"{pid}.json"
+        name = f"probes/{self.counter}.json" if kind == "probe" else f"skips/{pid}.json" if kind == "skip" else f"quarantines/{pid}.json" if kind == "quarantine" else f"{pid}.json"
         checkpoint.write_new(self.state / "receipts" / name, receipt)
         return receipt
 
@@ -67,6 +67,182 @@ class CheckpointTests(unittest.TestCase):
                 "project_id": pid, "scope": "project", "outcome": "no_output",
                 "operation": "Generate fixture artwork", "reason": "Fixture project input rejected before output",
                 "recorded_at": self.now.isoformat(), "retry": "future_batch_review"}
+
+    def quarantine_failure(self, pid):
+        return {**self.failure(pid), "outcome": "unknown_output", "retry": "blocked_pending_review",
+                "request_state": "terminal_failure", "returned_artifacts": "none",
+                "failure_class": "project_rejection"}
+
+    def test_quarantine_retains_marker_and_continues_other_projects(self):
+        self.receipt()
+        pid = checkpoint.begin(self.plan, self.state, self.now)
+        marker = self.state / f"started/{pid}.json"
+        before = marker.read_bytes()
+        self.receipt("quarantine", pid)
+        self.assertEqual(checkpoint.begin(self.plan, self.state, self.now), "2" * 64)
+        self.assertEqual(marker.read_bytes(), before)
+        self.receipt("generation", "2" * 64)
+        self.assertIsNone(checkpoint.next_project(self.plan, self.state, self.now))
+        self.assertFalse((self.state / f"receipts/{pid}.json").exists())
+        self.assertFalse((self.state / f"receipts/skips/{pid}.json").exists())
+        plan = self.root / "plan.json"
+        plan.write_bytes(checkpoint.encode(self.plan))
+        with patch.object(checkpoint, "datetime") as dt, patch("builtins.print") as output:
+            dt.now.return_value = self.now
+            dt.fromisoformat.side_effect = datetime.fromisoformat
+            self.assertEqual(checkpoint.main(["next", "--plan", str(plan), "--state", str(self.state)]), 0)
+        report = json.loads(output.call_args.args[0])
+        self.assertEqual(report["status"], "generation_processed_with_holds")
+        self.assertEqual(report["quarantined_project_ids"], [pid])
+        self.assertEqual(report["skipped_project_ids"], [])
+
+    def test_quarantine_requires_terminal_project_rejection_and_no_returned_artifact(self):
+        pid = "1" * 64
+        _, specs, _ = self.bundle("quarantine", pid)
+        failure = next(e for e in specs if e["role"] == "failure")
+        original = self.quarantine_failure(pid)
+        invalid = ({"scope": "shared"}, {"failure_class": "authentication"},
+                   {"failure_class": "storage"}, {"failure_class": "permission"},
+                   {"failure_class": "quota"}, {"failure_class": "timeout"},
+                   {"request_state": "pending"}, {"request_state": "timeout"},
+                   {"returned_artifacts": "image"}, {"returned_artifacts": "output_id"},
+                   {"outcome": "no_output"}, {"outcome": "output_produced"},
+                   {"retry": "immediate"}, {"retry": "future_batch_review"},
+                   {"project_id": "2" * 64}, {"plan_sha256": "f" * 64},
+                   {"reason": ""}, {"operation": " "}, {"recorded_at": "2026-11-12"},
+                   {"schema_version": True}, {"extra": "field"})
+        for change in invalid:
+            (self.staging / failure["path"]).write_bytes(checkpoint.encode({**original, **change}))
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                checkpoint.create_archive(self.plan, "quarantine", pid, specs, self.staging, self.root / "bad.zip")
+            self.assertFalse((self.root / "bad.zip").exists())
+        (self.staging / failure["path"]).write_bytes(checkpoint.encode(original))
+        for role in ("reservation", "failure", "evidence"):
+            with self.subTest(role=role), self.assertRaisesRegex(ValueError, "Missing required roles"):
+                checkpoint.create_archive(self.plan, "quarantine", pid,
+                                          [e for e in specs if e["role"] != role],
+                                          self.staging, self.root / "bad.zip")
+        reservation = next(e for e in specs if e["role"] == "reservation")
+        (self.staging / reservation["path"]).write_bytes(checkpoint.encode({"project_id": pid}))
+        with self.assertRaisesRegex(ValueError, "reservation differs"):
+            checkpoint.create_archive(self.plan, "quarantine", pid, specs, self.staging, self.root / "bad.zip")
+
+    def test_quarantine_requires_restored_receipt_and_cannot_overwrite(self):
+        self.receipt()
+        pid = checkpoint.begin(self.plan, self.state, self.now)
+        source, _, _ = self.bundle("quarantine", pid)
+        with self.assertRaisesRegex(ValueError, "Recover outstanding"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+        with self.assertRaisesRegex(ValueError, "separately retrieved"):
+            checkpoint.verify_restore(source, source, self.storage, self.now)
+        receipt = self.receipt("quarantine", pid)
+        path = self.state / f"receipts/quarantines/{pid}.json"
+        before = path.read_bytes()
+        with self.assertRaises(FileExistsError):
+            checkpoint.write_new(path, receipt)
+        self.assertEqual(path.read_bytes(), before)
+
+    def test_quarantine_preserves_probe_identity_freshness_and_order_checks(self):
+        self.receipt()
+        pid = checkpoint.begin(self.plan, self.state, self.now)
+        receipt = self.receipt("quarantine", pid)
+        path = self.state / f"receipts/quarantines/{pid}.json"
+        with self.assertRaisesRegex(ValueError, "stale"):
+            checkpoint.next_project(self.plan, self.state, self.now + timedelta(days=2))
+        for change, error in (({"plan_sha256": "b" * 64}, "another plan"),
+                              ({"kind": "skip"}, "another plan"),
+                              ({"verified_at": (self.now + timedelta(seconds=1)).isoformat()}, "Future-dated"),
+                              ({"storage": {**self.storage, "destination": "elsewhere"}}, "destination differ")):
+            path.write_bytes(checkpoint.encode({**receipt, **change}))
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, error):
+                checkpoint.next_project(self.plan, self.state, self.now)
+        path.write_bytes(checkpoint.encode(receipt))
+        (self.state / f"started/{pid}.json").unlink()
+        with self.assertRaisesRegex(ValueError, "Unreserved"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+        path.unlink()
+        checkpoint.write_new(self.state / ("started/" + "2" * 64 + ".json"),
+                             {"plan_sha256": checkpoint.validate_plan(self.plan), "project_id": "2" * 64})
+        self.receipt("quarantine", "2" * 64)
+        with self.assertRaisesRegex(ValueError, "plan order"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+
+    def test_quarantine_conflicts_with_generated_skipped_or_finalized_state(self):
+        self.receipt()
+        pid = checkpoint.begin(self.plan, self.state, self.now)
+        self.receipt("quarantine", pid)
+        for kind, path in (("generation", self.state / f"receipts/{pid}.json"),
+                           ("skip", self.state / f"receipts/skips/{pid}.json")):
+            self.receipt(kind, pid)
+            with self.subTest(kind=kind), self.assertRaisesRegex(ValueError, "cannot also have"):
+                checkpoint.next_project(self.plan, self.state, self.now)
+            path.unlink()
+        (self.state / f"finalization/{pid}").mkdir(parents=True)
+        with self.assertRaisesRegex(ValueError, "finalization output"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+
+    def test_unknown_quarantine_receipt_is_not_ignored(self):
+        self.receipt()
+        checkpoint.write_new(self.state / "receipts/quarantines/unknown.json", {})
+        with self.assertRaisesRegex(ValueError, "Unknown quarantine"):
+            checkpoint.next_project(self.plan, self.state, self.now)
+
+    def test_quarantine_index_coverage_and_conflicts(self):
+        index = self.recovery_index()
+        pid = "1" * 64
+        del index["images"][pid]
+        index["quarantines"] = {pid: self.receipt("quarantine", pid)}
+        manifest = {"plan": self.plan, "plan_sha256": checkpoint.validate_plan(self.plan)}
+        checkpoint.validate_recovery_index(index, manifest)
+        with patch.object(self, "recovery_index", return_value=index):
+            self.bundle("publication")
+        for field, value in (("images", self.recovery_index()["images"][pid]),
+                             ("skips", {"kind": "skip"})):
+            bad = deepcopy(index)
+            bad.setdefault(field, {})[pid] = value
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, "cannot also have"):
+                checkpoint.validate_recovery_index(bad, manifest)
+        bad = deepcopy(index)
+        bad["quarantines"][pid]["kind"] = "skip"
+        with self.assertRaisesRegex(ValueError, "another plan"):
+            checkpoint.validate_recovery_index(bad, manifest)
+        index["quarantines"] = {}
+        with self.assertRaisesRegex(ValueError, "every planned"):
+            checkpoint.validate_recovery_index(index, manifest)
+
+    def test_candidate_verifies_quarantine_and_forbids_held_artwork(self):
+        pid = "1" * 64
+        self.plan["project_ids"] = [pid]
+        candidate, archives = self.root / "candidate", self.root / "archives"
+        archives.mkdir()
+        for path, key in (("data/specimen_art.json", "artworks"), ("site/specimens/cutouts.json", "cutouts"),
+                          ("brand/assets.lock.json", "files")):
+            checkpoint.write_new(candidate / path, {key: {}})
+        source, _, _ = self.bundle("quarantine", pid)
+        restored = archives / (checkpoint.digest(source.read_bytes()) + ".zip")
+        shutil.copyfile(source, restored)
+        receipt = checkpoint.verify_restore(source, restored, self.storage, self.now)
+        index = {"plan_sha256": checkpoint.validate_plan(self.plan), "candidate_revision": "c" * 40,
+                 "images": {}, "quarantines": {pid: receipt}}
+        result = checkpoint.verify_candidate(self.plan, index, candidate, archives)
+        self.assertEqual((result["project_count"], result["quarantined_count"]), (0, 1))
+        for path, key, entry in (("data/specimen_art.json", "artworks", pid),
+                                 ("site/specimens/cutouts.json", "cutouts", pid),
+                                 ("brand/assets.lock.json", "files", f"site/specimens/{pid}.webp")):
+            (candidate / path).write_bytes(checkpoint.encode({key: {entry: {}}}))
+            with self.assertRaisesRegex(ValueError, "Quarantined project has candidate artwork"):
+                checkpoint.verify_candidate(self.plan, index, candidate, archives)
+            (candidate / path).write_bytes(checkpoint.encode({key: {}}))
+        checkpoint.write_new_bytes(candidate / f"site/specimens/{pid}.webp", b"unexpected output")
+        with self.assertRaisesRegex(ValueError, "Quarantined project has candidate artwork"):
+            checkpoint.verify_candidate(self.plan, index, candidate, archives)
+        (candidate / f"site/specimens/{pid}.webp").unlink()
+        restored.write_bytes(restored.read_bytes() + b"changed")
+        with self.assertRaisesRegex(ValueError, "differs from its receipt"):
+            checkpoint.verify_candidate(self.plan, index, candidate, archives)
+        restored.unlink()
+        with self.assertRaises(FileNotFoundError):
+            checkpoint.verify_candidate(self.plan, index, candidate, archives)
 
     def test_skip_preserves_marker_and_advances_in_original_plan(self):
         self.receipt()
