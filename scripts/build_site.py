@@ -91,7 +91,7 @@ def compact_json(value):
 
 
 def published_catalog(catalog):
-    """catalog.json as published: star counts live once, in data/star_history.json.
+    """Publish compact references to the combined star and deployment downloads.
 
     Each project's `star_history` keeps its status and chart link; its `repo` keys
     the counts in that file's `repositories`, as `hn.slug` does for HN evidence.
@@ -102,17 +102,30 @@ def published_catalog(catalog):
         if record and "last_good" in record:
             record = {key: value for key, value in record.items() if key != "last_good"}
             project = {**project, "star_history": record}
+        setup = project.get("deployment")
+        if setup:
+            project = {**project, "deployment": {
+                "review_status": setup["review_status"],
+                "checked_at": setup["checked_at"],
+                **{field: [{"value": fact["value"]} for fact in setup.get(field, [])]
+                   for field in ("run_modes", "install_methods")},
+                "record": f'records/{project["id"]}.html',
+            }}
         projects.append(project)
     return {**catalog, "projects": projects}
 
 
 def load_site_catalog(site):
-    """Read a built catalog.json with star counts restored from the built star-history file."""
+    """Restore full evidence for preview/rendering consumers of a built catalog."""
     catalog = json.loads((Path(site) / "catalog.json").read_text(encoding="utf-8"))
     path = Path(site) / "data/star_history.json"
-    if not path.exists():
-        return catalog
-    repositories = json.loads(path.read_text(encoding="utf-8"))["repositories"]
+    repositories = json.loads(path.read_text(encoding="utf-8"))["repositories"] if path.exists() else {}
+    slim = [p for p in catalog["projects"] if "record" in p.get("deployment", {})]
+    if slim:
+        # Missing downloads/records fail visibly rather than rendering partial facts.
+        setups = json.loads((Path(site) / "data/deployment_evidence.json").read_text(encoding="utf-8"))["projects"]
+        for project in slim:
+            project["deployment"] = setups[project["id"]]
     for project in catalog["projects"]:
         record = project.get("star_history")
         if record and "last_good" in repositories.get(record["repo"], {}):
@@ -827,7 +840,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
 </div>
 </div>
 <div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Search results list the strongest matching field first, then by name</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Licenses: GitHub license metadata.</li><li>Repository dates refer to GitHub activity</li><li>HN charts: possible title/URL matches; red foreground: matched stories. Shared cube-root scale / 2 years</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Search results list the strongest matching field first, then by name</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Licenses: GitHub license metadata.</li><li>Repository dates refer to GitHub activity</li><li>HN charts: possible title/URL matches; red foreground: matched stories. Shared cube-root scale / 2 years</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="data/deployment_evidence.json">Where it runs (data)</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
 <script id="catalog-data" type="application/json" data-source-sha="{escape(catalog.get("source_sha") or "")}" data-search-text="search-text.json?v={hashlib.sha256(search_text(catalog).encode("utf-8")).hexdigest()}">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
@@ -976,6 +989,11 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
             render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root, variants=variants), encoding="utf-8"
         )
     (output / "catalog.json").write_text(compact_json(published_catalog(catalog)), encoding="utf-8")
+    (output / "data").mkdir(exist_ok=True)
+    (output / "data/deployment_evidence.json").write_text(compact_json({
+        "schema_version": 1,
+        "projects": {p["id"]: p["deployment"] for p in catalog["projects"] if p.get("deployment")},
+    }), encoding="utf-8")
     (output / "search-text.json").write_text(search_text(catalog), encoding="utf-8")
     (output / "webmcplet").mkdir(exist_ok=True)
     (output / "webmcplet/list.json").write_text(webmcplet_list(catalog), encoding="utf-8")

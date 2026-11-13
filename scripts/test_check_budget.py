@@ -79,6 +79,21 @@ class CheckBudgetTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(SystemExit):
             check_budget.main([directory])
 
+    def test_deployment_download_has_its_own_per_catalog_record_budget(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = self.site(directory)
+            (site / 'data').mkdir()
+            download = site / 'data/deployment_evidence.json'
+            download.write_bytes(b'x' * (2 * 3 * check_budget.KIB))
+            values, _ = check_budget.measure(site)
+            self.assertEqual(values['deployment_bytes'], 6144)
+            self.assertEqual(values['largest_other'], 3072)
+            self.assertEqual(self.run_check(site)[0], 0)
+            download.write_bytes(download.read_bytes() + b'x')
+            code, text = self.run_check(site)
+            self.assertEqual(code, 1)
+            self.assertIn('Size budget exceeded: Where it runs (data)', text)
+
 
 if __name__ == '__main__':
     unittest.main()
