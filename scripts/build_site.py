@@ -18,6 +18,7 @@ import shutil
 
 from build_catalog import build_catalog, load_function_summaries
 from render_readme import display_hn_evidence
+import published_hn
 import project_aliases
 import project_history
 import history_view
@@ -1010,6 +1011,8 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
         (output / "data/project_signals.json").unlink(missing_ok=True)
     for name in evidence_files:
         document = json.loads((root / "data" / name).read_text(encoding="utf-8"))
+        if name == "hn_evidence.json":
+            document = published_hn.publish(document)
         (output / "data" / name).write_text(compact_json(document), encoding="utf-8")
     (output / "vendor").mkdir(exist_ok=True)
     for name in ("fonts.css", "FONT-LICENSE.txt", "FONT-PROVENANCE.json", "commit-mono.woff2"):
