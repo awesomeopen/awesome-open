@@ -279,7 +279,8 @@ Top. Its shortened stars note follows the HN note; source evidence remains linke
 The Catalog's evidence downloads include “Where it runs (data)” between
 Comparison evidence and Catalog JSON. It links to the combined approved setup
 records at `data/deployment_evidence.json`; see the
-[download contract](../site/DEPLOYMENT-EVIDENCE.md#downloads).
+[download contract](../site/DEPLOYMENT-EVIDENCE.md#downloads) and
+[B-PR331-01](decisions/B-PR331-01.md).
 
 ## Compact Catalog rows and centered departure contours
 
