@@ -92,7 +92,7 @@ class CheckBudgetTests(unittest.TestCase):
             download.write_bytes(download.read_bytes() + b'x')
             code, text = self.run_check(site)
             self.assertEqual(code, 1)
-            self.assertIn('Size budget exceeded: Where it runs (data)', text)
+            self.assertIn('| Where it runs (data) | 6.0 KiB | 6.0 KiB | Over |', text)
 
 
 if __name__ == '__main__':
