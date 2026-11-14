@@ -46,6 +46,8 @@ BUDGET = [
     ('catalog.json', 'catalog_bytes', per_record(0, 4 * KIB),
      'Download size, written compactly with star counts in data/star_history.json: '
      '4 KiB per record; baseline 1.3 MiB'),
+    ('Where it runs (data)', 'deployment_bytes', per_record(0, 3 * KIB),
+     'Combined approved deployment evidence: 3 KiB per catalog record'),
     ('Largest other file', 'largest_other', per_record(0, 8 * KIB),
      'Any single file outside the rows above: 8 KiB per record; '
      'baseline 3.0 MiB (data/hn_evidence.json)'),
@@ -59,7 +61,7 @@ BUDGET = [
 def measure(site):
     files = [path for path in site.rglob('*') if path.is_file()]
     sizes = {path.relative_to(site).as_posix(): path.stat().st_size for path in files}
-    named = {'index.html', 'catalog.json'}
+    named = {'index.html', 'catalog.json', 'data/deployment_evidence.json'}
     index = site / 'index.html'
     specimen_bytes = sum(size for name, size in sizes.items() if name.startswith('specimens/'))
     # Each illustrated project has one original at the top of specimens/.
@@ -73,6 +75,7 @@ def measure(site):
         'index_bytes': sizes.get('index.html', 0),
         'index_gzip': len(gzip.compress(index.read_bytes(), 6)) if index.is_file() else 0,
         'catalog_bytes': sizes.get('catalog.json', 0),
+        'deployment_bytes': sizes.get('data/deployment_evidence.json', 0),
         'largest_other': max((size for name, size in sizes.items() if name not in named), default=0),
         'largest_image': max((size for name, size in sizes.items()
                               if Path(name).suffix.lower() in IMAGES), default=0),

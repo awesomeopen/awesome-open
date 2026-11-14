@@ -23,6 +23,20 @@ All six fact lists are optional. Omit an unknown field rather than use an empty 
 
 The initial eight records were a coverage pilot. Further records come from the reviewed [deployment-evidence job](../automation/backfill-deployment-evidence.md) under this contract unchanged: backfill batches add records, and maintenance re-verifies them on a rolling cycle, changing a record only when its official sources changed. Every addition or update is a scoped draft PR for owner review. The OpenSCAD stable Homebrew disabled state is intentionally represented separately from the snapshot cask. OpenWrt requires device-specific compatibility review, not one universal RAM threshold.
 
+## Downloads
+
+The footer's “Where it runs (data)” link downloads `data/deployment_evidence.json`:
+one compact schema-1 document containing all approved records, keyed by full
+project ID. It preserves facts, scopes, sources and review provenance. With no
+approved evidence, its `projects` object is empty.
+
+Published `catalog.json` retains `review_status`, `checked_at`, value-only
+`run_modes` and `install_methods` lists, and a `record` link to
+`records/<full-id>.html`. Those static pages retain the complete setup disclosure.
+Build consumers use `load_site_catalog()` to restore full evidence from the
+combined download. The download budget is 3 KiB per catalog record; the catalog's
+4 KiB budget and the backfill's 100 KiB headroom guard remain in force.
+
 ## Filters and missing data
 
 “Reviewed run mode” and “Reviewed install method” each select one documented value; the record itself can contain several. Combining the two filters intersects matches. “Any / not reviewed” keeps all records. “Not recorded” selects absence of that fact in approved evidence. Search and ranking retain their existing meanings. URL parameters `run_mode` and `install_method` restore with reload/Back/Forward and reset with other filters. Without JavaScript, all records and source links remain in native disclosures.

@@ -276,6 +276,12 @@ sits in the footer immediately above GitHub. The download lives at
 See [B-PR134-01](decisions/B-PR134-01.md). The catalog footer puts GitHub immediately before
 Top. Its shortened stars note follows the HN note; source evidence remains linked.
 
+The Catalog's evidence downloads include “Where it runs (data)” between
+Comparison evidence and Catalog JSON. It links to the combined approved setup
+records at `data/deployment_evidence.json`; see the
+[download contract](../site/DEPLOYMENT-EVIDENCE.md#downloads) and
+[B-PR331-01](decisions/B-PR331-01.md).
+
 ## Compact Catalog rows and centered departure contours
 
 The Catalog omits the snapshot/setup explanation beneath Filters. Folded summaries

@@ -79,7 +79,7 @@ Content-only contributions must never commit generated README updates. Renderer/
 
 ## Filterable website preview
 
-The website is an additional generated view of the same curated source; edit that source. `scripts/build_catalog.py` reads the source using the README renderer’s entry validation and alternatives parser. It combines reviewed alternatives and cached GitHub/HN evidence into stable URL-based project identities and category memberships. `scripts/build_site.py` generates complete HTML, `catalog.json`, local CSS/JavaScript, HN SVGs, and downloadable evidence. The site's JSON files are written without indentation; the `data/` files in the repository keep theirs for review. Both commands are offline and use only Python’s standard library.
+The website is an additional generated view of the same curated source; edit that source. `scripts/build_catalog.py` reads the source using the README renderer’s entry validation and alternatives parser. It combines reviewed alternatives and cached GitHub/HN evidence into stable URL-based project identities and category memberships. `scripts/build_site.py` generates complete HTML, `catalog.json`, local CSS/JavaScript, HN SVGs, and downloadable evidence. Published `catalog.json` keeps deployment review status/date, run/install values and a static record link; full approved setup evidence is in the combined `data/deployment_evidence.json` download. See [deployment downloads](site/DEPLOYMENT-EVIDENCE.md#downloads). The site's JSON files are written without indentation; the `data/` files in the repository keep theirs for review. Both commands are offline and use only Python’s standard library.
 
 ```sh
 python3 -m unittest discover -s scripts -p 'test_*.py'
