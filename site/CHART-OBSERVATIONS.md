@@ -3,7 +3,9 @@
 `data/chart_observations.json` is a versioned, append/deduplicate archive of
 completed HN and aggregate GitHub-star observations. The existing
 `hn_evidence.json` and `star_history.json` caches still supply the same last
-24 completed months to the renderer.
+24 completed months to the renderer. The website download uses a
+[lossless published HN representation](HN-PUBLISHED-EVIDENCE.md) for identical
+recovery copies.
 
 ## Meaning and dates
 
