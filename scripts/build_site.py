@@ -846,6 +846,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
    <form class="list-search" id="search-form" role="search" hidden><label class="visually-hidden" for="search">Search projects</label><input id="search" name="q" type="search" autocomplete="off" maxlength="500" placeholder="Search {count} projects" aria-describedby="search-help"><button type="submit" aria-label="Search projects" title="Search projects"><img src="brand/search-loupe.png" width="24" height="24" alt=""></button><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></form>
    <p class="visually-hidden" id="list-count" role="status" aria-live="polite" aria-atomic="true">{count} projects</p>
   </header>
+  <p class="list-notice" id="list-notice" role="status" hidden></p>
   <noscript><p class="no-script">All {count} projects are listed below. Each opens its full record. Enable JavaScript for search, filters and the plate view.</p></noscript>
   <ol class="rows" id="rows" tabindex="-1">
 {rows}
@@ -899,7 +900,7 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>
 <div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Weekly draws</a></nav></header></div>
 <main class="obs-shell" id="record" tabindex="-1"><section class="obs-hero"><p><span class="obs-label">Project record</span></p><h1>{name}</h1></section>
-<aside class="obs-finding"><p>Full catalog record, evidence and sources. <a href="#project-{pid}">Return to this project in the ledger</a>. Use your browser’s Print command to print this record.</p></aside>
+<aside class="obs-finding"><p>Full catalog record, evidence and sources. <a href="#project-{pid}">Open this project in the Catalog</a>. Use your browser’s Print command to print this record.</p></aside>
 {card}
 <div class="obs-closing-mark" aria-hidden="true"><img class="obs-logo" src="brand/fruit-96.png" width="96" height="96" alt=""></div></main>
 <footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Project record</p><ul class="obs-footer-links"><li><a href="./">Return to project ledger</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {revision}</li></ul></div></footer></body></html>'''

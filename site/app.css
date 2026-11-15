@@ -73,6 +73,7 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .list-search input::placeholder {color:var(--rs-muted);}
 .list-search button {display:grid;place-items:center;width:38px;height:36px;padding:0;border:0;border-left:1px solid var(--app-line);background:transparent;}
 .list-search button:hover {background:var(--rs-mist);}
+.list-notice,.list .no-script {flex:none;margin:0;padding:8px 14px;border-bottom:1px solid var(--app-line);font-size:12px;line-height:1.5;color:var(--rs-muted);}
 .rows {flex:1;min-height:0;margin:0;padding:0;list-style:none;overflow:auto;outline:0;scrollbar-width:thin;}
 .row a {position:relative;display:grid;grid-template-columns:30px minmax(0,1fr);gap:0 8px;padding:5px 14px 5px 12px;border-bottom:1px solid var(--app-line);color:inherit;text-decoration:none;}
 .row a:hover {background:var(--rs-mist);color:inherit;}
@@ -100,17 +101,19 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .pane {display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--rs-paper);}
 .pane-rest {flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;overflow:hidden;container:rest / inline-size;}
 .pane-rest .jar-hall {margin:0;padding:0 16px;}
-.pane-hint {margin:28px 24px 0;text-align:center;font-size:12px;line-height:1.7;color:var(--rs-muted);}
-.pane-hint span {display:block;font-size:11px;}
-@container rest (max-width:839px) {
-  .pane-rest .jar-stage {grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.6fr) minmax(0,1fr);}
-  .pane-rest .jar-exhibit:first-child,.pane-rest .jar-exhibit:last-child {display:none;}
-  .pane-rest .jar-caption {font-size:13px;}
-  .pane-rest .callout-function {width:190px;}
-  .pane-rest .jar-square-cork,.pane-rest .jar-ribbed {--setback:0px;}
-  .pane-rest .jar-shouldered,.pane-rest .jar-bail {--setback:8px;}
-  .pane-rest .jar-stage::before {left:4%;right:4%;}
+/* In a narrow desktop pane five jars show; phones keep all seven in their scrolling row. */
+@media(min-width:900px) {
+  @container rest (max-width:839px) {
+    .pane-rest .jar-stage {grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.6fr) minmax(0,1fr);}
+    .pane-rest .jar-exhibit:first-child,.pane-rest .jar-exhibit:last-child {display:none;}
+    .pane-rest .jar-caption {font-size:13px;}
+    .pane-rest .callout-function {width:190px;}
+    .pane-rest .jar-square-cork,.pane-rest .jar-ribbed {--setback:0px;}
+    .pane-rest .jar-shouldered,.pane-rest .jar-bail {--setback:8px;}
+    .pane-rest .jar-stage::before {left:4%;right:4%;}
+  }
 }
+
 .pane-plate {flex:1;min-height:0;display:flex;flex-direction:column;}
 /* The pane head matches the list head: one rule runs under both, and the plate's controls share the search row. */
 .pane-head {flex:none;display:flex;align-items:flex-end;gap:16px;height:var(--head);padding:0 14px 12px 24px;border-bottom:2px solid var(--rs-blueprint);color:var(--rs-blueprint);}
@@ -162,7 +165,9 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .about-pages ul {margin:0 0 28px;padding-left:18px;font-size:13px;line-height:1.8;}
 .about-others ul {margin:0;padding-left:18px;font-size:13px;line-height:1.8;}
 .about-baseline {display:flex;flex-wrap:wrap;gap:4px 18px;margin:32px 0 0;padding-top:12px;border-top:1px solid var(--app-line);font-size:12px;color:var(--rs-muted);}
-.about-art {display:block;width:calc(100% + 64px);max-width:none;height:auto;margin:24px -32px 0;mask-image:linear-gradient(to bottom,transparent,#000 22%);}
+/* Footer panoramas keep their native pixels: centred on the sheet, clipped at its edges, never resized. */
+.about {overflow-x:clip;}
+.about-art {display:block;position:relative;left:50%;left:round(nearest,50%,1px);width:auto;height:auto;max-width:none;margin:24px 0 0;transform:translateX(-50%);mask-image:linear-gradient(to bottom,transparent,#000 22%);}
 .pane-error {padding:24px;font-size:13px;line-height:1.7;}
 .pane-error button {margin-top:8px;min-height:36px;padding:0 12px;border:1px solid var(--rs-blueprint);background:var(--rs-paper);color:var(--rs-blueprint);}
 
@@ -213,6 +218,12 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
   .pane .specimen-plate .function-detail {grid-area:detail;margin-top:16px;}
 }
 @container plate (max-width:759px) {
+  /* The evidence grid's own breakpoints follow the window; in a narrow pane it takes four columns. */
+  .pane .pg-row {grid-template-columns:repeat(4,minmax(0,1fr));}
+  .pane .pg-reserved.pg-wide {grid-column:span 2;}
+  /* Where it runs takes the whole row so its setup popup has room. */
+  .pane .pg-runs {grid-column:1 / -1;margin-top:calc(var(--pg-lane) - var(--pg-gap));}
+  .pane .pg-alts {grid-template-columns:repeat(2,minmax(0,1fr));}
   .pane .plate-study,.pane .without-art .plate-study {grid-template-columns:minmax(0,1fr);grid-template-areas:"fn" "field" "notes";grid-template-rows:none;row-gap:20px;}
   .pane .without-art .plate-study {grid-template-areas:"fn" "label" "notes";}
   .pane .plate-notes {grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:0;}
@@ -222,10 +233,12 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
   .pane .specimen-interior.specimen-plate {padding:12px 14px 20px;}
   .pane .plate-notes {grid-template-columns:minmax(0,1fr);}
   .pane .plate-grid {padding:2px 12px 12px;}
-  .pane .pg-row {grid-template-columns:repeat(4,minmax(0,1fr));}
-  .pane .pg-reserved.pg-wide,.pane .pg-runs {grid-column:span 2;}
-  .pane .pg-runs {margin-top:calc(var(--pg-lane) - var(--pg-gap));}
-  .pane .pg-alts {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+/* On a phone the plate covers the screen and keeps the one-column evidence grid. */
+@media(max-width:720px) {
+  .pane .pg-row,.pane .pg-alts {grid-template-columns:minmax(0,1fr);}
+  .pane .pg-box,.pane .pg-reserved.pg-wide,.pane .pg-runs,.pane .pg-alt {grid-column:1 / -1;}
+  .pane .pg-runs {margin-top:0;}
 }
 
 /* Cabinet: the existing folded instrument, reattached as a corner button and its panel. */
@@ -273,13 +286,15 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
   .list-head {order:-1;position:sticky;top:0;z-index:30;height:auto;gap:10px;background:var(--rs-paper);}
   .list-brand {font-size:26px;}
   .rail-mark {display:none;}
-  .rail {border-right:0;overflow:visible;}
+  /* The jars lead under the wordmark, then the categories and the list. */
+  .pane {order:0;}
+  .rail {order:1;border-right:0;overflow:visible;}
+  .rows {order:2;}
   .rail-cats {display:flex;gap:0;overflow-x:auto;padding:0;}
   .rail-cats a {padding:8px 12px;white-space:nowrap;}
   .rail-cats a[aria-current="true"]::after {display:none;}
   .rail-filters {grid-template-columns:repeat(2,minmax(0,1fr));margin:0;}
   .rows {overflow:visible;}
-  .pane-rest {display:none;}
   .pane-plate:not([hidden]),.pane-about:not([hidden]) {position:fixed;inset:0;z-index:35;background:var(--rs-paper);}
   .pane-tools .pane-action {display:none;}
   .pane-head {height:auto;min-height:60px;padding:8px 12px;align-items:center;}
@@ -287,6 +302,5 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
   .riders {overflow-x:auto;max-width:100%;}
   .pane-title h2 {font-size:22px;}
   .about {padding:20px 16px 0;}
-  .about-art {width:calc(100% + 32px);margin-inline:-16px;}
   .app .specimen-cabinet {bottom:16px;right:12px;}
 }

@@ -53,9 +53,10 @@ const fs = require('node:fs');
    if(query)await manual.waitForFunction(()=>document.querySelector('#filters').dataset.searchText==='ready');
    return manual.evaluate(()=>{
     const data=JSON.parse(document.getElementById('catalog-data').textContent),byId=new Map(data.projects.map(p=>[p.id,p]));
-    return [...document.querySelectorAll('.project-card:not([hidden])')].map(card=>({id:card.dataset.projectId,
-     license:card.querySelector('.license-readout').textContent||null,stars:OpenCatalog.starsOf(byId.get(card.dataset.projectId)),
-     pushed_at:(byId.get(card.dataset.projectId).github||{}).pushed_at||null}));
+    // Rows show no license column; read the same cached facts the rows were built from.
+    return [...document.querySelectorAll('#rows .row:not([hidden])')].map(row=>({id:row.dataset.id,
+     license:(byId.get(row.dataset.id).github||{}).license||null,stars:OpenCatalog.starsOf(byId.get(row.dataset.id)),
+     pushed_at:(byId.get(row.dataset.id).github||{}).pushed_at||null}));
    });
   }
   for(const query of ['video editor','scad','obs','server','self-hosted','manage family photos on my own server','']){
@@ -74,7 +75,7 @@ const fs = require('node:fs');
   assert.equal(none.ok,true);assert.equal(none.total,0);assert.deepEqual(none.projects,[]);
   assert.match(none.message,/^No match in this catalog of [\d,]+ Open\*-named projects\.$/);
   await manual.locator('#search').fill('manage family photos on my own server');await manual.locator('#search').press('Enter');
-  assert.equal(await manual.locator('#empty-state').textContent(),none.message);
+  assert.equal(await manual.locator('#empty').textContent(),none.message);
   await manual.close();
   // Without summaries, the tool reports it can't search them; the Catalog says what it still covers.
   const offline=await context.newPage();
@@ -85,8 +86,8 @@ const fs = require('node:fs');
   assert.equal((await call('cabinet_find',{query:''},offline)).ok,true);
   await offline.locator('#search').fill('video');await offline.locator('#search').press('Enter');
   await offline.waitForFunction(()=>document.querySelector('#filters').dataset.searchText==='failed');
-  assert.ok(await offline.locator('#project-list .project-card:not([hidden])').count()>0);
-  assert.match(await offline.locator('#filters .link-notice:not([hidden])').last().textContent(),/Search covers names, aliases, descriptions and alternatives/);
+  assert.ok(await offline.locator('#rows .row:not([hidden])').count()>0);
+  assert.match(await offline.locator('#list-notice:not([hidden])').textContent(),/Search covers names, aliases, descriptions and alternatives/);
   await offline.close();
   const comparison=await call('cabinet_compare',{});assert.equal(comparison.ok,true);assert.deepEqual(comparison.ids,shared.ids);
   assert.deepEqual(await page.locator('#cabinet-comparison thead th a').allTextContents(),comparison.projects.map(p=>p.name));

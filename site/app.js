@@ -52,14 +52,22 @@
     return C.normalizeState(input, data);
   }
 
+  // Function summaries and feature notes load with the first search; the state is on #filters for scripts.
   function loadText() {
-    textState = "loading";
+    textState = "loading"; $("filters").dataset.searchText = "loading";
     S.loadText(window, embedded.dataset.searchText, embedded.dataset.sourceSha).then(function (text) {
-      data.search_text = text; textState = "ready"; render();
-    }).catch(function () { textState = "failed"; });
+      data.search_text = text; textState = "ready"; $("filters").dataset.searchText = "ready";
+      $("list-notice").hidden = true; render();
+    }).catch(function () {
+      // The next search retries; meanwhile the notice says what search still covers.
+      textState = "idle"; $("filters").dataset.searchText = "failed";
+      $("list-notice").textContent = "Function summaries and feature notes could not load. Search covers names, aliases, descriptions and alternatives.";
+      $("list-notice").hidden = false;
+    });
   }
 
-  function render() {
+  // A reader's change adds a history entry (push); restoring from history or the first render replaces.
+  function render(push) {
     if (state.q && textState === "idle") loadText();
     var visible = C.selectProjects(data.projects, state, data);
     var shown = new Set(), fragment = document.createDocumentFragment();
@@ -106,7 +114,7 @@
     } else { mark.src = mark.dataset.default; mark.width = 96; mark.height = 96; }
 
     var empty = $("empty"), filtered = Object.keys(C.DEFAULTS).some(function (key) {
-      return key !== "sort" && key !== "category" && state[key] !== C.DEFAULTS[key];
+      return key !== "q" && key !== "sort" && state[key] !== C.DEFAULTS[key];
     });
     empty.hidden = visible.length > 0;
     list.querySelector(".rows-end").hidden = !visible.length;
@@ -115,17 +123,20 @@
       empty.textContent = "No matches in " + NAMES[state.category] + ". ";
       var all = document.createElement("a");
       all.href = "#"; all.textContent = "Show the " + pool.length + " in all categories";
-      all.addEventListener("click", function (event) { event.preventDefault(); state = Object.assign({}, state, { category: "" }); render(); });
+      all.addEventListener("click", function (event) { event.preventDefault(); state = Object.assign({}, state, { category: "" }); render(true); });
       empty.appendChild(all);
     }
     $("reset").disabled = !Object.keys(C.DEFAULTS).some(function (key) {
       return key !== "q" && key !== "category" && state[key] !== C.DEFAULTS[key];
     });
-    try { window.history.replaceState(null, "", C.stateToURL(window.location.href, state)); } catch (_) {}
+    var next = C.stateToURL(window.location.href, state);
+    if (next.href !== window.location.href) {
+      try { window.history[push ? "pushState" : "replaceState"](null, "", next.href); } catch (_) {}
+    }
     syncBar();
   }
 
-  function apply() { state = readControls(); syncSelects(); render(); }
+  function apply() { state = readControls(); syncSelects(); render(true); }
 
   /* Plate pane */
   var shim = { matchMedia: function () { return { matches: scroll.clientWidth < 760 }; } };
@@ -190,6 +201,8 @@
         if (near && near !== id) fetchRecord(near).catch(function () {});
       });
     }).catch(function (error) {
+      // A response that failed its checks must not be served again from the cache on retry.
+      cache.delete(id);
       if (mine !== sequence || (error && error.name === "AbortError")) return;
       $("plate-status").textContent = "";
       var box = document.createElement("div"); box.className = "pane-error";
@@ -223,13 +236,7 @@
   }
 
   /* About: everything that is not the catalog, shown in the plate's place. */
-  var aboutArt = about.querySelector("[data-footer-background]");
-  if (aboutArt) {
-    var backgrounds = JSON.parse(aboutArt.dataset.backgrounds), sizes = JSON.parse(aboutArt.dataset.backgroundSizes || "[]");
-    var pick = Math.floor(Math.random() * backgrounds.length);
-    if (sizes[pick]) { aboutArt.width = sizes[pick][0]; aboutArt.height = sizes[pick][1]; }
-    aboutArt.src = backgrounds[pick];
-  }
+  // catalog.js picks one footer panorama per load for the About sheet's closing image.
   /* Sheets: About and the three field-guide pages share the About pane; a rider picks one.
      The pages load in a frame and hide their own navigation there; their catalog links act here. */
   var SHEETS = /^(about|observatory|scoreboard|spotlight)$/, frame = $("pane-frame"), sheet = "";
@@ -336,7 +343,7 @@
     if (!link || event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
     state = Object.assign({}, state, { category: link.dataset.category });
-    render();
+    render(true);
     list.scrollTop = 0;
   });
   $("filters").addEventListener("change", apply);
@@ -348,7 +355,7 @@
     timer = window.setTimeout(function () {
       state = readControls();
       if (state.q) state = Object.assign({}, state, { category: "" });
-      syncSelects(); render(); list.scrollTop = 0;
+      syncSelects(); render(true); list.scrollTop = 0;
     }, 120);
   });
   $("search-form").addEventListener("submit", function (event) {
@@ -358,7 +365,7 @@
   });
   $("reset").addEventListener("click", function () {
     state = Object.assign({}, C.DEFAULTS, { q: state.q, category: state.category });
-    setControls(); render();
+    setControls(); render(true);
   });
   $("plate-prev").addEventListener("click", function () { step(-1); });
   $("plate-next").addEventListener("click", function () { step(1); });
@@ -396,9 +403,17 @@
   });
   document.addEventListener("click", function (event) {
     if (cabinet.open && !cabinet.contains(event.target) && !event.target.closest("#plate-cabinet")) cabinet.open = false;
+    // A jar's Inspect link leads to the static record; here it opens that plate in the pane.
+    var inspect = event.target.closest && event.target.closest("a[data-jar-inspect]");
+    if (inspect && !event.defaultPrevented && !event.button && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && byId.has(inspect.dataset.jarInspect)) {
+      event.preventDefault();
+      open(inspect.dataset.jarInspect);
+    }
   });
   window.addEventListener("hashchange", fromHash);
   window.addEventListener("popstate", function () {
+    // A search still waiting for its debounce must not overwrite the restored state.
+    window.clearTimeout(timer);
     state = C.normalizeState(new URL(window.location.href).searchParams, data);
     setControls(); render(); fromHash();
   });
@@ -412,4 +427,6 @@
   setControls();
   render();
   fromHash();
+  // Browser checks and other scripts wait for this before driving the controls.
+  $("filters").dataset.enhanced = "true";
 })();
