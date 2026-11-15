@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 10,
+    "requests_used": 16,
     "utc_date": "2026-11-15"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -21849,6 +21849,125 @@
       "repo": "akariasai/openscholar",
       "source_sha": "015bb4d5deb10e0cec276fee04e4f728ad1d2255",
       "source_url": "https://api.github.com/repos/akariasai/openscholar/stargazers/history",
+      "status": "ok"
+    },
+    "alibaba/open-guardrail": {
+      "checked_at": "2026-11-15T19:42:35.117551+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1793491200,
+          "repository_created_at": "2026-11-04T08:56:04+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-11-15T19:42:35.117551+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f",
+        "source_urls": [
+          "https://api.github.com/repos/alibaba/open-guardrail/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              9,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 9,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              16,
+              3,
+              8,
+              1,
+              3,
+              3,
+              0
+            ],
+            "total": 34,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              26,
+              2,
+              1
+            ],
+            "total": 29,
+            "week": 1793491200
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "OpenGuardrail",
+      "readme_url": "https://github.com/alibaba/open-guardrail",
+      "repo": "alibaba/open-guardrail",
+      "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f",
+      "source_url": "https://api.github.com/repos/alibaba/open-guardrail/stargazers/history",
       "status": "ok"
     },
     "alistert/openjazz": {
@@ -128964,6 +129083,607 @@
       "repo": "l-at-nnes/openscissors",
       "source_sha": "d7c3abdf0e735f0cf2f45f865bdaa30d7bf7ddad",
       "source_url": "https://api.github.com/repos/l-at-nnes/openscissors/stargazers/history",
+      "status": "ok"
+    },
+    "l-forster/open-jet": {
+      "checked_at": "2026-11-15T19:42:35.117551+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1771113600,
+          "repository_created_at": "2026-02-16T01:26:28+00:00",
+          "terminal_page": 2
+        },
+        "fetched_at": "2026-11-15T19:42:35.117551+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          12,
+          20,
+          13,
+          1,
+          3,
+          1,
+          1,
+          79
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f",
+        "source_urls": [
+          "https://api.github.com/repos/l-forster/open-jet/stargazers/history?per_page=30&page=1",
+          "https://api.github.com/repos/l-forster/open-jet/stargazers/history?per_page=30&page=2"
+        ],
+        "weeks": [
+          {
+            "days": [
+              2,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 2,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 3,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              0,
+              1,
+              2,
+              1,
+              2,
+              1,
+              1
+            ],
+            "total": 8,
+            "week": 1793491200
+          },
+          {
+            "days": [
+              2,
+              1,
+              13,
+              9,
+              3,
+              1,
+              0
+            ],
+            "total": 29,
+            "week": 1792886400
+          },
+          {
+            "days": [
+              0,
+              1,
+              3,
+              1,
+              2,
+              0,
+              0
+            ],
+            "total": 7,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              19,
+              6,
+              2,
+              2,
+              2,
+              2,
+              1
+            ],
+            "total": 34,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              9
+            ],
+            "total": 9,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1787443200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786838400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786233600
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1785628800
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1785024000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "total": 1,
+            "week": 1784419200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1783814400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1783209600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1782604800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1782000000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1781395200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "total": 1,
+            "week": 1780790400
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1780185600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1779580800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 1,
+            "week": 1778976000
+          },
+          {
+            "days": [
+              3,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 5,
+            "week": 1778371200
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              1
+            ],
+            "total": 4,
+            "week": 1777766400
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              2
+            ],
+            "total": 3,
+            "week": 1777161600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1
+            ],
+            "total": 2,
+            "week": 1776556800
+          },
+          {
+            "days": [
+              1,
+              1,
+              0,
+              2,
+              3,
+              0,
+              4
+            ],
+            "total": 11,
+            "week": 1775952000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              1,
+              1
+            ],
+            "total": 4,
+            "week": 1775347200
+          },
+          {
+            "days": [
+              0,
+              2,
+              4,
+              2,
+              0,
+              0,
+              0
+            ],
+            "total": 8,
+            "week": 1774742400
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1774137600
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1773532800
+          },
+          {
+            "days": [
+              0,
+              0,
+              2,
+              1,
+              0,
+              0,
+              1
+            ],
+            "total": 4,
+            "week": 1772928000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1772323200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1771718400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1771113600
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "OpenJet",
+      "readme_url": "https://github.com/l-forster/open-jet",
+      "repo": "l-forster/open-jet",
+      "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f",
+      "source_url": "https://api.github.com/repos/l-forster/open-jet/stargazers/history",
       "status": "ok"
     },
     "laion-ai/open-assistant": {
@@ -544671,6 +545391,333 @@
       "source_url": "https://api.github.com/repos/uxfront-com/open-components/stargazers/history",
       "status": "ok"
     },
+    "vaquill-ai/open-us-law": {
+      "checked_at": "2026-11-15T19:42:35.117551+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1783814400,
+          "repository_created_at": "2026-07-18T07:13:10+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-11-15T19:42:35.117551+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          21,
+          35,
+          14,
+          20
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f",
+        "source_urls": [
+          "https://api.github.com/repos/vaquill-ai/open-us-law/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 3,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 3,
+            "week": 1793491200
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              0,
+              0
+            ],
+            "total": 5,
+            "week": 1792886400
+          },
+          {
+            "days": [
+              0,
+              0,
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "total": 6,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              0,
+              0
+            ],
+            "total": 5,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              2
+            ],
+            "total": 4,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 2,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              0,
+              1,
+              1,
+              2,
+              1,
+              1,
+              0
+            ],
+            "total": 6,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 2,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 3,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              0,
+              1,
+              1,
+              1,
+              2,
+              0,
+              1
+            ],
+            "total": 6,
+            "week": 1787443200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              3,
+              2
+            ],
+            "total": 6,
+            "week": 1786838400
+          },
+          {
+            "days": [
+              1,
+              1,
+              0,
+              1,
+              1,
+              1,
+              0
+            ],
+            "total": 5,
+            "week": 1786233600
+          },
+          {
+            "days": [
+              2,
+              1,
+              4,
+              3,
+              1,
+              3,
+              0
+            ],
+            "total": 14,
+            "week": 1785628800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              6,
+              11,
+              4
+            ],
+            "total": 21,
+            "week": 1785024000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              1,
+              1
+            ],
+            "total": 3,
+            "week": 1784419200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 1,
+            "week": 1783814400
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "Open US Law",
+      "readme_url": "https://github.com/vaquill-ai/open-us-law",
+      "repo": "vaquill-ai/open-us-law",
+      "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f",
+      "source_url": "https://api.github.com/repos/vaquill-ai/open-us-law/stargazers/history",
+      "status": "ok"
+    },
     "vernesong/openclash": {
       "checked_at": "2026-11-07T00:49:45.016746+00:00",
       "last_good": {
@@ -559135,6 +560182,529 @@
       "source_url": "https://api.github.com/repos/zeekk0/openamika/stargazers/history",
       "status": "ok"
     },
+    "zhijiewong/openharness": {
+      "checked_at": "2026-11-15T19:42:35.117551+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1774742400,
+          "repository_created_at": "2026-03-31T16:10:00+00:00",
+          "terminal_page": 2
+        },
+        "fetched_at": "2026-11-15T19:42:35.117551+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20,
+          64,
+          5,
+          2,
+          2,
+          1,
+          6,
+          0
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f",
+        "source_urls": [
+          "https://api.github.com/repos/zhijiewong/openharness/stargazers/history?per_page=30&page=1",
+          "https://api.github.com/repos/zhijiewong/openharness/stargazers/history?per_page=30&page=2"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1793491200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792886400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0,
+              1
+            ],
+            "total": 3,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "total": 2,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1787443200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786838400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786233600
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1785628800
+          },
+          {
+            "days": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1785024000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1784419200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1783814400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "total": 1,
+            "week": 1783209600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1782604800
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1782000000
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1781395200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1780790400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1780185600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1779580800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1778976000
+          },
+          {
+            "days": [
+              0,
+              0,
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            "total": 4,
+            "week": 1778371200
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1777766400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1777161600
+          },
+          {
+            "days": [
+              0,
+              0,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "total": 3,
+            "week": 1776556800
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              1,
+              2,
+              1
+            ],
+            "total": 5,
+            "week": 1775952000
+          },
+          {
+            "days": [
+              1,
+              3,
+              0,
+              2,
+              4,
+              2,
+              1
+            ],
+            "total": 13,
+            "week": 1775347200
+          },
+          {
+            "days": [
+              0,
+              0,
+              20,
+              20,
+              12,
+              6,
+              4
+            ],
+            "total": 62,
+            "week": 1774742400
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "OpenHarness",
+      "readme_url": "https://github.com/zhijiewong/openharness",
+      "repo": "zhijiewong/openharness",
+      "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f",
+      "source_url": "https://api.github.com/repos/zhijiewong/openharness/stargazers/history",
+      "status": "ok"
+    },
     "zseven-w/openpencil": {
       "checked_at": "2026-10-15T23:34:55.975088+00:00",
       "last_good": {
@@ -559675,11 +561245,11 @@
   "schema_version": 1,
   "selection_report": {
     "attempted_repositories": 4,
-    "due_repositories": 496,
+    "due_repositories": 492,
     "eligible_repositories": 530,
-    "unattempted_repositories": 13
+    "unattempted_repositories": 9
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "110ff40c108d51c980deca9af2c8ff7c93e34b5b",
-  "updated_at": "2026-11-15T04:01:47.988791+00:00"
+  "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f",
+  "updated_at": "2026-11-15T19:42:35.117551+00:00"
 }
