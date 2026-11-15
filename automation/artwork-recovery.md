@@ -11,6 +11,13 @@ main, open PRs and active work before selecting or resuming it. A requested
 recreation uses a new batch ID and new generation provenance; preserve historical
 files and do not replace accepted main artwork without specific authorization.
 
+## Checkpoint procedure selection
+
+The [batch candidate procedure](artwork-candidates.md) is a proposed replacement
+for finalization/publication archives and plan-subset re-packaging. Use it only
+after its policy/code PR receives owner review and merges. Until then the
+procedure below remains required. Legacy archives and receipts remain readable.
+
 ## Before generation
 
 1. Choose an authorized durable destination with supported upload and download
