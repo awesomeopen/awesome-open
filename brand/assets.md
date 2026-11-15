@@ -17,8 +17,8 @@ byte sizes and SHA-256 hashes; it is an integrity inventory.
 | Catalog specimen interpretations | `site/specimens/*.webp` | Per-entry status, alt, prompt and source in [specimen manifest](../data/specimen_art.json); approved present art is eligible for the weekly jar draw and archive (B38), and is reused in Observatory shared-name comparisons |
 | Category illustrations | `site/domains/*-{s,m,l}.webp` | 21 owner-uploaded category interpretations; medium variants also close the selected category’s ledger; source filename mapping, verified derivative hashes/dimensions, recipe and provenance limits in [category provenance](../site/domains/provenance.json) |
 | Photographic jars | `site/jars/*.webp` | Active/retained unlabelled variants distinguished by [jar provenance](../site/jars/provenance.json) |
-| Footer pattern | `site/patterns/navypattern2.png` | Owner-committed repeating CSS background for the footer, kept separate from transparent panorama rotation; unchanged bytes and provenance limits in [pattern provenance](../site/patterns/provenance.json) |
-| Footer floor images | `site/footer-backgrounds/*.{png,webp}` | Native-size, centered/bottom-aligned panoramas; PNG sources converted to lossless WebP with bottom-only crop boxes, original source revisions/hashes and output checksums in [footer provenance](../site/footer-backgrounds/provenance.json); aquatic-wreck/electrical-relics use 75% Lanczos derivatives with gentle alpha-preserving sharpening (B41) |
+| Footer pattern | `site/patterns/navypattern2.png` | Owner-committed repeating CSS background for the field-guide footers and the Catalog rail ([B-PR333-01](decisions/B-PR333-01.md)), kept separate from transparent panorama rotation; unchanged bytes and provenance limits in [pattern provenance](../site/patterns/provenance.json) |
+| Footer floor images | `site/footer-backgrounds/*.{png,webp}` | Native-size, centered/bottom-aligned panoramas, closing the Catalog's About sheet; PNG sources converted to lossless WebP with bottom-only crop boxes, original source revisions/hashes and output checksums in [footer provenance](../site/footer-backgrounds/provenance.json); aquatic-wreck/electrical-relics use 75% Lanczos derivatives with gentle alpha-preserving sharpening (B41) |
 | Commit Mono | `site/vendor/fonts.css`, `site/vendor/*.woff2` | Unchanged complete WOFF2 bytes, separately hosted for demand loading; [pinned source provenance](../site/vendor/FONT-PROVENANCE.json) and [SIL OFL notice](../site/vendor/FONT-LICENSE.txt) |
 | Półtawski Nowy | `site/vendor/serif-preview/` | Settled serif at regular 400, with genuine bold 700 in the same variable file. [Pinned source provenance](../site/vendor/serif-preview/provenance.json) and adjacent OFL notices. Offline editions embed Półtawski + Commit Mono only. |
 | Tokens | `site/design/tokens.css` | Exact color/type/spacing values; editable implementation source, not raster artwork |
@@ -101,10 +101,10 @@ bytes or source provenance changed.
 
 The 21 category illustrations retain all 63 owner-uploaded WebPs unchanged from
 commit `7045703d7b8fa09135fee41dd4a72da42476c6f3`. The variants are 104, 207 and
-414px square with transparency, totaling 1,874,384 bytes. The Table of contents
-uses 48 CSS px decorative images beside the existing category names and counts.
-Responsive candidates choose the small source at 1×/2×; native lazy loading
-defers the closed disclosure's images. The full small set is 150,040 bytes.
+414px square with transparency, totaling 1,874,384 bytes. The Catalog rail lists
+category names without images; the medium variant closes the selected category's
+list ([B-PR333-01](decisions/B-PR333-01.md)). The small set (150,040 bytes) remains
+published for the former Table of contents layout and other routes.
 No category art is added to the hero, project identities or Observatory charts.
 The Observatory reuses the small source as a decorative background in each
 summary metric when its category is selected; All/reset has no background.

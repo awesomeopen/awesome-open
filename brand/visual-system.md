@@ -53,8 +53,9 @@ and updating with sorting and filtering. Expanded Folio and Field notes numbers
 retain alphabetical catalog position; Registry IDs and permalinks retain URL-based
 identity. See [B-PR104-01](decisions/B-PR104-01.md).
 
-The footer uses one transparent valley/abyssal image per load over Prussian blue,
-with a static masked upper fade and clear reading space. Panoramas keep their native pixel dimensions, centered horizontally and bottom aligned at every viewport width; clip overflow rather than resize. Excess bottom padding is cropped before lossless WebP conversion, with the original source revision/hash, crop rectangle, output dimensions and checksum recorded in footer provenance. Its data notes default
+The Catalog has no footer; its content and one transparent valley/abyssal image per
+load close the About sheet ([B-PR333-01](decisions/B-PR333-01.md)). The rules below
+still describe those images: a static masked upper fade and clear reading space. Panoramas keep their native pixel dimensions, centered horizontally and bottom aligned at every viewport width; clip overflow rather than resize. Excess bottom padding is cropped before lossless WebP conversion, with the original source revision/hash, crop rectangle, output dimensions and checksum recorded in footer provenance. Its data notes default
 open; the coffee support link has its own paragraph. Black footer metadata
 backings are a specific implemented choice.
 
@@ -65,7 +66,23 @@ Verify copy and evidence changes in the ledger and the static record pages.
 The specimen cabinet opens as three numbered steps under a mist heading that states its
 purpose, and the Catalog carries the WebMCPlet corner button, "Search this list", themed
 with the existing tokens ([B-PR304-01](decisions/B-PR304-01.md), proposed). Details are
-in the [guide](../site/RETRO-SCRAPERISM.md#experimental-cabinet).
+in the [guide](../site/RETRO-SCRAPERISM.md#experimental-cabinet). The cabinet opens from
+a scarlet corner button reading "n of 6", stacked above WebMCPlet's button
+([B-PR333-01](decisions/B-PR333-01.md)).
+
+## One-screen Catalog (B-PR333-01)
+
+The Catalog fills one desktop screen in three columns, with no top or bottom bar:
+a Prussian rail (botanical mark, All and the categories by short name, filters with
+their titles merged into the first option, Reset filters, About); the list under
+the wordmark and search, one row per project with a one-line description; and one
+pane holding the jars, one plate, or the About sheet. ← → and ↑ ↓ step through the
+list; Esc returns to the jars. About's tabs open Observatory, Scoreboard and
+Spotlight in the pane, without their own header, section navigation or footer.
+The current category and project carry a 2px underline, an accented number and a
+notch on the column edge, with no fill. Plate head controls have no outlines.
+Category names: [B-PR333-02](decisions/B-PR333-02.md). Implementation:
+`scripts/build_site.py` (`render_html`), `site/app.js`, `site/app.css`.
 
 ## HN candidate and matched series
 
@@ -123,14 +140,17 @@ departure on a Prussian band.
 - Up to two feature notes carry small/tiny enlarged windows of the drawing joined by
   scarlet leader lines from the ground, echoing the jar captions. Notes are sourced
   software facts; no anchors are placed on the drawing.
-- The label overlaps the illustration by 4em using negative margin to reclaim flow
-  space. It uses 65% width (a 320px minimum capped at available width for legibility),
+- The label sits directly below the illustration and is about as tall as its QR
+  code: one line per fact at a tight leading, cut with an ellipsis
+  ([B-PR333-03](decisions/B-PR333-03.md)). It uses 65% width (a 320px minimum capped at available width for legibility),
   white background, 1px rule border, 2px radius and 0.8 opacity. Links have no
   underline; the QR code has a 2px white border. Without artwork, the label stays
   in normal flow inside the plate.
 - Label contents: a QR code of the permalink, “Awesome Open* · Field
   record” (or “Archived on GitHub” when GitHub reports it), name, Registry ID · Folio,
-  “Domain:” with every domain, and the permalink. No paper or object treatment (B28).
+  “Domain:” with every domain, and the permalink “Specimen: Name”. No paper or object
+  treatment (B28). Scoreboard places appear once under the Function statement as
+  “N Trophies”.
 - Section labels are blocks with mist type and no horizontal rules inside the plate;
   spacing and labels carry the hierarchy. “I / Function” and “Explore” are scarlet
   (5.86:1); grid labels II–VI are muted grey (6.9:1). Chart axes remain.
@@ -183,8 +203,8 @@ space remains clear around the collection. Labels retain their common baseline.
 The `/observatory/` route (B20, redesigned under user-approved B31) uses the
 current typography and white/Prussian instrument language for literal snapshot
 distributions, HTML bar lists drawn linearly from zero and accessible underlying
-tables. The 128px botanical logo is the centered closing mark without a caption
-(B27); artwork never modifies chart geometry. Filters update distributions and
+tables. The 96px fruit mark is the centered closing mark without a caption
+([B-PR333-01](decisions/B-PR333-01.md); formerly the 128px botanical logo, B27); artwork never modifies chart geometry. Filters update distributions and
 records together. Whole-collection findings and coverage retain explicit scope.
 Layout: [detailed guide](../site/RETRO-SCRAPERISM.md#observatory-instrument-b31-b34-b35);
 data meaning: [observatory contract](../site/OBSERVATORY.md); method and contract
@@ -197,8 +217,9 @@ existing paper token to keep text legible where art underlaps on narrow screens.
 
 ## Category illustrations
 
-The Table of contents pairs each category name with its existing transparent
-illustration at 48 CSS px. Keep the entire silhouette, a fixed image box and
+The Catalog rail lists category names without illustrations
+([B-PR333-01](decisions/B-PR333-01.md)). The rules below describe the former Table of
+contents, which paired each category name with its transparent illustration at 48 CSS px. Keep the entire silhouette, a fixed image box and
 readable wrapping labels/counts inside the existing native disclosure. The
 adjacent text names the link; the image has empty alternative text. Preserve
 keyboard selection, current-category marking, narrow layouts and text-only
@@ -221,7 +242,7 @@ and mobile widths ([B-PR134-02](decisions/B-PR134-02.md)). A seeded weekly draw 
 only illustrated catalog projects, independent of stars, with an initial four-week
 cooldown; the draw is displayed the following week. Assign the seven illustrations
 to windows by reviewed body fit, with complete-subject fallback. Protrusions may
-clip at photo-traced inner glass walls while original illustrations remain whole. The static `/spotlight/` archive is linked from the footer; the hero has no edition link. The archive uses the Observatory route shell
+clip at photo-traced inner glass walls while original illustrations remain whole. The static `/spotlight/` archive opens from About's Spotlight tab; the hero has no edition link. The archive uses the Observatory route shell
 with a specimen tray per edition (B44). See [calendar, evidence and fallback
 rules](../site/WEEKLY-DRAWS.md). The original display remains the commissioning
 fallback.
@@ -242,8 +263,9 @@ keeps its existing 300px vessels and readable record links.
 ## Sibling routes share the Observatory shell (B42)
 
 Every new top-level page starts from the Observatory's header, column, display
-heading, scarlet section labels, scope summary, folded detail, closing botanical
-mark and Prussian patterned footer. A page built only from a heading and
+heading, scarlet section labels, scope summary, folded detail, closing fruit
+mark and Prussian patterned footer. Inside the Catalog's pane the page hides its
+header, section navigation and footer ([B-PR333-01](decisions/B-PR333-01.md)). A page built only from a heading and
 paragraphs on the ledger stylesheet is incomplete, whatever its content. See the
 [route shell](../site/RETRO-SCRAPERISM.md#route-shell-for-sibling-pages-b42) and
 the [visual reference](../site/design/index.html), which is maintained with these
@@ -265,7 +287,7 @@ Scorecard coverage ends at “returned”.
 
 Page titles are “Awesome Open* Catalog” and “Awesome Open* Observatory”.
 Subpage navigation reads Catalog, Observatory, Scoreboard, Spotlight in that order.
-The Catalog footer links read Submit a project, Observatory, Scoreboard, Spotlight, GitHub, Top.
+The Catalog's About sheet links Submit a project, GitHub repository and coffee support; its tabs open Observatory, Scoreboard and Spotlight ([B-PR333-01](decisions/B-PR333-01.md)).
 The weekly draw archive uses `/spotlight/` and the visible page name Spotlight.
 Edition labels, current-edition values and anchors use ISO week years/numbers
 (`2026-W43`, linking to `/spotlight/#2026-W43`). Its page hides the section jump
@@ -284,7 +306,8 @@ numbers retain 4px left padding ([B-PR128-01](decisions/B-PR128-01.md)).
 The “Explore” departure uses plain Prussian blue with decorative contours
 centered around its link (y=200 in the 1000 × 400 viewBox). The navy texture
 remains in the footer only. Asset pixels, filter semantics, contour styling and
-clipping are unchanged. See [B-PR129-01](decisions/B-PR129-01.md).
+clipping are unchanged. See [B-PR129-01](decisions/B-PR129-01.md). The texture also
+fills the Catalog rail ([B-PR333-01](decisions/B-PR333-01.md)).
 
 ## Settled typography
 
@@ -316,9 +339,10 @@ See the [Observatory contract](../site/OBSERVATORY.md#shared-name-illustrations)
 
 The Scoreboard uses the B42 sibling-route shell for six comparative ranking tables.
 Each table states qualifying coverage, units and foldable source evidence. A
-small outlined cup and place numeral identify shared ranks 1–3; the same compact
-metric links appear beneath the specimen label's domains. The snapshot's actual update date is
-stated once above those links. Existing category-star bolding remains separate.
+small outlined cup and place numeral identify shared ranks 1–3. On a plate, one
+“N Trophies” link under the Function statement counts the project's places; its title
+names each board, place and the snapshot's update date
+([B-PR333-03](decisions/B-PR333-03.md)). Existing category-star bolding remains separate.
 See [the measurement and weekly contract](../site/SCOREBOARD.md).
 
 

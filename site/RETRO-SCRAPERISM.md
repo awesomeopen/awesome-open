@@ -326,12 +326,14 @@ This is a bounded prototype, not a catalog-wide promotion.
 
 ### Record refinements — 2026-10-13, user direction
 
-Use “Table of contents” and “All” in category navigation. Highlight the first
+Use “All” and the short category names in the Catalog rail
+([B-PR333-01](../brand/decisions/B-PR333-01.md)). Highlight the first
 complete tool-name mention in the long Function prose with a Prussian backing
 and white type; do not alter folded summaries or invent a missing name.
 
 The three plate identities show Registry ID, Folio number, “Domain: …” and
-“Specimen: Name (permalink)” with consistent 12px gaps and line heights. Keep
+“Specimen: Name” as the permalink, one line each beside the QR code
+([B-PR333-03](../brand/decisions/B-PR333-03.md)). Keep
 identifier titles. The final “In the wild” source capstone centers its heading,
 link and repository address. The artwork crops remain decorative; feature notes
 make literal software claims with a separate feature-source link.
@@ -469,7 +471,8 @@ sources; omit display-name duplicates and empty blocks.
   on the axis ([B-PR139-01](../brand/decisions/B-PR139-01.md),
   [B-PR150-01](../brand/decisions/B-PR150-01.md)). “Explore” departure on plain
   Prussian blue inside the grid panel, with its decorative contours centered around
-  the link (B-PR129-01). The repeating navy pattern remains exclusive to the footer.
+  the link (B-PR129-01). The repeating navy pattern belongs to the footer and the
+  Catalog rail.
   Departure copy is “[name] on [host]” for recognized repository
   destinations (GitHub, GitLab, Codeberg, Bitbucket, SourceForge), including
   explicitly reviewed self-hosted repositories. Homepage and unrecognized
@@ -494,14 +497,15 @@ photo-traced inner glass walls, curved floors or the leaning lid, never at a
 floating inset rectangle. Keep that contour fixed to the glass. Retain vertical
 idle clearance and place all spare vertical room above the specimen so its base
 sits near the floor. Glass-light, crack and interaction coordinates remain
-independent. Link the archive from the footer at `/spotlight/`; retain the original set
+independent. Link the archive from About's Spotlight tab at `/spotlight/`; retain the original set
 until the first saved edition activates. See [weekly draw contract](WEEKLY-DRAWS.md)
 for the calendar, snapshot archive, eligibility and failure behavior. Spotlight
 uses ISO week edition labels and anchors (`2026-W43`, `#2026-W43`). Its scope and
 method blocks are omitted, its section jump navigation is hidden, and its footer
 puts Download draw records · Draw contract above GitHub. Use Catalog, Observatory, Scoreboard, Spotlight in that order for all three
-subpage headers. The Catalog footer links read Submit a project, Observatory,
-Scoreboard, Spotlight, GitHub, Top. Each Spotlight edition uses the same compact
+subpage headers. The Catalog's About sheet carries the former footer links; its tabs
+open Observatory, Scoreboard and Spotlight ([B-PR333-01](../brand/decisions/B-PR333-01.md)).
+Each Spotlight edition uses the same compact
 tray with names and categories; metadata is 10px with -0.05em letter-spacing.
 
 ## Crisp photographic jar motion (B40)
@@ -545,8 +549,12 @@ Observatory shell, not from a heading and paragraphs on the ledger stylesheet:
   the page has more than two sections;
 - a summary row or mist band that states the page's literal scope before records;
 - folded native disclosures for evidence detail, with downloads visible;
-- the centered botanical closing mark and the Prussian `navypattern2` footer with
+- the centered 96px fruit closing mark and the Prussian `navypattern2` footer with
   a double white top border, ledger link, GitHub link and source revision.
+
+Inside the Catalog's pane, a page adds `is-embedded` to its root and hides its
+header, jump links and footer; the Catalog supplies navigation and the About sheet
+carries the footer's links ([B-PR333-01](../brand/decisions/B-PR333-01.md)).
 
 Share the CSS rather than copying class names that the page's stylesheet does not
 define. Page content and specimen artwork vary; the frame does not. The
