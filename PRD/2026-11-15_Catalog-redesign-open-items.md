@@ -26,30 +26,29 @@ while keeping their former IDs. The specimen label is as tall as its QR code, an
 Scoreboard places appear as one "N Trophies" line. The runtime is `site/app.js` and
 `site/app.css`; the page is `render_html` in `scripts/build_site.py`.
 
-After main was merged into the branch, the offline tests pass except one budget test that
-also fails on main (item 1). Every browser suite passes locally on macOS.
+After main was merged into the branch and the budget fix below, all 925 offline tests
+pass. Every browser suite passes locally on macOS.
 
 ## Open items
 
-### 1. Budget unit test fails on main
+### 1. Budget check on main
 
 At `1b3aec5`, CI stopped at `scripts/check_budget.py` because `data/hn_evidence.json`
 published at 8.9 MiB against a 4.6 MiB limit, so the Chromium suites never ran. The
 owner then merged main into the branch, including #330, which publishes deduplicated
 HN evidence; the built site now passes the budget.
 
-The same merge brought `test_deployment_download_has_its_own_per_catalog_record_budget`
-in `scripts/test_check_budget.py` from #331. It fails on current main with identical
-files (`largest_other` is 6144, the test expects 3072). It needs a fix on main; PR #333
-does not change either file.
+The same merge left two assignments of `named` in `scripts/check_budget.py`; the
+second dropped `data/deployment_evidence.json`, so `test_check_budget.py` failed on
+main. PR #333 merges both into one set. Main keeps the failure until this PR, or a
+separate one-line fix, merges.
 
 ### 2. Observatory keyboard step not yet seen on Linux
 
 One step in `scripts/check_observatory_browser.cjs` changes the category filter with
 Home, ArrowDown and Enter. Native selects on macOS ignore those keys, so the step
 fails locally for any build; with the step done by mouse, the rest of the suite
-passes. `observatory.js` is unchanged. Confirm the step on Linux once item 1 lets CI
-reach the browser suites.
+passes. `observatory.js` is unchanged. Confirm the step in CI's Linux run.
 
 ### 3. Plate drawings are scaled by the browser
 
