@@ -26,21 +26,22 @@ while keeping their former IDs. The specimen label is as tall as its QR code, an
 Scoreboard places appear as one "N Trophies" line. The runtime is `site/app.js` and
 `site/app.css`; the page is `render_html` in `scripts/build_site.py`.
 
-At revision `1b3aec5`, the 908 offline tests pass locally and in CI. Every browser
-suite passes locally (macOS); CI stops before the browser suites, see item 1.
+After main was merged into the branch, the offline tests pass except one budget test that
+also fails on main (item 1). Every browser suite passes locally on macOS.
 
 ## Open items
 
-### 1. Site size budget blocks CI's browser checks
+### 1. Budget unit test fails on main
 
-`scripts/check_budget.py` fails on "Largest other file": `data/hn_evidence.json` is
-8.9 MiB published, against a limit of 4.6 MiB (8 KiB per record). The file grew
-through main's daily publish commits from 2026-11-12 and is unchanged by PR #333, so
-every PR now stops at this step and CI skips the Chromium suites.
+At `1b3aec5`, CI stopped at `scripts/check_budget.py` because `data/hn_evidence.json`
+published at 8.9 MiB against a 4.6 MiB limit, so the Chromium suites never ran. The
+owner then merged main into the branch, including #330, which publishes deduplicated
+HN evidence; the built site now passes the budget.
 
-Decide whether to raise the limit with a stated reason or publish a smaller file
-(for example compact or split HN evidence), in a separate PR. Until then, browser
-results come only from local runs.
+The same merge brought `test_deployment_download_has_its_own_per_catalog_record_budget`
+in `scripts/test_check_budget.py` from #331. It fails on current main with identical
+files (`largest_other` is 6144, the test expects 3072). It needs a fix on main; PR #333
+does not change either file.
 
 ### 2. Observatory keyboard step not yet seen on Linux
 

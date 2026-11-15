@@ -27,7 +27,10 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   };
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(url);
+  // The download sits with the other data links in the About sheet.
+  await page.locator('#rail-about').click();
   assert.equal(await page.getByRole('link', { name: 'Where it runs (data)', exact: true }).getAttribute('href'), 'data/deployment_evidence.json');
+  await page.keyboard.press('Escape');
   await openFilters();
   assert.equal(await page.getByLabel('Reviewed run mode', { exact: true }).count(), 1);
   assert.equal(await page.getByLabel('Reviewed install method', { exact: true }).count(), 1);
