@@ -96,7 +96,8 @@ def build(base, site):
         jar_spec.loader.exec_module(jars)
         jars.ROOT = root
         (jar_output / 'catalog.json').write_text(json.dumps(catalog))
-        # Reuse the shared typography/tokens head from the same generated page.
+        # Reuse the shared typography/tokens head from the same generated page; the body
+        # offers the Catalog's jar slot, where build_jar_preview places the hero.
         # Remove scripts and jar CSS: build() adds only the base jar enhancement.
         # A styles.css-only shell would silently compare fallback serif labels.
         head = (site / 'index.html').read_text().split('<head>', 1)[1].split('</head>', 1)[0]
@@ -104,7 +105,7 @@ def build(base, site):
         head = strip_jar_stylesheet(head)
         (jar_output / 'index.html').write_text(
             '<!doctype html><html><head><base href="../">' + head +
-            '</head><body><div class="layout"></div></body></html>')
+            '</head><body class="app"><!-- jar-hall --></body></html>')
         jars.build(jar_output, production=True)
         html = (jar_output / 'index.html').read_text()
         base_css = source('site/jars.css')
@@ -138,7 +139,7 @@ def build(base, site):
             (stress / 'catalog.json').write_text(json.dumps(review))
             (stress / 'index.html').write_text(
                 '<!doctype html><html><head><base href="../">' + head +
-                '</head><body><div class="layout"></div></body></html>')
+                '</head><body class="app"><!-- jar-hall --></body></html>')
             current_jars.build(stress, production=True)
             (stress / 'source.json').write_text(json.dumps({
                 'purpose': 'Review-only shape outliers; not a saved Spotlight draw.',
