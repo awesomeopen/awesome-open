@@ -161,6 +161,28 @@ const path = require('node:path');
     const catalogResponse = await context.request.get(new URL('catalog.json', page.url()).href);
     assert.ok(catalogResponse.ok(), 'Full catalog download is available');
     const data = await catalogResponse.json();
+    if (group === 'core') {
+      const evidenceLink = await page.locator('#hn-evidence').getAttribute('href');
+      const response = await context.request.get(new URL(evidenceLink, page.url()).href);
+      assert.ok(response.ok(), 'HN evidence download is available');
+      const published = await response.json();
+      const source = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/hn_evidence.json'), 'utf8'));
+      assert.equal(published.schema_version, 3);
+      assert.equal(published.source_schema_version, source.schema_version);
+      assert.deepEqual(published.projects, source.projects, 'Browser consumers retain complete HN projects');
+      for (const entry of Object.values(published.queue || {})) {
+        const good = entry.last_good;
+        if (good && Object.hasOwn(good, 'project_ref')) {
+          assert.ok(Number.isInteger(good.project_ref) && good.project_ref >= 0 && good.project_ref < published.projects.length);
+          assert.ok(!Object.hasOwn(good, 'project'));
+          good.project = structuredClone(published.projects[good.project_ref]);
+          delete good.project_ref;
+        }
+      }
+      published.schema_version = published.source_schema_version;
+      delete published.source_schema_version;
+      assert.deepEqual(published, source, 'Downloaded HN recovery evidence reconstructs exactly');
+    }
     assert.deepEqual(index.projects.map(project => project.id), data.projects.map(project => project.id));
     assert.equal(index.metrics_as_of, data.metrics_as_of);
     assert.ok(JSON.stringify(index).length < JSON.stringify(data).length / 2, 'Compact runtime index');
