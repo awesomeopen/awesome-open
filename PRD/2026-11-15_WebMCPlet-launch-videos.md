@@ -10,17 +10,20 @@
 
 ## Purpose
 
-Two short videos show that a curated list becomes searchable and comparable by an
-agent once its page exposes WebMCP tools. The owner's launch text carries the hook:
-Awesome lists lost their appeal, and WebMCP brings it back with curated data plus
-agent search and comparison. The videos show the mechanism working.
+Three short videos show that a curated list becomes searchable and comparable by an
+agent once its page exposes WebMCP tools, and by the visitor's own browser model
+when no agent is involved. The owner's launch text carries the hook: Awesome lists
+lost their appeal, and WebMCP brings it back with curated data plus agent search and
+comparison. The videos show the mechanism working, in escalating reach: a cloud
+agent on our list, a local agent on someone else's list, then no agent at all.
 
 | Video | Shows | Length | Agent |
 | --- | --- | --- | --- |
 | **V1: it works on ours** | A typed prompt in ChatGPT; its browser opens Awesome Open\*; it calls the Cabinet tools and returns a comparison | 20 s hero, 40 s extended | ChatGPT web UI (worked 2026-11-06) |
-| **V2: it works on yours** | One list drawn from a pre-screened pool gets WebMCPlet injected in our own browser; the same kind of query runs on it | 45 to 60 s | Local agent, see [Agent for V2](#agent-for-v2) |
+| **V2: it works on yours** | One list drawn from a pre-screened pool gets WebMCPlet injected in our own browser; the same kind of query runs on it | 45 to 60 s | Coding agent through DevTools, see [Agent for V2](#agent-for-v2) |
+| **V3: it works with nothing** (finale) | A casual Chrome user opens Awesome Open\*, accepts the on-device model download, and queries the Catalog through the in-page assistant | 60 to 75 s | Chrome's built-in model (Prompt API) |
 
-Both videos show code that runs. Every snippet on screen is read from a repository
+All videos show code that runs. Every snippet on screen is read from a repository
 file at render time, so the picture cannot drift from the implementation.
 
 ## Reconciling earlier plans
@@ -29,9 +32,10 @@ file at render time, so the picture cannot drift from the implementation.
 | --- | --- | --- |
 | About 90 s demo recording on the M5: local assistant on "video editor", family-photo no-match, same script on the Mac list, then an agent on the same tools | [WebMCPlet PRD, Delivery](2026-11-04_WebMCP-for-Awesome-lists.md#delivery), PR 6 | Replaced by V1 and V2. Its no-match journey becomes the last beat of the V1 extended cut; its Mac-list step becomes the fallback draw for V2. The owner-review gate stays |
 | Product video with a narrator discovering the "Áwesome lists" history | [TODO 261014](../TODO.md) | Stays a separate, later piece. It covers the whole site and uses a narrator; these two cover one feature and need none. The Remotion project, fonts and overlay components carry over. The TTS licence correction in that entry still applies |
-| Voice work: cloned name voice and ambient scene | [TODO 261018](../TODO.md), [voice plan](../site/SPECIMEN-VOICE-PLAN.md) | Not used. Both videos carry captions and no voice-over, which also works muted on social feeds |
+| Voice work: cloned name voice and ambient scene | [TODO 261018](../TODO.md), [voice plan](../site/SPECIMEN-VOICE-PLAN.md) | Not used. All three videos carry captions and no voice-over, which also works muted on social feeds |
 | Mac list as the outside fixture | WebMCPlet PRD, Journeys | One member of the V2 pool, and the fallback if a draw fails its checks |
 | "Injected only in our own browser", "local demo with no affiliation", no deployment to other sites, no contact with maintainers without the owner | WebMCPlet PRD, Delivery and Out of scope | Kept. V2 carries a permanent on-screen label and the owner decides about a courtesy note to the drawn list's maintainer before publication |
+| Prompt API as a separate demo | [WebMCPlet PRD, Two ways to use the tools](2026-11-04_WebMCP-for-Awesome-lists.md#two-ways-to-use-the-tools) | Becomes V3. The PRD keeps the Prompt API only if the model test (PR 3) passes, so V3 exists only on a pass |
 | Query wording | WebMCPlet PRD, Journeys (revised 2026-11-15) | V1 uses "Find a video editor for me by comparing two" with the page URL added, since ChatGPT must be told where to look (the research prompt did this) |
 
 ## Findings that shape the plan
@@ -57,7 +61,19 @@ file at render time, so the picture cannot drift from the implementation.
    fetches JSON from `localhost` can hit the target page's CSP or Chrome's local
    network permission prompt. Inline the JSON in the injected snippet, or use a Local
    Override in DevTools, and test both on each pool list.
-7. **WebMCP is off by default in Chrome 156.** Launch the capture browser with
+7. **"Needs nothing" has limits the video must show.** The Prompt API needs desktop
+   Chrome 148 or later, at least 22 GB free, and either more than 4 GB VRAM or 16 GB
+   RAM and 4 cores, per the research notes. It needs no extension, account or key. The
+   end card states the requirements literally. V3 claims "no install, no account, no
+   key", and nothing broader.
+8. **Chrome shows no download prompt of its own.** Per the PRD, the panel's assistant
+   appears when the model is available or downloadable, and the download starts only
+   on an explicit click in the panel. V3 films that button, not a browser dialog.
+9. **V3 must run flag-free on a stock profile.** Native tool use in the Prompt API
+   needs a flag, so the in-page assistant relies on structured output
+   (`responseConstraint`) and dispatches registered actions itself. Capture on a clean
+   profile and show that the flags page is untouched.
+10. **WebMCP is off by default in Chrome 156.** Launch the capture browser with
    `--enable-blink-features=WebMCP` and show nothing that implies visitors need it
    for the panel search.
 
@@ -112,14 +128,42 @@ category comes from the drawn list's own section names.
 
 | Option | Fit | Condition |
 | --- | --- | --- |
-| Built-in panel assistant (Prompt API) on the M5 | Shows the product's own no-install path | PR 3 passes; otherwise dropped, per the PRD |
 | Coding agent through `chrome-devtools-mcp` (`list_webmcp_tools`, `execute_webmcp_tool`) | Works today with page tools; shows tool calls in a terminal | The two named tools have not been run yet (research notes) |
 | ChatGPT desktop | Same agent as V1 | Untested |
 
-Default: the panel assistant if PR 3 passes, otherwise the DevTools route. If the
-owner wants ChatGPT's web UI in V2, the alternative is a public mirror of a CC0 list
+Default: the DevTools route. The panel assistant belongs to V3, so the three videos
+show three different clients. If the owner wants ChatGPT's web UI in V2, the alternative is a public mirror of a CC0 list
 under our own organization with the script added. That breaks the "their real site"
 premise and needs the owner's decision.
+
+## V3: it works with nothing
+
+**Setup.** A clean Chrome profile on the M5, where the model is not on disk (research
+notes, 2026-11-06), so the download is real. No flags, no extensions, signed out. The
+`alder` machine reports the model as `downloadable` and serves as the low-end check
+that the claim holds there.
+
+**Beats (about 70 s):**
+
+| s | Visual | Overlay |
+| --- | --- | --- |
+| 0 to 8 | A plain Chrome window; the visitor lands on Awesome Open\*; hovers the corner button | Caption: "Stock Chrome. No extension, account or key" |
+| 8 to 20 | Panel opens; search works at once; the assistant offers the model download; the visitor clicks it | Zoom to the download button and progress bar |
+| 20 to 30 | Download progress, time-lapsed | Real elapsed time and size on a clock; "sped up" marked |
+| 30 to 55 | The visitor types "Find a video editor for me by comparing two"; the assistant answers; rows and links come from tool results, the model's prose is labelled generated | Same value-check overlay as V1 and V2 |
+| 55 to 70 | Pull-back to all three results; end card | Requirements: desktop Chrome 148+, 22 GB free, 16 GB RAM and 4 cores or more than 4 GB VRAM |
+
+**Code reveal.** The `LanguageModel.availability()` and `create()` calls with the
+user-activation gate, and the deterministic check that rejects any project the tools
+did not return, read from the shipped panel source.
+
+**Acceptance.** Footage is one unbroken stock-profile session apart from the marked
+time-lapse. The query returns the same IDs and order as the manual search and V1's
+tools. Record the model download size and duration at the shoot.
+
+**Risks.** The model may answer slowly or invalidly on camera. Retakes are allowed
+when each take is honest; the video shows no run the product could not repeat. If the
+PR 3 threshold fails, V3 is dropped and the two-video plan stands.
 
 ## Stack
 
@@ -176,7 +220,8 @@ source revisions of the site, WebMCPlet and the drawn list in the video's descri
 | 2 | Time a real ChatGPT run; pick the pool; screen it against the four rules | Duration recorded; screening table committed | PR 2 |
 | 3 | V1 shoot and cut | The owner reviews; every on-screen value matches the catalog on the shoot date | PR 5 |
 | 4 | V2 shoot and cut | The owner reviews; the drawn list's licence, revision and label are on screen | PR 4 and PR 6 packaging |
-| 5 | Publish | The owner decides placement, the maintainer courtesy note, and the Chrome 162 token timing | Review passed |
+| 5 | V3 shoot and cut | The owner reviews; stock profile verified; requirements card matches the Chrome docs on the shoot date | PR 3 passed and PR 5 |
+| 6 | Publish | The owner decides placement, the maintainer courtesy note, and the Chrome 162 token timing | Review passed |
 
 Publication, other lists' maintainers and any third-party branding are the owner's
 call, per the WebMCPlet PRD's scope.
@@ -185,8 +230,10 @@ call, per the WebMCPlet PRD's scope.
 
 1. V2 with a local agent (recommended), or a public CC0 mirror so ChatGPT can drive it?
 2. Notify the drawn list's maintainer before publication?
-3. Is a muted, captioned format acceptable for both videos, or is a voice-over wanted
+3. Is a muted, captioned format acceptable for all three videos, or is a voice-over wanted
    later (this would reopen TODO 261014's voice question)?
 4. Remotion licence status for the project.
+5. Release order: V1 first, with V3 as the finale once PR 3 passes, or hold all three
+   for one launch?
 
 Contribution by Claude Code (AI)
