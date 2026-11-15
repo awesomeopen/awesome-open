@@ -8,7 +8,7 @@ import unittest
 from unittest.mock import patch
 
 from build_catalog import canonical_url
-from build_site import build
+from build_site import build, compact_json, load_site_catalog, published_catalog, search_index
 import deployment
 from site_test_fixtures import baseline_site
 
@@ -106,6 +106,61 @@ class DeploymentTests(unittest.TestCase):
             self.assertTrue(catalog['projects'])
             self.assertFalse(any('deployment' in p for p in catalog['projects']))
             self.assertNotIn('class="deployment-evidence"', (Path(folder) / 'output/index.html').read_text())
+            self.assertEqual(json.loads((Path(folder) / 'output/data/deployment_evidence.json').read_text()),
+                             {'schema_version': 1, 'projects': {}})
+            self.assertEqual(load_site_catalog(Path(folder) / 'output'), catalog)
+
+    def test_slim_download_preserves_approved_evidence_filters_and_bytes(self):
+        output, catalog = baseline_site()
+        original = deepcopy(catalog)
+        published = published_catalog(catalog)
+        document = deployment.load_optional(ROOT / 'data/deployment_evidence.json')
+        approved = {pid: record for pid, record in document['projects'].items()
+                    if record['review_status'] == 'approved'}
+        download = (output / 'data/deployment_evidence.json').read_text()
+        self.assertEqual(download.count('\n'), 1)
+        self.assertEqual(json.loads(download), {'schema_version': 1, 'projects': approved})
+        self.assertEqual(load_site_catalog(output), catalog)
+        self.assertEqual(search_index(published), search_index(catalog))
+        removed = 0
+        old_published = deepcopy(published)
+        for full, slim, old in zip(catalog['projects'], published['projects'], old_published['projects']):
+            if 'deployment' not in full:
+                self.assertNotIn('deployment', slim)
+                continue
+            setup = slim['deployment']
+            self.assertEqual(set(setup), {'review_status', 'checked_at', 'run_modes', 'install_methods', 'record'})
+            self.assertEqual(setup['record'], f'records/{full["id"]}.html')
+            self.assertTrue((output / setup['record']).is_file())
+            self.assertEqual(setup['review_status'], 'approved')
+            self.assertEqual(setup['checked_at'], full['deployment']['checked_at'])
+            for field in ('run_modes', 'install_methods'):
+                self.assertEqual(setup[field], [{'value': f['value']} for f in full['deployment'].get(field, [])])
+            old['deployment'] = full['deployment']
+            removed += len(compact_json(full['deployment']).encode()) - len(compact_json(setup).encode())
+        self.assertGreater(removed, 0)
+        self.assertEqual(len(compact_json(old_published).encode()) - len(compact_json(published).encode()), removed)
+        self.assertEqual(catalog, original, 'Publishing must not mutate rendering evidence')
+        self.assertFalse((output / 'data/deployment').exists())
+        self.assertIn('href="data/deployment_evidence.json">Where it runs (data)</a>',
+                      (output / 'index.html').read_text())
+
+    def test_loader_restores_setup_without_star_download_and_reads_legacy_catalog(self):
+        project = self.attach(fixture())
+        catalog = {'projects': [project]}
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            (output / 'data').mkdir()
+            (output / 'catalog.json').write_text(compact_json(catalog))
+            self.assertEqual(load_site_catalog(output), catalog)
+            (output / 'catalog.json').write_text(compact_json(published_catalog(catalog)))
+            with self.assertRaises(FileNotFoundError):
+                load_site_catalog(output)
+            (output / 'data/deployment_evidence.json').write_text(compact_json(fixture()))
+            self.assertEqual(load_site_catalog(output), catalog)
+            (output / 'data/deployment_evidence.json').write_text('{"projects":{}}')
+            with self.assertRaises(KeyError):
+                load_site_catalog(output)
 
     def test_pilot_offline_build_and_unchanged_core_metadata(self):
         document = deployment.load_optional(ROOT / 'data/deployment_evidence.json')
