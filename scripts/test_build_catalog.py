@@ -315,6 +315,22 @@ class CatalogTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.build()
 
+    def test_short_category_headings_keep_their_former_ids(self):
+        root = catalog.ROOT
+        source = (root / "README.source.md").read_text(encoding="utf-8")
+        snapshot, alternatives, evidence = [json.loads((root / "data" / name).read_text(encoding="utf-8"))
+                                            for name in ("github_metrics.json", "alternatives.json", "hn_evidence.json")]
+        result = catalog.build_catalog(source, snapshot, alternatives, evidence)
+        ids = {c["name"]: c["id"] for c in result["categories"]}
+        # Links, category art and stored evidence use these IDs; the headings use the short names.
+        self.assertEqual({name: ids[name] for name in catalog.CATEGORY_IDS}, catalog.CATEGORY_IDS)
+        self.assertEqual(ids["Networking"], "networking")
+        art = json.loads((root / "site/domains/provenance.json").read_text(encoding="utf-8"))
+        self.assertEqual(set(ids.values()), set(art["categories"]))
+        for name in catalog.CATEGORY_IDS:
+            self.assertIn(f"## {name}\n", source)
+            self.assertIn(f"[{name}](#{catalog.category_id(name)})", source)
+
     def test_checked_in_catalog_counts_and_all_memberships(self):
         root = catalog.ROOT
         source = (root / "README.source.md").read_text(encoding="utf-8")
@@ -327,7 +343,7 @@ class CatalogTests(unittest.TestCase):
         category = None
         for row in source.splitlines():
             if row.startswith('## '):
-                category = catalog.category_id(row[3:])
+                category = catalog.CATEGORY_IDS.get(row[3:]) or catalog.category_id(row[3:])
             match = catalog.readme.ENTRY.fullmatch(row)
             if match:
                 memberships.add((catalog.canonical_url(match[2]), category))

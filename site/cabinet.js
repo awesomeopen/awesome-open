@@ -97,7 +97,7 @@
     }
     function render() {
       const state = model.state(), list = $('cabinet-selection'); list.replaceChildren();
-      $('cabinet-count').textContent = state.ids.length + ' of 6 selected';
+      $('cabinet-count').textContent = state.ids.length + ' of 6';
       $('cabinet-empty').hidden = state.ids.length > 0;
       $('cabinet-compare').disabled = !state.ids.length;
       state.ids.forEach((id, i) => {

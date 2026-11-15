@@ -978,6 +978,9 @@
     comparator: comparator,
     selectProjects: selectProjects,
     stateToURL: stateToURL,
-    init: init
+    init: init,
+    // The one-screen Catalog (app.js) mounts fetched records with the same checks and enhancement.
+    recordPlate: recordPlate,
+    enhancePlate: enhancePlate
   };
 });

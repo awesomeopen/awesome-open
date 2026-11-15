@@ -138,8 +138,8 @@ class DeploymentTests(unittest.TestCase):
             # Setup facts live in the plate's Where it runs box and its popup.
             self.assertEqual(records.count('<dl class="pg-kit">'), approved)
             self.assertEqual(records.count('class="deployment-evidence"'), 0)
-            self.assertIn('id="run-mode-filter"', page)
-            self.assertIn('id="install-method-filter"', page)
+            self.assertIn('id="f-run" name="run_mode"', page)
+            self.assertIn('id="f-install" name="install_method"', page)
             self.assertIn('<summary aria-label="Details: Where it runs">i</summary>', records)
             self.assertIn('<h5>Install methods</h5>', records)
 

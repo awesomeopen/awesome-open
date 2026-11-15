@@ -686,21 +686,24 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-leaders path {fill:none;stroke:var(--rs-scarlet);stroke-width:1;}
 .plate-leaders circle {fill:white;stroke:var(--rs-scarlet);stroke-width:1;}
 
-/* Specimen label: live text and a QR code of the permalink. */
-.specimen-plate .specimen-label {display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px;align-items:center;position:relative;z-index:3;width:65%;min-width:min(320px,100%);max-width:100%;padding:8px;border:1px solid var(--rule);border-radius:2px;background:white;opacity:.8;margin-top:8px;font:12px/1.45 var(--mono);color:var(--rs-ink);overflow-wrap:anywhere;}
+/* Specimen label: live text and a QR code of the permalink. The label is as tall as its
+   code: one line per fact at a tight leading, cut with an ellipsis rather than wrapped. */
+.specimen-plate .specimen-label {display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px;align-items:center;position:relative;z-index:3;width:65%;min-width:min(320px,100%);max-width:100%;padding:8px;border:1px solid var(--rule);border-radius:2px;background:white;opacity:.8;margin-top:0;font:12px/1.3 var(--mono);color:var(--rs-ink);}
 /* Negative margin reclaims space; only illustrated records overlap their field. */
-.specimen-plate .plate-specimen>.specimen-label {margin-top:-4em;}
 .specimen-plate.without-art .specimen-label {margin-top:24px;}
 .specimen-plate .specimen-label a {text-decoration:none;}
 .label-qr {display:block;width:92px;height:92px;border:2px solid white;background:white;}
 .label-qr img {display:block;width:100%;height:100%;}
-.label-lines {display:grid;gap:1px;min-width:0;}
+.label-lines {display:grid;gap:0;min-width:0;}
+.label-lines>* {min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.label-lines a.permalink {display:flex;min-width:0;white-space:pre;}
+.permalink-name {min-width:0;overflow:hidden;text-overflow:ellipsis;}
 .label-lines .specimen-links {display:block;margin:0;padding:0;}
 .label-lines :is(.registry,.sheet-folio) {display:inline;margin:0;padding:0;font:inherit;color:inherit;letter-spacing:0;}
 .label-lines a {font:inherit;padding:0;margin:0;display:inline;min-height:0;}
-.label-header {font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
-.label-status {font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--rs-scarlet);}
-.label-name {font-weight:700;font-size:18px;line-height:1.2;}
+.label-header {margin-bottom:2px;font-size:9px;line-height:1.2;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.label-status {margin-bottom:2px;font-weight:700;font-size:11px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--rs-scarlet);}
+.label-name {font-weight:700;font-size:18px;line-height:1.15;}
 
 .timeline {position:relative;height:92px;margin:0 6px;}
 .timeline-axis {position:absolute;left:0;right:0;top:46px;border-top:1px solid var(--rs-blueprint);}
@@ -867,10 +870,9 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .history-evidence li {margin:16px 0;}
 .history-evidence p {margin:8px 0;}
 
-/* Frozen Scoreboard places use the same cup and numeral as their rank tables. */
-.scoreboard-plate { margin-top: 8px; }
-.scoreboard-edition { display: block; font-size: 10px; color: var(--rs-muted); }
-.scoreboard-trophies { display: flex; flex-wrap: wrap; gap: 0 12px; }
-.scoreboard-trophies a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; font-size: 10px; }
+/* Current Scoreboard places: one count under the Function statement, with the rank tables' cup. */
+.plate-trophies {display:inline-flex;align-items:center;gap:6px;margin:0 0 18px;font:13px/1.4 var(--mono);color:var(--rs-blueprint);text-decoration:none;}
+.plate-trophies svg {flex:none;width:18px;height:18px;}
+.plate-trophies:hover {color:var(--rs-scarlet);}
 .score-trophy { display: inline-flex; align-items: center; gap: 4px; color: var(--rs-blueprint); font-variant-numeric: tabular-nums; }
 .score-trophy svg { display: inline-block; flex: none; width: 16px; height: 16px; }

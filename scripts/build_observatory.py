@@ -18,6 +18,9 @@ import shutil
 from update_hn import chart_displayable
 import name_matching
 
+# Also the catalog's rider tooltip for this page.
+DESCRIPTION = "A snapshot of the Awesome Open collection: categories, detected licenses, repository dates, stars and evidence coverage."
+
 REPOSITORY = "https://github.com/awesomeopen/awesome-open"
 RECENCY = [
     ("0–30 days", 30),
@@ -746,7 +749,7 @@ def render(index, counts, covered, category_art=None, root=None):
         if revision
         else "Local preview; source revision not supplied"
     )
-    art = '<img class="obs-logo" src="../brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo">'
+    art = '<img class="obs-logo" src="../brand/fruit-96.png" width="96" height="96" alt="">'
     options = "".join(
         f'<option value="{esc(c["id"])}" data-metric-art="{esc(category_art.get(c["id"], ""))}">{esc(c["name"])}</option>'
         for c in index["categories"]
@@ -866,15 +869,15 @@ def render(index, counts, covered, category_art=None, root=None):
         rhyming_names_html(counts["rhyming_names"])
     )
     return f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Observatory</title><meta name="description" content="A snapshot of the Awesome Open collection: categories, detected licenses, repository dates, stars and evidence coverage."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="{content_url('observatory.css', site / 'observatory.css')}"><script src="{content_url('observatory.js', site / 'observatory.js')}" defer></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><script>if(window.top!==window)document.documentElement.classList.add("is-embedded")</script><title>Awesome Open* Observatory</title><meta name="description" content="{DESCRIPTION}"><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="{content_url('observatory.css', site / 'observatory.css')}"><script src="{content_url('observatory.js', site / 'observatory.js')}" defer></script></head>
 <body class="observatory"><a class="skip-link" href="#observatory-main">Skip to observatory</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="./" aria-current="page">Observatory</a><a href="../scoreboard/">Scoreboard</a><a href="../spotlight/">Spotlight</a></nav></header></div>
-<main id="observatory-main" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><div class="obs-hero-copy"><h1>Collection <br />observatory</h1></div></section>
+<main id="observatory-main" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><div class="obs-hero-copy"><h1>Observatory</h1></div></section>
 <form id="observatory-filters" class="obs-filters" hidden aria-label="Filter observatory"><div class="obs-filters-row"><select id="category-filter" name="category" aria-label="Category"><option value="">All categories</option>{options}</select><select id="license-filter" name="license" aria-label="Detected license"><option value="all">Any license</option><option value="known">License detected</option><option value="unknown">License unknown</option></select><button id="reset-filters" type="button">Reset filters</button><nav class="obs-jump" aria-label="Sections"><a href="#shared-names">Names</a><a href="#charts">Charts</a><a href="#coverage">Coverage</a><a href="#project-records">Data</a></nav></div></form>
 <noscript><p>Filters and filtered CSV export require JavaScript.</p></noscript>{metrics_html(counts)}{finding_html(aggregate(index))}{names}
 <section id="charts" class="obs-section" aria-labelledby="charts-heading"><h2 id="charts-heading">Charts</h2>{charts}</section></div>
 <section id="coverage" class="obs-coverage" aria-labelledby="coverage-heading"><div class="obs-shell"><h2 id="coverage-heading">Evidence coverage</h2><p><span class="obs-label">Whole collection</span></p><table class="obs-coverage-table"><caption class="visually-hidden">Evidence coverage</caption><thead><tr><th scope="col">Evidence</th><th scope="col">Projects</th><th scope="col">Scope</th></tr></thead><tbody>{coverage_rows}</tbody></table><div class="obs-coverage-notes"><p>Evidence collection: {esc(covered["signals_collected_at"] or "Not available")}. <br />HN checked: {esc(covered["hn_checked"] or "Not available")}; window {esc(covered["hn_window_start"])} to {esc(covered["hn_window_end_exclusive"])}.</p><p>{evidence_links}</p></div></div></section>
 <div class="obs-shell"><section id="project-records" class="obs-section obs-ledger" aria-labelledby="project-data-heading"><h2 id="project-data-heading">Project data</h2><p>Dates are UTC. Cached measurements may be stale. The CSV lists the observation dates for each project.</p><p class="obs-downloads"><a id="export-csv" href="projects.csv" download="awesome-open-observatory.csv">Download selection CSV</a><a href="snapshot.json" download>Download complete snapshot JSON</a></p></section></div>
-<div class="obs-closing-mark">{art}</div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Observatory</p><ul class="obs-footer-links"><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li><li>Metrics collection date: <time>{index["metrics_as_of"]}</time> UTC</li></ul></div></footer><script id="observatory-data" type="application/json">{json_html(index)}</script></body></html>'''
+<div class="obs-closing-mark" aria-hidden="true">{art}</div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Observatory</p><ul class="obs-footer-links"><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li><li>Metrics collection date: <time>{index["metrics_as_of"]}</time> UTC</li></ul></div></footer><script id="observatory-data" type="application/json">{json_html(index)}</script></body></html>'''
 
 
 def build(catalog, hn, output, root):
