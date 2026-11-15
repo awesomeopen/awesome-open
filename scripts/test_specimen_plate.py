@@ -66,13 +66,32 @@ class PlateTests(unittest.TestCase):
         self.assertIn(f'href="{PERMALINK_BASE + PID}" aria-label="QR code: permalink to OpenExample"', html)
         self.assertIn(f'src="{qr_path(PROJECT)}"', html)
         self.assertIn('Domain: <a class="tag" data-category="tools"', html)
-        self.assertIn('Specimen: OpenExample (permalink)', html)
+        self.assertIn('aria-label="Permalink to OpenExample">Specimen: <span class="permalink-name">OpenExample</span></a>', html)
+        self.assertNotIn('(permalink)', html)
+        # Scoreboard places sit under the Function statement, not on the label.
+        self.assertNotIn('plate-trophies', html)
         self.assertIn('Awesome Open* · Field record', html)
         self.assertIn('OpenExample on GitHub', html)
         labels = re.findall(r'<span class="sheet-label">([^<]+)</span>', html)
         # The evidence grid is fixed: every section is present without evidence (B-PR158-01).
         self.assertEqual(labels, ['I / Function', 'II / Repository record', 'III / Observations &amp; evidence',
                                   'IV / Release record', 'V / Where it runs', 'Explore'])
+
+    def test_scoreboard_places_are_one_trophy_count_under_the_function_statement(self):
+        project = copy.deepcopy(PROJECT)
+        project['scoreboard_trophies'] = [
+            {'metric': 'hn-streak', 'title': 'Longest HN streak', 'rank': 1, 'recorded_on': '2026-11-09'},
+            {'metric': 'github-stars', 'title': 'Most GitHub stars', 'rank': 3, 'recorded_on': '2026-11-09'},
+        ]
+        html = render(project)
+        line = re.search(r'</p><a class="plate-trophies" href="scoreboard/" title="([^"]+)"><svg[^>]*>.*?</svg><span>2 Trophies</span></a>', html)
+        self.assertIsNotNone(line, html)
+        self.assertEqual(line.group(1), 'Scoreboard, updated 2026-11-09. Longest HN streak, place 1; Most GitHub stars, place 3')
+        self.assertLess(html.index('class="record-description'), html.index('plate-trophies'))
+        self.assertNotIn('rank.trophy</title>', html)
+        project['scoreboard_trophies'] = project['scoreboard_trophies'][:1]
+        self.assertIn('<a class="plate-trophies" href="scoreboard/#hn-streak"', render(project))
+        self.assertIn('<span>1 Trophy</span>', render(project))
 
     def test_aliases_are_directly_below_heading_in_source_order(self):
         project = copy.deepcopy(PROJECT)

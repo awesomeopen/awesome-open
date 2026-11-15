@@ -34,7 +34,7 @@ const path=require('node:path');
  assert.equal(await page.locator('.jar-exhibit').count(),7);assert.equal(await page.locator('[data-ground]').count(),0);assert.equal(await page.locator('.jar-review').count(),0);assert.equal(await page.locator('.jar-photo[src*=labelled]').count(),2);
  await page.locator('.jar-photo,.specimen-print').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
  await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:'tmp/site-qa/jars-desktop.png'});
- assert.ok(await page.locator('.search-submit img').evaluate(n=>n.complete&&n.naturalWidth>0));assert.equal(await page.locator('.jar-central .steam-strand').count(),3);
+ assert.ok(await page.locator('.list-search button img').evaluate(n=>n.complete&&n.naturalWidth>0));assert.equal(await page.locator('.jar-central .steam-strand').count(),3);
  const first=page.locator('.jar-select').first();const restingWidth=await page.locator('.vessel').first().evaluate(n=>n.getBoundingClientRect().width);await first.hover({position:{x:45,y:55}});await page.waitForFunction(()=>parseFloat(document.querySelector('.jar-exhibit').style.getPropertyValue('--my'))<-2.9);await page.waitForFunction(()=>document.body.dataset.jarMotion==='settled');
  assert.equal(await first.getAttribute('aria-expanded'),'true');assert.equal(await page.locator('.jar-annotation:visible').count(),1);assert.equal(await page.locator('.jar-annotation:visible .jar-leaders path[d]').count(),3);assert.equal(await page.locator('.jar-annotation:visible').evaluate(n=>getComputedStyle(n).backgroundColor),'rgba(0, 0, 0, 0)');
  assert.ok(await page.locator('.jar-exhibit').first().evaluate(n=>Math.abs(parseFloat(n.style.getPropertyValue('--mx')))>1));assert.equal(await page.locator('.vessel').first().evaluate(n=>n.getBoundingClientRect().width),restingWidth);
@@ -179,7 +179,9 @@ const path=require('node:path');
  assert.equal(await page.locator('.jar-annotation:visible .label-ink').evaluate(n=>getComputedStyle(n).backgroundColor),'rgb(255, 200, 0)');
  assert.equal(await page.locator('.jar-annotation:visible .jar-metrics span').first().evaluate(n=>getComputedStyle(n).backgroundColor),'rgb(217, 238, 248)');
  const id=await link.getAttribute('data-jar-inspect');await link.click();
- assert.ok(await page.locator('#project-'+id+' > details').evaluate(n=>n.open));
+ // Inspect opens that project's plate in the Catalog pane.
+ await page.locator('#pane-scroll .specimen-plate').waitFor({state:'visible'});
+ assert.equal(new URL(page.url()).hash,'#project-'+id);
  // Three activations reveal two fractures, then open the record; progress survives hover changes.
  await page.goto(url);await ready();
  const jar=page.locator('.jar-exhibit').first(),target=await jar.getAttribute('data-project');
@@ -190,7 +192,7 @@ const path=require('node:path');
  assert.equal(await jar.getAttribute('data-cracks'),'2');assert.equal(await jar.locator('.crack-first').evaluate(n=>getComputedStyle(n).opacity),'1');assert.match(await first.getAttribute('aria-label'),/^Inspect/);
  await page.screenshot({path:'tmp/site-qa/jars-crack-second.png'});
  await page.keyboard.press('Space');
- await page.waitForFunction(id=>document.querySelector('#project-'+id+' > details').open,target);
+ await page.waitForFunction(id=>location.hash==='#project-'+id&&document.querySelector('#pane-scroll .specimen-plate'),target);
  assert.equal(new URL(page.url()).hash,'#project-'+target);
  assert.equal(await jar.getAttribute('data-cracks'),'0');assert.match(await first.getAttribute('aria-label'),/^Crack glass/);
  await page.goto(url);await ready();
@@ -203,13 +205,17 @@ const path=require('node:path');
  const openTofu=searchData.projects.find(project=>project.name==='OpenTofu');
  assert.ok(openTofu,'The search fixture includes OpenTofu');
  assert.ok(expectedSearchIds.includes(openTofu.id),'OpenTofu must match its own name');
- await page.locator('#search').fill('OpenTofu');await page.locator('.search-submit').click();
- await page.waitForFunction(expected=>JSON.stringify(Array.from(document.querySelectorAll('.project-card:not([hidden])'),card=>card.dataset.projectId).sort())===JSON.stringify(expected),expectedSearchIds);
- assert.deepEqual(await page.locator('.project-card:visible').evaluateAll(cards=>cards.map(card=>card.dataset.projectId).sort()),expectedSearchIds);
+ // Submitting a search opens its first result; Esc returns to the jars. Summary text may add weaker matches.
+ await page.locator('#search').fill('OpenTofu');await page.locator('#search-form button[type=submit]').click();
+ await page.locator('#pane-scroll .specimen-plate').waitFor({state:'visible'});
+ assert.equal(await page.locator('#plate-name').textContent(),'OpenTofu');
+ const shown=await page.locator('#rows .row:not([hidden])').evaluateAll(rows=>rows.map(row=>row.dataset.id));
+ assert.ok(expectedSearchIds.every(id=>shown.includes(id)),'Every name, description or alternative match is listed');
+ await page.keyboard.press('Escape');await page.locator('#pane-rest').waitFor({state:'visible'});
  const selectedJar=page.locator('.jar-exhibit').first();
  const selectedId=await selectedJar.getAttribute('data-project');
  await selectedJar.locator('.jar-select').focus();await selectedJar.locator('.jar-annotation a').click();
- assert.ok(await page.locator('#project-'+selectedId+' > details').evaluate(n=>n.open));
+ await page.waitForFunction(id=>location.hash==='#project-'+id&&document.querySelector('#pane-scroll .specimen-plate'),selectedId);
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(url);await ready();await first.focus();assert.equal(await first.getAttribute('aria-expanded'),'true');
  assert.equal(await page.locator('.specimen-idle').first().evaluate(n=>getComputedStyle(n).animationName),'none');assert.equal(await page.locator('.jar-steam').first().isVisible(),false);
  await page.keyboard.press('Escape');assert.equal(await first.getAttribute('aria-expanded'),'false');
@@ -231,7 +237,7 @@ const path=require('node:path');
  await checkSubjectClearance(mobileMotion);
  await mobileMotion.screenshot({path:'tmp/site-qa/jars-fit-mobile-motion.png'});
  await mobileMotion.close();
- const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});await fallback.goto(url);assert.equal(await fallback.locator('.jar-annotation:visible').count(),7);assert.equal(await fallback.locator('[data-jar-inspect]').count(),7);await fallback.locator('.project-card summary').first().click();assert.ok(await fallback.locator('.project-card details').first().evaluate(n=>n.open));await fallback.close();
+ const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});await fallback.goto(url);assert.equal(await fallback.locator('.jar-annotation:visible').count(),7);assert.equal(await fallback.locator('[data-jar-inspect]').count(),7);assert.ok(await fallback.locator('[data-jar-inspect]').first().evaluate(n=>/^records\/[0-9a-f]{64}\.html$/.test(n.getAttribute('href'))),'Inspect leads to the static record');await fallback.locator('[data-jar-inspect]').first().click();await fallback.waitForURL(/\/records\//);await fallback.close();
  // Resource/visual evidence at real device densities. New contexts avoid cached
  // larger candidates influencing selection at a lower DPR. The control serves
  // original bytes for each derivative URL, keeping markup/layout identical.

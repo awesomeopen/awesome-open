@@ -123,7 +123,7 @@ class HeroImageTests(unittest.TestCase):
                     cutout = f'specimens/cutouts/{project["id"]}.webp'
                     record = (output / 'records' / (project['id'] + '.html')).read_text()
                     self.assertTrue(f'src="{cutout}"' in record or f'src="{project["artwork"]["path"]}"' in record)
-                self.assertIn(f'data-detail-url="records/{project["id"]}.html"', html)
+                self.assertIn(f'<a href="records/{project["id"]}.html">', html)
             # Simulate a CSS-only rebuild without touching approved source files.
             css_path = ROOT / 'site/jars.css'
             changed_css = css_path.read_bytes() + b'\n/* cache regression */\n'

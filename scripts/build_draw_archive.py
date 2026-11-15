@@ -12,6 +12,9 @@ import shutil
 
 from weekly_draw import visible
 
+# Also the catalog's rider tooltip for this page.
+DESCRIPTION = "Seven illustrated Awesome Open projects, drawn each week and shown the following week, with every past edition."
+
 REPOSITORY = 'https://github.com/awesomeopen/awesome-open'
 
 
@@ -88,13 +91,13 @@ def build(catalog, doc, output, root):
         if revision else 'Local preview; source revision not supplied'
     )
     page = f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Spotlight</title><meta name="description" content="Seven illustrated Awesome Open projects, drawn each week and shown the following week, with every past edition."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="../{content_url('observatory/observatory.css', root / 'site/observatory.css')}"><link rel="stylesheet" href="{content_url('draws.css', root / 'site/draws.css')}"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><script>if(window.top!==window)document.documentElement.classList.add("is-embedded")</script><title>Awesome Open* Spotlight</title><meta name="description" content="{DESCRIPTION}"><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="../{content_url('observatory/observatory.css', root / 'site/observatory.css')}"><link rel="stylesheet" href="{content_url('draws.css', root / 'site/draws.css')}"></head>
 <body class="observatory draws"><a class="skip-link" href="#spotlight">Skip to spotlight</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../observatory/">Observatory</a><a href="../scoreboard/">Scoreboard</a><a href="./" aria-current="page">Spotlight</a></nav></header></div>
 <main id="spotlight" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Spotlight</h1></section>
 {metrics_html(editions, len(catalog['projects']))}
 <div id="editions">{''.join(sections)}</div>
 </div>
-<div class="obs-closing-mark"><img class="obs-logo" src="../brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo"></div></main>
+<div class="obs-closing-mark" aria-hidden="true"><img class="obs-logo" src="../brand/fruit-96.png" width="96" height="96" alt=""></div></main>
 <footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Spotlight</p><ul class="obs-footer-links"><li><a href="draws.json" download>Download draw records</a> · <a href="{REPOSITORY}/blob/main/site/WEEKLY-DRAWS.md">Draw contract</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li></ul></div></footer></body></html>'''
     (target / 'index.html').write_text(page)
     # Pending draws are retained in the repository but not presented as past displays.

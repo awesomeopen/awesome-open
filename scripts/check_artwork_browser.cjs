@@ -42,6 +42,7 @@ const policy = require('./browser_capture.cjs');
       await page.locator('#' + id).fill(value);
       await page.locator('#' + id).dispatchEvent('change');
     };
+    // The Catalog opens one plate at a time in its pane.
     const waitForPlate = card => card.locator('.specimen-plate').waitFor({ state: 'visible' });
     const capture = async name => {
       await page.evaluate(() => document.fonts.ready);
@@ -53,20 +54,24 @@ const policy = require('./browser_capture.cjs');
     for (const project of projects) {
       report.currentProjectId = project.id; write();
       await change('search', project.name);
-      const card = page.locator('#project-' + project.id);
-      await card.locator('summary').first().click();
-      assert.equal(await card.locator('details.specimen-drawer').evaluate(node => node.open), true, 'Click after search must open ' + project.name);
+      const row = page.locator(`#rows .row[data-id="${project.id}"]`);
+      await row.locator('a').click();
+      const card = page.locator('#pane-scroll');
+      // The previous plate stays until this record has loaded and passed its checks.
+      await page.waitForFunction(id => document.querySelector('#pane-scroll .specimen-plate')?.getAttribute('aria-labelledby') === 'name-' + id, project.id);
       await waitForPlate(card);
+      assert.equal(await page.locator('#plate-name').textContent(), project.name, 'Click after search must open ' + project.name);
+      // In All, the description starts with its category.
+      assert.ok((await row.locator('.row-desc').textContent()).endsWith(project.description));
       if (project.function_summary) {
         assert.equal(await card.locator('.function-detail > p').first().textContent(), project.function_summary.text);
         assert.ok(await card.locator('.function-provenance a').count() > 0);
-        assert.ok((await card.locator('.description').textContent()).includes(project.description));
       } else {
         assert.equal(await card.locator('.function-detail').count(), 0);
       }
       const image = card.locator('.specimen-art img');
       await image.scrollIntoViewIfNeeded();
-      await page.waitForFunction(id => { const img = document.querySelector('#project-' + id + ' .specimen-art img'); return img && img.complete && img.naturalWidth > 0; }, project.id, { timeout: 10000 });
+      await page.waitForFunction(() => { const img = document.querySelector('#pane-scroll .specimen-art img'); return img && img.complete && img.naturalWidth > 0; }, null, { timeout: 10000 });
       assert.equal(await image.evaluate(img => img.naturalWidth > 0), true);
       if (policy.artwork(project.id)) await capture('specimen-' + project.id + '.png');
       report.projects.push({ id: project.id, name: project.name }); write();

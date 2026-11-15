@@ -25,15 +25,15 @@
 
 | | | |
 | --- | --- | --- |
-| <sub><b>[AI & Language Models](#ai--language-models)</b></sub> | <sub><b>[Business & Commerce](#business--commerce)</b></sub> | <sub><b>[Maps & Geospatial](#maps--geospatial)</b></sub> |
-| <sub><b>[Developer Tools](#developer-tools)</b></sub> | <sub><b>[Knowledge Management](#knowledge-management)</b></sub> | <sub><b>[Education & Research](#education--research)</b></sub> |
-| <sub><b>[Infrastructure & DevOps](#infrastructure--devops)</b></sub> | <sub><b>[Communication & Social](#communication--social)</b></sub> | <sub><b>[Health & Medicine](#health--medicine)</b></sub> |
-| <sub><b>[Databases & Search](#databases--search)</b></sub> | <sub><b>[Creative & Media](#creative--media)</b></sub> | <sub><b>[Operating Systems & Firmware](#operating-systems--firmware)</b></sub> |
-| <sub><b>[Security & Privacy](#security--privacy)</b></sub> | <sub><b>[Games & Emulation](#games--emulation)</b></sub> | <sub><b>[Home Automation](#home-automation)</b></sub> |
-| <sub><b>[Networking](#networking)</b></sub> | <sub><b>[Robotics & Hardware](#robotics--hardware)</b></sub> | <sub><b>[Finance & Trading](#finance--trading)</b></sub> |
-| <sub><b>[Productivity & Office](#productivity--office)</b></sub> | <sub><b>[Science & Engineering](#science--engineering)</b></sub> | <sub><b>[Storage & File Management](#storage--file-management)</b></sub> |
+| <sub><b>[AI](#ai)</b></sub> | <sub><b>[Commerce](#commerce)</b></sub> | <sub><b>[Maps](#maps)</b></sub> |
+| <sub><b>[Dev Tools](#dev-tools)</b></sub> | <sub><b>[Knowledge](#knowledge)</b></sub> | <sub><b>[Education](#education)</b></sub> |
+| <sub><b>[Infrastructure](#infrastructure)</b></sub> | <sub><b>[Socials](#socials)</b></sub> | <sub><b>[Health](#health)</b></sub> |
+| <sub><b>[DBs & Search](#dbs--search)</b></sub> | <sub><b>[Creative](#creative)</b></sub> | <sub><b>[OS & Firmware](#os--firmware)</b></sub> |
+| <sub><b>[Security](#security)</b></sub> | <sub><b>[Gaming](#gaming)</b></sub> | <sub><b>[Home](#home)</b></sub> |
+| <sub><b>[Networking](#networking)</b></sub> | <sub><b>[Hardware](#hardware)</b></sub> | <sub><b>[Finance](#finance)</b></sub> |
+| <sub><b>[Productivity](#productivity)</b></sub> | <sub><b>[Science](#science)</b></sub> | <sub><b>[Storage](#storage)</b></sub> |
 
-## AI & Language Models
+## AI
 
 | Project | Description |
 | --- | --- |
@@ -117,7 +117,7 @@
 | [OpenWants](https://openwants.com/) | Shared directory and messaging service where AI agents post needs and offers, find matches, and contact one another. |
 | [Open WebUI](https://github.com/open-webui/open-webui) | Web interface for AI models, including Ollama and OpenAI-compatible APIs. |
 
-## Developer Tools
+## Dev Tools
 
 | Project | Description |
 | --- | --- |
@@ -182,7 +182,7 @@
 | [Open Watcom v2](https://github.com/open-watcom/open-watcom-v2) | Suite of C, C++, and Fortran compilers and development tools continuing Open Watcom. |
 | [OpenWhisk](https://github.com/apache/openwhisk) | Serverless cloud platform for event-driven functions. |
 
-## Infrastructure & DevOps
+## Infrastructure
 
 | Project | Description |
 | --- | --- |
@@ -219,7 +219,7 @@
 | [OpenYurt](https://github.com/openyurtio/openyurt) | Extend Kubernetes to edge computing environments. |
 | [OpenZFS](https://github.com/openzfs/zfs) | ZFS filesystem and storage management for Linux and FreeBSD. |
 
-## Databases & Search
+## DBs & Search
 
 | Project | Description |
 | --- | --- |
@@ -236,7 +236,7 @@
 | [OpenSearch Dashboards](https://github.com/opensearch-project/OpenSearch-Dashboards) | Visualization and dashboards for OpenSearch. |
 | [OpenTSDB](https://github.com/OpenTSDB/opentsdb) | Distributed time-series database. |
 
-## Security & Privacy
+## Security
 
 | Project | Description |
 | --- | --- |
@@ -286,7 +286,7 @@
 | [OpenXterm](https://github.com/nyl/OpenXterm) | Linux remote-session application scaffold with a session tree, quick-connect controls, and a tabbed workspace. |
 | [OpenZiti](https://github.com/openziti/ziti) | Programmable zero-trust networking platform. |
 
-## Productivity & Office
+## Productivity
 
 | Project | Description |
 | --- | --- |
@@ -334,7 +334,7 @@
 | [OpenWork](https://github.com/different-ai/openwork) | Desktop workspace where AI agents work on local files.<br>Alternative to: [Claude Cowork](https://github.com/different-ai/openwork#readme), [Codex](https://github.com/different-ai/openwork#readme) |
 | [OpenWorker](https://github.com/andrewyng/openworker) | Desktop AI assistant for documents, code review, connected applications, and scheduled tasks using hosted or local models. |
 
-## Business & Commerce
+## Commerce
 
 | Project | Description |
 | --- | --- |
@@ -366,7 +366,7 @@
 | [OpenSign](https://github.com/OpenSignLabs/OpenSign) | Document signing and electronic signature workflows.<br>Alternative to: [DocuSign](https://github.com/OpenSignLabs/OpenSign#readme), [PandaDoc](https://github.com/OpenSignLabs/OpenSign#readme), [SignNow](https://github.com/OpenSignLabs/OpenSign#readme) |
 | [OpenVerein](https://github.com/KI-Klub-Werder-e-V/openverein) | Self-hosted management for German registered associations, with membership, dues, accounting, events, and a member portal. |
 
-## Knowledge Management
+## Knowledge
 
 | Project | Description |
 | --- | --- |
@@ -393,7 +393,7 @@
 | [Open US Law](https://github.com/Vaquill-AI/open-us-law) | Scrapers and ingestion pipelines that collect US primary legal materials and normalize them into a shared data schema. |
 | [OpenWiki](https://github.com/langchain-ai/openwiki) | Builds and maintains linked Markdown wikis from code and knowledge sources. |
 
-## Communication & Social
+## Socials
 
 | Project | Description |
 | --- | --- |
@@ -415,7 +415,7 @@
 | [OpenVK](https://github.com/OpenVK/openvk) | Social network inspired by VK. |
 | [OpenWA](https://github.com/rmyndharis/OpenWA) | Self-hosted WhatsApp API gateway with multiple sessions, webhooks, and a management dashboard. |
 
-## Creative & Media
+## Creative
 
 | Project | Description |
 | --- | --- |
@@ -482,7 +482,7 @@
 | [OpenVids](https://github.com/bazodev/open-vids) | Desktop video editor for macOS and Windows with AI agents for timeline editing, captions, motion graphics, audio, and render checks. |
 | [OpenZine](https://github.com/JosssphZhou/openzine) | Agent skill and command-line tool for converting PDFs or page images into interactive 3D HTML booklets. |
 
-## Games & Emulation
+## Gaming
 
 | Project | Description |
 | --- | --- |
@@ -527,7 +527,7 @@
 | [OpenXRay](https://github.com/OpenXRay/xray-16) | Enhanced X-Ray engine for the S.T.A.L.K.E.R. games. |
 | [OpenXW](https://github.com/elyosh/OpenXW) | Reimplementation of Star Wars: X-Wing for Windows, macOS, and Linux using original game data. |
 
-## Robotics & Hardware
+## Hardware
 
 | Project | Description |
 | --- | --- |
@@ -566,7 +566,7 @@
 | [OpenWAM](https://github.com/OpenWAM-Official/OpenWAM) | Research stack for training, deploying, and evaluating world-action models for robot control. |
 | [OpenWebRX](https://github.com/jketterl/openwebrx) | Multi-user software-defined radio receiver with a browser interface and analog and digital demodulation. |
 
-## Science & Engineering
+## Science
 
 | Project | Description |
 | --- | --- |
@@ -617,7 +617,7 @@
 | [OpenVolumeMesh](https://github.com/OpenVolumeMesh/OpenVolumeMesh) | C++ library for representing and traversing polyhedral, tetrahedral, and hexahedral meshes. |
 | [OpenVSP](https://github.com/OpenVSP/OpenVSP) | Parametric aircraft geometry modeling. |
 
-## Maps & Geospatial
+## Maps
 
 | Project | Description |
 | --- | --- |
@@ -636,7 +636,7 @@
 | [OpenStreetMap website](https://github.com/openstreetmap/openstreetmap-website) | Rails application powering the OpenStreetMap website and API. |
 | [OpenTripPlanner](https://github.com/opentripplanner/OpenTripPlanner) | Plan journeys across transit, cycling, walking, and mobility services. |
 
-## Education & Research
+## Education
 
 | Project | Description |
 | --- | --- |
@@ -655,7 +655,7 @@
 | [OpenSesame](https://osdoc.cogsci.nl) | Build psychology, neuroscience, and experimental-economics experiments with a graphical interface and Python or JavaScript scripting. |
 | [openSIS](https://github.com/OS4ED/openSIS-Classic) | Student information and school administration system. |
 
-## Health & Medicine
+## Health
 
 | Project | Description |
 | --- | --- |
@@ -674,7 +674,7 @@
 | [OpenTrainer](https://github.com/janpetr93/OpenTrainer) | Local indoor cycling app with Bluetooth trainer control, interval workouts, a training calendar, and MCP planning tools. |
 | [OpenVitals](https://github.com/zmeyer44/OpenVitals) | Health-record ingestion, normalization, biomarker tracking, and wearable-data dashboards. |
 
-## Operating Systems & Firmware
+## OS & Firmware
 
 | Project | Description |
 | --- | --- |
@@ -697,7 +697,7 @@
 | [OpenTX](https://github.com/opentx/opentx) | Custom firmware for radio-control transmitters. |
 | [OpenWrt](https://github.com/openwrt/openwrt) | Linux operating system for routers and other embedded devices. |
 
-## Home Automation
+## Home
 
 | Project | Description |
 | --- | --- |
@@ -711,7 +711,7 @@
 | [OpenSprinkler](https://github.com/OpenSprinkler/OpenSprinkler-Firmware) | Irrigation-controller firmware for OpenSprinkler devices. |
 | [OpenZWave](https://github.com/OpenZWave/open-zwave) | C++ library for controlling Z-Wave networks. |
 
-## Finance & Trading
+## Finance
 
 | Project | Description |
 | --- | --- |
@@ -728,7 +728,7 @@
 | [OpenTaxSolver](https://opentaxsolver.sourceforge.net) | Calculate U.S. federal and supported state income-tax forms and fill printable PDF returns. |
 | [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) | Library for secure smart contract development. |
 
-## Storage & File Management
+## Storage
 
 | Project | Description |
 | --- | --- |

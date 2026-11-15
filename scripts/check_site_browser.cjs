@@ -40,76 +40,42 @@ const path = require('node:path');
     report.screenshots.push({ file: name, ...dimensions, bytes: png.length });
     writeReport();
   };
-  const visible = () => page.locator('.project-card:not([hidden])').count();
+  const visible = () => page.locator('#rows .row:not([hidden])').count();
+  const visibleIds = target => target.locator('#rows .row:not([hidden])').evaluateAll(rows => rows.map(row => row.dataset.id));
   const assertVisiblePositions = async (target, label) => {
-    const rows = await target.locator('.project-card:not([hidden])').evaluateAll(cards => cards.map(card => ({
-      text: card.querySelector('summary .folio').textContent,
-      title: card.querySelector('summary .folio').getAttribute('title'),
-    })));
-    assert.deepEqual(rows.map(row => row.text), rows.map((_, i) => String(i + 1).padStart(3, '0')), label + ': contiguous visible positions');
-    assert.ok(rows.every(row => row.title === 'Position in current results'), label + ': position tooltip');
+    const numbers = await target.locator('#rows .row:not([hidden]) .row-n').allTextContents();
+    assert.deepEqual(numbers, numbers.map((_, i) => String(i + 1).padStart(3, '0')), label + ': contiguous visible positions');
   };
-  const assertRecordIdentities = async (target, data, label) => {
-    const records = await target.locator('.project-card').evaluateAll(cards => cards.map(card => {
-      const host = card.querySelector('.specimen-detail-host');
-      const plate = card.querySelector('.specimen-plate');
-      return {
-        id: card.dataset.projectId, anchor: card.id,
-        nameId: card.querySelector('.specimen-name').id,
-        detailURL: host?.dataset.detailUrl || null,
-        fallbackURL: host?.querySelector('.detail-fallback a')?.getAttribute('href') || null,
-        plate: plate ? {
-          folio: plate.querySelector('.sheet-folio').textContent,
-          notes: plate.querySelector('.plate-heading .plate-index').textContent,
-          registry: plate.querySelector('.registry').textContent,
-          permalink: plate.querySelector('.permalink').getAttribute('href'),
-        } : null,
-      };
-    }));
-    const byId = new Map(records.map(record => [record.id, record]));
-    assert.equal(byId.size, data.projects.length, label + ': all identities retained');
-    data.projects.forEach((project, i) => {
-      const record = byId.get(project.id);
-      assert.ok(record, label + ': record exists for ' + project.name);
-      assert.equal(record.anchor, 'project-' + project.id, label + ': stable anchor');
-      assert.equal(record.nameId, 'name-' + project.id, label + ': stable accessible name');
-      if (record.detailURL) {
-        assert.equal(record.detailURL, 'records/' + project.id + '.html', label + ': stable detail URL');
-        assert.equal(record.fallbackURL, record.detailURL, label + ': static fallback URL');
-      } else {
-        assert.ok(record.plate, label + ': inline editions retain every plate');
-      }
-      // Normal pages deliberately have no closed plate markup at startup. Check
-      // mounted plates without fetching all records just to inspect identity.
-      if (record.plate) {
-        const folio = String(i + 1).padStart(3, '0');
-        assert.deepEqual(record.plate, {
-          folio: 'Folio ' + folio, notes: 'Field notes / ' + folio,
-          registry: 'OP-' + project.id.slice(0, 8).toUpperCase(), permalink: '#project-' + project.id,
-        }, label + ': stable alphabetical folio and URL identity for ' + project.name);
-      }
-    });
-  };
-  const waitForPlate = card => card.locator('.specimen-plate').waitFor({ state: 'visible' });
-  const change = async (id, value) => {
-    if (id !== 'search' && !await page.locator('.filter-options').evaluate(node => node.open)) await page.locator('.filter-options > summary').click();
-    if (['category-filter', 'metrics-filter', 'min-stars', 'pushed-since'].includes(id)) {
-      if (!await page.locator('.more-filters').evaluate(node => node.open)) {
-        await page.locator('.more-filters > summary').click();
-      }
+  // Rows keep their record identity whatever the order or filter.
+  const assertRowIdentities = async (target, data, label) => {
+    const rows = await target.locator('#rows .row').evaluateAll(nodes => nodes.map(row => ({
+      id: row.dataset.id, href: row.querySelector('a').getAttribute('href'), name: row.querySelector('.specimen-name').textContent })));
+    assert.equal(rows.length, data.projects.length, label + ': every row retained');
+    const byId = new Map(rows.map(row => [row.id, row]));
+    for (const project of data.projects) {
+      const row = byId.get(project.id);
+      assert.ok(row, label + ': row for ' + project.name);
+      assert.equal(row.href, 'records/' + project.id + '.html', label + ': static record link');
+      assert.equal(row.name, project.name, label + ': name');
     }
+  };
+  const waitForPlate = () => page.locator('#pane-scroll .specimen-plate').waitFor({ state: 'visible' });
+  const openMore = async () => {
+    if (!await page.locator('.rail-more').evaluate(node => node.open)) await page.locator('.rail-more > summary').click();
+  };
+  const change = async (id, value) => {
+    if (['f-stars', 'f-pushed'].includes(id)) await openMore();
     await page.locator('#' + id).fill(value);
-    await page.locator('#' + id).dispatchEvent('change');
+    if (id === 'search') await page.waitForTimeout(250);
+    else await page.locator('#' + id).dispatchEvent('change');
   };
   const select = async (id, value) => {
-    if (id !== 'search' && !await page.locator('.filter-options').evaluate(node => node.open)) await page.locator('.filter-options > summary').click();
-    if (['category-filter', 'metrics-filter'].includes(id) &&
-        !await page.locator('.more-filters').evaluate(node => node.open)) {
-      await page.locator('.more-filters > summary').click();
-    }
+    if (['f-install', 'f-metrics'].includes(id)) await openMore();
     await page.locator('#' + id).selectOption(value);
   };
-  const waitForState = () => page.waitForFunction(() => document.querySelector('#filters').dataset.enhanced === 'true');
+  const reset = async () => { if (await page.locator('#reset').isEnabled()) await page.locator('#reset').click(); };
+  const category = async id => page.locator(`#rail-cats a[data-category="${id}"]`).click();
+  const waitForState = () => page.waitForFunction(() => document.querySelector('#filters')?.dataset.enhanced === 'true');
   const checkReviewedAliases = async (label, data) => {
     const obsId = '0e1c34b3f948e9037466f84680e402b96f2c0b61351865137c4359f41e5d3014';
     const record = data.projects.find(p => p.url === 'https://github.com/obsproject/obs-studio');
@@ -117,28 +83,27 @@ const path = require('node:path');
     assert.equal(record.id, obsId);
     for (const query of ['Open Broadcaster Software', 'obs', 'OBS streaming']) {
       await change('search', query);
-      assert.deepEqual(await page.locator('.project-card:not([hidden])').evaluateAll(nodes => nodes.map(n => n.dataset.projectId)), [record.id], label + ': ' + query);
+      // Reviewed names rank first; summary text can add weaker matches below.
+      assert.equal((await visibleIds(page))[0], record.id, label + ': ' + query);
       assert.equal(new URL(page.url()).searchParams.get('q'), query);
     }
-    await page.locator('#project-' + record.id + ' > details > summary').click();
-    assert.equal(await page.locator('#project-' + record.id + ' details.specimen-drawer').evaluate(n => n.open), true);
-    await waitForPlate(page.locator('#project-' + record.id));
-    assert.ok(await page.locator('#project-' + record.id).textContent().then(t => t.includes('OBS Studio')));
+    await page.locator(`#rows .row[data-id="${record.id}"] > a`).click();
+    await waitForPlate();
+    assert.equal(await page.locator('#plate-name').textContent(), 'OBS Studio');
     await capture('aliases-' + label + '.png');
-    await page.locator('#project-' + record.id + ' > details > summary').click();
-    assert.equal(await page.locator('#project-' + record.id + ' details.specimen-drawer').evaluate(n => n.open), false);
-    await page.locator('#clear-filters').click();
+    await page.keyboard.press('Escape');
+    await change('search', '');
     assert.equal(await visible(), data.projects.length);
   };
+  // The page itself never scrolls sideways, and list rows stay inside their column.
   const assertLedgerFits = async (target, label) => {
     assert.equal(await target.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `Horizontal overflow: ${label}`);
-    // overflow-x:clip on a page shell can hide a grid that is wider than its screen.
-    const clipped = await target.locator('.project-card:not([hidden])').first().locator('summary > *').evaluateAll(nodes =>
+    const clipped = await target.locator('#rows .row:not([hidden])').first().locator('a > *').evaluateAll(nodes =>
       nodes.filter(node => {
         const rect = node.getBoundingClientRect();
         return rect.width > 0 && (rect.left < -1 || rect.right > innerWidth + 1);
       }).map(node => node.className));
-    assert.deepEqual(clipped, [], `Clipped ledger cells: ${label}`);
+    assert.deepEqual(clipped, [], `Clipped list cells: ${label}`);
   };
   try {
     // Capture both viewports before assertions so a later failure retains useful
@@ -198,261 +163,206 @@ const path = require('node:path');
       writeReport();
       return;
     }
-    // Category illustrations stay inside the existing native disclosure. Check
-    // actual decoding and candidate selection at desktop and narrow widths.
-    assert.equal(await page.locator('.category-art').count(), data.categories.filter(category => category.artwork).length);
-    assert.equal(await page.locator('.category-panel').evaluate(node => node.open), false);
-    assert.equal(await page.evaluate(() => performance.getEntriesByType('resource').filter(e => /\/domains\/.*\.webp/.test(e.name)).length), 0,
-      'Closed category disclosure must not load its artwork');
-    for (const width of [1440, 390, 320, 768]) {
-      await page.setViewportSize({ width, height: 1000 });
-      await page.locator('.category-panel > summary').click();
-      const firstArt = page.locator('.category-art').first();
-      await firstArt.scrollIntoViewIfNeeded();
-      await firstArt.evaluate(image => image.decode());
-      assert.equal(await firstArt.evaluate(image => image.getBoundingClientRect().width), 48);
-      assert.equal(await firstArt.getAttribute('alt'), '');
-      assert.ok(await firstArt.evaluate(image => image.currentSrc.endsWith('-s.webp')),
-        'A 48 CSS px category icon uses the small candidate at 1x');
-      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true,
-        `Expanded category art fits ${width}px`);
-      if ([1440, 390].includes(width)) await capture(`categories-${width}.png`);
-      await page.locator('.category-panel > summary').click();
-    }
-    await page.setViewportSize({ width: 1440, height: 1000 });
-    await page.locator('.category-panel > summary').focus();
-    await page.keyboard.press('Enter');
-    const categoryLink = page.locator('.category-nav a[data-category="developer-tools"]');
-    assert.equal(await page.locator('.category-nav').evaluate(node => getComputedStyle(node).gridTemplateColumns.split(' ').length), 4);
-    const rowBefore = await categoryLink.boundingBox();
-    await categoryLink.hover();
-    assert.equal(Math.round((await categoryLink.locator('img').boundingBox()).width), 104);
-    assert.equal((await categoryLink.boundingBox()).height, rowBefore.height);
-    assert.equal(await categoryLink.evaluate(node => getComputedStyle(node).overflow), 'hidden');
-    await page.locator('.category-nav a[data-category="developer-tools"] img').click();
-    assert.ok((await page.locator('.page-end img').getAttribute('src')).endsWith('developer-tools-m.webp'));
-    assert.equal(await page.locator('.page-end img').getAttribute('width'), '207');
+    // Three columns fill one desktop screen; the page itself never scrolls.
+    const layout = await page.evaluate(() => {
+      const box = selector => document.querySelector(selector).getBoundingClientRect();
+      return { rail: box('.rail').width, list: box('.list').left, pane: box('.pane').left,
+        scroll: document.documentElement.scrollHeight <= innerHeight, bars: document.querySelectorAll('.app-header, .app-status, .site-header, .site-footer').length };
+    });
+    assert.equal(layout.rail, 208, 'Rail width');
+    assert.ok(layout.list === 208 && layout.pane > layout.list, 'Rail, list and pane sit side by side');
+    assert.equal(layout.scroll, true, 'The page fits the viewport; columns scroll inside');
+    assert.equal(layout.bars, 0, 'No top or bottom bar');
+    assert.equal(await page.locator('#search').getAttribute('placeholder'), `Search ${data.projects.length} projects`);
+    assert.equal(await page.locator('#list-brand').textContent(), 'Awesome Open*');
+    assert.equal(await page.locator('.rail-mark img').getAttribute('src'), 'brand/botanical-128.png');
+    assert.ok(await page.locator('#rows .row .row-desc').first().evaluate(n => n.getBoundingClientRect().height <= parseFloat(getComputedStyle(n).lineHeight) + 1),
+      'One-line description');
+    await assertLedgerFits(page, 'desktop');
+
+    // Rail: All and the categories by name; counts follow search and filters.
+    const rail = await page.locator('#rail-cats a').evaluateAll(links => links.map(a => ({ id: a.dataset.category, name: a.firstElementChild.textContent })));
+    assert.deepEqual(rail.map(item => item.id), ['', ...data.categories.slice().sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase())).map(c => c.id)]);
+    assert.deepEqual(rail.slice(1).map(item => item.name), rail.slice(1).map(item => data.categories.find(c => c.id === item.id).name));
+    await category('developer-tools');
     assert.equal(await visible(), data.projects.filter(project => project.categories.includes('developer-tools')).length);
-    await page.locator('#clear-filters').click();
-    assert.equal(await page.locator('.page-end img').getAttribute('src'), 'brand/fruit-96.png');
-    if (await page.locator('.category-panel').evaluate(node => node.open)) await page.locator('.category-panel > summary').click();
-    for (const [density, suffix] of [[2, 's'], [3, 'm']]) {
-      const denseContext = await browser.newContext({ viewport: { width: 1440, height: 1000 },
-        deviceScaleFactor: density, reducedMotion: 'reduce' });
-      try {
-        const densePage = await denseContext.newPage();
-        await densePage.goto(url);
-        await densePage.locator('.category-panel > summary').click();
-        const art = densePage.locator('.category-art').first();
-        await art.scrollIntoViewIfNeeded();
-        await art.evaluate(image => image.decode());
-        assert.ok(await art.evaluate((image, suffix) => image.currentSrc.endsWith(`-${suffix}.webp`), suffix),
-          `Category artwork uses the expected candidate at ${density}x`);
-      } finally { await denseContext.close(); }
-    }
-    assert.equal(await visible(), data.projects.length);
-    assert.equal(await page.locator('#sort-order').isEnabled(), true);
-    assert.equal(await page.locator('#sort-order').inputValue(), 'match');
+    assert.equal(await page.locator('#rail-cats a[data-category="developer-tools"]').getAttribute('aria-current'), 'true');
+    assert.equal(await page.locator('#rail-cats a[aria-current="true"] span').first().evaluate(n => getComputedStyle(n).textTransform), 'uppercase');
+    assert.ok((await page.locator('#end-mark').getAttribute('src')).endsWith('developer-tools-m.webp'));
+    assert.equal(await page.locator('#end-mark').getAttribute('width'), '207');
+    assert.equal(new URL(page.url()).searchParams.get('category'), 'developer-tools');
+    await category('');
+    assert.equal(await page.locator('#end-mark').getAttribute('src'), 'brand/fruit-96.png');
+    await change('search', 'video editor');
+    const counts = await page.locator('#rail-cats a').evaluateAll(links => Object.fromEntries(links.map(a => [a.dataset.category, Number(a.querySelector('.n').textContent)])));
+    assert.equal(counts[''], await visible(), 'All counts the search results');
+    assert.ok(Object.values(counts).some(n => n === 0), 'Categories without matches show zero');
+    await change('search', '');
+
+    // Default order, positions and sorting.
+    assert.equal(await page.locator('#f-sort').inputValue(), 'match');
     const defaultIds = await page.evaluate(() => {
       const d = JSON.parse(document.getElementById('catalog-data').textContent);
       return d.projects.slice().sort(OpenCatalog.comparator('stars')).map(p => p.id);
     });
-    assert.deepEqual(await page.locator('.project-card').evaluateAll(cards => cards.map(c => c.dataset.projectId)), defaultIds);
+    assert.deepEqual(await visibleIds(page), defaultIds);
     await assertVisiblePositions(page, 'default stars');
-    await assertRecordIdentities(page, data, 'default stars');
-    const nameURL = new URL(page.url()); nameURL.searchParams.set('sort', 'name');
-    await page.goto(nameURL.href);
-    assert.equal(await page.locator('#sort-order').inputValue(), 'name');
+    await assertRowIdentities(page, data, 'default stars');
+    await select('f-sort', 'name');
     await assertVisiblePositions(page, 'name sort');
-    await assertRecordIdentities(page, data, 'name sort');
-    await page.locator('#clear-filters').click();
-    assert.equal(await page.locator('#sort-order').inputValue(), 'match');
-
-    assert.equal(await page.locator('.specimen-drawer').count(), data.projects.length);
-    await assertLedgerFits(page, 'desktop');
-    assert.equal(await page.locator('#search').getAttribute('placeholder'), null);
-    assert.equal(await page.locator('#search').evaluate(n => getComputedStyle(n).borderBottomStyle), 'dashed');
-    assert.equal(await page.locator('.ledger-columns, .ledger-heading').count(), 0);
-    assert.deepEqual(await page.locator('.header-links a').allTextContents(), ['Catalog', 'About', 'Observatory', 'Scoreboard']);
-    assert.deepEqual(await page.locator('.header-links a').evaluateAll(links => links.map(a => a.getAttribute('href'))),
-      ['#catalog', '#about', 'observatory/', 'scoreboard/']);
-    assert.deepEqual(await page.locator('.footer-actions a').allTextContents(),
-      ['Submit a project', 'Observatory', 'Scoreboard', 'Spotlight', 'GitHub', 'Top']);
-    assert.deepEqual(await page.locator('.footer-actions a').evaluateAll(links => links.map(a => a.getAttribute('href'))),
-      [`https://github.com/awesomeopen/awesome-open/blob/${data.source_sha || 'main'}/CONTRIBUTING.md`,
-        'observatory/', 'scoreboard/', 'spotlight/', 'https://github.com/awesomeopen/awesome-open', '#catalog']);
-    assert.ok(await page.locator('.footer-baseline').textContent().then(t => t.includes(data.projects.length + ' Projects')));
-    const absentLicense = data.projects.find(p => !p.github || !p.github.license);
-    if (absentLicense) assert.equal(await page.locator('#project-' + absentLicense.id + ' .license-readout').textContent(), '');
-    assert.ok(await page.locator('.specimen-drawer > summary').first().evaluate(n => n.getBoundingClientRect().height <= 50), 'Compact one-line row');
-
+    assert.equal(await page.locator('#f-sort option:checked').textContent(), 'Sort: Name A–Z', 'A chosen value keeps its title');
+    await select('f-sort', 'match');
     await checkReviewedAliases('production', data);
 
     // Exact reviewed alternative search, combined metadata filters, empty/reset.
     await change('search', 'NotebookLM');
-    assert.ok(await visible() > 0);
     const notebookIds = data.projects.filter(project => [project.name, project.description,
       ...project.alternatives.map(item => item.name), ...(project.aliases || []).map(item => item.name)]
       .join(' ').toLowerCase().includes('notebooklm')).map(project => project.id).sort();
-    assert.deepEqual(await page.locator('.project-card:not([hidden])').evaluateAll(cards => cards.map(card => card.dataset.projectId).sort()), notebookIds,
-      'Search matches reviewed alternatives without mounting their evidence');
-    await page.locator('#clear-filters').click();
-    await select('category-filter', 'developer-tools');
-    await page.locator('#license-filter').selectOption('known');
-    await change('min-stars', '100');
-    await change('pushed-since', '2025-01-01');
+    assert.deepEqual((await visibleIds(page)).sort(), notebookIds, 'Search matches reviewed alternatives');
+    await change('search', '');
+    await category('developer-tools');
+    await select('f-license', 'known');
+    await change('f-stars', '100');
+    await change('f-pushed', '2025-01-01');
     const expected = await page.evaluate(() => {
       const data = JSON.parse(document.querySelector('#catalog-data').textContent);
       const state = OpenCatalog.normalizeState(new URL(location.href).searchParams, data);
       return OpenCatalog.selectProjects(data.projects, state, data).map(project => project.id);
     });
-    assert.deepEqual(await page.locator('.project-card:not([hidden])').evaluateAll(nodes => nodes.map(node => node.dataset.projectId)), expected);
+    assert.deepEqual(await visibleIds(page), expected);
     await assertVisiblePositions(page, 'combined filters');
-    await assertRecordIdentities(page, data, 'combined filters');
     await change('search', 'no-project-could-match-this-string-98273');
     assert.equal(await visible(), 0);
-    assert.equal(await page.locator('#empty-state').isVisible(), true);
-    await assertVisiblePositions(page, 'zero results');
-    await assertRecordIdentities(page, data, 'zero results');
-    await page.locator('#clear-filters').click();
-    await page.locator('#clear-filters').click();
+    assert.equal(await page.locator('#empty').isVisible(), true);
+    await change('search', '');
+    await reset();
+    await category('');
     assert.equal(await visible(), data.projects.length);
-
-    await assertVisiblePositions(page, 'clear filters');
-    await assertRecordIdentities(page, data, 'clear filters');
+    await assertRowIdentities(page, data, 'reset');
 
     // Snapshot-relative filters, exact alternatives and honest missing metrics.
     for (const value of ['recent', 'older', 'unknown']) {
-      await select('push-window', value);
+      await select('f-window', value);
       const expectedCount = await page.evaluate(value => {
         const data = JSON.parse(document.querySelector('#catalog-data').textContent);
         return OpenCatalog.diagnosticCounts(data.projects, data)[value];
       }, value);
       assert.equal(await visible(), expectedCount);
     }
-    await page.locator('#clear-filters').click();
-    await select('alternative-filter', 'NotebookLM');
+    await reset();
+    await select('f-alternative', 'NotebookLM');
     assert.equal(await visible(), data.projects.filter(project => project.alternatives.some(item => item.name === 'NotebookLM')).length);
-    await page.locator('#clear-filters').click();
-    await select('metrics-filter', 'missing');
+    assert.equal(await page.locator('#f-alternative option:checked').textContent(), 'Alternative to: NotebookLM');
+    await reset();
+    await select('f-metrics', 'missing');
     assert.equal(await visible(), data.projects.filter(project => !project.github).length);
-    await page.locator('#clear-filters').click();
-
-    // Explicit zero still means known stars; unknowns cannot pass the threshold.
-    await change('min-stars', '0');
-    assert.equal(await visible(), data.projects.filter(project => project.github).length);
-    await page.locator('#clear-filters').click();
+    await reset();
+    await change('f-stars', '0');
+    assert.equal(await visible(), data.projects.filter(project => project.github).length, 'Zero stars still means known stars');
+    await reset();
+    assert.equal(await page.locator('#reset').isDisabled(), true);
 
     // Sorting, shareable URLs, Back/Forward, and cancellation of a pending search.
-    await page.locator('#sort-order').selectOption('stars');
+    await select('f-sort', 'stars');
     const highest = data.projects.filter(project => project.github).sort((a, b) => b.github.stars - a.github.stars)[0];
-    assert.equal(await page.locator('.project-card:not([hidden])').first().getAttribute('data-project-id'), highest.id);
-    await page.locator('#sort-order').selectOption('pushed');
+    assert.equal((await visibleIds(page))[0], highest.id);
+    await select('f-sort', 'pushed');
     const newest = data.projects.filter(project => project.github && project.github.pushed_at).sort((a, b) => Date.parse(b.github.pushed_at) - Date.parse(a.github.pushed_at))[0];
-    assert.equal(await page.locator('.project-card:not([hidden])').first().getAttribute('data-project-id'), newest.id);
-    await assertVisiblePositions(page, 'latest push');
-    await assertRecordIdentities(page, data, 'latest push');
-    await page.locator('#clear-filters').click();
+    assert.equal((await visibleIds(page))[0], newest.id);
+    await reset();
     await change('search', 'OpenTofu');
     const savedURL = page.url();
     const savedCount = await visible();
-    await select('category-filter', 'infrastructure--devops');
+    await select('f-license', 'known');
     await page.locator('#search').fill('a pending search that must be cancelled');
     await page.goBack();
     await page.waitForTimeout(400);
     assert.equal(page.url(), savedURL);
     assert.equal(await page.locator('#search').inputValue(), 'OpenTofu');
     assert.equal(await visible(), savedCount);
-    await assertVisiblePositions(page, 'Back');
-    await assertRecordIdentities(page, data, 'Back');
     await page.goForward();
-    await assertVisiblePositions(page, 'Forward');
-    await assertRecordIdentities(page, data, 'Forward');
-    assert.equal(await page.locator('#category-filter').inputValue(), 'infrastructure--devops');
+    assert.equal(await page.locator('#f-license').inputValue(), 'known');
     await page.reload();
     await waitForState();
     assert.equal(await page.locator('#search').inputValue(), 'OpenTofu');
-    assert.equal(await page.locator('#category-filter').inputValue(), 'infrastructure--devops');
+    assert.equal(await page.locator('#f-license').inputValue(), 'known');
     await assertVisiblePositions(page, 'URL reload');
-    await assertRecordIdentities(page, data, 'URL reload');
-    const firstDrawer = page.locator('.project-card:not([hidden]) .specimen-drawer').first();
-    await firstDrawer.locator(':scope > summary').click();
-    assert.equal(await firstDrawer.evaluate(node => node.open), true);
-    await waitForPlate(firstDrawer);
-    const permalink = await page.locator('.project-card:not([hidden]) .permalink').first().getAttribute('href');
-    await page.locator('.project-card:not([hidden]) .permalink').first().click();
-    assert.equal(new URL(page.url()).hash, permalink);
-    await page.locator('#clear-filters').click();
-    assert.equal(new URL(page.url()).hash, permalink);
 
-    // Direct links open the drawer and focus its native summary. A conflicting
-    // filter keeps its state and explains the hidden target instead of clearing it.
-    const target = data.projects.find(project => project.github);
-    const direct = new URL(url);
-    direct.hash = '#project-' + target.id;
-    await page.goto(direct.href);
+    // One plate at a time: rows, arrows and Esc; the hash is the permalink.
+    await page.goto(url);
     await waitForState();
-    const linked = page.locator('#project-' + target.id + ' .specimen-drawer');
-    assert.equal(await linked.evaluate(node => node.open), true);
-    await waitForPlate(linked);
-    assert.equal(await page.locator(':focus').evaluate(node => node.parentElement.className), 'specimen-drawer');
-    direct.searchParams.set('metrics', 'missing');
-    await page.goto(direct.href);
-    await waitForState();
-    assert.equal(await page.locator('#project-link-notice').isVisible(), true);
-    assert.equal(await page.locator('#project-' + target.id).isVisible(), false);
-    assert.equal(await linked.locator('.specimen-plate').count(), 0, 'Filtered-out deep link does not mount a hidden plate');
-    assert.equal(new URL(page.url()).searchParams.get('metrics'), 'missing');
-    await page.locator('#clear-filters').click();
-    assert.equal(await page.locator('#project-link-notice').isVisible(), false);
-    assert.equal(await linked.evaluate(node => node.open), true);
-    await waitForPlate(linked);
+    await page.locator('#rows .row > a').first().click();
+    await waitForPlate();
+    const first = defaultIds[0];
+    assert.equal(new URL(page.url()).hash, '#project-' + first);
+    assert.equal(await page.locator('#plate-position').textContent(), '001 / ' + String(data.projects.length).padStart(3, '0'));
+    await page.keyboard.press('ArrowLeft');
+    await page.waitForFunction(() => document.getElementById('plate-status').textContent === '' && document.querySelector('#pane-scroll .specimen-plate'));
+    assert.equal(await page.locator('#plate-position').textContent(), String(data.projects.length).padStart(3, '0') + ' / ' + String(data.projects.length).padStart(3, '0'), 'Stepping wraps');
+    assert.equal(await page.locator('.specimen-plate').count(), 1);
+    assert.equal(await page.locator('#rows .row.is-current > a').evaluate(n => getComputedStyle(n).outlineStyle), 'none', 'The open row shows its marks, not a focus outline');
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('.specimen-plate').count(), 0);
+    assert.equal(await page.locator('#pane-rest').isVisible(), true);
+    // Compare adds the open project to the cabinet and says so.
+    await page.goto(new URL('#project-' + first, url).href);
+    await waitForPlate();
+    assert.equal(await page.locator('#plate-cabinet').textContent(), 'Compare');
+    await page.locator('#plate-cabinet').click();
+    assert.equal(await page.locator('#plate-cabinet').textContent(), 'Added to Cabinet');
+    assert.equal(await page.locator('#cabinet-count').textContent(), '1 of 6');
+    await page.locator('#plate-cabinet').click();
+    assert.equal(await page.locator('#cabinet-count').textContent(), '0 of 6');
+    await capture('pane-plate-desktop.png');
 
-    // Keyboard entry points and responsive category disclosure.
+    // About: the former footer, with tabs that open the field-guide pages in the pane.
+    await page.locator('#rail-about').click();
+    assert.equal(await page.locator('#pane-about').isVisible(), true);
+    assert.equal(new URL(page.url()).hash, '#about');
+    assert.deepEqual(await page.locator('.riders a').allTextContents(), ['About', 'Observatory', 'Scoreboard', 'Spotlight']);
+    assert.deepEqual(await page.locator('.about-actions a').allTextContents(), ['Submit a project', 'GitHub repository', 'Support the list with a coffee']);
+    assert.ok((await page.locator('.about-baseline').textContent()).includes(data.projects.length + ' Projects'));
+    await capture('about-desktop.png');
+    for (const [sheet, heading] of [['observatory', 'Observatory'], ['scoreboard', 'Scoreboard'], ['spotlight', 'Spotlight']]) {
+      await page.locator(`.riders a[data-sheet="${sheet}"]`).click();
+      const frame = page.frameLocator('#pane-frame');
+      await frame.locator('.obs-hero h1').waitFor({ state: 'visible' });
+      assert.equal(await frame.locator('.obs-hero h1').textContent(), heading);
+      assert.equal(await frame.locator('html').evaluate(n => n.classList.contains('is-embedded')), true);
+      assert.equal(await frame.locator('.obs-header').isVisible(), false, sheet + ': no header in the pane');
+      assert.equal(await frame.locator('.obs-footer').isVisible(), false, sheet + ': no footer in the pane');
+      assert.equal(new URL(page.url()).hash, '#' + sheet);
+      await capture(`sheet-${sheet}-desktop.png`);
+    }
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('#pane-rest').isVisible(), true);
+
+    // Keyboard entry points.
     await page.goto(url);
     await waitForState();
     await page.keyboard.press('Tab');
     assert.equal(await page.locator(':focus').getAttribute('class'), 'skip-link');
     await page.keyboard.press('Enter');
-    assert.equal(await page.locator(':focus').getAttribute('id'), 'catalog');
+    assert.equal(await page.locator(':focus').getAttribute('id'), 'rows');
+    await page.keyboard.press('ArrowDown');
+    await waitForPlate();
+    assert.equal(await page.locator(':focus').evaluate(n => n.closest('.row').classList.contains('is-current')), true);
     await page.locator('#search').focus();
     await page.keyboard.type('OpenTofu');
     await page.waitForTimeout(350);
     assert.equal(await page.locator(':focus').getAttribute('id'), 'search');
     assert.ok(await visible() > 0);
-    await page.locator('#clear-filters').click();
-    const keyboardDrawer = page.locator('.specimen-drawer').first();
-    await keyboardDrawer.locator(':scope > summary').focus();
-    await page.keyboard.press('Enter');
-    assert.equal(await keyboardDrawer.evaluate(node => node.open), true);
-    await waitForPlate(keyboardDrawer);
-    await page.keyboard.press('Enter');
-    assert.equal(await keyboardDrawer.evaluate(node => node.open), false);
-    for (const width of [390, 320, 601, 640, 700, 720, 721, 768, 900, 901]) {
+    for (const width of [1920, 1280, 390, 320]) {
       await page.setViewportSize({ width, height: 844 });
       await page.goto(url);
       await waitForState();
       await assertLedgerFits(page, `${width}px`);
-      const controls = await page.locator('.category-panel > summary, .filter-options > summary').evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().top));
-      assert.ok(Math.abs(controls[0] - controls[1]) < 2, 'Category and filter buttons share a row');
-      assert.ok(await page.locator('.project-card').first().evaluate(node => { const hero=document.querySelector('.jar-hall'); return node.getBoundingClientRect().top-(hero?hero.getBoundingClientRect().bottom:0)<500; }), 'Ledger starts promptly after the hero');
-      assert.equal(await page.locator('.brand-mark').evaluate(node => node.getBoundingClientRect().width), 64);
-      await page.locator('.filter-options > summary').click();
-      assert.equal(await page.locator('#push-window').isVisible(), true);
-      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'Expanded filters fit');
-      await page.locator('.category-panel > summary').click();
-      assert.equal(await page.locator('.filter-options').evaluate(node => node.open), false);
-      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'Expanded categories fit');
-      await page.locator('.category-panel > summary').click();
-      if (width === 390) {
-        assert.equal(await page.locator('.category-panel').getAttribute('open'), null);
-        await page.locator('.category-panel summary').click();
-        assert.equal(await page.locator('.category-panel').evaluate(node => node.open), true);
-        await page.locator('.category-panel summary').click();
-      }
     }
+    await page.setViewportSize({ width: 1440, height: 1000 });
     await page.evaluate(() => document.documentElement.style.fontSize = '200%');
     await assertLedgerFits(page, '200% root text size');
+    await page.evaluate(() => document.documentElement.style.fontSize = '');
 
     // Real renderers supply fixed evidence only to this page's intercepted requests.
     const installEvidence = require('./browser_evidence_fixture.cjs');
@@ -462,132 +372,82 @@ const path = require('node:path');
       const fixture = await installEvidence(page, url, 'complete');
       const data = fixture.data;
       try {
-        // Expanded content must remain usable across the former two-column breakpoint.
-        // Checking only page overflow misses zero-width diagnostics hidden by clipping.
         const tofu = data.projects.find(project => project.url === 'https://github.com/opentofu/opentofu');
         assert.ok(tofu?.hn && tofu.star_history?.chart_url && tofu.deployment && tofu.function_summary,
           'OpenTofu covers Function, both cached charts, and reviewed setup');
-        for (const width of [320, 390, 900, 901, 1024, 1180, 1200, 1201, 1440]) {
+        for (const width of [1920, 1440, 1280, 390, 320]) {
           await page.setViewportSize({ width, height: 1000 });
           const expandedURL = new URL(url);
           expandedURL.searchParams.set('q', tofu.name);
           expandedURL.hash = '#project-' + tofu.id;
           await page.goto(expandedURL.href);
           await waitForState();
-          const card = page.locator('#project-' + tofu.id);
-          const drawer = card.locator('.specimen-drawer');
-          assert.equal(await drawer.evaluate(node => node.open), true);
-          await waitForPlate(card);
-          const catalogWidth = await page.locator('#catalog').evaluate(node => node.getBoundingClientRect().width);
-          assert.ok(catalogWidth >= width - 100, `Catalog uses available width at ${width}px`);
+          await waitForPlate();
+          const card = page.locator('#pane-scroll');
           const diagnostics = card.locator('.plate-grid');
-          assert.ok(await diagnostics.evaluate(node => node.getBoundingClientRect().width) >= 200,
-            `Readable diagnostics at ${width}px`);
+          assert.ok(await diagnostics.evaluate(node => node.getBoundingClientRect().width) >= 200, `Readable diagnostics at ${width}px`);
           assert.equal(await card.locator('.function-detail > p').first().textContent(), tofu.function_summary.text);
           for (const selector of ['[data-signal="hn"] .pg-spark', '[data-signal="star-history"] .pg-spark']) {
             const chart = card.locator(selector);
             await chart.scrollIntoViewIfNeeded();
             await chart.evaluate(image => image.decode());
-            assert.equal(await chart.isVisible(), true, `Visible ${selector} at ${width}px`);
             assert.ok(await chart.evaluate(image => image.complete && image.naturalWidth === 120 &&
               image.getBoundingClientRect().width >= 120 && image.getBoundingClientRect().height >= 24),
               `Loaded, non-collapsed ${selector} at ${width}px`);
           }
           const setup = card.locator('.pg-runs .pg-info');
           await setup.locator(':scope > summary').click();
-          assert.equal(await setup.evaluate(node => node.open), true);
           assert.equal(await setup.locator('.deployment-group').first().isVisible(), true);
-          await assertLedgerFits(page, `expanded OpenTofu at ${width}px`);
-          // A row label names its whole row and may run past its first box over the
-          // lane above the row; it is measured against the grid instead of the box.
-          const clipped = await card.locator('.specimen-interior, .plate-grid, .function-detail, .pg-box, .pg-pop, .deployment-group')
+          assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `No overflow at ${width}px`);
+          // Closed popups keep a layout box; only the open one must fit.
+          const clipped = await card.locator('.specimen-interior, .plate-grid, .function-detail, .pg-box, .pg-info[open] .pg-pop, .deployment-group')
             .evaluateAll(nodes => {
+              const pane = document.getElementById('pane-scroll').getBoundingClientRect();
               const labels = [...document.querySelectorAll('.pg-box > .sheet-label')];
               labels.forEach(label => { label.style.display = 'none'; });
               const result = nodes.filter(node => {
                 const rect = node.getBoundingClientRect();
-                return rect.width <= 0 || rect.left < -1 || rect.right > innerWidth + 1 || node.scrollWidth > node.clientWidth + 1;
+                return rect.width <= 0 || rect.left < pane.left - 1 || rect.right > pane.right + 1 || node.scrollWidth > node.clientWidth + 1;
               }).map(node => node.className);
               labels.forEach(label => { label.style.display = ''; });
               return result;
             });
-          assert.deepEqual(clipped, [], `Expanded sections fit at ${width}px`);
-          const rowLabels = await card.locator('.pg-box > .sheet-label').evaluateAll(labels => labels.filter(label => {
-            const rect = label.getBoundingClientRect(), grid = label.closest('.plate-grid').getBoundingClientRect();
-            return rect.width <= 0 || rect.left < grid.left - 1 || rect.right > grid.right + 1;
-          }).map(label => label.textContent));
-          assert.deepEqual(rowLabels, [], `Row labels stay inside the grid at ${width}px`);
+          assert.deepEqual(clipped, [], `Plate sections fit the pane at ${width}px`);
           await diagnostics.scrollIntoViewIfNeeded();
           await capture(`expanded-opentofu-${width}.png`);
           await setup.locator(':scope > summary').click();
-          assert.equal(await setup.evaluate(node => node.open), false);
-          await drawer.locator(':scope > summary').click();
-          assert.equal(await diagnostics.isVisible(), false);
-          await drawer.locator(':scope > summary').click();
-          assert.equal(await diagnostics.isVisible(), true);
         }
-
         // Sparse legacy histories and dual-series histories link their recorded evidence.
         const singleton = data.projects.find(p => p.hn?.total_stories === 1);
         const multiple = data.projects.find(p => p.hn?.total_stories > 1);
         assert.ok(singleton && multiple, 'Fixed sparse and multiple-story evidence');
-        for (const width of [1440, 390]) {
-          await page.setViewportSize({ width, height: 1000 });
-          const sparseURL = new URL(url);
-          sparseURL.hash = '#project-' + singleton.id;
-          await page.goto(sparseURL.href);
-          await waitForState();
-          const sparseCard = page.locator('#project-' + singleton.id);
-          await waitForPlate(sparseCard);
-          const sparseBox = sparseCard.locator('[data-signal="hn"]');
-          const image = sparseBox.locator('.pg-spark');
-          await image.scrollIntoViewIfNeeded();
-          await image.evaluate(node => node.decode());
-          assert.ok(await image.isVisible());
-          assert.equal(await sparseBox.locator('.pg-spark-link').evaluate(node => node.href), new URL(singleton.hn.matched_evidence_url, url + '/').href);
-          assert.equal(new URL(singleton.hn.search_url).hostname, 'hn.algolia.com');
-          assert.match(await sparseBox.textContent(), /1 matched/);
-          await capture(`hn-single-story-${width}.png`);
-          await page.goto(new URL('records/' + multiple.id + '.html', url + '/').href);
-          const multipleBox = page.locator('[data-signal="hn"]');
-          await multipleBox.locator('.pg-spark').scrollIntoViewIfNeeded();
-          await multipleBox.locator('.pg-spark').evaluate(node => node.decode());
-          assert.ok(await multipleBox.locator('.pg-spark').isVisible());
-          assert.equal(await multipleBox.locator('.pg-spark-link').evaluate(node => node.href), new URL(multiple.hn.broad_evidence_url, url + '/').href);
-          assert.equal(await multipleBox.locator('.pg-spark').evaluate(node => node.src), new URL(multiple.hn.comparison_chart_url, url + '/').href);
-          assert.equal(await multipleBox.locator('.pg-hn-broad').evaluate(node => node.href), new URL(multiple.hn.broad_evidence_url, url + '/').href);
-          assert.equal(await multipleBox.locator('.pg-hn-matched').evaluate(node => node.href), new URL(multiple.hn.matched_evidence_url, url + '/').href);
-          assert.equal(await multipleBox.locator('.pg-hn-broad').textContent(), '6 possible');
-          assert.equal(await multipleBox.locator('.pg-hn-matched').textContent(), '3 matched');
-          await multipleBox.locator('.pg-hn-matched').focus();
-          await page.keyboard.press('Enter');
-          await page.waitForURL('**/fixture-tofu-evidence.html#matched');
-          assert.equal(await page.locator('#matched li').count(), 3);
-          assert.equal(await page.locator('#broad li').count(), 6);
-
-        }
-
-        // Compact chart becomes the expanded chart when the drawer opens.
         await page.setViewportSize({ width: 1440, height: 1000 });
+        await page.goto(new URL('#project-' + singleton.id, url).href);
+        await waitForState();
+        await waitForPlate();
+        const sparseBox = page.locator('#pane-scroll [data-signal="hn"]');
+        await sparseBox.locator('.pg-spark').evaluate(node => node.decode());
+        assert.equal(await sparseBox.locator('.pg-spark-link').evaluate(node => node.href), new URL(singleton.hn.matched_evidence_url, url + '/').href);
+        assert.match(await sparseBox.textContent(), /1 matched/);
+        await capture('hn-single-story-1440.png');
+        await page.goto(new URL('records/' + multiple.id + '.html', url + '/').href);
+        const multipleBox = page.locator('[data-signal="hn"]');
+        assert.equal(await multipleBox.locator('.pg-hn-broad').textContent(), '6 possible');
+        assert.equal(await multipleBox.locator('.pg-hn-matched').textContent(), '3 matched');
+        await multipleBox.locator('.pg-hn-matched').focus();
+        await page.keyboard.press('Enter');
+        await page.waitForURL('**/fixture-tofu-evidence.html#matched');
+        assert.equal(await page.locator('#matched li').count(), 3);
+        assert.equal(await page.locator('#broad li').count(), 6);
+        // The list row's HN trace opens the plate, which shows the full chart.
         await page.goto(url);
         await waitForState();
         const traced = data.projects.find(p => p.hn?.broad_total_stories !== undefined);
-        const tracedCard = page.locator('#project-' + traced.id);
-        assert.ok(await tracedCard.locator('.name-sparkline').isVisible());
-        await tracedCard.locator('.name-sparkline').evaluate(image => image.decode());
-        await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = true; });
-        await waitForPlate(tracedCard);
-        assert.equal(await tracedCard.locator('.name-sparkline').isVisible(), false);
-        assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
-        await tracedCard.locator('.specimen-drawer').evaluate(node => { node.open = false; });
-        // The folded trace remains part of the drawer's native click target.
-        const beforeTraceClick = page.url();
-        await tracedCard.locator('.name-sparkline').click();
-        assert.equal(page.url(), beforeTraceClick);
-        assert.equal(await tracedCard.locator('.specimen-drawer').evaluate(node => node.open), true);
-        assert.ok(await tracedCard.locator('[data-signal="hn"] .pg-spark').isVisible());
-
-
+        const tracedRow = page.locator(`#rows .row[data-id="${traced.id}"]`);
+        await tracedRow.locator('.row-spark').scrollIntoViewIfNeeded();
+        await tracedRow.locator('.row-spark').click();
+        await waitForPlate();
+        assert.ok(await page.locator('#pane-scroll [data-signal="hn"] .pg-spark').isVisible());
       } finally {
         await fixture.dispose();
       }
@@ -600,8 +460,8 @@ const path = require('node:path');
           await page.setViewportSize({ width, height: 1000 });
           await page.goto(url + '?fixture=' + state + '&q=OpenTofu#project-' + project.id);
           await waitForState();
-          const card = page.locator('#project-' + project.id);
-          await waitForPlate(card);
+          await waitForPlate();
+          const card = page.locator('#pane-scroll');
           assert.equal(await card.locator('[data-signal="hn"] .pg-spark').count(), state === 'partial' ? 1 : 0);
           assert.equal(await card.locator('[data-signal="star-history"] .pg-spark').count(), 0);
           for (const signal of ['hn', 'star-history']) {
@@ -612,7 +472,7 @@ const path = require('node:path');
             assert.ok((await box.innerText()).includes(expected), `${state}: ${signal} disclosure`);
             await box.locator('.pg-info > summary').click();
           }
-          await assertLedgerFits(page, `${state} evidence at ${width}px`);
+          assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
           await card.locator('.plate-grid').scrollIntoViewIfNeeded();
           await capture(`evidence-${state}-${width}.png`);
         }
@@ -625,62 +485,29 @@ const path = require('node:path');
     await page.goto(url);
     await waitForState();
     assert.equal(await visible(), data.projects.length, 'Production catalog restored after fixture routes');
-
-    await page.emulateMedia({ reducedMotion: 'reduce' });
     assert.equal(await page.locator('html').evaluate(node => getComputedStyle(node).scrollBehavior), 'auto');
-    await page.locator('#clear-filters').click();
     const crossListed = data.projects.find(p => p.leader_categories.length && p.categories.some(c => !p.leader_categories.includes(c)));
     assert.ok(crossListed, 'Fixture needs a project leading only some of its categories');
-    await select('category-filter', crossListed.leader_categories[0]);
-    assert.equal(await page.locator('#project-' + crossListed.id).getAttribute('data-leader'), 'true');
-    await select('category-filter', crossListed.categories.find(c => !crossListed.leader_categories.includes(c)));
-    assert.equal(await page.locator('#project-' + crossListed.id).getAttribute('data-leader'), 'false');
-    await page.locator('#clear-filters').click();
-    const noArt = data.projects.find(p => !p.artwork);
-    assert.equal(await page.locator('#project-' + noArt.id + ' .specimen-art').count(), 0);
+    await category(crossListed.leader_categories[0]);
+    assert.equal(await page.locator(`#rows .row[data-id="${crossListed.id}"]`).getAttribute('data-leader'), 'true');
+    await category(crossListed.categories.find(c => !crossListed.leader_categories.includes(c)));
+    assert.equal(await page.locator(`#rows .row[data-id="${crossListed.id}"]`).getAttribute('data-leader'), 'false');
+    await category('');
 
-    // Open sheets must retain their hierarchy and fit at narrow widths.
-    const sheetCases = [
-      ['full', data.projects.find(p => p.artwork && p.signals?.scorecard?.last_good)],
-      ['sparse', data.projects.find(p => !p.github)],
-      ['no-art', noArt],
-    ].filter(([, project]) => project);
-    for (const [kind, project] of sheetCases) {
-      await change('search', project.name);
-      const card = page.locator('#project-' + project.id);
-      await card.locator('details.specimen-drawer').evaluate(node => { node.open = true; });
-      await waitForPlate(card);
-      for (const width of [1440, 390, 320]) {
-        await page.setViewportSize({width, height:1000});
-        await card.scrollIntoViewIfNeeded();
-        await assertLedgerFits(page, 'open specimen ' + kind + ' at ' + width);
-        assert.equal(await card.locator('.specimen-art figcaption').count(), 0);
-        if (width !== 320) await capture('sheet-' + kind + '-' + width + '.png');
-      }
-    }
-    await page.setViewportSize({width:1440, height:1000});
-
-    const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+    const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1440, height: 1000 } });
     const fallback = await noJS.newPage();
     await fallback.goto(url);
-    assert.equal(await fallback.locator('.project-card').count(), data.projects.length);
+    assert.equal(await fallback.locator('#rows .row').count(), data.projects.length);
     assert.equal(await fallback.locator('#filters').isVisible(), false);
-    assert.equal(await fallback.locator('#sort-order').isDisabled(), true);
+    assert.equal(await fallback.locator('#search-form').isVisible(), false);
     assert.equal(await fallback.locator('.no-script').isVisible(), true);
-    await assertLedgerFits(fallback, 'no JavaScript');
-    assert.equal(await fallback.locator('.specimen-plate').count(), 0, 'No-JS ledger keeps complete summaries and static links');
-    await fallback.locator('.specimen-drawer').first().locator(':scope > summary').click();
-    const fallbackLink = fallback.locator('.specimen-drawer').first().locator('.detail-fallback a');
-    assert.equal(await fallbackLink.isVisible(), true);
-    assert.deepEqual(await fallback.locator('.project-card').evaluateAll(cards => cards.map(c => c.dataset.projectId)), defaultIds);
+    assert.deepEqual(await visibleIds(fallback), defaultIds);
     await assertVisiblePositions(fallback, 'no JavaScript');
-    await assertRecordIdentities(fallback, data, 'no JavaScript');
-    const staticRecordId = await fallback.locator('.project-card').first().getAttribute('data-project-id');
-    await fallbackLink.click();
-    assert.equal(new URL(fallback.url()).pathname, new URL('records/' + staticRecordId + '.html', url).pathname);
+    await assertRowIdentities(fallback, data, 'no JavaScript');
+    await fallback.locator('#rows .row > a').first().click();
+    assert.equal(new URL(fallback.url()).pathname, new URL('records/' + defaultIds[0] + '.html', url).pathname);
     assert.equal(await fallback.locator('.specimen-plate').count(), 1);
-    assert.equal(await fallback.locator('.plate-departure > a').isVisible(), true);
-    assert.equal(await fallback.locator('.plate-departure > a').getAttribute('href'), data.projects.find(project => project.id === staticRecordId).url);
+    assert.equal(await fallback.locator('.plate-departure > a').getAttribute('href'), data.projects.find(project => project.id === defaultIds[0]).url);
     await noJS.close();
     assert.deepEqual(errors, []);
 
@@ -691,7 +518,7 @@ const path = require('node:path');
       fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
         '## Field-guide browser check\n\nPassed against generated revision `' + report.sourceSha + '`' +
         ' (PR head `' + report.prHeadSha + '`).\n\n' +
-        'Download `field-guide-browser-screenshots` for desktop.png (1440 × 1000), mobile.png (390 × 844), ' +
+        'Download `field-guide-browser-screenshots` for desktop.png (1440 × 1000), mobile.png (390 × 844), pane and About captures, ' +
         'screenshots.json, and browser/server logs.\n');
     }
     console.log(JSON.stringify({ status: 'passed', group, projects: data.projects.length, screenshots: output }));

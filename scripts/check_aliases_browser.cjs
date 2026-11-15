@@ -38,10 +38,9 @@ module.exports = async ({ context, url, data, capture }) => {
         } else assert.equal(await plate.locator('.plate-aliases').count(), 0);
         checked.push({ id: project.id, width, aliases: expected.length });
       }
-      await page.goto(url);
+      await page.goto(new URL('#project-' + multiple.id, url).href);
       await page.waitForFunction(() => document.querySelector('#filters')?.dataset.enhanced === 'true');
-      const row = page.locator('#project-' + multiple.id);
-      await row.locator('details.specimen-drawer').evaluate(node => { node.open = true; });
+      const row = page.locator('#pane-scroll');
       await row.locator('.plate-aliases').waitFor({ state: 'visible' });
       assert.deepEqual(await row.locator('.plate-aliases a').allTextContents(), aliases(multiple).map(alias => alias.name));
       assert.ok(await row.locator('.specimen-plate').evaluate(plate => {
@@ -49,9 +48,9 @@ module.exports = async ({ context, url, data, capture }) => {
         const list = plate.querySelector('.plate-aliases');
         return heading.nextElementSibling === list && list.getBoundingClientRect().top >= heading.getBoundingClientRect().bottom
           && document.documentElement.scrollWidth <= innerWidth;
-      }), 'Drawer aliases follow the heading and fit at ' + width);
+      }), 'Pane aliases follow the heading and fit at ' + width);
       await row.locator('.plate-heading').scrollIntoViewIfNeeded();
-      await capture(`aliases-drawer-multiple-${width}.png`, page);
+      await capture(`aliases-pane-multiple-${width}.png`, page);
     }
   } finally { await page.close(); }
   return { status: 'passed', checked };

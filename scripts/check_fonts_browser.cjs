@@ -14,7 +14,7 @@ module.exports = async ({ browser, url, data, output }) => {
       const s = getComputedStyle(node); return { family: s.fontFamily, weight: s.fontWeight, axes: s.fontVariationSettings };
     });
     assert.match(css.family, /Poltawski Nowy/); assert.equal(css.weight, '400'); assert.equal(css.axes, 'normal');
-    assert.equal(await page.locator('.brand,.obs-brand').first().evaluate(node => getComputedStyle(node).fontWeight), '400');
+    assert.equal(await page.locator('.list-brand,.obs-brand,.brand').first().evaluate(node => getComputedStyle(node).fontWeight), '400');
     assert.ok(await page.evaluate(() => Array.from(document.fonts).some(face => face.family.replace(/["']/g, '') === 'Poltawski Nowy' && face.status === 'loaded')));
     assert.ok(await page.evaluate(() => Array.from(document.fonts).some(face => face.family.replace(/["']/g, '') === 'Commit Mono' && face.status === 'loaded')));
     assert.match(await page.locator('body').evaluate(node => getComputedStyle(node).fontFamily), /Commit Mono/);

@@ -93,9 +93,10 @@ manufacture percentages, missing values or a zero-star observation.
   marked as the current page. One sticky
   selection bar without visible labels (each select has an accessible name) and
   bold section jumps; no kickers; “N/N selected.” ends the Shared names paragraph.
-- Closing mark: the existing 128px botanical logo is centered before the footer,
-  with 128px of vertical space above and below (96px on narrow screens) and no
-  visible caption. Its size stays within the source resolution. The opening is text-only, unruled and uses its full available
+- Closing mark: the 96px fruit mark is centered before the footer, with 128px of
+  vertical space above and below (96px on narrow screens) and no visible caption
+  ([B-PR333-01](../brand/decisions/B-PR333-01.md)). Its size stays within the source
+  resolution. The page heading reads “Observatory”. The opening is text-only, unruled and uses its full available
   width; the snapshot date and source revision sit in the footer link list.
   Chart geometry and project specimen artwork remain unchanged.
 - Editorial hand: a bounded whole-collection finding with a to-scale share strip,

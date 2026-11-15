@@ -53,7 +53,7 @@ test('unchanged geometry assertion rejects a misplaced leader', () => {
   const m = { bbox: [0, .1, 1, .9], image: { width: 100, height: 100, top: -2 },
     field: { width: 100, left: 0, top: 0, bottom: 96 },
     stage: { height: 96, left: 0, width: 100, top: 0 },
-    label: { top: 56 }, labelFont: 10, naturalWidth: 100, naturalHeight: 100,
+    label: { top: 96 }, labelFont: 10, naturalWidth: 100, naturalHeight: 100,
     studyTop: 0, leaderY: [91], pageFits: true, overflow: 'visible', terrain: null };
   assert.doesNotThrow(() => assertGeometry(m, 'valid'));
   assert.throws(() => assertGeometry({ ...m, leaderY: [111] }, 'wrong'), /leader follows subject baseline/);
