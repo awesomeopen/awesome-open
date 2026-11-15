@@ -8,7 +8,7 @@
 })(typeof globalThis === "object" ? globalThis : this, function () {
   "use strict";
 
-  var RELEASE = "0.1.0"; // This script's version; CHANGELOG.md records each with its SHA-256.
+  var RELEASE = "0.2.0"; // This script's version; CHANGELOG.md records each with its SHA-256.
   var VERSION = 1; // The list document schema.
   var PAGE = 12;
   var MAX_QUERY = 160;
@@ -547,7 +547,7 @@
     "*{box-sizing:border-box}",
     ".trigger{display:block;font:14px/1.2 var(--wm-font);min-height:44px;padding:12px 16px;",
     "border:1px solid var(--wm-accent);border-radius:var(--wm-radius);background:var(--wm-accent);color:var(--wm-bg);cursor:pointer}",
-    ".banner .trigger{width:100%;text-align:left}",
+    ".banner .trigger{width:100%;text-align:left}.trigger span{display:block}.trigger .caption{margin-top:2px;font-size:11px;opacity:.85}",
     "button,input,select,textarea{font:inherit;color:inherit}",
     ":focus-visible{outline:3px solid var(--wm-focus);outline-offset:2px}",
     "dialog{width:min(880px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:0;border:1px solid var(--wm-accent);",
@@ -563,8 +563,9 @@
     ".frame button.primary{background:var(--wm-accent);color:var(--wm-bg)}.frame button:disabled{opacity:.45;cursor:default}",
     "ol{list-style:none;margin:8px 0;padding:0}li{padding:12px 0;border-bottom:1px solid var(--wm-rule)}",
     "li a{color:var(--wm-accent);font:400 18px/1.3 var(--wm-heading)}li p{margin:4px 0 0}.meta,.note,.state{color:var(--wm-muted);font-size:13px}",
-    ".status{min-height:1.6em}footer{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:32px;",
-    "padding-top:16px;border-top:1px solid var(--wm-rule);font-size:13px}footer a{color:var(--wm-muted)}",
+    ".status{min-height:1.6em}footer{margin-top:32px;padding-top:12px;border-top:1px solid var(--wm-rule);font-size:12px;line-height:1.5;color:var(--wm-muted)}",
+    "footer p{margin:0}footer a,footer .link{color:inherit;text-decoration:underline}code{font-size:11px}",
+    ".frame footer .link{display:inline;min-height:0;padding:0;border:0;background:none;font:inherit;cursor:pointer}",
     "progress{width:100%}[hidden]{display:none!important}",
     "@media(max-width:560px){.frame{padding:16px}h2{font-size:24px}dialog{width:calc(100vw - 16px);max-height:calc(100vh - 16px)}}"
   ].join("");
@@ -602,7 +603,11 @@
     var root = host.attachShadow({ mode: "open" });
     element(doc, "style", {}, root, STYLE);
     var wrap = element(doc, "div", { class: options.mode === "banner" ? "banner" : "corner" }, root);
-    var trigger = element(doc, "button", { class: "trigger", type: "button", "aria-haspopup": "dialog" }, wrap, options.label || "Search this list");
+    // The page can restyle the button through ::part(trigger), ::part(label) and ::part(caption).
+    var label = options.label || "Search", caption = options.caption === undefined ? "WebMCPlet" : options.caption;
+    var trigger = element(doc, "button", { class: "trigger", part: "trigger", type: "button", "aria-haspopup": "dialog" }, wrap);
+    element(doc, "span", { class: "label", part: "label" }, trigger, label);
+    if (caption) { trigger.append(" "); element(doc, "span", { class: "caption", part: "caption" }, trigger, caption); }
     var dialog = element(doc, "dialog", { "aria-labelledby": "wm-title" }, wrap);
     var frame = element(doc, "div", { class: "frame" }, dialog);
     var head = element(doc, "header", {}, frame);
@@ -636,10 +641,14 @@
     var answerRows = element(doc, "ol", { "aria-label": "Items in the answer" }, answer);
     element(doc, "h4", {}, answer, "Generated text");
     var generated = element(doc, "p", { class: "generated" }, answer);
-    var foot = element(doc, "footer", {}, frame);
-    var hide = element(doc, "button", { type: "button" }, foot, "Hide this button");
-    element(doc, "span", { class: "note" }, foot, "Hidden in this browser until its site data is cleared.");
-    element(doc, "a", { href: "https://github.com/awesomeopen/awesome-open/tree/main/webmcplet" }, foot, "WebMCPlet");
+    var note = element(doc, "p", {}, element(doc, "footer", {}, frame));
+    note.append("This " + label + " feature is a ");
+    element(doc, "a", { href: "https://github.com/awesomeopen/awesome-open/tree/main/webmcplet" }, note, "WebMCPlet");
+    note.append(" showcase. WebMCPlet gives a list\u2019s page read-only WebMCP tools, so a browser agent can search the list and read its entries as you can here, with no server. Optional: ");
+    var hide = element(doc, "button", { type: "button", class: "link" }, note, "Hide the " + label + " button");
+    note.append(" on this page (remains hidden until this browser\u2019s site data is cleared). List admins: to hide the button by default, use ");
+    element(doc, "code", {}, note, 'data-webmcplet-panel="off"');
+    note.append(". This does not affect tool use by agents.");
 
     var find = coreTools.find(function (t) { return /_find$/.test(t.name); });
     var listDoc = null, current = { query: "", section: "", offset: 0 }, running = null;
@@ -820,7 +829,8 @@
   }
 
   // <script src="webmcplet.js" data-webmcplet-src="list.json" data-webmcplet-title="Awesome X"
-  //   data-webmcplet-prefix="list" data-webmcplet-panel="button|banner|off" data-webmcplet-assistant="on">
+  //   data-webmcplet-prefix="list" data-webmcplet-panel="button|banner|off" data-webmcplet-assistant="on"
+  //   data-webmcplet-label="Search" data-webmcplet-caption="WebMCPlet">
   // With a title, the document loads at the first tool call or panel use.
   function autostart(win) {
     var script = win.document && win.document.currentScript;
@@ -834,7 +844,7 @@
       var mode = data.webmcpletPanel || "button";
       if (mode !== "off") {
         var start = function () {
-          result.panel = mount(win, { title: options.title, tools: result.tools, mode: mode, label: data.webmcpletLabel,
+          result.panel = mount(win, { title: options.title, tools: result.tools, mode: mode, label: data.webmcpletLabel, caption: data.webmcpletCaption,
             assistant: data.webmcpletAssistant === "on",
             assistantTools: data.webmcpletAssistantTools ? data.webmcpletAssistantTools.split(/[\s,]+/).filter(Boolean) : null });
         };

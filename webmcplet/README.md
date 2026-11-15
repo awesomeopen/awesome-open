@@ -68,7 +68,8 @@ stay as they are. When a visitor hides the button, that browser stores one
 | --- | --- |
 | `data-webmcplet-prefix` | Renames the tools from `list_*` |
 | `data-webmcplet-panel` | `button` (default) is a corner button; `banner` is a full-width bar at the top of the page; `off` removes the panel and keeps the tools |
-| `data-webmcplet-label` | The button's text, default "Search this list" |
+| `data-webmcplet-label` | The button's text, default "Search" |
+| `data-webmcplet-caption` | The smaller second line under the label, default "WebMCPlet"; an empty value removes it |
 | `data-webmcplet-assistant` | `on` adds the [assistant](#assistant) to the panel |
 | `data-webmcplet-assistant-tools` | Tool names the assistant uses, such as the page's own tools (below) |
 
@@ -104,16 +105,19 @@ error with a generic failure and the agent would lose the recovery instruction. 
 
 ## Panel
 
-The corner button opens a modal dialog with search, a section filter and results that
-link to each item. The button never opens or moves by itself. Escape or Close returns
-focus to the button. A visitor can hide the button with "Hide this button"; the choice is
-stored in that browser only and the tools stay registered. The panel loads no other
-files and makes no analytics calls.
+The corner button, "Search" over a smaller "WebMCPlet", opens a modal dialog with search,
+a section filter and results that link to each item. The button never opens or moves by
+itself. Escape or Close returns focus to the button. The dialog's footer says the panel is
+a WebMCPlet showcase and what WebMCPlet does. A visitor can hide the button from there
+with "Hide the Search button"; the choice is stored in that browser only and the tools
+stay registered. The footer also names `data-webmcplet-panel="off"`, which hides the
+button for every visitor. The panel loads no other files and makes no analytics calls.
 
 The panel sits in a shadow root. A page themes it by setting these custom properties on
 `[data-webmcplet-host]`: `--webmcplet-bg`, `--webmcplet-fg`, `--webmcplet-accent`,
 `--webmcplet-muted`, `--webmcplet-rule`, `--webmcplet-focus`, `--webmcplet-font`,
-`--webmcplet-heading-font` and `--webmcplet-radius`. On a page wider than the screen,
+`--webmcplet-heading-font` and `--webmcplet-radius`. For a different button layout, the page
+styles `[data-webmcplet-host]::part(trigger)`, `::part(label)` and `::part(caption)`. On a page wider than the screen,
 or when zoomed, the button and dialog follow the visible part of the page.
 
 ## Assistant

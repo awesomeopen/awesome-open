@@ -64,14 +64,13 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .list {display:flex;flex-direction:column;min-width:0;min-height:0;border-right:1px solid var(--rs-blueprint);background:var(--rs-paper);}
 /* The wordmark heads the list column, with the search beneath it on the row the plate's controls share. */
 .list-head {flex:none;display:flex;flex-direction:column;justify-content:space-between;height:var(--head);padding:14px 14px 12px;border-bottom:2px solid var(--rs-blueprint);}
-.list-brand {margin:0;font:var(--rs-wordmark-weight,400) 32px/1 var(--rs-display);font-variation-settings:var(--rs-display-axes,normal);letter-spacing:-.035em;}
+.list-brand {margin:0 auto;font:var(--rs-wordmark-weight,400) 32px/1 var(--rs-display);font-variation-settings:var(--rs-display-axes,normal);letter-spacing:-.035em;}
 .list-brand a {display:inline-block;padding-top:4px;color:var(--rs-blueprint);text-decoration:none;white-space:nowrap;}
 .list-brand a:hover {color:var(--rs-blueprint);}
-.list-search {display:flex;align-items:center;height:38px;border:1px solid var(--rs-blueprint);border-radius:var(--rs-radius);background:var(--rs-paper);}
+.list-search {display:flex;align-items:center;height:38px;border:1px solid var(--app-line);border-radius:2em;background:var(--rs-paper);overflow:hidden;}
 .list-search:focus-within {box-shadow:0 0 0 2px var(--rs-trace),0 0 0 3px var(--rs-blueprint);}
-.list-search input {flex:1;min-width:0;height:100%;padding:0 10px;border:0;outline:0;background:transparent;font:14px/1 var(--rs-font);color:var(--rs-ink);}
-.list-search input::placeholder {color:var(--rs-muted);}
-.list-search button {display:grid;place-items:center;width:38px;height:36px;padding:0;border:0;border-left:1px solid var(--app-line);background:transparent;}
+.list-search input {flex:1;min-width:0;height:100%;padding:0 10px 0 16px;border:0;outline:0;background:transparent;font:14px/1 var(--rs-font);color:var(--rs-ink);}
+.list-search button {display:grid;place-items:center;width:44px;height:36px;padding:0;border:0;border-left:1px solid var(--app-line);background:transparent;}
 .list-search button:hover {background:var(--rs-mist);}
 .list-notice,.list .no-script {flex:none;margin:0;padding:8px 14px;border-bottom:1px solid var(--app-line);font-size:12px;line-height:1.5;color:var(--rs-muted);}
 .rows {flex:1;min-height:0;margin:0;padding:0;list-style:none;overflow:auto;outline:0;scrollbar-width:thin;}
@@ -138,6 +137,8 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 /* Riders: index tabs on the head's rule; About is the open one, the others lead to their pages. */
 .about-head {justify-content:flex-end;padding-bottom:0;}
 .about-head .pane-title {margin-bottom:12px;}
+/* On a phone About covers the screen, so its head carries a close control; on desktop the rail's About link closes it. */
+.about-close {display:none;}
 .riders {flex:none;display:flex;align-items:flex-end;gap:4px;margin-bottom:-2px;}
 .riders a {display:block;height:38px;padding:0 14px;border:1px solid var(--rs-blueprint);border-bottom:2px solid var(--rs-blueprint);border-radius:var(--rs-radius) var(--rs-radius) 0 0;background:var(--rs-mist);color:var(--rs-blueprint);font-size:12.5px;line-height:36px;text-decoration:none;white-space:nowrap;}
 .riders a:hover {background:var(--rs-trace);color:var(--rs-blueprint);}
@@ -189,7 +190,7 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .pane .plate-note strong {font-size:19px;margin:0 0 2px;}
 .pane .plate-note p {font-size:13px;line-height:1.55;}
 .pane .feature-source {margin-top:2px;}
-.pane .specimen-plate .specimen-label {width:100%;max-width:440px;min-width:0;}
+.pane .specimen-plate .specimen-label {width:100%;max-width:440px;min-width:0;padding:2px;}
 .pane .plate-grid {--pg-gap:10px;--pg-lane:28px;margin:20px 0 0;padding:2px 20px 20px;}
 .pane .pg-box {padding:8px 12px;}
 .pane .pg-foot {padding-right:22px;font-size:11px;}
@@ -243,36 +244,36 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 
 /* Cabinet: the existing folded instrument, reattached as a corner button and its panel. */
 .app .specimen-cabinet {position:fixed;right:16px;bottom:16px;z-index:40;margin:0;border:0;background:transparent;}
-/* WebMCPlet's "Search this list" button holds the corner; the cabinet stacks above it while it is shown. */
-.app:has([data-webmcplet-host]) .specimen-cabinet {bottom:72px;}
-.app:has([data-webmcplet-host]) .cabinet-body {max-height:calc(100dvh - 156px);}
-.app .specimen-cabinet>summary {display:flex;flex-wrap:nowrap;align-items:center;gap:12px;height:48px;padding:0 14px 0 0;border:0;border-radius:2px;background:var(--rs-scarlet);color:#fff;box-shadow:4px 4px 0 var(--rs-ink);}
+/* WebMCPlet's Search button holds the corner in the cabinet's layout, in blue; the cabinet stacks above it while it is shown. */
+.app:has([data-webmcplet-host]) .specimen-cabinet {bottom:64px;}
+.app:has([data-webmcplet-host]) .cabinet-body {max-height:calc(100dvh - 140px);}
+.app .specimen-cabinet>summary {position:relative;display:flex;flex-wrap:nowrap;align-items:flex-start;gap:10px;box-sizing:border-box;min-width:128px;height:40px;padding:0 16px 0 0;border:0;border-radius:2px;background:var(--rs-scarlet);color:#fff;box-shadow:3px 3px 0 var(--rs-ink);}
 .app .specimen-cabinet>summary:hover {background:#9c1d1a;}
 .app .specimen-cabinet[open]>summary {border-bottom:0;}
 .app .specimen-cabinet>summary:focus-visible {outline:3px solid var(--rs-blueprint);outline-offset:3px;}
-.app .cabinet-sign {order:-1;display:grid;place-items:center;width:48px;height:48px;background:rgba(0,0,0,.16);}
-.app .cabinet-sign::before {content:"+";font:300 30px/1 var(--rs-font);}
+.app .cabinet-sign {order:-1;display:grid;place-items:center;width:40px;height:40px;background:rgba(0,0,0,.16);}
+.app .cabinet-sign::before {content:"+";font:300 26px/1 var(--rs-font);}
 .app .specimen-cabinet[open]>summary .cabinet-sign::before {content:"\00d7";}
-.app .cabinet-heading {flex:none;min-width:0;gap:0;}
-.app .cabinet-title {font:var(--rs-display-weight,400) 19px/1.1 var(--rs-display);}
+.app .cabinet-heading {flex:none;min-width:0;gap:0;padding-top:5px;}
+.app .cabinet-title {font:var(--rs-display-weight,400) 16px/1.1 var(--rs-display);}
 .app .cabinet-lede {display:none;}
-.app #cabinet-count {position:absolute;left:60px;bottom:6px;font-size:10.5px;line-height:1;color:#fff;opacity:.92;}
-.app .specimen-cabinet>summary {position:relative;align-items:flex-start;padding-right:18px;}
-.app .cabinet-heading {padding-top:8px;}
+.app #cabinet-count {position:absolute;left:50px;bottom:5px;font-size:10px;line-height:1;color:#fff;opacity:.92;}
+[data-webmcplet-host]::part(trigger) {display:block;box-sizing:border-box;min-width:128px;min-height:40px;height:40px;padding:5px 16px 0 50px;border:0;border-radius:2px;
+  background:url(brand/search-loupe.png) 6px 6px / 28px 28px no-repeat,linear-gradient(rgba(0,0,0,.16),rgba(0,0,0,.16)) 0 0 / 40px 100% no-repeat,var(--rs-blueprint);
+  box-shadow:3px 3px 0 var(--rs-ink);text-align:left;}
+[data-webmcplet-host]::part(trigger):hover {background-color:var(--rs-ink);}
+[data-webmcplet-host]::part(label) {font:var(--rs-display-weight,400) 16px/1.1 var(--rs-display);}
+[data-webmcplet-host]::part(caption) {margin-top:4px;font:10px/1 var(--rs-font);opacity:.92;}
 .app .specimen-cabinet.is-bumped>summary {animation:cabinet-bump .5s ease-out;}
 @keyframes cabinet-bump {30% {transform:translateY(-6px);} 100% {transform:none;}}
 .app .specimen-cabinet[open]::before {content:"";position:absolute;right:30px;bottom:calc(100% + 7px);z-index:2;width:14px;height:14px;background:var(--rs-paper);border-right:1px solid var(--rs-blueprint);border-bottom:1px solid var(--rs-blueprint);transform:rotate(45deg);}
-.app .cabinet-body {position:absolute;right:0;bottom:calc(100% + 14px);width:min(440px,calc(100vw - 40px));max-height:calc(100dvh - 96px);overflow:auto;padding:18px 20px 12px;background:var(--rs-paper);border:1px solid var(--rs-blueprint);border-radius:2px;box-shadow:6px 6px 0 var(--rs-blueprint);}
+.app .cabinet-body {position:absolute;right:0;bottom:calc(100% + 14px);width:min(440px,calc(100vw - 40px));max-height:calc(100dvh - 88px);overflow:auto;padding:18px 20px 12px;background:var(--rs-paper);border:1px solid var(--rs-blueprint);border-radius:2px;box-shadow:6px 6px 0 var(--rs-blueprint);}
 .app .specimen-cabinet:has(.cabinet-comparison:not(:empty)) .cabinet-body {width:min(980px,calc(100vw - 40px));}
 .cabinet-pop-title {margin:0;font:var(--rs-display-weight,400) 26px/1.1 var(--rs-display);color:var(--rs-blueprint);}
-.cabinet-pop-lede {margin:4px 0 10px;font-size:13px;color:var(--rs-ink);}
-.app .cabinet-intro {color:var(--rs-muted);}
-.app .cabinet-step {padding:14px 0;}
-.app .cabinet-step-title {font-size:19px;}
+.cabinet-pop-lede {margin:4px 0 0;font-size:13px;color:var(--rs-ink);}
 .app .specimen-cabinet button,.app .specimen-cabinet input {min-height:36px;padding:6px 10px;}
+.app .specimen-cabinet .cabinet-x {min-height:30px;min-width:30px;padding:0 6px;}
 .app .specimen-cabinet label {margin:10px 0 6px;}
-.app .cabinet-selection li {gap:10px;padding:8px 0;flex-wrap:wrap;}
-.app .cabinet-selection li>a {font-size:18px;}
 .app .cabinet-comparison th,.app .cabinet-comparison td {padding:10px;min-width:150px;}
 .app .cabinet-comparison thead th {font-size:18px;}
 @media(prefers-reduced-motion:reduce) {.app .specimen-cabinet.is-bumped>summary {animation:none;}}
@@ -298,9 +299,10 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
   .pane-plate:not([hidden]),.pane-about:not([hidden]) {position:fixed;inset:0;z-index:35;background:var(--rs-paper);}
   .pane-tools .pane-action {display:none;}
   .pane-head {height:auto;min-height:60px;padding:8px 12px;align-items:center;}
-  .about-head {flex-wrap:wrap;padding-bottom:0;}
-  .riders {overflow-x:auto;max-width:100%;}
+  .about-head {flex-wrap:nowrap;justify-content:space-between;align-items:flex-end;padding-bottom:0;}
+  .riders {flex:0 1 auto;min-width:0;overflow-x:auto;}
+  .about-close {display:inline-grid;place-items:center;flex:none;width:38px;height:38px;margin-bottom:6px;padding:0;border:0;border-radius:var(--rs-radius);background:transparent;color:var(--rs-blueprint);font:20px/1 var(--rs-font);}
+  .about-close:hover {background:var(--rs-mist);}
   .pane-title h2 {font-size:22px;}
   .about {padding:20px 16px 0;}
-  .app .specimen-cabinet {bottom:16px;right:12px;}
 }

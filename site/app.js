@@ -241,7 +241,7 @@
      The pages load in a frame and hide their own navigation there; their catalog links act here. */
   var SHEETS = /^(about|observatory|scoreboard|spotlight)$/, frame = $("pane-frame"), sheet = "";
   var riders = Array.prototype.slice.call(about.querySelectorAll(".riders a[data-sheet]"));
-  function showAbout(name) {
+  function showAbout(name, hash) {
     name = name || "about";
     if (current) unmount();
     rest.hidden = true; about.hidden = false; plateBox.hidden = true;
@@ -252,9 +252,9 @@
     });
     $("about-scroll").hidden = name !== "about";
     frame.hidden = name === "about";
-    if (name !== "about" && name !== sheet) {
+    if (name !== "about" && (name !== sheet || hash)) {
       frame.title = name.charAt(0).toUpperCase() + name.slice(1);
-      frame.src = name + "/";
+      frame.src = name + "/" + (hash || "");
     }
     if (name === "about") $("about-scroll").scrollTop = 0;
     sheet = name;
@@ -300,6 +300,8 @@
     if (SHEETS.test(named)) { if (about.hidden || named !== sheet) showAbout(named); return; }
     var match = /^#project-([a-f0-9]{64})$/.exec(window.location.hash);
     if (match && byId.has(match[1]) && match[1] !== current) open(match[1]);
+    // Back to an address without a plate or sheet returns to the list, which on a phone the pane covers.
+    else if (!named && (current || !about.hidden)) close();
   }
 
   /* Cabinet: the pane's button edits the same URL parameter the cabinet restores from. */
@@ -383,6 +385,17 @@
     });
   });
   $("plate-cabinet").addEventListener("click", toggleCabinet);
+  $("about-close").addEventListener("click", close);
+  // A plate's links to the field-guide pages, such as its Trophies line, open them in the pane.
+  scroll.addEventListener("click", function (event) {
+    var link = event.target.closest && event.target.closest("a[href]");
+    if (!link || event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    var url = new URL(link.href), home = new URL("./", window.location.href);
+    var name = url.origin === home.origin && url.pathname.slice(home.pathname.length).replace(/(index\.html)?$/, "").replace(/\/$/, "");
+    if (!name || !SHEETS.test(name) || name === "about") return;
+    event.preventDefault();
+    showAbout(name, url.hash);
+  });
 
   document.addEventListener("keydown", function (event) {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
@@ -402,7 +415,8 @@
     }
   });
   document.addEventListener("click", function (event) {
-    if (cabinet.open && !cabinet.contains(event.target) && !event.target.closest("#plate-cabinet")) cabinet.open = false;
+    // A cabinet control that re-rendered itself on click is no longer in the page; that click was inside.
+    if (cabinet.open && event.target.isConnected && !cabinet.contains(event.target) && !event.target.closest("#plate-cabinet")) cabinet.open = false;
     // A jar's Inspect link leads to the static record; here it opens that plate in the pane.
     var inspect = event.target.closest && event.target.closest("a[data-jar-inspect]");
     if (inspect && !event.defaultPrevented && !event.button && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && byId.has(inspect.dataset.jarInspect)) {
