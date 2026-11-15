@@ -2,6 +2,16 @@
 const assert = require('node:assert/strict');
 module.exports = async function ({ page, browser, url, data, capture }) {
   const reviewed = data.projects.filter(p => p.deployment);
+  const response = await page.request.get(new URL('data/deployment_evidence.json', url).href);
+  assert.equal(response.status(), 200);
+  const setups = (await response.json()).projects;
+  assert.deepEqual(Object.keys(setups).sort(), reviewed.map(p => p.id).sort());
+  for (const project of reviewed) {
+    assert.equal(project.deployment.record, `records/${project.id}.html`);
+    for (const field of ['run_modes', 'install_methods']) {
+      assert.deepEqual(project.deployment[field], (setups[project.id][field] || []).map(f => ({ value: f.value })));
+    }
+  }
   // The eight pilot records stay present; reviewed backfill batches add more.
   const setupPilots = ['https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad',
     'https://github.com/open-webui/open-webui', 'https://github.com/opensearch-project/opensearch', 'https://github.com/opencv/opencv',
@@ -17,6 +27,7 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   };
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(url);
+  assert.equal(await page.getByRole('link', { name: 'Where it runs (data)', exact: true }).getAttribute('href'), 'data/deployment_evidence.json');
   await openFilters();
   assert.equal(await page.getByLabel('Reviewed run mode', { exact: true }).count(), 1);
   assert.equal(await page.getByLabel('Reviewed install method', { exact: true }).count(), 1);

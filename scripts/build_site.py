@@ -18,6 +18,7 @@ import shutil
 
 from build_catalog import build_catalog, category_id, load_function_summaries
 from render_readme import display_hn_evidence
+import published_hn
 import project_aliases
 import project_history
 import history_view
@@ -90,7 +91,7 @@ def compact_json(value):
 
 
 def published_catalog(catalog):
-    """catalog.json as published: star counts live once, in data/star_history.json.
+    """Publish compact references to the combined star and deployment downloads.
 
     Each project's `star_history` keeps its status and chart link; its `repo` keys
     the counts in that file's `repositories`, as `hn.slug` does for HN evidence.
@@ -101,17 +102,30 @@ def published_catalog(catalog):
         if record and "last_good" in record:
             record = {key: value for key, value in record.items() if key != "last_good"}
             project = {**project, "star_history": record}
+        setup = project.get("deployment")
+        if setup:
+            project = {**project, "deployment": {
+                "review_status": setup["review_status"],
+                "checked_at": setup["checked_at"],
+                **{field: [{"value": fact["value"]} for fact in setup.get(field, [])]
+                   for field in ("run_modes", "install_methods")},
+                "record": f'records/{project["id"]}.html',
+            }}
         projects.append(project)
     return {**catalog, "projects": projects}
 
 
 def load_site_catalog(site):
-    """Read a built catalog.json with star counts restored from the built star-history file."""
+    """Restore full evidence for preview/rendering consumers of a built catalog."""
     catalog = json.loads((Path(site) / "catalog.json").read_text(encoding="utf-8"))
     path = Path(site) / "data/star_history.json"
-    if not path.exists():
-        return catalog
-    repositories = json.loads(path.read_text(encoding="utf-8"))["repositories"]
+    repositories = json.loads(path.read_text(encoding="utf-8"))["repositories"] if path.exists() else {}
+    slim = [p for p in catalog["projects"] if "record" in p.get("deployment", {})]
+    if slim:
+        # Missing downloads/records fail visibly rather than rendering partial facts.
+        setups = json.loads((Path(site) / "data/deployment_evidence.json").read_text(encoding="utf-8"))["projects"]
+        for project in slim:
+            project["deployment"] = setups[project["id"]]
     for project in catalog["projects"]:
         record = project.get("star_history")
         if record and "last_good" in repositories.get(record["repo"], {}):
@@ -1023,6 +1037,11 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
             render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root, variants=variants), encoding="utf-8"
         )
     (output / "catalog.json").write_text(compact_json(published_catalog(catalog)), encoding="utf-8")
+    (output / "data").mkdir(exist_ok=True)
+    (output / "data/deployment_evidence.json").write_text(compact_json({
+        "schema_version": 1,
+        "projects": {p["id"]: p["deployment"] for p in catalog["projects"] if p.get("deployment")},
+    }), encoding="utf-8")
     (output / "search-text.json").write_text(search_text(catalog), encoding="utf-8")
     (output / "webmcplet").mkdir(exist_ok=True)
     (output / "webmcplet/list.json").write_text(webmcplet_list(catalog), encoding="utf-8")
@@ -1057,6 +1076,8 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
         (output / "data/project_signals.json").unlink(missing_ok=True)
     for name in evidence_files:
         document = json.loads((root / "data" / name).read_text(encoding="utf-8"))
+        if name == "hn_evidence.json":
+            document = published_hn.publish(document)
         (output / "data" / name).write_text(compact_json(document), encoding="utf-8")
     (output / "vendor").mkdir(exist_ok=True)
     for name in ("fonts.css", "FONT-LICENSE.txt", "FONT-PROVENANCE.json", "commit-mono.woff2"):
