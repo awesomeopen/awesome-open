@@ -11,16 +11,14 @@ module.exports = async ({ page, url, data, capture }) => {
   for (const [name, viewport] of [['stars-desktop.png',{width:1440,height:1000}],['stars-mobile.png',{width:390,height:844}]]) {
     await page.setViewportSize(viewport);
     await page.goto(url + '?q=' + encodeURIComponent(project.name) + '#project-' + project.id);
-    const card = page.locator('#project-' + project.id);
-    const drawer = card.locator('.specimen-drawer');
-    await drawer.evaluate(node => {node.open = true;});
+    const card = page.locator('#pane-scroll');
     await card.locator('.specimen-plate').waitFor({ state: 'visible' });
     const chart = card.locator('[data-signal="star-history"] .pg-spark');
     await chart.scrollIntoViewIfNeeded();
     assert.equal(await chart.isVisible(),true);
     await chart.evaluate(img => img.decode());
     assert.equal(await chart.evaluate(img=>img.complete && img.naturalWidth===120),true);
-    assert.equal(await card.locator('summary .pg-spark').count(),0);
+    assert.equal(await page.locator('#rows .pg-spark').count(),0,'List rows carry only the HN sparkline');
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     const provenance=card.locator('[data-signal="star-history"] .pg-info');
     await provenance.locator('summary').click();
@@ -31,10 +29,11 @@ module.exports = async ({ page, url, data, capture }) => {
     assert.equal(await provenance.getByRole('link', { name: 'Provider source' }).getAttribute('href'), project.star_history.source_url);
     await provenance.locator('summary').click();
     await capture(name);
-    await drawer.locator(':scope > summary').click();
-    assert.equal(await chart.isVisible(),false);
-    await drawer.locator(':scope > summary').click();
-    assert.equal(await chart.isVisible(),true);
+    // Closing the plate unmounts it; opening the row mounts it again.
+    await page.locator('#plate-close').click();
+    assert.equal(await chart.count(),0);
+    await page.locator(`#rows .row[data-id="${project.id}"] > a`).click();
+    await card.locator('[data-signal="star-history"] .pg-spark').waitFor({ state: 'visible' });
   }
   await page.goto(new URL('records/'+project.id+'.html',url).href);
   const chart=page.locator('[data-signal="star-history"] .pg-spark');

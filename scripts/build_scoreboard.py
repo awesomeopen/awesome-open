@@ -1,6 +1,7 @@
-"""Static Scoreboard and metric-specific specimen trophy links."""
+"""Static Scoreboard and the specimen plate's trophy count."""
 from html import escape
 import json
+import re
 from pathlib import Path
 import shutil
 
@@ -8,6 +9,9 @@ from build_icons import render as render_icon
 from font_assets import content_url, font_asset_url
 from weekly_scoreboard import validate, history_view
 from scoreboard_trends import over_time, hn_scope
+
+# Also the catalog's rider tooltip for this page.
+DESCRIPTION = "Weekly Top 10 rankings from Awesome Open’s cached repository facts, reviewed renames and matched HN stories."
 
 REPOSITORY = 'https://github.com/awesomeopen/awesome-open'
 TITLES = {'software-renames': 'Most names', 'hn-streak': 'Longes HN streak',
@@ -29,17 +33,21 @@ def trophy(rank):
     return f'<span class="score-trophy">{render_icon("rank.trophy", "m")}<span>{rank}</span></span>'
 
 
-def trophy_links(project):
+def trophy_count(project):
+    """The plate's one trophy line: how many current Scoreboard places the project holds."""
     awards = project.get('scoreboard_trophies', [])
     if not awards:
         return ''
     updated = awards[0].get('recorded_on') or 'date unavailable'
-    links = []
     preview = any(a.get('preview') for a in awards)
-    for award in awards:
-        label = f'{"Preview: " if preview else ""}{award["title"]}, place {award["rank"]}, updated {updated}'
-        links.append(f'<a href="scoreboard/#{escape(award["metric"])}" title="{escape(label, quote=True)}" aria-label="{escape(label, quote=True)}">{trophy(award["rank"])}<span>{SHORT[award["metric"]]}</span></a>')
-    return f'<div class="scoreboard-plate"><span class="scoreboard-edition">{"Preview · " if preview else ""}Scoreboard · Updated {escape(updated)}</span><nav class="scoreboard-trophies" aria-label="Scoreboard places">{"".join(links)}</nav></div>'
+    count = len(awards)
+    places = '; '.join(f'{award["title"]}, place {award["rank"]}' for award in awards)
+    label = f'{"Preview: " if preview else ""}Scoreboard, updated {updated}. {places}'
+    href = 'scoreboard/' + (f'#{awards[0]["metric"]}' if count == 1 else '')
+    # The cup restates the count beside it; its drawing title is not a reader-facing label.
+    icon = re.sub(r'<title>.*?</title>', '', render_icon('rank.trophy', 'm')).strip()
+    return (f'<a class="plate-trophies" href="{escape(href, quote=True)}" title="{escape(label, quote=True)}">'
+            f'{icon}<span>{count} {"Trophy" if count == 1 else "Trophies"}</span></a>')
 
 
 def safe_link(url, label):
@@ -106,7 +114,7 @@ def build(catalog, doc, output, root, preview=False):
         edition = '<div class="score-scope"><p>The first weekly edition will appear after the next successful normal publication.</p></div>'
         jumps = boards = ''
     download = '<li><a href="snapshot.json" download>Download snapshot</a></li>' if doc else ''
-    page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Awesome Open* Scoreboard</title><meta name="description" content="Weekly Top 10 rankings from Awesome Open’s cached repository facts, reviewed renames and matched HN stories."><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="../{content_url('observatory/observatory.css', root / 'site/observatory.css')}"><link rel="stylesheet" href="{content_url('scoreboard.css', root / 'site/scoreboard.css')}"></head><body class="observatory scoreboard"><a class="skip-link" href="#scoreboard">Skip to scoreboard</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../observatory/">Observatory</a><a href="./" aria-current="page">Scoreboard</a><a href="../spotlight/">Spotlight</a></nav></header></div><main id="scoreboard" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Scoreboard</h1></section>{edition}{jumps}{boards}</div><div class="obs-closing-mark"><img class="obs-logo" src="../brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo"></div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Scoreboard</p><ul class="obs-footer-links">{download}<li><a href="{REPOSITORY}/blob/main/site/SCOREBOARD.md">Scoreboard method</a></li><li><a href="../#catalog">Return to Catalog</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li></ul></div></footer></body></html>'''
+    page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><script>if(window.top!==window)document.documentElement.classList.add("is-embedded")</script><title>Awesome Open* Scoreboard</title><meta name="description" content="{DESCRIPTION}"><link rel="icon" href="../brand/favicon.ico"><link rel="stylesheet" href="../{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="../{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="../{content_url('observatory/observatory.css', root / 'site/observatory.css')}"><link rel="stylesheet" href="{content_url('scoreboard.css', root / 'site/scoreboard.css')}"></head><body class="observatory scoreboard"><a class="skip-link" href="#scoreboard">Skip to scoreboard</a><div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="../">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="../#catalog">Catalog</a><a href="../observatory/">Observatory</a><a href="./" aria-current="page">Scoreboard</a><a href="../spotlight/">Spotlight</a></nav></header></div><main id="scoreboard" tabindex="-1"><div class="obs-shell"><section class="obs-hero"><h1>Scoreboard</h1></section>{edition}{jumps}{boards}</div><div class="obs-closing-mark" aria-hidden="true"><img class="obs-logo" src="../brand/fruit-96.png" width="96" height="96" alt=""></div></main><footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Scoreboard</p><ul class="obs-footer-links">{download}<li><a href="{REPOSITORY}/blob/main/site/SCOREBOARD.md">Scoreboard method</a></li><li><a href="../#catalog">Return to Catalog</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {stamp}</li></ul></div></footer></body></html>'''
     (target / 'index.html').write_text(page)
     if doc:
         (target / 'snapshot.json').write_text(json.dumps({**doc, 'preview': preview}, ensure_ascii=False, separators=(',', ':')) + '\n')

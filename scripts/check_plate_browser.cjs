@@ -1,4 +1,5 @@
-/* Specimen plates for every record: geometry, label, QR code, decoration, keyboard and static record assets. */
+/* Specimen plates for every record: geometry, label, QR code, decoration, keyboard and static record assets.
+   Full-width geometry is checked on the static record pages; the Catalog pane is checked at the end. */
 const assert=require('node:assert/strict');
 module.exports=async({page,url,data,capture})=>{
  const names=['OpenTofu','OpenRefine','Open WebUI',data.projects.find(p=>!p.artwork).name];
@@ -6,7 +7,7 @@ module.exports=async({page,url,data,capture})=>{
   await page.setViewportSize({width,height:1000});
   for(const name of names){
    const p=data.projects.find(p=>p.name===name);assert.ok(p,name);
-   await page.goto(new URL('#project-'+p.id,url).href);
+   await page.goto(new URL('records/'+p.id+'.html',url).href);
    const row=page.locator('#project-'+p.id),plate=row.locator('.specimen-plate');
    await row.locator('> details').evaluate(n=>n.open=true);
    await plate.waitFor({state:'visible'});
@@ -15,7 +16,8 @@ module.exports=async({page,url,data,capture})=>{
    assert.equal(await plate.count(),1);
    assert.equal(await plate.locator('.plate-departure>a').getAttribute('href'),p.url);
    assert.equal(await plate.locator('.plate-art').count(),p.artwork?1:0);
-   assert.equal(await plate.locator('.permalink').innerText(),'Specimen: '+name+' (permalink)');
+   assert.equal(await plate.locator('.permalink').textContent(),'Specimen: '+name);
+   assert.equal(await plate.locator('.permalink').getAttribute('aria-label'),'Permalink to '+name);
    const qr=plate.locator('.label-qr');
    assert.equal(await qr.getAttribute('href'),'https://awesomeopen.github.io/awesome-open/#project-'+p.id);
    assert.ok(await qr.locator('img').evaluate(img=>img.complete&&img.naturalWidth>0),'QR code loads');
@@ -43,8 +45,8 @@ module.exports=async({page,url,data,capture})=>{
     });
     assert.ok(geometry.art.left>=0&&geometry.art.right<=width,'Complete artwork fits viewport');
     if(width>900)assert.ok(geometry.art.right<=geometry.proseLeft,'Artwork leaves prose clear');
-    if(width>=1440)assert.equal(geometry.art.width,627,'Half-size artwork stays an exact 2:1 downscale');
-    assert.ok(await plate.locator('.specimen-label').evaluate(n=>Math.abs(n.getBoundingClientRect().top-n.previousElementSibling.getBoundingClientRect().bottom+4*parseFloat(getComputedStyle(n).fontSize))<1.1),'Label overlaps illustration by 4em');
+    assert.ok(geometry.art.width<=627,'Artwork keeps its 627px cap');
+    assert.ok(await plate.locator('.specimen-label').evaluate(n=>Math.abs(n.getBoundingClientRect().top-n.previousElementSibling.getBoundingClientRect().bottom)<1.1),'Label sits directly below the illustration');
     assert.equal(geometry.terrain,geometry.cutout==='true','Ground is drawn only behind transparent cut-outs');
     assert.equal(geometry.animation,'none','Reduced motion leaves the final composition');
    }
@@ -81,7 +83,7 @@ module.exports=async({page,url,data,capture})=>{
  // The loupe follows a mouse over the drawing and leaves no object behind.
  await page.setViewportSize({width:1440,height:1000});
  const tofu=data.projects.find(p=>p.name==='OpenTofu');
- await page.goto(new URL('#project-'+tofu.id,url).href);
+ await page.goto(new URL('records/'+tofu.id+'.html',url).href);
  const tofuRow=page.locator('#project-'+tofu.id);
  await tofuRow.locator('> details').evaluate(n=>n.open=true);
  await tofuRow.locator('.specimen-plate').waitFor({state:'visible'});
@@ -94,7 +96,7 @@ module.exports=async({page,url,data,capture})=>{
  assert.equal(await tofuRow.locator('.plate-lens').evaluate(n=>n.classList.contains('is-on')),false);
  // Opening runs once; it never gates text or repeats.
  await page.emulateMedia({reducedMotion:'no-preference'});
- await page.goto(new URL('#project-'+tofu.id,url).href);
+ await page.goto(new URL('records/'+tofu.id+'.html',url).href);
  const study=page.locator('#project-'+tofu.id);
  await study.locator('> details').evaluate(n=>n.open=true);
  await study.locator('.specimen-plate').waitFor({state:'visible'});
@@ -106,5 +108,33 @@ module.exports=async({page,url,data,capture})=>{
  for(const image of [row.locator('.plate-art img'),row.locator('.label-qr img')]){
   await image.evaluate(n=>n.decode());
   assert.ok(await image.evaluate(n=>n.complete&&n.naturalWidth>0),'Static record image loads');
+ }
+ // In the Catalog pane: one plate at a time; the label is as tall as its QR code with one line per fact.
+ for(const width of [1920,1440]){
+  await page.setViewportSize({width,height:1000});
+  for(const name of names){
+   const p=data.projects.find(p=>p.name===name);
+   await page.goto(new URL('#project-'+p.id,url).href);
+   const plate=page.locator('#pane-scroll .specimen-plate');
+   await plate.waitFor({state:'visible'});
+   assert.equal(await page.locator('.specimen-plate').count(),1,'One plate is mounted');
+   assert.equal(await page.locator('#plate-name').textContent(),p.name);
+   const label=await plate.locator('.specimen-label').evaluate(n=>{
+    const lines=n.querySelector('.label-lines');
+    return {lines:lines.getBoundingClientRect().height,qr:n.querySelector('.label-qr').getBoundingClientRect().height,
+     wrapped:[...lines.children].filter(c=>c.getBoundingClientRect().height>parseFloat(getComputedStyle(c).lineHeight)*1.5).map(c=>c.textContent)};
+   });
+   assert.ok(label.lines<=label.qr,`${name}: label lines fit the QR height at ${width}`);
+   assert.deepEqual(label.wrapped,[],`${name}: label lines do not wrap`);
+   const trophies=(p.scoreboard_trophies||[]).length;
+   assert.equal(await plate.locator('.plate-trophies').count(),trophies?1:0);
+   if(trophies)assert.equal(await plate.locator('.plate-trophies span').textContent(),trophies+(trophies===1?' Trophy':' Trophies'));
+   const clipped=await plate.locator('.plate-function,.specimen-label,.pg-box,.plate-departure').evaluateAll(ns=>{
+    const pane=document.getElementById('pane-scroll').getBoundingClientRect();
+    return ns.filter(n=>{const r=n.getBoundingClientRect();return r.width&&(r.left<pane.left-1||r.right>pane.right+1)}).map(n=>n.className);
+   });
+   assert.deepEqual(clipped,[],name+' fits the pane at '+width);
+   if(name===names[0])await capture('pane-plate-'+width+'.png');
+  }
  }
 };

@@ -339,12 +339,15 @@ class ScoreboardIntegrationTests(unittest.TestCase):
                     compute.assert_called_once()
                     self.assertTrue(c['scoreboard_edition']['preview'])
                     self.assertTrue(c['projects'][0]['scoreboard_trophies'][0]['preview'])
-                    self.assertIn('Preview', build_scoreboard.trophy_links(c['projects'][0]))
+                    line = build_scoreboard.trophy_count(c['projects'][0])
+                    self.assertIn('title="Preview: Scoreboard, updated', line)
+                    self.assertRegex(line, r'<span>1 Trophy</span></a>$|<span>[2-9] Trophies</span></a>$')
+                    self.assertNotIn('<title>', line)
                 else:
                     compute.assert_not_called()
                     self.assertIsNone(c['scoreboard_edition'])
                     self.assertNotIn('scoreboard_trophies', c['projects'][0])
-                    self.assertEqual(build_scoreboard.trophy_links(c['projects'][0]), '')
+                    self.assertEqual(build_scoreboard.trophy_count(c['projects'][0]), '')
                 self.assertFalse((root / scoreboard.PATH).exists())
 
     def test_scoreboard_route_empty_and_preview_output(self):

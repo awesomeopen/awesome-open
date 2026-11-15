@@ -459,16 +459,16 @@ class ObservatoryBuildTests(unittest.TestCase):
             self.assertEqual(row['source_sha'], self.snapshot['source_sha'])
 
     def test_prefooter_logo(self):
-        logo=build_site.ROOT/'site/brand/botanical-128.png'
         page=self.page
         logos=[image for image in page.images if image.get('class') == 'obs-logo']
         self.assertEqual(len(logos), 1)
         image=logos[0]
         self.assertEqual(image['class'], 'obs-logo')
-        self.assertEqual((image['width'], image['height']), ('128', '128'))
-        self.assertEqual(image['alt'], 'Awesome Open* botanical logo')
+        # The page ends on the fruit mark, like the Catalog's list.
+        self.assertEqual((image['width'], image['height']), ('96', '96'))
+        self.assertEqual(image['alt'], '')
         self.assertEqual([n for n in page.nodes('figcaption') if any(n in c.descendants('figcaption') for c in page.elements if c.has_class('obs-closing-mark'))], [])
-        self.assertEqual(image['src'], '../brand/botanical-128.png')
+        self.assertEqual(image['src'], '../brand/fruit-96.png')
         main=page.by_id['observatory-main']
         closing=[node for node in page.elements if node.has_class('obs-closing-mark')]
         self.assertEqual(len(closing), 1)
@@ -481,7 +481,8 @@ class ObservatoryBuildTests(unittest.TestCase):
         self.assertEqual(hero.descendants('img'), [])
         parent=next(node for node in page.elements if main in node.children)
         self.assertTrue(parent.children[parent.children.index(main)+1].has_class('obs-footer'))
-        self.assertEqual((self.output/'brand/botanical-128.png').read_bytes(), logo.read_bytes())
+        # The botanical mark still heads the Catalog's rail.
+        self.assertEqual((self.output/'brand/botanical-128.png').read_bytes(), (build_site.ROOT/'site/brand/botanical-128.png').read_bytes())
 
     def test_thin_index_and_no_runtime_remote_dependencies(self):
         node=self.page.by_id['observatory-data'];data=json.loads(node.text)

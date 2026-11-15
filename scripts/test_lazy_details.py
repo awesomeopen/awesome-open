@@ -31,6 +31,7 @@ class LazyDetailSiteTests(unittest.TestCase):
             if path.name == 'index.html':
                 expected_scripts = [content_url('search.js', ROOT / 'site/search.js'), expected,
                                     content_url('cabinet.js', ROOT / 'site/cabinet.js'),
+                                    content_url('app.js', ROOT / 'site/app.js'),
                                     content_url('webmcplet/webmcplet.js', ROOT / 'webmcplet/webmcplet.js')]
             self.assertEqual(scripts, expected_scripts, path.name)
         # A metadata-only revision keeps the same runtime identity; raw renderer
@@ -58,14 +59,14 @@ class LazyDetailSiteTests(unittest.TestCase):
         self.assertFalse(any(n.has_class('specimen-plate') for n in self.page.elements))
         self.assertNotIn('<template', self.initial)
         self.assertFalse(any('/records/' in n.attrs.get('src', '') for n in self.page.nodes('script')))
-        hosts = [n for n in self.page.elements if n.has_class('specimen-detail-host')]
-        self.assertEqual(len(hosts), len(ids))
-        for host in hosts:
-            pid = host.attrs['data-project-id']
+        # Each row links its static record, which app.js fetches into the plate pane.
+        rows = [n for n in self.page.nodes('li') if n.has_class('row')]
+        self.assertEqual(len(rows), len(ids))
+        for row in rows:
+            pid = row.attrs['data-id']
             self.assertIn(pid, ids)
             path = f'records/{pid}.html'
-            self.assertEqual(host.attrs['data-detail-url'], path)
-            self.assertEqual([a.attrs['href'] for a in host.descendants('a')], [path])
+            self.assertEqual([a.attrs['href'] for a in row.descendants('a')], [path])
             self.assertTrue((self.output / path).is_file())
         # The DOM budget of check_site_browser.cjs: 24 elements per ledger row.
         self.assertLessEqual(len(self.page.elements), 24 * len(ids))

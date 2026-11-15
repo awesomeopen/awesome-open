@@ -95,6 +95,11 @@ known no-output failures and quarantined holds for terminal project rejections
 with no returned artifact; preserve those receipts and exclude held projects
 from generation and publication until reconciled. This applies to discovery artwork and backfill.
 
+The proposed [batch candidate procedure](../automation/artwork-candidates.md)
+replaces finalization/publication archives after its owner-reviewed merge. Until
+then use the existing recoverable bundle below. Original preservation, truthful
+review and all publication gates continue to apply.
+
 Before publication:
 - Inspect the generated pixels and verify identity, dimensions, alt text,
   technical validity, provenance, rights and safety. Record truthful AI review;

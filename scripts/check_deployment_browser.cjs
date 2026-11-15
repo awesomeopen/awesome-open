@@ -2,6 +2,16 @@
 const assert = require('node:assert/strict');
 module.exports = async function ({ page, browser, url, data, capture }) {
   const reviewed = data.projects.filter(p => p.deployment);
+  const response = await page.request.get(new URL('data/deployment_evidence.json', url).href);
+  assert.equal(response.status(), 200);
+  const setups = (await response.json()).projects;
+  assert.deepEqual(Object.keys(setups).sort(), reviewed.map(p => p.id).sort());
+  for (const project of reviewed) {
+    assert.equal(project.deployment.record, `records/${project.id}.html`);
+    for (const field of ['run_modes', 'install_methods']) {
+      assert.deepEqual(project.deployment[field], (setups[project.id][field] || []).map(f => ({ value: f.value })));
+    }
+  }
   // The eight pilot records stay present; reviewed backfill batches add more.
   const setupPilots = ['https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad',
     'https://github.com/open-webui/open-webui', 'https://github.com/opensearch-project/opensearch', 'https://github.com/opencv/opencv',
@@ -10,13 +20,14 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   assert.ok(reviewed.length >= setupPilots.length, 'Reviewed setup records include the pilot');
   const functionPilots = ['https://github.com/opentofu/opentofu', 'https://github.com/openrefine/openrefine', 'https://github.com/openscad/openscad'];
   assert.ok(functionPilots.every(url => reviewed.some(p => p.url === url && p.function_summary)), 'Existing Function prose coexists with setup facts');
-  const visible = () => page.locator('.project-card:not([hidden])').count();
+  const visible = () => page.locator('#rows .row:not([hidden])').count();
   const openFilters = async () => {
-    if (!await page.locator('.filter-options').evaluate(n => n.open)) await page.locator('.filter-options > summary').click();
-    if (!await page.locator('.more-filters').evaluate(n => n.open)) await page.locator('.more-filters > summary').click();
+    await page.waitForFunction(() => document.querySelector('#filters')?.dataset.enhanced === 'true');
+    if (!await page.locator('.rail-more').evaluate(n => n.open)) await page.locator('.rail-more > summary').click();
   };
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(url);
+  assert.equal(await page.getByRole('link', { name: 'Where it runs (data)', exact: true }).getAttribute('href'), 'data/deployment_evidence.json');
   await openFilters();
   assert.equal(await page.getByLabel('Reviewed run mode', { exact: true }).count(), 1);
   assert.equal(await page.getByLabel('Reviewed install method', { exact: true }).count(), 1);
@@ -30,15 +41,16 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   const both = cli.filter(p => p.deployment.install_methods?.some(f => f.value === 'binary'));
   assert.equal(await visible(), both.length);
   assert.ok(both.length > 0);
-  await page.locator('.more-filters').scrollIntoViewIfNeeded();
+  await page.locator('.rail-more').scrollIntoViewIfNeeded();
   await capture('deployment-filters-desktop.png');
   await page.setViewportSize({ width: 390, height: 844 });
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'Setup filters fit mobile');
-  await page.locator('.more-filters').scrollIntoViewIfNeeded();
+  await page.locator('.rail-more').scrollIntoViewIfNeeded();
   await capture('deployment-filters-mobile.png');
   await page.setViewportSize({ width: 1440, height: 1000 });
   assert.equal(new URL(page.url()).searchParams.get('install_method'), 'binary');
   await page.reload();
+  await page.waitForFunction(() => document.querySelector('#filters')?.dataset.enhanced === 'true');
   assert.equal(await visible(), both.length);
   await openFilters();
   await page.getByLabel('Reviewed install method', { exact: true }).selectOption('unknown');
@@ -46,17 +58,16 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   await page.goBack();
   assert.equal(await visible(), both.length);
   await page.goForward();
-  assert.equal(await page.locator('#install-method-filter').inputValue(), 'unknown');
-  await page.locator('#clear-filters').click();
-  await page.locator('#clear-filters').click();
+  assert.equal(await page.locator('#f-install').inputValue(), 'unknown');
+  await page.locator('#reset').click();
   assert.equal(await visible(), data.projects.length);
   await openFilters();
   await page.getByLabel('Reviewed run mode', { exact: true }).selectOption('unknown');
   assert.equal(await visible(), data.projects.filter(p => !p.deployment?.run_modes?.length).length);
-  await page.locator('#clear-filters').click();
+  await page.locator('#reset').click();
   const sample = reviewed.find(p => p.name.toLowerCase().includes('openscad')) || reviewed[0];
   await page.goto(url + '#project-' + sample.id);
-  const card = page.locator('#project-' + sample.id);
+  const card = page.locator('#pane-scroll');
   await card.locator('.specimen-plate').waitFor({ state: 'visible' });
   const evidence = card.locator('.pg-runs');
   assert.equal(await card.locator('.function-detail').isVisible(), true, 'Function section remains visible');
@@ -81,9 +92,8 @@ module.exports = async function ({ page, browser, url, data, capture }) {
   const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const fallback = await noJS.newPage();
   await fallback.goto(url);
-  const fallbackCard = fallback.locator('#project-' + sample.id);
-  await fallbackCard.locator('.specimen-drawer > summary').click();
-  await fallbackCard.locator('.detail-fallback a').click();
+  // Without JavaScript each row is a link to its static record.
+  await fallback.locator(`#rows .row[data-id="${sample.id}"] > a`).click();
   await fallback.locator('.pg-runs .pg-info > summary').click();
   assert.equal(await fallback.locator('.deployment-group').first().isVisible(), true);
   await noJS.close();

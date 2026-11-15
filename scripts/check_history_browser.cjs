@@ -42,11 +42,10 @@ module.exports = async ({page, url, data, capture}) => {
   for (const p of projects) {
     for (const width of [1440,320]) {
       await page.setViewportSize({width,height:1000});
+      // The Catalog opens the plate in its pane from the permalink hash.
       await page.goto(new URL('#project-'+p.id,url).href);
-      const row=page.locator('#project-'+p.id);
-      await row.locator('>details').evaluate(n=>n.open=true);
-      const plate=row.locator('.specimen-plate'); await plate.waitFor({state:'visible'});
-      await check(plate,p,'drawer '+width);
+      const plate=page.locator('#pane-scroll .specimen-plate'); await plate.waitFor({state:'visible'});
+      await check(plate,p,'pane '+width);
     }
     await page.goto(new URL('records/'+p.id+'.html',url).href);
     const row=page.locator('#project-'+p.id);

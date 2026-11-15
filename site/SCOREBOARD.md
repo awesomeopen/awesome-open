@@ -1,8 +1,10 @@
 # Scoreboard
 
 `/scoreboard/` displays six Top 10 rankings from cached evidence. Places 1–3 carry
-small numbered trophies, repeated as links on each current specimen plate.
-Each trophy names its metric and the current snapshot's update date. The page
+small numbered trophies. Each current specimen plate counts them in one
+“N Trophies” link under its Function statement; the link's title names each board,
+place and the current snapshot's update date
+([B-PR333-03](../brand/decisions/B-PR333-03.md)). The page
 shows one current set of tables, with optional **Over time** views beneath them.
 
 **Proposed addition:** [Most up to date](SCOREBOARD-COMPLETENESS-PROPOSAL.md)
@@ -139,7 +141,7 @@ when its snapshot is absent.
 
 Run the full offline suite, brand check, README preview, catalog/site builds and
 browser suites. `scripts/check_scoreboard_browser.cjs` verifies the explicit
-preview, all six tables, competition ranks, trophy links, history, narrow layout,
+preview, all six tables, competition ranks, the plate trophy line, history, narrow layout,
 keyboard access and no-JavaScript evidence disclosures. Its screenshots and report
 are retained with the other CI preview artifacts.
 

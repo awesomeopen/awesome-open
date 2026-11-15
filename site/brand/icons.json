@@ -331,7 +331,8 @@
       ],
       "meaning": "Stable link to this specimen record",
       "labels": [
-        "Specimen: {name} (permalink)",
+        "Specimen: {name}",
+        "Permalink to {name}",
         "QR code: permalink to {name}"
       ],
       "used_in": [
@@ -1067,11 +1068,13 @@
       "labels": [
         "1",
         "2",
-        "3"
+        "3",
+        "{n} Trophies",
+        "1 Trophy"
       ],
       "used_in": [
         "scripts/build_scoreboard.py:trophy",
-        "scripts/build_site.py:specimen_label"
+        "scripts/build_scoreboard.py:trophy_count"
       ]
     }
   ],

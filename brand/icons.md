@@ -190,7 +190,7 @@ No container; direction or object only.
 | ID | Status | Meaning (literal) | Paired label (current text) | Shape | Token | Sizes | Source today |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `link.external` | today | Leaves the site for an external source | “Explore {name} on {host}”; “Feature source ↗”; “Provider source”; “Hacker News stories”; “{tag_name}”; “{summary source title}”; “{alternative name}” | Arrow leaving the top-right corner of an open square | `--rs-ink` | s m l | scripts/build_site.py:496 `departure-arrow`<br>scripts/build_site.py:455 `feature-source`<br>scripts/build_site.py:235 `Provider source`<br>scripts/build_site.py:554 `hn-chart`<br>scripts/build_site.py:177 `note-value`<br>scripts/build_site.py:576 `summary sources`<br>scripts/build_site.py:541 `alternative links` |
-| `link.permalink` | today | Stable link to this specimen record | “Specimen: {name} (permalink)”; “QR code: permalink to {name}” | Two interlocking chain links | `--rs-ink` | s m l | scripts/build_site.py:406 `permalink`<br>scripts/build_site.py:401 `label-qr` |
+| `link.permalink` | today | Stable link to this specimen record | “Specimen: {name}” (accessible name “Permalink to {name}”); “QR code: permalink to {name}” | Two interlocking chain links | `--rs-ink` | s m l | scripts/build_site.py:406 `permalink`<br>scripts/build_site.py:401 `label-qr` |
 | `link.commit` | today | Links to the exact repository commit a result came from | “Repository commit {sha}” | Short horizontal line through a small open circle | `--rs-ink` | s m | scripts/build_site.py:201 `Scorecard commit` |
 | `link.download` | today | Downloads a file | “Download selection CSV” | Down arrow onto a short baseline | `--rs-ink` | s m l | scripts/build_observatory.py:775 `export-csv` |
 | `link.data` | today | Opens raw evidence or catalog data | “HN evidence”; “Comparison evidence”; “Catalog JSON”; “GitHub metric snapshot”; “Release and Scorecard evidence”; “Star-history evidence” | Curly braces { } on a page with a folded corner | `--rs-ink` | s m | scripts/build_site.py:744 `About the data links`<br>scripts/build_observatory.py:757 `evidence_links` |
@@ -317,7 +317,7 @@ ring with registration ticks reads well enough as a click target.
 
 | ID | Status | Meaning | Label | Shape | Token | Size | Use |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `rank.trophy` | today | Shared first, second or third place for one metric in a frozen weekly edition | Place numeral and metric name | Outlined two-handled cup, stem and flat foot | `--rs-blueprint` | m | Scoreboard rows and specimen plate trophy links |
+| `rank.trophy` | today | Shared first, second or third place for one metric in a frozen weekly edition | Place numeral and metric name; on a plate, “{n} Trophies” / “1 Trophy” | Outlined two-handled cup, stem and flat foot | `--rs-blueprint` | m | Scoreboard rows and the specimen plate trophy line |
 
 The numeral carries the place; the cup is decorative. Tied values share the same
 place. Each plate link names the metric and edition. The Scoreboard contract

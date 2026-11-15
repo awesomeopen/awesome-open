@@ -16,8 +16,9 @@ from pathlib import Path
 from urllib.parse import quote
 import shutil
 
-from build_catalog import build_catalog, load_function_summaries
+from build_catalog import build_catalog, category_id, load_function_summaries
 from render_readme import display_hn_evidence
+import published_hn
 import project_aliases
 import project_history
 import history_view
@@ -32,7 +33,6 @@ from repository_hosts import repository_host
 from footer_art import discover_footer_art
 from category_art import (
     attach_category_art,
-    category_image,
     copy_category_art,
 )
 
@@ -91,7 +91,7 @@ def compact_json(value):
 
 
 def published_catalog(catalog):
-    """catalog.json as published: star counts live once, in data/star_history.json.
+    """Publish compact references to the combined star and deployment downloads.
 
     Each project's `star_history` keeps its status and chart link; its `repo` keys
     the counts in that file's `repositories`, as `hn.slug` does for HN evidence.
@@ -102,17 +102,30 @@ def published_catalog(catalog):
         if record and "last_good" in record:
             record = {key: value for key, value in record.items() if key != "last_good"}
             project = {**project, "star_history": record}
+        setup = project.get("deployment")
+        if setup:
+            project = {**project, "deployment": {
+                "review_status": setup["review_status"],
+                "checked_at": setup["checked_at"],
+                **{field: [{"value": fact["value"]} for fact in setup.get(field, [])]
+                   for field in ("run_modes", "install_methods")},
+                "record": f'records/{project["id"]}.html',
+            }}
         projects.append(project)
     return {**catalog, "projects": projects}
 
 
 def load_site_catalog(site):
-    """Read a built catalog.json with star counts restored from the built star-history file."""
+    """Restore full evidence for preview/rendering consumers of a built catalog."""
     catalog = json.loads((Path(site) / "catalog.json").read_text(encoding="utf-8"))
     path = Path(site) / "data/star_history.json"
-    if not path.exists():
-        return catalog
-    repositories = json.loads(path.read_text(encoding="utf-8"))["repositories"]
+    repositories = json.loads(path.read_text(encoding="utf-8"))["repositories"] if path.exists() else {}
+    slim = [p for p in catalog["projects"] if "record" in p.get("deployment", {})]
+    if slim:
+        # Missing downloads/records fail visibly rather than rendering partial facts.
+        setups = json.loads((Path(site) / "data/deployment_evidence.json").read_text(encoding="utf-8"))["projects"]
+        for project in slim:
+            project["deployment"] = setups[project["id"]]
     for project in catalog["projects"]:
         record = project.get("star_history")
         if record and "last_good" in repositories.get(record["repo"], {}):
@@ -473,7 +486,6 @@ def timeline(created, release, pushed, events=()):
 
 
 def specimen_label(project, tags, number):
-    from build_scoreboard import trophy_links
     pid, name = escape(project["id"]), escape(project["name"])
     github = project.get("github") or {}
     status = (
@@ -487,8 +499,7 @@ def specimen_label(project, tags, number):
         f'<span class="label-name">{name}</span>'
         f'<span><span class="registry" title="Registry ID">OP-{pid[:8].upper()}</span> · <span class="sheet-folio" title="Folio number">Folio {number:03d}</span></span>'
         f"<span>Domain: {tags}</span>"
-        f'{trophy_links(project)}'
-        f'<nav class="specimen-links" aria-label="Record for {name}"><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen: {name} (permalink)</a></nav></div></div>'
+        f'<nav class="specimen-links" aria-label="Record for {name}"><a class="permalink" href="#project-{pid}" aria-label="Permalink to {name}">Specimen: <span class="permalink-name">{name}</span></a></nav></div></div>'
     )
 
 
@@ -533,6 +544,7 @@ def plate_aliases(project):
 
 
 def specimen_plate(project, number, tags, function_detail, grid, cutout, variants=None):
+    from build_scoreboard import trophy_count
     pid, name, url = (
         escape(project["id"]),
         escape(project["name"]),
@@ -579,7 +591,7 @@ def specimen_plate(project, number, tags, function_detail, grid, cutout, variant
         f'<div class="plate-heading"><span class="plate-index">Field notes / {number:03d}</span><span class="plate-index">{name}</span></div>'
         f'{plate_aliases(project)}'
         f'<div class="plate-study"><svg class="plate-leaders" aria-hidden="true"></svg>'
-        f'<div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description{" is-long" if len(project["description"]) > 90 else ""}">{escape(project["description"])}</p>{function_detail}</div>'
+        f'<div class="plate-function"><span class="sheet-label">I / Function</span><p class="record-description{" is-long" if len(project["description"]) > 90 else ""}">{escape(project["description"])}</p>{trophy_count(project)}{function_detail}</div>'
         f"{specimen}{notes}{label}</div>"
         + f'<div class="plate-grid">{grid}'
         f'<nav class="plate-departure" aria-label="Explore {name}"><span class="sheet-label">Explore</span><a href="{url}"><span>{departure_label}</span>'
@@ -627,7 +639,7 @@ def plate_html(project, categories, catalog, number, cutouts, variants=None):
         github["created_at"][:10] if github and github.get("created_at") else "Unknown"
     )
     tags = " / ".join(
-        f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + cid))}">{escape(categories[cid])}</a>'
+        f'<a class="tag" data-category="{escape(cid)}" href="{escape(source_url(catalog, "README.source.md", "#" + category_id(categories[cid])))}">{escape(categories[cid])}</a>'
         for cid in project["categories"]
     )
     summary = project.get("function_summary")
@@ -697,95 +709,125 @@ def catalog_script_url(code):
     return "catalog.js?v=" + hashlib.sha256(code.encode("utf-8")).hexdigest()
 
 
+def readme_about(root):
+    """About-sheet copy kept in the README: the intro points and the other awesome lists."""
+    source = (Path(root) / "README.source.md").read_text(encoding="utf-8")
+    intro = source.split("\n---", 1)[1].split("\n## ", 1)[0]
+    points = [line[2:].strip() for line in intro.splitlines()
+              if line.startswith("- ") and "Visit the catalog homepage" not in line]
+    others = []
+    section = source.split("\n## Other Awesome", 1)
+    for line in (section[1].split("\n## ", 1)[0].splitlines() if len(section) > 1 else []):
+        match = re.fullmatch(r"- \[([^\]]+)\]\((https?://[^)\s]+)\)(?: -- (.+))?", line.strip())
+        if match:
+            name, url, note = match.groups()
+            others.append(f'<li><a href="{escape(url)}">{escape(name)}</a>{" · " + escape(note) if note else ""}</li>')
+    return points, others
+
+
 def render_html(catalog, script_url="catalog.js", root=ROOT):
-    categories = {c["id"]: c["name"] for c in catalog["categories"]}
+    """The Catalog as one screen: category rail, project list, and one pane for jars, a plate or a sheet."""
+    from build_draw_archive import DESCRIPTION as SPOTLIGHT
+    from build_observatory import DESCRIPTION as OBSERVATORY
+    from build_scoreboard import DESCRIPTION as SCOREBOARD
+
     count = len(catalog["projects"])
-    nav = "".join(
-        f'<a class="{"has-category-art" if c.get("artwork") else ""}" data-category="{escape(c["id"])}" href="{escape(source_url(catalog, "README.source.md", "#" + c["id"]))}">{category_image(c)}<span class="category-label">{escape(c["name"])}</span><span class="category-count">{c["count"]:02d}</span></a>'
-        for c in catalog["categories"]
+    rail = f'<li><a href="./" data-category=""><span>All</span><span class="n">{count}</span></a></li>' + "".join(
+        f'<li><a href="?category={escape(c["id"])}" data-category="{escape(c["id"])}"><span>{escape(c["name"])}</span><span class="n">{c["count"]:02d}</span></a></li>'
+        for c in sorted(catalog["categories"], key=lambda c: c["name"].lower())
     )
-    category_options = "".join(
-        f'<option value="{escape(c["id"])}">{escape(c["name"])}</option>'
-        for c in catalog["categories"]
+
+    def options(pairs):
+        return "".join(f'<option value="{escape(value)}">{escape(label)}</option>' for value, label in pairs)
+
+    licenses = sorted({p["github"]["license"] for p in catalog["projects"] if p["github"] and p["github"]["license"]})
+    alternatives = sorted({a["name"] for p in catalog["projects"] for a in p["alternatives"]})
+    observed = {
+        field: sorted({f["value"] for p in catalog["projects"] for f in p.get("deployment", {}).get(field, [])})
+        for field in ("run_modes", "install_methods")
+    }
+    # A select's first option carries its title ("Pushed: any date"); app.js keeps the title on a chosen value.
+    selects = (
+        f'<select id="f-sort" name="sort" data-title="Sort" aria-label="Sort projects">{options([("match", "Sort: match or stars"), ("name", "Name A–Z"), ("stars", "Most stars"), ("pushed", "Latest push")])}</select>'
+        f'<select id="f-window" name="window" data-title="Pushed" aria-label="Repository push window">{options([("all", "Pushed: any date"), ("recent", "Within 90 days of snapshot"), ("older", "More than 2 years before snapshot"), ("unknown", "Push date unknown")])}</select>'
+        f'<select id="f-alternative" name="alternative" data-title="Alternative to" aria-label="Reviewed alternative to">{options([("", "Alternative to: any")] + [(v, v) for v in alternatives])}</select>'
+        f'<select id="f-license" name="license" data-title="License" aria-label="Detected license">{options([("all", "License: any"), ("known", "Detected license available"), ("unknown", "License unknown")] + [(v, v) for v in licenses])}</select>'
+        f'<select id="f-run" name="run_mode" data-title="Runs as" aria-label="Reviewed run mode">{options([("", "Runs as: any"), ("unknown", "Not recorded")] + [(v, deployment.RUN_MODES[v]) for v in observed["run_modes"]])}</select>'
+        '<details class="rail-more"><summary><span class="when-closed">More filters</span><span class="when-open">Less filters</span></summary>'
+        f'<select id="f-install" name="install_method" data-title="Install" aria-label="Reviewed install method">{options([("", "Install: any"), ("unknown", "Not recorded")] + [(v, deployment.INSTALL_METHODS[v]) for v in observed["install_methods"]])}</select>'
+        f'<select id="f-metrics" name="metrics" data-title="Cached metrics" aria-label="Cached repository metrics">{options([("all", "Cached metrics: any"), ("present", "Present"), ("missing", "Missing")])}</select>'
+        '<input id="f-stars" name="stars" type="number" min="0" step="1" placeholder="Min. stars: any" aria-label="Minimum GitHub stars">'
+        '<label class="rail-date"><span>Pushed since</span><input id="f-pushed" name="pushed" type="date"></label></details>'
     )
-    licenses = sorted(
-        {
-            p["github"]["license"]
-            for p in catalog["projects"]
-            if p["github"] and p["github"]["license"]
-        }
-    )
-    license_options = "".join(
-        f'<option value="{escape(v)}">{escape(v)}</option>' for v in licenses
-    )
-    alternative_names = sorted(
-        {a["name"] for p in catalog["projects"] for a in p["alternatives"]}
-    )
-    alternative_options = "".join(
-        f'<option value="{escape(v)}">{escape(v)}</option>' for v in alternative_names
-    )
-    deployment_options = {}
-    for field, labels in (
-        ("run_modes", deployment.RUN_MODES),
-        ("install_methods", deployment.INSTALL_METHODS),
-    ):
-        observed = {
-            f["value"]
-            for p in catalog["projects"]
-            for f in p.get("deployment", {}).get(field, [])
-        }
-        deployment_options[field] = "".join(
-            f'<option value="{escape(v)}">{escape(labels[v])}</option>'
-            for v in sorted(observed)
-        )
-    footer_backgrounds = [quote(path, safe="/") for path in catalog.get("footer_backgrounds", [])]
-    footer_sizes = catalog.get("footer_background_sizes", [])
-    footer_size = footer_sizes[0] if footer_sizes else (2048, 682)
-    footer_art = (
-        f'<img class="footer-art" data-footer-background data-background-sizes="{escape(json.dumps(footer_sizes))}" data-backgrounds="{escape(json.dumps(footer_backgrounds))}" src="{escape(footer_backgrounds[0])}" width="{footer_size[0]}" height="{footer_size[1]}" alt="" loading="lazy" decoding="async">'
-        if footer_backgrounds
-        else ""
-    )
-    folios = {p["id"]: i + 1 for i, p in enumerate(catalog["projects"])}
+
     def star_order(project):
         stars = (project.get("github") or {}).get("stars")
         known = type(stars) is int and stars >= 0
         name = "".join(c for c in unicodedata.normalize("NFKD", project["name"])
-                       if not "\u0300" <= c <= "\u036f").lower()
+                       if not "̀" <= c <= "ͯ").lower()
         return (not known, -stars if known else 0, name, project["id"])
-    projects = "\n".join(
-        project_html(p, categories, catalog, folios[p["id"]], position=position, deferred=True)
-        for position, p in enumerate(sorted(catalog["projects"], key=star_order), 1)
-    )
+
+    def row(project, position):
+        pid = escape(project["id"])
+        spark = ""
+        if project["hn"]:
+            attention = project["hn"]
+            broad = "broad_total_stories" in attention
+            total = attention["broad_total_stories"] if broad else attention["total_stories"]
+            label = "possible matches" if broad else "matched stories"
+            spark = (f'<img class="row-spark" src="{escape(attention["chart_url"])}" width="80" height="16" '
+                     f'alt="HN {label} / past 2y" title="HN: {total} {label} / past 2y" loading="lazy">')
+        leader = "true" if project.get("leader_categories") else "false"
+        return (f'<li class="row" data-id="{pid}" data-leader="{leader}"><a href="records/{pid}.html">'
+                f'<span class="row-n" aria-hidden="true">{position:03d}</span>'
+                f'<span class="row-title"><span class="specimen-name">{split_name(project["name"])}</span>{spark}</span>'
+                f'<span class="row-desc">{escape(project["description"])}</span></a></li>')
+
+    rows = "\n".join(row(p, i) for i, p in enumerate(sorted(catalog["projects"], key=star_order), 1))
+
+    # About: everything that is not the catalog — links, the data method, the README's own sections.
+    points, others = readme_about(root)
     signal_projects = [p for p in catalog["projects"] if p.get("signals")]
-    signal_coverage = []
-    for provider, label in (("release", "Release"), ("scorecard", "Scorecard")):
-        checked = sum(
-            bool(p["signals"][provider]["checked_at"]) for p in signal_projects
-        )
-        values = sum(bool(p["signals"][provider]["last_good"]) for p in signal_projects)
-        signal_coverage.append(f"{label}: {values} cached results / {checked} checked")
-    optional_notes = (
-        (
-            '<ul class="coverage-notes">'
-            + "".join(f"<li>{item}</li>" for item in signal_coverage)
-            + f"<li>{len(signal_projects)} mapped GitHub repositories.</li>"
-            + f"<li>Collection snapshot {escape(catalog.get('signals_collected_at'))}.</li></ul>"
-            + '<p><a href="data/project_signals.json">Release and Scorecard evidence</a></p>'
-        )
-        if signal_projects
-        else ""
-    )
+    coverage = ""
+    if signal_projects:
+        notes = []
+        for provider, label in (("release", "Release"), ("scorecard", "Scorecard")):
+            checked = sum(bool(p["signals"][provider]["checked_at"]) for p in signal_projects)
+            values = sum(bool(p["signals"][provider]["last_good"]) for p in signal_projects)
+            notes.append(f"{label}: {values} cached results / {checked} checked")
+        coverage = ('<ul class="coverage-notes">' + "".join(f"<li>{item}</li>" for item in notes)
+                    + f"<li>{len(signal_projects)} mapped GitHub repositories.</li>"
+                    + f"<li>Collection snapshot {escape(catalog.get('signals_collected_at'))}.</li></ul>"
+                    + '<p><a href="data/project_signals.json">Release and Scorecard evidence</a></p>')
     star_note = ""
     if any(p.get("star_history") for p in catalog["projects"]):
         star_note = "<li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>"
-        optional_notes += '<p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
+        coverage += '<p><a id="star-evidence" href="data/star_history.json">GitHub star-history evidence</a></p>'
     sha = catalog.get("source_sha")
-    revision = (
-        f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>'
-        if sha
-        else "Local preview (revision not supplied)"
+    revision = f'<a href="{REPOSITORY}/commit/{sha}">{sha[:12]}</a>' if sha else "Local preview (revision not supplied)"
+    scoreboard_items = (['<a href="scoreboard/snapshot.json" download>Download snapshot</a>'] if catalog.get("scoreboard_edition") else []) + [
+        f'<a href="{REPOSITORY}/blob/main/site/SCOREBOARD.md">Scoreboard method</a>']
+    pages = (
+        f'<li><a href="#observatory">Observatory</a>: Metrics collection date: <time>{escape(catalog["metrics_as_of"])}</time> UTC</li>'
+        f'<li><a href="#scoreboard">Scoreboard</a>: {" · ".join(scoreboard_items)}</li>'
+        f'<li><a href="#spotlight">Spotlight</a>: <a href="spotlight/draws.json" download>Download draw records</a> · <a href="{REPOSITORY}/blob/main/site/WEEKLY-DRAWS.md">Draw contract</a></li>'
     )
+    backgrounds = [quote(path, safe="/") for path in catalog.get("footer_backgrounds", [])]
+    sizes = catalog.get("footer_background_sizes", [])
+    size = sizes[0] if sizes else (2048, 682)
+    art = (f'<img class="about-art" data-footer-background data-background-sizes="{escape(json.dumps(sizes))}" data-backgrounds="{escape(json.dumps(backgrounds))}" '
+           f'src="{escape(backgrounds[0])}" width="{size[0]}" height="{size[1]}" alt="" loading="lazy" decoding="async">') if backgrounds else ""
+    about = f'''<div class="about">
+ <section class="about-intro"><h2 class="about-title">About</h2>
+  <ul class="about-points">{"".join(f"<li>{escape(p)}</li>" for p in points)}</ul>
+  <p class="about-actions"><a class="about-primary" href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="{REPOSITORY}">GitHub repository</a><a href="https://buymeacoffee.com/jumpermcp.dev">Support the list with a coffee</a></p></section>
+ <section class="about-data" id="method" aria-labelledby="method-heading"><h3 class="about-kicker" id="method-heading">About the data</h3><div class="about-colophon"><div><h4>Collection</h4><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Search results list the strongest matching field first, then by name</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h4>Evidence</h4><ul><li>Licenses: GitHub license metadata.</li><li>Repository dates refer to GitHub activity</li><li>HN charts: possible title/URL matches; red foreground: matched stories. Shared cube-root scale / 2 years</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{coverage}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p></div></div></section>
+ <section class="about-pages" aria-labelledby="pages-heading"><h3 class="about-kicker" id="pages-heading">Pages and their data</h3><ul>{pages}</ul></section>
+ <section class="about-others" aria-labelledby="others-heading"><h3 class="about-kicker" id="others-heading">Other awesome lists</h3><ul>{"".join(others)}</ul></section>
+ <p class="about-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></p>
+ {art}
+</div>'''
+    cabinet = (root / "site/cabinet.html").read_text(encoding="utf-8").replace("__SOURCE_SHA__", escape(catalog.get("source_sha") or ""))
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -796,38 +838,55 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
  <link rel="icon" type="image/png" href="brand/fruit-16.png" sizes="16x16">
  <link rel="icon" type="image/png" href="brand/fruit-32.png" sizes="32x32">
  <link rel="stylesheet" href="{font_asset_url('vendor/fonts.css', root)}"><link rel="stylesheet" href="{font_asset_url('tokens.css', root)}"><link rel="stylesheet" href="{font_asset_url('styles.css', root)}">
+ <link rel="stylesheet" href="{content_url("cabinet.css", root / "site/cabinet.css")}"><link rel="stylesheet" href="{content_url("app.css", root / "site/app.css")}">
  <script src="{content_url("search.js", root / "site/search.js")}" defer></script>
  <script src="{escape(script_url)}" defer></script>
  <script src="{content_url("cabinet.js", root / "site/cabinet.js")}" defer></script>
+ <script src="{content_url("app.js", root / "site/app.js")}" defer></script>
  <script src="{content_url("webmcplet/webmcplet.js", root / "webmcplet/webmcplet.js")}" data-webmcplet-src="webmcplet/list.json?v={hashlib.sha256(webmcplet_list(catalog).encode("utf-8")).hexdigest()}" data-webmcplet-title="Awesome Open*" defer></script>
- <link rel="stylesheet" href="{content_url("cabinet.css", root / "site/cabinet.css")}">
 </head>
-<body>
-<a class="skip-link" href="#catalog">Skip to specimen ledger</a>
-<div class="page-shell">
-<header class="site-header"><a class="brand" href="./" aria-label="Awesome Open home"><img class="brand-mark" src="brand/botanical-128.png" alt="" width="64" height="64"><span class="brand-name">Awesome Open<span class="brand-asterisk" aria-hidden="true">*</span></span></a><div class="search-field header-search" id="header-search" hidden><label for="search" class="visually-hidden">Search projects</label><div class="search-input"><input id="search" name="q" form="filters" type="search" autocomplete="off" aria-describedby="search-help"><button class="search-submit" type="submit" form="filters" aria-label="Search projects" title="Search projects"><img class="search-icon" src="brand/search-loupe.png" width="32" height="32" alt=""></button></div><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></div><nav class="header-links" aria-label="Field guide"><a href="#catalog">Catalog</a><a href="#about">About</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a></nav></header>
-<div class="layout">
-
- <main id="catalog" class="catalog-main" tabindex="-1">
-  <h1 id="page-title" class="visually-hidden">Projects</h1>
-  <div class="control-row">
- <aside class="sidebar" aria-label="Catalog categories"><details class="category-panel" name="catalog-controls"><summary>Table of contents <span aria-hidden="true">+</span></summary><nav class="category-nav" aria-label="Categories"><a data-category="" href="#catalog" aria-current="true"><span class="category-label">All</span><span class="category-count">{count}</span></a>{nav}</nav></details></aside>
-  <form id="filters" class="catalog-toolbar" hidden aria-label="Filter projects">
-
-   <details class="filter-options" name="catalog-controls"><summary>Filters <span aria-hidden="true">+</span></summary><div class="filter-body"><div class="diagnostic-filters"><div class="filter-field"><label for="push-window">Repository push window</label><select id="push-window" name="window"><option value="all">Any observed date</option><option value="recent">Within 90 days of snapshot</option><option value="older">More than 2 years before snapshot</option><option value="unknown">Push date unknown</option></select></div><div class="filter-field"><label for="alternative-filter">Reviewed alternative to</label><select id="alternative-filter" name="alternative"><option value="">Any / not recorded</option>{alternative_options}</select></div><div class="filter-field"><label for="license-filter">Detected license</label><select id="license-filter" name="license"><option value="all">Any / unknown</option><option value="known">Detected license available</option><option value="unknown">License unknown</option>{license_options}</select></div></div>
-   <details class="more-filters"><summary>More filters <span aria-hidden="true">+</span></summary><div class="filter-grid"><div class="filter-field"><label for="run-mode-filter">Reviewed run mode</label><select id="run-mode-filter" name="run_mode"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["run_modes"]}</select></div><div class="filter-field"><label for="install-method-filter">Reviewed install method</label><select id="install-method-filter" name="install_method"><option value="">Any / not reviewed</option><option value="unknown">Not recorded</option>{deployment_options["install_methods"]}</select></div><div class="filter-field"><label for="category-filter">Function</label><select id="category-filter" name="category"><option value="">All categories</option>{category_options}</select></div><div class="filter-field"><label for="metrics-filter">Cached repository metrics</label><select id="metrics-filter" name="metrics"><option value="all">Present or missing</option><option value="present">Present</option><option value="missing">Missing</option></select></div><div class="filter-field"><label for="min-stars">Minimum GitHub stars</label><input id="min-stars" name="stars" type="number" min="0" step="1" placeholder="Any"></div><div class="filter-field"><label for="pushed-since">Last pushed on or after</label><input id="pushed-since" name="pushed" type="date"></div></div></details>
-   </div></details><button class="visually-hidden" type="submit" tabindex="-1">Apply filters</button>
-  </form></div>
-  <noscript><p class="no-script">All {count} projects are available below. Use your browser’s Find to search and open any specimen drawer. Follow its full-record link for evidence and printing. Category links open the curated source sections. Enable JavaScript for filters and sorting.</p></noscript>
-  {(root / "site/cabinet.html").read_text(encoding="utf-8").replace("__SOURCE_SHA__", escape(catalog.get("source_sha") or ""))}
-  <div class="results-heading"><h2 id="result-count" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{count} projects</h2><div class="result-actions"><button id="clear-filters" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button><div class="sort-field"><label for="sort-order" class="visually-hidden">Sort projects</label><select id="sort-order" name="sort" disabled><option value="match" selected>Match or stars</option><option value="name">Name A–Z</option><option value="stars">Most stars</option><option value="pushed">Latest push</option></select></div></div></div>
-  <p id="project-link-notice" class="link-notice" role="status" hidden></p><p id="empty-state" class="empty-state" hidden>No matches found.</p>
-  <div id="project-list" class="project-list">{projects}</div>
+<body class="app">
+<a class="skip-link" href="#rows">Skip to the project list</a>
+<div class="app-body">
+ <nav class="rail" aria-label="Categories and filters">
+  <a class="rail-mark" href="./" tabindex="-1" aria-hidden="true"><img src="brand/botanical-128.png" alt="" width="72" height="72"></a>
+  <ul class="rail-cats" id="rail-cats">{rail}</ul>
+  <form class="rail-filters" id="filters" aria-label="Filter projects" hidden>{selects}<button id="reset" type="button" disabled>Reset filters <span aria-hidden="true">↺</span></button></form>
+  <a class="rail-about" id="rail-about" href="#about">About</a>
+ </nav>
+ <main class="list" id="catalog" tabindex="-1" aria-labelledby="list-brand">
+  <header class="list-head">
+   <h1 class="list-brand" id="list-brand"><a href="./" aria-label="Awesome Open home"><span>Awesome Open<span aria-hidden="true">*</span></span></a></h1>
+   <form class="list-search" id="search-form" role="search" hidden><label class="visually-hidden" for="search">Search projects</label><input id="search" name="q" type="search" autocomplete="off" maxlength="500" placeholder="Search {count} projects" aria-describedby="search-help"><button type="submit" aria-label="Search projects" title="Search projects"><img src="brand/search-loupe.png" width="24" height="24" alt=""></button><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></form>
+   <p class="visually-hidden" id="list-count" role="status" aria-live="polite" aria-atomic="true">{count} projects</p>
+  </header>
+  <p class="list-notice" id="list-notice" role="status" hidden></p>
+  <noscript><p class="no-script">All {count} projects are listed below. Each opens its full record. Enable JavaScript for search, filters and the plate view.</p></noscript>
+  <ol class="rows" id="rows" tabindex="-1">
+{rows}
+   <li class="rows-empty" id="empty" hidden></li>
+   <li class="rows-end" aria-hidden="true"><img id="end-mark" src="brand/fruit-96.png" data-default="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></li>
+  </ol>
  </main>
+ <section class="pane" id="pane" aria-label="Specimen plate">
+  <div class="pane-rest" id="pane-rest"><!-- jar-hall --></div>
+  <div class="pane-about" id="pane-about" hidden>
+   <div class="pane-head about-head"><nav class="riders" aria-label="Awesome Open pages"><a href="#about" data-sheet="about" aria-current="page">About</a><a href="observatory/" data-sheet="observatory" title="{escape(OBSERVATORY)}">Observatory</a><a href="scoreboard/" data-sheet="scoreboard" title="{escape(SCOREBOARD)}">Scoreboard</a><a href="spotlight/" data-sheet="spotlight" title="{escape(SPOTLIGHT)}">Spotlight</a></nav></div>
+   <div class="pane-scroll about-scroll" id="about-scroll" tabindex="-1">
+{about}
+   </div>
+   <iframe class="pane-frame" id="pane-frame" title="" hidden></iframe>
+  </div>
+  <div class="pane-plate" id="pane-plate" hidden>
+   <div class="pane-head">
+    <div class="pane-title"><p class="pane-status" id="plate-status" role="status" aria-live="polite"></p><h2 id="plate-name"></h2></div>
+    <div class="pane-tools"><span class="pane-stepper"><button id="plate-prev" type="button" aria-label="Previous project" title="Previous project (←)">‹</button><span id="plate-position"></span><button id="plate-next" type="button" aria-label="Next project" title="Next project (→)">›</button></span><button id="plate-cabinet" class="pane-action" type="button" aria-pressed="false">Compare</button><button id="plate-close" class="pane-close" type="button" aria-label="Close plate" title="Close plate (Esc)">×</button></div>
+   </div>
+   <div class="pane-scroll" id="pane-scroll" tabindex="-1"></div>
+  </div>
+ </section>
 </div>
-</div>
-<div class="page-end" aria-hidden="true"><img src="brand/fruit-96.png" alt="" width="96" height="96" loading="lazy"></div>
-<footer class="site-footer{" has-art" if footer_backgrounds else ""}" id="about">{footer_art}<div class="footer-actions"><a href="{escape(source_url(catalog, "CONTRIBUTING.md"))}">Submit a project</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Spotlight</a><a href="{REPOSITORY}">GitHub</a><a href="#catalog">Top</a></div><details class="data-notes" id="method" open><summary>About the data <span aria-hidden="true">+</span></summary><div class="colophon"><div><h2>Collection</h2><ul><li>Registry IDs come from canonical URLs</li><li>List numbers show position in current results</li><li>Folio numbers show alphabetical position</li><li>Search results list the strongest matching field first, then by name</li><li>Bold: Top-3 per category (GitHub stars)</li><li>Specimen illustrations are original artwork</li></ul></div><div><h2>Evidence</h2><ul><li>Licenses: GitHub license metadata.</li><li>Repository dates refer to GitHub activity</li><li>HN charts: possible title/URL matches; red foreground: matched stories. Shared cube-root scale / 2 years</li>{star_note}<li>GitHub release: follows publisher</li><li>Scorecard: reports automated security-practice checks (combining aggregate, scored/returned coverage, scan date and reasons)</li><li>Stale: Old scan/cache or a retained result after an unsuccessful check</li></ul>{optional_notes}<p><a id="hn-evidence" href="data/hn_evidence.json">HN evidence</a> / <a href="data/alternatives.json">Comparison evidence</a> / <a href="catalog.json">Catalog JSON</a></p><p><br/ ><br/ ><br/ ><a href="https://buymeacoffee.com/jumpermcp.dev">Support this Awesome Open* list with a coffee</a></p></div></div></details><div class="footer-baseline"><span>Source revision: {revision} | {count} Projects</span><span>List: <a href="{escape(source_url(catalog, "LICENSE.md"))}">CC0-1.0</a></span></div></footer>
+{cabinet}
 <script id="catalog-data" type="application/json" data-source-sha="{escape(catalog.get("source_sha") or "")}" data-search-text="search-text.json?v={hashlib.sha256(search_text(catalog).encode("utf-8")).hexdigest()}">{json_for_html(search_index(catalog))}</script>
 </body></html>
 '''
@@ -855,9 +914,9 @@ def render_record(project, categories, catalog, number, cutouts=None, script_url
 <body class="observatory record-page"><a class="skip-link" href="records/{pid}.html#record">Skip to project record</a>
 <div class="obs-shell"><header class="obs-header"><a class="obs-brand" href="./">Awesome Open<span aria-hidden="true">*</span></a><nav class="obs-nav" aria-label="Field guide"><a href="#catalog">Ledger</a><a href="#method">About</a><a href="observatory/">Observatory</a><a href="scoreboard/">Scoreboard</a><a href="spotlight/">Weekly draws</a></nav></header></div>
 <main class="obs-shell" id="record" tabindex="-1"><section class="obs-hero"><p><span class="obs-label">Project record</span></p><h1>{name}</h1></section>
-<aside class="obs-finding"><p>Full catalog record, evidence and sources. <a href="#project-{pid}">Return to this project in the ledger</a>. Use your browser’s Print command to print this record.</p></aside>
+<aside class="obs-finding"><p>Full catalog record, evidence and sources. <a href="#project-{pid}">Open this project in the Catalog</a>. Use your browser’s Print command to print this record.</p></aside>
 {card}
-<div class="obs-closing-mark"><img class="obs-logo" src="brand/botanical-128.png" width="128" height="128" alt="Awesome Open* botanical logo"></div></main>
+<div class="obs-closing-mark" aria-hidden="true"><img class="obs-logo" src="brand/fruit-96.png" width="96" height="96" alt=""></div></main>
 <footer class="obs-footer"><div class="obs-shell"><p>Awesome Open* / Project record</p><ul class="obs-footer-links"><li><a href="./">Return to project ledger</a></li><li><a href="{REPOSITORY}">GitHub</a></li><li>Source revision: {revision}</li></ul></div></footer></body></html>'''
 
 
@@ -962,6 +1021,8 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
         "search.js": (root / "site/search.js").read_text(encoding="utf-8"),
         "cabinet.js": (root / "site/cabinet.js").read_text(encoding="utf-8"),
         "cabinet.css": (root / "site/cabinet.css").read_text(encoding="utf-8"),
+        "app.css": (root / "site/app.css").read_text(encoding="utf-8"),
+        "app.js": (root / "site/app.js").read_text(encoding="utf-8"),
     }
     assets["tokens.css"] = (root / "site/design/tokens.css").read_text(encoding="utf-8")
     output.mkdir(parents=True, exist_ok=True)
@@ -976,6 +1037,11 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
             render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root, variants=variants), encoding="utf-8"
         )
     (output / "catalog.json").write_text(compact_json(published_catalog(catalog)), encoding="utf-8")
+    (output / "data").mkdir(exist_ok=True)
+    (output / "data/deployment_evidence.json").write_text(compact_json({
+        "schema_version": 1,
+        "projects": {p["id"]: p["deployment"] for p in catalog["projects"] if p.get("deployment")},
+    }), encoding="utf-8")
     (output / "search-text.json").write_text(search_text(catalog), encoding="utf-8")
     (output / "webmcplet").mkdir(exist_ok=True)
     (output / "webmcplet/list.json").write_text(webmcplet_list(catalog), encoding="utf-8")
@@ -1010,6 +1076,8 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
         (output / "data/project_signals.json").unlink(missing_ok=True)
     for name in evidence_files:
         document = json.loads((root / "data" / name).read_text(encoding="utf-8"))
+        if name == "hn_evidence.json":
+            document = published_hn.publish(document)
         (output / "data" / name).write_text(compact_json(document), encoding="utf-8")
     (output / "vendor").mkdir(exist_ok=True)
     for name in ("fonts.css", "FONT-LICENSE.txt", "FONT-PROVENANCE.json", "commit-mono.woff2"):

@@ -284,7 +284,7 @@ def build(output, production=False):
            <svg class="jar-leaders" aria-hidden="true"><g><path pathLength="1"/><circle r="3"/></g><g><path pathLength="1"/><circle r="3"/></g><g><path pathLength="1"/><circle r="3"/></g></svg>
            <div class="jar-callout callout-function"><span class="callout-kicker">{verb}</span><p><span class="label-ink">{escape(p['description'])}</span></p></div>
            <div class="jar-callout callout-metrics"><div class="jar-metrics"><span>{stars}</span>{license_line}</div></div>
-           <div class="jar-callout callout-inspect"><a href="#project-{pid}" data-jar-inspect="{pid}">Inspect</a></div>
+           <div class="jar-callout callout-inspect"><a href="records/{pid}.html" data-jar-inspect="{pid}">Inspect</a></div>
           </div>
         </article>''')
     hero=f'''<section class="jar-hall" aria-label="Seven illustrated software specimens">
@@ -298,8 +298,9 @@ def build(output, production=False):
     css = (ROOT / 'site/jars.css').read_bytes()
     stylesheet = jar_stylesheet_href(css)
     script = content_url('jars.js', ROOT / 'site/jars.js')
-    if 'class="jar-page"' not in page:
-        page=page.replace('<body>','<body class="jar-page">').replace('</head>',startup+f'<link rel="stylesheet" href="{stylesheet}"><script src="{script}" defer></script></head>').replace('<div class="layout">',hero+'<div class="layout">',1)
+    if 'jar-page' not in page.split('<body', 1)[1].split('>', 1)[0]:
+        # The jars rest in the Catalog's third column until a plate or sheet opens.
+        page=page.replace('<body class="app">','<body class="app jar-page">').replace('</head>',startup+f'<link rel="stylesheet" href="{stylesheet}"><script src="{script}" defer></script></head>').replace('<!-- jar-hall -->',hero,1)
     # Recomposition must not retain a previous token while copying newer CSS.
     page = re.sub(r'href="jars\.css(?:\?[^"<>]*)?"', f'href="{stylesheet}"', page)
     page = re.sub(r'src="jars\.js(?:\?[^"<>]*)?"', f'src="{script}"', page)

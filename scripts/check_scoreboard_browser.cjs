@@ -52,9 +52,11 @@ const PREVIEW = path.join(ROOT, 'tmp/scoreboard-preview');
     await page.screenshot({path:path.join(OUTPUT,'scoreboard-desktop.png'),fullPage:true});
     const award=snapshot.metrics.find(m=>m.rows.length).rows[0];
     await page.goto(base+'records/'+award.id+'.html');
-    const badge=page.locator('.scoreboard-trophies a').first();
-    assert.match(await badge.getAttribute('aria-label'), /Preview: .+place [123]/);
-    await badge.click(); await page.waitForURL(/scoreboard\/#/);
+    // One trophy line under the Function statement counts the project's places (B-PR333-03).
+    const badge=page.locator('.plate-trophies');
+    assert.match(await badge.getAttribute('title'), /^Preview: Scoreboard, updated .+place [123]/);
+    assert.match(await badge.innerText(), /^(1 Trophy|[2-9] Trophies)$/);
+    await badge.click(); await page.waitForURL(/scoreboard\//);
     await page.goBack(); assert.ok(page.url().includes('/records/'));
     await page.screenshot({path:path.join(OUTPUT,'scoreboard-plate.png'),fullPage:true});
     await page.setViewportSize({width:390,height:844}); await page.goto(base+'scoreboard/');

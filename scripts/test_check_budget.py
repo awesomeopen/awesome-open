@@ -75,9 +75,37 @@ class CheckBudgetTests(unittest.TestCase):
                 self.run_check(site)
             self.assertIn('## Site size budget', summary.read_text())
 
+    def test_hn_budget_is_separate_and_other_files_keep_their_limit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = self.site(directory)
+            (site / 'data').mkdir()
+            hn = site / 'data/hn_evidence.json'
+            hn.write_bytes(b'x' * (2 * 10 * 1024))
+            self.assertEqual(self.run_check(site)[0], 0)
+            hn.write_bytes(hn.read_bytes() + b'x')
+            self.assertIn('HN evidence', check_budget.report(site)[1])
+            hn.write_bytes(b'{}')
+            (site / 'data/other.json').write_bytes(b'x' * (2 * 8 * 1024 + 1))
+            self.assertEqual(check_budget.report(site)[1], ['Largest other file'])
+
     def test_missing_site_is_an_error(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(SystemExit):
             check_budget.main([directory])
+
+    def test_deployment_download_has_its_own_per_catalog_record_budget(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = self.site(directory)
+            (site / 'data').mkdir()
+            download = site / 'data/deployment_evidence.json'
+            download.write_bytes(b'x' * (2 * 3 * check_budget.KIB))
+            values, _ = check_budget.measure(site)
+            self.assertEqual(values['deployment_bytes'], 6144)
+            self.assertEqual(values['largest_other'], 3072)
+            self.assertEqual(self.run_check(site)[0], 0)
+            download.write_bytes(download.read_bytes() + b'x')
+            code, text = self.run_check(site)
+            self.assertEqual(code, 1)
+            self.assertIn('| Where it runs (data) | 6.0 KiB | 6.0 KiB | Over |', text)
 
 
 if __name__ == '__main__':

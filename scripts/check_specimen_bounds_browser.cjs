@@ -151,7 +151,7 @@ function assertGeometry(m, label) {
   const paintedBottom = m.image.top + bottom * m.image.height;
   assert.ok(paintedTop >= m.field.top - 1.1, label + ' preserves subject top');
   assert.ok(paintedBottom <= m.field.bottom + 1.1, label + ' preserves subject bottom');
-  near(m.label.top - m.field.bottom, -4 * m.labelFont, label + ' label overlaps field and reclaims flow space');
+  near(m.label.top - m.field.bottom, 0, label + ' label sits directly below the field (B-PR333-03)');
   if (m.terrain) {
     const viewBox = m.terrain.split(' ').map(Number);
     near(viewBox[3], 1000 * m.stage.height / m.stage.width, label + ' terrain uses compact stage proportions');

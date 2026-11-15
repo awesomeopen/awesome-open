@@ -60,22 +60,11 @@ class CategoryArtTests(unittest.TestCase):
         self.assertEqual(len(list((self.output / 'domains').glob('*.webp'))), 63)
         self.assertEqual(json.loads((self.output / 'domains/provenance.json').read_text()), self.manifest)
 
-    def test_responsive_markup_and_small_payload(self):
-        images = Images((self.output / 'index.html').read_text()).images
-        self.assertEqual(len(images), 21)
-        for image in images:
-            self.assertTrue(image['src'].endswith('-s.webp'))
-            self.assertTrue(image['data-end-src'].endswith('-m.webp'))
-            self.assertEqual(image['data-end-width'], '207')
-            self.assertEqual(image['sizes'], '48px')
-            self.assertEqual((image['width'], image['height']), ('104', '104'))
-            self.assertEqual(image['alt'], '')
-            self.assertEqual(image['aria-hidden'], 'true')
-            self.assertEqual(image['loading'], 'lazy')
-            self.assertEqual(image['decoding'], 'async')
-            self.assertEqual(image['fetchpriority'], 'low')
-            self.assertEqual([candidate.split()[-1] for candidate in image['srcset'].split(',')],
-                             ['104w', '207w', '414w'])
+    def test_list_end_mark_uses_the_medium_variant(self):
+        # The rail lists category names only; the list's end mark shows the chosen category's art.
+        self.assertEqual(Images((self.output / 'index.html').read_text()).images, [])
+        runtime = (self.output / 'app.js').read_text()
+        self.assertIn('"domains/" + state.category + "-m.webp"', runtime)
         self.assertLess(sum(c['artwork']['variants']['s']['bytes'] for c in self.catalog['categories']), 160_000)
         self.assertTrue(all('artwork' not in c for c in search_index(self.catalog)['categories']))
 

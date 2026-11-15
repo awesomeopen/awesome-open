@@ -70,6 +70,19 @@ def category_id(name):
     return re.sub(r"[^\w -]", "", without_tags.lower()).replace(" ", "-")
 
 
+# Short category headings keep the IDs of their former long names, so catalog links,
+# category art and stored evidence stay valid. The README anchor follows the heading.
+CATEGORY_IDS = {
+    "AI": "ai--language-models", "Commerce": "business--commerce", "Socials": "communication--social",
+    "Creative": "creative--media", "DBs & Search": "databases--search", "Dev Tools": "developer-tools",
+    "Education": "education--research", "Finance": "finance--trading", "Gaming": "games--emulation",
+    "Health": "health--medicine", "Home": "home-automation", "Infrastructure": "infrastructure--devops",
+    "Knowledge": "knowledge-management", "Maps": "maps--geospatial", "OS & Firmware": "operating-systems--firmware",
+    "Productivity": "productivity--office", "Hardware": "robotics--hardware", "Science": "science--engineering",
+    "Security": "security--privacy", "Storage": "storage--file-management",
+}
+
+
 def _nonempty_text(value, label):
     if not isinstance(value, str) or not value.strip():
         raise ValueError("Expected nonempty " + label)
@@ -286,7 +299,7 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, opt
         if line.startswith("## "):
             section_number += 1
             name = _nonempty_text(line[3:].strip(), "category heading")
-            base = category_id(name)
+            base = CATEGORY_IDS.get(name) or category_id(name)
             if not base:
                 raise ValueError("Category heading must have a nonempty anchor")
             anchor, suffix = base, 0

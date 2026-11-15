@@ -293,7 +293,7 @@ async function checkObservatory({ browser, url }) {
     const mark = current.locator('.obs-closing-mark');
     const logo = mark.locator(':scope > .obs-logo');
     assert.equal(await logo.count(), 1, label + ': logo belongs to closing mark');
-    assert.equal(await logo.getAttribute('alt'), 'Awesome Open* botanical logo');
+    assert.equal(await logo.getAttribute('alt'), '', label + ': decorative fruit mark');
     await logo.evaluate(image => image.decode());
     const layout = await mark.evaluate(node => {
       const image = node.querySelector('img'), hero = document.querySelector('.obs-hero');
@@ -311,8 +311,8 @@ async function checkObservatory({ browser, url }) {
     assert.equal(layout.prefooter, true, label + ': immediately before footer');
     assert.equal(layout.text, '', label + ': no visible caption');
     assert.equal(layout.children, 1, label + ': only the existing image');
-    assert.deepEqual([layout.naturalWidth, layout.naturalHeight], [128, 128], label + ': original intrinsic dimensions');
-    assert.ok(layout.width > 0 && layout.width <= 128 && layout.height > 0 && layout.height <= 128, label + ': no upscaling');
+    assert.deepEqual([layout.naturalWidth, layout.naturalHeight], [96, 96], label + ': original intrinsic dimensions');
+    assert.ok(layout.width > 0 && layout.width <= 96 && layout.height > 0 && layout.height <= 96, label + ': no upscaling');
     assert.ok(Math.abs(layout.centerOffset) < 1, label + ': horizontally centered');
     const whitespace = current.viewportSize().width <= 760 ? 96 : 128;
     assert.ok(layout.above >= whitespace && layout.below >= whitespace, label + ': generous whitespace above and below');
@@ -524,10 +524,11 @@ async function checkObservatory({ browser, url }) {
       assert.equal(project.release_checked_at, release.checked_at ?? null, 'Release checked time remains distinct');
     }
     const logo = page.locator('.obs-logo');
-    assert.equal(await logo.getAttribute('src'), '../brand/botanical-128.png');
-    assert.equal(await logo.getAttribute('alt'), 'Awesome Open* botanical logo');
+    // The page ends on the Catalog's fruit mark (B-PR333-01).
+    assert.equal(await logo.getAttribute('src'), '../brand/fruit-96.png');
+    assert.equal(await logo.getAttribute('alt'), '');
     await logo.evaluate(image => image.decode());
-    assert.equal(await logo.evaluate(image => image.naturalWidth), 128);
+    assert.equal(await logo.evaluate(image => image.naturalWidth), 96);
     writeReport();
 
     // Save review artifacts before behavioral checks, so failures retain the page.

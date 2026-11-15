@@ -1,6 +1,7 @@
 """Offline site checks also run in the existing unittest workflow."""
 
 import copy
+import published_hn
 import hashlib
 from html.parser import HTMLParser
 import json
@@ -19,7 +20,9 @@ from site_test_fixtures import baseline_site, copy_site_fixture
 
 
 RUNTIME_SCRIPTS = (content_url('search.js', ROOT / 'site/search.js'), 'catalog.js', content_url('cabinet.js', ROOT / 'site/cabinet.js'),
-                   content_url('webmcplet/webmcplet.js', ROOT / 'webmcplet/webmcplet.js'))
+                   content_url('app.js', ROOT / 'site/app.js'), content_url('webmcplet/webmcplet.js', ROOT / 'webmcplet/webmcplet.js'))
+# Hash routes the one-screen Catalog handles in app.js rather than element anchors.
+APP_ROUTES = {'about', 'observatory', 'scoreboard', 'spotlight'}
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 
 
@@ -61,8 +64,11 @@ class Page(HTMLParser):
         if 'id' in attrs:
             self.ids.append(attrs['id'])
             self.by_id[attrs['id']] = node
+        # Record pages hold one specimen card; the Catalog lists one row per project.
         if tag == 'article' and 'data-project-id' in attrs:
             self.cards.append(attrs['data-project-id'])
+        if tag == 'li' and 'data-id' in attrs and 'row' in attrs.get('class', '').split():
+            self.cards.append(attrs['data-id'])
         if tag == 'a':
             self.links.append(attrs.get('href', ''))
         if tag == 'img':
@@ -89,18 +95,18 @@ class SiteTests(unittest.TestCase):
         result = subprocess.run(['node', '-e', script], input=json.dumps(search_index(self.catalog)),
                                 cwd=ROOT, capture_output=True, text=True, check=True)
         self.assertEqual(self.page.cards, json.loads(result.stdout))
-        options = self.page.by_id['sort-order'].descendants('option')
-        self.assertEqual([o.attrs['value'] for o in options if 'selected' in o.attrs], ['match'])
+        options = self.page.by_id['f-sort'].descendants('option')
+        self.assertEqual(options[0].attrs['value'], 'match')
         self.assertIn('List numbers show position in current results', self.html)
         self.assertIn('Folio numbers show alphabetical position', self.html)
         folios = {p['id']: i + 1 for i, p in enumerate(self.catalog['projects'])}
         for position, pid in enumerate(self.page.cards, 1):
-            row = next(node for node in self.page.by_id['project-' + pid].descendants() if node.has_class('folio'))
+            row = next(node for node in self.rows[pid].descendants() if node.has_class('row-n'))
             card = self.records[pid].by_id['project-' + pid]
             detail = next(node for node in card.descendants() if node.has_class('sheet-folio'))
             registry = next(node for node in card.descendants() if node.has_class('registry'))
             self.assertEqual(row.text, f'{position:03d}')
-            self.assertEqual(row.attrs['title'], 'Position in current results')
+            self.assertEqual(row.attrs['aria-hidden'], 'true')
             self.assertEqual(detail.text, f'Folio {folios[pid]:03d}')
             self.assertEqual(registry.text, 'OP-' + pid[:8].upper())
             self.assertIn(f'Field notes / {folios[pid]:03d}', card.text)
@@ -110,6 +116,7 @@ class SiteTests(unittest.TestCase):
         cls.output, cls.catalog = baseline_site(source_sha='a' * 40)
         cls.html = render_html(cls.catalog)
         cls.page = Page(cls.html)
+        cls.rows = {node.attrs['data-id']: node for node in cls.page.nodes('li') if 'data-id' in node.attrs}
         # Plates are written only to the static records the ledger links.
         cls.records = {p['id']: Page((cls.output / 'records' / (p['id'] + '.html')).read_text(encoding='utf-8'))
                        for p in cls.catalog['projects']}
@@ -128,7 +135,10 @@ class SiteTests(unittest.TestCase):
             self.assertFalse((output / 'observatory/report.html').exists())
             page = (output / 'index.html').read_text()
             self.assertEqual(page.count('class="jar-hall"'), 1)
-            self.assertIn('class="jar-page"', page)
+            self.assertIn('<body class="app jar-page">', page)
+            # The jars rest in the third column, in place of the plate.
+            self.assertLess(page.index('id="pane-rest"'), page.index('class="jar-hall"'))
+            self.assertLess(page.index('class="jar-hall"'), page.index('id="pane-about"'))
             self.assertNotIn('noindex', page)
             self.assertNotIn('<title>Preview', page)
             for asset in ('jars.css', 'jars.js', 'jars/provenance.json'):
@@ -146,24 +156,19 @@ class SiteTests(unittest.TestCase):
             self.assertIn(p['url'], self.records[p['id']].links)
             self.assertIn('#project-' + p['id'], self.records[p['id']].links)
         self.assertIn('<noscript>', self.html)
-        self.assertIn('id="filters" class="catalog-toolbar" hidden', self.html)
+        self.assertIn('hidden', self.page.by_id['filters'].attrs)
+        self.assertIn('hidden', self.page.by_id['search-form'].attrs)
 
     def test_specimen_drawers_preserve_full_names_descriptions_and_sources(self):
         categories = {c['id']: c['name'] for c in self.catalog['categories']}
         for project in self.catalog['projects']:
             with self.subTest(project=project['name']):
-                card = self.page.by_id['project-' + project['id']]
-                self.assertEqual(card.tag, 'article')
-                self.assertNotIn('hidden', card.attrs)
-                self.assertEqual(card.attrs['data-project-id'], project['id'])
-                drawers = [node for node in card.descendants('details') if node.has_class('specimen-drawer')]
-                self.assertEqual(len(drawers), 1)
-                drawer = drawers[0]
-                self.assertEqual(drawer.children[0].tag, 'summary')
-                summary = drawer.children[0]
-                name = [node for node in summary.descendants() if node.has_class('specimen-name')]
+                row = self.rows[project['id']]
+                self.assertNotIn('hidden', row.attrs)
+                self.assertEqual([a.attrs['href'] for a in row.descendants('a')], [f'records/{project["id"]}.html'])
+                name = [node for node in row.descendants() if node.has_class('specimen-name')]
                 self.assertEqual([node.text for node in name], [project['name']])
-                self.assertIn(project['description'], summary.text)
+                self.assertEqual([n.text for n in row.descendants() if n.has_class('row-desc')], [project['description']])
                 card = self.records[project['id']].by_id['project-' + project['id']]
                 self.assertEqual(len(card.descendants('h3')), 0)
                 links = card.descendants('a')
@@ -183,22 +188,25 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(self.catalog['category_memberships'], sum(len(p['categories']) for p in self.catalog['projects']))
         self.assertEqual(self.catalog['category_memberships'], sum(c['count'] for c in self.catalog['categories']))
         self.assertFalse(any(node.has_class('collection-band') for node in self.page.elements))
-        nav = [node for node in self.page.nodes('nav') if node.has_class('category-nav')][0]
-        self.assertEqual(len(nav.descendants('a')), len(self.catalog['categories']) + 1)
-        for category, link in zip(self.catalog['categories'], nav.descendants('a')[1:]):
+        rail = self.page.by_id['rail-cats'].descendants('a')
+        self.assertEqual(len(rail), len(self.catalog['categories']) + 1)
+        self.assertEqual((rail[0].attrs['data-category'], rail[0].attrs['href']), ('', './'))
+        alphabetical = sorted(self.catalog['categories'], key=lambda c: c['name'].lower())
+        for category, link in zip(alphabetical, rail[1:]):
             self.assertEqual(link.attrs['data-category'], category['id'])
             self.assertIn(category['name'], link.text)
-            self.assertTrue(link.attrs['href'].endswith('/README.source.md#' + category['id']))
-        methods = [node for node in self.page.elements if node.has_class('colophon')][0]
+            self.assertEqual(link.attrs['href'], '?category=' + category['id'])
+        methods = [node for node in self.page.elements if node.has_class('about-colophon')][0]
         for qualification in ('Licenses: GitHub license metadata.',
                               'Repository dates refer to GitHub activity',
                               'HN charts: possible title/URL matches; red foreground: matched stories. Shared cube-root scale / 2 years',
                               'Specimen illustrations are original artwork'):
             self.assertIn(qualification, methods.text)
         self.assertIn('<title>Awesome Open* Catalog</title>', self.html)
-        self.assertIn('href="#about">About</a>', self.html)
-        self.assertEqual(self.page.by_id['about'].tag, 'footer')
-        self.assertIn('href="spotlight/">Spotlight</a>', self.html)
+        self.assertEqual(self.page.by_id['rail-about'].attrs['href'], '#about')
+        riders = [node for node in self.page.nodes('nav') if node.has_class('riders')][0].descendants('a')
+        self.assertEqual([(a.attrs['href'], a.text) for a in riders],
+                         [('#about', 'About'), ('observatory/', 'Observatory'), ('scoreboard/', 'Scoreboard'), ('spotlight/', 'Spotlight')])
         record = next((self.output / 'records').glob('*.html')).read_text()
         self.assertIn('href="spotlight/"', record)
         for document in (self.html, record):
@@ -207,35 +215,37 @@ class SiteTests(unittest.TestCase):
         self.assertTrue((self.output / 'spotlight/index.html').is_file())
         self.assertTrue((self.output / 'spotlight/draws.json').is_file())
 
-        self.assertIn('href="https://github.com/awesomeopen/awesome-open">GitHub</a><a href="#catalog">Top</a>', self.html)
+        self.assertIn('<a href="https://github.com/awesomeopen/awesome-open">GitHub repository</a>', self.html)
         self.assertIn('Shared cube-root scale / 2 years</li><li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>', self.html)
 
     def test_ledger_starts_without_cover_and_retains_plain_controls(self):
         page = Page((self.output / 'index.html').read_text())
         self.assertFalse(any(node.has_class(c) for node in page.elements for c in ('hero', 'reading-room', 'collection-band')))
-        self.assertEqual(page.by_id['page-title'].tag, 'h1')
-        self.assertIn('Projects', page.by_id['page-title'].text)
-        self.assertEqual(page.by_id['method'].tag, 'details')
-        self.assertEqual(page.by_id['clear-filters'].text.strip(), 'Reset filters ↺')
+        self.assertEqual(page.by_id['list-brand'].tag, 'h1')
+        self.assertEqual(page.by_id['list-brand'].text.strip(), 'Awesome Open*')
+        self.assertEqual(page.by_id['method'].tag, 'section')
+        self.assertEqual(page.by_id['reset'].text.strip(), 'Reset filters ↺')
 
     def test_form_labels_status_and_native_disclosures_are_accessible(self):
         self.assertEqual(len(self.page.nodes('h1')), 1)
         self.assertEqual(len(self.page.nodes('main')), 1)
         self.assertEqual(self.page.by_id['catalog'].attrs['tabindex'], '-1')
         self.assertIn('hidden', self.page.by_id['filters'].attrs)
-        self.assertIn('disabled', self.page.by_id['sort-order'].attrs)
         labels = {node.attrs.get('for'): node.text.strip() for node in self.page.nodes('label')}
+        # Rail selects carry their title in the first option, so their name is an aria-label.
+        wrapped = {control.attrs['id'] for label in self.page.nodes('label') for control in label.descendants('input')}
         for control in self.page.nodes('input') + self.page.nodes('select'):
-            self.assertTrue(labels.get(control.attrs['id']), control.attrs)
+            name = labels.get(control.attrs['id']) or control.attrs.get('aria-label') or control.attrs['id'] in wrapped
+            self.assertTrue(name, control.attrs)
         for node in self.page.nodes('details'):
             self.assertTrue(node.children)
             self.assertEqual(node.children[0].tag, 'summary')
             self.assertTrue(node.children[0].text.strip())
-        result = self.page.by_id['result-count'].attrs
+        result = self.page.by_id['list-count'].attrs
         self.assertEqual(result['role'], 'status')
         self.assertEqual(result['aria-live'], 'polite')
         self.assertEqual(result['aria-atomic'], 'true')
-        self.assertEqual(self.page.by_id['project-link-notice'].attrs['role'], 'status')
+        self.assertEqual(self.page.by_id['plate-status'].attrs['role'], 'status')
         for node in self.page.elements:
             for attribute in ('aria-labelledby', 'aria-describedby'):
                 for reference in node.attrs.get(attribute, '').split():
@@ -387,15 +397,18 @@ for (const input of inputs) {
         for name in ('hn_evidence.json', 'alternatives.json', 'star_history.json'):
             copy = (self.output / 'data' / name).read_text()
             self.assertEqual(copy.count('\n'), 1, name + ' is written without indentation')
-            self.assertEqual(json.loads(copy), json.loads((ROOT / 'data' / name).read_text()))
+            decoded = json.loads(copy)
+            if name == "hn_evidence.json":
+                decoded = published_hn.materialize(decoded)
+            self.assertEqual(decoded, json.loads((ROOT / 'data' / name).read_text()))
         for image in self.page.images:
             self.assertIsInstance(image['alt'], str)
             self.assertFalse(image['src'].startswith('/'))
             self.assertTrue((self.output / image['src']).is_file())
         for href in self.page.links:
             if href.startswith('#'):
-                self.assertIn(href[1:], self.page.ids)
-            elif not href.startswith(('https://', 'http://')) and href != './':
+                self.assertIn(href[1:], set(self.page.ids) | APP_ROUTES)
+            elif not href.startswith(('https://', 'http://', '?')) and href != './':
                 parts = urlsplit(href)
                 target = self.output / parts.path
                 target = target / 'index.html' if parts.path.endswith('/') else target
@@ -418,7 +431,7 @@ for (const input of inputs) {
             html = page.read_text()
             self.assertNotIn('standalone.html', html, page)
             self.assertNotIn('report.html', html, page)
-        footer = Page(self.html).by_id['about']
+        footer = Page(self.html).by_id['about-scroll']
         self.assertEqual([link.attrs['href'] for link in footer.descendants('a') if link.attrs.get('href') in ('catalog.json', 'data/hn_evidence.json')],
                          ['data/hn_evidence.json', 'catalog.json'])
 
@@ -448,9 +461,11 @@ for (const input of inputs) {
         icon = (self.output / 'brand/favicon.ico').read_bytes()
         self.assertEqual(struct.unpack('<HHH', icon[:6]), (0, 1, 3))
         self.assertEqual([(icon[6 + 16*i], icon[7 + 16*i]) for i in range(3)], [(16, 16), (32, 32), (48, 48)])
-        brand = [node for node in self.page.nodes('a') if node.has_class('brand')][0]
+        brand = self.page.by_id['list-brand'].descendants('a')[0]
         self.assertEqual(brand.attrs['aria-label'], 'Awesome Open home')
-        self.assertEqual(brand.descendants('img')[0].attrs['alt'], '')
+        mark = [node for node in self.page.nodes('a') if node.has_class('rail-mark')][0]
+        self.assertEqual((mark.attrs['aria-hidden'], mark.attrs['tabindex']), ('true', '-1'))
+        self.assertEqual(mark.descendants('img')[0].attrs['alt'], '')
 
     def test_stylesheet_content_hash_prevents_stale_branding_on_return_visits(self):
         expected = 'href="' + font_asset_url('styles.css') + '"'
@@ -541,7 +556,7 @@ for (const input of inputs) {
         page = Page(document)
         self.assert_safe_script_allowlist(page)
         self.assertEqual(json.loads(page.by_id['catalog-data'].text), search_index(catalog))
-        card = page.by_id['project-' + project['id']]
+        card = next(node for node in page.nodes('li') if node.attrs.get('data-id') == project['id'])
         names = [node.text for node in card.descendants() if node.has_class('specimen-name')]
         self.assertEqual(names, [project['name']])
         self.assertNotIn('<script>alert(1)</script>', document)
