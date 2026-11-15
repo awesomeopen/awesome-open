@@ -18,7 +18,7 @@ earlier page followed the brand guide but read as scattered on large screens; on
 phones it stayed acceptable because it was simple. The owner reviewed a local
 prototype from 2026-11-11 to 2026-11-15 and then asked for the real build.
 
-PR #333 builds it into the generator. `index.html` now has a category rail with
+PR #333, merged on 2026-11-15, builds it into the generator. `index.html` now has a category rail with
 filters, the project list under the wordmark and search, and one pane that holds the
 jars, one plate, or the About sheet. About carries the former footer and opens
 Observatory, Scoreboard and Spotlight in the pane. Category headings use short names
@@ -40,8 +40,8 @@ HN evidence; the built site now passes the budget.
 
 The same merge left two assignments of `named` in `scripts/check_budget.py`; the
 second dropped `data/deployment_evidence.json`, so `test_check_budget.py` failed on
-main. PR #333 merges both into one set. Main keeps the failure until this PR, or a
-separate one-line fix, merges.
+main. PR #333 was merged before the fix, so the follow-up PR that adds this note
+merges both into one set.
 
 ### 2. Observatory keyboard step not yet seen on Linux
 
