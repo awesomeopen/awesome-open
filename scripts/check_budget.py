@@ -64,8 +64,8 @@ BUDGET = [
 def measure(site):
     files = [path for path in site.rglob('*') if path.is_file()]
     sizes = {path.relative_to(site).as_posix(): path.stat().st_size for path in files}
-    named = {'index.html', 'catalog.json', 'data/deployment_evidence.json'}
-    named = {'index.html', 'catalog.json', 'data/hn_evidence.json'}
+    # Files with their own rows; "Largest other file" measures the rest.
+    named = {'index.html', 'catalog.json', 'data/deployment_evidence.json', 'data/hn_evidence.json'}
     index = site / 'index.html'
     specimen_bytes = sum(size for name, size in sizes.items() if name.startswith('specimens/'))
     # Each illustrated project has one original at the top of specimens/.
