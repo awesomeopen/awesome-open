@@ -1,6 +1,7 @@
 """Offline site checks also run in the existing unittest workflow."""
 
 import copy
+import published_hn
 import hashlib
 from html.parser import HTMLParser
 import json
@@ -387,7 +388,10 @@ for (const input of inputs) {
         for name in ('hn_evidence.json', 'alternatives.json', 'star_history.json'):
             copy = (self.output / 'data' / name).read_text()
             self.assertEqual(copy.count('\n'), 1, name + ' is written without indentation')
-            self.assertEqual(json.loads(copy), json.loads((ROOT / 'data' / name).read_text()))
+            decoded = json.loads(copy)
+            if name == "hn_evidence.json":
+                decoded = published_hn.materialize(decoded)
+            self.assertEqual(decoded, json.loads((ROOT / 'data' / name).read_text()))
         for image in self.page.images:
             self.assertIsInstance(image['alt'], str)
             self.assertFalse(image['src'].startswith('/'))

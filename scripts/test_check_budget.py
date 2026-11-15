@@ -75,6 +75,19 @@ class CheckBudgetTests(unittest.TestCase):
                 self.run_check(site)
             self.assertIn('## Site size budget', summary.read_text())
 
+    def test_hn_budget_is_separate_and_other_files_keep_their_limit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = self.site(directory)
+            (site / 'data').mkdir()
+            hn = site / 'data/hn_evidence.json'
+            hn.write_bytes(b'x' * (2 * 10 * 1024))
+            self.assertEqual(self.run_check(site)[0], 0)
+            hn.write_bytes(hn.read_bytes() + b'x')
+            self.assertIn('HN evidence', check_budget.report(site)[1])
+            hn.write_bytes(b'{}')
+            (site / 'data/other.json').write_bytes(b'x' * (2 * 8 * 1024 + 1))
+            self.assertEqual(check_budget.report(site)[1], ['Largest other file'])
+
     def test_missing_site_is_an_error(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(SystemExit):
             check_budget.main([directory])
