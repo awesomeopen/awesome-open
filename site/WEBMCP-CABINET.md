@@ -42,8 +42,10 @@ with that message and not with "Select at least one project first.", which the p
 own Compare button still shows.
 
 The page also hands the four tools to [WebMCPlet](../webmcplet/README.md) through
-`window.webmcpletTools`, so its opt-in assistant can operate the same selection; its
-calls appear as "Assistant" in the activity log. The page registers WebMCPlet's
+`window.webmcpletTools`, so its assistant can operate the same selection; its
+calls appear as "Assistant" in the activity log. The Catalog turns the assistant on as an
+experiment ([B-PR335-02](../brand/decisions/B-PR335-02.md)); it appears where Chrome offers
+its on-device model. The page registers WebMCPlet's
 `list_sections`, `list_find` and `list_get` beside these tools, from the same catalog.
 
 The page retains the latest 20 operation names, actors and outcomes in memory.

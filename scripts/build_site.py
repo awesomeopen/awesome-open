@@ -843,7 +843,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
  <script src="{escape(script_url)}" defer></script>
  <script src="{content_url("cabinet.js", root / "site/cabinet.js")}" defer></script>
  <script src="{content_url("app.js", root / "site/app.js")}" defer></script>
- <script src="{content_url("webmcplet/webmcplet.js", root / "webmcplet/webmcplet.js")}" data-webmcplet-src="webmcplet/list.json?v={hashlib.sha256(webmcplet_list(catalog).encode("utf-8")).hexdigest()}" data-webmcplet-title="Awesome Open*" defer></script>
+ <script src="{content_url("webmcplet/webmcplet.js", root / "webmcplet/webmcplet.js")}" data-webmcplet-src="webmcplet/list.json?v={hashlib.sha256(webmcplet_list(catalog).encode("utf-8")).hexdigest()}" data-webmcplet-title="Awesome Open*" data-webmcplet-assistant="on" data-webmcplet-assistant-tools="cabinet_arrange cabinet_compare cabinet_find cabinet_inspect" defer></script>
 </head>
 <body class="app">
 <a class="skip-link" href="#rows">Skip to the project list</a>

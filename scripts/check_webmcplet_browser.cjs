@@ -228,8 +228,10 @@ async function panelChecks(browser, label, open, report) {
 
     await panelChecks(browser, 'awesome-open', openAwesome, report.awesomeOpen);
 
-    // The assistant is opt-in: a ready model alone does not show it.
+    // WebMCPlet's assistant is opt-in: without "on", a ready model alone does not show it.
+    // The first of two duplicate attributes wins, so this overrides the Catalog's own "on".
     const plain = await browser.newContext(), plainPage = await plain.newPage();
+    await withAttributes(plain, 'data-webmcplet-assistant="off"');
     await plain.addInitScript(stubModel('available', '() => ({ action: "answer", text: "", ids: [] })'));
     await openAwesome(plain, plainPage);
     await plainPage.locator(PANEL).locator('button.trigger').click();
@@ -237,9 +239,8 @@ async function panelChecks(browser, label, open, report) {
     assert.equal(await plainPage.locator(PANEL).locator('section[aria-labelledby="wm-ask-title"]').isHidden(), true);
     await plain.close();
 
-    // Opted in, the assistant operates the shared Cabinet selection; rows come from tool results.
+    // The Catalog opts in: the assistant operates the shared Cabinet selection; rows come from tool results.
     const assisted = await browser.newContext(), page = await assisted.newPage();
-    await withAttributes(assisted, 'data-webmcplet-assistant="on" data-webmcplet-assistant-tools="cabinet_arrange cabinet_compare cabinet_find cabinet_inspect"');
     await assisted.addInitScript(stubModel('available', `input => {
       const revision = (/"revision":(\\d+)/.exec(input) || [])[1];
       if (!input.startsWith('Result of')) return { action: 'call', tool: 'cabinet_find', args: { query: 'video editor' } };
