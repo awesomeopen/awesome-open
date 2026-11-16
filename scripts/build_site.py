@@ -843,7 +843,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
  <script src="{escape(script_url)}" defer></script>
  <script src="{content_url("cabinet.js", root / "site/cabinet.js")}" defer></script>
  <script src="{content_url("app.js", root / "site/app.js")}" defer></script>
- <script src="{content_url("webmcplet/webmcplet.js", root / "webmcplet/webmcplet.js")}" data-webmcplet-src="webmcplet/list.json?v={hashlib.sha256(webmcplet_list(catalog).encode("utf-8")).hexdigest()}" data-webmcplet-title="Awesome Open*" defer></script>
+ <script src="{content_url("webmcplet/webmcplet.js", root / "webmcplet/webmcplet.js")}" data-webmcplet-src="webmcplet/list.json?v={hashlib.sha256(webmcplet_list(catalog).encode("utf-8")).hexdigest()}" data-webmcplet-title="Awesome Open*" data-webmcplet-assistant="on" data-webmcplet-assistant-tools="cabinet_arrange cabinet_compare cabinet_find cabinet_inspect" defer></script>
 </head>
 <body class="app">
 <a class="skip-link" href="#rows">Skip to the project list</a>
@@ -857,7 +857,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
  <main class="list" id="catalog" tabindex="-1" aria-labelledby="list-brand">
   <header class="list-head">
    <h1 class="list-brand" id="list-brand"><a href="./" aria-label="Awesome Open home"><span>Awesome Open<span aria-hidden="true">*</span></span></a></h1>
-   <form class="list-search" id="search-form" role="search" hidden><label class="visually-hidden" for="search">Search projects</label><input id="search" name="q" type="search" autocomplete="off" maxlength="500" placeholder="Search {count} projects" aria-describedby="search-help"><button type="submit" aria-label="Search projects" title="Search projects"><img src="brand/search-loupe.png" width="24" height="24" alt=""></button><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></form>
+   <form class="list-search" id="search-form" role="search" hidden><label class="visually-hidden" for="search">Search projects</label><input id="search" name="q" type="search" autocomplete="off" maxlength="500" aria-describedby="search-help"><button type="submit" aria-label="Search projects" title="Search projects"><img src="brand/search-loupe.png" width="24" height="24" alt=""></button><span id="search-help" class="visually-hidden">Search names, descriptions, and reviewed alternative names. Results update as you type.</span></form>
    <p class="visually-hidden" id="list-count" role="status" aria-live="polite" aria-atomic="true">{count} projects</p>
   </header>
   <p class="list-notice" id="list-notice" role="status" hidden></p>
@@ -871,7 +871,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
  <section class="pane" id="pane" aria-label="Specimen plate">
   <div class="pane-rest" id="pane-rest"><!-- jar-hall --></div>
   <div class="pane-about" id="pane-about" hidden>
-   <div class="pane-head about-head"><nav class="riders" aria-label="Awesome Open pages"><a href="#about" data-sheet="about" aria-current="page">About</a><a href="observatory/" data-sheet="observatory" title="{escape(OBSERVATORY)}">Observatory</a><a href="scoreboard/" data-sheet="scoreboard" title="{escape(SCOREBOARD)}">Scoreboard</a><a href="spotlight/" data-sheet="spotlight" title="{escape(SPOTLIGHT)}">Spotlight</a></nav></div>
+   <div class="pane-head about-head"><nav class="riders" aria-label="Awesome Open pages"><a href="#about" data-sheet="about" aria-current="page">About</a><a href="observatory/" data-sheet="observatory" title="{escape(OBSERVATORY)}">Observatory</a><a href="scoreboard/" data-sheet="scoreboard" title="{escape(SCOREBOARD)}">Scoreboard</a><a href="spotlight/" data-sheet="spotlight" title="{escape(SPOTLIGHT)}">Spotlight</a></nav><button class="about-close" id="about-close" type="button" aria-label="Close About" title="Close (Esc)">×</button></div>
    <div class="pane-scroll about-scroll" id="about-scroll" tabindex="-1">
 {about}
    </div>

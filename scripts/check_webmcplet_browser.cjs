@@ -104,14 +104,14 @@ async function panelChecks(browser, label, open, report) {
   const errors = []; page.on('pageerror', e => errors.push(e.message));
   await open(context, page);
   const trigger = page.locator(PANEL).locator('button.trigger');
-  assert.equal(await trigger.textContent(), 'Search this list');
+  assert.equal(await trigger.textContent(), 'Search WebMCPlet');
   assert.equal(await dialogOpen(page), false, 'the panel never opens by itself');
   // Keyboard: the button is the page's last tab stop and shows a focus ring; Enter
   // opens; Escape closes and returns focus.
   await page.evaluate(() => { document.activeElement && document.activeElement.blur(); });
   await page.keyboard.press('Shift+Tab');
   const ring = await focused(page);
-  assert.equal(ring.text, 'Search this list', 'Shift+Tab from the top reaches the panel button');
+  assert.equal(ring.text, 'Search WebMCPlet', 'Shift+Tab from the top reaches the panel button');
   assert.match(ring.outline, /^solid 3px$/, 'focus is visible');
   await page.keyboard.press('Enter');
   assert.equal(await dialogOpen(page), true);
@@ -132,10 +132,10 @@ async function panelChecks(browser, label, open, report) {
   assert.ok(inside > 20);
   await page.keyboard.press('Escape');
   assert.equal(await dialogOpen(page), false);
-  assert.equal((await focused(page)).text, 'Search this list', 'focus returns to the button');
+  assert.equal((await focused(page)).text, 'Search WebMCPlet', 'focus returns to the button');
   // Visitor dismissal: stored in this browser; the tools stay registered.
   const tools = await page.evaluate(async () => (await document.modelContext.getTools()).length);
-  await trigger.click(); await page.locator(PANEL).getByRole('button', { name: 'Hide this button' }).click();
+  await trigger.click(); await page.locator(PANEL).getByRole('button', { name: 'Hide the Search button' }).click();
   assert.equal(await page.locator(PANEL).count(), 0);
   await open(context, page);
   assert.equal(await page.locator(PANEL).count(), 0, 'dismissal persists');
@@ -228,8 +228,10 @@ async function panelChecks(browser, label, open, report) {
 
     await panelChecks(browser, 'awesome-open', openAwesome, report.awesomeOpen);
 
-    // The assistant is opt-in: a ready model alone does not show it.
+    // WebMCPlet's assistant is opt-in: without "on", a ready model alone does not show it.
+    // The first of two duplicate attributes wins, so this overrides the Catalog's own "on".
     const plain = await browser.newContext(), plainPage = await plain.newPage();
+    await withAttributes(plain, 'data-webmcplet-assistant="off"');
     await plain.addInitScript(stubModel('available', '() => ({ action: "answer", text: "", ids: [] })'));
     await openAwesome(plain, plainPage);
     await plainPage.locator(PANEL).locator('button.trigger').click();
@@ -237,28 +239,47 @@ async function panelChecks(browser, label, open, report) {
     assert.equal(await plainPage.locator(PANEL).locator('section[aria-labelledby="wm-ask-title"]').isHidden(), true);
     await plain.close();
 
-    // Opted in, the assistant operates the shared Cabinet selection; rows come from tool results.
+    // The Catalog opts in: the assistant operates the shared Cabinet selection; rows come from tool results.
     const assisted = await browser.newContext(), page = await assisted.newPage();
-    await withAttributes(assisted, 'data-webmcplet-assistant="on" data-webmcplet-assistant-tools="cabinet_arrange cabinet_compare cabinet_find cabinet_inspect"');
     await assisted.addInitScript(stubModel('available', `input => {
       const revision = (/"revision":(\\d+)/.exec(input) || [])[1];
       if (!input.startsWith('Result of')) return { action: 'call', tool: 'cabinet_find', args: { query: 'video editor' } };
       if (input.startsWith('Result of cabinet_find')) return { action: 'call', tool: 'cabinet_arrange', args: { ids: ['r1', 'r2'], revision: Number(revision) } };
       if (input.startsWith('Result of cabinet_arrange')) return { action: 'call', tool: 'cabinet_compare', args: {} };
-      return { action: 'answer', text: 'These two projects edit video.', ids: ['r1', 'r2', 'r40'] };
+      return { action: 'answer', text: 'r1 and r2 edit video.', ids: ['r1', 'r2', 'r40'] };
     }`));
     await openAwesome(assisted, page);
     await page.locator(PANEL).locator('button.trigger').click();
     await page.locator(PANEL).getByLabel('Question').fill('Find a video editor and compare two.');
-    await page.locator(PANEL).getByRole('button', { name: 'Ask', exact: true }).click();
+    await page.locator(PANEL).getByRole('button', { name: 'Send', exact: true }).click();
     const answered = page.locator(PANEL).locator('ol[aria-label="Items in the answer"] li');
     await answered.nth(1).waitFor();
     assert.equal(await answered.count(), 2);
     assert.match(await page.locator(PANEL).locator('.state').textContent(), /1 item\(s\) the tools did not return/);
-    await page.keyboard.press('Escape');
+    // Refs become names; the Cabinet stays closed until the visitor follows the answer's link.
+    const names = await answered.locator('a').allTextContents();
+    assert.equal(await page.locator(PANEL).locator('p.generated').textContent(), names[0] + ' and ' + names[1] + ' edit video.');
+    assert.equal(await page.evaluate(() => document.getElementById('specimen-cabinet').open), false, 'the assistant leaves the Cabinet closed');
+    await page.locator(PANEL).getByRole('link', { name: 'Open the Cabinet' }).click();
+    await page.waitForFunction(() => document.getElementById('specimen-cabinet').open);
+    assert.equal(await dialogOpen(page), false, 'the link closes the panel');
+    assert.equal(await page.evaluate(() => document.activeElement.closest('#specimen-cabinet') !== null), true);
     assert.equal(await page.locator('#cabinet-selection li').count(), 2, 'the assistant arranged the shared selection');
     assert.match(await page.locator('#cabinet-activity').textContent(), /Assistant · cabinet_compare · completed/);
     await assisted.close();
+
+    // With a plate open, arrow keys in the panel's search field move the caret, not the plate.
+    const typing = await browser.newContext(), typed = await typing.newPage();
+    await openAwesome(typing, typed);
+    const first = await typed.evaluate(() => JSON.parse(document.getElementById('catalog-data').textContent).projects[0].id);
+    await typed.evaluate(id => { location.hash = 'project-' + id; }, first);
+    await typed.waitForFunction(id => location.hash === '#project-' + id && document.getElementById('plate-position').textContent, first);
+    await typed.locator(PANEL).locator('button.trigger').click();
+    await typed.locator(PANEL).locator('#wm-query').fill('abc');
+    for (const key of ['ArrowLeft', 'ArrowRight', 'ArrowLeft', 'Shift+ArrowLeft']) await typed.keyboard.press(key);
+    assert.deepEqual(await typed.locator(PANEL).locator('#wm-query').evaluate(el => [el.selectionStart, el.selectionEnd]), [1, 2]);
+    assert.equal(await typed.evaluate(() => location.hash), '#project-' + first, 'the plate stays');
+    await typing.close();
     report.awesomeOpen.assistant = 'stand-in model: find, arrange, compare; 2 rows shown, 1 unreturned ID omitted';
 
     if (!AO_ONLY) {
@@ -292,7 +313,7 @@ async function panelChecks(browser, label, open, report) {
       await macPage.locator(PANEL).locator('button.trigger').click();
       await macPage.locator(PANEL).getByRole('button', { name: 'Download the model' }).click();
       await macPage.locator(PANEL).getByLabel('Question').fill('Find a Markdown editor.');
-      await macPage.locator(PANEL).getByRole('button', { name: 'Ask', exact: true }).click();
+      await macPage.locator(PANEL).getByRole('button', { name: 'Send', exact: true }).click();
       await macPage.locator(PANEL).locator('ol[aria-label="Items in the answer"] li').first().waitFor();
       assert.match(await macPage.locator(PANEL).locator('p.generated').textContent(), /withheld/);
       await macAssisted.close();

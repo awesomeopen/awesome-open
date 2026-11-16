@@ -19,7 +19,7 @@ const fs = require('node:fs');
   return typeof result==='string'?JSON.parse(result):result;
  },{name,args,stringInput:major<155});}
  try {
-  await page.goto(base);report.sourceSha=await page.locator('#specimen-cabinet').getAttribute('data-source-sha');await page.waitForFunction(()=>document.querySelector('#cabinet-support').textContent.includes('four tools'));
+  await page.goto(base);report.sourceSha=await page.locator('#specimen-cabinet').getAttribute('data-source-sha');await page.waitForFunction(()=>document.querySelector('#cabinet-support').textContent.includes('Native WebMCP: 7 tools'));
   await page.waitForFunction(async()=>(await document.modelContext.getTools()).length===7);
   assert.deepEqual(await page.evaluate(async()=> (await document.modelContext.getTools()).map(t=>t.name).sort()),['cabinet_arrange','cabinet_compare','cabinet_find','cabinet_inspect','list_find','list_get','list_sections']);
   const found=await call('cabinet_find',{query:'scad'});assert.equal(found.ok,true);assert.ok(found.projects.length>=2);
@@ -27,7 +27,7 @@ const fs = require('node:fs');
   assert.equal(found.cabinet_url,undefined,'no link without a selection');
   const arranged=await call('cabinet_arrange',{ids,revision:found.revision});assert.match(arranged.cabinet_url,/[?&]cabinet=[0-9a-f]{64}%2C[0-9a-f]{64}#specimen-cabinet$/);
   assert.equal(await page.locator('#cabinet-selection li').count(),2);
-  await page.getByRole('button',{name:'Move '+found.projects[1].name+' earlier',exact:true}).focus();await page.keyboard.press('Enter');
+  await call('cabinet_arrange',{ids:ids.slice().reverse(),revision:arranged.revision});
   const shared=await call('cabinet_find',{query:'scad'});assert.deepEqual(shared.ids,ids.slice().reverse());
   // Rejections reach the caller as data, carrying the recovery instruction.
   async function rejected(name,args,code,message,target=page){
@@ -81,7 +81,7 @@ const fs = require('node:fs');
   const offline=await context.newPage();
   await offline.route('**/search-text.json*',route=>route.abort());
   await offline.goto(base);
-  await offline.waitForFunction(()=>document.querySelector('#cabinet-support').textContent.includes('four tools'));
+  await offline.waitForFunction(()=>document.querySelector('#cabinet-support').textContent.includes('Native WebMCP: 7 tools'));
   await rejected('cabinet_find',{query:'video'},'search_unavailable',/could not load\. Retry/,offline);
   assert.equal((await call('cabinet_find',{query:''},offline)).ok,true);
   await offline.locator('#search').fill('video');await offline.locator('#search').press('Enter');
@@ -105,16 +105,23 @@ const fs = require('node:fs');
   await page.locator('#specimen-cabinet').screenshot({path:output+'/cabinet-mobile.png'});
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
   const region=page.locator('#cabinet-comparison');assert.ok(await region.evaluate(el=>el.scrollWidth>el.clientWidth));
-  await page.getByRole('button',{name:'Remove '+comparison.projects[0].name,exact:true}).click();
+  // × in the table takes a project out and keeps its column until ↻ compares again; the cabinet stays open.
+  const first=comparison.projects[0].name,isOpen=()=>page.locator('#specimen-cabinet').evaluate(d=>d.open);
+  await page.getByRole('button',{name:'Remove '+first+' from the comparison',exact:true}).click();
+  assert.equal(await isOpen(),true,'the cabinet stays open');
+  assert.equal(await page.locator('#cabinet-selection li').count(),1);
+  assert.equal(await page.locator('#cabinet-comparison thead th').count(),2);
+  await page.getByRole('button',{name:'Compare again without '+first,exact:true}).click();
+  await page.waitForFunction(()=>document.querySelectorAll('#cabinet-comparison thead th').length===1);
+  await page.goBack();assert.equal(await page.locator('#cabinet-selection li').count(),2);
+  await page.getByRole('button',{name:'Remove '+first,exact:true}).click();
+  assert.equal(await isOpen(),true,'the cabinet stays open');
   assert.equal(await page.locator('#cabinet-selection li').count(),1);
   await page.goBack();assert.equal(await page.locator('#cabinet-selection li').count(),2);
-  // Hold the evidence request: user cancellation must retain the full selection.
-  let release, started;const waiting=new Promise(resolve=>started=resolve);
-  await other.route('**/catalog.json',async route=>{started();await new Promise(resolve=>release=resolve);await route.abort();});
-  await other.locator('#cabinet-compare').click();await waiting;
-  assert.match(await other.locator('#cabinet-status').textContent(),/Running: compare/);
-  await other.locator('#cabinet-cancel').click();release();
-  await other.waitForFunction(()=>document.querySelector('#cabinet-status').textContent.includes('Cancelled'));
+  // A failed evidence request keeps the full selection.
+  await other.route('**/catalog.json',route=>route.abort());
+  await other.locator('#cabinet-compare').click();
+  await other.waitForFunction(()=>document.querySelector('#cabinet-status').textContent.includes('could not be loaded'));
   assert.deepEqual((await call('cabinet_find',{query:''},other)).ids,shared.ids);
   await other.unroute('**/catalog.json');
   await call('cabinet_compare',{},other);
@@ -136,6 +143,10 @@ const fs = require('node:fs');
   assert.equal(await page.locator('#cabinet-activity li').count(),20);
   await other.goto(base+'?cabinet=unknown#specimen-cabinet');assert.equal(await other.locator('#cabinet-selection li').count(),0);
   assert.match(await other.locator('#cabinet-status').textContent(),/Invalid cabinet URL/);
+  // Clear empties the selection, keeps the page and disables itself.
+  const cleared=await context.newPage();await cleared.goto(link);assert.equal(await cleared.locator('#cabinet-selection li').count(),2);
+  await cleared.locator('#cabinet-clear').click();assert.equal(await cleared.locator('#cabinet-selection li').count(),0);
+  assert.equal(await cleared.locator('#cabinet-clear').isDisabled(),true);assert.doesNotMatch(cleared.url(),/cabinet=/);await cleared.close();
   assert.deepEqual(errors,[]);report.status='passed';report.selectionURL=link;
  } finally {fs.writeFileSync(output+'/cabinet.json',JSON.stringify(report,null,2)+'\n');await browser.close();}
  console.log(JSON.stringify(report));

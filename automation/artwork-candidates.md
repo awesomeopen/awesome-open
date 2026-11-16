@@ -1,6 +1,9 @@
 # Preserve originals once, verify final files by batch
 
-Proposed; use only after owner review and merge of this policy/code PR.
+Merged in [PR #332](https://github.com/awesomeopen/awesome-open/pull/332) on
+2026-11-15 at `18a6328515751ebee15914ea8404f41b2ca921e9`.
+The separate [private Git archive proposal](artwork-git-archive.md) still requires
+owner review, merge and destination verification before use.
 
 Save each irreplaceable original, exact prompt, source captures and generation
 provenance in one durable generation archive. Keep its verified restore receipt
@@ -93,7 +96,8 @@ python3 scripts/artwork_candidate.py candidate --selection tmp/art/selection.jso
 
 Outputs are immutable: a retry uses a new report path or compares an existing
 report. Both commands are network-free and make no generation calls. Plan,
-receipts, private source captures and recovery references stay outside Git.
+receipts, private source captures and recovery references stay outside the public
+catalog Git repository. The proposed private archive has its own review gate.
 
 ## Transfer cost
 

@@ -570,13 +570,17 @@ Body-led wall clipping is proposed in [B-PR143-01](../brand/decisions/B-PR143-01
 ## Experimental cabinet
 
 The [specimen cabinet](WEBMCP-CABINET.md) uses the existing Catalog frame, a mist
-disclosure heading with its purpose and count, three numbered steps (Find, Arrange,
-Compare) with scarlet step numbers, white ordered selection rows and a mist-headed
-evidence table ([B-PR304-01](../brand/decisions/B-PR304-01.md)). On narrow screens the
-row controls wrap and the labeled table region scrolls horizontally. Agent status and
-activity sit in the method disclosure; activity records actual operations and outcomes.
+disclosure heading with its purpose and count, then a search field, its results, the
+selected projects as outlined names with ×, a Compare button and a mist-headed evidence
+table ([B-PR304-01](../brand/decisions/B-PR304-01.md), [B-PR335-01](../brand/decisions/B-PR335-01.md)).
+In the table each project name carries ×, which takes it out of the selection; its
+column then shows ↻, which compares again without it. On narrow screens the labeled
+table region scrolls horizontally. Agent status and activity sit in the method
+disclosure; activity records actual operations and outcomes.
 
-The [WebMCPlet](../webmcplet/README.md) corner button, "Search this list", opens a modal
-search over the same catalog. On the Catalog it takes the white/Prussian tokens through
-its custom properties: Prussian button and rules, Półtawski headings, Commit Mono text and
-a scarlet focus ring. It never opens or moves by itself.
+The [WebMCPlet](../webmcplet/README.md) corner button, "Search" over a smaller
+"WebMCPlet", opens a modal search over the same catalog. On the Catalog it takes the
+cabinet button's layout in Prussian, with the search loupe in its square, and the
+white/Prussian tokens through its custom properties: Półtawski headings, Commit Mono text
+and a scarlet focus ring. Its footer says the search is a WebMCPlet showcase and offers
+hiding the button. It never opens or moves by itself.

@@ -173,7 +173,7 @@ const path = require('node:path');
     assert.ok(layout.list === 208 && layout.pane > layout.list, 'Rail, list and pane sit side by side');
     assert.equal(layout.scroll, true, 'The page fits the viewport; columns scroll inside');
     assert.equal(layout.bars, 0, 'No top or bottom bar');
-    assert.equal(await page.locator('#search').getAttribute('placeholder'), `Search ${data.projects.length} projects`);
+    assert.equal(await page.locator('#search').getAttribute('placeholder'), null, 'The search field is empty until the reader types');
     assert.equal(await page.locator('#list-brand').textContent(), 'Awesome Open*');
     assert.equal(await page.locator('.rail-mark img').getAttribute('src'), 'brand/botanical-128.png');
     assert.ok(await page.locator('#rows .row .row-desc').first().evaluate(n => n.getBoundingClientRect().height <= parseFloat(getComputedStyle(n).lineHeight) + 1),
@@ -335,8 +335,23 @@ const path = require('node:path');
       assert.equal(new URL(page.url()).hash, '#' + sheet);
       await capture(`sheet-${sheet}-desktop.png`);
     }
+    // On desktop the rail's About link closes the sheet; the head's × is for phones.
+    assert.equal(await page.locator('#about-close').isVisible(), false);
     await page.keyboard.press('Escape');
     assert.equal(await page.locator('#pane-rest').isVisible(), true);
+    // A plate's Trophies line opens the Scoreboard in the pane.
+    const awarded = await page.evaluate(async () => ((await (await fetch('catalog.json')).json()).projects
+      .find(p => (p.scoreboard_trophies || []).length) || {}).id);
+    if (awarded) {
+      await page.goto(new URL('#project-' + awarded, url).href);
+      await waitForPlate();
+      await page.locator('#pane-scroll .plate-trophies').click();
+      await page.frameLocator('#pane-frame').locator('.obs-hero h1').waitFor({ state: 'visible' });
+      assert.equal(new URL(page.url()).hash, '#scoreboard');
+      assert.equal(await page.locator('#pane-about').isVisible(), true);
+      await page.keyboard.press('Escape');
+    }
+    report.trophiesInPane = Boolean(awarded);
 
     // Keyboard entry points.
     await page.goto(url);
@@ -358,6 +373,14 @@ const path = require('node:path');
       await page.goto(url);
       await waitForState();
       await assertLedgerFits(page, `${width}px`);
+      if (width === 390) {
+        // About covers a phone's screen; its × returns to the list.
+        await page.locator('#rail-about').click();
+        assert.equal(await page.locator('#about-close').isVisible(), true);
+        await page.locator('#about-close').click();
+        assert.equal(await page.locator('#pane-about').isVisible(), false);
+        assert.equal(new URL(page.url()).hash, '');
+      }
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.evaluate(() => document.documentElement.style.fontSize = '200%');

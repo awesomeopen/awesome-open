@@ -261,7 +261,8 @@ Snapshot-to-snapshot facts; no collector exists yet.
 
 - Unknown bars in Observatory charts keep their hatch pattern
   (`site/observatory.css:141` `.obs-bar-unknown`); it is a fill, not a glyph.
-- The departure “↗” and the reset “↺” are typographic characters today. Swapping
+- The departure “↗”, the reset “↺”, the close and remove “×” and the cabinet's
+  compare-again “↻” are typographic characters today. Swapping
   them for `link.external` / `control.reset` is an implementation choice to
   review, not part of this map.
 

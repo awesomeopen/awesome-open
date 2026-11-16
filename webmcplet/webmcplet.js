@@ -8,7 +8,7 @@
 })(typeof globalThis === "object" ? globalThis : this, function () {
   "use strict";
 
-  var RELEASE = "0.1.0"; // This script's version; CHANGELOG.md records each with its SHA-256.
+  var RELEASE = "0.2.1"; // This script's version; CHANGELOG.md records each with its SHA-256.
   var VERSION = 1; // The list document schema.
   var PAGE = 12;
   var MAX_QUERY = 160;
@@ -497,7 +497,7 @@
   // rows come from tool results; the model's text is returned separately, and is
   // withheld when it names an item the tools did not return.
   async function ask(options) {
-    var session = options.session, available = options.tools, refs = Refs(), rows = new Map();
+    var session = options.session, available = options.tools, refs = Refs(), rows = new Map(), views = new Map();
     var constraint = actionSchema(available), maxTurns = options.maxTurns || MAX_TURNS, turnMs = options.turnMs || TURN_MS;
     var trace = [], input = options.request, retried = false;
     function report(entry) { trace.push(entry); if (options.onStep) options.onStep(entry); }
@@ -521,17 +521,23 @@
         var ids = (action.ids || []).map(refs.id);
         var shown = ids.filter(function (id) { return rows.has(id); }).map(function (id) { return rows.get(id); });
         var returnedNames = new Set(Array.from(rows.values()).map(function (r) { return r.name; }));
-        var unreturned = namesIn(action.text || "", options.names || []).filter(function (n) { return !returnedNames.has(n); });
+        // The model sees refs such as r1; the visitor reads the items' names.
+        var text = (action.text || "").replace(/\br\d+\b/g, function (r) { var row = rows.get(refs.id(r)); return row ? row.name : r; });
+        var unreturned = namesIn(text, options.names || []).filter(function (n) { return !returnedNames.has(n); });
         report({ answer: true, ids: ids });
-        return { status: "answered", rows: shown, removed: ids.length - shown.length,
-          text: unreturned.length ? null : action.text, withheld: unreturned, trace: trace };
+        return { status: "answered", rows: shown, removed: ids.length - shown.length, views: Array.from(views.values()),
+          text: unreturned.length ? null : text, withheld: unreturned, trace: trace };
       }
       var tool = available.find(function (t) { return t.name === action.tool; });
       if (action.action !== "call" || !tool) { report({ invalid: "unsupported_action" }); input = "Unsupported action. Call one of the listed tools or answer."; continue; }
       var args = refs.reveal(action.args || {});
       var result = await tool.execute(args, options.signal ? { signal: options.signal } : {});
       if (typeof result === "string") result = JSON.parse(result);
-      if (result && result.ok) collectRows(result, rows);
+      if (result && result.ok) {
+        collectRows(result, rows);
+        // A page tool can name a view of its result, such as the page's own comparison.
+        if (isObject(result.view) && isText(result.view.label) && isText(result.view.href)) views.set(result.view.href, result.view);
+      }
       report({ tool: tool.name, args: args, ok: Boolean(result && result.ok), code: result && result.code, prompt: input });
       input = "Result of " + tool.name + ": " + JSON.stringify(refs.hide(result));
     }
@@ -547,7 +553,7 @@
     "*{box-sizing:border-box}",
     ".trigger{display:block;font:14px/1.2 var(--wm-font);min-height:44px;padding:12px 16px;",
     "border:1px solid var(--wm-accent);border-radius:var(--wm-radius);background:var(--wm-accent);color:var(--wm-bg);cursor:pointer}",
-    ".banner .trigger{width:100%;text-align:left}",
+    ".banner .trigger{width:100%;text-align:left}.trigger span{display:block}.trigger .caption{margin-top:2px;font-size:11px;opacity:.85}",
     "button,input,select,textarea{font:inherit;color:inherit}",
     ":focus-visible{outline:3px solid var(--wm-focus);outline-offset:2px}",
     "dialog{width:min(880px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:0;border:1px solid var(--wm-accent);",
@@ -561,10 +567,11 @@
     "input,textarea{flex:1;min-width:0;width:100%}select{width:100%}textarea{resize:vertical}",
     ".frame button{min-height:44px;padding:8px 16px;border:1px solid var(--wm-accent);border-radius:var(--wm-radius);background:var(--wm-bg);color:var(--wm-accent);cursor:pointer}",
     ".frame button.primary{background:var(--wm-accent);color:var(--wm-bg)}.frame button:disabled{opacity:.45;cursor:default}",
-    "ol{list-style:none;margin:8px 0;padding:0}li{padding:12px 0;border-bottom:1px solid var(--wm-rule)}",
+    ".views a{color:var(--wm-accent)}ol{list-style:none;margin:8px 0;padding:0}li{padding:12px 0;border-bottom:1px solid var(--wm-rule)}",
     "li a{color:var(--wm-accent);font:400 18px/1.3 var(--wm-heading)}li p{margin:4px 0 0}.meta,.note,.state{color:var(--wm-muted);font-size:13px}",
-    ".status{min-height:1.6em}footer{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:32px;",
-    "padding-top:16px;border-top:1px solid var(--wm-rule);font-size:13px}footer a{color:var(--wm-muted)}",
+    ".status{min-height:1.6em}footer{margin-top:32px;padding-top:12px;border-top:1px solid var(--wm-rule);font-size:12px;line-height:1.5;color:var(--wm-muted)}",
+    "footer p{margin:0}footer a,footer .link{color:inherit;text-decoration:underline}code{font-size:11px}",
+    ".frame footer .link{display:inline;min-height:0;padding:0;border:0;background:none;font:inherit;cursor:pointer}",
     "progress{width:100%}[hidden]{display:none!important}",
     "@media(max-width:560px){.frame{padding:16px}h2{font-size:24px}dialog{width:calc(100vw - 16px);max-height:calc(100vh - 16px)}}"
   ].join("");
@@ -602,7 +609,11 @@
     var root = host.attachShadow({ mode: "open" });
     element(doc, "style", {}, root, STYLE);
     var wrap = element(doc, "div", { class: options.mode === "banner" ? "banner" : "corner" }, root);
-    var trigger = element(doc, "button", { class: "trigger", type: "button", "aria-haspopup": "dialog" }, wrap, options.label || "Search this list");
+    // The page can restyle the button through ::part(trigger), ::part(label) and ::part(caption).
+    var label = options.label || "Search", caption = options.caption === undefined ? "WebMCPlet" : options.caption;
+    var trigger = element(doc, "button", { class: "trigger", part: "trigger", type: "button", "aria-haspopup": "dialog" }, wrap);
+    element(doc, "span", { class: "label", part: "label" }, trigger, label);
+    if (caption) { trigger.append(" "); element(doc, "span", { class: "caption", part: "caption" }, trigger, caption); }
     var dialog = element(doc, "dialog", { "aria-labelledby": "wm-title" }, wrap);
     var frame = element(doc, "div", { class: "frame" }, dialog);
     var head = element(doc, "header", {}, frame);
@@ -621,25 +632,28 @@
     var more = element(doc, "button", { type: "button", hidden: "" }, frame, "Show 12 more");
     var assistant = element(doc, "section", { "aria-labelledby": "wm-ask-title", hidden: "" }, frame);
     element(doc, "h3", { id: "wm-ask-title" }, assistant, "Ask Chrome’s on-device model");
-    element(doc, "p", { class: "note" }, assistant, "The model runs in this browser and uses the same tools. Rows come from the list; the text below them is generated.");
     var modelState = element(doc, "p", { class: "state", role: "status", "aria-live": "polite" }, assistant);
     var download = element(doc, "button", { type: "button", hidden: "" }, assistant, "Download the model");
     var progress = element(doc, "progress", { max: "1", value: "0", hidden: "", "aria-label": "Model download" }, assistant);
     var askForm = element(doc, "form", { hidden: "" }, assistant);
-    element(doc, "label", { for: "wm-question" }, askForm, "Question");
-    var question = element(doc, "textarea", { id: "wm-question", rows: "3", maxlength: String(MAX_REQUEST) }, askForm);
+    var question = element(doc, "textarea", { id: "wm-question", rows: "3", maxlength: String(MAX_REQUEST), "aria-label": "Question" }, askForm);
     var askRow = element(doc, "div", { class: "row" }, askForm);
-    var askButton = element(doc, "button", { type: "submit", class: "primary" }, askRow, "Ask");
+    var askButton = element(doc, "button", { type: "submit", class: "primary" }, askRow, "Send");
     var stop = element(doc, "button", { type: "button", disabled: "" }, askRow, "Stop");
     var answer = element(doc, "div", { hidden: "" }, assistant);
-    element(doc, "h4", {}, answer, "From the list");
+    element(doc, "h4", {}, answer, "List result:");
     var answerRows = element(doc, "ol", { "aria-label": "Items in the answer" }, answer);
-    element(doc, "h4", {}, answer, "Generated text");
+    element(doc, "h4", {}, answer, "AI response:");
     var generated = element(doc, "p", { class: "generated" }, answer);
-    var foot = element(doc, "footer", {}, frame);
-    var hide = element(doc, "button", { type: "button" }, foot, "Hide this button");
-    element(doc, "span", { class: "note" }, foot, "Hidden in this browser until its site data is cleared.");
-    element(doc, "a", { href: "https://github.com/awesomeopen/awesome-open/tree/main/webmcplet" }, foot, "WebMCPlet");
+    var views = element(doc, "p", { class: "views", hidden: "" }, answer);
+    var note = element(doc, "p", {}, element(doc, "footer", {}, frame));
+    note.append("This " + label + " feature is a ");
+    element(doc, "a", { href: "https://github.com/awesomeopen/awesome-open/tree/main/webmcplet" }, note, "WebMCPlet");
+    note.append(" showcase. WebMCPlet gives a list\u2019s page read-only WebMCP tools, so a browser agent can search the list and read its entries as you can here, with no server. Optional: ");
+    var hide = element(doc, "button", { type: "button", class: "link" }, note, "Hide the " + label + " button");
+    note.append(" on this page (remains hidden until this browser\u2019s site data is cleared). List admins: to hide the button by default, use ");
+    element(doc, "code", {}, note, 'data-webmcplet-panel="off"');
+    note.append(". This does not affect tool use by agents.");
 
     var find = coreTools.find(function (t) { return /_find$/.test(t.name); });
     var listDoc = null, current = { query: "", section: "", offset: 0 }, running = null;
@@ -699,8 +713,7 @@
       progress.hidden = state !== "downloading";
       modelState.textContent = {
         downloadable: "Chrome can download its on-device model to answer here. The download is several gigabytes and happens once per browser.",
-        downloading: "Chrome is downloading its on-device model.",
-        available: "The model is ready."
+        downloading: "Chrome is downloading its on-device model."
       }[state] || "";
     }
     download.addEventListener("click", async function () {
@@ -770,7 +783,19 @@
       outcome.rows.forEach(function (r) { renderRow(answerRows, r); });
       if (!outcome.rows.length) element(doc, "li", {}, answerRows, "No items.");
       generated.textContent = outcome.text !== null ? outcome.text
-        : "The generated text named items the tools did not return, so it is withheld.";
+        : "The AI response named items the tools did not return, so it is withheld.";
+      views.replaceChildren(); views.hidden = !(outcome.views || []).length;
+      (outcome.views || []).forEach(function (view) {
+        var a = element(doc, "a", { href: view.href }, views, view.label);
+        // The page may handle the view itself, after this dialog has closed.
+        a.addEventListener("click", function (event) {
+          event.preventDefault(); dialog.close();
+          win.setTimeout(function () {
+            var shown = new win.CustomEvent("webmcplet:view", { detail: { href: view.href }, cancelable: true });
+            if (win.dispatchEvent(shown)) win.location.assign(view.href);
+          }, 0);
+        });
+      });
       modelState.textContent = outcome.removed ? "The model listed " + outcome.removed + " item(s) the tools did not return; they are omitted." : "Answered.";
     }
     stop.addEventListener("click", function () { if (running) running.abort(); });
@@ -820,7 +845,8 @@
   }
 
   // <script src="webmcplet.js" data-webmcplet-src="list.json" data-webmcplet-title="Awesome X"
-  //   data-webmcplet-prefix="list" data-webmcplet-panel="button|banner|off" data-webmcplet-assistant="on">
+  //   data-webmcplet-prefix="list" data-webmcplet-panel="button|banner|off" data-webmcplet-assistant="on"
+  //   data-webmcplet-label="Search" data-webmcplet-caption="WebMCPlet">
   // With a title, the document loads at the first tool call or panel use.
   function autostart(win) {
     var script = win.document && win.document.currentScript;
@@ -834,7 +860,7 @@
       var mode = data.webmcpletPanel || "button";
       if (mode !== "off") {
         var start = function () {
-          result.panel = mount(win, { title: options.title, tools: result.tools, mode: mode, label: data.webmcpletLabel,
+          result.panel = mount(win, { title: options.title, tools: result.tools, mode: mode, label: data.webmcpletLabel, caption: data.webmcpletCaption,
             assistant: data.webmcpletAssistant === "on",
             assistantTools: data.webmcpletAssistantTools ? data.webmcpletAssistantTools.split(/[\s,]+/).filter(Boolean) : null });
         };
