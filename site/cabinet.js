@@ -87,34 +87,25 @@
       if (model.state().ids.length) url.searchParams.set('cabinet', model.state().ids.join(','));
       return url.href;
     }
-    function setIds(ids, revision) {
-      const state = model.arrange({ ids, revision }); comparison = [];
+    // A removal from the comparison keeps its table until the person compares again.
+    function setIds(ids, revision, keep = false) {
+      const state = model.arrange({ ids, revision }); if (!keep) comparison = [];
       history(); render(); return state;
     }
-    function human(ids) {
-      try { setIds(ids, model.state().revision); message('Selection updated.'); }
+    function human(ids, keep) {
+      try { setIds(ids, model.state().revision, keep); message(''); }
       catch (error) { message(error.message); }
     }
     function render() {
       const state = model.state(), list = $('cabinet-selection'); list.replaceChildren();
       $('cabinet-count').textContent = state.ids.length + ' of 6';
-      $('cabinet-empty').hidden = state.ids.length > 0;
       $('cabinet-compare').disabled = !state.ids.length;
-      state.ids.forEach((id, i) => {
+      state.ids.forEach(id => {
         const p = model.inspect({ id }), row = node('li', undefined, list);
-        node('span', String(i + 1).padStart(2, '0'), row).className = 'cabinet-position';
         const name = node('a', p.name, row); name.href = 'records/' + id + '.html';
-        const actions = node('div', undefined, row); actions.className = 'cabinet-actions';
-        const move = delta => {
-          const next = state.ids.slice(); [next[i], next[i + delta]] = [next[i + delta], next[i]];
-          human(next);
-          const target = list.querySelectorAll('li')[i + delta];
-          if (target) target.querySelector('a').focus();
-        };
-        button('Earlier', () => move(-1), actions, i === 0).setAttribute('aria-label', 'Move ' + p.name + ' earlier');
-        button('Later', () => move(1), actions, i === state.ids.length - 1).setAttribute('aria-label', 'Move ' + p.name + ' later');
-        button('Remove', () => { human(state.ids.filter(x => x !== id));
-          (list.querySelector('a') || $('cabinet-query')).focus(); }, actions).setAttribute('aria-label', 'Remove ' + p.name);
+        const remove = button('\u00d7', () => { human(state.ids.filter(x => x !== id));
+          (list.querySelector('button') || $('cabinet-query')).focus(); }, row);
+        remove.className = 'cabinet-x'; remove.setAttribute('aria-label', 'Remove ' + p.name); remove.title = 'Remove';
       });
       $('cabinet-share').value = shareURL();
       const results = $('cabinet-results'); results.replaceChildren();
@@ -136,8 +127,20 @@
       const table = node('table', undefined, region);
       node('caption', 'Evidence comparison · current published snapshot', table);
       const header = node('tr', undefined, node('thead', undefined, table));
-      node('th', 'Observation', header).scope = 'col';
-      comparison.forEach(p => { const th = node('th', undefined, header); th.scope = 'col'; link(th, p.name, p.record); });
+      node('td', undefined, header);
+      // × takes a project out of the selection; its column stays, and ↻ compares again without it.
+      const ids = model.state().ids;
+      comparison.forEach((p, i) => {
+        const th = node('th', undefined, header), out = !ids.includes(p.id); th.scope = 'col';
+        th.classList.toggle('is-out', out); link(th, p.name, p.record);
+        const control = out
+          ? button('\u21bb', () => run('cabinet_compare', {}), th)
+          : button('\u00d7', () => { human(model.state().ids.filter(x => x !== p.id), true);
+            $('cabinet-comparison').querySelectorAll('thead th')[i]?.querySelector('button')?.focus(); }, th);
+        control.className = 'cabinet-x';
+        control.setAttribute('aria-label', out ? 'Compare again without ' + p.name : 'Remove ' + p.name + ' from the comparison');
+        control.title = out ? 'Compare again without this project' : 'Remove from the comparison';
+      });
       const body = node('tbody', undefined, table);
       const rows = [
         ['Function', p => p.description], ['GitHub stars', p => p.github.stars ?? 'Unknown'],
@@ -202,7 +205,6 @@
       if (options.signal?.aborted) abort();
       const number = ++calls, revision = model.state().revision;
       log.unshift(number + ' · ' + actor + ' · ' + name + ' · running'); log.splice(20); logRender();
-      $('cabinet-cancel').disabled = false;
       message('Running: ' + name.replace('cabinet_', '') + '.');
       panel.open = true;
       const check = () => { if (controller.signal.aborted) throw new DOMException('Cancelled', 'AbortError'); };
@@ -236,7 +238,7 @@
         // The page's own assistant runs where the visitor already sees it.
         if (actor !== 'Assistant' && name !== 'cabinet_inspect' && model.state().ids.length) result = { ...result, cabinet_url: shareURL() };
         log[0] = number + ' · ' + actor + ' · ' + name + ' · completed';
-        message(result.message || (name === 'cabinet_find' ? 'Found ' + result.total + ' projects; showing ' + result.projects.length + '.' : 'Completed: ' + name.replace('cabinet_', '') + '.'));
+        message(result.message || (name === 'cabinet_find' ? 'Found ' + result.total + ' projects; showing ' + result.projects.length + '.' : ''));
         return result;
       } catch (error) {
         const cancelled = controller.signal.aborted;
@@ -245,7 +247,7 @@
         throw error;
       } finally {
         options.signal?.removeEventListener('abort', abort); active = null;
-        $('cabinet-cancel').disabled = true; logRender();
+        logRender();
       }
     }
     function run(name, args) { execute(name, args, {}, 'Human').catch(() => {}); }
@@ -259,10 +261,13 @@
     }
     $('cabinet-find').addEventListener('submit', event => { event.preventDefault(); run('cabinet_find', { query: $('cabinet-query').value }); });
     $('cabinet-compare').addEventListener('click', () => run('cabinet_compare', {}));
-    $('cabinet-cancel').addEventListener('click', () => active?.abort());
+    let copied;
     $('cabinet-copy').addEventListener('click', async () => {
-      try { await win.navigator.clipboard.writeText(shareURL()); message('Cabinet URL copied.'); }
-      catch (_) { $('cabinet-share').select(); message('Copy the selected cabinet URL.'); }
+      const copy = $('cabinet-copy');
+      try { await win.navigator.clipboard.writeText(shareURL()); copy.textContent = 'Copied'; copy.classList.add('is-done'); }
+      catch (_) { $('cabinet-share').select(); copy.textContent = 'Select and copy'; }
+      win.clearTimeout(copied);
+      copied = win.setTimeout(() => { copy.textContent = 'Copy URL'; copy.classList.remove('is-done'); }, 2000);
     });
     function restore() {
       active?.abort();
@@ -306,7 +311,11 @@
             execute: (args, options) => tool(name, args, options)
           }, { signal: registration.signal });
         }
-        $('cabinet-support').textContent = 'Experimental native WebMCP: four tools available to a compatible browser agent.';
+        // WebMCPlet registers the list's own tools beside these; its script runs after this one.
+        if (doc.readyState === 'loading') await new Promise(resolve => doc.addEventListener('DOMContentLoaded', resolve, { once: true }));
+        const list = win.WebMCPlet && win.WebMCPlet.ready ? await win.WebMCPlet.ready : null;
+        const total = definitions.length + (list && list.registered ? list.registered.length : 0);
+        $('cabinet-support').textContent = 'Native WebMCP: ' + total + ' tools available to your agent or in-page assistant.';
       } catch (_) {
         registration.abort();
         $('cabinet-support').textContent = 'Native tool registration failed. Human cabinet controls remain available.';

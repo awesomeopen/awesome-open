@@ -66,7 +66,8 @@ stay as they are. When a visitor hides the button, that browser stores one
 | --- | --- |
 | `data-webmcplet-prefix` | Renames the tools from `list_*` |
 | `data-webmcplet-panel` | `button` (default) is a corner button; `banner` is a full-width bar at the top of the page; `off` removes the panel and keeps the tools |
-| `data-webmcplet-label` | The button's text, default "Search this list" |
+| `data-webmcplet-label` | The button's text, default "Search" |
+| `data-webmcplet-caption` | The smaller second line under the label, default "WebMCPlet"; an empty value removes it |
 | `data-webmcplet-assistant` | `on` adds the [assistant](#assistant) to the panel |
 | `data-webmcplet-assistant-tools` | Tool names the assistant uses, such as the page's own tools (below) |
 

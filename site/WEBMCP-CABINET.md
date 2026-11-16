@@ -1,7 +1,7 @@
 # Experimental specimen cabinet
 
-Catalog visitors can collect up to six canonical projects, reorder them and
-compare cached evidence in one visible cabinet. Native WebMCP tools and human
+Catalog visitors can collect up to six canonical projects and compare cached
+evidence in one visible cabinet; agents also set their order. Native WebMCP tools and human
 controls share the ordered selection, comparison and activity display.
 
 ## Tools and state
@@ -42,8 +42,10 @@ with that message and not with "Select at least one project first.", which the p
 own Compare button still shows.
 
 The page also hands the four tools to [WebMCPlet](../webmcplet/README.md) through
-`window.webmcpletTools`, so its opt-in assistant can operate the same selection; its
-calls appear as "Assistant" in the activity log. The page registers WebMCPlet's
+`window.webmcpletTools`, so its assistant can operate the same selection; its
+calls appear as "Assistant" in the activity log. The Catalog turns the assistant on as an
+experiment ([B-PR335-02](../brand/decisions/B-PR335-02.md)); it appears where Chrome offers
+its on-device model. The page registers WebMCPlet's
 `list_sections`, `list_find` and `list_get` beside these tools, from the same catalog.
 
 The page retains the latest 20 operation names, actors and outcomes in memory.
@@ -95,10 +97,14 @@ Unsupported browsers show an experimental support notice and retain human contro
 
 The cabinet is a folded Catalog instrument ([B-PR304-01](../brand/decisions/B-PR304-01.md)).
 Its mist heading names it and states its purpose, "Compare up to six projects side by
-side", with the selection count. Opened, it reads as three numbered steps: Find,
-Arrange and Compare, followed by the cabinet URL. Native WebMCP status, the activity log
-and the method sit in "Agents, activity & method". Selection rows are ruled; the evidence
-table scrolls horizontally in a labeled region. Compare is disabled with no selection.
+side", with the selection count. Opened, it shows the search field and its results, the
+selected projects with × to remove each, Compare and the cabinet URL
+([B-PR335-01](../brand/decisions/B-PR335-01.md)). In the evidence table each project
+name carries ×; a removed project keeps its column, marked ↻, until Compare runs again.
+"Agents, activity & method" gives the number of native WebMCP tools registered on the
+page, the activity log and the method. The evidence table scrolls horizontally in a
+labeled region. Compare is disabled with no selection. Copy URL reads "Copied" for two
+seconds after it copies.
 Controls are keyboard and touch accessible; empty, loading, cancelled and error states
 use literal text. Existing artwork is unchanged.
 

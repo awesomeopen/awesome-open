@@ -30,7 +30,8 @@ const JOURNEYS = [
 
 async function open(context, journey) {
   const page = await context.newPage();
-  // The assistant is opt-in; enable it, with the Cabinet's tools on Awesome Open.
+  // The Catalog enables the assistant with the Cabinet's tools; the same attributes keep
+  // older builds comparable (the first of duplicate attributes wins, with equal values).
   if (journey.page === 'ao') {
     await page.route(AO, async route => {
       const response = await route.fetch();
