@@ -526,7 +526,7 @@ def record_from_observation(project, observation, previous):
     return record
 
 
-def merge_evidence(previous_records, observations, checked_at, catalog_by_id,
+def merge_evidence(previous_records, observations, catalog_by_id,
                    catalog_source_sha):
     """Apply changed-only records and pruning. Returns (records, changed, pruned).
 
@@ -819,7 +819,7 @@ def main(argv=None):
     previous_catalog_sha = (last_sweep.get("catalog_source_sha")
                             if isinstance(last_sweep, dict) else None)
     records, changed_ids, pruned_ids = merge_evidence(
-        previous_records, observations, report["date"],
+        previous_records, observations,
         {p["id"]: p for p in catalog["projects"]}, previous_catalog_sha)
     evidence = {
         "schema_version": SCHEMA_VERSION,

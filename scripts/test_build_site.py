@@ -317,7 +317,7 @@ class SiteTests(unittest.TestCase):
                 self.assertIsNone(item['github'])
             else:
                 self.assertEqual(item['github'], {key: full['github'].get(key)
-                                                  for key in ('license', 'stars', 'pushed_at', 'status', 'last_success_at')})
+                                                  for key in ('license', 'stars', 'pushed_at', 'status')})
             if full.get('aliases'):
                 self.assertEqual(item['aliases'], [{'name': a['name']} for a in full['aliases']])
             self.assertEqual(item['alternatives'], [{'name': a['name']} for a in full['alternatives']])
