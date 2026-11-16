@@ -95,19 +95,26 @@ known no-output failures and quarantined holds for terminal project rejections
 with no returned artifact; preserve those receipts and exclude held projects
 from generation and publication until reconciled. This applies to discovery artwork and backfill.
 
-The proposed [batch candidate procedure](../automation/artwork-candidates.md)
-replaces finalization/publication archives after its owner-reviewed merge. Until
-then use the existing recoverable bundle below. Original preservation, truthful
-review and all publication gates continue to apply.
+The [batch candidate procedure](../automation/artwork-candidates.md), merged in
+[PR #332](https://github.com/awesomeopen/awesome-open/pull/332), replaces
+finalization/publication archives with independently retrieved Git candidates.
+Original preservation, truthful review and all publication gates continue to
+apply. The [private Git archive contract](../automation/artwork-git-archive.md)
+is a separate proposal awaiting owner review and merge; no archive destination
+or transfer is authorized by this draft.
 
 Before publication:
 - Inspect the generated pixels and verify identity, dimensions, alt text,
   technical validity, provenance, rights and safety. Record truthful AI review;
   stylistic reservations remain nonblocking.
 - Save original generation artifacts, prompts, source evidence, final images,
-  cut-outs, manifests and checksums in a verified recoverable bundle before
-  GitHub uploads. Individually verified image archives plus their durable index
-  form this bundle. Record durable recovery references outside the repository.
+  cut-outs, manifests and checksums through the merged batch candidate procedure:
+  independently restored generation archives and selection index before public
+  asset upload, then an independently fetched candidate and restored batch index
+  before publication. Keep raw originals, source captures and private recovery
+  records outside the public catalog repository; preserve the required reviewed
+  publication manifest. If any required manifest field cannot be published safely,
+  hold the candidate for review. Record private recovery locators in the handoff.
 - Run the required offline tests, README/catalog/site builds and applicable
   browser/preview checks. Verify the remote diff and exact head, all required
   CI to a successful terminal outcome, and preserved unrelated records.

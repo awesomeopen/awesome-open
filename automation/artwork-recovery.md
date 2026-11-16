@@ -13,10 +13,17 @@ files and do not replace accepted main artwork without specific authorization.
 
 ## Checkpoint procedure selection
 
-The [batch candidate procedure](artwork-candidates.md) is a proposed replacement
-for finalization/publication archives and plan-subset re-packaging. Use it only
-after its policy/code PR receives owner review and merges. Until then the
-procedure below remains required. Legacy archives and receipts remain readable.
+The [batch candidate procedure](artwork-candidates.md), merged in
+[PR #332](https://github.com/awesomeopen/awesome-open/pull/332) on 2026-11-15,
+replaces finalization/publication archives and plan-subset re-packaging. Its
+original-preservation and publication gates remain required. The corresponding
+legacy steps below remain available for reading and validating old bundles.
+Preserve all legacy archives and receipts.
+
+The [private Git archive contract](artwork-git-archive.md) is a new proposal.
+Use it only after owner review and merge, verified private destination access,
+and a successful independent storage probe. Existing rules remain operative
+until then; this draft grants no transfer or publication permission.
 
 ## Before generation
 
