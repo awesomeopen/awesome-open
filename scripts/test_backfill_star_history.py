@@ -305,7 +305,7 @@ class BackfillTests(unittest.TestCase):
         self.assertIn('default: false', workflow)
         self.assertNotIn('actions: write', workflow)
         self.assertIn('publish_readme.py --cached', workflow)
-        self.assertEqual(h.DEFAULT_REQUEST_BUDGET, 16)
+        self.assertEqual(h.DEFAULT_REQUEST_BUDGET, 400)
 
 
 class CheckpointGitTests(unittest.TestCase):

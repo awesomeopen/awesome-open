@@ -277,13 +277,15 @@ Expanded website cards can pair GitHub stars with existing HN charts. The README
 
 The 24 completed calendar-month positions reuse the HN window. GitHub supplies daily bins whose boundaries are not guaranteed UTC, so attribution near a month edge is approximate. The measurement is stars created in each month that remain at the last successful fetch. Charts use the same 120×24 bar geometry as HN, with independent square-root count scales explicitly labeled. HN remains in story units; GitHub stays in star units.
 
-Collection remains bounded to 16 HTTP attempts per UTC day in the published cache and four repositories per run. Every page and retry spends that budget. Never-attempted repositories come first, ordered by cached current star count descending; unknown counts follow real zero counts, with canonical repository IDs breaking ties. No extra request is used to rank them. Existing `checked_at` timestamps are the durable progress cursor, including unsuccessful attempts. Once attempted, repositories rotate by oldest attempt first, with star count and repository ID breaking ties. This prevents popular failures or repeated refreshes from blocking the finite unseen backlog. Newly added repositories enter the unseen queue. A continuously growing unseen backlog can postpone refreshes; this policy deliberately favors initial coverage, rather than promising both immediate backfill and frequent refreshes under a fixed budget.
+Collection is bounded to **400 HTTP attempts per UTC day and 100 repositories per run**. Every page and retry spends the persisted budget. Requests are serial and paced at one per second. Never-attempted repositories come first, ordered by cached current star count descending; unknown counts follow real zero counts, with canonical IDs breaking ties. Attempted repositories rotate by oldest `checked_at`, including failures, then star count and ID. Newly added repositories enter the unseen queue.
 
-Successful windows become eligible after 14 days or a month-window change. At approximately four pages per repository, 16 daily attempts complete at most four full histories per day. A 456-repository first pass therefore takes roughly 114 healthy daily runs, and a later full refresh rotation has a similar bound; retries, failures, new entries and longer responses can extend it. Month rollover does not reset progress. Charts whose cached month window no longer matches HN remain withheld until aligned, so many older histories may be temporarily unavailable under this small budget. Existing last-good evidence remains retained. The cache records eligible, due, attempted and never-attempted counts in `selection_report`.
+Successful windows become eligible after 14 days or a month-window change. A healthy two-year history needs about 105 weekly aggregates: four pages of 30 weeks. The limits therefore support 100 histories per day and a 1,000-repository rotation in ten healthy daily runs, leaving four days of margin within the refresh interval. The catalog is expected to remain near 1,000 repositories through curation. Retries, failures and quota stops reduce throughput; this is a capacity model, not a freshness guarantee. `selection_report` records eligible, due, attempted and never-attempted counts. Month rollover retains queue progress.
 
-Current total star counts are already maintained by the separate ordinary repository-metadata collector. These 16 calls collect the optional 24-month history, not those totals. No workflow, schedule, permission, credential or endpoint changes are introduced. This is a healthy-run budget. A shared, checkpointed invocation budget survives publisher worktree retries; an entirely failed job cannot persist its daily state to main. The collector also respects rate-limit exhaustion.
+Current total stars remain in II / Repository record, supplied by the ordinary metadata collector. III / Observations & evidence labels its chart “GitHub star history”. Each validated last-good chart displays its actual month range. A window older than HN's current window, or a failed refresh, shows “Stale cached result” beside the chart; the disclosure keeps the last successful fetch, latest attempt and provider source. Unknown months are never appended as zeros. The chart's count is the sum of retained monthly stars in the displayed period.
 
-Only complete, validated history becomes a last-good result. Missing pages, contradictory totals, HTTP failures, rate limits, or unavailable data retain prior evidence and expose status and retrieval time. A last-good chart may remain visibly stale when its month window still matches HN; mismatched windows are withheld rather than silently overlaid. SVGs are generated in preview/Pages output, not tracked. Test fixtures are synthetic and isolated from production cache.
+The daily history budget survives repeat publisher runs and shared invocation checkpoints preserve it across worktree retries. An entirely failed job cannot persist its daily state to main. History runs after metadata and optional signals, stops at the existing 20-request core reserve, and pauses for HTTP 403/429 or any error carrying Retry-After. A pause persists for the UTC day. No schedule, credential, permission or endpoint changes are needed.
+
+Only complete, validated history becomes a last-good result. Missing pages, contradictory totals, HTTP failures, rate limits and unavailable data retain prior evidence. SVGs are generated in preview/Pages output. Test fixtures are synthetic and isolated from production cache.
 
 ### Reviewed repository renames
 
@@ -387,15 +389,19 @@ imports. A chunk is opt-in, not a recurring GitHub schedule or a reason to resum
 the retired coordinator. It skips already valid current-window histories; it is
 not a general force-refresh mode. Verify the current scope, reviewed implementation,
 checks, existing runs and quota on `main` before dispatching. Keep the default input
-false for ordinary publication; normal collection of new entries and due refreshes
-continues with the unchanged 16-attempt daily history budget.
+false for ordinary publication. After month rollover, the same bounded repair flow
+already selects histories missing the current window, including retained older windows.
+Review its remaining count and quota, authorize a chunk, inspect its checkpoint and
+resume only after `resume_after`; opening or merging this fix does not dispatch it.
+Normal collection of new entries and due refreshes
+continues with the 400-attempt daily history budget.
 
 Fast mode uses only the existing `GITHUB_TOKEN`, requests aggregate history
 sequentially, and skips repositories already carrying a validated window for the
 current 24 complete months. Each chunk has a 15-minute collection deadline,
 a 900-request ceiling, and a live quota floor reserving one core metadata request per eligible repository,
-350 optional release attempts, 16 normal history attempts, and 20 requests of
-overhead (842 for 456 repositories). This reserves a healthy normal publishing
+350 optional release attempts, 400 normal history attempts, and 20 requests of
+overhead (1,770 for 1,000 repositories). This reserves a healthy normal publishing
 sweep; unexpected retries or unrelated simultaneous API use can still consume
 shared quota. Quota headers and bounded
 Retry-After/secondary-limit backoff control pacing. Authentication, unexpected

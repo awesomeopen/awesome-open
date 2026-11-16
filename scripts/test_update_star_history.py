@@ -83,6 +83,51 @@ class CollectorTests(unittest.TestCase):
         self.assertTrue(all('/stargazers/history?' in url for url in calls))
         self.assertNotIn('login', json.dumps(good))
 
+    def test_thousand_repository_rotation_fits_refresh_interval(self):
+        projects = [dict(name=f'Example {i}', repo=f'org/example-{i}',
+                         readme_url=f'https://github.com/org/example-{i}') for i in range(1000)]
+        cache = None
+        for day in range(10):
+            calls = []
+            cache = stars.refresh(projects, existing=cache, now=NOW + timedelta(days=day),
+                                  getter=pager(weekly_series(), calls))
+            self.assertEqual(len(calls), 400)
+            self.assertEqual(cache['budget']['requests_used'], 400)
+            self.assertEqual(cache['selection_report']['attempted_repositories'], 100)
+            self.assertEqual(len(cache['repositories']), (day + 1) * 100)
+        self.assertTrue(all(r['status'] == 'ok' for r in cache['repositories'].values()))
+        self.assertLess(10, stars.REFRESH_DAYS)
+        # A second publisher invocation on the same UTC day gets no fresh budget.
+        calls = []
+        again = stars.refresh(projects, existing=cache, now=NOW + timedelta(days=9),
+                              getter=pager(weekly_series(), calls), force=True)
+        self.assertEqual(calls, [])
+        self.assertEqual(again['budget']['requests_used'], 400)
+
+    def test_capacity_caps_remain_bounded(self):
+        for limit in (401, -1, True):
+            with self.assertRaises(ValueError):
+                stars.RequestBudget(limit)
+        with self.assertRaises(ValueError):
+            self.refresh(max_repositories=101)
+        # Existing pilot-era daily accounting still consumes the enlarged budget.
+        old = self.refresh(getter=pager(weekly_series()), request_budget=16)
+        calls = []
+        new = self.refresh(existing=old, force=True, getter=pager(weekly_series(), calls))
+        self.assertEqual(new['budget']['requests_used'], 8)
+
+    def test_retry_after_on_service_error_pauses_without_early_retry(self):
+        budget = stars.RequestBudget()
+        error = HTTPError('https://api.github.com/', 503, 'Unavailable', {'Retry-After': '120'}, None)
+        with patch('update_star_history.build_opener') as opener:
+            opener.return_value.open.side_effect = error
+            with self.assertRaises(stars.HistoryError):
+                stars.request_page(stars.history_source_url('org/example') + '?per_page=30&page=1',
+                                   None, budget, sleeper=lambda seconds: None)
+            self.assertEqual(opener.return_value.open.call_count, 1)
+        self.assertEqual(budget.used, 1)
+        self.assertEqual(budget.remaining, 0)
+
     def test_reviewed_renames_only_change_history_endpoints(self):
         for project, target, source_readme in REVIEWED_RENAMES:
             with self.subTest(repo=project['repo']):
@@ -380,7 +425,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(cache['selection_report']['eligible_repositories'], 5)
         self.assertEqual(cache['selection_report']['unattempted_repositories'], 0)
         self.assertEqual(cache['selection_report']['attempted_repositories'], 1)
-        self.assertEqual(cache['budget']['limit'], 16)
+        self.assertEqual(cache['budget']['limit'], 400)
         self.assertEqual(cache['budget']['requests_used'], 1)
 
     def test_selection_report_validation_and_offset_order(self):

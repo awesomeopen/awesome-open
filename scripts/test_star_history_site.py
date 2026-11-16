@@ -1,4 +1,4 @@
-"""Site-only aligned charts with no false zeros or external chart requests."""
+"""Site-only dated charts with no false zeros or external chart requests."""
 from copy import deepcopy
 import json
 from pathlib import Path
@@ -72,11 +72,11 @@ class StarSiteTests(unittest.TestCase):
         self.assertIsNone(project['star_history']['chart_url'])
         self.assertIn('no zero values inferred',plate_grid.stars_box(project))
         record['last_good']=self.good
-        # A valid previous window is safe to retain but cannot pair with current HN.
+        # A validated previous window keeps its own period beside current HN.
         self.hn = self.hn_window(datetime(2026, 11, 1, tzinfo=timezone.utc))
         project=next(p for p in self.catalog()['projects'] if p.get('star_history'))
-        self.assertIsNone(project['star_history']['chart_url'])
-        self.assertIn('withheld until aligned',plate_grid.stars_box(project))
+        self.assertIsNotNone(project['star_history']['chart_url'])
+        self.assertIn('Stale cached result',plate_grid.stars_box(project))
     def test_failed_refresh_retains_last_good_with_stale_label(self):
         self.snapshot['repositories'][self.repo]['status']='unavailable'
         project=next(p for p in self.catalog()['projects'] if p.get('star_history'))
@@ -106,15 +106,21 @@ class StarSiteTests(unittest.TestCase):
                 self.assertIsNotNone(updated['star_history']['chart_url'])
                 self.assertIn(collector.API + target + '/stargazers/history', plate_grid.stars_box(updated))
         self.assertEqual(seen, list(folded))
-    def test_rollover_withholds_old_window_and_attaches_refreshed_history(self):
+    def test_rollover_displays_dated_stale_window_and_attaches_refreshed_history(self):
         from test_update_star_history import pager, weekly_series
         november = datetime(2026, 11, 13, tzinfo=timezone.utc)
         self.hn = self.hn_window(november)
         before = deepcopy(self.snapshot)
         old = next(p for p in self.catalog()['projects'] if p.get('star_history'))
-        self.assertIsNone(old['star_history']['chart_url'])
+        self.assertIsNotNone(old['star_history']['chart_url'])
         self.assertEqual(old['star_history']['last_good'], self.good)
-        self.assertIn('withheld until aligned', plate_grid.stars_box(old))
+        old_html = plate_grid.stars_box(old)
+        self.assertIn('Stale cached result</p>', old_html)
+        self.assertIn('2024-10', old_html)
+        self.assertIn('2026-09', old_html)
+        self.assertNotIn('past 2y', old_html)
+        self.assertEqual(star_history.svg(old).count('<rect '), 24)
+        self.assertEqual(old['github'], next(p for p in self.catalog()['projects'] if p['id'] == old['id'])['github'])
         self.assertEqual(self.snapshot, before)
         project = dict(repo=self.repo, name='OpenTofu', readme_url='https://github.com/'+self.repo)
         self.snapshot = collector.refresh([project], now=november,
@@ -123,6 +129,8 @@ class StarSiteTests(unittest.TestCase):
         self.assertIsNotNone(current['star_history']['chart_url'])
         self.assertEqual(current['star_history']['last_good']['months'], self.hn['months'])
         self.assertEqual(current['id'], old['id'])
+        self.assertNotIn('Stale cached result', plate_grid.stars_box(current))
+        self.assertEqual(current['github'], old['github'])
 
     def test_aligned_stars_survive_empty_and_partial_hn_projection(self):
         other = dict(name='Other', readme_url='https://example.org/other', slug='other',

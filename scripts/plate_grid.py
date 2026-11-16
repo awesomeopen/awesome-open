@@ -119,7 +119,7 @@ def timeline_box(timeline_html, history_html):
 
 def stars_box(project):
     record = project.get("star_history")
-    title, label = "GitHub stars", "III / Observations &amp; evidence"
+    title, label = "GitHub star history", "III / Observations &amp; evidence"
     if record is None:
         github = project.get("github")
         return box(title, empty_chart(), label=label, signal="star-history",
@@ -138,14 +138,13 @@ def stars_box(project):
         total = sum(counts)
         body = (f'<a class="pg-spark-link" href="{esc(record["source_url"])}"><img class="pg-spark" src="{esc(record["chart_url"])}" '
                 f'width="120" height="24" alt="Monthly stars retained at fetch, {esc(months[0])} to {esc(months[-1])}" loading="lazy"></a>'
-                + foot(f"{total:,}", months[0], months[-1]))
-        popup = (state(status) + f"<p>{total:,} stars / past 2y: Stars created in each month that remained at the last successful fetch. "
+                + foot(f"{total:,}", months[0], months[-1])
+                + ('<p class="pg-line">Stale cached result</p>' if status.startswith("Stale") else ""))
+        popup = (state(status) + f"<p>{total:,} stars / {esc(months[0])}–{esc(months[-1])}: Stars created in each month that remained at the last successful fetch. "
                  f"Independent square-root scale: 0–{max(1, *counts):,} stars/month.</p>" + sources)
     else:
         body = empty_chart()
-        withheld = ("Cached history uses a different month window; chart withheld until aligned."
-                    if good else "History unavailable; no zero values inferred.")
-        popup = state(status) + f"<p>{withheld}</p>" + sources
+        popup = state(status) + "<p>History unavailable; no zero values inferred.</p>" + sources
     return box(title, body, label=label, popup=popup, signal="star-history")
 
 
