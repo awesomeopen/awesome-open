@@ -6,6 +6,7 @@ import { Caption } from './components/Caption.jsx';
 import { Claims } from './components/Claims.jsx';
 import { Draw } from './components/Draw.jsx';
 import { Note } from './components/Note.jsx';
+import { Transcript } from './components/Transcript.jsx';
 import { Clock } from './components/Clock.jsx';
 import { CodePanel } from './components/CodePanel.jsx';
 import { ValueCheck } from './components/ValueCheck.jsx';
@@ -43,6 +44,7 @@ export const Video = ({ id }) => {
         if (!active(o, s)) return null;
         if (o.type === 'clock') return <Clock key={i} captureTime={captureTime} speed={seg.speed} cut={cut} waiting={seg.waiting} />;
         if (o.type === 'draw') return <Draw key={i} overlay={o} draw={bundle.draw} s={s} />;
+        if (o.type === 'transcript') return <Transcript key={i} overlay={o} s={s} />;
         if (o.type === 'note') return <Note key={i} overlay={o} />;
         if (o.type === 'claims') return <Claims key={i} overlay={o} facts={bundle.facts} s={s} />;
         if (o.type === 'valueCheck') return <ValueCheck key={i} overlay={o} facts={bundle.facts} s={s} />;
