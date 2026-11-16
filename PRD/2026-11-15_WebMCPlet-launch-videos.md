@@ -199,7 +199,7 @@ blue `<progress>` (see `tmp/launch_video_material`). Style it with the tokens.
   with this prompt; take 1 stays in the record.
 - **The verdict stays visible.** "I'd try OpenReel first" is ChatGPT's own pick and
   carries the "generated" label.
-- **The "Cloud browser" panel could not be enlarged** in take 2, so the activity
+- **The "Cloud browser" panel was not enlarged** in take 2. If it cannot be, the activity
   beat zooms into its thumbnail or is cut.
 - **Take 1 was recorded in HDR** (HEVC, PQ), so white pages turn grey after
   conversion. Take 2 was recorded in SDR (BT.709) and keeps the white. Record in SDR.
