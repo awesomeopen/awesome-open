@@ -163,6 +163,17 @@ blue `<progress>` (see `tmp/launch_video_material`). Style it with the tokens.
 
 **Acceptance:** the returned IDs and order match V1's tools and the manual search.
 
+## Spike results (2026-11-16, M5, Chrome 157.0.8103.52)
+
+| Test | Result |
+| --- | --- |
+| V2 client | `chrome-devtools-mcp` 1.12.0 with `--categoryExperimentalWebmcp=true` attached to Chrome started with `--enable-blink-features=WebMCP`. On a `try` preview of open-source-mac-os-apps (978 items, 50 sections), `list_webmcp_tools` returned `list_find`, `list_get` and `list_sections`; `list_find` "video editor" returned OpenShot and Shotnix with `fields: {}`, since the list records no stars yet (step 2a). Both calls take a `pageId` from `list_pages`. Capture runs add `--no-usage-statistics --no-performance-crux` |
+| V3 profile | A fresh `--user-data-dir` without flags on the live site: `LanguageModel.availability()` is `downloadable`, and `navigator.modelContext` is absent. The download itself is left for the shoot |
+| V1 timing | Pending; needs the owner's ChatGPT session |
+
+"Video editor" returns two items on the Mac list as well, so V2 can ask V1's
+question word for word.
+
 ## Production pipeline
 
 Every video is produced by the same numbered stages. Each stage reads files from the
