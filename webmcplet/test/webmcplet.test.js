@@ -53,7 +53,10 @@ test("every word must match; order is the weakest field needed, then name", () =
   assert.deepEqual(names(list.find({ query: "video editor" })), ["Video Editor", "Zebra Cut", "Apple"]);
   assert.deepEqual(list.find({ query: "video editor" }).items[2].matched_fields, ["summary"]);
   assert.deepEqual(names(list.find({ query: "family photos" })), []);
-  assert.equal(list.find({ query: "family photos" }).message, "No match in Awesome Test (4 items).");
+  assert.equal(list.find({ query: "family photos" }).message, "No match in Awesome Test (4 items). No word of the query matches an item on its own.");
+  assert.equal(list.find({ query: "video photos" }).message,
+    "No match in Awesome Test (4 items). No item contains every word. Items matching each word alone: video 3, photos 0. Search again with fewer words.");
+  assert.equal(list.find({ query: "photos" }).message, "No match in Awesome Test (4 items).");
 });
 
 test("an exact short alias uses word boundaries in every field", () => {
@@ -166,6 +169,18 @@ test("the assistant's text names items in place of refs and keeps page views", a
   const outcome = await W.assistant.ask({ session: model, tools, request: "x", names: fixture().items.map(i => i.name) });
   assert.equal(outcome.text, "Video Editor and Zebra Cut (Video Editor, r9).");
   assert.deepEqual(outcome.views, [view]);
+});
+
+test("a follow-up sees earlier turns, and their refs and items stay valid", async () => {
+  const tools = W.tools(fixture(), {}), names = fixture().items.map(i => i.name);
+  const conversation = { refs: W.assistant.Refs(), rows: new Map(), turns: [] };
+  const first = await W.assistant.ask({ session: session([{ action: "call", tool: "list_find", args: { query: "video" } },
+    { action: "answer", text: "r1 fits.", ids: ["r1"] }]), tools, request: "Find a video editor.", names, conversation });
+  conversation.turns.push({ request: "Find a video editor.", text: first.text, rows: first.rows });
+  const model = session([{ action: "answer", text: "r1 has 0 stars.", ids: ["r1"] }]);
+  const second = await W.assistant.ask({ session: model, tools, request: "How many stars?", names, conversation });
+  assert.equal(model.prompts[0].input, "Earlier in this conversation:\nVisitor: Find a video editor.\nYour answer: Video Editor fits. Items: r1 Video Editor.\n\nNew request: How many stars?");
+  assert.deepEqual([second.rows.map(r => r.name), second.text], [["Video Editor"], "Video Editor has 0 stars."]);
 });
 
 test("the assistant withholds text naming an item the tools did not return", async () => {

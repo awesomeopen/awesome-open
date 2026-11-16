@@ -196,7 +196,7 @@ async function panelChecks(browser, label, open, report) {
     }
     report.awesomeOpen.queriesMatchingCabinet = queries.length;
     const none = await call(ao, 'list_find', { query: 'manage family photos on my own server' });
-    assert.equal(none.total, 0); assert.match(none.message, /^No match in Awesome Open\* \(\d+ items\)\.$/);
+    assert.equal(none.total, 0); assert.match(none.message, /^No match in Awesome Open\* \(\d+ items\)\. No item contains every word\. Items matching each word alone: manage \d+, .*Search again with fewer words\.$/);
     const servers = await call(ao, 'list_find', { filters: { run_modes: 'server' } });
     assert.ok(servers.total > 0);
     assert.match(servers.coverage[0].note, /^\d+ of \d+ items have a recorded run mode\.$/);
@@ -267,6 +267,30 @@ async function panelChecks(browser, label, open, report) {
     assert.equal(await page.locator('#cabinet-selection li').count(), 2, 'the assistant arranged the shared selection');
     assert.match(await page.locator('#cabinet-activity').textContent(), /Assistant · cabinet_compare · completed/);
     await assisted.close();
+
+    // A follow-up sees the earlier turn and may answer with its refs; New conversation starts over.
+    const followed = await browser.newContext(), chat = await followed.newPage();
+    await followed.addInitScript(stubModel('available', `input => input.startsWith('Earlier in this conversation')
+      ? { action: 'answer', text: 'r1 again.', ids: ['r1'] }
+      : input.startsWith('Result of') ? { action: 'answer', text: 'r1 fits.', ids: ['r1'] }
+      : { action: 'call', tool: 'cabinet_find', args: { query: 'video editor' } }`));
+    await openAwesome(followed, chat);
+    const chatPanel = chat.locator(PANEL), rowsIn = chatPanel.locator('ol[aria-label="Items in the answer"] li > :first-child');
+    await chatPanel.locator('button.trigger').click();
+    await chatPanel.getByLabel('Question').fill('Find a video editor.');
+    await chatPanel.getByRole('button', { name: 'Send', exact: true }).click();
+    await rowsIn.first().waitFor();
+    const firstName = await rowsIn.first().textContent();
+    assert.equal(await chatPanel.getByLabel('Question').inputValue(), '', 'the field clears for a follow-up');
+    await chatPanel.getByLabel('Question').fill('Tell me more about it.');
+    await chatPanel.getByRole('button', { name: 'Send', exact: true }).click();
+    await chat.waitForFunction(sel => document.querySelector(sel).shadowRoot.querySelector('p.generated').textContent.endsWith('again.'), PANEL);
+    assert.equal(await chatPanel.locator('p.generated').textContent(), firstName + ' again.');
+    assert.deepEqual(await rowsIn.allTextContents(), [firstName]);
+    await chatPanel.getByRole('button', { name: 'New conversation' }).click();
+    assert.equal(await chatPanel.getByRole('button', { name: 'New conversation' }).isHidden(), true);
+    assert.equal(await chatPanel.locator('ol[aria-label="Items in the answer"]').isHidden(), true);
+    await followed.close();
 
     // With a plate open, arrow keys in the panel's search field move the caret, not the plate.
     const typing = await browser.newContext(), typed = await typing.newPage();

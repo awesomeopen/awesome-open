@@ -40,7 +40,7 @@
         return { ...this.state(), total: matches.length, offset, projects: matches.slice(offset, offset + PAGE).map(({ project: p, fields }) => ({
           id: p.id, name: p.name, description: p.description, matched_fields: fields,
           github: { stars: Search.starsOf(p), license: Search.licenseOf(p) || null, pushed_at: (p.github || {}).pushed_at || null } })),
-          ...(matches.length ? {} : { message: Search.noMatch(projects.length) }) };
+          ...(matches.length ? {} : { message: Search.noMatch(projects.length, projects, args.query, text) }) };
       },
       inspect(args) {
         validate(args, ['id']); validIds([args.id]);

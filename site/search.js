@@ -132,8 +132,15 @@
       });
   }
 
-  function noMatch(count) {
-    return "No match in this catalog of " + count + " Open*-named projects.";
+  // With a query of several words, also how many projects each word finds alone,
+  // so a caller can search again with fewer words.
+  function noMatch(count, projects, query, text) {
+    var message = "No match in this catalog of " + count + " Open*-named projects.", tokens = words(query || "");
+    if (!projects || tokens.length < 2) return message;
+    var counts = tokens.map(function (token) { return [token, find(projects, token, text).size]; });
+    if (counts.every(function (c) { return !c[1]; })) return message + " No word of the query matches a project on its own.";
+    return message + " No project contains every word. Projects matching each word alone: " +
+      counts.map(function (c) { return c[0] + " " + c[1]; }).join(", ") + ". Search again with fewer words.";
   }
 
   var pending = null;
