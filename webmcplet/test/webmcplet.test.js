@@ -234,3 +234,57 @@ test('word hints retain global aliases and count language and section eligible i
   assert.match(find('C# absent','C#').message,/c# 2, absent 0/);
   assert.match(find('C++ absent','C++').message,/c\+\+ 2, absent 0/);
 });
+
+test("requestedCount reads a number of items from the request", () => {
+  const { requestedCount } = require("../webmcplet.js").assistant;
+  assert.equal(requestedCount("Find me two video editors that run in the browser and compare them."), 2);
+  assert.equal(requestedCount("Show 3 tools"), 3);
+  assert.equal(requestedCount("Find a video editor and compare two."), 2);
+  assert.equal(requestedCount("Find a video editor"), null);
+  assert.equal(requestedCount("Is OpenCut one of them?"), null);
+});
+
+test("actionSchema caps ids at the requested count", () => {
+  const { actionSchema } = require("../webmcplet.js").assistant;
+  const tools = [{ name: "x_arrange", inputSchema: { type: "object", properties: { ids: { type: "array", items: { type: "string" } } } } }];
+  const capped = actionSchema(tools, 2);
+  assert.equal(capped.anyOf[0].properties.args.properties.ids.maxItems, 2);
+  assert.equal(capped.anyOf[1].properties.ids.maxItems, 2);
+  assert.equal(actionSchema(tools).anyOf[1].properties.ids.maxItems, undefined);
+});
+
+test("withNames replaces refs in either case and drops repeated names", () => {
+  const { withNames, Refs } = require("../webmcplet.js").assistant;
+  const refs = Refs(); refs.hide({ id: "a" }); refs.hide({ id: "b" });
+  const rows = new Map([["a", { name: "OpenReel Video" }], ["b", { name: "OpenFilm" }]]);
+  assert.equal(withNames("R1: OpenReel Video edits video; **r2** (OpenFilm) renders. r9 stays.", rows, refs),
+    "OpenReel Video edits video; **OpenFilm** renders. r9 stays.");
+});
+
+test("plain turns Markdown in an answer into plain text", () => {
+  const { plain } = require("../webmcplet.js").assistant;
+  assert.equal(plain("Here's a comparison:\n\n**OpenFilm**\n*   **Stars:** 7623\n- [repo](https://e.example/r)\n\n\n\nDone."),
+    "Here's a comparison:\n\nOpenFilm\n• Stars: 7623\n• repo (https://e.example/r)\n\nDone.");
+});
+
+test('follow-ups keep refs and text cleanup while counts use the current request', async () => {
+  const tools = W.tools(fixture(), {}), names = fixture().items.map(i => i.name);
+  const conversation = { refs: W.assistant.Refs(), rows: new Map(), turns: [] };
+  const firstModel = session([{ action:'call', tool:'list_find', args:{query:'video'} },
+    { action:'answer', text:'**R1: Video Editor**', ids:['r1'] }]);
+  const first = await W.assistant.ask({session:firstModel,tools,names,conversation,request:'Find two video editors.'});
+  assert.equal(first.text,'Video Editor');
+  assert.equal(firstModel.prompts[0].options.responseConstraint.anyOf.at(-1).properties.ids.maxItems,2);
+  conversation.turns.push({request:'Find two video editors.',text:first.text,rows:first.rows});
+  const model = session([{action:'call',tool:'list_get',args:{id:'r1'}},
+    {action:'answer',text:'**R1: Video Editor**\n- [repo](https://b.example/)',ids:['r1']}]);
+  const next = await W.assistant.ask({session:model,tools,names,conversation,request:'Compare three tools.'});
+  assert.match(model.prompts[0].input,/Earlier in this conversation/);
+  assert.equal(model.prompts[0].options.responseConstraint.anyOf.at(-1).properties.ids.maxItems,3);
+  assert.equal(next.trace[0].args.id,first.rows[0].id);
+  assert.equal(next.text,'Video Editor\n• repo (https://b.example/)');
+  assert.deepEqual(next.rows,first.rows);
+  const uncapped=session([{action:'answer',text:'R1',ids:['r1']}]);
+  await W.assistant.ask({session:uncapped,tools,names,conversation,request:'Tell me more about it.'});
+  assert.equal(uncapped.prompts[0].options.responseConstraint.anyOf.at(-1).properties.ids.maxItems,undefined);
+});

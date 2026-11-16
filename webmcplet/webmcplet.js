@@ -451,12 +451,33 @@
     return out;
   }
 
-  function actionSchema(tools) {
+  var COUNTS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
+  // The number of items the visitor asks for ("two editors", "3 tools"), or null.
+  function requestedCount(request) {
+    var match = /\b(one|two|three|four|five|six|[1-6])\s+(?:[\p{L}-]+\s+){0,3}?[\p{L}-]+s\b/iu.exec(request || "") ||
+      /\bcompare\s+(one|two|three|four|five|six|[1-6])\b/iu.exec(request || "");
+    if (!match) return null;
+    var word = match[1].toLowerCase();
+    return COUNTS[word] || Number(word);
+  }
+
+  // With a requested count, any ids argument and the answer's ids hold at most that many.
+  function capIds(schema, count) {
+    if (!count || !isObject(schema)) return schema;
+    var out = Object.assign({}, schema);
+    if (isObject(out.properties) && isObject(out.properties.ids)) {
+      out.properties = Object.assign({}, out.properties, { ids: Object.assign({}, out.properties.ids, { maxItems: count }) });
+    }
+    return out;
+  }
+
+  function actionSchema(tools, count) {
     return { anyOf: tools.map(function (tool) {
       return { type: "object", additionalProperties: false, required: ["action", "tool", "args"],
-        properties: { action: { type: "string", enum: ["call"] }, tool: { type: "string", enum: [tool.name] }, args: modelSchema(schemaOf(tool)) } };
+        properties: { action: { type: "string", enum: ["call"] }, tool: { type: "string", enum: [tool.name] }, args: capIds(modelSchema(schemaOf(tool)), count) } };
     }).concat([{ type: "object", additionalProperties: false, required: ["action", "text", "ids"],
-      properties: { action: { type: "string", enum: ["answer"] }, text: { type: "string" }, ids: { type: "array", items: REF } } }]) };
+      properties: { action: { type: "string", enum: ["answer"] }, text: { type: "string" },
+        ids: count ? { type: "array", items: REF, maxItems: count } : { type: "array", items: REF } } }]) };
   }
 
   // Wording measured in experiments/prompt-api-m5; small changes moved pass rates.
@@ -474,6 +495,9 @@
       "- If no item fits, say that this list has no match, leave ids empty and name no item.",
       "- If a tool returns ok:false, follow its message.",
       "- A request may follow earlier turns of the conversation. Refs from those turns still work in tool arguments and in ids.",
+      "- When the visitor asks for a number of items, present exactly that many: the ones that fit best.",
+      "- When the visitor asks to compare, compare the items' recorded values in the text, such as their fields.",
+      "- Finish only when the tools have done what the visitor asked. To do a next step, call its tool; never describe it in an answer.",
       "Tools:"
     ].concat(tools.map(function (tool) {
       return "- " + tool.name + ": " + tool.description + " Arguments: " + JSON.stringify(modelSchema(schemaOf(tool)));
@@ -517,6 +541,32 @@
     }).join("\n") + "\n\nNew request: ";
   }
 
+  // Replaces refs such as r1 or R1 with item names, then drops the repeats this
+  // leaves when the model also wrote the name ("R1: OpenReel Video" -> "OpenReel Video").
+  function withNames(text, rows, refs) {
+    var names = [];
+    var out = text.replace(/\b[rR](\d+)\b/g, function (r, n) {
+      var row = rows.get(refs.id("r" + n));
+      if (!row) return r;
+      names.push(row.name);
+      return row.name;
+    });
+    names.forEach(function (name) {
+      var literal = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      out = out.replace(new RegExp(literal + "(\\*\\*)?\\s*(?:[:.\\-–—]\\s*|\\()(?:\\*\\*)?" + literal + "(?:\\*\\*)?\\)?", "g"),
+        function (_, bold) { return name + (bold || ""); });
+    });
+    return out;
+  }
+
+  // The panel shows answers as plain text: Markdown emphasis and links lose their
+  // marks, list markers become bullets, and line breaks stay.
+  function plain(text) {
+    return text.replace(/\*\*([^*]+)\*\*|__([^_]+)__/g, "$1$2")
+      .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, function (_, label, url) { return label === url ? url : label + " (" + url + ")"; })
+      .replace(/^[ \t]*[*-][ \t]+/gm, "• ").replace(/^#{1,6}[ \t]+/gm, "").replace(/\n{3,}/g, "\n\n").trim();
+  }
+
   // Runs one request to an answer, the turn limit or cancellation. The answer's
   // rows come from tool results; the model's text is returned separately, and is
   // withheld when it names an item the tools did not return. A conversation passes
@@ -524,7 +574,8 @@
   async function ask(options) {
     var conversation = options.conversation || {};
     var session = options.session, available = options.tools, refs = conversation.refs || Refs(), rows = conversation.rows || new Map(), views = new Map();
-    var constraint = actionSchema(available), maxTurns = options.maxTurns || MAX_TURNS, turnMs = options.turnMs || TURN_MS;
+    var count = requestedCount(options.request);
+    var constraint = actionSchema(available, count), maxTurns = options.maxTurns || MAX_TURNS, turnMs = options.turnMs || TURN_MS;
     var trace = [], input = recap(conversation.turns, refs) + options.request, retried = false;
     function report(entry) { trace.push(entry); if (options.onStep) options.onStep(entry); }
     for (var turn = 0; turn < maxTurns; turn++) {
@@ -548,7 +599,7 @@
         var shown = ids.filter(function (id) { return rows.has(id); }).map(function (id) { return rows.get(id); });
         var returnedNames = new Set(Array.from(rows.values()).map(function (r) { return r.name; }));
         // The model sees refs such as r1; the visitor reads the items' names.
-        var text = (action.text || "").replace(/\br\d+\b/g, function (r) { var row = rows.get(refs.id(r)); return row ? row.name : r; });
+        var text = withNames(plain(action.text || ""), rows, refs);
         var unreturned = namesIn(text, options.names || []).filter(function (n) { return !returnedNames.has(n); });
         report({ answer: true, ids: ids });
         return { status: "answered", rows: shown, removed: ids.length - shown.length, views: Array.from(views.values()),
@@ -595,7 +646,7 @@
     ".frame button.primary{background:var(--wm-accent);color:var(--wm-bg)}.frame button:disabled{opacity:.45;cursor:default}",
     ".views a{color:var(--wm-accent)}ol{list-style:none;margin:8px 0;padding:0}li{padding:12px 0;border-bottom:1px solid var(--wm-rule)}",
     "li a{color:var(--wm-accent);font:400 18px/1.3 var(--wm-heading)}li p{margin:4px 0 0}.meta,.note,.state{color:var(--wm-muted);font-size:13px}",
-    ".status{min-height:1.6em}footer{margin-top:32px;padding-top:12px;border-top:1px solid var(--wm-rule);font-size:12px;line-height:1.5;color:var(--wm-muted)}",
+    ".status{min-height:1.6em}.generated{white-space:pre-line}footer{margin-top:32px;padding-top:12px;border-top:1px solid var(--wm-rule);font-size:12px;line-height:1.5;color:var(--wm-muted)}",
     "footer p{margin:0}footer a,footer .link{color:inherit;text-decoration:underline}code{font-size:11px}",
     ".frame footer .link{display:inline;min-height:0;padding:0;border:0;background:none;font:inherit;cursor:pointer}",
     "progress{width:100%;accent-color:var(--wm-accent)}[hidden]{display:none!important}",
@@ -913,6 +964,7 @@
 
   return { RELEASE: RELEASE, VERSION: VERSION, PAGE: PAGE, normalizeUrl: normalizeUrl, validate: validate, create: create,
     tools: tools, register: register, load: load, autostart: autostart, fold: fold,
-    assistant: { ask: ask, actionSchema: actionSchema, instructions: instructions, modelSchema: modelSchema, Refs: Refs, namesIn: namesIn },
+    assistant: { ask: ask, actionSchema: actionSchema, instructions: instructions, modelSchema: modelSchema, Refs: Refs, namesIn: namesIn,
+      requestedCount: requestedCount, withNames: withNames, plain: plain },
     mount: mount };
 });

@@ -272,7 +272,7 @@ async function panelChecks(browser, label, open, report) {
     // A follow-up sees the earlier turn and may answer with its refs; New conversation starts over.
     const followed = await browser.newContext(), chat = await followed.newPage();
     await followed.addInitScript(stubModel('available', `input => input.startsWith('Earlier in this conversation')
-      ? { action: 'answer', text: 'r1 again.', ids: ['r1'] }
+      ? { action: 'answer', text: '**R1** again.\\n- Details.', ids: ['r1'] }
       : input === 'Use the earlier ref.' ? { action: 'answer', text: '', ids: ['r1'] }
       : input.startsWith('Result of') ? { action: 'answer', text: 'r1 fits.', ids: ['r1'] }
       : { action: 'call', tool: 'cabinet_find', args: { query: 'video editor' } }`));
@@ -286,9 +286,10 @@ async function panelChecks(browser, label, open, report) {
     assert.equal(await chatPanel.getByLabel('Question').inputValue(), '', 'the field clears for a follow-up');
     await chatPanel.getByLabel('Question').fill('Tell me more about it.');
     await chatPanel.getByRole('button', { name: 'Send', exact: true }).click();
-    await chat.waitForFunction(sel => document.querySelector(sel).shadowRoot.querySelector('p.generated').textContent.endsWith('again.'), PANEL);
-    assert.equal(await chatPanel.locator('p.generated').textContent(), firstName + ' again.');
+    await chat.waitForFunction(sel => document.querySelector(sel).shadowRoot.querySelector('p.generated').textContent.endsWith('Details.'), PANEL);
+    assert.equal(await chatPanel.locator('p.generated').textContent(), firstName + ' again.\n• Details.');
     assert.deepEqual(await rowsIn.allTextContents(), [firstName]);
+    assert.equal(await chatPanel.locator('p.generated').evaluate(el => getComputedStyle(el).whiteSpace), 'pre-line');
     await chatPanel.getByRole('button', { name: 'New conversation' }).click();
     assert.equal(await chatPanel.getByRole('button', { name: 'New conversation' }).isHidden(), true);
     assert.equal(await chatPanel.locator('ol[aria-label="Items in the answer"]').isHidden(), true);

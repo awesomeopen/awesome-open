@@ -5,11 +5,26 @@ Each release names the SHA-256 of `webmcplet.js`. Compare it with
 
 ## 0.3.0
 
-`webmcplet.js` SHA-256 `d62a354d630f670569a1d2582d2aa46cd2f89ffb82da26d54179c10eb9ec9303`
+`webmcplet.js` SHA-256 `e2283e3bc51ad7b4278ebad85341948f99e6e8eaccf2539f7add810957688dd5`
 
 - Follow-up questions: the assistant keeps the conversation's refs and items and sends a
   recap of the last 3 turns with each request. "New conversation" starts over.
 - A search of several words that matches nothing reports each word's matches alone.
+- Answer text removes Markdown before replacing refs, keeping a bold ref/name pair plain.
+
+## 0.2.3
+
+`webmcplet.js` SHA-256 `2fdc56b7ca03f17af79fb1b106397421402d7947f8f0f23fd1d8c70294c1b8b0`
+
+- The assistant keeps to the number of items a request names ("two video editors",
+  "compare two"):
+  the response schema caps the answer's items and any tool's `ids` at that number.
+- Refs such as `R1` are replaced in either case, and a name the model repeated next to
+  its ref ("OpenReel Video: OpenReel Video") appears once.
+- Answers show as plain text with their line breaks: Markdown emphasis and link marks
+  are removed and list markers become bullets.
+- The instructions ask the model to compare recorded values when asked to compare, and
+  to call a next step's tool instead of describing it in an answer.
 
 ## 0.2.2
 
