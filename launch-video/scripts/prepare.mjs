@@ -32,21 +32,30 @@ writeFileSync(join(generated, 'tokens.json'), JSON.stringify(tokens, null, 2) + 
 const FONTS = { 'commit-mono.woff2': 'site/vendor/commit-mono.woff2', 'poltawski.woff2': 'site/vendor/serif-preview/poltawski.woff2' };
 for (const [name, from] of Object.entries(FONTS)) copyFileSync(join(REPO, from), join(pub, 'fonts', name));
 
-// Capture segments, cut from the original and converted to constant 30 fps H.264.
-const source = join(REPO, session.source);
-if (!existsSync(source)) throw new Error(`Capture missing: ${session.source}`);
-const sourceSha = sha256File(source);
-if (sourceSha !== session.sha256) throw new Error(`Capture hash differs from 04-capture/session.json: ${sourceSha}`);
+// Capture segments, cut from the original recordings and converted to constant
+// 30 fps H.264. session.json names one recording, or several under "takes"; a
+// segment picks its take by name (default: the first).
+const takes = session.takes || { main: session };
+const takeShas = {};
+for (const [name, take] of Object.entries(takes)) {
+  const file = join(REPO, take.source);
+  if (!existsSync(file)) throw new Error(`Capture missing for take ${name}: ${take.source}`);
+  takeShas[name] = sha256File(file);
+  if (takeShas[name] !== take.sha256) throw new Error(`Take ${name}: hash differs from 04-capture/session.json: ${takeShas[name]}`);
+}
 const segments = timeline(beats.segments).map((seg, i) => {
+  const takeName = seg.take || Object.keys(takes)[0];
+  const take = takes[takeName];
+  if (!take) throw new Error(`Segment ${i} names unknown take ${seg.take}`);
   const file = `${id}/seg-${i}.mp4`;
   const stamp = join(pub, id, `seg-${i}.json`);
-  const key = JSON.stringify({ sourceSha, in: seg.in, out: seg.out });
+  const key = JSON.stringify({ sourceSha: takeShas[takeName], in: seg.in, out: seg.out });
   if (!existsSync(stamp) || readFileSync(stamp, 'utf8') !== key) {
-    run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-ss', String(seg.in), '-to', String(seg.out), '-i', source,
+    run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-ss', String(seg.in), '-to', String(seg.out), '-i', join(REPO, take.source),
       '-an', '-vf', 'fps=30,format=yuv420p', '-c:v', 'libx264', '-crf', '14', '-preset', 'medium', join(pub, file)]);
     writeFileSync(stamp, key);
   }
-  return { ...seg, file, size: session.size };
+  return { ...seg, take: takeName, file, size: take.size };
 });
 
 // Code reveals, read from repository files now, located by their first line.
@@ -84,7 +93,7 @@ writeFileSync(indexFile, JSON.stringify(index, null, 2) + '\n');
 
 logStage(dir, 'prepare', {
   beats: sha256File(join(dir, '02-beats.json')), events: sha256File(join(dir, '04-capture/events.json')),
-  capture: sourceSha, ...(facts ? { facts: sha256File(factsFile) } : {}),
+  ...Object.fromEntries(Object.entries(takeShas).map(([n, h]) => ['take:' + n, h])), ...(facts ? { facts: sha256File(factsFile) } : {}),
   ...Object.fromEntries(snippets.map(s => [s.file + ':' + s.firstLine, s.fileSha]))
 });
 console.log(`Prepared ${id}: ${segments.length} segment(s), ${snippets.length} snippet(s)`);

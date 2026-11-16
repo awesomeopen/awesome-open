@@ -13,7 +13,7 @@ export const Clock = ({ captureTime, speed, cut, waiting, waitingTop = 470 }) =>
         {speed !== 1 && <span style={chip}>{speed}× speed</span>}
         <span style={chip}>Real time {time(captureTime)}</span>
       </div>
-      {cut && <span style={chip}>Cut {time(cut.from)}–{time(cut.to)}: {cut.note}</span>}
+      {cut && <span style={chip}>{cut.take ? `Take ${cut.take}: ${cut.note}` : `Cut ${time(cut.from)}–${time(cut.to)}: ${cut.note}`}</span>}
     </div>
     {waiting && <div style={{ position: 'absolute', top: waitingTop, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
       <span style={{ ...chip, fontFamily: v.sans, fontSize: 44, padding: '16px 32px' }}>{waiting} · {speed}× speed</span>

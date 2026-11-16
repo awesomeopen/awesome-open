@@ -42,6 +42,9 @@ git-ignored; their hashes are in `session.json` and the log.
 - **`04-capture/events.json`:** `regions`, named rectangles in capture pixels with
   keyframes in capture seconds. Marked by hand for footage from other clients
   (V1); logged through the DevTools protocol where the browser is ours (V2, V3).
+- **Takes:** `session.json` may list several recordings under `takes`, each with
+  `source`, `sha256` and `size`; a segment names its `take`, and region keyframes may
+  name one. A switch of take is named on screen like a cut.
 - **Segments** may carry `waiting` (a tag such as "Waiting for ChatGPT", shown
   with the speed, at `waitingTop` pixels from the top, 470 by default) and `cutNote` (named for 2.5 s after a cut, with the left-out
   times).

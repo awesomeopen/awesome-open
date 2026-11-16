@@ -26,12 +26,13 @@ export const Video = ({ id }) => {
   // for 2.5 s.
   const index = bundle.segments.indexOf(seg);
   const previous = bundle.segments[index - 1];
-  const cut = previous && previous.out !== seg.in && s - seg.start < 2.5 ? { from: previous.out, to: seg.in, note: seg.cutNote } : null;
+  const cut = previous && (previous.take !== seg.take || previous.out !== seg.in) && s - seg.start < 2.5
+    ? { from: previous.out, to: seg.in, note: seg.cutNote, take: previous.take !== seg.take ? seg.take : null } : null;
   let snippet = 0;
   return (
     <AbsoluteFill style={{ background: t.paper }}>
       {bundle.beats.boxes
-        ? <Stage boxes={bundle.beats.boxes} regions={bundle.events.regions} segments={bundle.segments} s={s} captureTime={captureTime} />
+        ? <Stage boxes={bundle.beats.boxes} regions={bundle.events.regions} segments={bundle.segments} s={s} captureTime={captureTime} take={seg.take} />
         : <Camera keyframes={bundle.events.keyframes} size={bundle.session.size} time={captureTime}>
           {bundle.segments.map(x => (
             <Sequence key={x.file} from={Math.round(x.start * fps)} durationInFrames={Math.round(x.length * fps)}>

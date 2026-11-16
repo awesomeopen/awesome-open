@@ -9,9 +9,10 @@ const ease = Easing.inOut(Easing.cubic);
 const mix = (a, b, p) => a.map((x, i) => x + (b[i] - x) * ease(Math.min(1, Math.max(0, p))));
 
 // Capture rect of a named region at a capture second (the latest keyframe at or before it).
-export const regionAt = (regions, name, time) => {
-  const list = regions[name];
-  if (!list) throw new Error('Unknown region ' + name);
+// Keyframes may name a take; those without one apply to every take.
+export const regionAt = (regions, name, time, take) => {
+  const list = (regions[name] || []).filter(k => !k.take || k.take === take);
+  if (!list.length) throw new Error('Unknown region ' + name + (take ? ' in take ' + take : ''));
   return (list.filter(k => k.t <= time).at(-1) || list[0]).rect;
 };
 
@@ -25,13 +26,13 @@ const layoutAt = (box, s, region) => {
   return [cx - w / 2, cy - h / 2, w, h];
 };
 
-export const Stage = ({ boxes, regions, segments, s, captureTime }) => {
+export const Stage = ({ boxes, regions, segments, s, captureTime, take }) => {
   const { fps } = useVideoConfig();
   const placed = {};
   const visible = [];
   for (const box of boxes) {
     if (s < box.from || s >= box.to) continue;
-    const region = regionAt(regions, box.region, captureTime);
+    const region = regionAt(regions, box.region, captureTime, take);
     let rect = layoutAt(box, s, region);
     let opacity = 1;
     const parent = box.parent && placed[box.parent];
