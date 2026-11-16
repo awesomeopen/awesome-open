@@ -12,7 +12,7 @@ module.exports=async({page,url,data,capture})=>{
    await row.locator('> details').evaluate(n=>n.open=true);
    await plate.waitFor({state:'visible'});
    await plate.scrollIntoViewIfNeeded();
-   await plate.locator('img').evaluateAll(ns=>Promise.all(ns.map(n=>n.decode().catch(()=>null))));
+   await plate.locator('img').evaluateAll(ns=>Promise.all(ns.map(n=>{n.loading='eager';return n.decode().catch(()=>null);})));
    assert.equal(await plate.count(),1);
    assert.equal(await plate.locator('.plate-departure>a').getAttribute('href'),p.url);
    assert.equal(await plate.locator('.plate-art').count(),p.artwork?1:0);
