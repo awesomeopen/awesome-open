@@ -1,10 +1,4 @@
 /* Clear photographic vessels, independent specimens, shallow white room. */
-.jar-page .site-header {background:transparent;color:var(--rs-blueprint);border:0;padding-bottom:8px;}
-.jar-page .brand-asterisk {color:var(--rs-blueprint);}
-.jar-page .site-header a:hover {color:var(--rs-scarlet);}
-.jar-page .site-header :focus-visible {outline-color:var(--rs-scarlet);}
-.jar-page .header-search .search-input {border-bottom:0;background:transparent;}
-.jar-page .header-search input {color:var(--rs-blueprint);}
 .jar-hall {margin:0 32px;color:var(--rs-blueprint);}
 .jar-scroll {overflow:visible;}
 .jar-stage {display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));height:380px;max-width:808px;margin:auto;position:relative;}
@@ -35,8 +29,6 @@
 .jar-select {position:absolute;inset:10px 0 8px;width:100%;border:0;background:transparent;z-index:3;border-radius:0;}
 .jar-select:hover {background:transparent;}
 .jar-select {-webkit-tap-highlight-color:transparent;}
-.jar-caption {position:absolute;left:50%;right:auto;width:max-content;transform:translateX(-50%);bottom:6px;text-align:center;font-size:13px;white-space:nowrap;pointer-events:none;}
-.jar-caption>span {font:12px var(--mono);color:var(--muted);margin-right:0;}
 /* Annotations are separate text labels. */
 .jar-annotation {position:absolute;z-index:6;inset:0;pointer-events:none;}
 .jar-callout {position:absolute;pointer-events:auto;max-width:224px;}
@@ -128,8 +120,6 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 .photo-ready .is-active .jar-shadow::after,.photo-ready .is-active .jar-light-source {opacity:.75;}
 @media(prefers-reduced-motion:reduce){.jar-light-source{transform:none;transition:none;}.jar-shadow::after{transition:none;}}
 
-.jar-page .header-search input {border-bottom:1px dashed var(--rs-blueprint);}
-
 /* Glass fractures stay on the vessel plane and retain their state until reload. */
 .jar-cracks {position:absolute;left:var(--sx);top:var(--sy);width:var(--sw);height:var(--sh);z-index:4;overflow:hidden;pointer-events:none;filter:drop-shadow(1px 0 0 rgb(255 255 255 / .95));}
 .jar-cracks g {display:none;}
@@ -142,8 +132,8 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 @media(prefers-reduced-motion:reduce){.jar-cracks path{animation:none!important;}}
 
 /* Keep narrow jar labels distinct from the editorial page headings. */
-.jar-caption {font:450 12px/1.4 var(--mono);letter-spacing:-.045em;}
-.jar-caption>span {font-size:11px;margin-right:0;}
+.jar-caption {position:absolute;left:50%;right:auto;width:max-content;max-width:100%;transform:translateX(-50%);bottom:6px;overflow:hidden;text-align:center;text-overflow:ellipsis;font:450 12px/1.4 var(--mono);letter-spacing:-.045em;white-space:nowrap;pointer-events:none;}
+.jar-caption>span {font:12px var(--mono);font-size:11px;color:var(--muted);margin-right:0;}
 .jar-callout p {font:400 14px/1.55 var(--mono);letter-spacing:-.02em;}
 .callout-kicker,.jar-metrics {font-size:12px;}
 
@@ -161,9 +151,3 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-stage::before {display:
  .jar-shouldered,.jar-bail {--setback:8px;}
  .jar-stage::before {left:4%;right:4%;}
 }
-
-/* Weekly edition link shares the existing control strip. */
-.jar-draw-link {margin:0 52px 0 0;padding-top:8px;text-align:center;font:12px/1.6 var(--mono);}
-.jar-draw-link a {display:inline-block;padding:8px 0;min-height:40px;color:var(--rs-muted);}
-
-.jar-caption {max-width:100%;overflow:hidden;text-overflow:ellipsis;}

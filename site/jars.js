@@ -122,12 +122,6 @@
    }
  });
  document.addEventListener('pointerdown',event=>{if(!hall.contains(event.target)){pointer.inside=false;select(null);}});
- hall.querySelectorAll('[data-jar-inspect]').forEach(link=>link.addEventListener('click',event=>{
-   if(event.button||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
-   const card=document.getElementById('project-'+link.dataset.jarInspect);if(!card)return;
-   card.querySelector('details').open=true;
-   requestAnimationFrame(()=>{if(!card.hidden)card.querySelector('summary').focus({preventScroll:true});});
- }));
  reduced.addEventListener('change',()=>{pointer.inside=false;syncAmbient();wake();});
  fine.addEventListener('change',()=>{pointer.inside=false;wake();});
  window.addEventListener('resize',wake);
