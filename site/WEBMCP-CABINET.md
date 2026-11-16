@@ -21,6 +21,9 @@ compare description asks the caller to give it to the person. A person using an
 agent's cloud browser never sees the page, so the link is how they open the comparison.
 The page's assistant gets neither the field nor those sentences, because its visitor is
 already on the page.
+Instead, its arrange and compare results carry a WebMCPlet `view` named "Open the
+Cabinet"; the answer links to it, and the link closes the panel and opens the Cabinet.
+The assistant's calls leave the Cabinet closed until then. Clear empties the selection.
 
 Arguments are checked in application code as well as JSON Schema. Unknown IDs,
 duplicates, extra keys, oversized queries and oversized selections fail before a

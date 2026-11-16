@@ -157,6 +157,17 @@ test("the assistant sees refs, calls tools with real IDs and shows rows from res
   assert.equal(outcome.text, "Video Editor trims clips.");
 });
 
+test("the assistant's text names items in place of refs and keeps page views", async () => {
+  const view = { label: "Open the comparison", href: "#compare" };
+  const tools = W.tools(fixture(), {}).concat([{ name: "page_compare", description: "Compare.", inputSchema: { type: "object", properties: {} },
+    execute: async () => ({ ok: true, view }) }]);
+  const model = session([{ action: "call", tool: "list_find", args: { query: "video" } }, { action: "call", tool: "page_compare", args: {} },
+    { action: "answer", text: "r1 and r2 (r1, r9).", ids: ["r1"] }]);
+  const outcome = await W.assistant.ask({ session: model, tools, request: "x", names: fixture().items.map(i => i.name) });
+  assert.equal(outcome.text, "Video Editor and Zebra Cut (Video Editor, r9).");
+  assert.deepEqual(outcome.views, [view]);
+});
+
 test("the assistant withholds text naming an item the tools did not return", async () => {
   const model = session([{ action: "call", tool: "list_find", args: { query: "family photos" } },
     { action: "answer", text: "Try Broadcaster, or see https://apple.example/Apple.", ids: [] }]);

@@ -120,12 +120,17 @@ With `data-webmcplet-assistant="on"`, the panel offers Chrome's **on-device mode
 ([Prompt API](https://developer.chrome.com/docs/ai/prompt-api)) - if Chrome reports it
 available, or downloadable by the user. The on-device model calls the same tools,
 one JSON action per turn, at most 8 turns and 30 seconds per turn, and sees short refs
-such as `r1` in place of item IDs. The answer's rows come from tool results. The model's
-text is labelled as generated. Text is withheld when it names an item the tools did not return.
+such as `r1` in place of item IDs. The answer shows "List result:", rows from tool results,
+then "AI response:", the model's text with refs replaced by item names. That text is withheld
+when it names an item the tools did not return.
 
 A page can give the assistant its own tools by pushing definitions shaped like
 `registerTool`'s argument onto `window.webmcpletTools` and naming them in
-`data-webmcplet-assistant-tools`.
+`data-webmcplet-assistant-tools`. A page tool's result can carry
+`view: {label, href}`, such as the page's own comparison; the answer then links to it.
+Following the link closes the panel and dispatches a cancelable `webmcplet:view` event on
+`window` with `detail.href`; unless the page cancels it to show the view itself, the
+browser goes to `href`.
 
 **Status: opt-in.** 
 

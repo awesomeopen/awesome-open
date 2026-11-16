@@ -3,6 +3,15 @@
 Each release names the SHA-256 of `webmcplet.js`. Compare it with
 `shasum -a 256 webmcplet.js` after copying, or run `node build.cjs version`.
 
+## 0.2.1
+
+`webmcplet.js` SHA-256 `9bedf98b77df038cfd37b45ed0b40e34d7e780438916fd602040b2b92f205e9d`
+
+- Assistant answers read "List result:" and "AI response:", with refs such as `r1` replaced
+  by item names. The form's button reads "Send"; the model notes above it are gone.
+- A page tool's result can carry `view: {label, href}`; the answer links to it, and the
+  link closes the panel and dispatches `webmcplet:view`.
+
 ## 0.2.0
 
 `webmcplet.js` SHA-256 `00d5a8baf6317649a6cefc4970fcaf644e740cedeae7b7c4c44550d230b599b6`

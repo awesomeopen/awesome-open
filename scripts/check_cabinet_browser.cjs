@@ -143,6 +143,10 @@ const fs = require('node:fs');
   assert.equal(await page.locator('#cabinet-activity li').count(),20);
   await other.goto(base+'?cabinet=unknown#specimen-cabinet');assert.equal(await other.locator('#cabinet-selection li').count(),0);
   assert.match(await other.locator('#cabinet-status').textContent(),/Invalid cabinet URL/);
+  // Clear empties the selection, keeps the page and disables itself.
+  const cleared=await context.newPage();await cleared.goto(link);assert.equal(await cleared.locator('#cabinet-selection li').count(),2);
+  await cleared.locator('#cabinet-clear').click();assert.equal(await cleared.locator('#cabinet-selection li').count(),0);
+  assert.equal(await cleared.locator('#cabinet-clear').isDisabled(),true);assert.doesNotMatch(cleared.url(),/cabinet=/);await cleared.close();
   assert.deepEqual(errors,[]);report.status='passed';report.selectionURL=link;
  } finally {fs.writeFileSync(output+'/cabinet.json',JSON.stringify(report,null,2)+'\n');await browser.close();}
  console.log(JSON.stringify(report));
