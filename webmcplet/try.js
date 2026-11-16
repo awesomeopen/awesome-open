@@ -1,5 +1,5 @@
 /* Previews WebMCPlet on a list without touching its site. MIT License; see LICENSE.
- * Adopters need only webmcplet.js, build.cjs and markdown.js; this file serves `build.cjs try`. */
+ * Adopters need only webmcplet.js, build.cjs and markdown.js (and github.js for stars); this file serves `build.cjs try`. */
 "use strict";
 const fs = require("node:fs");
 const http = require("node:http");
@@ -84,12 +84,13 @@ async function tryList(input, options = {}) {
   const list = { title, page_url: repository || url, generated_at: new Date().toISOString() };
   if (repository) list.source_url = repository;
   const { doc, counts } = importMarkdown(markdown, list);
+  const stars = options.githubStars ? await require("./github.js").addGithubStars(doc, options.github) : null;
   const problems = validate(doc);
   if (problems.length) { server.close(); throw new Error("The imported list is invalid:\n  " + problems.join("\n  ")); }
   files["/index.html"] = { type: "text/html; charset=utf-8", body: page(doc, options) };
   files["/webmcplet.js"] = { type: "text/javascript; charset=utf-8", body: fs.readFileSync(path.join(__dirname, "webmcplet.js")) };
   files["/list.json"] = { type: "application/json", body: JSON.stringify(doc) };
-  return { server, url, source, counts, sections: doc.sections.length };
+  return { server, url, source, counts, stars, sections: doc.sections.length };
 }
 
 module.exports = { readmeUrls, titleOf, page, serve, tryList };
