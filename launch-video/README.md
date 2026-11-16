@@ -43,7 +43,7 @@ git-ignored; their hashes are in `session.json` and the log.
   keyframes in capture seconds. Marked by hand for footage from other clients
   (V1); logged through the DevTools protocol where the browser is ours (V2, V3).
 - **Segments** may carry `waiting` (a tag such as "Waiting for ChatGPT", shown
-  with the speed) and `cutNote` (named for 2.5 s after a cut, with the left-out
+  with the speed, at `waitingTop` pixels from the top, 470 by default) and `cutNote` (named for 2.5 s after a cut, with the left-out
   times).
 
 The video layer (captions, labels, clock, tags, claims) is neutral and separate

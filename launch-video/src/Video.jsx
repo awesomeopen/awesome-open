@@ -42,7 +42,7 @@ export const Video = ({ id }) => {
       {bundle.beats.overlays.map((o, i) => {
         if (o.type === 'code') { const data = bundle.snippets[snippet++]; return active(o, s) && <CodePanel key={i} overlay={o} snippet={data} s={s} />; }
         if (!active(o, s)) return null;
-        if (o.type === 'clock') return <Clock key={i} captureTime={captureTime} speed={seg.speed} cut={cut} waiting={seg.waiting} />;
+        if (o.type === 'clock') return <Clock key={i} captureTime={captureTime} speed={seg.speed} cut={cut} waiting={seg.waiting} waitingTop={seg.waitingTop} />;
         if (o.type === 'draw') return <Draw key={i} overlay={o} draw={bundle.draw} s={s} />;
         if (o.type === 'transcript') return <Transcript key={i} overlay={o} s={s} />;
         if (o.type === 'note') return <Note key={i} overlay={o} />;
