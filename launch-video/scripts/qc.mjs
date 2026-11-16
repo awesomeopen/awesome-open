@@ -63,7 +63,7 @@ run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-i', out, '-vf', 'fp
 const failed = results.filter(r => r.status === 'FAIL').length;
 const lines = ['# QC: ' + id, '', `Render: \`06-render/out.mp4\` (sha256 ${sha256File(out).slice(0, 12)}), checked ${new Date().toISOString()}.`,
   'Contact sheet: `06-render/contact.jpg` (git-ignored).', '', '| Result | Check | Detail |', '| --- | --- | --- |',
-  ...results.map(r => `| ${r.status} | ${r.name} | ${r.detail} |`), '', '## Review (gate 2)', '', '- Reviewer:', '- Decision:', ''];
+  ...results.map(r => `| ${r.status} | ${r.name} | ${r.detail} |`), '', 'Gate decisions: `approvals.md`.', ''];
 writeFileSync(join(dir, '07-qc.md'), lines.join('\n'));
 logStage(dir, 'qc', { out: sha256File(out) });
 console.log(`07-qc.md: ${results.length - failed} passed or warned, ${failed} failed`);
