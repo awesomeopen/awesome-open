@@ -120,6 +120,15 @@
       "run_id": "2026-11-10T2148Z-kanzler-B",
       "agent": "Kanzler (AI)"
     },
+    "10f0478043f12ea4853a0c6a46ea975c9006108a69a76f333dfe4f083801ecaf": {
+      "project_url": "https://github.com/openpanel-dev/openpanel",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
     "12ebff74e851ffb8e9ae5c84fc7b08e0f70c39565cfe39d3fae4eba8c45dfa75": {
       "project_url": "https://github.com/acidanthera/opencorepkg",
       "outcome": "proposed",
@@ -154,6 +163,15 @@
       "checked_at": "2026-11-11",
       "recheck_after": null,
       "run_id": "2026-11-11T1559Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "1cf5521e4f3d971b3cea3d28248f7a30e637e466873a9987de1fb9a0b27b9270": {
+      "project_url": "https://github.com/openlm-research/open_llama",
+      "outcome": "skipped",
+      "reason": "no_schema_fit",
+      "checked_at": "2026-11-16",
+      "recheck_after": "2027-02-14",
+      "run_id": "2026-11-16T1617Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
     "1cf88cc37865ad15c1c2f99bef9fee63cc156d65a564777b1e8f90185dbe2ab0": {
@@ -525,6 +543,24 @@
       "run_id": "2026-11-10T2148Z-kanzler-B",
       "agent": "Kanzler (AI)"
     },
+    "6c08e48f2d90758681dbbeac91fc7d09da6989497aa595dc2f35027fa9ea1a18": {
+      "project_url": "https://github.com/opensignlabs/opensign",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "6d86367855e83c40b4783746dfc3e9e578013689198e16c8f0511d586aa9c561": {
+      "project_url": "https://github.com/openapi-ts/openapi-typescript",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
     "707bb54ecfbbbe654192b6cc868e1a6967b2d267b07cc6943c0ef49583afae0f": {
       "project_url": "https://github.com/rmyndharis/openwa",
       "outcome": "proposed",
@@ -532,6 +568,15 @@
       "checked_at": "2026-11-10",
       "recheck_after": null,
       "run_id": "2026-11-10T2148Z-kanzler-B",
+      "agent": "Kanzler (AI)"
+    },
+    "70f01dd5ba1dbc3e81f3c29e976aae563aee3c787acc402d667afe7b2d2491e2": {
+      "project_url": "https://github.com/ethereal-developers/openscan",
+      "outcome": "skipped",
+      "reason": "no_schema_fit",
+      "checked_at": "2026-11-16",
+      "recheck_after": "2027-02-14",
+      "run_id": "2026-11-16T1617Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
     "72c709a1cefa588fb94189b10d5b6afa3dbdd8ab0d7c6ea5f7304d9ac1e4065e": {
@@ -550,6 +595,15 @@
       "checked_at": "2026-11-10",
       "recheck_after": null,
       "run_id": "2026-11-10T1602Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "7695295207bed0cbd8b0de86e931b300d092f8bf6d36befbd71df8289d21921b": {
+      "project_url": "https://github.com/opencart/opencart",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
     "79a14ce095741241c412784b6e8c05c6e7888d775d62cc292be4e3f7ba7b89ad": {
@@ -777,6 +831,15 @@
       "run_id": "2026-11-12T1556Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
+    "9facd576272f54b11c98879ba276031a4af25a2ddb525b638d1c75d061262e9d": {
+      "project_url": "https://github.com/open-telemetry/opentelemetry-collector",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
     "a03dc41f3c45d7161cc30d734d50f6ea56b1a6ccf5608fc30bc930e16fb2c1ce": {
       "project_url": "https://github.com/volcengine/openviking",
       "outcome": "proposed",
@@ -822,6 +885,15 @@
       "run_id": "2026-11-12T1556Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
+    "a61eb4a0cf8007496765bde0c52c2b5c98f6d8e44d1b93bbff8152496fedb090": {
+      "project_url": "https://github.com/pixaranimationstudios/openusd",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
     "ab034d20301ddd3e54c641d158795bbf9c6295f230c5e36298711c3e8ac3f5ca": {
       "project_url": "https://github.com/openimsdk/open-im-server",
       "outcome": "proposed",
@@ -838,6 +910,15 @@
       "checked_at": "2026-11-12",
       "recheck_after": null,
       "run_id": "2026-11-12T1556Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "ad9671b6186bd596692a3c213a91071c82ab046a40fb83b97265771ec962f891": {
+      "project_url": "https://github.com/open-compass/opencompass",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
     "addc6db4abdb10cb4c804fce0e3ab1f6d7a08e4a050e094b720609883b07a7d5": {
@@ -874,6 +955,15 @@
       "checked_at": "2026-11-10",
       "recheck_after": null,
       "run_id": "2026-11-10T2148Z-kanzler-B",
+      "agent": "Kanzler (AI)"
+    },
+    "b8026452b09686feb5fce2ab29548a46040ae39acfa6d24fb4b3ab1e6dcd92b9": {
+      "project_url": "https://github.com/openmediavault/openmediavault",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
     "b8e4b739e6b4909e17b15ecb82779020a04e1861fc384e010d6a0e199b8b22c4": {
@@ -921,6 +1011,15 @@
       "run_id": "2026-11-12T1556Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
+    "bf9be803610f2bd01495be45b4b801fef23560ad18a5ce53e4b0908b47444197": {
+      "project_url": "https://github.com/openmathlib/openblas",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
     "bf9d80932d62825c5cd74d63b9bf888fea16145dc27f8f7cf12c61f05224794d": {
       "project_url": "https://github.com/openmm/openmm",
       "outcome": "proposed",
@@ -928,6 +1027,24 @@
       "checked_at": "2026-11-12",
       "recheck_after": null,
       "run_id": "2026-11-12T1556Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "bfb8dcfef86cb118d3662fb239fa0d0696ed935a1de876c571a755f3c059eb3d": {
+      "project_url": "https://github.com/zseven-w/openpencil",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "c0fb5a1fbcbe4a35d90498d4e7747d14a1fe90b68ff789386be6ca95f597cbc4": {
+      "project_url": "https://github.com/openttd/openttd",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
     "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc": {
@@ -955,6 +1072,24 @@
       "checked_at": "2026-11-10",
       "recheck_after": null,
       "run_id": "2026-11-10T1602Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "c69a4c499052f166e762bdb3734a113888b48338402fbce9fad7ff5d861f0cc7": {
+      "project_url": "https://github.com/ganeshrvel/openmtp",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "c6f4cdabc8b23b43ec144b071fc9907e47d3c54b79d4547487c000955d13cc97": {
+      "project_url": "https://github.com/openedx/openedx-platform",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
     "ca97ebd52438c31d8811f0ef5c3732ce9ecc1ad086e663277400422825ddd904": {
@@ -1038,6 +1173,33 @@
       "run_id": "2026-10-31T2342Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
+    "d98719da14fd1e9d96c6131ee7f4b7b9c036a07028aa0ee508586c13e847c347": {
+      "project_url": "https://github.com/openrc/openrc",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "dab460140f5c71225d45f66d50641acbc69eb8f0a00eeb52018f4f9d4a09e0ad": {
+      "project_url": "https://github.com/traceloop/openllmetry",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "dba69fcffa55880ad59baf06c614168fdea4b04913e6a753ce800dac85aa71b6": {
+      "project_url": "https://github.com/opentoonz/opentoonz",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
     "dbdde6b88e3ec3e235ad3028f85146b3353ddf4003c2863c6c812f2a6cfcb48f": {
       "project_url": "https://github.com/rightnow-ai/openfang",
       "outcome": "proposed",
@@ -1117,6 +1279,15 @@
       "checked_at": "2026-11-11",
       "recheck_after": null,
       "run_id": "2026-11-11T1559Z-kanzler-A",
+      "agent": "Kanzler (AI)"
+    },
+    "f8b2fb836d3643aa69a45c71af85096dc070e94b85582d4b013e52da3a4cbc37": {
+      "project_url": "https://github.com/getopenscreen/openscreen",
+      "outcome": "proposed",
+      "reason": null,
+      "checked_at": "2026-11-16",
+      "recheck_after": null,
+      "run_id": "2026-11-16T1617Z-kanzler-A",
       "agent": "Kanzler (AI)"
     },
     "fae7e9e22c64821de6429b59c530c0f404713f0cb7e4296b2dde17da1ac8018c": {
@@ -1211,8 +1382,38 @@
       "verified": 0,
       "updated": 0,
       "deferred": 0,
-      "pr": null,
+      "pr": 327,
       "notes": "Slot A. Reselection after main moved to 7d8fa18 kept this batch. OpenPencil's hosted page is not a run mode. OpenMM-Setup is a separate package. The OpenEBS page states kernel 5.15 as required and 5.13 as recommended for Mayastor."
+    },
+    {
+      "run_id": "2026-11-12T2147Z-kanzler-B",
+      "date": "2026-11-12",
+      "agent": "Kanzler (AI)",
+      "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+      "mode": "backfill",
+      "selected": 0,
+      "proposed": 0,
+      "skipped": 0,
+      "verified": 0,
+      "updated": 0,
+      "deferred": 0,
+      "pr": null,
+      "notes": "Size guard: catalog.json 2326284/2392064 bytes, headroom 64.2 KiB, below 100 KiB. Added no records. Phase L required. Publisher commits after PR 327 grew catalog.json by 42890 bytes from the 106.1 KiB headroom reported on that PR."
+    },
+    {
+      "run_id": "2026-11-16T1617Z-kanzler-A",
+      "date": "2026-11-16",
+      "agent": "Kanzler (AI)",
+      "source_sha": "018a21fecbed37ce1db79804efe62d018407fc04",
+      "mode": "backfill",
+      "selected": 19,
+      "proposed": 17,
+      "skipped": 2,
+      "verified": 0,
+      "updated": 0,
+      "deferred": 0,
+      "pr": null,
+      "notes": "Slot A. Main catalog.json was 2288962/2396160 bytes, headroom 104.7 KiB. The 23 researched records would leave 98.8 KiB, under the 100 KiB guard. This run writes 17 records; the site build is 2293404/2396160, headroom 100.3 KiB. Open Mercato, OpenChoreo, OpenEXR, OpenSCAP, OpenELB and OpenNebula stay eligible. OpenLLaMA and OpenScan are no_schema_fit. openmediavault's installation page returned HTTP 403."
     }
   ]
 }
