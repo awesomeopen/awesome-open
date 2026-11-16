@@ -204,7 +204,7 @@ blue `<progress>` (see `tmp/launch_video_material`). Style it with the tokens.
   cabinet_compare · completed", "2 · … cabinet_arrange …", "1 · … cabinet_find …".
   This is V1's tool-call shot. Same pair, same link to the Cabinet.
 - **Take 3 includes the owner's own clicks** in the cloud browser ("You have
-  control", roughly 0:48 to 1:40 of the recording), which opened the Search panel and
+  control" at about 0:39 and from about 1:00 to 1:37 of the recording, read from 3 s contact sheets), which opened the Search panel and
   scrolled the Cabinet. The cut uses only stretches marked "ChatGPT has control", or
   labels the owner's actions as such.
 - **Values move between takes.** OpenReel Video had 5,671 stars in take 1 and
