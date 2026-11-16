@@ -74,7 +74,9 @@ for (const overlay of beats.overlays.filter(o => o.type === 'code')) {
     rows: rows.map(row => row.map(t => ({ content: t.content, color: t.color }))) });
 }
 
-const bundle = { beats, session, events, facts, segments, snippets, preparedAt: new Date().toISOString() };
+const drawFile = join(dir, '00-draw.json');
+const draw = existsSync(drawFile) ? readJson(drawFile) : null;
+const bundle = { beats, session, events, facts, draw, segments, snippets, preparedAt: new Date().toISOString() };
 const indexFile = join(generated, 'videos.json');
 const index = existsSync(indexFile) ? readJson(indexFile) : {};
 index[id] = bundle;

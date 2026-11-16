@@ -1,0 +1,39 @@
+{
+  "id": "v2",
+  "title": "V2: on any list",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "segments": [
+    { "in": 12, "out": 20, "speed": 2 },
+    { "in": 20, "out": 48, "speed": 4 },
+    { "in": 114, "out": 150, "speed": 6, "waiting": "Waiting for the build step", "cutNote": "the network dropped and Claude Code retried" },
+    { "in": 156, "out": 174, "speed": 2, "cutNote": "a macOS permission prompt" },
+    { "in": 174, "out": 200, "speed": 1.5 }
+  ],
+  "boxes": [
+    { "id": "terminal", "region": "terminal", "kind": "other", "label": "Claude Code · terminal on the owner's Mac", "from": 0, "to": 27.5,
+      "at": [{ "t": 0, "rect": [520, 560, 700] }] },
+    { "id": "chrome", "region": "chrome", "kind": "other", "label": "Chrome · local preview of open-source-mac-os-apps with WebMCPlet", "from": 17, "to": 34,
+      "at": [{ "t": 17, "rect": [1400, 560, 700] }] },
+    { "id": "answer", "region": "answer", "parent": "terminal", "kind": "other", "label": "Claude Code · the answer", "from": 26, "to": 43.33,
+      "at": [{ "t": 26, "rect": [960, 540, 1200] }, { "t": 34, "rect": [620, 480, 1000] }] }
+  ],
+  "beats": [
+    { "from": 0, "to": 4, "caption": "The draw: four screened lists, one seed." },
+    { "from": 4, "to": 11, "caption": "Claude Code downloads WebMCPlet and runs one command." },
+    { "from": 11, "to": 17, "caption": "The build step adds GitHub stars to the list." },
+    { "from": 17, "to": 26, "caption": "Chrome shows the list; the agent calls its tools." },
+    { "from": 26, "to": 34, "caption": "The answer comes from the page's tools; the last sentence is generated." },
+    { "from": 34, "to": 43.33, "caption": "Same kind of question, another list." }
+  ],
+  "overlays": [
+    { "type": "clock", "from": 0, "to": 43.33 },
+    { "type": "note", "from": 0, "to": 43.33, "at": [32, 28], "text": "Local preview. No affiliation with open-source-mac-os-apps (CC0)" },
+    { "type": "draw", "from": 0, "to": 11, "at": [1000, 170, 860] },
+    {
+      "type": "valueCheck", "variant": "neutral", "from": 35, "to": 43.33, "at": [1240, 230], "direction": "column",
+      "list": "04-capture/list.json", "projects": ["OpenShot", "Shotnix"], "fields": ["github_stars"]
+    }
+  ]
+}

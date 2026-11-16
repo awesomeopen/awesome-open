@@ -47,7 +47,8 @@ for (const c of facts?.claims || []) {
   const ok = c.source !== 'catalog' || c.verified;
   check(ok ? 'PASS' : 'FAIL', `Claim (${c.source})`, `${c.text}${c.source === 'catalog' ? ` · found in ${c.project}'s record` : ' · ' + c.detail}`);
 }
-if (facts) check('PASS', 'Facts source', `${facts.catalog.source}, fetched ${facts.catalog.fetched_at}, sha256 ${facts.catalog.sha256.slice(0, 12)}`);
+for (const [file, hash] of Object.entries(facts?.lists || {})) check('PASS', 'Facts source', `${file}, sha256 ${hash.slice(0, 12)}`);
+if (facts?.catalog) check('PASS', 'Facts source', `${facts.catalog.source}, fetched ${facts.catalog.fetched_at}, sha256 ${facts.catalog.sha256.slice(0, 12)}`);
 
 // Code: the snippet on screen still matches the repository file it was read from.
 const bundle = readJson(join(dir, '../../src/generated/videos.json'))[id];
