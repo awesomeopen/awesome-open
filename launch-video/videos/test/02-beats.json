@@ -1,0 +1,24 @@
+{
+  "id": "test",
+  "title": "Pipeline test",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "segments": [
+    { "in": 98, "out": 108, "speed": 1 }
+  ],
+  "beats": [
+    { "from": 0, "to": 3.5, "caption": "ChatGPT runs the page's own tools on Awesome Open*." },
+    { "from": 3.5, "to": 6.5, "caption": "The page logs each call: find, arrange, compare." },
+    { "from": 6.5, "to": 10, "caption": "These values are the catalog's records." }
+  ],
+  "overlays": [
+    { "type": "clock", "from": 0, "to": 10 },
+    { "type": "code", "from": 3.5, "to": 6.5, "file": "site/cabinet.js", "start": "for (const [name, description, link, properties, required] of definitions)", "lines": 7 },
+    {
+      "type": "valueCheck", "from": 6.5, "to": 10,
+      "projects": ["OpenCut", "OpenReel Video"],
+      "fields": ["github_stars", "license", "pushed_at"]
+    }
+  ]
+}

@@ -25,8 +25,8 @@ class BrowserEvidenceTests(unittest.TestCase):
                 result = fixture.fixture(state)
                 project = next(p for p in result['data']['projects'] if p['name'] == 'OpenTofu')
                 self.assertEqual(bool(project['hn']), state == 'partial')
-                self.assertFalse((project.get('star_history') or {}).get('chart_url'))
-                self.assertFalse(any(path.startswith('assets/stars/') for path in result['responses']))
+                self.assertEqual(bool((project.get('star_history') or {}).get('chart_url')), state == 'rollover')
+                self.assertEqual(any(path.startswith('assets/stars/') for path in result['responses']), state == 'rollover')
                 record = result['responses']['records/'+project['id']+'.html']
-                expected = 'Not recorded' if state == 'empty' else 'withheld until aligned' if state == 'rollover' else 'no zero values inferred'
+                expected = 'Not recorded' if state == 'empty' else 'Stale cached result' if state == 'rollover' else 'no zero values inferred'
                 self.assertIn(expected, record)

@@ -1,0 +1,22 @@
+{
+  "name": "awesome-open-launch-video",
+  "private": true,
+  "type": "module",
+  "description": "Launch videos for WebMCPlet, staged as in README.md",
+  "scripts": {
+    "facts": "node scripts/facts.mjs",
+    "prepare-video": "node scripts/prepare.mjs",
+    "storyboard": "node scripts/storyboard.mjs",
+    "render": "node scripts/render.mjs",
+    "qc": "node scripts/qc.mjs",
+    "studio": "remotion studio src/index.ts"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.539",
+    "chrome-devtools-mcp": "1.12.0",
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
+    "remotion": "4.0.539",
+    "shiki": "4.5.0"
+  }
+}

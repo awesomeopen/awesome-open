@@ -1,0 +1,14 @@
+{
+  "note": "Candidates for the V2 draw. Each names the section its question comes from and the query that must return at least two items. scripts/screen.mjs checks them; scripts/draw.mjs draws from those that pass.",
+  "minimum_results": 2,
+  "licences_allowed": ["CC0-1.0", "CC-BY-4.0", "MIT"],
+  "candidates": [
+    { "repo": "serhii-londar/open-source-mac-os-apps", "section": "Video", "query": "video editor", "ask": "two video editors" },
+    { "repo": "vinta/awesome-python", "section": "Audio & Video Processing", "query": "video", "ask": "two Python video libraries",
+      "licence_override": { "spdx": "CC-BY-4.0", "evidence": "LICENSE begins \"Creative Commons Attribution 4.0 International License (CC BY 4.0)\"; GitHub reports NOASSERTION" } },
+    { "repo": "avelino/awesome-go", "section": "Video", "query": "video", "ask": "two Go video libraries" },
+    { "repo": "nix-community/awesome-nix", "section": "NixOS Configuration Editors", "query": "editor", "ask": "two NixOS configuration editors" },
+    { "repo": "ripienaar/free-for-dev", "section": "Storage and Media Processing", "query": "video editor", "ask": "two video editors" },
+    { "repo": "sindresorhus/awesome", "section": "", "query": "video", "ask": "two video lists" }
+  ]
+}

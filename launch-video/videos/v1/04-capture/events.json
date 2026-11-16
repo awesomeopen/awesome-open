@@ -1,0 +1,21 @@
+{
+  "marked_by": "hand, from 2 s contact sheets of take 3 and rendered test frames",
+  "note": "Regions are named rectangles in capture pixels (2880×1914). Each list holds keyframes in capture seconds; a region keeps its latest rect until the next one.",
+  "regions": {
+    "app": [
+      { "t": 0, "rect": [0, 0, 2880, 1914] }
+    ],
+    "cloudBrowser": [
+      { "t": 0, "rect": [1170, 262, 1670, 1295] }
+    ],
+    "cabinetLog": [
+      { "t": 0, "rect": [2140, 1060, 760, 428] }
+    ],
+    "chrome": [
+      { "t": 0, "rect": [0, 0, 2880, 1914] }
+    ],
+    "prompt": [
+      { "t": 0, "rect": [700, 760, 1600, 420] }
+    ]
+  }
+}
