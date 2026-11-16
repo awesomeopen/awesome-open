@@ -40,11 +40,11 @@ driven through the DevTools protocol:
 | Run | Rows returned | AI response |
 | --- | --- | --- |
 | 1 | OpenReel Video, OpenFilm, OpenVid, openMarquee | its plan ("I need to arrange the items first…"), no comparison |
-| 2 | OpenReel Video, OpenFilm, OpenVid | lists three with descriptions |
-| 3 | OpenReel Video, OpenFilm, OpenVid | lists the two asked for, plus OpenVid |
-| 4 | OpenReel Video, OpenFilm, OpenVid | names and links only |
+| 2 | OpenReel Video, OpenFilm, OpenVid | three with descriptions and links |
+| 3 | OpenReel Video, OpenFilm, OpenVid | "Here are two…", then three with descriptions |
+| 4 | OpenReel Video, OpenFilm, OpenVid | three names and links only |
 | 5 | OpenReel Video, OpenFilm | two with descriptions |
-| 6 | OpenReel Video, OpenFilm, OpenVid | three, "I have compared them using the cabinet_compare tool" |
+| 6 | OpenReel Video, OpenFilm, OpenVid | three, then "I have compared them using the cabinet_compare tool" |
 
 Every run returned at least two rows, in 4 to 8 s. The prose often lists three
 and seldom compares values; the rows and the Cabinet link carry the comparison.
