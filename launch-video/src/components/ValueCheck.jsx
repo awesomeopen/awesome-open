@@ -8,7 +8,8 @@ const TAG = { catalog: 'Catalog', web: 'Web', generated: 'Generated' };
 export const ValueCheck = ({ overlay, facts, s }) => {
   const opacity = interpolate(s, [overlay.from, overlay.from + 0.4], [0, 1], { extrapolateRight: 'clamp' });
   return (
-    <div style={{ position: 'absolute', left: 48, top: 120, display: 'flex', gap: 24, opacity }}>
+    <div style={{ position: 'absolute', left: (overlay.at || [48])[0], top: (overlay.at || [48, 120])[1], display: 'flex',
+      flexDirection: overlay.direction || 'row', gap: 24, opacity }}>
       {overlay.projects.map(name => {
         const project = facts.projects[name];
         return (

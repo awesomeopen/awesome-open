@@ -1,6 +1,7 @@
 import { AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import videos from './generated/videos.json';
 import { Camera } from './components/Camera.jsx';
+import { Stage } from './components/Stage.jsx';
 import { Caption } from './components/Caption.jsx';
 import { Claims } from './components/Claims.jsx';
 import { Clock } from './components/Clock.jsx';
@@ -26,17 +27,19 @@ export const Video = ({ id }) => {
   let snippet = 0;
   return (
     <AbsoluteFill style={{ background: t.paper }}>
-      <Camera keyframes={bundle.events.keyframes} size={bundle.session.size} time={captureTime}>
-        {bundle.segments.map(x => (
-          <Sequence key={x.file} from={Math.round(x.start * fps)} durationInFrames={Math.round(x.length * fps)}>
-            <OffthreadVideo src={staticFile(x.file)} playbackRate={x.speed} muted />
-          </Sequence>
-        ))}
-      </Camera>
+      {bundle.beats.boxes
+        ? <Stage boxes={bundle.beats.boxes} regions={bundle.events.regions} segments={bundle.segments} s={s} captureTime={captureTime} />
+        : <Camera keyframes={bundle.events.keyframes} size={bundle.session.size} time={captureTime}>
+          {bundle.segments.map(x => (
+            <Sequence key={x.file} from={Math.round(x.start * fps)} durationInFrames={Math.round(x.length * fps)}>
+              <OffthreadVideo src={staticFile(x.file)} playbackRate={x.speed} muted />
+            </Sequence>
+          ))}
+        </Camera>}
       {bundle.beats.overlays.map((o, i) => {
         if (o.type === 'code') { const data = bundle.snippets[snippet++]; return active(o, s) && <CodePanel key={i} overlay={o} snippet={data} s={s} />; }
         if (!active(o, s)) return null;
-        if (o.type === 'clock') return <Clock key={i} captureTime={captureTime} speed={seg.speed} cut={cut} />;
+        if (o.type === 'clock') return <Clock key={i} captureTime={captureTime} speed={seg.speed} cut={cut} waiting={seg.waiting} />;
         if (o.type === 'claims') return <Claims key={i} overlay={o} facts={bundle.facts} s={s} />;
         if (o.type === 'valueCheck') return <ValueCheck key={i} overlay={o} facts={bundle.facts} s={s} />;
         throw new Error('Unknown overlay ' + o.type);

@@ -46,7 +46,7 @@ const segments = timeline(beats.segments).map((seg, i) => {
       '-an', '-vf', 'fps=30,format=yuv420p', '-c:v', 'libx264', '-crf', '14', '-preset', 'medium', join(pub, file)]);
     writeFileSync(stamp, key);
   }
-  return { ...seg, file };
+  return { ...seg, file, size: session.size };
 });
 
 // Code reveals, read from repository files now, located by their first line.

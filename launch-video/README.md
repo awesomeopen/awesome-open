@@ -31,10 +31,21 @@ git-ignored; their hashes are in `session.json` and the log.
   capture seconds with their playback speed; `beats`, each caption with its output
   time range; `overlays`: `clock`, `code` (a repository file, the text of its first
   line and a line count) and `valueCheck` (catalog projects and fields).
-- **`04-capture/events.json`:** camera keyframes in capture seconds, each a
-  rectangle in capture pixels that the camera fits to the frame. Marked by hand
-  for footage from other clients (V1); logged through the DevTools protocol where
-  the browser is ours (V2, V3).
+- **`boxes`** (in `02-beats.json`): the stage layout. Each box shows a named
+  capture region with a label naming its source, from one output second to
+  another, at keyframed positions `[centre x, centre y, width]`. A box with a
+  `parent` lifts out of where its region sits in the parent and returns there.
+  `kind: "site"` marks Awesome Open\* content. Without `boxes`, the older single
+  camera (`keyframes` in `events.json`) frames the capture.
+- **`04-capture/events.json`:** `regions`, named rectangles in capture pixels with
+  keyframes in capture seconds. Marked by hand for footage from other clients
+  (V1); logged through the DevTools protocol where the browser is ours (V2, V3).
+- **Segments** may carry `waiting` (a tag such as "Waiting for ChatGPT", shown
+  with the speed) and `cutNote` (named for 2.5 s after a cut, with the left-out
+  times).
+
+The video layer (captions, labels, clock, tags, claims) is neutral and separate
+from the site's style; see [B-PR343-01](../brand/decisions/B-PR343-01.md).
 - **`05-facts.json`:** each shown value with its label, source (`catalog`, `web` or
   `generated`) and observation date, plus the SHA-256 of the catalog it was read
   from. The overlay reads only this file. `null` renders as Unknown.
