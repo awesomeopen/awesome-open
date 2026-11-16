@@ -1,0 +1,13 @@
+{
+  "take": "V2 take 2 (take 1 at 3:02:50 showed another window and is not used)",
+  "recorded": "2026-11-16T03:13:15 local, owner's M5, built-in display",
+  "source": "tmp/launch_video_material/Screen Recording 2026-11-16 at 3.13.15 AM.mov",
+  "sha256": "be00731abd6364f5a7c0a02c27a8977b5ba2130cf82b9929644f47af043ca159",
+  "size": [3456, 2234],
+  "color": "SDR, BT.709",
+  "client": "Claude Code (Opus 5.5) in Terminal.app, driving Chrome 157 through chrome-devtools-mcp 1.12.0 (scripts/devtools-mcp.mjs)",
+  "list": "serhii-londar/open-source-mac-os-apps at 23b6184, CC0-1.0, drawn by 00-draw.json",
+  "served_list_sha256": "98112e0cae7372b881696a2d1c4735c15043578eb3917595d063a59a74cb1dcb",
+  "webmcplet": "main 82cf23b, webmcplet.js SHA-256 9bedf98b…, release 0.2.1, with github.js",
+  "events": "network dropped 48 to 99 s and Claude Code retried; a macOS permission prompt for Terminal to control Finder (from the screen-size check) 150 to 156 s; Claude Code's auto-mode prompt appears under the answer from about 174 s"
+}

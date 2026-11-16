@@ -3,19 +3,23 @@
 Each release names the SHA-256 of `webmcplet.js`. Compare it with
 `shasum -a 256 webmcplet.js` after copying, or run `node build.cjs version`.
 
-## Unreleased
-
-- Optional `github.js` and `--github-stars on` for `build.cjs markdown` and `try`: a
-  `github_stars` field from the GitHub REST API, with `observed_at`; `GITHUB_TOKEN` raises
-  the rate limit. `webmcplet.js` is unchanged.
-
 ## 0.3.0
 
-`webmcplet.js` SHA-256 `ff53dbc6d089c3af37cb5cb78a3b7a656f597f4b429cd66e187254765dcc8e95`
+`webmcplet.js` SHA-256 `d62a354d630f670569a1d2582d2aa46cd2f89ffb82da26d54179c10eb9ec9303`
 
 - Follow-up questions: the assistant keeps the conversation's refs and items and sends a
   recap of the last 3 turns with each request. "New conversation" starts over.
 - A search of several words that matches nothing reports each word's matches alone.
+
+## 0.2.2
+
+`webmcplet.js` SHA-256 `606dfa9038f68d266be71164702a00d114957c703c93c2d732643ab38a1e7086`
+
+- The model download bar takes the panel's accent colour (`--webmcplet-accent`) instead of
+  the browser's default.
+- Optional `github.js` and `--github-stars on` for `build.cjs markdown` and `try`: a
+  `github_stars` field from the GitHub REST API, with `observed_at`; `GITHUB_TOKEN` raises
+  the rate limit.
 
 ## 0.2.1
 

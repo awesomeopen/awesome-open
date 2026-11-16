@@ -36,7 +36,7 @@ Most dependencies the first draft waited on have shipped:
 
 | Then | Now |
 | --- | --- |
-| Shoot V1 after the Cabinet redesign (PR 5) | Shipped: panel, assistant and Cabinet redesign (#333, #335, #338). #340 merged into its earlier feature branch; its follow-ups and search hints need integration into main. |
+| Shoot V1 after the Cabinet redesign (PR 5) | Shipped: panel, assistant and Cabinet redesign (#333, #335, #338). #340 merged into its earlier feature branch; integration of its follow-ups and search hints is tracked in [#349](https://github.com/awesomeopen/awesome-open/pull/349). |
 | V2 needs the importer (PR 4) | Shipped: `webmcplet/` with `build.cjs try <list URL>`, release `webmcplet-v0.1.0` |
 | V3 only if the model test passes (PR 3) | Earlier assistant, tested 2026-11-09: 56 of 60 runs; #340 follow-ups and hints remain untested on the real model. Model download 4.0 GB in 2 minutes on the M5 ([test](../experiments/prompt-api-m5/README.md)) |
 | V3's M5 has no model on disk | The model was downloaded on 2026-11-09. V3 needs a fresh `--user-data-dir`; confirm the download starts there |

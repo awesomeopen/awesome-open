@@ -272,6 +272,14 @@ paragraphs on the ledger stylesheet is incomplete, whatever its content. See the
 the [visual reference](../site/design/index.html), which is maintained with these
 rules and lists retired patterns.
 
+## Launch videos (B-PR343-01)
+
+Videos separate content from the video layer. Content is captured footage in
+labelled boxes on one neutral dark stage, plus the catalog value check in the
+site's style. Captions, labels, clock and tags are neutral white-on-black chips
+outside the site's tokens. Details lift out of their source box and return to it.
+See [the record](decisions/B-PR343-01.md) and `launch-video/README.md`.
+
 ## Ledger copy cleanup (B43)
 
 The top navigation omits GitHub. Repository vitals place creation before push;

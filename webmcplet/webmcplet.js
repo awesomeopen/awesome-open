@@ -598,7 +598,7 @@
     ".status{min-height:1.6em}footer{margin-top:32px;padding-top:12px;border-top:1px solid var(--wm-rule);font-size:12px;line-height:1.5;color:var(--wm-muted)}",
     "footer p{margin:0}footer a,footer .link{color:inherit;text-decoration:underline}code{font-size:11px}",
     ".frame footer .link{display:inline;min-height:0;padding:0;border:0;background:none;font:inherit;cursor:pointer}",
-    "progress{width:100%}[hidden]{display:none!important}",
+    "progress{width:100%;accent-color:var(--wm-accent)}[hidden]{display:none!important}",
     "@media(max-width:560px){.frame{padding:16px}h2{font-size:24px}dialog{width:calc(100vw - 16px);max-height:calc(100vh - 16px)}}"
   ].join("");
 

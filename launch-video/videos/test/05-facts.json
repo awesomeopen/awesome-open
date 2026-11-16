@@ -1,0 +1,59 @@
+{
+  "catalog": {
+    "source": "https://awesomeopen.github.io/awesome-open/catalog.json",
+    "fetched_at": "2026-11-16T07:02:51.191Z",
+    "sha256": "f8702571c096d090faa658940d8946038c42bf876fa694b0f852b451e7accfbd",
+    "metrics_as_of": "2026-11-16",
+    "source_sha": "65583f9b9b042bbd84134aceb68ef8929d9601f8"
+  },
+  "projects": {
+    "OpenCut": {
+      "id": "c1138f446c5cc2a4457f8ede5bf36b6558502ab63bb397f936b75e860a64f5cc",
+      "url": "https://github.com/opencut-app/opencut",
+      "fields": {
+        "github_stars": {
+          "label": "GitHub stars",
+          "value": 98586,
+          "source": "catalog",
+          "observed": "2026-11-16T06:45:08Z"
+        },
+        "license": {
+          "label": "Detected license",
+          "value": "MIT",
+          "source": "catalog",
+          "observed": "2026-11-16T06:45:08Z"
+        },
+        "pushed_at": {
+          "label": "Last push",
+          "value": "2026-09-24",
+          "source": "catalog",
+          "observed": "2026-11-16T06:45:08Z"
+        }
+      }
+    },
+    "OpenReel Video": {
+      "id": "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106",
+      "url": "https://github.com/augani/openreel-video",
+      "fields": {
+        "github_stars": {
+          "label": "GitHub stars",
+          "value": 5673,
+          "source": "catalog",
+          "observed": "2026-11-16T06:45:08Z"
+        },
+        "license": {
+          "label": "Detected license",
+          "value": "MIT",
+          "source": "catalog",
+          "observed": "2026-11-16T06:45:08Z"
+        },
+        "pushed_at": {
+          "label": "Last push",
+          "value": "2026-10-17",
+          "source": "catalog",
+          "observed": "2026-11-16T06:45:08Z"
+        }
+      }
+    }
+  }
+}
