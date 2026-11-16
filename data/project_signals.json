@@ -1,8 +1,8 @@
 {
-  "collected_at": "2026-11-15T19:41:25Z",
+  "collected_at": "2026-11-16T02:35:03Z",
   "method_version": "1",
   "provider_retry_after": {
-    "release": "2026-11-15T20:41:25Z",
+    "release": null,
     "scorecard": null
   },
   "repositories": {
@@ -737,6 +737,47 @@
         "source_url": "https://api.scorecard.dev/projects/github.com/agnitas-org/openemm",
         "status": "stale",
         "success_time_precision": "second"
+      }
+    },
+    "aimclub/osa": {
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-16T02:35:03Z",
+        "error": null,
+        "etag": "\"7a25d7294629d97180863546edf11b35e2fa33dcd9c77d6752edf6c8ff740f2e\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-16T02:35:03Z",
+          "observed_at": "2026-10-27T07:58:37Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/aimclub/OSA/releases/tag/v0.3.4",
+            "published_at": "2026-10-27T07:58:37Z",
+            "release_id": 425165960,
+            "tag_name": "v0.3.4"
+          }
+        },
+        "last_success_at": "2026-11-16T02:35:03Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/aimclub/osa/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-16T02:35:03Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/aimclub/osa",
+        "status": "unavailable"
       }
     },
     "airwan-dev/opensport": {
@@ -27407,7 +27448,7 @@
     "zmeyer44/openvitals": {
       "release": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-14T04:15:38Z",
+        "checked_at": "2026-11-16T02:35:03Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -27462,5 +27503,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "afd60f3ac16197aee7df5ffb47220d2032710b6f"
+  "source_sha": "8880f23738ed15a301a9d8408f25fde9c6a4258f"
 }
