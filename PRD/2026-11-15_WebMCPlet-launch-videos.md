@@ -195,12 +195,26 @@ blue `<progress>` (see `tmp/launch_video_material`). Style it with the tokens.
   OpenReel's README on GitHub and said so. Both statements are correct: OpenCut's
   feature note "Self-hosted classic editor" records the Docker Compose setup, and
   OpenReel Video has no deployment record. Its "Open the selected pair in the
-  catalog" link opened both projects in the Cabinet. **Take 2 is the V1 base,**
-  with this prompt; take 1 stays in the record.
+  catalog" link opened both projects in the Cabinet. **This prompt is V1's prompt.**
+  Take 1 stays in the record.
 - **The verdict stays visible.** "I'd try OpenReel first" is ChatGPT's own pick and
   carries the "generated" label.
-- **The "Cloud browser" panel was not enlarged** in take 2. If it cannot be, the activity
-  beat zooms into its thumbnail or is cut.
+- **Take 3** (2026-11-16, SDR, 2:25 recording, same prompt) enlarged the "Cloud
+  browser" panel. The page's Cabinet log is readable there: "3 · Native tool ·
+  cabinet_compare · completed", "2 · … cabinet_arrange …", "1 · … cabinet_find …".
+  This is V1's tool-call shot. Same pair, same link to the Cabinet.
+- **Take 3 includes the owner's own clicks** in the cloud browser ("You have
+  control", roughly 0:48 to 1:40 of the recording), which opened the Search panel and
+  scrolled the Cabinet. The cut uses only stretches marked "ChatGPT has control", or
+  labels the owner's actions as such.
+- **Values move between takes.** OpenReel Video had 5,671 stars in take 1 and
+  5,673 in take 3 (observed 2026-11-16T06:45:08Z). Stage 5 records the facts per
+  take, and the overlay uses the take that is cut.
+- **ChatGPT flagged a catalog gap** in take 3: "its Self-hosted server filter misses
+  both — OpenCut is classified as `local_web`, and OpenReel's run mode is
+  unrecorded." OpenCut's own feature note records a Docker Compose setup for the
+  classic editor. This goes to the deployment-evidence review, separate from the
+  videos.
 - **Take 1 was recorded in HDR** (HEVC, PQ), so white pages turn grey after
   conversion. Take 2 was recorded in SDR (BT.709) and keeps the white. Record in SDR.
   V2 and V3 capture the page through CDP (`Page.startScreencast`) in sRGB.
