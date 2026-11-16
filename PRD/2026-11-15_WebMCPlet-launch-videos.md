@@ -98,7 +98,7 @@ Decided by the owner on 2026-11-16.
 | s | Visual | Overlay |
 | --- | --- | --- |
 | 0 to 4 | ChatGPT composer; the prompt types in with the page URL | The literal prompt |
-| 4 to 14 | ChatGPT's browser opens Awesome Open\*; zoom on each tool call | Chips as calls appear: `cabinet_find`, `cabinet_arrange`, `cabinet_compare` |
+| 4 to 14 | ChatGPT's "Cloud browser" panel; zoom on the page's own Cabinet activity log as calls arrive | Waits marked as sped up |
 | 14 to 28 | The answer streams; pull back to the full window | Value check per project |
 | 28 to 40 | Our site opened from the Cabinet link the agent returned | "Same selection, from the agent's link" |
 
@@ -173,9 +173,13 @@ blue `<progress>` (see `tmp/launch_video_material`). Style it with the tokens.
 
 **V1 findings from the take:**
 
-- **Tool calls are collapsed** into "Ran 6 commands and searched the web", so no
-  tool names are visible. The next take expands that row on camera; if it still
-  shows no names, the chips beat is cut rather than drawn from another source.
+- **ChatGPT shows no tool names.** It collapses them into "Ran 6 commands and
+  searched the web"; thinking traces open, the calls do not (owner, 2026-11-16).
+  The page shows them itself: each agent call opens the Cabinet, says "Running:
+  find." and adds "1 · Native tool · cabinet_find · running" to its "Agents,
+  activity & method" log (`site/cabinet.js`). V1 shows the calls by enlarging
+  ChatGPT's "Cloud browser" panel on that log. If the panel cannot be enlarged,
+  the beat zooms into its thumbnail; the chips are never drawn from another source.
 - **ChatGPT mixed sources.** It used the catalog tools, then web search and GitHub
   for hosting and editing details, and ended with its own pick ("I'd try OpenReel
   first"). The catalog records no run mode for OpenReel Video, so "self-hosted"
