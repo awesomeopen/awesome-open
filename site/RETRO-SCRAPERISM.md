@@ -451,8 +451,9 @@ sources; omit display-name duplicates and empty blocks.
   `--rs-verdigris-art`, `aria-hidden`, and hidden below 720px.
 - **Grid content:** box titles in 12px Commit Mono, values in Półtawski 33px (Unknown
   28px, muted). The release version is centred. Sparklines sit on one unbreakable
-  line, `33 · 2024-10 – 2026-09` (non-breaking spaces, hair spaces around the en
-  dash). Reasons (“Not checked”, “No result returned”, “Not reviewed”), provider
+  line for HN. GitHub history places the count above its unbroken month range
+  (`2024-10 – 2026-09`); both captions reserve two lines to keep chart baselines
+  aligned. Stale history has a text label above the chart. Reasons (“Not checked”, “No result returned”, “Not reviewed”), provider
   status, HN’s “past 2y”, scales and sources open from a bare “i” in the box's lower
   right corner: a 44px native disclosure whose popup opens upward from the box edge
   nearest the plate's centre; one open at a time, Escape or an outside click closes

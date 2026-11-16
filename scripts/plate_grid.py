@@ -136,10 +136,10 @@ def stars_box(project):
     if record.get("chart_url"):
         months, counts = good["months"], good["monthly_counts"]
         total = sum(counts)
-        body = (f'<a class="pg-spark-link" href="{esc(record["source_url"])}"><img class="pg-spark" src="{esc(record["chart_url"])}" '
+        body = (('<p class="pg-line">Stale cached result</p>' if status.startswith("Stale") else "")
+                + f'<a class="pg-spark-link" href="{esc(record["source_url"])}"><img class="pg-spark" src="{esc(record["chart_url"])}" '
                 f'width="120" height="24" alt="Monthly stars retained at fetch, {esc(months[0])} to {esc(months[-1])}" loading="lazy"></a>'
-                + foot(f"{total:,}", months[0], months[-1])
-                + ('<p class="pg-line">Stale cached result</p>' if status.startswith("Stale") else ""))
+                + f'<p class="pg-foot">{total:,}<br><span class="pg-nowrap">{window(months[0], months[-1])}</span></p>')
         popup = (state(status) + f"<p>{total:,} stars / {esc(months[0])}–{esc(months[-1])}: Stars created in each month that remained at the last successful fetch. "
                  f"Independent square-root scale: 0–{max(1, *counts):,} stars/month.</p>" + sources)
     else:

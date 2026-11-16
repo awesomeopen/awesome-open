@@ -738,6 +738,8 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .pg-spark-empty {aspect-ratio:5;margin-top:auto;border-bottom:1px solid var(--rule);background:repeating-linear-gradient(90deg,transparent 0 calc(100% / 24 - 1px),#e3e9ee calc(100% / 24 - 1px) calc(100% / 24));}
 .pg-foot {margin:6px 0 0;font:12px/1.5 var(--mono);color:var(--rs-ink);}
 .pg-foot.is-unknown {color:var(--muted);}
+/* Reserve two caption lines so dated histories and HN retain one baseline. */
+.pg-evidence .pg-foot {min-height:36px;}
 .pg-foot {padding-right:36px;}
 .pg-hn-key {display:flex;flex-wrap:wrap;gap:2px 10px;}
 .pg-hn-key a {white-space:nowrap;text-underline-offset:3px;}

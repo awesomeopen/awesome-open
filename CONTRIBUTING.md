@@ -400,8 +400,8 @@ Fast mode uses only the existing `GITHUB_TOKEN`, requests aggregate history
 sequentially, and skips repositories already carrying a validated window for the
 current 24 complete months. Each chunk has a 15-minute collection deadline,
 a 900-request ceiling, and a live quota floor reserving one core metadata request per eligible repository,
-350 optional release attempts, 400 normal history attempts, and 20 requests of
-overhead (1,770 for 1,000 repositories). This reserves a healthy normal publishing
+350 optional release attempts, 30 language attempts, 400 normal history attempts,
+and 20 requests of overhead (1,800 for 1,000 repositories). This reserves a healthy normal publishing
 sweep; unexpected retries or unrelated simultaneous API use can still consume
 shared quota. Quota headers and bounded
 Retry-After/secondary-limit backoff control pacing. Authentication, unexpected
