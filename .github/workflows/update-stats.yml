@@ -8,6 +8,8 @@ on:
       - 'data/**'
       - 'scripts/**'
       - 'site/**'
+      # The site build copies webmcplet/webmcplet.js and its list document.
+      - 'webmcplet/**'
       - 'assets/hn/**'
       - '.github/workflows/update-stats.yml'
       - '.github/workflows/check-updaters.yml'
