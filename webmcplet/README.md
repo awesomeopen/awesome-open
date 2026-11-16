@@ -1,18 +1,16 @@
 # WebMCPlet
 
-WebMCPlet gives a curated list read-only [WebMCP](https://webmachinelearning.github.io/webmcp/)
-tools and a search panel on the list's own page. A maintainer adds one script and one
-generated JSON file; a visiting browser agent can then list sections, search items and
-read an item's recorded fields, and a visitor can search and browse from a corner button.
-There is no server to install.
+**Do you curate a list?** WebMCPlet gives you read-only [WebMCP](https://webmachinelearning.github.io/webmcp/)
+tools and a search panel on your page. You add one script and one
+generated JSON file. Your visitor's agent can then list sections, search items and
+read an item's recorded fields. A visitor can search and browse from the corner button (optionally hidden). 
 
-This directory has no dependencies, imports nothing from Awesome Open\* and is
-MIT-licensed ([LICENSE](LICENSE)). Releases and their checksums are in the
-[CHANGELOG](CHANGELOG.md).
+WebMCPlet is a drop-in solution. There is no server to install. There are no dependencies. Nothing is 
+imported from Awesome Open\*. ([MIT license](LICENSE)) / [Releases and checksums](CHANGELOG.md).
 
 ## Try it on your list
 
-With Node.js 18 or later, download a release into an empty folder and preview your list
+Download WebMCPlet into an empty folder (use Node.js 18 or later). Then preview your list
 from its README:
 
 ```sh
@@ -23,20 +21,20 @@ done
 node build.cjs try https://github.com/you/awesome-x
 ```
 
-It reads the README as a raw file, imports it, and serves a plain page of your entries
+WebMCPlet reads your README as a raw file, imports it, and serves a plain page of your entries
 with the panel at the printed `127.0.0.1` address until you press Ctrl+C. Your site and
-repository stay untouched. A local `README.md` path works too; `--assistant on` adds the
-[assistant](#assistant). The visitor tools appear in a browser that provides WebMCP, such
-as Chrome started with `--enable-blink-features=WebMCP`, as this repository's checks do.
+repository stay untouched. A local `README.md` path works too. `--assistant on` adds the
+[assistant](#assistant). The visitor tools appear in a browser that provides WebMCP (example: 
+Chrome started with `--enable-blink-features=WebMCP`).
 
 ## Add it to your site
 
-WebMCPlet runs on a page you publish, such as a GitHub Pages site; GitHub's README view
-runs no scripts.
+WebMCPlet runs on a page you publish, like your **GitHub Pages** site. A regular README view
+is not supported as it does not run scripts.
 
 1. Put `webmcplet.js`, `build.cjs`, `markdown.js` and `LICENSE` from that download in a
    `webmcplet/` folder in your repository; `try.js` serves only the preview. Check that
-   the SHA-256 that `node build.cjs version` prints matches the release in the
+   the SHA-256 that `node build.cjs version` prints matches the release in 
    [CHANGELOG](CHANGELOG.md).
 2. Generate the list document from the README in your site's build. Read the README as a
    raw file, because GitHub's README API truncates large files:
@@ -48,19 +46,19 @@ runs no scripts.
 
    A list with its own structured data can write the [list document](#list-document)
    directly and run `node build.cjs check list.json`.
-3. Publish `webmcplet.js` and `list.json` with the page, and add:
+3. Publish `webmcplet.js` and `list.json` with the page. Add:
 
    ```html
    <script src="webmcplet.js" data-webmcplet-src="list.json" data-webmcplet-title="Awesome X" defer></script>
    ```
 
-   With `data-webmcplet-title`, `list.json` loads at the first tool call or panel use;
-   without it, at page load. The document must be same-origin; redirects are refused.
+   *With* `data-webmcplet-title`, `list.json` loads at the first tool call or panel use.
+   *Without it*, it loads at page load. The document must be same-origin. Redirects are refused.
    Tools register only where the browser provides `document.modelContext` in a secure
-   context; the panel works in every browser.
+   context.
 
-On your page, the script fetches only `list.json` from your origin, makes no analytics
-calls, and adds one element whose panel sits in a shadow root, so your styles and markup
+On your page, the script fetches only `list.json` from your origin. It makes no analytics
+calls. It adds one element whose panel sits in a shadow root. Your styles and markup
 stay as they are. When a visitor hides the button, that browser stores one
 `localStorage` key. To update, copy a later release and compare its checksum the same way.
 
@@ -73,22 +71,22 @@ stay as they are. When a visitor hides the button, that browser stores one
 | `data-webmcplet-assistant` | `on` adds the [assistant](#assistant) to the panel |
 | `data-webmcplet-assistant-tools` | Tool names the assistant uses, such as the page's own tools (below) |
 
-**Origin-trial token:** Chrome turns WebMCP on for visitors without a flag when the page
+**Origin-trial token:** Chrome turns WebMCP **on** for visitors who did not set their "experimental" flag when the page
 carries a token for its origin from [Chrome Origin Trials](https://developer.chrome.com/origintrials/):
-`<meta http-equiv="origin-trial" content="TOKEN">`. Visiting agents such as ChatGPT's
-browser use the tools without one.
+`<meta http-equiv="origin-trial" content="TOKEN">`. Agents like ChatGPT's
+browser use the tools without token.
 
 ## Tools
 
 | Tool | Returns |
 | --- | --- |
-| `list_sections` | The list's title and page URL, its sections with item counts, and each declared field with its meaning, source, observation date and how many items record it |
-| `list_find` | 12 items from `offset`, with `total`, `matched_fields` and the list's `page_url`. `query`, `section` and `filters` narrow the results |
-| `list_get` | One item with every recorded field |
+| `list_sections` | List title and page URL. Sections with item counts. For each declared field: meaning, source, observation date, how many items record it. |
+| `list_find` | 12 items from `offset`, with `total`, `matched_fields` and the list's `page_url`, narrowed by `query`, `section`, `filters`. |
+| `list_get` | One full item, all fields. |
 
 **Search:** every word of `query` must appear in an item's name, aliases, description
-or a field declared with `search`. Results rank by the weakest field any word needed,
-in that order, then by name, then list order. An exact short alias, such as OBS, matches
+or a field declared with `search`. Results rank by the weakest field any word needed, 
+then by name, then list order. An exact short alias, such as OBS, matches
 whole words only. An empty query lists items in list order.
 
 **Filters:** `filters` maps a field declared with `filter` to one value, such as
@@ -105,41 +103,31 @@ error with a generic failure and the agent would lose the recovery instruction. 
 
 ## Panel
 
-The corner button, "Search" over a smaller "WebMCPlet", opens a modal dialog with search,
-a section filter and results that link to each item. The button never opens or moves by
-itself. Escape or Close returns focus to the button. The dialog's footer says the panel is
-a WebMCPlet showcase and what WebMCPlet does. A visitor can hide the button from there
-with "Hide the Search button"; the choice is stored in that browser only and the tools
-stay registered. The footer also names `data-webmcplet-panel="off"`, which hides the
-button for every visitor. The panel loads no other files and makes no analytics calls.
+The corner button opens a modal dialog with search and a section filter. Results 
+link to full items. A visitor can hide the button (choice 
+stored in that browser only, tools stay registered). 
 
-The panel sits in a shadow root. A page themes it by setting these custom properties on
+The panel loads no other files and makes no analytics calls. The panel sits in a shadow root. 
+**Theme it** by setting these custom properties on
 `[data-webmcplet-host]`: `--webmcplet-bg`, `--webmcplet-fg`, `--webmcplet-accent`,
 `--webmcplet-muted`, `--webmcplet-rule`, `--webmcplet-focus`, `--webmcplet-font`,
-`--webmcplet-heading-font` and `--webmcplet-radius`. For a different button layout, the page
-styles `[data-webmcplet-host]::part(trigger)`, `::part(label)` and `::part(caption)`. On a page wider than the screen,
-or when zoomed, the button and dialog follow the visible part of the page.
+`--webmcplet-heading-font` and `--webmcplet-radius`. 
+On wide or zoomed pages, button and dialog follow the visible part of the page.
 
 ## Assistant
 
-With `data-webmcplet-assistant="on"`, the panel offers Chrome's on-device model
-([Prompt API](https://developer.chrome.com/docs/ai/prompt-api)) where Chrome reports it
-available or downloadable. Downloading needs a click. The model calls the same tools,
+With `data-webmcplet-assistant="on"`, the panel offers Chrome's **on-device model**
+([Prompt API](https://developer.chrome.com/docs/ai/prompt-api)) - if Chrome reports it
+available, or downloadable by the user. The on-device model calls the same tools,
 one JSON action per turn, at most 8 turns and 30 seconds per turn, and sees short refs
-such as `r1` in place of item IDs. The answer's rows come from tool results; the model's
-text is labelled as generated and withheld when it names an item the tools did not return.
+such as `r1` in place of item IDs. The answer's rows come from tool results. The model's
+text is labelled as generated. Text is withheld when it names an item the tools did not return.
 
 A page can give the assistant its own tools by pushing definitions shaped like
 `registerTool`'s argument onto `window.webmcpletTools` and naming them in
 `data-webmcplet-assistant-tools`.
 
-**Status: opt-in.** Measured on 2026-11-10 with Chrome 156 and on-device model
-2025.8.8.1141, 20 runs per journey, it passed the family-photo journey (no match)
-20 of 20 and the Markdown-editor journey 20 of 20, and selected the requested two
-projects for the video-editor comparison in 8 of 20 runs; the other 12 selected three. The pass threshold is 17 of 20
-for each journey, so it stays off by default. Method and earlier results:
-[experiments/prompt-api-m5](../experiments/prompt-api-m5/README.md),
-`scripts/check_webmcplet_assistant.cjs`.
+**Status: opt-in.** 
 
 ## List document
 
