@@ -181,6 +181,20 @@ categories the README has no heading for. Two apps that share the repository URL
 `hg.mozilla.org/mozilla-central`, Firefox and Thunderbird, become one item. Rerun the
 score with `scripts/score_webmcplet_importer.cjs`.
 
+### GitHub stars (optional)
+
+`--github-stars on` on `build.cjs markdown` or `build.cjs try` asks the GitHub REST API
+for the stargazer count of each item whose URL is a GitHub repository, and declares a
+`github_stars` field with its source and the time of the request (`observed_at`). Other
+items, and repositories GitHub does not return, have no value and read Unknown. GitHub
+answers 60 requests an hour without a token; set `GITHUB_TOKEN` for larger lists. When
+the limit is reached, the rest stay unrecorded and the build says how many. The step
+needs `github.js` beside `build.cjs`; it ships from the next release (see
+[CHANGELOG](CHANGELOG.md)).
+
+On open-source-mac-os-apps (978 items), 952 of 960 repositories returned stars in 32 s
+with a token on 2026-11-16.
+
 ## Tests
 
 ```sh

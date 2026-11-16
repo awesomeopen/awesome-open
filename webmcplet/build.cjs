@@ -2,11 +2,14 @@
 /* WebMCPlet build step. MIT License; see LICENSE.
  *
  *   node build.cjs markdown README.md --title "Awesome X" --page-url https://example.org/awesome-x/ \
- *     [--source-url URL] [--source-revision SHA] [--license SPDX] [--out list.json]
+ *     [--source-url URL] [--source-revision SHA] [--license SPDX] [--github-stars on] [--out list.json]
  *   node build.cjs check list.json
  *   node build.cjs try https://github.com/you/awesome-x | README.md [--title TITLE] [--port 8080] [--assistant on]
+ *     [--github-stars on]
  *   node build.cjs version
  *
+ * --github-stars on records GitHub stars through github.js; set GITHUB_TOKEN for
+ * more than 60 repositories an hour.
  * Read the README from a raw file: GitHub's README API truncates large files.
  */
 "use strict";
@@ -45,11 +48,14 @@ if (command === "markdown") {
   if (opts["source-revision"]) list.source_revision = opts["source-revision"];
   if (opts.license) list.license = opts.license;
   const { doc, counts } = importMarkdown(fs.readFileSync(source, "utf8"), list);
-  check(doc, "The imported list");
-  const json = JSON.stringify(doc) + "\n";
-  if (opts.out) fs.writeFileSync(opts.out, json); else process.stdout.write(json);
-  process.stderr.write(counts.items + " items from " + counts.entries + " entries in " + doc.sections.length +
-    " sections; " + counts.skipped + " links skipped.\n");
+  const stars = opts["github-stars"] === "on" ? require("./github.js") : null;
+  (stars ? stars.addGithubStars(doc) : Promise.resolve(null)).then(starCounts => {
+    check(doc, "The imported list");
+    const json = JSON.stringify(doc) + "\n";
+    if (opts.out) fs.writeFileSync(opts.out, json); else process.stdout.write(json);
+    process.stderr.write(counts.items + " items from " + counts.entries + " entries in " + doc.sections.length +
+      " sections; " + counts.skipped + " links skipped.\n" + (starCounts ? stars.describe(starCounts) + "\n" : ""));
+  }, error => fail(error.message));
 } else if (command === "check") {
   const [file] = opts.positional;
   if (!file) fail("Usage: build.cjs check list.json");
@@ -59,8 +65,10 @@ if (command === "markdown") {
 } else if (command === "try") {
   const [source] = opts.positional;
   if (!source) fail("Usage: build.cjs try https://github.com/you/awesome-x | README.md [--port 8080]");
-  require("./try.js").tryList(source, { title: opts.title, port: Number(opts.port) || 0, assistant: opts.assistant === "on" }).then(result => {
+  require("./try.js").tryList(source, { title: opts.title, port: Number(opts.port) || 0, assistant: opts.assistant === "on",
+    githubStars: opts["github-stars"] === "on" }).then(result => {
     process.stdout.write(result.counts.items + " items in " + result.sections + " sections from " + result.source + "\n" +
+      (result.stars ? require("./github.js").describe(result.stars) + "\n" : "") +
       "Preview: " + result.url + "\nPress Ctrl+C to stop.\n");
   }, error => fail(error.message));
 } else if (command === "version") {
