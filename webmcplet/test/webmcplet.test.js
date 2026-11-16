@@ -192,3 +192,34 @@ test("the model schema uses refs for IDs and drops uniqueItems", () => {
   assert.deepEqual(schema.properties, { ids: { type: "array", maxItems: 6, items: { type: "string", pattern: "^r[0-9]{1,3}$" } }, id: { type: "string", pattern: "^r[0-9]{1,3}$" } });
   assert.deepEqual(W.assistant.namesIn("Use Apple-tools or Apple. See github.com/x/Apple", ["Apple", "Pear"]), ["Apple"]);
 });
+
+test("requestedCount reads a number of items from the request", () => {
+  const { requestedCount } = require("../webmcplet.js").assistant;
+  assert.equal(requestedCount("Find me two video editors that run in the browser and compare them."), 2);
+  assert.equal(requestedCount("Show 3 tools"), 3);
+  assert.equal(requestedCount("Find a video editor"), null);
+  assert.equal(requestedCount("Is OpenCut one of them?"), null);
+});
+
+test("actionSchema caps ids at the requested count", () => {
+  const { actionSchema } = require("../webmcplet.js").assistant;
+  const tools = [{ name: "x_arrange", inputSchema: { type: "object", properties: { ids: { type: "array", items: { type: "string" } } } } }];
+  const capped = actionSchema(tools, 2);
+  assert.equal(capped.anyOf[0].properties.args.properties.ids.maxItems, 2);
+  assert.equal(capped.anyOf[1].properties.ids.maxItems, 2);
+  assert.equal(actionSchema(tools).anyOf[1].properties.ids.maxItems, undefined);
+});
+
+test("withNames replaces refs in either case and drops repeated names", () => {
+  const { withNames, Refs } = require("../webmcplet.js").assistant;
+  const refs = Refs(); refs.hide({ id: "a" }); refs.hide({ id: "b" });
+  const rows = new Map([["a", { name: "OpenReel Video" }], ["b", { name: "OpenFilm" }]]);
+  assert.equal(withNames("R1: OpenReel Video edits video; **r2** (OpenFilm) renders. r9 stays.", rows, refs),
+    "OpenReel Video edits video; **OpenFilm** renders. r9 stays.");
+});
+
+test("plain turns Markdown in an answer into plain text", () => {
+  const { plain } = require("../webmcplet.js").assistant;
+  assert.equal(plain("Here's a comparison:\n\n**OpenFilm**\n*   **Stars:** 7623\n- [repo](https://e.example/r)\n\n\n\nDone."),
+    "Here's a comparison:\n\nOpenFilm\n• Stars: 7623\n• repo (https://e.example/r)\n\nDone.");
+});
