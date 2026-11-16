@@ -58,8 +58,8 @@ meaning. The strangeness lives in artwork and organization, never in the facts.
 
 - Static output from Python standard-library generators in `scripts/`; authored
   CSS/JS in `site/`. Fix the generator or authored files, never built HTML.
-- Search and filters work from an embedded index; detail records load lazily with
-  a no-JavaScript full-record fallback ([detail loading](site/DETAIL-LOADING.md)).
+- Search and filters work from an embedded index. Choosing a project loads its
+  static record, which remains the path without JavaScript.
 - Evidence contracts are binding: each label keeps the meaning recorded in the
   [evidence contract](brand/foundation.md#evidence-contract), and copy states
   that meaning directly.
