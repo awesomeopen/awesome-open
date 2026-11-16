@@ -13,13 +13,13 @@ Requires Node.js 18 or later and `ffmpeg` with `ffprobe` on the path. Run
 
 | Stage | File in `videos/<id>/` | Command | Written by |
 | --- | --- | --- | --- |
+| 0 V2 only | `00-pool.json`, `00-screening.*`, `00-draw.json` | `node scripts/screen.mjs v2`, `node scripts/draw.mjs v2 <date>` | Script; the pool is written by hand |
 | 1 Brief | `01-brief.md` | | Owner and Claude |
 | 2 Beats | `02-beats.json` | | Owner and Claude |
 | 3 Storyboard | `03-storyboard/` (stills, `contact.jpg`) | `npm run storyboard <id>` | Script. **Gate 1:** the owner reviews the contact sheet |
 | 4 Capture | `04-capture/session.json`, `events.json`, the recording | | Recorded by hand; `session.json` names the file and its SHA-256 |
 | 5 Facts | `05-facts.json` | `npm run facts <id>` | Script, on the shoot date |
 | 6 Render | `06-render/` (`out.mp4`, `poster.png`, `captions.vtt`) | `npm run render <id>` | Script; runs `prepare` first |
-| 0 V2 only | `00-pool.json`, `00-screening.*`, `00-draw.json` | `node scripts/screen.mjs v2`, `node scripts/draw.mjs v2 <date>` | Script; the pool is written by hand |
 | 7 QC | `07-qc.md`, `06-render/contact.jpg` | `npm run qc <id>` | Script. **Gate 2:** the owner reviews the render |
 
 Gate decisions go in `videos/<id>/approvals.md`, append-only, naming the reviewed
