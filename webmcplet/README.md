@@ -88,6 +88,9 @@ browser use the tools without token.
 or a field declared with `search`. Results rank by the weakest field any word needed, 
 then by name, then list order. An exact short alias, such as OBS, matches
 whole words only. An empty query lists items in list order.
+When a query of several words matches nothing, the message gives each word's matches on
+its own, for example "Items matching each word alone: notebooklm 1, alternative 4. Search
+again with fewer words."
 
 **Filters:** `filters` maps a field declared with `filter` to one value, such as
 `{"run_modes": "server"}`. Items without a recorded value cannot match, so the result
@@ -123,6 +126,9 @@ one JSON action per turn, at most 8 turns and 30 seconds per turn, and sees shor
 such as `r1` in place of item IDs. The answer shows "List result:", rows from tool results,
 then "AI response:", the model's text with refs replaced by item names. That text is withheld
 when it names an item the tools did not return.
+Follow-up questions continue the conversation: each request carries a recap of the last
+3 turns (question, answer text, and its items as refs with names), and refs and items from
+earlier answers stay valid. "New conversation" starts over.
 
 A page can give the assistant its own tools by pushing definitions shaped like
 `registerTool`'s argument onto `window.webmcpletTools` and naming them in

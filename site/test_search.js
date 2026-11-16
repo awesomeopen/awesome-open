@@ -69,6 +69,10 @@ test('unknown licenses and stars stay unknown, and zero stays zero', () => {
 
 test('no match names this catalog', () => {
   assert.equal(search.noMatch(555), 'No match in this catalog of 555 Open*-named projects.');
+  const few = [{ id: 'a', name: 'OpenCut', description: 'Video editor.' }, { id: 'b', name: 'OpenShot', description: 'Video editor with audio.' }];
+  assert.equal(search.noMatch(2, few, 'video photos'),
+    'No match in this catalog of 2 Open*-named projects. No project contains every word. Projects matching each word alone: video 2, photos 0. Search again with fewer words.');
+  assert.equal(search.noMatch(2, few, 'family photos'), 'No match in this catalog of 2 Open*-named projects. No word of the query matches a project on its own.');
 });
 
 function fresh() { delete require.cache[searchPath]; return require('./search.js'); }

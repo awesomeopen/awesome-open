@@ -46,7 +46,7 @@ test("tryList serves a local README with its own page URL", async () => {
 
 test("CHANGELOG records this release with the script's SHA-256", () => {
   const changelog = fs.readFileSync(path.join(DIR, "CHANGELOG.md"), "utf8");
-  const latest = /^## (\S+)[^\n]*\n[\s\S]*?SHA-256 `([0-9a-f]{64})`/m.exec(changelog);
+  const latest = /^## (\d+\.\d+\.\d+)[^\n]*\n[\s\S]*?SHA-256 `([0-9a-f]{64})`/m.exec(changelog);
   assert.ok(latest, "CHANGELOG.md needs a release heading and a SHA-256");
   assert.equal(latest[1], RELEASE);
   const hash = crypto.createHash("sha256").update(fs.readFileSync(path.join(DIR, "webmcplet.js"))).digest("hex");

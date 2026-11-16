@@ -36,9 +36,9 @@ Most dependencies the first draft waited on have shipped:
 
 | Then | Now |
 | --- | --- |
-| Shoot V1 after the Cabinet redesign (PR 5) | Shipped: panel, assistant and Cabinet redesign (#333, #335, #338, #340) |
+| Shoot V1 after the Cabinet redesign (PR 5) | Shipped: panel, assistant and Cabinet redesign (#333, #335, #338). #340 merged into its earlier feature branch; its follow-ups and search hints need integration into main. |
 | V2 needs the importer (PR 4) | Shipped: `webmcplet/` with `build.cjs try <list URL>`, release `webmcplet-v0.1.0` |
-| V3 only if the model test passes (PR 3) | Passed: 56 of 60 runs; model download 4.0 GB in 2 minutes on the M5 ([test](../experiments/prompt-api-m5/README.md)) |
+| V3 only if the model test passes (PR 3) | Earlier assistant, tested 2026-11-09: 56 of 60 runs; #340 follow-ups and hints remain untested on the real model. Model download 4.0 GB in 2 minutes on the M5 ([test](../experiments/prompt-api-m5/README.md)) |
 | V3's M5 has no model on disk | The model was downloaded on 2026-11-09. V3 needs a fresh `--user-data-dir`; confirm the download starts there |
 | V2 injects a console snippet into the list's real site | `try` is the documented adopter path: it imports the list's README and serves a preview on `127.0.0.1`. V2 films that instead. This removes the CSP and local-network risk and keeps the list's site untouched |
 
@@ -47,9 +47,9 @@ Most dependencies the first draft waited on have shipped:
 Decided by the owner on 2026-11-16.
 
 1. **The article's prompt has no answer on our list.** "Find me the best Go-based
-   CRM for a self-hosted local backend": the list records no programming language,
-   so the tools cannot filter on Go, and the catalog's four CRM entries carry no
-   language either. The tools return nothing useful or the model guesses. "Best" also asks for a verdict the [evidence contract](../brand/foundation.md#evidence-contract)
+   CRM for a self-hosted local backend": at the time of the draft, the list recorded no programming language.
+   #341 now adds repository language evidence and filtering; a usable Go CRM
+   result still needs recorded evidence. "Best" also asks for a verdict the [evidence contract](../brand/foundation.md#evidence-contract)
    leaves to the reader. **Decided:** use a prompt the recorded fields answer, such
    as "Find me two self-hosted video editors and compare them" (run mode, licence,
    stars, last push, reviewed alternatives), and change the article to match. The
