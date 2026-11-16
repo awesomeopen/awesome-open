@@ -3,6 +3,20 @@
 Each release names the SHA-256 of `webmcplet.js`. Compare it with
 `shasum -a 256 webmcplet.js` after copying, or run `node build.cjs version`.
 
+## 0.2.3
+
+`webmcplet.js` SHA-256 `2fdc56b7ca03f17af79fb1b106397421402d7947f8f0f23fd1d8c70294c1b8b0`
+
+- The assistant keeps to the number of items a request names ("two video editors",
+  "compare two"):
+  the response schema caps the answer's items and any tool's `ids` at that number.
+- Refs such as `R1` are replaced in either case, and a name the model repeated next to
+  its ref ("OpenReel Video: OpenReel Video") appears once.
+- Answers show as plain text with their line breaks: Markdown emphasis and link marks
+  are removed and list markers become bullets.
+- The instructions ask the model to compare recorded values when asked to compare, and
+  to call a next step's tool instead of describing it in an answer.
+
 ## 0.2.2
 
 `webmcplet.js` SHA-256 `606dfa9038f68d266be71164702a00d114957c703c93c2d732643ab38a1e7086`
