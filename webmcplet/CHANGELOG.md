@@ -3,11 +3,15 @@
 Each release names the SHA-256 of `webmcplet.js`. Compare it with
 `shasum -a 256 webmcplet.js` after copying, or run `node build.cjs version`.
 
-## Unreleased
+## 0.2.2
 
+`webmcplet.js` SHA-256 `606dfa9038f68d266be71164702a00d114957c703c93c2d732643ab38a1e7086`
+
+- The model download bar takes the panel's accent colour (`--webmcplet-accent`) instead of
+  the browser's default.
 - Optional `github.js` and `--github-stars on` for `build.cjs markdown` and `try`: a
   `github_stars` field from the GitHub REST API, with `observed_at`; `GITHUB_TOKEN` raises
-  the rate limit. `webmcplet.js` is unchanged.
+  the rate limit.
 
 ## 0.2.1
 
