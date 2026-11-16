@@ -43,6 +43,10 @@ for (const o of beats.overlays.filter(x => x.type === 'valueCheck')) {
     check(f ? 'PASS' : 'FAIL', `Value ${name} · ${field}`, f ? `${f.value ?? 'Unknown'} (${f.source}, observed ${f.observed ?? 'n/a'})` : 'missing from 05-facts.json');
   }
 }
+for (const c of facts?.claims || []) {
+  const ok = c.source !== 'catalog' || c.verified;
+  check(ok ? 'PASS' : 'FAIL', `Claim (${c.source})`, `${c.text}${c.source === 'catalog' ? ` · found in ${c.project}'s record` : ' · ' + c.detail}`);
+}
 if (facts) check('PASS', 'Facts source', `${facts.catalog.source}, fetched ${facts.catalog.fetched_at}, sha256 ${facts.catalog.sha256.slice(0, 12)}`);
 
 // Code: the snippet on screen still matches the repository file it was read from.

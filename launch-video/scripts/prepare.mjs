@@ -12,7 +12,7 @@ const beats = readJson(join(dir, '02-beats.json'));
 const session = readJson(join(dir, '04-capture/session.json'));
 const events = readJson(join(dir, '04-capture/events.json'));
 const factsFile = join(dir, '05-facts.json');
-const needsFacts = beats.overlays.some(o => o.type === 'valueCheck');
+const needsFacts = beats.overlays.some(o => o.type === 'valueCheck' || o.type === 'claims');
 if (needsFacts && !existsSync(factsFile)) throw new Error(`Run: node scripts/facts.mjs ${id}`);
 const facts = needsFacts ? readJson(factsFile) : null;
 

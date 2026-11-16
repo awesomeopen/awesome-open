@@ -2,6 +2,7 @@ import { AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, us
 import videos from './generated/videos.json';
 import { Camera } from './components/Camera.jsx';
 import { Caption } from './components/Caption.jsx';
+import { Claims } from './components/Claims.jsx';
 import { Clock } from './components/Clock.jsx';
 import { CodePanel } from './components/CodePanel.jsx';
 import { ValueCheck } from './components/ValueCheck.jsx';
@@ -17,6 +18,11 @@ export const Video = ({ id }) => {
   const seg = bundle.segments.find(x => s >= x.start && s < x.start + x.length) || bundle.segments.at(-1);
   // Capture seconds drive the camera and the real-time clock.
   const captureTime = seg.in + (s - seg.start) * seg.speed;
+  // A segment that does not start where the previous one ended is a cut; name it
+  // for 2.5 s.
+  const index = bundle.segments.indexOf(seg);
+  const previous = bundle.segments[index - 1];
+  const cut = previous && previous.out !== seg.in && s - seg.start < 2.5 ? { from: previous.out, to: seg.in, note: seg.cutNote } : null;
   let snippet = 0;
   return (
     <AbsoluteFill style={{ background: t.paper }}>
@@ -30,7 +36,8 @@ export const Video = ({ id }) => {
       {bundle.beats.overlays.map((o, i) => {
         if (o.type === 'code') { const data = bundle.snippets[snippet++]; return active(o, s) && <CodePanel key={i} overlay={o} snippet={data} s={s} />; }
         if (!active(o, s)) return null;
-        if (o.type === 'clock') return <Clock key={i} captureTime={captureTime} speed={seg.speed} />;
+        if (o.type === 'clock') return <Clock key={i} captureTime={captureTime} speed={seg.speed} cut={cut} />;
+        if (o.type === 'claims') return <Claims key={i} overlay={o} facts={bundle.facts} s={s} />;
         if (o.type === 'valueCheck') return <ValueCheck key={i} overlay={o} facts={bundle.facts} s={s} />;
         throw new Error('Unknown overlay ' + o.type);
       })}

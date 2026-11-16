@@ -38,9 +38,29 @@ for (const overlay of wanted) {
   }
 }
 
+// Claims the client makes. A catalog claim must quote text found in the project's
+// record, so the tag "Catalog" is checked; web and generated claims are transcribed
+// from the capture with what the client cited.
+const claims = [];
+for (const overlay of beats.overlays.filter(o => o.type === 'claims')) {
+  for (const item of overlay.items) {
+    const entry = { ...item };
+    if (item.source === 'catalog') {
+      const project = catalog.projects.find(p => p.name === item.project);
+      if (!project) throw new Error(`${item.project} is not in the catalog`);
+      const text = JSON.stringify(project);
+      if (!item.match || !text.includes(item.match)) throw new Error(`${item.project}: "${item.match}" is not in its catalog record`);
+      entry.observed = project.function_summary?.checked_at || null;
+      entry.verified = true;
+    }
+    claims.push(entry);
+  }
+}
+
 const facts = {
   catalog: { source, fetched_at: new Date().toISOString(), sha256: sha256(raw), metrics_as_of: catalog.metrics_as_of, source_sha: catalog.source_sha },
-  projects
+  projects,
+  claims
 };
 writeFileSync(join(dir, '05-facts.json'), JSON.stringify(facts, null, 2) + '\n');
 logStage(dir, 'facts', { catalog: facts.catalog.sha256 });
