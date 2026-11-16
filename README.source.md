@@ -169,6 +169,7 @@
 | [Open Shelf](https://github.com/wingedpanther/openshelf) | Android TV app store for finding, installing, and updating TV applications from GitHub releases using a remote. |
 | [OpenSilver](https://github.com/OpenSilver/OpenSilver) | Framework for cross-platform applications using C#, VB.NET, or F# with XAML and WebAssembly or native .NET.<br>Alternative to: [Silverlight](https://doc.opensilver.net/documentation/migrate-from-silverlight/overview.html) |
 | [OpenSmalltalk](https://github.com/OpenSmalltalk/opensmalltalk-vm) | Cross-platform virtual machine for Squeak and Cuis Smalltalk, with interpreter and JIT variants. |
+| [Open-Source-Advisor](https://github.com/aimclub/OSA) | LLM-based tool that generates README files, Python docstrings, CI/CD workflows, and recommendations for scientific repositories. |
 | [OpenSpec](https://github.com/Fission-AI/OpenSpec) | Specification-driven development tools for AI coding assistants. |
 | [OpenStore](https://github.com/dev-krish-xyz/OpenStore) | Searchable software directory with curated project listings, comparison filters, and community submissions. |
 | [OpenSwoole](https://github.com/openswoole/openswoole) | PHP application platform with asynchronous I/O, coroutines, and components for HTTP and gRPC services. |
