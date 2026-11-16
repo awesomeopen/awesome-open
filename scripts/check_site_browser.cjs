@@ -66,8 +66,10 @@ const path = require('node:path');
   const change = async (id, value) => {
     if (['f-stars', 'f-pushed'].includes(id)) await openMore();
     await page.locator('#' + id).fill(value);
-    if (id === 'search') await page.waitForTimeout(250);
-    else await page.locator('#' + id).dispatchEvent('change');
+    if (id === 'search') {
+      await page.waitForFunction(value => (new URL(location.href).searchParams.get('q') || '') === value, value);
+      if (value) await page.waitForFunction(() => document.querySelector('#filters').dataset.searchText === 'ready');
+    } else await page.locator('#' + id).dispatchEvent('change');
   };
   const select = async (id, value) => {
     if (['f-install', 'f-metrics'].includes(id)) await openMore();

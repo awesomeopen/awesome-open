@@ -9,7 +9,7 @@
 
   // Strongest first. Function summaries and feature notes load separately from
   // the embedded index, so `text` holds them once search-text.json has arrived.
-  var FIELDS = ["name", "alias", "description", "alternative", "summary", "feature"];
+  var FIELDS = ["name", "alias", "description", "alternative", "summary", "feature", "language"];
 
   function fold(value) {
     return String(value == null ? "" : value).normalize("NFKD")
@@ -18,6 +18,17 @@
 
   function words(query) {
     return fold(query).split(/\s+/).filter(Boolean);
+  }
+
+  function normalizeLanguage(value, projects) {
+    return typeof value === "string" && (["unknown", "empty"].includes(value) ||
+      projects.some(function (p) { return (p.languages || []).includes(value); })) ? value : "";
+  }
+
+  function matchesLanguage(project, selected) {
+    return !selected || (selected === "unknown" ? project.languages == null :
+      selected === "empty" ? Array.isArray(project.languages) && project.languages.length === 0 :
+      (project.languages || []).includes(selected));
   }
 
   function licenseOf(project) {
@@ -52,6 +63,7 @@
   function fieldText(project, text) {
     var extra = (text && text[project.id]) || {};
     return {
+      language: fold((project.languages || []).join(" ")),
       name: fold(project.name),
       description: fold(project.description),
       alternative: fold((project.alternatives || []).map(function (item) { return item.name; }).join(" ")),
@@ -164,6 +176,8 @@
     FIELDS: FIELDS,
     fold: fold,
     words: words,
+    normalizeLanguage: normalizeLanguage,
+    matchesLanguage: matchesLanguage,
     licenseOf: licenseOf,
     starsOf: starsOf,
     shortAliasNames: shortAliasNames,

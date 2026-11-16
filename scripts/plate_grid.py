@@ -229,6 +229,38 @@ KEY = ('<p class="pg-key"><span class="pg-run">Run</span> <span class="pg-instal
        '<span class="pg-platform">Documented platforms</span></p>')
 
 
+def languages_box(project):
+    title = "Repository languages"
+    record = (project.get("signals") or {}).get("languages")
+    good = record.get("last_good") if record else None
+    meaning = ("<p>GitHub language composition by bytes. This describes repository source; "
+               "runtime requirements and supported APIs belong to their own evidence.</p>")
+    if good is None:
+        popup = state(record["status"].capitalize() if record else "Not checked") + meaning
+        if record:
+            popup += provenance(record, None)
+        primary = (project.get("github") or {}).get("primary_language")
+        if primary:
+            github = project["github"]
+            popup += (f"<p>GitHub primary language: {esc(primary)}. Full breakdown not collected.</p>"
+                      f"<p>{esc(github.get('status', 'unknown'))} metadata · Observed {esc(github.get('last_success_at') or UNKNOWN)} · "
+                      f'<a href="https://api.github.com/repos/{esc(github["repo"])}">Metadata source</a></p>')
+        return box(title, value(UNKNOWN, False), cls="pg-languages", popup=popup)
+    counts = good["value"]
+    names = sorted(counts, key=lambda name: (-counts[name], name))
+    total = sum(counts.values())
+    body = value(esc(" · ".join(names[:3])) if names else "None detected")
+    if len(names) > 3:
+        body += f'<p class="pg-sub">+{len(names) - 3} more</p>'
+    if record["status"] == "stale":
+        body += '<p class="pg-sub">Stale cached result</p>'
+    rows = "".join(f"<li>{esc(name)} · {counts[name]:,} bytes · {counts[name] / total:.1%}</li>" for name in names)
+    popup = (state(record["status"].capitalize()) + meaning +
+             (f"<ul>{rows}</ul><p>{total:,} bytes total.</p>" if names else "<p>GitHub returned an empty language breakdown.</p>") +
+             provenance(record, good))
+    return box(title, body, cls="pg-languages", popup=popup)
+
+
 def runs_box(project):
     record = project.get("deployment")
     kwargs = {"label": "V / Where it runs", "heading": False, "cls": f"pg-runs {END}"}
@@ -265,6 +297,6 @@ def render(project, *, timeline_html="", history_html="", freshness="", hn_windo
         f'<div class="pg-row pg-repository">{repository(project, freshness)}</div>'
         f'<div class="pg-row pg-tight">{timeline_box(timeline_html, history_html)}</div>'
         f'<div class="pg-row pg-evidence">{stars_box(project)}{hn_box(project, hn_window)}{reserved()}{signal_box(project, "scorecard")}</div>'
-        f'<div class="pg-row pg-release-runs">{signal_box(project, "release")}{reserved("pg-wide")}{runs_box(project)}</div>'
+        f'<div class="pg-row pg-release-runs">{signal_box(project, "release")}{languages_box(project)}{runs_box(project)}</div>'
         f"{alternatives(project)}"
     )

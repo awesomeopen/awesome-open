@@ -56,7 +56,8 @@ async function withAttributes(context, attributes) {
 function call(page, name, args) {
   return page.evaluate(async ({ name, args }) => {
     const tool = (await document.modelContext.getTools()).find(t => t.name === name);
-    const result = await document.modelContext.executeTool(tool, args);
+    const major = Number((navigator.userAgent.match(/Chrome\/(\d+)/) || [])[1]);
+    const result = await document.modelContext.executeTool(tool, major < 155 ? JSON.stringify(args) : args);
     return typeof result === 'string' ? JSON.parse(result) : result;
   }, { name, args });
 }
@@ -207,7 +208,7 @@ async function panelChecks(browser, label, open, report) {
     assert.match(detail.link, /records\/[a-f0-9]{64}\.html$/);
     const overview = await call(ao, 'list_sections', {});
     assert.deepEqual(overview.sections.map(s => s.title), catalog.categories.map(c => c.name));
-    assert.deepEqual(overview.searched_fields, ['name', 'aliases', 'description', 'alternatives', 'function_summary', 'feature_notes']);
+    assert.deepEqual(overview.searched_fields, ['name', 'aliases', 'description', 'alternatives', 'function_summary', 'feature_notes', 'languages']);
     assert.deepEqual(await call(ao, 'list_get', { id: 'nope' }), { ok: false, code: 'unknown_id', message: 'id must be an id returned by list_find.' });
     assert.equal((await call(ao, 'list_find', { query: 'x', offset: -1 })).code, 'invalid_offset');
     // Without the Prompt API, the assistant stays hidden.

@@ -15,7 +15,7 @@
 
   var controls = {
     q: $("search"), sort: $("f-sort"), window: $("f-window"), alternative: $("f-alternative"), license: $("f-license"),
-    run_mode: $("f-run"), install_method: $("f-install"), metrics: $("f-metrics"), stars: $("f-stars"), pushed: $("f-pushed")
+    language: $("f-language"), run_mode: $("f-run"), install_method: $("f-install"), metrics: $("f-metrics"), stars: $("f-stars"), pushed: $("f-pushed")
   };
   var selects = Array.prototype.slice.call(document.querySelectorAll(".rail-filters select"));
   var railLinks = Array.prototype.slice.call(document.querySelectorAll("#rail-cats a[data-category]"));

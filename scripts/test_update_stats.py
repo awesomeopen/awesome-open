@@ -251,6 +251,16 @@ class UnavailableMetricsTests(unittest.TestCase):
             raise stats.RepositoryUnavailable('HTTP 404')
         return dict(self.record, stargazers_count=7)
 
+    def test_primary_language_uses_existing_fetch_and_survives_failure(self):
+        snapshot, _ = self.run_collection(lambda repo, token: dict(self.record, language="C++"))
+        self.assertEqual(snapshot["repositories"]["example/a"]["language"], "C++")
+        stale, _ = self.run_collection(self.fail_a)
+        self.assertEqual(stale["repositories"]["example/a"]["language"], "C++")
+        before = self.output.read_bytes()
+        with self.assertRaises(ValueError):
+            self.run_collection(lambda repo, token: dict(self.record, language=["C++"]))
+        self.assertEqual(self.output.read_bytes(), before)
+
     def test_cached_404_preserves_original_date_and_true_zero(self):
         snapshot, warnings = self.run_collection(self.fail_a)
         a, b = [snapshot['repositories'][repo] for repo in ('example/a', 'example/b')]

@@ -19,9 +19,9 @@
 
   var DEFAULTS = Object.freeze({
     q: "", category: "", license: "all", stars: null, pushed: "", sort: "match",
-    window: "all", alternative: "", metrics: "all", run_mode: "", install_method: ""
+    window: "all", alternative: "", metrics: "all", run_mode: "", install_method: "", language: ""
   });
-  var PARAMS = ["q", "category", "license", "stars", "pushed", "sort", "window", "alternative", "metrics", "run_mode", "install_method"];
+  var PARAMS = ["q", "category", "license", "stars", "pushed", "sort", "window", "alternative", "metrics", "run_mode", "install_method", "language"];
   var DAY = 24 * 60 * 60 * 1000;
 
   function validDate(value) {
@@ -127,6 +127,7 @@
       alternative: alternativeNames(data.projects || []).indexOf(alternative) !== -1 ? alternative : "",
       run_mode: setupFilter(String(get("run_mode") || ""), data.projects || [], "run_modes"),
       install_method: setupFilter(String(get("install_method") || ""), data.projects || [], "install_methods"),
+      language: Search.normalizeLanguage(get("language"), data.projects || []),
       metrics: ["all", "present", "missing"].indexOf(get("metrics")) !== -1 ? get("metrics") : "all"
     };
   }
@@ -140,6 +141,7 @@
   }
 
   function matchesFilters(project, state, snapshot) {
+    if (!Search.matchesLanguage(project, state.language)) return false;
     if (state.category && (project.categories || []).indexOf(state.category) === -1) return false;
     if (state.window && state.window !== "all" && pushWindowOf(project, snapshot) !== state.window) return false;
     if (state.metrics === "present" && !metricsPresent(project)) return false;
@@ -663,7 +665,7 @@
         Object.keys(controls).some(function (key) { return !controls[key]; })) return false;
     if (filters.dataset.enhanced === "true") return true;
     // These controls are additive, so older static pages can still be enhanced.
-    [["window", "push-window"], ["alternative", "alternative-filter"], ["metrics", "metrics-filter"], ["run_mode", "run-mode-filter"], ["install_method", "install-method-filter"]]
+    [["language", "language-filter"], ["window", "push-window"], ["alternative", "alternative-filter"], ["metrics", "metrics-filter"], ["run_mode", "run-mode-filter"], ["install_method", "install-method-filter"]]
       .forEach(function (entry) {
         var control = document.getElementById(entry[1]);
         if (control) controls[entry[0]] = control;

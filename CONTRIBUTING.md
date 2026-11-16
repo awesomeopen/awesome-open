@@ -449,3 +449,10 @@ for immutable dates/identity revisions, raw-evidence deduplication, bounded Git
 recovery, and publication/crash boundaries. Successful refreshes do not overwrite
 previous observations. Star buckets remain retained-at-fetch measurements, never
 historical totals. No selector, new schedule or historical API crawl is added.
+
+## Repository language evidence
+
+The existing publisher collects bounded optional GitHub language byte breakdowns.
+See the [language evidence contract](site/REPOSITORY-LANGUAGES.md) for collection,
+cache states, filtering and assistant projections. Generated observations remain
+publisher-owned.

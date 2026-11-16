@@ -23,7 +23,9 @@ languages provider requests `/repos/{owner}/{repo}/languages`, with a ceiling of
 Successful observations are due after seven days and become stale after fourteen
 days without successful revalidation. Failed checks become due after one day;
 Retry-After and GitHub quota backoff take precedence. Least-recently-attempted
-rotation fills missing records over successive publisher runs. ETags allow 304
+rotation fills missing records over successive publisher runs. Refreshes are
+best-effort within the shared deadline. Initial coverage takes multiple runs,
+and deferred observations may become stale. ETags allow 304
 revalidation without changing the original value-fetch date.
 
 GitHub release and language requests share rate-limit backoff. Redirects are
@@ -41,12 +43,17 @@ it runs. It uses the existing white evidence-box treatment and native informatio
 disclosure, including on narrow screens and static records. The other reserved
 block remains decorative.
 
-Catalog JSON retains the full signal; the embedded search index keeps the names
+Catalog JSON retains byte counts, status and provenance; repeated null optional
+metadata is omitted. Language ETags, retry delays and HTTP status live in the
+collector download; availability and failure reasons stay in the catalog.
+A language observation uses its identical `fetched_at`
+time in place of a duplicate `observed_at`. The evidence download retains the
+complete collector schema. The embedded search index keeps the names
 and availability status. `language` URL state, reset and history use the shared
 Catalog predicates. `unknown` and `empty` select distinct evidence states.
 WebMCPlet exposes a searchable, filterable `languages` list and cache status.
 Cabinet find accepts an exact `language` filter; inspect and compare return the
-complete language signal with source, dates and byte counts. The visible comparison
+language evidence with source, dates and byte counts. The visible comparison
 shows the names, byte counts, check date and cache status.
 
 Reference: [GitHub REST repository languages](https://docs.github.com/en/rest/repos/repos#list-repository-languages).

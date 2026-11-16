@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect optional website release/Scorecard evidence without candidate execution.
+"""Collect optional website release, Scorecard and language evidence without candidate execution.
 
 Upstream availability failures and refused redirects are fail-soft. Invalid
 local snapshots, provider payload schema and identity remain fatal.
@@ -59,6 +59,13 @@ def normalize_release(payload, repo, at):
     return good
 
 
+def normalize_languages(payload, repo, at):
+    good = dict(observed_at=at, fetched_at=at, source_commit=None,
+                tool_version=None, tool_commit=None, value=payload)
+    signals.validate_good(good, repo, 'languages')
+    return good
+
+
 def normalize_scorecard(payload, repo, at):
     if not isinstance(payload, dict) or not isinstance(payload.get('repo'), dict) or not isinstance(payload.get('scorecard'), dict):
         raise ValueError('Invalid Scorecard result schema')
@@ -113,14 +120,16 @@ def due(record, provider, now):
         return True
     # Negative Scorecard results are slower to recheck; errors retry next day.
     days = 14 if provider == 'scorecard' and record['fetch_status'] == 'not_found' else (7 if provider == 'scorecard' and record['fetch_status'] in {'ok', 'not_modified'} else 1)
+    if provider == 'languages' and record['fetch_status'] in {'ok', 'not_modified'}:
+        days = 7
     return now - signals.timestamp(record['checked_at']) >= timedelta(days=days)
 
 
 def collect(repositories, previous=None, *, now=None, source_sha=None, token=None,
-            providers=signals.PROVIDERS, release_budget=350, scorecard_budget=50,
+            providers=signals.PROVIDERS, release_budget=350, scorecard_budget=50, languages_budget=30,
             max_seconds=300, fetch=request_json, monotonic=time.monotonic, sleep=time.sleep):
-    if not 0 <= release_budget <= 350 or not 0 <= scorecard_budget <= 50 or not 0 <= max_seconds <= 300:
-        raise ValueError('Optional collection ceilings are 350 release requests, 50 Scorecard requests, and 300 seconds')
+    if not 0 <= release_budget <= 350 or not 0 <= scorecard_budget <= 50 or not 0 <= languages_budget <= 30 or not 0 <= max_seconds <= 300:
+        raise ValueError('Optional collection ceilings are 350 release requests, 50 Scorecard requests, 30 language requests, and 300 seconds')
     now = now or datetime.now(timezone.utc)
     at = signals.iso(now)
     if previous is not None:
@@ -131,9 +140,14 @@ def collect(repositories, previous=None, *, now=None, source_sha=None, token=Non
     if any(not isinstance(repo, str) or not signals.REPO.fullmatch(repo) for repo in repos):
         raise ValueError('Collector requires canonical lowercase repository identities')
     result['repositories'] = {repo: result['repositories'].get(repo, {p: signals.empty_signal(repo, p) for p in signals.PROVIDERS}) for repo in repos}
+    # Add the new provider only after validating every legacy local record.
+    for provider in signals.PROVIDERS:
+        result['provider_retry_after'].setdefault(provider, None)
+        for repo in repos:
+            result['repositories'][repo].setdefault(provider, signals.empty_signal(repo, provider))
     summary = Counter()
     deadline = monotonic() + max_seconds
-    budgets = {'release': release_budget, 'scorecard': scorecard_budget}
+    budgets = {'release': release_budget, 'scorecard': scorecard_budget, 'languages': languages_budget}
     for provider in providers:
         if provider not in signals.PROVIDERS:
             raise ValueError('Unknown optional provider')
@@ -152,11 +166,11 @@ def collect(repositories, previous=None, *, now=None, source_sha=None, token=Non
             if budgets[provider] <= 0 or monotonic() >= deadline:
                 summary[provider + ':budget_deferred'] += 1
                 continue
-            if provider == 'release' and not token:
-                summary['release:no_token'] += 1
+            if provider in {'release', 'languages'} and not token:
+                summary[provider + ':no_token'] += 1
                 continue
             headers = {'Accept': 'application/json', 'User-Agent': 'awesome-open-signals/1'}
-            if provider == 'release':
+            if provider in {'release', 'languages'}:
                 headers.update(Authorization='Bearer ' + token, Accept='application/vnd.github+json',
                                **{'X-GitHub-Api-Version': '2022-11-28'})
             if record['etag'] and record['last_good']:
@@ -184,7 +198,7 @@ def collect(repositories, previous=None, *, now=None, source_sha=None, token=Non
             record.update(checked_at=at, check_time_precision='second', http_status=code, error=None, retry_after=None)
             if code == 200:
                 try:
-                    record['last_good'] = (normalize_release if provider == 'release' else normalize_scorecard)(payload, repo, at)
+                    record['last_good'] = {'release': normalize_release, 'scorecard': normalize_scorecard, 'languages': normalize_languages}[provider](payload, repo, at)
                 except ValueError as error:
                     raise ValueError(f'{provider} evidence for {repo}: {error}') from error
                 record.update(fetch_status='ok', last_success_at=at, success_time_precision='second', etag=response_headers.get('etag'))
@@ -213,12 +227,15 @@ def collect(repositories, previous=None, *, now=None, source_sha=None, token=Non
             summary[provider + ':' + record['fetch_status']] += 1
             # Also stop when a successful response uses the reserved quota.
             try:
-                low_quota = provider == 'release' and int(response_headers.get('x-ratelimit-remaining', '1000')) <= 100
+                low_quota = provider in {'release', 'languages'} and int(response_headers.get('x-ratelimit-remaining', '1000')) <= 100
             except ValueError:
                 low_quota = False
             if low_quota:
                 result['provider_retry_after'][provider] = retry_time(response_headers, now)
             if result['provider_retry_after'][provider]:
+                if provider in {'release', 'languages'}:
+                    for github_provider in ('release', 'languages'):
+                        result['provider_retry_after'][github_provider] = result['provider_retry_after'][provider]
                 break
             if monotonic() + 0.1 < deadline:
                 sleep(0.1)
@@ -248,15 +265,16 @@ def main():
     parser.add_argument('--providers', nargs='+', choices=signals.PROVIDERS, default=list(signals.PROVIDERS))
     parser.add_argument('--release-budget', type=int, default=350)
     parser.add_argument('--scorecard-budget', type=int, default=50)
+    parser.add_argument('--languages-budget', type=int, default=30)
     parser.add_argument('--max-seconds', type=int, default=300)
     args = parser.parse_args()
-    if not 0 <= args.release_budget <= 350 or not 0 <= args.scorecard_budget <= 50 or not 0 <= args.max_seconds <= 300:
-        parser.error('Optional collection ceilings are 350 release requests, 50 Scorecard requests, and 300 seconds')
+    if not 0 <= args.release_budget <= 350 or not 0 <= args.scorecard_budget <= 50 or not 0 <= args.languages_budget <= 30 or not 0 <= args.max_seconds <= 300:
+        parser.error('Optional collection ceilings are 350 release requests, 50 Scorecard requests, 30 language requests, and 300 seconds')
     source = (ROOT / 'README.source.md').read_text(encoding='utf-8')
     repositories = update_stats.repositories(source, require_markers=False)
     document, summary = collect(repositories, signals.load_optional(args.output), source_sha=args.source_sha,
                                 token=os.environ.get('GH_TOKEN'), providers=args.providers,
-                                release_budget=args.release_budget, scorecard_budget=args.scorecard_budget,
+                                release_budget=args.release_budget, scorecard_budget=args.scorecard_budget, languages_budget=args.languages_budget,
                                 max_seconds=args.max_seconds)
     write_snapshot(args.output, document)
     print(json.dumps({'optional_signals': summary, 'repositories': len(repositories)}, sort_keys=True))

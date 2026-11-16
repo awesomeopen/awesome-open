@@ -744,7 +744,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .pg-hn-broad {color:var(--muted);}
 .pg-hn-matched {color:var(--rs-scarlet);}
 .pg-reserved {grid-column:span 2;background:var(--rs-verdigris-art);border-radius:var(--rs-radius);opacity:.5}
-.pg-reserved.pg-wide,.pg-runs {grid-column:span 3;}
+.pg-reserved.pg-wide,.pg-languages,.pg-runs {grid-column:span 3;}
 /* Timeline: full height when there is something to draw, one line otherwise. */
 .pg-timeline {grid-column:1 / -1;padding:16px 20px 24px;}
 .pg-timeline.is-empty {padding:6px 14px;}
@@ -804,7 +804,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 @media(max-width:1100px) {
  .plate-grid {padding:2px 24px 24px;}
  .pg-row {grid-template-columns:repeat(4,minmax(0,1fr));}
- .pg-reserved.pg-wide,.pg-runs {grid-column:span 2;}
+ .pg-reserved.pg-wide,.pg-languages,.pg-runs {grid-column:span 2;}
  .pg-alts {grid-template-columns:repeat(2,minmax(0,1fr));}
  /* Where it runs wraps to its own line and needs room for its label. */
  .pg-runs {margin-top:calc(var(--pg-lane) - var(--pg-gap));}
@@ -822,7 +822,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
  .timeline-label.repeats-vitals {display:none;}
  .plate-grid {margin-top:40px;padding:4px 16px 16px;}
  .pg-row,.pg-alts {grid-template-columns:minmax(0,1fr);padding-top:var(--pg-lane);}
- .pg-box,.pg-reserved.pg-wide,.pg-runs,.pg-alt {grid-column:1 / -1;}
+ .pg-box,.pg-reserved.pg-wide,.pg-languages,.pg-runs,.pg-alt {grid-column:1 / -1;}
  .pg-reserved {display:none;}
  .pg-pop,.is-end .pg-pop {left:-1px;right:-1px;width:auto;}
  .specimen-plate .pg-box>.sheet-label {max-width:calc(100% + 2px);letter-spacing:.04em;white-space:normal;}
