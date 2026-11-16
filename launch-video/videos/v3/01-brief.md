@@ -48,3 +48,15 @@ driven through the DevTools protocol:
 
 Every run returned at least two rows, in 4 to 8 s. The prose often lists three
 and seldom compares values; the rows and the Cabinet link carry the comparison.
+
+## Takes used (2026-11-16)
+
+- **Take a** (4:00 AM, WebMCPlet 0.2.1): `chrome://flags`, the site, the panel and the
+  model download, about 105 s.
+- **Take b** (5:11 AM, WebMCPlet 0.2.3 after PR #352 and a manual publish run): the
+  question and answer. Its first try stopped at the 8-step limit after calling
+  `cabinet_arrange` and `cabinet_compare`; the second returned OpenReel Video and
+  OpenFilm and opened those two in the Cabinet. The cut uses the second try and names
+  the switch of recording and the failed first try on screen.
+- A 5:00 AM recording ran the old 0.2.1 assistant, because WebMCPlet changes did not
+  trigger the publish workflow (fixed in PR #353), and is not used.

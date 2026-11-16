@@ -1,10 +1,36 @@
 {
-  "marked_by": "hand, from 5 s contact sheets and gridded frames at 15, 60, 187 and 190 s",
+  "marked_by": "hand, from 5 s contact sheets and gridded frames at 15, 60, 187 and 190 s; take b from 3 s contact sheets and frames from 96.5 to 101.5 s (the answer is still from 100 to 101.5 s)",
   "note": "Regions are named rectangles in capture pixels (3456×2234), keyed by capture seconds.",
   "regions": {
-    "chrome": [{ "t": 0, "rect": [45, 114, 2400, 2070] }],
-    "flags": [{ "t": 0, "rect": [520, 280, 1520, 520] }],
-    "download": [{ "t": 0, "rect": [400, 1240, 1690, 330] }],
-    "answer": [{ "t": 0, "rect": [400, 1075, 1690, 800] }]
+    "chrome": [
+      {
+        "t": 0,
+        "rect": [45, 114, 2400, 2070]
+      }
+    ],
+    "flags": [
+      {
+        "t": 0,
+        "rect": [520, 280, 1520, 520]
+      }
+    ],
+    "download": [
+      {
+        "t": 0,
+        "rect": [400, 1240, 1690, 330]
+      }
+    ],
+    "answer": [
+      {
+        "t": 0,
+        "take": "a",
+        "rect": [400, 1075, 1690, 800]
+      },
+      {
+        "t": 0,
+        "take": "b",
+        "rect": [400, 570, 1700, 1300]
+      }
+    ]
   }
 }
