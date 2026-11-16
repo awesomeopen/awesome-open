@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 13,
+    "requests_used": 16,
     "utc_date": "2026-11-16"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -46501,6 +46501,125 @@
       "source_url": "https://api.github.com/repos/calesthio/openmontage/stargazers/history",
       "status": "ok"
     },
+    "carlosz4un/opengtd": {
+      "checked_at": "2026-11-16T03:57:27.208577+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1793491200,
+          "repository_created_at": "2026-11-07T19:17:35+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-11-16T03:57:27.208577+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "b7c6253b5ea1385e54b8caab6b85cef78fd25e56",
+        "source_urls": [
+          "https://api.github.com/repos/carlosz4un/opengtd/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 1,
+            "week": 1793491200
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "opengtd",
+      "readme_url": "https://github.com/carlosz4un/opengtd",
+      "repo": "carlosz4un/opengtd",
+      "source_sha": "b7c6253b5ea1385e54b8caab6b85cef78fd25e56",
+      "source_url": "https://api.github.com/repos/carlosz4un/opengtd/stargazers/history",
+      "status": "ok"
+    },
     "cdcseacave/openmvs": {
       "checked_at": "2026-10-15T23:34:55.975088+00:00",
       "last_good": {
@@ -54876,6 +54995,125 @@
       "repo": "codexemmzy/openledger",
       "source_sha": "8452317d280458ab9c8061fe33947a9fd860a589",
       "source_url": "https://api.github.com/repos/codexemmzy/openledger/stargazers/history",
+      "status": "ok"
+    },
+    "codeyourweb/openlearn": {
+      "checked_at": "2026-11-16T03:57:27.208577+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1793491200,
+          "repository_created_at": "2026-11-07T14:38:21+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-11-16T03:57:27.208577+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "b7c6253b5ea1385e54b8caab6b85cef78fd25e56",
+        "source_urls": [
+          "https://api.github.com/repos/codeyourweb/openlearn/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              4,
+              2,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "total": 7,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1793491200
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "OpenLearn",
+      "readme_url": "https://github.com/codeyourweb/openlearn",
+      "repo": "codeyourweb/openlearn",
+      "source_sha": "b7c6253b5ea1385e54b8caab6b85cef78fd25e56",
+      "source_url": "https://api.github.com/repos/codeyourweb/openlearn/stargazers/history",
       "status": "ok"
     },
     "codingmoh/open-codex": {
@@ -351374,7 +351612,8 @@
       "status": "ok"
     },
     "openobserve/openobserve": {
-      "checked_at": "2026-10-15T18:22:24.727650+00:00",
+      "checked_at": "2026-11-16T03:57:27.208577+00:00",
+      "error": "Daily star-history request budget exhausted",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
@@ -353012,9 +353251,9 @@
       "name": "OpenObserve",
       "readme_url": "https://github.com/openobserve/openobserve",
       "repo": "openobserve/openobserve",
-      "source_sha": "3548bd4e01f213d16f567481b8e399071b5f5171",
+      "source_sha": "b7c6253b5ea1385e54b8caab6b85cef78fd25e56",
       "source_url": "https://api.github.com/repos/openobserve/openobserve/stargazers/history",
-      "status": "ok"
+      "status": "deferred"
     },
     "openocd-org/openocd": {
       "checked_at": "2026-10-16T00:57:19.371756+00:00",
@@ -564593,12 +564832,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 4,
-    "due_repositories": 485,
+    "attempted_repositories": 3,
+    "due_repositories": 481,
     "eligible_repositories": 531,
-    "unattempted_repositories": 2
+    "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
-  "updated_at": "2026-11-16T02:39:43.610043+00:00"
+  "source_sha": "b7c6253b5ea1385e54b8caab6b85cef78fd25e56",
+  "updated_at": "2026-11-16T03:57:27.208577+00:00"
 }

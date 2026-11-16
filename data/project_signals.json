@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-16T02:39:38Z",
+  "collected_at": "2026-11-16T03:57:22Z",
   "method_version": "1",
   "provider_retry_after": {
     "release": null,
@@ -624,13 +624,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-09T03:10:45Z",
+        "checked_at": "2026-11-16T03:57:22Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-09T03:10:45Z",
+          "fetched_at": "2026-11-16T03:57:22Z",
           "observed_at": "2025-01-14T05:38:36Z",
           "source_commit": "990440c53869d3151a86f54b7f30a96a930f4e4d",
           "tool_commit": "49c0eed3a423f00c872b5c3c9f1bbca9e8aae799",
@@ -732,7 +732,7 @@
             "score": 3.2
           }
         },
-        "last_success_at": "2026-11-09T03:10:45Z",
+        "last_success_at": "2026-11-16T03:57:22Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/agnitas-org/openemm",
         "status": "stale",
@@ -10884,13 +10884,13 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-09T03:10:45Z",
+        "checked_at": "2026-11-16T03:57:22Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-09T03:10:45Z",
+          "fetched_at": "2026-11-16T03:57:22Z",
           "observed_at": "2026-11-02T00:00:00Z",
           "source_commit": "2540ed0f1b0794182ccd15266d08d8c089680581",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
@@ -10972,7 +10972,7 @@
             "score": 2.6
           }
         },
-        "last_success_at": "2026-11-09T03:10:45Z",
+        "last_success_at": "2026-11-16T03:57:22Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/open-watcom/open-watcom-v2",
         "status": "partial",
@@ -25492,19 +25492,24 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-09T03:10:45Z",
+        "checked_at": "2026-11-16T03:57:22Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-09T03:10:45Z",
-          "observed_at": "2026-10-19T00:00:00Z",
+          "fetched_at": "2026-11-16T03:57:22Z",
+          "observed_at": "2026-11-09T00:00:00Z",
           "source_commit": "41511103abd932225b605b8e7f9e565cc180b1b6",
           "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
           "tool_version": "v5.6.0",
           "value": {
             "checks": [
+              {
+                "name": "Binary-Artifacts",
+                "reason": "no binaries found in the repo",
+                "score": 10
+              },
               {
                 "name": "Dangerous-Workflow",
                 "reason": "no dangerous workflow patterns detected",
@@ -25516,29 +25521,24 @@
                 "score": null
               },
               {
-                "name": "Maintained",
-                "reason": "9 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 7",
-                "score": 7
-              },
-              {
                 "name": "Code-Review",
                 "reason": "Found 5/30 approved changesets -- score normalized to 1",
                 "score": 1
               },
               {
-                "name": "Binary-Artifacts",
-                "reason": "no binaries found in the repo",
-                "score": 10
-              },
-              {
-                "name": "Token-Permissions",
-                "reason": "detected GitHub workflow tokens with excessive permissions",
-                "score": 0
+                "name": "Maintained",
+                "reason": "9 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 7",
+                "score": 7
               },
               {
                 "name": "Security-Policy",
                 "reason": "security policy file detected",
                 "score": 9
+              },
+              {
+                "name": "Token-Permissions",
+                "reason": "detected GitHub workflow tokens with excessive permissions",
+                "score": 0
               },
               {
                 "name": "Pinned-Dependencies",
@@ -25551,14 +25551,14 @@
                 "score": 0
               },
               {
-                "name": "Fuzzing",
-                "reason": "project is not fuzzed",
-                "score": 0
-              },
-              {
                 "name": "License",
                 "reason": "license file detected",
                 "score": 10
+              },
+              {
+                "name": "Fuzzing",
+                "reason": "project is not fuzzed",
+                "score": 0
               },
               {
                 "name": "Signed-Releases",
@@ -25580,7 +25580,7 @@
             "score": 4.2
           }
         },
-        "last_success_at": "2026-11-09T03:10:45Z",
+        "last_success_at": "2026-11-16T03:57:22Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/sindresorhus/open",
         "status": "partial",
@@ -27503,5 +27503,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93"
+  "source_sha": "b7c6253b5ea1385e54b8caab6b85cef78fd25e56"
 }
