@@ -106,6 +106,7 @@ module.exports=async({page,url,data,capture})=>{
  await page.goto(new URL('records/'+tofu.id+'.html',url).href);
  const row=page.locator('#project-'+tofu.id);
  for(const image of [row.locator('.plate-art img'),row.locator('.label-qr img')]){
+  await image.scrollIntoViewIfNeeded();
   await image.evaluate(n=>n.decode());
   assert.ok(await image.evaluate(n=>n.complete&&n.naturalWidth>0),'Static record image loads');
  }
