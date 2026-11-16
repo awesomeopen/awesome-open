@@ -197,6 +197,7 @@ test("requestedCount reads a number of items from the request", () => {
   const { requestedCount } = require("../webmcplet.js").assistant;
   assert.equal(requestedCount("Find me two video editors that run in the browser and compare them."), 2);
   assert.equal(requestedCount("Show 3 tools"), 3);
+  assert.equal(requestedCount("Find a video editor and compare two."), 2);
   assert.equal(requestedCount("Find a video editor"), null);
   assert.equal(requestedCount("Is OpenCut one of them?"), null);
 });

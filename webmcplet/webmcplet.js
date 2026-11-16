@@ -442,7 +442,8 @@
   var COUNTS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
   // The number of items the visitor asks for ("two editors", "3 tools"), or null.
   function requestedCount(request) {
-    var match = /\b(one|two|three|four|five|six|[1-6])\s+(?:[\p{L}-]+\s+){0,3}?[\p{L}-]+s\b/iu.exec(request || "");
+    var match = /\b(one|two|three|four|five|six|[1-6])\s+(?:[\p{L}-]+\s+){0,3}?[\p{L}-]+s\b/iu.exec(request || "") ||
+      /\bcompare\s+(one|two|three|four|five|six|[1-6])\b/iu.exec(request || "");
     if (!match) return null;
     var word = match[1].toLowerCase();
     return COUNTS[word] || Number(word);
@@ -483,7 +484,7 @@
       "- If a tool returns ok:false, follow its message.",
       "- When the visitor asks for a number of items, present exactly that many: the ones that fit best.",
       "- When the visitor asks to compare, compare the items' recorded values in the text, such as their fields.",
-      "- The text answers the visitor; it does not describe your next steps.",
+      "- Finish only when the tools have done what the visitor asked. To do a next step, call its tool; never describe it in an answer.",
       "Tools:"
     ].concat(tools.map(function (tool) {
       return "- " + tool.name + ": " + tool.description + " Arguments: " + JSON.stringify(modelSchema(schemaOf(tool)));
