@@ -169,7 +169,7 @@ blue `<progress>` (see `tmp/launch_video_material`). Style it with the tokens.
 | --- | --- |
 | V2 client | `chrome-devtools-mcp` 1.12.0 with `--categoryExperimentalWebmcp=true` attached to Chrome started with `--enable-blink-features=WebMCP`. On a `try` preview of open-source-mac-os-apps (978 items, 50 sections), `list_webmcp_tools` returned `list_find`, `list_get` and `list_sections`; `list_find` "video editor" returned OpenShot and Shotnix with `fields: {}`, since the list records no stars yet (step 2a). Both calls take a `pageId` from `list_pages`. Capture runs add `--no-usage-statistics --no-performance-crux` |
 | V3 profile | A fresh `--user-data-dir` without flags on the live site: `LanguageModel.availability()` is `downloadable`, and `navigator.modelContext` is absent. The download itself is left for the shoot |
-| V1 timing | One take with "Open https://awesomeopen.github.io/awesome-open/ and find me two self-hosted video editors. Compare them." (GPT-6 Astra, Work mode). ChatGPT reported "Worked for 1m 45s"; the answer was complete about 2:04 after the prompt. It returned OpenCut and OpenReel Video, the Cabinet link opened both, and stars (98,576 and 5,671), licences (MIT) and last pushes matched the catalog of 2026-11-16 |
+| V1 timing | Take 1 (take 2 is below) with "Open https://awesomeopen.github.io/awesome-open/ and find me two self-hosted video editors. Compare them." (GPT-6 Astra, Work mode). ChatGPT reported "Worked for 1m 45s"; the answer was complete about 2:04 after the prompt. It returned OpenCut and OpenReel Video, the Cabinet link opened both, and stars (98,576 and 5,671), licences (MIT) and last pushes matched the catalog of 2026-11-16 |
 
 **V1 findings from the take:**
 
@@ -185,12 +185,24 @@ blue `<progress>` (see `tmp/launch_video_material`). Style it with the tokens.
   first"). The catalog records no run mode for OpenReel Video, so "self-hosted"
   for it came from the web. The value-check overlay therefore labels each claim as
   catalog (with record and date), web or generated.
-- **A second take** adds "use its tools" to the prompt, so the answer leans on the
-  catalog: "Open https://awesomeopen.github.io/awesome-open/ and use its tools to
-  find me two self-hosted video editors. Compare them." Both takes stay in the
-  record; the cut uses whichever the owner picks.
-- **The recording is HDR** (HEVC, PQ, 2880×1914), so white pages turn grey after
-  conversion. Record in SDR: set the display to an SDR preset before recording.
+- **Take 2** (2026-11-16, SDR, 2:24 recording) used "Open
+  https://awesomeopen.github.io/awesome-open/ and use its tools to find me two
+  self-hosted video editors. Compare them." ChatGPT reported "Worked for 1m 32s"
+  and returned the same pair. It now attributes its sources itself: "The page's
+  WebMCP tools work. OpenCut's record explicitly confirms Docker self-hosting for
+  its classic editor; OpenReel's record describes local editing but leaves hosting
+  unspecified. I'll verify that before calling it a match." It then checked
+  OpenReel's README on GitHub and said so. Both statements are correct: OpenCut's
+  feature note "Self-hosted classic editor" records the Docker Compose setup, and
+  OpenReel Video has no deployment record. Its "Open the selected pair in the
+  catalog" link opened both projects in the Cabinet. **Take 2 is the V1 base,**
+  with this prompt; take 1 stays in the record.
+- **The verdict stays visible.** "I'd try OpenReel first" is ChatGPT's own pick and
+  carries the "generated" label.
+- **The "Cloud browser" panel could not be enlarged** in take 2, so the activity
+  beat zooms into its thumbnail or is cut.
+- **Take 1 was recorded in HDR** (HEVC, PQ), so white pages turn grey after
+  conversion. Take 2 was recorded in SDR (BT.709) and keeps the white. Record in SDR.
   V2 and V3 capture the page through CDP (`Page.startScreencast`) in sRGB.
 - **Length:** about 2 minutes of real time becomes 30 to 45 s, with the waits
   marked as sped up.
