@@ -1,5 +1,6 @@
 /* The opt-in WebMCPlet assistant with Chrome's real on-device model, through the panel,
- * on the PRD's three journeys. Pass: each journey passes at least 17 of 20 runs and no
+ * on the PRD's three journeys, a search the shared matcher misses whole, and two
+ * follow-up conversations. Pass: each journey passes at least 17 of 20 runs and no
  * answer shows an item the tools did not return (PRD/2026-11-06_WebMCPlet-research.md).
  *
  * SITE_URL=<served Awesome Open build> node scripts/check_webmcplet_assistant.cjs \
@@ -25,7 +26,12 @@ const SCRIPT = path.join(__dirname, '..', 'webmcplet', 'webmcplet.js');
 const JOURNEYS = [
   { id: 'video-compare', page: 'ao', request: 'Find a video editor and compare two.', expected: ['cabinet_find', 'video edit', 'projects'] },
   { id: 'markdown-editor', page: 'mac', request: 'Find a Markdown editor.', expected: ['list_find', 'markdown edit', 'items'] },
-  { id: 'family-photos', page: 'ao', request: 'Manage family photos on my own server.' }
+  { id: 'family-photos', page: 'ao', request: 'Manage family photos on my own server.' },
+  // Owner's question, 2026-11-15: the whole phrase matches nothing; "NotebookLM" alone does.
+  { id: 'notebooklm', page: 'ao', request: 'Find a NotebookLM alternative.', expected: ['cabinet_find', 'notebooklm', 'projects'] },
+  // Follow-ups: the second request refers to the first answer.
+  { id: 'video-mit', page: 'ao', request: ['Find a video editor.', 'Which of those has an MIT license?'], expected: ['cabinet_find', 'video edit', 'projects'] },
+  { id: 'markdown-first', page: 'mac', request: ['Find a Markdown editor.', 'Tell me more about the first one.'] }
 ];
 
 async function open(context, journey) {
@@ -67,7 +73,8 @@ function expectedNames(page, [tool, query, key]) {
 
 async function ask(page, request) {
   const panel = page.locator(PANEL);
-  await panel.locator('button.trigger').click();
+  // A follow-up asks in the dialog that is still open.
+  if (!await page.evaluate(sel => document.querySelector(sel).shadowRoot.querySelector('dialog').open, PANEL)) await panel.locator('button.trigger').click();
   await panel.getByLabel('Question').waitFor({ timeout: 30000 });
   await panel.getByLabel('Question').fill(request);
   const started = Date.now();
@@ -88,9 +95,21 @@ async function ask(page, request) {
   }, { sel: PANEL, started });
 }
 
-function score(journey, result, expected) {
+function score(journey, result, expected, earlier, licenses) {
   const withheld = /withheld/.test(result.text);
   if (!result.answered) return { pass: false, reason: result.state };
+  if (journey.id === 'notebooklm') {
+    const found = result.rows.some(n => expected.includes(n));
+    return { pass: found && !withheld, reason: !found ? 'rows: ' + result.rows.join(', ') : withheld ? 'text withheld' : 'ok' };
+  }
+  if (journey.id === 'video-mit') {
+    const mit = result.rows.length > 0 && result.rows.every(n => expected.includes(n) && licenses[n] === 'MIT');
+    return { pass: mit && !withheld, reason: !mit ? 'rows: ' + result.rows.map(n => n + ' (' + licenses[n] + ')').join(', ') : withheld ? 'text withheld' : 'ok' };
+  }
+  if (journey.id === 'markdown-first') {
+    const same = earlier.rows.length > 0 && result.rows[0] === earlier.rows[0];
+    return { pass: same && !withheld, reason: !same ? 'first: ' + earlier.rows[0] + '; rows: ' + result.rows.join(', ') : withheld ? 'text withheld' : 'ok' };
+  }
   if (journey.id === 'video-compare') {
     const two = result.selection.length === 2 && result.selection.every(n => expected.includes(n));
     const compared = /Assistant · cabinet_compare · completed/.test(result.activity);
@@ -117,13 +136,19 @@ function score(journey, result, expected) {
     for (const journey of JOURNEYS.filter(j => !argv.journeys || argv.journeys.split(',').includes(j.id))) {
       const probe = await open(context, journey);
       const expected = journey.expected ? await expectedNames(probe, journey.expected) : [];
+      const licenses = journey.page === 'ao' ? await probe.evaluate(async () =>
+        Object.fromEntries((await (await fetch('catalog.json')).json()).projects.map(p => [p.name, (p.github || {}).license || null]))) : {};
       await probe.close();
       const runs = [];
       for (let run = 0; run < RUNS; run++) {
         // Each run: a fresh page, an empty Cabinet and no stored dismissal.
         const page = await open(context, journey);
-        const result = await ask(page, journey.request);
-        const verdict = score(journey, result, expected);
+        const requests = [].concat(journey.request), steps = [];
+        for (const request of requests) steps.push(await ask(page, request));
+        const result = steps[steps.length - 1];
+        const verdict = steps.length > 1 && !steps[0].answered ? { pass: false, reason: 'first: ' + steps[0].state }
+          : score(journey, result, expected, steps[0], licenses);
+        if (steps.length > 1) result.earlier = steps.slice(0, -1);
         runs.push({ ...result, ...verdict });
         console.log([journey.id, run + 1, verdict.pass ? 'PASS' : 'FAIL', result.seconds.toFixed(1) + ' s', verdict.reason].join(' | '));
         await page.close();

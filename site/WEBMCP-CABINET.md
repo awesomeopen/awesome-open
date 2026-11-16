@@ -9,7 +9,7 @@ controls share the ordered selection, comparison and activity display.
 - `cabinet_find`: the Catalog's search, through the [shared matcher](#search).
   Returns 12 results from `offset`, the `total`, each result's `matched_fields`
   and the current selection revision. Zero matches return a `message` naming this
-  catalog.
+  catalog; for a query of several words it adds how many projects each word matches alone.
 - `cabinet_inspect`: display one project's cached evidence and source links.
 - `cabinet_arrange`: replace the ordered selection atomically with zero to six
   distinct canonical IDs, using the current revision. Stale revisions fail.
