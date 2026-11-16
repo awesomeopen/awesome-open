@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-16",
+  "screening_sha256": "6f00022ab85bb1f699be272f32b95df7e1ad8bd667369370df03e68e1e3397f1",
+  "seed": "b64b404607544474e17d2a6435e43f720097e4578194817fa782a111d2cce5a4",
+  "pool": [
+    "serhii-londar/open-source-mac-os-apps",
+    "vinta/awesome-python",
+    "avelino/awesome-go",
+    "nix-community/awesome-nix"
+  ],
+  "index": 0,
+  "drawn": {
+    "repo": "serhii-londar/open-source-mac-os-apps",
+    "section": "Video",
+    "query": "video editor",
+    "ask": "two video editors",
+    "revision": "23b6184ebcee27318c28e4d40661f4435a697a3d",
+    "readme_sha256": "96675db9493b9cead47c2c0a5bcac7b114cadc60f4cfa2253edeecb275970c2a",
+    "licence": "CC0-1.0",
+    "licence_evidence": "GitHub license metadata",
+    "reasons": [],
+    "items": 978,
+    "entries": 1422,
+    "skipped": 47,
+    "sections": 50,
+    "results": 2,
+    "passes": true
+  }
+}
