@@ -246,20 +246,40 @@ async function panelChecks(browser, label, open, report) {
       if (!input.startsWith('Result of')) return { action: 'call', tool: 'cabinet_find', args: { query: 'video editor' } };
       if (input.startsWith('Result of cabinet_find')) return { action: 'call', tool: 'cabinet_arrange', args: { ids: ['r1', 'r2'], revision: Number(revision) } };
       if (input.startsWith('Result of cabinet_arrange')) return { action: 'call', tool: 'cabinet_compare', args: {} };
-      return { action: 'answer', text: 'These two projects edit video.', ids: ['r1', 'r2', 'r40'] };
+      return { action: 'answer', text: 'r1 and r2 edit video.', ids: ['r1', 'r2', 'r40'] };
     }`));
     await openAwesome(assisted, page);
     await page.locator(PANEL).locator('button.trigger').click();
     await page.locator(PANEL).getByLabel('Question').fill('Find a video editor and compare two.');
-    await page.locator(PANEL).getByRole('button', { name: 'Ask', exact: true }).click();
+    await page.locator(PANEL).getByRole('button', { name: 'Send', exact: true }).click();
     const answered = page.locator(PANEL).locator('ol[aria-label="Items in the answer"] li');
     await answered.nth(1).waitFor();
     assert.equal(await answered.count(), 2);
     assert.match(await page.locator(PANEL).locator('.state').textContent(), /1 item\(s\) the tools did not return/);
-    await page.keyboard.press('Escape');
+    // Refs become names; the Cabinet stays closed until the visitor follows the answer's link.
+    const names = await answered.locator('a').allTextContents();
+    assert.equal(await page.locator(PANEL).locator('p.generated').textContent(), names[0] + ' and ' + names[1] + ' edit video.');
+    assert.equal(await page.evaluate(() => document.getElementById('specimen-cabinet').open), false, 'the assistant leaves the Cabinet closed');
+    await page.locator(PANEL).getByRole('link', { name: 'Open the Cabinet' }).click();
+    await page.waitForFunction(() => document.getElementById('specimen-cabinet').open);
+    assert.equal(await dialogOpen(page), false, 'the link closes the panel');
+    assert.equal(await page.evaluate(() => document.activeElement.closest('#specimen-cabinet') !== null), true);
     assert.equal(await page.locator('#cabinet-selection li').count(), 2, 'the assistant arranged the shared selection');
     assert.match(await page.locator('#cabinet-activity').textContent(), /Assistant · cabinet_compare · completed/);
     await assisted.close();
+
+    // With a plate open, arrow keys in the panel's search field move the caret, not the plate.
+    const typing = await browser.newContext(), typed = await typing.newPage();
+    await openAwesome(typing, typed);
+    const first = await typed.evaluate(() => JSON.parse(document.getElementById('catalog-data').textContent).projects[0].id);
+    await typed.evaluate(id => { location.hash = 'project-' + id; }, first);
+    await typed.waitForFunction(id => location.hash === '#project-' + id && document.getElementById('plate-position').textContent, first);
+    await typed.locator(PANEL).locator('button.trigger').click();
+    await typed.locator(PANEL).locator('#wm-query').fill('abc');
+    for (const key of ['ArrowLeft', 'ArrowRight', 'ArrowLeft', 'Shift+ArrowLeft']) await typed.keyboard.press(key);
+    assert.deepEqual(await typed.locator(PANEL).locator('#wm-query').evaluate(el => [el.selectionStart, el.selectionEnd]), [1, 2]);
+    assert.equal(await typed.evaluate(() => location.hash), '#project-' + first, 'the plate stays');
+    await typing.close();
     report.awesomeOpen.assistant = 'stand-in model: find, arrange, compare; 2 rows shown, 1 unreturned ID omitted';
 
     if (!AO_ONLY) {
@@ -293,7 +313,7 @@ async function panelChecks(browser, label, open, report) {
       await macPage.locator(PANEL).locator('button.trigger').click();
       await macPage.locator(PANEL).getByRole('button', { name: 'Download the model' }).click();
       await macPage.locator(PANEL).getByLabel('Question').fill('Find a Markdown editor.');
-      await macPage.locator(PANEL).getByRole('button', { name: 'Ask', exact: true }).click();
+      await macPage.locator(PANEL).getByRole('button', { name: 'Send', exact: true }).click();
       await macPage.locator(PANEL).locator('ol[aria-label="Items in the answer"] li').first().waitFor();
       assert.match(await macPage.locator(PANEL).locator('p.generated').textContent(), /withheld/);
       await macAssisted.close();

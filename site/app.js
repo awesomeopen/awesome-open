@@ -400,7 +400,9 @@
   document.addEventListener("keydown", function (event) {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
     var target = event.target;
-    var typing = target && (/^(INPUT|SELECT|TEXTAREA)$/.test(target.tagName) || target.isContentEditable);
+    // Inside a shadow root, such as the WebMCPlet panel, event.target is the host.
+    var origin = event.composedPath ? event.composedPath()[0] : target;
+    var typing = origin && (/^(INPUT|SELECT|TEXTAREA)$/.test(origin.tagName) || origin.isContentEditable);
     if (event.key === "Escape") {
       if (document.querySelector(".pg-info[open],.timeline-info[open]")) return;
       if (cabinet.open) { cabinet.open = false; cabinet.querySelector("summary").focus(); return; }

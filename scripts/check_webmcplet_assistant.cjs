@@ -71,7 +71,7 @@ async function ask(page, request) {
   await panel.getByLabel('Question').waitFor({ timeout: 30000 });
   await panel.getByLabel('Question').fill(request);
   const started = Date.now();
-  await panel.getByRole('button', { name: 'Ask', exact: true }).click();
+  await panel.getByRole('button', { name: 'Send', exact: true }).click();
   await page.waitForFunction(sel => {
     const root = document.querySelector(sel).shadowRoot;
     return !root.querySelector('button.primary[type=submit]:disabled') && /Answered|omitted|Stopped|stopped|did not finish|longer than/.test(root.querySelector('.state').textContent);

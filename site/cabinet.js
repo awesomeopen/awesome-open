@@ -100,6 +100,7 @@
       const state = model.state(), list = $('cabinet-selection'); list.replaceChildren();
       $('cabinet-count').textContent = state.ids.length + ' of 6';
       $('cabinet-compare').disabled = !state.ids.length;
+      $('cabinet-clear').disabled = !state.ids.length;
       state.ids.forEach(id => {
         const p = model.inspect({ id }), row = node('li', undefined, list);
         const name = node('a', p.name, row); name.href = 'records/' + id + '.html';
@@ -206,7 +207,8 @@
       const number = ++calls, revision = model.state().revision;
       log.unshift(number + ' · ' + actor + ' · ' + name + ' · running'); log.splice(20); logRender();
       message('Running: ' + name.replace('cabinet_', '') + '.');
-      panel.open = true;
+      // The page's assistant links to the Cabinet from its answer instead.
+      if (actor !== 'Assistant') panel.open = true;
       const check = () => { if (controller.signal.aborted) throw new DOMException('Cancelled', 'AbortError'); };
       try {
         // Yield to paint and allow cancellation before an atomic local update.
@@ -237,6 +239,8 @@
         // A visiting agent's user may never see this page; the link opens the same selection.
         // The page's own assistant runs where the visitor already sees it.
         if (actor !== 'Assistant' && name !== 'cabinet_inspect' && model.state().ids.length) result = { ...result, cabinet_url: shareURL() };
+        if (actor === 'Assistant' && (name === 'cabinet_arrange' || name === 'cabinet_compare') && model.state().ids.length)
+          result = { ...result, view: { label: 'Open the Cabinet', href: '#specimen-cabinet' } };
         log[0] = number + ' · ' + actor + ' · ' + name + ' · completed';
         message(result.message || (name === 'cabinet_find' ? 'Found ' + result.total + ' projects; showing ' + result.projects.length + '.' : ''));
         return result;
@@ -261,6 +265,11 @@
     }
     $('cabinet-find').addEventListener('submit', event => { event.preventDefault(); run('cabinet_find', { query: $('cabinet-query').value }); });
     $('cabinet-compare').addEventListener('click', () => run('cabinet_compare', {}));
+    $('cabinet-clear').addEventListener('click', () => { human([]); $('cabinet-query').focus(); });
+    win.addEventListener('webmcplet:view', event => {
+      if (event.detail.href !== '#specimen-cabinet') return;
+      event.preventDefault(); panel.open = true; panel.querySelector('summary').focus();
+    });
     let copied;
     $('cabinet-copy').addEventListener('click', async () => {
       const copy = $('cabinet-copy');
