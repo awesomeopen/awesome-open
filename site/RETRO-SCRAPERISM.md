@@ -444,7 +444,7 @@ sources; omit display-name duplicates and empty blocks.
   1100px, one below 720px), 12px gaps. Rows: II / Repository record (stars, license,
   created, push, two columns each; full-width timeline), III / Observations & evidence
   (GitHub stars and HN sparklines at 5:1 on a shared baseline, a reserved box, OpenSSF
-  Scorecard), IV / Release record (two), a reserved box (three), V / Where it runs
+  Scorecard), IV / Release record (two), Repository languages (three), V / Where it runs
   (three), VI / Reviewed alternatives in thirds, then “Explore”. Numbers are
   fixed. Every box keeps its place and size without evidence and reads “Unknown”;
   only the alternatives row may be absent. Reserved boxes are solid

@@ -79,6 +79,8 @@ class OfflineCase(unittest.TestCase):
 
     def successful_fetch(self, url, headers, timeout):
         self.calls.append((url, dict(headers), timeout))
+        if url.endswith('/languages'):
+            return 200, {'ETag': '"languages-v1"'}, {'C++': 100, 'C#': 50}
         if url.startswith('https://api.github.com/repos/'):
             repo = url.removeprefix('https://api.github.com/repos/').removesuffix('/releases/latest')
             return 200, {'ETag': '"release-v1"'}, release(repo)
@@ -305,6 +307,7 @@ class SnapshotTests(OfflineCase):
             record.update(checked_at='2026-10-10T00:00:00Z', last_success_at='2026-10-10T00:00:00Z',
                           check_time_precision='day', success_time_precision='day')
             record['last_good'].update(fetched_at='2026-10-10T00:00:00Z', fetch_time_precision='day')
+        document['repositories'][REPO]['languages']['last_good']['observed_at'] = '2026-10-10T00:00:00Z'
         signals.validate_snapshot(document)
         self.assertEqual(document['repositories'][REPO]['scorecard']['last_good']['observed_at'],
                          '2026-10-08T00:00:00Z')
@@ -399,7 +402,7 @@ class CollectionTests(OfflineCase):
         self.assertEqual(document['source_sha'], SOURCE_SHA)
         self.assertEqual(summary['release:requests'], 1)
         self.assertEqual(summary['scorecard:requests'], 1)
-        self.assertEqual(len(self.calls), 2)
+        self.assertEqual(len(self.calls), 3)
         url, github, timeout = self.calls[0]
         self.assertEqual(url, 'https://api.github.com/repos/' + REPO + '/releases/latest')
         self.assertEqual(github['Authorization'], 'Bearer private-github-token')
@@ -471,7 +474,7 @@ class CollectionTests(OfflineCase):
         original = deepcopy(previous)
         fetch = Mock(return_value=(304, {}, None))
         document, summary = self.collect(previous=previous, fetch=fetch)
-        self.assertEqual(fetch.call_count, 2)
+        self.assertEqual(fetch.call_count, 3)
         for provider in signals.PROVIDERS:
             before = previous['repositories'][REPO][provider]
             record = document['repositories'][REPO][provider]
@@ -679,7 +682,7 @@ class BudgetAndBackoffTests(OfflineCase):
         self.assertEqual(summary['scorecard:requests'], 50)
         self.assertEqual(summary['release:budget_deferred'], 51)
         self.assertEqual(summary['scorecard:budget_deferred'], 351)
-        self.assertEqual(len(self.calls), 400)
+        self.assertEqual(len(self.calls), 430)
 
     def test_time_budget_is_shared_across_both_providers(self):
         def fetch(url, headers, timeout):
@@ -696,7 +699,7 @@ class BudgetAndBackoffTests(OfflineCase):
         self.assertEqual(self.clock.sleeps, [])
 
     def test_zero_time_or_request_budgets_do_not_fetch_or_fake_a_check(self):
-        for kwargs in ({'max_seconds': 0}, {'release_budget': 0, 'scorecard_budget': 0}):
+        for kwargs in ({'max_seconds': 0}, {'release_budget': 0, 'scorecard_budget': 0, 'languages_budget': 0}):
             with self.subTest(kwargs=kwargs):
                 fetch = Mock(side_effect=AssertionError('No budget'))
                 document, summary = self.collect(fetch=fetch, **kwargs)
@@ -846,7 +849,7 @@ class BudgetAndBackoffTests(OfflineCase):
     def test_deferred_last_good_is_preserved_and_becomes_stale_with_age(self):
         previous = self.snapshot()
         document, summary = self.collect(previous=previous, now=NOW + timedelta(days=40),
-                                          release_budget=0, scorecard_budget=0)
+                                          release_budget=0, scorecard_budget=0, languages_budget=0)
         for provider in signals.PROVIDERS:
             self.assertEqual(document['repositories'][REPO][provider]['last_good'], previous['repositories'][REPO][provider]['last_good'])
             self.assertEqual(document['repositories'][REPO][provider]['checked_at'], AT)

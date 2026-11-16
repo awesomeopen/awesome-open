@@ -162,7 +162,7 @@ departure on a Prussian band.
   below 720px. Fixed rows and numbers: II / Repository record (stars, license,
   created, push; then the timeline), III / Observations & evidence (GitHub stars and
   HN sparklines on a shared baseline, a reserved box, OpenSSF Scorecard), IV / Release
-  record, a reserved box, V / Where it runs, VI / Reviewed alternatives in thirds.
+  record, Repository languages, V / Where it runs, VI / Reviewed alternatives in thirds.
   Every box keeps its place and size without evidence and reads “Unknown”; only
   the alternatives row may be absent. Reasons, provider status, windows and sources
   open from a bare “i” in the box corner (native disclosure, one open at a time).
@@ -381,3 +381,7 @@ a folded white/Prussian instrument. Ordered ruled rows share human/native-tool
 state; a labeled scroll region contains the evidence comparison. Plain Earlier,
 Later and Remove controls retain keyboard/mobile access. Existing tokens, fonts
 and artwork remain unchanged.
+
+Repository languages use the former reserved box beside Release record: three
+leading names, full sourced byte breakdown in the native disclosure, and explicit
+unknown/empty/stale states. See the [language contract](../site/REPOSITORY-LANGUAGES.md).

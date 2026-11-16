@@ -147,6 +147,7 @@ const fs = require('node:fs');
   const cleared=await context.newPage();await cleared.goto(link);assert.equal(await cleared.locator('#cabinet-selection li').count(),2);
   await cleared.locator('#cabinet-clear').click();assert.equal(await cleared.locator('#cabinet-selection li').count(),0);
   assert.equal(await cleared.locator('#cabinet-clear').isDisabled(),true);assert.doesNotMatch(cleared.url(),/cabinet=/);await cleared.close();
+  await require('./check_languages_browser.cjs')(browser, base, call);
   assert.deepEqual(errors,[]);report.status='passed';report.selectionURL=link;
  } finally {fs.writeFileSync(output+'/cabinet.json',JSON.stringify(report,null,2)+'\n');await browser.close();}
  console.log(JSON.stringify(report));

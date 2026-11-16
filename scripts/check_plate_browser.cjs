@@ -12,7 +12,7 @@ module.exports=async({page,url,data,capture})=>{
    await row.locator('> details').evaluate(n=>n.open=true);
    await plate.waitFor({state:'visible'});
    await plate.scrollIntoViewIfNeeded();
-   await plate.locator('img').evaluateAll(ns=>Promise.all(ns.map(n=>n.decode().catch(()=>null))));
+   await plate.locator('img').evaluateAll(ns=>Promise.all(ns.map(n=>{n.loading='eager';return n.decode().catch(()=>null);})));
    assert.equal(await plate.count(),1);
    assert.equal(await plate.locator('.plate-departure>a').getAttribute('href'),p.url);
    assert.equal(await plate.locator('.plate-art').count(),p.artwork?1:0);
@@ -26,9 +26,9 @@ module.exports=async({page,url,data,capture})=>{
    const evidence=await plate.locator('.pg-evidence').evaluate(n=>({columns:getComputedStyle(n).gridTemplateColumns.split(' ').map(Number.parseFloat)}));
    assert.equal(evidence.columns.length,width>1100?8:width>720?4:1,'Evidence grid wraps at narrow widths');
    assert.ok(evidence.columns.every(w=>Math.abs(w-evidence.columns[0])<1),'Evidence columns have equal width');
-   assert.equal(await plate.locator('.pg-row:not(.pg-alts)>.pg-box').count(),10,'Every record keeps all evidence boxes');
+   assert.equal(await plate.locator('.pg-row:not(.pg-alts)>.pg-box').count(),11,'Every record keeps all evidence boxes');
    assert.equal(await plate.locator('.pg-alt').count(),p.alternatives.length,'Alternatives are the only variable row');
-   assert.equal(await plate.locator('.pg-reserved:visible').count(),width>720?2:0,'Reserved boxes hide on one column');
+   assert.equal(await plate.locator('.pg-reserved:visible').count(),width>720?1:0,'Reserved boxes hide on one column');
    const sparks=await plate.locator('.pg-evidence .pg-spark-link,.pg-evidence .pg-spark-empty').evaluateAll(ns=>ns.map(n=>n.getBoundingClientRect().bottom));
    if(width>720)assert.ok(Math.abs(sparks[0]-sparks[1])<1,'Sparklines share a baseline');
    assert.equal(await qr.evaluate(n=>getComputedStyle(n).borderTopWidth),'2px');
@@ -106,6 +106,7 @@ module.exports=async({page,url,data,capture})=>{
  await page.goto(new URL('records/'+tofu.id+'.html',url).href);
  const row=page.locator('#project-'+tofu.id);
  for(const image of [row.locator('.plate-art img'),row.locator('.label-qr img')]){
+  await image.scrollIntoViewIfNeeded();
   await image.evaluate(n=>n.decode());
   assert.ok(await image.evaluate(n=>n.complete&&n.naturalWidth>0),'Static record image loads');
  }

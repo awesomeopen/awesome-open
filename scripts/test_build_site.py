@@ -309,7 +309,7 @@ class SiteTests(unittest.TestCase):
             self.assertEqual(category, {key: full[key] for key in ('id', 'name')})
         self.assertEqual(len(index['projects']), len(self.catalog['projects']))
         for item, full in zip(index['projects'], self.catalog['projects']):
-            self.assertEqual(set(item), {'id', 'name', 'description', 'categories',
+            self.assertEqual(set(item), {'id', 'name', 'description', 'categories', 'languages', 'language_status',
                                         'leader_categories', 'github', 'alternatives', 'deployment'} | ({'aliases'} if full.get('aliases') else set()))
             for key in ('id', 'name', 'description', 'categories', 'leader_categories'):
                 self.assertEqual(item[key], full[key])

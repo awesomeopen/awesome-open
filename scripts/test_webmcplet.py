@@ -50,7 +50,7 @@ class WebMCPletTest(unittest.TestCase):
         document = adapter.build(CATALOG, 'https://example.org/list/')
         self.assertEqual([item['name'] for item in document['items']], ['Open Beta', 'Open Zeta', 'Open Alpha'])
         beta, zeta, alpha = document['items']
-        self.assertEqual(zeta['fields'], {'github_stars': 0, 'pushed_at': '2026-11-01T00:00:00Z'})
+        self.assertEqual(zeta['fields'], {'language_status': 'unknown', 'github_stars': 0, 'pushed_at': '2026-11-01T00:00:00Z'})
         self.assertEqual(alpha['fields']['run_modes'], ['server'])
         self.assertEqual(alpha['fields']['feature_notes'], ['Sync Syncs files.'])
         self.assertEqual(alpha['aliases'], ['OA'])
