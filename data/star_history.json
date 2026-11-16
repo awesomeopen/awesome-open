@@ -2,7 +2,7 @@
   "budget": {
     "limit": 16,
     "paused_reason": null,
-    "requests_used": 8,
+    "requests_used": 13,
     "utc_date": "2026-11-16"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
@@ -128910,6 +128910,151 @@
       "source_url": "https://api.github.com/repos/kevinbadi/open-edits/stargazers/history",
       "status": "ok"
     },
+    "ki-klub-werder-e-v/openverein": {
+      "checked_at": "2026-11-16T02:39:43.610043+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1792281600,
+          "repository_created_at": "2026-10-24T20:52:03+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-11-16T02:39:43.610043+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
+        "source_urls": [
+          "https://api.github.com/repos/ki-klub-werder-e-v/openverein/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              1,
+              0,
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            "total": 5,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              3,
+              2,
+              1
+            ],
+            "total": 6,
+            "week": 1793491200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792886400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "OpenVerein",
+      "readme_url": "https://github.com/ki-klub-werder-e-v/openverein",
+      "repo": "ki-klub-werder-e-v/openverein",
+      "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
+      "source_url": "https://api.github.com/repos/ki-klub-werder-e-v/openverein/stargazers/history",
+      "status": "ok"
+    },
     "koosoli/openposeidon": {
       "checked_at": "2026-10-18T15:52:55.557389+00:00",
       "last_good": {
@@ -153060,6 +153205,268 @@
       "repo": "myshell-ai/openvoice",
       "source_sha": "0f1112d6fa36ee64e20caee83612bc0fb98f7650",
       "source_url": "https://api.github.com/repos/myshell-ai/openvoice/stargazers/history",
+      "status": "ok"
+    },
+    "nabzx/openstream": {
+      "checked_at": "2026-11-16T02:39:43.610043+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1786838400,
+          "repository_created_at": "2026-08-21T21:32:39+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-11-16T02:39:43.610043+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          17,
+          0
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
+        "source_urls": [
+          "https://api.github.com/repos/nabzx/openstream/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1793491200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792886400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              5,
+              4,
+              3,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 13,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              1,
+              0
+            ],
+            "total": 3,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1787443200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786838400
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "OpenStream",
+      "readme_url": "https://github.com/nabzx/openstream",
+      "repo": "nabzx/openstream",
+      "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
+      "source_url": "https://api.github.com/repos/nabzx/openstream/stargazers/history",
       "status": "ok"
     },
     "nannndev/opennotchi": {
@@ -531661,6 +532068,542 @@
       "source_url": "https://api.github.com/repos/theopen-institute/opendesk/stargazers/history",
       "status": "ok"
     },
+    "thesevenpens/opentabletartist": {
+      "checked_at": "2026-11-16T02:39:43.610043+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1774137600,
+          "repository_created_at": "2026-03-23T00:54:55+00:00",
+          "terminal_page": 2
+        },
+        "fetched_at": "2026-11-16T02:39:43.610043+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          11
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
+        "source_urls": [
+          "https://api.github.com/repos/thesevenpens/opentabletartist/stargazers/history?per_page=30&page=1",
+          "https://api.github.com/repos/thesevenpens/opentabletartist/stargazers/history?per_page=30&page=2"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1793491200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "total": 2,
+            "week": 1792886400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1792281600
+          },
+          {
+            "days": [
+              5,
+              2,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 8,
+            "week": 1791676800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 1,
+            "week": 1791072000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1790467200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789862400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1789257600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788652800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1788048000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1787443200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1786838400
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1786233600
+          },
+          {
+            "days": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1785628800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1785024000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1784419200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1783814400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 1,
+            "week": 1783209600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1782604800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1782000000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1781395200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1780790400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1780185600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1779580800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1778976000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1778371200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1777766400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1777161600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1776556800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1775952000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1775347200
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1774742400
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1774137600
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "OpenTabletArtist",
+      "readme_url": "https://github.com/thesevenpens/opentabletartist",
+      "repo": "thesevenpens/opentabletartist",
+      "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
+      "source_url": "https://api.github.com/repos/thesevenpens/opentabletartist/stargazers/history",
+      "status": "ok"
+    },
     "thesongzhu/openopen": {
       "checked_at": "2026-10-19T06:39:08.465666+00:00",
       "last_good": {
@@ -561109,6 +562052,125 @@
       "source_url": "https://api.github.com/repos/yuanzhixiang/openphoto/stargazers/history",
       "status": "ok"
     },
+    "yuno3311/openeditor": {
+      "checked_at": "2026-11-16T02:39:43.610043+00:00",
+      "last_good": {
+        "coverage": {
+          "creation_week_reached": true,
+          "newest_week": 1794700800,
+          "oldest_week": 1793491200,
+          "repository_created_at": "2026-11-07T00:56:44+00:00",
+          "terminal_page": 1
+        },
+        "fetched_at": "2026-11-16T02:39:43.610043+00:00",
+        "monthly_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
+        "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
+        "source_urls": [
+          "https://api.github.com/repos/yuno3311/openeditor/stargazers/history?per_page=30&page=1"
+        ],
+        "weeks": [
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              2,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 2,
+            "week": 1794096000
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              6
+            ],
+            "total": 6,
+            "week": 1793491200
+          }
+        ],
+        "window_end_exclusive": "2026-11-01T00:00:00+00:00",
+        "window_start": "2024-11-01T00:00:00+00:00"
+      },
+      "name": "Open Editor",
+      "readme_url": "https://github.com/yuno3311/openeditor",
+      "repo": "yuno3311/openeditor",
+      "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
+      "source_url": "https://api.github.com/repos/yuno3311/openeditor/stargazers/history",
+      "status": "ok"
+    },
     "zai-org/open-autoglm": {
       "checked_at": "2026-11-07T03:51:12.108650+00:00",
       "last_good": {
@@ -563532,11 +564594,11 @@
   "schema_version": 1,
   "selection_report": {
     "attempted_repositories": 4,
-    "due_repositories": 489,
+    "due_repositories": 485,
     "eligible_repositories": 531,
-    "unattempted_repositories": 6
+    "unattempted_repositories": 2
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "8880f23738ed15a301a9d8408f25fde9c6a4258f",
-  "updated_at": "2026-11-16T02:35:07.738327+00:00"
+  "source_sha": "91c8207dc35ac6f87d1be6a35098151b56b06e93",
+  "updated_at": "2026-11-16T02:39:43.610043+00:00"
 }
