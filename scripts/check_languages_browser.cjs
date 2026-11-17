@@ -29,6 +29,14 @@ module.exports=async(browser,base,call)=>{
   assert.equal(found.total,1);assert.deepEqual(found.projects[0].languages,['C++','C#','JavaScript','Shell']);
   const listed=await call('list_find',{query:'C++',filters:{languages:'C#'}},page);
   assert.equal(listed.total,1);assert.deepEqual(listed.items[0].fields.languages,found.projects[0].languages);
+  for(const language of ['C#','Rust']){
+   const cabinetHint=await call('cabinet_find',{query:'C++ absentword',language},page);
+   const listHint=await call('list_find',{query:'C++ absentword',filters:{languages:language}},page);
+   for(const result of [cabinetHint,listHint]){
+    assert.equal(result.total,0);
+    assert.match(result.message,language==='C#'?/c\+\+ 1, absentword 0/:/No word of the query matches/);
+   }
+  }
   const inspect=await call('cabinet_inspect',{id},page);assert.equal(inspect.language_evidence.last_good.value['C++'],300);
   await call('cabinet_arrange',{ids:[id],revision:found.revision},page);
   const compare=await call('cabinet_compare',{},page);assert.deepEqual(compare.projects[0].language_evidence,inspect.language_evidence);

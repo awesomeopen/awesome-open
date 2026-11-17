@@ -8,7 +8,7 @@
 })(typeof globalThis === "object" ? globalThis : this, function () {
   "use strict";
 
-  var RELEASE = "0.2.3"; // This script's version; CHANGELOG.md records each with its SHA-256.
+  var RELEASE = "0.3.0"; // This script's version; CHANGELOG.md records each with its SHA-256.
   var VERSION = 1; // The list document schema.
   var PAGE = 12;
   var MAX_QUERY = 160;
@@ -117,6 +117,16 @@
     return fold(query).split(/\s+/).filter(Boolean);
   }
 
+  // After a search of several words finds nothing: how many items each word finds
+  // alone, so a caller can search again with fewer words.
+  function wordHint(tokens, count) {
+    if (tokens.length < 2) return "";
+    var counts = tokens.map(function (token) { return [token, count(token)]; });
+    if (counts.every(function (c) { return !c[1]; })) return " No word of the query matches an item on its own.";
+    return " No item contains every word. Items matching each word alone: " +
+      counts.map(function (c) { return c[0] + " " + c[1]; }).join(", ") + ". Search again with fewer words.";
+  }
+
   function boundaryMatch(text, token) {
     var literal = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     return new RegExp("(^|[^\\p{L}\\p{N}\\p{M}_])" + literal + "(?=$|[^\\p{L}\\p{N}\\p{M}_])", "u").test(text);
@@ -221,16 +231,17 @@
           throw ListError("invalid_filter", "filters must map a filterable field to one value; " + hint + "sections lists them.");
         return { name: name, value: value, type: field.type };
       });
-      var tokens = words(query), hits = [];
+      var tokens = words(query), hits = [], kept = [];
       var order = function (a, b) { return position.get(a.entry.item.id) - position.get(b.entry.item.id); };
       index.forEach(function (entry) {
         var item = entry.item, values = item.fields || {};
         if (scope && !item.sections.some(function (s) { return scope.has(s); })) return;
-        var kept = applied.every(function (f) {
+        var filtered = applied.every(function (f) {
           var value = values[f.name];
           return f.type === "list" ? Array.isArray(value) && value.indexOf(f.value) !== -1 : value === f.value;
         });
-        if (!kept) return;
+        if (!filtered) return;
+        kept.push(entry);
         var match = tokens.length ? matchEntry(entry, tokens) : { rank: 0, fields: null };
         if (match) hits.push({ entry: entry, rank: match.rank, fields: match.fields });
       });
@@ -249,7 +260,8 @@
             note: recorded + " of " + doc.items.length + " items have a recorded " + fields[f.name].label + "." };
         });
       }
-      if (!hits.length) result.message = "No match in " + doc.list.title + " (" + doc.items.length + " items).";
+      if (!hits.length) result.message = "No match in " + doc.list.title + " (" + doc.items.length + " items)." +
+        wordHint(tokens, function (token) { return kept.filter(function (entry) { return matchEntry(entry, [token]); }).length; });
       return result;
     }
 
@@ -381,7 +393,7 @@
 
   var LANG = { expectedInputs: [{ type: "text", languages: ["en"] }], expectedOutputs: [{ type: "text", languages: ["en"] }] };
   var REF = { type: "string", pattern: "^r[0-9]{1,3}$" };
-  var MAX_TURNS = 8, TURN_MS = 30000, MAX_REQUEST = 500;
+  var MAX_TURNS = 8, TURN_MS = 30000, MAX_REQUEST = 500, MAX_RECAP = 3;
 
   function Refs() {
     var toRef = new Map(), toId = new Map();
@@ -408,7 +420,7 @@
       if (Array.isArray(out.ids)) out.ids = out.ids.map(id);
       return out;
     }
-    return { hide: hide, reveal: reveal, id: id };
+    return { hide: hide, reveal: reveal, id: id, ref: ref };
   }
 
   function schemaOf(tool) {
@@ -482,6 +494,7 @@
       "- ids lists the items your answer presents as fitting the request, copied exactly from tool results.",
       "- If no item fits, say that this list has no match, leave ids empty and name no item.",
       "- If a tool returns ok:false, follow its message.",
+      "- A request may follow earlier turns of the conversation. Refs from those turns still work in tool arguments and in ids.",
       "- When the visitor asks for a number of items, present exactly that many: the ones that fit best.",
       "- When the visitor asks to compare, compare the items' recorded values in the text, such as their fields.",
       "- Finish only when the tools have done what the visitor asked. To do a next step, call its tool; never describe it in an answer.",
@@ -517,6 +530,17 @@
     });
   }
 
+  // A summary of earlier turns for the next request: each question, the answer's
+  // items as refs with names, and its text. Tool results stay out to save context.
+  function recap(turns, refs) {
+    if (!turns || !turns.length) return "";
+    return "Earlier in this conversation:\n" + turns.slice(-MAX_RECAP).map(function (turn) {
+      var items = turn.rows.map(function (row) { return refs.ref(row.id) + " " + row.name; });
+      return "Visitor: " + turn.request + "\nYour answer: " + (turn.text || "").slice(0, 400) +
+        (items.length ? " Items: " + items.join(", ") + "." : " No items.");
+    }).join("\n") + "\n\nNew request: ";
+  }
+
   // Replaces refs such as r1 or R1 with item names, then drops the repeats this
   // leaves when the model also wrote the name ("R1: OpenReel Video" -> "OpenReel Video").
   function withNames(text, rows, refs) {
@@ -545,12 +569,14 @@
 
   // Runs one request to an answer, the turn limit or cancellation. The answer's
   // rows come from tool results; the model's text is returned separately, and is
-  // withheld when it names an item the tools did not return.
+  // withheld when it names an item the tools did not return. A conversation passes
+  // its refs, rows and earlier turns, so refs and items from earlier answers stay valid.
   async function ask(options) {
-    var session = options.session, available = options.tools, refs = Refs(), rows = new Map(), views = new Map();
+    var conversation = options.conversation || {};
+    var session = options.session, available = options.tools, refs = conversation.refs || Refs(), rows = conversation.rows || new Map(), views = new Map();
     var count = requestedCount(options.request);
     var constraint = actionSchema(available, count), maxTurns = options.maxTurns || MAX_TURNS, turnMs = options.turnMs || TURN_MS;
-    var trace = [], input = options.request, retried = false;
+    var trace = [], input = recap(conversation.turns, refs) + options.request, retried = false;
     function report(entry) { trace.push(entry); if (options.onStep) options.onStep(entry); }
     for (var turn = 0; turn < maxTurns; turn++) {
       if (options.signal && options.signal.aborted) return { status: "cancelled", rows: [], trace: trace };
@@ -573,7 +599,7 @@
         var shown = ids.filter(function (id) { return rows.has(id); }).map(function (id) { return rows.get(id); });
         var returnedNames = new Set(Array.from(rows.values()).map(function (r) { return r.name; }));
         // The model sees refs such as r1; the visitor reads the items' names.
-        var text = plain(withNames(action.text || "", rows, refs));
+        var text = withNames(plain(action.text || ""), rows, refs);
         var unreturned = namesIn(text, options.names || []).filter(function (n) { return !returnedNames.has(n); });
         report({ answer: true, ids: ids });
         return { status: "answered", rows: shown, removed: ids.length - shown.length, views: Array.from(views.values()),
@@ -691,6 +717,7 @@
     var askRow = element(doc, "div", { class: "row" }, askForm);
     var askButton = element(doc, "button", { type: "submit", class: "primary" }, askRow, "Send");
     var stop = element(doc, "button", { type: "button", disabled: "" }, askRow, "Stop");
+    var restart = element(doc, "button", { type: "button", hidden: "" }, askRow, "New conversation");
     var answer = element(doc, "div", { hidden: "" }, assistant);
     element(doc, "h4", {}, answer, "List result:");
     var answerRows = element(doc, "ol", { "aria-label": "Items in the answer" }, answer);
@@ -707,6 +734,8 @@
     note.append(". This does not affect tool use by agents.");
 
     var find = coreTools.find(function (t) { return /_find$/.test(t.name); });
+    // Follow-up questions see the earlier turns until "New conversation".
+    var conversation = { refs: Refs(), rows: new Map(), turns: [] };
     var listDoc = null, current = { query: "", section: "", offset: 0 }, running = null;
 
     function link(item) { return item.link || item.url; }
@@ -807,11 +836,15 @@
         // The list's description names what its items are, as in the measured wording.
         var about = listDoc && listDoc.list.description ? title + ", " + listDoc.list.description.charAt(0).toLowerCase() + listDoc.list.description.slice(1).replace(/\.$/, "") : title;
         session = await model.create(Object.assign({}, LANG, { initialPrompts: [{ role: "system", content: instructions(about, available) }], signal: running.signal }));
-        var outcome = await ask({ session: session, tools: available, request: request, signal: running.signal,
+        var outcome = await ask({ session: session, tools: available, request: request, signal: running.signal, conversation: conversation,
           names: listDoc ? listDoc.items.map(function (i) { return i.name; }) : [],
           onStep: function (step) { if (step.tool) modelState.textContent = "Called " + step.tool + (step.ok ? "." : ": " + step.code + "."); } });
         // The last outcome, with its tool trace, for the page's developer tools.
         if (win.WebMCPlet) win.WebMCPlet.lastAnswer = outcome;
+        if (outcome.status === "answered") {
+          conversation.turns.push({ request: request, text: outcome.text, rows: outcome.rows });
+          question.value = ""; restart.hidden = false;
+        }
         showAnswer(outcome);
       } catch (error) {
         modelState.textContent = running.signal.aborted ? "Stopped." : "The model stopped: " + (error && error.message);
@@ -850,6 +883,11 @@
       modelState.textContent = outcome.removed ? "The model listed " + outcome.removed + " item(s) the tools did not return; they are omitted." : "Answered.";
     }
     stop.addEventListener("click", function () { if (running) running.abort(); });
+    restart.addEventListener("click", function () {
+      if (running) running.abort();
+      conversation = { refs: Refs(), rows: new Map(), turns: [] };
+      answer.hidden = true; restart.hidden = true; modelState.textContent = ""; question.focus();
+    });
 
     // Fixed elements follow the layout viewport. On a page wider than the screen,
     // or when zoomed, that differs from what the visitor sees, so place the button

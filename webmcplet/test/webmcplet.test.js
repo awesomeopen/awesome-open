@@ -53,7 +53,10 @@ test("every word must match; order is the weakest field needed, then name", () =
   assert.deepEqual(names(list.find({ query: "video editor" })), ["Video Editor", "Zebra Cut", "Apple"]);
   assert.deepEqual(list.find({ query: "video editor" }).items[2].matched_fields, ["summary"]);
   assert.deepEqual(names(list.find({ query: "family photos" })), []);
-  assert.equal(list.find({ query: "family photos" }).message, "No match in Awesome Test (4 items).");
+  assert.equal(list.find({ query: "family photos" }).message, "No match in Awesome Test (4 items). No word of the query matches an item on its own.");
+  assert.equal(list.find({ query: "video photos" }).message,
+    "No match in Awesome Test (4 items). No item contains every word. Items matching each word alone: video 3, photos 0. Search again with fewer words.");
+  assert.equal(list.find({ query: "photos" }).message, "No match in Awesome Test (4 items).");
 });
 
 test("an exact short alias uses word boundaries in every field", () => {
@@ -168,6 +171,25 @@ test("the assistant's text names items in place of refs and keeps page views", a
   assert.deepEqual(outcome.views, [view]);
 });
 
+test("a follow-up sees earlier turns, and their refs and items stay valid", async () => {
+  const tools = W.tools(fixture(), {}), names = fixture().items.map(i => i.name);
+  const conversation = { refs: W.assistant.Refs(), rows: new Map(), turns: [] };
+  const first = await W.assistant.ask({ session: session([{ action: "call", tool: "list_find", args: { query: "video" } },
+    { action: "answer", text: "r1 fits.", ids: ["r1"] }]), tools, request: "Find a video editor.", names, conversation });
+  conversation.turns.push({ request: "Find a video editor.", text: first.text, rows: first.rows });
+  const model = session([{ action: "answer", text: "r1 has 0 stars.", ids: ["r1"] }]);
+  const second = await W.assistant.ask({ session: model, tools, request: "How many stars?", names, conversation });
+  assert.equal(model.prompts[0].input, "Earlier in this conversation:\nVisitor: Find a video editor.\nYour answer: Video Editor fits. Items: r1 Video Editor.\n\nNew request: How many stars?");
+  assert.deepEqual([second.rows.map(r => r.name), second.text], [["Video Editor"], "Video Editor has 0 stars."]);
+  const inspected = await W.assistant.ask({ session: session([
+    { action: "call", tool: "list_get", args: { id: "r1" } },
+    { action: "answer", text: "r1 again.", ids: ["r1"] }
+  ]), tools, request: "Inspect it.", names, conversation });
+  assert.equal(inspected.trace[0].ok, true);
+  assert.equal(inspected.trace[0].args.id, first.rows[0].id);
+  assert.deepEqual(inspected.rows, first.rows);
+});
+
 test("the assistant withholds text naming an item the tools did not return", async () => {
   const model = session([{ action: "call", tool: "list_find", args: { query: "family photos" } },
     { action: "answer", text: "Try Broadcaster, or see https://apple.example/Apple.", ids: [] }]);
@@ -191,6 +213,26 @@ test("the model schema uses refs for IDs and drops uniqueItems", () => {
   const schema = W.assistant.modelSchema({ type: "object", properties: { ids: { type: "array", uniqueItems: true, maxItems: 6, items: { type: "string", pattern: "^[a-f0-9]{64}$" } }, id: { type: "string" } } });
   assert.deepEqual(schema.properties, { ids: { type: "array", maxItems: 6, items: { type: "string", pattern: "^r[0-9]{1,3}$" } }, id: { type: "string", pattern: "^r[0-9]{1,3}$" } });
   assert.deepEqual(W.assistant.namesIn("Use Apple-tools or Apple. See github.com/x/Apple", ["Apple", "Pear"]), ["Apple"]);
+});
+
+test('word hints retain global aliases and count language and section eligible items', () => {
+  const doc=fixture();
+  doc.fields.languages={label:'Languages',type:'list',meaning:'Detected repository languages.',search:true,filter:true};
+  doc.items[0].fields.languages=['C++'];
+  doc.items[1].fields.languages=['C#'];
+  doc.items[2].fields.languages=['C#'];
+  doc.items[2].description='Obsolete signage.';
+  doc.items[3].fields={languages:['C++']};
+  const list=W.create(doc);
+  const find=(query,language,section)=>list.find({query,filters:{languages:language},...(section?{section}:{})});
+  assert.match(find('video absent','C#').message,/video 2, absent 0/);
+  assert.match(find('video absent','C#','media').message,/video 1, absent 0/);
+  assert.match(find('obs video','C#').message,/obs 0, video 2/);
+  assert.match(find('obs absent','C#').message,/No word of the query matches an item on its own/);
+  assert.match(find('video absent','Rust').message,/No word of the query matches an item on its own/);
+  assert.match(find('C++ absent','C#').message,/No word of the query matches an item on its own/);
+  assert.match(find('C# absent','C#').message,/c# 2, absent 0/);
+  assert.match(find('C++ absent','C++').message,/c\+\+ 2, absent 0/);
 });
 
 test("requestedCount reads a number of items from the request", () => {
@@ -223,4 +265,26 @@ test("plain turns Markdown in an answer into plain text", () => {
   const { plain } = require("../webmcplet.js").assistant;
   assert.equal(plain("Here's a comparison:\n\n**OpenFilm**\n*   **Stars:** 7623\n- [repo](https://e.example/r)\n\n\n\nDone."),
     "Here's a comparison:\n\nOpenFilm\n• Stars: 7623\n• repo (https://e.example/r)\n\nDone.");
+});
+
+test('follow-ups keep refs and text cleanup while counts use the current request', async () => {
+  const tools = W.tools(fixture(), {}), names = fixture().items.map(i => i.name);
+  const conversation = { refs: W.assistant.Refs(), rows: new Map(), turns: [] };
+  const firstModel = session([{ action:'call', tool:'list_find', args:{query:'video'} },
+    { action:'answer', text:'**R1: Video Editor**', ids:['r1'] }]);
+  const first = await W.assistant.ask({session:firstModel,tools,names,conversation,request:'Find two video editors.'});
+  assert.equal(first.text,'Video Editor');
+  assert.equal(firstModel.prompts[0].options.responseConstraint.anyOf.at(-1).properties.ids.maxItems,2);
+  conversation.turns.push({request:'Find two video editors.',text:first.text,rows:first.rows});
+  const model = session([{action:'call',tool:'list_get',args:{id:'r1'}},
+    {action:'answer',text:'**R1: Video Editor**\n- [repo](https://b.example/)',ids:['r1']}]);
+  const next = await W.assistant.ask({session:model,tools,names,conversation,request:'Compare three tools.'});
+  assert.match(model.prompts[0].input,/Earlier in this conversation/);
+  assert.equal(model.prompts[0].options.responseConstraint.anyOf.at(-1).properties.ids.maxItems,3);
+  assert.equal(next.trace[0].args.id,first.rows[0].id);
+  assert.equal(next.text,'Video Editor\n• repo (https://b.example/)');
+  assert.deepEqual(next.rows,first.rows);
+  const uncapped=session([{action:'answer',text:'R1',ids:['r1']}]);
+  await W.assistant.ask({session:uncapped,tools,names,conversation,request:'Tell me more about it.'});
+  assert.equal(uncapped.prompts[0].options.responseConstraint.anyOf.at(-1).properties.ids.maxItems,undefined);
 });

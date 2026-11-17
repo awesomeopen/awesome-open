@@ -3,6 +3,15 @@
 Each release names the SHA-256 of `webmcplet.js`. Compare it with
 `shasum -a 256 webmcplet.js` after copying, or run `node build.cjs version`.
 
+## 0.3.0
+
+`webmcplet.js` SHA-256 `e2283e3bc51ad7b4278ebad85341948f99e6e8eaccf2539f7add810957688dd5`
+
+- Follow-up questions: the assistant keeps the conversation's refs and items and sends a
+  recap of the last 3 turns with each request. "New conversation" starts over.
+- A search of several words that matches nothing reports each word's matches alone.
+- Answer text removes Markdown before replacing refs, keeping a bold ref/name pair plain.
+
 ## 0.2.3
 
 `webmcplet.js` SHA-256 `2fdc56b7ca03f17af79fb1b106397421402d7947f8f0f23fd1d8c70294c1b8b0`

@@ -43,7 +43,7 @@
           id: p.id, name: p.name, description: p.description, matched_fields: fields,
           languages: p.languages ?? null, language_status: p.language_status || "unknown",
           github: { stars: Search.starsOf(p), license: Search.licenseOf(p) || null, pushed_at: (p.github || {}).pushed_at || null } })),
-          ...(matches.length ? {} : { message: Search.noMatch(projects.length) }) };
+          ...(matches.length ? {} : { message: Search.noMatch(projects.length, projects, args.query, text, args.language) }) };
       },
       inspect(args) {
         validate(args, ['id']); validIds([args.id]);
