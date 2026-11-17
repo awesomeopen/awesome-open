@@ -88,6 +88,16 @@ class CheckBudgetTests(unittest.TestCase):
             (site / 'data/other.json').write_bytes(b'x' * (2 * 8 * 1024 + 1))
             self.assertEqual(check_budget.report(site)[1], ['Largest other file'])
 
+    def test_enriched_catalog_boundary_still_rejects_bloat(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = self.site(directory)
+            catalog = site / 'catalog.json'
+            catalog.write_bytes(b'x' * (2 * 6 * check_budget.KIB))
+            self.assertEqual(self.run_check(site)[0], 0)
+            catalog.write_bytes(catalog.read_bytes() + b'x')
+            self.assertEqual(check_budget.report(site)[1], ['catalog.json'])
+            self.assertEqual(self.run_check(site)[0], 1)
+
     def test_missing_site_is_an_error(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(SystemExit):
             check_budget.main([directory])

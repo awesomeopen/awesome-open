@@ -43,9 +43,10 @@ BUDGET = [
      'Initial ledger HTML parsed on every visit: 64 KiB + 2.5 KiB per record; baseline 932 KiB'),
     ('index.html (gzip)', 'index_gzip', per_record(16 * KIB, 384),
      'Initial ledger transfer: 16 KiB + 384 B per record; baseline 133 KiB'),
-    ('catalog.json', 'catalog_bytes', per_record(0, 4 * KIB),
+    ('catalog.json', 'catalog_bytes', per_record(0, 6 * KIB),
      'Download size, written compactly with star counts in data/star_history.json: '
-     '4 KiB per record; baseline 1.3 MiB'),
+     '6 KiB per record for reviewed enrichment; 2,399,345 B / 585 records '
+     '(2026-11-17 prepared batch); 6,144,000 B at 1,000 records'),
     ('Where it runs (data)', 'deployment_bytes', per_record(0, 3 * KIB),
      'Combined approved deployment evidence: 3 KiB per catalog record'),
     ('HN evidence', 'hn_bytes', per_record(0, 10 * KIB),

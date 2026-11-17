@@ -123,6 +123,59 @@ amount per static record. Specimen artwork grows by design, in batches of up to
 project (original plus cutout). The site total limit is 640 MiB, above the
 projected 490 MiB at 1,000 records with artwork for each.
 
+#### Reviewing intentional data growth
+
+A budget failure starts a review of the added bytes. Before increasing a limit,
+record the following in the scoped budget PR:
+
+1. The owner-approved data purpose and the evidence fields being collected.
+2. Measured before and after sizes on the same source baseline, the record count,
+   and a diff review showing where the growth comes from. Check for duplicated
+   payloads, generated artifacts, or unexpectedly large fields.
+3. The old and proposed thresholds, remaining margin after the intended data,
+   and projected capacity at roughly 1,000 projects. Retain applicable reserves.
+4. Why that allowance supports the intended coverage at an acceptable payload
+   size. Discuss transfer, parsing and memory costs; distinguish measured bytes
+   from performance estimates and record any missing device measurements.
+
+Fix accidental bloat in its source. For intentional, evidence-backed growth,
+propose a measured allowance with this rationale, keep the guard enforced, and
+run its boundary tests, required builds and CI. Keep the data batch separately
+reviewable; an increase takes effect through the normal owner merge review.
+
+#### Catalog enrichment allowance (2026-11-17)
+
+The catalog budget is **6 KiB per static record**, allowing reviewed summaries,
+features, aliases and compact evidence to grow within a bounded payload. This
+is a project performance allowance, measured in uncompressed bytes. PR checks
+fail above it; the publisher retains its warning-only behavior. Other size
+limits and deployment backfill's 100 KiB reserve stay unchanged.
+
+The earlier 4 KiB allowance followed commit `9652bf5`, which removed duplicated
+star histories and reduced the catalog from 12.2 MiB to 1.3 MiB. Subsequent
+reviewed enrichment has consumed that margin. At main `24df1b2`:
+
+| Payload | Bytes | Headroom at 4 KiB × 585 | Headroom at 6 KiB × 585 |
+| --- | ---: | ---: | ---: |
+| Current 585-project catalog | 2,371,222 | 24,938 | 1,223,018 |
+| With 25 prepared summaries and 50 features | 2,399,345 | −3,185 | 1,194,895 |
+
+The prepared payload averages 4,101 bytes per project. The 6,144-byte allowance
+leaves about 50% above that average for further enrichment. At 1,000 projects,
+the limit is 6,144,000 bytes (5.86 MiB); linear growth at the prepared average
+would use about 4.10 MB. This is planning headroom, not a guarantee for every
+possible evidence mix. Re-measure as coverage and record sizes change.
+
+The check still catches accidental duplication or large embedded fields.
+Larger payloads can increase download time, JSON parsing work and browser memory.
+Transfer compression reduces network bytes; the browser still decodes and parses
+the full data, and its object representation can use additional memory. A local
+gzip level-6 check measured 437,963 bytes for the current catalog and
+445,641 bytes with the prepared summaries; actual hosting compression may differ.
+This change measures bytes, not device latency or heap usage, and adds no data by
+itself. Actual loading behavior and performance should be measured before a
+further increase.
+
 ### W4. Payload reduction (Phase 3)
 
 - Write site-only JSON (`catalog.json`, the copied `data/*.json`) compactly. The
