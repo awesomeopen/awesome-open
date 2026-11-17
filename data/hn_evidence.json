@@ -97412,140 +97412,6 @@
       ]
     },
     {
-      "name": "Openpanel",
-      "slug": "catalog-10f0478043f12ea4",
-      "readme_url": "https://github.com/Openpanel-dev/openpanel",
-      "repositories": [
-        "Openpanel-dev/openpanel"
-      ],
-      "domains": [],
-      "title_aliases": [],
-      "exact_urls": [],
-      "queries": [
-        "github.com/Openpanel-dev/openpanel"
-      ],
-      "identity_sources": [
-        "https://github.com/Openpanel-dev/openpanel"
-      ],
-      "coverage": "catalog-url-only",
-      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
-      "broad_queries": [
-        "Openpanel",
-        "github.com/Openpanel-dev/openpanel"
-      ],
-      "monthly_counts": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "eligible": false,
-      "story_count": 0,
-      "active_months": 0,
-      "stories": [],
-      "excluded_candidates": [
-        {
-          "id": "45527276",
-          "title": "Show HN: GroupMQ – A FIFO job queue for node and Redis",
-          "url": "https://github.com/Openpanel-dev/groupmq",
-          "created_at": "2025-10-09T13:15:53+00:00",
-          "month": "2025-10",
-          "hn_url": "https://news.ycombinator.com/item?id=45527276",
-          "source_url": "https://hn.algolia.com/api/v1/items/45527276",
-          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
-        },
-        {
-          "id": "47760564",
-          "title": "OpenPanel – Open-Source Web and Product Analytics",
-          "url": "https://openpanel.dev/",
-          "created_at": "2026-04-14T02:31:05+00:00",
-          "month": "2026-04",
-          "hn_url": "https://news.ycombinator.com/item?id=47760564",
-          "source_url": "https://hn.algolia.com/api/v1/items/47760564",
-          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
-        }
-      ],
-      "query_sources": [
-        "https://hn.algolia.com/api/v1/search_by_date?query=Openpanel&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
-        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenpanel-dev%2Fopenpanel&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
-      ],
-      "search_url": "https://hn.algolia.com/?q=github.com%2FOpenpanel-dev%2Fopenpanel&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
-      "broad_stories": [
-        {
-          "id": "45527276",
-          "title": "Show HN: GroupMQ – A FIFO job queue for node and Redis",
-          "url": "https://github.com/Openpanel-dev/groupmq",
-          "created_at": "2025-10-09T13:15:53+00:00",
-          "month": "2025-10",
-          "hn_url": "https://news.ycombinator.com/item?id=45527276",
-          "source_url": "https://hn.algolia.com/api/v1/items/45527276",
-          "reason": "Candidate: exact-word title/URL search"
-        },
-        {
-          "id": "47760564",
-          "title": "OpenPanel – Open-Source Web and Product Analytics",
-          "url": "https://openpanel.dev/",
-          "created_at": "2026-04-14T02:31:05+00:00",
-          "month": "2026-04",
-          "hn_url": "https://news.ycombinator.com/item?id=47760564",
-          "source_url": "https://hn.algolia.com/api/v1/items/47760564",
-          "reason": "Candidate: exact-word title/URL search"
-        }
-      ],
-      "broad_story_count": 2,
-      "broad_monthly_counts": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "broad_query_sources": [
-        "https://hn.algolia.com/api/v1/search_by_date?query=Openpanel&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
-        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenpanel-dev%2Fopenpanel&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
-      ],
-      "broad_search_url": "https://hn.algolia.com/?query=Openpanel&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
-    },
-    {
       "active_months": 0,
       "coverage": "catalog-url-only",
       "domains": [],
@@ -339265,9 +339131,9 @@
   },
   "selection_report": {
     "catalog_projects": 585,
-    "due_projects": 287,
+    "due_projects": 288,
     "attempted_projects": 0,
-    "current_window_projects": 585,
+    "current_window_projects": 584,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
