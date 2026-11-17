@@ -439,9 +439,10 @@ for (const input of inputs) {
         pattern = 'patterns/navypattern2.png'
         original = (ROOT / 'site' / pattern).read_bytes()
         self.assertEqual((self.output / pattern).read_bytes(), original)
-        css = (self.output / 'styles.css').read_text()
+        css = (self.output / 'app.css').read_text()
         self.assertIn(f'url({pattern})', css)
         self.assertNotIn('url(site/footer-backgrounds/', css)
+        self.assertNotIn('url(site/footer-backgrounds/', (self.output / 'styles.css').read_text())
         self.assertEqual(self.catalog['footer_backgrounds'], sorted(
             str(p.relative_to(ROOT / 'site')) for p in (ROOT / 'site/footer-backgrounds').glob('*')
             if p.is_file() and not p.name.startswith('.') and p.suffix.lower() in {'.png', '.webp'}))

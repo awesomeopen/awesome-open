@@ -820,7 +820,7 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
     plates already work without the full record in `catalog.json`. The initial
     page uses the embedded `search_index()`, which carries only `run_modes` and
     `install_methods` values. Each project's full setup facts already render in
-    its lazily loaded `records/<project-id>.html` under `site/DETAIL-LOADING.md`.
+    its static `records/<project-id>.html`.
     Those static record pages are the per-project detail files. The download
     `catalog.json` is what carries the full evidence today.
   - *`scripts/build_site.py`:* in `published_catalog()`, replace each project's

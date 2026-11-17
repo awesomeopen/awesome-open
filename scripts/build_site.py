@@ -703,8 +703,8 @@ def plate_html(project, categories, catalog, number, cutouts, variants=None):
     )
 
 
-def project_html(project, categories, catalog, number=0, cutouts=None, position=None, deferred=False, variants=None):
-    """A ledger row; deferred rows link the static record instead of holding the plate."""
+def project_html(project, categories, catalog, number=0, cutouts=None, position=None, variants=None):
+    """A ledger row holding its specimen plate."""
     position = number if position is None else position
     pid = escape(project["id"])
     github = project["github"]
@@ -718,13 +718,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         inline_chart = (f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" '
                         f'alt="HN {label} / past 2y" title="HN: {count} {label} / past 2y" loading="lazy">')
     leader_categories = project.get("leader_categories", [])
-    if deferred:
-        interior = (
-            f'<div class="specimen-detail-host" data-detail-url="records/{pid}.html" data-project-id="{pid}">'
-            f'<p class="detail-fallback"><a href="records/{pid}.html">Read or print the full record for {escape(project["name"])}</a></p></div>'
-        )
-    else:
-        interior = plate_html(project, categories, catalog, number, cutouts, variants)
+    interior = plate_html(project, categories, catalog, number, cutouts, variants)
     return f'''<article class="project-card" data-leader="{"true" if leader_categories else "false"}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
   <summary><span class="folio" title="Position in current results" aria-hidden="true">{position:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}</span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>

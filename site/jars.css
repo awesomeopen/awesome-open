@@ -1,10 +1,5 @@
 /* Clear photographic vessels, independent specimens, shallow white room. */
-.jar-page .site-header {background:transparent;color:var(--rs-blueprint);border:0;padding-bottom:8px;}
 .jar-page .brand-asterisk {color:var(--rs-blueprint);}
-.jar-page .site-header a:hover {color:var(--rs-scarlet);}
-.jar-page .site-header :focus-visible {outline-color:var(--rs-scarlet);}
-.jar-page .header-search .search-input {border-bottom:0;background:transparent;}
-.jar-page .header-search input {color:var(--rs-blueprint);}
 .jar-hall {margin:0 32px;color:var(--rs-blueprint);}
 .jar-scroll {overflow:visible;}
 .jar-stage {display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));height:380px;max-width:808px;margin:auto;position:relative;}
@@ -127,8 +122,6 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 .jar-light-source {position:absolute;z-index:2;left:calc(50% - 2px);bottom:calc(42px + var(--setback));width:4px;height:3px;border-radius:50%;background:color-mix(in srgb,var(--rs-emerald-art),white 65%);box-shadow:0 0 3px 1px var(--rs-emerald-art);opacity:0;pointer-events:none;transform:translateX(calc(var(--mx)*.6));transition:opacity .6s ease;}
 .photo-ready .is-active .jar-shadow::after,.photo-ready .is-active .jar-light-source {opacity:.75;}
 @media(prefers-reduced-motion:reduce){.jar-light-source{transform:none;transition:none;}.jar-shadow::after{transition:none;}}
-
-.jar-page .header-search input {border-bottom:1px dashed var(--rs-blueprint);}
 
 /* Glass fractures stay on the vessel plane and retain their state until reload. */
 .jar-cracks {position:absolute;left:var(--sx);top:var(--sy);width:var(--sw);height:var(--sh);z-index:4;overflow:hidden;pointer-events:none;filter:drop-shadow(1px 0 0 rgb(255 255 255 / .95));}
