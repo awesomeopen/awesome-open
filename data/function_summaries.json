@@ -14827,6 +14827,691 @@
           "source_url": "https://github.com/gem/oq-engine/blob/9bfb4d505c6ea0b7853eee170584884074af30a2/doc/getting-started/risk-quickstart.rst"
         }
       ]
+    },
+    "79a14ce095741241c412784b6e8c05c6e7888d775d62cc292be4e3f7ba7b89ad": {
+      "project_url": "https://github.com/igniterealtime/openfire",
+      "text": "Openfire is a server for instant messaging and real-time collaboration over XMPP. Organizations can run its Java-based server and administer it through its management interface. The project includes a core XMPP server, a plugin system, and platform-specific installers, with source builds assembled through Maven for deployment outside the development environment.",
+      "sources": [
+        {
+          "url": "https://github.com/igniterealtime/openfire/blob/95e475f0052972a641a36e36eff3e7d206af5b4a/README.md",
+          "title": "Openfire README",
+          "revision": "95e475f0052972a641a36e36eff3e7d206af5b4a"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official README at the cited commit for the summary and feature claims; software was not executed.",
+      "features": [
+        {
+          "title": "XMPP messaging",
+          "text": "Run a server that uses the XMPP protocol for instant messaging and real-time collaboration.",
+          "source_url": "https://github.com/igniterealtime/openfire/blob/95e475f0052972a641a36e36eff3e7d206af5b4a/README.md"
+        },
+        {
+          "title": "Plugin support",
+          "text": "Extend the core server with plugins distributed through the Ignite Realtime ecosystem.",
+          "source_url": "https://github.com/igniterealtime/openfire/blob/95e475f0052972a641a36e36eff3e7d206af5b4a/README.md"
+        }
+      ]
+    },
+    "81ee2df0d2b5f2bd7fb6ba64da9f442ff1c485f6c73bf9881a63aacb0cb918a0": {
+      "project_url": "https://github.com/opennebula/one",
+      "text": "OpenNebula manages virtual machines, Kubernetes clusters, and GPU workloads across private clouds, edge sites, and hybrid infrastructure. Administrators can provision resources through a web interface, command-line tools, APIs, or automation integrations, while using quotas and role-based access controls for tenants. Its federated architecture supports operating infrastructure across multiple locations, and miniONE provides a single-server evaluation deployment.",
+      "sources": [
+        {
+          "url": "https://github.com/opennebula/one/blob/60f65789ec37aa9cdcc95bcec6723c6cf896c17b/README.md",
+          "title": "OpenNebula README",
+          "revision": "60f65789ec37aa9cdcc95bcec6723c6cf896c17b"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official README at the cited commit for the summary and feature claims; software was not executed.",
+      "features": [
+        {
+          "title": "Distributed cloud management",
+          "text": "Manage virtual machines, Kubernetes clusters, and GPU workloads across on-premises, edge, and hybrid environments.",
+          "source_url": "https://github.com/opennebula/one/blob/60f65789ec37aa9cdcc95bcec6723c6cf896c17b/README.md"
+        },
+        {
+          "title": "Tenant controls",
+          "text": "Apply role-based access controls and quotas when sharing cloud resources between tenants.",
+          "source_url": "https://github.com/opennebula/one/blob/60f65789ec37aa9cdcc95bcec6723c6cf896c17b/README.md"
+        }
+      ]
+    },
+    "93a06a48c6c728d55e076cae9d631782becbaa2945942d974ea28dd8dace1325": {
+      "project_url": "https://github.com/evan-buss/openbooks",
+      "text": "openbooks provides a browser interface and a command-line mode for finding and downloading ebooks from IRC Highway. It handles the associated extraction and data processing, so users can select books without working directly in an IRC client. The application runs from a downloadable binary or Docker container, with options to persist downloads and serve the web interface behind a reverse proxy.",
+      "sources": [
+        {
+          "url": "https://github.com/evan-buss/openbooks/blob/ad12382c4c00349fa596c45db053d6ed5f56dad5/README.md",
+          "title": "openbooks README",
+          "revision": "ad12382c4c00349fa596c45db053d6ed5f56dad5"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official README at the cited commit for the summary and feature claims; software was not executed.",
+      "features": [
+        {
+          "title": "Browser and terminal modes",
+          "text": "Use a web application in server mode or interact with downloads through the command-line interface.",
+          "source_url": "https://github.com/evan-buss/openbooks/blob/ad12382c4c00349fa596c45db053d6ed5f56dad5/README.md"
+        },
+        {
+          "title": "Download persistence",
+          "text": "Persist downloaded ebook files to disk when running the container with persistent storage enabled.",
+          "source_url": "https://github.com/evan-buss/openbooks/blob/ad12382c4c00349fa596c45db053d6ed5f56dad5/README.md"
+        }
+      ]
+    },
+    "95bfa0fa45d013911c64c466e4b2e171cdcbb05294d2398310a42126a9b4b5f5": {
+      "project_url": "https://github.com/open5gs/open5gs",
+      "text": "Open5GS supplies the network functions for 4G, non-standalone 5G, and standalone 5G mobile cores. Operators configure subscriber profiles, network interfaces, and connections to radio base stations, with an optional web interface for subscriber administration. Components can run together on one computer, while separate control and user planes allow user-plane servers to be deployed away from centralized control functions.",
+      "sources": [
+        {
+          "url": "https://open5gs.org/open5gs/docs/guide/01-quickstart/",
+          "title": "Open5GS Quickstart"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official quickstart for the summary and feature claims; software was not executed.",
+      "features": [
+        {
+          "title": "Subscriber administration",
+          "text": "Use the optional web interface to edit subscriber information stored in the HSS and UDR database.",
+          "source_url": "https://open5gs.org/open5gs/docs/guide/01-quickstart/"
+        },
+        {
+          "title": "Separate control and user planes",
+          "text": "Deploy user-plane servers separately while retaining centralized control functions for the mobile core.",
+          "source_url": "https://open5gs.org/open5gs/docs/guide/01-quickstart/"
+        }
+      ]
+    },
+    "9a9df884ab82341573235d930dea5cbae1db578ccb63681807c39f1de32dfe3b": {
+      "project_url": "https://github.com/academysoftwarefoundation/opentimelineio",
+      "text": "OpenTimelineIO is a library and interchange format for moving editorial timelines between applications. Its data model records cut order, duration, and references to external media, with C++ functions for manipulating and serializing that information and official Python bindings. Python adapter plugins read and write other editorial formats, allowing developers to integrate timeline exchange into editing and production workflows.",
+      "sources": [
+        {
+          "url": "https://github.com/academysoftwarefoundation/opentimelineio/blob/bad7ab5a40ac1a95d9d78a87c95a688d8b57cf28/README.md",
+          "title": "OpenTimelineIO README",
+          "revision": "bad7ab5a40ac1a95d9d78a87c95a688d8b57cf28"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official README at the cited commit for the summary and feature claims; software was not executed.",
+      "features": [
+        {
+          "title": "Editorial timeline model",
+          "text": "Represent the order and duration of cuts together with references to the associated external media.",
+          "source_url": "https://github.com/academysoftwarefoundation/opentimelineio/blob/bad7ab5a40ac1a95d9d78a87c95a688d8b57cf28/README.md"
+        },
+        {
+          "title": "Format adapters",
+          "text": "Use Python adapter plugins to exchange timelines with formats such as Final Cut Pro XML, AAF, and CMX 3600 EDL.",
+          "source_url": "https://github.com/academysoftwarefoundation/opentimelineio/blob/bad7ab5a40ac1a95d9d78a87c95a688d8b57cf28/README.md"
+        }
+      ]
+    },
+    "a161af8c67aa49cddb37265bb84e8d50a3bb910b238c88ed2b20e61b68be8fa6": {
+      "project_url": "https://github.com/openocd-org/openocd",
+      "text": "OpenOCD connects development tools to embedded hardware for on-chip programming and debugging. It provides target-specific debugging, flash programming, and boundary-scan operations through supported adapters, with board and interface configuration files controlling the connection. Developers can attach GDB to its server for source-level debugging or automate operations with its embedded Tcl interpreter and network interfaces.",
+      "sources": [
+        {
+          "url": "https://github.com/openocd-org/openocd/blob/83e3febc6e951322ff5c9793c2f222352006bd0e/README.md",
+          "title": "OpenOCD README",
+          "revision": "83e3febc6e951322ff5c9793c2f222352006bd0e"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official README at the cited commit for the summary and feature claims; software was not executed.",
+      "features": [
+        {
+          "title": "GDB debugging",
+          "text": "Expose an embedded target through a GDB server for source-level debugging, breakpoints, and single-stepping.",
+          "source_url": "https://github.com/openocd-org/openocd/blob/83e3febc6e951322ff5c9793c2f222352006bd0e/README.md"
+        },
+        {
+          "title": "Scripted programming",
+          "text": "Use the embedded Tcl interpreter and flash drivers to automate supported programming and debug operations.",
+          "source_url": "https://github.com/openocd-org/openocd/blob/83e3febc6e951322ff5c9793c2f222352006bd0e/README.md"
+        }
+      ]
+    },
+    "a55fec6a3dc740ea43d83c7b4acb7119ab801ce300348df9960857c70449de7b": {
+      "project_url": "https://github.com/nekename/opendeck",
+      "text": "OpenDeck is a desktop application for configuring Elgato Stream Deck controllers on Linux, Windows, and macOS. Users can assign plugin actions, combine actions, customize button text and images, and switch profiles automatically with the active application. It supports plugins built for the Stream Deck SDK or OpenAction API, and can run Windows-only compiled plugins on Linux and macOS through Wine.",
+      "sources": [
+        {
+          "url": "https://github.com/nekename/opendeck/blob/3ddecc1ce8952a423916cf066724356267b97410/README.md",
+          "title": "OpenDeck README",
+          "revision": "3ddecc1ce8952a423916cf066724356267b97410"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official README at the cited commit for the summary and feature claims; software was not executed.",
+      "features": [
+        {
+          "title": "Application profiles",
+          "text": "Switch controller profiles automatically when a configured application window becomes active.",
+          "source_url": "https://github.com/nekename/opendeck/blob/3ddecc1ce8952a423916cf066724356267b97410/README.md"
+        },
+        {
+          "title": "Action customization",
+          "text": "Configure action settings and customize the images and text shown for their different states.",
+          "source_url": "https://github.com/nekename/opendeck/blob/3ddecc1ce8952a423916cf066724356267b97410/README.md"
+        }
+      ]
+    },
+    "a6226042da740f6e0879a239944a78c4294797a358f2391cd7cd5ece0155c28a": {
+      "project_url": "https://github.com/openelb/openelb",
+      "text": "OpenELB exposes Kubernetes LoadBalancer services to external clients in bare-metal, edge, and virtualized environments. It supplies BGP and Layer 2 load-balancing modes, ECMP routing, and address-pool management for clusters that need their own load-balancer implementation. Operators configure BGP through Kubernetes custom resources and can install the software with a Helm chart.",
+      "sources": [
+        {
+          "url": "https://github.com/openelb/openelb/blob/12cdbfc004a8101b7826a34492a1c50a7696f959/README.md",
+          "title": "OpenELB README",
+          "revision": "12cdbfc004a8101b7826a34492a1c50a7696f959"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the official README at the cited commit for the summary and feature claims; software was not executed.",
+      "features": [
+        {
+          "title": "Network announcement modes",
+          "text": "Expose Kubernetes services using BGP or Layer 2 mode, with ECMP routing and load balancing.",
+          "source_url": "https://github.com/openelb/openelb/blob/12cdbfc004a8101b7826a34492a1c50a7696f959/README.md"
+        },
+        {
+          "title": "Address and BGP configuration",
+          "text": "Manage IP address pools and configure BGP using Kubernetes custom resource definitions.",
+          "source_url": "https://github.com/openelb/openelb/blob/12cdbfc004a8101b7826a34492a1c50a7696f959/README.md"
+        }
+      ]
+    },
+    "af7d4ef7db37211305c730d033d51e5be4243aa2bb7649e124766a8e46564a29": {
+      "project_url": "https://github.com/openipc/firmware",
+      "text": "OpenIPC supplies replacement firmware for supported IP cameras, built around Buildroot and the Majestic video streamer. It runs on camera hardware across several processor families, including HiSilicon, Ingenic and SigmaStar. Users can replace a compatible camera’s original firmware, while the wider project also develops video links for drones, robots and teleoperation.",
+      "sources": [
+        {
+          "url": "https://github.com/openipc/firmware/blob/9d95c3582126a22543018346b16043cbca3515fb/README.md",
+          "title": "OpenIPC README",
+          "revision": "9d95c3582126a22543018346b16043cbca3515fb"
+        },
+        {
+          "url": "https://openipc.org/",
+          "title": "OpenIPC platform overview"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official sources for the summary and feature claims; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Camera firmware",
+          "text": "Buildroot-based firmware runs on supported IP-camera processors and uses the Majestic streamer.",
+          "source_url": "https://openipc.org/"
+        },
+        {
+          "title": "Hardware families",
+          "text": "Supported processor families include HiSilicon, Ingenic and SigmaStar.",
+          "source_url": "https://github.com/openipc/firmware/blob/9d95c3582126a22543018346b16043cbca3515fb/README.md"
+        }
+      ]
+    },
+    "be5e444f5fb25589447a4525b95095f850a402f63935cee8f65164c3da86de3e": {
+      "project_url": "https://github.com/giscience/openrouteservice",
+      "text": "openrouteservice provides routing and spatial analysis from OpenStreetMap data through a Java service. Applications can request transport-specific directions, reachable areas, travel-time and distance matrices, or coordinates snapped to the road network. Teams can call the hosted API or run their own instance, with Docker deployment documented for local operation.",
+      "sources": [
+        {
+          "url": "https://github.com/giscience/openrouteservice/blob/cea492b9a888c6f2094e328859735f2cde241682/README.md",
+          "title": "openrouteservice README",
+          "revision": "cea492b9a888c6f2094e328859735f2cde241682"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official sources for the summary and feature claims; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Reachability areas",
+          "text": "Calculate isochrones describing areas reachable from specified locations.",
+          "source_url": "https://github.com/giscience/openrouteservice/blob/cea492b9a888c6f2094e328859735f2cde241682/README.md"
+        },
+        {
+          "title": "Travel matrices",
+          "text": "Request one-to-many, many-to-one or many-to-many time and distance matrices.",
+          "source_url": "https://github.com/giscience/openrouteservice/blob/cea492b9a888c6f2094e328859735f2cde241682/README.md"
+        }
+      ]
+    },
+    "bf9d80932d62825c5cd74d63b9bf888fea16145dc27f8f7cf12c61f05224794d": {
+      "project_url": "https://github.com/openmm/openmm",
+      "text": "OpenMM is a molecular-simulation toolkit that can run simulations as a standalone application or serve as a library inside other programs. Researchers can define custom forces and integrators to adapt calculations to their models. It provides Python and C++ programming interfaces and supports GPU computation.",
+      "sources": [
+        {
+          "url": "https://github.com/openmm/openmm/blob/3e34aa2091bfff5306206b4239c4654776342fd8/README.md",
+          "title": "OpenMM README",
+          "revision": "3e34aa2091bfff5306206b4239c4654776342fd8"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official sources for the summary and feature claims; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Custom simulation components",
+          "text": "Define custom forces and integrators for molecular simulations.",
+          "source_url": "https://github.com/openmm/openmm/blob/3e34aa2091bfff5306206b4239c4654776342fd8/README.md"
+        },
+        {
+          "title": "Application integration",
+          "text": "Use the toolkit from another program or run simulations as a standalone application.",
+          "source_url": "https://github.com/openmm/openmm/blob/3e34aa2091bfff5306206b4239c4654776342fd8/README.md"
+        }
+      ]
+    },
+    "cd9221ab1876cc9789b727db64068cf1d822743d83ffe2a39c50bc692dc8b72b": {
+      "project_url": "https://openpanel.com",
+      "text": "OpenPanel is a web-hosting control panel that gives users separate container-based environments for websites and services. Administrators can select web servers and configure PHP, databases and caching per user, while OpenCLI exposes management actions in the terminal. It is offered as self-hosted Community and Enterprise editions with different limits and available features.",
+      "sources": [
+        {
+          "url": "https://openpanel.com/",
+          "title": "OpenPanel hosting panel overview"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official sources for the summary and feature claims; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Per-user environments",
+          "text": "Manage separate hosting environments with user-specific PHP, database and web-server configuration.",
+          "source_url": "https://openpanel.com/"
+        },
+        {
+          "title": "Terminal administration",
+          "text": "OpenCLI provides commands for users, domains, websites and server administration.",
+          "source_url": "https://openpanel.com/"
+        }
+      ]
+    },
+    "d012f2620d58144d57461c16fa5e4d983490baaa7488b6627c3cced13f1627c7": {
+      "project_url": "https://github.com/openmrs/openmrs-core",
+      "text": "OpenMRS provides a patient-based electronic medical record platform that organizations can customize for their care settings. Its modular architecture lets developers add or remove extensions for a particular implementation. The core is a Java web application, packaged as a WAR file for deployment to an application server such as Tomcat or Jetty.",
+      "sources": [
+        {
+          "url": "https://github.com/openmrs/openmrs-core/blob/f2991bda233f86dd8a4f8cdfd8f1c0c857a20e08/README.md",
+          "title": "OpenMRS README",
+          "revision": "f2991bda233f86dd8a4f8cdfd8f1c0c857a20e08"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official sources for the summary and feature claims; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Modular extensions",
+          "text": "Add or remove modules to adapt core functionality to an implementation.",
+          "source_url": "https://github.com/openmrs/openmrs-core/blob/f2991bda233f86dd8a4f8cdfd8f1c0c857a20e08/README.md"
+        },
+        {
+          "title": "Server deployment",
+          "text": "Package the Java application as a WAR and deploy it with Tomcat or Jetty.",
+          "source_url": "https://github.com/openmrs/openmrs-core/blob/f2991bda233f86dd8a4f8cdfd8f1c0c857a20e08/README.md"
+        }
+      ]
+    },
+    "e535bf0a0fcf7e0964dccdbfb9a928c69df7dd95be82713e1e804c3eff800d4d": {
+      "project_url": "https://github.com/openfoam/openfoam-dev",
+      "text": "OpenFOAM is a computational fluid dynamics package for engineering and scientific simulation. Its models cover fluid flow with turbulence, heat transfer and chemical reactions, alongside solid dynamics and electromagnetics. The Foundation publishes source code for local compilation, including a development branch for the next major release and versioned repositories for released software.",
+      "sources": [
+        {
+          "url": "https://github.com/openfoam/openfoam-dev/blob/2789c211cb4bb6e97b28b658466d18785fc7fe28/README.org",
+          "title": "OpenFOAM README",
+          "revision": "2789c211cb4bb6e97b28b658466d18785fc7fe28"
+        },
+        {
+          "url": "https://openfoam.org/download/source/",
+          "title": "Compiling OpenFOAM from source code"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official sources for the summary and feature claims; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Coupled physical processes",
+          "text": "Model fluid flows involving chemical reactions, turbulence and heat transfer.",
+          "source_url": "https://github.com/openfoam/openfoam-dev/blob/2789c211cb4bb6e97b28b658466d18785fc7fe28/README.org"
+        },
+        {
+          "title": "Additional simulation domains",
+          "text": "The package also includes capabilities for solid dynamics and electromagnetics.",
+          "source_url": "https://github.com/openfoam/openfoam-dev/blob/2789c211cb4bb6e97b28b658466d18785fc7fe28/README.org"
+        }
+      ]
+    },
+    "e6c5cad0561e9363198f2eea11a42b3ce82f877d3c3ed140047c4a593bd5a23f": {
+      "project_url": "https://github.com/arunngun/openteleprompt",
+      "text": "OpenTeleprompt displays scripts in a desktop overlay and scrolls them in response to speech, pausing when the speaker stops. Its macOS version includes a rich-text editor, locally saved script library and controls for changing speed and font size during delivery. The documented version 3 runs on macOS; a separate version 2.2.1 is available for Windows.",
+      "sources": [
+        {
+          "url": "https://github.com/arunngun/openteleprompt/blob/2e8259352db44e00da49e5953e2dc04e52f0f366/README.md",
+          "title": "OpenTeleprompt README",
+          "revision": "2e8259352db44e00da49e5953e2dc04e52f0f366"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official sources for the summary and feature claims; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Speech-driven scrolling",
+          "text": "Scroll the script while speaking and pause it when speech stops.",
+          "source_url": "https://github.com/arunngun/openteleprompt/blob/2e8259352db44e00da49e5953e2dc04e52f0f366/README.md"
+        },
+        {
+          "title": "Local script library",
+          "text": "Save and switch scripts locally, with rich-text formatting and delivery cue markers.",
+          "source_url": "https://github.com/arunngun/openteleprompt/blob/2e8259352db44e00da49e5953e2dc04e52f0f366/README.md"
+        }
+      ]
+    },
+    "01a789ee2e76a54034a1be199db9d99d1c8abd0df967d2e13d7fa2e028b22f46": {
+      "project_url": "https://github.com/aprilnea/openlogi",
+      "text": "OpenLogi is a local desktop application for configuring supported Logitech mice, keyboards and webcams on macOS, Windows and Linux. It can remap buttons, set application-specific profiles and adjust pointer or scrolling behavior. Device controls depend on the connected hardware, and a command-line interface complements the graphical interface for scripting settings and inspecting devices.",
+      "sources": [
+        {
+          "url": "https://github.com/aprilnea/openlogi/blob/9ca7ef0cbd1f4577ffdc338f8288f8c3a410f013/README.md",
+          "title": "OpenLogi README",
+          "revision": "9ca7ef0cbd1f4577ffdc338f8288f8c3a410f013"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the cited official sources for the summary and feature claims; no candidate software was installed or executed.",
+      "features": [
+        {
+          "title": "Button mappings",
+          "text": "Assign supported buttons to actions, shortcuts, text or multi-step workflows.",
+          "source_url": "https://github.com/aprilnea/openlogi/blob/9ca7ef0cbd1f4577ffdc338f8288f8c3a410f013/README.md"
+        },
+        {
+          "title": "Application profiles",
+          "text": "Switch configurations with the focused application, subject to platform support.",
+          "source_url": "https://github.com/aprilnea/openlogi/blob/9ca7ef0cbd1f4577ffdc338f8288f8c3a410f013/README.md"
+        }
+      ]
+    },
+    "01dcb8aa625987d3ea67539cd137628177bf5b5cd521b198a599c52d2d47895b": {
+      "project_url": "https://github.com/shoemoney/openskitch",
+      "text": "Now documented as OpenSnap, this macOS application captures regions, windows, full screens, and timed screenshots, then provides drawing, text, cropping, and resizing tools. Users can save or drag out PNG and JPEG images, reopen captures from history, and upload them to configured destinations. It runs locally on Apple Silicon Macs with macOS 26 or newer.",
+      "sources": [
+        {
+          "url": "https://github.com/shoemoney/OpenSnap/blob/7cf563116b7447678b6c27ffd31caa5145c2ab18/README.md",
+          "title": "OpenSnap README",
+          "revision": "7cf563116b7447678b6c27ffd31caa5145c2ab18"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed the pinned official README and features. GitHub redirects the catalog repository to OpenSnap; the existing reviewed history records the repository rename. Catalog identity preserved.",
+      "features": [
+        {
+          "title": "Capture and annotate",
+          "text": "Capture a region, window, or screen, then add arrows, shapes, brush strokes, or text and adjust the image size.",
+          "source_url": "https://github.com/shoemoney/OpenSnap/blob/7cf563116b7447678b6c27ffd31caa5145c2ab18/README.md"
+        },
+        {
+          "title": "Export and upload",
+          "text": "Save or drag out PNG and JPEG images, or send them to SFTP, FTP/FTPS, WebDAV, and S3-compatible destinations.",
+          "source_url": "https://github.com/shoemoney/OpenSnap/blob/7cf563116b7447678b6c27ffd31caa5145c2ab18/README.md"
+        }
+      ]
+    },
+    "1b2b67afbcb7c4634eb5d12e976b2e32f5e7d800ef1c2b499157484550d5c8b5": {
+      "project_url": "https://github.com/twilightduck/openwhisper",
+      "text": "Now documented as Open Quill, this Mac dictation application inserts speech into supported text fields through a mouse action or keyboard shortcut. It offers live transcription previews, correction-based vocabulary learning, spoken snippets, and per-application preferences. Speech recognition runs locally and works offline after model setup; optional AI cleanup requires macOS 26 and Apple Intelligence.",
+      "sources": [
+        {
+          "url": "https://github.com/TwilightDuck/OpenQuill/blob/45f293a052562af8a4ddfa795a5e3ed75f4ea1b9/README.md",
+          "title": "Open Quill README",
+          "revision": "45f293a052562af8a4ddfa795a5e3ed75f4ea1b9"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and features against the pinned official README. The catalog URL redirects to OpenQuill, matching the existing canonical URL health record; catalog identity is unchanged.",
+      "features": [
+        {
+          "title": "Dictation controls",
+          "text": "Start and stop dictation with a mouse action or configurable keyboard shortcut, with a live transcript preview.",
+          "source_url": "https://github.com/TwilightDuck/OpenQuill/blob/45f293a052562af8a4ddfa795a5e3ed75f4ea1b9/README.md"
+        },
+        {
+          "title": "Learn personal vocabulary",
+          "text": "Learn vocabulary from corrections made in the destination application and retain local transcript history.",
+          "source_url": "https://github.com/TwilightDuck/OpenQuill/blob/45f293a052562af8a4ddfa795a5e3ed75f4ea1b9/README.md"
+        }
+      ]
+    },
+    "1fdae8d932649f75aca85dde7221f208c7fd579c7b4c00814cb284c81cdc23cd": {
+      "project_url": "https://github.com/anil-matcha/open-duet",
+      "text": "Now documented as Suparagent, this workspace organizes AI agents with assigned roles, engines, workspaces, memory, and approval settings. Users can delegate tasks to teams, schedule routines, search conversations, and review requests for approval. It offers an experimental desktop application and self-hosted server, with a separate hosted service; users supply their own model engine or provider account.",
+      "sources": [
+        {
+          "url": "https://github.com/Anil-matcha/suparagent/blob/1e564c7daa67a82d18635377aa730d8bcd31a2dd/README.md",
+          "title": "Suparagent README",
+          "revision": "1e564c7daa67a82d18635377aa730d8bcd31a2dd"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and features against the pinned official README, including experimental deployment qualifications. The catalog repository redirects to Suparagent, as recorded in canonical URL health; identity preserved.",
+      "features": [
+        {
+          "title": "Agent teams",
+          "text": "Assign agents roles and workspaces, then use a Claude or Codex lead to delegate work to specialists.",
+          "source_url": "https://github.com/Anil-matcha/suparagent/blob/1e564c7daa67a82d18635377aa730d8bcd31a2dd/README.md"
+        },
+        {
+          "title": "Scheduled routines",
+          "text": "Create scheduled, webhook, or manual routines, and review results and approval requests in the workspace.",
+          "source_url": "https://github.com/Anil-matcha/suparagent/blob/1e564c7daa67a82d18635377aa730d8bcd31a2dd/README.md"
+        }
+      ]
+    },
+    "3d1d9d97d6271a99befab3f5fc6811f70e62ea4222b6229c8bbf7c219106dc59": {
+      "project_url": "https://github.com/openremote/openremote",
+      "text": "OpenRemote is an IoT platform for connecting devices, modeling assets, and automating their behavior through rules. It provides protocol agents, management APIs, user roles, separate tenant realms, and a dashboard builder for device data. Operators can deploy its Docker images and manage the system through a web interface, with persistent data stored in PostgreSQL.",
+      "sources": [
+        {
+          "url": "https://github.com/openremote/core/blob/6d46b473d353533ccfc3938956eed145a134f2d8/README.md",
+          "title": "OpenRemote Core README",
+          "revision": "6d46b473d353533ccfc3938956eed145a134f2d8"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and features against the pinned official README. GitHub resolves the catalog repository to openremote/core; no catalog URL or existing evidence changed.",
+      "features": [
+        {
+          "title": "Device automation",
+          "text": "Connect protocol agents and define automation using when-then, flow, JavaScript, or Groovy rules.",
+          "source_url": "https://github.com/openremote/core/blob/6d46b473d353533ccfc3938956eed145a134f2d8/README.md"
+        },
+        {
+          "title": "Tenant and data management",
+          "text": "Organize separate tenant realms and user roles, build Insights dashboards, and retain persistent data in PostgreSQL.",
+          "source_url": "https://github.com/openremote/core/blob/6d46b473d353533ccfc3938956eed145a134f2d8/README.md"
+        }
+      ]
+    },
+    "051fcbac2f4f696dfec6685113a4bb14d251b654dd5b41198a1a59934f703352": {
+      "project_url": "https://www.openeuler.org/en",
+      "text": "openEuler is an operating system for server, cloud, edge, and embedded infrastructure. Its community offers long-term-support and innovation releases across multiple processor architectures. Users can obtain installation media, public-cloud images, and container images, with additional options for virtual machines and Raspberry Pi systems. The project also supplies installation guides and package repositories for these environments.",
+      "sources": [
+        {
+          "url": "https://www.openeuler.org/en/download/",
+          "title": "openEuler community releases and deployment images"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and features against the official download guide. No unversioned web-page revision was invented.",
+      "features": [
+        {
+          "title": "Deployment images",
+          "text": "Obtain community operating-system releases, public-cloud images, and container images for different deployment environments.",
+          "source_url": "https://www.openeuler.org/en/download/"
+        },
+        {
+          "title": "Release choices",
+          "text": "Choose long-term-support or innovation releases, with architecture-specific community downloads.",
+          "source_url": "https://www.openeuler.org/en/download/"
+        }
+      ]
+    },
+    "0551c3511fc6b038029706abc42b312cfaec6c2a10e92add9d9a5b801ece73a9": {
+      "project_url": "https://www.openmandriva.org",
+      "text": "OpenMandriva is a Linux distribution offering downloadable operating-system images for desktop and server use. Rock targets home computers and workstations, while ROME provides a rolling edition for individual users. The project also maintains the Cooker development branch and community desktop spins, with a Plasma desktop ISO offered as the default starting point.",
+      "sources": [
+        {
+          "url": "https://www.openmandriva.org/release-picking/",
+          "title": "OpenMandriva: Which release should I pick?"
+        },
+        {
+          "url": "https://www.openmandriva.org/",
+          "title": "OpenMandriva project overview"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and features against the official release-selection page and project overview. Wiki release pages returned no extractable text and were not used for claims.",
+      "features": [
+        {
+          "title": "Desktop release choices",
+          "text": "Choose Rock for home and workstation use or ROME for a rolling edition.",
+          "source_url": "https://www.openmandriva.org/release-picking/"
+        },
+        {
+          "title": "Alternative images",
+          "text": "The download guide lists development builds, community desktop spins, and server images alongside the Plasma desktop ISO.",
+          "source_url": "https://www.openmandriva.org/release-picking/"
+        }
+      ]
+    },
+    "4935674cdad2fc03b7de67a0040198295d12322eb4dacf32eecdb775735e3c00": {
+      "project_url": "https://www.openimis.org",
+      "text": "openIMIS provides configurable modules for administering health insurance and social protection programs. Health-insurance operators can manage beneficiaries, contributions, providers, contracts, claims, and accounting, including digital claim submission and review. Its cash-transfer solution supports applicant registration, eligibility-based enrollment, payment calculations, payment reconciliation, and updates to beneficiary status, with customizable dashboards for analyzing program data.",
+      "sources": [
+        {
+          "url": "https://www.openimis.org/health-insurance",
+          "title": "openIMIS health insurance solution"
+        },
+        {
+          "url": "https://www.openimis.org/cash-transfers",
+          "title": "openIMIS cash transfer solution"
+        }
+      ],
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed summary and features against the official health-insurance and cash-transfer solution pages. Deployment architecture is not asserted because these sources describe workflows rather than hosting requirements.",
+      "features": [
+        {
+          "title": "Health-insurance administration",
+          "text": "Manage beneficiary membership, contributions, benefit packages, and the submission, review, and processing of health-service claims.",
+          "source_url": "https://www.openimis.org/health-insurance"
+        },
+        {
+          "title": "Cash-transfer programs",
+          "text": "Register applicants, enroll them using defined criteria, calculate and reconcile payments, and update beneficiary status.",
+          "source_url": "https://www.openimis.org/cash-transfers"
+        }
+      ]
+    },
+    "58dd04659b6addeae76581280e66dc9dcb10c11e4c27f1c00d2e311515b19617": {
+      "project_url": "https://github.com/quantumlib/openfermion",
+      "text": "OpenFermion provides Python tools for building and analyzing quantum algorithms that simulate fermionic systems, including quantum chemistry. Researchers can obtain and manipulate fermionic and qubit Hamiltonian representations, then use plugins for circuit simulation or classical electronic structure calculations. The package runs in a Python environment, with a documented Docker option that includes selected plugins.",
+      "sources": [
+        {
+          "url": "https://github.com/quantumlib/OpenFermion/blob/34adf3196cd566f4ca53893f868753786797ae2a/README.md",
+          "title": "OpenFermion README",
+          "revision": "34adf3196cd566f4ca53893f868753786797ae2a"
+        }
+      ],
+      "features": [
+        {
+          "title": "Hamiltonian representations",
+          "text": "Obtain and manipulate representations of fermionic and qubit Hamiltonians for quantum simulation work.",
+          "source_url": "https://github.com/quantumlib/OpenFermion/blob/34adf3196cd566f4ca53893f868753786797ae2a/README.md"
+        },
+        {
+          "title": "Electronic structure plugins",
+          "text": "Connect electronic structure workflows through plugins for Psi4, PySCF, DIRAC and Q-Chem.",
+          "source_url": "https://github.com/quantumlib/OpenFermion/blob/34adf3196cd566f4ca53893f868753786797ae2a/README.md"
+        }
+      ],
+      "review_note": "Junge (AI) checked the pinned official README features, installation and plugin sections; summary and feature claims were reviewed together.",
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)"
+    },
+    "628661bb2c25021e8b16783a467954aa69183ccf80cce78e698234e99086eb12": {
+      "project_url": "https://opencal.link",
+      "text": "OpenCal is a hosted scheduling service that combines availability from Google, Microsoft and iCloud calendars into a shareable link. Users choose which calendars block time, and signed-in visitors can see mutually free slots. The web service supports guest bookings and one-time booking links, with optional Google or Outlook calendar integration for booked meetings.",
+      "sources": [
+        {
+          "url": "https://opencal.link/",
+          "title": "OpenCal — Your free time on one link"
+        }
+      ],
+      "features": [
+        {
+          "title": "Combined availability",
+          "text": "Choose which connected calendars count as busy and share the resulting open times; signed-in visitors can compare availability with their own calendars.",
+          "source_url": "https://opencal.link/"
+        },
+        {
+          "title": "Guest and one-time bookings",
+          "text": "Allow visitors to book with a name and email, or share a one-time link that stops working after one meeting is booked.",
+          "source_url": "https://opencal.link/"
+        }
+      ],
+      "review_note": "Junge (AI) reviewed the live official homepage on 2026-11-17; summary and feature claims were checked together. Current page content was used instead of stale indexed text.",
+      "checked_at": "2026-11-17",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)"
     }
   }
 }
