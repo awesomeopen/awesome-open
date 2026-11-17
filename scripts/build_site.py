@@ -188,7 +188,6 @@ def search_index(catalog):
                     "stars",
                     "pushed_at",
                     "status",
-                    "last_success_at",
                 )
             }
             if github is not None
