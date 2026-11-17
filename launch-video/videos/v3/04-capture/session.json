@@ -1,0 +1,34 @@
+{
+  "note": "Take a: flags, panel and model download. Take b: the question on WebMCPlet 0.2.3; its first try (16 to 39 s) ended at the 8-step limit, the second (from 85 s) is used.",
+  "takes": {
+    "a": {
+      "source": "tmp/launch_video_material/Screen Recording 2026-11-16 at 4.00.36 AM.mov",
+      "sha256": "9fbdf88f148d302960778872a91d1b54df0373f744439daa126fa4b6520997b7",
+      "size": [
+        3456,
+        2234
+      ],
+      "color": "SDR, BT.709",
+      "client": "Chrome 157.0.8103.52 started with --user-data-dir (empty) and --no-first-run; no feature flags, extension or account; driven by hand",
+      "site": "https://awesomeopen.github.io/awesome-open/ after PR #348 merged (2026-11-16T08:35Z)",
+      "question": "Find me two video editors that run in the browser and compare them.",
+      "events": "chrome://flags searched for webmcp at about 15 s (WebMCP for testing: Default); download clicked at about 42 s, complete at about 150 s; answer at about 186 s; Cabinet opened from the answer's link at about 193 s and showed OpenReel Video, OpenFilm and OpenVid",
+      "recorded": "2026-11-16T04:00:36 local, owner's M5, built-in display",
+      "take": "V3 take 1, WebMCPlet 0.2.1"
+    },
+    "b": {
+      "take": "V3 take 2, WebMCPlet 0.2.3 (live after PR #352 and a manual publish run)",
+      "recorded": "2026-11-16T05:11:48 local, owner's M5, built-in display",
+      "source": "tmp/launch_video_material/Screen Recording 2026-11-16 at 5.11.48 AM.mov",
+      "sha256": "0a481ff09998f78cb88d469705fa42d31fa277f30aafb78e433a289eacd3ddfa",
+      "size": [
+        3456,
+        2234
+      ],
+      "color": "SDR, BT.709",
+      "client": "Chrome 157 with the take-a data folder (model on disk); no feature flags; driven by hand",
+      "question": "Find me two video editors that run in the browser, and compare them.",
+      "events": "first try sent at about 16 s, 'The model did not finish within 8 steps' at about 39 s; second try sent at about 85 s, answered at about 96 s with OpenReel Video and OpenFilm; Cabinet with those two from about 105 s; from about 122 s the Cabinet shows four after the visitor navigated"
+    }
+  }
+}

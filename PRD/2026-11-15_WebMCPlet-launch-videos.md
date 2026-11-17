@@ -312,4 +312,12 @@ out of git; publish through a release asset or the chosen host.
 | 6 | V3 progress-bar fix, stages 2 to 7 | Gate 2 passed; requirements match the Chrome docs on the shoot date |
 | 7 | Upload to YouTube and embed in the article | The owner decides timing and maintainer notes; descriptions carry the source revisions |
 
+**Status (2026-11-16):** steps 1 to 6 are done. V1, V2 and V3 passed gate 2 with
+opening and closing cards and three numbered highlights each
+([B-PR351-01](../brand/decisions/B-PR351-01.md)); the hashes are in each video's
+`approvals.md`. Step 7 is open: draft YouTube descriptions are in
+`launch-video/videos/<id>/08-youtube.md`, and the article still needs V1's prompt
+wording, the V2 paragraph's client ("using ChatGPT browser again" becomes the coding
+agent) and "Prompt AI" corrected to "Prompt API".
+
 Contribution by Claude Code (AI)

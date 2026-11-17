@@ -2,7 +2,7 @@
 //   node scripts/storyboard.mjs <video>
 import { mkdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT, logStage, readJson, run, sha256File, videoDir } from './lib.mjs';
+import { ROOT, cards, logStage, readJson, run, sha256File, videoDir } from './lib.mjs';
 
 const id = process.argv[2];
 const dir = videoDir(id);
@@ -11,8 +11,9 @@ const beats = readJson(join(dir, '02-beats.json'));
 const out = join(dir, '03-storyboard');
 mkdirSync(out, { recursive: true });
 const remotion = join(ROOT, 'node_modules/.bin/remotion');
+const { intro } = cards(beats);
 beats.beats.forEach((b, i) => {
-  const frame = Math.round(((b.from + b.to) / 2) * beats.fps);
+  const frame = Math.round((intro + (b.from + b.to) / 2) * beats.fps);
   run(remotion, ['still', join(ROOT, 'src/index.js'), id, join(out, `beat-${String(i + 1).padStart(2, '0')}.png`), '--frame', String(frame), '--log', 'error']);
 });
 const cols = Math.min(3, beats.beats.length), rows = Math.ceil(beats.beats.length / cols);

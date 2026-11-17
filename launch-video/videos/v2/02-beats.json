@@ -4,6 +4,19 @@
   "fps": 30,
   "width": 1920,
   "height": 1080,
+  "intro": {
+    "image": "images/02 - Bringing the Collection Within Reach-2.png",
+    "kicker": "WebMCP for Awesome Lists · 2 of 3",
+    "title": "Add WebMCP to your own Awesome List.",
+    "subtitle": "One command adds WebMCPlet to your list. This gives tools to visiting agents.",
+    "mark": "webmcplet"
+  },
+  "outro": {
+    "image": "images/02b - Porcelain Reed Index.png",
+    "text": "dark",
+    "title": "Awesome Open*",
+    "subtitle": "awesomeopen.github.io/awesome-open"
+  },
   "segments": [
     {
       "in": 12,
@@ -19,8 +32,7 @@
       "in": 114,
       "out": 150,
       "speed": 6,
-      "waiting": "Waiting for the build step",
-      "cutNote": "the network dropped and Claude Code retried"
+      "cutNote": "network dropped / retries"
     },
     {
       "in": 156,
@@ -39,7 +51,7 @@
       "id": "terminal",
       "region": "terminal",
       "kind": "other",
-      "label": "Claude Code · terminal on the owner's Mac",
+      "label": "Claude Code · Your agent",
       "from": 0,
       "to": 27.5,
       "at": [
@@ -75,32 +87,32 @@
     {
       "from": 0,
       "to": 4,
-      "caption": "The draw: four screened lists, one seed."
+      "caption": "Selecting a random Awesome List ..."
     },
     {
       "from": 4,
       "to": 11,
-      "caption": "Claude Code downloads WebMCPlet and runs one command."
+      "caption": "... to add the WebMCPlet. Like \"Awesome macOS Open Source Applications\"."
     },
     {
       "from": 11,
       "to": 17,
-      "caption": "The build step adds GitHub stars to the list."
+      "caption": "The implementation even adds GitHub stars for richer evidence."
     },
     {
       "from": 17,
       "to": 26,
-      "caption": "Chrome shows the list; the agent calls its tools."
+      "caption": "Done. Your agent works with the list using WebMCP tools."
     },
     {
       "from": 26,
       "to": 34,
-      "caption": "The answer comes from the page's tools; the last sentence is generated."
+      "caption": "The list provides accurate results. Your agent adds its opinion."
     },
     {
       "from": 34,
       "to": 43.33,
-      "caption": "Same kind of question, another list."
+      "caption": "The curator added WebMCPlet to their list. This helped your agent."
     }
   ],
   "overlays": [
@@ -114,7 +126,7 @@
       "from": 0,
       "to": 43.33,
       "at": [32, 28],
-      "text": "Local preview. No affiliation with open-source-mac-os-apps (CC0)"
+      "text": "Local preview. No affiliation with open-source-mac-os-apps (CC0)."
     },
     {
       "type": "draw",
@@ -127,8 +139,8 @@
       "from": 17.6,
       "to": 26,
       "at": [60, 150, 800],
-      "title": "The agent's tool calls",
-      "source": "Transcribed from the Claude Code session record (5b7e5506), 08:15–08:16 UTC",
+      "title": "Your agent's tool calls.",
+      "source": "Transcribed from the Claude Code session record (5b7e5506), 08:15–08:16 UTC.",
       "items": [
         {
           "call": "list_webmcp_tools",
@@ -159,6 +171,9 @@
       "fields": [
         "github_stars"
       ]
-    }
+    },
+    { "type": "highlight", "n": 1, "from": 6.1, "to": 8.6, "style": "frame", "at": [1026, 261, 808, 48] },
+    { "type": "highlight", "n": 2, "from": 8.6, "to": 11, "style": "frame", "box": "terminal", "rect": [130, 1600, 1580, 200] },
+    { "type": "highlight", "n": 3, "from": 18.5, "to": 22.5, "style": "frame", "box": "chrome", "rect": [3226, 2082, 200, 124] }
   ]
 }

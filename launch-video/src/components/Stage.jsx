@@ -1,4 +1,4 @@
-import { Easing, interpolate, OffthreadVideo, Sequence, staticFile, useVideoConfig } from 'remotion';
+import { Easing, OffthreadVideo, Sequence, staticFile, useVideoConfig } from 'remotion';
 import { v } from '../theme.js';
 
 // A neutral stage holding labelled boxes, each a region of the capture. A box with a
@@ -9,9 +9,10 @@ const ease = Easing.inOut(Easing.cubic);
 const mix = (a, b, p) => a.map((x, i) => x + (b[i] - x) * ease(Math.min(1, Math.max(0, p))));
 
 // Capture rect of a named region at a capture second (the latest keyframe at or before it).
-export const regionAt = (regions, name, time) => {
-  const list = regions[name];
-  if (!list) throw new Error('Unknown region ' + name);
+// Keyframes may name a take; those without one apply to every take.
+export const regionAt = (regions, name, time, take) => {
+  const list = (regions[name] || []).filter(k => !k.take || k.take === take);
+  if (!list.length) throw new Error('Unknown region ' + name + (take ? ' in take ' + take : ''));
   return (list.filter(k => k.t <= time).at(-1) || list[0]).rect;
 };
 
@@ -25,13 +26,13 @@ const layoutAt = (box, s, region) => {
   return [cx - w / 2, cy - h / 2, w, h];
 };
 
-export const Stage = ({ boxes, regions, segments, s, captureTime }) => {
-  const { fps } = useVideoConfig();
+// The boxes on screen at output second s, each with its screen rect and capture region.
+export const placeBoxes = ({ boxes, regions, s, captureTime, take }) => {
   const placed = {};
   const visible = [];
   for (const box of boxes) {
     if (s < box.from || s >= box.to) continue;
-    const region = regionAt(regions, box.region, captureTime);
+    const region = regionAt(regions, box.region, captureTime, take);
     let rect = layoutAt(box, s, region);
     let opacity = 1;
     const parent = box.parent && placed[box.parent];
@@ -50,6 +51,18 @@ export const Stage = ({ boxes, regions, segments, s, captureTime }) => {
     placed[box.id] = { rect, region };
     visible.push({ box, rect, region, opacity });
   }
+  return visible;
+};
+
+// Masks (04-capture/events.json) cover parts of the capture that are not part of the
+// demonstration, such as conversation before the recording, in the capture's own
+// background colour.
+const activeMasks = (masks, captureTime, take) => (masks || []).filter(m =>
+  captureTime >= m.from && captureTime < m.to && (!m.take || m.take === take));
+
+export const Stage = ({ visible, segments, masks, maskColor, captureTime, take }) => {
+  const { fps } = useVideoConfig();
+  const shown = activeMasks(masks, captureTime, take);
   return (
     <div style={{ position: 'absolute', inset: 0, background: v.stage }}>
       {visible.map(({ box, rect: [x, y, w, h], region, opacity }) => {
@@ -66,6 +79,10 @@ export const Stage = ({ boxes, regions, segments, s, captureTime }) => {
                   <OffthreadVideo src={staticFile(seg.file)} playbackRate={seg.speed} muted
                     style={{ position: 'absolute', left: -region[0] * scale, top: -region[1] * scale, width: seg.size[0] * scale, height: seg.size[1] * scale, maxWidth: 'none' }} />
                 </Sequence>
+              ))}
+              {shown.map((m, i) => (
+                <div key={i} style={{ position: 'absolute', background: maskColor, left: (m.rect[0] - region[0]) * scale,
+                  top: (m.rect[1] - region[1]) * scale, width: m.rect[2] * scale, height: m.rect[3] * scale }} />
               ))}
             </div>
           </div>
