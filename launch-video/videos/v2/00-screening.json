@@ -1,0 +1,115 @@
+{
+  "screened_at": "2026-11-16T08:03:16.066Z",
+  "pool_sha256": "2e65fc05a010221f5dc8334814c098084ceb58a82a22f14d0eb9ae8a0bc97633",
+  "results": [
+    {
+      "repo": "serhii-londar/open-source-mac-os-apps",
+      "section": "Video",
+      "query": "video editor",
+      "ask": "two video editors",
+      "revision": "23b6184ebcee27318c28e4d40661f4435a697a3d",
+      "readme_sha256": "96675db9493b9cead47c2c0a5bcac7b114cadc60f4cfa2253edeecb275970c2a",
+      "licence": "CC0-1.0",
+      "licence_evidence": "GitHub license metadata",
+      "reasons": [],
+      "items": 978,
+      "entries": 1422,
+      "skipped": 47,
+      "sections": 50,
+      "results": 2,
+      "passes": true
+    },
+    {
+      "repo": "vinta/awesome-python",
+      "section": "Audio & Video Processing",
+      "query": "video",
+      "ask": "two Python video libraries",
+      "licence_override": {
+        "spdx": "CC-BY-4.0",
+        "evidence": "LICENSE begins \"Creative Commons Attribution 4.0 International License (CC BY 4.0)\"; GitHub reports NOASSERTION"
+      },
+      "revision": "234dee17f146c30669fe44bac81eda8114727d02",
+      "readme_sha256": "c05e21446c29e3be4dd15dfff91531874da37381340f608e0fd86e01b78dc4cd",
+      "licence": "CC-BY-4.0",
+      "licence_evidence": "LICENSE begins \"Creative Commons Attribution 4.0 International License (CC BY 4.0)\"; GitHub reports NOASSERTION",
+      "reasons": [],
+      "items": 557,
+      "entries": 563,
+      "skipped": 74,
+      "sections": 81,
+      "results": 6,
+      "passes": true
+    },
+    {
+      "repo": "avelino/awesome-go",
+      "section": "Video",
+      "query": "video",
+      "ask": "two Go video libraries",
+      "revision": "8e402c3e03633b97e70085d70e24d77035c080f4",
+      "readme_sha256": "5d61d023530e9ab7b6881e5cbcee83794a6637347e5826b6855d61b3633ac88f",
+      "licence": "MIT",
+      "licence_evidence": "GitHub license metadata",
+      "reasons": [],
+      "items": 3182,
+      "entries": 3182,
+      "skipped": 89,
+      "sections": 148,
+      "results": 9,
+      "passes": true
+    },
+    {
+      "repo": "nix-community/awesome-nix",
+      "section": "NixOS Configuration Editors",
+      "query": "editor",
+      "ask": "two NixOS configuration editors",
+      "revision": "ecbb552376aef2bcf1614c0879dcd4268f59da6b",
+      "readme_sha256": "10a53a89551e26a4abf1ad426a057eb175b1104ab6c030c4afc628c6cc7411bd",
+      "licence": "CC0-1.0",
+      "licence_evidence": "GitHub license metadata",
+      "reasons": [],
+      "items": 202,
+      "entries": 202,
+      "skipped": 14,
+      "sections": 38,
+      "results": 2,
+      "passes": true
+    },
+    {
+      "repo": "ripienaar/free-for-dev",
+      "section": "Storage and Media Processing",
+      "query": "video editor",
+      "ask": "two video editors",
+      "revision": "24225992924845c4d16f44629bbc543e778fb7fe",
+      "readme_sha256": "3a0a4aeee3c516760b3182558595e4978576e12e0049011ce3f7c39de9d0dcfe",
+      "licence": null,
+      "licence_evidence": "GitHub license metadata",
+      "reasons": [
+        "licence none is not in the allowed list"
+      ],
+      "items": 1305,
+      "entries": 1316,
+      "skipped": 59,
+      "sections": 58,
+      "results": 2,
+      "passes": false
+    },
+    {
+      "repo": "sindresorhus/awesome",
+      "section": "",
+      "query": "video",
+      "ask": "two video lists",
+      "revision": "bc98e517ddca672f55f9857d714fc3ea3c3540b2",
+      "readme_sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+      "licence": "CC0-1.0",
+      "licence_evidence": "GitHub license metadata",
+      "reasons": [
+        "import fails: The list document is invalid: sections: must be a non-empty array"
+      ],
+      "items": 0,
+      "entries": 0,
+      "skipped": 0,
+      "sections": 0,
+      "passes": false
+    }
+  ]
+}
