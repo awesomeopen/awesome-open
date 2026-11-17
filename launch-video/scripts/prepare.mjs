@@ -4,7 +4,7 @@
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { codeToTokens } from 'shiki';
-import { REPO, ROOT, logStage, readJson, run, sha256, sha256File, timeline, videoDir } from './lib.mjs';
+import { REPO, ROOT, cards, logStage, readJson, run, sha256, sha256File, timeline, videoDir } from './lib.mjs';
 
 const id = process.argv[2];
 const dir = videoDir(id);
@@ -34,7 +34,8 @@ for (const [name, from] of Object.entries(FONTS)) copyFileSync(join(REPO, from),
 
 // Capture segments, cut from the original recordings and converted to constant
 // 30 fps H.264. session.json names one recording, or several under "takes"; a
-// segment picks its take by name (default: the first).
+// segment picks its take by name (default: the first). Each segment starts at time 0,
+// so segment time t shows capture second in + t, as the clock says.
 const takes = session.takes || { main: session };
 const takeShas = {};
 for (const [name, take] of Object.entries(takes)) {
@@ -49,10 +50,10 @@ const segments = timeline(beats.segments).map((seg, i) => {
   if (!take) throw new Error(`Segment ${i} names unknown take ${seg.take}`);
   const file = `${id}/seg-${i}.mp4`;
   const stamp = join(pub, id, `seg-${i}.json`);
-  const key = JSON.stringify({ sourceSha: takeShas[takeName], in: seg.in, out: seg.out });
+  const key = JSON.stringify({ sourceSha: takeShas[takeName], in: seg.in, out: seg.out, zeroStart: true });
   if (!existsSync(stamp) || readFileSync(stamp, 'utf8') !== key) {
     run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-ss', String(seg.in), '-to', String(seg.out), '-i', join(REPO, take.source),
-      '-an', '-vf', 'fps=30,format=yuv420p', '-c:v', 'libx264', '-crf', '14', '-preset', 'medium', join(pub, file)]);
+      '-an', '-vf', 'setpts=PTS-STARTPTS,fps=30,format=yuv420p', '-c:v', 'libx264', '-crf', '14', '-preset', 'medium', join(pub, file)]);
     writeFileSync(stamp, key);
   }
   return { ...seg, take: takeName, file, size: take.size };
@@ -83,9 +84,23 @@ for (const overlay of beats.overlays.filter(o => o.type === 'code')) {
     rows: rows.map(row => row.map(t => ({ content: t.content, color: t.color }))) });
 }
 
+// Card images (launch-video/images) and the marks on the opening card.
+const images = {};
+for (const [name, card] of Object.entries({ intro: beats.intro, outro: beats.outro })) {
+  if (!card) continue;
+  copyFileSync(join(ROOT, card.image), join(pub, id, `${name}.png`));
+  images[name] = `${id}/${name}.png`;
+}
+if (beats.intro || beats.outro) {
+  mkdirSync(join(pub, 'brand'), { recursive: true });
+  copyFileSync(join(REPO, 'site/brand/fruit-96.png'), join(pub, 'brand/fruit.png'));
+  copyFileSync(join(ROOT, 'images/jumper01_256.png'), join(pub, 'brand/jumper.png'));
+  copyFileSync(join(ROOT, 'images/Futuristic WebMCPlet logo lockup.png'), join(pub, 'brand/webmcplet.png'));
+}
+
 const drawFile = join(dir, '00-draw.json');
 const draw = existsSync(drawFile) ? readJson(drawFile) : null;
-const bundle = { beats, session, events, facts, draw, segments, snippets, preparedAt: new Date().toISOString() };
+const bundle = { beats, session, events, facts, draw, segments, snippets, images, cards: cards(beats), preparedAt: new Date().toISOString() };
 const indexFile = join(generated, 'videos.json');
 const index = existsSync(indexFile) ? readJson(indexFile) : {};
 index[id] = bundle;
@@ -94,6 +109,7 @@ writeFileSync(indexFile, JSON.stringify(index, null, 2) + '\n');
 logStage(dir, 'prepare', {
   beats: sha256File(join(dir, '02-beats.json')), events: sha256File(join(dir, '04-capture/events.json')),
   ...Object.fromEntries(Object.entries(takeShas).map(([n, h]) => ['take:' + n, h])), ...(facts ? { facts: sha256File(factsFile) } : {}),
-  ...Object.fromEntries(snippets.map(s => [s.file + ':' + s.firstLine, s.fileSha]))
+  ...Object.fromEntries(snippets.map(s => [s.file + ':' + s.firstLine, s.fileSha])),
+  ...Object.fromEntries(Object.keys(images).map(name => ['card:' + name, sha256File(join(pub, images[name]))]))
 });
 console.log(`Prepared ${id}: ${segments.length} segment(s), ${snippets.length} snippet(s)`);

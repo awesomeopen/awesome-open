@@ -4,6 +4,18 @@
   "fps": 30,
   "width": 1920,
   "height": 1080,
+  "intro": {
+    "image": "images/01 - One Small Link Revives a Knowledge Garden-1.png",
+    "kicker": "WebMCP for Awesome Lists · 1 of 3",
+    "title": "From prompt to result without plugins.",
+    "subtitle": "ChatGPT uses an Awesome List's WebMCP tools. You only give it the link."
+  },
+  "outro": {
+    "image": "images/01b - Quiet Alien Archive Connector.png",
+    "text": "dark",
+    "title": "Awesome Open*",
+    "subtitle": "awesomeopen.github.io/awesome-open"
+  },
   "segments": [
     {
       "in": 1,
@@ -13,20 +25,19 @@
     {
       "in": 8,
       "out": 32,
-      "speed": 8,
-      "waiting": "Waiting for ChatGPT"
+      "speed": 8
     },
     {
       "in": 40,
       "out": 58,
       "speed": 3,
-      "cutNote": "connecting, and the owner clicked the browser"
+      "cutNote": "Connecting; you clicked the browser."
     },
     {
       "in": 98,
       "out": 104,
       "speed": 1,
-      "cutNote": "the owner had control of the browser"
+      "cutNote": "You had control of the browser."
     },
     {
       "in": 104,
@@ -37,7 +48,7 @@
       "in": 126,
       "out": 142,
       "speed": 2,
-      "cutNote": "the owner opens the link in their Chrome"
+      "cutNote": "You open the link in your browser."
     }
   ],
   "boxes": [
@@ -45,7 +56,7 @@
       "id": "app",
       "region": "app",
       "kind": "other",
-      "label": "ChatGPT · the owner's Mac",
+      "label": "ChatGPT · Your AI chat or agent",
       "from": 0,
       "to": 28.5,
       "at": [
@@ -61,7 +72,7 @@
       "region": "prompt",
       "parent": "app",
       "kind": "other",
-      "label": "ChatGPT · the prompt",
+      "label": "ChatGPT · Your prompt",
       "from": 0.4,
       "to": 3.5,
       "at": [
@@ -98,7 +109,7 @@
       "id": "chrome",
       "region": "chrome",
       "kind": "site",
-      "label": "The owner's Chrome · Awesome Open*",
+      "label": "Your web browser · Awesome Open*",
       "from": 28.5,
       "to": 36.5,
       "at": [
@@ -110,37 +121,37 @@
     {
       "from": 0,
       "to": 3.5,
-      "caption": "The prompt names only the list's URL."
+      "caption": "You only mention the list. No plugin needed."
     },
     {
       "from": 3.5,
       "to": 6.5,
-      "caption": "ChatGPT opens it in its cloud browser."
+      "caption": "Your agent visits the list online."
     },
     {
       "from": 6.5,
       "to": 12.5,
-      "caption": "The page's tools return two editors; ChatGPT selects them."
+      "caption": "The list returns two results to your agent."
     },
     {
       "from": 12.5,
       "to": 18.5,
-      "caption": "The page logs each call: find, arrange, compare."
+      "caption": "The list logs your agent's calls: find, arrange, compare."
     },
     {
       "from": 18.5,
       "to": 22.5,
-      "caption": "ChatGPT compares them in the page's Cabinet."
+      "caption": "Your agent compares the results in the Cabinet ..."
     },
     {
       "from": 22.5,
       "to": 28.5,
-      "caption": "ChatGPT names a source for each claim."
+      "caption": "... and cites sources for each claim."
     },
     {
       "from": 28.5,
-      "to": 36.5,
-      "caption": "The answer's link opens the same pair on Awesome Open*."
+      "to": 35.5,
+      "caption": "Your agent adds its own opinion, and the final link to the Cabinet."
     }
   ],
   "overlays": [
@@ -189,6 +200,9 @@
         "license",
         "pushed_at"
       ]
-    }
+    },
+    { "type": "highlight", "n": 1, "from": 1.0, "to": 3.4, "style": "frame", "box": "prompt", "rect": [756, 822, 1390, 118] },
+    { "type": "highlight", "n": 2, "from": 13.6, "to": 18.3, "style": "frame", "box": "cabinetLog", "rect": [2320, 1124, 450, 128] },
+    { "type": "highlight", "n": 3, "from": 34.6, "to": 36.5, "style": "frame", "box": "chrome", "rect": [936, 270, 1876, 88] }
   ]
 }

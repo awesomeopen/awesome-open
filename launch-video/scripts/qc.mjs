@@ -4,7 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { REPO, logStage, probe, readJson, run, sha256, sha256File, timeline, videoDir } from './lib.mjs';
+import { REPO, cards, logStage, probe, readJson, run, sha256, sha256File, timeline, videoDir } from './lib.mjs';
 
 const id = process.argv[2];
 const dir = videoDir(id);
@@ -16,14 +16,18 @@ const check = (status, name, detail) => results.push({ status, name, detail });
 
 // Length and format.
 const info = probe(out);
-const expected = Math.round(timeline(beats.segments).reduce((n, seg) => n + seg.length, 0) * beats.fps);
+const { intro, outro } = cards(beats);
+const footage = timeline(beats.segments).reduce((n, seg) => n + seg.length, 0);
+const expected = Math.round((intro + footage + outro) * beats.fps);
 const frames = Number(info.nb_read_packets);
 check(frames === expected ? 'PASS' : 'FAIL', 'Frame count', `${frames} of ${expected} expected`);
 check(info.width === beats.width && info.height === beats.height ? 'PASS' : 'FAIL', 'Size', `${info.width}×${info.height}`);
 
 // Blank and frozen stretches. Screen captures hold still often, so a freeze is a WARN.
 const errLog = execFileSync('sh', ['-c', `ffmpeg -hide_banner -i "${out}" -vf "blackdetect=d=0.2:pix_th=0.1,freezedetect=n=0.001:d=2" -an -f null - 2>&1 || true`], { encoding: 'utf8' });
-const blacks = (errLog.match(/black_start/g) || []).length;
+// The closing card's fade to black is intended; black that starts during it is not counted.
+const fadeFrom = intro + footage + (outro ? outro - 1 : Infinity);
+const blacks = [...errLog.matchAll(/black_start:([\d.]+)/g)].filter(m => Number(m[1]) < fadeFrom - 0.05).length;
 const freezes = [...errLog.matchAll(/freeze_start: ([\d.]+)/g)].map(m => Number(m[1]).toFixed(1));
 check(blacks ? 'FAIL' : 'PASS', 'Blank frames', blacks ? `${blacks} stretch(es)` : 'none');
 check(freezes.length ? 'WARN' : 'PASS', 'Frozen ≥ 2 s', freezes.length ? 'from ' + freezes.join(', ') + ' s' : 'none');

@@ -1,4 +1,4 @@
-import { Easing, interpolate, OffthreadVideo, Sequence, staticFile, useVideoConfig } from 'remotion';
+import { Easing, OffthreadVideo, Sequence, staticFile, useVideoConfig } from 'remotion';
 import { v } from '../theme.js';
 
 // A neutral stage holding labelled boxes, each a region of the capture. A box with a
@@ -26,8 +26,8 @@ const layoutAt = (box, s, region) => {
   return [cx - w / 2, cy - h / 2, w, h];
 };
 
-export const Stage = ({ boxes, regions, segments, s, captureTime, take }) => {
-  const { fps } = useVideoConfig();
+// The boxes on screen at output second s, each with its screen rect and capture region.
+export const placeBoxes = ({ boxes, regions, s, captureTime, take }) => {
   const placed = {};
   const visible = [];
   for (const box of boxes) {
@@ -51,6 +51,18 @@ export const Stage = ({ boxes, regions, segments, s, captureTime, take }) => {
     placed[box.id] = { rect, region };
     visible.push({ box, rect, region, opacity });
   }
+  return visible;
+};
+
+// Masks (04-capture/events.json) cover parts of the capture that are not part of the
+// demonstration, such as conversation before the recording, in the capture's own
+// background colour.
+const activeMasks = (masks, captureTime, take) => (masks || []).filter(m =>
+  captureTime >= m.from && captureTime < m.to && (!m.take || m.take === take));
+
+export const Stage = ({ visible, segments, masks, maskColor, captureTime, take }) => {
+  const { fps } = useVideoConfig();
+  const shown = activeMasks(masks, captureTime, take);
   return (
     <div style={{ position: 'absolute', inset: 0, background: v.stage }}>
       {visible.map(({ box, rect: [x, y, w, h], region, opacity }) => {
@@ -67,6 +79,10 @@ export const Stage = ({ boxes, regions, segments, s, captureTime, take }) => {
                   <OffthreadVideo src={staticFile(seg.file)} playbackRate={seg.speed} muted
                     style={{ position: 'absolute', left: -region[0] * scale, top: -region[1] * scale, width: seg.size[0] * scale, height: seg.size[1] * scale, maxWidth: 'none' }} />
                 </Sequence>
+              ))}
+              {shown.map((m, i) => (
+                <div key={i} style={{ position: 'absolute', background: maskColor, left: (m.rect[0] - region[0]) * scale,
+                  top: (m.rect[1] - region[1]) * scale, width: m.rect[2] * scale, height: m.rect[3] * scale }} />
               ))}
             </div>
           </div>

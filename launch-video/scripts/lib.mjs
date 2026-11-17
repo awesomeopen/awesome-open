@@ -54,3 +54,10 @@ export function timeline(segments) {
     return entry;
   });
 }
+
+// Opening and closing cards, in output seconds: the opening card (also the YouTube
+// still) holds before the footage; the closing card holds, then fades to black.
+export const CARDS = { intro: 2, hold: 2, fade: 1 };
+export function cards(beats) {
+  return { intro: beats.intro ? CARDS.intro : 0, outro: beats.outro ? CARDS.hold + CARDS.fade : 0 };
+}

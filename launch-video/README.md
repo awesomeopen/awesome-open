@@ -45,9 +45,21 @@ git-ignored; their hashes are in `session.json` and the log.
 - **Takes:** `session.json` may list several recordings under `takes`, each with
   `source`, `sha256` and `size`; a segment names its `take`, and region keyframes may
   name one. A switch of take is named on screen like a cut.
-- **Segments** may carry `waiting` (a tag such as "Waiting for ChatGPT", shown
-  with the speed, at `waitingTop` pixels from the top, 470 by default) and `cutNote` (named for 2.5 s after a cut, with the left-out
-  times).
+- **Segments** may carry `cutNote` (named for 2.5 s after a cut, with the left-out
+  times). The speed tag and real-time clock in the top right mark sped-up stretches.
+- **`intro` and `outro`** (in `02-beats.json`): an image from `images/` with a
+  kicker, title and subtitle (`text: "dark"` for light images). The opening card
+  shows for 2 s and is the poster, used as the YouTube still; the closing card
+  shows for 2 s and fades to black over 1 s. The opening card carries the
+  Awesome Open\* fruit (`mark: "webmcplet"`: the WebMCPlet lockup) and the Jumper
+  MCP mouse in the top-right corner. Beat, box and overlay times count from the end of the
+  opening card; `render` offsets the `.vtt` to match.
+- **`highlight` overlays:** where to look, numbered 1 to 3 per video. A `box` and
+  a `rect` in capture pixels follow that box as it moves; `at` is a rect in output
+  pixels. `style` is `frame` or `underline`; `badge` moves the number's centre.
+- **`masks`** (in `04-capture/events.json`): rectangles in capture pixels and
+  capture seconds, filled with `maskColor`, that cover parts of the capture outside
+  the demonstration (V2: the conversation before the recording started).
 
 The video layer (captions, labels, clock, tags, claims) is neutral and separate
 from the site's style; see [B-PR343-01](../brand/decisions/B-PR343-01.md).
@@ -62,7 +74,7 @@ that moment. QC fails a render whose code has since changed in the repository.
 
 ## QC checks
 
-Frame count and size; blank frames (fail) and stills of 2 s or more (warning,
+Frame count and size, cards included; blank frames (fail, except the closing fade) and stills of 2 s or more (warning,
 since screen captures hold still); caption reading speed of at most 17 characters
 per second and at least 1.5 s on screen; every value-check field present in
 `05-facts.json`; every code reveal matching its repository file.
@@ -70,7 +82,7 @@ per second and at least 1.5 s on screen; every value-check field present in
 ## Layout
 
 `src/` holds the Remotion composition (`Video.jsx`) and its components: `Camera`,
-`Caption`, `Clock`, `CodePanel` and `ValueCheck`. `videos/test/` is a 10 s pipeline
+`Card`, `Caption`, `Clock`, `CodePanel`, `Highlight`, `Stage` and `ValueCheck`. `videos/test/` is a 10 s pipeline
 check on V1 take 3. `public/` and `src/generated/` are written by `prepare` and
 git-ignored.
 

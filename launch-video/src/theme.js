@@ -26,5 +26,7 @@ export const v = {
   dim: '#B8BDC4',
   edgeSite: '#FFFFFF',
   edgeOther: '#6B7178',
+  // Highlight markers: where to look, numbered 1 to 3.
+  mark: '#E5322D',
   sans: "'Helvetica Neue', Helvetica, Arial, sans-serif"
 };
