@@ -35,13 +35,8 @@ Typing filters; search submit jumps to the first result. Two crack stages lead t
 inspection on the third click, which restores the glass. Preserve the calmer first
 crack stage. Native navigation remains available.
 
-Expanded records use the specimen plate below. The normal ledger loads a plate
-on demand and retains a full-record fallback for no-JavaScript access and printing;
-the fallback line is hidden while loading and after success, and returns on failure
-([B-PR126-01](decisions/B-PR126-01.md));
-static record pages reuse the B42 route shell and are the complete printable
-record. See [B-PR111-01](decisions/B-PR111-01.md) and the
-[loading contract](../site/DETAIL-LOADING.md). Missing
+Expanded records use the specimen plate below. Static record pages reuse the B42
+route shell and are the complete printable record. Missing
 artwork leaves no placeholder. Reviewed alternatives are the evidence grid's last
 row. HN states its two-year window in the popup. GitHub star history shows its actual
 month range and a visible stale label when awaiting the current window or after

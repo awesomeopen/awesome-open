@@ -39,7 +39,7 @@ class HNDualSiteTests(unittest.TestCase):
 
     def test_small_chart_preserves_drawer_activation_and_shows_possible_count(self):
         project, catalog = self.project()
-        page = build_site.project_html(project, {"ai--language-models":"AI & Language Models"}, catalog, deferred=True)
+        page = build_site.project_html(project, {"ai--language-models":"AI & Language Models"}, catalog)
         self.assertNotIn('name-sparkline-link', page)
         summary = page.split('<summary>', 1)[1].split('</summary>', 1)[0]
         self.assertNotIn('<a ', summary)
@@ -55,7 +55,7 @@ class HNDualSiteTests(unittest.TestCase):
         self.assertNotIn('comparison.svg', html)
         self.assertNotIn('0 possible', html)
         self.assertNotIn('#broad', html)
-        page = build_site.project_html(project, {"ai--language-models":"AI & Language Models"}, catalog, deferred=True)
+        page = build_site.project_html(project, {"ai--language-models":"AI & Language Models"}, catalog)
         self.assertNotIn('name-sparkline-link', page)
         self.assertNotIn('<a ', page.split('<summary>', 1)[1].split('</summary>', 1)[0])
         self.assertIn('8 matched stories', page)

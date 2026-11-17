@@ -1,4 +1,4 @@
-/* Progressive enhancement for the static catalog. Same-origin records load on demand. */
+/* Shared catalog state, plate enhancement, and record-plate checks. */
 (function (root, factory) {
   "use strict";
   var catalog = factory(typeof module === "object" && module.exports ? require("./search.js") : root.OpenSearch);
@@ -110,10 +110,7 @@
     var alternative = String(get("alternative") || "");
     var starInput = String(get("stars") == null ? "" : get("stars")).trim();
     var stars = /^\d+$/.test(starInput) ? Number(starInput) : null;
-    if (stars !== null) {
-      if (!Number.isFinite(stars)) stars = Number.MAX_SAFE_INTEGER;
-      stars = Math.min(Number.MAX_SAFE_INTEGER, stars);
-    }
+    if (stars !== null) stars = Math.min(Number.MAX_SAFE_INTEGER, stars);
     return {
       q: String(get("q") || "").trim().replace(/\s+/g, " ").slice(0, 500),
       category: (data.categories || []).some(function (item) { return item.id === category; })
@@ -130,14 +127,6 @@
       language: Search.normalizeLanguage(get("language"), data.projects || []),
       metrics: ["all", "present", "missing"].indexOf(get("metrics")) !== -1 ? get("metrics") : "all"
     };
-  }
-
-  function matchesProject(project, state, snapshot, shortAliases) {
-    var tokens = Search.words(state.q);
-    if (tokens.length && !Search.match(project, tokens,
-      shortAliases || Search.shortAliasNames((snapshot && snapshot.projects) || [project]),
-      snapshot && snapshot.search_text)) return false;
-    return matchesFilters(project, state, snapshot);
   }
 
   function matchesFilters(project, state, snapshot) {
@@ -351,7 +340,6 @@
   }
 
   var plateManagers = new WeakMap();
-  var CLOSED_PLATE_LIMIT = 3;
 
   // Generated record pages are the no-JS fallback and the fetch payload. Never
   // insert their outer document, script, style or navigation into the ledger.
@@ -428,7 +416,7 @@
 
   function enhancePlates(document, window) {
     if (plateManagers.has(document)) return plateManagers.get(document);
-    var states = new WeakMap(), closed = [];
+    var states = new WeakMap();
 
     function showPlate(plate) {
       enhancePlate(plate, document, window);
@@ -439,146 +427,22 @@
       focusHistory(plate, document, window);
     }
 
-    function forgetClosed(state) {
-      var index = closed.indexOf(state);
-      if (index !== -1) closed.splice(index, 1);
-    }
-
-    function trimClosed() {
-      // Open drawers are never evicted, even when a native toggle event has not
-      // reached us yet. Keep only small disclosure booleans after an eviction.
-      closed = closed.filter(function (state) { return !state.drawer.open; });
-      while (closed.length > CLOSED_PLATE_LIMIT) {
-        var state = closed.shift(), plate = state.host.querySelector(".specimen-plate");
-        if (!plate) continue;
-        state.disclosures = Array.from(plate.querySelectorAll("details")).map(function (detail) { return detail.open; });
-        if (plate.plateCleanup) plate.plateCleanup();
-        plate.remove();
-        state.shown = false;
-        status(state, "idle");
-      }
-    }
-
-    function status(state, value, message, retry) {
-      state.host.dataset.detailState = value;
-      if (value === "loading") state.host.setAttribute("aria-busy", "true");
-      else state.host.removeAttribute("aria-busy");
-      // Keep the static link for failures/no JS without flashing it during fetch.
-      if (state.fallback) {
-        if ((value === "loading" || value === "loaded") && state.fallback.contains(document.activeElement)) {
-          var fallbackSummary = state.drawer.querySelector("summary");
-          if (fallbackSummary) fallbackSummary.focus({ preventScroll: true });
-        }
-        state.fallback.hidden = value === "loading" || value === "loaded";
-      }
-      if (message && !state.status) {
-        state.status = document.createElement("p");
-        state.status.className = "detail-status";
-        state.status.setAttribute("role", "status");
-        state.host.appendChild(state.status);
-      }
-      if (state.status) {
-        state.status.textContent = message || "";
-        state.status.hidden = !message;
-      }
-      if (retry && !state.retry) {
-        state.retry = document.createElement("button");
-        state.retry.type = "button";
-        state.retry.className = "detail-retry";
-        state.retry.textContent = "Retry loading record";
-        state.retry.addEventListener("click", function () { if (state.drawer.open) open(state.drawer); });
-        state.host.appendChild(state.retry);
-      }
-      if (state.retry) {
-        if (!retry && document.activeElement === state.retry) {
-          var summary = state.drawer.querySelector("summary");
-          if (summary) summary.focus({ preventScroll: true });
-        }
-        state.retry.hidden = !retry;
-      }
-    }
-
-    function cancel(state) {
-      state.sequence += 1;
-      if (state.request) state.request.abort();
-      state.request = null;
-      if (state.host && state.host.dataset.detailState === "loading") status(state, "idle");
-    }
-
-    async function load(state) {
-      var url, projectId = state.host.dataset.projectId;
-      try {
-        var pageURL = new URL(window.location.href);
-        url = new URL(state.host.dataset.detailUrl, document.baseURI || pageURL.href);
-        if (!/^[a-f0-9]{64}$/.test(projectId) || !/^https?:$/.test(url.protocol) ||
-            url.origin !== pageURL.origin || url.username || url.password ||
-            !url.pathname.endsWith("/records/" + projectId + ".html")) throw new Error("Invalid record URL");
-        if (typeof window.fetch !== "function" || typeof window.DOMParser !== "function") throw new Error("Fetch unavailable");
-      } catch (_) {
-        status(state, "error", "Open the full record using the record link.", false);
-        return;
-      }
-      var sequence = ++state.sequence;
-      var request = typeof window.AbortController === "function" ? new window.AbortController() : { abort: function () {} };
-      state.request = request;
-      status(state, "loading", "Loading record…");
-      function current() {
-        return state.sequence === sequence && state.drawer.open && state.host.isConnected !== false;
-      }
-      try {
-        var response = await window.fetch(url.href, { signal: request.signal, credentials: "same-origin", mode: "same-origin", redirect: "error" });
-        if (!current()) return;
-        if (!response.ok || (response.url && new URL(response.url).origin !== url.origin)) throw new Error("Record request failed");
-        var type = response.headers && response.headers.get("content-type");
-        if (type && !/^(text\/html|application\/xhtml\+xml)(?:;|$)/i.test(type)) throw new Error("Unexpected record type");
-        var html = await response.text();
-        if (!current()) return;
-        var plate = recordPlate(html, url, projectId, document, window);
-        if (!current()) return;
-        if (state.disclosures) Array.from(plate.querySelectorAll("details")).forEach(function (detail, index) {
-          if (index < state.disclosures.length) detail.open = state.disclosures[index];
-        });
-        state.host.appendChild(plate);
-        status(state, "loaded");
-        state.shown = true;
-        showPlate(plate);
-      } catch (_) {
-        if (current()) status(state, "error", "The record couldn’t load. Retry or use the full record link.", true);
-      } finally {
-        if (state.sequence === sequence) state.request = null;
-      }
-    }
-
     function open(drawer) {
       var state = states.get(drawer);
       if (!state || !drawer.open) return;
-      forgetClosed(state);
       var plate = drawer.querySelector(".specimen-plate");
-      if (plate) {
-        if (!state.shown) showPlate(plate);
-        state.shown = true;
-      } else if (state.host && !state.request) {
-        load(state);
-      }
+      if (!plate || state.shown) return;
+      showPlate(plate);
+      state.shown = true;
     }
 
     var drawers = document.querySelectorAll ? document.querySelectorAll("details.specimen-drawer") : [];
     Array.prototype.forEach.call(drawers, function (drawer) {
-      var host = drawer.querySelector(".specimen-detail-host");
-      var state = { drawer: drawer, host: host, sequence: 0, request: null, shown: false,
-        fallback: host && host.querySelector(".detail-fallback") };
+      var state = { shown: false };
       states.set(drawer, state);
       drawer.addEventListener("toggle", function () {
         if (drawer.open) open(drawer);
-        else {
-          cancel(state);
-          state.shown = false;
-          if (host && host.querySelector(".specimen-plate")) {
-            forgetClosed(state);
-            closed.push(state);
-            trimClosed();
-          }
-        }
+        else state.shown = false;
       });
       if (drawer.open) open(drawer);
     });
@@ -587,11 +451,6 @@
         Array.prototype.forEach.call(document.querySelectorAll(".specimen-drawer[open] .specimen-plate"), function (plate) {
           if (plate.plateLayout) plate.plateLayout();
         });
-      });
-      // Abort pending transfers on real navigation. Keep mounted records and
-      // listeners intact so a back/forward-cache restore stays usable.
-      window.addEventListener("pagehide", function () {
-        Array.prototype.forEach.call(drawers, function (drawer) { cancel(states.get(drawer)); });
       });
       window.addEventListener("pageshow", function (event) {
         if (event.persisted) Array.prototype.forEach.call(drawers, function (drawer) { if (drawer.open) open(drawer); });
@@ -633,7 +492,7 @@
 
   function init(document, window) {
     plateInfo(document);
-    var plates = enhancePlates(document, window);
+    enhancePlates(document, window);
     var footerArt = document.querySelector('[data-footer-background]');
     if (footerArt) {
       var backgrounds = JSON.parse(footerArt.dataset.backgrounds);
@@ -647,321 +506,6 @@
         footerArt.src = backgrounds[selected];
       }
     }
-    var embedded = document.getElementById("catalog-data");
-    var list = document.getElementById("project-list");
-    var filters = document.getElementById("filters");
-    var count = document.getElementById("result-count");
-    var empty = document.getElementById("empty-state");
-    var clear = document.getElementById("clear-filters");
-    var controls = {
-      q: document.getElementById("search"),
-      category: document.getElementById("category-filter"),
-      license: document.getElementById("license-filter"),
-      stars: document.getElementById("min-stars"),
-      pushed: document.getElementById("pushed-since"),
-      sort: document.getElementById("sort-order")
-    };
-    if (!embedded || !list || !filters || !count || !empty || !clear ||
-        Object.keys(controls).some(function (key) { return !controls[key]; })) return false;
-    if (filters.dataset.enhanced === "true") return true;
-    // These controls are additive, so older static pages can still be enhanced.
-    [["language", "language-filter"], ["window", "push-window"], ["alternative", "alternative-filter"], ["metrics", "metrics-filter"], ["run_mode", "run-mode-filter"], ["install_method", "install-method-filter"]]
-      .forEach(function (entry) {
-        var control = document.getElementById(entry[1]);
-        if (control) controls[entry[0]] = control;
-      });
-
-    var data;
-    try { data = JSON.parse(embedded.textContent); } catch (_) { return false; }
-    if (!data || !Array.isArray(data.projects) || !Array.isArray(data.categories)) return false;
-    var cards = new Map();
-    Array.from(list.querySelectorAll(".project-card[data-project-id]")).forEach(function (card) {
-      cards.set(card.dataset.projectId, card);
-    });
-    // A broken payload must never make the server-rendered directory disappear.
-    if (cards.size !== data.projects.length || new Set(data.projects.map(function (p) { return p && p.id; })).size !== data.projects.length ||
-        data.projects.some(function (project) { return !project || !cards.has(project.id); })) return false;
-
-    var existingLicenses = new Set(Array.from(controls.license.options).map(function (option) { return option.value; }));
-    Array.from(new Set(data.projects.map(licenseOf).filter(Boolean))).sort(Search.compareText).forEach(function (license) {
-      if (!existingLicenses.has(license)) {
-        var option = document.createElement("option");
-        option.value = license;
-        option.textContent = license;
-        controls.license.appendChild(option);
-      }
-    });
-
-    if (controls.alternative) {
-      var existingAlternatives = new Set(Array.from(controls.alternative.options).map(function (option) { return option.value; }));
-      alternativeNames(data.projects).forEach(function (name) {
-        if (!existingAlternatives.has(name)) {
-          var option = document.createElement("option");
-          option.value = name;
-          option.textContent = name;
-          controls.alternative.appendChild(option);
-        }
-      });
-    }
-    var diagnostics = diagnosticCounts(data.projects, data);
-    Array.from(document.querySelectorAll("[data-diagnostic]")).forEach(function (node) {
-      if (Object.prototype.hasOwnProperty.call(diagnostics, node.dataset.diagnostic)) {
-        node.textContent = diagnostics[node.dataset.diagnostic].toLocaleString("en-US");
-      }
-    });
-
-    var categoryLinks = Array.from(document.querySelectorAll("a[data-category]"));
-    var endMark = document.querySelector(".page-end img");
-    var defaultEndSrc = endMark && endMark.getAttribute("src");
-    var navLinks = Array.from(document.querySelectorAll(".category-nav a[data-category]"));
-    var timer = null;
-    var currentState = DEFAULTS;
-    var renderedOrder = null;
-    var searchTextURL = embedded.dataset && embedded.dataset.searchText;
-    var searchTextState = searchTextURL ? "idle" : "unavailable";
-    var searchTextNotice = null;
-    var linkNotice = document.getElementById("project-link-notice");
-    var lastLinkedCard = null;
-    var linkedWasHidden = false;
-
-    function linkedProject(focus) {
-      var anchor;
-      try { anchor = decodeURIComponent(new URL(window.location.href).hash.slice(1)); }
-      catch (_) { anchor = ""; }
-      var historyMatch = /^history-([a-f0-9]{64})-(?:event|repository)-[a-z0-9-]+$/.exec(anchor);
-      var card = anchor.indexOf("project-") === 0 ? cards.get(anchor.slice(8))
-        : historyMatch ? cards.get(historyMatch[1]) : null;
-      var becameVisible = card && card === lastLinkedCard && linkedWasHidden && !card.hidden;
-      lastLinkedCard = card;
-      linkedWasHidden = Boolean(card && card.hidden);
-      if (linkNotice) linkNotice.hidden = !card || !card.hidden;
-      if (!card) return;
-      if (card.hidden) {
-        if (!linkNotice) {
-          linkNotice = document.createElement("p");
-          linkNotice.id = "project-link-notice";
-          linkNotice.setAttribute("role", "status");
-          filters.appendChild(linkNotice);
-        }
-        var project = data.projects.find(function (item) { return item.id === card.dataset.projectId; });
-        linkNotice.textContent = "The linked project, " + project.name + ", is hidden by your current filters. Clear or change filters to view it.";
-        linkNotice.hidden = false;
-        return;
-      }
-      // Preserve a drawer the reader closed while changing unrelated filters.
-      if (!focus && !becameVisible) return;
-      var drawer = typeof card.querySelector === "function" ? card.querySelector("details.specimen-drawer") : null;
-      if (drawer) {
-        drawer.open = true;
-        plates.open(drawer);
-      }
-      if (focus && historyMatch && focusHistory(card, document, window)) return;
-      if (focus) {
-        var target = drawer && typeof drawer.querySelector === "function" ? drawer.querySelector("summary") : null;
-        target = target || card;
-        if (target === card) card.setAttribute("tabindex", "-1");
-        if (typeof target.focus === "function") target.focus({ preventScroll: true });
-        if (typeof card.scrollIntoView === "function") card.scrollIntoView({ block: "start" });
-      }
-    }
-
-    function cancelPending() {
-      if (timer !== null) window.clearTimeout(timer);
-      timer = null;
-    }
-
-    function readControls() {
-      var input = Object.assign({}, currentState);
-      Object.keys(controls).forEach(function (key) { input[key] = controls[key].value; });
-      return normalizeState(input, data);
-    }
-
-    function setControls(state) {
-      currentState = state;
-      Object.keys(controls).forEach(function (key) {
-        controls[key].value = state[key] === null ? "" : String(state[key]);
-      });
-    }
-
-    // The first search fetches function summaries and feature notes, then renders
-    // again with them. Until then it covers the fields in the embedded index.
-    function loadSearchText() {
-      if (searchTextState !== "idle") return;
-      searchTextState = "loading";
-      filters.dataset.searchText = "loading";
-      Search.loadText(window, searchTextURL, embedded.dataset.sourceSha).then(function (text) {
-        data.search_text = text;
-        searchTextState = "ready";
-        filters.dataset.searchText = "ready";
-        if (searchTextNotice) searchTextNotice.hidden = true;
-        render(currentState);
-      }).catch(function () {
-        searchTextState = "idle";
-        filters.dataset.searchText = "failed";
-        if (!searchTextNotice) {
-          searchTextNotice = document.createElement("p");
-          searchTextNotice.className = "link-notice";
-          searchTextNotice.setAttribute("role", "status");
-          searchTextNotice.textContent = "Function summaries and feature notes could not load. Search covers names, aliases, descriptions and alternatives.";
-          filters.appendChild(searchTextNotice);
-        }
-        searchTextNotice.hidden = false;
-      });
-    }
-
-    function render(state) {
-      currentState = state;
-      if (state.q) loadSearchText();
-      var total = 0;
-      var hits = Search.find(data.projects, state.q, data.search_text);
-      var ordered = data.projects.slice().sort(comparator(state.sort, hits));
-      var order = ordered.map(function (project) { return project.id; }).join();
-      // Keep rows attached when the order holds. Reparenting a summary during
-      // input blur can cancel the native disclosure click that follows.
-      var reorder = renderedOrder !== order;
-      var fragment = reorder ? document.createDocumentFragment() : null;
-      ordered.forEach(function (project) {
-        var card = cards.get(project.id);
-        var visible = (!hits || hits.has(project.id)) && matchesFilters(project, state, data);
-        card.hidden = !visible;
-        var leaders = project.leader_categories || [];
-        var selectedLeaders = state.category ? leaders.filter(function (id) { return id === state.category; }) : leaders;
-        card.dataset.leader = selectedLeaders.length ? 'true' : 'false';
-        if (visible) {
-          total += 1;
-          var position = typeof card.querySelector === "function" ? card.querySelector(".folio") : null;
-          if (position) position.textContent = String(total).padStart(3, "0");
-        }
-        if (reorder) fragment.appendChild(card);
-      });
-      if (reorder) list.appendChild(fragment);
-      renderedOrder = order;
-      count.textContent = total === data.projects.length
-        ? total.toLocaleString("en-US") + " projects"
-        : total.toLocaleString("en-US") + " of " + data.projects.length.toLocaleString("en-US") + " projects";
-      empty.hidden = total !== 0;
-      var hasFilters = Object.keys(DEFAULTS).some(function (key) {
-        return key !== "q" && key !== "sort" && state[key] !== DEFAULTS[key];
-      });
-      empty.textContent = hasFilters ? "No matches found." : Search.noMatch(data.projects.length);
-      if (!total && hasFilters) {
-        var reset = document.createElement("a");
-        reset.textContent = "Reset filters.";
-        reset.href = stateToURL(window.location.href, Object.assign({}, DEFAULTS, { q: state.q })).href;
-        reset.addEventListener("click", function (event) {
-          event.preventDefault();
-          cancelPending();
-          setControls(Object.assign({}, DEFAULTS, { q: controls.q.value }));
-          apply();
-          controls.q.focus({ preventScroll: true });
-        });
-        empty.textContent += " ";
-        empty.appendChild(reset);
-      }
-      linkedProject(false);
-      if (endMark) {
-        var selectedLink = navLinks.find(function (link) { return link.dataset.category === state.category; });
-        var art = selectedLink && selectedLink.querySelector(".category-art");
-        var endSrc = art ? art.dataset.endSrc : defaultEndSrc;
-        if (endMark.getAttribute("src") !== endSrc) endMark.setAttribute("src", endSrc);
-        endMark.width = art ? Number(art.dataset.endWidth) : 96;
-        endMark.height = art ? Number(art.dataset.endHeight) : 96;
-      }
-      navLinks.forEach(function (link) {
-        if (link.dataset.category === state.category) link.setAttribute("aria-current", "true");
-        else link.removeAttribute("aria-current");
-      });
-    }
-
-    function writeURL(state, replace) {
-      var next = stateToURL(window.location.href, state);
-      if (next.href === window.location.href) return;
-      // Filtering also works when a local-file preview cannot update its URL.
-      try {
-        window.history[replace ? "replaceState" : "pushState"](
-          replace ? window.history.state : null, "", next.href
-        );
-      } catch (_) { /* The static directory remains usable without history access. */ }
-    }
-
-    function apply() {
-      cancelPending();
-      var state = readControls();
-      Object.keys(controls).forEach(function (key) {
-        if (key !== "q" || document.activeElement !== controls.q) {
-          controls[key].value = state[key] === null ? "" : String(state[key]);
-        }
-      });
-      render(state);
-      writeURL(state, false);
-    }
-
-    function restore() {
-      cancelPending();
-      var state = normalizeState(new URL(window.location.href).searchParams, data);
-      setControls(state);
-      render(state);
-      writeURL(state, true);
-      linkedProject(true);
-    }
-
-    controls.q.addEventListener("input", function () {
-      cancelPending();
-      timer = window.setTimeout(apply, 250);
-    });
-    Object.keys(controls).forEach(function (key) {
-      controls[key].addEventListener("change", apply);
-    });
-    filters.addEventListener("submit", function (event) {
-      event.preventDefault();
-      cancelPending();
-      apply();
-      var result = Array.from(list.children).find(function (card) { return !card.hidden; });
-      var target = result || empty;
-      var summary = result && result.querySelector("summary");
-      if (summary) summary.focus({ preventScroll: true });
-      target.scrollIntoView({ block: "start", behavior: "instant" });
-    });
-    clear.addEventListener("click", function (event) {
-      event.preventDefault();
-      cancelPending();
-      setControls(DEFAULTS);
-      apply();
-    });
-    function followCategory(event, link) {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      var category = link.dataset.category;
-      if (category && !data.categories.some(function (item) { return item.id === category; })) return;
-      event.preventDefault();
-      cancelPending();
-      controls.category.value = category;
-      apply();
-      var catalogMain = document.getElementById("catalog");
-      if (catalogMain && typeof catalogMain.focus === "function") catalogMain.focus();
-    }
-    categoryLinks.forEach(function (link) {
-      if (!list.contains(link)) link.addEventListener("click", function (event) { followCategory(event, link); });
-    });
-    // Delegate record links so newly mounted plates work without per-plate
-    // listeners or a closure retaining an evicted record.
-    list.addEventListener("click", function (event) {
-      var link = event.target && event.target.closest("a[data-category]");
-      if (link && list.contains(link)) followCategory(event, link);
-    });
-    window.addEventListener("popstate", restore);
-    window.addEventListener("hashchange", restore);
-    // A page restored from the back/forward cache may have stale field values.
-    window.addEventListener("pageshow", function (event) { if (event.persisted) restore(); });
-
-    restore();
-    controls.sort.disabled = false;
-    clear.disabled = false;
-    controls.q.maxLength = 500;
-    var headerSearch = document.getElementById('header-search');
-    if (headerSearch) headerSearch.hidden = false;
-    filters.dataset.enhanced = "true";
-    filters.hidden = false;
-    return true;
   }
 
   return {
@@ -976,7 +520,6 @@
     pushWindowOf: pushWindowOf,
     diagnosticCounts: diagnosticCounts,
     normalizeState: normalizeState,
-    matchesProject: matchesProject,
     comparator: comparator,
     selectProjects: selectProjects,
     stateToURL: stateToURL,

@@ -294,7 +294,7 @@ class EvidenceTests(unittest.TestCase):
             observations, _, _, _ = sweep(catalog, fetch, checked_at="2026-10-31",
                                           previous_records=previous)
             records, changed, pruned = checker.merge_evidence(
-                previous, observations, "2026-10-31", by_id, catalog["source_sha"])
+                previous, observations, by_id, catalog["source_sha"])
             return records, changed, pruned
 
         records, changed, _ = run({"HEAD " + url: [{"status": 404}]}, {})
@@ -316,7 +316,7 @@ class EvidenceTests(unittest.TestCase):
         observations, _, _, _ = sweep(catalog, FixtureFetch({}), checked_at="2026-10-31",
                                       previous_records={})
         records, changed, pruned = checker.merge_evidence(
-            {}, observations, "2026-10-31", by_id, catalog["source_sha"])
+            {}, observations, by_id, catalog["source_sha"])
         self.assertEqual(records, {})
         self.assertEqual(changed, [])
         self.assertEqual(pruned, [])

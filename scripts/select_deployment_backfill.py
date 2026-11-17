@@ -241,9 +241,9 @@ def _reverify_queue(catalog, evidence, state, day, excluded):
     return queue
 
 
-def _item(tier, project, stars=None):
+def _item(tier, project):
     return {"id": project["id"], "project_url": project["url"], "name": project.get("name"), "tier": tier,
-            "stars": _stars(project), "has_function_summary": bool(project.get("function_summary"))}
+            "stars": _stars(project)}
 
 
 def select_plan(catalog, evidence, art, state, *, day, limit=MAX_BATCH, reverify=DEFAULT_REVERIFY, excluded=()):

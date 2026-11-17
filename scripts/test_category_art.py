@@ -9,7 +9,7 @@ import tempfile
 import unittest
 
 from build_site import ROOT, search_index
-from category_art import attach_category_art, category_image, webp_dimensions
+from category_art import attach_category_art, webp_dimensions
 from site_test_fixtures import baseline_site
 
 
@@ -92,8 +92,7 @@ class CategoryArtTests(unittest.TestCase):
                 with self.subTest(change=change), self.assertRaises(ValueError):
                     attach_category_art(copy.deepcopy(self.catalog), root)
 
-    def test_absent_art_renders_no_placeholder(self):
-        self.assertEqual(category_image({'id': 'new-category'}), '')
+    def test_absent_manifest_leaves_categories_without_artwork(self):
         with tempfile.TemporaryDirectory() as directory:
             catalog = {'categories': [{'id': 'new-category'}]}
             attach_category_art(catalog, directory)

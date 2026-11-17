@@ -1,12 +1,10 @@
 """Validated, local category illustrations; ordinary builds need no image library."""
 import hashlib
-from html import escape
 import json
 from pathlib import Path
 import shutil
 
 
-DISPLAY_SIZE = 48
 VARIANTS = ('s', 'm', 'l')
 
 
@@ -69,26 +67,6 @@ def attach_category_art(catalog, root):
         if widths != sorted(set(widths)):
             raise ValueError('Category artwork sizes must increase: ' + cid)
         categories[cid]['artwork'] = {'alt': record['alt'], 'variants': variants}
-
-
-def category_image(category):
-    artwork = category.get('artwork')
-    if not artwork:
-        return ''
-    small = artwork['variants']['s']
-    source = small['path']
-    medium = artwork['variants']['m']
-    end_source = medium['path']
-    candidates = ', '.join(f'{artwork["variants"][size]["path"]} {artwork["variants"][size]["width"]}w'
-                           for size in VARIANTS)
-    responsive = f' srcset="{escape(candidates, quote=True)}" sizes="{DISPLAY_SIZE}px"'
-    # The adjacent category name supplies the link's accessible name. The image
-    # is decorative here; its standalone description remains in provenance.
-    return (f'<img class="category-art" src="{escape(source, quote=True)}"{responsive}'
-            f' data-end-src="{escape(end_source, quote=True)}" data-end-width="{medium["width"]}" data-end-height="{medium["height"]}"'
-            f' style="--category-scale:{small["width"] / DISPLAY_SIZE}"'
-            f' width="{small["width"]}" height="{small["height"]}" alt="" aria-hidden="true"'
-            ' loading="lazy" decoding="async" fetchpriority="low">')
 
 
 def copy_category_art(catalog, root, output):
