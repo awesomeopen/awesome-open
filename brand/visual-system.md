@@ -38,7 +38,9 @@ crack stage. Native navigation remains available.
 Expanded records use the specimen plate below. Static record pages reuse the B42
 route shell and are the complete printable record. Missing
 artwork leaves no placeholder. Reviewed alternatives are the evidence grid's last
-row. The HN and stars “past 2y” window is stated in their popups. Repository departure
+row. HN states its two-year window in the popup. GitHub star history shows its actual
+month range and a visible stale label when awaiting the current window or after
+a failed refresh; its popup retains fetch date and source. Repository departure
 links name recognized hosts; homepage and unrecognized destinations use “Explore [name]”. ID tooltips name the identifier type: “Registry ID” and
 “Folio number”. These four refinements were initially present only in the private
 Sites output; this PR restores them to the generator.

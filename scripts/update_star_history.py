@@ -6,7 +6,7 @@ stargazer records are requested or stored. Eligibility is configured in
 star_history_projects.json; the default selects every canonical GitHub
 repository from README.source.md.
 
-Default limits are 16 HTTP attempts per UTC day and four repositories per run.
+Default limits are 400 HTTP attempts per UTC day and 100 repositories per run.
 Successful windows become due after 14 days and at month rollover. Retries count
 against the persisted daily budget; failed attempts rotate behind other work.
 """
@@ -34,7 +34,9 @@ DOCUMENTATION_URL = 'https://docs.github.com/en/rest/activity/starring#get-repos
 API = 'https://api.github.com/repos/'
 API_VERSION = '2026-03-10'
 PER_PAGE, DAY, WEEK = 30, 86400, 7 * 86400
-DEFAULT_REQUEST_BUDGET, DEFAULT_MAX_REPOSITORIES, REFRESH_DAYS = 16, 4, 14
+# Four 30-week pages cover 24 months. At 100 histories/day, 1,000
+# repositories rotate in ten healthy days, within the 14-day refresh interval.
+DEFAULT_REQUEST_BUDGET, DEFAULT_MAX_REPOSITORIES, REFRESH_DAYS = 400, 100, 14
 BOUNDARY_NOTE = ('Monthly buckets assign each source daily bin by its week timestamp plus day offset; '
                  'GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.')
 METRIC = ('Stars retained on the repository at fetch time, grouped by the month their stars were created. '
@@ -82,8 +84,8 @@ class NoRedirect(HTTPRedirectHandler):
 
 class RequestBudget:
     def __init__(self, limit=DEFAULT_REQUEST_BUDGET, used=0, paused_reason=None, checkpoint=None):
-        if type(limit) is not int or not 0 <= limit <= 64 or type(used) is not int or used < 0:
-            raise ValueError('Request budget must be 0–64 attempts; used must be nonnegative')
+        if type(limit) is not int or not 0 <= limit <= DEFAULT_REQUEST_BUDGET or type(used) is not int or used < 0:
+            raise ValueError('Request budget must be 0–400 attempts; used must be nonnegative')
         self.limit, self.used, self.paused_reason = limit, used, paused_reason
         self.checkpoint = checkpoint
 
@@ -267,6 +269,8 @@ def request_page(url, token, budget, opener=None, sleeper=time.sleep):
         headers['Authorization'] = 'Bearer ' + token
     for attempt in range(2):
         budget.consume()
+        # Serial pacing caps the healthy request rate at 60/minute.
+        sleeper(1)
         try:
             with opener(Request(url, headers=headers), timeout=30) as response:
                 remaining = response.headers.get('X-RateLimit-Remaining')
@@ -282,7 +286,7 @@ def request_page(url, token, budget, opener=None, sleeper=time.sleep):
                 return json.loads(body)
         except HTTPError as error:
             # A permission or rate-limit response must not trigger a retry storm.
-            if error.code in {403, 429}:
+            if error.code in {403, 429} or error.headers.get("Retry-After") is not None:
                 budget.pause('GitHub history HTTP ' + str(error.code))
                 raise HistoryError('GitHub history HTTP ' + str(error.code), 'unavailable', True) from error
             if error.code not in {500, 502, 503, 504} or attempt == 1:
@@ -470,8 +474,8 @@ def refresh(projects, existing=None, metadata=None, now=None, getter=None, token
     now = now or utc_now()
     if source_sha is not None and (not isinstance(source_sha, str) or SHA.fullmatch(source_sha) is None):
         raise ValueError('Expected a full lowercase source SHA')
-    if type(max_repositories) is not int or not 1 <= max_repositories <= 16:
-        raise ValueError('Expected 1–16 repositories per run')
+    if type(max_repositories) is not int or not 1 <= max_repositories <= DEFAULT_MAX_REPOSITORIES:
+        raise ValueError('Expected 1–100 repositories per run')
     projects = validate_projects({'schema_version': 1, 'projects': projects})
     existing = validate_cache(existing) if existing is not None else {'schema_version': 1, 'repositories': {}}
     old_budget = existing.get('budget', {})
