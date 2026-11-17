@@ -1,9 +1,9 @@
 {
   "budget": {
     "limit": 16,
-    "paused_reason": null,
-    "requests_used": 16,
-    "utc_date": "2026-11-16"
+    "paused_reason": "GitHub history HTTP 403",
+    "requests_used": 1,
+    "utc_date": "2026-11-17"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
   "metric": "Stars retained on the repository at fetch time, grouped by the month their stars were created. Removed stars are absent and past buckets can change.",
@@ -564833,11 +564833,11 @@
   "schema_version": 1,
   "selection_report": {
     "attempted_repositories": 0,
-    "due_repositories": 478,
+    "due_repositories": 479,
     "eligible_repositories": 531,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "826cc14ce760f597cdc561aba1f1a37c4a3ffb63",
-  "updated_at": "2026-11-16T10:06:47.003458+00:00"
+  "source_sha": "f1ae8fd7dac5df05c4815160a50559c9ad49e112",
+  "updated_at": "2026-11-17T00:49:34.859712+00:00"
 }
