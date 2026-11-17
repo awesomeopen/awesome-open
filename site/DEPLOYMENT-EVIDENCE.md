@@ -35,7 +35,7 @@ Published `catalog.json` retains `review_status`, `checked_at`, value-only
 `records/<full-id>.html`. Those static pages retain the complete setup disclosure.
 Build consumers use `load_site_catalog()` to restore full evidence from the
 combined download. The download budget is 3 KiB per catalog record; the catalog's
-4 KiB budget and the backfill's 100 KiB headroom guard remain in force.
+[6 KiB catalog budget](../PRD/2026-10-22_Performance-tuning.md#catalog-enrichment-allowance-2026-11-17) and the backfill's 100 KiB headroom guard remain in force.
 
 ## Filters and missing data
 
