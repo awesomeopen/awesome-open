@@ -141,17 +141,20 @@ module.exports=async({page,url,data,capture})=>{
   }
  }
  // Activity replay is silent, bounded, and stopped by interaction/reduced motion.
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.clock.install();
  await page.setViewportSize({width:390,height:900});
  await page.goto(new URL('records/'+tofu.id+'.html',url).href);
  const log=page.locator('.pg-collection'), replay=log.locator('.collection-replay');
  await log.scrollIntoViewIfNeeded(); await page.mouse.move(0,0);
  if(await log.locator('.collection-events li').count()>1){
   const before=await replay.textContent();
-  await page.waitForFunction(old=>document.querySelector('.collection-replay').textContent!==old,before,{timeout:8000});
+  await page.clock.fastForward(6100);
+  assert.notEqual(await replay.textContent(),before,'Visible replay advances');
   await log.hover(); const hovered=await replay.textContent();
-  await page.waitForTimeout(6200); assert.equal(await replay.textContent(),hovered,'Hover pauses replay');
+  await page.clock.fastForward(6200); assert.equal(await replay.textContent(),hovered,'Hover pauses replay');
   await page.emulateMedia({reducedMotion:'reduce'}); await page.mouse.move(0,0);
-  const reduced=await replay.textContent(); await page.waitForTimeout(6200);
+  const reduced=await replay.textContent(); await page.clock.fastForward(6200);
   assert.equal(await replay.textContent(),reduced,'Reduced motion stays static');
   for(let i=0;i<3;i++){
    await log.locator('summary').focus(); await page.keyboard.press('Enter');
