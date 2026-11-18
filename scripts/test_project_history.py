@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 import unittest
 
-from build_catalog import canonical_url, build_catalog
+from build_catalog import canonical_url
 import history_view
 from build_site import timeline
 import project_history as history
@@ -59,6 +59,57 @@ class HistoryTests(unittest.TestCase):
             'value': '2026-02-28', 'precision': 'day', 'basis': 'implementation',
             'source_url': 'https://github.com/diggerhq/opencomputer/commit/4d7597db439f2f339d6d6186e109b638c6bacc7f'})
         self.assertEqual(len(history.exact_events([event])), 1)
+
+    def test_openmuse_rename_uses_merge_date_and_catalog_url(self):
+        event = next(e for e in self.document['events'] if e['id'] == 'openmuse-to-openfuse')
+        self.assertEqual(event['project_url'], 'https://github.com/CopilotKit/openmuse')
+        self.assertEqual((event['kind'], event['old_name'], event['new_name']),
+                         ('software_rename', 'OpenMuse', 'OpenFuse'))
+        self.assertEqual(event['occurred'], {
+            'value': '2026-11-13', 'precision': 'day', 'basis': 'implementation',
+            'source_url': 'https://github.com/CopilotKit/openfuse/commit/7771e2db03a4b25d8bc8ee32f7a5c0dddafe3bfc'})
+        self.assertEqual([source['role'] for source in event['sources']],
+                         ['implementation', 'identity', 'identity', 'identity', 'identity'])
+        self.assertEqual(event['reviewed_by'], 'Kanzler (AI)')
+        line = timeline(None, None, None, history_view.timeline_events([event]))
+        self.assertIn('Renamed: OpenMuse → OpenFuse', line)
+        self.assertIn('2026-11-13', line)
+        self.assertIn(event['occurred']['source_url'], line)
+        source = (ROOT / 'README.source.md').read_text(encoding='utf-8')
+        self.assertIn('| [OpenMuse](https://github.com/CopilotKit/openmuse) |', source)
+        self.assertNotIn('[OpenFuse](', source)
+
+    def test_openclaw_steps_keep_display_name_and_date_precision(self):
+        events = {e['id']: e for e in self.document['events']
+                  if e['project_url'] == 'https://github.com/openclaw/openclaw'}
+        self.assertEqual(set(events), {
+            'warelay-to-clawdis', 'clawdis-to-clawdbot', 'clawdbot-to-moltbot',
+            'moltbot-to-openclaw', 'steipete-warelay-to-clawdis'})
+        expected = {
+            'warelay-to-clawdis': ('software_rename', 'warelay', 'Clawdis', '2025-12-03'),
+            'clawdis-to-clawdbot': ('software_rename', 'Clawdis', 'Clawdbot', '2026-01-04'),
+            'clawdbot-to-moltbot': ('software_rename', 'Clawdbot', 'Moltbot', '2026-01-27'),
+            'moltbot-to-openclaw': ('software_rename', 'Moltbot', 'OpenClaw', '2026-01-30'),
+        }
+        for eid, (kind, old, new, day) in expected.items():
+            event = events[eid]
+            self.assertEqual((event['kind'], event['old_name'], event['new_name']), (kind, old, new))
+            self.assertEqual(event['occurred']['precision'], 'day')
+            self.assertEqual(event['occurred']['basis'], 'implementation')
+            self.assertEqual(event['occurred']['value'], day)
+            self.assertEqual(event['reviewed_by'], 'Kanzler (AI)')
+        path = events['steipete-warelay-to-clawdis']
+        self.assertEqual(path['kind'], 'repository_rename')
+        self.assertEqual((path['old_name'], path['new_name']), ('steipete/warelay', 'steipete/clawdis'))
+        self.assertIsNone(path['occurred'])
+        self.assertEqual(history.exact_events(list(events.values())),
+                         [events[eid] for eid in expected])
+        line = timeline(None, None, None, history_view.timeline_events([events['moltbot-to-openclaw']]))
+        self.assertIn('Renamed: Moltbot → OpenClaw', line)
+        self.assertIn('2026-01-30', line)
+        self.assertEqual(history_view.timeline_events([path]), [])
+        source = (ROOT / 'README.source.md').read_text(encoding='utf-8')
+        self.assertIn('| [OpenClaw](https://github.com/openclaw/openclaw) |', source)
 
     def test_optional_source_does_not_change_projects(self):
         before = deepcopy(self.projects)
