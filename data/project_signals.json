@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-18T09:37:11Z",
+  "collected_at": "2026-11-18T16:36:27Z",
   "method_version": "1",
   "provider_retry_after": {
     "languages": null,
@@ -18610,16 +18610,42 @@
     },
     "openarena/engine": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"037ba34ac0cc620ddb18cae287748a4dd747f1f31498f1eb680c93917fe86251\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "AMPL": 709,
+            "Assembly": 45855,
+            "C": 15626548,
+            "CMake": 19922,
+            "GLSL": 26592,
+            "HTML": 69262,
+            "MATLAB": 2076,
+            "Makefile": 83189,
+            "NSIS": 11645,
+            "Objective-C": 17748,
+            "Perl": 8945,
+            "Rich Text Format": 1258,
+            "Roff": 21060,
+            "Shell": 39822,
+            "VBScript": 584,
+            "Yacc": 4247
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openarena/engine/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -18650,16 +18676,38 @@
     },
     "openartifact/openartifact": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"8c86178f40897ee6b9c7bd7f4b599cde87e39e08644c2b8383d7c910351af6c0\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 2034,
+            "CSS": 7124,
+            "Dockerfile": 8337,
+            "Go": 19282549,
+            "HTML": 4127,
+            "JavaScript": 13098,
+            "Makefile": 10598,
+            "PLpgSQL": 259838,
+            "Python": 4676,
+            "Shell": 149058,
+            "TypeScript": 2985050,
+            "Vue": 1311615
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openartifact/openartifact/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -18806,16 +18854,43 @@
     },
     "openbabel/openbabel": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"bd164826b9190d6ced9bc37bac45debba70b0ef86adfd77d4dc6fff78160770a\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Batchfile": 1774,
+            "C": 7614706,
+            "C#": 1287,
+            "C++": 15804593,
+            "CMake": 117421,
+            "HTML": 37611,
+            "Java": 475,
+            "PHP": 15463,
+            "POV-Ray SDL": 31822,
+            "Perl": 24258,
+            "Python": 415186,
+            "R": 1261,
+            "Ruby": 2334,
+            "SWIG": 128329,
+            "Scala": 552,
+            "Shell": 8561,
+            "XSLT": 775
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openbabel/openbabel/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -18942,16 +19017,34 @@
     },
     "openbankproject/obp-api": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"930a1de069cae8195ef98b1ddf1888d98d8fda31c881ff1e071e49144dcb86bc\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Dockerfile": 921,
+            "Java": 981,
+            "JavaScript": 1344,
+            "PLpgSQL": 17492,
+            "Python": 134618,
+            "Scala": 24158413,
+            "Shell": 119404,
+            "TSQL": 910801
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openbankproject/obp-api/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -18982,16 +19075,40 @@
     },
     "openbao/openbao": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"f76aa02fdc89ca035c34dadba20682b3c82db7d3ed30966cd8c6833dc08d1d4c\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 10268,
+            "Dockerfile": 5699,
+            "Emacs Lisp": 151,
+            "Go": 15682347,
+            "Go Template": 1523,
+            "HCL": 54722,
+            "HTML": 3141,
+            "Handlebars": 814011,
+            "JavaScript": 2696261,
+            "MDX": 3561070,
+            "Makefile": 25672,
+            "SCSS": 141241,
+            "Shell": 52209,
+            "TypeScript": 157053
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openbao/openbao/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19138,16 +19255,30 @@
     },
     "openbionics/prosthetic-hands": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"783d0b8f54dec3e935aff891933ad6d1842ca34e0ad1bbfee06345c8511ad60b\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C++": 65294,
+            "M": 219,
+            "MATLAB": 6004,
+            "TeX": 114686
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openbionics/prosthetic-hands/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19178,16 +19309,52 @@
     },
     "openbmc/openbmc": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"a36bae9523bdf290a83bd640f3cee3992561a67503768c6b50866b3a5c5429aa\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Awk": 205,
+            "BitBake": 11591675,
+            "C": 488642,
+            "C++": 10507,
+            "CMake": 9801,
+            "CSS": 19923,
+            "Clojure": 48,
+            "Dockerfile": 1933,
+            "Fortran": 75,
+            "Go": 212,
+            "HTML": 1472294,
+            "JavaScript": 223578,
+            "Jinja": 4852,
+            "Lua": 1521,
+            "M4": 16608,
+            "Makefile": 23555,
+            "Meson": 4032,
+            "NSIS": 324,
+            "PHP": 143719,
+            "Perl": 293028,
+            "Python": 9152504,
+            "Roff": 157435,
+            "Rust": 1409,
+            "Shell": 2320157,
+            "TypeScript": 1673,
+            "sed": 638
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openbmc/openbmc/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19314,16 +19481,40 @@
     },
     "openboard-org/openboard": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"18bb7fc74f3824a9860a2dcf54fcd1909e1af80d5588e998db6051a520c60fbc\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "AppleScript": 959,
+            "Batchfile": 4486,
+            "C": 17965,
+            "C++": 3589226,
+            "CMake": 27278,
+            "CSS": 346946,
+            "HTML": 665622,
+            "Inno Setup": 12854,
+            "JavaScript": 3088951,
+            "Objective-C": 8105,
+            "Objective-C++": 46117,
+            "Perl": 37869,
+            "QMake": 41938,
+            "Shell": 43936
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openboard-org/openboard/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19367,16 +19558,36 @@
     },
     "openboxes/openboxes": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"f8b86251b36b83e4b5ba2c7ebd25bc772acc2ff51292f1862002e7d1b206f232\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Batchfile": 2286,
+            "CSS": 277402,
+            "CoffeeScript": 1234,
+            "Dockerfile": 1112,
+            "Groovy": 10669881,
+            "HTML": 37107,
+            "JavaScript": 4318135,
+            "Less": 1654,
+            "SCSS": 148438,
+            "Shell": 6117
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openboxes/openboxes/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19503,16 +19714,27 @@
     },
     "openbq-org/openbb": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"78386341f19453e4eda976a6ee7aff7c7d12e4d85fb9fe523b3b3f1bc5c25061\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Python": 30636472
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openbq-org/openbb/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19556,16 +19778,25 @@
     },
     "opencarlink-cmd/opencarlink": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"16458149afaaaf94e6735e961ce572bd838be7440ad741f105c8e6778117ec32\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {}
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencarlink-cmd/opencarlink/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19596,16 +19827,36 @@
     },
     "opencart/opencart": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"72297d4fc0474fa4da9df8b6e30a63bb349a7aafe024f7e2ecf95510db580958\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 595226,
+            "Dockerfile": 6300,
+            "HTML": 158450,
+            "JavaScript": 4087865,
+            "Makefile": 6018,
+            "PHP": 5127133,
+            "SCSS": 398347,
+            "Shell": 6807,
+            "Twig": 1307100,
+            "TypeScript": 2351
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencart/opencart/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19732,16 +19983,34 @@
     },
     "opencfp/opencfp": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"732d31932ccd37fa85a4a83c83f84dc8d0086981d27d364920e66c410a12b1e0\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Dockerfile": 4211,
+            "JavaScript": 31818,
+            "Makefile": 1587,
+            "PHP": 871400,
+            "Procfile": 29,
+            "SCSS": 2907,
+            "Shell": 5311,
+            "Twig": 84200
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencfp/opencfp/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19868,16 +20137,39 @@
     },
     "openchamber/openchamber": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"e710dd3d7057f044d1e44c4c73448060976d522247da196835e11ff8ce96263e\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 209655,
+            "Dockerfile": 2864,
+            "HTML": 46344,
+            "Java": 85609,
+            "JavaScript": 18564932,
+            "MDX": 4582143,
+            "NSIS": 466,
+            "Nix": 27678,
+            "Ruby": 2421,
+            "Shell": 41591,
+            "Swift": 72085,
+            "TypeScript": 46726859,
+            "Zig": 692
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openchamber/openchamber/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19921,16 +20213,36 @@
     },
     "opencharm-labs/opencharm": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"7cdcdb17da851e9605ff297ff6235260868815d1c51732de776820201269fe7c\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 1136708,
+            "C++": 360559,
+            "CMake": 10792,
+            "CSS": 25200,
+            "HTML": 596775,
+            "JavaScript": 129797,
+            "Python": 15547,
+            "Rust": 197299,
+            "Shell": 12904,
+            "TypeScript": 929635
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencharm-labs/opencharm/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -19974,16 +20286,29 @@
     },
     "openchemistry/openchemistry": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"9e751219a63d736b6afe55a398eaa2af03dea4908eed6e1fd75ba6e1f378eab7\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 6033,
+            "CMake": 50588,
+            "Python": 12562
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openchemistry/openchemistry/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20014,16 +20339,32 @@
     },
     "openchoice-team/openliterature": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"4d1695e91983f87eb76755e92c8493fd3a191e6913ba31d1141c7e2ae56826c1\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 32661,
+            "Dockerfile": 466,
+            "HTML": 606,
+            "JavaScript": 2480,
+            "Rust": 69898,
+            "TypeScript": 379554
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openchoice-team/openliterature/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20054,16 +20395,35 @@
     },
     "openchoreo/openchoreo": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"7d5bb52e5b729a5e95d0893eba851a063f28cf0c4a53d058dede9af90d4ae62f\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Dockerfile": 21513,
+            "Go": 18920386,
+            "Go Template": 49444,
+            "JavaScript": 610,
+            "Jinja": 120647,
+            "Makefile": 136708,
+            "Python": 591631,
+            "Shell": 252283,
+            "TypeScript": 238399
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openchoreo/openchoreo/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20210,16 +20570,44 @@
     },
     "openclaw/openclaw": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"afe4aa12d07e715497f84d54767adcd5bac47f453a720d25a69d87a9ed05fb4b\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "AppleScript": 2650,
+            "C": 62690,
+            "CSS": 2822422,
+            "Dockerfile": 47389,
+            "Go": 325287,
+            "HTML": 119813,
+            "JavaScript": 13705494,
+            "Kotlin": 10183723,
+            "Objective-C": 13726,
+            "PLpgSQL": 48772,
+            "PowerShell": 123356,
+            "Python": 1353154,
+            "QML": 24912,
+            "Ruby": 147640,
+            "Rust": 2216569,
+            "Shell": 3233318,
+            "Swift": 22758602,
+            "TypeScript": 466228964
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openclaw/openclaw/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20263,16 +20651,35 @@
     },
     "openclinica/openclinica": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"8f342215b2f6d0b16265535fa746d6958b61254e52c042dab5d76c3ada73739e\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 299859,
+            "FreeMarker": 16803,
+            "HTML": 285257,
+            "Java": 17879694,
+            "JavaScript": 780628,
+            "PLpgSQL": 123566,
+            "Rich Text Format": 18496,
+            "Shell": 6524,
+            "XSLT": 640578
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openclinica/openclinica/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20316,16 +20723,41 @@
     },
     "openclonk/openclonk": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"56d1e7d5a323e037a90c7f33fb0db60167879e4213a6d045592bcfd6d54e94e8\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 4595710,
+            "C++": 6951985,
+            "CMake": 115185,
+            "CSS": 921,
+            "GLSL": 21852,
+            "Makefile": 2710,
+            "NSIS": 31979,
+            "Nix": 1543,
+            "Objective-C": 29090,
+            "Objective-C++": 67253,
+            "PHP": 34835,
+            "PowerShell": 13928,
+            "Python": 13475,
+            "Rust": 5283,
+            "Shell": 6301
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/openclonk/openclonk/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20356,16 +20788,39 @@
     },
     "opencloud-eu/opencloud": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"319e13df82d579114d32120ab2a25df5964be62b801fd51b551ff77f8075f911\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 5596,
+            "Dockerfile": 5031,
+            "Gherkin": 3857301,
+            "Go": 6358112,
+            "Go Template": 27879,
+            "HTML": 689,
+            "JavaScript": 129460,
+            "Makefile": 60586,
+            "Open Policy Agent": 1924,
+            "PHP": 1313295,
+            "Shell": 72539,
+            "Starlark": 130224,
+            "TypeScript": 7625
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencloud-eu/opencloud/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20409,16 +20864,35 @@
     },
     "opencloudgaming/opennow-ps5": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"78e2f3de84f9d5558e1afb07bd0eebfac139cfea232c877c65fee21adff073fa\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 97811,
+            "C++": 1565313,
+            "CMake": 307,
+            "Dockerfile": 785,
+            "Linker Script": 2496,
+            "Makefile": 8667,
+            "PowerShell": 38623,
+            "Python": 74148,
+            "Shell": 101587
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencloudgaming/opennow-ps5/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20462,16 +20936,35 @@
     },
     "opencmiss/cm": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"cddb166ce7b4ca906ee5fbb64740d8a1eb62fa46f71e6fd593df443e4279338f\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 209574,
+            "C++": 722,
+            "CMake": 33963,
+            "Fortran": 20009443,
+            "HTML": 1124,
+            "Makefile": 109258,
+            "Perl": 6204,
+            "Python": 163599,
+            "Shell": 1054
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencmiss/cm/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20502,16 +20995,31 @@
     },
     "opencost/opencost": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"e0d6f71039797ec047948f176da9c2a459bc0ff25078442960cbd1939f2403a6\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Go": 6878657,
+            "Just": 5180,
+            "Makefile": 557,
+            "Shell": 559,
+            "Starlark": 1493
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencost/opencost/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20658,16 +21166,41 @@
     },
     "opencourant/opencourant": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"8ad2ad4f786cf527ca8179a7059e18ea7bc79b6a9f67f82ce065aa31a553e2cc\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Batchfile": 20622,
+            "C": 1012496,
+            "C++": 8093131,
+            "CMake": 380250,
+            "Cuda": 151677,
+            "Dockerfile": 2586,
+            "Fancy": 33467,
+            "Fortran": 89321395,
+            "Makefile": 2833,
+            "Pascal": 513094,
+            "Pawn": 9727,
+            "Perl": 441456,
+            "Python": 407658,
+            "Raku": 2013,
+            "Shell": 47364
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencourant/opencourant/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20711,16 +21244,38 @@
     },
     "opencover/opencover": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"8b210fa4db44751e8e9e8bef1ca9c562f571e8d86b753e25901b124b28c1a1e3\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Batchfile": 10336,
+            "C": 13188,
+            "C#": 792510,
+            "C++": 2326380,
+            "F#": 1790,
+            "Gherkin": 6302,
+            "HTML": 3315,
+            "JavaScript": 39,
+            "PowerShell": 2118,
+            "Rich Text Format": 237083,
+            "Visual Basic .NET": 4337,
+            "XSLT": 13981
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencover/opencover/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20764,16 +21319,48 @@
     },
     "opencpn/opencpn": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"afc7217bec6d83d0358ea572f4f8a58f65abeeed3b48deebbbe212f94d62b8fb\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Batchfile": 75603,
+            "C": 35637596,
+            "C#": 2765,
+            "C++": 19650221,
+            "CMake": 442458,
+            "Cython": 49082,
+            "Dockerfile": 329,
+            "HTML": 22505,
+            "Java": 433213,
+            "JavaScript": 2834,
+            "Jinja": 7782,
+            "M4": 21510,
+            "Makefile": 225320,
+            "NSIS": 9041,
+            "Perl": 2992,
+            "Procfile": 152,
+            "Python": 46767,
+            "QMake": 6596,
+            "Roff": 32802,
+            "Ruby": 1831,
+            "Shell": 453374,
+            "Tcl": 18195
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencpn/opencpn/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20817,16 +21404,36 @@
     },
     "opencti-platform/opencti": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"f0022d4edbfe202bed7555e72ffb818bd06237fd601ccfad33342bc3ba979ba5\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "ANTLR": 5258,
+            "Batchfile": 760,
+            "CSS": 26080,
+            "Dockerfile": 5002,
+            "HTML": 43066,
+            "JavaScript": 5730420,
+            "Makefile": 846,
+            "Python": 2931341,
+            "Shell": 8758,
+            "TypeScript": 38127188
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencti-platform/opencti/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -20870,16 +21477,29 @@
     },
     "opencut-app/opencut": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"b3032eab24596f6885cb743b86f690895f15e76ec6476d9806dadda5f46c1bbc\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-11-18T16:36:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 4631,
+            "Rust": 38455,
+            "TypeScript": 223183
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/opencut-app/opencut/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -25246,6 +25866,59 @@
         "success_time_precision": "second"
       }
     },
+    "openmeeg/openmeeg": {
+      "languages": {
+        "checked_at": null,
+        "error": null,
+        "etag": null,
+        "fetch_status": "not_checked",
+        "http_status": null,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openmeeg/openmeeg/languages",
+        "status": "pending"
+      },
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
+        "error": null,
+        "etag": "\"5a03ae19451449dc1fcfa2d432ffbefe9574e485d9d63fec52d7dceb4ee837b6\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2026-10-01T17:29:00Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/openmeeg/openmeeg/releases/tag/2.6.0",
+            "published_at": "2026-10-01T17:29:00Z",
+            "release_id": 401196004,
+            "tag_name": "2.6.0"
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openmeeg/openmeeg/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/openmeeg/openmeeg",
+        "status": "unavailable"
+      }
+    },
     "openmm/openmm": {
       "languages": {
         "checked_at": null,
@@ -26681,6 +27354,59 @@
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openpanel-dev/openpanel",
+        "status": "unavailable"
+      }
+    },
+    "openpbs/openpbs": {
+      "languages": {
+        "checked_at": null,
+        "error": null,
+        "etag": null,
+        "fetch_status": "not_checked",
+        "http_status": null,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openpbs/openpbs/languages",
+        "status": "pending"
+      },
+      "release": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
+        "error": null,
+        "etag": "\"0b87f5cf8419a518aff0f653089a42f76036d3608c879a2d0686d2bb3a533eb1\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-18T16:36:27Z",
+          "observed_at": "2023-06-07T05:48:27Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "html_url": "https://github.com/openpbs/openpbs/releases/tag/v23.06.06",
+            "published_at": "2023-06-07T05:48:27Z",
+            "release_id": 107612197,
+            "tag_name": "v23.06.06"
+          }
+        },
+        "last_success_at": "2026-11-18T16:36:27Z",
+        "retry_after": null,
+        "source_url": "https://api.github.com/repos/openpbs/openpbs/releases/latest",
+        "status": "available",
+        "success_time_precision": "second"
+      },
+      "scorecard": {
+        "check_time_precision": "second",
+        "checked_at": "2026-11-18T16:36:27Z",
+        "error": "not_found",
+        "etag": null,
+        "fetch_status": "not_found",
+        "http_status": 404,
+        "last_good": null,
+        "last_success_at": null,
+        "retry_after": null,
+        "source_url": "https://api.scorecard.dev/projects/github.com/openpbs/openpbs",
         "status": "unavailable"
       }
     },
@@ -38001,5 +38727,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "4933f3ea6d86575cad69d01a5705fc20ac896b18"
+  "source_sha": "00977fd4a3655abb3ca2d79a41f0a46480601226"
 }
