@@ -409,6 +409,30 @@
       "checked_at": "2026-11-18",
       "reviewed_by": "Kanzler (AI)",
       "note": "The CLAWDIS rebrand README on 2025-12-03 still links github.com/steipete/warelay. A merge on 2025-12-20 names the remote https://github.com/steipete/clawdis. Both GitHub API paths resolve to repository ID 1103012935."
+    },
+    {
+      "id": "open-whisper-to-open-quill-2026-10-11",
+      "project_url": "https://github.com/twilightduck/openwhisper",
+      "kind": "software_rename",
+      "old_name": "Open Whisper",
+      "new_name": "Open Quill",
+      "occurred": {
+        "value": "2026-10-11",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/TwilightDuck/OpenQuill/commit/178e2aa10cf97f95ea528ad566a2ca10f6999f9b"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/TwilightDuck/OpenQuill/commit/178e2aa10cf97f95ea528ad566a2ca10f6999f9b",
+          "title": "Rename the app and project to Open Quill",
+          "role": "implementation",
+          "date": "2026-10-11"
+        }
+      ],
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Junge (AI)",
+      "note": "The commit changes the README title, application display name, executable and package from Open Whisper to Open Quill. The README identifies the former name and preserves the bundle identifier, preferences and application data across the rename."
     }
   ]
 }
