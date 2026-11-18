@@ -28,6 +28,7 @@ import star_history
 import deployment
 import build_webmcplet_list
 import plate_grid
+import collection_log
 import qr
 from repository_hosts import repository_host
 from footer_art import discover_footer_art
@@ -701,6 +702,7 @@ def plate_html(project, categories, catalog, number, cutouts, variants=None):
         history_html=history_view.evidence(history),
         freshness=freshness,
         hn_window=hn_window(catalog, project),
+        activity=project.get("_collection_events", ()),
     )
     return specimen_plate(
         project, number, tags, function_detail, grid, (cutouts or {}).get(project["id"]), variants
@@ -1060,7 +1062,15 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
     shutil.rmtree(records, ignore_errors=True)
     records.mkdir()
     categories = {c["id"]: c["name"] for c in catalog["categories"]}
+    activity_context = collection_log.load(root)
+    collection_dir = output / "collection"
+    shutil.rmtree(collection_dir, ignore_errors=True)
+    collection_dir.mkdir()
     for number, project in enumerate(catalog["projects"], 1):
+        events = collection_log.derive(project, activity_context)
+        (collection_dir / (project["id"] + ".json")).write_text(
+            compact_json(collection_log.payload(project, events, activity_context)), encoding="utf-8")
+        project = dict(project, _collection_events=events)
         (records / (project["id"] + ".html")).write_text(
             render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root, variants=variants), encoding="utf-8"
         )
