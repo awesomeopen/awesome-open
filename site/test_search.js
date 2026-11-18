@@ -119,3 +119,14 @@ test('a failed load clears so the next search retries', async () => {
   assert.equal(search.find([short,{id:id('g'),name:'Obsolete'}], 'OBS').size,1);
   assert.equal(search.find([{id:id('h'), name:'OpenWhispr'}], 'whisper').size,0);
 });
+
+test('compact Open alias finds the same project without invented aliases or acronym matches', () => {
+  const twilight = {id:id('t'), name:'Open Whisper', aliases:[{name:'Open Quill'}],
+    history:[{kind:'software_rename',old_name:'Open Whisper',new_name:'Open Quill'}]};
+  const separate = {id:id('w'),name:'OpenWhispr'};
+  for (const q of ['OpenWhisper','OpenQuill','Open Quill','whisper'])
+    assert.deepEqual([...search.find([twilight,separate],q).keys()],[twilight.id]);
+  for (const q of ['OQ','OpenQui','whispr'])
+    assert.equal(search.find([twilight],q).size,0);
+  assert.deepEqual(twilight.aliases,[{name:'Open Quill'}]);
+});

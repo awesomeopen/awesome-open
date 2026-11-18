@@ -44,7 +44,11 @@
   }
 
   function aliasNames(project) {
-    return (project.aliases || []).map(function (alias) { return fold(alias.name); });
+    return (project.aliases || []).reduce(function (names, alias) {
+      names.push(fold(alias.name));
+      if (/^Open [\p{L}\p{N}]+$/u.test(alias.name)) names.push(fold(alias.name.replace(/ /g, "")));
+      return names;
+    }, []);
   }
 
   function formerNames(project) {
