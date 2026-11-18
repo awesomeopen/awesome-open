@@ -3,7 +3,7 @@
 The moss block between HN evidence and Scorecard shows recent dated activity
 retained for the project. Its `i` opens an oldest-first overview with provenance.
 
-The build derives up to eight records from completed HN/star observations,
+The build derives up to four records from completed HN/star observations,
 metadata attempts and successes, Function review dates and name-change review
 dates. Unknown collection dates are omitted. Rename occurrence dates stay in the
 name-change timeline; they never stand in for evidence collection. Review dates

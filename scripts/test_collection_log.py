@@ -8,7 +8,7 @@ class CollectionLogTests(unittest.TestCase):
              'history':[{'occurred':{'value':'2000-01-01'},'checked_at':'2026-11-18'}]}
         archive = {('hn',p['url']):[log.event(f'2026-10-{d:02d}', 'hn','HN evidence collected','https://example.org') for d in range(1,25)]}
         events = log.derive(p,(archive,{}))
-        self.assertEqual(len(events),8)
+        self.assertEqual(len(events),4)
         self.assertEqual(events[-1]['at'],'2026-11-18')
         self.assertEqual(events[-1]['label'],'Name-change evidence reviewed')
         self.assertNotIn('2000',str(events))
@@ -32,7 +32,7 @@ class CollectionLogTests(unittest.TestCase):
                    'description':'Test','categories':[], 'history':[]}
         original = copy.deepcopy(project)
         records = [log.event('2026-11-18T12:00:00Z','hn','HN evidence collected',
-                   log.REPO+'data/chart_observations.json#'+'a'*64)] * 8
+                   log.REPO+'data/chart_observations.json#'+'a'*64)] * 4
         self.assertLess(len(log.render(records).encode()),4096)
         log.derive(project,({},{}))
         self.assertEqual(project,original)

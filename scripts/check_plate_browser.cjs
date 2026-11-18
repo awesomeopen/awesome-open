@@ -30,7 +30,7 @@ module.exports=async({page,url,data,capture})=>{
    assert.equal(await plate.locator('.pg-alt').count(),p.alternatives.length,'Alternatives are the only variable row');
    assert.equal(await plate.locator('.pg-collection:visible').count(),1,'Collection log remains visible on mobile');
    assert.equal(await plate.locator('.collection-replay').getAttribute('aria-hidden'),'true');
-   assert.ok(await plate.locator('.collection-events li').count()<=8,'Bounded log');
+   assert.ok(await plate.locator('.collection-events li').count()<=4,'Bounded log');
    const sparks=await plate.locator('.pg-evidence .pg-spark-link,.pg-evidence .pg-spark-empty').evaluateAll(ns=>ns.map(n=>n.getBoundingClientRect().bottom));
    if(width>720)assert.ok(Math.abs(sparks[0]-sparks[1])<1,'Sparklines share a baseline');
    assert.equal(await qr.evaluate(n=>getComputedStyle(n).borderTopWidth),'2px');

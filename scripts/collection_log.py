@@ -3,7 +3,7 @@ import json
 from datetime import datetime, timezone
 from html import escape
 
-LIMIT = 8
+LIMIT = 4
 REPO = 'https://github.com/awesomeopen/awesome-open/blob/main/'
 
 
@@ -32,7 +32,7 @@ def load(root):
             continue
         kind = observation['kind']
         item = event(date['value'], kind, {'hn': 'HN evidence collected', 'stars': 'Star history collected'}[kind],
-                     REPO + 'data/chart_observations.json#' + oid)
+                     REPO + 'data/chart_observations.json')
         indexed.setdefault((kind, observation['identity']), []).append(item)
     metrics = json.loads((root / 'data/github_metrics.json').read_text())
     return indexed, metrics.get('repositories', {})
