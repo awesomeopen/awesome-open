@@ -522,7 +522,7 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-trophies:hover {color:var(--rs-scarlet);}
 
 /* Dated activity occupies the former moss reserve; readable at every width. */
-.pg-collection {grid-column:span 2;background:var(--rs-verdigris-art);min-width:0;}
+.pg-collection {grid-column:span 2;background:color-mix(in srgb,var(--rs-verdigris-art) 50%,var(--rs-paper));min-width:0;}
 .collection-caption {font-size:10px;margin:0 0 8px;}
 .collection-replay {font-family:var(--rs-font-mono,monospace);font-size:10px;line-height:1.6;min-height:4.8em;overflow:hidden;}
 .collection-replay span {display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
