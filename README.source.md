@@ -205,6 +205,7 @@
 | [OpenNMS](https://github.com/OpenNMS/opennms) | Network management and monitoring platform. |
 | [OpenObserve](https://github.com/openobserve/openobserve) | Observability platform for logs, metrics, traces, and user monitoring.<br>Alternative to: [Datadog](https://github.com/openobserve/openobserve#readme), [Splunk](https://github.com/openobserve/openobserve#readme), [Elasticsearch](https://github.com/openobserve/openobserve#readme) |
 | [OpenPanel](https://openpanel.com/) | Multi-user web hosting control panel with per-user containers, website management, and configurable server services. |
+| [OpenPBS](https://github.com/openpbs/openpbs) | Job scheduling and workload management for high-performance computing clusters, clouds, and supercomputers. |
 | [Open Policy Agent](https://github.com/open-policy-agent/opa) | General-purpose policy engine. |
 | [OpenResty](https://github.com/openresty/openresty) | Web application platform based on Nginx and LuaJIT. |
 | [OpenSearch](https://github.com/opensearch-project/OpenSearch) | Distributed search and analytics engine with a REST API.<br>Alternative to: [Elasticsearch](https://docs.opensearch.org/latest/migration-assistant/), [Apache Solr](https://docs.opensearch.org/latest/migration-assistant/solr-migration/) |
@@ -592,6 +593,7 @@
 | [openLCA](https://github.com/GreenDelta/olca-app) | Desktop software for life-cycle assessment, environmental footprint analysis, and sustainability modeling. |
 | [OpenMC](https://github.com/openmc-dev/openmc) | Monte Carlo particle transport simulation. |
 | [OpenMDAO](https://github.com/OpenMDAO/OpenMDAO) | Python platform for systems analysis and multidisciplinary optimization. |
+| [OpenMEEG](https://github.com/openmeeg/openmeeg) | C++ library and tools for solving forward problems in electroencephalography and magnetoencephalography. |
 | [OpenMesh](https://www.graphics.rwth-aachen.de/software/openmesh/) | C++ library with Python bindings for representing and manipulating polygonal meshes. |
 | [Open-Meteo](https://github.com/open-meteo/open-meteo) | Weather API providing forecasts and historical weather data. |
 | [OpenMM](https://github.com/openmm/openmm) | Molecular simulation toolkit with GPU acceleration. |
