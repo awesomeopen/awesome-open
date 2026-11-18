@@ -3,7 +3,7 @@
     "limit": 400,
     "paused_reason": "GitHub history HTTP 403",
     "requests_used": 1,
-    "utc_date": "2026-11-17"
+    "utc_date": "2026-11-18"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
   "metric": "Stars retained on the repository at fetch time, grouped by the month their stars were created. Removed stars are absent and past buckets can change.",
@@ -552998,7 +552998,8 @@
       "status": "ok"
     },
     "wandb/openui": {
-      "checked_at": "2026-10-15T18:22:24.727650+00:00",
+      "checked_at": "2026-11-18T03:41:30.846517+00:00",
+      "error": "GitHub history HTTP 403",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
@@ -554636,9 +554637,9 @@
       "name": "OpenUI",
       "readme_url": "https://github.com/wandb/openui",
       "repo": "wandb/openui",
-      "source_sha": "3548bd4e01f213d16f567481b8e399071b5f5171",
+      "source_sha": "7d6f811ea8258e857935bba5afa1b22f12630424",
       "source_url": "https://api.github.com/repos/wandb/openui/stargazers/history",
-      "status": "ok"
+      "status": "unavailable"
     },
     "wasp-lang/open-saas": {
       "checked_at": "2026-10-15T18:22:24.727650+00:00",
@@ -564832,12 +564833,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
+    "attempted_repositories": 1,
     "due_repositories": 481,
     "eligible_repositories": 531,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "e005ce41297bee44a5e0fc7cb1da4bbb8b762326",
-  "updated_at": "2026-11-17T23:24:58.704991+00:00"
+  "source_sha": "7d6f811ea8258e857935bba5afa1b22f12630424",
+  "updated_at": "2026-11-18T03:41:30.846517+00:00"
 }
