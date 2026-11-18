@@ -18,6 +18,9 @@ class LazyDetailSiteTests(unittest.TestCase):
         cls.output, cls.catalog = baseline_site(source_sha='a' * 40)
         cls.initial = (cls.output / 'index.html').read_text()
         cls.page = Page(cls.initial)
+        assert 'collection-events' not in cls.initial
+        assert '_collection_events' not in (cls.output / 'catalog.json').read_text()
+        assert 'collection-events' not in (cls.output / 'search-text.json').read_text()
 
     def test_generated_routes_share_content_versioned_drawer_runtime(self):
         code = (self.output / 'catalog.js').read_bytes()
@@ -74,6 +77,8 @@ class LazyDetailSiteTests(unittest.TestCase):
     def test_static_records_preserve_every_plate_identity_evidence_and_local_asset(self):
         categories = {c['id']: c['name'] for c in self.catalog['categories']}
         from build_site import project_html
+        import collection_log
+        activity_context = collection_log.load(ROOT)
         cutouts = attach_specimen_cutouts(self.catalog, ROOT)
         variants = attach_specimen_variants(ROOT)
         for folio, project in enumerate(self.catalog['projects'], 1):
@@ -91,7 +96,7 @@ class LazyDetailSiteTests(unittest.TestCase):
             self.assertIn('name-' + pid, page.by_id)
             drawer = next(n for n in page.nodes('details') if n.has_class('specimen-drawer'))
             self.assertIn('open', drawer.attrs)
-            expected = project_html(project, categories, self.catalog, folio, cutouts, position=1, variants=variants)
+            expected = project_html(dict(project, _collection_events=collection_log.derive(project, activity_context)), categories, self.catalog, folio, cutouts, position=1, variants=variants)
             expected = expected.replace('<details class="specimen-drawer">', '<details class="specimen-drawer" open>', 1)
             self.assertIn(expected, text)
             self.assertIn(project['url'], page.links)

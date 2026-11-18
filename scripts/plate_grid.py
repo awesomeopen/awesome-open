@@ -7,6 +7,7 @@ alternatives row disappears when there is nothing to show.
 from html import escape as _escape
 
 import deployment
+import collection_log
 
 UNKNOWN = "Unknown"
 NO_GITHUB = "No GitHub repository mapped."
@@ -290,12 +291,12 @@ def alternatives(project):
     return f'<div class="pg-row pg-alts">{cells}</div>'
 
 
-def render(project, *, timeline_html="", history_html="", freshness="", hn_window=None):
+def render(project, *, timeline_html="", history_html="", freshness="", hn_window=None, activity=()):
     """Grid rows; the plate closes the panel with its departure."""
     return (
         f'<div class="pg-row pg-repository">{repository(project, freshness)}</div>'
         f'<div class="pg-row pg-tight">{timeline_box(timeline_html, history_html)}</div>'
-        f'<div class="pg-row pg-evidence">{stars_box(project)}{hn_box(project, hn_window)}{reserved()}{signal_box(project, "scorecard")}</div>'
+        f'<div class="pg-row pg-evidence">{stars_box(project)}{hn_box(project, hn_window)}{collection_log.render(activity)}{signal_box(project, "scorecard")}</div>'
         f'<div class="pg-row pg-release-runs">{signal_box(project, "release")}{languages_box(project)}{runs_box(project)}</div>'
         f"{alternatives(project)}"
     )

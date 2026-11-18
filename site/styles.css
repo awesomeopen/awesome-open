@@ -520,3 +520,13 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-trophies {display:inline-flex;align-items:center;gap:6px;margin:0 0 18px;font:13px/1.4 var(--mono);color:var(--rs-blueprint);text-decoration:none;}
 .plate-trophies svg {flex:none;width:18px;height:18px;}
 .plate-trophies:hover {color:var(--rs-scarlet);}
+
+/* Dated activity occupies the former moss reserve; readable at every width. */
+.pg-collection {grid-column:span 2;background:var(--rs-verdigris-art);min-width:0;}
+.collection-caption {font-size:10px;margin:0 0 8px;}
+.collection-replay {font-family:var(--rs-font-mono,monospace);font-size:10px;line-height:1.6;min-height:4.8em;overflow:hidden;}
+.collection-replay span {display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.collection-events {padding-left:1.2em;max-height:45vh;overflow:auto;}
+.collection-events li {margin-bottom:8px;overflow-wrap:anywhere;}
+.collection-events time {display:block;font-family:monospace;font-size:11px;}
+@media(max-width:720px){.pg-collection {grid-column:1 / -1;}}

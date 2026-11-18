@@ -26,9 +26,11 @@ module.exports=async({page,url,data,capture})=>{
    const evidence=await plate.locator('.pg-evidence').evaluate(n=>({columns:getComputedStyle(n).gridTemplateColumns.split(' ').map(Number.parseFloat)}));
    assert.equal(evidence.columns.length,width>1100?8:width>720?4:1,'Evidence grid wraps at narrow widths');
    assert.ok(evidence.columns.every(w=>Math.abs(w-evidence.columns[0])<1),'Evidence columns have equal width');
-   assert.equal(await plate.locator('.pg-row:not(.pg-alts)>.pg-box').count(),11,'Every record keeps all evidence boxes');
+   assert.equal(await plate.locator('.pg-row:not(.pg-alts)>.pg-box').count(),12,'Every record keeps all evidence boxes');
    assert.equal(await plate.locator('.pg-alt').count(),p.alternatives.length,'Alternatives are the only variable row');
-   assert.equal(await plate.locator('.pg-reserved:visible').count(),width>720?1:0,'Reserved boxes hide on one column');
+   assert.equal(await plate.locator('.pg-collection:visible').count(),1,'Collection log remains visible on mobile');
+   assert.equal(await plate.locator('.collection-replay').getAttribute('aria-hidden'),'true');
+   assert.ok(await plate.locator('.collection-events li').count()<=8,'Bounded log');
    const sparks=await plate.locator('.pg-evidence .pg-spark-link,.pg-evidence .pg-spark-empty').evaluateAll(ns=>ns.map(n=>n.getBoundingClientRect().bottom));
    if(width>720)assert.ok(Math.abs(sparks[0]-sparks[1])<1,'Sparklines share a baseline');
    assert.equal(await qr.evaluate(n=>getComputedStyle(n).borderTopWidth),'2px');
@@ -62,7 +64,7 @@ module.exports=async({page,url,data,capture})=>{
    await plate.locator('.plate-departure>a').focus();
    assert.equal(await plate.locator('.plate-departure>a').evaluate(n=>n===document.activeElement),true);
    // Box details open from the keyboard, fit the viewport, and close with Escape.
-   for(const selector of ['[data-signal="scorecard"]','.pg-runs']){
+   for(const selector of ['[data-signal="scorecard"]','.pg-runs','.pg-collection']){
     const summary=plate.locator(selector+' .pg-info>summary');
     await summary.focus();await page.keyboard.press('Enter');
     const pop=plate.locator(selector+' .pg-pop');
@@ -138,4 +140,24 @@ module.exports=async({page,url,data,capture})=>{
    if(name===names[0])await capture('pane-plate-'+width+'.png');
   }
  }
+ // Activity replay is silent, bounded, and stopped by interaction/reduced motion.
+ await page.setViewportSize({width:390,height:900});
+ await page.goto(new URL('records/'+tofu.id+'.html',url).href);
+ const log=page.locator('.pg-collection'), replay=log.locator('.collection-replay');
+ await log.scrollIntoViewIfNeeded(); await page.mouse.move(0,0);
+ if(await log.locator('.collection-events li').count()>1){
+  const before=await replay.textContent();
+  await page.waitForFunction(old=>document.querySelector('.collection-replay').textContent!==old,before,{timeout:8000});
+  await log.hover(); const hovered=await replay.textContent();
+  await page.waitForTimeout(6200); assert.equal(await replay.textContent(),hovered,'Hover pauses replay');
+  await page.emulateMedia({reducedMotion:'reduce'}); await page.mouse.move(0,0);
+  const reduced=await replay.textContent(); await page.waitForTimeout(6200);
+  assert.equal(await replay.textContent(),reduced,'Reduced motion stays static');
+  for(let i=0;i<3;i++){
+   await log.locator('summary').focus(); await page.keyboard.press('Enter');
+   assert.ok(await log.locator('.pg-pop').isVisible()); await page.keyboard.press('Escape');
+  }
+  await page.emulateMedia({reducedMotion:'no-preference'});
+ }
+
 };
