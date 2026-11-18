@@ -102,3 +102,20 @@ test('a failed load clears so the next search retries', async () => {
   await assert.rejects(loader.loadText(target, 'search-text.json', ''));
   assert.equal(await loader.loadText(target, 'search-text.json', ''), text);
 });
+
+ test('reviewed software names match in compact and full catalogs without path or acronym leakage', () => {
+  const full = {id: id('f'), name: 'OpenQuill', description: 'Dictation', history: [
+    {kind:'software_rename', old_name:'OpenWhisper'},
+    {kind:'repository_rename', old_name:'owner/SecretPath'},
+    {kind:'owner_transfer', old_name:'OldOwner'}]};
+  const compact = {...full, history: undefined, former_names:['OpenWhisper']};
+  for (const q of ['whisper','Open Whisper','OpenWhisper']) {
+    assert.deepEqual(search.find([full], q).get(full.id), search.find([compact], q).get(full.id));
+    assert.ok(search.find([compact], q).get(full.id).fields.includes('former_name'));
+  }
+  for (const q of ['whis','SecretPath','OldOwner']) assert.equal(search.find([full], q).size,0);
+  assert.equal(search.find([{...compact, former_names:['Open Whisper']}], 'OpenWhisper').size,1);
+  const short = {...compact, former_names:['OBS']};
+  assert.equal(search.find([short,{id:id('g'),name:'Obsolete'}], 'OBS').size,1);
+  assert.equal(search.find([{id:id('h'), name:'OpenWhispr'}], 'whisper').size,0);
+});

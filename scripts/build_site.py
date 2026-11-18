@@ -177,6 +177,10 @@ def search_index(catalog):
         }
         if project.get("aliases"):
             item["aliases"] = [{"name": alias["name"]} for alias in project["aliases"]]
+        former_names = sorted({event["old_name"] for event in project.get("history", [])
+                               if event["kind"] == "software_rename"})
+        if former_names:
+            item["former_names"] = former_names
         item["languages"] = project.get("languages")
         item["language_status"] = project.get("language_status", "unknown")
         item["leader_categories"] = project.get("leader_categories", [])

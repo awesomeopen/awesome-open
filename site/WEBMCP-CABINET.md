@@ -62,12 +62,12 @@ provides its own model and connection.
 `site/search.js` is the one matcher behind the Catalog's search box, the Cabinet's
 form and `cabinet_find`, so they return the same IDs, order and unknown values.
 
-- **Fields:** name, reviewed aliases, description, reviewed alternatives, function
+- **Fields:** name, reviewed aliases, reviewed former software names, description, reviewed alternatives, function
   summary, feature notes and repository languages. Every query word must appear in at least one of them.
 - **Order:** the rank is the weakest field any word needed, in the order above; ties
   go by name. With no query, the order is GitHub stars. Other orders are the Catalog's
   explicit sort choices.
-- **Loading:** names, aliases, descriptions and alternatives are in the embedded
+- **Loading:** names, aliases, former software names, descriptions and alternatives are in the embedded
   index. Summaries and notes are in `search-text.json`, fetched at the first search,
   because embedding them would nearly double `index.html`'s gzip size. Until it
   arrives the Catalog searches the embedded fields, then renders again. If it fails,
