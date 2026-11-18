@@ -9,7 +9,7 @@
 
   // Strongest first. Function summaries and feature notes load separately from
   // the embedded index, so `text` holds them once search-text.json has arrived.
-  var FIELDS = ["name", "alias", "description", "alternative", "summary", "feature", "language"];
+  var FIELDS = ["name", "alias", "former_name", "description", "alternative", "summary", "feature", "language"];
 
   function fold(value) {
     return String(value == null ? "" : value).normalize("NFKD")
@@ -47,9 +47,21 @@
     return (project.aliases || []).map(function (alias) { return fold(alias.name); });
   }
 
+  function formerNames(project) {
+    var names = project.former_names || (project.history || [])
+      .filter(function (event) { return event.kind === "software_rename"; })
+      .map(function (event) { return event.old_name; });
+    return names.reduce(function (out, name) {
+      // Preserve evidenced spelling and expose CamelCase word boundaries.
+      var variants = [fold(name), fold(name.replace(/([a-z])([A-Z])/g, "$1 $2"))];
+      if (/^Open [\p{L}\p{N}]+$/u.test(name)) variants.push(fold(name.replace(/ /g, "")));
+      return out.concat(variants);
+    }, []);
+  }
+
   function shortAliasNames(projects) {
     return new Set(projects.reduce(function (names, project) {
-      return names.concat(aliasNames(project).filter(function (name) {
+      return names.concat(aliasNames(project).concat(formerNames(project)).filter(function (name) {
         return /^[\p{L}\p{N}_]{1,4}$/u.test(name);
       }));
     }, []));
@@ -82,7 +94,9 @@
         // Preserve ordinary substring search; an exact reviewed short name such
         // as OBS must not match incidental prose like "obsolete". Alias-only
         // terms always use word boundaries, including Unicode letters/numbers.
-        var found = field === "alias"
+        var found = field === "former_name"
+          ? formerNames(project).some(function (name) { return boundaryMatch(name, token); })
+          : field === "alias"
           ? aliases.some(function (alias) { return boundaryMatch(alias, token); })
           : shortAliases.has(token) ? boundaryMatch(fields[field], token) : fields[field].indexOf(token) !== -1;
         if (!found) return;

@@ -106,3 +106,11 @@ absent repository dates. Browser checks exercise the seeded records at 320px and
 desktop in drawers and full records: label text, keyboard
 opening of "(i)", the source link and details fitting the viewport.
 
+
+## Finding former names
+
+Ordinary search and Cabinet search include the old software names from reviewed
+`software_rename` events. Names retain word boundaries, with CamelCase names
+such as OpenWhisper also searchable as Open Whisper. Repository paths and owner
+transfers remain history evidence only. Search results identify these matches as
+`former_name`; canonical identities, display names and HN attribution stay unchanged.
