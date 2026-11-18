@@ -1063,8 +1063,14 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
     records.mkdir()
     categories = {c["id"]: c["name"] for c in catalog["categories"]}
     activity_context = collection_log.load(root)
+    collection_dir = output / "collection"
+    shutil.rmtree(collection_dir, ignore_errors=True)
+    collection_dir.mkdir()
     for number, project in enumerate(catalog["projects"], 1):
-        project = dict(project, _collection_events=collection_log.derive(project, activity_context))
+        events = collection_log.derive(project, activity_context)
+        (collection_dir / (project["id"] + ".json")).write_text(
+            compact_json(collection_log.payload(project, events, activity_context)), encoding="utf-8")
+        project = dict(project, _collection_events=events)
         (records / (project["id"] + ".html")).write_text(
             render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root, variants=variants), encoding="utf-8"
         )

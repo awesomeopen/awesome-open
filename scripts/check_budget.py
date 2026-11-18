@@ -31,8 +31,8 @@ BUDGET = [
     ('Site total', 'total_bytes', 640 * MIB,
      'GitHub Pages publishes at most 1 GB; baseline 138 MiB, '
      'about 596 MiB projected at 1,000 records with artwork and plate variants for each'),
-    ('Site without specimen artwork', 'other_bytes', per_record(20 * MIB, 56 * KIB),
-     'Everything outside specimens/: 20 MiB + 56 KiB per record; baseline 16 MiB + 42 KiB per record'),
+    ('Site without specimen artwork', 'other_bytes', per_record(20 * MIB, 58 * KIB),
+     'Everything outside specimens/: 20 MiB + 58 KiB per record; +2 KiB for complete lazy collection overviews (PR 368); see site/COLLECTION-LOG.md'),
     ('Specimen artwork per illustrated project', 'specimen_average', 640 * KIB,
      'Original, cutout and the 512/768 px plate variants, averaged over projects with artwork; '
      'baseline 552 KiB'),

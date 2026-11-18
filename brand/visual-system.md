@@ -396,4 +396,5 @@ unknown/empty/stale states. See the [language contract](../site/REPOSITORY-LANGU
 The moss reserve between HN and Scorecard becomes a collection log with dated,
 monospaced replay and a native `i` chronology. It stays visible on mobile, pauses
 for interaction and reduced motion, and makes no sparse/stale judgments.
-See [collection log](../site/COLLECTION-LOG.md) for provenance and payload bounds.
+The `i` loads the full retained chronology separately; only the terminal replay is
+limited to four recent events. See [collection log](../site/COLLECTION-LOG.md) for provenance and payload bounds.

@@ -296,7 +296,7 @@ def render(project, *, timeline_html="", history_html="", freshness="", hn_windo
     return (
         f'<div class="pg-row pg-repository">{repository(project, freshness)}</div>'
         f'<div class="pg-row pg-tight">{timeline_box(timeline_html, history_html)}</div>'
-        f'<div class="pg-row pg-evidence">{stars_box(project)}{hn_box(project, hn_window)}{collection_log.render(activity)}{signal_box(project, "scorecard")}</div>'
+        f'<div class="pg-row pg-evidence">{stars_box(project)}{hn_box(project, hn_window)}{collection_log.render(activity, project["id"])}{signal_box(project, "scorecard")}</div>'
         f'<div class="pg-row pg-release-runs">{signal_box(project, "release")}{languages_box(project)}{runs_box(project)}</div>'
         f"{alternatives(project)}"
     )

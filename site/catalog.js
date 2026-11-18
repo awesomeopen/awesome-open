@@ -493,6 +493,46 @@
   function collectionReplay(document, window) {
     if (!window.IntersectionObserver || !window.MutationObserver) return;
     var states = new Map(), reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var histories = new Map();
+    function loadOverview(node) {
+      var details = node.querySelector('.collection-overview'), target = node.querySelector('.collection-history');
+      if (!details.open || target.dataset.loaded || target.dataset.loading) return;
+      var url = node.querySelector('.collection-source').href;
+      target.dataset.loading = 'true'; target.setAttribute('aria-busy', 'true');
+      target.textContent = 'Loading retained records…';
+      if (!histories.has(url)) histories.set(url, window.fetch(url).then(function (response) {
+        if (!response.ok) throw new Error('Collection unavailable');
+        return response.json();
+      }).then(function (data) {
+        if (data.version !== 1 || !Array.isArray(data.types) || !Array.isArray(data.events) ||
+            !data.types.every(function (t) { return t.length === 3 && t.every(function (v) { return typeof v === 'string'; }) &&
+              t[2].startsWith('https://github.com/awesomeopen/awesome-open/blob/'); }) ||
+            !data.events.every(function (e) { return Array.isArray(e) && typeof e[0] === 'string' &&
+              /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}Z)?$/.test(e[0]) && Number.isInteger(e[1]) && data.types[e[1]]; }))
+          throw new Error('Invalid collection records');
+        return data;
+      }).catch(function (error) { histories.delete(url); throw error; }));
+      histories.get(url).then(function (data) {
+        var list = document.createElement('ol'); list.className = 'collection-events';
+        data.events.forEach(function (e) {
+          var type = data.types[e[1]], li = document.createElement('li'), time = document.createElement('time'), a = document.createElement('a');
+          li.dataset.eventKind = type[0]; time.dateTime = e[0]; time.textContent = e[0].replace('T', ' ').replace('Z', ' UTC');
+          a.href = type[2]; a.textContent = type[1]; li.append(time, a);
+          if (e[2]) li.dataset.observation = e[2];
+          list.append(li);
+        });
+        target.replaceChildren();
+        var count = document.createElement('p'); count.textContent = data.events.length + ' dated retained records'; target.append(count, list);
+        Object.keys(data.undated || {}).forEach(function (kind) {
+          var p = document.createElement('p');
+          p.textContent = (kind === 'hn' ? 'HN' : 'Star history') + ': ' + data.undated[kind] + ' retained observations without a collection date.';
+          target.append(p);
+        });
+        target.dataset.loaded = 'true';
+      }).catch(function () {
+        target.textContent = 'Records could not be loaded. Close and reopen to retry, or use the download link.';
+      }).finally(function () { delete target.dataset.loading; target.removeAttribute('aria-busy'); });
+    }
     function stop(state) { window.clearTimeout(state.timer); state.timer = null; }
     function active(state) {
       var node = state.node, drawer = node.closest('details.specimen-drawer');
@@ -527,9 +567,8 @@
       });
       document.querySelectorAll('.pg-collection').forEach(function (node) {
         if (states.has(node)) return;
-        var lines = Array.from(node.querySelectorAll('.collection-events li')).map(function (li) {
-          return li.querySelector('time').dateTime.slice(0, 10) + ' · ' + li.querySelector('a').textContent;
-        });
+        var lines = JSON.parse(node.dataset.replay).map(function (row) { return row[0] + ' · ' + row[1]; });
+        node.querySelector('.collection-overview').addEventListener('toggle', function () { loadOverview(node); });
         var state = {node:node, lines:lines, index:lines.length - 1, visible:false, timer:null};
         states.set(node, state); observer.observe(node);
         ['mouseenter','mouseleave','focusin','focusout'].forEach(function (event) {

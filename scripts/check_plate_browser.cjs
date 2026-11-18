@@ -30,7 +30,7 @@ module.exports=async({page,url,data,capture})=>{
    assert.equal(await plate.locator('.pg-alt').count(),p.alternatives.length,'Alternatives are the only variable row');
    assert.equal(await plate.locator('.pg-collection:visible').count(),1,'Collection log remains visible on mobile');
    assert.equal(await plate.locator('.collection-replay').getAttribute('aria-hidden'),'true');
-   assert.ok(await plate.locator('.collection-events li').count()<=4,'Bounded log');
+   assert.ok(JSON.parse(await plate.locator('.pg-collection').getAttribute('data-replay')).length<=4,'Bounded replay');
    const sparks=await plate.locator('.pg-evidence .pg-spark-link,.pg-evidence .pg-spark-empty').evaluateAll(ns=>ns.map(n=>n.getBoundingClientRect().bottom));
    if(width>720)assert.ok(Math.abs(sparks[0]-sparks[1])<1,'Sparklines share a baseline');
    assert.equal(await qr.evaluate(n=>getComputedStyle(n).borderTopWidth),'2px');
@@ -144,10 +144,13 @@ module.exports=async({page,url,data,capture})=>{
  await page.emulateMedia({reducedMotion:'no-preference'});
  await page.clock.install();
  await page.setViewportSize({width:390,height:900});
+ let historyRequests=0;
+ page.on('request',r=>{if(r.url().includes('/collection/'+tofu.id+'.json'))historyRequests++});
  await page.goto(new URL('records/'+tofu.id+'.html',url).href);
+ assert.equal(historyRequests,0,'No history fetch before disclosure');
  const log=page.locator('.pg-collection'), replay=log.locator('.collection-replay');
  await log.scrollIntoViewIfNeeded(); await page.mouse.move(0,0);
- if(await log.locator('.collection-events li').count()>1){
+ if(JSON.parse(await log.getAttribute('data-replay')).length>1){
   const before=await replay.textContent();
   await page.clock.fastForward(6100);
   assert.notEqual(await replay.textContent(),before,'Visible replay advances');
@@ -158,9 +161,24 @@ module.exports=async({page,url,data,capture})=>{
   assert.equal(await replay.textContent(),reduced,'Reduced motion stays static');
   for(let i=0;i<3;i++){
    await log.locator('summary').focus(); await page.keyboard.press('Enter');
-   assert.ok(await log.locator('.pg-pop').isVisible()); await page.keyboard.press('Escape');
+   assert.ok(await log.locator('.pg-pop').isVisible());
+   await log.locator('.collection-history[data-loaded="true"]').waitFor();
+   assert.ok(await log.locator('.collection-events li').count()>4,'Overview preserves older evidence');
+   assert.equal(historyRequests,1,'One lazy fetch across repeated opens');
+   await page.keyboard.press('Escape');
   }
   await page.emulateMedia({reducedMotion:'no-preference'});
  }
+ // A failed lazy fetch remains retryable; successful reopening preserves all rows.
+ let attempts=0;
+ await page.route('**/collection/'+tofu.id+'.json',route=>{attempts++;return attempts===1?route.abort():route.continue()});
+ await page.goto(new URL('records/'+tofu.id+'.html',url).href);
+ await page.locator('.collection-overview summary').click();
+ await page.waitForFunction(()=>document.querySelector('.collection-history').textContent.includes('could not be loaded'));
+ await page.keyboard.press('Escape'); await page.locator('.collection-overview summary').click();
+ await page.locator('.collection-history[data-loaded="true"]').waitFor();
+ assert.equal(attempts,2,'Failed overview fetch retries on reopen');
+ assert.ok(await page.locator('.collection-events li').count()>4);
+ await page.unroute('**/collection/'+tofu.id+'.json');
 
 };
