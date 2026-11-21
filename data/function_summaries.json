@@ -15512,6 +15512,60 @@
       "checked_at": "2026-11-17",
       "review_status": "approved",
       "reviewed_by": "Junge (AI)"
+    },
+    "1f0d490a13b89f170b91d21e6781e4f2df4b0c9e09b299499decbf981e2cd92a": {
+      "project_url": "https://github.com/openmeeg/openmeeg",
+      "text": "OpenMEEG provides a C++ library and binary applications for solving forward problems in electroencephalography and magnetoencephalography. Researchers can use Python bindings alongside the native tools, with precompiled packages or source builds. An optional visualization command displays head geometry, dipoles and sensor files, loading referenced meshes from geometry files.",
+      "sources": [
+        {
+          "url": "https://github.com/openmeeg/openmeeg/blob/d71da2771dfaa72f5b304405ec1667ae97902fb2/README.rst",
+          "title": "OpenMEEG official README",
+          "revision": "d71da2771dfaa72f5b304405ec1667ae97902fb2"
+        }
+      ],
+      "checked_at": "2026-11-19",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed against the official README; capabilities and deployment wording checked. No candidate software installed or executed. Owner merge review remains separate.",
+      "features": [
+        {
+          "title": "Python access",
+          "text": "Python bindings expose OpenMEEG alongside its C++ library and binary applications.",
+          "source_url": "https://github.com/openmeeg/openmeeg/blob/d71da2771dfaa72f5b304405ec1667ae97902fb2/README.rst"
+        },
+        {
+          "title": "Head-model visualization",
+          "text": "The optional om_viz command displays geometry, dipole and sensor files, including meshes referenced by geometry files.",
+          "source_url": "https://github.com/openmeeg/openmeeg/blob/d71da2771dfaa72f5b304405ec1667ae97902fb2/README.rst"
+        }
+      ]
+    },
+    "b97e02587ffdf63313433d1cfe98be204d4fcbe4fe5c162c0f607e28c01c25c6": {
+      "project_url": "https://github.com/openpbs/openpbs",
+      "text": "OpenPBS schedules jobs and manages workloads across high-performance computing clusters, clouds and supercomputers. Administrators can configure scheduling policies to balance job turnaround and resource use, and extend the system through its plugin framework. The software also provides infrastructure health checks and is integrated into the OpenHPC software stack.",
+      "sources": [
+        {
+          "url": "https://github.com/openpbs/openpbs/blob/0cdac751b222694f05f5e2821d8a067f942b5e60/README.md",
+          "title": "OpenPBS official README",
+          "revision": "0cdac751b222694f05f5e2821d8a067f942b5e60"
+        }
+      ],
+      "checked_at": "2026-11-19",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "AI-reviewed against the official README; capabilities and deployment wording checked. No candidate software installed or executed. Owner merge review remains separate.",
+      "features": [
+        {
+          "title": "Policy-driven scheduling",
+          "text": "Scheduling policies balance job turnaround and resource utilization through job placement.",
+          "source_url": "https://github.com/openpbs/openpbs/blob/0cdac751b222694f05f5e2821d8a067f942b5e60/README.md"
+        },
+        {
+          "title": "Extensible administration",
+          "text": "A plugin framework supports customization for site-specific requirements.",
+          "source_url": "https://github.com/openpbs/openpbs/blob/0cdac751b222694f05f5e2821d8a067f942b5e60/README.md"
+        }
+      ]
     }
   }
 }
