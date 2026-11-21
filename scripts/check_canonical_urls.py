@@ -34,7 +34,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-USER_AGENT = "awesome-open-canonical-url-health/1.0 (+https://github.com/awesomeopen/awesome-open)"
+USER_AGENT = "awesome-open-canonical-url-health/1.1 (+https://github.com/awesomeopen/awesome-open)"
 CHECKED_BY = "canonical-url-health/1"
 SCHEMA_VERSION = 1
 
