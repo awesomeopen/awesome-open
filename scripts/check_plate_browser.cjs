@@ -142,6 +142,16 @@ module.exports=async({page,url,data,capture})=>{
    await page.keyboard.press('Escape');
    assert.ok(await plate.isVisible(),'Escape closes only the modal');
    assert.ok(await activity.evaluate(n=>n===document.activeElement));
+   await activity.click(); await plate.locator('.collection-history[data-loaded]').waitFor();
+   // Native modal tab order may briefly focus the browser boundary (body).
+   for(let n=0;n<40;n++){
+    await page.keyboard.press('Tab');
+    if(await page.evaluate(()=>document.activeElement===document.body))break;
+    assert.ok(await page.evaluate(()=>!!document.activeElement.closest('dialog')),'No background control receives focus');
+   }
+   await page.keyboard.press('Escape');
+   assert.ok(await plate.isVisible(),'Escape at modal tab boundary preserves the plate');
+   assert.ok(await activity.evaluate(n=>n===document.activeElement));
    if(name===names[0])await capture('pane-plate-'+width+'.png');
   }
  }
