@@ -522,9 +522,15 @@ h1 {font-size:clamp(30px,3vw,42px);line-height:1.15;}
 .plate-trophies:hover {color:var(--rs-scarlet);}
 
 /* Dated activity occupies the former moss reserve; readable at every width. */
-.pg-collection {grid-column:span 2;background:color-mix(in srgb,var(--rs-verdigris-art) 50%,var(--rs-paper));min-width:0;}
-.collection-caption {font-size:10px;margin:0 0 8px;}
-.collection-replay {font-family:var(--rs-font-mono,monospace);font-size:10px;line-height:1.6;min-height:4.8em;overflow:hidden;}
+.pg-collection {grid-column:span 2;background-color:var(--muted);color:#fff;min-width:0;padding:0;position:relative;}
+.collection-trigger {position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;color:inherit;cursor:pointer;border-radius:inherit;}
+.collection-trigger:focus-visible {outline:3px solid #fff;outline-offset:-5px;}
+.collection-replay {font-family:var(--mono);font-size:10px;line-height:1.6;min-height:4.8em;height:100%;box-sizing:border-box;padding:14px;overflow:hidden;pointer-events:none;}
+.collection-overview {color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:2px;padding:20px;width:min(420px,calc(100vw - 48px));max-height:80vh;box-sizing:border-box;overflow:auto;}
+.collection-overview::backdrop {background:rgb(11 37 70 / .35);}
+.collection-overview header {display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.collection-overview h2 {margin:0;font-size:24px;}
+.collection-close {font:inherit;cursor:pointer;}
 .collection-replay span {display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .collection-events {padding-left:1.2em;}
 .collection-events li {margin-bottom:8px;overflow-wrap:anywhere;}

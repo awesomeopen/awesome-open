@@ -64,7 +64,7 @@ module.exports=async({page,url,data,capture})=>{
    await plate.locator('.plate-departure>a').focus();
    assert.equal(await plate.locator('.plate-departure>a').evaluate(n=>n===document.activeElement),true);
    // Box details open from the keyboard, fit the viewport, and close with Escape.
-   for(const selector of ['[data-signal="scorecard"]','.pg-runs','.pg-collection']){
+   for(const selector of ['[data-signal="scorecard"]','.pg-runs']){
     const summary=plate.locator(selector+' .pg-info>summary');
     await summary.focus();await page.keyboard.press('Enter');
     const pop=plate.locator(selector+' .pg-pop');
@@ -160,25 +160,51 @@ module.exports=async({page,url,data,capture})=>{
   const reduced=await replay.textContent(); await page.clock.fastForward(6200);
   assert.equal(await replay.textContent(),reduced,'Reduced motion stays static');
   for(let i=0;i<3;i++){
-   await log.locator('summary').focus(); await page.keyboard.press('Enter');
-   assert.ok(await log.locator('.pg-pop').isVisible());
+   await log.locator('.collection-trigger').focus(); await page.keyboard.press(i===1?'Space':'Enter');
+   assert.ok(await log.locator('.collection-overview').isVisible());
    await log.locator('.collection-history[data-loaded="true"]').waitFor();
    assert.ok(await log.locator('.collection-events li').count()>4,'Overview preserves older evidence');
    assert.equal(historyRequests,1,'One lazy fetch across repeated opens');
+   const dates=await log.locator('time').evaluateAll(nodes=>nodes.map(n=>n.dateTime));
+   assert.deepEqual(dates,[...dates].sort().reverse(),'Newest first');
+   assert.equal(await log.locator('.collection-source,.collection-caption,h4').count(),0);
    await page.keyboard.press('Escape');
+   assert.ok(await log.locator('.collection-trigger').evaluate(n=>n===document.activeElement),'Focus returns');
   }
   await page.emulateMedia({reducedMotion:'no-preference'});
+ }
+ // Full-box hit area includes blank corners on narrow and desktop records.
+ for(const width of [390,1280]){
+  await page.setViewportSize({width,height:900});
+  await log.scrollIntoViewIfNeeded();
+  for(const corner of ['start','end']){
+   const b=await log.boundingBox();
+   await page.mouse.click(b.x+(corner==='start'?2:b.width-2),b.y+(corner==='start'?2:b.height-2));
+   await log.locator('dialog[open]').waitFor();
+   await log.locator('.collection-close').click();
+   assert.ok(await log.locator('.collection-trigger').evaluate(n=>n===document.activeElement));
+  }
  }
  // A failed lazy fetch remains retryable; successful reopening preserves all rows.
  let attempts=0;
  await page.route('**/collection/'+tofu.id+'.json',route=>{attempts++;return attempts===1?route.abort():route.continue()});
  await page.goto(new URL('records/'+tofu.id+'.html',url).href);
- await page.locator('.collection-overview summary').click();
+ await page.locator('.collection-trigger').click();
  await page.waitForFunction(()=>document.querySelector('.collection-history').textContent.includes('could not be loaded'));
- await page.keyboard.press('Escape'); await page.locator('.collection-overview summary').click();
+ await page.keyboard.press('Escape'); await page.locator('.collection-trigger').click();
  await page.locator('.collection-history[data-loaded="true"]').waitFor();
  assert.equal(attempts,2,'Failed overview fetch retries on reopen');
  assert.ok(await page.locator('.collection-events li').count()>4);
+ await page.unroute('**/collection/'+tofu.id+'.json');
+ // Sorting preserves equal-date observations and puts undated counts last.
+ await page.route('**/collection/'+tofu.id+'.json',route=>route.fulfill({json:{version:1,
+  types:[['hn','HN evidence collected','https://github.com/awesomeopen/awesome-open/blob/main/data/chart_observations.json']],
+  events:[['2020-01-01',0,'old'],['2026-01-01',0,'first'],['2026-01-01',0,'second']],undated:{hn:2}}}));
+ await page.reload(); await page.locator('.collection-trigger').click();
+ await page.locator('.collection-history[data-loaded]').waitFor();
+ assert.deepEqual(await page.locator('.collection-events li').evaluateAll(ns=>ns.map(n=>n.dataset.observation)),['first','second','old']);
+ assert.ok((await page.locator('.collection-history > :last-child').textContent()).includes('without a collection date'));
+ await page.keyboard.press('Escape');
  await page.unroute('**/collection/'+tofu.id+'.json');
 
 };
