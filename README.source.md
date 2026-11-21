@@ -588,6 +588,7 @@
 | [OpenFlipper](https://www.graphics.rwth-aachen.de/software/openflipper/) | Geometry modeling and processing application with an extensible plugin framework. |
 | [OpenFOAM](https://github.com/OpenFOAM/OpenFOAM-dev) | Computational fluid dynamics software. |
 | [OpenGeoSys](https://gitlab.opengeosys.org/ogs/ogs) | Finite-element framework for simulating coupled thermal, hydraulic, mechanical, and chemical processes in porous and fractured media. |
+| [Open Heatloss Studio](https://github.com/OpenAEC-Foundation/open-heatloss-studio) | Desktop heat-loss calculations for buildings, with room-level inputs and PDF reports. |
 | [OpenIPSL](https://github.com/OpenIPSL/OpenIPSL) | Modelica component library for power-system dynamic analysis. |
 | [OpenLayout](https://github.com/vhdani04/OpenLayout) | Custom-IC design environment combining schematic capture, circuit simulation, layout, design-rule checks, and parasitic extraction for ASAP7. |
 | [openLCA](https://github.com/GreenDelta/olca-app) | Desktop software for life-cycle assessment, environmental footprint analysis, and sustainability modeling. |
