@@ -49,7 +49,10 @@ class CollectionLogTests(unittest.TestCase):
         self.assertNotIn('<script>',html)
         self.assertIn('aria-hidden="true"',html)
         self.assertNotIn('aria-live',html)
-        self.assertIn('Download retained records',log.render([]))
+        self.assertNotIn('Download retained records',log.render([]))
+        self.assertNotIn('<h4', html)
+        self.assertNotIn('<summary', html)
+        self.assertIn('aria-haspopup="dialog"', html)
 
     def test_real_payload_is_bounded_and_catalog_is_untouched(self):
         import copy

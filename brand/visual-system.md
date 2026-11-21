@@ -393,8 +393,12 @@ unknown/empty/stale states. See the [language contract](../site/REPOSITORY-LANGU
 
 ## Collection activity block
 
-The moss reserve between HN and Scorecard becomes a collection log with dated,
-monospaced replay and a native `i` chronology. It stays visible on mobile, pauses
-for interaction and reduced motion, and makes no sparse/stale judgments.
-The `i` loads the full retained chronology separately; only the terminal replay is
-limited to four recent events. See [collection log](../site/COLLECTION-LOG.md) for provenance and payload bounds.
+The collection block between HN and Scorecard uses `background-color: var(--muted)`
+and `color: #fff`. Its compact dated replay fills the box; the whole box is one
+named keyboard-operable trigger with an inset white focus outline. There is no
+visible heading, caption or `i`. The modal retains its title and Close control,
+shows all retained events newest first with stable ties and undated counts last,
+and omits the opening explanation, count and bottom download link.
+It stays visible on mobile, pauses for interaction and reduced motion, and makes
+no sparse/stale judgments. Only four recent events travel in record HTML; the
+full chronology loads on demand. See [collection log](../site/COLLECTION-LOG.md).

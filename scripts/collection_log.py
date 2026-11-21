@@ -115,11 +115,9 @@ def render(events, project_id=''):
     url = 'collection/' + project_id + '.json'
     return ('<section class="pg-box pg-collection" aria-label="Collection log" data-log-version="1" '
             f'data-replay="{esc(replay)}">'
-            '<h4 class="pg-title">Collection log</h4><p class="collection-caption">Recorded activity</p>'
+            '<button type="button" class="collection-trigger" aria-label="Collection log overview" aria-haspopup="dialog"></button>'
             f'<div class="collection-replay" aria-hidden="true">{lines}</div>'
-            '<details class="pg-info collection-overview"><summary aria-label="Collection log overview">i</summary><div class="pg-pop">'
-            '<p>Retained collections and evidence reviews, oldest first. Earlier activity may be absent; '
-            'review dates describe review, and the inclusion date is not recorded here.</p>'
+            f'<dialog class="collection-overview" aria-label="Collection log" data-source="{esc(url)}">'
+            '<header><h2>Collection log</h2><button type="button" class="collection-close" autofocus>Close</button></header>'
             '<div class="collection-history">Open this overview to load retained records.</div>'
-            f'<p><a class="collection-source" href="{esc(url)}">Download retained records</a></p>'
-            '</div></details></section>')
+            '</dialog></section>')

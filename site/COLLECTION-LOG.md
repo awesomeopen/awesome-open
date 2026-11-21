@@ -1,7 +1,9 @@
 # Collection log
 
-The moss block replays four recent recorded activities. Its `i` loads the broader
-retained chronology for that project, oldest first, with source links and dates.
+The collection block replays four recent recorded activities. Click anywhere in
+the block, or focus it and press Enter or Space, to open the retained chronology
+with source links and dates, newest first. Equal dates retain their source order;
+undated observations follow dated entries.
 There is no event-count cutoff in the overview.
 
 Completed HN/star observations keep their collection dates and archive references.
@@ -31,13 +33,14 @@ observation survives, including observations at the same timestamp. Other exact
 duplicates of the same date, kind and source are coalesced.
 
 Only four short date/label pairs travel in record HTML. Neither the initial index,
-catalog JSON nor search-text download carries the chronology. Opening `i` fetches
+catalog JSON nor search-text download carries the chronology. Opening the block fetches
 the project's JSON once; repeated opens reuse it. A failed fetch can be retried by
-reopening, and the download link provides direct access. The full list uses a
-scrollable area within the native disclosure, without live announcements.
+reopening. The full list uses a scrollable native modal with a named title and
+Close control. Escape closes it and returns focus to the block. The underlying
+JSON remains available at its existing path.
 
 Three small monospaced lines replay every six seconds while visible. Hover,
-keyboard focus, an open disclosure, closed plate or hidden tab pauses replay.
+keyboard focus, an open modal, closed plate or hidden tab pauses replay.
 Reduced motion keeps the static recent lines. Zero or one event stays static.
 Removed plates release their timer and visibility observer.
 

@@ -588,3 +588,7 @@ cabinet button's layout in Prussian, with the search loupe in its square, and th
 white/Prussian tokens through its custom properties: Półtawski headings, Commit Mono text
 and a scarlet focus ring. Its footer says the search is a WebMCPlet showcase and offers
 hiding the button. It never opens or moves by itself.
+
+### Collection block
+
+The HN/Scorecard collection block follows the [collection activity rule](../brand/visual-system.md#collection-activity-block): full-box trigger, white dated replay on muted grey, and a newest-first modal chronology.
