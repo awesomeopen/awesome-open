@@ -88,10 +88,15 @@ No device-memory benchmark is implied. Existing total-site and non-artwork guard
 remain independent: a future 73 MB HN file can require a separate overall
 capacity review even though it fits this HN guard.
 
-The current production build fits its non-artwork guard; the combined CI bundle
-including exhibition and duplicate jar previews already exceeds that independent
-guard. This approval does not move, raise or disable it. Held data proposals
-remain held until their complete required validation can pass.
+The strict site-budget check runs immediately after the production build, including
+its published hero, and before exhibition and jar previews add their review-only
+output. The overall allowance stays at 20 MiB + 58 KiB/project. At this baseline,
+production uses 54,665,177 of 55,834,624 non-artwork bytes, leaving 1,169,447 bytes.
+Adding both previews produces 56,435,455 bytes; those duplicate review pages are
+outside the production accounting. Both preview builds and all browser checks
+remain required. This separates intentional preview output from shipped capacity;
+production growth still fails the same strict guard. See [preview validation](PREVIEW.md#production-budget-and-preview-validation).
+Held data proposals still require their own complete validation.
 
 ## Historical November 15 size baseline
 
