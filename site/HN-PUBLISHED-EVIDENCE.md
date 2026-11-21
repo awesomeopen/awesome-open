@@ -32,7 +32,73 @@ of recovery queue objects must decode schema 3 before expecting inline projects;
 collector imports must use the reconstructed source document. Reconstruction
 preserves JSON values and array order, rather than source whitespace or key order.
 
-## Size and the 1,000-project plan
+## Multi-year capacity plan (November 21, 2026)
+
+The HN-only allowance is **96 KiB per catalog record**: 57,704,448 bytes
+at 587 records and 98,304,000 at 1,000. The owner requested room for roughly
+1,000 entries with multiple years of HN evidence. This changes only the size
+guard, preserving the export and every collected field.
+
+Run `python3 scripts/plan_hn_capacity.py` to reproduce the model from checked-in
+caches. At source `a23bf4c3e4c61b774ab194ad33248d941cf60c7f`, the export is
+6,265,190 bytes before and after this policy change. The former 10 KiB allowance
+was 6,010,880 bytes. New current headroom is 51,439,258 bytes.
+
+The actual published window is November 2024 through October 2026 (24 complete
+months). It retains matched stories, broad title/URL search candidates including
+excluded candidates, dates, monthly bins, identity/query provenance, and queue
+checkpoints. Broad and matched lists can overlap; this model measures their
+actual bytes rather than assuming story-level deduplication. All 587 identical
+last-good recovery objects currently use references. Distinct recovery snapshots
+and partial pages remain inline. The separate immutable observation archive
+retains older collections and is not embedded in this download. Years below
+model longer represented windows; they do not enable a new retention policy or
+claim that the rolling export accumulates a full new copy every year.
+
+Of 587 cached projects, 257 contain matched/broad/excluded story evidence and
+330 have none. Their mean object sizes are 20,315 and 1,837 bytes respectively.
+The richer cohort median is 4,535 bytes; its largest object is 1,035,016 bytes.
+Using today's overall average would conceal both sparse coverage and skew.
+
+The model fills all 1,000 slots from the richer cohort, retaining its observed
+skew. It separates mean fixed query/identity overhead (2,249 bytes), history
+fields (18,066 bytes per two years), and global/queue overhead (746 bytes per
+project). History fields scale with represented years. A second scenario adds
+25% distinct full recovery copies and five extra largest-project equivalents,
+scaled with years. These are explicit planning assumptions, not forecasts of
+upstream traffic or a worst-case bound.
+
+| Represented years | Richer full coverage | Plus recovery and extra skew |
+| --- | ---: | ---: |
+| 2 | 21,060,908 B | 31,314,628 B |
+| 5 | 48,159,774 B | 72,950,831 B |
+| 10 (stress case) | 93,324,550 B | 142,344,501 B |
+
+96 KiB/project rounds above the five-year recovery/skew scenario with
+25,353,169 bytes (35%) planning margin at 1,000 projects. The ten-year stress
+case with extra recovery exceeds it and would trigger another measured review.
+No finite project-count cap guarantees capacity for unlimited stories, partial
+results or query growth. Review this estimate after major coverage/query changes.
+
+These are uncompressed artifact bytes. The evidence download is linked on demand;
+charts and ordinary browsing use generated records/catalog rather than parsing
+this whole file. Compression reduces transfer, but clients that download and
+parse the full JSON can need substantially more memory than its byte size.
+No device-memory benchmark is implied. Existing total-site and non-artwork guards
+remain independent: a future 73 MB HN file can require a separate overall
+capacity review even though it fits this HN guard.
+
+The strict site-budget check runs immediately after the production build, including
+its published hero, and before exhibition and jar previews add their review-only
+output. The overall allowance stays at 20 MiB + 58 KiB/project. At this baseline,
+production uses 54,665,177 of 55,834,624 non-artwork bytes, leaving 1,169,447 bytes.
+Adding both previews produces 56,435,455 bytes; those duplicate review pages are
+outside the production accounting. Both preview builds and all browser checks
+remain required. This separates intentional preview output from shipped capacity;
+production growth still fails the same strict guard. See [preview validation](PREVIEW.md#production-budget-and-preview-validation).
+Held data proposals still require their own complete validation.
+
+## Historical November 15 size baseline
 
 Measured against main `f4cb6046c138914a78719808c6a7c874b784a98a` on
 15 November 2026, using UTF-8 compact JSON plus one newline:

@@ -74,13 +74,14 @@ jobs:
           path: tmp/qr-cache
           key: qr-${{ hashFiles('scripts/qr.py') }}-${{ hashFiles('README.source.md') }}
           restore-keys: qr-${{ hashFiles('scripts/qr.py') }}-
-      - name: Build offline field-guide preview
+      - name: Build offline production site
+        run: python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA" --production --qr-cache tmp/qr-cache
+      - name: Check the production site size budget
+        run: python3 scripts/check_budget.py tmp/site
+      - name: Build offline design previews
         run: |
-          python3 scripts/build_site.py --output tmp/site --source-sha "$GITHUB_SHA" --production --qr-cache tmp/qr-cache
           python3 scripts/build_exhibition_preview.py --output tmp/site
           python3 scripts/build_jar_preview.py --output tmp/site
-      - name: Check the site size budget
-        run: python3 scripts/check_budget.py tmp/site
       - name: Build specimen comparison records from PR base
         if: steps.impact.outputs.browser != 'false' && (github.event_name == 'pull_request')
         env:
