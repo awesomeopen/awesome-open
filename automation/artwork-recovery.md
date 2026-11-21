@@ -20,10 +20,10 @@ original-preservation and publication gates remain required. The corresponding
 legacy steps below remain available for reading and validating old bundles.
 Preserve all legacy archives and receipts.
 
-The [private Git archive contract](artwork-git-archive.md) is a new proposal.
-Use it only after owner review and merge, verified private destination access,
-and a successful independent storage probe. Existing rules remain operative
-until then; this draft grants no transfer or publication permission.
+The [private Git archive contract](artwork-git-archive.md) merged in
+[PR #339](https://github.com/awesomeopen/awesome-open/pull/339). Use it with
+verified private destination access and a successful independent storage probe.
+All original-preservation and publication gates remain required.
 
 ## Before generation
 

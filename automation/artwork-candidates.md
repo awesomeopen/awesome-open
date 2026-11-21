@@ -2,8 +2,9 @@
 
 Merged in [PR #332](https://github.com/awesomeopen/awesome-open/pull/332) on
 2026-11-15 at `18a6328515751ebee15914ea8404f41b2ca921e9`.
-The separate [private Git archive proposal](artwork-git-archive.md) still requires
-owner review, merge and destination verification before use.
+The [private Git archive contract](artwork-git-archive.md), merged in
+[PR #339](https://github.com/awesomeopen/awesome-open/pull/339), requires verified
+private destination access and independent restores before use.
 
 Save each irreplaceable original, exact prompt, source captures and generation
 provenance in one durable generation archive. Keep its verified restore receipt
@@ -97,7 +98,7 @@ python3 scripts/artwork_candidate.py candidate --selection tmp/art/selection.jso
 Outputs are immutable: a retry uses a new report path or compares an existing
 report. Both commands are network-free and make no generation calls. Plan,
 receipts, private source captures and recovery references stay outside the public
-catalog Git repository. The proposed private archive has its own review gate.
+catalog Git repository. Private archive access and transfers follow the archive contract.
 
 ## Transfer cost
 
