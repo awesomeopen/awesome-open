@@ -100,8 +100,9 @@ The [batch candidate procedure](../automation/artwork-candidates.md), merged in
 finalization/publication archives with independently retrieved Git candidates.
 Original preservation, truthful review and all publication gates continue to
 apply. The [private Git archive contract](../automation/artwork-git-archive.md)
-is a separate proposal awaiting owner review and merge; no archive destination
-or transfer is authorized by this draft.
+merged in [PR #339](https://github.com/awesomeopen/awesome-open/pull/339). It
+requires verified private destination access, independent restores and its
+bounded capacity checks; see its verified OpenOCD pilot and prerequisites.
 
 Before publication:
 - Inspect the generated pixels and verify identity, dimensions, alt text,
