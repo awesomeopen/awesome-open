@@ -66,8 +66,10 @@ const path = require('node:path');
   const change = async (id, value) => {
     if (['f-stars', 'f-pushed'].includes(id)) await openMore();
     await page.locator('#' + id).fill(value);
-    if (id === 'search') await page.waitForTimeout(250);
-    else await page.locator('#' + id).dispatchEvent('change');
+    if (id === 'search') {
+      await page.waitForFunction(value => (new URL(location.href).searchParams.get('q') || '') === value, value);
+      if (value) await page.waitForFunction(() => document.querySelector('#filters').dataset.searchText === 'ready');
+    } else await page.locator('#' + id).dispatchEvent('change');
   };
   const select = async (id, value) => {
     if (['f-install', 'f-metrics'].includes(id)) await openMore();
@@ -486,12 +488,12 @@ const path = require('node:path');
           await waitForPlate();
           const card = page.locator('#pane-scroll');
           assert.equal(await card.locator('[data-signal="hn"] .pg-spark').count(), state === 'partial' ? 1 : 0);
-          assert.equal(await card.locator('[data-signal="star-history"] .pg-spark').count(), 0);
+          assert.equal(await card.locator('[data-signal="star-history"] .pg-spark').count(), state === 'rollover' ? 1 : 0);
           for (const signal of ['hn', 'star-history']) {
             const box = card.locator(`[data-signal="${signal}"]`);
             await box.locator('.pg-info > summary').click();
             const expected = signal === 'hn' ? (state === 'partial' ? '3 matched' : 'Not recorded') :
-              state === 'empty' ? 'Not recorded' : state === 'rollover' ? 'chart withheld until aligned' : 'History unavailable; no zero values inferred';
+              state === 'empty' ? 'Not recorded' : state === 'rollover' ? 'Stale cached result' : 'History unavailable; no zero values inferred';
             assert.ok((await box.innerText()).includes(expected), `${state}: ${signal} disclosure`);
             await box.locator('.pg-info > summary').click();
           }

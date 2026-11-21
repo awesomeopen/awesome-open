@@ -10,6 +10,8 @@ from pathlib import Path
 
 import build_catalog
 import build_site
+import signals
+import update_signals
 import star_history
 import update_hn as hn
 import update_star_history as collector
@@ -20,7 +22,7 @@ URL = 'https://github.com/' + REPO
 NOW = datetime(2026, 10, 13, tzinfo=timezone.utc)
 
 
-def fixture(state='complete'):
+def fixture(state='complete', *, language_state=None):
     if state not in ('complete', 'empty', 'partial', 'unavailable', 'rollover'):
         raise ValueError('Unknown browser evidence state')
     curated = json.loads((ROOT / 'fixtures/browser_layout.json').read_text())
@@ -73,6 +75,18 @@ def fixture(state='complete'):
     catalog = build_catalog.build_catalog(source, metrics, {'schema_version': 1, 'projects': []},
         evidence, source_sha='a'*40, function_summaries=curated['function_summaries'],
         deployment_evidence=curated['deployment_evidence'], star_evidence=stars)
+    if language_state is not None:
+        project = next(p for p in catalog['projects'] if p['url'] == URL)
+        at = '2026-10-13T00:00:00Z'
+        record = signals.empty_signal(REPO, 'languages')
+        if language_state != 'unknown':
+            counts = {} if language_state == 'empty' else {'C++': 300, 'C#': 200, 'JavaScript': 100, 'Shell': 50}
+            record.update(status='stale' if language_state == 'stale' else 'available',
+                fetch_status='error' if language_state == 'stale' else 'ok', checked_at=at,
+                last_success_at=at, last_good=update_signals.normalize_languages(counts, REPO, at))
+            project['languages'] = list(counts)
+        project['language_status'] = record['status']
+        project['signals'] = {'languages': record}
     display = hn.display_evidence(evidence)
     catalog['hn_window'] = dict(first=months[0], last=months[-1], monthly_maximum=display['shared_monthly_maximum'])
     for project in catalog['projects']:
@@ -96,4 +110,13 @@ def fixture(state='complete'):
 
 
 if __name__ == '__main__':
-    print(json.dumps({state: fixture(state) for state in ('complete', 'empty', 'partial', 'unavailable', 'rollover')}))
+    import sys
+    if '--languages' in sys.argv:
+        fixtures = {state: fixture(language_state=state) for state in ('available', 'stale', 'empty', 'unknown')}
+        for item in fixtures.values():
+            item['responses']['catalog.json'] = json.dumps(item['data'])
+            item['responses']['webmcplet/list.json'] = build_site.webmcplet_list(item['data'])
+            item['responses']['search-text.json'] = json.dumps({'source_sha': 'a'*40, 'projects': {}})
+        print(json.dumps(fixtures))
+    else:
+        print(json.dumps({state: fixture(state) for state in ('complete', 'empty', 'partial', 'unavailable', 'rollover')}))

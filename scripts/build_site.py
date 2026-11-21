@@ -28,6 +28,7 @@ import star_history
 import deployment
 import build_webmcplet_list
 import plate_grid
+import collection_log
 import qr
 from repository_hosts import repository_host
 from footer_art import discover_footer_art
@@ -111,6 +112,25 @@ def published_catalog(catalog):
                    for field in ("run_modes", "install_methods")},
                 "record": f'records/{project["id"]}.html',
             }}
+        # Null optional-provider metadata repeats across every record. Keep
+        # last_good explicit; the evidence download retains the collector schema.
+        if project.get("signals"):
+            compact_signals = {}
+            for provider, record in project["signals"].items():
+                record = {key: val for key, val in record.items() if val is not None or key == "last_good"}
+                if provider == "languages":
+                    record = {key: val for key, val in record.items()
+                              if key not in {"etag", "retry_after", "http_status"}
+                              and not (key.endswith("time_precision") and val == "second")}
+                if record.get("last_good") is not None:
+                    good = {key: val for key, val in record["last_good"].items() if val is not None}
+                    if provider == "languages":
+                        good.pop("observed_at", None)  # Same timestamp as fetched_at by contract.
+                    record["last_good"] = good
+                compact_signals[provider] = record
+            project = {**project, "signals": compact_signals}
+        if project.get("github") and project["github"].get("primary_language") is None:
+            project = {**project, "github": {k: v for k, v in project["github"].items() if k != "primary_language"}}
         projects.append(project)
     return {**catalog, "projects": projects}
 
@@ -126,7 +146,16 @@ def load_site_catalog(site):
         setups = json.loads((Path(site) / "data/deployment_evidence.json").read_text(encoding="utf-8"))["projects"]
         for project in slim:
             project["deployment"] = setups[project["id"]]
+    signals_path = Path(site) / "data/project_signals.json"
+    full_signals = signals.load_optional(signals_path)
     for project in catalog["projects"]:
+        if project.get("github"):
+            project["github"].setdefault("primary_language", None)
+        if project.get("signals"):
+            repo = (project.get("github") or {}).get("repo")
+            project["signals"] = signals.for_repository(full_signals, repo)
+            if project["signals"] is None:
+                raise ValueError("Missing full optional signal download")
         record = project.get("star_history")
         if record and "last_good" in repositories.get(record["repo"], {}):
             record["last_good"] = repositories[record["repo"]]["last_good"]
@@ -149,6 +178,12 @@ def search_index(catalog):
         }
         if project.get("aliases"):
             item["aliases"] = [{"name": alias["name"]} for alias in project["aliases"]]
+        former_names = sorted({event["old_name"] for event in project.get("history", [])
+                               if event["kind"] == "software_rename"})
+        if former_names:
+            item["former_names"] = former_names
+        item["languages"] = project.get("languages")
+        item["language_status"] = project.get("language_status", "unknown")
         item["leader_categories"] = project.get("leader_categories", [])
         item["github"] = (
             {
@@ -158,7 +193,6 @@ def search_index(catalog):
                     "stars",
                     "pushed_at",
                     "status",
-                    "last_success_at",
                 )
             }
             if github is not None
@@ -668,14 +702,15 @@ def plate_html(project, categories, catalog, number, cutouts, variants=None):
         history_html=history_view.evidence(history),
         freshness=freshness,
         hn_window=hn_window(catalog, project),
+        activity=project.get("_collection_events", ()),
     )
     return specimen_plate(
         project, number, tags, function_detail, grid, (cutouts or {}).get(project["id"]), variants
     )
 
 
-def project_html(project, categories, catalog, number=0, cutouts=None, position=None, deferred=False, variants=None):
-    """A ledger row; deferred rows link the static record instead of holding the plate."""
+def project_html(project, categories, catalog, number=0, cutouts=None, position=None, variants=None):
+    """A ledger row holding its specimen plate."""
     position = number if position is None else position
     pid = escape(project["id"])
     github = project["github"]
@@ -689,13 +724,7 @@ def project_html(project, categories, catalog, number=0, cutouts=None, position=
         inline_chart = (f'<img class="name-sparkline" src="{escape(attention["chart_url"])}" width="80" height="16" '
                         f'alt="HN {label} / past 2y" title="HN: {count} {label} / past 2y" loading="lazy">')
     leader_categories = project.get("leader_categories", [])
-    if deferred:
-        interior = (
-            f'<div class="specimen-detail-host" data-detail-url="records/{pid}.html" data-project-id="{pid}">'
-            f'<p class="detail-fallback"><a href="records/{pid}.html">Read or print the full record for {escape(project["name"])}</a></p></div>'
-        )
-    else:
-        interior = plate_html(project, categories, catalog, number, cutouts, variants)
+    interior = plate_html(project, categories, catalog, number, cutouts, variants)
     return f'''<article class="project-card" data-leader="{"true" if leader_categories else "false"}" id="project-{pid}" data-project-id="{pid}">
  <details class="specimen-drawer">
   <summary><span class="folio" title="Position in current results" aria-hidden="true">{position:03d}</span><span class="name-cell"><span class="specimen-name" id="name-{pid}">{split_name(project["name"])}</span>{inline_chart}</span><span class="description">{escape(project["description"])}</span><span class="license-readout">{escape(license_text)}</span><span class="drawer-sign" aria-hidden="true"></span></summary>
@@ -752,6 +781,7 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
         f'<select id="f-window" name="window" data-title="Pushed" aria-label="Repository push window">{options([("all", "Pushed: any date"), ("recent", "Within 90 days of snapshot"), ("older", "More than 2 years before snapshot"), ("unknown", "Push date unknown")])}</select>'
         f'<select id="f-alternative" name="alternative" data-title="Alternative to" aria-label="Reviewed alternative to">{options([("", "Alternative to: any")] + [(v, v) for v in alternatives])}</select>'
         f'<select id="f-license" name="license" data-title="License" aria-label="Detected license">{options([("all", "License: any"), ("known", "Detected license available"), ("unknown", "License unknown")] + [(v, v) for v in licenses])}</select>'
+        f'<select id="f-language" name="language" data-title="Repository language" aria-label="Detected repository language">{options([("", "Repository language: any"), ("unknown", "Unknown"), ("empty", "None detected")] + [(v, v) for v in sorted({name for p in catalog["projects"] for name in p.get("languages") or []})])}</select>'
         f'<select id="f-run" name="run_mode" data-title="Runs as" aria-label="Reviewed run mode">{options([("", "Runs as: any"), ("unknown", "Not recorded")] + [(v, deployment.RUN_MODES[v]) for v in observed["run_modes"]])}</select>'
         '<details class="rail-more"><summary><span class="when-closed">More filters</span><span class="when-open">Less filters</span></summary>'
         f'<select id="f-install" name="install_method" data-title="Install" aria-label="Reviewed install method">{options([("", "Install: any"), ("unknown", "Not recorded")] + [(v, deployment.INSTALL_METHODS[v]) for v in observed["install_methods"]])}</select>'
@@ -791,14 +821,14 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
     coverage = ""
     if signal_projects:
         notes = []
-        for provider, label in (("release", "Release"), ("scorecard", "Scorecard")):
-            checked = sum(bool(p["signals"][provider]["checked_at"]) for p in signal_projects)
-            values = sum(bool(p["signals"][provider]["last_good"]) for p in signal_projects)
+        for provider, label in (("release", "Release"), ("scorecard", "Scorecard"), ("languages", "Repository languages")):
+            checked = sum(bool((p["signals"].get(provider) or {}).get("checked_at")) for p in signal_projects)
+            values = sum(bool((p["signals"].get(provider) or {}).get("last_good")) for p in signal_projects)
             notes.append(f"{label}: {values} cached results / {checked} checked")
         coverage = ('<ul class="coverage-notes">' + "".join(f"<li>{item}</li>" for item in notes)
                     + f"<li>{len(signal_projects)} mapped GitHub repositories.</li>"
                     + f"<li>Collection snapshot {escape(catalog.get('signals_collected_at'))}.</li></ul>"
-                    + '<p><a href="data/project_signals.json">Release and Scorecard evidence</a></p>')
+                    + '<p><a href="data/project_signals.json">Release, Scorecard and language evidence</a></p>')
     star_note = ""
     if any(p.get("star_history") for p in catalog["projects"]):
         star_note = "<li>GitHub stars / past 2y: Stars per month that remained at last successful fetch.</li>"
@@ -1032,7 +1062,15 @@ def build(output, source_sha=None, root=ROOT, qr_cache=None, scoreboard_preview=
     shutil.rmtree(records, ignore_errors=True)
     records.mkdir()
     categories = {c["id"]: c["name"] for c in catalog["categories"]}
+    activity_context = collection_log.load(root)
+    collection_dir = output / "collection"
+    shutil.rmtree(collection_dir, ignore_errors=True)
+    collection_dir.mkdir()
     for number, project in enumerate(catalog["projects"], 1):
+        events = collection_log.derive(project, activity_context)
+        (collection_dir / (project["id"] + ".json")).write_text(
+            compact_json(collection_log.payload(project, events, activity_context)), encoding="utf-8")
+        project = dict(project, _collection_events=events)
         (records / (project["id"] + ".html")).write_text(
             render_record(project, categories, catalog, number, cutouts, script_url=script_url, root=root, variants=variants), encoding="utf-8"
         )

@@ -1,0 +1,179 @@
+{
+  "id": "v2",
+  "title": "V2: on any list",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "intro": {
+    "image": "images/02 - Bringing the Collection Within Reach-2.png",
+    "kicker": "WebMCP for Awesome Lists · 2 of 3",
+    "title": "Add WebMCP to your own Awesome List.",
+    "subtitle": "One command adds WebMCPlet to your list. This gives tools to visiting agents.",
+    "mark": "webmcplet"
+  },
+  "outro": {
+    "image": "images/02b - Porcelain Reed Index.png",
+    "text": "dark",
+    "title": "Awesome Open*",
+    "subtitle": "awesomeopen.github.io/awesome-open"
+  },
+  "segments": [
+    {
+      "in": 12,
+      "out": 20,
+      "speed": 2
+    },
+    {
+      "in": 20,
+      "out": 48,
+      "speed": 4
+    },
+    {
+      "in": 114,
+      "out": 150,
+      "speed": 6,
+      "cutNote": "network dropped / retries"
+    },
+    {
+      "in": 156,
+      "out": 174,
+      "speed": 2,
+      "cutNote": "a macOS permission prompt"
+    },
+    {
+      "in": 174,
+      "out": 200,
+      "speed": 1.5
+    }
+  ],
+  "boxes": [
+    {
+      "id": "terminal",
+      "region": "terminal",
+      "kind": "other",
+      "label": "Claude Code · Your agent",
+      "from": 0,
+      "to": 27.5,
+      "at": [
+        { "t": 0, "rect": [520, 560, 700] }
+      ]
+    },
+    {
+      "id": "chrome",
+      "region": "chrome",
+      "kind": "other",
+      "label": "Chrome · local preview of open-source-mac-os-apps with WebMCPlet",
+      "from": 17,
+      "to": 34,
+      "at": [
+        { "t": 17, "rect": [1400, 560, 700] }
+      ]
+    },
+    {
+      "id": "answer",
+      "region": "answer",
+      "parent": "terminal",
+      "kind": "other",
+      "label": "Claude Code · the answer",
+      "from": 26,
+      "to": 43.33,
+      "at": [
+        { "t": 26, "rect": [960, 540, 1200] },
+        { "t": 34, "rect": [620, 480, 1000] }
+      ]
+    }
+  ],
+  "beats": [
+    {
+      "from": 0,
+      "to": 4,
+      "caption": "Selecting a random Awesome List ..."
+    },
+    {
+      "from": 4,
+      "to": 11,
+      "caption": "... to add the WebMCPlet. Like \"Awesome macOS Open Source Applications\"."
+    },
+    {
+      "from": 11,
+      "to": 17,
+      "caption": "The implementation even adds GitHub stars for richer evidence."
+    },
+    {
+      "from": 17,
+      "to": 26,
+      "caption": "Done. Your agent works with the list using WebMCP tools."
+    },
+    {
+      "from": 26,
+      "to": 34,
+      "caption": "The list provides accurate results. Your agent adds its opinion."
+    },
+    {
+      "from": 34,
+      "to": 43.33,
+      "caption": "The curator added WebMCPlet to their list. This helped your agent."
+    }
+  ],
+  "overlays": [
+    {
+      "type": "clock",
+      "from": 0,
+      "to": 43.33
+    },
+    {
+      "type": "note",
+      "from": 0,
+      "to": 43.33,
+      "at": [32, 28],
+      "text": "Local preview. No affiliation with open-source-mac-os-apps (CC0)."
+    },
+    {
+      "type": "draw",
+      "from": 0,
+      "to": 11,
+      "at": [1000, 170, 860]
+    },
+    {
+      "type": "transcript",
+      "from": 17.6,
+      "to": 26,
+      "at": [60, 150, 800],
+      "title": "Your agent's tool calls.",
+      "source": "Transcribed from the Claude Code session record (5b7e5506), 08:15–08:16 UTC.",
+      "items": [
+        {
+          "call": "list_webmcp_tools",
+          "result": "list_find, list_get, list_sections"
+        },
+        {
+          "call": "list_find {\"query\": \"video editor\"}",
+          "result": "2 items: OpenShot (6,791 stars), Shotnix (137 stars)"
+        },
+        {
+          "call": "list_sections",
+          "result": "github_stars: GitHub REST API, observed 08:15:11 UTC, 952 items"
+        }
+      ]
+    },
+    {
+      "type": "valueCheck",
+      "variant": "neutral",
+      "from": 35,
+      "to": 43.33,
+      "at": [1240, 230],
+      "direction": "column",
+      "list": "04-capture/list.json",
+      "projects": [
+        "OpenShot",
+        "Shotnix"
+      ],
+      "fields": [
+        "github_stars"
+      ]
+    },
+    { "type": "highlight", "n": 1, "from": 6.1, "to": 8.6, "style": "frame", "at": [1026, 261, 808, 48] },
+    { "type": "highlight", "n": 2, "from": 8.6, "to": 11, "style": "frame", "box": "terminal", "rect": [130, 1600, 1580, 200] },
+    { "type": "highlight", "n": 3, "from": 18.5, "to": 22.5, "style": "frame", "box": "chrome", "rect": [3226, 2082, 200, 124] }
+  ]
+}

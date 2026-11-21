@@ -7,9 +7,11 @@ controls share the ordered selection, comparison and activity display.
 ## Tools and state
 
 - `cabinet_find`: the Catalog's search, through the [shared matcher](#search).
+  Optional `language` matches any detected repository language; `unknown` and
+  `empty` select missing and successfully empty observations respectively.
   Returns 12 results from `offset`, the `total`, each result's `matched_fields`
   and the current selection revision. Zero matches return a `message` naming this
-  catalog.
+  catalog; for a query of several words it adds how many projects each word matches alone within the requested language filter.
 - `cabinet_inspect`: display one project's cached evidence and source links.
 - `cabinet_arrange`: replace the ordered selection atomically with zero to six
   distinct canonical IDs, using the current revision. Stale revisions fail.
@@ -60,12 +62,12 @@ provides its own model and connection.
 `site/search.js` is the one matcher behind the Catalog's search box, the Cabinet's
 form and `cabinet_find`, so they return the same IDs, order and unknown values.
 
-- **Fields:** name, reviewed aliases, description, reviewed alternatives, function
-  summary and feature notes. Every query word must appear in at least one of them.
+- **Fields:** name, reviewed aliases, reviewed former software names, description, reviewed alternatives, function
+  summary, feature notes and repository languages. Every query word must appear in at least one of them.
 - **Order:** the rank is the weakest field any word needed, in the order above; ties
   go by name. With no query, the order is GitHub stars. Other orders are the Catalog's
   explicit sort choices.
-- **Loading:** names, aliases, descriptions and alternatives are in the embedded
+- **Loading:** names, aliases, former software names, descriptions and alternatives are in the embedded
   index. Summaries and notes are in `search-text.json`, fetched at the first search,
   because embedding them would nearly double `index.html`'s gzip size. Until it
   arrives the Catalog searches the embedded fields, then renders again. If it fails,
@@ -77,7 +79,8 @@ Inspect and compare lazily load the one
 same-origin generated `catalog.json`, rejecting redirects and a source-revision
 mismatch. The comparison presents Function, GitHub stars, detected license,
 repository push, cache status, observation/attempt dates and reviewed alternatives
-with their scope, checked date and source. Full records link to the remaining
+with their scope, checked date and source. Repository languages retain their full
+byte breakdown, source, check date and cache status in inspect/compare results. Full records link to the remaining
 evidence. Unknown measurements remain null in tool results and read Unknown in
 the interface. The cabinet makes no aggregate ranking or recommendations.
 

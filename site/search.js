@@ -9,7 +9,7 @@
 
   // Strongest first. Function summaries and feature notes load separately from
   // the embedded index, so `text` holds them once search-text.json has arrived.
-  var FIELDS = ["name", "alias", "description", "alternative", "summary", "feature"];
+  var FIELDS = ["name", "alias", "former_name", "description", "alternative", "summary", "feature", "language"];
 
   function fold(value) {
     return String(value == null ? "" : value).normalize("NFKD")
@@ -18,6 +18,17 @@
 
   function words(query) {
     return fold(query).split(/\s+/).filter(Boolean);
+  }
+
+  function normalizeLanguage(value, projects) {
+    return typeof value === "string" && (["unknown", "empty"].includes(value) ||
+      projects.some(function (p) { return (p.languages || []).includes(value); })) ? value : "";
+  }
+
+  function matchesLanguage(project, selected) {
+    return !selected || (selected === "unknown" ? project.languages == null :
+      selected === "empty" ? Array.isArray(project.languages) && project.languages.length === 0 :
+      (project.languages || []).includes(selected));
   }
 
   function licenseOf(project) {
@@ -33,12 +44,28 @@
   }
 
   function aliasNames(project) {
-    return (project.aliases || []).map(function (alias) { return fold(alias.name); });
+    return (project.aliases || []).reduce(function (names, alias) {
+      names.push(fold(alias.name));
+      if (/^Open [\p{L}\p{N}]+$/u.test(alias.name)) names.push(fold(alias.name.replace(/ /g, "")));
+      return names;
+    }, []);
+  }
+
+  function formerNames(project) {
+    var names = project.former_names || (project.history || [])
+      .filter(function (event) { return event.kind === "software_rename"; })
+      .map(function (event) { return event.old_name; });
+    return names.reduce(function (out, name) {
+      // Preserve evidenced spelling and expose CamelCase word boundaries.
+      var variants = [fold(name), fold(name.replace(/([a-z])([A-Z])/g, "$1 $2"))];
+      if (/^Open [\p{L}\p{N}]+$/u.test(name)) variants.push(fold(name.replace(/ /g, "")));
+      return out.concat(variants);
+    }, []);
   }
 
   function shortAliasNames(projects) {
     return new Set(projects.reduce(function (names, project) {
-      return names.concat(aliasNames(project).filter(function (name) {
+      return names.concat(aliasNames(project).concat(formerNames(project)).filter(function (name) {
         return /^[\p{L}\p{N}_]{1,4}$/u.test(name);
       }));
     }, []));
@@ -52,6 +79,7 @@
   function fieldText(project, text) {
     var extra = (text && text[project.id]) || {};
     return {
+      language: fold((project.languages || []).join(" ")),
       name: fold(project.name),
       description: fold(project.description),
       alternative: fold((project.alternatives || []).map(function (item) { return item.name; }).join(" ")),
@@ -70,7 +98,9 @@
         // Preserve ordinary substring search; an exact reviewed short name such
         // as OBS must not match incidental prose like "obsolete". Alias-only
         // terms always use word boundaries, including Unicode letters/numbers.
-        var found = field === "alias"
+        var found = field === "former_name"
+          ? formerNames(project).some(function (name) { return boundaryMatch(name, token); })
+          : field === "alias"
           ? aliases.some(function (alias) { return boundaryMatch(alias, token); })
           : shortAliases.has(token) ? boundaryMatch(fields[field], token) : fields[field].indexOf(token) !== -1;
         if (!found) return;
@@ -132,8 +162,19 @@
       });
   }
 
-  function noMatch(count) {
-    return "No match in this catalog of " + count + " Open*-named projects.";
+  // With a query of several words, also how many projects each word finds alone,
+  // so a caller can search again with fewer words.
+  function noMatch(count, projects, query, text, language) {
+    var message = "No match in this catalog of " + count + " Open*-named projects.", tokens = words(query || "");
+    if (!projects || tokens.length < 2) return message;
+    // Match against the full catalog so short aliases keep their global boundaries.
+    var eligible = new Set(projects.filter(function (p) { return matchesLanguage(p, language); }).map(function (p) { return p.id; }));
+    var counts = tokens.map(function (token) {
+      return [token, Array.from(find(projects, token, text).keys()).filter(function (id) { return eligible.has(id); }).length];
+    });
+    if (counts.every(function (c) { return !c[1]; })) return message + " No word of the query matches a project on its own.";
+    return message + " No project contains every word. Projects matching each word alone: " +
+      counts.map(function (c) { return c[0] + " " + c[1]; }).join(", ") + ". Search again with fewer words.";
   }
 
   var pending = null;
@@ -164,6 +205,8 @@
     FIELDS: FIELDS,
     fold: fold,
     words: words,
+    normalizeLanguage: normalizeLanguage,
+    matchesLanguage: matchesLanguage,
     licenseOf: licenseOf,
     starsOf: starsOf,
     shortAliasNames: shortAliasNames,

@@ -1,0 +1,208 @@
+{
+  "id": "v1",
+  "title": "V1: on our list",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "intro": {
+    "image": "images/01 - One Small Link Revives a Knowledge Garden-1.png",
+    "kicker": "WebMCP for Awesome Lists · 1 of 3",
+    "title": "From prompt to result without plugins.",
+    "subtitle": "ChatGPT uses an Awesome List's WebMCP tools. You only give it the link."
+  },
+  "outro": {
+    "image": "images/01b - Quiet Alien Archive Connector.png",
+    "text": "dark",
+    "title": "Awesome Open*",
+    "subtitle": "awesomeopen.github.io/awesome-open"
+  },
+  "segments": [
+    {
+      "in": 1,
+      "out": 8,
+      "speed": 2
+    },
+    {
+      "in": 8,
+      "out": 32,
+      "speed": 8
+    },
+    {
+      "in": 40,
+      "out": 58,
+      "speed": 3,
+      "cutNote": "Connecting; you clicked the browser."
+    },
+    {
+      "in": 98,
+      "out": 104,
+      "speed": 1,
+      "cutNote": "You had control of the browser."
+    },
+    {
+      "in": 104,
+      "out": 124,
+      "speed": 2
+    },
+    {
+      "in": 126,
+      "out": 142,
+      "speed": 2,
+      "cutNote": "You open the link in your browser."
+    }
+  ],
+  "boxes": [
+    {
+      "id": "app",
+      "region": "app",
+      "kind": "other",
+      "label": "ChatGPT · Your AI chat or agent",
+      "from": 0,
+      "to": 28.5,
+      "at": [
+        { "t": 0, "rect": [960, 500, 1240] },
+        { "t": 6.5, "rect": [380, 420, 640] },
+        { "t": 12.5, "rect": [330, 270, 500] },
+        { "t": 18.5, "rect": [380, 420, 640] },
+        { "t": 22.5, "rect": [640, 500, 1150] }
+      ]
+    },
+    {
+      "id": "prompt",
+      "region": "prompt",
+      "parent": "app",
+      "kind": "other",
+      "label": "ChatGPT · Your prompt",
+      "from": 0.4,
+      "to": 3.5,
+      "at": [
+        { "t": 0.4, "rect": [960, 600, 1500] }
+      ]
+    },
+    {
+      "id": "cloudBrowser",
+      "region": "cloudBrowser",
+      "parent": "app",
+      "kind": "site",
+      "label": "ChatGPT's cloud browser · Awesome Open*",
+      "from": 6.5,
+      "to": 22.5,
+      "at": [
+        { "t": 6.5, "rect": [1260, 500, 1040] },
+        { "t": 12.5, "rect": [330, 720, 500] },
+        { "t": 18.5, "rect": [1260, 500, 1040] }
+      ]
+    },
+    {
+      "id": "cabinetLog",
+      "region": "cabinetLog",
+      "parent": "cloudBrowser",
+      "kind": "site",
+      "label": "Awesome Open* · Cabinet activity log",
+      "from": 12.9,
+      "to": 18.5,
+      "at": [
+        { "t": 12.9, "rect": [1200, 500, 1240] }
+      ]
+    },
+    {
+      "id": "chrome",
+      "region": "chrome",
+      "kind": "site",
+      "label": "Your web browser · Awesome Open*",
+      "from": 28.5,
+      "to": 36.5,
+      "at": [
+        { "t": 28.5, "rect": [700, 500, 1180] }
+      ]
+    }
+  ],
+  "beats": [
+    {
+      "from": 0,
+      "to": 3.5,
+      "caption": "You only mention the list. No plugin needed."
+    },
+    {
+      "from": 3.5,
+      "to": 6.5,
+      "caption": "Your agent visits the list online."
+    },
+    {
+      "from": 6.5,
+      "to": 12.5,
+      "caption": "The list returns two results to your agent."
+    },
+    {
+      "from": 12.5,
+      "to": 18.5,
+      "caption": "The list logs your agent's calls: find, arrange, compare."
+    },
+    {
+      "from": 18.5,
+      "to": 22.5,
+      "caption": "Your agent compares the results in the Cabinet ..."
+    },
+    {
+      "from": 22.5,
+      "to": 28.5,
+      "caption": "... and cites sources for each claim."
+    },
+    {
+      "from": 28.5,
+      "to": 35.5,
+      "caption": "Your agent adds its own opinion, and the final link to the Cabinet."
+    }
+  ],
+  "overlays": [
+    {
+      "type": "clock",
+      "from": 0,
+      "to": 36.5
+    },
+    {
+      "type": "claims",
+      "from": 22.5,
+      "to": 28.5,
+      "at": [1260, 130, 620],
+      "items": [
+        {
+          "source": "catalog",
+          "project": "OpenCut",
+          "match": "can be self-hosted with Docker",
+          "text": "OpenCut's classic editor can be self-hosted with Docker.",
+          "detail": "OpenCut's function summary in the catalog"
+        },
+        {
+          "source": "web",
+          "text": "OpenReel Video can be self-hosted.",
+          "detail": "ChatGPT checked its GitHub README; the catalog records no run mode"
+        },
+        {
+          "source": "generated",
+          "text": "“I'd try OpenReel first.”",
+          "detail": "ChatGPT's own pick"
+        }
+      ]
+    },
+    {
+      "type": "valueCheck",
+      "from": 30,
+      "to": 36.5,
+      "at": [1330, 120],
+      "direction": "column",
+      "projects": [
+        "OpenCut",
+        "OpenReel Video"
+      ],
+      "fields": [
+        "github_stars",
+        "license",
+        "pushed_at"
+      ]
+    },
+    { "type": "highlight", "n": 1, "from": 1.0, "to": 3.4, "style": "frame", "box": "prompt", "rect": [756, 822, 1390, 118] },
+    { "type": "highlight", "n": 2, "from": 13.6, "to": 18.3, "style": "frame", "box": "cabinetLog", "rect": [2320, 1124, 450, 128] },
+    { "type": "highlight", "n": 3, "from": 34.6, "to": 36.5, "style": "frame", "box": "chrome", "rect": [936, 270, 1876, 88] }
+  ]
+}

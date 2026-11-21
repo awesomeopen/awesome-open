@@ -109,3 +109,7 @@ Execution uses the merged contract and a separately verified hosted registration
 It adds only missing, officially evidenced records through data-only draft PRs.
 Existing records and HN attribution remain unchanged. A project without an
 evidenced alternate name is a valid skipped outcome, with no placeholder record.
+
+Spaced aliases of the form `Open Name` also match the compact query `OpenName`.
+This search normalization preserves the reviewed alias spelling and uses whole-word
+boundaries; it does not generate acronym aliases.

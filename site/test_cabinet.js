@@ -57,3 +57,24 @@ test('unknown evidence remains null, while zero and stale dates survive', () => 
  assert.equal(result.github.last_success_at,'2026-01-02');
  assert.equal(result.github.last_attempt.status,'unavailable');
 });
+
+test('word hints count only language-eligible matches with global alias boundaries', () => {
+ const pool = [
+  { id:'a', name:'Open Cast', aliases:[{name:'OBS'}], description:'Video recorder.', languages:['C++'] },
+  { id:'b', name:'Open Edit', description:'Obsolete video editor.', languages:['C#'] },
+  { id:'c', name:'Open Notes', description:'Notebook.', languages:['C#'] },
+  { id:'d', name:'Open Unknown', description:'Video editor.' },
+  { id:'e', name:'Open Empty', description:'Video editor.', languages:[] }
+ ];
+ const model=create(pool), text={c:{summary:'Video montage.',features:[]}};
+ assert.match(model.find({query:'video absent',language:'C#'}).message, /video 1, absent 0/);
+ assert.match(model.find({query:'video absent',language:'C#'},text).message, /video 2, absent 0/);
+ assert.match(model.find({query:'obs video',language:'C#'},text).message, /obs 0, video 2/);
+ assert.match(model.find({query:'obs absent',language:'C#'},text).message, /No word of the query matches a project on its own/);
+ assert.match(model.find({query:'video absent',language:'Rust'},text).message, /No word of the query matches a project on its own/);
+ assert.match(model.find({query:'C++ absent',language:'C#'},text).message, /No word of the query matches a project on its own/);
+ assert.match(model.find({query:'C# absent',language:'C#'},text).message, /c# 2, absent 0/);
+ assert.match(model.find({query:'C++ absent',language:'C++'},text).message, /c\+\+ 1, absent 0/);
+ for(const language of ['unknown','empty']) assert.match(model.find({query:'video absent',language},text).message, /video 1, absent 0/);
+ assert.match(model.find({query:'video absent'},text).message, /video 5, absent 0/);
+});

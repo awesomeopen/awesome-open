@@ -10659,6 +10659,5193 @@
           "note": "The Linux compile section lists CMake 3.22 or newer."
         }
       ]
+    },
+    "c0fb5a1fbcbe4a35d90498d4e7747d14a1fe90b68ff789386be6ca95f597cbc4": {
+      "project_url": "https://github.com/openttd/openttd",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. COMPILING.md was not opened, and BSD is named only as a platform that may work without active testing.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/OpenTTD/OpenTTD/blob/ace3b0a776827dbbbfcbd90c400c5af68cfecfb1/README.md",
+          "title": "OpenTTD README",
+          "kind": "upstream_repository",
+          "revision": "ace3b0a776827dbbbfcbd90c400c5af68cfecfb1"
+        },
+        "install": {
+          "url": "https://wiki.openttd.org/en/Manual/Installation",
+          "title": "OpenTTD installation guide",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "OpenTTD is a transport simulation game.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "installer",
+          "scope": "The Windows section says to download the Windows installer for OpenTTD.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "binary",
+          "scope": "The macOS section recommends a .dmg disk image and says a .zip archive may also be available.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "The Linux section says to pick OpenTTD in the distribution Software Center or package manager.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux / macOS (universal) / Windows",
+          "scope": "The README lists Linux with SDL, universal macOS with Cocoa, and Windows with Win32 GDI or OpenGL.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "Linux x86_64",
+          "scope": "The manual Linux download on the installation guide is the generic x86_64 xz/lzma archive.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Additional graphics and sound files are needed to run.",
+          "scope": "The README states this for OpenTTD generally.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "6d86367855e83c40b4783746dfc3e9e578013689198e16c8f0511d586aa9c561": {
+      "project_url": "https://github.com/openapi-ts/openapi-typescript",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The fetched npm latest version was 7.13.0, and sibling packages such as openapi-fetch were not recorded.",
+      "sources": {
+        "intro": {
+          "url": "https://openapi-ts.dev/introduction",
+          "title": "openapi-typescript introduction",
+          "kind": "upstream_docs"
+        },
+        "npm": {
+          "url": "https://registry.npmjs.org/openapi-typescript/latest",
+          "title": "npm openapi-typescript latest",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "openapi-typescript turns OpenAPI 3.0 and 3.1 schemas into TypeScript types.",
+          "source_ids": [
+            "intro"
+          ]
+        },
+        {
+          "value": "cli",
+          "scope": "The introduction generates a local type file by running npx openapi-typescript.",
+          "source_ids": [
+            "intro"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The introduction setup command is npm i -D openapi-typescript.",
+          "source_ids": [
+            "intro"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "npm",
+          "coordinate": "openapi-typescript",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "The npm latest document's repository is this GitHub repository, directory packages/openapi-typescript.",
+          "source_ids": [
+            "npm"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "The library requires the latest version of Node.js.",
+          "scope": "The introduction setup section states this Node.js requirement.",
+          "source_ids": [
+            "intro"
+          ]
+        },
+        {
+          "kind": "recommended",
+          "note": "Node.js 20.x or higher is recommended.",
+          "scope": "The introduction setup section recommends Node.js 20.x or higher.",
+          "source_ids": [
+            "intro"
+          ]
+        }
+      ]
+    },
+    "dba69fcffa55880ad59baf06c614168fdea4b04913e6a753ce800dac85aa71b6": {
+      "project_url": "https://github.com/opentoonz/opentoonz",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Nightly Windows and macOS installers are also linked, and the comfort list stops at Windows 10.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/opentoonz/opentoonz/blob/ecdc40f12f2aa0ab3d0a7ebd041621c66159f247/README.md",
+          "title": "OpenToonz README",
+          "kind": "upstream_repository",
+          "revision": "ecdc40f12f2aa0ab3d0a7ebd041621c66159f247"
+        },
+        "download": {
+          "url": "https://opentoonz.github.io/e/download/opentoonz.html",
+          "title": "OpenToonz download",
+          "kind": "upstream_docs"
+        },
+        "site": {
+          "url": "https://opentoonz.github.io/e/index.html",
+          "title": "OpenToonz official site",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "OpenToonz is 2D animation software.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "installer",
+          "scope": "The download page links OpenToonzSetup.exe and OpenToonz.pkg for version 1.8.",
+          "source_ids": [
+            "download"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The README links local build instructions for Windows, macOS, Linux, and BSD.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Windows 7 SP1 / 8.1 / 10 (64-bit)",
+          "scope": "The official site lists Windows 7 SP1, 8.1, and 10, with 64-bit required.",
+          "source_ids": [
+            "site"
+          ]
+        },
+        {
+          "value": "macOS 10.14 or later",
+          "scope": "The official site marks macOS 10.14 (Mojave) or a later version as required.",
+          "source_ids": [
+            "site"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "recommended",
+          "note": "4GB or more RAM.",
+          "scope": "Stated for using OpenToonz comfortably on Windows.",
+          "source_ids": [
+            "site"
+          ]
+        },
+        {
+          "kind": "recommended",
+          "note": "500 MB or more storage and 1280 x 1024 or higher.",
+          "scope": "Listed with the 4GB RAM line on the official site.",
+          "source_ids": [
+            "site"
+          ]
+        }
+      ]
+    },
+    "7695295207bed0cbd8b0de86e931b300d092f8bf6d36befbd71df8289d21921b": {
+      "project_url": "https://github.com/opencart/opencart",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Repository INSTALL.md was not fetched.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/opencart/opencart/blob/c79a8b1eafcb41d8cef6d3117a5309005a807a33/README.md",
+          "title": "OpenCart README",
+          "kind": "upstream_repository",
+          "revision": "c79a8b1eafcb41d8cef6d3117a5309005a807a33"
+        },
+        "install": {
+          "url": "https://docs.opencart.com/getting-started/installation",
+          "title": "OpenCart 4.x installation",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The guide installs OpenCart 4.x on a server.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "local_web",
+          "scope": "The README Docker path serves the store at http://localhost.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "Manual installation downloads a compressed zip archive.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "installer",
+          "scope": "A host panel with Softaculous can install OpenCart in a few clicks.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "The README includes a Docker Compose environment for local development.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "macOS / Linux",
+          "scope": "Docker prerequisites say make is usually pre-installed on macOS and Linux.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "Windows (WSL 2)",
+          "scope": "Docker Desktop on Windows is recommended with the WSL 2 backend.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "MySQLi, PDO, or PostgreSQL",
+          "requirement": "required",
+          "scope": "Hosting must support PHP 8 and one of these database interfaces.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "PHP 8.0 or newer.",
+          "scope": "The 4.x pre-installation check lists PHP 8.0+.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "default",
+          "note": "The Docker environment uses PHP 8.4 by default.",
+          "scope": "Default PHP version in the README Docker environment.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "default",
+          "note": "Docker mysql runs MariaDB.",
+          "scope": "Default database in the README Docker environment.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "c6f4cdabc8b23b43ec144b071fc9907e47d3c54b79d4547487c000955d13cc97": {
+      "project_url": "https://github.com/openedx/openedx-platform",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The documented production install path is Tutor; the Tutor manual at docs.tutor.overhang.io was not opened, and bare-metal Node is only referenced from .nvmrc.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openedx/openedx-platform/blob/a3d07ffed5723d72902284104c8ac1d3a09c5a2b/README.rst",
+          "title": "Open edX platform README",
+          "kind": "upstream_repository",
+          "revision": "a3d07ffed5723d72902284104c8ac1d3a09c5a2b"
+        },
+        "tutor": {
+          "url": "https://docs.openedx.org/en/latest/site_ops/install_configure_run_guide/installation/tutor.html",
+          "title": "Open edX Tutor installation",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The README's self-managed production path is a Tutor deployment of this Open edX platform.",
+          "source_ids": [
+            "readme",
+            "tutor"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "Tutor is the documented production install path, a community Docker-based distribution named by this repository.",
+          "source_ids": [
+            "readme",
+            "tutor"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The README also describes a Linux bare-metal setup and calls that method less common and mostly undocumented.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Ubuntu 24.04",
+          "scope": "Named as the operating system for the bare-metal setup.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "MySQL 8.0, Mongo 7.x, and Memcached",
+          "requirement": "required",
+          "scope": "Named under bare-metal system dependencies in the README.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Python 3.12, with Node taken from the repository .nvmrc file.",
+          "scope": "Bare-metal interpreters and tools name Python 3.12 and point Node at .nvmrc.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "9facd576272f54b11c98879ba276031a4af25a2ddb525b638d1c75d061262e9d": {
+      "project_url": "https://github.com/open-telemetry/opentelemetry-collector",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Docker, Kubernetes, and per-OS binary pages linked from the install hub were not opened, so their steps and host operating systems were not recorded.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/open-telemetry/opentelemetry-collector/blob/645cec2cc1853098b282a5249be6602263a22cde/README.md",
+          "title": "Collector README",
+          "kind": "upstream_repository",
+          "revision": "645cec2cc1853098b282a5249be6602263a22cde"
+        },
+        "quickstart": {
+          "url": "https://opentelemetry.io/docs/collector/quick-start/",
+          "title": "Collector quick start",
+          "kind": "upstream_docs"
+        },
+        "install": {
+          "url": "https://opentelemetry.io/docs/collector/install/",
+          "title": "Install the Collector",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The quick start runs the Collector locally and opens port 4317 for OTLP over gRPC.",
+          "source_ids": [
+            "quickstart"
+          ]
+        },
+        {
+          "value": "library",
+          "scope": "This repository tracks supported Go minor versions when used as a library.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "The quick start pulls and runs otel/opentelemetry-collector:0.165.0.",
+          "source_ids": [
+            "quickstart"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The install page builds otelcorecol from a clone of this repository.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Docker",
+          "coordinate": "otel/opentelemetry-collector",
+          "channel": "0.165.0",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "Image tag pulled by the quick start. No registry page was checked.",
+          "source_ids": [
+            "quickstart"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Within a supported Go minor, the minimum patch version may increase.",
+          "scope": "Stated for library use. No single Go version number is given.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "c69a4c499052f166e762bdb3734a113888b48338402fbce9fad7ff5d861f0cc7": {
+      "project_url": "https://github.com/ganeshrvel/openmtp",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The Homebrew cask lists macOS platform names from Big Sur upward and does not restate the README minimum of macOS 10.14.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/ganeshrvel/openmtp/blob/5da350b69c6d0d4aed67a063498ee89c7448400a/README.md",
+          "title": "OpenMTP README",
+          "kind": "upstream_repository",
+          "revision": "5da350b69c6d0d4aed67a063498ee89c7448400a"
+        },
+        "brew": {
+          "url": "https://formulae.brew.sh/api/cask/openmtp.json",
+          "title": "Homebrew cask openmtp",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "OpenMTP is a macOS application for file transfer with Android and other MTP devices.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "The README points to the latest dmg on GitHub Releases.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "The README documents brew install openmtp --cask.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "macOS Intel and ARM64",
+          "scope": "The README says updates continue for both Intel and ARM64 machines.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Homebrew cask",
+          "coordinate": "openmtp",
+          "channel": "homebrew/cask",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The cask artifact URL is a ganeshrvel/openmtp v3.3.0 release, and the cask is in the homebrew/cask tap.",
+          "source_ids": [
+            "brew"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "macOS 10.14 (Mojave) or higher.",
+          "scope": "README system requirement for current OpenMTP.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "macOS 10.13 and earlier need OpenMTP v3.1.15 in Legacy MTP mode.",
+          "scope": "README support limit for macOS older than Mojave.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "bf9be803610f2bd01495be45b4b801fef23560ad18a5ce53e4b0908b47444197": {
+      "project_url": "https://github.com/openmathlib/openblas",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Windows arm64 binaries in the pinned README are not in this page's release-zip paragraph, so they were left out.",
+      "sources": {
+        "install": {
+          "url": "https://www.openmathlib.org/OpenBLAS/docs/install/",
+          "title": "Install OpenBLAS",
+          "kind": "upstream_docs"
+        },
+        "readme": {
+          "url": "https://github.com/OpenMathLib/OpenBLAS/blob/b725a4f3926fa80dbdd1dd913bd61508c7babc9e/README.md",
+          "title": "OpenBLAS README",
+          "kind": "upstream_repository",
+          "revision": "b725a4f3926fa80dbdd1dd913bd61508c7babc9e"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "Use libopenblas.a or link with -lopenblas.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The install page says OpenBLAS can be installed through package managers.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "binary",
+          "scope": "The install page says the project itself publishes Windows binaries.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The README says make, or gmake on BSD, detects the CPU.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux",
+          "scope": "A system package manager can install OpenBLAS on Linux.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "Windows x86-64 and x86",
+          "scope": "x86-64 and x86 release zip archives.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "macOS",
+          "scope": "The install page documents a package-manager install on macOS.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "apt",
+          "coordinate": "libopenblas-dev",
+          "channel": "apt",
+          "status": "documented",
+          "upstream_relationship": "distribution",
+          "scope": "The install page shows apt install libopenblas-dev.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "ecosystem": "Homebrew",
+          "coordinate": "openblas",
+          "channel": "formula",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The install page shows brew install openblas.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "GNU Make or CMake and a C compiler; Fortran is optional.",
+          "scope": "Build dependencies in the pinned README.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "a61eb4a0cf8007496765bde0c52c2b5c98f6d8e44d1b93bbff8152496fedb090": {
+      "project_url": "https://github.com/pixaranimationstudios/openusd",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Facts are from the pinned README only; command-line tools are named as omitted from iOS, visionOS, and WebAssembly builds, so no CLI mode was recorded.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/PixarAnimationStudios/OpenUSD/blob/3ed9ded5b9a8469e0f37525afbbad95c1e09f2a8/README.md",
+          "title": "OpenUSD README",
+          "kind": "upstream_repository",
+          "revision": "3ed9ded5b9a8469e0f37525afbbad95c1e09f2a8"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "The default build_usd.py run builds the USD core libraries, Imaging, and USD Imaging.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "desktop",
+          "scope": "usdview requires Python bindings, PySide6 or PySide2, and PyOpenGL.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "build_usd.py downloads dependencies and installs them with USD into a chosen directory.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux, macOS, and Windows",
+          "scope": "The README says USD is developed on Linux (CentOS 7) and supported on macOS and Windows.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "iOS and visionOS",
+          "scope": "The README says macOS can cross-compile USD libraries for iOS and visionOS.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "Windows x64 and ARM64",
+          "scope": "The Windows build section says compilation can target x64 or ARM64.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "A C/C++ compiler, CMake, and Intel TBB are required.",
+          "scope": "Required dependencies listed in the pinned README.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Windows ARM64EC is not compatible, and usdview is not supported on Windows ARM64.",
+          "scope": "Stated in the README Windows build section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "ad9671b6186bd596692a3c213a91071c82ab046a40fb83b97265771ec962f891": {
+      "project_url": "https://github.com/open-compass/opencompass",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The installation page names no operating system, and PyTorch or CUDA versions remain backend-specific rather than a universal minimum.",
+      "sources": {
+        "install": {
+          "url": "https://opencompass.readthedocs.io/en/latest/get_started/installation.html",
+          "title": "OpenCompass installation",
+          "kind": "upstream_docs"
+        },
+        "pypi": {
+          "url": "https://pypi.org/pypi/opencompass/json",
+          "title": "PyPI opencompass",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "cli",
+          "scope": "The install check verifies the opencompass command-line entry point.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "library",
+          "scope": "The install check imports the opencompass package and prints its path.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The base package is installed with pip install -U opencompass.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The install page says to install from source by cloning this repository.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Model APIs such as OpenAI and Anthropic",
+          "requirement": "optional",
+          "scope": "The opencompass[api] extra is the documented install for API models.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "PyPI",
+          "coordinate": "opencompass",
+          "channel": "0.5.5",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "The registry homepage is this repository, and the release URL is version 0.5.5.",
+          "source_ids": [
+            "pypi"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "Python 3.9 or later.",
+          "scope": "Stated for the OpenCompass install, separate from backend framework constraints.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "recommended",
+          "note": "Python 3.12 is recommended.",
+          "scope": "Recommended Python version on the installation page.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "pyext==0.7 needs Python 3.10 and is incompatible with Python 3.11 and later.",
+          "scope": "Applies to evaluations that depend on pyext, not to the base install.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
+    },
+    "dab460140f5c71225d45f66d50641acbc69eb8f0a00eeb52018f4f9d4a09e0ad": {
+      "project_url": "https://github.com/traceloop/openllmetry",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Only the Python SDK is recorded; Node.js, Next.js, Go, and Ruby quick starts and separate instrumentation packages were not listed.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/traceloop/openllmetry/blob/e3d651a0c9f2f5f5019819df5b6320273fd65049/README.md",
+          "title": "OpenLLMetry README",
+          "kind": "upstream_repository",
+          "revision": "e3d651a0c9f2f5f5019819df5b6320273fd65049"
+        },
+        "python": {
+          "url": "https://traceloop.com/docs/openllmetry/getting-started-python",
+          "title": "OpenLLMetry Python quick start",
+          "kind": "upstream_docs"
+        },
+        "pypi": {
+          "url": "https://pypi.org/pypi/traceloop-sdk/json",
+          "title": "PyPI traceloop-sdk",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "Python code imports traceloop.sdk.Traceloop and calls Traceloop.init().",
+          "source_ids": [
+            "readme",
+            "python"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The Python quick start documents pip install traceloop-sdk and poetry add traceloop-sdk.",
+          "source_ids": [
+            "readme",
+            "python"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Trace exporter",
+          "requirement": "configuration-dependent",
+          "scope": "Traces export through TRACELOOP_API_KEY and TRACELOOP_BASE_URL, with Traceloop Cloud as one option and other exporters documented.",
+          "source_ids": [
+            "python"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "PyPI",
+          "coordinate": "traceloop-sdk",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "pip install traceloop-sdk, with registry repository github.com/traceloop/openllmetry and fetched release 0.63.0.",
+          "source_ids": [
+            "readme",
+            "pypi"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Python >=3.10 and <4.",
+          "scope": "traceloop-sdk package metadata requires_python is <4,>=3.10.",
+          "source_ids": [
+            "pypi"
+          ]
+        }
+      ]
+    },
+    "f8b2fb836d3643aa69a45c71af85096dc070e94b85582d4b013e52da3a4cbc37": {
+      "project_url": "https://github.com/getopenscreen/openscreen",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Winget, Nix, AppImage, and Linux package files are documented in addition to the recorded Homebrew cask.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/getopenscreen/openscreen/blob/d36aa7d82ff7716dd9017ce77f6fcf153c8374d4/README.md",
+          "title": "OpenScreen README",
+          "kind": "upstream_repository",
+          "revision": "d36aa7d82ff7716dd9017ce77f6fcf153c8374d4"
+        },
+        "install": {
+          "url": "https://getopenscreen.com/docs/installation/",
+          "title": "Install OpenScreen",
+          "kind": "upstream_docs"
+        },
+        "brew": {
+          "url": "https://formulae.brew.sh/api/cask/openscreen.json",
+          "title": "Homebrew openscreen cask",
+          "kind": "registry"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "A desktop app records the screen and edits the recording into a demo video.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "cli",
+          "scope": "The openscreen command records, edits a project, and exports MP4 or GIF with no visible window.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "installer",
+          "scope": "Microsoft Store on Windows, and the GitHub Releases installer on other platforms.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "macOS: brew install --cask openscreen.",
+          "source_ids": [
+            "readme",
+            "brew"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "macOS 13 (Ventura) or later",
+          "scope": "Required for ScreenCaptureKit capture.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "Windows 10 version 1903 or later",
+          "scope": "Build 18362 or later, x64 or ARM64.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "Linux x64 / aarch64",
+          "scope": "Release packages are x64, and aarch64 uses the Nix flake, which builds from source.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Homebrew cask",
+          "coordinate": "openscreen",
+          "channel": "homebrew/cask",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "homebrew/cask downloads a getopenscreen/openscreen v2.2.2 release. Ownership was not established.",
+          "source_ids": [
+            "brew"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "8 GB RAM.",
+          "scope": "README system requirements.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "10f0478043f12ea4853a0c6a46ea975c9006108a69a76f333dfe4f083801ecaf": {
+      "project_url": "https://github.com/openpanel-dev/openpanel",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Public 2.x uses setup scripts and OpenPanel 3 uses a supporter CLI, so each install fact is scoped to its page, and OpenPanel Cloud is hosted.",
+      "sources": {
+        "v3": {
+          "url": "https://openpanel.dev/docs/self-hosting/self-hosting",
+          "title": "OpenPanel self-hosting",
+          "kind": "upstream_docs"
+        },
+        "v2": {
+          "url": "https://openpanel.dev/docs/self-hosting/v2/get-started",
+          "title": "OpenPanel 2.x self-hosting",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "Both getting-started pages describe self-hosting OpenPanel on your own VPS.",
+          "source_ids": [
+            "v2",
+            "v3"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "Public 2.x clones the self-hosting branch, runs ./setup, then ./start.",
+          "source_ids": [
+            "v2"
+          ]
+        },
+        {
+          "value": "binary",
+          "scope": "OpenPanel 3 publishes the CLI as Linux x64 and arm64 release binaries, with checksums.",
+          "source_ids": [
+            "v3"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Ubuntu 24.04",
+          "scope": "Both pages say the VPS path was only tested on Ubuntu 24.04.",
+          "source_ids": [
+            "v2",
+            "v3"
+          ]
+        },
+        {
+          "value": "Linux x64 / arm64",
+          "scope": "OpenPanel 3 says any Linux server that can run Docker, x64 or arm64.",
+          "source_ids": [
+            "v3"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Resend or SMTP",
+          "requirement": "configuration-dependent",
+          "scope": "Email is not required for the basic 2.x setup, while password reset and invitations require it.",
+          "source_ids": [
+            "v2"
+          ]
+        },
+        {
+          "name": "Postgres, ClickHouse, and Redis",
+          "requirement": "configuration-dependent",
+          "scope": "OpenPanel 3 init asks whether to run these or use your own.",
+          "source_ids": [
+            "v3"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "At least 4 GB RAM.",
+          "scope": "OpenPanel 3 prerequisites, for Redpanda, ClickHouse, and Postgres side by side.",
+          "source_ids": [
+            "v3"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Docker, which the OpenPanel 3 CLI offers to install on Linux.",
+          "scope": "Stated on the OpenPanel 3 getting-started page.",
+          "source_ids": [
+            "v3"
+          ]
+        }
+      ]
+    },
+    "6c08e48f2d90758681dbbeac91fc7d09da6989497aa595dc2f35027fa9ea1a18": {
+      "project_url": "https://github.com/opensignlabs/opensign",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The docs distinguish a cloud-hosted app from this Docker self-host; the Compose file is pulled from main, this README pin is staging, and that file was not opened.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/OpenSignLabs/OpenSign/blob/6fa4c778028f4ec94519a7c5106bf865f6395bf0/README.md",
+          "title": "OpenSign README",
+          "kind": "upstream_repository",
+          "revision": "6fa4c778028f4ec94519a7c5106bf865f6395bf0"
+        },
+        "docker": {
+          "url": "https://docs.opensignlabs.com/docs/self-host/docker/run-locally/",
+          "title": "Self-host OpenSign with Docker",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "Docker install on your own server using official images.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "local_web",
+          "scope": "The local Docker path serves the app at https://localhost:3001.",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "docker compose up after downloading the Compose file, on Linux, macOS, or Windows.",
+          "source_ids": [
+            "readme",
+            "docker"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux / macOS / Windows",
+          "scope": "The Docker page gives commands for Linux, macOS, and Windows.",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "DigitalOcean Spaces",
+          "requirement": "configuration-dependent",
+          "scope": "DO credentials are ignored when USE_LOCAL is true and local file storage is used.",
+          "source_ids": [
+            "docker"
+          ]
+        },
+        {
+          "name": "Mailgun or SMTP",
+          "requirement": "configuration-dependent",
+          "scope": "Enabling SMTP sends mail through SMTP and ignores Mailgun credentials.",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Do not expose port 27017. The default configuration does not enable MongoDB authentication.",
+          "scope": "Warning on the Docker self-host page.",
+          "source_ids": [
+            "docker"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "The default MongoDB instance is not persistent and is cleared on every restart.",
+          "scope": "The default MongoDB instance is cleared on every restart unless you supply a connection URL.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "bfb8dcfef86cb118d3662fb239fa0d0696ed935a1de876c571a755f3c059eb3d": {
+      "project_url": "https://github.com/zseven-w/openpencil",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README also documents a Homebrew formula for op, shell installers, a Nix flake for x86_64-linux, and a cargo source build, which are not separate method rows.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/ZSeven-W/openpencil/blob/2bbc658caba5139cdfeb768b65da7f6f0080a703/README.md",
+          "title": "OpenPencil README",
+          "kind": "upstream_repository",
+          "revision": "2bbc658caba5139cdfeb768b65da7f6f0080a703"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "The README describes a native desktop binary for macOS, Windows, and Linux.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "cli",
+          "scope": "The op command controls the design tool from a terminal, with the desktop app or a web server.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "local_web",
+          "scope": "The documented Docker run serves the web host at http://localhost:3100/.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "Homebrew installs the openpencil cask on macOS, and Scoop installs the openpencil package on Windows.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "binary",
+          "scope": "GitHub Releases are the direct download for a Windows exe, a Linux AppImage, and a Linux deb.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "The README runs ghcr.io/zseven-w/openpencil-web with Docker and publishes port 3100.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "macOS, Windows, and Linux",
+          "scope": "Native desktop targets named in the README.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "The Docker web UI exposes built-in agent profiles only and does not bundle Claude, Codex, OpenCode, or Copilot CLI tooling.",
+          "scope": "Stated for the published web-host image.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "The Windows exe installer, both Scoop packages, and install-op.ps1 service the Visual C++ v14 runtime when needed.",
+          "scope": "README install note for those Windows installers.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "b8026452b09686feb5fce2ab29548a46040ae39acfa6d24fb4b3ab1e6dcd92b9": {
+      "project_url": "https://github.com/openmediavault/openmediavault",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The stable installation page returned HTTP 403, so this record uses the README only.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openmediavault/openmediavault/blob/809de66d917f1ae361e8ce74ffed8bb0aa6436bb/README.md",
+          "title": "openmediavault README",
+          "kind": "upstream_repository",
+          "revision": "809de66d917f1ae361e8ce74ffed8bb0aa6436bb"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The README presents it as a Debian-based network attached storage system.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "installer",
+          "scope": "The README's quick install runs a root script on an existing Debian system.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Debian",
+          "scope": "The quick install targets an existing Debian system.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "It expects exclusive control of OS configuration and cannot be used within a container.",
+          "scope": "README installation note.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "No graphical desktop user interface can be installed in parallel.",
+          "scope": "README installation note.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "d98719da14fd1e9d96c6131ee7f4b7b9c036a07028aa0ee508586c13e847c347": {
+      "project_url": "https://github.com/openrc/openrc",
+      "review_status": "approved",
+      "checked_at": "2026-11-16",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README documents a Meson build for an init system and does not assign a run mode.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/OpenRC/openrc/blob/14e11b7f5b09072aa1433e790bbf832800858fec/README.md",
+          "title": "OpenRC README",
+          "kind": "upstream_repository",
+          "revision": "14e11b7f5b09072aa1433e790bbf832800858fec"
+        }
+      },
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The README says to build and install with the Meson build system.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux",
+          "scope": "The README includes an inittab hook for SysVInit as used by most Linux distributions.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "FreeBSD",
+          "scope": "The README includes a devd.conf hook modified from FreeBSD.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Building a static OpenRC with PAM is not supported.",
+          "scope": "README build note.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "A system with separate / and /usr that mounts / first needs meson setup options so the needed pieces are installed on /.",
+          "scope": "README install note for that filesystem layout.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "9b4f3a2831f5b2984b13416b8b87dc1f850011f955fb40cfddd8bf3662c1d17c": {
+      "project_url": "https://github.com/opennmt/opennmt-py",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README announces that OpenNMT-py is no longer actively supported and points to the Eole project; the recorded setup is the documented OpenNMT-py setup.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/opennmt/opennmt-py/blob/97111d97551c24857076a4102eabdb468b35cff4/README.md",
+          "title": "OpenNMT README",
+          "kind": "upstream_repository",
+          "revision": "97111d97551c24857076a4102eabdb468b35cff4"
+        }
+      },
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "The README documents GitHub Container Registry images and a Dockerfile to build your own.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "The README says to install OpenNMT-py from pip.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The README documents an editable install from the repository with pip install -e .",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "PyPI",
+          "coordinate": "OpenNMT-py",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The README gives pip install OpenNMT-py; upstream ownership of the PyPI project was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "ecosystem": "OCI / GitHub Container Registry",
+          "coordinate": "ghcr.io/opennmt/opennmt-py",
+          "channel": "3.4.3-ubuntu22.04-cuda12.1",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Example image tag in the README docker pull command.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "Python 3.8 or newer.",
+          "scope": "README local-install requirement.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "minimum",
+          "note": "PyTorch 2.0 or newer, below 2.2.",
+          "scope": "README local-install requirement.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "The NVIDIA Container Toolkit is needed to use CUDA/GPU features in the container.",
+          "scope": "README container note.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "1d2cb00a6bd1b27c76b236dddc9926c1124700c41ea705960c8975ad7a58a6c6": {
+      "project_url": "https://github.com/opencost/opencost",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. No run mode beyond the documented Kubernetes install is recorded.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/opencost/opencost/blob/eb02a2f4a0b641c1d68d609445972ba7a6b0c784/README.md",
+          "title": "OpenCost README",
+          "kind": "upstream_repository",
+          "revision": "eb02a2f4a0b641c1d68d609445972ba7a6b0c784"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The README installs OpenCost into a Kubernetes cluster with the official Helm chart.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The README says OpenCost is installed and managed through the official Helm chart only; standalone manifests were removed.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Kubernetes cluster",
+          "requirement": "required",
+          "scope": "The README quick install targets a Kubernetes 1.20 or newer cluster.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "name": "Prometheus",
+          "requirement": "configuration-dependent",
+          "scope": "The README documents Prometheus metrics export and a PROMETHEUS_SERVER_ENDPOINT setting for sharded setups.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Helm chart",
+          "coordinate": "opencost/opencost",
+          "channel": "opencost-helm-chart repository",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The README adds the opencost Helm repository and installs opencost/opencost; ownership of the chart repository was not separately established.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "Kubernetes 1.20 or newer.",
+          "scope": "README quick install.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "ac631cb53c18d2667d8383c8270d00c312d72edb7ba278beb2ba2ba0a6b65d96": {
+      "project_url": "https://github.com/apache/openwhisk",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README notes a breaking upgrade of 2025-10-17 to the Apache Pekko framework that requires redeploying clusters.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/apache/openwhisk/blob/033793ea603e09ad5c5feaa29a4f9cb3cdcabaf2/README.md",
+          "title": "OpenWhisk README",
+          "kind": "upstream_repository",
+          "revision": "033793ea603e09ad5c5feaa29a4f9cb3cdcabaf2"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The Standalone stack runs as a single Java process with a browser Playground at localhost:3232.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The README Quick Start clones the repository and runs ./gradlew core:standalone:bootRun.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Docker, Java and Node.js must be available on the machine.",
+          "scope": "README Quick Start for the Standalone stack; functions run in Docker containers.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Master since 2025-10-17 uses Apache Pekko; existing clusters must be redeployed and traffic cut over.",
+          "scope": "README breaking-upgrade notice.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "6d80e90a612c344012461e8d27e44f593ad681be6512a6145d2455a120e3f884": {
+      "project_url": "https://github.com/openshot/openshot-qt",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README documents installers as the quickest start; build-from-source dependencies are tips only.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openshot/openshot-qt/blob/4cdda487869bf9d2f6c01ece65602592f7aee130/README.md",
+          "title": "OpenShot README",
+          "kind": "upstream_repository",
+          "revision": "4cdda487869bf9d2f6c01ece65602592f7aee130"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "The README describes OpenShot as a video editor for Linux, Mac and Windows.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "installer",
+          "scope": "The README says the quickest start is a pre-built installer from the OpenShot download page, including daily builds.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The README lists dependencies for running from source; the project is Python and needs no compile step.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux / macOS / Windows",
+          "scope": "The README describes the editor as cross-platform for these systems.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Source use needs Python 3, PyQt or PySide for Qt5/Qt6, defusedxml, libopenshot and libopenshot-audio.",
+          "scope": "README Dependencies section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "a6c9dcb7ce9dcce2cf960e79e2d8a988e9ad1e41cd4428e06a26d10eb220bfdd": {
+      "project_url": "https://github.com/openmw/openmw",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README links installation instructions and a source-build page without stating install steps; only the platform statement and the game-data requirement are recorded.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openmw/openmw/blob/77eec0471802676324fb014d4d465ea652a8ec27/README.md",
+          "title": "OpenMW README",
+          "kind": "upstream_repository",
+          "revision": "77eec0471802676324fb014d4d465ea652a8ec27"
+        }
+      },
+      "platforms": [
+        {
+          "value": "Windows 10 or later / macOS 14.8 or later / Linux",
+          "scope": "The README lists these as officially supported platforms; 32-bit platforms are not supported.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "You need to own Morrowind for OpenMW to play it; the data path tells OpenMW where the Morrowind files are.",
+          "scope": "README introduction and data path section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "d477ecc1ebaf968f0b367d8795597d0ac9cee3704cf254357a35977db77b2de5": {
+      "project_url": "https://github.com/openmvg/openmvg",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README describes the C++ framework and its platforms; build steps are on linked pages and are not recorded.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openmvg/openmvg/blob/e0162aef9a5ba6ec9f54c39ed49ea47a0e82e1db/README.md",
+          "title": "OpenMVG README",
+          "kind": "upstream_repository",
+          "revision": "e0162aef9a5ba6ec9f54c39ed49ea47a0e82e1db"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "The README describes OpenMVG as a C++ framework of libraries, binaries and pipelines.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Android / iOS / Linux / macOS / Windows",
+          "scope": "The README says OpenMVG is developed in C++ and runs on these systems.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "554bfad03038198e76a94ce9770ef4129a0294982bb9c9ae2d83ad142c3b0a67": {
+      "project_url": "https://github.com/opendronemap/odm",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Windows native setup is documented through a release installer; the README Developers section documents a pixi-based source build.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/opendronemap/odm/blob/9078435bbdbfa37622e4e99e7856ed0a7a23e017/README.md",
+          "title": "OpenDroneMap README",
+          "kind": "upstream_repository",
+          "revision": "9078435bbdbfa37622e4e99e7856ed0a7a23e017"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "cli",
+          "scope": "The README describes ODM as a command line toolkit for processing aerial drone imagery.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "The README calls Docker the easiest way to run ODM: docker pull opendronemap/odm.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "installer",
+          "scope": "The README says ODM can be installed natively on Windows from the setup on the releases page.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The README Developers section documents a pixi-based build.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Windows / Mac / Linux",
+          "scope": "The README says the application is available for these systems.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Docker",
+          "requirement": "configuration-dependent",
+          "scope": "Required for the documented container quickstart; not needed for the Windows native setup.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Docker Hub",
+          "coordinate": "opendronemap/odm",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Image used in the README quickstart.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "ecosystem": "Docker Hub",
+          "coordinate": "opendronemap/odm",
+          "channel": "gpu",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Latest GPU release image; run with --gpus all.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "The GPU image needs Docker with NVIDIA GPU support and the --gpus all flag.",
+          "scope": "README GPU Acceleration section; SIFT feature extraction only.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "A source build on Windows needs a host install of Visual Studio 2022 or Build Tools with C++ desktop development and the Windows SDK.",
+          "scope": "README Developers section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "5ff1491f62f258fedc370b21eb9daf34a2ca902bbb494a58d480e81c9fa402f9": {
+      "project_url": "https://github.com/opencloud-eu/opencloud",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. This repository is the backend server codebase; the README points to the project site for installation and documents only a local build.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/opencloud-eu/opencloud/blob/1668aa8b71d2d03345adc9a430b2f1c70578f453/README.md",
+          "title": "OpenCloud README",
+          "kind": "upstream_repository",
+          "revision": "1668aa8b71d2d03345adc9a430b2f1c70578f453"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The README builds the backend server and starts it as a local test instance.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The README documents make generate and make -C opencloud build, then opencloud init and opencloud server.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "The backend uses no database; it stores data in the filesystem, by default under $HOME/.opencloud.",
+          "scope": "README Technology section.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Users authenticate through OpenID Connect with an external identity provider or the embedded LibreGraph Connect provider.",
+          "scope": "README Technology section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "f952835452592537ac04c71a848c03e1758cd346fb54bde42eaba38aefbed9ab": {
+      "project_url": "https://github.com/cisco/openh264",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README documents building the library; it names no official binary download steps.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/cisco/openh264/blob/1bca62311e447fd9c39fc93de2c4b96cd5ce971c/README.md",
+          "title": "OpenH264 README",
+          "kind": "upstream_repository",
+          "revision": "1bca62311e447fd9c39fc93de2c4b96cd5ce971c"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "The README describes OpenH264 as a codec library for H.264 encoding and decoding.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The README documents make-based builds for several operating systems and a Meson build.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Windows / Mac OS X / Linux / Android / iOS",
+          "scope": "The README lists these operating systems with 64-bit and 32-bit variants, plus Mac OS X ARM64.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "NASM 2.10.06 or newer is needed for assembly code; Mac OS X 64-bit needs NASM below 2.11.08.",
+          "scope": "README Building the Library section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "1ab5b29760fa788008de81095e9b2b059da0cb6434ac62ebaca1ce969d56f9d0": {
+      "project_url": "https://github.com/gitpod-io/openvscode-server",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README documents Docker and Linux release-tarball setups. The Docker image runs without a connection token by default; the README describes securing access separately.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/gitpod-io/openvscode-server/blob/2bfb814c5215c51a10e80c2cb1b58ed91068ad8b/README.md",
+          "title": "OpenVSCode Server README",
+          "kind": "upstream_repository",
+          "revision": "2bfb814c5215c51a10e80c2cb1b58ed91068ad8b"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The README describes a VS Code server on a remote machine that is used through a web browser.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "The README starts the server with docker run of gitpod/openvscode-server, port 3000.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "binary",
+          "scope": "The README downloads a Linux release tarball, untars it and runs ./bin/openvscode-server.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux",
+          "scope": "The README documents the release tarball under its Linux heading.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Docker Hub",
+          "coordinate": "gitpod/openvscode-server",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Image in the README docker run command; a nightly tag is also named.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "default",
+          "note": "The server listens on localhost and port 3000; add --host 0.0.0.0 for remote access.",
+          "scope": "README Linux entrypoint arguments.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "76697c39b93b04c3b20d60f5fd08175942645749683987c04c85d58468ac2fab": {
+      "project_url": "https://github.com/openfga/openfga",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README says the default in-memory storage engine is ephemeral and for development only.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openfga/openfga/blob/798149843737e264e64b8660baadb946528c02f0/README.md",
+          "title": "OpenFGA README",
+          "kind": "upstream_repository",
+          "revision": "798149843737e264e64b8660baadb946528c02f0"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The README runs OpenFGA as a service with HTTP and gRPC APIs.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "library",
+          "scope": "The README says OpenFGA can also be embedded as a Go library.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "The README quickstart runs docker run openfga/openfga run; a Docker Compose example uses Postgres.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "The README installs with Homebrew: brew install openfga.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "binary",
+          "scope": "The README downloads a precompiled binary from the latest release and runs ./openfga run.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The README builds with go install github.com/openfga/openfga/cmd/openfga.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "PostgreSQL",
+          "requirement": "configuration-dependent",
+          "scope": "Supported storage backend; version 14 or newer.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "name": "MySQL",
+          "requirement": "configuration-dependent",
+          "scope": "Supported storage backend; version 8.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Docker Hub",
+          "coordinate": "openfga/openfga",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Image in the README quickstart.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "ecosystem": "Homebrew formula",
+          "coordinate": "openfga",
+          "channel": "stable",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The README links the formula page; upstream ownership of the formula was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "default",
+          "note": "The default storage engine is in-memory; data is discarded when the service stops.",
+          "scope": "README quickstart.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "A source build needs a recent Go version.",
+          "scope": "README build-from-source note.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "86eab5139907303f51159eae06e1941c940443f69404193452725a2fb3a1d106": {
+      "project_url": "https://github.com/augani/openreel-video",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Desktop builds are described as alpha in the README. The hosted browser editor is not a self-hosted run mode; the local run mode comes from the documented pnpm dev server.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/augani/openreel-video/blob/367d7e90b61b5181f9861b852bb8b9d7a7d2954a/README.md",
+          "title": "OpenReel Video README",
+          "kind": "upstream_repository",
+          "revision": "367d7e90b61b5181f9861b852bb8b9d7a7d2954a"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "The README offers macOS, Windows and Linux desktop builds, currently alpha.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "local_web",
+          "scope": "The README runs the editor locally with pnpm dev and opens it at the local Vite URL, usually http://localhost:5173.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "The README says to download a desktop build from the latest GitHub release.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The README documents git clone, pnpm install and pnpm dev.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "macOS / Windows / Linux",
+          "scope": "Desktop builds listed in the README; alpha status.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "OpenAI, Anthropic or compatible endpoint",
+          "requirement": "optional",
+          "scope": "Optional AI Editor; the user connects their own provider, which may cost money.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Local development needs Node.js and the pnpm version declared in package.json.",
+          "scope": "README Run it locally section.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "recommended",
+          "note": "An up-to-date browser, with Chrome or Edge as a starting point; larger projects and 4K footage benefit from more memory and a capable GPU.",
+          "scope": "README browser setup note.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "8458436703ac348ad75498f4627cfcab5117f7a3048ae8d2044cf082f80bd7fa": {
+      "project_url": "https://github.com/openpgpjs/openpgpjs",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README states platform support for the distributed bundles.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openpgpjs/openpgpjs/blob/8bc35df4887933a3b2661e3741b33ba5f347b935/README.md",
+          "title": "OpenPGP.js README",
+          "kind": "upstream_repository",
+          "revision": "8bc35df4887933a3b2661e3741b33ba5f347b935"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "The README documents OpenPGP.js as a JavaScript library for Node.js and browsers.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The README installs with npm install --save openpgp (Node.js) or --save-dev openpgp (webpack).",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Node.js 22 or newer",
+          "scope": "The README says the Node bundle works in Node.js v22+.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "Chrome / Firefox / Edge / Safari 15+",
+          "scope": "The README says the browser bundle works with recent versions of these browsers.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "npm",
+          "coordinate": "openpgp",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The README gives npm install openpgp; upstream ownership of the npm package was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Web Cryptography SubtleCrypto is required; in browsers it is only available in secure contexts.",
+          "scope": "README Platform Support.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Web Streams API support is required.",
+          "scope": "README Platform Support.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "9d3cecd04f72828633cd1da0d0f24e0cb87bf69a7e1f6ad7317d6d585bf85660": {
+      "project_url": "https://github.com/internetarchive/openlibrary",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README links the Quick Start; the recorded setup is the documented contributor development environment, which runs a development version, not a production deployment guide.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/internetarchive/openlibrary/blob/42d2c6843cbd98a9e02c853dd2780b3daa06cb19/Readme.md",
+          "title": "Open Library README",
+          "kind": "upstream_repository",
+          "revision": "42d2c6843cbd98a9e02c853dd2780b3daa06cb19"
+        },
+        "quick": {
+          "url": "https://docs.openlibrary.org/developers/quick-start.html",
+          "title": "Open Library Quick Start",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "local_web",
+          "scope": "The Quick Start runs a development version at http://localhost:8080.",
+          "source_ids": [
+            "quick"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "The Quick Start builds and runs the stack with docker compose up -d; the first build takes 15 to 30 minutes.",
+          "source_ids": [
+            "quick"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The Quick Start clones the repository and runs make git to prepare submodules.",
+          "source_ids": [
+            "quick"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Docker, Git and pre-commit installed.",
+          "scope": "Quick Start prerequisites for the contributor setup.",
+          "source_ids": [
+            "quick"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Clone with SSH, not HTTPS; Windows users without a Linux VM must fix line endings, symlinks and submodules first.",
+          "scope": "Quick Start notes for the contributor setup.",
+          "source_ids": [
+            "quick"
+          ]
+        }
+      ]
+    },
+    "0dfa33ac22f6aed015926f10b255a7b57cea9446bdd1c32bd6a41220b6287b60": {
+      "project_url": "https://github.com/openchoreo/openchoreo",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README points to the Quick Start, which sets up a local k3d cluster inside a dev container. The note records the documented local quick start only.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openchoreo/openchoreo/blob/8b8a4698a8d651d79d340158698f2347d69418de/README.md",
+          "title": "OpenChoreo README",
+          "kind": "upstream_repository",
+          "revision": "8b8a4698a8d651d79d340158698f2347d69418de"
+        },
+        "quick": {
+          "url": "https://openchoreo.dev/docs/getting-started/quick-start-guide/",
+          "title": "OpenChoreo Quick Start Guide",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The Quick Start installs OpenChoreo and serves a Backstage UI at http://openchoreo.localhost:8080/.",
+          "source_ids": [
+            "quick"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "The Quick Start runs the ghcr.io/openchoreo/quick-start dev container, then ./install.sh, which creates a k3d cluster and installs OpenChoreo with Helm charts.",
+          "source_ids": [
+            "quick"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Docker",
+          "requirement": "required",
+          "scope": "The Quick Start needs Docker (Engine 26.0+ recommended) and mounts the Docker socket.",
+          "source_ids": [
+            "quick"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "OCI / GitHub Container Registry",
+          "coordinate": "ghcr.io/openchoreo/quick-start",
+          "channel": "v1.3.3",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Quick Start dev container image at the version shown on the fetched page.",
+          "source_ids": [
+            "quick"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "At least 4 GB RAM and 2 CPUs allocated to Docker.",
+          "scope": "Quick Start prerequisites.",
+          "source_ids": [
+            "quick"
+          ]
+        },
+        {
+          "kind": "recommended",
+          "note": "8 GB RAM and 4 CPUs when installing with the WorkflowPlane.",
+          "scope": "Quick Start prerequisites.",
+          "source_ids": [
+            "quick"
+          ]
+        }
+      ]
+    },
+    "14c74141d4c4541c70d2a4cff6c5b68394817eb54cab1354d7e333c53ffbc109": {
+      "project_url": "https://github.com/open-mercato/open-mercato",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README points to cloud, standalone and monorepo guides; the recorded setup is the README local start. Open Mercato Cloud is a hosted trial and is not recorded as a run mode.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/open-mercato/open-mercato/blob/72284107342a6ee67962ed6f63d245b074df1f94/README.md",
+          "title": "Open Mercato README",
+          "kind": "upstream_repository",
+          "revision": "72284107342a6ee67962ed6f63d245b074df1f94"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "local_web",
+          "scope": "The README setup starts a dev runtime whose login page is served at localhost:3000.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The README runs npx create-mercato-app my-app, then yarn setup.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "The README says yarn setup starts the app Docker Compose services for PostgreSQL, Redis and Meilisearch when none answer.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "PostgreSQL 15+",
+          "requirement": "required",
+          "scope": "Required for everything; run it with Docker or yourself.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "name": "Redis 7",
+          "requirement": "optional",
+          "scope": "Optional cache, queues and events shared across processes.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "name": "Meilisearch 1.11",
+          "requirement": "optional",
+          "scope": "Optional full-text search.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "Docker running and about 8 GB of free RAM for the Docker route.",
+          "scope": "README Run section; Docker is not needed when you run PostgreSQL yourself.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Node.js 24 and Yarn 4; mise can install them.",
+          "scope": "README Run section.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "On Windows use WSL2.",
+          "scope": "README Run section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "640a90c095f734d7bb7c1df81b969d8c80d11bc3bd5d76521604267c5b80312d": {
+      "project_url": "https://github.com/academysoftwarefoundation/openexr",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README documents building and links the install page for prerequisites; no platform list or package coordinate is recorded from it.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/academysoftwarefoundation/openexr/blob/49a84f33e675ad4457c8487293eee35622a0c9fd/README.md",
+          "title": "OpenEXR README",
+          "kind": "upstream_repository",
+          "revision": "49a84f33e675ad4457c8487293eee35622a0c9fd"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "The README describes the reference implementation of the EXR file format, used as a C++ library in a Quick Start program.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The README points to the install instructions for building OpenEXR and its required prerequisites.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "1ba4d549fd772a123319ac220323cce707637d448b55e0c32ae037861868d374": {
+      "project_url": "https://github.com/openscap/openscap",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README documents the oscap command line tool and gives no install steps; it links the user and developer manuals.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openscap/openscap/blob/38e6d9fd84d337f0f558a7d3b95b54bf4c6c6cef/README.md",
+          "title": "OpenSCAP README",
+          "kind": "upstream_repository",
+          "revision": "38e6d9fd84d337f0f558a7d3b95b54bf4c6c6cef"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "cli",
+          "scope": "The README describes oscap as a command line tool to load, scan, validate, edit and export SCAP documents.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Microsoft Windows support is officially void as of 2022-02-01.",
+          "scope": "README Microsoft Windows Support section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "81ee2df0d2b5f2bd7fb6ba64da9f442ff1c485f6c73bf9881a63aacb0cb918a0": {
+      "project_url": "https://github.com/opennebula/one",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README points production installs to the official installation guide; only the quick-start evaluation path is recorded here.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/opennebula/one/blob/60f65789ec37aa9cdcc95bcec6723c6cf896c17b/README.md",
+          "title": "OpenNebula README",
+          "kind": "upstream_repository",
+          "revision": "60f65789ec37aa9cdcc95bcec6723c6cf896c17b"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The README describes a cloud management platform with Web UI, CLI and REST API.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "installer",
+          "scope": "The README says miniONE deploys a complete OpenNebula environment on a single server for evaluation.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "a6226042da740f6e0879a239944a78c4294797a358f2391cd7cd5ece0155c28a": {
+      "project_url": "https://github.com/openelb/openelb",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README links per-environment install pages; the install page cited below documents kubectl and Helm installation in a Kubernetes cluster.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openelb/openelb/blob/12cdbfc004a8101b7826a34492a1c50a7696f959/README.md",
+          "title": "OpenELB README",
+          "kind": "upstream_repository",
+          "revision": "12cdbfc004a8101b7826a34492a1c50a7696f959"
+        },
+        "install": {
+          "url": "https://openelb.io/docs/getting-started/installation/install-openelb-on-kubernetes/",
+          "title": "Install OpenELB on Kubernetes",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The install page deploys an openelb-controller Deployment and an openelb-speaker DaemonSet into the cluster.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The install page documents installing OpenELB with Helm 3.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "installer",
+          "scope": "The install page documents applying an openelb.yaml deployment manifest with kubectl.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Kubernetes cluster",
+          "requirement": "required",
+          "scope": "Kubernetes 1.15 or later, because OpenELB needs CustomResourceDefinition v1.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Helm 3 is needed for the Helm route.",
+          "scope": "Install page prerequisites.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
+    },
+    "58dd04659b6addeae76581280e66dc9dcb10c11e4c27f1c00d2e311515b19617": {
+      "project_url": "https://github.com/quantumlib/openfermion",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README recommends Mac or Linux because electronic structure plugins work only there and offers a Docker image for Windows and other cases.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/quantumlib/openfermion/blob/34adf3196cd566f4ca53893f868753786797ae2a/README.md",
+          "title": "OpenFermion README",
+          "kind": "upstream_repository",
+          "revision": "34adf3196cd566f4ca53893f868753786797ae2a"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "The README describes OpenFermion as a Python package.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The README installs the latest PyPI release with python -m pip install --user openfermion.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The README documents a development-mode install with git clone and python -m pip install -e .",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "The README points to instructions in the docker/ subdirectory for a Docker image with OpenFermion and select plugins.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Mac / Windows / Linux",
+          "scope": "The README says OpenFermion is tested on these systems.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "PyPI",
+          "coordinate": "openfermion",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The README gives python -m pip install --user openfermion; upstream ownership of the PyPI project was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "Python 3.10 or higher.",
+          "scope": "README Python version badge.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "The electronic structure plugins are compatible only with Mac and Linux.",
+          "scope": "README Installation section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "028012a3e2cea8aeb17c9230dce2c0808986d8db2a5321a06b1dd44740274502": {
+      "project_url": "https://github.com/openbankproject/obp-api",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README documents a Maven build and run of the http4s server module, a Docker image and database notes.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openbankproject/obp-api/blob/0549fb9b9a04af73e1cfa5f7a60ce5140fcfe1aa/README.md",
+          "title": "Open Bank Project README",
+          "kind": "upstream_repository",
+          "revision": "0549fb9b9a04af73e1cfa5f7a60ce5140fcfe1aa"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The README runs the API with java -jar obp-api/target/obp-api.jar; the http4s server binds to 127.0.0.1:8080 by default.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The README builds with Maven 3: mvn -pl obp-api -am clean package.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "The README says Docker images are on Docker Hub: docker pull openbankproject/obp-api.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "PostgreSQL",
+          "requirement": "configuration-dependent",
+          "scope": "Used for sandboxes; the default database for testing is H2.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Docker Hub",
+          "coordinate": "openbankproject/obp-api",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Image named in the README docker pull command.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "The project targets JDK 25 (LTS) with Scala 2.12.21 and Maven 3.",
+          "scope": "README Installing JDK section.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "recommended",
+          "note": "MAVEN_OPTS with -Xms3G -Xmx6G -XX:MaxMetaspaceSize=2G for the documented build command.",
+          "scope": "README Running http4s server section.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "bcedf03dba2cfd79fba04af4bfb3116f2a9bd6d371034b980d24c6e314b13ce9": {
+      "project_url": "https://github.com/open-meteo/open-meteo",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README points self-hosting to the Getting Started guide, pinned below. The guide describes a server that fetches data from a public AWS S3 distribution by default.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/open-meteo/open-meteo/blob/81125ba9d97c6ec5a05f4a0ecb28560530330883/README.md",
+          "title": "Open-Meteo README",
+          "kind": "upstream_repository",
+          "revision": "81125ba9d97c6ec5a05f4a0ecb28560530330883"
+        },
+        "start": {
+          "url": "https://github.com/open-meteo/open-meteo/blob/81125ba9d97c6ec5a05f4a0ecb28560530330883/docs/getting-started.md",
+          "title": "Open-Meteo Getting Started",
+          "kind": "upstream_repository",
+          "revision": "81125ba9d97c6ec5a05f4a0ecb28560530330883"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The guide self-hosts the Open-Meteo Weather API; the container exposes it at http://127.0.0.1:8080.",
+          "source_ids": [
+            "start"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "The guide runs ghcr.io/open-meteo/open-meteo with docker run or Docker Compose.",
+          "source_ids": [
+            "start"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "The guide installs the openmeteo-api package through APT on Ubuntu 22.04.",
+          "source_ids": [
+            "start"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Ubuntu 22.04",
+          "scope": "The guide documents the prebuilt APT package for this release only.",
+          "source_ids": [
+            "start"
+          ]
+        },
+        {
+          "value": "x86-64 / Arm",
+          "scope": "The guide says both CPU architectures are supported, with SIMD such as AVX2 recommended.",
+          "source_ids": [
+            "start"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Open-Meteo data distribution on AWS S3",
+          "requirement": "configuration-dependent",
+          "scope": "The Docker setup sets REMOTE_DATA_DIRECTORY to fetch and cache forecast data; downloading from original providers is the alternative.",
+          "source_ids": [
+            "start"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "OCI / GitHub Container Registry",
+          "coordinate": "ghcr.io/open-meteo/open-meteo",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Image in the guide docker run command.",
+          "source_ids": [
+            "start"
+          ]
+        },
+        {
+          "ecosystem": "APT",
+          "coordinate": "openmeteo-api",
+          "channel": "apt.open-meteo.com main",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Package from the project APT repository named in the guide.",
+          "source_ids": [
+            "start"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "8 GB of memory; 16 GB recommended.",
+          "scope": "Guide hardware requirements.",
+          "source_ids": [
+            "start"
+          ]
+        },
+        {
+          "kind": "minimum",
+          "note": "At least 100 GB of storage for small to medium deployments; NVMe SSD preferred.",
+          "scope": "Guide hardware requirements.",
+          "source_ids": [
+            "start"
+          ]
+        }
+      ]
+    },
+    "f5c214f431826b517cc1bf3dbca7328f681c747493ada47c5abd86458d153ab0": {
+      "project_url": "https://github.com/copilotkit/opendots",
+      "review_status": "approved",
+      "checked_at": "2026-11-17",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README says OpenDots is an early-development template, not a hosted product. Conversations need a CopilotKit Intelligence deployment: hosted, local Docker evaluation or a licensed self-hosted one.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/copilotkit/opendots/blob/0e706ab3686fee50e9f26befc6df2aac2c2b1422/README.md",
+          "title": "OpenDots README",
+          "kind": "upstream_repository",
+          "revision": "0e706ab3686fee50e9f26befc6df2aac2c2b1422"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "local_web",
+          "scope": "The README runs npm run dev and opens http://127.0.0.1:5173.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The README documents git clone, npm ci, copying .env.example and npm run dev.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "CopilotKit Intelligence",
+          "requirement": "required",
+          "scope": "Required for conversations: hosted service, local Docker evaluation or licensed self-hosted deployment.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "name": "OpenAI model",
+          "requirement": "required",
+          "scope": "The README adds OPENAI_API_KEY and OPENAI_MODEL to .env to start chatting.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Node.js 24 and npm.",
+          "scope": "README Get started.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "1ba6d19f7e65bd5a2f31a59ac9e7e4d368b9c3fbb31b560691e36b9e2655e145": {
+      "project_url": "https://github.com/openemr/openemr",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Download-page archives are 8.5.0; the Linux guide's extract example is openemr-8.2.0 and says to swap versions; Docker example tags include 8.0.0.3 and 7.0.4.",
+      "sources": {
+        "downloads": {
+          "url": "https://www.open-emr.org/downloads/",
+          "title": "Download OpenEMR",
+          "kind": "upstream_docs"
+        },
+        "linux": {
+          "url": "https://www.open-emr.org/wiki/index.php/OpenEMR_Linux_Installation",
+          "title": "OpenEMR Linux install guide",
+          "kind": "upstream_docs"
+        },
+        "docker": {
+          "url": "https://github.com/openemr/openemr/blob/8f4a92e68cd1bbd745db82fcf3749bfb7ef94f8a/DOCKER_README.md",
+          "title": "OpenEMR Docker README",
+          "kind": "upstream_repository",
+          "revision": "8f4a92e68cd1bbd745db82fcf3749bfb7ef94f8a"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "Linux guide: Apache or another PHP-capable web server, plus PHP.",
+          "source_ids": [
+            "linux"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "The 8.5.0 download page recommends the official OpenEMR Docker image.",
+          "source_ids": [
+            "downloads"
+          ]
+        },
+        {
+          "value": "binary",
+          "scope": "The 8.5.0 page offers openemr-8.5.0.tar.gz for Linux and openemr-8.5.0.zip for Windows.",
+          "source_ids": [
+            "downloads"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux and Windows",
+          "scope": "OpenEMR 8.5.0 download page lists a Linux tar.gz and a Windows zip.",
+          "source_ids": [
+            "downloads"
+          ]
+        },
+        {
+          "value": "Raspberry Pi (arm64)",
+          "scope": "Production docker-compose example also works on Raspberry Pi (arm64).",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "MySQL or MariaDB",
+          "requirement": "required",
+          "scope": "Linux guide: install and configure MySQL or MariaDB.",
+          "source_ids": [
+            "linux"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Docker Hub",
+          "coordinate": "openemr/openemr",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "Image openemr/openemr on Docker Hub; latest is the most recent stable production release.",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ]
+    },
+    "658154879f83825b5fa01fa5728089b336e72d7522eea4413e4ff92fb5a074b4": {
+      "project_url": "https://github.com/google-deepmind/open_spiel",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Docker installation is not regularly tested; Windows source setup is a separate page; issue links still name deepmind/open_spiel.",
+      "sources": {
+        "install": {
+          "url": "https://github.com/google-deepmind/open_spiel/blob/4956843d7375e29a4c986425c66f897d7ac15340/docs/install.md",
+          "title": "Installing OpenSpiel",
+          "kind": "upstream_repository",
+          "revision": "4956843d7375e29a4c986425c66f897d7ac15340"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "The install guide's easiest path is the Python API via pip.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "Python-only install is python3 -m pip install open_spiel, with wheels on PyPI.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "Source setup runs ./install.sh.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "Docker build of Dockerfile.base; the Docker installation is not regularly tested.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux x86_64 and aarch64, macOS arm64, Windows x64 and ARM64",
+          "scope": "Architectures listed for pre-built pip wheels.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "Linux and MacOS",
+          "scope": "Source instructions for Linux and MacOS recommend Ubuntu 22.04, Debian 10 or later, and XCode 11 or newer.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "PyPI",
+          "coordinate": "open_spiel",
+          "channel": "pip",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "pip install of open_spiel with wheels on PyPI; the publisher was not established.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "CMake must be >= 3.21 and Clang must be >= 7.0.0.",
+          "scope": "Version checks in the Ubuntu or Debian source-pip instructions.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "JAX-based algorithms need Python 3.12 or newer; the rest of OpenSpiel also supports Python 3.11.",
+          "scope": "Python version note in the optional-dependencies section.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
+    },
+    "7fac8011bd2f8dc180429e6b80092e928400e00e260e77a6454c675925aecb6c": {
+      "project_url": "https://github.com/petoicamp/opencat-quadruped-robot",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README limits this repository to the legacy NyBoard and points current Bittle X and Nybble Q hardware to the separate OpenCatESP32 repository.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/petoicamp/opencat-quadruped-robot/blob/314a011944a43ffcc2d61f530b3f0977cbdc3792/README.md",
+          "title": "OpenCat README",
+          "kind": "upstream_repository",
+          "revision": "314a011944a43ffcc2d61f530b3f0977cbdc3792"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "firmware",
+          "scope": "The NyBoard setup uploads the sketch from the Arduino IDE over USB.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The documented NyBoard install uploads the sketch from the Arduino IDE over USB.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "NyBoard (ATmega328P)",
+          "scope": "This repository targets the NyBoard, a customized Arduino board based on the ATmega328P.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "The serial monitor is set to no line ending and 115200 baud.",
+          "scope": "Post-upload serial monitor setting in the NyBoard setup.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "077c63ae0ccd48d64db5cd5e01153cfcc9407584691a5bcd61de938562ab5074": {
+      "project_url": "https://github.com/apache/opendal",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README presents OpenDAL as an application library, and named services such as S3 are backends the caller selects.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/apache/opendal/blob/8090e8e65cac2c582d2b70278667c231613e3187/README.md",
+          "title": "Apache OpenDAL README",
+          "kind": "upstream_repository",
+          "revision": "8090e8e65cac2c582d2b70278667c231613e3187"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "Application code calls one OpenDAL API for storage reads, writes, and transfers.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The Python quickstart installs the opendal package with pip.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "The language table lists the C and C++ package entries as Source.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "S3",
+          "requirement": "optional",
+          "scope": "Quickstarts run on the in-memory service without credentials and also show the same API against S3.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "PyPI",
+          "coordinate": "opendal",
+          "channel": "pypi.org",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The README links the Python binding to the PyPI project opendal; the publisher was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "ecosystem": "crates.io",
+          "coordinate": "opendal",
+          "channel": "crates.io",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The README links the Rust binding to crates.io/crates/opendal; the publisher was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "ecosystem": "npm",
+          "coordinate": "opendal",
+          "channel": "npmjs",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The README links the Node.js binding to the npm package opendal; the publisher was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "483a217fe5052fb27fbf99a9245fb57df0fb459372a12e3d7c0492b6aed60de0": {
+      "project_url": "https://github.com/imoneoi/openchat",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The OS in the install chapter is Windows via WSL 1.x Ubuntu 22.04; the browser UI is the separate openchat-ui repository.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/imoneoi/openchat/blob/47a3596168ed90d8f948f63f458948c3db98e2b8/README.md",
+          "title": "OpenChat README",
+          "kind": "upstream_repository",
+          "revision": "47a3596168ed90d8f948f63f458948c3db98e2b8"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The API server listens on localhost port 18888 and uses the OpenAI chat completions protocol.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "Conda steps create a Python 3.11 environment named openchat, then pip3 install ochat.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "Source setup clones this repository and installs it in editable mode with pip3.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Windows via WSL 1.x, Ubuntu 22.04",
+          "scope": "The Windows install section uses WSL 1.x and Ubuntu 22.04.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "PyPI",
+          "coordinate": "ochat",
+          "channel": "pip",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "The conda block runs pip3 install ochat; the PyPI publisher was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "PyTorch and CUDA are required to run OpenChat.",
+          "scope": "Stated prerequisite in the installation section.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "minimum",
+          "note": "A 13B model requires eight A/H100 GPUs with 80GB VRAM.",
+          "scope": "Trainer hardware note for a 13B model.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "20-series and older GPUs need --dtype float16 because they do not support bfloat16.",
+          "scope": "API server argument for older NVIDIA GPUs.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "530c5882a8acb40e9d1be9cbe6945a93d708cf316354701d1d892fb98f4f1fc2": {
+      "project_url": "https://github.com/langchain-ai/open-canvas",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The same prerequisites mark several API keys optional and list LangSmith for tracing; this record is the local source setup with OpenAI, Anthropic, and Supabase.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/langchain-ai/open-canvas/blob/0310cecd51f31b3d37a52d6d1060137da3405280/README.md",
+          "title": "Open Canvas README",
+          "kind": "upstream_repository",
+          "revision": "0310cecd51f31b3d37a52d6d1060137da3405280"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "local_web",
+          "scope": "The README opens the local frontend in a browser at localhost:3000.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "server",
+          "scope": "The README runs the LangGraph server locally as part of the same setup.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "Local setup clones https://github.com/langchain-ai/open-canvas.git.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "OpenAI",
+          "requirement": "required",
+          "scope": "Named in the local setup API prerequisites.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "name": "Anthropic",
+          "requirement": "required",
+          "scope": "Named in the local setup API prerequisites.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "name": "Supabase",
+          "requirement": "required",
+          "scope": "Required account for authentication in the local setup.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Yarn is the documented package manager for the local setup.",
+          "scope": "README prerequisites.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "LangGraph CLI is required to run the graph locally.",
+          "scope": "README prerequisites for the local LangGraph server.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "7cbedd9f3cdb548cd5aeb1fbfc1b784aa36c33fad6f68a9534b86bdff594a9ee": {
+      "project_url": "https://github.com/openkruise/kruise",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Recorded path is the v1.9 Helm chart, including Windows daemon support and the Kubernetes version bound.",
+      "sources": {
+        "install": {
+          "url": "https://openkruise.io/docs/installation",
+          "title": "OpenKruise v1.9 installation",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The v1.9 chart runs kruise-controller-manager as a Deployment.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "Helm install of chart openkruise/kruise on the v1.9 page.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Windows nodes",
+          "scope": "Since v1.9.0 the daemon supports Windows nodes in the cluster.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Helm",
+          "coordinate": "openkruise/kruise",
+          "channel": "1.9.0",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Install command for chart openkruise/kruise at 1.9.0.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "Kubernetes 1.18 or newer since OpenKruise v1.6.0.",
+          "scope": "Versions 1.16 and 1.17 remain usable when KruiseDaemon is disabled.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Helm v3.5 or newer.",
+          "scope": "Documented Helm install on the v1.9 page.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
+    },
+    "935405b01803540992885944db4a721d963a548f7d04a5a7f9944817220233bd": {
+      "project_url": "https://github.com/xproger/openlara",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README links this repository's standalone release; the recorded files are the moving latest tag's win, osx, and nix archives, and the tag's other platform zips are omitted.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/xproger/openlara/blob/3b268ca4bf986c380f44a26ffd9218bf6d376249/README.md",
+          "title": "OpenLara README",
+          "kind": "upstream_repository",
+          "revision": "3b268ca4bf986c380f44a26ffd9218bf6d376249"
+        },
+        "release": {
+          "url": "https://github.com/XProger/OpenLara/releases/expanded_assets/latest",
+          "title": "OpenLara latest release assets",
+          "kind": "upstream_repository"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "The README points to the standalone release for this repository.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "The latest tag publishes downloadable zip archives, including OpenLara_win.zip.",
+          "source_ids": [
+            "release"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "OpenLara_win.zip, OpenLara_osx.zip, and OpenLara_nix.zip",
+          "scope": "Named archives on the latest release tag linked from the README.",
+          "source_ids": [
+            "release"
+          ]
+        }
+      ]
+    },
+    "73a5f910365e4bae9875aec5d471bb7fceb3f2fccb72a97789dd1370fba7e6bf": {
+      "project_url": "https://github.com/diggerhq/digger",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The README states that from 7th November 2025 the Digger project is now OpenTaco, and its deploy-helm URL returns 404.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/diggerhq/digger/blob/3dc1c51eb94ca04398496a2cd27673901a6f7d22/README.md",
+          "title": "Digger repository README",
+          "kind": "upstream_repository",
+          "revision": "3dc1c51eb94ca04398496a2cd27673901a6f7d22"
+        },
+        "compose": {
+          "url": "https://docs.opentaco.dev/self-hosting/docker-compose",
+          "title": "OpenTaco Docker Compose self-hosting",
+          "kind": "upstream_docs"
+        },
+        "k8s": {
+          "url": "https://docs.opentaco.dev/self-hosting/kubernetes",
+          "title": "OpenTaco Kubernetes self-hosting",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "cli",
+          "scope": "README describes a CLI that runs in CI and calls Terraform.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "server",
+          "scope": "Docker Compose page starts a self-hosted OpenTaco stack.",
+          "source_ids": [
+            "compose"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "container",
+          "scope": "Self-host page uses the Docker Compose assets for the stack.",
+          "source_ids": [
+            "compose"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "Kubernetes page installs the OpenTaco umbrella chart from GHCR.",
+          "source_ids": [
+            "k8s"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Kubernetes",
+          "scope": "Helm self-host path for the umbrella chart.",
+          "source_ids": [
+            "k8s"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "PostgreSQL",
+          "requirement": "configuration-dependent",
+          "scope": "The reference chart can provision a CloudNativePG PostgreSQL cluster, or you provide your own databases.",
+          "source_ids": [
+            "k8s"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Helm OCI",
+          "coordinate": "ghcr.io/diggerhq/helm-charts/opentaco",
+          "channel": "0.1.0-public",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Kubernetes page installs this chart at 0.1.0-public.",
+          "source_ids": [
+            "k8s"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Public URL, auth credentials, GitHub app values, internal shared secrets, and backend connection settings.",
+          "scope": "Umbrella-chart values checklist.",
+          "source_ids": [
+            "k8s"
+          ]
+        }
+      ]
+    },
+    "0ace731f98a4c69ac44ae115a75f75ea976da86291ac94ac192fdb5d45457225": {
+      "project_url": "https://github.com/opentsdb/opentsdb",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The installation page links github.com/OpenTSDB/opentsdb, the same repository as the catalog URL; the port 4242 command, HBase 0.94.X path, and opentsdb-2.0.0 deb filename are examples, while Bigtable and Cassandra are named as 2.3 backends.",
+      "sources": {
+        "install": {
+          "url": "https://opentsdb.net/docs/build/html/installation.html",
+          "title": "OpenTSDB 2.4 installation",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The install guide starts a TSD and documents its web interface.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "cli",
+          "scope": "The install guide documents a command-line tool.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "The guide documents compiling from GIT or a source tarball.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "binary",
+          "scope": "The guide documents installing a package from GitHub releases.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "The guide documents generating a Debian package from the build.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux, or Windows with manual building",
+          "scope": "Runtime requirements on the installation page.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "HBase",
+          "requirement": "required",
+          "scope": "Runtime requirements list HBase 0.92 or later.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "name": "Zookeeper",
+          "requirement": "required",
+          "scope": "The guide says to make certain Zookeeper is accessible before continuing.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "Java Runtime Environment 1.6 or later.",
+          "scope": "Runtime requirements.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "minimum",
+          "note": "GnuPlot 4.2 or later.",
+          "scope": "Runtime requirements.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "minimum",
+          "note": "Java Development Kit 1.6 or later.",
+          "scope": "Compilation requirements for a source build.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
+    },
+    "5f1d1a030f0a97cfaa995428a005cf5b3e20b54a0624f18905055ab9bcc3378b": {
+      "project_url": "https://github.com/oracle/opengrok",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The project homepage says Java 17 or later while the setup wiki says Java 21 through 25, so no Java version is recorded.",
+      "sources": {
+        "setup": {
+          "url": "https://github.com/oracle/opengrok/wiki/How-to-setup-OpenGrok",
+          "title": "How to setup OpenGrok",
+          "kind": "upstream_docs"
+        },
+        "docker": {
+          "url": "https://raw.githubusercontent.com/oracle/opengrok/dd385925e974873e5cdf44fe3599ae40e1866166/docker/README.md",
+          "title": "OpenGrok Docker container",
+          "kind": "upstream_repository",
+          "revision": "dd385925e974873e5cdf44fe3599ae40e1866166"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "Setup guide creates an index and deploys the web application.",
+          "source_ids": [
+            "setup"
+          ]
+        },
+        {
+          "value": "cli",
+          "scope": "Setup guide runs the indexer from opengrok.jar.",
+          "source_ids": [
+            "setup"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "Use the binaries tar.gz, not the source-code tarball.",
+          "source_ids": [
+            "setup"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "docker run of opengrok/docker:latest publishes port 8080.",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Unix-like systems; Windows similar",
+          "scope": "Setup commands target Unix-like systems and describe Windows as similar.",
+          "source_ids": [
+            "setup"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Docker Hub",
+          "coordinate": "opengrok/docker",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "The Docker README says the image is built from official source and that latest tracks the latest released version.",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "recommended",
+          "note": "Indexer usually runs with an 8 GB JVM heap; the web app needs more memory.",
+          "scope": "Usual indexer heap stated in the setup guide.",
+          "source_ids": [
+            "setup"
+          ]
+        },
+        {
+          "kind": "constraint",
+          "note": "Git 2.6 or higher for Git repositories.",
+          "scope": "Applies when generating history for Git repositories.",
+          "source_ids": [
+            "setup"
+          ]
+        }
+      ]
+    },
+    "0d064ee8884cc3b3956851e001bdb0df09b648e340b58b647a389cb950765fed": {
+      "project_url": "https://github.com/greenbone/openvas-scanner",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Facts cover this scanner repository only; Community Edition, gvmd, and openvas-smb are outside this record.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/greenbone/openvas-scanner/blob/af7b69eb6bd35d497364d7bc26ff2e21e81dbd7a/README.md",
+          "title": "OpenVAS Scanner README",
+          "kind": "upstream_repository",
+          "revision": "af7b69eb6bd35d497364d7bc26ff2e21e81dbd7a"
+        },
+        "install": {
+          "url": "https://raw.githubusercontent.com/greenbone/openvas-scanner/af7b69eb6bd35d497364d7bc26ff2e21e81dbd7a/INSTALL.md",
+          "title": "OpenVAS installation instructions",
+          "kind": "upstream_repository",
+          "revision": "af7b69eb6bd35d497364d7bc26ff2e21e81dbd7a"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "cli",
+          "scope": "INSTALL.md launches the openvas command to upload plugins.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "CMake build installed with make install.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "README documents pulling this repository's registry image.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Debian Stable",
+          "scope": "Debian Stable is the reference build system, and the build might fail on any other system.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Redis",
+          "requirement": "required",
+          "scope": "A running Redis server stores information gathered on scanned hosts.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "name": "NVT collection",
+          "requirement": "required",
+          "scope": "Scans need an NVT collection; a feed sync is recommended first.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "GitHub Container Registry",
+          "coordinate": "ghcr.io/greenbone/openvas-scanner",
+          "channel": "stable",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "README says these Docker files can be pulled at that tag.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "CMake 3.10 or newer.",
+          "scope": "Build prerequisite listed in INSTALL.md.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
+    },
+    "be793f916139b4f2936353ebc55b3de10f484b5267e33b3e94e6e268fc1523dd": {
+      "project_url": "https://github.com/inkeep/open-knowledge",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Desktop DMGs are Apple Silicon on macOS 13+; Intel Macs use the local web CLI.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/inkeep/open-knowledge/blob/b2af296a73049ddd47f6d679b36774ecbdd3d19b/README.md",
+          "title": "OpenKnowledge README",
+          "kind": "upstream_repository",
+          "revision": "b2af296a73049ddd47f6d679b36774ecbdd3d19b"
+        },
+        "download": {
+          "url": "https://openknowledge.ai/download",
+          "title": "OpenKnowledge downloads",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "Desktop app for macOS, Windows, and Linux.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "local_web",
+          "scope": "Same editor runs as a local web app, including Intel Macs and servers.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "cli",
+          "scope": "ok start --open serves the web editor and opens a browser.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "macOS desktop install is a DMG dragged into Applications.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "installer",
+          "scope": "Windows 10 or later uses a per-user Setup installer.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "Local web app installs with a global npm command.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "macOS 13+ Apple Silicon",
+          "scope": "Download page labels the DMG Apple Silicon, macOS 13+.",
+          "source_ids": [
+            "download"
+          ]
+        },
+        {
+          "value": "Windows 10+ (x64 / Arm64)",
+          "scope": "Windows Setup installer for these builds.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "Linux (x64 / arm64)",
+          "scope": "deb packages for Debian/Ubuntu and rpm packages for Fedora/RHEL.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "npm",
+          "coordinate": "@inkeep/open-knowledge",
+          "channel": "global",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Global npm install in the README, with no version pin.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "Node.js 24 or newer for the CLI local web app.",
+          "scope": "Stated for the CLI path that serves the local web editor.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "f8fcebe8091852b6673539b034297b744e14b29c6faa1a13a083768ce6637482": {
+      "project_url": "https://github.com/openziti/ziti",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. These facts are the repository's local CLI binary and all-in-one Docker quickstart; separate SDK repositories and the managed NetFoundry service are outside this record.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openziti/ziti/blob/99b50fbdb210fe373dd3e7e3bb9a7d24e8e74024/README.md",
+          "title": "OpenZiti README",
+          "kind": "upstream_repository",
+          "revision": "99b50fbdb210fe373dd3e7e3bb9a7d24e8e74024"
+        },
+        "docker": {
+          "url": "https://raw.githubusercontent.com/openziti/ziti/99b50fbdb210fe373dd3e7e3bb9a7d24e8e74024/quickstart/docker/all-in-one/README.md",
+          "title": "OpenZiti all-in-one Docker quickstart",
+          "kind": "upstream_repository",
+          "revision": "99b50fbdb210fe373dd3e7e3bb9a7d24e8e74024"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "cli",
+          "scope": "Download the ziti binary and run ziti edge quickstart for a local network.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "server",
+          "scope": "The Docker quickstart starts a controller, an edge router, and the Ziti console.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "local_web",
+          "scope": "The quickstart console is served at https://localhost:1280/zac/.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "The README points to the latest ziti binary on GitHub Releases.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "The README fetches the all-in-one compose file and starts it with Docker Compose.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Docker",
+          "coordinate": "openziti/ziti-controller",
+          "channel": "latest",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Quickstart runs ziti edge quickstart in this image, called the latest official release image.",
+          "source_ids": [
+            "docker"
+          ]
+        }
+      ]
+    },
+    "593c8b1aa3fe23a0e7920bb40ce0a1618796d398c434120a324eff73471d66c4": {
+      "project_url": "https://github.com/muhammedkalkan/openlens",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. This record is only the muhammedkalkan/OpenLens binary fork, not the proprietary Lens product and not lensapp/lens.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/muhammedkalkan/openlens/blob/a7d44fba75e1a35087fe592ed77d51d6d260797b/README.md",
+          "title": "OpenLens build repository README",
+          "kind": "upstream_repository",
+          "revision": "a7d44fba75e1a35087fe592ed77d51d6d260797b"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "This fork distributes binaries of the open-source Lens IDE and says login is not required.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "binary",
+          "scope": "Manual install is a binary download from this fork's GitHub releases.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "The Installation section documents Homebrew, Scoop, and winget commands.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "macOS",
+          "scope": "The Installation section has a macOS Homebrew cask command.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "Linux",
+          "scope": "Linux install uses an rpm, deb, or AppImage package.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "Windows",
+          "scope": "The Installation section has Windows package-manager commands.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Homebrew cask",
+          "coordinate": "openlens",
+          "channel": "cask",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "README gives brew install --cask openlens. It does not say who maintains the cask.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "ecosystem": "Scoop",
+          "coordinate": "openlens",
+          "channel": "extras",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "README adds the extras bucket and installs openlens. Maintainer was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "ecosystem": "winget",
+          "coordinate": "openlens",
+          "channel": "winget",
+          "status": "documented",
+          "upstream_relationship": "unknown",
+          "scope": "README gives winget install openlens. Maintainer of the manifest was not established.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "dfce93018f91de8cf857bbfc65425d95c81406cc168ebad7ac0afb1bdd633202": {
+      "project_url": "https://github.com/cdcseacave/openmvs",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Recorded binary platforms are the tagged-release set on the building page.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/cdcseacave/openmvs/blob/14ad2571aac650bfabf54296d31aabed7a19fdde/README.md",
+          "title": "OpenMVS README",
+          "kind": "upstream_repository",
+          "revision": "14ad2571aac650bfabf54296d31aabed7a19fdde"
+        },
+        "building": {
+          "url": "https://github.com/cdcseacave/openMVS/wiki/Building",
+          "title": "OpenMVS building instructions",
+          "kind": "upstream_docs"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The README describes OpenMVS as a multi-view stereo reconstruction library.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "library"
+        },
+        {
+          "scope": "Repository script that runs dense reconstruction, meshing, refinement, and texturing.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "cli"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "CMake build command in the documented build instructions.",
+          "source_ids": [
+            "building"
+          ],
+          "value": "source"
+        },
+        {
+          "scope": "Pre-built stable binaries published with each tagged release.",
+          "source_ids": [
+            "building"
+          ],
+          "value": "binary"
+        },
+        {
+          "scope": "vcpkg command shown for using OpenMVS as a third-party library.",
+          "source_ids": [
+            "building"
+          ],
+          "value": "package_manager"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Platforms named for the pre-built stable binaries on each tagged release.",
+          "source_ids": [
+            "building"
+          ],
+          "value": "Windows x64, Windows x64 with CUDA, Ubuntu x64 and macOS arm64"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Minimum compiler named in the build instructions.",
+          "source_ids": [
+            "building"
+          ],
+          "kind": "minimum",
+          "note": "C++17 compiler: Visual Studio 2019, GCC 9, Clang 9 (Apple Clang 11) or newer."
+        }
+      ]
+    },
+    "c60f3015db7e7e3a5f221d80f05c267b60898ee44b8fac7a4e094da81530e3eb": {
+      "project_url": "https://github.com/hakanseven12/opencadstudio",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Recorded desktop setup is the Windows MSI, the Linux AppImage, and the Rust source build.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/hakanseven12/opencadstudio/blob/66465967c7fd636b1b1dd5c8d7543df1c6b4997a/README.md",
+          "title": "Open CAD Studio README",
+          "kind": "upstream_repository",
+          "revision": "66465967c7fd636b1b1dd5c8d7543df1c6b4997a"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "Native desktop application with file associations, printing, plugins, and headless commands.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "desktop"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Windows MSI described as the recommended signed installer.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "installer"
+        },
+        {
+          "scope": "Linux AppImage downloaded and run as an executable.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "binary"
+        },
+        {
+          "scope": "Desktop binary produced by the documented Cargo release build.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Operating systems named for the published release builds.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "Windows, Linux, and Apple Silicon macOS"
+        },
+        {
+          "scope": "macOS packages published for Apple Silicon and Intel Macs.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "Apple Silicon and Intel Macs"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Tools and libraries required to build the desktop application from source.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "constraint",
+          "note": "Git, a current stable Rust toolchain, and platform graphics and font development libraries."
+        }
+      ]
+    },
+    "6791c4db4cd5febe544e22c1281d5a229e7e1c5b79d661cbbc88fc4786bf0f0c": {
+      "project_url": "https://github.com/4paradigm/openmldb",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. These facts come from the pinned repository copies of the install and compile documents.",
+      "sources": {
+        "install": {
+          "url": "https://raw.githubusercontent.com/4paradigm/openmldb/2d11e791c4300c72c8e35f0f762db40a278dfb87/docs/en/deploy/install_deploy.md",
+          "title": "Install and deploy",
+          "kind": "upstream_docs",
+          "revision": "2d11e791c4300c72c8e35f0f762db40a278dfb87"
+        },
+        "compile": {
+          "url": "https://raw.githubusercontent.com/4paradigm/openmldb/2d11e791c4300c72c8e35f0f762db40a278dfb87/docs/en/deploy/compile.md",
+          "title": "Compilation from source",
+          "kind": "upstream_docs",
+          "revision": "2d11e791c4300c72c8e35f0f762db40a278dfb87"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "Documented cluster of NameServer, TabletServer, and TaskManager.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "server"
+        },
+        {
+          "scope": "SQL client script used to check that the cluster has started.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "cli"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Named pre-compiled Linux and macOS release archives.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "binary"
+        },
+        {
+          "scope": "Makefile source build documented for OpenMLDB.",
+          "source_ids": [
+            "compile"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Operating systems supported by the released pre-compiled packages.",
+          "source_ids": [
+            "install"
+          ],
+          "value": "CentOS 7.x, Ubuntu 20.04, SUSE 12 SP3, and macOS >= 12.0 (x86)"
+        }
+      ],
+      "external_services": [
+        {
+          "scope": "Required component of the documented cluster deployment.",
+          "source_ids": [
+            "install"
+          ],
+          "name": "ZooKeeper",
+          "requirement": "required"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Minimum glibc for released Linux packages.",
+          "source_ids": [
+            "install"
+          ],
+          "kind": "minimum",
+          "note": "Linux pre-compiled packages require glibc >= 2.17."
+        },
+        {
+          "scope": "CPU constraint for the pre-compiled packages.",
+          "source_ids": [
+            "install"
+          ],
+          "kind": "constraint",
+          "note": "Pre-compiled packages require AVX2 instruction set support."
+        },
+        {
+          "scope": "Minimum Java for ZooKeeper and TaskManager servers.",
+          "source_ids": [
+            "install"
+          ],
+          "kind": "minimum",
+          "note": "Java 1.8 or above for ZooKeeper and TaskManager."
+        }
+      ]
+    },
+    "19fce0b353bf9ddfda29f9b71c9bd9ee34eaacfacbe1421e73ae48b5b732df20": {
+      "project_url": "https://github.com/opendune/opendune",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Recorded setup is the extracted release, the officially listed platforms, and the original Dune II data files.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/opendune/opendune/blob/ebea79aeba025be2fe9004570e9255044aacc0be/README.txt",
+          "title": "OpenDUNE README",
+          "kind": "upstream_repository",
+          "revision": "ebea79aeba025be2fe9004570e9255044aacc0be"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "The program is started as opendune, and the macOS release is an application bundle.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "desktop"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Installation begins by extracting the OpenDUNE release.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "binary"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Platforms the README lists as officially supported.",
+          "source_ids": [
+            "readme"
+          ],
+          "value": "Linux, FreeBSD, Mac OS X (PowerPC or Intel i686 / x86_64, 10.4+), Windows (i686 / x86_64), Atari TOS (ST, STE, TT or Falcon), OS/2, and Haiku"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Original Dune II data files required by the installation section.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "constraint",
+          "note": "Original Dune II 1.07 data files, including dune2.exe, copied to data/."
+        },
+        {
+          "scope": "LibSDL install required on Linux and FreeBSD.",
+          "source_ids": [
+            "readme"
+          ],
+          "kind": "constraint",
+          "note": "Linux and FreeBSD need LibSDL installed separately."
+        }
+      ]
+    },
+    "08ea82433025b65a15f5ad520e2383a375efa680b276fc65992d207070ce12e3": {
+      "project_url": "https://github.com/opensage/opensage",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. macOS stays out of the platform list because the README introduction still describes that support as planned.",
+      "sources": {
+        "guide": {
+          "url": "https://raw.githubusercontent.com/opensage/opensage/588ac477367a0022adf29f20a084e8873014e6ce/docs/developer-guide.md",
+          "title": "OpenSAGE developer guide",
+          "kind": "upstream_docs",
+          "revision": "588ac477367a0022adf29f20a084e8873014e6ce"
+        }
+      },
+      "run_modes": [
+        {
+          "scope": "Launcher application that starts Command & Conquer Generals by default.",
+          "source_ids": [
+            "guide"
+          ],
+          "value": "desktop"
+        }
+      ],
+      "install_methods": [
+        {
+          "scope": "Source build using the documented dotnet build command.",
+          "source_ids": [
+            "guide"
+          ],
+          "value": "source"
+        }
+      ],
+      "platforms": [
+        {
+          "scope": "Windows setup opens the provided Visual Studio solution.",
+          "source_ids": [
+            "guide"
+          ],
+          "value": "Windows"
+        },
+        {
+          "scope": "Linux names the system for the documented native build dependencies.",
+          "source_ids": [
+            "guide"
+          ],
+          "value": "Linux"
+        }
+      ],
+      "requirements": [
+        {
+          "scope": "Minimum version stated for Linux source builds.",
+          "source_ids": [
+            "guide"
+          ],
+          "kind": "minimum",
+          "note": "Linux builds need .NET 8.0 or newer."
+        },
+        {
+          "scope": "Original game files are required because the repository does not include them.",
+          "source_ids": [
+            "guide"
+          ],
+          "kind": "constraint",
+          "note": "The user must supply installed original game files."
+        },
+        {
+          "scope": "Native libraries listed for the Linux source build.",
+          "source_ids": [
+            "guide"
+          ],
+          "kind": "constraint",
+          "note": "Linux builds need libc, libsdl2, and libopenal."
+        }
+      ]
+    },
+    "f9ee9616a3d5b4bde418b25bd40defffd7eafb5b6990bfe46940987126f79235": {
+      "project_url": "https://github.com/openelec/openelec.tv",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. The installation wiki linked from the README did not answer over HTTPS, so the recorded image step is the README's manual snapshot update for an existing system.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/openelec/openelec.tv/blob/1465181e999753dde395ff5d4d67edf3d8a72fb2/README.md",
+          "title": "OpenELEC README",
+          "kind": "upstream_repository",
+          "revision": "1465181e999753dde395ff5d4d67edf3d8a72fb2"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "firmware",
+          "scope": "The README describes a base system built to deliver a set-top box experience.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "firmware_image",
+          "scope": "A manual update copies a snapshot tar to the Update share and upgrades on the next reboot.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "fe50c4dc8d8f1063e8ca246d7c0c4a993ed25acd4fba6424f72b9103b30f2a6a": {
+      "project_url": "https://github.com/hydra-db/open-glean",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. No host operating system is named, and the model key and MongoDB persistence are optional.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/hydra-db/open-glean/blob/55b202b8b03ea8bd3e1e66f32036afa0f1a2b734/README.md",
+          "title": "Open Glean README",
+          "kind": "upstream_repository",
+          "revision": "55b202b8b03ea8bd3e1e66f32036afa0f1a2b734"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "local_web",
+          "scope": "Getting started opens the app at http://localhost:3000.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "server",
+          "scope": "The documented Docker command publishes the app on port 3000.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "source",
+          "scope": "Getting started installs dependencies and starts the dev server from the repository.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "container",
+          "scope": "The repository documents building an image named open-glean.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "Hydra",
+          "requirement": "required",
+          "scope": "Without a Hydra key the app shows a connect screen and asks for one.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "name": "OpenAI-compatible model",
+          "requirement": "optional",
+          "scope": "An OpenRouter or other OpenAI-compatible key writes answers, and search works without it.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "name": "MongoDB",
+          "requirement": "optional",
+          "scope": "Conversations persist to MongoDB when it is reachable, with a localStorage fallback.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "constraint",
+          "note": "Production OPEN_GLEAN_SESSION_SECRET of 16+ characters",
+          "scope": "Production requires a random OPEN_GLEAN_SESSION_SECRET of at least 16 characters.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "default",
+          "note": "3 concurrent Deep Research runs per instance",
+          "scope": "The documented default is 3 concurrent Deep Research runs per instance.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "ef46f3ecbaf5e80e5319ea13a91a24cdf7232caf2eb178610cd8c1a1d76e14cc": {
+      "project_url": "https://github.com/apache/opennlp",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. JDK 21 applies to the 3.0.0 release and the main-branch build, while the opennlp-2.x branch documents Java 17.",
+      "sources": {
+        "readme": {
+          "url": "https://github.com/apache/opennlp/blob/9919f0c3854bf54e5973cd9488795f454e31b47b/README.md",
+          "title": "Apache OpenNLP README",
+          "kind": "upstream_repository",
+          "revision": "9919f0c3854bf54e5973cd9488795f454e31b47b"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "library",
+          "scope": "Apache OpenNLP is a Java machine-learning toolkit for natural-language text.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "cli",
+          "scope": "The README also documents use from a terminal through its CLI.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "The core toolkit is imported with Maven or Gradle.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "After cloning, the README builds the library with mvn install.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Maven",
+          "coordinate": "org.apache.opennlp:opennlp-runtime",
+          "channel": "${opennlp.version}",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Getting started declares this Maven dependency with the version property.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "JDK 21 and Maven 3.9.x to build the main branch",
+          "scope": "Building the main branch requires at least JDK 21 and Maven 3.9.x.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "minimum",
+          "note": "JDK 21+ for the 3.0.0 release",
+          "scope": "Release 3.0.0 raises the minimal Java version to JDK 21 or newer.",
+          "source_ids": [
+            "readme"
+          ]
+        },
+        {
+          "kind": "minimum",
+          "note": "Java 17 on the opennlp-2.x branch",
+          "scope": "The opennlp-2.x branch documents a minimum Java level of 17.",
+          "source_ids": [
+            "readme"
+          ]
+        }
+      ]
+    },
+    "8ecabd27e71a569b010c3f3b67c6d11e55e436a12a850b80b83ac2fc55bad88b": {
+      "project_url": "https://github.com/opensips/opensips",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. These facts follow the repository INSTALL, which covers packages, source builds, and tar archives.",
+      "sources": {
+        "install": {
+          "url": "https://raw.githubusercontent.com/opensips/opensips/100978df281c8d73d132466400fb64423bb13c04/INSTALL",
+          "title": "OpenSIPS INSTALL",
+          "kind": "upstream_repository",
+          "revision": "100978df281c8d73d132466400fb64423bb13c04"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "server",
+          "scope": "The quick start registers a SIP user agent with the server.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "package_manager",
+          "scope": "Stable Debian users are pointed to the project's APT repository.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "INSTALL installs a source build with make prefix=/usr/local.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "value": "binary",
+          "scope": "INSTALL offers tar.gz binaries as well as distribution packages.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Linux/i386, Linux/armv4l, FreeBSD/i386, OpenBSD/i386, Solaris/sparc64, NetBSD/sparc64",
+          "scope": "INSTALL names these architectures and says others may need Makefile edits.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "external_services": [
+        {
+          "name": "MySQL",
+          "requirement": "optional",
+          "scope": "OpenSIPS can be configured to use MySQL.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Debian APT",
+          "coordinate": "deb https://opensips.org/debian stable main",
+          "channel": "stable",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "INSTALL points stable Debian users to the project's repository.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "GNU make >= 3.79",
+          "scope": "Building from source requires GNU make 3.79 or newer.",
+          "source_ids": [
+            "install"
+          ]
+        },
+        {
+          "kind": "default",
+          "note": "Installation prefix /usr/local/",
+          "scope": "The default installation prefix is /usr/local/.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
+    },
+    "a8bf94abbf0f412b9f6f7ce49759d06db8f236f460021e7792c610a0260effbd": {
+      "project_url": "https://github.com/opencpn/opencpn",
+      "review_status": "approved",
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "review_note": "Kanzler (AI) source review. Approval means evidence eligibility. No software was installed or executed. Android, Raspberry Pi, Gentoo, and the Ubuntu PPA are named on the download page and are not expanded here.",
+      "sources": {
+        "home": {
+          "url": "https://opencpn.org/",
+          "title": "OpenCPN official site",
+          "kind": "upstream_docs"
+        },
+        "download": {
+          "url": "https://opencpn.org/OpenCPN/info/downloadopencpn.html",
+          "title": "Download OpenCPN",
+          "kind": "upstream_docs"
+        },
+        "install": {
+          "url": "https://raw.githubusercontent.com/opencpn/opencpn/050d6e92b6d7fac2fda420582da92465f8cf4011/INSTALL",
+          "title": "OpenCPN INSTALL",
+          "kind": "upstream_repository",
+          "revision": "050d6e92b6d7fac2fda420582da92465f8cf4011"
+        }
+      },
+      "run_modes": [
+        {
+          "value": "desktop",
+          "scope": "The official site describes OpenCPN as chart plotter navigation software.",
+          "source_ids": [
+            "home"
+          ]
+        }
+      ],
+      "install_methods": [
+        {
+          "value": "installer",
+          "scope": "The download page publishes this OpenCPN 5.14.2 setup.exe.",
+          "source_ids": [
+            "download"
+          ]
+        },
+        {
+          "value": "package_manager",
+          "scope": "The download page installs OpenCPN with Flatpak.",
+          "source_ids": [
+            "download"
+          ]
+        },
+        {
+          "value": "source",
+          "scope": "INSTALL documents a Linux CMake build ending in sudo make install.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "value": "Windows 8/8.1/10/11",
+          "scope": "The Windows download is labeled for Windows 8, 8.1, 10, and 11.",
+          "source_ids": [
+            "download"
+          ]
+        },
+        {
+          "value": "MacOS 11 and newer (Apple Silicon or Intel)",
+          "scope": "The Mac download is a universal build for MacOS 11 and newer.",
+          "source_ids": [
+            "download"
+          ]
+        },
+        {
+          "value": "major Linux distributions",
+          "scope": "The Flatpak package is supported on all major Linux distributions.",
+          "source_ids": [
+            "download"
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "ecosystem": "Flathub",
+          "coordinate": "org.opencpn.OpenCPN",
+          "channel": "5.2 and later",
+          "status": "documented",
+          "upstream_relationship": "upstream",
+          "scope": "Version 5.2 and later is offered as this Flathub ref.",
+          "source_ids": [
+            "download"
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum",
+          "note": "WxWidgets 3.0.0 or greater",
+          "scope": "INSTALL requires WxWidgets 3.0.0 or greater to build.",
+          "source_ids": [
+            "install"
+          ]
+        }
+      ]
     }
   }
 }

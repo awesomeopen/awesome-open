@@ -168,6 +168,271 @@
       "checked_at": "2026-10-31",
       "reviewed_by": "Superhirn (AI)",
       "note": "The date records the commit documenting the repository rename with owner approval on 2026-10-12; the old GitHub URL redirects to the same repository ID 1409520720. The catalog URL and display name remain unchanged by this event. No software-rename event is proposed: the product name OpenSnap was already in use in an internal document dated 2026-10-09 while the repository was still named OpenSkitch, and no commit pinpointing the software-name change was established, so a software-rename date is not asserted. Any display-name update is a separate curated change."
+    },
+    {
+      "id": "openmuse-to-openfuse",
+      "project_url": "https://github.com/CopilotKit/openmuse",
+      "kind": "software_rename",
+      "old_name": "OpenMuse",
+      "new_name": "OpenFuse",
+      "occurred": {
+        "value": "2026-11-13",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/CopilotKit/openfuse/commit/7771e2db03a4b25d8bc8ee32f7a5c0dddafe3bfc"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/CopilotKit/openfuse/commit/7771e2db03a4b25d8bc8ee32f7a5c0dddafe3bfc",
+          "title": "Project-wide OpenMuse to OpenFuse rename merged into main",
+          "role": "implementation",
+          "date": "2026-11-13"
+        },
+        {
+          "url": "https://github.com/CopilotKit/openfuse/blob/a4944f4c471d3dc93b8bfc060b5da309b5216ab2/README.md",
+          "title": "OpenMuse README immediately before the rename",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://github.com/CopilotKit/openfuse/blob/7771e2db03a4b25d8bc8ee32f7a5c0dddafe3bfc/README.md",
+          "title": "OpenFuse README at the rename revision",
+          "role": "identity",
+          "date": "2026-11-13"
+        },
+        {
+          "url": "https://api.github.com/repos/CopilotKit/openmuse",
+          "title": "Old repository API path, same repository ID 1371757322",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://api.github.com/repos/CopilotKit/openfuse",
+          "title": "Current repository API record, repository ID 1371757322",
+          "role": "identity",
+          "date": null
+        }
+      ],
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "note": "The date records pull request 224 merged into main as commit 7771e2db, which changes the README heading from OpenMuse to OpenFuse and the product name in the application. The README at that revision still clones github.com/CopilotKit/OpenMuse. The old and current GitHub API paths both resolve to repository ID 1371757322."
+    },
+    {
+      "id": "warelay-to-clawdis",
+      "project_url": "https://github.com/openclaw/openclaw",
+      "kind": "software_rename",
+      "old_name": "warelay",
+      "new_name": "Clawdis",
+      "occurred": {
+        "value": "2025-12-03",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/openclaw/openclaw/commit/a27ee2366ebfa366ee960e567f72f97fe63085d9"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/openclaw/openclaw/commit/a27ee2366ebfa366ee960e567f72f97fe63085d9",
+          "title": "README rebrand from warelay to CLAWDIS",
+          "role": "implementation",
+          "date": "2025-12-03"
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/7bc56d7cfe7fa225077a4a10be8d857239da13f1/README.md",
+          "title": "warelay README immediately before the rebrand",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/a27ee2366ebfa366ee960e567f72f97fe63085d9/README.md",
+          "title": "CLAWDIS README at the rebrand revision",
+          "role": "identity",
+          "date": "2025-12-03"
+        }
+      ],
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "note": "The date records the commit that changes the README heading from warelay to CLAWDIS. The repository badges in that revision still use github.com/steipete/warelay. The previous README names Clawd as an assistant running on warelay."
+    },
+    {
+      "id": "clawdis-to-clawdbot",
+      "project_url": "https://github.com/openclaw/openclaw",
+      "kind": "software_rename",
+      "old_name": "Clawdis",
+      "new_name": "Clawdbot",
+      "occurred": {
+        "value": "2026-01-04",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/openclaw/openclaw/commit/246adaa1191438b9e9e178384a026b4c123782f1"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/openclaw/openclaw/commit/246adaa1191438b9e9e178384a026b4c123782f1",
+          "title": "Rename the project from Clawdis to Clawdbot",
+          "role": "implementation",
+          "date": "2026-01-04"
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/d48dc71fa425bf48f5b5ab72ee6e15d9b4e87397/README.md",
+          "title": "Clawdis README immediately before the rename",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/246adaa1191438b9e9e178384a026b4c123782f1/README.md",
+          "title": "Clawdbot README at the rename revision",
+          "role": "identity",
+          "date": "2026-01-04"
+        }
+      ],
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "note": "The date records the commit that changes the README heading from CLAWDIS to CLAWDBOT and the prose from Clawdis to Clawdbot. The same commit changes repository links from steipete/clawdis to clawdbot/clawdbot."
+    },
+    {
+      "id": "clawdbot-to-moltbot",
+      "project_url": "https://github.com/openclaw/openclaw",
+      "kind": "software_rename",
+      "old_name": "Clawdbot",
+      "new_name": "Moltbot",
+      "occurred": {
+        "value": "2026-01-27",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/openclaw/openclaw/commit/3fe4b2595a74f1c7f7ef4806005cd36ded6ffe53"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/openclaw/openclaw/commit/3fe4b2595a74f1c7f7ef4806005cd36ded6ffe53",
+          "title": "README heading and repository links change to Moltbot",
+          "role": "implementation",
+          "date": "2026-01-27"
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/commit/6d16a658e5ebe6ce15856565a47090d5b9d5dfb6",
+          "title": "Rename clawdbot code to moltbot with legacy compatibility",
+          "role": "implementation",
+          "date": "2026-01-27"
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/640c8d1554a787ac3797ee75df2abd5f4b202f8a/README.md",
+          "title": "Clawdbot README immediately before the heading change",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/3fe4b2595a74f1c7f7ef4806005cd36ded6ffe53/README.md",
+          "title": "Moltbot README at the heading-change revision",
+          "role": "identity",
+          "date": "2026-01-27"
+        }
+      ],
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "note": "The date records the README commit that changes the heading from Clawdbot to Moltbot and the repository links from clawdbot/clawdbot to moltbot/moltbot. Commit 6d16a658 earlier on 2026-01-27 renames the code from clawdbot to moltbot while the README heading still says Clawdbot."
+    },
+    {
+      "id": "moltbot-to-openclaw",
+      "project_url": "https://github.com/openclaw/openclaw",
+      "kind": "software_rename",
+      "old_name": "Moltbot",
+      "new_name": "OpenClaw",
+      "occurred": {
+        "value": "2026-01-30",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/openclaw/openclaw/commit/9a7160786a7dbd21469fad73992158e415e4686e"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/openclaw/openclaw/commit/9a7160786a7dbd21469fad73992158e415e4686e",
+          "title": "Rename the project from Moltbot to OpenClaw",
+          "role": "implementation",
+          "date": "2026-01-30"
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/4583f88626f20efedc454d893afaaf898c23523b/README.md",
+          "title": "Moltbot README immediately before the rename",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/9a7160786a7dbd21469fad73992158e415e4686e/README.md",
+          "title": "OpenClaw README at the rename revision",
+          "role": "identity",
+          "date": "2026-01-30"
+        },
+        {
+          "url": "https://openclaw.ai/blog/introducing-openclaw",
+          "title": "Introducing OpenClaw",
+          "role": "announcement",
+          "date": "2026-01-29"
+        }
+      ],
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "note": "The date records the commit that changes the README heading from Moltbot to OpenClaw and the repository links from moltbot/moltbot to openclaw/openclaw. The project blog's published time is 2026-01-29."
+    },
+    {
+      "id": "steipete-warelay-to-clawdis",
+      "project_url": "https://github.com/openclaw/openclaw",
+      "kind": "repository_rename",
+      "old_name": "steipete/warelay",
+      "new_name": "steipete/clawdis",
+      "occurred": null,
+      "sources": [
+        {
+          "url": "https://github.com/openclaw/openclaw/blob/a27ee2366ebfa366ee960e567f72f97fe63085d9/README.md",
+          "title": "CLAWDIS README still linking steipete/warelay",
+          "role": "identity",
+          "date": "2025-12-03"
+        },
+        {
+          "url": "https://github.com/openclaw/openclaw/commit/b6c11154ae0395be8796a23946d9adf09b406628",
+          "title": "Merge commit naming remote github.com/steipete/clawdis",
+          "role": "identity",
+          "date": "2025-12-20"
+        },
+        {
+          "url": "https://api.github.com/repos/steipete/warelay",
+          "title": "Old repository API path, same repository ID 1103012935",
+          "role": "identity",
+          "date": null
+        },
+        {
+          "url": "https://api.github.com/repos/steipete/clawdis",
+          "title": "Later repository API path, same repository ID 1103012935",
+          "role": "identity",
+          "date": null
+        }
+      ],
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Kanzler (AI)",
+      "note": "The CLAWDIS rebrand README on 2025-12-03 still links github.com/steipete/warelay. A merge on 2025-12-20 names the remote https://github.com/steipete/clawdis. Both GitHub API paths resolve to repository ID 1103012935."
+    },
+    {
+      "id": "open-whisper-to-open-quill-2026-10-11",
+      "project_url": "https://github.com/twilightduck/openwhisper",
+      "kind": "software_rename",
+      "old_name": "Open Whisper",
+      "new_name": "Open Quill",
+      "occurred": {
+        "value": "2026-10-11",
+        "precision": "day",
+        "basis": "implementation",
+        "source_url": "https://github.com/TwilightDuck/OpenQuill/commit/178e2aa10cf97f95ea528ad566a2ca10f6999f9b"
+      },
+      "sources": [
+        {
+          "url": "https://github.com/TwilightDuck/OpenQuill/commit/178e2aa10cf97f95ea528ad566a2ca10f6999f9b",
+          "title": "Rename the app and project to Open Quill",
+          "role": "implementation",
+          "date": "2026-10-11"
+        }
+      ],
+      "checked_at": "2026-11-18",
+      "reviewed_by": "Junge (AI)",
+      "note": "The commit changes the README title, application display name, executable and package from Open Whisper to Open Quill. The README identifies the former name and preserves the bundle identifier, preferences and application data across the rename."
     }
   ]
 }

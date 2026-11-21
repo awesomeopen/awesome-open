@@ -7,6 +7,7 @@ alternatives row disappears when there is nothing to show.
 from html import escape as _escape
 
 import deployment
+import collection_log
 
 UNKNOWN = "Unknown"
 NO_GITHUB = "No GitHub repository mapped."
@@ -119,7 +120,7 @@ def timeline_box(timeline_html, history_html):
 
 def stars_box(project):
     record = project.get("star_history")
-    title, label = "GitHub stars", "III / Observations &amp; evidence"
+    title, label = "GitHub star history", "III / Observations &amp; evidence"
     if record is None:
         github = project.get("github")
         return box(title, empty_chart(), label=label, signal="star-history",
@@ -136,16 +137,15 @@ def stars_box(project):
     if record.get("chart_url"):
         months, counts = good["months"], good["monthly_counts"]
         total = sum(counts)
-        body = (f'<a class="pg-spark-link" href="{esc(record["source_url"])}"><img class="pg-spark" src="{esc(record["chart_url"])}" '
+        body = (('<p class="pg-line">Stale cached result</p>' if status.startswith("Stale") else "")
+                + f'<a class="pg-spark-link" href="{esc(record["source_url"])}"><img class="pg-spark" src="{esc(record["chart_url"])}" '
                 f'width="120" height="24" alt="Monthly stars retained at fetch, {esc(months[0])} to {esc(months[-1])}" loading="lazy"></a>'
-                + foot(f"{total:,}", months[0], months[-1]))
-        popup = (state(status) + f"<p>{total:,} stars / past 2y: Stars created in each month that remained at the last successful fetch. "
+                + f'<p class="pg-foot">{total:,}<br><span class="pg-nowrap">{window(months[0], months[-1])}</span></p>')
+        popup = (state(status) + f"<p>{total:,} stars / {esc(months[0])}–{esc(months[-1])}: Stars created in each month that remained at the last successful fetch. "
                  f"Independent square-root scale: 0–{max(1, *counts):,} stars/month.</p>" + sources)
     else:
         body = empty_chart()
-        withheld = ("Cached history uses a different month window; chart withheld until aligned."
-                    if good else "History unavailable; no zero values inferred.")
-        popup = state(status) + f"<p>{withheld}</p>" + sources
+        popup = state(status) + "<p>History unavailable; no zero values inferred.</p>" + sources
     return box(title, body, label=label, popup=popup, signal="star-history")
 
 
@@ -229,6 +229,38 @@ KEY = ('<p class="pg-key"><span class="pg-run">Run</span> <span class="pg-instal
        '<span class="pg-platform">Documented platforms</span></p>')
 
 
+def languages_box(project):
+    title = "Repository languages"
+    record = (project.get("signals") or {}).get("languages")
+    good = record.get("last_good") if record else None
+    meaning = ("<p>GitHub language composition by bytes. This describes repository source; "
+               "runtime requirements and supported APIs belong to their own evidence.</p>")
+    if good is None:
+        popup = state(record["status"].capitalize() if record else "Not checked") + meaning
+        if record:
+            popup += provenance(record, None)
+        primary = (project.get("github") or {}).get("primary_language")
+        if primary:
+            github = project["github"]
+            popup += (f"<p>GitHub primary language: {esc(primary)}. Full breakdown not collected.</p>"
+                      f"<p>{esc(github.get('status', 'unknown'))} metadata · Observed {esc(github.get('last_success_at') or UNKNOWN)} · "
+                      f'<a href="https://api.github.com/repos/{esc(github["repo"])}">Metadata source</a></p>')
+        return box(title, value(UNKNOWN, False), cls="pg-languages", popup=popup)
+    counts = good["value"]
+    names = sorted(counts, key=lambda name: (-counts[name], name))
+    total = sum(counts.values())
+    body = value(esc(" · ".join(names[:3])) if names else "None detected")
+    if len(names) > 3:
+        body += f'<p class="pg-sub">+{len(names) - 3} more</p>'
+    if record["status"] == "stale":
+        body += '<p class="pg-sub">Stale cached result</p>'
+    rows = "".join(f"<li>{esc(name)} · {counts[name]:,} bytes · {counts[name] / total:.1%}</li>" for name in names)
+    popup = (state(record["status"].capitalize()) + meaning +
+             (f"<ul>{rows}</ul><p>{total:,} bytes total.</p>" if names else "<p>GitHub returned an empty language breakdown.</p>") +
+             provenance(record, good))
+    return box(title, body, cls="pg-languages", popup=popup)
+
+
 def runs_box(project):
     record = project.get("deployment")
     kwargs = {"label": "V / Where it runs", "heading": False, "cls": f"pg-runs {END}"}
@@ -259,12 +291,12 @@ def alternatives(project):
     return f'<div class="pg-row pg-alts">{cells}</div>'
 
 
-def render(project, *, timeline_html="", history_html="", freshness="", hn_window=None):
+def render(project, *, timeline_html="", history_html="", freshness="", hn_window=None, activity=()):
     """Grid rows; the plate closes the panel with its departure."""
     return (
         f'<div class="pg-row pg-repository">{repository(project, freshness)}</div>'
         f'<div class="pg-row pg-tight">{timeline_box(timeline_html, history_html)}</div>'
-        f'<div class="pg-row pg-evidence">{stars_box(project)}{hn_box(project, hn_window)}{reserved()}{signal_box(project, "scorecard")}</div>'
-        f'<div class="pg-row pg-release-runs">{signal_box(project, "release")}{reserved("pg-wide")}{runs_box(project)}</div>'
+        f'<div class="pg-row pg-evidence">{stars_box(project)}{hn_box(project, hn_window)}{collection_log.render(activity, project["id"])}{signal_box(project, "scorecard")}</div>'
+        f'<div class="pg-row pg-release-runs">{signal_box(project, "release")}{languages_box(project)}{runs_box(project)}</div>'
         f"{alternatives(project)}"
     )

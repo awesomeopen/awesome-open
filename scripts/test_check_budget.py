@@ -80,13 +80,23 @@ class CheckBudgetTests(unittest.TestCase):
             site = self.site(directory)
             (site / 'data').mkdir()
             hn = site / 'data/hn_evidence.json'
-            hn.write_bytes(b'x' * (2 * 10 * 1024))
+            hn.write_bytes(b'x' * (2 * 96 * 1024))
             self.assertEqual(self.run_check(site)[0], 0)
             hn.write_bytes(hn.read_bytes() + b'x')
             self.assertIn('HN evidence', check_budget.report(site)[1])
             hn.write_bytes(b'{}')
             (site / 'data/other.json').write_bytes(b'x' * (2 * 8 * 1024 + 1))
             self.assertEqual(check_budget.report(site)[1], ['Largest other file'])
+
+    def test_enriched_catalog_boundary_still_rejects_bloat(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = self.site(directory)
+            catalog = site / 'catalog.json'
+            catalog.write_bytes(b'x' * (2 * 6 * check_budget.KIB))
+            self.assertEqual(self.run_check(site)[0], 0)
+            catalog.write_bytes(catalog.read_bytes() + b'x')
+            self.assertEqual(check_budget.report(site)[1], ['catalog.json'])
+            self.assertEqual(self.run_check(site)[0], 1)
 
     def test_missing_site_is_an_error(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(SystemExit):
@@ -110,3 +120,20 @@ class CheckBudgetTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class HnPlanningAllowanceTests(unittest.TestCase):
+    def test_only_hn_gets_multiyear_allowance(self):
+        rows = {key:limit for _,key,limit,_ in check_budget.BUDGET}
+        self.assertEqual(rows['hn_bytes'](1000), 98304000)
+        self.assertEqual(rows['other_bytes'](587), 55834624)
+        self.assertEqual(rows['catalog_bytes'](587), 587*6144)
+        with tempfile.TemporaryDirectory() as directory:
+            site = Path(directory)
+            (site/'records').mkdir(); (site/'records/a.html').write_text('')
+            (site/'data').mkdir(); (site/'index.html').write_text('')
+            hn = site/'data/hn_evidence.json'
+            hn.write_bytes(b' ' * 98304)
+            self.assertNotIn('HN evidence', check_budget.report(site)[1])
+            hn.write_bytes(b' ' * 98305)
+            self.assertIn('HN evidence', check_budget.report(site)[1])

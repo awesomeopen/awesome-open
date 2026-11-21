@@ -31,8 +31,8 @@ BUDGET = [
     ('Site total', 'total_bytes', 640 * MIB,
      'GitHub Pages publishes at most 1 GB; baseline 138 MiB, '
      'about 596 MiB projected at 1,000 records with artwork and plate variants for each'),
-    ('Site without specimen artwork', 'other_bytes', per_record(20 * MIB, 56 * KIB),
-     'Everything outside specimens/: 20 MiB + 56 KiB per record; baseline 16 MiB + 42 KiB per record'),
+    ('Site without specimen artwork', 'other_bytes', per_record(20 * MIB, 58 * KIB),
+     'Everything outside specimens/: 20 MiB + 58 KiB per record; +2 KiB for complete lazy collection overviews (PR 368); see site/COLLECTION-LOG.md'),
     ('Specimen artwork per illustrated project', 'specimen_average', 640 * KIB,
      'Original, cutout and the 512/768 px plate variants, averaged over projects with artwork; '
      'baseline 552 KiB'),
@@ -43,14 +43,15 @@ BUDGET = [
      'Initial ledger HTML parsed on every visit: 64 KiB + 2.5 KiB per record; baseline 932 KiB'),
     ('index.html (gzip)', 'index_gzip', per_record(16 * KIB, 384),
      'Initial ledger transfer: 16 KiB + 384 B per record; baseline 133 KiB'),
-    ('catalog.json', 'catalog_bytes', per_record(0, 4 * KIB),
+    ('catalog.json', 'catalog_bytes', per_record(0, 6 * KIB),
      'Download size, written compactly with star counts in data/star_history.json: '
-     '4 KiB per record; baseline 1.3 MiB'),
+     '6 KiB per record for reviewed enrichment; 2,399,345 B / 585 records '
+     '(2026-11-17 prepared batch); 6,144,000 B at 1,000 records'),
     ('Where it runs (data)', 'deployment_bytes', per_record(0, 3 * KIB),
      'Combined approved deployment evidence: 3 KiB per catalog record'),
-    ('HN evidence', 'hn_bytes', per_record(0, 10 * KIB),
-     'Lossless published HN: 10 KiB per record; 4,887,935 B at 584 records, '
-     '8.37 MB projected at 1,000; see site/HN-PUBLISHED-EVIDENCE.md'),
+    ('HN evidence', 'hn_bytes', per_record(0, 96 * KIB),
+     'Lossless HN: 96 KiB per record; 1,000-project five-year richer-history scenario '
+     '72,950,831 B plus planning margin; see site/HN-PUBLISHED-EVIDENCE.md'),
     ('Largest other file', 'largest_other', per_record(0, 8 * KIB),
      'Any single file outside the rows above: 8 KiB per record; '
      'HN evidence has its own measured budget above'),

@@ -88,6 +88,9 @@ browser use the tools without token.
 or a field declared with `search`. Results rank by the weakest field any word needed, 
 then by name, then list order. An exact short alias, such as OBS, matches
 whole words only. An empty query lists items in list order.
+When a query of several words matches nothing, the message gives each word's matches on
+its own, for example "Items matching each word alone: notebooklm 1, alternative 4. Search
+again with fewer words."
 
 **Filters:** `filters` maps a field declared with `filter` to one value, such as
 `{"run_modes": "server"}`. Items without a recorded value cannot match, so the result
@@ -123,6 +126,9 @@ one JSON action per turn, at most 8 turns and 30 seconds per turn, and sees shor
 such as `r1` in place of item IDs. The answer shows "List result:", rows from tool results,
 then "AI response:", the model's text with refs replaced by item names. That text is withheld
 when it names an item the tools did not return.
+Follow-up questions continue the conversation: each request carries a recap of the last
+3 turns (question, answer text, and its items as refs with names), and refs and items from
+earlier answers stay valid. "New conversation" starts over.
 
 A page can give the assistant its own tools by pushing definitions shaped like
 `registerTool`'s argument onto `window.webmcpletTools` and naming them in
@@ -180,6 +186,20 @@ missing items do not appear in the README, and the 3 section differences are JSO
 categories the README has no heading for. Two apps that share the repository URL
 `hg.mozilla.org/mozilla-central`, Firefox and Thunderbird, become one item. Rerun the
 score with `scripts/score_webmcplet_importer.cjs`.
+
+### GitHub stars (optional)
+
+`--github-stars on` on `build.cjs markdown` or `build.cjs try` asks the GitHub REST API
+for the stargazer count of each item whose URL is a GitHub repository, and declares a
+`github_stars` field with its source and the time of the request (`observed_at`). Other
+items, and repositories GitHub does not return, have no value and read Unknown. GitHub
+answers 60 requests an hour without a token; set `GITHUB_TOKEN` for larger lists. When
+the limit is reached, the rest stay unrecorded and the build says how many. The step
+needs `github.js` beside `build.cjs`; it ships from the next release (see
+[CHANGELOG](CHANGELOG.md)).
+
+On open-source-mac-os-apps (978 items), 952 of 960 repositories returned stars in 32 s
+with a token on 2026-11-16.
 
 ## Tests
 

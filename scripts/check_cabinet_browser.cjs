@@ -73,9 +73,10 @@ const fs = require('node:fs');
   assert.ok(editors.projects.some(p=>p.matched_fields.every(f=>f==='summary'||f==='feature')));
   const none=await call('cabinet_find',{query:'manage family photos on my own server'});
   assert.equal(none.ok,true);assert.equal(none.total,0);assert.deepEqual(none.projects,[]);
-  assert.match(none.message,/^No match in this catalog of [\d,]+ Open\*-named projects\.$/);
+  assert.match(none.message,/^No match in this catalog of [\d,]+ Open\*-named projects\. No project contains every word\. Projects matching each word alone: manage \d+, .*Search again with fewer words\.$/);
   await manual.locator('#search').fill('manage family photos on my own server');await manual.locator('#search').press('Enter');
-  assert.equal(await manual.locator('#empty').textContent(),none.message);
+  // The visible no-match text is the tool message without its per-word hint.
+  assert.ok(none.message.startsWith(await manual.locator('#empty').textContent()+' '));
   await manual.close();
   // Without summaries, the tool reports it can't search them; the Catalog says what it still covers.
   const offline=await context.newPage();
@@ -147,6 +148,7 @@ const fs = require('node:fs');
   const cleared=await context.newPage();await cleared.goto(link);assert.equal(await cleared.locator('#cabinet-selection li').count(),2);
   await cleared.locator('#cabinet-clear').click();assert.equal(await cleared.locator('#cabinet-selection li').count(),0);
   assert.equal(await cleared.locator('#cabinet-clear').isDisabled(),true);assert.doesNotMatch(cleared.url(),/cabinet=/);await cleared.close();
+  await require('./check_languages_browser.cjs')(browser, base, call);
   assert.deepEqual(errors,[]);report.status='passed';report.selectionURL=link;
  } finally {fs.writeFileSync(output+'/cabinet.json',JSON.stringify(report,null,2)+'\n');await browser.close();}
  console.log(JSON.stringify(report));

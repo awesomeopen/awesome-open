@@ -76,9 +76,12 @@ def validate_snapshot(snapshot):
                 raise ValueError("Stale metrics need a successful observation for " + repo)
             if status == "unavailable":
                 if successful_at is not None or any(key not in record or record[key] is not None
-                        for key in ("archived", "created_at", "pushed_at", "license", "stargazers_count")):
+                        for key in ("language", "archived", "created_at", "pushed_at", "license", "stargazers_count")):
                     raise ValueError("Unavailable metrics must remain unknown for " + repo)
                 continue
+        language = record.get("language")
+        if language is not None and (not isinstance(language, str) or not language.strip() or len(language) > 100 or any(ord(c) < 32 for c in language)):
+            raise ValueError("Invalid primary language for " + repo)
         count = record.get("stargazers_count")
         if type(count) is not int or count < 0:
             raise ValueError("Expected a nonnegative integer star count for " + repo)

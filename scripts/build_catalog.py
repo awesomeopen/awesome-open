@@ -189,6 +189,7 @@ def _github_metadata(url, snapshot):
         license_id = None
     metadata = {
         "repo": repo,
+        "primary_language": record.get("language"),
         "stars": record["stargazers_count"],
         "license": license_id,
         "created_at": record["created_at"],
@@ -360,6 +361,12 @@ def build_catalog(source, snapshot, alternatives, evidence, source_sha=None, opt
         if category not in project["categories"]:
             project["categories"].append(category)
             categories[category]["count"] += 1
+    for project in projects.values():
+        record = (project.get("signals") or {}).get("languages")
+        good = record.get("last_good") if record else None
+        project["languages"] = (sorted(good["value"], key=lambda name: (-good["value"][name], name))
+                                if good is not None else None)
+        project["language_status"] = record["status"] if record else "unknown"
     project_history.attach(projects, history, canonical_url)
     project_aliases.attach(projects, aliases, canonical_url)
     attach_function_summaries(projects, function_summaries)

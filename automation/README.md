@@ -301,8 +301,8 @@ Each chunk has a **15-minute collection deadline**, **900-request ceiling** and
 live quota reserve for normal publishing; validated batches contain at most
 **20 successful repositories**. The full job is bounded to **45 minutes**.
 Observe remaining/reset/Retry-After and `resume_after` before another chunk.
-Normal recurring history collection retains its separate **16-attempt daily
-budget**. The authoritative implementation, reserve formula and recovery rules
+Normal recurring history collection follows the separate
+[collection limits](../CONTRIBUTING.md#cached-github-star-history). The reserve formula and recovery rules
 are in [the one-time backfill contract](../CONTRIBUTING.md#one-time-fast-star-history-backfill).
 
 **Stop/pause for authorized manual use:** Verify each run's terminal result,

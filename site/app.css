@@ -18,7 +18,7 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .rail :focus-visible {outline-color:var(--rs-amber);}
 
 /* Rail: category is the main filter; the other filters sit beneath it. */
-/* The rail carries the pattern the field-guide footers used. */
+/* The rail repeats patterns/navypattern2.png. */
 .rail {display:flex;flex-direction:column;min-height:0;overflow:auto;background:var(--rail-bg) url(patterns/navypattern2.png) repeat;color:var(--rail-fg);scrollbar-width:thin;}
 /* The botanical mark heads the rail, in a block as tall as the list head so "All" meets the first row. */
 .rail-mark {flex:none;display:grid;place-items:center;height:calc(var(--head) + 2px);}
@@ -242,7 +242,7 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
   .pane .pg-runs {margin-top:0;}
 }
 
-/* Cabinet: the existing folded instrument, reattached as a corner button and its panel. */
+/* Cabinet: a corner button and its panel. */
 .app .specimen-cabinet {position:fixed;right:16px;bottom:16px;z-index:40;margin:0;border:0;background:transparent;}
 /* WebMCPlet's Search button holds the corner in the cabinet's layout, in blue; the cabinet stacks above it while it is shown. */
 .app:has([data-webmcplet-host]) .specimen-cabinet {bottom:64px;}

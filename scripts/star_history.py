@@ -56,11 +56,10 @@ def attach(projects, snapshot, evidence):
                 raise ValueError('Invalid star-history monthly counts')
             for key in ('fetched_at', 'window_start', 'window_end_exclusive'):
                 datetime.fromisoformat(good[key].replace('Z', '+00:00'))
-            if (months == evidence['months'] and good['window_start'] == evidence['window_start']
+            selected['chart_url'] = 'assets/stars/' + project['id'] + '.svg'
+            if not (months == evidence['months'] and good['window_start'] == evidence['window_start']
                     and good['window_end_exclusive'] == evidence['window_end_exclusive']):
-                selected['chart_url'] = 'assets/stars/' + project['id'] + '.svg'
-            else:
-                selected['display_status'] = 'Window mismatch; awaiting refresh'
+                selected['display_status'] = 'Stale cached result; awaiting current window'
         project['star_history'] = selected
 
 

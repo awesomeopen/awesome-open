@@ -9,7 +9,8 @@ import json
 import re
 from urllib.parse import unquote, urlsplit
 
-PROVIDERS = ('release', 'scorecard')
+PROVIDERS = ('release', 'scorecard', 'languages')
+LEGACY_PROVIDERS = {'release', 'scorecard'}
 METHOD_VERSION = '1'
 REPO = re.compile(r'[a-z0-9_.-]+/[a-z0-9_.-]+')
 SHA = re.compile(r'[0-9a-f]{40}')
@@ -46,6 +47,8 @@ def score(value, nullable=False):
 
 
 def source_url(repo, provider):
+    if provider == 'languages':
+        return f'https://api.github.com/repos/{repo}/languages'
     return (f'https://api.github.com/repos/{repo}/releases/latest' if provider == 'release'
             else f'https://api.scorecard.dev/projects/github.com/{repo}')
 
@@ -70,7 +73,7 @@ def effective_status(record, provider, at):
     # Release age describes a release, not cache freshness. Scorecard scan age is
     # separate from HTTP revalidation; a fresh 304 does not make an old scan new.
     basis = good['observed_at'] if provider == 'scorecard' else record['last_success_at']
-    days = 30 if provider == 'scorecard' else 3
+    days = 30 if provider == 'scorecard' else 14 if provider == 'languages' else 3
     if timestamp(at) - timestamp(basis) > timedelta(days=days):
         return 'stale'
     if provider == 'scorecard' and (not good['value']['checks'] or good['value']['score'] is None or
@@ -94,6 +97,16 @@ def validate_good(good, repo, provider):
     value = good.get('value')
     if not isinstance(value, dict):
         raise ValueError('Expected signal value object')
+    if provider == 'languages':
+        if len(value) > 500:
+            raise ValueError('Too many repository languages')
+        for name, count in value.items():
+            text(name, 'language name')
+            if len(name) > 100 or type(count) is not int or not 0 < count <= 2**53 - 1:
+                raise ValueError('Invalid language byte count or name')
+        if good['observed_at'] != good['fetched_at'] or any(good[k] is not None for k in ('source_commit', 'tool_version', 'tool_commit')):
+            raise ValueError('Invalid language provenance')
+        return
     required = {'release_id', 'tag_name', 'published_at', 'html_url'} if provider == 'release' else {'repository', 'score', 'checks'}
     if not required <= value.keys():
         raise ValueError('Missing signal value field')
@@ -146,7 +159,7 @@ def validate_snapshot(document):
     if sha is not None and (not isinstance(sha, str) or not SHA.fullmatch(sha)):
         raise ValueError('Invalid optional signal source SHA')
     delays = document.get('provider_retry_after')
-    if not isinstance(delays, dict) or set(delays) != set(PROVIDERS):
+    if not isinstance(delays, dict) or set(delays) not in (LEGACY_PROVIDERS, set(PROVIDERS)):
         raise ValueError('Expected optional provider retry times')
     for value in delays.values():
         if value is not None:
@@ -155,7 +168,7 @@ def validate_snapshot(document):
     if not isinstance(repositories, dict):
         raise ValueError('Expected optional signal repositories')
     for repo, providers in repositories.items():
-        if not isinstance(repo, str) or not REPO.fullmatch(repo) or not isinstance(providers, dict) or set(providers) != set(PROVIDERS):
+        if not isinstance(repo, str) or not REPO.fullmatch(repo) or not isinstance(providers, dict) or set(providers) != set(delays):
             raise ValueError('Invalid optional repository identity/providers')
         for provider, record in providers.items():
             required = {'source_url', 'status', 'fetch_status', 'checked_at', 'last_success_at', 'http_status', 'retry_after', 'etag', 'error', 'last_good'}

@@ -443,20 +443,24 @@ sources; omit display-name duplicates and empty blocks.
   1px `--rs-blueprint` border and 2px radius on an eight-column grid (four below
   1100px, one below 720px), 12px gaps. Rows: II / Repository record (stars, license,
   created, push, two columns each; full-width timeline), III / Observations & evidence
-  (GitHub stars and HN sparklines at 5:1 on a shared baseline, a reserved box, OpenSSF
-  Scorecard), IV / Release record (two), a reserved box (three), V / Where it runs
+  (GitHub star history and HN sparklines at 5:1 on a shared baseline, a reserved box, OpenSSF
+  Scorecard), IV / Release record (two), Repository languages (three), V / Where it runs
   (three), VI / Reviewed alternatives in thirds, then “Explore”. Numbers are
   fixed. Every box keeps its place and size without evidence and reads “Unknown”;
   only the alternatives row may be absent. Reserved boxes are solid
   `--rs-verdigris-art`, `aria-hidden`, and hidden below 720px.
 - **Grid content:** box titles in 12px Commit Mono, values in Półtawski 33px (Unknown
   28px, muted). The release version is centred. Sparklines sit on one unbreakable
-  line, `33 · 2024-10 – 2026-09` (non-breaking spaces, hair spaces around the en
-  dash). Reasons (“Not checked”, “No result returned”, “Not reviewed”), provider
-  status, “past 2y”, scales and sources open from a bare “i” in the box's lower
+  line for HN. GitHub history places the count above its unbroken month range
+  (`2024-10 – 2026-09`); both captions reserve two lines to keep chart baselines
+  aligned. Stale history has a text label above the chart. Reasons (“Not checked”, “No result returned”, “Not reviewed”), provider
+  status, HN’s “past 2y”, scales and sources open from a bare “i” in the box's lower
   right corner: a 44px native disclosure whose popup opens upward from the box edge
   nearest the plate's centre; one open at a time, Escape or an outside click closes
-  it, print shows it inline. Where it runs has no title or kind words on screen
+  it, print shows it inline. GitHub star history keeps its actual month range and
+  displays “Stale cached result” beside a validated chart after a failed refresh
+  or while its window differs from HN. Its popup names the displayed period and
+  last successful fetch. Where it runs has no title or kind words on screen
   (kept for screen readers): chips fill per line with `--rs-amber`, `--rs-trace`
   and `--rs-emerald-art`, ink text; the popup starts with a colour key.
   Alternatives omit a repeated title and end their scope with “Checked&nbsp;date”.

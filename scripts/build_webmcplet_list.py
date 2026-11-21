@@ -77,12 +77,19 @@ def fields(catalog):
         'feature_notes': {'label': 'Feature notes', 'type': 'text', 'search': True,
                           'meaning': 'Reviewed notes on individual features, each a title and text.',
                           'source': 'Awesome Open* function summaries'},
+        'languages': {'label': 'Repository languages', 'type': 'list', 'filter': True, 'search': True,
+                      'meaning': 'Any language detected by GitHub, measured in repository bytes. Empty means none detected; absent means unknown. Full counts, dates and cache status are in the linked record.',
+                      'source': 'GitHub repository languages API'},
+        'language_status': {'label': 'Language cache status', 'type': 'string',
+                            'meaning': 'Availability of the cached language observation.'},
     }
 
 
 def item(project, page_url):
     github = project.get('github') or {}
     values = {
+        'languages': project.get('languages'),
+        'language_status': project.get('language_status', 'unknown'),
         'github_stars': stars_of(project),
         'license': license_of(project),
         'pushed_at': github.get('pushed_at') or None,

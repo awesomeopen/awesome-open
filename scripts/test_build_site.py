@@ -309,15 +309,16 @@ class SiteTests(unittest.TestCase):
             self.assertEqual(category, {key: full[key] for key in ('id', 'name')})
         self.assertEqual(len(index['projects']), len(self.catalog['projects']))
         for item, full in zip(index['projects'], self.catalog['projects']):
-            self.assertEqual(set(item), {'id', 'name', 'description', 'categories',
-                                        'leader_categories', 'github', 'alternatives', 'deployment'} | ({'aliases'} if full.get('aliases') else set()))
+            self.assertEqual(set(item), {'id', 'name', 'description', 'categories', 'languages', 'language_status',
+                                        'leader_categories', 'github', 'alternatives', 'deployment'} | ({'aliases'} if full.get('aliases') else set()) |
+                             ({'former_names'} if any(e['kind'] == 'software_rename' for e in full.get('history', [])) else set()))
             for key in ('id', 'name', 'description', 'categories', 'leader_categories'):
                 self.assertEqual(item[key], full[key])
             if full['github'] is None:
                 self.assertIsNone(item['github'])
             else:
                 self.assertEqual(item['github'], {key: full['github'].get(key)
-                                                  for key in ('license', 'stars', 'pushed_at', 'status', 'last_success_at')})
+                                                  for key in ('license', 'stars', 'pushed_at', 'status')})
             if full.get('aliases'):
                 self.assertEqual(item['aliases'], [{'name': a['name']} for a in full['aliases']])
             self.assertEqual(item['alternatives'], [{'name': a['name']} for a in full['alternatives']])
@@ -439,9 +440,10 @@ for (const input of inputs) {
         pattern = 'patterns/navypattern2.png'
         original = (ROOT / 'site' / pattern).read_bytes()
         self.assertEqual((self.output / pattern).read_bytes(), original)
-        css = (self.output / 'styles.css').read_text()
+        css = (self.output / 'app.css').read_text()
         self.assertIn(f'url({pattern})', css)
         self.assertNotIn('url(site/footer-backgrounds/', css)
+        self.assertNotIn('url(site/footer-backgrounds/', (self.output / 'styles.css').read_text())
         self.assertEqual(self.catalog['footer_backgrounds'], sorted(
             str(p.relative_to(ROOT / 'site')) for p in (ROOT / 'site/footer-backgrounds').glob('*')
             if p.is_file() and not p.name.startswith('.') and p.suffix.lower() in {'.png', '.webp'}))

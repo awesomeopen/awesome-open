@@ -261,7 +261,7 @@ def main():
     if previous is not None:
         validate_snapshot(previous)  # Corrupt local data is never silently replaced.
     attempted_at = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
-    fields = ("archived", "created_at", "pushed_at", "license", "stargazers_count")
+    fields = ("language", "archived", "created_at", "pushed_at", "license", "stargazers_count")
 
     def collect(repo):
         old = (previous or {}).get("repositories", {}).get(repo)

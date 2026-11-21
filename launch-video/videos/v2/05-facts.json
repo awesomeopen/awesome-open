@@ -1,0 +1,33 @@
+{
+  "catalog": null,
+  "lists": {
+    "04-capture/list.json": "98112e0cae7372b881696a2d1c4735c15043578eb3917595d063a59a74cb1dcb"
+  },
+  "projects": {
+    "OpenShot": {
+      "id": "github.com/openshot/openshot-qt",
+      "url": "https://github.com/OpenShot/openshot-qt",
+      "fields": {
+        "github_stars": {
+          "label": "GitHub stars",
+          "value": 6791,
+          "source": "list",
+          "observed": "2026-11-16T08:15:11.096Z"
+        }
+      }
+    },
+    "Shotnix": {
+      "id": "github.com/omarvii/shotnix",
+      "url": "https://github.com/OMARVII/Shotnix",
+      "fields": {
+        "github_stars": {
+          "label": "GitHub stars",
+          "value": 137,
+          "source": "list",
+          "observed": "2026-11-16T08:15:11.096Z"
+        }
+      }
+    }
+  },
+  "claims": []
+}

@@ -26,6 +26,11 @@ RATE_URL = 'https://api.github.com/rate_limit'
 URL = re.compile(r'https://api\.github\.com/repos/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/stargazers/history\?per_page=30&page=[1-9][0-9]*')
 
 
+def publisher_reserve(repository_count):
+    # Core metadata, releases and languages share GitHub core quota.
+    return repository_count + 350 + 30 + history.DEFAULT_REQUEST_BUDGET + 20
+
+
 class StopBackfill(RuntimeError):
     def __init__(self, reason, resumable=False):
         super().__init__(reason)
@@ -342,7 +347,7 @@ def main():
             projects, cache, metadata = load(worktree)
         finally:
             publisher.git(ROOT, 'worktree', 'remove', '--force', str(worktree))
-    reserve = len(projects) + 350 + history.DEFAULT_REQUEST_BUDGET + 20
+    reserve = publisher_reserve(len(projects))
     transport = Transport(os.environ.get('GITHUB_TOKEN'), reserve, args.seconds)
     state = collect(projects, cache, metadata, transport, base, args.checkpoint, lambda records: flush(ROOT, records))
     summary = (f"History backfill: {state['status']}; {len(state['records'])} completed this run; "

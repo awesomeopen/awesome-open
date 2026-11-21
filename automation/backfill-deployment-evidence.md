@@ -601,10 +601,12 @@ SITE_URL=http://127.0.0.1:8000 SITE_SOURCE_SHA="$GITHUB_SHA" PR_HEAD_SHA="$GITHU
   none" with the reason. Phase L adds a footer link, which is a copy change, so
   it carries its own `B-PR<number>-01` record.
 - **Size budget guard, kept until Phase L is merged, and kept afterwards as a
-  general guard.** `check_budget.py` limits `catalog.json` to 4 KiB per record.
+  general guard.** `check_budget.py` limits `catalog.json` to 6 KiB per record.
+  See the [current allowance](../PRD/2026-10-22_Performance-tuning.md#catalog-enrichment-allowance-2026-11-17).
+  The following October figures describe the earlier 4 KiB allowance before Phase L.
   - The published `catalog.json` was 1,703,139 bytes for 552 projects on
     2026-10-31, so headroom is about 545 KiB.
-  - Today `catalog.json` carries the full deployment record (about 2.1 KB
+  - At that point `catalog.json` carried the full deployment record (about 2.1 KB
     each), so roughly 250 more records fit.
   - Every run computes headroom from its `tmp/site` build. When it is below
     100 KiB, the run adds no new records. It still re-verifies and carries
@@ -820,7 +822,7 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
     plates already work without the full record in `catalog.json`. The initial
     page uses the embedded `search_index()`, which carries only `run_modes` and
     `install_methods` values. Each project's full setup facts already render in
-    its lazily loaded `records/<project-id>.html` under `site/DETAIL-LOADING.md`.
+    its static `records/<project-id>.html`.
     Those static record pages are the per-project detail files. The download
     `catalog.json` is what carries the full evidence today.
   - *`scripts/build_site.py`:* in `published_catalog()`, replace each project's
@@ -837,7 +839,8 @@ With only this file, `AGENTS.md`, `CONTRIBUTING.md` and the repository:
     file later if someone asks for them, and they are out of scope for now. The
     "Files" budget is 256 plus 8 per record, against a baseline of about 6.8 per
     record, and the per-project record pages already exist.
-  - *`scripts/check_budget.py`:* keep the 4 KiB per-record `catalog.json` limit.
+  - *`scripts/check_budget.py`:* Phase L kept the then-current 4 KiB per-record
+    `catalog.json` limit; the current allowance is linked in section 14.
     Add a row "Where it runs (data)", measure `deployment_bytes`, limit
     `per_record(0, 3 * KIB)` (3 KiB per catalog record, against about 2.1 KB per
     covered record), and extend `test_check_budget.py`.
