@@ -137,6 +137,11 @@ module.exports=async({page,url,data,capture})=>{
     return ns.filter(n=>{const r=n.getBoundingClientRect();return r.width&&(r.left<pane.left-1||r.right>pane.right+1)}).map(n=>n.className);
    });
    assert.deepEqual(clipped,[],name+' fits the pane at '+width);
+   const activity=plate.locator('.collection-trigger');
+   await activity.click(); await plate.locator('dialog[open]').waitFor();
+   await page.keyboard.press('Escape');
+   assert.ok(await plate.isVisible(),'Escape closes only the modal');
+   assert.ok(await activity.evaluate(n=>n===document.activeElement));
    if(name===names[0])await capture('pane-plate-'+width+'.png');
   }
  }
