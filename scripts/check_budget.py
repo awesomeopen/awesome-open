@@ -49,9 +49,9 @@ BUDGET = [
      '(2026-11-17 prepared batch); 6,144,000 B at 1,000 records'),
     ('Where it runs (data)', 'deployment_bytes', per_record(0, 3 * KIB),
      'Combined approved deployment evidence: 3 KiB per catalog record'),
-    ('HN evidence', 'hn_bytes', per_record(0, 10 * KIB),
-     'Lossless published HN: 10 KiB per record; 4,887,935 B at 584 records, '
-     '8.37 MB projected at 1,000; see site/HN-PUBLISHED-EVIDENCE.md'),
+    ('HN evidence', 'hn_bytes', per_record(0, 96 * KIB),
+     'Lossless HN: 96 KiB per record; 1,000-project five-year richer-history scenario '
+     '72,950,831 B plus planning margin; see site/HN-PUBLISHED-EVIDENCE.md'),
     ('Largest other file', 'largest_other', per_record(0, 8 * KIB),
      'Any single file outside the rows above: 8 KiB per record; '
      'HN evidence has its own measured budget above'),

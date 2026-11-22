@@ -80,7 +80,7 @@ class CheckBudgetTests(unittest.TestCase):
             site = self.site(directory)
             (site / 'data').mkdir()
             hn = site / 'data/hn_evidence.json'
-            hn.write_bytes(b'x' * (2 * 10 * 1024))
+            hn.write_bytes(b'x' * (2 * 96 * 1024))
             self.assertEqual(self.run_check(site)[0], 0)
             hn.write_bytes(hn.read_bytes() + b'x')
             self.assertIn('HN evidence', check_budget.report(site)[1])
@@ -120,3 +120,20 @@ class CheckBudgetTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class HnPlanningAllowanceTests(unittest.TestCase):
+    def test_only_hn_gets_multiyear_allowance(self):
+        rows = {key:limit for _,key,limit,_ in check_budget.BUDGET}
+        self.assertEqual(rows['hn_bytes'](1000), 98304000)
+        self.assertEqual(rows['other_bytes'](587), 55834624)
+        self.assertEqual(rows['catalog_bytes'](587), 587*6144)
+        with tempfile.TemporaryDirectory() as directory:
+            site = Path(directory)
+            (site/'records').mkdir(); (site/'records/a.html').write_text('')
+            (site/'data').mkdir(); (site/'index.html').write_text('')
+            hn = site/'data/hn_evidence.json'
+            hn.write_bytes(b' ' * 98304)
+            self.assertNotIn('HN evidence', check_budget.report(site)[1])
+            hn.write_bytes(b' ' * 98305)
+            self.assertIn('HN evidence', check_budget.report(site)[1])
