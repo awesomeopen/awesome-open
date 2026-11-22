@@ -14,6 +14,15 @@ This uses cached repository evidence, runs the existing static builder, copies t
 
 The command requires a clean tracked working tree and no untracked source files. Commit first; do not stamp a dirty build with a clean SHA. Build outside the source tree or under ignored `tmp/`. To inspect locally, serve the output over HTTP rather than opening individual files with `file://`.
 
+## Production budget and preview validation
+
+PR CI checks the strict size budget immediately after `build_site.py --production`,
+including the published hero and all production assets. The overall cap is unchanged.
+Exhibition and jar preview builds then add their review-only pages to the output
+bundle. Both builds and the existing browser checks remain required; the combined
+review bundle is not the production size measurement. See the
+[measured capacity review](HN-PUBLISHED-EVIDENCE.md#multi-year-capacity-plan-november-21-2026).
+
 ## Publish the private disposable preview
 
 1. Build the exact PR head using the command above; retain `preview.json`.
