@@ -84,9 +84,8 @@ These are uncompressed artifact bytes. The evidence download is linked on demand
 charts and ordinary browsing use generated records/catalog rather than parsing
 this whole file. Compression reduces transfer, but clients that download and
 parse the full JSON can need substantially more memory than its byte size.
-No device-memory benchmark is implied. Existing total-site and non-artwork guards
-remain independent: a future 73 MB HN file can require a separate overall
-capacity review even though it fits this HN guard.
+No device-memory benchmark is implied. The hard 640 MiB total-site guard includes this download and can still bind
+in large scenarios even when the dedicated HN allowance passes.
 
 The strict site-budget check runs immediately after the production build, including
 its published hero, and before exhibition and jar previews add their review-only
@@ -97,6 +96,29 @@ outside the production accounting. Both preview builds and all browser checks
 remain required. This separates intentional preview output from shipped capacity;
 production growth still fails the same strict guard. See [preview validation](PREVIEW.md#production-budget-and-preview-validation).
 Held data proposals still require their own complete validation.
+
+## Production accounting (November 22, 2026)
+
+Only the exact generated `data/hn_evidence.json` download uses the dedicated
+96 KiB/project allowance instead of the remainder allowance. All bytes still
+count toward the hard 640 MiB site total. The strict remainder retains its
+20 MiB + 58 KiB/project formula and includes charts, rendered evidence, other
+JSON downloads and duplicate or misplaced HN files. Publisher warning-only and
+PR strict behavior remain unchanged.
+
+At `476030b515a12e6d45484d4303944a63a3a9375d` (587 records), the production
+build totals 182,705,294 bytes. Its 56,300,462 non-artwork bytes include the
+7,550,284-byte HN download. The remainder is therefore 48,750,178 bytes against
+55,834,624, leaving 7,084,446 bytes. HN retains 50,154,164 bytes of dedicated
+headroom. No output bytes or retained evidence change with this accounting.
+
+The approved purpose is continued evidence collection within the existing
+multi-year HN plan. The former aggregate exceeded its threshold by 465,838 bytes
+while HN remained well within its dedicated allowance. This change assigns that
+expected growth to its reviewed budget. Unexpected remainder growth and wrongly
+staged preview output still fail strict validation. Future capacity reviews must
+record purpose, before/after sizes, proposed threshold, remaining margin and
+transfer/parsing implications; accounting headroom is not a retention guarantee.
 
 ## Historical November 15 size baseline
 
