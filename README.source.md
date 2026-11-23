@@ -44,6 +44,7 @@
 | [OpenAssistant](https://github.com/LAION-AI/Open-Assistant) | Chat assistant that handles tasks, interacts with external systems, and retrieves information.<br>Alternative to: [ChatGPT](https://projects.laion.ai/Open-Assistant/blog/we-need-your-help) |
 | [OpenAttention](https://github.com/hyunwoo137/OpenAttention) | Sparse-attention implementation that combines selected key-value tokens with cluster proxies during language-model inference. |
 | [Open-AutoGLM](https://github.com/zai-org/Open-AutoGLM) | AI models and framework for phone automation. |
+| [OpenBot](https://github.com/CopilotKit/OpenBot) | Self-hostable workspace for AI coworkers with browsers, files, tools, and interactive results. |
 | [OpenBot](https://github.com/regnull/openbot) | Self-hosted platform for persistent AI bots with shared conversations, tools, memory, and workflows. |
 | [Open Canvas](https://github.com/langchain-ai/open-canvas) | Web application for writing documents and editing code collaboratively with AI agents. |
 | [OpenCharm](https://github.com/opencharm-labs/opencharm) | macOS desktop companion for AI agents with animated status faces, push-to-talk input, and spoken replies. |
@@ -496,6 +497,7 @@
 | [OpenChaos](https://github.com/UltimaBeaR/OpenChaos) | Modernized Urban Chaos game engine for Windows, macOS, and Linux, requiring the original game's data. |
 | [OpenClonk](https://github.com/openclonk/openclonk) | Multiplayer action game featuring small, nimble humanoids. |
 | [Open Codenames](https://github.com/attilatorda/open-codenames) | Picture-based Codenames game for Windows and browsers with language-model teammates and opponents. |
+| [OpenComputers](https://github.com/MightyPirates/OpenComputers) | Minecraft mod adding programmable computers and robots, with Lua programs that persist across reloads. |
 | [OpenController](https://github.com/Brunovncs/OpenController) | Game-controller mapping with virtual Xbox controllers, button remapping, macros, and profiles. |
 | [OpenDUNE](https://github.com/OpenDUNE/OpenDUNE) | Reimplementation of Dune II. |
 | [OpenDungeons](https://github.com/OpenDungeons/OpenDungeons) | Dungeon management game inspired by Dungeon Keeper. |
