@@ -3,7 +3,7 @@
 .jar-hall {margin:0 32px;color:var(--rs-blueprint);}
 .jar-scroll {overflow:visible;}
 .jar-stage {display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,.6fr) repeat(2,minmax(0,1fr));height:380px;max-width:808px;margin:auto;position:relative;}
-/* A shallow footprint arc, rather than a broad shaded wall. */
+/* A shallow footprint arc. */
 .jar-stage::before {content:"";position:absolute;left:0;right:0;bottom:32px;height:38px;pointer-events:none;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20980%2038%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22soft%22%20x%3D%22-10%25%22%20y%3D%22-100%25%22%20width%3D%22120%25%22%20height%3D%22300%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%2F%3E%3C%2Ffilter%3E%3ClinearGradient%20id%3D%22fade%22%3E%3Cstop%20stop-color%3D%22%230b2546%22%20stop-opacity%3D%220%22%2F%3E%3Cstop%20offset%3D%22.1%22%20stop-color%3D%22%230b2546%22%20stop-opacity%3D%22.1%22%2F%3E%3Cstop%20offset%3D%22.9%22%20stop-color%3D%22%230b2546%22%20stop-opacity%3D%22.1%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230b2546%22%20stop-opacity%3D%220%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M74%2026%20Q490%202%20906%2026%22%20fill%3D%22none%22%20stroke%3D%22url%28%23fade%29%22%20stroke-width%3D%227%22%20filter%3D%22url%28%23soft%29%22%2F%3E%3C%2Fsvg%3E") center / 100% 100% no-repeat;}
 .jar-exhibit {position:relative;min-width:0;--setback:0px;--mx:0px;--my:0px;--reflection-x:0px;--shadow-scale:.82;--inner-x:0px;--glass-light:.18;}
 .jar-square-cork,.jar-ribbed {--setback:7px;}
@@ -63,7 +63,6 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .vessel {bottom:auto;top:0;h
 html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-caption,html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-shadow {display:none;}
 html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-annotation {position:static;width:auto;pointer-events:auto;}
 html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-callout {position:static;width:auto;margin:12px 0;}
-html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-callout a:is(:hover,:focus-visible) {border-color:currentColor;}
 html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 
 @media (min-width:681px) and (max-width:1100px) {.jar-stage{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.6fr) minmax(0,1fr);}.jar-exhibit:first-child,.jar-exhibit:last-child{display:none;}.jar-caption{font-size:13px;}.callout-function{width:190px;}}
@@ -78,8 +77,6 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
  .jar-exhibit:last-child .callout-inspect{left:auto;right:136px;}
  html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-stage{height:auto;padding-bottom:16px;}
 }
-@media (prefers-reduced-motion:reduce) {.specimen-depth{transform:none;}.specimen-window{filter:saturate(1.4) contrast(1.08);}.jar-scroll{scroll-behavior:auto;}}
-
 @media (prefers-reduced-motion:reduce) {.jar-leaders path{animation:none;}}
 
 @media (prefers-reduced-motion:reduce) {.photo-ready .jar-shadow{transform:none;}.jar-reflection{opacity:.18;}}
@@ -107,7 +104,7 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 .photo-ready .is-active .steam-strand:nth-child(3) {animation-delay:.8s;}
 @keyframes steam-fade {0%,100%{opacity:0}30%,55%{opacity:.9}}
 .ambient-paused .specimen-idle,.ambient-paused .steam-strand {animation-play-state:paused!important;}
-.motion-paused .specimen-depth,.motion-paused .specimen-idle,.motion-paused .jar-lid {transform:none!important;animation:none!important;transition:none;}
+.motion-paused .specimen-idle,.motion-paused .jar-lid {transform:none!important;animation:none!important;transition:none;}
 .motion-paused .jar-steam {display:none;}
 @media(prefers-reduced-motion:reduce){
  .jar-lid,.jar-uplight,.jar-led,.specimen-idle{transition:none!important;}
@@ -143,7 +140,7 @@ html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-leaders {display:none;}
 .jar-square-cork .jar-sticker {clip-path:polygon(19% 74%,44.6% 76.6%,45.6% 84.8%,42% 85%,19.8% 82%,18.8% 80.5%);}
 .jar-ribbed .jar-sticker {clip-path:polygon(54.7% 33.4%,77.5% 30.8%,79.4% 38.6%,78.3% 39%,57% 41.3%,56% 40.4%);}
 
-/* Natural cork is an opaque material, not part of the neutral glass filter. */
+/* Natural cork is an opaque material. */
 .jar-cork {position:absolute;inset:0;width:100%;height:100%;max-width:none;z-index:3;pointer-events:none;filter:brightness(1.15) saturate(1.1);clip-path:polygon(30% 8%,38% 7.5%,65% 7.4%,70.5% 8.2%,70% 16.7%,66% 17.4%,32% 17.2%,29.8% 16%,29.6% 9%);}
 
 html:not(.jars-pending) .jar-page:not(.photo-ready) .jar-stage::before {display:none;}
