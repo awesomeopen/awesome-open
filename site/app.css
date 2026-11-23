@@ -18,7 +18,6 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .rail :focus-visible {outline-color:var(--rs-amber);}
 
 /* Rail: category is the main filter; the other filters sit beneath it. */
-/* The rail repeats patterns/navypattern2.png. */
 .rail {display:flex;flex-direction:column;min-height:0;overflow:auto;background:var(--rail-bg) url(patterns/navypattern2.png) repeat;color:var(--rail-fg);scrollbar-width:thin;}
 /* The botanical mark heads the rail, in a block as tall as the list head so "All" meets the first row. */
 .rail-mark {flex:none;display:grid;place-items:center;height:calc(var(--head) + 2px);}
@@ -54,7 +53,7 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .rail-date {display:grid;padding:6px 8px 4px 18px;border-bottom:1px solid var(--rail-rule);font-size:12.5px;line-height:1.3;}
 .rail-date input {width:100%;height:26px;border:0;padding:0;min-width:0;color-scheme:dark;}
 #reset:disabled {color:var(--rail-dim);}
-/* About: the rail's last entry; everything that is not the catalog opens in the plate's place. */
+/* About opens in the plate's place. */
 .rail-about {display:block;margin-bottom:8px;padding:0 18px;font-size:12.5px;line-height:34px;text-align:center;color:inherit;text-decoration:none;}
 .rail-about:hover {background:var(--rail-hover);color:inherit;}
 .rail-about[aria-current] {font-weight:650;text-decoration:underline 2px var(--rail-accent);text-underline-offset:4px;}
@@ -172,7 +171,7 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .pane-error {padding:24px;font-size:13px;line-height:1.7;}
 .pane-error button {margin-top:8px;min-height:36px;padding:0 12px;border:1px solid var(--rs-blueprint);background:var(--rs-paper);color:var(--rs-blueprint);}
 
-/* The plate at pane width. Sizes follow the pane, since the viewport no longer says how wide a plate is. */
+/* The plate at pane width. Sizes follow the pane. */
 .pane .specimen-interior.specimen-plate {border-top:0;padding:16px 24px 28px;max-width:1240px;margin:0 auto;}
 .pane .plate-study {grid-template-columns:minmax(0,440px) minmax(0,1fr);column-gap:44px;}
 .pane .plate-field {margin:0;}
@@ -256,7 +255,6 @@ body.app {height:100dvh;overflow:hidden;font:14px/1.5 var(--rs-font);}
 .app .specimen-cabinet[open]>summary .cabinet-sign::before {content:"\00d7";}
 .app .cabinet-heading {flex:none;min-width:0;gap:0;padding-top:5px;}
 .app .cabinet-title {font:var(--rs-display-weight,400) 16px/1.1 var(--rs-display);}
-.app .cabinet-lede {display:none;}
 .app #cabinet-count {position:absolute;left:50px;bottom:5px;font-size:10px;line-height:1;color:#fff;opacity:.92;}
 [data-webmcplet-host]::part(trigger) {display:block;box-sizing:border-box;min-width:128px;min-height:40px;height:40px;padding:5px 16px 0 50px;border:0;border-radius:2px;
   background:url(brand/search-loupe.png) 6px 6px / 28px 28px no-repeat,linear-gradient(rgba(0,0,0,.16),rgba(0,0,0,.16)) 0 0 / 40px 100% no-repeat,var(--rs-blueprint);

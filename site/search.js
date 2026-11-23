@@ -202,15 +202,11 @@
   }
 
   return {
-    FIELDS: FIELDS,
-    fold: fold,
     words: words,
     normalizeLanguage: normalizeLanguage,
     matchesLanguage: matchesLanguage,
     licenseOf: licenseOf,
     starsOf: starsOf,
-    shortAliasNames: shortAliasNames,
-    match: match,
     find: find,
     compareText: compareText,
     compareName: compareName,
