@@ -29,7 +29,7 @@
     "2026-10"
   ],
   "refreshed_utc_date": "2026-11-23",
-  "metric": "Deduplicated HN story submissions per UTC month, regardless of points, comments or sentiment. Search coverage is best-effort and depends on the HN Algolia index.",
+  "metric": "Deduplicated HN story submissions per UTC month. Search coverage is best-effort and depends on the HN Algolia index.",
   "eligibility": {
     "minimum_stories": 6,
     "minimum_active_months": 3
@@ -5557,6 +5557,221 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fzai-org%2FOpen-AutoGLM&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
       ],
       "broad_search_url": "https://hn.algolia.com/?query=Open-AutoGLM&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
+    },
+    {
+      "name": "OpenBot",
+      "slug": "catalog-e9387232d8fe8be6",
+      "readme_url": "https://github.com/CopilotKit/OpenBot",
+      "repositories": [
+        "CopilotKit/OpenBot"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/CopilotKit/OpenBot"
+      ],
+      "identity_sources": [
+        "https://github.com/CopilotKit/OpenBot"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "broad_queries": [
+        "OpenBot",
+        "github.com/CopilotKit/OpenBot"
+      ],
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 1,
+      "active_months": 1,
+      "stories": [
+        {
+          "id": "49365575",
+          "title": "Show HN: Open Bot – an open-source Grok Bot that works with any agent harness",
+          "url": "https://github.com/copilotkit/openbot",
+          "created_at": "2026-08-19T18:45:48+00:00",
+          "month": "2026-08",
+          "hn_url": "https://news.ycombinator.com/item?id=49365575",
+          "source_url": "https://hn.algolia.com/api/v1/items/49365575",
+          "reason": "repository: CopilotKit/OpenBot"
+        }
+      ],
+      "excluded_candidates": [
+        {
+          "id": "47064901",
+          "title": "Show HN: The Extensible, Multi-Agent Personal AI Sidekick",
+          "url": "https://github.com/meetopenbot/openbot",
+          "created_at": "2026-02-18T19:05:44+00:00",
+          "month": "2026-02",
+          "hn_url": "https://news.ycombinator.com/item?id=47064901",
+          "source_url": "https://hn.algolia.com/api/v1/items/47064901",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+        },
+        {
+          "id": "47088432",
+          "title": "OpenClaw 3D Virtual World",
+          "url": "https://openbot-social.netlify.app",
+          "created_at": "2026-02-20T14:26:41+00:00",
+          "month": "2026-02",
+          "hn_url": "https://news.ycombinator.com/item?id=47088432",
+          "source_url": "https://hn.algolia.com/api/v1/items/47088432",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+        },
+        {
+          "id": "48645700",
+          "title": "Show HN: Local-first multi-agent harness",
+          "url": "https://github.com/meetopenbot/openbot",
+          "created_at": "2026-06-23T14:39:12+00:00",
+          "month": "2026-06",
+          "hn_url": "https://news.ycombinator.com/item?id=48645700",
+          "source_url": "https://hn.algolia.com/api/v1/items/48645700",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+        },
+        {
+          "id": "49739491",
+          "title": "Show HN: OpenBot, open source framework similar to Grok Bot",
+          "url": "https://github.com/regnull/openbot",
+          "created_at": "2026-09-17T11:58:04+00:00",
+          "month": "2026-09",
+          "hn_url": "https://news.ycombinator.com/item?id=49739491",
+          "source_url": "https://hn.algolia.com/api/v1/items/49739491",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+        },
+        {
+          "id": "50240879",
+          "title": "Open source MuseBot, Dots, GrokBot replacement",
+          "url": "https://openbot.run/",
+          "created_at": "2026-10-26T08:41:27+00:00",
+          "month": "2026-10",
+          "hn_url": "https://news.ycombinator.com/item?id=50240879",
+          "source_url": "https://hn.algolia.com/api/v1/items/50240879",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+        }
+      ],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=OpenBot&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FCopilotKit%2FOpenBot&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FCopilotKit%2FOpenBot&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+      "broad_stories": [
+        {
+          "id": "47064901",
+          "title": "Show HN: The Extensible, Multi-Agent Personal AI Sidekick",
+          "url": "https://github.com/meetopenbot/openbot",
+          "created_at": "2026-02-18T19:05:44+00:00",
+          "month": "2026-02",
+          "hn_url": "https://news.ycombinator.com/item?id=47064901",
+          "source_url": "https://hn.algolia.com/api/v1/items/47064901",
+          "reason": "Candidate: exact-word title/URL search"
+        },
+        {
+          "id": "47088432",
+          "title": "OpenClaw 3D Virtual World",
+          "url": "https://openbot-social.netlify.app",
+          "created_at": "2026-02-20T14:26:41+00:00",
+          "month": "2026-02",
+          "hn_url": "https://news.ycombinator.com/item?id=47088432",
+          "source_url": "https://hn.algolia.com/api/v1/items/47088432",
+          "reason": "Candidate: exact-word title/URL search"
+        },
+        {
+          "id": "48645700",
+          "title": "Show HN: Local-first multi-agent harness",
+          "url": "https://github.com/meetopenbot/openbot",
+          "created_at": "2026-06-23T14:39:12+00:00",
+          "month": "2026-06",
+          "hn_url": "https://news.ycombinator.com/item?id=48645700",
+          "source_url": "https://hn.algolia.com/api/v1/items/48645700",
+          "reason": "Candidate: exact-word title/URL search"
+        },
+        {
+          "id": "49365575",
+          "title": "Show HN: Open Bot – an open-source Grok Bot that works with any agent harness",
+          "url": "https://github.com/copilotkit/openbot",
+          "created_at": "2026-08-19T18:45:48+00:00",
+          "month": "2026-08",
+          "hn_url": "https://news.ycombinator.com/item?id=49365575",
+          "source_url": "https://hn.algolia.com/api/v1/items/49365575",
+          "reason": "Candidate: exact-word title/URL search"
+        },
+        {
+          "id": "49739491",
+          "title": "Show HN: OpenBot, open source framework similar to Grok Bot",
+          "url": "https://github.com/regnull/openbot",
+          "created_at": "2026-09-17T11:58:04+00:00",
+          "month": "2026-09",
+          "hn_url": "https://news.ycombinator.com/item?id=49739491",
+          "source_url": "https://hn.algolia.com/api/v1/items/49739491",
+          "reason": "Candidate: exact-word title/URL search"
+        },
+        {
+          "id": "50240879",
+          "title": "Open source MuseBot, Dots, GrokBot replacement",
+          "url": "https://openbot.run/",
+          "created_at": "2026-10-26T08:41:27+00:00",
+          "month": "2026-10",
+          "hn_url": "https://news.ycombinator.com/item?id=50240879",
+          "source_url": "https://hn.algolia.com/api/v1/items/50240879",
+          "reason": "Candidate: exact-word title/URL search"
+        }
+      ],
+      "broad_story_count": 6,
+      "broad_monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "broad_query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=OpenBot&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FCopilotKit%2FOpenBot&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+      ],
+      "broad_search_url": "https://hn.algolia.com/?query=OpenBot&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
     },
     {
       "name": "OpenBot",
@@ -133538,6 +133753,98 @@
         0
       ],
       "broad_queries": [
+        "OpenTubeX",
+        "github.com/OpenTubeX/OpenTubeX"
+      ],
+      "broad_query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=OpenTubeX&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenTubeX%2FOpenTubeX&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+      ],
+      "broad_search_url": "https://hn.algolia.com/?query=OpenTubeX&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+      "broad_story_count": 0,
+      "coverage": "catalog-url-only",
+      "domains": [],
+      "eligible": false,
+      "exact_urls": [],
+      "identity_sources": [
+        "https://github.com/OpenTubeX/OpenTubeX"
+      ],
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "name": "OpenTubeX",
+      "queries": [
+        "github.com/OpenTubeX/OpenTubeX"
+      ],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=OpenTubeX&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenTubeX%2FOpenTubeX&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+      ],
+      "readme_url": "https://github.com/OpenTubeX/OpenTubeX",
+      "repositories": [
+        "OpenTubeX/OpenTubeX"
+      ],
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "search_url": "https://hn.algolia.com/?q=github.com%2FOpenTubeX%2FOpenTubeX&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+      "slug": "catalog-99f43723ba66c1e0",
+      "story_count": 0,
+      "title_aliases": [],
+      "stories": [],
+      "excluded_candidates": [],
+      "broad_stories": []
+    },
+    {
+      "active_months": 0,
+      "broad_monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "broad_queries": [
         "OpenTunes",
         "github.com/Multi-Applications/OpenTunes"
       ],
@@ -138877,6 +139184,98 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2Fattilatorda%2Fopen-codenames&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
       ],
       "broad_search_url": "https://hn.algolia.com/?query=Open+Codenames&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
+    },
+    {
+      "name": "OpenComputers",
+      "slug": "catalog-0b9c25467a39664d",
+      "readme_url": "https://github.com/MightyPirates/OpenComputers",
+      "repositories": [
+        "MightyPirates/OpenComputers"
+      ],
+      "domains": [],
+      "title_aliases": [],
+      "exact_urls": [],
+      "queries": [
+        "github.com/MightyPirates/OpenComputers"
+      ],
+      "identity_sources": [
+        "https://github.com/MightyPirates/OpenComputers"
+      ],
+      "coverage": "catalog-url-only",
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "broad_queries": [
+        "OpenComputers",
+        "github.com/MightyPirates/OpenComputers"
+      ],
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "eligible": false,
+      "story_count": 0,
+      "active_months": 0,
+      "stories": [],
+      "excluded_candidates": [],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=OpenComputers&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FMightyPirates%2FOpenComputers&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+      ],
+      "search_url": "https://hn.algolia.com/?q=github.com%2FMightyPirates%2FOpenComputers&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+      "broad_stories": [],
+      "broad_story_count": 0,
+      "broad_monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "broad_query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=OpenComputers&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FMightyPirates%2FOpenComputers&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+      ],
+      "broad_search_url": "https://hn.algolia.com/?query=OpenComputers&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
     },
     {
       "name": "OpenController",
@@ -148833,6 +149232,98 @@
         "https://hn.algolia.com/api/v1/search_by_date?query=gitlab.opengeosys.org%2Fogs%2Fogs&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
       ],
       "broad_search_url": "https://hn.algolia.com/?query=OpenGeoSys&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
+    },
+    {
+      "active_months": 0,
+      "broad_monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "broad_queries": [
+        "Open Heatloss Studio",
+        "github.com/OpenAEC-Foundation/open-heatloss-studio"
+      ],
+      "broad_query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=Open+Heatloss+Studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenAEC-Foundation%2Fopen-heatloss-studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+      ],
+      "broad_search_url": "https://hn.algolia.com/?query=Open+Heatloss+Studio&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+      "broad_story_count": 0,
+      "coverage": "catalog-url-only",
+      "domains": [],
+      "eligible": false,
+      "exact_urls": [],
+      "identity_sources": [
+        "https://github.com/OpenAEC-Foundation/open-heatloss-studio"
+      ],
+      "monthly_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "name": "Open Heatloss Studio",
+      "queries": [
+        "github.com/OpenAEC-Foundation/open-heatloss-studio"
+      ],
+      "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=Open+Heatloss+Studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenAEC-Foundation%2Fopen-heatloss-studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+      ],
+      "readme_url": "https://github.com/OpenAEC-Foundation/open-heatloss-studio",
+      "repositories": [
+        "OpenAEC-Foundation/open-heatloss-studio"
+      ],
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+      "search_url": "https://hn.algolia.com/?q=github.com%2FOpenAEC-Foundation%2Fopen-heatloss-studio&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+      "slug": "catalog-1b33eefbc1792a55",
+      "story_count": 0,
+      "title_aliases": [],
+      "stories": [],
+      "excluded_candidates": [],
+      "broad_stories": []
     },
     {
       "name": "OpenIPSL",
@@ -171552,26 +172043,51 @@
       "broad_search_url": "https://hn.algolia.com/?query=OpenOil&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
     },
     {
-      "name": "Open Source Risk Engine",
-      "slug": "catalog-215b98f79aadf370",
-      "readme_url": "https://github.com/OpenSourceRisk/Engine",
-      "repositories": [
-        "OpenSourceRisk/Engine"
+      "active_months": 0,
+      "broad_monthly_counts": [
+        1,
+        0,
+        2,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        3
       ],
-      "domains": [],
-      "title_aliases": [],
-      "exact_urls": [],
-      "queries": [
-        "github.com/OpenSourceRisk/Engine"
-      ],
-      "identity_sources": [
-        "https://github.com/OpenSourceRisk/Engine"
-      ],
-      "coverage": "catalog-url-only",
-      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
       "broad_queries": [
         "Open Source Risk Engine",
+        "ORE",
         "github.com/OpenSourceRisk/Engine"
+      ],
+      "broad_query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=ORE&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=Open+Source+Risk+Engine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenSourceRisk%2FEngine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+      ],
+      "broad_search_url": "https://hn.algolia.com/?query=Open+Source+Risk+Engine&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+      "broad_story_count": 12,
+      "coverage": "catalog-url-only",
+      "domains": [],
+      "eligible": false,
+      "exact_urls": [],
+      "identity_sources": [
+        "https://github.com/OpenSourceRisk/Engine"
       ],
       "monthly_counts": [
         0,
@@ -171599,49 +172115,269 @@
         0,
         0
       ],
-      "eligible": false,
-      "story_count": 0,
-      "active_months": 0,
-      "stories": [],
-      "excluded_candidates": [],
+      "name": "Open Source Risk Engine",
+      "queries": [
+        "github.com/OpenSourceRisk/Engine"
+      ],
       "query_sources": [
+        "https://hn.algolia.com/api/v1/search_by_date?query=ORE&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
         "https://hn.algolia.com/api/v1/search_by_date?query=Open+Source+Risk+Engine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
         "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenSourceRisk%2FEngine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
       ],
+      "readme_url": "https://github.com/OpenSourceRisk/Engine",
+      "repositories": [
+        "OpenSourceRisk/Engine"
+      ],
+      "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
       "search_url": "https://hn.algolia.com/?q=github.com%2FOpenSourceRisk%2FEngine&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
-      "broad_stories": [],
-      "broad_story_count": 0,
-      "broad_monthly_counts": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
+      "slug": "catalog-215b98f79aadf370",
+      "story_count": 0,
+      "title_aliases": [],
+      "stories": [],
+      "excluded_candidates": [
+        {
+          "created_at": "2024-11-16T14:39:12+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=42156667",
+          "id": "42156667",
+          "month": "2024-11",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/42156667",
+          "title": "Show HN: Ore – Lightweight, Generic and Simple DI Container for Go",
+          "url": "https://github.com/firasdarwish/ore"
+        },
+        {
+          "created_at": "2025-01-03T17:35:33+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=42587665",
+          "id": "42587665",
+          "month": "2025-01",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/42587665",
+          "title": "Ore to Iron in a Few Seconds: New Chinese Process Will Revolutionise Smelting",
+          "url": "https://hackaday.com/2024/12/12/ore-to-iron-in-a-few-seconds-new-chinese-process-will-revolutionise-smelting/"
+        },
+        {
+          "created_at": "2025-01-08T01:27:18+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=42629898",
+          "id": "42629898",
+          "month": "2025-01",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/42629898",
+          "title": "Backpac offers a custom plan for ORE Miners",
+          "url": "https://www.backpac.xyz/blockchain/solana/ore-mining"
+        },
+        {
+          "created_at": "2025-02-08T13:42:28+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=42982886",
+          "id": "42982886",
+          "month": "2025-02",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/42982886",
+          "title": "Building a flywheel blower for iron ore smelting [video]",
+          "url": "https://www.youtube.com/watch?v=ISU97qNFwq0"
+        },
+        {
+          "created_at": "2025-03-12T08:33:46+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=43340991",
+          "id": "43340991",
+          "month": "2025-03",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/43340991",
+          "title": "Show HN: Ore – Advanced Dependency Injection Solution for Go",
+          "url": "https://ore.lilury.com/"
+        },
+        {
+          "created_at": "2025-10-28T04:28:32+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=45729198",
+          "id": "45729198",
+          "month": "2025-10",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/45729198",
+          "title": "You can have the ore now. It is in New York, a thousand tons of it",
+          "url": "https://en.wikipedia.org/wiki/Edgar_Sengier"
+        },
+        {
+          "created_at": "2026-02-27T20:38:28+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=47185269",
+          "id": "47185269",
+          "month": "2026-02",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/47185269",
+          "title": "Show HN: Ore – a Rust-Based Kernel for Managing Local Models/AI Agents",
+          "url": ""
+        },
+        {
+          "created_at": "2026-03-31T19:48:15+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=47592489",
+          "id": "47592489",
+          "month": "2026-03",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/47592489",
+          "title": "What it's like to live in Portland, Oregon",
+          "url": "https://www.nytimes.com/2026/03/25/realestate/portland-ore-weird-but-life-is-good.html"
+        },
+        {
+          "created_at": "2026-09-16T02:05:43+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=49721313",
+          "id": "49721313",
+          "month": "2026-09",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/49721313",
+          "title": "Saudi Arabia discovers 110M tonnes of uranium-bearing ore in Medina",
+          "url": "https://www.reuters.com/business/energy/saudi-arabia-discovers-110-million-tonnes-uranium-bearing-ore-medina-2026-09-14/"
+        },
+        {
+          "created_at": "2026-10-12T00:33:20+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=50049754",
+          "id": "50049754",
+          "month": "2026-10",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/50049754",
+          "title": "First major ammonia-powered bulk carrier for Australian iron ore",
+          "url": "https://interestingengineering.com/transportation/belgiums-210000-ton-ammonia-ship"
+        },
+        {
+          "created_at": "2026-10-16T12:56:59+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=50117817",
+          "id": "50117817",
+          "month": "2026-10",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/50117817",
+          "title": "Can a Radioactive Ore Break China's Grip on Rare Earths?",
+          "url": "https://spectrum.ieee.org/monazite-rare-earth"
+        },
+        {
+          "created_at": "2026-10-17T12:15:55+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=50130440",
+          "id": "50130440",
+          "month": "2026-10",
+          "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+          "source_url": "https://hn.algolia.com/api/v1/items/50130440",
+          "title": "Monazite ore holds the key to powerful motor magnets–if we can handle it",
+          "url": "https://spectrum.ieee.org/monazite-rare-earth"
+        }
       ],
-      "broad_query_sources": [
-        "https://hn.algolia.com/api/v1/search_by_date?query=Open+Source+Risk+Engine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
-        "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenSourceRisk%2FEngine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
-      ],
-      "broad_search_url": "https://hn.algolia.com/?query=Open+Source+Risk+Engine&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
+      "broad_stories": [
+        {
+          "created_at": "2024-11-16T14:39:12+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=42156667",
+          "id": "42156667",
+          "month": "2024-11",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/42156667",
+          "title": "Show HN: Ore – Lightweight, Generic and Simple DI Container for Go",
+          "url": "https://github.com/firasdarwish/ore"
+        },
+        {
+          "created_at": "2025-01-03T17:35:33+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=42587665",
+          "id": "42587665",
+          "month": "2025-01",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/42587665",
+          "title": "Ore to Iron in a Few Seconds: New Chinese Process Will Revolutionise Smelting",
+          "url": "https://hackaday.com/2024/12/12/ore-to-iron-in-a-few-seconds-new-chinese-process-will-revolutionise-smelting/"
+        },
+        {
+          "created_at": "2025-01-08T01:27:18+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=42629898",
+          "id": "42629898",
+          "month": "2025-01",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/42629898",
+          "title": "Backpac offers a custom plan for ORE Miners",
+          "url": "https://www.backpac.xyz/blockchain/solana/ore-mining"
+        },
+        {
+          "created_at": "2025-02-08T13:42:28+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=42982886",
+          "id": "42982886",
+          "month": "2025-02",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/42982886",
+          "title": "Building a flywheel blower for iron ore smelting [video]",
+          "url": "https://www.youtube.com/watch?v=ISU97qNFwq0"
+        },
+        {
+          "created_at": "2025-03-12T08:33:46+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=43340991",
+          "id": "43340991",
+          "month": "2025-03",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/43340991",
+          "title": "Show HN: Ore – Advanced Dependency Injection Solution for Go",
+          "url": "https://ore.lilury.com/"
+        },
+        {
+          "created_at": "2025-10-28T04:28:32+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=45729198",
+          "id": "45729198",
+          "month": "2025-10",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/45729198",
+          "title": "You can have the ore now. It is in New York, a thousand tons of it",
+          "url": "https://en.wikipedia.org/wiki/Edgar_Sengier"
+        },
+        {
+          "created_at": "2026-02-27T20:38:28+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=47185269",
+          "id": "47185269",
+          "month": "2026-02",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/47185269",
+          "title": "Show HN: Ore – a Rust-Based Kernel for Managing Local Models/AI Agents",
+          "url": ""
+        },
+        {
+          "created_at": "2026-03-31T19:48:15+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=47592489",
+          "id": "47592489",
+          "month": "2026-03",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/47592489",
+          "title": "What it's like to live in Portland, Oregon",
+          "url": "https://www.nytimes.com/2026/03/25/realestate/portland-ore-weird-but-life-is-good.html"
+        },
+        {
+          "created_at": "2026-09-16T02:05:43+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=49721313",
+          "id": "49721313",
+          "month": "2026-09",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/49721313",
+          "title": "Saudi Arabia discovers 110M tonnes of uranium-bearing ore in Medina",
+          "url": "https://www.reuters.com/business/energy/saudi-arabia-discovers-110-million-tonnes-uranium-bearing-ore-medina-2026-09-14/"
+        },
+        {
+          "created_at": "2026-10-12T00:33:20+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=50049754",
+          "id": "50049754",
+          "month": "2026-10",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/50049754",
+          "title": "First major ammonia-powered bulk carrier for Australian iron ore",
+          "url": "https://interestingengineering.com/transportation/belgiums-210000-ton-ammonia-ship"
+        },
+        {
+          "created_at": "2026-10-16T12:56:59+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=50117817",
+          "id": "50117817",
+          "month": "2026-10",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/50117817",
+          "title": "Can a Radioactive Ore Break China's Grip on Rare Earths?",
+          "url": "https://spectrum.ieee.org/monazite-rare-earth"
+        },
+        {
+          "created_at": "2026-10-17T12:15:55+00:00",
+          "hn_url": "https://news.ycombinator.com/item?id=50130440",
+          "id": "50130440",
+          "month": "2026-10",
+          "reason": "Candidate: exact-word title/URL search",
+          "source_url": "https://hn.algolia.com/api/v1/items/50130440",
+          "title": "Monazite ore holds the key to powerful motor magnets–if we can handle it",
+          "url": "https://spectrum.ieee.org/monazite-rare-earth"
+        }
+      ]
     },
     {
       "name": "OpenStock",
@@ -327719,36 +328455,10 @@
       "status": "ok"
     },
     "https://github.com/opensourcerisk/engine": {
-      "pending": {},
-      "pending_identity_key": "c35a0e1ec56aa710881c64346a2264c0b85ce23dc343cd2beb7ecddfbb3c9b89",
-      "pending_months": [
-        "2024-11",
-        "2024-12",
-        "2025-01",
-        "2025-02",
-        "2025-03",
-        "2025-04",
-        "2025-05",
-        "2025-06",
-        "2025-07",
-        "2025-08",
-        "2025-09",
-        "2025-10",
-        "2025-11",
-        "2025-12",
-        "2026-01",
-        "2026-02",
-        "2026-03",
-        "2026-04",
-        "2026-05",
-        "2026-06",
-        "2026-07",
-        "2026-08",
-        "2026-09",
-        "2026-10"
-      ],
-      "checked_at": "2026-11-19T05:11:25.225379+00:00",
+      "status": "ok",
+      "checked_at": "2026-11-23T12:04:22.436799+00:00",
       "last_good": {
+        "identity_key": "e8adcacd6f43ae46437638dc18e028440a418b30c6eb3c65a29957bc350289b6",
         "months": [
           "2024-11",
           "2024-12",
@@ -327775,28 +328485,52 @@
           "2026-09",
           "2026-10"
         ],
-        "identity_key": "3469f0eb0c89f0311c5317826a90a3f78e78877474a0952b954d0fb54af1ddd6",
         "project": {
-          "name": "Open Source Risk Engine",
-          "slug": "catalog-215b98f79aadf370",
-          "readme_url": "https://github.com/OpenSourceRisk/Engine",
-          "repositories": [
-            "OpenSourceRisk/Engine"
+          "active_months": 0,
+          "broad_monthly_counts": [
+            1,
+            0,
+            2,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            3
           ],
-          "domains": [],
-          "title_aliases": [],
-          "exact_urls": [],
-          "queries": [
-            "github.com/OpenSourceRisk/Engine"
-          ],
-          "identity_sources": [
-            "https://github.com/OpenSourceRisk/Engine"
-          ],
-          "coverage": "catalog-url-only",
-          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
           "broad_queries": [
             "Open Source Risk Engine",
+            "ORE",
             "github.com/OpenSourceRisk/Engine"
+          ],
+          "broad_query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=ORE&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=Open+Source+Risk+Engine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenSourceRisk%2FEngine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+          ],
+          "broad_search_url": "https://hn.algolia.com/?query=Open+Source+Risk+Engine&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+          "broad_story_count": 12,
+          "coverage": "catalog-url-only",
+          "domains": [],
+          "eligible": false,
+          "exact_urls": [],
+          "identity_sources": [
+            "https://github.com/OpenSourceRisk/Engine"
           ],
           "monthly_counts": [
             0,
@@ -327824,53 +328558,273 @@
             0,
             0
           ],
-          "eligible": false,
-          "story_count": 0,
-          "active_months": 0,
-          "stories": [],
-          "excluded_candidates": [],
+          "name": "Open Source Risk Engine",
+          "queries": [
+            "github.com/OpenSourceRisk/Engine"
+          ],
           "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=ORE&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
             "https://hn.algolia.com/api/v1/search_by_date?query=Open+Source+Risk+Engine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
             "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenSourceRisk%2FEngine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
           ],
+          "readme_url": "https://github.com/OpenSourceRisk/Engine",
+          "repositories": [
+            "OpenSourceRisk/Engine"
+          ],
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
           "search_url": "https://hn.algolia.com/?q=github.com%2FOpenSourceRisk%2FEngine&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
-          "broad_stories": [],
-          "broad_story_count": 0,
-          "broad_monthly_counts": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+          "slug": "catalog-215b98f79aadf370",
+          "story_count": 0,
+          "title_aliases": [],
+          "stories": [],
+          "excluded_candidates": [
+            {
+              "created_at": "2024-11-16T14:39:12+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=42156667",
+              "id": "42156667",
+              "month": "2024-11",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/42156667",
+              "title": "Show HN: Ore – Lightweight, Generic and Simple DI Container for Go",
+              "url": "https://github.com/firasdarwish/ore"
+            },
+            {
+              "created_at": "2025-01-03T17:35:33+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=42587665",
+              "id": "42587665",
+              "month": "2025-01",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/42587665",
+              "title": "Ore to Iron in a Few Seconds: New Chinese Process Will Revolutionise Smelting",
+              "url": "https://hackaday.com/2024/12/12/ore-to-iron-in-a-few-seconds-new-chinese-process-will-revolutionise-smelting/"
+            },
+            {
+              "created_at": "2025-01-08T01:27:18+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=42629898",
+              "id": "42629898",
+              "month": "2025-01",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/42629898",
+              "title": "Backpac offers a custom plan for ORE Miners",
+              "url": "https://www.backpac.xyz/blockchain/solana/ore-mining"
+            },
+            {
+              "created_at": "2025-02-08T13:42:28+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=42982886",
+              "id": "42982886",
+              "month": "2025-02",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/42982886",
+              "title": "Building a flywheel blower for iron ore smelting [video]",
+              "url": "https://www.youtube.com/watch?v=ISU97qNFwq0"
+            },
+            {
+              "created_at": "2025-03-12T08:33:46+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=43340991",
+              "id": "43340991",
+              "month": "2025-03",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/43340991",
+              "title": "Show HN: Ore – Advanced Dependency Injection Solution for Go",
+              "url": "https://ore.lilury.com/"
+            },
+            {
+              "created_at": "2025-10-28T04:28:32+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=45729198",
+              "id": "45729198",
+              "month": "2025-10",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/45729198",
+              "title": "You can have the ore now. It is in New York, a thousand tons of it",
+              "url": "https://en.wikipedia.org/wiki/Edgar_Sengier"
+            },
+            {
+              "created_at": "2026-02-27T20:38:28+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=47185269",
+              "id": "47185269",
+              "month": "2026-02",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/47185269",
+              "title": "Show HN: Ore – a Rust-Based Kernel for Managing Local Models/AI Agents",
+              "url": ""
+            },
+            {
+              "created_at": "2026-03-31T19:48:15+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=47592489",
+              "id": "47592489",
+              "month": "2026-03",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/47592489",
+              "title": "What it's like to live in Portland, Oregon",
+              "url": "https://www.nytimes.com/2026/03/25/realestate/portland-ore-weird-but-life-is-good.html"
+            },
+            {
+              "created_at": "2026-09-16T02:05:43+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=49721313",
+              "id": "49721313",
+              "month": "2026-09",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/49721313",
+              "title": "Saudi Arabia discovers 110M tonnes of uranium-bearing ore in Medina",
+              "url": "https://www.reuters.com/business/energy/saudi-arabia-discovers-110-million-tonnes-uranium-bearing-ore-medina-2026-09-14/"
+            },
+            {
+              "created_at": "2026-10-12T00:33:20+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=50049754",
+              "id": "50049754",
+              "month": "2026-10",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/50049754",
+              "title": "First major ammonia-powered bulk carrier for Australian iron ore",
+              "url": "https://interestingengineering.com/transportation/belgiums-210000-ton-ammonia-ship"
+            },
+            {
+              "created_at": "2026-10-16T12:56:59+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=50117817",
+              "id": "50117817",
+              "month": "2026-10",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/50117817",
+              "title": "Can a Radioactive Ore Break China's Grip on Rare Earths?",
+              "url": "https://spectrum.ieee.org/monazite-rare-earth"
+            },
+            {
+              "created_at": "2026-10-17T12:15:55+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=50130440",
+              "id": "50130440",
+              "month": "2026-10",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context",
+              "source_url": "https://hn.algolia.com/api/v1/items/50130440",
+              "title": "Monazite ore holds the key to powerful motor magnets–if we can handle it",
+              "url": "https://spectrum.ieee.org/monazite-rare-earth"
+            }
           ],
-          "broad_query_sources": [
-            "https://hn.algolia.com/api/v1/search_by_date?query=Open+Source+Risk+Engine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
-            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenSourceRisk%2FEngine&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
-          ],
-          "broad_search_url": "https://hn.algolia.com/?query=Open+Source+Risk+Engine&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
+          "broad_stories": [
+            {
+              "created_at": "2024-11-16T14:39:12+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=42156667",
+              "id": "42156667",
+              "month": "2024-11",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/42156667",
+              "title": "Show HN: Ore – Lightweight, Generic and Simple DI Container for Go",
+              "url": "https://github.com/firasdarwish/ore"
+            },
+            {
+              "created_at": "2025-01-03T17:35:33+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=42587665",
+              "id": "42587665",
+              "month": "2025-01",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/42587665",
+              "title": "Ore to Iron in a Few Seconds: New Chinese Process Will Revolutionise Smelting",
+              "url": "https://hackaday.com/2024/12/12/ore-to-iron-in-a-few-seconds-new-chinese-process-will-revolutionise-smelting/"
+            },
+            {
+              "created_at": "2025-01-08T01:27:18+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=42629898",
+              "id": "42629898",
+              "month": "2025-01",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/42629898",
+              "title": "Backpac offers a custom plan for ORE Miners",
+              "url": "https://www.backpac.xyz/blockchain/solana/ore-mining"
+            },
+            {
+              "created_at": "2025-02-08T13:42:28+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=42982886",
+              "id": "42982886",
+              "month": "2025-02",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/42982886",
+              "title": "Building a flywheel blower for iron ore smelting [video]",
+              "url": "https://www.youtube.com/watch?v=ISU97qNFwq0"
+            },
+            {
+              "created_at": "2025-03-12T08:33:46+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=43340991",
+              "id": "43340991",
+              "month": "2025-03",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/43340991",
+              "title": "Show HN: Ore – Advanced Dependency Injection Solution for Go",
+              "url": "https://ore.lilury.com/"
+            },
+            {
+              "created_at": "2025-10-28T04:28:32+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=45729198",
+              "id": "45729198",
+              "month": "2025-10",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/45729198",
+              "title": "You can have the ore now. It is in New York, a thousand tons of it",
+              "url": "https://en.wikipedia.org/wiki/Edgar_Sengier"
+            },
+            {
+              "created_at": "2026-02-27T20:38:28+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=47185269",
+              "id": "47185269",
+              "month": "2026-02",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/47185269",
+              "title": "Show HN: Ore – a Rust-Based Kernel for Managing Local Models/AI Agents",
+              "url": ""
+            },
+            {
+              "created_at": "2026-03-31T19:48:15+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=47592489",
+              "id": "47592489",
+              "month": "2026-03",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/47592489",
+              "title": "What it's like to live in Portland, Oregon",
+              "url": "https://www.nytimes.com/2026/03/25/realestate/portland-ore-weird-but-life-is-good.html"
+            },
+            {
+              "created_at": "2026-09-16T02:05:43+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=49721313",
+              "id": "49721313",
+              "month": "2026-09",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/49721313",
+              "title": "Saudi Arabia discovers 110M tonnes of uranium-bearing ore in Medina",
+              "url": "https://www.reuters.com/business/energy/saudi-arabia-discovers-110-million-tonnes-uranium-bearing-ore-medina-2026-09-14/"
+            },
+            {
+              "created_at": "2026-10-12T00:33:20+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=50049754",
+              "id": "50049754",
+              "month": "2026-10",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/50049754",
+              "title": "First major ammonia-powered bulk carrier for Australian iron ore",
+              "url": "https://interestingengineering.com/transportation/belgiums-210000-ton-ammonia-ship"
+            },
+            {
+              "created_at": "2026-10-16T12:56:59+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=50117817",
+              "id": "50117817",
+              "month": "2026-10",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/50117817",
+              "title": "Can a Radioactive Ore Break China's Grip on Rare Earths?",
+              "url": "https://spectrum.ieee.org/monazite-rare-earth"
+            },
+            {
+              "created_at": "2026-10-17T12:15:55+00:00",
+              "hn_url": "https://news.ycombinator.com/item?id=50130440",
+              "id": "50130440",
+              "month": "2026-10",
+              "reason": "Candidate: exact-word title/URL search",
+              "source_url": "https://hn.algolia.com/api/v1/items/50130440",
+              "title": "Monazite ore holds the key to powerful motor magnets–if we can handle it",
+              "url": "https://spectrum.ieee.org/monazite-rare-earth"
+            }
+          ]
         },
-        "collected_at": "2026-11-19T05:11:25.225379+00:00"
+        "collected_at": "2026-11-23T12:04:22.436799+00:00"
       },
-      "status": "ok"
+      "pending": {}
     },
     "https://github.com/openmdao/openmdao": {
       "pending": {},
@@ -450809,14 +451763,699 @@
         "collected_at": "2026-11-19T05:11:25.225379+00:00"
       },
       "status": "ok"
+    },
+    "https://github.com/openaec-foundation/open-heatloss-studio": {
+      "status": "ok",
+      "checked_at": "2026-11-23T12:04:22.436799+00:00",
+      "last_good": {
+        "identity_key": "71481725d749379b4cac4bede193db905e08d30eaeb40529930fef7211f60eeb",
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "project": {
+          "active_months": 0,
+          "broad_monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "broad_queries": [
+            "Open Heatloss Studio",
+            "github.com/OpenAEC-Foundation/open-heatloss-studio"
+          ],
+          "broad_query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=Open+Heatloss+Studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenAEC-Foundation%2Fopen-heatloss-studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+          ],
+          "broad_search_url": "https://hn.algolia.com/?query=Open+Heatloss+Studio&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+          "broad_story_count": 0,
+          "coverage": "catalog-url-only",
+          "domains": [],
+          "eligible": false,
+          "exact_urls": [],
+          "identity_sources": [
+            "https://github.com/OpenAEC-Foundation/open-heatloss-studio"
+          ],
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "name": "Open Heatloss Studio",
+          "queries": [
+            "github.com/OpenAEC-Foundation/open-heatloss-studio"
+          ],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=Open+Heatloss+Studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenAEC-Foundation%2Fopen-heatloss-studio&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+          ],
+          "readme_url": "https://github.com/OpenAEC-Foundation/open-heatloss-studio",
+          "repositories": [
+            "OpenAEC-Foundation/open-heatloss-studio"
+          ],
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "search_url": "https://hn.algolia.com/?q=github.com%2FOpenAEC-Foundation%2Fopen-heatloss-studio&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+          "slug": "catalog-1b33eefbc1792a55",
+          "story_count": 0,
+          "title_aliases": [],
+          "stories": [],
+          "excluded_candidates": [],
+          "broad_stories": []
+        },
+        "collected_at": "2026-11-23T12:04:22.436799+00:00"
+      },
+      "pending": {}
+    },
+    "https://github.com/opentubex/opentubex": {
+      "status": "ok",
+      "checked_at": "2026-11-23T12:04:22.436799+00:00",
+      "last_good": {
+        "identity_key": "1131cbf27b32772f14d2cd24a60004b95bad1e527046a30d0fd7ccab4ac7f62a",
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "project": {
+          "active_months": 0,
+          "broad_monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "broad_queries": [
+            "OpenTubeX",
+            "github.com/OpenTubeX/OpenTubeX"
+          ],
+          "broad_query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=OpenTubeX&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenTubeX%2FOpenTubeX&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+          ],
+          "broad_search_url": "https://hn.algolia.com/?query=OpenTubeX&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+          "broad_story_count": 0,
+          "coverage": "catalog-url-only",
+          "domains": [],
+          "eligible": false,
+          "exact_urls": [],
+          "identity_sources": [
+            "https://github.com/OpenTubeX/OpenTubeX"
+          ],
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "name": "OpenTubeX",
+          "queries": [
+            "github.com/OpenTubeX/OpenTubeX"
+          ],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=OpenTubeX&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FOpenTubeX%2FOpenTubeX&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+          ],
+          "readme_url": "https://github.com/OpenTubeX/OpenTubeX",
+          "repositories": [
+            "OpenTubeX/OpenTubeX"
+          ],
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "search_url": "https://hn.algolia.com/?q=github.com%2FOpenTubeX%2FOpenTubeX&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+          "slug": "catalog-99f43723ba66c1e0",
+          "story_count": 0,
+          "title_aliases": [],
+          "stories": [],
+          "excluded_candidates": [],
+          "broad_stories": []
+        },
+        "collected_at": "2026-11-23T12:04:22.436799+00:00"
+      },
+      "pending": {}
+    },
+    "https://github.com/copilotkit/openbot": {
+      "pending": {},
+      "pending_identity_key": "468a4aed98d361de8265799f622484c8d825512938c904b14f820c2abe45ed8f",
+      "pending_months": [
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "checked_at": "2026-11-23T12:10:28.540497+00:00",
+      "last_good": {
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "identity_key": "468a4aed98d361de8265799f622484c8d825512938c904b14f820c2abe45ed8f",
+        "project": {
+          "name": "OpenBot",
+          "slug": "catalog-e9387232d8fe8be6",
+          "readme_url": "https://github.com/CopilotKit/OpenBot",
+          "repositories": [
+            "CopilotKit/OpenBot"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/CopilotKit/OpenBot"
+          ],
+          "identity_sources": [
+            "https://github.com/CopilotKit/OpenBot"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "broad_queries": [
+            "OpenBot",
+            "github.com/CopilotKit/OpenBot"
+          ],
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 1,
+          "active_months": 1,
+          "stories": [
+            {
+              "id": "49365575",
+              "title": "Show HN: Open Bot – an open-source Grok Bot that works with any agent harness",
+              "url": "https://github.com/copilotkit/openbot",
+              "created_at": "2026-08-19T18:45:48+00:00",
+              "month": "2026-08",
+              "hn_url": "https://news.ycombinator.com/item?id=49365575",
+              "source_url": "https://hn.algolia.com/api/v1/items/49365575",
+              "reason": "repository: CopilotKit/OpenBot"
+            }
+          ],
+          "excluded_candidates": [
+            {
+              "id": "47064901",
+              "title": "Show HN: The Extensible, Multi-Agent Personal AI Sidekick",
+              "url": "https://github.com/meetopenbot/openbot",
+              "created_at": "2026-02-18T19:05:44+00:00",
+              "month": "2026-02",
+              "hn_url": "https://news.ycombinator.com/item?id=47064901",
+              "source_url": "https://hn.algolia.com/api/v1/items/47064901",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+            },
+            {
+              "id": "47088432",
+              "title": "OpenClaw 3D Virtual World",
+              "url": "https://openbot-social.netlify.app",
+              "created_at": "2026-02-20T14:26:41+00:00",
+              "month": "2026-02",
+              "hn_url": "https://news.ycombinator.com/item?id=47088432",
+              "source_url": "https://hn.algolia.com/api/v1/items/47088432",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+            },
+            {
+              "id": "48645700",
+              "title": "Show HN: Local-first multi-agent harness",
+              "url": "https://github.com/meetopenbot/openbot",
+              "created_at": "2026-06-23T14:39:12+00:00",
+              "month": "2026-06",
+              "hn_url": "https://news.ycombinator.com/item?id=48645700",
+              "source_url": "https://hn.algolia.com/api/v1/items/48645700",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+            },
+            {
+              "id": "49739491",
+              "title": "Show HN: OpenBot, open source framework similar to Grok Bot",
+              "url": "https://github.com/regnull/openbot",
+              "created_at": "2026-09-17T11:58:04+00:00",
+              "month": "2026-09",
+              "hn_url": "https://news.ycombinator.com/item?id=49739491",
+              "source_url": "https://hn.algolia.com/api/v1/items/49739491",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+            },
+            {
+              "id": "50240879",
+              "title": "Open source MuseBot, Dots, GrokBot replacement",
+              "url": "https://openbot.run/",
+              "created_at": "2026-10-26T08:41:27+00:00",
+              "month": "2026-10",
+              "hn_url": "https://news.ycombinator.com/item?id=50240879",
+              "source_url": "https://hn.algolia.com/api/v1/items/50240879",
+              "reason": "Excluded: no exact official host/repository or permitted title alias/context"
+            }
+          ],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=OpenBot&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FCopilotKit%2FOpenBot&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FCopilotKit%2FOpenBot&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+          "broad_stories": [
+            {
+              "id": "47064901",
+              "title": "Show HN: The Extensible, Multi-Agent Personal AI Sidekick",
+              "url": "https://github.com/meetopenbot/openbot",
+              "created_at": "2026-02-18T19:05:44+00:00",
+              "month": "2026-02",
+              "hn_url": "https://news.ycombinator.com/item?id=47064901",
+              "source_url": "https://hn.algolia.com/api/v1/items/47064901",
+              "reason": "Candidate: exact-word title/URL search"
+            },
+            {
+              "id": "47088432",
+              "title": "OpenClaw 3D Virtual World",
+              "url": "https://openbot-social.netlify.app",
+              "created_at": "2026-02-20T14:26:41+00:00",
+              "month": "2026-02",
+              "hn_url": "https://news.ycombinator.com/item?id=47088432",
+              "source_url": "https://hn.algolia.com/api/v1/items/47088432",
+              "reason": "Candidate: exact-word title/URL search"
+            },
+            {
+              "id": "48645700",
+              "title": "Show HN: Local-first multi-agent harness",
+              "url": "https://github.com/meetopenbot/openbot",
+              "created_at": "2026-06-23T14:39:12+00:00",
+              "month": "2026-06",
+              "hn_url": "https://news.ycombinator.com/item?id=48645700",
+              "source_url": "https://hn.algolia.com/api/v1/items/48645700",
+              "reason": "Candidate: exact-word title/URL search"
+            },
+            {
+              "id": "49365575",
+              "title": "Show HN: Open Bot – an open-source Grok Bot that works with any agent harness",
+              "url": "https://github.com/copilotkit/openbot",
+              "created_at": "2026-08-19T18:45:48+00:00",
+              "month": "2026-08",
+              "hn_url": "https://news.ycombinator.com/item?id=49365575",
+              "source_url": "https://hn.algolia.com/api/v1/items/49365575",
+              "reason": "Candidate: exact-word title/URL search"
+            },
+            {
+              "id": "49739491",
+              "title": "Show HN: OpenBot, open source framework similar to Grok Bot",
+              "url": "https://github.com/regnull/openbot",
+              "created_at": "2026-09-17T11:58:04+00:00",
+              "month": "2026-09",
+              "hn_url": "https://news.ycombinator.com/item?id=49739491",
+              "source_url": "https://hn.algolia.com/api/v1/items/49739491",
+              "reason": "Candidate: exact-word title/URL search"
+            },
+            {
+              "id": "50240879",
+              "title": "Open source MuseBot, Dots, GrokBot replacement",
+              "url": "https://openbot.run/",
+              "created_at": "2026-10-26T08:41:27+00:00",
+              "month": "2026-10",
+              "hn_url": "https://news.ycombinator.com/item?id=50240879",
+              "source_url": "https://hn.algolia.com/api/v1/items/50240879",
+              "reason": "Candidate: exact-word title/URL search"
+            }
+          ],
+          "broad_story_count": 6,
+          "broad_monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "broad_query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=OpenBot&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FCopilotKit%2FOpenBot&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+          ],
+          "broad_search_url": "https://hn.algolia.com/?query=OpenBot&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
+        },
+        "collected_at": "2026-11-23T12:10:28.540497+00:00"
+      },
+      "status": "ok"
+    },
+    "https://github.com/mightypirates/opencomputers": {
+      "pending": {},
+      "pending_identity_key": "7a50c5d0d382751d39f7d243d9550155469977e2dcc7fbb34560df7a848efa0b",
+      "pending_months": [
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "checked_at": "2026-11-23T12:10:28.540497+00:00",
+      "last_good": {
+        "months": [
+          "2024-11",
+          "2024-12",
+          "2025-01",
+          "2025-02",
+          "2025-03",
+          "2025-04",
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "identity_key": "7a50c5d0d382751d39f7d243d9550155469977e2dcc7fbb34560df7a848efa0b",
+        "project": {
+          "name": "OpenComputers",
+          "slug": "catalog-0b9c25467a39664d",
+          "readme_url": "https://github.com/MightyPirates/OpenComputers",
+          "repositories": [
+            "MightyPirates/OpenComputers"
+          ],
+          "domains": [],
+          "title_aliases": [],
+          "exact_urls": [],
+          "queries": [
+            "github.com/MightyPirates/OpenComputers"
+          ],
+          "identity_sources": [
+            "https://github.com/MightyPirates/OpenComputers"
+          ],
+          "coverage": "catalog-url-only",
+          "scope_note": "Only the catalog repository or exact URL is matched. Name aliases and broader official domains require review; this is not comprehensive attention coverage.",
+          "broad_queries": [
+            "OpenComputers",
+            "github.com/MightyPirates/OpenComputers"
+          ],
+          "monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "eligible": false,
+          "story_count": 0,
+          "active_months": 0,
+          "stories": [],
+          "excluded_candidates": [],
+          "query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=OpenComputers&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FMightyPirates%2FOpenComputers&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+          ],
+          "search_url": "https://hn.algolia.com/?q=github.com%2FMightyPirates%2FOpenComputers&type=story&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate",
+          "broad_stories": [],
+          "broad_story_count": 0,
+          "broad_monthly_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "broad_query_sources": [
+            "https://hn.algolia.com/api/v1/search_by_date?query=OpenComputers&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone",
+            "https://hn.algolia.com/api/v1/search_by_date?query=github.com%2FMightyPirates%2FOpenComputers&tags=story&restrictSearchableAttributes=title%2Curl&typoTolerance=false&numericFilters=created_at_i%3E%3D1730419200%2Ccreated_at_i%3C1793491200&hitsPerPage=100&page=0&queryType=prefixNone"
+          ],
+          "broad_search_url": "https://hn.algolia.com/?query=OpenComputers&type=story&prefix=false&dateRange=custom&dateStart=1730419200&dateEnd=1793491199&sort=byDate"
+        },
+        "collected_at": "2026-11-23T12:10:28.540497+00:00"
+      },
+      "status": "ok"
     }
   },
   "budget": {
     "utc_date": "2026-11-23",
-    "requests_used": 118,
+    "requests_used": 129,
     "limit": 160,
     "paused": false,
-    "projects_used": 44,
+    "projects_used": 49,
     "project_limit": 50,
     "attempted_urls": [
       "https://developers.reddit.com/apps/open-moderator",
@@ -450839,10 +452478,13 @@
       "https://github.com/noemauser/openfeed",
       "https://github.com/nyl/openxterm",
       "https://github.com/ofgrenudo/opennac",
+      "https://github.com/openaec-foundation/open-heatloss-studio",
       "https://github.com/opencmiss/cm",
       "https://github.com/openhandheldcollective/openabl",
       "https://github.com/openmachinelabs/openmachine",
       "https://github.com/openmap-world/openmap",
+      "https://github.com/opensourcerisk/engine",
+      "https://github.com/opentubex/opentubex",
       "https://github.com/openvnmrj/openvnmrj",
       "https://github.com/optima-cityu/openarchevo",
       "https://github.com/panarastudios/opensend.cc",
@@ -450862,24 +452504,26 @@
       "https://github.com/yang-ai-lab/opensla",
       "https://gitlab.com/osp-group/flask-nginx-rtmp-manager",
       "https://gitlab.opengeosys.org/ogs/ogs",
-      "https://m11.ai/openmarket"
+      "https://m11.ai/openmarket",
+      "https://github.com/copilotkit/openbot",
+      "https://github.com/mightypirates/opencomputers"
     ],
     "lane_projects": {
-      "new": 0,
-      "refresh": 43,
+      "new": 4,
+      "refresh": 44,
       "continuation": 1
     },
     "lane_requests": {
-      "new": 0,
-      "refresh": 94,
+      "new": 8,
+      "refresh": 97,
       "continuation": 24
     }
   },
   "selection_report": {
-    "catalog_projects": 587,
-    "due_projects": 1,
-    "attempted_projects": 0,
-    "current_window_projects": 587,
+    "catalog_projects": 591,
+    "due_projects": 3,
+    "attempted_projects": 2,
+    "current_window_projects": 591,
     "never_attempted_projects": 0
   },
   "refresh_policy": {
