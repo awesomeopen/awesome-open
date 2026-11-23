@@ -167,7 +167,7 @@ def rename_html(row):
         if event.get('checked_at'):
             facts.append('Evidence reviewed: ' + escape(event['checked_at']))
         if not facts:
-            facts.append('Discovery and review dates were not retained in this snapshot.')
+            facts.append('Discovery and review dates unrecorded')
         sources = ' · '.join(link(s['url'], s.get('title') or s['url']) for s in event['sources'])
         parts.append(f'<li><span>{occurrence}</span><strong>{escape(event["old_name"])} → {escape(event["new_name"])}</strong><p>{"<br>".join(facts)}</p><p>{sources}</p></li>')
     return ''.join(parts) + '</ol>'
@@ -203,7 +203,7 @@ def monthly_stories_html(row, doc):
     d = row['details']
     bins = d.get('monthly_stories')
     if not bins:
-        return '<p>Monthly story counts were not retained in this snapshot. The current table retains the evidenced window total.</p>' + hn_scope(doc)
+        return '<p>This snapshot records the window total.</p>' + hn_scope(doc)
     bins = bins[-12:]
     maximum = max([b['value'] for b in bins] or [1]) or 1
     parts = ['<p>Matched stories · last 12 retained months</p><svg class="score-chart" viewBox="0 0 360 150" role="img" aria-label="Monthly matched HN stories"><title>Monthly matched HN stories</title>', f'<text x="20" y="18" text-anchor="end">{maximum:,}</text><text x="20" y="114" text-anchor="end">0</text>']
@@ -212,7 +212,9 @@ def monthly_stories_html(row, doc):
         parts.append(f'<rect class="score-bar" x="{x}" y="{110-height:.2f}" width="18" height="{height:.2f}"><title>{entry["month"]}: {entry["value"]} stories</title></rect>')
         if index % 2 == 0 or index == len(bins) - 1:
             parts.append(f'<text x="{x+9}" y="132" text-anchor="middle">{entry["month"][5:]}</text>')
-    parts += ['</svg>', f'<p>{bins[0]["month"]} – {bins[-1]["month"]}. Collected {escape(str(d.get("collected_at") or "at an unrecorded legacy date"))}; {escape(d.get("coverage", "unknown matching scope"))}.</p>',
+    collected = d.get('collected_at')
+    collected_label = 'Collected ' + escape(str(collected)) if collected else 'Collected date unrecorded'
+    parts += ['</svg>', f'<p>{bins[0]["month"]} – {bins[-1]["month"]}. {collected_label}; {escape(d.get("coverage", "unknown matching scope"))}.</p>',
               '<details class="score-values"><summary>Monthly values</summary><table><thead><tr><th scope="col">Month</th><th scope="col">Stories</th></tr></thead><tbody>']
     for entry in bins:
         parts.append(f'<tr><th scope="row">{entry["month"]}</th><td>{entry["value"]:,}</td></tr>')
