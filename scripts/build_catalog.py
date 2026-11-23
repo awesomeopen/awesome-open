@@ -198,7 +198,7 @@ def _github_metadata(url, snapshot):
         "last_success_at": record.get("last_success_at", snapshot["as_of"]),
         "last_attempt": record.get("last_attempt"),
     }
-    # Collected from the next metrics refresh on; absent means not yet observed, never "not archived".
+    # Include archived when the snapshot recorded a value.
     if record.get("archived") is not None:
         metadata["archived"] = record["archived"]
     return metadata

@@ -75,7 +75,6 @@ def build(catalog, doc, output, root):
     categories = {c['id']: c['name'] for c in catalog['categories']}
     current_ids = {p['id'] for p in catalog['projects']}
     editions = visible(doc)
-    # Render newest first.
     rendered = []
     for number, edition in enumerate(editions):
         rows = []
