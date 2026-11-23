@@ -834,7 +834,7 @@ def svg(project, evidence, *, comparison=False):
         raise ValueError('Expected exactly 24 nonnegative monthly counts')
     maximum = max(1, evidence['shared_monthly_maximum'])
     title = html.escape(project['name'] + ': HN discussions / 2y')
-    desc = html.escape(f"Monthly HN story submissions, {evidence['months'][0]} through {evidence['months'][-1]}; oldest at left. Shared cube-root scale: 0–{maximum} stories/month. Counts: " + ', '.join(map(str, counts)) + '.')
+    desc = html.escape(f"Monthly HN story submissions, {evidence['months'][0]} through {evidence['months'][-1]}; oldest at left. Shared cube-root scale: 0–{maximum} stories/month. Counts: " + ', '.join(map(str, counts)) + '. Attention includes praise, criticism, and controversy.')
     if 'broad_monthly_counts' in project:
         desc += html.escape(' Broad title/URL candidates; possible matches. Matched counts: '
                             + ', '.join(map(str, project['monthly_counts'])) + '.')
