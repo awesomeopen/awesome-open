@@ -1,9 +1,9 @@
 {
-  "collected_at": "2026-11-23T20:30:12Z",
+  "collected_at": "2026-11-23T20:35:40Z",
   "method_version": "1",
   "provider_retry_after": {
-    "languages": null,
-    "release": null,
+    "languages": "2026-11-23T21:35:40Z",
+    "release": "2026-11-23T21:35:40Z",
     "scorecard": null
   },
   "repositories": {
@@ -41704,16 +41704,35 @@
     },
     "tm3u/openkaraoke": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"221a00e39de15f674a1428644cfb5259547a0d0b36c3c35ad646879eb4a0adc0\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Assembly": 15563,
+            "C#": 752723,
+            "C++": 49880,
+            "CSS": 5910,
+            "HTML": 12898,
+            "JavaScript": 41041,
+            "PowerShell": 31750,
+            "Python": 3180,
+            "Shell": 1090
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/tm3u/openkaraoke/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -41757,16 +41776,32 @@
     },
     "tover0314-w/opentypeless": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"bd63efaccfbbcd9569dd5f1abe62fda96a342c1e5fe764cde4535f666c0dd0b8\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 15865,
+            "HTML": 299,
+            "JavaScript": 939,
+            "Rust": 1402375,
+            "Shell": 2778,
+            "TypeScript": 959720
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/tover0314-w/opentypeless/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -41810,16 +41845,28 @@
     },
     "traceloop/openllmetry": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"45d5438141f8917a5f2143605e2e830cc0a80c23ec65a67018d5f8e6aa95128a\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Python": 5105884,
+            "Shell": 1645
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/traceloop/openllmetry/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -41863,16 +41910,39 @@
     },
     "trusteddomainproject/opendkim": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"56f4f1828940e548b5c29f25454540d3c4e8b0ecd3c407339032c5fa9f9f7cac\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 2232932,
+            "C++": 12334,
+            "CSS": 1326,
+            "HTML": 375154,
+            "Lua": 136790,
+            "M4": 81360,
+            "Makefile": 41822,
+            "Objective-C": 10152,
+            "PHP": 6250,
+            "Perl": 97243,
+            "Python": 6051,
+            "Roff": 45495,
+            "Shell": 39348
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/trusteddomainproject/opendkim/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -41903,16 +41973,35 @@
     },
     "trusteddomainproject/opendmarc": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"d57f83359f5e42a6f0108915b97f93f5c47de1ab8aa492a00ce0d6fde1778020\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 448933,
+            "HTML": 111842,
+            "Lua": 23541,
+            "M4": 37345,
+            "Makefile": 8294,
+            "Perl": 65783,
+            "Python": 4375,
+            "Roff": 29849,
+            "Shell": 7677
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/trusteddomainproject/opendmarc/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -41956,16 +42045,17 @@
     },
     "twilightduck/openwhisper": {
       "languages": {
-        "checked_at": null,
-        "error": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
+        "error": "redirect_requires_review",
         "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
+        "fetch_status": "error",
+        "http_status": 301,
         "last_good": null,
         "last_success_at": null,
         "retry_after": null,
         "source_url": "https://api.github.com/repos/twilightduck/openwhisper/languages",
-        "status": "pending"
+        "status": "unavailable"
       },
       "release": {
         "check_time_precision": "second",
@@ -41996,16 +42086,31 @@
     },
     "tylerebowers/openvat": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"2c4d3bb8d52767974cc9ace9fb337e60ee876620f8130a2c399f822c99d94085\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Inno Setup": 3062,
+            "Makefile": 1967,
+            "PowerShell": 1854,
+            "Python": 935033,
+            "Shell": 10959
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/tylerebowers/openvat/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42049,16 +42154,33 @@
     },
     "ui5/openui5": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"e26172f53381669f23a541e11b04b01275907602f6f6605174bb3726d120e745\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 458175,
+            "Gherkin": 17201,
+            "Go Template": 5188,
+            "HTML": 4991777,
+            "JavaScript": 139285793,
+            "Less": 17234552,
+            "TypeScript": 51826
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/ui5/openui5/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42102,16 +42224,35 @@
     },
     "ultimabear/openchaos": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"9912f57f9a18b61a29a6bde9ff354bb8f267f8b072365f74d748c9272d966aa7\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Batchfile": 8779,
+            "C": 2440828,
+            "C++": 19769760,
+            "CMake": 40512,
+            "GLSL": 52405,
+            "HTML": 30488,
+            "Makefile": 9004,
+            "Python": 32066,
+            "Shell": 500
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/ultimabear/openchaos/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42155,16 +42296,30 @@
     },
     "uxfront-com/open-components": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"8d2cc6155433fc22965d7967e0d33b902568b5fbf50abe1e262aadd708c34c28\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "CSS": 20467,
+            "JavaScript": 47712,
+            "TypeScript": 656146,
+            "Vue": 667248
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/uxfront-com/open-components/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42195,16 +42350,27 @@
     },
     "vaquill-ai/open-us-law": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"c797cdc65e2828f7d0513a7f101fc4b5284303a7068c125bf5905336663f1454\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Python": 2288309
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/vaquill-ai/open-us-law/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42235,16 +42401,34 @@
     },
     "vernesong/openclash": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"6b0084484931b912a686a404b966dabd9b8fb64d49c9a9994eae605b57f441ba\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 12842,
+            "CSS": 322013,
+            "HTML": 219867,
+            "JavaScript": 1095501,
+            "Lua": 572720,
+            "Makefile": 5178,
+            "Ruby": 118044,
+            "Shell": 432003
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/vernesong/openclash/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42288,16 +42472,30 @@
     },
     "vhdani04/openlayout": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"546f931d4997f6d538748abce7a5c48e30ed1e981c444562c910fa82f78ffc7e\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Python": 1111014,
+            "Shell": 29565,
+            "SourcePawn": 876,
+            "Tcl": 83531
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/vhdani04/openlayout/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42328,16 +42526,43 @@
     },
     "virtastic/openmw-web": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"9e816e66b40c9fa8f1b6f9f6fde96aed02b64a41aef8a80109464589bb9d72d2\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Batchfile": 394,
+            "C": 113456,
+            "C++": 16343961,
+            "CMake": 352044,
+            "CSS": 42366,
+            "Dockerfile": 11720,
+            "GLSL": 200561,
+            "HCL": 3315,
+            "HTML": 611104,
+            "JavaScript": 1680613,
+            "Lua": 2893617,
+            "PowerShell": 19802,
+            "Python": 93209,
+            "Ruby": 3569,
+            "Shell": 235686,
+            "TeX": 49238,
+            "TypeScript": 3710602
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/virtastic/openmw-web/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42381,16 +42606,35 @@
     },
     "vittorioromeo/ssvopenhexagon": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"2d29f9d5fe6d0be449ddfac1abbfe1d252690ea689dd932d6a8b863ffbf36225\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "Batchfile": 266,
+            "C": 9947813,
+            "C++": 2932899,
+            "CMake": 32232,
+            "CSS": 16049,
+            "GLSL": 4224,
+            "HTML": 433444,
+            "Lua": 214693,
+            "Shell": 56121
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/vittorioromeo/ssvopenhexagon/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42434,16 +42678,44 @@
     },
     "volcengine/openviking": {
       "languages": {
-        "checked_at": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
         "error": null,
-        "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
-        "last_good": null,
-        "last_success_at": null,
+        "etag": "\"e29f4d10c4393fd8fac7503fdd6a5ace5d488dec5926a67dc979556adc3c8cc5\"",
+        "fetch_status": "ok",
+        "http_status": 200,
+        "last_good": {
+          "fetched_at": "2026-11-23T20:35:40Z",
+          "observed_at": "2026-11-23T20:35:40Z",
+          "source_commit": null,
+          "tool_commit": null,
+          "tool_version": null,
+          "value": {
+            "C": 11891,
+            "C++": 462494,
+            "CMake": 14128,
+            "CSS": 490349,
+            "Dockerfile": 17676,
+            "Go": 199681,
+            "Go Template": 4019,
+            "HTML": 195908,
+            "JavaScript": 2027397,
+            "Lua": 12612,
+            "MDX": 1321648,
+            "Makefile": 8425,
+            "PLpgSQL": 16020,
+            "Python": 27321744,
+            "Rust": 4739746,
+            "Shell": 244517,
+            "Tree-sitter Query": 30650,
+            "TypeScript": 7923625
+          }
+        },
+        "last_success_at": "2026-11-23T20:35:40Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/volcengine/openviking/languages",
-        "status": "pending"
+        "status": "available",
+        "success_time_precision": "second"
       },
       "release": {
         "check_time_precision": "second",
@@ -42487,16 +42759,17 @@
     },
     "wandb/openui": {
       "languages": {
-        "checked_at": null,
-        "error": null,
+        "check_time_precision": "second",
+        "checked_at": "2026-11-23T20:35:40Z",
+        "error": "http_403",
         "etag": null,
-        "fetch_status": "not_checked",
-        "http_status": null,
+        "fetch_status": "error",
+        "http_status": 403,
         "last_good": null,
         "last_success_at": null,
-        "retry_after": null,
+        "retry_after": "2026-11-23T21:35:40Z",
         "source_url": "https://api.github.com/repos/wandb/openui/languages",
-        "status": "pending"
+        "status": "unavailable"
       },
       "release": {
         "check_time_precision": "second",
@@ -43297,5 +43570,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "73098cf3f784a1705e1146fbcd02d0acb2dad724"
+  "source_sha": "1ad300eefd7662aa580d55a4e10e15910b0524e4"
 }
