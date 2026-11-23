@@ -98,6 +98,39 @@ class CheckBudgetTests(unittest.TestCase):
             self.assertEqual(check_budget.report(site)[1], ['catalog.json'])
             self.assertEqual(self.run_check(site)[0], 1)
 
+    def test_only_exact_hn_download_leaves_remainder(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = self.site(directory)
+            baseline, _ = check_budget.measure(site)
+            (site / 'data').mkdir()
+            (site / 'data/hn_evidence.json').write_bytes(b'x' * 100)
+            for name in ('hn_evidence.json', 'data/hn_evidence.json.copy',
+                         'data/hn_evidence.html'):
+                (site / name).write_bytes(b'x' * 30)
+            values, _ = check_budget.measure(site)
+            self.assertEqual(values['other_bytes'], baseline['other_bytes'] + 90)
+            self.assertEqual(values['total_bytes'], baseline['total_bytes'] + 190)
+            budget = [('Remainder', 'other_bytes', values['other_bytes'], 'test')]
+            with mock.patch.object(check_budget, 'BUDGET', budget):
+                self.assertEqual(self.run_check(site)[0], 0)
+                (site / 'extra').write_bytes(b'x')
+                self.assertEqual(check_budget.report(site)[1], ['Remainder'])
+
+    def test_hn_still_counts_toward_total_boundary(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = self.site(directory)
+            (site / 'data').mkdir()
+            hn = site / 'data/hn_evidence.json'
+            hn.write_bytes(b'x' * 100)
+            values, _ = check_budget.measure(site)
+            budget = [('Total', 'total_bytes', values['total_bytes'], 'test')]
+            with mock.patch.object(check_budget, 'BUDGET', budget):
+                self.assertEqual(self.run_check(site)[0], 0)
+                hn.write_bytes(b'x' * 101)
+                self.assertEqual(check_budget.report(site)[1], ['Total'])
+            rows = {key: limit for _, key, limit, _ in check_budget.BUDGET}
+            self.assertEqual(rows['total_bytes'], 640 * check_budget.MIB)
+
     def test_missing_site_is_an_error(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(SystemExit):
             check_budget.main([directory])

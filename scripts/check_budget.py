@@ -31,8 +31,8 @@ BUDGET = [
     ('Site total', 'total_bytes', 640 * MIB,
      'GitHub Pages publishes at most 1 GB; baseline 138 MiB, '
      'about 596 MiB projected at 1,000 records with artwork and plate variants for each'),
-    ('Site without specimen artwork', 'other_bytes', per_record(20 * MIB, 58 * KIB),
-     'Everything outside specimens/: 20 MiB + 58 KiB per record; +2 KiB for complete lazy collection overviews (PR 368); see site/COLLECTION-LOG.md'),
+    ('Site remainder (excluding artwork and HN download)', 'other_bytes', per_record(20 * MIB, 58 * KIB),
+     'Production outside specimens/ and exact data/hn_evidence.json: 20 MiB + 58 KiB per record; HN has its own allowance and remains in Site total'),
     ('Specimen artwork per illustrated project', 'specimen_average', 640 * KIB,
      'Original, cutout and the 512/768 px plate variants, averaged over projects with artwork; '
      'baseline 552 KiB'),
@@ -74,7 +74,7 @@ def measure(site):
     values = {
         'records': sum(1 for name in sizes if name.startswith('records/') and name.endswith('.html')),
         'total_bytes': sum(sizes.values()),
-        'other_bytes': sum(sizes.values()) - specimen_bytes,
+        'other_bytes': sum(sizes.values()) - specimen_bytes - sizes.get('data/hn_evidence.json', 0),
         'specimen_average': specimen_bytes // illustrated if illustrated else 0,
         'files': len(sizes),
         'index_bytes': sizes.get('index.html', 0),
