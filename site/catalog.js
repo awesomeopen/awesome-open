@@ -497,7 +497,7 @@
     function loadOverview(node) {
       var details = node.querySelector('.collection-overview'), target = node.querySelector('.collection-history');
       if (!details.open || target.dataset.loaded || target.dataset.loading) return;
-      var url = node.querySelector('.collection-source').href;
+      var url = new URL(details.dataset.source, document.baseURI).href;
       target.dataset.loading = 'true'; target.setAttribute('aria-busy', 'true');
       target.textContent = 'Loading retained records…';
       if (!histories.has(url)) histories.set(url, window.fetch(url).then(function (response) {
@@ -514,7 +514,7 @@
       }).catch(function (error) { histories.delete(url); throw error; }));
       histories.get(url).then(function (data) {
         var list = document.createElement('ol'); list.className = 'collection-events';
-        data.events.forEach(function (e) {
+        data.events.slice().sort(function (a, b) { return b[0].localeCompare(a[0]); }).forEach(function (e) {
           var type = data.types[e[1]], li = document.createElement('li'), time = document.createElement('time'), a = document.createElement('a');
           li.dataset.eventKind = type[0]; time.dateTime = e[0]; time.textContent = e[0].replace('T', ' ').replace('Z', ' UTC');
           a.href = type[2]; a.textContent = type[1]; li.append(time, a);
@@ -522,7 +522,7 @@
           list.append(li);
         });
         target.replaceChildren();
-        var count = document.createElement('p'); count.textContent = data.events.length + ' dated retained records'; target.append(count, list);
+        target.append(list);
         Object.keys(data.undated || {}).forEach(function (kind) {
           var p = document.createElement('p');
           p.textContent = (kind === 'hn' ? 'HN' : 'Star history') + ': ' + data.undated[kind] + ' retained observations without a collection date.';
@@ -530,7 +530,7 @@
         });
         target.dataset.loaded = 'true';
       }).catch(function () {
-        target.textContent = 'Records could not be loaded. Close and reopen to retry, or use the download link.';
+        target.textContent = 'Records could not be loaded. Close and reopen to retry.';
       }).finally(function () { delete target.dataset.loading; target.removeAttribute('aria-busy'); });
     }
     function stop(state) { window.clearTimeout(state.timer); state.timer = null; }
@@ -538,7 +538,7 @@
       var node = state.node, drawer = node.closest('details.specimen-drawer');
       return node.isConnected && state.visible && !document.hidden && !reduced.matches &&
         (!drawer || drawer.open) && !node.matches(':hover') && !node.contains(document.activeElement) &&
-        !node.querySelector('details[open]') && state.lines.length > 1;
+        !node.querySelector('dialog[open]') && state.lines.length > 1;
     }
     function schedule(state) {
       stop(state);
@@ -568,7 +568,14 @@
       document.querySelectorAll('.pg-collection').forEach(function (node) {
         if (states.has(node)) return;
         var lines = JSON.parse(node.dataset.replay).map(function (row) { return row[0] + ' · ' + row[1]; });
-        node.querySelector('.collection-overview').addEventListener('toggle', function () { loadOverview(node); });
+        var dialog = node.querySelector('.collection-overview'), trigger = node.querySelector('.collection-trigger');
+        trigger.addEventListener('click', function () { dialog.showModal(); loadOverview(node); refresh(); });
+        node.querySelector('.collection-close').addEventListener('click', function () { dialog.close(); });
+        dialog.addEventListener('keydown', function (event) {
+          // Keep plate navigation behind the modal inactive, including Escape.
+          event.stopPropagation();
+        });
+        dialog.addEventListener('close', function () { if (trigger.isConnected) trigger.focus(); refresh(); });
         var state = {node:node, lines:lines, index:lines.length - 1, visible:false, timer:null};
         states.set(node, state); observer.observe(node);
         ['mouseenter','mouseleave','focusin','focusout'].forEach(function (event) {

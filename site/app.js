@@ -399,6 +399,7 @@
 
   document.addEventListener("keydown", function (event) {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
+    if (document.querySelector(".collection-overview[open]")) return;
     var target = event.target;
     // Inside a shadow root, such as the WebMCPlet panel, event.target is the host.
     var origin = event.composedPath ? event.composedPath()[0] : target;
