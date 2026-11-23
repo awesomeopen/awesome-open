@@ -73,8 +73,9 @@ def evidence_html(metric, row):
     elif metric.startswith('hn-'):
         if metric == 'hn-streak':
             pieces.append(escape(d['first_day']) + ' – ' + escape(d['last_day']) + ' UTC')
+        collected = d.get('collected_at')
         pieces += [safe_link(d.get('search_url'), 'HN search') + ' · ' + escape(d.get('coverage', 'unknown')),
-                   'Collected: ' + escape(str(d.get('collected_at') or 'not recorded in legacy cache')),
+                   'Collected: ' + escape(str(collected)) if collected else 'Collected date unrecorded',
                    'Latest attempt: ' + escape(str(d.get('checked_at') or 'unknown')) + ' · ' + escape(d.get('attempt_status', 'unknown'))]
     if 'metrics_status' in d:
         pieces.append('GitHub cache: ' + escape(d['metrics_status']) + '; observed ' + escape(str(d.get('metrics_observed_at') or 'unknown')))

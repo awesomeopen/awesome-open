@@ -697,7 +697,7 @@ def refresh(now=None, *, existing=None, projects=None, metadata=None, getter=Non
         maximum = max((max(p['monthly_counts']) for p in current if p['eligible']), default=1)
         return {'schema_version': 2, 'window_start': start.isoformat(), 'window_end_exclusive': end.isoformat(),
                 'months': months, 'refreshed_utc_date': today,
-                'metric': 'Deduplicated HN story submissions per UTC month, regardless of points, comments or sentiment. Search coverage is best-effort and depends on the HN Algolia index.',
+                'metric': 'Deduplicated HN story submissions per UTC month. Search coverage is best-effort and depends on the HN Algolia index.',
                 'eligibility': {'minimum_stories': MIN_STORIES, 'minimum_active_months': MIN_MONTHS},
                 'shared_monthly_maximum': maximum, 'projects': current, 'queue': records, 'budget': budget,
                 'selection_report': {'catalog_projects': len(projects), 'due_projects': len(waiting),

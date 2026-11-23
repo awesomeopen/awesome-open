@@ -100,7 +100,7 @@ class TrendsTests(unittest.TestCase):
 
     def test_legacy_monthly_unknown_not_zero(self):
         html = monthly_stories_html({'details': {}}, {})
-        self.assertIn('not retained', html)
+        self.assertIn('This snapshot records the window total.', html)
         self.assertNotIn('<rect', html)
 
     def test_monthly_bins_preserved_not_cumulative(self):
