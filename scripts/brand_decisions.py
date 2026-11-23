@@ -126,7 +126,7 @@ def load_decisions(root):
 
 
 def without_fences(text):
-    # Examples in fenced blocks are not live citations. Inline code still is.
+    # Blank fenced examples. Leave inline code for citation checks.
     output, fence = [], None
     for line in text.splitlines():
         match = re.match(r'^\s{0,3}(`{3,}|~{3,})', line)
@@ -198,7 +198,7 @@ def reference_errors(root, decisions):
         if relative.startswith(RECORD_DIR + '/'):
             text = without_fences(decisions[path.stem].body)
         text = without_comments(text)
-        # Inline code may demonstrate Markdown syntax; it is not a rendered link.
+        # Strip inline code, then check rendered links.
         link_text = re.sub(r'(`+)(.*?)\1', '', text)
         for match in list(LINK_RE.finditer(link_text)) + list(REFERENCE_LINK_RE.finditer(link_text)):
             target = urlsplit(match[2])
@@ -213,7 +213,7 @@ def reference_errors(root, decisions):
             elif target.fragment and linked.suffix.lower() in {'.md', '.html'}:
                 if unquote(target.fragment) not in anchors(linked.read_text(encoding='utf-8')):
                     errors.append(f'{relative}: missing local anchor: {match[2]}')
-        # Check live prose/inline code but not destinations or raw external URLs.
+        # Search decision IDs in link text, prose, and inline code.
         prose = LINK_RE.sub(lambda match: match[1], text)
         prose = REFERENCE_LINK_RE.sub(lambda match: match[1], prose)
         prose = re.sub(r'(?:https?://|mailto:)\S+', '', prose)

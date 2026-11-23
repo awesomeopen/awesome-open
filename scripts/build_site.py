@@ -167,8 +167,6 @@ def search_index(catalog):
 
     Retain the runtime's existing shape and raw values so search folding, unknown
     metrics, date thresholds, setup filters and category leaders stay unchanged.
-    Explicit unavailable records have no cached measurements; legacy records retain
-    their existing presence semantics.
     """
     projects = []
     for project in catalog["projects"]:
@@ -611,7 +609,7 @@ def specimen_plate(project, number, tags, function_detail, grid, cutout, variant
         features = project.get("function_summary", {}).get("features", [])[:2]
         if features:
             items = "".join(
-                f'<li class="plate-note"><span class="plate-crop{" is-tiny" if i else ""}" data-crop="{i}" aria-hidden="true"></span><div><span class="plate-index">{i + 1:02d} / Feature note</span>'
+                f'<li class="plate-note"><span class="plate-crop{" is-tiny" if i else ""}" aria-hidden="true"></span><div><span class="plate-index">{i + 1:02d} / Feature note</span>'
                 f'<strong>{escape(f["title"])}</strong><p>{escape(f["text"])}</p><a class="feature-source" href="{escape(f["source_url"])}">Feature source ↗</a></div></li>'
                 for i, f in enumerate(features)
             )
@@ -815,7 +813,6 @@ def render_html(catalog, script_url="catalog.js", root=ROOT):
 
     rows = "\n".join(row(p, i) for i, p in enumerate(sorted(catalog["projects"], key=star_order), 1))
 
-    # About: everything that is not the catalog — links, the data method, the README's own sections.
     points, others = readme_about(root)
     signal_projects = [p for p in catalog["projects"] if p.get("signals")]
     coverage = ""

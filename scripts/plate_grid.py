@@ -42,10 +42,6 @@ def value(text, known=True):
     return f'<p class="pg-value{"" if known else " is-unknown"}">{text}</p>'
 
 
-def reserved(cls=""):
-    return f'<div class="pg-reserved {cls}" aria-hidden="true"></div>'
-
-
 def window(first, last):
     return f'{esc(first)}{HAIR}–{HAIR}{esc(last)}'
 
