@@ -473,6 +473,7 @@
 | [OpenTeleprompt](https://github.com/ArunNGun/openTeleprompt) | Voice-activated teleprompter for macOS. |
 | [OpenTimelineIO](https://github.com/AcademySoftwareFoundation/OpenTimelineIO) | API and interchange tools for editorial timelines. |
 | [OpenToonz](https://github.com/opentoonz/opentoonz) | 2D animation production software. |
+| [OpenTubeX](https://github.com/OpenTubeX/OpenTubeX) | YouTube client with tabbed playback, subscriptions, playlists, downloads, and customizable controls. |
 | [OpenTunes](https://github.com/Multi-Applications/OpenTunes) | Web radio player with station search, country and genre filters, favorites, and custom stations. |
 | [OpenUSD](https://github.com/PixarAnimationStudios/OpenUSD) | Libraries and tools for composing, exchanging, and rendering complex 3D scene descriptions. |
 | [OpenUtau](https://github.com/openutau/OpenUtau) | Singing synthesis platform and UTAU successor. |
