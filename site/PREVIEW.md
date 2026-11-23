@@ -17,7 +17,9 @@ The command requires a clean tracked working tree and no untracked source files.
 ## Production budget and preview validation
 
 PR CI checks the strict size budget immediately after `build_site.py --production`,
-including the published hero and all production assets. The overall cap is unchanged.
+including the published hero and all production assets. The hard total includes
+every byte. The unchanged remainder threshold excludes artwork and only the exact
+HN JSON download, which has its own strict allowance.
 Exhibition and jar preview builds then add their review-only pages to the output
 bundle. Both builds and the existing browser checks remain required; the combined
 review bundle is not the production size measurement. See the
