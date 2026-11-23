@@ -382,7 +382,7 @@ This descriptor is a codification aid, not a registration. No runner in this rep
   "outputs": ["data/canonical_url_health.json"],
   "pr_scope": ["data/canonical_url_health.json"],
   "gates": {"one_pending_draft": true, "direct_main": false, "auto_merge": false, "force_push": false},
-  "http": {"method": "HEAD, then GET on method rejection or HEAD timeout", "stdlib_only": true, "credentials": "none, except optional GitHub token for repository-ID verification after a redirect", "user_agent": "awesome-open-canonical-url-health/1.0 (+https://github.com/awesomeopen/awesome-open)"},
+  "http": {"method": "HEAD, then GET on method rejection or HEAD timeout", "stdlib_only": true, "credentials": "none, except optional GitHub token for repository-ID verification after a redirect", "user_agent": "awesome-open-canonical-url-health/1.1 (+https://github.com/awesomeopen/awesome-open)"},
   "taxonomy": ["reachable", "redirect-permanent", "redirect-temporary", "client-error", "server-error", "blocked", "transport-error", "unknown"],
   "display": "none in version 1"
 }
@@ -398,3 +398,5 @@ A catalog URL `https://github.com/openremote/openremote` is swept. The probe rec
 ## Appendix C. Accepted owner decisions
 
 Decided 2026-10-31 by the owner, accepting the five recommended defaults: (1) weekly Tuesday full sweep at 1.0s per github.com request and 0.5s per other host; (2) the existing publisher token may be used for repository-ID verification after a redirect only; (3) User-Agent `awesome-open-canonical-url-health/1.0 (+https://github.com/awesomeopen/awesome-open)`, fixed in the Phase 1 implementation; (4) reviewer-only evidence file in version 1, no display; (5) hosted assistant task, not a GitHub Actions workflow. Registration, permissions, and secrets still require separate owner authorization and verification; accepting these decisions schedules nothing and builds nothing by itself.
+
+Amended 2026-11-18 by the owner: decision (3) User-Agent bumped from 1.0 to `awesome-open-canonical-url-health/1.1 (+https://github.com/awesomeopen/awesome-open)`, after the runner egress blocked the exact 1.0 string on 2026-11-17 (every request stalled or returned 403 on every host; 1.1 verified passing by curl and Python urllib probes the same day). Audit name and contact URL unchanged.
