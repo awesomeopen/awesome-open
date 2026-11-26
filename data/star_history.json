@@ -2,8 +2,8 @@
   "budget": {
     "limit": 400,
     "paused_reason": "GitHub history HTTP 403",
-    "requests_used": 13,
-    "utc_date": "2026-11-25"
+    "requests_used": 4,
+    "utc_date": "2026-11-26"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
   "metric": "Stars retained on the repository at fetch time, grouped by the month their stars were created. Removed stars are absent and past buckets can change.",
@@ -29110,7 +29110,7 @@
       "status": "unavailable"
     },
     "anil-matcha/open-duet": {
-      "checked_at": "2026-11-23T04:55:28.539640+00:00",
+      "checked_at": "2026-11-26T06:07:21.443923+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -30749,7 +30749,7 @@
       "name": "Open Duet",
       "readme_url": "https://github.com/anil-matcha/open-duet",
       "repo": "anil-matcha/open-duet",
-      "source_sha": "f264a366502ba4005f0c927d72cc339859601901",
+      "source_sha": "1ec5d1b5e6706a0af2e0c7a37e8e9fbc959dfd73",
       "source_url": "https://api.github.com/repos/anil-matcha/open-duet/stargazers/history",
       "status": "unavailable"
     },
@@ -61674,7 +61674,7 @@
       "status": "ok"
     },
     "copilotkit/openmuse": {
-      "checked_at": "2026-11-24T07:46:02.166011+00:00",
+      "checked_at": "2026-11-26T06:07:21.443923+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -61815,7 +61815,7 @@
       "name": "OpenMuse",
       "readme_url": "https://github.com/copilotkit/openmuse",
       "repo": "copilotkit/openmuse",
-      "source_sha": "fb1d99567d75dfc50b842be119fc34db91940c93",
+      "source_sha": "1ec5d1b5e6706a0af2e0c7a37e8e9fbc959dfd73",
       "source_url": "https://api.github.com/repos/copilotkit/openmuse/stargazers/history",
       "status": "unavailable"
     },
@@ -87372,7 +87372,7 @@
       "status": "ok"
     },
     "facebook/openzl": {
-      "checked_at": "2026-11-24T07:46:02.166011+00:00",
+      "checked_at": "2026-11-26T06:07:21.443923+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -88164,7 +88164,7 @@
       "name": "OpenZL",
       "readme_url": "https://github.com/facebook/openzl",
       "repo": "facebook/openzl",
-      "source_sha": "fb1d99567d75dfc50b842be119fc34db91940c93",
+      "source_sha": "1ec5d1b5e6706a0af2e0c7a37e8e9fbc959dfd73",
       "source_url": "https://api.github.com/repos/facebook/openzl/stargazers/history",
       "status": "unavailable"
     },
@@ -377926,7 +377926,7 @@
       "status": "ok"
     },
     "openpipe/openpipe": {
-      "checked_at": "2026-11-24T07:46:02.166011+00:00",
+      "checked_at": "2026-11-26T06:07:21.443923+00:00",
       "error": "GitHub history HTTP 403",
       "last_good": {
         "coverage": {
@@ -379565,7 +379565,7 @@
       "name": "OpenPipe",
       "readme_url": "https://github.com/openpipe/openpipe",
       "repo": "openpipe/openpipe",
-      "source_sha": "fb1d99567d75dfc50b842be119fc34db91940c93",
+      "source_sha": "1ec5d1b5e6706a0af2e0c7a37e8e9fbc959dfd73",
       "source_url": "https://api.github.com/repos/openpipe/openpipe/stargazers/history",
       "status": "unavailable"
     },
@@ -587437,12 +587437,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
-    "due_repositories": 4,
+    "attempted_repositories": 4,
+    "due_repositories": 13,
     "eligible_repositories": 537,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "757304d127faa660d5b8faa14c049fa7864008d1",
-  "updated_at": "2026-11-25T13:34:44.885082+00:00"
+  "source_sha": "1ec5d1b5e6706a0af2e0c7a37e8e9fbc959dfd73",
+  "updated_at": "2026-11-26T06:07:21.443923+00:00"
 }
