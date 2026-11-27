@@ -499,6 +499,7 @@
 | [OpenClonk](https://github.com/openclonk/openclonk) | Multiplayer action game featuring small, nimble humanoids. |
 | [Open Codenames](https://github.com/attilatorda/open-codenames) | Picture-based Codenames game for Windows and browsers with language-model teammates and opponents. |
 | [OpenComputers](https://github.com/MightyPirates/OpenComputers) | Minecraft mod adding programmable computers and robots, with Lua programs that persist across reloads. |
+| [OpenComputers II](https://github.com/fnuecke/oc2) | Minecraft mod adding virtual RISC-V and Z80 computers with operating systems and APIs for in-game devices. |
 | [OpenController](https://github.com/Brunovncs/OpenController) | Game-controller mapping with virtual Xbox controllers, button remapping, macros, and profiles. |
 | [OpenDUNE](https://github.com/OpenDUNE/OpenDUNE) | Reimplementation of Dune II. |
 | [OpenDungeons](https://github.com/OpenDungeons/OpenDungeons) | Dungeon management game inspired by Dungeon Keeper. |
