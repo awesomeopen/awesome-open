@@ -389,6 +389,7 @@
 | [OpenOlat](https://github.com/OpenOLAT/OpenOLAT) | Learning management system. |
 | [Open Ontologies](https://github.com/fabio-rovai/open-ontologies) | Command-line and MCP tools for ontology reasoning, validation, change planning, and rollback. |
 | [Open Semantic Search](https://github.com/opensemanticsearch/open-semantic-search) | Search, text mining, and knowledge graphs for large document collections. |
+| [Opensidian](https://github.com/jpzk/opensidian) | Cross-platform Markdown notes app with Obsidian-compatible vaults, themes, and community plugins. |
 | [Opensidian](https://github.com/markusbegerow/opensidian) | Desktop Markdown notes app with wikilinks, backlinks, graph visualization, and configurable AI chat. |
 | [OpenStudy](https://github.com/OpenStudy-dev/OpenStudy) | Self-hosted study dashboard with an MCP server for AI assistants. |
 | [OpenText Content Manager](https://www.opentext.com/products/content-manager) | Enterprise document and records management. |
@@ -499,6 +500,7 @@
 | [OpenClonk](https://github.com/openclonk/openclonk) | Multiplayer action game featuring small, nimble humanoids. |
 | [Open Codenames](https://github.com/attilatorda/open-codenames) | Picture-based Codenames game for Windows and browsers with language-model teammates and opponents. |
 | [OpenComputers](https://github.com/MightyPirates/OpenComputers) | Minecraft mod adding programmable computers and robots, with Lua programs that persist across reloads. |
+| [OpenComputers: Rebooted](https://github.com/PC-Logix/OpenComputers) | NeoForge port of OpenComputers for Minecraft 1.21.1, with Lua-programmable computers, robots, drones, and networks. |
 | [OpenController](https://github.com/Brunovncs/OpenController) | Game-controller mapping with virtual Xbox controllers, button remapping, macros, and profiles. |
 | [OpenDUNE](https://github.com/OpenDUNE/OpenDUNE) | Reimplementation of Dune II. |
 | [OpenDungeons](https://github.com/OpenDungeons/OpenDungeons) | Dungeon management game inspired by Dungeon Keeper. |
