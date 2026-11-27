@@ -2,8 +2,8 @@
   "budget": {
     "limit": 400,
     "paused_reason": "GitHub history HTTP 403",
-    "requests_used": 4,
-    "utc_date": "2026-11-26"
+    "requests_used": 18,
+    "utc_date": "2026-11-27"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
   "metric": "Stars retained on the repository at fetch time, grouped by the month their stars were created. Removed stars are absent and past buckets can change.",
@@ -12185,16 +12185,16 @@
       "status": "ok"
     },
     "academysoftwarefoundation/openshadinglanguage": {
-      "checked_at": "2026-11-13T04:20:32.236788+00:00",
+      "checked_at": "2026-11-27T05:57:54.929763+00:00",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
-          "newest_week": 1794096000,
-          "oldest_week": 1722124800,
+          "newest_week": 1795305600,
+          "oldest_week": 1723334400,
           "repository_created_at": "2011-03-10T02:44:05+00:00",
           "terminal_page": null
         },
-        "fetched_at": "2026-11-13T04:20:32.236788+00:00",
+        "fetched_at": "2026-11-27T05:57:54.929763+00:00",
         "monthly_counts": [
           12,
           16,
@@ -12248,7 +12248,7 @@
           "2026-10"
         ],
         "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-        "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+        "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
         "source_urls": [
           "https://api.github.com/repos/academysoftwarefoundation/openshadinglanguage/stargazers/history?per_page=30&page=1",
           "https://api.github.com/repos/academysoftwarefoundation/openshadinglanguage/stargazers/history?per_page=30&page=2",
@@ -12256,6 +12256,32 @@
           "https://api.github.com/repos/academysoftwarefoundation/openshadinglanguage/stargazers/history?per_page=30&page=4"
         ],
         "weeks": [
+          {
+            "days": [
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 2,
+            "week": 1795305600
+          },
+          {
+            "days": [
+              0,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "total": 2,
+            "week": 1794700800
+          },
           {
             "days": [
               0,
@@ -13740,7 +13766,7 @@
           },
           {
             "days": [
-              0,
+              1,
               1,
               1,
               0,
@@ -13748,7 +13774,7 @@
               0,
               0
             ],
-            "total": 2,
+            "total": 3,
             "week": 1725148800
           },
           {
@@ -13789,32 +13815,6 @@
             ],
             "total": 6,
             "week": 1723334400
-          },
-          {
-            "days": [
-              1,
-              1,
-              0,
-              0,
-              0,
-              1,
-              1
-            ],
-            "total": 4,
-            "week": 1722729600
-          },
-          {
-            "days": [
-              0,
-              0,
-              1,
-              1,
-              0,
-              1,
-              0
-            ],
-            "total": 3,
-            "week": 1722124800
           }
         ],
         "window_end_exclusive": "2026-11-01T00:00:00+00:00",
@@ -13823,7 +13823,7 @@
       "name": "Open Shading Language",
       "readme_url": "https://github.com/academysoftwarefoundation/openshadinglanguage",
       "repo": "academysoftwarefoundation/openshadinglanguage",
-      "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+      "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
       "source_url": "https://api.github.com/repos/academysoftwarefoundation/openshadinglanguage/stargazers/history",
       "status": "ok"
     },
@@ -47661,7 +47661,7 @@
       "status": "ok"
     },
     "calesthio/openmontage": {
-      "checked_at": "2026-11-25T06:14:28.346815+00:00",
+      "checked_at": "2026-11-27T05:57:54.929763+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -48141,7 +48141,7 @@
       "name": "OpenMontage",
       "readme_url": "https://github.com/calesthio/openmontage",
       "repo": "calesthio/openmontage",
-      "source_sha": "bab5f8d32893e4cb875ca0495bef53a88382028c",
+      "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
       "source_url": "https://api.github.com/repos/calesthio/openmontage/stargazers/history",
       "status": "unavailable"
     },
@@ -384880,16 +384880,16 @@
       "status": "ok"
     },
     "openrc/openrc": {
-      "checked_at": "2026-11-13T04:20:32.236788+00:00",
+      "checked_at": "2026-11-27T05:57:54.929763+00:00",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
-          "newest_week": 1794096000,
-          "oldest_week": 1722124800,
+          "newest_week": 1795305600,
+          "oldest_week": 1723334400,
           "repository_created_at": "2013-04-13T23:21:59+00:00",
           "terminal_page": null
         },
-        "fetched_at": "2026-11-13T04:20:32.236788+00:00",
+        "fetched_at": "2026-11-27T05:57:54.929763+00:00",
         "monthly_counts": [
           15,
           14,
@@ -384907,7 +384907,7 @@
           15,
           17,
           18,
-          65,
+          64,
           41,
           28,
           31,
@@ -384943,7 +384943,7 @@
           "2026-10"
         ],
         "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-        "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+        "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
         "source_urls": [
           "https://api.github.com/repos/openrc/openrc/stargazers/history?per_page=30&page=1",
           "https://api.github.com/repos/openrc/openrc/stargazers/history?per_page=30&page=2",
@@ -384953,15 +384953,41 @@
         "weeks": [
           {
             "days": [
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "total": 2,
+            "week": 1795305600
+          },
+          {
+            "days": [
+              1,
+              1,
+              0,
+              0,
+              1,
+              2,
+              1
+            ],
+            "total": 6,
+            "week": 1794700800
+          },
+          {
+            "days": [
               0,
               2,
               0,
               1,
               1,
               0,
-              0
+              4
             ],
-            "total": 4,
+            "total": 8,
             "week": 1794096000
           },
           {
@@ -385384,13 +385410,13 @@
             "days": [
               5,
               5,
-              4,
+              3,
               2,
               2,
               4,
               1
             ],
-            "total": 23,
+            "total": 22,
             "week": 1774137600
           },
           {
@@ -386484,32 +386510,6 @@
             ],
             "total": 5,
             "week": 1723334400
-          },
-          {
-            "days": [
-              0,
-              1,
-              0,
-              1,
-              0,
-              0,
-              0
-            ],
-            "total": 2,
-            "week": 1722729600
-          },
-          {
-            "days": [
-              1,
-              1,
-              0,
-              1,
-              3,
-              0,
-              2
-            ],
-            "total": 8,
-            "week": 1722124800
           }
         ],
         "window_end_exclusive": "2026-11-01T00:00:00+00:00",
@@ -386518,7 +386518,7 @@
       "name": "OpenRC",
       "readme_url": "https://github.com/openrc/openrc",
       "repo": "openrc/openrc",
-      "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+      "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
       "source_url": "https://api.github.com/repos/openrc/openrc/stargazers/history",
       "status": "ok"
     },
@@ -453566,16 +453566,16 @@
       "status": "ok"
     },
     "opentabletdriver/opentabletdriver": {
-      "checked_at": "2026-11-13T04:20:32.236788+00:00",
+      "checked_at": "2026-11-27T05:57:54.929763+00:00",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
-          "newest_week": 1794096000,
-          "oldest_week": 1722124800,
+          "newest_week": 1795305600,
+          "oldest_week": 1723334400,
           "repository_created_at": "2019-09-30T02:58:36+00:00",
           "terminal_page": null
         },
-        "fetched_at": "2026-11-13T04:20:32.236788+00:00",
+        "fetched_at": "2026-11-27T05:57:54.929763+00:00",
         "monthly_counts": [
           52,
           46,
@@ -453587,12 +453587,12 @@
           51,
           61,
           45,
-          73,
+          72,
           89,
           63,
           79,
           76,
-          60,
+          59,
           67,
           71,
           84,
@@ -453600,7 +453600,7 @@
           71,
           78,
           106,
-          98
+          97
         ],
         "months": [
           "2024-11",
@@ -453629,7 +453629,7 @@
           "2026-10"
         ],
         "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-        "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+        "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
         "source_urls": [
           "https://api.github.com/repos/opentabletdriver/opentabletdriver/stargazers/history?per_page=30&page=1",
           "https://api.github.com/repos/opentabletdriver/opentabletdriver/stargazers/history?per_page=30&page=2",
@@ -453639,15 +453639,41 @@
         "weeks": [
           {
             "days": [
-              4,
               3,
+              2,
+              2,
               4,
-              0,
-              3,
+              6,
               0,
               0
             ],
-            "total": 14,
+            "total": 17,
+            "week": 1795305600
+          },
+          {
+            "days": [
+              4,
+              2,
+              4,
+              4,
+              0,
+              0,
+              4
+            ],
+            "total": 18,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              4,
+              3,
+              3,
+              0,
+              3,
+              1,
+              1
+            ],
+            "total": 15,
             "week": 1794096000
           },
           {
@@ -453666,14 +453692,14 @@
           {
             "days": [
               5,
-              3,
+              2,
               0,
-              7,
+              6,
               3,
               7,
               5
             ],
-            "total": 30,
+            "total": 28,
             "week": 1792886400
           },
           {
@@ -453694,12 +453720,12 @@
               5,
               1,
               5,
-              2,
+              3,
               3,
               4,
               3
             ],
-            "total": 23,
+            "total": 24,
             "week": 1791676800
           },
           {
@@ -454139,9 +454165,9 @@
               1,
               3,
               2,
-              3
+              2
             ],
-            "total": 13,
+            "total": 12,
             "week": 1771113600
           },
           {
@@ -454422,12 +454448,12 @@
               2,
               3,
               5,
-              4,
+              3,
               8,
               1,
               1
             ],
-            "total": 24,
+            "total": 23,
             "week": 1757808000
           },
           {
@@ -455170,32 +455196,6 @@
             ],
             "total": 10,
             "week": 1723334400
-          },
-          {
-            "days": [
-              2,
-              2,
-              1,
-              3,
-              1,
-              0,
-              1
-            ],
-            "total": 10,
-            "week": 1722729600
-          },
-          {
-            "days": [
-              0,
-              0,
-              1,
-              1,
-              1,
-              1,
-              1
-            ],
-            "total": 5,
-            "week": 1722124800
           }
         ],
         "window_end_exclusive": "2026-11-01T00:00:00+00:00",
@@ -455204,7 +455204,7 @@
       "name": "OpenTabletDriver",
       "readme_url": "https://github.com/opentabletdriver/opentabletdriver",
       "repo": "opentabletdriver/opentabletdriver",
-      "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+      "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
       "source_url": "https://api.github.com/repos/opentabletdriver/opentabletdriver/stargazers/history",
       "status": "ok"
     },
@@ -477457,41 +477457,41 @@
       "status": "ok"
     },
     "openvla/openvla": {
-      "checked_at": "2026-11-13T04:20:32.236788+00:00",
+      "checked_at": "2026-11-27T05:57:54.929763+00:00",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
-          "newest_week": 1794096000,
-          "oldest_week": 1722124800,
+          "newest_week": 1795305600,
+          "oldest_week": 1723334400,
           "repository_created_at": "2024-06-13T21:47:02+00:00",
           "terminal_page": null
         },
-        "fetched_at": "2026-11-13T04:20:32.236788+00:00",
+        "fetched_at": "2026-11-27T05:57:54.929763+00:00",
         "monthly_counts": [
           188,
           186,
           197,
           238,
-          368,
-          252,
+          367,
+          251,
           214,
-          271,
+          270,
           262,
           251,
           288,
           284,
           336,
           278,
-          294,
+          293,
           204,
           384,
           310,
           281,
           228,
-          221,
+          220,
           185,
           191,
-          154
+          153
         ],
         "months": [
           "2024-11",
@@ -477520,7 +477520,7 @@
           "2026-10"
         ],
         "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-        "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+        "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
         "source_urls": [
           "https://api.github.com/repos/openvla/openvla/stargazers/history?per_page=30&page=1",
           "https://api.github.com/repos/openvla/openvla/stargazers/history?per_page=30&page=2",
@@ -477530,15 +477530,41 @@
         "weeks": [
           {
             "days": [
+              6,
+              3,
+              8,
+              4,
+              4,
+              0,
+              0
+            ],
+            "total": 25,
+            "week": 1795305600
+          },
+          {
+            "days": [
+              4,
+              2,
+              8,
+              3,
+              6,
+              1,
+              6
+            ],
+            "total": 30,
+            "week": 1794700800
+          },
+          {
+            "days": [
               2,
               9,
               6,
               6,
-              3,
-              0,
-              0
+              4,
+              2,
+              3
             ],
-            "total": 26,
+            "total": 32,
             "week": 1794096000
           },
           {
@@ -477601,9 +477627,9 @@
               6,
               4,
               6,
-              6
+              5
             ],
-            "total": 28,
+            "total": 27,
             "week": 1791072000
           },
           {
@@ -477768,11 +477794,11 @@
               10,
               10,
               6,
-              3,
+              2,
               4,
               6
             ],
-            "total": 47,
+            "total": 46,
             "week": 1783209600
           },
           {
@@ -478066,12 +478092,12 @@
               9,
               10,
               17,
-              12,
+              11,
               11,
               8,
               1
             ],
-            "total": 68,
+            "total": 67,
             "week": 1769299200
           },
           {
@@ -478453,7 +478479,7 @@
           },
           {
             "days": [
-              12,
+              11,
               9,
               7,
               15,
@@ -478461,7 +478487,7 @@
               8,
               3
             ],
-            "total": 65,
+            "total": 64,
             "week": 1751155200
           },
           {
@@ -478612,12 +478638,12 @@
               10,
               13,
               7,
-              12,
+              11,
               14,
               8,
               8
             ],
-            "total": 72,
+            "total": 71,
             "week": 1743897600
           },
           {
@@ -478667,9 +478693,9 @@
               12,
               14,
               8,
-              8
+              7
             ],
-            "total": 78,
+            "total": 77,
             "week": 1741478400
           },
           {
@@ -479061,32 +479087,6 @@
             ],
             "total": 30,
             "week": 1723334400
-          },
-          {
-            "days": [
-              7,
-              6,
-              7,
-              5,
-              9,
-              2,
-              3
-            ],
-            "total": 39,
-            "week": 1722729600
-          },
-          {
-            "days": [
-              6,
-              5,
-              7,
-              7,
-              5,
-              2,
-              1
-            ],
-            "total": 33,
-            "week": 1722124800
           }
         ],
         "window_end_exclusive": "2026-11-01T00:00:00+00:00",
@@ -479095,7 +479095,7 @@
       "name": "OpenVLA",
       "readme_url": "https://github.com/openvla/openvla",
       "repo": "openvla/openvla",
-      "source_sha": "7160882a7d42ced8c6000f5329a741f37bb9a51d",
+      "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
       "source_url": "https://api.github.com/repos/openvla/openvla/stargazers/history",
       "status": "ok"
     },
@@ -575160,7 +575160,7 @@
       "status": "ok"
     },
     "wandb/openui": {
-      "checked_at": "2026-11-25T06:14:28.346815+00:00",
+      "checked_at": "2026-11-27T05:57:54.929763+00:00",
       "error": "GitHub history HTTP 403",
       "last_good": {
         "coverage": {
@@ -576799,7 +576799,7 @@
       "name": "OpenUI",
       "readme_url": "https://github.com/wandb/openui",
       "repo": "wandb/openui",
-      "source_sha": "bab5f8d32893e4cb875ca0495bef53a88382028c",
+      "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
       "source_url": "https://api.github.com/repos/wandb/openui/stargazers/history",
       "status": "unavailable"
     },
@@ -587437,12 +587437,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
-    "due_repositories": 9,
+    "attempted_repositories": 6,
+    "due_repositories": 17,
     "eligible_repositories": 537,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "ea3a5240d289c143f2408355fbf73ce622bd05be",
-  "updated_at": "2026-11-26T13:49:53.225851+00:00"
+  "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca",
+  "updated_at": "2026-11-27T05:57:54.929763+00:00"
 }

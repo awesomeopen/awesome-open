@@ -1,9 +1,9 @@
 {
-  "collected_at": "2026-11-26T13:48:10Z",
+  "collected_at": "2026-11-27T05:57:30Z",
   "method_version": "1",
   "provider_retry_after": {
-    "languages": "2026-11-26T14:48:10Z",
-    "release": "2026-11-26T14:48:10Z",
+    "languages": null,
+    "release": null,
     "scorecard": null
   },
   "repositories": {
@@ -992,14 +992,14 @@
     "adamsilverstein/open-ancestry": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"0f8478e15693d56206ed929b24b706aa074d2aff0b031e770c476f401090602a\"",
+        "etag": "\"41ff3cb1f1d79573308c7e754356e5195ec87795b33b34f90c4ee6371bdce827\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -1011,7 +1011,7 @@
             "TypeScript": 4127068
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/adamsilverstein/open-ancestry/languages",
         "status": "available",
@@ -1060,14 +1060,14 @@
     "agnitas-org/openemm": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"71598d9499c80f15cf6f67e604fdc77dfd0861a18418667e27511b075d16cc83\"",
+        "etag": "\"cfe406861510f0f5867daa83fd8459135f328cf05492e8cfa71dd290e831b202\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -1082,13 +1082,13 @@
             "Lua": 32657,
             "Makefile": 16127,
             "PLpgSQL": 1527,
-            "Python": 1971984,
+            "Python": 1973178,
             "SCSS": 359104,
             "Shell": 161249,
             "Yacc": 11305
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/agnitas-org/openemm/languages",
         "status": "available",
@@ -1240,14 +1240,14 @@
     "aimclub/osa": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"bc31e36e5f3f64ace3f98bf9335eaeaf38d461e440b2277d81b440cd9645d242\"",
+        "etag": "\"07aa0395c4be97196766751ac59acd5ee82306f0652b366c32b202ee49bf1d8a\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -1257,7 +1257,7 @@
             "Shell": 597
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/aimclub/osa/languages",
         "status": "available",
@@ -1306,7 +1306,7 @@
     "airwan-dev/opensport": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -1347,14 +1347,14 @@
     "akariasai/openscholar": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"ed512a88a8f11e8677a7dc900ade1da1aa6b3a9737f7ff14b089198da3e65449\"",
+        "etag": "\"e71e132f13e0c797c7a5a3784e39dc796a1b04359d5a37632abe8a35b22f5485\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -1366,7 +1366,7 @@
             "Shell": 7498
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/akariasai/openscholar/languages",
         "status": "available",
@@ -1402,30 +1402,30 @@
     "alibaba/open-guardrail": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"ef72163317a6baf93934e87c77f11be4985e8af8055399ba669c9276d3120c68\"",
+        "etag": "\"9807f16b9d806cfb4a05f1c8fb3a8602a7b7a6424c4fa26f6c9ddca5eb3a2a97\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "CSS": 21864,
+            "CSS": 54689,
             "Dockerfile": 2426,
-            "Go": 683251,
-            "HTML": 22362,
-            "JavaScript": 182025,
-            "Makefile": 4759,
-            "PLpgSQL": 16804,
-            "Python": 231737,
-            "Shell": 19064
+            "Go": 692464,
+            "HTML": 18905,
+            "JavaScript": 233164,
+            "Makefile": 5190,
+            "PLpgSQL": 17785,
+            "Python": 263542,
+            "Shell": 26140
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/alibaba/open-guardrail/languages",
         "status": "available",
@@ -1461,14 +1461,14 @@
     "alistert/openjazz": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"216b86659a0f12fb705d41d7711e702a3ff520b6c83b60c93400e5f56ebaddd2\"",
+        "etag": "\"d1d7f1bb4cb90f492819e9a552abfd5c846ec48bd28097892911dda8f04ec782\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -1481,7 +1481,7 @@
             "Shell": 583
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/alistert/openjazz/languages",
         "status": "available",
@@ -1530,14 +1530,14 @@
     "alkacon/opencms-core": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"f53fb37461ec9168af5c5b853e1db2cac35ff2e07f4cec160658836a31d872ce\"",
+        "etag": "\"02a20d5a37e1e9905f827cf0f7c039793a84bed59ef577ffa00c4b5bb09e3708\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -1545,16 +1545,16 @@
             "Batchfile": 1555,
             "CSS": 157806,
             "HTML": 731309,
-            "Java": 46707771,
+            "Java": 46797124,
             "JavaScript": 3181728,
             "Rich Text Format": 20436,
             "SCSS": 153733,
-            "Shell": 53736,
+            "Shell": 53696,
             "StringTemplate": 1974,
             "XSLT": 31017
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/alkacon/opencms-core/languages",
         "status": "available",
@@ -1686,14 +1686,14 @@
     "andremichelle/opendaw": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"6b7cf20d22284af428e18a1dc6ffc2ce5dc481326b7cf04e6a9fa475679fb7f9\"",
+        "etag": "\"7664c8ba3b2bf8f03f20cea1729676efb592b84dfa1ab7b21ca933bbb7d7c381\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -1703,14 +1703,14 @@
             "HTML": 121859,
             "JavaScript": 202921,
             "Python": 5293,
-            "Rust": 4315416,
-            "Sass": 309151,
+            "Rust": 4321733,
+            "Sass": 309186,
             "Shell": 17920,
             "Swift": 2339,
-            "TypeScript": 11866294
+            "TypeScript": 12066673
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/andremichelle/opendaw/languages",
         "status": "available",
@@ -1731,7 +1731,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -1746,34 +1746,35 @@
     "andrewyng/openworker": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"db6e3b0eb9ffbb317f9462e3518032806358227536c53c3ff67baec172aac1d4\"",
+        "etag": "\"13495f0a3ec400c9fef24588e499fe5421514102842aec6f72c6b481b5081768\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
             "Astro": 14229,
-            "CSS": 403268,
-            "Dockerfile": 15146,
+            "CSS": 453324,
+            "Dockerfile": 17214,
+            "Go": 7518,
             "Go Template": 455,
             "HCL": 1184,
-            "HTML": 169537,
-            "JavaScript": 2013374,
-            "PLpgSQL": 6671,
+            "HTML": 176123,
+            "JavaScript": 2339674,
+            "PLpgSQL": 7998,
             "PowerShell": 11063,
-            "Python": 7981654,
-            "Rust": 6152131,
+            "Python": 8269594,
+            "Rust": 6857482,
             "Shell": 46731,
-            "TypeScript": 3734411
+            "TypeScript": 3828930
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/andrewyng/openworker/languages",
         "status": "available",
@@ -1822,14 +1823,14 @@
     "andykr1k/opencomputer": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"dfabe2e72ae70d9094885257c6f7ad462ff89d2e30b861e64eacf8b337649a7c\"",
+        "etag": "\"3d96da729ff59e4bcc872e0a21597faf866d2a40f50bce686843d0e32c38a582\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -1840,7 +1841,7 @@
             "TypeScript": 64426
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/andykr1k/opencomputer/languages",
         "status": "available",
@@ -1876,7 +1877,7 @@
     "anichikage/open-typora": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "redirect_requires_review",
         "etag": null,
         "fetch_status": "error",
@@ -1930,7 +1931,7 @@
     "anil-matcha/open-duet": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "redirect_requires_review",
         "etag": null,
         "fetch_status": "error",
@@ -1971,14 +1972,14 @@
     "annasusu/opencontextengine": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"00e89ea5b95165a0da054618aac18dea045d591c3035a76d146663ebc887e838\"",
+        "etag": "\"9b8e9c022f45361f8305f3602003072a777899f67be75bf60e6ddf7d6ad1e62a\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -1988,7 +1989,7 @@
             "Python": 472404
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/annasusu/opencontextengine/languages",
         "status": "available",
@@ -2022,7 +2023,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -2037,32 +2038,34 @@
     "anomalyco/opencode": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"1c8e32ae2f64092abed091cbe801288d859ac39b38737e446c69c7709f09e3c7\"",
+        "etag": "\"8f9ed809ebdebec93f16c749be0450d0a72a9e6ec3b77e27cec8e5c8f4034ec7\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "CSS": 2072746,
+            "CSS": 2186232,
             "Dockerfile": 533,
-            "HTML": 12231,
-            "JavaScript": 69535,
-            "MDX": 7457514,
-            "NSIS": 9397,
+            "HTML": 12282,
+            "JavaScript": 81506,
+            "Luau": 205484,
+            "MDX": 7478237,
+            "NSIS": 9808,
             "Nix": 14202,
-            "Python": 3642,
-            "Rust": 605773,
-            "Shell": 29375,
-            "TypeScript": 53419259
+            "PowerShell": 6681,
+            "Python": 23773,
+            "Rust": 12040942,
+            "Shell": 46348,
+            "TypeScript": 64052524
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/anomalyco/opencode/languages",
         "status": "available",
@@ -2111,36 +2114,36 @@
     "anomalyco/opentui": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T06:45:50Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"2c54030bd074ec228ef16b2ae8f4bf083501d15ba06a6cd22ccb5145aede2157\"",
+        "etag": "\"e5a2681ebffb02ddc1ddd290b7996374bedfb9db30c082761fd6592c16f99652\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T06:45:50Z",
-          "observed_at": "2026-11-16T06:45:50Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "Astro": 149269,
-            "C": 326845,
+            "Astro": 149169,
+            "C": 328594,
             "C++": 27879,
-            "CSS": 31458,
+            "CSS": 31337,
             "HTML": 8495,
-            "JavaScript": 62097,
-            "MDX": 1279157,
+            "JavaScript": 62093,
+            "MDX": 1358193,
             "Objective-C": 14460,
             "Python": 14719,
-            "Rust": 2767548,
-            "Shell": 39952,
+            "Rust": 2887683,
+            "Shell": 40322,
             "Tree-sitter Query": 35631,
-            "TypeScript": 13129192,
+            "TypeScript": 13224425,
             "WGSL": 6657,
-            "Zig": 7832569
+            "Zig": 7883997
           }
         },
-        "last_success_at": "2026-11-16T06:45:50Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/anomalyco/opentui/languages",
         "status": "available",
@@ -2189,14 +2192,14 @@
     "anomalyco/opentunnel": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"80f96bf1d1d14b8bc5c912c604eec1d85191806b574ce1e38b078d5bd55317c9\"",
+        "etag": "\"fd57583c51b61cbfd82ba566f7b869da5b60a1fe4fabfc696493f7c0a8ceb8bf\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -2205,12 +2208,12 @@
             "Dockerfile": 1333,
             "HTML": 2041,
             "JavaScript": 5616,
-            "Rust": 1132762,
+            "Rust": 1140174,
             "Shell": 4444,
             "TypeScript": 369021
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/anomalyco/opentunnel/languages",
         "status": "available",
@@ -2259,50 +2262,50 @@
     "apache/opendal": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"b6e10dcd34b085bd9b64133034dcebb435e1a138a5f4436d28b15085b7ec1b77\"",
+        "etag": "\"777463a7ecd8974c842fa41725bdf9abe358730b4d65e34b9e849fc09f62abd5\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "C": 112285,
-            "C#": 582994,
-            "C++": 328381,
-            "CMake": 13788,
-            "CSS": 82326,
+            "C": 140803,
+            "C#": 783287,
+            "C++": 396531,
+            "CMake": 14203,
+            "CSS": 92474,
             "D": 22367,
-            "Dart": 95047,
-            "Dockerfile": 3891,
+            "Dart": 89018,
+            "Dockerfile": 7513,
             "Dune": 1488,
-            "Go": 309250,
-            "Haskell": 63603,
-            "Java": 478304,
-            "JavaScript": 291398,
-            "Jinja": 35203,
-            "Jupyter Notebook": 2980,
-            "Just": 8239,
-            "Lua": 12311,
-            "MDX": 12887,
-            "Makefile": 13052,
+            "Go": 456313,
+            "Haskell": 74778,
+            "Java": 811863,
+            "JavaScript": 370172,
+            "Jinja": 53640,
+            "Jupyter Notebook": 3372,
+            "Just": 9647,
+            "Lua": 13783,
+            "MDX": 13686,
+            "Makefile": 13144,
             "MoonBit": 960,
-            "OCaml": 51890,
-            "PHP": 15157,
-            "Python": 434699,
-            "Ruby": 42796,
-            "Rust": 7174575,
-            "Shell": 38785,
-            "Swift": 9668,
+            "OCaml": 57644,
+            "PHP": 16046,
+            "Python": 603036,
+            "Ruby": 53949,
+            "Rust": 11214557,
+            "Shell": 36994,
+            "Swift": 31150,
             "TypeScript": 1694,
-            "Zig": 29618
+            "Zig": 35532
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/apache/opendal/languages",
         "status": "available",
@@ -2351,14 +2354,14 @@
     "apache/opennlp": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"5251da56cb45ac4fcfb50d2f91389528074a6717d72cf71ba42fdf3a352b31d8\"",
+        "etag": "\"b45504c52d522ee8b128506fd165504cdc4f5dc2c9d43f439d14a54e6628d2b1\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -2367,14 +2370,14 @@
             "CSS": 4953,
             "Dockerfile": 966,
             "HTML": 114364,
-            "Java": 9928003,
+            "Java": 9964888,
             "PowerShell": 2415,
             "Python": 10408,
             "Shell": 8827,
             "XSLT": 6590
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/apache/opennlp/languages",
         "status": "available",
@@ -2506,14 +2509,14 @@
     "apache/openwhisk": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"13598fabb6a9d30a21213563467304d1dc391826b3eddfa159d8a2e99c9445ba\"",
+        "etag": "\"1eac7032706b16efd201139828adbf1b67427b3b56e4a3348270853b828e58b1\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -2534,7 +2537,7 @@
             "Swift": 11486
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/apache/openwhisk/languages",
         "status": "available",
@@ -2666,25 +2669,25 @@
     "aprilnea/openlogi": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"4a14f22a1c7eeddbe09c50f18dbfa87dec9c17404bb6da9654632fbe808700f7\"",
+        "etag": "\"f3ba9bd067536b3e071111d62dfb5481204c151cc785b0ba374cb49eec2b3a64\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
             "JavaScript": 5122,
             "Nix": 21821,
-            "Rust": 13518812,
+            "Rust": 13517526,
             "Shell": 47671
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/aprilnea/openlogi/languages",
         "status": "available",
@@ -2733,14 +2736,14 @@
     "aristidedongo/opentask": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"f7053d118dac76c193411f2b6630867c49f05d4dfb957269dc0c0a53f522a7c4\"",
+        "etag": "\"b23a5d9e1a27070aeb651c9328709e58a971ec271d535af00554cbf12a0ec4fc\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -2752,7 +2755,7 @@
             "TypeScript": 1249555
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/aristidedongo/opentask/languages",
         "status": "available",
@@ -2788,31 +2791,33 @@
     "arize-ai/openinference": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"4759611e4464f5a167c5df294d9fb3e0f77e93b38917046b7f4c2630265b2e0c\"",
+        "etag": "\"ef27479551ca46c5176221ade2dd80970689b2d21e42f466ea32a1cb51b09c04\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "Astro": 102599,
-            "CSS": 19456,
-            "Go": 313360,
-            "Java": 514514,
-            "JavaScript": 57127,
+            "Astro": 169816,
+            "CSS": 21853,
+            "Go": 289167,
+            "Java": 467689,
+            "JavaScript": 75644,
+            "Jinja": 43898,
             "Jupyter Notebook": 96773,
-            "Makefile": 6325,
-            "Python": 7915905,
+            "Makefile": 20879,
+            "Open Policy Agent": 8178,
+            "Python": 8047739,
             "Shell": 26155,
-            "TypeScript": 2618547
+            "TypeScript": 2929723
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/arize-ai/openinference/languages",
         "status": "available",
@@ -2861,29 +2866,29 @@
     "arnautdaniel/openhuey": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"1b17c924c5255fb14a0ef0cf25b5c3641c8417d49a0e924e86f39a52636d022c\"",
+        "etag": "\"186454ad33e96a64d7a75f258bb94f46ea3c4c383ea64097402537424a815ac4\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
             "BitBake": 2626,
-            "C": 7987306,
+            "C": 8046009,
             "C++": 26052,
-            "CMake": 20233,
-            "Forth": 4394236,
+            "CMake": 20700,
+            "Forth": 4429674,
             "Linker Script": 1142,
             "Python": 485769,
             "Shell": 23394
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/arnautdaniel/openhuey/languages",
         "status": "available",
@@ -2919,25 +2924,25 @@
     "arunngun/openteleprompt": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"40cc232672834791276c4419be7067f88bdb902d7f5be40a42065ae08823100b\"",
+        "etag": "\"70b79d7076a1d0c0a5380e8f00dd6906e883984f342981b1ab2d885ea99b1fa2\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "CSS": 36992,
-            "HTML": 110357,
-            "JavaScript": 71887,
-            "Rust": 36577
+            "CSS": 37915,
+            "HTML": 115957,
+            "JavaScript": 83102,
+            "Rust": 36859
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/arunngun/openteleprompt/languages",
         "status": "available",
@@ -2986,14 +2991,14 @@
     "assimp/assimp": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"4bad0e682fba04329b1788afb2e83dbd88e1cf6e1d3ea4749f44b266cd7a4a2f\"",
+        "etag": "\"9896938cf7a7ad1c338cc02139298d4bd822d8ea63a5241886891c849a512fd0\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -3003,8 +3008,8 @@
             "Batchfile": 5845,
             "C": 2763913,
             "C#": 55627,
-            "C++": 18320810,
-            "CMake": 512576,
+            "C++": 18323737,
+            "CMake": 512608,
             "COBOL": 2921743,
             "D": 175403,
             "DIGITAL Command Language": 901,
@@ -3026,10 +3031,10 @@
             "Shell": 25779,
             "Smarty": 179,
             "Starlark": 27534,
-            "UnrealScript": 1278
+            "UnrealScript": 1307
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/assimp/assimp/languages",
         "status": "available",
@@ -3161,14 +3166,14 @@
     "attilatorda/open-codenames": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"b7a6911a771ddc4a7cfc19413dbf6067076ea021d9226ff46026686117d692f0\"",
+        "etag": "\"6278f2b49363b3751c2581971c2158288ec9bb6c029746ba4ef632bd5a2c2904\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
@@ -3181,7 +3186,7 @@
             "TypeScript": 619969
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/attilatorda/open-codenames/languages",
         "status": "available",
@@ -3217,32 +3222,33 @@
     "augani/openreel-video": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"7d1016f8e8288634814a96d37cb5330f8c0bb2f7080125617ec6e83cada43402\"",
+        "etag": "\"a0a09d49b6c2a09191e30dd9aa79d5e38d1ac138eb32144069241a2d1d727401\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
             "C": 13197,
-            "C++": 37190,
-            "CMake": 1590,
-            "CSS": 325151,
-            "HTML": 581288,
-            "JavaScript": 137687,
-            "Python": 23940,
-            "Shell": 3924,
-            "TypeScript": 14661420,
-            "WGSL": 34996,
-            "WebAssembly": 548
+            "C++": 88356,
+            "CMake": 4225,
+            "CSS": 457734,
+            "HTML": 540445,
+            "JavaScript": 434265,
+            "Objective-C++": 7232,
+            "Python": 92498,
+            "Shell": 22769,
+            "Swift": 27738,
+            "TypeScript": 33196394,
+            "WGSL": 34996
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/augani/openreel-video/languages",
         "status": "available",
@@ -3291,27 +3297,27 @@
     "bazodev/open-vids": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"9313f067d265ea84b9a555ae58e2f724ce5d7a4887e173c182f1ae47762319de\"",
+        "etag": "\"aa64608800c3c718203b25c38f1ccb6a46ac2fd80eabcdcf7f45636b199e3883\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
             "CSS": 207294,
-            "JavaScript": 4236554,
+            "JavaScript": 4232567,
             "Python": 66549,
             "Rust": 1289710,
             "Shell": 60008,
-            "TypeScript": 37199085
+            "TypeScript": 37233463
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/bazodev/open-vids/languages",
         "status": "available",
@@ -3360,27 +3366,29 @@
     "becoolme/openuptime": {
       "languages": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-16T10:06:29Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": null,
-        "etag": "\"68d5b9693c4026f2de66e6fd05c8225e0fa8c3363c336028d5c9243bfba5d204\"",
+        "etag": "\"e41cf6f0fad0d331b1965dd394cdec99085b40f188f06bf3be930030762ea08c\"",
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-16T10:06:29Z",
-          "observed_at": "2026-11-16T10:06:29Z",
+          "fetched_at": "2026-11-27T05:57:30Z",
+          "observed_at": "2026-11-27T05:57:30Z",
           "source_commit": null,
           "tool_commit": null,
           "tool_version": null,
           "value": {
-            "Astro": 354138,
-            "CSS": 60602,
+            "Astro": 489686,
+            "CSS": 81332,
             "Dockerfile": 1638,
+            "Go": 27241,
             "HTML": 393775,
-            "JavaScript": 38344,
-            "TypeScript": 2346698
+            "JavaScript": 49443,
+            "Shell": 7800,
+            "TypeScript": 2758598
           }
         },
-        "last_success_at": "2026-11-16T10:06:29Z",
+        "last_success_at": "2026-11-27T05:57:30Z",
         "retry_after": null,
         "source_url": "https://api.github.com/repos/becoolme/openuptime/languages",
         "status": "available",
@@ -3414,7 +3422,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -6729,7 +6737,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -9111,7 +9119,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -9995,7 +10003,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -10049,7 +10057,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -11906,7 +11914,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -12099,7 +12107,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -13775,7 +13783,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -14311,7 +14319,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -14697,7 +14705,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -15115,7 +15123,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -15680,7 +15688,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -16732,7 +16740,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -20412,7 +20420,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -24053,7 +24061,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -25574,7 +25582,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -29635,7 +29643,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -29793,7 +29801,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -38614,7 +38622,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -39341,7 +39349,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -39415,7 +39423,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -39472,7 +39480,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -39528,7 +39536,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -39803,7 +39811,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -39856,7 +39864,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -39931,7 +39939,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40008,7 +40016,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40049,7 +40057,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40100,7 +40108,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40141,7 +40149,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40347,7 +40355,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40536,7 +40544,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40602,7 +40610,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40667,7 +40675,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40793,7 +40801,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40847,7 +40855,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -40971,7 +40979,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -41025,7 +41033,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -41200,7 +41208,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -41269,7 +41277,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -41559,7 +41567,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -41636,7 +41644,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -41831,7 +41839,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -41896,7 +41904,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -41959,7 +41967,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -42031,7 +42039,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -42072,7 +42080,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -42140,7 +42148,7 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-10T10:10:08Z",
+        "checked_at": "2026-11-27T05:57:30Z",
         "error": "not_found",
         "etag": null,
         "fetch_status": "not_found",
@@ -43839,5 +43847,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "ea3a5240d289c143f2408355fbf73ce622bd05be"
+  "source_sha": "be5953bc9a3f10ba4f848027d8f11edf81b6c4ca"
 }
