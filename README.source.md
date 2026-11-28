@@ -346,6 +346,7 @@
 | [OpenCart](https://github.com/opencart/opencart) | PHP shopping cart and online store platform. |
 | [OpenCFP](https://github.com/opencfp/opencfp) | Conference talk submission system. |
 | [OpenConcerto](https://www.openconcerto.org) | Business management software for sales, purchasing, inventory, and accounting. |
+| [OpenCovers](https://github.com/David-Cabeza/OpenCovers) | Restaurant reservation engine with availability, bookings, table management, an HTTP API, and an MCP server. |
 | [OpenCRM](https://opencrm.co.uk) | Cloud customer relationship management for sales and business operations.<br>Alternative to: [Salesforce](https://opencrm.co.uk/comparison-with-competitors/), [HubSpot](https://opencrm.co.uk/crm-comparisons/best-hubspot-uk-alternative/) |
 | [open-dashboard](https://github.com/simonliu-ai-product/open-dashboard) | Dashboard framework that renders SQL queries and React panels over databases, with filters and static exports. |
 | [Open Desk](https://github.com/theopen-institute/opendesk) | Frappe add-on for customizing navigation rails, app and module grouping, desktop icons, and user menus. |
