@@ -15566,6 +15566,37 @@
           "source_url": "https://github.com/openpbs/openpbs/blob/0cdac751b222694f05f5e2821d8a067f942b5e60/README.md"
         }
       ]
+    },
+    "40714c1baa143116a098ce45ac6a439a034e3394530c0eaf56e89b0f8db3ab77": {
+      "project_url": "https://openstagecontrol.ammd.net",
+      "text": "Open Stage Control provides modular OSC and MIDI control through a server and browser clients. Its server sends and receives control messages while serving the client application, where users open and modify sessions. A launcher configures and starts the server. The Electron-based server can open a local client window or run headlessly, with additional clients connecting through compatible browsers.",
+      "sources": [
+        {
+          "url": "https://ammd.net/Open-Stage-Control",
+          "title": "Open Stage Control — AMMD overview"
+        }
+      ],
+      "checked_at": "2026-11-24",
+      "review_status": "approved",
+      "reviewed_by": "Junge (AI)",
+      "review_note": "Reviewed AMMD’s independently published project overview. The AMMD-authored page identifies the same Open Stage Control software hosted on the cataloged AMMD subdomain. Claims limited to its server, launcher, browser clients and headless mode; restricted catalog host was not requested.",
+      "features": [
+        {
+          "title": "OSC and MIDI messaging",
+          "text": "The server sends and receives OSC and MIDI messages and serves the client web application.",
+          "source_url": "https://ammd.net/Open-Stage-Control"
+        },
+        {
+          "title": "Browser clients",
+          "text": "Compatible browsers connect to the server address to open and modify sessions.",
+          "source_url": "https://ammd.net/Open-Stage-Control"
+        },
+        {
+          "title": "Headless server",
+          "text": "Run the server without its default client window, or configure and start it through the launcher.",
+          "source_url": "https://ammd.net/Open-Stage-Control"
+        }
+      ]
     }
   }
 }
