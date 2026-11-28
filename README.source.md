@@ -94,6 +94,7 @@
 | [Open Notebook](https://github.com/lfnovo/open-notebook) | NotebookLM-style research notebook with flexible model support.<br>Alternative to: [NotebookLM](https://github.com/lfnovo/open-notebook#open-notebook) |
 | [OPEN-OMNIVOICE-TTS](https://github.com/hypersniper05/open-omnivoice-tts) | Self-hosted text-to-speech server with voice cloning and an OpenAI-compatible API built on OmniVoice. |
 | [OpenOpen](https://github.com/thesongzhu/OpenOpen) | macOS personal AI agent with guided task planning and explicit confirmation of actions. |
+| [OpenPCC](https://github.com/openpcc/openpcc) | AI inference framework and client libraries using encrypted streaming, hardware attestation, and Oblivious HTTP routing. |
 | [OpenPilot](https://github.com/ibmshaikh/OpenPilot) | Desktop AI agent with configurable model providers, file and terminal tools, web research, MCP integrations, skills, and memory. |
 | [OpenPipe](https://github.com/OpenPipe/OpenPipe) | Platform for fine-tuning, hosting, and evaluating language models using recorded prompts and datasets. |
 | [OpenPort](https://github.com/Joseph-B22/OpenPort) | Local Windows AI assistant for IT troubleshooting, with PowerShell command checks, file comparisons, and machine-state checks. |
