@@ -2,8 +2,8 @@
   "budget": {
     "limit": 400,
     "paused_reason": "GitHub history HTTP 403",
-    "requests_used": 18,
-    "utc_date": "2026-11-27"
+    "requests_used": 25,
+    "utc_date": "2026-11-28"
   },
   "documentation_url": "https://docs.github.com/en/rest/activity/starring#get-repository-star-history",
   "metric": "Stars retained on the repository at fetch time, grouped by the month their stars were created. Removed stars are absent and past buckets can change.",
@@ -22071,7 +22071,7 @@
       "status": "ok"
     },
     "airwan-dev/opensport": {
-      "checked_at": "2026-11-25T06:14:28.346815+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 404",
       "last_good": {
         "coverage": {
@@ -22186,7 +22186,7 @@
       "name": "OpenSport",
       "readme_url": "https://github.com/airwan-dev/opensport",
       "repo": "airwan-dev/opensport",
-      "source_sha": "bab5f8d32893e4cb875ca0495bef53a88382028c",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/airwan-dev/opensport/stargazers/history",
       "status": "unavailable"
     },
@@ -29003,7 +29003,7 @@
       "status": "ok"
     },
     "anichikage/open-typora": {
-      "checked_at": "2026-11-25T06:14:28.346815+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -29105,12 +29105,12 @@
       "name": "Open Typora",
       "readme_url": "https://github.com/anichikage/open-typora",
       "repo": "anichikage/open-typora",
-      "source_sha": "bab5f8d32893e4cb875ca0495bef53a88382028c",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/anichikage/open-typora/stargazers/history",
       "status": "unavailable"
     },
     "anil-matcha/open-duet": {
-      "checked_at": "2026-11-26T06:07:21.443923+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -30749,7 +30749,7 @@
       "name": "Open Duet",
       "readme_url": "https://github.com/anil-matcha/open-duet",
       "repo": "anil-matcha/open-duet",
-      "source_sha": "1ec5d1b5e6706a0af2e0c7a37e8e9fbc959dfd73",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/anil-matcha/open-duet/stargazers/history",
       "status": "unavailable"
     },
@@ -61674,7 +61674,7 @@
       "status": "ok"
     },
     "copilotkit/openmuse": {
-      "checked_at": "2026-11-26T06:07:21.443923+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -61815,7 +61815,7 @@
       "name": "OpenMuse",
       "readme_url": "https://github.com/copilotkit/openmuse",
       "repo": "copilotkit/openmuse",
-      "source_sha": "1ec5d1b5e6706a0af2e0c7a37e8e9fbc959dfd73",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/copilotkit/openmuse/stargazers/history",
       "status": "unavailable"
     },
@@ -87372,7 +87372,7 @@
       "status": "ok"
     },
     "facebook/openzl": {
-      "checked_at": "2026-11-26T06:07:21.443923+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -88164,7 +88164,7 @@
       "name": "OpenZL",
       "readme_url": "https://github.com/facebook/openzl",
       "repo": "facebook/openzl",
-      "source_sha": "1ec5d1b5e6706a0af2e0c7a37e8e9fbc959dfd73",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/facebook/openzl/stargazers/history",
       "status": "unavailable"
     },
@@ -96745,16 +96745,16 @@
       "status": "ok"
     },
     "getopenpost/openpost": {
-      "checked_at": "2026-11-14T04:17:20.767821+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "last_good": {
         "coverage": {
           "creation_week_reached": true,
-          "newest_week": 1794096000,
+          "newest_week": 1795305600,
           "oldest_week": 1773532800,
           "repository_created_at": "2026-03-21T11:12:13+00:00",
           "terminal_page": 2
         },
-        "fetched_at": "2026-11-14T04:17:20.767821+00:00",
+        "fetched_at": "2026-11-28T05:32:30.221360+00:00",
         "monthly_counts": [
           0,
           0,
@@ -96777,9 +96777,9 @@
           2,
           1,
           8,
-          39,
+          38,
           576,
-          211
+          210
         ],
         "months": [
           "2024-11",
@@ -96808,7 +96808,7 @@
           "2026-10"
         ],
         "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-        "source_sha": "0478c7e9cc13045e64648c99894aaa8c73922542",
+        "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
         "source_urls": [
           "https://api.github.com/repos/getopenpost/openpost/stargazers/history?per_page=30&page=1",
           "https://api.github.com/repos/getopenpost/openpost/stargazers/history?per_page=30&page=2"
@@ -96816,15 +96816,41 @@
         "weeks": [
           {
             "days": [
+              2,
+              3,
+              1,
+              11,
+              5,
+              3,
+              0
+            ],
+            "total": 25,
+            "week": 1795305600
+          },
+          {
+            "days": [
+              2,
+              1,
+              2,
+              5,
+              9,
+              5,
+              9
+            ],
+            "total": 33,
+            "week": 1794700800
+          },
+          {
+            "days": [
               4,
               9,
-              6,
+              5,
               0,
               3,
               0,
-              0
+              8
             ],
-            "total": 22,
+            "total": 29,
             "week": 1794096000
           },
           {
@@ -96868,7 +96894,7 @@
           },
           {
             "days": [
-              41,
+              40,
               26,
               7,
               4,
@@ -96876,7 +96902,7 @@
               3,
               0
             ],
-            "total": 85,
+            "total": 84,
             "week": 1791676800
           },
           {
@@ -96947,14 +96973,14 @@
           {
             "days": [
               0,
-              24,
+              23,
               4,
               4,
               3,
               2,
               0
             ],
-            "total": 37,
+            "total": 36,
             "week": 1788048000
           },
           {
@@ -97276,7 +97302,7 @@
       "name": "OpenPost",
       "readme_url": "https://github.com/getopenpost/openpost",
       "repo": "getopenpost/openpost",
-      "source_sha": "0478c7e9cc13045e64648c99894aaa8c73922542",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/getopenpost/openpost/stargazers/history",
       "status": "ok"
     },
@@ -160945,7 +160971,7 @@
       "status": "ok"
     },
     "multi-applications/opentunes": {
-      "checked_at": "2026-11-25T06:14:28.346815+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 404",
       "last_good": {
         "coverage": {
@@ -161060,7 +161086,7 @@
       "name": "OpenTunes",
       "readme_url": "https://github.com/multi-applications/opentunes",
       "repo": "multi-applications/opentunes",
-      "source_sha": "bab5f8d32893e4cb875ca0495bef53a88382028c",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/multi-applications/opentunes/stargazers/history",
       "status": "unavailable"
     },
@@ -168507,7 +168533,7 @@
       "status": "ok"
     },
     "noemauser/openfeed": {
-      "checked_at": "2026-11-25T06:14:28.346815+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 404",
       "last_good": {
         "coverage": {
@@ -168609,7 +168635,7 @@
       "name": "OpenFeed",
       "readme_url": "https://github.com/noemauser/openfeed",
       "repo": "noemauser/openfeed",
-      "source_sha": "bab5f8d32893e4cb875ca0495bef53a88382028c",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/noemauser/openfeed/stargazers/history",
       "status": "unavailable"
     },
@@ -201517,16 +201543,16 @@
       "status": "ok"
     },
     "open-watcom/open-watcom-v2": {
-      "checked_at": "2026-11-14T04:17:20.767821+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
-          "newest_week": 1794096000,
-          "oldest_week": 1722124800,
+          "newest_week": 1795305600,
+          "oldest_week": 1723334400,
           "repository_created_at": "2012-08-12T18:20:28+00:00",
           "terminal_page": null
         },
-        "fetched_at": "2026-11-14T04:17:20.767821+00:00",
+        "fetched_at": "2026-11-28T05:32:30.221360+00:00",
         "monthly_counts": [
           17,
           10,
@@ -201580,7 +201606,7 @@
           "2026-10"
         ],
         "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-        "source_sha": "0478c7e9cc13045e64648c99894aaa8c73922542",
+        "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
         "source_urls": [
           "https://api.github.com/repos/open-watcom/open-watcom-v2/stargazers/history?per_page=30&page=1",
           "https://api.github.com/repos/open-watcom/open-watcom-v2/stargazers/history?per_page=30&page=2",
@@ -201591,12 +201617,38 @@
           {
             "days": [
               1,
+              1,
+              0,
+              0,
+              0,
               2,
+              0
+            ],
+            "total": 4,
+            "week": 1795305600
+          },
+          {
+            "days": [
+              0,
+              1,
               0,
               0,
               0,
               0,
               0
+            ],
+            "total": 1,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
             ],
             "total": 3,
             "week": 1794096000
@@ -203121,32 +203173,6 @@
             ],
             "total": 3,
             "week": 1723334400
-          },
-          {
-            "days": [
-              0,
-              0,
-              1,
-              0,
-              1,
-              1,
-              0
-            ],
-            "total": 3,
-            "week": 1722729600
-          },
-          {
-            "days": [
-              0,
-              1,
-              0,
-              1,
-              0,
-              0,
-              0
-            ],
-            "total": 2,
-            "week": 1722124800
           }
         ],
         "window_end_exclusive": "2026-11-01T00:00:00+00:00",
@@ -203155,7 +203181,7 @@
       "name": "Open Watcom v2",
       "readme_url": "https://github.com/open-watcom/open-watcom-v2",
       "repo": "open-watcom/open-watcom-v2",
-      "source_sha": "0478c7e9cc13045e64648c99894aaa8c73922542",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/open-watcom/open-watcom-v2/stargazers/history",
       "status": "ok"
     },
@@ -292347,7 +292373,7 @@
       "status": "ok"
     },
     "opengamma/og-platform": {
-      "checked_at": "2026-11-25T06:14:28.346815+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 404",
       "last_good": {
         "coverage": {
@@ -293986,7 +294012,7 @@
       "name": "OpenGamma Platform",
       "readme_url": "https://github.com/opengamma/og-platform",
       "repo": "opengamma/og-platform",
-      "source_sha": "bab5f8d32893e4cb875ca0495bef53a88382028c",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/opengamma/og-platform/stargazers/history",
       "status": "unavailable"
     },
@@ -300487,16 +300513,16 @@
       "status": "ok"
     },
     "openhmd/openhmd": {
-      "checked_at": "2026-11-14T04:17:20.767821+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
-          "newest_week": 1794096000,
-          "oldest_week": 1722124800,
+          "newest_week": 1795305600,
+          "oldest_week": 1723334400,
           "repository_created_at": "2013-05-14T23:37:05+00:00",
           "terminal_page": null
         },
-        "fetched_at": "2026-11-14T04:17:20.767821+00:00",
+        "fetched_at": "2026-11-28T05:32:30.221360+00:00",
         "monthly_counts": [
           6,
           5,
@@ -300550,7 +300576,7 @@
           "2026-10"
         ],
         "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-        "source_sha": "0478c7e9cc13045e64648c99894aaa8c73922542",
+        "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
         "source_urls": [
           "https://api.github.com/repos/openhmd/openhmd/stargazers/history?per_page=30&page=1",
           "https://api.github.com/repos/openhmd/openhmd/stargazers/history?per_page=30&page=2",
@@ -300569,6 +300595,32 @@
               0
             ],
             "total": 0,
+            "week": 1795305600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 1,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "total": 1,
             "week": 1794096000
           },
           {
@@ -302091,32 +302143,6 @@
             ],
             "total": 0,
             "week": 1723334400
-          },
-          {
-            "days": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "total": 0,
-            "week": 1722729600
-          },
-          {
-            "days": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              1,
-              0
-            ],
-            "total": 1,
-            "week": 1722124800
           }
         ],
         "window_end_exclusive": "2026-11-01T00:00:00+00:00",
@@ -302125,7 +302151,7 @@
       "name": "OpenHMD",
       "readme_url": "https://github.com/openhmd/openhmd",
       "repo": "openhmd/openhmd",
-      "source_sha": "0478c7e9cc13045e64648c99894aaa8c73922542",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/openhmd/openhmd/stargazers/history",
       "status": "ok"
     },
@@ -313631,7 +313657,7 @@
       "status": "ok"
     },
     "openkuasa/openkuasaos": {
-      "checked_at": "2026-11-25T06:14:28.346815+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -313733,7 +313759,7 @@
       "name": "OpenKuasa OS",
       "readme_url": "https://github.com/openkuasa/openkuasaos",
       "repo": "openkuasa/openkuasaos",
-      "source_sha": "bab5f8d32893e4cb875ca0495bef53a88382028c",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/openkuasa/openkuasaos/stargazers/history",
       "status": "unavailable"
     },
@@ -377926,7 +377952,7 @@
       "status": "ok"
     },
     "openpipe/openpipe": {
-      "checked_at": "2026-11-26T06:07:21.443923+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 403",
       "last_good": {
         "coverage": {
@@ -379565,7 +379591,7 @@
       "name": "OpenPipe",
       "readme_url": "https://github.com/openpipe/openpipe",
       "repo": "openpipe/openpipe",
-      "source_sha": "1ec5d1b5e6706a0af2e0c7a37e8e9fbc959dfd73",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/openpipe/openpipe/stargazers/history",
       "status": "unavailable"
     },
@@ -431148,16 +431174,16 @@
       "status": "ok"
     },
     "opensmalltalk/opensmalltalk-vm": {
-      "checked_at": "2026-11-14T04:17:20.767821+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "last_good": {
         "coverage": {
           "creation_week_reached": false,
-          "newest_week": 1794096000,
-          "oldest_week": 1722124800,
+          "newest_week": 1795305600,
+          "oldest_week": 1723334400,
           "repository_created_at": "2016-05-23T12:40:27+00:00",
           "terminal_page": null
         },
-        "fetched_at": "2026-11-14T04:17:20.767821+00:00",
+        "fetched_at": "2026-11-28T05:32:30.221360+00:00",
         "monthly_counts": [
           3,
           9,
@@ -431211,7 +431237,7 @@
           "2026-10"
         ],
         "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-        "source_sha": "0478c7e9cc13045e64648c99894aaa8c73922542",
+        "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
         "source_urls": [
           "https://api.github.com/repos/opensmalltalk/opensmalltalk-vm/stargazers/history?per_page=30&page=1",
           "https://api.github.com/repos/opensmalltalk/opensmalltalk-vm/stargazers/history?per_page=30&page=2",
@@ -431230,6 +431256,32 @@
               0
             ],
             "total": 0,
+            "week": 1795305600
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "total": 0,
+            "week": 1794700800
+          },
+          {
+            "days": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "total": 1,
             "week": 1794096000
           },
           {
@@ -432752,32 +432804,6 @@
             ],
             "total": 2,
             "week": 1723334400
-          },
-          {
-            "days": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "total": 0,
-            "week": 1722729600
-          },
-          {
-            "days": [
-              0,
-              0,
-              1,
-              0,
-              0,
-              0,
-              0
-            ],
-            "total": 1,
-            "week": 1722124800
           }
         ],
         "window_end_exclusive": "2026-11-01T00:00:00+00:00",
@@ -432786,7 +432812,7 @@
       "name": "OpenSmalltalk",
       "readme_url": "https://github.com/opensmalltalk/opensmalltalk-vm",
       "repo": "opensmalltalk/opensmalltalk-vm",
-      "source_sha": "0478c7e9cc13045e64648c99894aaa8c73922542",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/opensmalltalk/opensmalltalk-vm/stargazers/history",
       "status": "ok"
     },
@@ -540141,7 +540167,7 @@
       "status": "ok"
     },
     "shadowwalker2014/open-sunsama": {
-      "checked_at": "2026-11-25T06:14:28.346815+00:00",
+      "checked_at": "2026-11-28T05:32:30.221360+00:00",
       "error": "GitHub history HTTP 301",
       "last_good": {
         "coverage": {
@@ -540712,7 +540738,7 @@
       "name": "Open Sunsama",
       "readme_url": "https://github.com/shadowwalker2014/open-sunsama",
       "repo": "shadowwalker2014/open-sunsama",
-      "source_sha": "bab5f8d32893e4cb875ca0495bef53a88382028c",
+      "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
       "source_url": "https://api.github.com/repos/shadowwalker2014/open-sunsama/stargazers/history",
       "status": "unavailable"
     },
@@ -587437,12 +587463,12 @@
   },
   "schema_version": 1,
   "selection_report": {
-    "attempted_repositories": 0,
-    "due_repositories": 11,
+    "attempted_repositories": 15,
+    "due_repositories": 17,
     "eligible_repositories": 537,
     "unattempted_repositories": 0
   },
   "source_boundary_note": "Monthly buckets assign each source daily bin by its week timestamp plus day offset; GitHub week/day boundaries may differ from UTC, so month-boundary attribution is approximate.",
-  "source_sha": "71d79da15ceec93349ab1723d9c833c807065081",
-  "updated_at": "2026-11-27T13:34:23.081451+00:00"
+  "source_sha": "582e00ae4deaf9c3eba67d213559ec378abb4b67",
+  "updated_at": "2026-11-28T05:32:30.221360+00:00"
 }
