@@ -124,6 +124,14 @@ Exact-head CI passed. The normal [publisher and Pages run](https://github.com/aw
 deployed `443cdae3f14581b05cdb573e5e70d3feb882c362`; the live record references
 the cutout, and both served artwork files matched the candidate hashes.
 
+For scheduled reuse, [OpenUtau PR #379](https://github.com/awesomeopen/awesome-open/pull/379)
+opened on 2026-11-21 with the preserved 2026-11-12 original. Independent candidate
+and PR-linked index restores were verified before the owner merged it on
+2026-11-23. The normal [publisher and Pages run](https://github.com/awesomeopen/awesome-open/actions/runs/45171230504)
+succeeded, and served original/cutout bytes matched the verified candidate.
+This provides a reuse example alongside the owner-opened OpenOCD pilot; each
+resumed batch still requires fresh access, capacity, recovery and exact-head checks.
+
 Keep the original plan, deferred IDs, unresolved holds and recovery locators in
 the private handoff. Resume through the existing prerequisites and candidate
 procedure. This owner-opened pilot does not establish that the earlier assistant

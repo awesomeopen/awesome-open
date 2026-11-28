@@ -108,8 +108,8 @@ The public infographic can then say:
 **Submit URL → Saved for review → Verify sources and duplicates → Prepare entry →
 Validate and accept → Publish listing**. Add short exits for **Already listed**,
 **Needs evidence** and **Declined**, plus a separate **Details and artwork follow**
-branch. Show the actual acceptance routes documented in `WORKFLOW.md`; never
-imply every accepted discovery entry requires an owner PR merge.
+branch. Show **Catalog PR → Owner merge** for discovery entries, following
+[the current workflow](../WORKFLOW.md#flowchart-brief).
 
 ## Technical references
 
