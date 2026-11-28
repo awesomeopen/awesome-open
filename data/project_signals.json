@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-28T05:38:49Z",
+  "collected_at": "2026-11-28T06:19:24Z",
   "method_version": "1",
   "provider_retry_after": {
     "languages": "2026-11-28T06:31:10Z",
@@ -23216,28 +23216,28 @@
       },
       "scorecard": {
         "check_time_precision": "second",
-        "checked_at": "2026-11-21T04:54:14Z",
+        "checked_at": "2026-11-28T06:19:24Z",
         "error": null,
         "etag": null,
         "fetch_status": "ok",
         "http_status": 200,
         "last_good": {
-          "fetched_at": "2026-11-21T04:54:14Z",
-          "observed_at": "2026-11-16T00:00:00Z",
-          "source_commit": "c62003948a36a0efbe75ca4863f20c367e9207c8",
-          "tool_commit": "61e84743356275f6ffca23b1b2f2cb945e19eb96",
-          "tool_version": "v5.6.0",
+          "fetched_at": "2026-11-28T06:19:24Z",
+          "observed_at": "2026-11-23T00:00:00Z",
+          "source_commit": "e608f7b79498b0c6b7c63c6afa9356bfa3ce2932",
+          "tool_commit": "d7552fb3cdc05e9f6426177d3328887304fce554",
+          "tool_version": "v5.7.0",
           "value": {
             "checks": [
               {
                 "name": "Code-Review",
-                "reason": "Found 4/21 approved changesets -- score normalized to 1",
-                "score": 1
+                "reason": "Found 4/17 approved changesets -- score normalized to 2",
+                "score": 2
               },
               {
-                "name": "Packaging",
-                "reason": "packaging workflow not detected",
-                "score": null
+                "name": "Maintained",
+                "reason": "30 commit(s) and 19 issue activity found in the last 90 days -- score normalized to 10",
+                "score": 10
               },
               {
                 "name": "Token-Permissions",
@@ -23245,14 +23245,14 @@
                 "score": null
               },
               {
-                "name": "Dangerous-Workflow",
-                "reason": "no workflows found",
+                "name": "Packaging",
+                "reason": "packaging workflow not detected",
                 "score": null
               },
               {
-                "name": "Maintained",
-                "reason": "30 commit(s) and 16 issue activity found in the last 90 days -- score normalized to 10",
-                "score": 10
+                "name": "Dangerous-Workflow",
+                "reason": "no workflows found",
+                "score": null
               },
               {
                 "name": "CII-Best-Practices",
@@ -23265,24 +23265,24 @@
                 "score": 0
               },
               {
-                "name": "Binary-Artifacts",
-                "reason": "no binaries found in the repo",
-                "score": 10
-              },
-              {
                 "name": "License",
                 "reason": "license file detected",
                 "score": 10
               },
               {
-                "name": "Signed-Releases",
-                "reason": "Project has not signed or included provenance with any releases.",
-                "score": 0
+                "name": "Binary-Artifacts",
+                "reason": "no binaries found in the repo",
+                "score": 10
               },
               {
                 "name": "Pinned-Dependencies",
                 "reason": "no dependencies found",
                 "score": null
+              },
+              {
+                "name": "Signed-Releases",
+                "reason": "Project has not signed or included provenance with any releases.",
+                "score": 0
               },
               {
                 "name": "Branch-Protection",
@@ -23296,15 +23296,15 @@
               },
               {
                 "name": "SAST",
-                "reason": "SAST tool is not run on all commits -- score normalized to 5",
-                "score": 5
+                "reason": "SAST tool is not run on all commits -- score normalized to 2",
+                "score": 2
               }
             ],
             "repository": "github.com/openemr/openemr",
-            "score": 4
+            "score": 3.9
           }
         },
-        "last_success_at": "2026-11-21T04:54:14Z",
+        "last_success_at": "2026-11-28T06:19:24Z",
         "retry_after": null,
         "source_url": "https://api.scorecard.dev/projects/github.com/openemr/openemr",
         "status": "partial",
@@ -43847,5 +43847,5 @@
     }
   },
   "schema_version": 1,
-  "source_sha": "4017d0cfe2008260d850c7d4af69547b446ece9c"
+  "source_sha": "fbb6e99ec92ebdffdc7e32740e408a91d3d4da73"
 }
